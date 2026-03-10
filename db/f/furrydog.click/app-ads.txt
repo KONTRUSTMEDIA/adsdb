@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="./styles.css" rel="stylesheet" />
+    <link rel="shortcut icon" href="./assets/logo.png" />
+    <script src="./js/tailwind.js"></script>
+    <script src="./js/components.js"></script>
+    <title>Furrydog</title>
+    <meta
+      name="description"
+      content="A content-driven platform dedicated to dog lovers. We provide practical dog care guides, heartwarming stories, and essential knowledge for new and experienced dog owners alike — all to help you build a better life with your furry friend." />
+    <meta name="keywords" content="dog, health, happy, living, guide, Furrydog" />
+    <style>
+      [v-cloak] {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app" v-cloak>
+      <!-- 容器 -->
+      <div class="fx-h fx-ac">
+        <!-- 顶部 -->
+        <header class="top-0 sticky justify-between gap-3 p-4 px-2 md:px-32 py-4 md:h-40 fx-r fx-bc navbar">
+          <div class="gap-3 cursor-pointer fx-r fx-bc" @click="toHome">
+            <img class="navLogo" src="./assets/logo.png" alt="Furrydog Logo" />
+            <div class="font-bold text-[#002a41] text-[20px] md:text-[28px] navtitle">Furrydog</div>
+          </div>
+          <div class="flex gap-2 md:gap-5">
+            <div class="search-container">
+              <input v-model="searchValue" type="text" class="search-input" :class="{ 'active': showSearch }" placeholder="Search here..." />
+              <img
+                src="./assets/search.png"
+                class="invert w-[24px] aspect-square cursor-pointer search-icon filter"
+                alt="Gamechest search"
+                @click="toggleSearch" />
+            </div>
+            <img src="./assets/menunav.png" class="invert w-[24px] aspect-square cursor-pointer filter" alt="Gamechest menu" @click="toogleMenu" />
+          </div>
+        </header>
+        <menu-component :show-menu="showMenu" @toggle-menu="toogleMenu"></menu-component>
+        <!-- 内容 -->
+        <main class="p-5 content-container fx-h fx-ac fx-bc">
+          <!-- 精选文章标题 -->
+          <div class="section-title">
+            <h2>Premium Articles</h2>
+            <div class="title-divider"></div>
+          </div>
+
+          <!-- 精选文章区域 -->
+          <div class="featured-section">
+            <div
+              v-for="(item, index) in list.slice(0,5)"
+              :key="item.aid"
+              :class="['featured-item', index === 0 ? 'featured-large' : index < 3 ? 'featured-medium' : 'featured-small']"
+              :style="{ animationDelay: index * 0.1 + 's' }"
+              @click="toDetail(item)">
+              <img :src="'./assets/article/'+item.cover" :alt="item.title" loading="lazy" class="image-placeholder" />
+              <div class="item-info">
+                <span class="item-category">{{item.category}}</span>
+                <h3 class="item-title">{{item.title}}</h3>
+                <div class="item-meta">
+                  <span class="item-date">{{item.date}}</span>
+                  <span class="item-readtime">{{item.readtime}} Read</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 横向滚动文章标题 -->
+          <div class="section-title" style="margin: 5px auto">
+            <h2>Hot</h2>
+            <div class="title-divider"></div>
+          </div>
+          <!-- 横向滚动文章列表 -->
+          <div class="horizontal-scroll-container">
+            <div class="horizontal-scroll-list">
+              <div
+                v-for="(item, index) in list.slice(10,18)"
+                :key="item.aid"
+                class="horizontal-item"
+                :style="{ animationDelay: index * 0.1 + 's' }"
+                @click="toDetail(item)">
+                <img :src="'./assets/article/'+item.cover" :alt="item.title" loading="lazy" class="image-placeholder" />
+                <div class="item-info">
+                  <span class="item-category">{{item.category}}</span>
+                  <h4 class="item-title">{{item.title}}</h4>
+                  <p class="item-excerpt">{{item.excerpt}}</p>
+                </div>
+              </div>
+            </div>
+            <!-- 滚动指示器 -->
+            <div class="scroll-indicator"></div>
+          </div>
+
+          <!-- 普通文章标题 -->
+          <div class="section-title">
+            <h2>Latest</h2>
+            <div class="title-divider"></div>
+          </div>
+
+          <!-- 普通文章列表 -->
+          <div class="article-list">
+            <div
+              v-for="(item, index) in  list.slice(20,30)"
+              :key="item.aid"
+              class="article-item"
+              :style="{ animationDelay: index * 0.05 + 's' }"
+              @click="toDetail(item)">
+              <img :src="'./assets/article/'+item.cover" :alt="item.title" loading="lazy" class="image-placeholder small" />
+              <div class="item-info">
+                <h4 class="item-title">{{item.title}}</h4>
+                <p class="item-excerpt">{{item.seo_description}}</p>
+              </div>
+            </div>
+          </div>
+
+          <button class="more-articles-btn" @click="toAllList">
+            <span>More Articles</span>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round">
+              <path d="m5 12 7 7 7-7" />
+              <path d="M12 19V5" />
+            </svg>
+          </button>
+        </main>
+
+        <footer-component></footer-component>
+      </div>
+      <!-- 回到顶部按钮 -->
+      <button id="back-to-top" @click="scrollToTop">↑</button>
+    </div>
+
+    <script src="./js/vue/vue.js"></script>
+    <script src="./js/data.js"></script>
+    <script src="./js/components/HeaderComponent.js"></script>
+    <script src="./js/components/MenuComponent.js"></script>
+    <script src="./js/components/FooterComponent.js"></script>
+    <script>
+      new Vue({
+        el: "#app",
+        components: {
+          "header-component": HeaderComponent,
+          "menu-component": MenuComponent,
+          "footer-component": FooterComponent,
+        },
+        data: {
+          list: [],
+          categories: [],
+          showSearch: false,
+          searchValue: "",
+          showMenu: false,
+        },
+        mounted() {
+          // 监听滚动事件，控制按钮显示与隐藏
+          window.addEventListener("scroll", this.handleScroll);
+          this.getData();
+        },
+        beforeDestroy() {
+          // 组件销毁前移除滚动事件监听
+          window.removeEventListener("scroll", this.handleScroll);
+        },
+        methods: {
+          toggleSearch() {
+            if (this.searchValue) {
+              window.location.href = "./allList.html?query=" + this.searchValue;
+            } else {
+              this.showSearch = !this.showSearch;
+            }
+          },
+          // 处理滚动事件
+          handleScroll() {
+            const backToTopButton = document.getElementById("back-to-top");
+            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+              backToTopButton.style.display = "flex";
+            } else {
+              backToTopButton.style.display = "none";
+            }
+          },
+          // 回到顶部
+          scrollToTop() {
+            window.scrollTo({
+              top: 0,
+              behavior: "smooth",
+            });
+          },
+          getData() {
+            this.list = articles.list;
+            this.categories = articles.category;
+          },
+          ...componentMethods,
+        },
+      });
+    </script>
+  </body>
+</html>

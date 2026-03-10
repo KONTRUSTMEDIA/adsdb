@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tokenview Security Verification</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Turnstile JS -->
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+            text-align: center;
+        }
+        h1 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        .loader {
+            border: 6px solid #f3f3f3;
+            border-top: 6px solid #0078d7;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin-bottom: 1rem;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg);}
+            100% { transform: rotate(360deg);}
+        }
+        .turnstile-wrapper {
+            margin-top: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="loader"></div>
+    <h1>Security verification in progress…</h1>
+    <p>We are validating your browser to ensure a secure and trusted connection.</p>
+
+    <!-- Turnstile widget -->
+    <div class="turnstile-wrapper">
+        <div class="cf-turnstile" 
+             data-sitekey="0x4AAAAAACJXp8bGhPeAiqsM" 
+             data-callback="onTurnstileSuccess">
+        </div>
+    </div>
+
+    <script>
+        // 获取 URL 参数
+        function getQueryParam(name) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(name);
+        }
+
+        function onTurnstileSuccess(token) {
+            // 提交 token 到后端
+            fetch('/_verify', {
+                method: 'POST',
+                body: new URLSearchParams({ token })
+            }).then(res => {
+                if (res.ok) {
+                    // 验证成功后跳回用户原始页面
+                    const redirectUrl = getQueryParam('redirect') || '/';
+                    window.location.href = redirectUrl;
+                } else {
+                    alert('Verification failed, please try again.');
+                }
+            });
+        }
+    </script>
+</body>
+</html>
+

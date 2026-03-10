@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans&display=swap" rel="stylesheet"> 
+
+<html>
+<head>
+	<title>imageclipboard</title>
+
+    <!-- //discord tags -->
+	<meta property="og:title" content="Image Clipboard!" />
+	<meta property="og:description" content="You can use imageclipboard to send nitro emojis in discord without nitro" />
+	<meta property="og:image" content="https://imageclipboard.neocities.org/Resources/Example.png" />
+	<meta name="theme-color" content="#36393f" />
+	<meta name="twitter:card" content="summary_large_image" />
+
+    <!-- //google tags -->
+    <meta name="description" content="You can use imageclipboard to send nitro emojis in discord without nitro" />
+
+    <link rel="stylesheet" href="Default.css">
+    <script src="table.js"></script>
+    <script src="menu.js"></script>
+    <script src="helper.js"></script>
+    <script src="packs.js"></script>
+    <script src="https://imageclipboard.neocities.org/data.js"></script>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5783515428597845"
+    crossorigin="anonymous"></script>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-6JV0E80Y8B"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-6JV0E80Y8B');
+    </script>
+
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+</head>
+<body onload="load()">
+    
+    <div class="header"> 
+        
+        <button type="button" id="FAVBUTTON" onClick="favSetup()">⭐</button>
+        <button type="button" id="HELPBUTTON" onClick="openHelpMenu()">Help</button>
+        <!-- Input Bar -->
+        <form class="center" id="input" onsubmit="addData()">
+            <input type="text" id="URL" autocomplete="off" placeholder="Enter image URL or data here"/>
+        </form>
+        <!--------------->
+
+        <!-- Edit Button -->
+        <button type="button" id="EDITBUTTON" onClick="openEditMenu()">Edit</button>
+        <!----------------->  
+
+        <!-- Edit Button -->
+        <button type="button" id="PACKBUTTON" onClick="openPackMenu()">Packs</button>
+        <!----------------->
+
+        <div id="EDITMODE">
+            <h1 class="headerInfo">Click objects to delete</h1>
+            <button type="button" id="BACKBUTTON" class="menuButton" onClick="defaultMode()">Go Back</button><br>
+        </div>
+
+        <div id="FAVMODE">
+            <h1 class="headerInfo">Click objects to favourite</h1>
+            <button type="button" id="BACKBUTTON" class="menuButton" onClick="defaultMode()">Go Back</button><br>
+        </div>
+
+    </div>
+
+    <!-- Images are listed here -->
+    <div class="flex" id="FavImageList">
+    
+    </div><hr style="width: 90vw;">
+    <div class="flex" id="ImageList">
+        
+    </div>
+    
+    <div id="GRAYBACKGROUND" onclick="closeMenu()"></div>
+
+    <div id="EDITMENU" class="popUpMenu">
+        <h1>Settings</h1>
+        <button type="button" class="menuButton" onclick="openImportMenu()"">Import</button><br>
+        <button type="button" class="menuButton" onclick="exportData()">Export</button><br>
+        <button type="button" class="menuButton" style="margin-top: 20px;" onclick="editSetUp()">Delete</button><br><br>
+        <button type="button" class="menuButton" onclick="location.href = './no.html'">Disable Ads</button><br>
+        <button type="button" class="menuButton" style="margin-top: 40px; background-color: red;" onclick="dangerSetup()">DANGER SETTINGS</button>
+    </div>
+
+    <div id="PACKMENU" class="popUpMenu">
+        <h1>Packs</h1>
+        <br><p>Join the scuffed discord server <a href="https://discord.gg/KT29qG3ewP" target="_blank">https://discord.gg/KT29qG3ewP</a></p>
+        <p><a href="https://github.com/BibiClover/imageclipboard" target="_blank">Source Code</a></p></br>
+
+        <!--return false to avoid accidentally refreshing the page from pressing enter-->
+        <form class="center" id="input" onsubmit="return false">
+            <input type="text" id="searchPack" autocomplete="off" placeholder="Enter a pack name leave blank to show all"/>
+        </form>
+        <div id="packList">
+
+        </div>
+        
+    </div>
+
+    <div id="IMPORTMENU" class="popUpMenu">
+        <h1>Import</h1>
+        <input type="file" id="importinput" class="file" accept=".json" onchange="loadFile(this.files[0])">
+    </div>
+
+    <div id="PACKPROMPT" class="popUpMenu">
+        <h1 id="PACKPROMPTHEADING">Are you sure you want to import this pack?</h1><br>
+        <button type="button" class="menuButton" onclick="packImport()">Yes</button>
+        <button type="button" class="menuButton" onclick="packMenuBack()">No</button>
+    </div>
+
+    <div id="HELPMENU" class="popUpMenu">
+        <h1>Help</h1>
+        <p>Left click (normal click) an emoji to copy it to clipboard. <br/>
+            Paste this into Discord and send, if you have embed perms it will appear as an emoji.<br/><br/>
+            To add an emoji:<br/> Find an emoji on discord and right click it <br/> Then press copy link (on desktop). <br/> On Browser click the emoji and then right click the pop up and press copy image link.<br/>
+            Paste this link into the bar at the top that says "Enter image URL or data here".<br/><br/>
+
+            To favourite an emoji: <br/> Press the star icon and press the emojis you want to favourite,<br/> favouriting emojis stops them from being hidden by other emojis such as packs<br/>
+            Press Edit -> Delete and then click on the emojis you want to delete to delete.<br/>
+            To add a pack, press packs and click the pack you want.<br/>
+        </p>
+        <h3>Offical Tutorial (basic features very short)</h3>
+        <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/NVdCK1kaPIo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        <br/><br/>
+        <h3>Video made by No Text To Speech (longer but has more information)</h3>
+        <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/th1laef2uKc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        <br/><br/>
+        <h3>Video made by MultiArch from the <a href="https://discord.gg/KT29qG3ewP" target="_blank">discord server</a> (Skip to the part for how you access Discord)</h3>
+        <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/S8IQsCZ1V9w" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        <br><a href="https://github.com/BibiClover/imageclipboard" target="_blank">Source Code</a>
+    </div>
+
+    <div id="DANGERMENU" class="popUpMenu">
+        <h1 style="background-color: red;">DANGER</h1>
+        <button type="button" class="menuButton" onclick="deleteDuplicates()"">Delete Duplicates</button><br>
+        
+        <button type="button" class="menuButton" style="margin-top: 40px; background-color: red;" onclick="deleteAllPopUp()">Delete All (your favourites are safe)</button><br>
+        <button type="button" class="menuButton" style="margin-top: 40px; background-color: red;" onclick="resetDataPopUp()">Reset (your favourites are safe)</button>
+    </div>
+
+    <div id="deleteAllPopUp" class="popUp">
+        <h1>Are you sure you want to delete all data?<br>THIS ACTION IS IRREVERSIBLE</h1>
+        <button type="button" class="menuButton" style="background-color: red;" onclick="deleteAll()">Yes</button>
+        <button type="button" class="menuButton" onclick="closeMenu()">No</button>
+    </div>
+
+    <div id="resetDataPopUp" class="popUp">
+        <h1>Are you sure you want to reset data to default?<br>THIS ACTION IS IRREVERSIBLE</h1>
+        <button type="button" class="menuButton" style="background-color: red;" onclick="resetData()">Yes</button>
+        <button type="button" class="menuButton" onclick="closeMenu()">No</button>
+    </div>
+
+
+</body>
+</html>

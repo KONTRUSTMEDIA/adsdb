@@ -1,0 +1,352 @@
+<!doctype html><html lang="en" prefix="og: http://ogp.me/ns#" xmlns:og="http://ogp.me/ns#" xmlns:fb="http://ogp.me/ns/fb#"><head><script>class ArsiLazyLoadScripts {constructor(e) {this.triggerEvents = e, this.eventOptions = {passive: !0}, this.userEventListener = this.triggerListener.bind(this), this.delayedScripts = {normal: [],async: [],defer: []}, this.allJQueries = []}_addUserInteractionListener(e) {this.triggerEvents.forEach((t => window.addEventListener(t, e.userEventListener, e.eventOptions)))}_removeUserInteractionListener(e) {this.triggerEvents.forEach((t => window.removeEventListener(t, e.userEventListener, e.eventOptions)))}triggerListener() {this._removeUserInteractionListener(this), "loading" === document.readyState ? document.addEventListener("DOMContentLoaded", this._loadEverythingNow.bind(this)) : this._loadEverythingNow()}async _loadEverythingNow() {this._delayEventListeners(), this._delayJQueryReady(this), this._handleDocumentWrite(), this._registerAllDelayedScripts(), this._preloadAllScripts(), await this._loadScriptsFromList(this.delayedScripts.normal), await this._loadScriptsFromList(this.delayedScripts.defer), await this._loadScriptsFromList(this.delayedScripts.async), await this._triggerDOMContentLoaded(), await this._triggerWindowLoad(), window.dispatchEvent(new Event("rocket-allScriptsLoaded"))}_registerAllDelayedScripts() {document.querySelectorAll("script[type=arsilazyloadscript]").forEach((e => {e.hasAttribute("src") ? e.hasAttribute("async") && !1 !== e.async ? this.delayedScripts.async.push(e) : e.hasAttribute("defer") && !1 !== e.defer || "module" === e.getAttribute("data-rocket-type") ? this.delayedScripts.defer.push(e) : this.delayedScripts.normal.push(e) : this.delayedScripts.normal.push(e)}))}async _transformScript(e) {return await this._requestAnimFrame(), new Promise((t => {const n = document.createElement("script");let i;[...e.attributes].forEach((e => {let t = e.nodeName;"type" !== t && ("data-rocket-type" === t && (t = "type", i = e.nodeValue), n.setAttribute(t, e.nodeValue))})), e.hasAttribute("src") && this._isValidScriptType(i) ? (n.addEventListener("load", t), n.addEventListener("error", t)) : (n.text = e.text, t()), e.parentNode.replaceChild(n, e)}))}_isValidScriptType(e) {return !e || "" === e || "string" == typeof e && ["text/javascript", "text/x-javascript", "text/ecmascript", "text/jscript", "application/javascript", "application/x-javascript", "application/ecmascript", "application/jscript", "module"].includes(e.toLowerCase())}async _loadScriptsFromList(e) {const t = e.shift();return t ? (await this._transformScript(t), this._loadScriptsFromList(e)) : Promise.resolve()}_preloadAllScripts() {var e = document.createDocumentFragment();[...this.delayedScripts.normal, ...this.delayedScripts.defer, ...this.delayedScripts.async].forEach((t => {const n = t.getAttribute("src");if (n) {const t = document.createElement("link");t.href = n, t.rel = "preload", t.as = "script", e.appendChild(t)}})), document.head.appendChild(e)}_delayEventListeners() {let e = {};function t(t, n) {! function(t) {function n(n) {return e[t].eventsToRewrite.indexOf(n) >= 0 ? "rocket-" + n : n}e[t] || (e[t] = {originalFunctions: {add: t.addEventListener,remove: t.removeEventListener},eventsToRewrite: []}, t.addEventListener = function() {arguments[0] = n(arguments[0]), e[t].originalFunctions.add.apply(t, arguments)}, t.removeEventListener = function() {arguments[0] = n(arguments[0]), e[t].originalFunctions.remove.apply(t, arguments)})}(t), e[t].eventsToRewrite.push(n)}function n(e, t) {let n = e[t];Object.defineProperty(e, t, {get: () => n || function() {},set(i) {e["rocket" + t] = n = i}})}t(document, "DOMContentLoaded"), t(window, "DOMContentLoaded"), t(window, "load"), t(window, "pageshow"), t(document, "readystatechange"), n(document, "onreadystatechange"), n(window, "onload"), n(window, "onpageshow")}_delayJQueryReady(e) {let t = window.jQuery;Object.defineProperty(window, "jQuery", {get: () => t,set(n) {if (n && n.fn && !e.allJQueries.includes(n)) {n.fn.ready = n.fn.init.prototype.ready = function(t) {e.domReadyFired ? t.bind(document)(n) : document.addEventListener("rocket-DOMContentLoaded", (() => t.bind(document)(n)))};const t = n.fn.on;n.fn.on = n.fn.init.prototype.on = function() {if (this[0] === window) {function e(e) {return e.split(" ").map((e => "load" === e || 0 === e.indexOf("load.") ? "rocket-jquery-load" : e)).join(" ")}"string" == typeof arguments[0] || arguments[0] instanceof String ? arguments[0] = e(arguments[0]) : "object" == typeof arguments[0] && Object.keys(arguments[0]).forEach((t => {delete Object.assign(arguments[0], {[e(t)]: arguments[0][t]})[t]}))}return t.apply(this, arguments), this}, e.allJQueries.push(n)}t = n}})}async _triggerDOMContentLoaded() {this.domReadyFired = !0, await this._requestAnimFrame(), document.dispatchEvent(new Event("rocket-DOMContentLoaded")), await this._requestAnimFrame(), window.dispatchEvent(new Event("rocket-DOMContentLoaded")), await this._requestAnimFrame(), document.dispatchEvent(new Event("rocket-readystatechange")), await this._requestAnimFrame(), document.rocketonreadystatechange && document.rocketonreadystatechange()}async _triggerWindowLoad() {await this._requestAnimFrame(), window.dispatchEvent(new Event("rocket-load")), await this._requestAnimFrame(), window.rocketonload && window.rocketonload(), await this._requestAnimFrame(), this.allJQueries.forEach((e => e(window).trigger("rocket-jquery-load"))), window.dispatchEvent(new Event("rocket-pageshow")), await this._requestAnimFrame(), window.rocketonpageshow && window.rocketonpageshow()}_handleDocumentWrite() {const e = new Map;document.write = document.writeln = function(t) {const n = document.currentScript;n || console.error("unable to document.write this: " + t);const i = document.createRange(),r = n.parentElement;let a = e.get(n);void 0 === a && (a = n.nextSibling, e.set(n, a));const o = document.createDocumentFragment();i.setStart(o, 0), o.appendChild(i.createContextualFragment(t)), r.insertBefore(o, a)}}async _requestAnimFrame() {return new Promise((e => requestAnimationFrame(e)))}static run() {const e = new ArsiLazyLoadScripts(["keydown", "mousemove", "touchmove", "touchstart", "touchend", "wheel"]);e._addUserInteractionListener(e)}}ArsiLazyLoadScripts.run();</script><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta charset="UTF-8"><meta name='robots' content='index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1' /><link rel="shortcut icon" href="https://apkbind.com/images/favicon_785c4.png" type="image/x-icon"/><meta name="theme-color" content="#096254"><script type="text/javascript">var site_base = 'https://apkbind.com/'; var base_url = 'https://apkbind.com/'; var base_cdn = 'https://apkbind.com/'; var base_img = 'https://apkbind.com/';</script><title>APKBIND - GET FREE APPS AND GAMES FOR ANDROID</title><meta name="keywords" content="apk, apk bind, apps, games, android, mod apk, apk mod, download apk, apk download"><meta name="description" content="Download the latest Apps and Games for your android mobile, here you can get the latest apk files with direct download, and modified apps and games are freely available."><link rel="canonical" href="https://apkbind.com/"><link rel="alternate" href="https://apkbind.com/" hreflang="x-default" /><link rel="alternate" href="https://apkbind.com/" hreflang="en" /><link rel="alternate" href="https://apkbind.com/fl/" hreflang="fi" /><link rel="alternate" href="https://apkbind.com/kh/" hreflang="km" /><link rel="alternate" href="https://apkbind.com/dk/" hreflang="da" /><link rel="alternate" href="https://apkbind.com/uk/" hreflang="uk" /><link rel="alternate" href="https://apkbind.com/ne/" hreflang="nl" /><link rel="alternate" href="https://apkbind.com/ca/" hreflang="la-ca" /><link rel="alternate" href="https://apkbind.com/gr/" hreflang="el" /><link rel="alternate" href="https://apkbind.com/az/" hreflang="az" /><link rel="alternate" href="https://apkbind.com/ro/" hreflang="ro" /><link rel="alternate" href="https://apkbind.com/np/" hreflang="ne" /><link rel="alternate" href="https://apkbind.com/et/" hreflang="am" /><link rel="alternate" href="https://apkbind.com/bd/" hreflang="bn" /><link rel="alternate" href="https://apkbind.com/lk/" hreflang="si" /><link rel="alternate" href="https://apkbind.com/ng/" hreflang="ha" /><link rel="alternate" href="https://apkbind.com/mm/" hreflang="my" /><link rel="alternate" href="https://apkbind.com/za/" hreflang="zu" /><link rel="alternate" href="https://apkbind.com/ke/" hreflang="sw" /><link rel="alternate" href="https://apkbind.com/ph/" hreflang="en-ph" /><link rel="alternate" href="https://apkbind.com/tw/" hreflang="zh-tw" /><link rel="alternate" href="https://apkbind.com/cn/" hreflang="zh" /><link rel="alternate" href="https://apkbind.com/vn/" hreflang="vi" /><link rel="alternate" href="https://apkbind.com/th/" hreflang="th" /><link rel="alternate" href="https://apkbind.com/my/" hreflang="ms" /><link rel="alternate" href="https://apkbind.com/kp/" hreflang="ko" /><link rel="alternate" href="https://apkbind.com/tr/" hreflang="tr" /><link rel="alternate" href="https://apkbind.com/fr/" hreflang="fr" /><link rel="alternate" href="https://apkbind.com/de/" hreflang="de" /><link rel="alternate" href="https://apkbind.com/pl/" hreflang="pl" /><link rel="alternate" href="https://apkbind.com/jp/" hreflang="ja" /><link rel="alternate" href="https://apkbind.com/nl/" hreflang="nl" /><link rel="alternate" href="https://apkbind.com/it/" hreflang="it" /><link rel="alternate" href="https://apkbind.com/in/" hreflang="hi" /><link rel="alternate" href="https://apkbind.com/sa/" hreflang="ar-sa" /><link rel="alternate" href="https://apkbind.com/ru/" hreflang="ru" /><link rel="alternate" href="https://apkbind.com/es/" hreflang="es" /><link rel="alternate" href="https://apkbind.com/id/" hreflang="id" /><link rel="alternate" href="https://apkbind.com/br/" hreflang="pt-br" /><link rel='dns-prefetch' href='//fonts.gstatic.com' /><link rel='dns-prefetch' href='//securepubads.g.doubleclick.net' /><link rel='dns-prefetch' href='//pagead2.googlesyndication.com' /><link rel='dns-prefetch' href='//api.twitter.com' /><link rel='dns-prefetch' href='//adservice.google.com' /><link rel='dns-prefetch' href='//twitter.com' /><link rel='dns-prefetch' href='//platform.twitter.com' /><link rel='dns-prefetch' href='//connect.facebook.net' /><link rel='dns-prefetch' href='//static.ak.facebook.com' /><link rel='dns-prefetch' href='//s-static.ak.facebook.com' /><link rel='dns-prefetch' href='//fbstatic-a.akamaihd.net' /><link rel='dns-prefetch' href='//apis.google.com' /><link rel='dns-prefetch' href='//ssl.gstatic.com' /><link rel='dns-prefetch' href='//linkedin.com' /><link rel='dns-prefetch' href='//platform.linkedin.com' /><link rel='dns-prefetch' href='//static.licdn.com' /><link rel='dns-prefetch' href='//google-analytics.com' /><link rel='dns-prefetch' href='//ajax.googleapis.com' /><link rel='dns-prefetch' href='//themes.googleusercontent.com' /><link rel='dns-prefetch' href='//cdn.ampproject.org' /><link rel='dns-prefetch' href='//googletagservices.com' /><link rel='dns-prefetch' href='//tpc.googlesyndication.com' /><link rel='dns-prefetch' href='//cdn.jsdelivr.net' /><link rel='dns-prefetch' href='//youtube.com' /><link rel='dns-prefetch' href='//tags.bkrtx.com' /><link rel='dns-prefetch' href='//redirect.prod.experiment.routing.cloudfront.aws.a2z.com' /><link rel='dns-prefetch' href='//stags.bluekai.com' /><link rel='dns-prefetch' href='//google.com' /><link rel='dns-prefetch' href='//adtracker.ch' /><link rel='dns-prefetch' href='//hal900016.redintelligence.net' /><link rel='dns-prefetch' href='//hal9000.redintelligence.net' /><link rel='dns-prefetch' href='//track.adform.net' /><link rel='dns-prefetch' href='//s1.adform.net' /><link href='//fonts.gstatic.com' crossorigin rel='preconnect' /><script type="arsilazyloadscript" data-rocket-type='text/javascript' src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script><meta property="og:url" content="https://apkbind.com/" /><meta property="og:title" content="APKBIND - GET FREE APPS AND GAMES FOR ANDROID" /><meta property="og:description" content="Download the latest Apps and Games for your android mobile, here you can get the latest apk files with direct download, and modified apps and games are freely available." /><meta property="og:site_name" content="ApkBind" /><meta property="og:image" content="https://apkbind.com/images/social-share_172f3.jpg" /><meta property="og:image:url" content="https://apkbind.com/images/social-share_172f3.jpg" /><meta property="og:image:type" content="image/jpeg" /><meta property="og:image:width" content="600" /><meta property="og:image:height" content="400" /><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="APKBIND - GET FREE APPS AND GAMES FOR ANDROID"><meta name="twitter:description" content="Download the latest Apps and Games for your android mobile, here you can get the latest apk files with direct download, and modified apps and games are freely available."><meta name="twitter:image" content="https://apkbind.com/images/social-share_172f3.jpg"><meta name="twitter:image:alt" content="APKBIND - GET FREE APPS AND GAMES FOR ANDROID" /><meta name="twitter:domain" content="apkbind.com">
+
+<script type="application/ld+json">{"@context": "http://schema.org","@type": "Organization","url": "https://apkbind.com/","logo": "https://apkbind.com/images/logo_7a2d6.png","contactPoint": [{"@type": "ContactPoint","telephone": "03367936700","contactType": "customer service"}]}</script><script type="application/ld+json">{"@context": "http://schema.org","@type": "WebSite","name": "ApkBind","url": "https://apkbind.com/"}</script><script data-schema="WebPage" type="application/ld+json">{"@id":"https://apkbind.com/","@type":"WebPage","@context":"http://schema.org"}</script>
+
+<style type="text/css">a,abbr,acronym,address,applet,article,aside,audio,b,big,blockquote,body,canvas,caption,center,cite,code,dd,del,details,dfn,div,dl,dt,em,embed,fieldset,figcaption,figure,footer,form,h1,h2,h3,h4,h5,h6,header,hgroup,html,i,iframe,img,ins,kbd,label,legend,li,mark,menu,nav,object,ol,output,p,pre,q,ruby,s,samp,section,small,span,strike,strong,sub,summary,sup,table,tbody,td,tfoot,th,thead,time,tr,tt,u,ul,var,video{margin:0;padding:0;border:0;font:inherit;vertical-align:baseline; outline: 0; background: transparent;} article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:after,blockquote:before,q:after,q:before{content:'';content:none}table{border-collapse:collapse;border-spacing:0}.clear{ clear:both; line-height:0px; margin:0; padding:0;}*{ box-sizing:border-box; transition-duration:.2s;}/*::-webkit-scrollbar {width: 8px; height: 60px;}::-webkit-scrollbar-thumb {background-color: #0b7465;}*/::selection {background-color: #0b7465; color:#ffffff;}body{ background: #f3f5f5; font-size: 14px; line-height: 24px;color: #333; font-weight: 400;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol"; }#main_wrap{ position:relative; width:100%; float:left; user-select: none;-moz-user-select: none;-ms-user-select: none;-webkit-user-select: none;}p,h1,h2,h3,h4,h5,h6{margin-bottom: 10px;}h1,h2,h3,h4,h5,h6{font-weight:700; position:relative;}.nobl{ border-left:none;}a{color: #096254; text-decoration:none;}a:hover{ color:#888; }p{ font-size: 16px;line-height: 26px;}h1{ font-size: 36px;line-height: 46px;}h2{ font-size: 32px;line-height: 42px;}h3{ font-size: 28px;line-height: 38px;}h4{ font-size: 24px;line-height: 34px;}h5{ font-size: 20px;line-height: 30px;}h6{ font-size: 16px;line-height: 26px;}strong{ font-size:inherit; font-weight:700;}.bhead:after{content: '';position: absolute;width: 100px;height: 2px;background: #0b7465;bottom: -5px;left: 0;right: 0;}iframe,img{max-width:100%;}figure{ text-align:center;}.round{border-radius:10%;-moz-border-radius:10%;-webkit-border-radius:10%;-ms-border-radius:10%;}.container{display: block;width: 1280px; margin: 0px auto; position:relative;}.main_bar{ width: 930px;float: left;position: relative;}.side_bar{ width: 330px;float: right; max-width: 100%;word-break: break-all;}@media(max-width:1280px){.container{width: 100%; padding: 0 10px;}    .main_bar{ width:72%; }    .side_bar{ width:26%;}}@media(max-width:1260px){    .main_bar{ width:70%; }    .side_bar{ width:28%;}}@media(max-width:1080px){    .main_bar{ width:100%; margin-bottom:15px;}    .side_bar{ width:100%;}}@media(max-width:800px){    .container{padding: 0 5px;}}header{width: 100%;box-shadow: 0 2px 0 0 #f5f5f5;height: 60px;margin-bottom: 20px;background: #0b7465;}header .logo_wrap{float: left;width: 24%;height: 60px;line-height: 60px;}header #nav_wrap{float: left;width: 65%;}header .search_wrap{float: right;width: 15%;padding: 7px 0;}header .logo_wrap img.logo{ vertical-align: middle;} header #nav_wrap ul.main_nav{ float:left; width:100%; text-align: right;}header #nav_wrap ul.main_nav li{ position:relative; display: inline-block;}header #nav_wrap ul.main_nav li a{float: left;height: 60px;line-height: 60px;padding: 0 12px;color: #fff;font-size: 15px;}header #nav_wrap ul.main_nav li img{margin-right: 4px; vertical-align:middle;}header #nav_wrap ul.main_nav li:hover > a{ background:#11a993; color:#ffffff;}header #nav_wrap ul.main_nav li:hover .mico{color:#ffffff !important;}header #nav_wrap ul.main_nav li>ul{ display:none; position: absolute;left: 0;top: 60px;background: #0b7465;min-width: 180px; z-index:9999;}header #nav_wrap ul.main_nav li>ul li{ float:left; width:100%; border-bottom: solid 1px #0c8775;}header #nav_wrap ul.main_nav li>ul li a{float: left;width: 100%;padding: 10px;line-height: 22px;height: auto; text-align:left;}header #nav_wrap ul.main_nav li:hover > ul{ display:block;}header .menu_hndlr{ display:none;position:absolute; left:0; top:0; padding: 18px; cursor:pointer;}header .menu_hndlr i{color:#fff; font-size:20px;}header .btnsearch {float: right;padding: 11px;border-left: 1px solid #0c8775; cursor:pointer;}header .btnsearch:hover{background: #11a993;}header .lang_box{float: right;font-size: 15px;cursor: pointer;text-align: center;height: 60px;line-height: 38px;color: #000;padding: 5px;font-weight: bold;position: relative;box-sizing: border-box;border-left: solid 1px #0c8775;border-right: solid 1px #0c8775;}header .lang_box img{margin-right: 5px;width: 20px;vertical-align: middle;}header .lang_box .lang_txt{ color:#fff;}header .lang_box .lang_toggler{ line-height:50px;}@media(min-width:801px){header .lang_box:hover > .lang_box_inner{ display:block;}}header .lang_box .lang_box_inner{position: absolute;width: 300px;right: 0;top: 60px;background: #fff; padding-top:5px; display:none;z-index: 999999; border:solid 1px #0c8775;}header .lang_box .lang_box_inner .lang_item{float: left;width: 49%;margin-bottom: 5px;padding: 2px 10px;text-align: left;}header .lang_box .lang_box_inner .lang_item span{ color:#222; font-weight:normal; font-size:14px; line-height:22px;}header .lang_box .lang_box_inner .lang_item:nth-child(odd){ margin-right:1%;}header .lang_box .lang_box_inner .lang_item:nth-child(even){ margin-left:1%;}header .lang_box .lang_box_inner .lang_item:hover{ background:#0b7465;}header .lang_box .lang_box_inner .lang_item:hover > span{color:#ffffff;}@media(max-width:1320px){   header #nav_wrap ul.main_nav li a{ padding:0 10px;}}@media(max-width:1200px){    header .logo_wrap{ width:100%; text-align:center;}header .lang_box{ position:absolute; right:1px; top:0;}header .btnsearch{ position:absolute; right:60px; top:0;}header .menu_hndlr{ display:block;}header #nav_wrap{display:none; position: fixed;width: 250px;background: #fff;top: 0px;left: 0;height: 100%;overflow-y: auto;box-shadow: 5px 0 12px rgba(18,26,33,.1);padding-bottom: 60px; z-index:999999;}header #nav_wrap ul.main_nav{background: #0b7465;}header #nav_wrap ul.main_nav li {width: 100%;border-bottom: 1px solid #0c8775; text-align:left;}header #nav_wrap ul.main_nav li:last-child{ border-bottom:none;}header #nav_wrap ul.main_nav li a{ padding: 8px;float: left;width: 100%;font-size: 15px;font-weight: normal;line-height: 23px;height: auto; color:#fff;}header #nav_wrap ul.main_nav li>ul{ display:inline-block; width:100%;  position: static; background: #11a993;}header #nav_wrap ul.main_nav li>ul li{padding-left:15px;}header #nav_wrap ul.main_nav li>ul li:last-child{ border-bottom:none;}}@media(max-width:600px){header .logo_wrap{ width:70%; padding-left:45px;} header .logo_wrap img.logo{ max-width:180px !important;}}@media(max-width:400px){header .btnsearch{ padding:11px 5px;}}.mob_menu_close{ background: #26272b;margin-bottom: 0;height: 50px; display:none;}.mob_menu_close i{padding: 15px;color: #fff;font-size: 18px;}header .show_mob_menu{ display:block !important;}header .show_mob_menu .mob_menu_close{ display:block;}.bread_crumb{width: 100%;box-sizing: border-box;float: left; padding: 10px;margin-bottom: 15px; background:#fff;}.bread_crumb a{display: inline-block; color:#525860; font-size:13px;}.bread_crumb a.active, .bread_crumb a.hover{ color:#095D50;}.bread_crumb a:after{ content:"›"; margin:0 10px; color:#095D50;}.bread_crumb a:last-child:after{ content:""; margin:0;}#ScrollToTop {display: none;position: fixed;bottom: 20px;right: 30px;z-index: 99;font-size: 18px;border: none;outline: none;background-color: #0b7465;color: #ffffff;cursor: pointer;border-radius: 50%;width: 40px;height: 40px;text-align: center;line-height: 35px;vertical-align: middle;}#ScrollToTop:hover {filter: brightness(85%);}#search_wrap{ position: fixed;display: none;width: 100%;height: 100%;top: 0;left: 0;right: 0;bottom: 0;background: #FAFAFA;  z-index: 9999999;cursor: pointer;}.search_inner{ width:800px; margin: 100px auto 0 auto; padding:10px; text-align:center;}.search_close{ color: #fff;padding: 20px;position: fixed;right: 0;top: 0;font-size: 25px;background: #121416; }.search_inner input[type="text"]{color: #000;font-size: 32px;font-weight: 500;outline: none;height:80px;line-height:80px;width: 100%;border: none;padding:0 15px;box-shadow: 0 0.5rem 1.375rem 0 rgb(0 0 0 / 7%);}@media(max-width:800px){.search_inner{ width:100%;}}.ftr_social_box{ float:left; width:100%; text-align:center; margin-top:15px;}.ftr_social_box a{display: inline-block;width: 40px;height: 40px;text-align: center;background: #f0f2f5;border-radius: 50%;line-height: 35px;margin: 5px;}.ftr_social_box a i{font-size: 16px;line-height: 40px;color: #fff;}.ftr_social_box a.fsb_facebook{ background:#0071F3;}.ftr_social_box a.fsb_twitter{background:#31C6F7; }.ftr_social_box a.fsb_youtube{background:#F70000;}.ftr_social_box a.fsb_pinterest{background:#C62026;}.ftr_social_box a.fsb_linkedin{ background:#0077B0;}.ftr_social_box a.fsb_gplus{ background:#D54836;}.ftr_social_box a.fsb_reddit{ background:#F73E18;}.ftr_social_box a.fsb_vimeo{ background:#3FABD4;}.ftr_social_box a.fsb_telegram{ background:#0083C5;}.ftr_social_box a.fsb_instagram{ background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);}.ftr_social_box a:hover{ background:#0b7465;}footer{width: 100%;margin: 15px 0 0; z-index: 1;color: #fff; padding:15px; background:#0b7e6e;}footer .ftr_link_box{ text-align:center; display:block;}footer .ftr_link_box a{display: inline-block;margin: 5px;font-size: 14px;font-weight:400;line-height: 22px;color: #ffffff;padding: 3px 8px;}footer .ftr_txt{ text-align:center; margin-bottom:0;}.rating {display: none;font-size: 20px;font-weight: bold;color: #0b7465;white-space: nowrap; cursor:pointer;}.rating .star {display: inline-block;position: relative;letter-spacing: 0.05em; }.rating .star::before {display: inline-block;color: #aaa;content: '☆';width: 1em;height: 1em; }.rating .star::after {display: inline-block;position: absolute;content: '★';top: 0;left: 0;opacity: 0;width: 0;height: 0;transition: all 0.1s linear;overflow: hidden; }.rating:not([disabled]) .star:hover::after,.rating .star.active::after {opacity: 1;width: 1em;height: 1em; }.rating .star.active.half::after {width: 0.5em;}.widget{background: #fff;width: 100%;box-shadow: rgb(0 0 0 / 20%) 0 1px 2px 0;margin-bottom: 20px; overflow: hidden;border-radius: 6px;}.widget .widget_head{width: 100%;box-shadow: 0 1px 0 0 rgb(0 0 0 / 8%);border-top-left-radius: 6px;border-top-right-radius: 6px;color: #333;font-size: 20px;text-align: left;padding: 12px;white-space: nowrap;display: inline-block;line-height: 30px;}.side_list_item{float: left;width: 100%;padding: 10px;}.side_list_item img{ float:left; margin-right:10px; width:65px; height:65px;} .side_list_item p{ margin-bottom:0px;}.side_list_item p.title{font-size: 1rem;line-height: 1.6rem;color: #333;}.side_list_item p.info{color: #595959;font-size: 12px;line-height: 18px; margin-top:8px;}.side_list_item:hover{ background:#f5f7fa;}.side_list_item:hover img{ transform: scale(1.1);}.main_list_item .side_list_item{ float:left; width:32.33%; margin:0 0.5%;}.main_list_item .side_list_item:nth-child(3n+1){ clear:left;} @media(max-width:800px){.main_list_item .side_list_item{ width:49%;}.main_list_item .side_list_item:nth-child(2n+1){ clear:left;} .main_list_item .side_list_item:nth-child(3n+1){ clear:none;} }@media(max-width:500px){.main_list_item .side_list_item{ width:100%; margin:0;}}.side_cat_item{width: 50%;float: left;margin-bottom: 0;border: none;border-bottom: 1px solid #ededed;text-align: left;padding: 5px 0 5px 8px;color:#101010;white-space: nowrap;font-size: 13px;line-height: 22px;overflow: hidden;text-overflow: ellipsis;}.side_cat_item img{ vertical-align:middle; margin-right:5px;width: 30px;height: 30px;border-radius: 50%; -moz-border-radius: 50%; -webkit-border-radius: 50%; -o-border-radius: 50%;}.youtube_embed {background-color: #000;margin-bottom: 30px;position: relative;padding-top: 56.25%;overflow: hidden;cursor: pointer;}.youtube_embed img {width: 100%;top: -16.82%;left: 0;opacity: 0.7;}.youtube_embed .yt_play_btn {width: 90px;height: 60px;background-color: #333;box-shadow: 0 0 30px rgba( 0,0,0,0.6 );z-index: 1;opacity: 0.8;border-radius: 6px;}.youtube_embed .yt_play_btn:before {content: "";border-style: solid;border-width: 15px 0 15px 26.0px;border-color: transparent transparent transparent #fff;}.youtube_embed img, .youtube_embed .yt_play_btn {cursor: pointer;}.youtube_embed img, .youtube_embed iframe, .youtube_embed .yt_play_btn, .youtube_embed .yt_play_btn:before {position: absolute;}.youtube_embed .yt_play_btn, .youtube_embed .yt_play_btn:before {top: 50%;left: 50%;transform: translate3d( -50%, -50%, 0 );}.youtube_embed iframe {height: 100%;width: 100%;top: 0;left: 0;}.schema-faq-question {background: #eee;padding: 15px 15px;}details.schema-faq-section {margin: 10px 0;background: #eee;border-radius: 5px;transition: all .25s ease-out;}details.schema-faq-section summary {font-weight: 500; cursor:pointer;}details[open].schema-faq-section summary {background: #ddd;}details[open].schema-faq-section {border-radius: 5px;}.schema-faq-answer {margin: 0;padding: 15px;}details>*:not(summary) {position: relative;z-index: 1;transition: all .3s ease-in-out;overflow: hidden;}details.schema-faq-section p:last-of-type {margin-bottom: 0;}details[open]>*:not(summary) {animation: collapse 500ms ease-in-out;}.more_link{float: left;width: 100%;font-size: 16px;line-height: 24px;color: #ffffff;text-align: center;padding: 10px;background: #0b7465; cursor:pointer;}.more_link:hover{ filter: brightness(85%); color:#ffffff!important}.more_cmnts{background: #0b7465  !important; color:#ffffff !important; margin-top: 20px !important;}.cnt_box i{ font-style:italic;}.cnt_box u{text-decoration:underline;}.cnt_box a{text-decoration: underline !important;}.cnt_box ol, .cnt_box ul{ padding-left:20px !important; margin-bottom: 10px !important; text-align:left;}.cnt_box ol{list-style: decimal !important;}.cnt_box ul{list-style: disc !important;}.aviwrap{background: #f3f3f3;padding: 15px 10px;}.shad_box {width: 100%;padding: 10px;box-shadow: rgb(0 0 0 / 20%) 0 1px 2px 0;-moz-box-shadow: rgb(0 0 0 / 20%) 0 1px 2px 0;-webkit-box-shadow: rgb(0 0 0 / 20%) 0 1px 2px 0;box-sizing: border-box; background:#fff; margin-bottom:20px; border-radius:6px; -moz-border-radius:6px; -webkit-border-radius:6px;}.show{ display:block !important;}.hide{ display:none !important;}.full{ width:100% !important;}.fl{ float:left !important;}.fr{ float:right !important;}.mb0{ margin-bottom:0px !important; }.mb10{ margin-bottom:10px !important; }.mb15{ margin-bottom:15px !important; }.mb20{ margin-bottom:20px !important; }.mb25{ margin-bottom:25px !important; }.mb30{ margin-bottom:30px !important; }.mt0{ margin-top:0px !important; }.mt10{ margin-top:10px !important; }.mt15{ margin-top:15px !important; }.mt20{ margin-top:20px !important; }.mt25{ margin-top:25px !important; }.mt30{ margin-top:30px !important; }.pb0{ padding-bottom:0px !important; }.pb10{ padding-bottom:10px !important; }.pb15{ padding-bottom:15px !important; }.pb20{ padding-bottom:20px !important; }.pb25{ padding-bottom:25px !important; }.pb30{ padding-bottom:30px !important; }.pt0{ padding-top:0px !important; }.pt10{ padding-top:10px !important; }.pt15{ padding-top:15px !important; }.pt20{ padding-top:20px !important; }.pt25{ padding-top:25px !important; }.pt30{ padding-top:30px !important; }.vam{ vertical-align:middle;}.ac{ text-align:center !important;}.aj{ text-align:justify !important;}.db{ display:block !important;}.dib{ display: inline-block !important;}.rtl{ direction:rtl !important;}.ltr{ direction:ltr !important;}.pad10{ padding:10px;}.pad15{ padding:15px;}.hide {display: none;}.show {display: block;}.fs17{ font-size:17px;}.txt_red{ color:#C14D44 !important;}.txt_green{ color:#063F4F !important;}.txt_suc{ color:#0ba50b !important;}.txt_err{ color:#C14D44 !important;}.txt_blue{ color:#084888 !important;}.txt_gray{ color:#646f78 !important;}.txt_white{ color:#fff !important;}.txt_black{ color:#000 !important;}.txt_orange{ color:#f29423  !important;}.blue_bg{ background:#F1F5FD; float: left;width: 100%;padding: 15px 0;}.hwa{ height: auto !important; width:auto !important;}#cookie-notice-bar {display: none;position: fixed;z-index: 15;bottom: 0;left: 0;right: 0;background-color: #232222;color: #fff;padding: 10px;width: 100%;text-align: center;-webkit-box-sizing : border-box;box-sizing: border-box;font-size: 14px;}#cookie-notice-bar .btn-accept {display: inline-block;vertical-align: middle;cursor: pointer;color: #fff;text-shadow: 0 -1px 0 rgba(0, 0, 0, .25);background-color: #8e3eff;border-radius: 4px;background-repeat: repeat-x;border-style: solid;border-width: 1px;border-color: rgba(0, 0, 0, .1) rgba(0, 0, 0, .1) rgba(0, 0, 0, .25);-webkit-box-shadow: 0 1px 0 rgba(255, 255, 255, .2) inset, 0 1px 2px rgba(0, 0, 0, .05);box-shadow: 0 1px 0 rgba(255, 255, 255, .2) inset, 0 1px 2px rgba(0, 0, 0, .05);padding: 4px 12px;font-size: 12px;line-height: 20px;}#cookie-notice-bar.show {display: block;}</style><script async src="https://fundingchoicesmessages.google.com/i/pub-5196427326189808?ers=1" nonce="aA_TYJfTyEXFqx3oxrWfDw"></script><script nonce="aA_TYJfTyEXFqx3oxrWfDw">(function() {function signalGooglefcPresent() {if (!window.frames['googlefcPresent']) {if (document.body) {const iframe = document.createElement('iframe'); iframe.style = 'width: 0; height: 0; border: none; z-index: -1000; left: -1000px; top: -1000px;'; iframe.style.display = 'none'; iframe.name = 'googlefcPresent'; document.body.appendChild(iframe);} else {setTimeout(signalGooglefcPresent, 0);}}}signalGooglefcPresent();})();</script>
+</head><body id="webpage">
+<div id="main_wrap"><header>
+    <div class="container">
+        <span id="menu_hndlr" class="menu_hndlr"><i onClick="show_menu_mob();" class="fa fa-bars"></i></span>
+        <div class="logo_wrap">
+            <a href="https://apkbind.com/"><img height="40" width="241"  class="logo hwa" src="https://apkbind.com/images/logo_7a2d6.png" alt="ApkBind" /></a> 
+        </div>
+        <div id="nav_wrap">
+            <p class="mob_menu_close"><i onClick="hide_menu_mob();" class="fa fa-times"></i></p>
+            <ul class="main_nav">
+            	<li><a href="https://apkbind.com/"><img width="30" height="30" src="https://apkbind.com/media/2022/06/_1/30x30/icon-home_003fa.png" alt="Home Menu">Home</a></li><li><a href="https://apkbind.com/games/"><img width="30" height="30" src="https://apkbind.com/media/2022/06/_1/30x30/icon-games_e8069.png" alt="Games Menu">Games</a></li><li><a href="https://apkbind.com/apps/"><img width="30" height="30" src="https://apkbind.com/media/2022/06/_1/30x30/icon-apps_1cc1a.png" alt="Apps Menu">Apps</a></li><li><a href="https://apkbind.com/blog/"><img width="30" height="30" src="https://apkbind.com/media/2022/06/_1/30x30/icon-blog_a75f3.png" alt="Blog Menu">Blog</a></li>            </ul>
+        </div>
+                <div class="lang_box">
+        	<span onclick="lang_toggler();"><img width="20" height="20"  id="show_fix_lang_icon" src="https://apkbind.com/images/lang-en.png" alt="English"><span id="show_fix_lang_short" class="lang_txt">EN</span></span>
+            <div id="lang_box_inner" class="lang_box_inner">
+            	<a href="https://apkbind.com/" class="lang_item"><img width="20" height="20" src="https://apkbind.com/images/lang-en.png" alt="English"><span>English</span></a><a href="https://apkbind.com/ne/" class="lang_item"><img width="20" height="20" src="https://apkbind.com/media/2022/04/_1/20x20/nederland_37829.png" alt="Nederland"><span>Nederland</span></a><a href="https://apkbind.com/tw/" class="lang_item"><img width="20" height="20" src="https://apkbind.com/media/2022/04/_1/20x20/chinese-traditional_f3fa4.png" alt="Chinese (Traditional)"><span>Chinese (Traditional)</span></a><a href="https://apkbind.com/cn/" class="lang_item"><img width="20" height="20" src="https://apkbind.com/media/2022/04/_1/20x20/chinese-simplified_c3e21.png" alt="Chinese (Simplified)"><span>Chinese (Simplified)</span></a><a href="https://apkbind.com/vn/" class="lang_item"><img width="20" height="20" src="https://apkbind.com/media/2022/04/_1/20x20/vietnam_3155f.png" alt="Vietnam"><span>Vietnam</span></a><a href="https://apkbind.com/kp/" class="lang_item"><img width="20" height="20" src="https://apkbind.com/media/2022/04/_1/20x20/korea_9b38b.png" alt="Korea"><span>Korea</span></a><a href="https://apkbind.com/tr/" class="lang_item"><img width="20" height="20" src="https://apkbind.com/media/2022/04/_1/20x20/turkey_fa72f.png" alt="Turkey"><span>Turkey</span></a><a href="https://apkbind.com/fr/" class="lang_item"><img width="20" height="20" src="https://apkbind.com/media/2022/04/_1/20x20/france_a64ab.png" alt="France"><span>France</span></a><a href="https://apkbind.com/de/" class="lang_item"><img width="20" height="20" src="https://apkbind.com/media/2022/04/_1/20x20/germany_50b99.png" alt="Germany"><span>Germany</span></a><a href="https://apkbind.com/pl/" class="lang_item"><img width="20" height="20" src="https://apkbind.com/media/2022/04/_1/20x20/poland_4c53f.png" alt="Poland"><span>Poland</span></a><a href="https://apkbind.com/jp/" class="lang_item"><img width="20" height="20" src="https://apkbind.com/media/2022/04/_1/20x20/japan_2e01e.png" alt="Japan"><span>Japan</span></a><a href="https://apkbind.com/nl/" class="lang_item"><img width="20" height="20" src="https://apkbind.com/media/2022/04/_1/20x20/netherlands_9f396.png" alt="Netherlands"><span>Netherlands</span></a><a href="https://apkbind.com/it/" class="lang_item"><img width="20" height="20" src="https://apkbind.com/media/2022/04/_1/20x20/italy_98d83.png" alt="Italy"><span>Italy</span></a><a href="https://apkbind.com/in/" class="lang_item"><img width="20" height="20" src="https://apkbind.com/media/2022/04/_1/20x20/india_b364e.png" alt="India"><span>India</span></a><a href="https://apkbind.com/sa/" class="lang_item"><img width="20" height="20" src="https://apkbind.com/media/2022/04/_1/20x20/arabic_7d425.png" alt="Arabic"><span>Arabic</span></a><a href="https://apkbind.com/ru/" class="lang_item"><img width="20" height="20" src="https://apkbind.com/media/2022/04/_1/20x20/russia_ed917.png" alt="Russia"><span>Russia</span></a><a href="https://apkbind.com/es/" class="lang_item"><img width="20" height="20" src="https://apkbind.com/media/2022/04/_1/20x20/espaol_71b5b.png" alt="Español"><span>Español</span></a><a href="https://apkbind.com/id/" class="lang_item"><img width="20" height="20" src="https://apkbind.com/media/2022/04/_1/20x20/indonesia_896c2.png" alt="indonesia"><span>indonesia</span></a><a href="https://apkbind.com/br/" class="lang_item"><img width="20" height="20" src="https://apkbind.com/media/2022/04/_1/20x20/portugus_320eb.png" alt="Português"><span>Português</span></a>            </div>
+        </div>
+                <i onClick="on_search();" class="btnsearch"><img width="30" height="30" src="https://apkbind.com/images/icon-search.png" alt="Search"></i>
+    </div>
+</header>
+
+<div class="clear"></div>
+
+		
+    <div class="container">
+        <div class="main_bar">
+        
+                        
+            <div class="shad_box">
+				                <h1>APPS & GAMES FOR ANDROID</h1>
+                                <div class="group w-full text-gray-800 dark:text-gray-100 border-b border-black/10 dark:border-gray-900/50 bg-gray-50 dark:bg- sm:AIPRM__conversation__response">
+<div class="flex p-4 gap-4 text-base md:gap-6 md:max-w-2xl lg:max-w- xl:max-w-3xl md:py-6 lg:px-0 m-auto">
+<div class="relative flex w- flex-col gap-1 md:gap-3 lg:w-">
+<div class="flex flex-grow flex-col gap-3">
+<div class="min-h- flex flex-col items-start gap-4 whitespace-pre-wrap break-words">
+<div class="markdown prose w-full break-words dark:prose-invert light AIPRM__conversation__response">
+<p>Apkbind.com offers a vast collection of diverse and reliable APK files, ensuring a seamless experience for Android users worldwide. It's a trusted platform for discovering and downloading the latest apps and games, backed by a user-friendly interface for easy navigation.</p>
+</div>
+</div>
+</div>
+<div class="flex justify-between lg:block">&nbsp;</div>
+</div>
+</div>
+</div>            </div>   
+                
+            
+            <div class="widget mb0">
+                    	<h2 class="widget_head">Latest Updates</h2>
+                        <div id="main_list_item">
+                        	<div class="main_list_item"><a class="side_list_item" href="https://apkbind.com/apps/youcut-mod-apk/"><img class="lazyload" width="65" height="65" src="https://apkbind.com/images/p1x1.jpg" data-src="https://apkbind.com/media/2023/05/_1/65x65/capture_04425.jpg" alt="YouCut Mod Apk"><p class="title">YouCut Mod Apk</p><p class="info">InShot Inc.</p></a><a class="side_list_item" href="https://apkbind.com/games/wrestling-empire-mod-apk/"><img class="lazyload" width="65" height="65" src="https://apkbind.com/images/p1x1.jpg" data-src="https://apkbind.com/media/2023/05/_1/65x65/capture_bf58a.jpg" alt="Wrestling Empire Mod Apk"><p class="title">Wrestling Empire Mod Apk</p><p class="info">MDickie</p></a><a class="side_list_item" href="https://apkbind.com/apps/vn-video-editor-mod-apk/"><img class="lazyload" width="65" height="65" src="https://apkbind.com/images/p1x1.jpg" data-src="https://apkbind.com/media/2023/05/_1/65x65/capture_9f9c5.jpg" alt="VN Video Editor Mod Apk"><p class="title">VN Video Editor Mod Apk</p><p class="info">Ubiquiti Labs, LLC</p></a><a class="side_list_item" href="https://apkbind.com/apps/turbo-vpn-mod-apk/"><img class="lazyload" width="65" height="65" src="https://apkbind.com/images/p1x1.jpg" data-src="https://apkbind.com/media/2023/05/_1/65x65/capture_52f5a.jpg" alt="Turbo VPN MOD APK"><p class="title">Turbo VPN MOD APK</p><p class="info">Innovative Connecting</p></a><a class="side_list_item" href="https://apkbind.com/apps/tinder-mod-apk/"><img class="lazyload" width="65" height="65" src="https://apkbind.com/images/p1x1.jpg" data-src="https://apkbind.com/media/2023/05/_1/65x65/capture_81721.jpg" alt="Tinder Mod Apk"><p class="title">Tinder Mod Apk</p><p class="info">Tinder</p></a><a class="side_list_item" href="https://apkbind.com/apps/tiktok-mod-apk/"><img class="lazyload" width="65" height="65" src="https://apkbind.com/images/p1x1.jpg" data-src="https://apkbind.com/media/2023/05/_1/65x65/capture_55c52.jpg" alt="TikTok Mod Apk"><p class="title">TikTok Mod Apk</p><p class="info"> TikTok Inc.</p></a><a class="side_list_item" href="https://apkbind.com/games/simcity-buildit-mod-apk/"><img class="lazyload" width="65" height="65" src="https://apkbind.com/images/p1x1.jpg" data-src="https://apkbind.com/media/2023/05/_1/65x65/capture_b36dc.jpg" alt="Simcity Buildit MOD APK"><p class="title">Simcity Buildit MOD APK</p><p class="info">ELECTRONIC ARTS</p></a><a class="side_list_item" href="https://apkbind.com/apps/resso-premium-mod-apk/"><img class="lazyload" width="65" height="65" src="https://apkbind.com/images/p1x1.jpg" data-src="https://apkbind.com/media/2023/05/_1/65x65/capture_3d87c.jpg" alt="Resso Premium MOD APK"><p class="title">Resso Premium MOD APK</p><p class="info">Moon Video Inc.</p></a><a class="side_list_item" href="https://apkbind.com/games/car-simulator-2-mod-apk/"><img class="lazyload" width="65" height="65" src="https://apkbind.com/images/p1x1.jpg" data-src="https://apkbind.com/media/2023/05/_1/65x65/car-simulator-2-mod-apk_9727d.jpg" alt="Car Simulator 2 Mod Apk"><p class="title">Car Simulator 2 Mod Apk</p><p class="info">OppanaGames FZC LLC</p></a><a class="side_list_item" href="https://apkbind.com/games/real-driving-school-mod-apk/"><img class="lazyload" width="65" height="65" src="https://apkbind.com/images/p1x1.jpg" data-src="https://apkbind.com/media/2023/05/_1/65x65/capture_d3ef7.jpg" alt="Real Driving School MOD APK"><p class="title">Real Driving School MOD APK </p><p class="info">QuVideo Inc. Video Editor & Video Maker App</p></a><a class="side_list_item" href="https://apkbind.com/games/race-master-mod-apk/"><img class="lazyload" width="65" height="65" src="https://apkbind.com/images/p1x1.jpg" data-src="https://apkbind.com/media/2023/05/_1/65x65/capture_ebd4f.jpg" alt="Race Master Mod Apk"><p class="title">Race Master Mod Apk</p><p class="info">SayGames Ltd</p></a><a class="side_list_item" href="https://apkbind.com/games/vpower777-apk/"><img class="lazyload" width="65" height="65" src="https://apkbind.com/images/p1x1.jpg" data-src="https://apkbind.com/media/2023/05/_1/65x65/vpower777-apk_fb3da.jpg" alt="VPower777 Apk"><p class="title">VPower777 Apk</p><p class="info">Vpower 777</p></a>							</div>
+                        </div>    
+                    </div>
+					
+										<div class="ac" id="main_list_item_next"><span onClick="get_more_latest_items();" class="more_link">Load More Latest Updates </span></div>
+					<div class="clear mb30"></div>
+											
+                    <script>
+						var tsr = 0;
+						
+						function get_more_latest_items()
+						{
+							tsr++;
+							
+							document.getElementById("main_list_item_next").innerHTML = '<p style="text-align:center; font-size:20px; line-height:28px; font-weight:bold; color:blue; margin-top:20px; margin-bottom:20px;">Loading Please wait ... ...</p>';
+							
+							var http = new XMLHttpRequest();
+							var url = "https://apkbind.com/ajax.php";
+							var params = "act=get_more_latest_items&asl=ZStrUk9nejlFd0F1VGMzU2o0ZzJSdz09&m="+tsr;
+							
+							http.open("POST", url, true);
+							http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+							
+							http.onreadystatechange = function() 
+							{	
+								if(http.readyState == 4 && http.status == 200) 
+								{
+									document.getElementById("main_list_item_next").innerHTML = '';
+									
+									var get_data = http.responseText;
+									var obj = JSON.parse(get_data);
+									
+									document.getElementById('main_list_item').innerHTML += '<div class="main_list_item">'+obj['data']+'</div>';
+					
+									
+									if(obj['next'] == 1)
+									{
+										document.getElementById("main_list_item_next").innerHTML = '<span onClick="get_more_latest_items();" class="more_link">Load More Latest Updates </span>';
+									}
+								}
+							}
+							http.send(params);
+						}
+					</script>    
+					 
+			
+			
+			
+			                
+			<div class="widget mb0"><h2 class="widget_head">Top Games</h2><div class="main_list_item"><a class="side_list_item" href="https://apkbind.com/games/minecraft-apk/"><img class="lazyload" width="65" height="65" src="https://apkbind.com/images/p1x1.jpg" data-src="https://apkbind.com/media/2022/07/_1/65x65/minecraft-apk_a73a6.jpg" alt="Minecraft Apk"><p class="title">Minecraft Apk</p><p class="info">Mojang</p></a><a class="side_list_item" href="https://apkbind.com/games/indian-cars-simulator-3d-mod-apk/"><img class="lazyload" width="65" height="65" src="https://apkbind.com/images/p1x1.jpg" data-src="https://apkbind.com/media/2023/04/_1/65x65/capture_14bef.jpg" alt="Indian Cars Simulator 3D Mod Apk"><p class="title">Indian Cars Simulator 3D Mod Apk</p><p class="info">Rohit Gaming Studio</p></a><a class="side_list_item" href="https://apkbind.com/games/fs-20-indian-tractor-mod-apk/"><img class="lazyload" width="65" height="65" src="https://apkbind.com/images/p1x1.jpg" data-src="https://apkbind.com/media/2023/04/_1/65x65/capture_2eab0.jpg" alt="FS 20 Indian Tractor Mod Apk"><p class="title">FS 20 Indian Tractor Mod Apk</p><p class="info">GIANTS Software</p></a><a class="side_list_item" href="https://apkbind.com/games/yareel-mod-apk/"><img class="lazyload" width="65" height="65" src="https://apkbind.com/images/p1x1.jpg" data-src="https://apkbind.com/media/2022/10/_1/65x65/yareel-mod-apk_04e1d.jpg" alt="Yareel Mod Apk"><p class="title">Yareel Mod Apk</p><p class="info">PLAYNETA LIMITED</p></a><a class="side_list_item" href="https://apkbind.com/games/frag-pro-shooter-mod-apk/"><img class="lazyload" width="65" height="65" src="https://apkbind.com/images/p1x1.jpg" data-src="https://apkbind.com/media/2022/09/_1/65x65/frag-pro-shooter-mod-apk_6cba3.jpg" alt="Frag Pro Shooter Mod APK"><p class="title">Frag pro shooter Mod APK</p><p class="info">Opera</p></a><a class="side_list_item" href="https://apkbind.com/games/shadow-fight-2-special-edition-mod-apk/"><img class="lazyload" width="65" height="65" src="https://apkbind.com/images/p1x1.jpg" data-src="https://apkbind.com/media/2022/08/_1/65x65/shadow-fight-2-special-edition-mod-apk_a2688.jpg" alt="SHADOW FIGHT 2 SPECIAL EDITION MOD APK"><p class="title">SHADOW FIGHT 2 SPECIAL EDITION MOD APK</p><p class="info">NEKKI</p></a><a class="side_list_item" href="https://apkbind.com/games/stumble-guys-mod-apk/"><img class="lazyload" width="65" height="65" src="https://apkbind.com/images/p1x1.jpg" data-src="https://apkbind.com/media/2022/08/_1/65x65/stumble-guys-mod-apk_5fe1d.jpg" alt="Stumble Guys MOD APK"><p class="title">  Stumble Guys MOD APK</p><p class="info">Kitka Games</p></a><a class="side_list_item" href="https://apkbind.com/games/granny-outwitt-mod-apk/"><img class="lazyload" width="65" height="65" src="https://apkbind.com/images/p1x1.jpg" data-src="https://apkbind.com/media/2023/03/_1/65x65/granny-outwitt-mod-apk_41229.jpg" alt="Granny Outwitt Mod Apk"><p class="title">Granny Outwitt Mod Apk</p><p class="info">DVloper</p></a><a class="side_list_item" href="https://apkbind.com/games/bloons-td-6-apk/"><img class="lazyload" width="65" height="65" src="https://apkbind.com/images/p1x1.jpg" data-src="https://apkbind.com/media/2022/07/_1/65x65/bloons-td-6-apk_86970.jpg" alt="Bloons TD 6 Apk"><p class="title">Bloons TD 6 Apk</p><p class="info">ninja kiwi</p></a><a class="side_list_item" href="https://apkbind.com/games/plants-vs-zombies-2-mod-apk/"><img class="lazyload" width="65" height="65" src="https://apkbind.com/images/p1x1.jpg" data-src="https://apkbind.com/media/2022/07/_1/65x65/plants-vs-zombies-2-mod-apk_696b3.jpg" alt="Plants Vs Zombies 2 Mod Apk"><p class="title">Plants Vs Zombies 2 Mod Apk</p><p class="info">ELECTRONIC ARTS</p></a><a class="side_list_item" href="https://apkbind.com/games/naruto-mugen-apk/"><img class="lazyload" width="65" height="65" src="https://apkbind.com/images/p1x1.jpg" data-src="https://apkbind.com/media/2022/08/_1/65x65/naruto-mugen-apk_e0ac1.jpg" alt="Naruto Mugen Apk"><p class="title">Naruto Mugen Apk</p><p class="info">Black KineMaster Team</p></a><a class="side_list_item" href="https://apkbind.com/games/gta-5-mobile-apk/"><img class="lazyload" width="65" height="65" src="https://apkbind.com/images/p1x1.jpg" data-src="https://apkbind.com/media/2022/08/_1/65x65/gta-5-mobile-apk_e00d7.jpg" alt="GTA 5 Mobile Apk"><p class="title">GTA 5 Mobile Apk</p><p class="info">Rockstar Games</p></a></div></div>
+					
+					<div class="clear"></div>
+			
+					<a href="https://apkbind.com/games/" class="more_link">Get More Games </a>
+					
+					<div class="clear mb20"></div>
+					
+					            
+			
+			            
+            
+            <div class="widget mb0"><h2 class="widget_head">Top Apps</h2><div class="main_list_item"><a class="side_list_item" href="https://apkbind.com/apps/vidiq-apk/"><img class="lazyload" width="65" height="65" src="https://apkbind.com/images/p1x1.jpg" data-src="https://apkbind.com/media/2022/11/_1/65x65/capture_b103f.jpg" alt="Vidiq Mod APK"><p class="title">Vidiq Mod APK</p><p class="info">vidIQ</p></a><a class="side_list_item" href="https://apkbind.com/apps/tween-craft-mod-apk/"><img class="lazyload" width="65" height="65" src="https://apkbind.com/images/p1x1.jpg" data-src="https://apkbind.com/media/2022/10/_1/65x65/tween-craft-mod-apk_6d25b.jpg" alt="Tween Craft Mod APK"><p class="title">Tween Craft Mod APK</p><p class="info">Team InstaUp</p></a><a class="side_list_item" href="https://apkbind.com/apps/tiktok-mod-apk/"><img class="lazyload" width="65" height="65" src="https://apkbind.com/images/p1x1.jpg" data-src="https://apkbind.com/media/2023/05/_1/65x65/capture_55c52.jpg" alt="TikTok Mod Apk"><p class="title">TikTok Mod Apk</p><p class="info"> TikTok Inc.</p></a><a class="side_list_item" href="https://apkbind.com/apps/canva-pro-mod-apk-1/"><img class="lazyload" width="65" height="65" src="https://apkbind.com/images/p1x1.jpg" data-src="https://apkbind.com/media/2022/09/_1/65x65/capture_3bbd9.jpg" alt="Canva Pro Mod Apk"><p class="title">Canva pro mod apk</p><p class="info">Canva</p></a><a class="side_list_item" href="https://apkbind.com/apps/alight-motion-pro-mod-apk/"><img class="lazyload" width="65" height="65" src="https://apkbind.com/images/p1x1.jpg" data-src="https://apkbind.com/media/2022/09/_1/65x65/capture_99219.jpg" alt="Alight Motion Pro Apk"><p class="title">Alight Motion Pro Apk</p><p class="info">Alight Creative, Inc.</p></a><a class="side_list_item" href="https://apkbind.com/apps/black-kinemaster-apk/"><img class="lazyload" width="65" height="65" src="https://apkbind.com/images/p1x1.jpg" data-src="https://apkbind.com/media/2022/07/_1/65x65/black-kinemaster-apk_f42af.jpg" alt="Black KineMaster Apk"><p class="title">Black KineMaster Apk</p><p class="info">Black KineMaster Team</p></a><a class="side_list_item" href="https://apkbind.com/apps/xcall-mod-apk/"><img class="lazyload" width="65" height="65" src="https://apkbind.com/images/p1x1.jpg" data-src="https://apkbind.com/media/2023/03/_1/65x65/xcall-mod-apk_d1df5.jpg" alt="XCall Mod Apk"><p class="title">XCall Mod Apk</p><p class="info">Vee Tools Studio</p></a><a class="side_list_item" href="https://apkbind.com/apps/hoichoi-mod-apk/"><img class="lazyload" width="65" height="65" src="https://apkbind.com/images/p1x1.jpg" data-src="https://apkbind.com/media/2022/09/_1/65x65/capture_79e19.jpg" alt="Hoichoi Mod APK"><p class="title">Hoichoi Mod APK</p></a><a class="side_list_item" href="https://apkbind.com/apps/dls-19-mod-apk/"><img class="lazyload" width="65" height="65" src="https://apkbind.com/images/p1x1.jpg" data-src="https://apkbind.com/media/2022/10/_1/65x65/dls-19-mod-apk_07a7b.jpg" alt="Dls 19 Mod APK"><p class="title">Dls 19 Mod APK</p><p class="info">First Touch Games Ltd.</p></a><a class="side_list_item" href="https://apkbind.com/apps/only-fans-mod-apk/"><img class="lazyload" width="65" height="65" src="https://apkbind.com/images/p1x1.jpg" data-src="https://apkbind.com/media/2023/03/_1/65x65/only-fans-mod-apk_edd3b.jpg" alt="Only Fans Mod Apk"><p class="title">Only Fans Mod Apk</p><p class="info">OF Media LLC</p></a><a class="side_list_item" href="https://apkbind.com/apps/flipaclip-mod-apk/"><img class="lazyload" width="65" height="65" src="https://apkbind.com/images/p1x1.jpg" data-src="https://apkbind.com/media/2022/09/_1/65x65/capture_a7f18.jpg" alt="Flipaclip Mod APK"><p class="title">Flipaclip Mod APK</p><p class="info">Visual Blasters LLC</p></a><a class="side_list_item" href="https://apkbind.com/apps/zepeto-mod-apk/"><img class="lazyload" width="65" height="65" src="https://apkbind.com/images/p1x1.jpg" data-src="https://apkbind.com/media/2022/08/_1/65x65/zepeto-mod-apk_98d90.jpg" alt="Zepeto Mod Apk"><p class="title">Zepeto Mod Apk</p></a></div></div>
+					
+					<div class="clear"></div>
+			
+					<a href="https://apkbind.com/apps/" class="more_link">Get More Apps </a>
+		
+					<div class="clear mb20"></div>
+			
+					            
+                        <div class="clear mb15"></div>
+            <div class="shad_box">
+				<div class="group w-full text-gray-800 dark:text-gray-100 border-b border-black/10 dark:border-gray-900/50 bg-gray-50 dark:bg- sm:AIPRM__conversation__response">
+<div class="flex p-4 gap-4 text-base md:gap-6 md:max-w-2xl lg:max-w- xl:max-w-3xl md:py-6 lg:px-0 m-auto">
+<div class="relative flex w- flex-col gap-1 md:gap-3 lg:w-">
+<div class="flex flex-grow flex-col gap-3">
+<div class="min-h- flex flex-col items-start gap-4 whitespace-pre-wrap break-words">
+<div class="markdown prose w-full break-words dark:prose-invert light AIPRM__conversation__response">
+<p>Welcome to our Android App and Games website, your one-stop destination for discovering the latest and most exciting applications and games for your Android devices. With a vast library of carefully curated <strong>apps</strong> and <strong>games</strong>, we strive to provide a seamless user experience, ensuring that you have access to the best and most relevant content. Our user-friendly interface makes it easy to navigate through different categories, browse through top charts, and find exactly what you're looking for. Whether you're a casual gamer, a productivity enthusiast, or simply looking for new ways to enhance your Android experience, our website has something for everyone. Stay updated with the latest trends, explore new releases, and enjoy endless entertainment with our extensive collection of apps and games.</p>
+</div>
+</div>
+</div>
+<div class="flex justify-between lg:block">&nbsp;</div>
+</div>
+</div>
+</div>            </div>
+            	
+            
+            
+        </div>
+        
+        <div class="side_bar">
+			                        		<div class="clear"></div>
+        <div class="widget">
+            <h2 class="widget_head">Games</h2>
+			<div class="side_cat_list_wrap">
+				<a class="side_cat_item" href="https://apkbind.com/action/"><img width="30" height="30" class="lazyload" src="https://apkbind.com/images/cat-icon.png" data-src="https://apkbind.com/media/2022/04/_1/30x30/action_1b070.png" alt="Action Games"> Action</a><a class="side_cat_item" href="https://apkbind.com/adventure/"><img width="30" height="30" class="lazyload" src="https://apkbind.com/images/cat-icon.png" data-src="https://apkbind.com/media/2022/04/_1/30x30/adventure_ccc81.png" alt="Adventure Games"> Adventure</a><a class="side_cat_item" href="https://apkbind.com/arcade/"><img width="30" height="30" class="lazyload" src="https://apkbind.com/images/cat-icon.png" data-src="https://apkbind.com/media/2022/04/_1/30x30/arcade_f6aeb.png" alt="Arcade Games"> Arcade</a><a class="side_cat_item" href="https://apkbind.com/board/"><img width="30" height="30" class="lazyload" src="https://apkbind.com/images/cat-icon.png" data-src="https://apkbind.com/media/2022/04/_1/30x30/board_af8b4.png" alt="Board Games"> Board</a><a class="side_cat_item" href="https://apkbind.com/casual/"><img width="30" height="30" class="lazyload" src="https://apkbind.com/images/cat-icon.png" data-src="https://apkbind.com/media/2022/04/_1/30x30/casual_fa687.png" alt="Casual Games"> Casual</a><a class="side_cat_item" href="https://apkbind.com/fighting/"><img width="30" height="30" class="lazyload" src="https://apkbind.com/images/cat-icon.png" data-src="https://apkbind.com/media/2022/04/_1/30x30/fighting_2060e.png" alt="Fighting Games"> Fighting</a><a class="side_cat_item" href="https://apkbind.com/racing/"><img width="30" height="30" class="lazyload" src="https://apkbind.com/images/cat-icon.png" data-src="https://apkbind.com/media/2022/04/_1/30x30/racing_3bc18.png" alt="Racing Games"> Racing</a><a class="side_cat_item" href="https://apkbind.com/role-playing/"><img width="30" height="30" class="lazyload" src="https://apkbind.com/images/cat-icon.png" data-src="https://apkbind.com/media/2022/04/_1/30x30/role-playing_2e4ee.png" alt="Role Playing Games"> Role Playing</a><a class="side_cat_item" href="https://apkbind.com/simulation/"><img width="30" height="30" class="lazyload" src="https://apkbind.com/images/cat-icon.png" data-src="https://apkbind.com/media/2022/04/_1/30x30/simulation_dafc2.png" alt="Simulation Games"> Simulation</a><a class="side_cat_item" href="https://apkbind.com/sports/"><img width="30" height="30" class="lazyload" src="https://apkbind.com/images/cat-icon.png" data-src="https://apkbind.com/media/2022/04/_1/30x30/sports_a424d.png" alt="Sports Games"> Sports</a><a class="side_cat_item" href="https://apkbind.com/strategy/"><img width="30" height="30" class="lazyload" src="https://apkbind.com/images/cat-icon.png" data-src="https://apkbind.com/media/2022/04/_1/30x30/strategy_9a55b.png" alt="Strategy Games"> Strategy</a>			</div>
+            <div class="clear"></div>
+		</div>    
+        <div class="clear"></div>
+		<div class="clear"></div>                        		<div class="clear"></div>
+        <div class="widget">
+            <h2 class="widget_head">Apps</h2>
+			<div class="side_cat_list_wrap">
+				<a class="side_cat_item" href="https://apkbind.com/art-design/"><img width="30" height="30" class="lazyload" src="https://apkbind.com/images/cat-icon.png" data-src="https://apkbind.com/media/2022/04/_1/30x30/art-design_83003.png" alt="Art &amp; Design Apps"> Art & Design</a><a class="side_cat_item" href="https://apkbind.com/business/"><img width="30" height="30" class="lazyload" src="https://apkbind.com/images/cat-icon.png" data-src="https://apkbind.com/media/2022/06/_1/30x30/business_d4d05.png" alt="Business Apps"> Business</a><a class="side_cat_item" href="https://apkbind.com/communication/"><img width="30" height="30" class="lazyload" src="https://apkbind.com/images/cat-icon.png" data-src="https://apkbind.com/media/2022/04/_1/30x30/communication_288f3.png" alt="Communication Apps"> Communication</a><a class="side_cat_item" href="https://apkbind.com/education/"><img width="30" height="30" class="lazyload" src="https://apkbind.com/images/cat-icon.png" data-src="https://apkbind.com/media/2022/04/_1/30x30/education_89e9d.png" alt="Education Apps"> Education</a><a class="side_cat_item" href="https://apkbind.com/entertainment/"><img width="30" height="30" class="lazyload" src="https://apkbind.com/images/cat-icon.png" data-src="https://apkbind.com/media/2022/04/_1/30x30/entertainment_7c049.png" alt="Entertainment Apps"> Entertainment</a><a class="side_cat_item" href="https://apkbind.com/lifestyle/"><img width="30" height="30" class="lazyload" src="https://apkbind.com/images/cat-icon.png" data-src="https://apkbind.com/media/2022/04/_1/30x30/lifestyle_481f3.png" alt="Lifestyle Apps"> Lifestyle</a><a class="side_cat_item" href="https://apkbind.com/music-audio/"><img width="30" height="30" class="lazyload" src="https://apkbind.com/images/cat-icon.png" data-src="https://apkbind.com/media/2022/04/_1/30x30/music-audio_3e7b9.png" alt="Music - Audio Apps"> Music - Audio</a><a class="side_cat_item" href="https://apkbind.com/personalization/"><img width="30" height="30" class="lazyload" src="https://apkbind.com/images/cat-icon.png" data-src="https://apkbind.com/media/2022/04/_1/30x30/personalization_887a3.png" alt="Personalization Apps"> Personalization</a><a class="side_cat_item" href="https://apkbind.com/photography/"><img width="30" height="30" class="lazyload" src="https://apkbind.com/images/cat-icon.png" data-src="https://apkbind.com/media/2022/04/_1/30x30/photography_a6bde.png" alt="Photography Apps"> Photography</a><a class="side_cat_item" href="https://apkbind.com/productivity/"><img width="30" height="30" class="lazyload" src="https://apkbind.com/images/cat-icon.png" data-src="https://apkbind.com/media/2022/04/_1/30x30/productivity_2123f.png" alt="Productivity Apps"> Productivity</a><a class="side_cat_item" href="https://apkbind.com/social/"><img width="30" height="30" class="lazyload" src="https://apkbind.com/images/cat-icon.png" data-src="https://apkbind.com/media/2022/04/_1/30x30/social_58bb5.png" alt="Social Apps"> Social</a><a class="side_cat_item" href="https://apkbind.com/tools/"><img width="30" height="30" class="lazyload" src="https://apkbind.com/images/cat-icon.png" data-src="https://apkbind.com/media/2022/04/_1/30x30/tools_4574f.png" alt="Tools Apps"> Tools</a><a class="side_cat_item" href="https://apkbind.com/video-players-editors/"><img width="30" height="30" class="lazyload" src="https://apkbind.com/images/cat-icon.png" data-src="https://apkbind.com/media/2022/04/_1/30x30/video-players-editors_975b2.png" alt="Video Players &amp; Editors Apps"> Video Players & Editors</a>			</div>
+            <div class="clear"></div>
+		</div>    
+        <div class="clear"></div>
+		        </div>
+        <div class="clear"></div>
+    </div>
+        
+	<div class="clear"></div>
+        
+    <div class="container">
+        <div class="ftr_social_box">
+			            
+                        
+                        
+                        
+                       
+                        
+                        
+                        
+                        
+                     
+        </div>
+    </div>
+    <div class="clear"></div>
+
+    <footer>
+        <div class="container">
+            <div class="ftr_link_box">
+                <a href="https://apkbind.com/information/privacy-policy.html">Privacy Policy</a>            </div>
+            <div class="clear mb10"></div>
+            <p class="ftr_txt">Copyright © 2024 ApkBind. All rights reserved</p>
+        </div>
+        <div class="clear"></div>
+    </footer>
+    
+</div>
+
+<div class="clear"></div>
+
+<div id="search_wrap">
+	<div class="search_inner">
+    	<span onclick="off_search()" class="search_close"><i aria-hidden="true" class="fa fa-times" title="Close search Box"></i></span>
+        <form method="post" action="https://apkbind.com/set_search.php">
+        	<input autocomplete="off" name="kwd" id="kwd" type="text" placeholder="Search ...">
+        </form>
+    </div>
+</div>
+
+<div id="cookie-notice-bar"><span>We use cookies to ensure that we give you the best experience on our website.</span><div class="btn-accept" id="btn-accept-cookie">Ok</div></div>        
+<noscript id="deferred-styles">
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"/>
+</noscript>
+<script type="arsilazyloadscript">var loadDeferredStyles=function(){var a=document.getElementById("deferred-styles"),b=document.createElement("div");b.innerHTML=a.textContent,document.body.appendChild(b),a.parentElement.removeChild(a)},raf=requestAnimationFrame||mozRequestAnimationFrame||webkitRequestAnimationFrame||msRequestAnimationFrame;raf?raf(function(){window.setTimeout(loadDeferredStyles,0)}):window.addEventListener("load",loadDeferredStyles);</script>
+
+<script type="text/javascript">
+    function lang_toggler()
+    {
+        var element = document.getElementById("lang_box_inner");
+        element.classList.toggle("show");
+    }
+
+    function show_menu_mob()
+    {
+        document.getElementById("nav_wrap").className += 'show_mob_menu';
+    }
+    
+    function hide_menu_mob()
+    {
+        document.getElementById("nav_wrap").className = '';
+    }
+    
+    function on_search() {
+      document.getElementById("search_wrap").style.display = "block";
+      document.getElementById("kwd").focus();
+      document.getElementsByTagName('body')[0].style.overflow = "hidden";
+    }
+    
+    function off_search() {
+      document.getElementById("search_wrap").style.display = "none";
+      document.getElementsByTagName('body')[0].style.overflow = "scroll";
+    }
+    
+        
+    function scrollToi(id) 
+    {
+        this.event.preventDefault();	
+        const yOffset = 0; 
+        const element = document.getElementById(id);
+        const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
+        window.scrollTo({top: y, behavior: 'smooth'});
+    }
+    
+    function scrollToc(to_id) 
+    {
+        this.event.preventDefault();
+        var element = document.getElementById(to_id);
+        element.scrollIntoView({ behavior: 'smooth', block: 'start'});
+        setTimeout(function(){window.location.hash = to_id; }, 100);
+    }
+    
+    function mod_box_toggle()
+    {
+        document.getElementById("mod_box_in_wrap").classList.toggle('mod_box_in_hide');
+    }
+    
+    function faq_toggle(wrap)
+    {
+        document.getElementById(wrap).classList.toggle('faq_hide');
+    }
+	
+	
+	function loadCookieNotice() {
+    var cookieNotice = document.getElementById("cookie-notice-bar");
+    if (cookieNotice && !localStorage.cookieNotice) {
+        cookieNotice.classList.add("show");
+    }
+    document.getElementById("btn-accept-cookie").addEventListener("click", function(e) {
+        localStorage.cookieNotice = true;
+        cookieNotice.classList.remove("show");
+    });
+  }
+  loadCookieNotice();
+</script>
+<script type="arsilazyloadscript">
+  ( function() {
+
+	if(document.querySelectorAll( ".youtube_embed" ))
+	{
+		var youtube = document.querySelectorAll( ".youtube_embed" );
+		
+		for (var i = 0; i < youtube.length; i++) 
+		{
+		
+		var source = "https://img.youtube.com/vi/"+ youtube[i].dataset.embed +"/hqdefault.jpg";
+		
+		var image = new Image();
+		image.src = source;
+		image.addEventListener( "load", function() {
+			youtube[ i ].appendChild( image );
+		}( i ) );
+
+		youtube[i].addEventListener( "click", function() {
+
+			var iframe = document.createElement( "iframe" );
+			iframe.setAttribute( "frameborder", "0" );
+			iframe.setAttribute( "allowfullscreen", "" );
+			iframe.setAttribute( "src", "https://www.youtube.com/embed/"+ this.dataset.embed +"?rel=0&showinfo=0&autoplay=1" );
+			this.innerHTML = "";
+			this.appendChild( iframe );
+		} );    
+	};
+	}
+	
+} )();
+</script>
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.2.2/lazysizes-umd.min.js" type="text/javascript"></script>
+<script>
+	var timeOut;
+
+	
+	const loadScriptsTimer = setTimeout(triggerScriptLoader, 3000),
+		userInteractionEvents = ["mouseover", "keydown", "touchmove", "touchstart"];
+	userInteractionEvents.forEach(function(a) {
+		window.addEventListener(a, triggerScriptLoader, {
+			passive: !0
+		})
+	});
+	
+	function triggerScriptLoader() {
+		loadExternalScripts("https://www.googletagmanager.com/gtag/js?id=UA-246201768-1", {
+			async: "async"
+		}, function() {
+			function a() {
+				dataLayer.push(arguments)
+			}
+			window.dataLayer = window.dataLayer || [], a("js", new Date), a("config", "UA-246201768-1")
+		}),
+				 clearTimeout(loadScriptsTimer), userInteractionEvents.forEach(function(a) {
+			window.removeEventListener(a, triggerScriptLoader, {
+				passive: !0
+			})
+		})
+	}
+	function loadExternalScripts(a, b, c) {
+		const d = document.createElement("script");
+		if (c && (d.onload = c), document.head.appendChild(d), d.src = a, b)
+			for (const a in b) d.setAttribute(a, b[a])
+	}
+</script>  
+</body></html>

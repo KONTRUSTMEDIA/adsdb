@@ -1,0 +1,4275 @@
+
+<!DOCTYPE html>
+
+<html lang="az">
+
+<head>
+<link rel="dns-prefetch" href="//pagead2.googlesyndication.com"><link rel="preconnect" href="https://pagead2.googlesyndication.com">
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>Yenimp3.az - Ən yeni mp3 mahnılar</title>
+
+    <meta name="theme-color" content="#F72585">
+
+    
+
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2859105073651413" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jsmediatags/3.9.5/jsmediatags.min.js"></script>
+
+    
+
+    <style>
+
+        :root { --bg:#0f111a; --card:#161b2c; --main:#F72585; --text:#fff; --gray:#8F9BB3; }
+
+        body { background:var(--bg); color:var(--text); font-family:'Outfit',sans-serif; margin:0; padding-bottom:90px; }
+
+        * { box-sizing: border-box; }
+
+        
+
+        header { padding:15px; display:flex; justify-content:space-between; align-items:center; background:rgba(15,17,26,0.95); position:sticky; top:0; z-index:50; border-bottom:1px solid #222; }
+
+        .logo { font-size:22px; font-weight:700; } .logo span { color:var(--main); }
+
+        .u-avatar { width:35px; height:35px; border-radius:50%; border:2px solid var(--main); object-fit:cover; }
+
+        
+
+        .search-box { background:#1f2235; padding:12px; margin:15px; border-radius:20px; display:flex; gap:10px; border:1px solid #333; }
+
+        .search-box input { background:none; border:none; color:#fff; width:100%; outline:none; }
+
+        
+
+        .cats { display:flex; gap:10px; overflow-x:auto; padding:0 15px 15px; }
+
+        .cat { background:#1f2235; padding:8px 16px; border-radius:15px; font-size:13px; white-space:nowrap; cursor:pointer; color:#ccc; border:1px solid #2d344d; transition:0.3s; }
+
+        .cat.active { background:var(--main); color:#fff; border-color:var(--main); }
+
+        
+
+        .list { padding:0 15px; min-height:300px; }
+
+        .item { background:var(--card); padding:10px; border-radius:16px; margin-bottom:10px; display:flex; align-items:center; }
+
+        .item img { width:60px; height:60px; border-radius:12px; margin-right:15px; object-fit:cover; background:#222; }
+
+        .info { flex:1; overflow:hidden; } .info h3 { font-size:14px; margin:0; } .info p { font-size:11px; color:var(--gray); margin:4px 0 0; }
+
+        
+
+        /* Skeleton */
+
+        .skeleton { background:#1f2235; border-radius:16px; padding:10px; margin-bottom:10px; display:flex; align-items:center; }
+
+        .sk-img { width:60px; height:60px; background:#2d344d; border-radius:12px; animation:pulse 1.5s infinite; }
+
+        .sk-info { flex:1; margin-left:15px; }
+
+        .sk-line { height:12px; background:#2d344d; border-radius:6px; margin-bottom:8px; width:70%; animation:pulse 1.5s infinite; }
+
+        @keyframes pulse { 0% { opacity:1; } 50% { opacity:0.5; } 100% { opacity:1; } }
+
+        /* Full Player */
+
+        .full-player { position:fixed; top:100%; left:0; width:100%; height:100%; background:linear-gradient(180deg, #1a1f35 0%, #0f111a 100%); z-index:2000; transition:top 0.4s; display:flex; flex-direction:column; padding:30px 20px; align-items:center; overflow-y:auto; }
+
+        .full-player.active { top:0; }
+
+        
+
+        /* Album Art & Ad */
+
+        .p-art-con { position:relative; margin:20px 0; width:260px; height:260px; border-radius:30px; overflow:hidden; box-shadow:0 20px 50px rgba(0,0,0,0.6); background:#000; }
+
+        .p-art { width:100%; height:100%; object-fit:cover; position:relative; z-index:1; }
+
+        #p-art-ad { position:absolute; top:0; left:0; width:100%; height:100%; z-index:10; background:#fff; display:none; align-items:center; justify-content:center; }
+
+        /* Visualizer */
+
+        .visualizer { display:flex; align-items:flex-end; gap:5px; height:30px; margin-bottom:15px; }
+
+        .bar { width:5px; background:var(--main); border-radius:4px; height:5px; transition:height 0.1s; }
+
+        .playing .bar { animation: bounce 0.6s infinite ease-in-out alternate; }
+
+        @keyframes bounce { 0%{height:5px;} 100%{height:30px;} }
+
+        /* Controls */
+
+        .controls { display:flex; gap:30px; align-items:center; margin-top:20px; }
+
+        .play-btn-lg { width:75px; height:75px; background:var(--main); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:30px; box-shadow:0 10px 30px rgba(247,37,133,0.5); cursor:pointer; }
+
+        .mini-player { position:fixed; bottom:85px; left:10px; right:10px; background:rgba(30,34,55,0.95); padding:10px; border-radius:40px; display:none; align-items:center; border:1px solid rgba(255,255,255,0.1); z-index:100; backdrop-filter:blur(10px); }
+
+        .mini-player.active { display:flex; }
+
+        
+
+        .nav { position:fixed; bottom:0; width:100%; height:75px; background:rgba(22,27,44,0.95); display:flex; justify-content:space-around; align-items:center; border-radius:25px 25px 0 0; z-index:900; backdrop-filter:blur(10px); }
+
+        .nav-center { width:55px; height:55px; background:var(--main); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:24px; transform:translateY(-25px); border:6px solid var(--bg); color:#fff; }
+
+        
+
+        .modal { position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); display:none; justify-content:center; align-items:center; z-index:3000; backdrop-filter:blur(5px); }
+
+        .m-box { background:var(--card); padding:25px; border-radius:20px; width:85%; max-width:350px; text-align:center; }
+
+        .inp { width:100%; padding:12px; margin:8px 0; background:#0f111a; border:1px solid #333; color:#fff; border-radius:10px; outline:none; }
+
+        .btn { width:100%; padding:12px; background:var(--main); border:none; border-radius:10px; color:#fff; margin-top:10px; cursor:pointer; }
+
+    
+    /* BADGE STYLES */
+
+    .item { position: relative; overflow: hidden; }
+
+    .badges-con { position: absolute; top: 8px; left: 8px; display: flex; flex-direction: column; gap: 3px; z-index: 5; pointer-events: none; }
+
+    .badge-tag { font-size: 8px; padding: 3px 6px; border-radius: 5px; color: #fff; font-weight: bold; text-transform: uppercase; box-shadow: 0 2px 5px rgba(0,0,0,0.4); backdrop-filter: blur(2px); }
+
+    .b-new { background: linear-gradient(45deg, #ff0054, #ff5400); }
+
+    .b-trend { background: linear-gradient(45deg, #7209b7, #3a0ca3); }
+
+    .b-love { background: linear-gradient(45deg, #f72585, #b5179e); }
+
+    .flag-icon { margin-right: 4px; font-size: 1.1em; }
+
+
+    /* VIZUALIZATOR STILI */
+
+    #rhythm-canvas {
+
+        position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+
+        z-index: -1; /* Arxa planda olsun */
+
+        opacity: 0.6; /* Bir az şəffaf */
+
+        pointer-events: none;
+
+    }
+
+    
+
+    @keyframes popIn { 0%{transform:scale(0);} 80%{transform:scale(1.1);} 100%{transform:scale(1);} }
+
+
+    /* LAYER FIX */
+
+    .full-player { z-index: 4000 !important; } /* Player ən üstdə */
+
+    .modal { z-index: 3000 !important; }      /* Profil onun altında */
+
+    .mini-player { z-index: 2900 !important; } /* Mini player modalın altında */
+
+
+    /* PROFILE TABS & BADGES */
+
+    .p-tabs { display:flex; gap:10px; padding:10px 20px; overflow-x:auto; background:#0f111a; border-bottom:1px solid #222; scrollbar-width:none; }
+
+    .p-tab { padding:8px 15px; background:#1f2235; border-radius:15px; font-size:12px; white-space:nowrap; color:#ccc; cursor:pointer; border:1px solid #333; transition:0.3s; }
+
+    .p-tab.active { background:#F72585; color:#fff; border-color:#F72585; }
+
+    
+
+    .pp-badge-new { 
+
+        position: absolute; top: 5px; left: 5px; 
+
+        background: linear-gradient(45deg, #ff0054, #ff5400); 
+
+        font-size: 8px; padding: 2px 6px; border-radius: 4px; 
+
+        color: #fff; font-weight: bold; z-index: 2; 
+
+        box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+
+    }
+
+
+    /* FIXED TABS LAYERING */
+
+    .p-tabs { 
+
+        position: sticky !important; /* Yuxarıda yapışsın */
+
+        top: 0 !important;           /* Tam yuxarıdan başlasın */
+
+        z-index: 5000 !important;    /* Bütün mahnılardan üstdə olsun */
+
+        background: #0f111a !important; /* Arxa fon tünd olsun (mahnı görünməsin) */
+
+        padding: 15px 10px !important;
+
+        border-bottom: 1px solid #222 !important;
+
+        box-shadow: 0 4px 15px rgba(0,0,0,0.5) !important; /* Altına kölgə salaq */
+
+        display: flex !important;
+
+        gap: 10px !important;
+
+        overflow-x: auto !important;
+
+    }
+
+    /* Listin başlığını aşağı salırıq ki, tabs ilə toqquşmasın */
+
+    #pp-list {
+
+        position: relative !important;
+
+        z-index: 1 !important; /* Tabs-dan aşağıda qalsın */
+
+        padding-top: 20px !important; /* Düymələrdən aralı olsun */
+
+    }
+
+    
+
+    /* Düymələrin özü */
+
+    .p-tab {
+
+        background: #1f2235 !important;
+
+        color: #fff !important;
+
+        border: 1px solid #333 !important;
+
+        border-radius: 20px !important;
+
+        padding: 8px 16px !important;
+
+        font-size: 13px !important;
+
+        font-weight: bold !important;
+
+    }
+
+    .p-tab.active {
+
+        background: #F72585 !important;
+
+        border-color: #F72585 !important;
+
+        box-shadow: 0 0 10px rgba(247, 37, 133, 0.5) !important;
+
+    }
+
+
+    /* Z-INDEX FIXES */
+
+    .modal, .alert-box, .custom-confirm { z-index: 9999 !important; }
+
+    .full-player { z-index: 3000 !important; }
+
+    
+
+    /* Notification Badge */
+
+    .notif-badge {
+
+        position: absolute; top: -5px; right: -5px;
+
+        background: red; color: white; border-radius: 50%;
+
+        width: 15px; height: 15px; font-size: 10px;
+
+        display: none; align-items: center; justify-content: center;
+
+    }
+
+
+    /* Z-INDEX FIXES */
+
+    .modal, .alert-box, .custom-confirm { z-index: 9999 !important; }
+
+    .full-player { z-index: 3000 !important; }
+
+    
+
+    /* Notification Badge */
+
+    .notif-badge {
+
+        position: absolute; top: -5px; right: -5px;
+
+        background: red; color: white; border-radius: 50%;
+
+        width: 15px; height: 15px; font-size: 10px;
+
+        display: none; align-items: center; justify-content: center;
+
+    }
+
+
+    /* Z-INDEX FIXES */
+
+    .modal, .alert-box, .custom-confirm { z-index: 9999 !important; }
+
+    .full-player { z-index: 3000 !important; }
+
+    
+
+    /* Notification Badge */
+
+    .notif-badge {
+
+        position: absolute; top: -5px; right: -5px;
+
+        background: red; color: white; border-radius: 50%;
+
+        width: 15px; height: 15px; font-size: 10px;
+
+        display: none; align-items: center; justify-content: center;
+
+    }
+
+
+    /* Z-INDEX FIXES */
+
+    .modal, .alert-box, .custom-confirm { z-index: 9999 !important; }
+
+    .full-player { z-index: 3000 !important; }
+
+    
+
+    /* Notification Badge */
+
+    .notif-badge {
+
+        position: absolute; top: -5px; right: -5px;
+
+        background: red; color: white; border-radius: 50%;
+
+        width: 15px; height: 15px; font-size: 10px;
+
+        display: none; align-items: center; justify-content: center;
+
+    }
+
+</style>
+
+</head>
+
+<body>
+
+<div style="text-align:center; padding:5px 0; background:#fff;">
+
+    <ins class="adsbygoogle" style="display:block" data-ad-format="fluid" data-ad-layout-key="-fb+5w+4e-db+86" data-ad-client="ca-pub-2859105073651413" data-ad-slot="6917692673"></ins>
+
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+
+</div>
+
+<header>
+
+    <div class="logo">Yenimp3<span>.az</span></div>
+
+    
+
+<div style="position:relative; margin-right:15px; cursor:pointer;" onclick="openNotifications()">
+
+    <i class="fas fa-bell" style="font-size:22px; color:#fff;"></i>
+
+    
+</div>
+<img src="https://yenimp3.az/mp3logo.jpg" class="u-avatar" onclick="openView('profile')">
+
+</header>
+
+<div id="home-view" class="view">
+
+    <div style="text-align:center; margin:10px;">
+
+        <span style="font-size:11px; font-weight:bold; color:var(--main); background:rgba(247,37,133,0.15); padding:6px 15px; border-radius:20px;">Bugün: 0 mahnı</span>
+
+    </div>
+
+    
+    <div style="display:flex; gap:15px; overflow-x:auto; padding:15px 15px 5px 15px; scrollbar-width:none; margin-bottom:10px;" id="stories-con">
+
+        
+            <div style="text-align:center; min-width:70px; cursor:pointer;" onclick="openPublicProfile(2)">
+
+                <div style="width:65px; height:65px; border-radius:50%; padding:2px; border:2px solid #F72585; display:flex; align-items:center; justify-content:center;">
+
+                    <img src="https://yenimp3.az/mp3logo.jpg" style="width:100%; height:100%; border-radius:50%; object-fit:cover;">
+
+                </div>
+
+                <div style="font-size:11px; margin-top:5px; color:#ccc; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; max-width:70px;">admin</div>
+
+            </div>
+
+            
+            <div style="text-align:center; min-width:70px; cursor:pointer;" onclick="openPublicProfile(30)">
+
+                <div style="width:65px; height:65px; border-radius:50%; padding:2px; border:2px solid #F72585; display:flex; align-items:center; justify-content:center;">
+
+                    <img src="https://yenimp3.az/mp3logo.jpg" style="width:100%; height:100%; border-radius:50%; object-fit:cover;">
+
+                </div>
+
+                <div style="font-size:11px; margin-top:5px; color:#ccc; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; max-width:70px;">Music</div>
+
+            </div>
+
+            
+            <div style="text-align:center; min-width:70px; cursor:pointer;" onclick="openPublicProfile(1)">
+
+                <div style="width:65px; height:65px; border-radius:50%; padding:2px; border:2px solid #F72585; display:flex; align-items:center; justify-content:center;">
+
+                    <img src="data:image/jpeg;base64,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" style="width:100%; height:100%; border-radius:50%; object-fit:cover;">
+
+                </div>
+
+                <div style="font-size:11px; margin-top:5px; color:#ccc; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; max-width:70px;">Anar</div>
+
+            </div>
+
+            
+            <div style="text-align:center; min-width:70px; cursor:pointer;" onclick="openPublicProfile(26)">
+
+                <div style="width:65px; height:65px; border-radius:50%; padding:2px; border:2px solid #F72585; display:flex; align-items:center; justify-content:center;">
+
+                    <img src="https://yenimp3.az/mp3logo.jpg" style="width:100%; height:100%; border-radius:50%; object-fit:cover;">
+
+                </div>
+
+                <div style="font-size:11px; margin-top:5px; color:#ccc; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; max-width:70px;">Vusale</div>
+
+            </div>
+
+            
+            <div style="text-align:center; min-width:70px; cursor:pointer;" onclick="openPublicProfile(25)">
+
+                <div style="width:65px; height:65px; border-radius:50%; padding:2px; border:2px solid #F72585; display:flex; align-items:center; justify-content:center;">
+
+                    <img src="https://yenimp3.az/mp3logo.jpg" style="width:100%; height:100%; border-radius:50%; object-fit:cover;">
+
+                </div>
+
+                <div style="font-size:11px; margin-top:5px; color:#ccc; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; max-width:70px;">Səma</div>
+
+            </div>
+
+            
+            <div style="text-align:center; min-width:70px; cursor:pointer;" onclick="openPublicProfile(23)">
+
+                <div style="width:65px; height:65px; border-radius:50%; padding:2px; border:2px solid #F72585; display:flex; align-items:center; justify-content:center;">
+
+                    <img src="https://yenimp3.az/mp3logo.jpg" style="width:100%; height:100%; border-radius:50%; object-fit:cover;">
+
+                </div>
+
+                <div style="font-size:11px; margin-top:5px; color:#ccc; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; max-width:70px;">Tural</div>
+
+            </div>
+
+            
+            <div style="text-align:center; min-width:70px; cursor:pointer;" onclick="openPublicProfile(27)">
+
+                <div style="width:65px; height:65px; border-radius:50%; padding:2px; border:2px solid #F72585; display:flex; align-items:center; justify-content:center;">
+
+                    <img src="https://yenimp3.az/mp3logo.jpg" style="width:100%; height:100%; border-radius:50%; object-fit:cover;">
+
+                </div>
+
+                <div style="font-size:11px; margin-top:5px; color:#ccc; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; max-width:70px;">Semra</div>
+
+            </div>
+
+            
+            <div style="text-align:center; min-width:70px; cursor:pointer;" onclick="openPublicProfile(29)">
+
+                <div style="width:65px; height:65px; border-radius:50%; padding:2px; border:2px solid #F72585; display:flex; align-items:center; justify-content:center;">
+
+                    <img src="https://yenimp3.az/mp3logo.jpg" style="width:100%; height:100%; border-radius:50%; object-fit:cover;">
+
+                </div>
+
+                <div style="font-size:11px; margin-top:5px; color:#ccc; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; max-width:70px;">Nuranə</div>
+
+            </div>
+
+            
+            <div style="text-align:center; min-width:70px; cursor:pointer;" onclick="openPublicProfile(24)">
+
+                <div style="width:65px; height:65px; border-radius:50%; padding:2px; border:2px solid #F72585; display:flex; align-items:center; justify-content:center;">
+
+                    <img src="https://yenimp3.az/mp3logo.jpg" style="width:100%; height:100%; border-radius:50%; object-fit:cover;">
+
+                </div>
+
+                <div style="font-size:11px; margin-top:5px; color:#ccc; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; max-width:70px;">Nuran</div>
+
+            </div>
+
+            
+            <div style="text-align:center; min-width:70px; cursor:pointer;" onclick="openPublicProfile(28)">
+
+                <div style="width:65px; height:65px; border-radius:50%; padding:2px; border:2px solid #F72585; display:flex; align-items:center; justify-content:center;">
+
+                    <img src="https://yenimp3.az/mp3logo.jpg" style="width:100%; height:100%; border-radius:50%; object-fit:cover;">
+
+                </div>
+
+                <div style="font-size:11px; margin-top:5px; color:#ccc; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; max-width:70px;">Kemale</div>
+
+            </div>
+
+            
+    </div>
+<div class="search-box"><i class="fas fa-search" style="color:#888;"></i><input type="text" id="q" placeholder="Axtar..." onkeyup="search()"></div>
+
+    <div class="cats">
+
+        <div class="cat active" onclick="filter('all', this)">Hamısı</div>
+
+        <div class="cat" onclick="filter('new', this)">🔥 Yeni</div>
+
+        <div class="cat" onclick="filter('trend', this)">📈 Trend</div>
+
+        <div class="cat" onclick="filter('Azərbaycan', this)">🇦🇿 Azərbaycan</div>
+
+        <div class="cat" onclick="filter('Türkiyə', this)">🇹🇷 Türkiyə</div>
+
+        <div class="cat" onclick="filter('Rusiya', this)">🇷🇺 Rusiya</div>
+
+        <div class="cat" onclick="filter('Global', this)">🌍 Global</div>
+
+    <div class="cat" onclick="openCountryModal()" style="background: linear-gradient(45deg, #4361ee, #3a0ca3); color:#fff; border:none; box-shadow:0 4px 15px rgba(67, 97, 238, 0.4);">🌍 Ölkələr</div>
+
+    </div>
+
+    
+
+    <div class="cats" style="padding-top:0; margin-top:-5px; padding-bottom:15px;">
+
+        <div class="cat" onclick="filterGenre('Pop')">🎵 Pop</div>
+
+        <div class="cat" onclick="filterGenre('Meyxana')">🎤 Meyxana</div>
+
+        <div class="cat" onclick="filterGenre('Rap')">🧢 Rap</div>
+
+        <div class="cat" onclick="filterGenre('Rock')">🎸 Rock</div>
+
+        <div class="cat" onclick="filterGenre('Remix')">🎛 Remix</div>
+
+        <div class="cat" onclick="filterGenre('Bass')">🔊 Bass</div>
+
+        <div class="cat" onclick="filterGenre('Slow')">💔 Slow</div>
+
+        <div class="cat" onclick="filterGenre('Est')">🎹 Estrada</div>
+
+    </div>
+
+    <div class="list" id="songs-list">
+
+        
+        <div class="skeleton"><div class="sk-img"></div><div class="sk-info"><div class="sk-line"></div><div class="sk-line" style="width:40%"></div></div></div>
+
+        
+        <div class="skeleton"><div class="sk-img"></div><div class="sk-info"><div class="sk-line"></div><div class="sk-line" style="width:40%"></div></div></div>
+
+        
+        <div class="skeleton"><div class="sk-img"></div><div class="sk-info"><div class="sk-line"></div><div class="sk-line" style="width:40%"></div></div></div>
+
+        
+        <div class="skeleton"><div class="sk-img"></div><div class="sk-info"><div class="sk-line"></div><div class="sk-line" style="width:40%"></div></div></div>
+
+        
+        <div class="skeleton"><div class="sk-img"></div><div class="sk-info"><div class="sk-line"></div><div class="sk-line" style="width:40%"></div></div></div>
+
+        
+        <div class="skeleton"><div class="sk-img"></div><div class="sk-info"><div class="sk-line"></div><div class="sk-line" style="width:40%"></div></div></div>
+
+        
+    </div>
+
+</div>
+
+<div id="profile-view" class="view" style="display:none; padding:80px 20px; text-align:center;">
+
+    <i class="fas fa-arrow-left" style="position:absolute; top:80px; left:20px; font-size:24px;" onclick="openView('home')"></i>
+
+    
+
+<div style="position:relative; margin-right:15px; cursor:pointer;" onclick="openNotifications()">
+
+    <i class="fas fa-bell" style="font-size:22px; color:#fff;"></i>
+
+    
+</div>
+<img src="https://yenimp3.az/mp3logo.jpg" style="width:100px; height:100px; border-radius:50%; margin-bottom:10px; border:4px solid var(--main);">
+
+    <h2>Qonaq</h2>
+
+    
+        <button class="btn" onclick="openModal('auth-modal')">Giriş / Qeydiyyat</button>
+
+    
+</div>
+
+
+<div class="full-player" id="fullPlayer"><canvas id="rhythm-canvas"></canvas>
+
+    <i class="fas fa-chevron-down" onclick="closePlayer()" style="position:absolute; top:30px; left:30px; font-size:24px; opacity:0.7;"></i>
+
+    <div class="p-art-con" id="art-container">
+
+        <div id="p-art-ad"></div>
+
+        <img src="" class="p-art" id="p-img">
+
+    </div>
+
+    <div class="visualizer" id="visualizer"><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div></div>
+
+    <h2 id="p-title" style="margin:10px 0 5px; text-align:center;">Mahnı</h2>
+
+    
+    <p id="p-artist" style="color:var(--main); text-align:center; margin-bottom:5px;">İfaçı</p>
+
+    <div id="p-uploader-box" style="text-align:center; margin-bottom:15px; cursor:pointer; background:rgba(255,255,255,0.05); padding:5px 15px; border-radius:15px; display:inline-block;" onclick="openUploaderProfile()">
+
+        <span style="color:#888; font-size:11px;">Yüklədi:</span> 
+
+        <span id="p-uploader-name" style="color:#fff; font-weight:bold; font-size:12px;">Admin</span>
+
+        <div style="font-size:10px; color:var(--main);">Digər mahnılarına bax ></div>
+
+    </div>
+
+
+    <div style="width:100%; margin-top:25px;">
+
+        <input type="range" id="seek" value="0" style="width:100%; accent-color:var(--main);" oninput="seekSong(this.value)">
+
+        <div style="display:flex; justify-content:space-between; font-size:11px; color:var(--gray); margin-top:8px;"><span id="curr">0:00</span><span id="dur">0:00</span></div>
+
+    </div>
+
+    <div class="controls">
+
+        <i class="fas fa-backward-step" style="font-size:24px;" onclick="prevSong()"></i>
+
+        <div class="play-btn-lg" onclick="togglePlay()"><i class="fas fa-play" id="p-icon"></i></div>
+
+        <i class="fas fa-forward-step" style="font-size:24px;" onclick="nextSong()"></i>
+
+    </div>
+
+    <div style="margin-top:25px; display:flex; gap:40px;">
+
+        <div onclick="openDownload()" style="text-align:center;"><i class="fas fa-cloud-arrow-down" style="font-size:24px;"></i><br><span id="d-cnt" style="font-size:12px; color:#888;">0</span></div>
+
+        <div onclick="act('like')" style="text-align:center;"><i class="fas fa-heart" id="p-like" style="font-size:24px;"></i><br><span id="l-cnt" style="font-size:12px; color:#888;">0</span></div>
+
+    </div>
+
+</div>
+
+<div class="mini-player" id="miniPlayer" onclick="openFullPlayer()">
+
+    <img src="" style="width:40px; height:40px; border-radius:50%; margin-right:10px;" id="miniArt">
+
+    <div style="flex:1;"><h4 id="miniTitle" style="font-size:13px; margin:0;">Mahnı</h4><p id="miniArtist" style="font-size:10px; margin:0; color:var(--gray);">İfaçı</p></div>
+
+    <i class="fas fa-play" id="miniIcon" style="font-size:20px; color:var(--main);" onclick="event.stopPropagation(); togglePlay()"></i>
+
+</div>
+
+<nav class="nav">
+
+    <div onclick="openView('home')"><i class="fas fa-home" style="font-size:22px; color:#fff;"></i></div>
+
+    <div class="nav-center" onclick="tryUpload()"><i class="fas fa-plus"></i></div>
+
+    <div onclick="openView('profile')"><i class="fas fa-user" style="font-size:22px; color:#fff;"></i></div>
+
+</nav>
+
+<div class="modal" id="upload-modal"><div class="m-box"><i class="fas fa-times" style="position:absolute; top:15px; right:15px;" onclick="closeModal('upload-modal')"></i><h3>Yüklə</h3><div id="upload-previews"></div><div id="prog-cont" style="display:none; width:100%; height:18px; background:#222; margin:10px 0; border-radius:10px; overflow:hidden; border:1px solid #333;"><div id="prog-bar" style="height:100%; width:0%; background:#F72585; text-align:center; font-size:11px; line-height:18px; color:#fff; font-weight:bold; transition:width 0.2s;">0%</div></div><input type="file" id="u-file" multiple style="display:none;" accept=".mp3,audio/mpeg" onchange="prepareUpload(this.files)"><div onclick="document.getElementById('u-file').click()" style="border:2px dashed #333; padding:20px; margin:15px 0; border-radius:10px; cursor:pointer;">MP3 Seç</div><select id="u-genre" class="inp" style="background:#111;"><option>Pop</option><option>Meyxana</option><option>Rap</option><option>Rock</option></select><button class="btn" onclick="startUpload()">YÜKLƏ</button></div></div>
+
+</div>
+
+<div class="modal" id="dl-modal"><div class="m-box"><h3>Yüklənir...</h3><div id="dl-timer" style="font-size:40px; font-weight:bold; color:var(--main); margin:20px 0;">3</div></div></div>
+
+<audio id="audio" crossorigin="anonymous" preload="auto"></audio>
+
+<form id="dl-form" method="POST" style="display:none;"><input type="hidden" name="action" value="download_file"><input name="id" id="dl-id"></form>
+
+<script>
+
+const songs=[{"id":315,"user_id":1,"title":"﻿Aysun İsmayilova & Ulvi Nadiroglu - Dostlar Meni Unutmayin 2026 (Yeni Klip) 4K","artist":"﻿Aysun İsmayilova","genre":"Pop","slug":"ysun-smayilova-ysun-smayilova-lvi-adiroglu-ostlar-eni-nutmayin-2026-eni-lip-4-467","cover_image":"uploads\/cov_6998ab0f79f0c.jpg","file_path":"uploads\/6998ab0f7840b_Aysunsmayilova_UlviNadiroglu-DostlarMeniUnutmayin2026YeniKlip4KMP3_160K.mp3","country":"Global","flag":"🌍","tags":"#Global","plays":3,"likes":0,"downloads":0,"created_at":"2026-02-20 21:42:23","lyrics":null,"duration":"3:00","year":2023,"bitrate":"320kbps","mood":"Mix","shares":0,"username":"Anar"},{"id":314,"user_id":1,"title":"﻿Xatire İslam - Heyatima Xoş Gelmisen 2026 (Yeni Klip) 4K","artist":"﻿Xatire İslam - Heyatima Xoş Gelmisen","genre":"Pop","slug":"atire-slam-eyatima-o-elmisen-atire-slam-eyatima-o-elmisen-2026-eni-lip-4-472","cover_image":"uploads\/cov_6998aa5a7d6de.jpg","file_path":"uploads\/6998aa5a7c1a5_Xatireslam-HeyatimaXoGelmisen2026YeniKlip4KMP3_160K.mp3","country":"Azərbaycan","flag":"🇦🇿","tags":"#Azeri","plays":4,"likes":0,"downloads":0,"created_at":"2026-02-20 21:39:22","lyrics":null,"duration":"3:00","year":2023,"bitrate":"320kbps","mood":"Mix","shares":0,"username":"Anar"},{"id":313,"user_id":27,"title":"﻿Xumar Qedimova - Dünya","artist":"﻿Xumar Qədimova","genre":"Pop","slug":"umar-dimova-umar-edimova-nya-586","cover_image":"uploads\/cov_699625b2c3969.jpg","file_path":"uploads\/699625b2c19db_XumarQedimova-DnyaMP3_160K.mp3","country":"Azərbaycan","flag":"🇦🇿","tags":"#Azeri","plays":19,"likes":0,"downloads":0,"created_at":"2026-02-18 23:48:50","lyrics":null,"duration":"3:00","year":2023,"bitrate":"320kbps","mood":"Mix","shares":0,"username":"Semra"},{"id":312,"user_id":29,"title":"﻿Olsun","artist":"﻿Şöhret Memmedov, Almaxanım","genre":"Pop","slug":"hret-emmedov-lmaxan-m-lsun-506","cover_image":"uploads\/cov_698b0b2aa2272.jpg","file_path":"uploads\/698b0b2aa0190_hrtMmmdov_MrslSfrov-Olsunmu_OfficialVideoMP3_160K.mp3","country":"Azərbaycan","flag":"🇦🇿","tags":"#Azeri","plays":27,"likes":0,"downloads":0,"created_at":"2026-02-10 13:40:42","lyrics":null,"duration":"3:00","year":2023,"bitrate":"320kbps","mood":"Mix","shares":0,"username":"Nuranə"},{"id":311,"user_id":29,"title":"﻿MadTeen x Leyla — Nə Qədər (Rəsmi Musiqi Videosu)","artist":"﻿MadTeen","genre":"Pop","slug":"ad-een-ad-een-x-eyla-d-r-smi-usiqi-ideosu-712","cover_image":"uploads\/cov_698b0b13a2a95.jpg","file_path":"uploads\/698b0b13a1024_MadTeenxLeyla_NQdrRsmiMusiqiVideosuMP3_160K.mp3","country":"Azərbaycan","flag":"🇦🇿","tags":"#Azeri","plays":14,"likes":0,"downloads":0,"created_at":"2026-02-10 13:40:19","lyrics":null,"duration":"3:00","year":2023,"bitrate":"320kbps","mood":"Mix","shares":0,"username":"Nuranə"},{"id":310,"user_id":29,"title":"﻿Nigar Şabanova & Vasif Azimov - Hesretinden","artist":"﻿Nigar Şabanova","genre":"Pop","slug":"igar-abanova-igar-abanova-asif-zimov-esretinden-828","cover_image":"uploads\/cov_698b0afbebbcc.jpg","file_path":"uploads\/698b0afbe9256_Nigarabanova_VasifAzimov-HesretindenMP3_160K.mp3","country":"Azərbaycan","flag":"🇦🇿","tags":"#Azeri","plays":22,"likes":0,"downloads":0,"created_at":"2026-02-10 13:39:55","lyrics":null,"duration":"3:00","year":2023,"bitrate":"320kbps","mood":"Mix","shares":0,"username":"Nuranə"},{"id":309,"user_id":29,"title":"﻿Şöhrət Məmmədov &   - Ana (Official Lyric Video)","artist":"﻿Şöhret Memmedov","genre":"Pop","slug":"hret-emmedov-hr-t-mm-dov-na-fficial-yric-ideo-273","cover_image":"uploads\/cov_698b0ac4888ed.jpg","file_path":"uploads\/698b0ac48708b_hrtMmmdov_-AnaOfficialLyricVideoMP3_160K.mp3","country":"Azərbaycan","flag":"🇦🇿","tags":"#Azeri","plays":19,"likes":0,"downloads":0,"created_at":"2026-02-10 13:39:00","lyrics":null,"duration":"3:00","year":2023,"bitrate":"320kbps","mood":"Mix","shares":0,"username":"Nuranə"},{"id":308,"user_id":29,"title":"﻿Sevmə Məni","artist":"﻿Lil Orxan","genre":"Pop","slug":"il-rxan-evm-ni-323","cover_image":"uploads\/cov_698b0ac4868b7.jpg","file_path":"uploads\/698b0ac485326_LilOrxan-SevmMniOfficialLyricVideoMP3_160K.mp3","country":"Azərbaycan","flag":"🇦🇿","tags":"#Azeri","plays":5,"likes":0,"downloads":0,"created_at":"2026-02-10 13:39:00","lyrics":null,"duration":"3:00","year":2023,"bitrate":"320kbps","mood":"Mix","shares":0,"username":"Nuranə"},{"id":307,"user_id":29,"title":"﻿O Qız","artist":"﻿Talıb Tale","genre":"Pop","slug":"al-b-ale-z-637","cover_image":"uploads\/cov_698b0aa666f16.jpg","file_path":"uploads\/698b0aa6654cb_TalbTale-OQz_Akustik_2026MP3_160K.mp3","country":"Azərbaycan","flag":"🇦🇿","tags":"#Azeri","plays":24,"likes":0,"downloads":0,"created_at":"2026-02-10 13:38:30","lyrics":null,"duration":"3:00","year":2023,"bitrate":"320kbps","mood":"Mix","shares":0,"username":"Nuranə"},{"id":306,"user_id":29,"title":"﻿Dəniz","artist":"﻿Röya","genre":"Pop","slug":"ya-niz-644","cover_image":"uploads\/cov_698b0a91bce8d.jpg","file_path":"uploads\/698b0a91bad67_RyaDnizAkustikMP3_160K.mp3","country":"Azərbaycan","flag":"🇦🇿","tags":"#Azeri","plays":7,"likes":0,"downloads":0,"created_at":"2026-02-10 13:38:09","lyrics":null,"duration":"3:00","year":2023,"bitrate":"320kbps","mood":"Mix","shares":0,"username":"Nuranə"},{"id":305,"user_id":27,"title":"﻿Ay Parcasi","artist":"﻿Uzeyir Mehdizade","genre":"Pop","slug":"zeyir-ehdizade-y-arcasi-525","cover_image":"uploads\/cov_6989fa6427821.jpg","file_path":"uploads\/6989fa6426185_UzeyirMehdizade-AyParcasiYeniKlip2026MP3_160K.mp3","country":"Azərbaycan","flag":"🇦🇿","tags":"#Azeri","plays":124,"likes":0,"downloads":0,"created_at":"2026-02-09 18:16:52","lyrics":null,"duration":"3:00","year":2023,"bitrate":"320kbps","mood":"Mix","shares":0,"username":"Semra"},{"id":304,"user_id":2,"title":"﻿Lord Vertigo & Sevinc Urek - Bir Omur Gozleyerem ( Yeni 2026 )","artist":"﻿Lord Vertigo","genre":"Pop","slug":"ord-ertigo-ord-ertigo-evinc-rek-ir-mur-ozleyerem-eni-2026-231","cover_image":"uploads\/cov_69896a82a6b71.jpg","file_path":"uploads\/69896a82a52e9__LordVertigoSevincUrek-BirOmurGozleyeremYeni2026-_LordVertigo.mp3","country":"Global","flag":"🌍","tags":"#Global","plays":26,"likes":0,"downloads":0,"created_at":"2026-02-09 08:02:58","lyrics":null,"duration":"3:00","year":2023,"bitrate":"320kbps","mood":"Mix","shares":0,"username":"admin"},{"id":303,"user_id":26,"title":"﻿Lalala","artist":"﻿Y2K, bbno$","genre":"Pop","slug":"2-bbno-alala-228","cover_image":"uploads\/cov_6979c35d74deb.jpg","file_path":"uploads\/6979c35d73c58_Y2K_bbno_-LalalaOfficialVideoMP3_160K.mp3","country":"Global","flag":"🌍","tags":"#Global","plays":20,"likes":0,"downloads":0,"created_at":"2026-01-28 11:05:49","lyrics":null,"duration":"3:00","year":2023,"bitrate":"320kbps","mood":"Mix","shares":0,"username":"Vusale"},{"id":302,"user_id":26,"title":"﻿Call Me Maybe","artist":"﻿Carly Rae Jepsen","genre":"Pop","slug":"arly-ae-epsen-all-e-aybe-604","cover_image":"uploads\/cov_6979c35d735f0.jpg","file_path":"uploads\/6979c35d71e20_CarlyRaeJepsen-CallMeMaybeMP3_160K.mp3","country":"Global","flag":"🌍","tags":"#Global","plays":22,"likes":0,"downloads":0,"created_at":"2026-01-28 11:05:49","lyrics":null,"duration":"3:00","year":2023,"bitrate":"320kbps","mood":"Mix","shares":0,"username":"Vusale"},{"id":301,"user_id":26,"title":"﻿Drake - God's Plan","artist":"﻿DrakeVEVO","genre":"Pop","slug":"rake-rake-od-s-lan-848","cover_image":"uploads\/cov_6979c35d6df9e.jpg","file_path":"uploads\/6979c35d6b6c3_Drake-God_sPlanMP3_160K.mp3","country":"Global","flag":"🌍","tags":"#Global","plays":13,"likes":0,"downloads":0,"created_at":"2026-01-28 11:05:49","lyrics":null,"duration":"3:00","year":2023,"bitrate":"320kbps","mood":"Mix","shares":0,"username":"Vusale"},{"id":300,"user_id":26,"title":"﻿Balabey & Sunam ''Yene Eşqin Demi Gelmiş'' - By Rahmanlı ( Official Video )","artist":"﻿By Rahmanlı","genre":"Pop","slug":"y-ahmanl-alabey-unam-ene-qin-emi-elmi-y-ahmanl-fficial-ideo-736","cover_image":"uploads\/cov_6979c1fd155a2.jpg","file_path":"uploads\/6979c1fd137bd_Balabey_Sunam__YeneEqinDemiGelmi__-ByRahmanlOfficialVideoMP3_160K.mp3","country":"Azərbaycan","flag":"🇦🇿","tags":"#Azeri","plays":33,"likes":0,"downloads":0,"created_at":"2026-01-28 10:59:57","lyrics":null,"duration":"3:00","year":2023,"bitrate":"320kbps","mood":"Mix","shares":0,"username":"Vusale"},{"id":299,"user_id":26,"title":"﻿Gəl və Bax","artist":"﻿Qaraqan","genre":"Pop","slug":"araqan-l-v-ax-118","cover_image":"uploads\/cov_6979c1fd13111.jpg","file_path":"uploads\/6979c1fd11b29_Qaraqan_GlvBaxMP3_160K.mp3","country":"Azərbaycan","flag":"🇦🇿","tags":"#Azeri","plays":22,"likes":0,"downloads":0,"created_at":"2026-01-28 10:59:57","lyrics":null,"duration":"3:00","year":2023,"bitrate":"320kbps","mood":"Mix","shares":0,"username":"Vusale"},{"id":298,"user_id":26,"title":"﻿Lunara- Tənha gəmi Yeni mahnı","artist":"﻿Lunara azeri","genre":"Pop","slug":"unara-azeri-unara-nha-g-mi-eni-mahn-746","cover_image":"uploads\/cov_6979c1fd11492.jpg","file_path":"uploads\/6979c1fd102c0_Lunara-TnhagmiYenimahnMP3_160K.mp3","country":"Azərbaycan","flag":"🇦🇿","tags":"#Azeri","plays":50,"likes":0,"downloads":0,"created_at":"2026-01-28 10:59:57","lyrics":null,"duration":"3:00","year":2023,"bitrate":"320kbps","mood":"Mix","shares":0,"username":"Vusale"},{"id":297,"user_id":26,"title":"﻿No Face No Name No Number","artist":"﻿Modern Talking","genre":"Pop","slug":"odern-alking-o-ace-o-ame-o-umber-869","cover_image":"uploads\/cov_6979c1fd0f974.jpg","file_path":"uploads\/6979c1fd0e1aa_NoFace_NoName_NoNumberZDF-Fernsehgarten4.6.2000LivefromZDF-Fernsehgarten_2000MP3_160K.mp3","country":"Global","flag":"🌍","tags":"#Global","plays":10,"likes":0,"downloads":0,"created_at":"2026-01-28 10:59:57","lyrics":null,"duration":"3:00","year":2023,"bitrate":"320kbps","mood":"Mix","shares":0,"username":"Vusale"},{"id":296,"user_id":26,"title":"﻿Dünya sənin, dünya mənim!","artist":"﻿Dervish Band, Niyaməddin Musayev","genre":"Pop","slug":"ervish-and-iyam-ddin-usayev-nya-s-nin-d-nya-m-nim-268","cover_image":"uploads\/cov_6979c1fd0d9d2.jpg","file_path":"uploads\/6979c1fd0b3a1_NiyamddinMusayevftDrviBandDnyaSnin_DnyaMnimMP3_160K.mp3","country":"Azərbaycan","flag":"🇦🇿","tags":"#Azeri","plays":73,"likes":0,"downloads":0,"created_at":"2026-01-28 10:59:57","lyrics":null,"duration":"3:00","year":2023,"bitrate":"320kbps","mood":"Mix","shares":0,"username":"Vusale"},{"id":295,"user_id":26,"title":"﻿Mirələm Mirələmov - Susqun Mələklər","artist":"﻿Mirələm Mirələmov","genre":"Pop","slug":"ir-l-m-ir-l-mov-ir-l-m-ir-l-mov-usqun-l-kl-r-312","cover_image":"uploads\/cov_6979c1fd0ac53.jpg","file_path":"uploads\/6979c1fd07e31_MirlmMirlmov-SusqunMlklrMP3_160K.mp3","country":"Azərbaycan","flag":"🇦🇿","tags":"#Azeri","plays":11,"likes":0,"downloads":0,"created_at":"2026-01-28 10:59:57","lyrics":null,"duration":"3:00","year":2023,"bitrate":"320kbps","mood":"Mix","shares":0,"username":"Vusale"},{"id":294,"user_id":26,"title":"﻿Bassa Sababa","artist":"﻿Netta","genre":"Pop","slug":"etta-assa-ababa-379","cover_image":"uploads\/cov_6979c1fd0768e.jpg","file_path":"uploads\/6979c1fd05e30_NETTA-_BassaSababa_OfficialMusicVideo-MP3_160K.mp3","country":"Global","flag":"🌍","tags":"#Global","plays":12,"likes":0,"downloads":0,"created_at":"2026-01-28 10:59:57","lyrics":null,"duration":"3:00","year":2023,"bitrate":"320kbps","mood":"Mix","shares":0,"username":"Vusale"},{"id":293,"user_id":26,"title":"﻿Aygün Kazımova ft. YAP10 - Oxudum (Rəsmi Musiqi)","artist":"﻿Aygün Kazımova","genre":"Pop","slug":"yg-n-az-mova-yg-n-az-mova-ft-10-xudum-smi-usiqi-635","cover_image":"uploads\/cov_6979c047ef1e2.jpg","file_path":"uploads\/6979c047ed725_AygnKazmovaft.YAP10-OxudumRsmiMusiqiMP3_160K.mp3","country":"Azərbaycan","flag":"🇦🇿","tags":"#Azeri","plays":8,"likes":0,"downloads":0,"created_at":"2026-01-28 10:52:39","lyrics":null,"duration":"3:00","year":2023,"bitrate":"320kbps","mood":"Mix","shares":0,"username":"Vusale"},{"id":292,"user_id":26,"title":"﻿Ceyhun SazMen & Vefa Serifova - Popuri 2026 (Yeni Klip) 4K","artist":"﻿Ceyhun SazMen","genre":"Pop","slug":"eyhun-az-en-eyhun-az-en-efa-erifova-opuri-2026-eni-lip-4-525","cover_image":"uploads\/cov_6979c047ecdc1.jpg","file_path":"uploads\/6979c047eac8d_CeyhunSazMen_VefaSerifova-Popuri2026YeniKlip4KMP3_160K.mp3","country":"Türkiyə","flag":"🇹🇷","tags":"#Turk","plays":12,"likes":0,"downloads":0,"created_at":"2026-01-28 10:52:39","lyrics":null,"duration":"3:00","year":2023,"bitrate":"320kbps","mood":"Mix","shares":0,"username":"Vusale"},{"id":291,"user_id":26,"title":"﻿Hicran ( Kerimbey Kerimov ) Qabaǧlaşsaq Bu Seherde Biz Aniden | Trend","artist":"﻿Mahni FM","genre":"Pop","slug":"ahni-icran-erimbey-erimov-aba-la-saq-u-eherde-iz-niden-rend-247","cover_image":"uploads\/cov_6979c047ea5b5.jpg","file_path":"uploads\/6979c047e9562_HicranKerimbeyKerimovQabalasaqBuSeherdeBizAniden_TrendMP3_160K.mp3","country":"Azərbaycan","flag":"🇦🇿","tags":"#Azeri","plays":12,"likes":0,"downloads":0,"created_at":"2026-01-28 10:52:39","lyrics":null,"duration":"3:00","year":2023,"bitrate":"320kbps","mood":"Mix","shares":0,"username":"Vusale"},{"id":290,"user_id":26,"title":"﻿Қайрат Нұртас ft. Бауыржан Исаев - Аяулым (OST.  \"ҚЫЗЫМ\")","artist":"﻿NRB Studios","genre":"Pop","slug":"tudios-ft-986","cover_image":"uploads\/cov_6979c047e8bb7.jpg","file_path":"uploads\/6979c047e6c98_ft.-OST.__MP3_160K.mp3","country":"Rusiya","flag":"🇷🇺","tags":"#Russian","plays":28,"likes":0,"downloads":0,"created_at":"2026-01-28 10:52:39","lyrics":null,"duration":"3:00","year":2023,"bitrate":"320kbps","mood":"Mix","shares":0,"username":"Vusale"},{"id":289,"user_id":25,"title":"﻿Cin Atı","artist":"﻿Brilliant Dadaşova, Murad Arif","genre":"Pop","slug":"rilliant-ada-ova-urad-rif-in-t-482","cover_image":"uploads\/cov_69767cf563008.jpg","file_path":"uploads\/69767cf5615e7_BrilliantDadaovaxMuradArifCinAtRsmiMusiqiVideosuMP3_160K.mp3","country":"Azərbaycan","flag":"🇦🇿","tags":"#Azeri","plays":21,"likes":0,"downloads":0,"created_at":"2026-01-25 23:28:37","lyrics":null,"duration":"3:00","year":2023,"bitrate":"320kbps","mood":"Mix","shares":0,"username":"Səma"},{"id":288,"user_id":25,"title":"﻿Zamiq Hüseynov — Gözləyirəm (Rəsmi Audio)","artist":"﻿Zamiq Hüseynov","genre":"Pop","slug":"amiq-seynov-amiq-seynov-o-zl-yir-m-smi-udio-724","cover_image":"uploads\/cov_69767cf560c10.jpg","file_path":"uploads\/69767cf55f17a_ZamiqHseynov_GozlyirmRsmiAudioMP3_160K.mp3","country":"Azərbaycan","flag":"🇦🇿","tags":"#Azeri","plays":9,"likes":0,"downloads":0,"created_at":"2026-01-25 23:28:37","lyrics":null,"duration":"3:00","year":2023,"bitrate":"320kbps","mood":"Mix","shares":0,"username":"Səma"},{"id":287,"user_id":25,"title":"﻿Məsafələr","artist":"﻿Aygün Kazımova, Nəsimi Məmmədov","genre":"Pop","slug":"yg-n-az-mova-simi-mm-dov-saf-l-r-757","cover_image":"uploads\/cov_69767cf55e7b0.jpg","file_path":"uploads\/69767cf55d011_AygnKazmovaNsimiMmmdovMsaflrRsmiMusiqiVideosuMP3_160K_1.mp3","country":"Azərbaycan","flag":"🇦🇿","tags":"#Azeri","plays":12,"likes":0,"downloads":0,"created_at":"2026-01-25 23:28:37","lyrics":null,"duration":"3:00","year":2023,"bitrate":"320kbps","mood":"Mix","shares":0,"username":"Səma"},{"id":286,"user_id":25,"title":"﻿Balabəy & Sunam - Eşqin Dəmi (Official Video)","artist":"﻿Balabey Agayev Vlog","genre":"Pop","slug":"alabey-gayev-log-alab-y-unam-qin-mi-fficial-ideo-119","cover_image":"uploads\/cov_69767cf55c801.jpg","file_path":"uploads\/69767cf55a483_Balaby_Sunam-EqinDmiOfficialVideoMP3_160K.mp3","country":"Azərbaycan","flag":"🇦🇿","tags":"#Azeri","plays":13,"likes":0,"downloads":0,"created_at":"2026-01-25 23:28:37","lyrics":null,"duration":"3:00","year":2023,"bitrate":"320kbps","mood":"Mix","shares":0,"username":"Səma"},{"id":285,"user_id":25,"title":"﻿Alacağam Mən Səni","artist":"﻿Mehran Şeyxi","genre":"Pop","slug":"ehran-eyxi-laca-am-n-ni-878","cover_image":"uploads\/cov_69767cf559ade.jpg","file_path":"uploads\/69767cf5586ed_Mehraneyxi-AlacamMenSeni2026OfficialMusicVideoMP3_160K.mp3","country":"Azərbaycan","flag":"🇦🇿","tags":"#Azeri","plays":28,"likes":0,"downloads":0,"created_at":"2026-01-25 23:28:37","lyrics":null,"duration":"3:00","year":2023,"bitrate":"320kbps","mood":"Mix","shares":0,"username":"Səma"},{"id":284,"user_id":25,"title":"﻿Mənim Dünyam","artist":"﻿Sədəf Budaqova","genre":"Pop","slug":"d-f-udaqova-nim-nyam-920","cover_image":"uploads\/cov_69767cf557d6b.jpg","file_path":"uploads\/69767cf5561f5_SedefBudaqova-MenimDunyam2025YeniKlip4KMP3_160K.mp3","country":"Azərbaycan","flag":"🇦🇿","tags":"#Azeri","plays":49,"likes":0,"downloads":0,"created_at":"2026-01-25 23:28:37","lyrics":null,"duration":"3:00","year":2023,"bitrate":"320kbps","mood":"Mix","shares":0,"username":"Səma"},{"id":283,"user_id":25,"title":"﻿Mən Başı Bəlalı","artist":"﻿Lord Vertigo, Nilay Şəms","genre":"Pop","slug":"ord-ertigo-ilay-ms-n-a-lal-636","cover_image":"uploads\/cov_69767cf5552e8.jpg","file_path":"uploads\/69767cf553b43_LordVertigo_NilaySems-MenBasiBelaliYeni2026MP3_160K.mp3","country":"Azərbaycan","flag":"🇦🇿","tags":"#Azeri","plays":19,"likes":0,"downloads":0,"created_at":"2026-01-25 23:28:37","lyrics":null,"duration":"3:00","year":2023,"bitrate":"320kbps","mood":"Mix","shares":0,"username":"Səma"},{"id":282,"user_id":25,"title":"﻿Hamının Axtardığı Mahni 2026 Remix Tiktok Trend ( Getmisən İndi ) Azəri Bass Music - 2026","artist":"﻿Niyaz Production","genre":"Pop","slug":"iyaz-roduction-am-n-n-xtard-ahni-2026-emix-iktok-rend-etmis-n-ndi-z-ri-ass-usic-2026-932","cover_image":"uploads\/cov_69767c0629ff4.jpg","file_path":"uploads\/69767c0628a43_HamnnAxtardMahni2026RemixTiktokTrendGetmisnndiAzriBassMusic-2026MP3_160K.mp3","country":"Azərbaycan","flag":"🇦🇿","tags":"#Azeri","plays":36,"likes":0,"downloads":0,"created_at":"2026-01-25 23:24:38","lyrics":null,"duration":"3:00","year":2023,"bitrate":"320kbps","mood":"Mix","shares":0,"username":"Səma"},{"id":281,"user_id":25,"title":"﻿Cin Atı","artist":"﻿Brilliant Dadaşova, Murad Arif","genre":"Pop","slug":"rilliant-ada-ova-urad-rif-in-t-206","cover_image":"uploads\/cov_69767c06284bb.jpg","file_path":"uploads\/69767c0626e5f_BrilliantDadaovaxMuradArifCinAtRsmiMusiqiVideosuMP3_160K.mp3","country":"Azərbaycan","flag":"🇦🇿","tags":"#Azeri","plays":46,"likes":0,"downloads":0,"created_at":"2026-01-25 23:24:38","lyrics":null,"duration":"3:00","year":2023,"bitrate":"320kbps","mood":"Mix","shares":0,"username":"Səma"},{"id":280,"user_id":25,"title":"﻿Zamiq Hüseynov — Gözləyirəm (Rəsmi Audio)","artist":"﻿Zamiq Hüseynov","genre":"Pop","slug":"amiq-seynov-amiq-seynov-o-zl-yir-m-smi-udio-128","cover_image":"uploads\/cov_69767c062694d.jpg","file_path":"uploads\/69767c06253bf_ZamiqHseynov_GozlyirmRsmiAudioMP3_160K.mp3","country":"Azərbaycan","flag":"🇦🇿","tags":"#Azeri","plays":14,"likes":0,"downloads":0,"created_at":"2026-01-25 23:24:38","lyrics":null,"duration":"3:00","year":2023,"bitrate":"320kbps","mood":"Mix","shares":0,"username":"Səma"},{"id":279,"user_id":25,"title":"﻿Məsafələr","artist":"﻿Aygün Kazımova, Nəsimi Məmmədov","genre":"Pop","slug":"yg-n-az-mova-simi-mm-dov-saf-l-r-419","cover_image":"uploads\/cov_69767c0624a54.jpg","file_path":"uploads\/69767c06236ae_AygnKazmovaNsimiMmmdovMsaflrRsmiMusiqiVideosuMP3_160K_1.mp3","country":"Azərbaycan","flag":"🇦🇿","tags":"#Azeri","plays":17,"likes":0,"downloads":0,"created_at":"2026-01-25 23:24:38","lyrics":null,"duration":"3:00","year":2023,"bitrate":"320kbps","mood":"Mix","shares":0,"username":"Səma"},{"id":278,"user_id":25,"title":"﻿Balabəy & Sunam - Eşqin Dəmi (Official Video)","artist":"﻿Balabey Agayev Vlog","genre":"Pop","slug":"alabey-gayev-log-alab-y-unam-qin-mi-fficial-ideo-455","cover_image":"uploads\/cov_69767c0623171.jpg","file_path":"uploads\/69767c06211db_Balaby_Sunam-EqinDmiOfficialVideoMP3_160K.mp3","country":"Azərbaycan","flag":"🇦🇿","tags":"#Azeri","plays":16,"likes":0,"downloads":0,"created_at":"2026-01-25 23:24:38","lyrics":null,"duration":"3:00","year":2023,"bitrate":"320kbps","mood":"Mix","shares":0,"username":"Səma"},{"id":277,"user_id":25,"title":"﻿Alacağam Mən Səni","artist":"﻿Mehran Şeyxi","genre":"Pop","slug":"ehran-eyxi-laca-am-n-ni-617","cover_image":"uploads\/cov_69767c062077e.jpg","file_path":"uploads\/69767c061f03e_Mehraneyxi-AlacamMenSeni2026OfficialMusicVideoMP3_160K.mp3","country":"Azərbaycan","flag":"🇦🇿","tags":"#Azeri","plays":19,"likes":0,"downloads":0,"created_at":"2026-01-25 23:24:38","lyrics":null,"duration":"3:00","year":2023,"bitrate":"320kbps","mood":"Mix","shares":0,"username":"Səma"},{"id":276,"user_id":25,"title":"﻿Tural Sedali ft Sadiq Hemzeyev - Öldüyüm Yerde 2026","artist":"﻿Sadiq Hemzeyev","genre":"Pop","slug":"adiq-emzeyev-ural-edali-ft-adiq-emzeyev-ld-y-m-erde-2026-273","cover_image":"uploads\/cov_697679f59bc55.jpg","file_path":"uploads\/697679f59a207_TuralSedaliftSadiqHemzeyev-ldymYerde2026MP3_160K.mp3","country":"Azərbaycan","flag":"🇦🇿","tags":"#Azeri","plays":20,"likes":0,"downloads":0,"created_at":"2026-01-25 23:15:49","lyrics":null,"duration":"3:00","year":2023,"bitrate":"320kbps","mood":"Mix","shares":0,"username":"Səma"},{"id":275,"user_id":25,"title":"﻿Samir Sanayev - Dilrabo (Official Music Video)","artist":"﻿NevoMusic","genre":"Pop","slug":"evo-usic-amir-anayev-ilrabo-fficial-usic-ideo-188","cover_image":"uploads\/cov_697679f5998de.jpg","file_path":"uploads\/697679f597004_SamirSanayev-DilraboOfficialMusicVideoMP3_160K.mp3","country":"Global","flag":"🌍","tags":"#Global","plays":18,"likes":0,"downloads":0,"created_at":"2026-01-25 23:15:49","lyrics":null,"duration":"3:00","year":2023,"bitrate":"320kbps","mood":"Mix","shares":0,"username":"Səma"},{"id":274,"user_id":25,"title":"﻿Elcin Goycayli & Sebine Baxis - Bextime Bax 2026 (Official Video)","artist":"﻿Elcin Goycayli Music","genre":"Pop","slug":"lcin-oycayli-usic-lcin-oycayli-ebine-axis-extime-ax-2026-fficial-ideo-832","cover_image":"uploads\/cov_697679f596679.jpg","file_path":"uploads\/697679f59471f_ElcinGoycayli_SebineBaxis-BextimeBax2026OfficialVideoMP3_160K.mp3","country":"Global","flag":"🌍","tags":"#Global","plays":12,"likes":0,"downloads":0,"created_at":"2026-01-25 23:15:49","lyrics":null,"duration":"3:00","year":2023,"bitrate":"320kbps","mood":"Mix","shares":0,"username":"Səma"},{"id":273,"user_id":25,"title":"﻿Aldatma","artist":"﻿Röya","genre":"Pop","slug":"ya-ldatma-437","cover_image":"uploads\/cov_697679f593ef0.jpg","file_path":"uploads\/697679f592439_RyaAldatmaAkustikMP3_160K.mp3","country":"Azərbaycan","flag":"🇦🇿","tags":"#Azeri","plays":28,"likes":0,"downloads":0,"created_at":"2026-01-25 23:15:49","lyrics":null,"duration":"3:00","year":2023,"bitrate":"320kbps","mood":"Mix","shares":0,"username":"Səma"},{"id":272,"user_id":25,"title":"﻿Namiq Qasimov - Qucaqla Meni 2026 (Official Music Video)","artist":"﻿Namiq Qasimov","genre":"Pop","slug":"amiq-asimov-amiq-asimov-ucaqla-eni-2026-fficial-usic-ideo-816","cover_image":"uploads\/cov_697679f59102d.jpg","file_path":"uploads\/697679f58ef0b_NamiqQasimov-QucaqlaMeni2026OfficialMusicVideoMP3_160K.mp3","country":"Azərbaycan","flag":"🇦🇿","tags":"#Azeri","plays":16,"likes":0,"downloads":0,"created_at":"2026-01-25 23:15:49","lyrics":null,"duration":"3:00","year":2023,"bitrate":"320kbps","mood":"Mix","shares":0,"username":"Səma"},{"id":271,"user_id":1,"title":"Elsen Pro - Na Ti Xerese","artist":"ultrasound","genre":"Pop","slug":"ultrasound-lsen-ro-a-i-erese-964","cover_image":"uploads\/cov_6974e4be76988.jpg","file_path":"uploads\/6974e4be72719_ElsenPro-NaTiXerese.mp3","country":"Global","flag":"🌍","tags":"#Global","plays":59,"likes":0,"downloads":0,"created_at":"2026-01-24 18:26:54","lyrics":null,"duration":"3:00","year":2023,"bitrate":"320kbps","mood":"Mix","shares":0,"username":"Anar"},{"id":270,"user_id":1,"title":"Elit Star Cəmilə - Demirəm ki","artist":"ATV Music","genre":"Pop","slug":"usic-lit-tar-mil-emir-m-ki-879","cover_image":"uploads\/cov_6974e4be7107f.jpg","file_path":"uploads\/6974e4be6bc6f_ElitStarCmil-Demirmki.mp3","country":"Azərbaycan","flag":"🇦🇿","tags":"#Azeri","plays":115,"likes":0,"downloads":0,"created_at":"2026-01-24 18:26:54","lyrics":null,"duration":"3:00","year":2023,"bitrate":"320kbps","mood":"Mix","shares":0,"username":"Anar"},{"id":269,"user_id":1,"title":"ELFBAR MUZKA — Azəri Bass Music 2023 {En Yeni Mahnılar}Yeni mix(po (www.lightaudio.ru)","artist":"Naməlum","genre":"Pop","slug":"am-lum-z-ri-ass-usic-2023-n-eni-ahn-lar-eni-mix-po-www-lightaudio-ru-827","cover_image":"https:\/\/yenimp3.az\/mp3logo.jpg","file_path":"uploads\/6974e4be692cc_ELFBARMUZKAAzriBassMusic2023EnYeniMahnlarYenimixpowww.lightaudio.ru.mp3","country":"Azərbaycan","flag":"🇦🇿","tags":"#Azeri","plays":64,"likes":0,"downloads":0,"created_at":"2026-01-24 18:26:54","lyrics":null,"duration":"3:00","year":2023,"bitrate":"320kbps","mood":"Mix","shares":0,"username":"Anar"},{"id":268,"user_id":1,"title":"﻿Efsun Memmedli - Seni Verene Sukur 2025 (Yeni Klip) 4K","artist":"﻿Luna Music House","genre":"Pop","slug":"una-usic-ouse-fsun-emmedli-eni-erene-ukur-2025-eni-lip-4-226","cover_image":"uploads\/cov_6974e4be631a7.jpg","file_path":"uploads\/6974e4be6182b_EfsunMemmedli-SeniVereneSukur2025YeniKlip4KMP3_160K.mp3","country":"Global","flag":"🌍","tags":"#Global","plays":10,"likes":0,"downloads":0,"created_at":"2026-01-24 18:26:54","lyrics":null,"duration":"3:00","year":2023,"bitrate":"320kbps","mood":"Mix","shares":0,"username":"Anar"},{"id":267,"user_id":1,"title":"﻿Məhkum","artist":"﻿Damla","genre":"Pop","slug":"amla-hkum-294","cover_image":"uploads\/cov_6974e3cd900a3.jpg","file_path":"uploads\/6974e3cd8e62e_DamlaMhkum2024YeniMahnMP3_160K.mp3","country":"Azərbaycan","flag":"🇦🇿","tags":"#Azeri","plays":11,"likes":0,"downloads":0,"created_at":"2026-01-24 18:22:53","lyrics":null,"duration":"3:00","year":2023,"bitrate":"320kbps","mood":"Mix","shares":0,"username":"Anar"},{"id":266,"user_id":1,"title":"﻿Dal","artist":"﻿Adamlar","genre":"Pop","slug":"damlar-al-374","cover_image":"uploads\/cov_6974e3cd8cf6e.jpg","file_path":"uploads\/6974e3cd8b37c_Damla-Dalgalar4KYENMAHNI2024MP3_160K.mp3","country":"Global","flag":"🌍","tags":"#Global","plays":20,"likes":0,"downloads":0,"created_at":"2026-01-24 18:22:53","lyrics":null,"duration":"3:00","year":2023,"bitrate":"320kbps","mood":"Mix","shares":0,"username":"Anar"},{"id":265,"user_id":1,"title":"﻿Seni Düşündüm","artist":"﻿Çağla, Doğu Swag","genre":"Pop","slug":"a-la-o-u-wag-eni-nd-m-809","cover_image":"uploads\/cov_6974e3cd8a2b9.jpg","file_path":"uploads\/6974e3cd88ea6_ala_DouSwag-SeniDndmProd.byBkenMP3_160K.mp3","country":"Azərbaycan","flag":"🇦🇿","tags":"#Azeri","plays":61,"likes":0,"downloads":0,"created_at":"2026-01-24 18:22:53","lyrics":null,"duration":"3:00","year":2023,"bitrate":"320kbps","mood":"Mix","shares":0,"username":"Anar"},{"id":264,"user_id":1,"title":"﻿Cahangir Eliyev & Gulnar Zeynalova - Sen Menim Oz Gulumsen ( Tik Tok Her Kesin Axtardigi Mahni )","artist":"﻿Zamir Zabitoglu","genre":"Pop","slug":"amir-abitoglu-ahangir-liyev-ulnar-eynalova-en-enim-z-ulumsen-ik-ok-er-esin-xtardigi-ahni-892","cover_image":"uploads\/cov_6974e3cd87b26.jpg","file_path":"uploads\/6974e3cd85416_CahangirEliyev_GulnarZeynalova-SenMenimOzGulumsenTikTokHerKesinAxtardigiMahniMP3_160K.mp3","country":"Global","flag":"🌍","tags":"#Global","plays":12,"likes":0,"downloads":0,"created_at":"2026-01-24 18:22:53","lyrics":null,"duration":"3:00","year":2023,"bitrate":"320kbps","mood":"Mix","shares":0,"username":"Anar"},{"id":263,"user_id":1,"title":"﻿Aysun İsmayilova - Sans 2025 (Yeni Klip) 4K","artist":"﻿Aysun İsmayilova","genre":"Pop","slug":"ysun-smayilova-ysun-smayilova-ans-2025-eni-lip-4-805","cover_image":"uploads\/cov_6974e3cd841c6.jpg","file_path":"uploads\/6974e3cd81ce5_Aysunsmayilova-Sans2025YeniKlip4KMP3_160K.mp3","country":"Global","flag":"🌍","tags":"#Global","plays":8,"likes":0,"downloads":0,"created_at":"2026-01-24 18:22:53","lyrics":null,"duration":"3:00","year":2023,"bitrate":"320kbps","mood":"Mix","shares":0,"username":"Anar"},{"id":262,"user_id":1,"title":"AZ🇦🇿🌹 — Azeri bass (En yeni mahnilar 2021) (www.lightaudio.ru)","artist":"Naməlum","genre":"Pop","slug":"am-lum-zeri-bass-n-yeni-mahnilar-2021-www-lightaudio-ru-244","cover_image":"https:\/\/yenimp3.az\/mp3logo.jpg","file_path":"uploads\/6974e3cd7f680_AZAzeribassEnyenimahnilar2021www.lightaudio.ru.mp3","country":"Azərbaycan","flag":"🇦🇿","tags":"#Azeri","plays":9,"likes":0,"downloads":0,"created_at":"2026-01-24 18:22:53","lyrics":null,"duration":"3:00","year":2023,"bitrate":"320kbps","mood":"Mix","shares":0,"username":"Anar"},{"id":261,"user_id":1,"title":"Dəliyəm Bilir","artist":"Aytac Vidadiqizi","genre":"Pop","slug":"ytac-idadiqizi-liy-m-ilir-768","cover_image":"uploads\/cov_6974e3cd7e19b.jpg","file_path":"uploads\/6974e3cd7b9f8_AytacVidadiqz-DliymBilir2023OfficialMusicVideoMP3_160K.mp3","country":"Azərbaycan","flag":"🇦🇿","tags":"#Azeri","plays":9,"likes":0,"downloads":0,"created_at":"2026-01-24 18:22:53","lyrics":null,"duration":"3:00","year":2023,"bitrate":"320kbps","mood":"Mix","shares":0,"username":"Anar"},{"id":260,"user_id":1,"title":"Buraxma Əllərimi","artist":"Aysun İsmayilova","genre":"Pop","slug":"ysun-smayilova-uraxma-ll-rimi-149","cover_image":"uploads\/cov_6974e3cd7a122.jpg","file_path":"uploads\/6974e3cd773ba_Aysunsmayilova-BuraxmaEllerimi2025YeniKlip4KMP3_160K.mp3","country":"Azərbaycan","flag":"🇦🇿","tags":"#Azeri","plays":12,"likes":0,"downloads":0,"created_at":"2026-01-24 18:22:53","lyrics":null,"duration":"3:00","year":2023,"bitrate":"320kbps","mood":"Mix","shares":0,"username":"Anar"},{"id":259,"user_id":1,"title":"﻿Aysun İsmayılova & Dahin Malik - Men deyilem mi 2025 (Yeni Klip) 4K","artist":"﻿Aysun İsmayilova","genre":"Pop","slug":"ysun-smayilova-ysun-smay-lova-ahin-alik-en-deyilem-mi-2025-eni-lip-4-603","cover_image":"uploads\/cov_6974e3cd75ec4.jpg","file_path":"uploads\/6974e3cd74628_Aysunsmaylova_DahinMalik-Mendeyilemmi2025YeniKlip4KMP3_160K.mp3","country":"Azərbaycan","flag":"🇦🇿","tags":"#Azeri","plays":9,"likes":0,"downloads":0,"created_at":"2026-01-24 18:22:53","lyrics":null,"duration":"3:00","year":2023,"bitrate":"320kbps","mood":"Mix","shares":0,"username":"Anar"},{"id":258,"user_id":1,"title":"﻿Deyilənlər","artist":"﻿Ayaz Babayev, Hiss","genre":"Pop","slug":"yaz-abayev-iss-eyil-nl-r-316","cover_image":"uploads\/cov_6974e3cd7239c.jpg","file_path":"uploads\/6974e3cd70c74_AyazBabayevxHissDeyilnlrRsmiMusiqiVideosuMP3_160K.mp3","country":"Azərbaycan","flag":"🇦🇿","tags":"#Azeri","plays":9,"likes":0,"downloads":0,"created_at":"2026-01-24 18:22:53","lyrics":null,"duration":"3:00","year":2023,"bitrate":"320kbps","mood":"Mix","shares":0,"username":"Anar"},{"id":257,"user_id":1,"title":"Arzu Mirzeyeva - Şahzadem (Official Video)","artist":"whatsapp +7 (978) 958-03-09 telegram\/azer0099","genre":"Pop","slug":"whatsapp-7-978-958-03-09-telegram-azer0099-rzu-irzeyeva-ahzadem-fficial-ideo-292","cover_image":"uploads\/cov_6974e3cd6fe2f.jpg","file_path":"uploads\/6974e3cd6ee0b_ArzuMirzeyeva-SahzademYUKLE.mp3indir.mp3","country":"Azərbaycan","flag":"🇦🇿","tags":"#Azeri","plays":9,"likes":0,"downloads":0,"created_at":"2026-01-24 18:22:53","lyrics":null,"duration":"3:00","year":2023,"bitrate":"320kbps","mood":"Mix","shares":0,"username":"Anar"},{"id":256,"user_id":1,"title":"﻿Ordinary","artist":"﻿Alex Warren","genre":"Pop","slug":"lex-arren-rdinary-979","cover_image":"uploads\/cov_6974e3cd6e1fe.jpg","file_path":"uploads\/6974e3cd6cf2e_AlexWarren-OrdinaryOfficialVideoMP3_160K.mp3","country":"Global","flag":"🌍","tags":"#Global","plays":10,"likes":0,"downloads":0,"created_at":"2026-01-24 18:22:53","lyrics":null,"duration":"3:00","year":2023,"bitrate":"320kbps","mood":"Mix","shares":0,"username":"Anar"}]; const userId=0; const defaultLogo="https://yenimp3.az/mp3logo.jpg";
+
+let isPlaying=false, currentPlaylist=[], currentIndex=-1, currentId=0, authMode='login', metaData={};
+
+const audio=document.getElementById('audio');
+
+const adCodeHTML = '<ins class="adsbygoogle" style="display:block" data-ad-format="fluid" data-ad-layout-key="-fb+5w+4e-db+86" data-ad-client="ca-pub-2859105073651413" data-ad-slot="9038865032"></ins>';
+
+window.onload = () => {
+
+    setTimeout(() => render(songs), 300);
+
+    const path = window.location.pathname.replace('/','');
+
+    
+};
+
+
+function render(data) {
+
+    const el = document.getElementById('songs-list'); 
+
+    let html = '';
+
+    
+
+    if(!data.length){ el.innerHTML='<p style="text-align:center; color:#666; margin-top:20px;">Tapılmadı...</p>'; return; }
+
+    currentPlaylist = data;
+
+    data.forEach((s, i) => {
+
+        // Reklam (Hər 7 mahnıdan bir)
+
+        if(i > 0 && i % 7 === 0) {
+
+            html += `<div class="item ad-container" style="display:block; min-height:80px; padding:0; background:#fff;">${typeof adCodeHTML !== 'undefined' ? adCodeHTML : ''}</div>`;
+
+        }
+
+        
+
+        const cover = s.cover_image && s.cover_image.length > 20 ? s.cover_image : defaultLogo;
+
+        const flag = s.flag ? `<span class="flag-icon">${s.flag}</span>` : '';
+
+        
+
+        // --- BADGE MƏNTİQİ ---
+
+        let badges = '';
+
+        const now = new Date();
+
+        const created = new Date(s.created_at);
+
+        const diffHours = (now - created) / 36e5; // Saat fərqi
+
+        
+
+        // 1. YENİ (24 saat)
+
+        if (diffHours < 24) badges += `<div class="badge-tag b-new">🔥 YENİ</div>`;
+
+        
+
+        // 2. TREND (1000+ Play)
+
+        if (parseInt(s.plays) > 1000) badges += `<div class="badge-tag b-trend">⚡ TREND</div>`;
+
+        
+
+        // 3. SEVİMLİ (50+ Like - Rəqəmi dəyişə bilərsən)
+
+        if (parseInt(s.likes) > 50) badges += `<div class="badge-tag b-love">❤️ SEVİMLİ</div>`;
+
+        
+
+        const badgesHTML = badges ? `<div class="badges-con">${badges}</div>` : '';
+
+        
+
+        html += `
+
+        <div class="item" onclick="playFromIndex(${i})">
+
+            ${badgesHTML}
+
+            <img src="${cover}" loading="lazy" decoding="async" width="60" height="60">
+
+            <div class="info">
+
+                <h3>${s.title}</h3>
+
+                <p>${flag}${s.artist}</p>
+
+            </div>
+
+            <div style="font-size:10px; color:#666; margin-right:5px; text-align:right;">
+
+                <div><i class="fas fa-play"></i> ${s.plays}</div>
+
+                <div style="margin-top:2px;"><i class="fas fa-heart"></i> ${s.likes}</div>
+
+            </div>
+
+        </div>`;
+
+    });
+
+    
+
+    el.innerHTML = html;
+
+    
+
+    // Reklamları yenilə (varsa)
+
+    if(typeof initAds === 'function') setTimeout(initAds, 100);
+
+}
+
+
+function initAds() {
+
+    try {
+
+        document.querySelectorAll('.ad-container .adsbygoogle').forEach(ad => { if(ad.innerHTML.trim() === "") (window.adsbygoogle = window.adsbygoogle || []).push({}); });
+
+    } catch(e) {}
+
+}
+
+function playFromIndex(i) { if(i>=0 && i<currentPlaylist.length){ currentIndex=i; const s=currentPlaylist[i]; const cover = s.cover_image && s.cover_image.length > 20 ? s.cover_image : defaultLogo; playSong(s.file_path, s.title, s.artist, cover, s.id, s.likes, s.downloads, true); } }
+
+function playSong(path, title, artist, img, id, likes, dls, autoPlay) {
+
+    currentId=id; audio.src=path; 
+
+    const slug = currentPlaylist[currentIndex]?.slug || 'music'; window.history.pushState({}, '', '/'+slug); document.title = `${artist} - ${title}`;
+
+    if(autoPlay) { initAudioVisualizer(); audio.play().catch(e=>{}); isPlaying=true; } else { isPlaying=false; }
+
+    document.getElementById('p-title').innerText=title; document.getElementById('p-artist').innerText=artist; document.getElementById('p-img').src=img;
+
+    document.getElementById('miniTitle').innerText=title; document.getElementById('miniArtist').innerText=artist; document.getElementById('miniArt').src=img;
+
+    document.getElementById('l-cnt').innerText=likes; document.getElementById('d-cnt').innerText=dls;
+
+    document.getElementById('miniPlayer').classList.add('active');
+
+    updateIcons(); startPlayerAdCycle();
+
+    if(autoPlay) fetch('',{method:'POST',body:new URLSearchParams({action:'play',id:id})});
+
+}
+
+let adInterval = null;
+
+function startPlayerAdCycle() {
+
+    if(adInterval) clearInterval(adInterval); const adBox = document.getElementById('p-art-ad'); showAd(adBox);
+
+    adInterval = setInterval(() => { showAd(adBox); }, 25000); 
+
+}
+
+function showAd(box) {
+
+    box.innerHTML = '<div style="width:100%; text-align:center;">' + adCodeHTML + '</div>'; box.style.display = 'flex';
+
+    (window.adsbygoogle = window.adsbygoogle || []).push({});
+
+    setTimeout(() => { box.style.display = 'none'; }, 15000);
+
+}
+
+function togglePlay(){ initAudioVisualizer(); if(isPlaying){audio.pause();isPlaying=false;}else{audio.play();isPlaying=true;} updateIcons(); }
+
+function updateIcons(){ 
+
+    const c=isPlaying?'fas fa-pause':'fas fa-play'; document.getElementById('miniIcon').className=c; document.getElementById('p-icon').className=c; 
+
+    if(isPlaying) document.getElementById('visualizer').classList.add('playing'); else document.getElementById('visualizer').classList.remove('playing');
+
+}
+
+audio.onended=()=>{ if(currentIndex+1<currentPlaylist.length) playFromIndex(currentIndex+1); };
+
+function prevSong(){ if(currentIndex-1>=0) playFromIndex(currentIndex-1); }
+
+function nextSong(){ if(currentIndex+1<currentPlaylist.length) playFromIndex(currentIndex+1); }
+
+function seekSong(v){ audio.currentTime=(v/100)*audio.duration; }
+
+audio.ontimeupdate=()=>{ document.getElementById('seek').value=(audio.currentTime/audio.duration)*100||0; document.getElementById('curr').innerText=fmt(audio.currentTime); document.getElementById('dur').innerText=fmt(audio.duration); };
+
+function fmt(s){ let m=Math.floor(s/60),sc=Math.floor(s%60); return m+':'+(sc<10?'0'+sc:sc); }
+
+function openView(v){ document.querySelectorAll('.view').forEach(e=>e.style.display='none'); document.getElementById(v+'-view').style.display='block'; window.scrollTo(0,0); }
+
+function openFullPlayer(){ document.getElementById('fullPlayer').classList.add('active'); }
+
+function closePlayer(){ document.getElementById('fullPlayer').classList.remove('active'); }
+
+function openModal(id){ document.getElementById(id).style.display='flex'; }
+
+function closeModal(id){ document.getElementById(id).style.display='none'; }
+
+
+
+function filter(c,b){ document.querySelectorAll('.cat').forEach(x=>x.classList.remove('active')); b.classList.add('active'); if(c==='all') render(songs); else if(c==='new') render([...songs].sort((x,y)=>new Date(y.created_at)-new Date(x.created_at))); else if(c==='trend') render([...songs].sort((x,y)=>y.plays-x.plays)); else render(songs.filter(s=>s.country===c)); }
+
+function tryUpload(){ userId ? openModal('upload-modal') : openModal('auth-modal'); }
+
+function toggleAuth(){ authMode=authMode==='login'?'register':'login'; document.getElementById('a-t').innerText=authMode==='login'?'Giriş':'Qeydiyyat'; }
+
+function auth(){ 
+
+    const fd=new FormData(); fd.append('action',authMode); fd.append('username',document.getElementById('a-u').value); fd.append('password',document.getElementById('a-p').value);
+
+    fetch('',{method:'POST',body:fd}).then(r=>r.json()).then(d=>{ if(d.success)location.reload(); else alert(d.error); });
+
+}
+
+function logout(){ fetch('',{method:'POST',body:new URLSearchParams({action:'logout'})}).then(()=>location.reload()); }
+
+
+
+function act(type){ fetch('',{method:'POST',body:new URLSearchParams({action:type,id:currentId})}); if(type==='like'){ let l=document.getElementById('l-cnt'); l.innerText=parseInt(l.innerText)+1; document.getElementById('p-like').style.color='#F72585'; } }
+
+function openDownload(){ 
+
+    if(currentId){ openModal('dl-modal'); let s=3; const t=document.getElementById('dl-timer'); t.innerText=s; 
+
+    const tm=setInterval(()=>{ s--; t.innerText=s; if(s<=0){ clearInterval(tm); closeModal('dl-modal'); document.getElementById('dl-id').value=currentId; document.getElementById('dl-form').submit(); } },1000); } 
+
+}
+
+function del(id){ if(confirm('Sil?')) fetch('',{method:'POST',body:new URLSearchParams({action:'delete',id:id})}).then(()=>location.reload()); }
+
+</script>
+
+
+<style>
+
+    /* Düymənin Dizaynı */
+
+    #mini-dl-hint {
+
+        position: fixed;
+
+        bottom: 155px; /* Mini player-dən bir az yuxarı */
+
+        left: 50%;
+
+        transform: translateX(-50%);
+
+        background: linear-gradient(45deg, #F72585, #7209b7);
+
+        color: #fff;
+
+        padding: 8px 20px;
+
+        border-radius: 25px;
+
+        font-size: 12px;
+
+        font-weight: bold;
+
+        z-index: 95; /* Mini player-in altında, amma nav-ın üstündə */
+
+        cursor: pointer;
+
+        display: none; /* Başlanğıcda gizli */
+
+        box-shadow: 0 5px 20px rgba(247, 37, 133, 0.4);
+
+        border: 1px solid rgba(255,255,255,0.2);
+
+        white-space: nowrap;
+
+        animation: floatHint 2s infinite ease-in-out;
+
+        align-items: center;
+
+        gap: 8px;
+
+    }
+
+    
+
+    #mini-dl-hint.active {
+
+        display: flex; /* Aktiv olanda görünür */
+
+    }
+
+    /* Üzən animasiya */
+
+    @keyframes floatHint {
+
+        0%, 100% { transform: translate(-50%, 0); }
+
+        50% { transform: translate(-50%, -5px); }
+
+    }
+
+
+    /* BADGE STYLES */
+
+    .item { position: relative; overflow: hidden; }
+
+    .badges-con { position: absolute; top: 8px; left: 8px; display: flex; flex-direction: column; gap: 3px; z-index: 5; pointer-events: none; }
+
+    .badge-tag { font-size: 8px; padding: 3px 6px; border-radius: 5px; color: #fff; font-weight: bold; text-transform: uppercase; box-shadow: 0 2px 5px rgba(0,0,0,0.4); backdrop-filter: blur(2px); }
+
+    .b-new { background: linear-gradient(45deg, #ff0054, #ff5400); }
+
+    .b-trend { background: linear-gradient(45deg, #7209b7, #3a0ca3); }
+
+    .b-love { background: linear-gradient(45deg, #f72585, #b5179e); }
+
+    .flag-icon { margin-right: 4px; font-size: 1.1em; }
+
+
+    /* VIZUALIZATOR STILI */
+
+    #rhythm-canvas {
+
+        position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+
+        z-index: -1; /* Arxa planda olsun */
+
+        opacity: 0.6; /* Bir az şəffaf */
+
+        pointer-events: none;
+
+    }
+
+    
+
+    @keyframes popIn { 0%{transform:scale(0);} 80%{transform:scale(1.1);} 100%{transform:scale(1);} }
+
+
+    /* LAYER FIX */
+
+    .full-player { z-index: 4000 !important; } /* Player ən üstdə */
+
+    .modal { z-index: 3000 !important; }      /* Profil onun altında */
+
+    .mini-player { z-index: 2900 !important; } /* Mini player modalın altında */
+
+
+    /* PROFILE TABS & BADGES */
+
+    .p-tabs { display:flex; gap:10px; padding:10px 20px; overflow-x:auto; background:#0f111a; border-bottom:1px solid #222; scrollbar-width:none; }
+
+    .p-tab { padding:8px 15px; background:#1f2235; border-radius:15px; font-size:12px; white-space:nowrap; color:#ccc; cursor:pointer; border:1px solid #333; transition:0.3s; }
+
+    .p-tab.active { background:#F72585; color:#fff; border-color:#F72585; }
+
+    
+
+    .pp-badge-new { 
+
+        position: absolute; top: 5px; left: 5px; 
+
+        background: linear-gradient(45deg, #ff0054, #ff5400); 
+
+        font-size: 8px; padding: 2px 6px; border-radius: 4px; 
+
+        color: #fff; font-weight: bold; z-index: 2; 
+
+        box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+
+    }
+
+
+    /* FIXED TABS LAYERING */
+
+    .p-tabs { 
+
+        position: sticky !important; /* Yuxarıda yapışsın */
+
+        top: 0 !important;           /* Tam yuxarıdan başlasın */
+
+        z-index: 5000 !important;    /* Bütün mahnılardan üstdə olsun */
+
+        background: #0f111a !important; /* Arxa fon tünd olsun (mahnı görünməsin) */
+
+        padding: 15px 10px !important;
+
+        border-bottom: 1px solid #222 !important;
+
+        box-shadow: 0 4px 15px rgba(0,0,0,0.5) !important; /* Altına kölgə salaq */
+
+        display: flex !important;
+
+        gap: 10px !important;
+
+        overflow-x: auto !important;
+
+    }
+
+    /* Listin başlığını aşağı salırıq ki, tabs ilə toqquşmasın */
+
+    #pp-list {
+
+        position: relative !important;
+
+        z-index: 1 !important; /* Tabs-dan aşağıda qalsın */
+
+        padding-top: 20px !important; /* Düymələrdən aralı olsun */
+
+    }
+
+    
+
+    /* Düymələrin özü */
+
+    .p-tab {
+
+        background: #1f2235 !important;
+
+        color: #fff !important;
+
+        border: 1px solid #333 !important;
+
+        border-radius: 20px !important;
+
+        padding: 8px 16px !important;
+
+        font-size: 13px !important;
+
+        font-weight: bold !important;
+
+    }
+
+    .p-tab.active {
+
+        background: #F72585 !important;
+
+        border-color: #F72585 !important;
+
+        box-shadow: 0 0 10px rgba(247, 37, 133, 0.5) !important;
+
+    }
+
+
+    /* Z-INDEX FIXES */
+
+    .modal, .alert-box, .custom-confirm { z-index: 9999 !important; }
+
+    .full-player { z-index: 3000 !important; }
+
+    
+
+    /* Notification Badge */
+
+    .notif-badge {
+
+        position: absolute; top: -5px; right: -5px;
+
+        background: red; color: white; border-radius: 50%;
+
+        width: 15px; height: 15px; font-size: 10px;
+
+        display: none; align-items: center; justify-content: center;
+
+    }
+
+
+    /* Z-INDEX FIXES */
+
+    .modal, .alert-box, .custom-confirm { z-index: 9999 !important; }
+
+    .full-player { z-index: 3000 !important; }
+
+    
+
+    /* Notification Badge */
+
+    .notif-badge {
+
+        position: absolute; top: -5px; right: -5px;
+
+        background: red; color: white; border-radius: 50%;
+
+        width: 15px; height: 15px; font-size: 10px;
+
+        display: none; align-items: center; justify-content: center;
+
+    }
+
+
+    /* Z-INDEX FIXES */
+
+    .modal, .alert-box, .custom-confirm { z-index: 9999 !important; }
+
+    .full-player { z-index: 3000 !important; }
+
+    
+
+    /* Notification Badge */
+
+    .notif-badge {
+
+        position: absolute; top: -5px; right: -5px;
+
+        background: red; color: white; border-radius: 50%;
+
+        width: 15px; height: 15px; font-size: 10px;
+
+        display: none; align-items: center; justify-content: center;
+
+    }
+
+
+    /* Z-INDEX FIXES */
+
+    .modal, .alert-box, .custom-confirm { z-index: 9999 !important; }
+
+    .full-player { z-index: 3000 !important; }
+
+    
+
+    /* Notification Badge */
+
+    .notif-badge {
+
+        position: absolute; top: -5px; right: -5px;
+
+        background: red; color: white; border-radius: 50%;
+
+        width: 15px; height: 15px; font-size: 10px;
+
+        display: none; align-items: center; justify-content: center;
+
+    }
+
+</style>
+
+<div id="mini-dl-hint" onclick="openFullPlayer()">
+
+    <i class="fas fa-cloud-arrow-down"></i> Mahnını yükləmək üçün bura bas
+
+</div>
+
+<script>
+
+    // Bu skript Mini Player-i izləyir. 
+
+    // Mini player açılan kimi ("active" class-ı gələn kimi), bizim düyməni də açır.
+
+    document.addEventListener("DOMContentLoaded", function() {
+
+        const targetNode = document.getElementById('miniPlayer');
+
+        const hintNode = document.getElementById('mini-dl-hint');
+
+        if (targetNode && hintNode) {
+
+            const config = { attributes: true, attributeFilter: ['class'] };
+
+            const callback = function(mutationsList, observer) {
+
+                for(const mutation of mutationsList) {
+
+                    if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+
+                        if (targetNode.classList.contains('active')) {
+
+                            hintNode.classList.add('active');
+
+                        } else {
+
+                            hintNode.classList.remove('active');
+
+                        }
+
+                    }
+
+                }
+
+            };
+
+            const observer = new MutationObserver(callback);
+
+            observer.observe(targetNode, config);
+
+        }
+
+    });
+
+</script>
+
+
+<script>
+
+// YENİLƏNMİŞ JS (ID3 Oxuma + Faiz Göstərmə)
+
+function prepareUpload(files) { 
+
+    const c = document.getElementById('upload-previews'); c.innerHTML=''; 
+
+    
+
+    Array.from(files).forEach(f => { 
+
+        const d = document.createElement('div'); 
+
+        d.style.padding='8px'; d.style.borderBottom='1px solid #333'; d.style.fontSize='13px';
+
+        d.innerHTML = `<i class="fas fa-spinner fa-spin"></i> ${f.name} <span style="color:#888;">(Analiz edilir...)</span>`;
+
+        c.appendChild(d);
+
+        
+
+        // JSMediaTags ilə MP3 daxilini oxu
+
+        if(typeof jsmediatags !== 'undefined') {
+
+            jsmediatags.read(f, {
+
+                onSuccess: (tag) => {
+
+                    const t = tag.tags;
+
+                    let base64 = "";
+
+                    if (t.picture) {
+
+                        let data = t.picture.data;
+
+                        let format = t.picture.format;
+
+                        let str = "";
+
+                        for (let i = 0; i < data.length; i++) str += String.fromCharCode(data[i]);
+
+                        base64 = `data:${format};base64,${window.btoa(str)}`;
+
+                    }
+
+                    metaData[f.name] = { title: t.title||f.name.replace(/\.[^/.]+$/, ""), artist: t.artist||"Naməlum", coverData: base64 };
+
+                    d.innerHTML = `<i class="fas fa-music" style="color:#F72585"></i> <b>${t.artist||'Naməlum'}</b> - ${t.title||f.name} <i class="fas fa-check" style="color:green; float:right;"></i>`;
+
+                },
+
+                onError: (e) => {
+
+                    metaData[f.name] = { title: f.name, artist: "Naməlum", coverData: "" };
+
+                    d.innerHTML = `<i class="fas fa-music"></i> ${f.name}`;
+
+                }
+
+            });
+
+        } else {
+
+             metaData[f.name] = { title: f.name, artist: "Naməlum", coverData: "" };
+
+             d.innerHTML = `<i class="fas fa-music"></i> ${f.name}`;
+
+        }
+
+    });
+
+}
+
+function startUpload() { 
+
+    const bar = document.getElementById('prog-bar'); 
+
+    const cont = document.getElementById('prog-cont'); 
+
+    const fileInput = document.getElementById('u-file');
+
+    if(fileInput.files.length === 0) { alert("Mahnı seçilməyib!"); return; }
+
+    cont.style.display='block'; 
+
+    bar.style.width='0%'; bar.innerText='0%';
+
+    
+
+    const fd = new FormData(); 
+
+    fd.append('action','upload'); 
+
+    for(let f of fileInput.files) fd.append('musicFiles[]',f); 
+
+    fd.append('metaData', JSON.stringify(metaData)); 
+
+    fd.append('genre', document.getElementById('u-genre').value); 
+
+    
+
+    const xhr = new XMLHttpRequest(); 
+
+    xhr.open('POST','',true); 
+
+    
+
+    // Yükləmə Faizi Hesablanması
+
+    xhr.upload.onprogress = e => { 
+
+        if (e.lengthComputable) {
+
+            const percent = Math.round((e.loaded / e.total) * 100);
+
+            bar.style.width = percent + '%';
+
+            bar.innerText = percent + '%';
+
+        }
+
+    }; 
+
+    
+
+    xhr.onload = () => { 
+
+        try {
+
+            const r = JSON.parse(xhr.responseText);
+
+            if(r.success) { alert("Uğurla Yükləndi!"); location.reload(); } 
+
+            else { alert('Xəta: ' + r.error); }
+
+        } catch(e) { alert("Server Xətası!"); }
+
+    }; 
+
+    xhr.send(fd); 
+
+}
+
+</script>
+
+
+<div class="modal" id="country-modal">
+
+    <div class="m-box" style="width:95%; max-width:400px; height:80%; overflow-y:auto; text-align:center; background:#161b2c;">
+
+        <i class="fas fa-times" style="position:absolute; top:15px; right:15px; font-size:24px; cursor:pointer;" onclick="closeModal('country-modal')"></i>
+
+        <h3 style="margin-bottom:20px; color:#fff;">Dünya Musiqisi 🌍</h3>
+
+        <input type="text" id="c-search" placeholder="Ölkə axtar..." onkeyup="filterCountries()" style="width:100%; padding:10px; margin-bottom:15px; border-radius:10px; border:none; background:#0f111a; color:#fff;">
+
+        <div style="display:grid; grid-template-columns: repeat(3, 1fr); gap:10px;" id="country-grid">
+
+            </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+// GENİŞ ÖLKƏ SİYAHISI (JS Üçün)
+
+const allCountries = [
+
+    {n:'Azərbaycan', f:'🇦🇿'}, {n:'Türkiyə', f:'🇹🇷'}, {n:'Rusiya', f:'🇷🇺'}, {n:'ABŞ', f:'🇺🇸'},
+
+    {n:'Fransa', f:'🇫🇷'}, {n:'İtaliya', f:'🇮🇹'}, {n:'İspaniya', f:'🇪🇸'}, {n:'Almaniya', f:'🇩🇪'},
+
+    {n:'Böyük Britaniya', f:'🇬🇧'}, {n:'Hindistan', f:'🇮🇳'}, {n:'Çin', f:'🇨🇳'}, {n:'Yaponiya', f:'🇯🇵'},
+
+    {n:'Koreya', f:'🇰🇷'}, {n:'Braziliya', f:'🇧🇷'}, {n:'İran', f:'🇮🇷'}, {n:'Gürcüstan', f:'🇬🇪'},
+
+    {n:'Ukrayna', f:'🇺🇦'}, {n:'Qazaxıstan', f:'🇰🇿'}, {n:'Özbəkistan', f:'🇺🇿'}, {n:'Pakistan', f:'🇵🇰'},
+
+    {n:'Misir', f:'🇪🇬'}, {n:'Səudiyyə Ərəbistanı', f:'🇸🇦'}, {n:'BƏƏ', f:'🇦🇪'}, {n:'Yunanıstan', f:'🇬🇷'},
+
+    {n:'Polşa', f:'🇵🇱'}, {n:'Rumıniya', f:'🇷🇴'}, {n:'Niderland', f:'🇳🇱'}, {n:'Belçika', f:'🇧🇪'},
+
+    {n:'İsveç', f:'🇸🇪'}, {n:'Norveç', f:'🇳🇴'}, {n:'Danimarka', f:'🇩🇰'}, {n:'Finlandiya', f:'🇫🇮'},
+
+    {n:'Portuqaliya', f:'🇵🇹'}, {n:'Meksika', f:'🇲🇽'}, {n:'Kolumbiya', f:'🇨🇴'}, {n:'Argentina', f:'🇦🇷'},
+
+    {n:'Kanada', f:'🇨🇦'}, {n:'Avstraliya', f:'🇦🇺'}, {n:'İndoneziya', f:'🇮🇩'}, {n:'Malayziya', f:'🇲🇾'},
+
+    {n:'Vyetnam', f:'🇻🇳'}, {n:'Tailand', f:'🇹🇭'}, {n:'İsrail', f:'🇮🇱'}, {n:'Mərakeş', f:'🇲🇦'},
+
+    {n:'Əlcəzair', f:'🇩🇿'}, {n:'Tunis', f:'🇹🇳'}, {n:'Macarıstan', f:'🇭🇺'}, {n:'Çexiya', f:'🇨🇿'},
+
+    {n:'Xorvatiya', f:'🇭🇷'}, {n:'Serbiya', f:'🇷🇸'}, {n:'Bolqarıstan', f:'🇧🇬'}
+
+];
+
+// MODALI AÇ
+
+function openCountryModal() {
+
+    openModal('country-modal');
+
+    renderCountries(allCountries);
+
+}
+
+// ÖLKƏLƏRİ EKRANA ÇIXAR
+
+function renderCountries(list) {
+
+    const grid = document.getElementById('country-grid');
+
+    grid.innerHTML = '';
+
+    list.forEach(c => {
+
+        const d = document.createElement('div');
+
+        d.style.background = '#1f2235';
+
+        d.style.borderRadius = '15px';
+
+        d.style.padding = '15px 5px';
+
+        d.style.cursor = 'pointer';
+
+        d.style.border = '1px solid #2d344d';
+
+        d.innerHTML = `<div style="font-size:35px;">${c.f}</div><div style="font-size:11px; margin-top:5px; color:#ccc;">${c.n}</div>`;
+
+        d.onclick = () => {
+
+            filter(c.n, document.querySelector('.cat')); // Fake active element
+
+            closeModal('country-modal');
+
+        };
+
+        grid.appendChild(d);
+
+    });
+
+}
+
+// ÖLKƏ AXTARIŞI (MODAL İÇİNDƏ)
+
+function filterCountries() {
+
+    const q = document.getElementById('c-search').value.toLowerCase();
+
+    renderCountries(allCountries.filter(c => c.n.toLowerCase().includes(q)));
+
+}
+
+// JANR FILTERI
+
+function filterGenre(g) {
+
+    // Janra və ya Title-a görə axtarış edir
+
+    render(songs.filter(s => 
+
+        (s.genre && s.genre.toLowerCase() === g.toLowerCase()) || 
+
+        s.title.toLowerCase().includes(g.toLowerCase()) || 
+
+        (s.tags && s.tags.toLowerCase().includes(g.toLowerCase()))
+
+    ));
+
+}
+
+// GÜCLƏNDİRİLMİŞ ÜMUMİ AXTARIŞ
+
+function search() {
+
+    const q = document.getElementById('q').value.toLowerCase();
+
+    render(songs.filter(s => 
+
+        s.title.toLowerCase().includes(q) || 
+
+        s.artist.toLowerCase().includes(q) ||
+
+        (s.country && s.country.toLowerCase().includes(q))
+
+    ));
+
+}
+
+</script>
+
+
+<script>
+
+// --- GLOBAL DİL SİSTEMİ (70+ DİL) ---
+
+const langDB = {
+
+    // 1. AZƏRBAYCAN (Default)
+
+    'az': { s:'Axtar...', h:'Ana Səhifə', l:'Giriş', u:'Yüklə', c:'Ölkələr', all:'Hamısı', n:'Yeni', t:'Trend', d:'Yüklə', o:'Çıxış', genre:'Janrlar', p:'Pop', r:'Rock', m:'Meyxana' },
+
+    
+
+    // 2. TÜRKİYƏ
+
+    'tr': { s:'Şarkı ara...', h:'Ana Sayfa', l:'Giriş', u:'Yükle', c:'Ülkeler', all:'Hepsi', n:'Yeni', t:'Trend', d:'İndir', o:'Çıkış', genre:'Türler', p:'Pop', r:'Rock', m:'Meyhane' },
+
+    
+
+    // 3. İNGİLİS (Global)
+
+    'en': { s:'Search music...', h:'Home', l:'Login', u:'Upload', c:'Countries', all:'All', n:'New', t:'Trending', d:'Download', o:'Logout', genre:'Genres', p:'Pop', r:'Rock', m:'Folk' },
+
+    
+
+    // 4. RUSİYA
+
+    'ru': { s:'Поиск музыки...', h:'Главная', l:'Вход', u:'Загрузить', c:'Страны', all:'Все', n:'Новые', t:'Тренды', d:'Скачать', o:'Выход', genre:'Жанры', p:'Поп', r:'Рок', m:'Мейхана' },
+
+    
+
+    // 5. ƏRƏB (RTL Dəstəkli)
+
+    'ar': { s:'بحث عن الموسيقى...', h:'الرئيسية', l:'دخول', u:'رفع', c:'البلدان', all:'الكل', n:'جديد', t:'شائع', d:'تحميل', o:'خروج', genre:'الأنواع', p:'بوب', r:'روك', m:'شعبي', dir:'rtl' },
+
+    
+
+    // 6. FARSKA (İran)
+
+    'fa': { s:'جستجوی آهنگ...', h:'خانه', l:'ورود', u:'آپلود', c:'کشورها', all:'همه', n:'جدید', t:'محبوب', d:'دانلود', o:'خروج', genre:'ژانرها', p:'پاپ', r:'راک', m:'میخانه', dir:'rtl' },
+
+    
+
+    // 7. UKRAYNA
+
+    'uk': { s:'Пошук музики...', h:'Головна', l:'Вхід', u:'Завантажити', c:'Країни', all:'Всі', n:'Нові', t:'Тренди', d:'Завантажити', o:'Вихід', genre:'Жанри', p:'Поп', r:'Рок', m:'Мейхана' },
+
+    
+
+    // 8. ALMANYA
+
+    'de': { s:'Suche...', h:'Startseite', l:'Anmelden', u:'Hochladen', c:'Länder', all:'Alle', n:'Neu', t:'Trends', d:'Herunterladen', o:'Abmelden', genre:'Genres', p:'Pop', r:'Rock', m:'Folk' },
+
+    
+
+    // 9. FRANSA
+
+    'fr': { s:'Chercher...', h:'Accueil', l:'Connexion', u:'Ajouter', c:'Pays', all:'Tout', n:'Nouveau', t:'Tendances', d:'Télécharger', o:'Déconnexion', genre:'Genres', p:'Pop', r:'Rock', m:'Folk' },
+
+    
+
+    // 10. İSPANİYA
+
+    'es': { s:'Buscar...', h:'Inicio', l:'Acceso', u:'Subir', c:'Países', all:'Todo', n:'Nuevo', t:'Tendencias', d:'Descargar', o:'Salir', genre:'Géneros', p:'Pop', r:'Rock', m:'Folk' },
+
+    
+
+    // DİGƏR AVROPA DİLLƏRİ
+
+    'it': { s:'Cerca...', h:'Home', l:'Accedi', u:'Carica', c:'Paesi', all:'Tutti', n:'Nuovo', t:'Tendenze', d:'Scarica', o:'Esci', genre:'Generi', p:'Pop', r:'Rock', m:'Folk' },
+
+    'pt': { s:'Pesquisar...', h:'Início', l:'Entrar', u:'Enviar', c:'Países', all:'Todos', n:'Novo', t:'Tendências', d:'Baixar', o:'Sair', genre:'Gêneros', p:'Pop', r:'Rock', m:'Folk' },
+
+    'pl': { s:'Szukaj...', h:'Dom', l:'Zaloguj', u:'Prześlij', c:'Kraje', all:'Wszystkie', n:'Nowe', t:'Trendy', d:'Pobierz', o:'Wyloguj', genre:'Gatunki', p:'Pop', r:'Rock', m:'Folk' },
+
+    
+
+    // ASİYA DİLLƏRİ
+
+    'hi': { s:'संगीत खोजें...', h:'घर', l:'लॉग इन', u:'अपलोड', c:'देश', all:'सभी', n:'नया', t:'ट्रेंडिंग', d:'डाउनलोड', o:'लॉग आउट', genre:'शैलियों', p:'पॉप', r:'रॉक', m:'लोक' },
+
+    'zh': { s:'搜索音乐...', h:'首页', l:'登录', u:'上传', c:'国家', all:'全部', n:'新', t:'趋势', d:'下载', o:'退出', genre:'流派', p:'流行', r:'摇滚', m:'民谣' },
+
+    'ja': { s:'検索...', h:'ホーム', l:'ログイン', u:'アップロード', c:'国', all:'すべて', n:'新着', t:'トレンド', d:'ダウンロード', o:'ログアウト', genre:'ジャンル', p:'ポップ', r:'ロック', m:'フォーク' },
+
+    'ko': { s:'검색...', h:'홈', l:'로그인', u:'업로드', c:'국가', all:'전체', n:'신규', t:'트렌드', d:'다운로드', o:'로그아웃', genre:'장르', p:'팝', r:'록', m:'포크' }
+
+};
+
+// Dili Tətbiq Edən Funksiya
+
+function applyLanguage() {
+
+    // 1. Cihazın dilini tapırıq (Məs: 'en-US' -> 'en')
+
+    let userLang = (navigator.language || navigator.userLanguage).split('-')[0];
+
+    
+
+    // Əgər həmin dil bazada yoxdursa, İngilis dilini (en) götür
+
+    if (!langDB[userLang]) userLang = 'en';
+
+    
+
+    // Əgər Azərbaycan dilidirsə (az), heçnə dəyişmə (Default)
+
+    if (userLang === 'az') return;
+
+    const t = langDB[userLang];
+
+    
+
+    // --- MƏTNLƏRİ DƏYİŞİRİK ---
+
+    
+
+    // Axtarış yeri
+
+    const searchInp = document.getElementById('q');
+
+    if(searchInp) searchInp.placeholder = t.s;
+
+    
+
+    // Ölkələr Düyməsi
+
+    updateTextByContent('🌍 Ölkələr', '🌍 ' + t.c);
+
+    updateTextByContent('🌍 Global', '🌍 Global'); // Global eyni qalır
+
+    // Kateqoriyalar
+
+    updateTextByContent('Hamısı', t.all);
+
+    updateTextByContent('🔥 Yeni', '🔥 ' + t.n);
+
+    updateTextByContent('📈 Trend', '📈 ' + t.t);
+
+    updateTextByContent('🇦🇿 Azərbaycan', '🇦🇿 Azerbaijan'); // Beynəlxalq ad
+
+    // Janrlar
+
+    updateTextByContent('🎵 Pop', '🎵 ' + t.p);
+
+    updateTextByContent('🎸 Rock', '🎸 ' + t.r);
+
+    updateTextByContent('🎤 Meyxana', '🎤 ' + t.m);
+
+    // Düymələr
+
+    updateTextByContent('Giriş', t.l);
+
+    updateTextByContent('Giriş / Qeydiyyat', t.l);
+
+    updateTextByContent('Çıxış', t.o);
+
+    updateTextByContent('Yükləmək üçün bura bas', t.d + ' 👇');
+
+    
+
+    // RTL Dəstəyi (Ərəb və Fars dilləri üçün sağdan-sola)
+
+    if(t.dir === 'rtl') {
+
+        document.body.style.direction = 'rtl';
+
+        document.body.style.textAlign = 'right';
+
+        const searchBox = document.querySelector('.search-box');
+
+        if(searchBox) searchBox.style.direction = 'rtl';
+
+    }
+
+}
+
+// Mətni tapıb dəyişən köməkçi funksiya
+
+function updateTextByContent(oldText, newText) {
+
+    // Bütün elementləri gəzirik
+
+    const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, null, false);
+
+    let node;
+
+    while(node = walker.nextNode()) {
+
+        if(node.nodeValue.trim() === oldText) {
+
+            node.nodeValue = newText;
+
+        }
+
+    }
+
+}
+
+// Sayt açılanda işə sal
+
+document.addEventListener("DOMContentLoaded", applyLanguage);
+
+</script>
+
+
+<div class="modal" id="ad-dl-modal">
+
+    <div class="m-box" style="width:90%; max-width:400px; background:#111; border:1px solid #333; text-align:center;">
+
+        <h3 style="color:#fff; margin-bottom:10px;">Yükləmə Hazırlanır...</h3>
+
+        
+
+        <div style="background:#fff; min-height:250px; display:flex; align-items:center; justify-content:center; margin-bottom:15px; border-radius:10px;">
+
+            <ins class="adsbygoogle"
+
+                 style="display:block"
+
+                 data-ad-client="ca-pub-2859105073651413"
+
+                 data-ad-slot="9038865032"
+
+                 data-ad-format="auto"
+
+                 data-full-width-responsive="true"></ins>
+
+             <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+
+        </div>
+
+        <div id="dl-timer-box">
+
+            <span style="font-size:14px; color:#888;">Reklamdan sonra yükləmə açılacaq</span><br>
+
+            <span id="dl-countdown" style="font-size:40px; font-weight:bold; color:#F72585;">8</span>
+
+        </div>
+
+        <button id="dl-final-btn" class="btn" onclick="triggerRealDownload()" style="display:none; background:#00C851; animation: popIn 0.5s;">
+
+            <i class="fas fa-download"></i> İNDİ YÜKLƏ
+
+        </button>
+
+        
+
+        <p onclick="closeModal('ad-dl-modal')" style="margin-top:15px; color:#666; cursor:pointer; font-size:12px;">Bağla</p>
+
+    </div>
+
+</div>
+
+
+<script>
+
+// --- 1. RHYTHM VISUALIZER ENGINE ---
+
+
+
+
+
+// playSong funksiyasına hook edirik ki, vizualizator işə düşsün
+
+// (Bunu aşağıda regex ilə köhnə playSong-a calayacağıq)
+
+// --- 2. DOWNLOAD AD TIMER LOGIC ---
+
+let downloadTimer = null;
+
+function openDownload() {
+
+    if(!currentId) return;
+
+    
+
+    // Modalı aç
+
+    document.getElementById('ad-dl-modal').style.display = 'flex';
+
+    document.getElementById('dl-final-btn').style.display = 'none';
+
+    document.getElementById('dl-timer-box').style.display = 'block';
+
+    
+
+    let timeLeft = 8;
+
+    const countEl = document.getElementById('dl-countdown');
+
+    countEl.innerText = timeLeft;
+
+    
+
+    // Timeri başlat
+
+    if(downloadTimer) clearInterval(downloadTimer);
+
+    
+
+    downloadTimer = setInterval(() => {
+
+        timeLeft--;
+
+        countEl.innerText = timeLeft;
+
+        
+
+        if (timeLeft <= 0) {
+
+            clearInterval(downloadTimer);
+
+            // Vaxt bitdi: Timeri gizlət, Düyməni göstər
+
+            document.getElementById('dl-timer-box').style.display = 'none';
+
+            document.getElementById('dl-final-btn').style.display = 'block';
+
+        }
+
+    }, 1000);
+
+}
+
+function triggerRealDownload() {
+
+    // Əsl yükləməni başlat və modalı bağla
+
+    document.getElementById('dl-id').value = currentId; 
+
+    document.getElementById('dl-form').submit();
+
+    closeModal('ad-dl-modal');
+
+}
+
+</script>
+
+
+<script>
+
+// --- AUDIO FIX ENGINE (High Quality + Booster) ---
+
+let audioCtx, analyser, source, canvas, ctx;
+
+let audioInitialized = false;
+
+function initAudioVisualizer() {
+
+    const audioEl = document.getElementById('audio');
+
+    // 1. Audio Context yaradiriq (Əgər yoxdursa)
+
+    if (!audioCtx) {
+
+        // YÜKSƏK KEYFİYYƏT REJİMİ (LATENCY HINT)
+
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+
+        audioCtx = new AudioContext({
+
+            latencyHint: 'playback', // Əsas düzəliş: Səsi hamarlayır və keyfiyyəti artırır
+
+            sampleRate: 44100 // Standart CD keyfiyyəti
+
+        });
+
+        
+
+        // 2. Vizualizator üçün qoşulma
+
+        // CrossOrigin vacibdir, amma bəzi serverlərdə xəta verir. 
+
+        audioEl.crossOrigin = "anonymous";
+
+        source = audioCtx.createMediaElementSource(audioEl);
+
+        analyser = audioCtx.createAnalyser();
+
+        
+
+        // 3. SƏS GÜCLƏNDİRİCİ (GAIN NODE) - Batıq səslər üçün
+
+        const gainNode = audioCtx.createGain();
+
+        gainNode.gain.value = 1.0; // Səs səviyyəsi (lazım olsa 1.2 edib artıra bilərsən)
+
+        
+
+        // 4. ZƏNCİRİ QURURUQ: Source -> Gain -> Analyser -> Destination
+
+        source.connect(gainNode);
+
+        gainNode.connect(analyser);
+
+        analyser.connect(audioCtx.destination); 
+
+        
+
+        analyser.fftSize = 256;
+
+        canvas = document.getElementById('rhythm-canvas');
+
+        if(canvas) {
+
+            ctx = canvas.getContext('2d');
+
+            window.addEventListener('resize', resizeCanvas);
+
+            resizeCanvas();
+
+            animateVisualizer();
+
+        }
+
+    }
+
+    // 4. Brauzer bloku qoyubsa, onu qırırıq (RESUME)
+
+    if (audioCtx.state === 'suspended') {
+
+        audioCtx.resume();
+
+    }
+
+    
+
+    audioInitialized = true;
+
+}
+
+function resizeCanvas() {
+
+    if(canvas) {
+
+        canvas.width = window.innerWidth;
+
+        canvas.height = window.innerHeight;
+
+    }
+
+}
+
+function animateVisualizer() {
+
+    if (!audioCtx || !analyser) return;
+
+    requestAnimationFrame(animateVisualizer);
+
+    
+
+    const bufferLength = analyser.frequencyBinCount;
+
+    const dataArray = new Uint8Array(bufferLength);
+
+    analyser.getByteFrequencyData(dataArray);
+
+    
+
+    // Canvas təmizlə
+
+    ctx.fillStyle = 'rgba(15, 17, 26, 0.2)';
+
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    
+
+    // Bass gücünü hesabla
+
+    let bass = 0;
+
+    for (let i = 0; i < 10; i++) { bass += dataArray[i]; }
+
+    bass = bass / 10;
+
+    
+
+    const centerX = canvas.width / 2;
+
+    const centerY = canvas.height / 2;
+
+    const radius = 100 + (bass * 1.5); // Ritmə görə böyümə
+
+    
+
+    // Dairəni çək
+
+    const gradient = ctx.createRadialGradient(centerX, centerY, radius * 0.1, centerX, centerY, radius);
+
+    gradient.addColorStop(0, `rgba(247, 37, 133, ${bass/255})`);
+
+    gradient.addColorStop(1, 'rgba(0,0,0,0)');
+
+    
+
+    ctx.beginPath();
+
+    ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI);
+
+    ctx.fillStyle = gradient;
+
+    ctx.fill();
+
+}
+
+// Play düyməsinə basanda səsi açmağı yoxla
+
+document.addEventListener('click', () => {
+
+    if (audioCtx && audioCtx.state === 'suspended') {
+
+        audioCtx.resume();
+
+    }
+
+});
+
+</script>
+
+
+<div class="modal" id="pub-profile-modal">
+
+    <div class="m-box" style="width:100%; height:100%; max-width:100%; border-radius:0; padding:0; background:#0f111a; overflow-y:auto; display:flex; flex-direction:column;">
+
+        
+
+        <div style="padding:30px 20px; background:linear-gradient(180deg, #1f2235 0%, #0f111a 100%); text-align:center; position:relative; border-bottom:1px solid #222;">
+
+            <i class="fas fa-arrow-left" style="position:absolute; top:20px; left:20px; font-size:24px; cursor:pointer; padding:10px;" onclick="closeModal('pub-profile-modal')"></i>
+
+            
+
+            <img id="pp-avatar" src="" style="width:100px; height:100px; border-radius:50%; border:3px solid #F72585; margin-top:20px; object-fit:cover;">
+
+            <h2 id="pp-name" style="margin:10px 0; font-size:22px; color:#fff;"></h2>
+
+            
+
+            <div style="display:flex; justify-content:center; gap:20px; margin-bottom:15px; color:#ccc; font-size:13px;">
+
+                <div><b id="pp-fol" style="color:#fff; font-size:16px;">0</b><br>İzləyici</div>
+
+                <div><b id="pp-song-cnt" style="color:#fff; font-size:16px;">0</b><br>Mahnı</div>
+
+            </div>
+
+            
+
+            <button id="pp-btn" class="btn" style="width:auto; padding:10px 40px; border-radius:25px; font-weight:bold;" onclick="toggleFollow()">İzlə</button>
+
+        </div>
+
+        
+
+        <div class="list" id="pp-list" style="padding:10px; padding-bottom:100px; min-height:300px;"></div>
+
+    </div>
+
+</div>
+
+<div class="modal" id="notif-modal">
+
+    <div class="m-box" style="width:90%; max-width:400px; max-height:80%; overflow-y:auto; text-align:left; background:#161b2c; border:1px solid #333;">
+
+        <i class="fas fa-times" style="position:absolute; top:15px; right:15px; cursor:pointer; font-size:20px;" onclick="closeModal('notif-modal')"></i>
+
+        <h3 style="text-align:center; margin-bottom:20px; color:#fff;">Bildirişlər</h3>
+
+        <div id="notif-list"></div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+let curPPID = 0;
+
+// İCTİMAİ PROFİLİ AÇAN FUNKSİYA
+
+function openPublicProfile(id) {
+
+    console.log("Opening Profile:", id);
+
+    curPPID = id;
+
+    
+
+    // Modalı göstər
+
+    const modal = document.getElementById('pub-profile-modal');
+
+    modal.style.display = 'flex';
+
+    
+
+    // Loading effekt
+
+    document.getElementById('pp-name').innerText = "...";
+
+    document.getElementById('pp-avatar').src = "https://yenimp3.az/mp3logo.jpg";
+
+    document.getElementById('pp-list').innerHTML = '<div style="text-align:center; padding:30px;"><i class="fas fa-spinner fa-spin" style="font-size:30px; color:#F72585;"></i></div>';
+
+    
+
+    const fd = new FormData();
+
+    fd.append('action', 'get_user_profile');
+
+    fd.append('id', id);
+
+    
+
+    fetch('', {method:'POST', body:fd})
+
+    .then(r => r.json())
+
+    .then(d => {
+
+        if(d.error) { alert(d.error); closeModal('pub-profile-modal'); return; }
+
+        
+
+        // Məlumatları doldur
+
+        document.getElementById('pp-avatar').src = d.user.avatar;
+
+        document.getElementById('pp-name').innerText = d.user.username;
+
+        document.getElementById('pp-fol').innerText = d.stats.followers;
+
+        document.getElementById('pp-song-cnt').innerText = d.stats.songs;
+
+        
+
+        // Button Logic
+
+        const btn = document.getElementById('pp-btn');
+
+        if(userId == id) {
+
+            btn.style.display = 'none'; // Öz profilidirsə gizlət
+
+        } else {
+
+            btn.style.display = 'inline-block';
+
+            if(d.isFollowing) {
+
+                btn.innerText = 'İzləyirsən';
+
+                btn.style.background = '#333';
+
+                btn.style.color = '#fff';
+
+            } else {
+
+                btn.innerText = 'İzlə';
+
+                btn.style.background = '#F72585';
+
+                btn.style.color = '#fff';
+
+            }
+
+        }
+
+        
+
+        // Mahnı Siyahısı
+
+        const list = document.getElementById('pp-list');
+
+        list.innerHTML = '';
+
+        
+
+        if(d.songs.length === 0) {
+
+            list.innerHTML = '<p style="text-align:center; color:#666; margin-top:20px;">Mahnı paylaşmayıb.</p>';
+
+        } else {
+
+            d.songs.forEach((s, i) => {
+
+                const item = document.createElement('div');
+
+                item.className = 'item';
+
+                item.innerHTML = `
+
+                    <img src="${s.cover_image}">
+
+                    <div class="info">
+
+                        <h3>${s.title}</h3>
+
+                        <p>${s.artist}</p>
+
+                    </div>
+
+                    <div style="width:40px; height:40px; background:rgba(247,37,133,0.1); border-radius:50%; display:flex; align-items:center; justify-content:center;">
+
+                        <i class="fas fa-play" style="color:#F72585;"></i>
+
+                    </div>
+
+                `;
+
+                // Play from THIS user's list
+
+                item.onclick = () => {
+
+                    currentPlaylist = d.songs;
+
+                    playFromIndex(i);
+
+                };
+
+                list.appendChild(item);
+
+            });
+
+        }
+
+    })
+
+    .catch(err => {
+
+        console.error(err);
+
+        alert("İnternet xətası!");
+
+    });
+
+}
+
+// İZLƏMƏ FUNKSİYASI
+
+function toggleFollow() {
+
+    if(!userId) { openModal('auth-modal'); return; }
+
+    
+
+    // Düyməni dərhal dəyiş (Optimistic UI)
+
+    const btn = document.getElementById('pp-btn');
+
+    const cnt = document.getElementById('pp-fol');
+
+    let val = parseInt(cnt.innerText);
+
+    const originalText = btn.innerText;
+
+    
+
+    btn.innerText = '...';
+
+    
+
+    const fd = new FormData();
+
+    fd.append('action', 'follow');
+
+    fd.append('target_id', curPPID);
+
+    
+
+    fetch('', {method:'POST', body:fd})
+
+    .then(r => r.json())
+
+    .then(d => {
+
+        if(d.status === 'followed') {
+
+            btn.innerText = 'İzləyirsən';
+
+            btn.style.background = '#333';
+
+            cnt.innerText = val + 1;
+
+        } else {
+
+            btn.innerText = 'İzlə';
+
+            btn.style.background = '#F72585';
+
+            cnt.innerText = Math.max(0, val - 1);
+
+        }
+
+    });
+
+}
+
+// BİLDİRİŞLƏRİ AÇ
+
+function openNotifications() {
+
+    if(!userId) { openModal('auth-modal'); return; }
+
+    
+
+    openModal('notif-modal');
+
+    // Badge-i gizlət
+
+    const badge = document.getElementById('bell-badge');
+
+    if(badge) badge.style.display = 'none';
+
+    
+
+    const list = document.getElementById('notif-list');
+
+    list.innerHTML = '<p style="text-align:center; padding:10px;">Yüklənir...</p>';
+
+    
+
+    const fd = new FormData();
+
+    fd.append('action', 'get_notifications');
+
+    
+
+    fetch('', {method:'POST', body:fd})
+
+    .then(r => r.json())
+
+    .then(d => {
+
+        list.innerHTML = '';
+
+        if(d.notifs.length === 0) {
+
+            list.innerHTML = '<p style="text-align:center; color:#666; margin-top:20px;">Yeni bildiriş yoxdur.</p>';
+
+            return;
+
+        }
+
+        
+
+        d.notifs.forEach(n => {
+
+            const item = document.createElement('div');
+
+            item.style.display = 'flex';
+
+            item.style.alignItems = 'center';
+
+            item.style.padding = '12px';
+
+            item.style.borderBottom = '1px solid #333';
+
+            item.style.cursor = 'pointer';
+
+            
+
+            let text = '';
+
+            if(n.type === 'follow') text = 'səni izləməyə başladı.';
+
+            if(n.type === 'like') text = 'mahnını bəyəndi.';
+
+            if(n.type === 'upload') text = 'yeni mahnı paylaşdı.';
+
+            
+
+            item.innerHTML = `
+
+                <img src="${n.avatar}" style="width:40px; height:40px; border-radius:50%; margin-right:12px; object-fit:cover;">
+
+                <div style="font-size:13px; color:#eee;">
+
+                    <b>${n.username}</b> ${text}
+
+                    <div style="font-size:10px; color:#888; margin-top:2px;">İndi</div>
+
+                </div>
+
+            `;
+
+            
+
+            item.onclick = () => {
+
+                closeModal('notif-modal');
+
+                openPublicProfile(n.source_id);
+
+            };
+
+            
+
+            list.appendChild(item);
+
+        });
+
+    });
+
+}
+
+</script>
+
+
+<script>
+
+// API DEBUGGER & PROFILE OPENER
+
+function openPublicProfile(id) {
+
+    // Modalı tap və aç
+
+    const modal = document.getElementById('pub-profile-modal');
+
+    if(!modal) return;
+
+    
+
+    modal.style.display = 'flex';
+
+    document.getElementById('pp-list').innerHTML = '<div style="text-align:center; padding:20px; color:#fff;"><i class="fas fa-spinner fa-spin"></i> Yüklənir...</div>';
+
+    
+
+    const fd = new FormData();
+
+    fd.append('action', 'get_user_profile');
+
+    fd.append('id', id);
+
+    
+
+    fetch('', {method:'POST', body:fd})
+
+    .then(r => r.text()) // Əvvəl text kimi alırıq ki, xətanı görək
+
+    .then(text => {
+
+        try {
+
+            const d = JSON.parse(text); // İndi JSON-a çeviririk
+
+            
+
+            if(d.error) { alert(d.error); closeModal('pub-profile-modal'); return; }
+
+            
+
+            // UI Doldur
+
+            document.getElementById('pp-avatar').src = d.user.avatar;
+
+            document.getElementById('pp-name').innerText = d.user.username;
+
+            document.getElementById('pp-fol').innerText = d.stats.followers;
+
+            document.getElementById('pp-song-cnt').innerText = d.stats.songs;
+
+            
+
+            // Düymə Məntiqi
+
+            const btn = document.getElementById('pp-btn');
+
+            if(userId == id) {
+
+                btn.style.display = 'none';
+
+            } else {
+
+                btn.style.display = 'inline-block';
+
+                btn.innerText = d.isFollowing ? 'İzləyirsən' : 'İzlə';
+
+                btn.style.background = d.isFollowing ? '#333' : '#F72585';
+
+                btn.onclick = function() { toggleFollowAPI(id); };
+
+            }
+
+            
+
+            // Mahnıları Siyahıya Düz
+
+            const list = document.getElementById('pp-list');
+
+            list.innerHTML = '';
+
+            
+
+            if(d.songs.length === 0) {
+
+                list.innerHTML = '<p style="text-align:center; color:#666; margin-top:20px;">Mahnı yoxdur.</p>';
+
+            } else {
+
+                d.songs.forEach((s, index) => {
+
+                    const item = document.createElement('div');
+
+                    item.className = 'item';
+
+                    item.innerHTML = `
+
+                        <img src="${s.cover_image}">
+
+                        <div class="info">
+
+                            <h3>${s.title}</h3>
+
+                            <p>${s.artist}</p>
+
+                        </div>
+
+                        <div style="width:35px; height:35px; background:#F72585; border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 10px rgba(247, 37, 133, 0.4);">
+
+                            <i class="fas fa-play" style="color:#fff; font-size:12px;"></i>
+
+                        </div>
+
+                    `;
+
+                    // PLAY FUNCTION - Playlisti dəyiş və oxut
+
+                    item.onclick = () => {
+
+                        currentPlaylist = d.songs; // Playlisti yeniləyirik
+
+                        playFromIndex(index);      // Sıra nömrəsi ilə oxuduruq
+
+                    };
+
+                    list.appendChild(item);
+
+                });
+
+            }
+
+            
+
+        } catch (e) {
+
+            console.error("JSON Error:", e, text); // Konsolda xətanı gör
+
+            alert("Sistem Xətası: API cavab vermədi. Yeniləyin.");
+
+            closeModal('pub-profile-modal');
+
+        }
+
+    })
+
+    .catch(err => {
+
+        alert("İnternet bağlantısı yoxdur!");
+
+        closeModal('pub-profile-modal');
+
+    });
+
+}
+
+function toggleFollowAPI(id) {
+
+    if(!userId) { openModal('auth-modal'); return; }
+
+    const fd = new FormData(); fd.append('action','follow'); fd.append('target_id', id);
+
+    fetch('',{method:'POST',body:fd}).then(r=>r.json()).then(d=>{
+
+        const btn = document.getElementById('pp-btn');
+
+        const cnt = document.getElementById('pp-fol');
+
+        let v = parseInt(cnt.innerText);
+
+        if(d.status=='followed') { btn.innerText='İzləyirsən'; btn.style.background='#333'; cnt.innerText=v+1; }
+
+        else { btn.innerText='İzlə'; btn.style.background='#F72585'; cnt.innerText=Math.max(0,v-1); }
+
+    });
+
+}
+
+</script>
+
+
+<script>
+
+// YENİLƏNMİŞ PROFIL FUNKSİYASI (Stats + Full Player)
+
+function openPublicProfile(id) {
+
+    const modal = document.getElementById('pub-profile-modal');
+
+    if(!modal) return;
+
+    
+
+    modal.style.display = 'flex';
+
+    document.getElementById('pp-list').innerHTML = '<div style="text-align:center; padding:20px; color:#fff;"><i class="fas fa-spinner fa-spin"></i> Yüklənir...</div>';
+
+    
+
+    const fd = new FormData();
+
+    fd.append('action', 'get_user_profile');
+
+    fd.append('id', id);
+
+    
+
+    fetch('', {method:'POST', body:fd})
+
+    .then(r => r.json())
+
+    .then(d => {
+
+        if(d.error) { alert(d.error); closeModal('pub-profile-modal'); return; }
+
+        
+
+        // Profil Məlumatları
+
+        document.getElementById('pp-avatar').src = d.user.avatar;
+
+        document.getElementById('pp-name').innerText = d.user.username;
+
+        document.getElementById('pp-fol').innerText = d.stats.followers;
+
+        document.getElementById('pp-song-cnt').innerText = d.stats.songs;
+
+        
+
+        // İzlə Düyməsi
+
+        const btn = document.getElementById('pp-btn');
+
+        if(userId == id) {
+
+            btn.style.display = 'none';
+
+        } else {
+
+            btn.style.display = 'inline-block';
+
+            btn.innerText = d.isFollowing ? 'İzləyirsən' : 'İzlə';
+
+            btn.style.background = d.isFollowing ? '#333' : '#F72585';
+
+            btn.onclick = function() { toggleFollowAPI(id); };
+
+        }
+
+        
+
+        // MAHNI SİYAHISI (Dizayn Dəyişikliyi)
+
+        const list = document.getElementById('pp-list');
+
+        list.innerHTML = '';
+
+        
+
+        if(d.songs.length === 0) {
+
+            list.innerHTML = '<p style="text-align:center; color:#666; margin-top:20px;">Mahnı yoxdur.</p>';
+
+        } else {
+
+            d.songs.forEach((s, index) => {
+
+                const item = document.createElement('div');
+
+                item.className = 'item';
+
+                
+
+                // Ana səhifədəki kimi Statistika (Play və Like)
+
+                item.innerHTML = `
+
+                    <img src="${s.cover_image}">
+
+                    <div class="info">
+
+                        <h3>${s.title}</h3>
+
+                        <p>${s.artist}</p>
+
+                    </div>
+
+                    <div style="font-size:10px; color:#888; text-align:right; min-width:60px;">
+
+                        <div style="margin-bottom:3px;">
+
+                            <i class="fas fa-play" style="font-size:9px; margin-right:3px;"></i>${s.plays}
+
+                        </div>
+
+                        <div>
+
+                            <i class="fas fa-heart" style="font-size:9px; margin-right:3px;"></i>${s.likes}
+
+                        </div>
+
+                    </div>
+
+                `;
+
+                
+
+                // CLICK EVENT: Playlisti yüklə, Mahnını oxut VƏ Full Playeri Aç
+
+                item.onclick = () => {
+
+                    currentPlaylist = d.songs; // Playlisti bu istifadəçinin mahnıları et
+
+                    playFromIndex(index);      // Mahnını oxut
+
+                    openFullPlayer();          // <--- TAM PLAYERİ AÇ (İstədiyin özəllik)
+
+                };
+
+                
+
+                list.appendChild(item);
+
+            });
+
+        }
+
+    })
+
+    .catch(err => {
+
+        alert("İnternet xətası!");
+
+        closeModal('pub-profile-modal');
+
+    });
+
+}
+
+</script>
+
+
+<script>
+
+// YENİLƏNMİŞ PROFIL FUNKSİYASI (Player Üstə Açılır)
+
+function openPublicProfile(id) {
+
+    const modal = document.getElementById('pub-profile-modal');
+
+    if(!modal) return;
+
+    
+
+    modal.style.display = 'flex'; // Modalı aç
+
+    document.getElementById('pp-list').innerHTML = '<div style="text-align:center; padding:20px; color:#fff;"><i class="fas fa-spinner fa-spin"></i> Yüklənir...</div>';
+
+    
+
+    const fd = new FormData();
+
+    fd.append('action', 'get_user_profile');
+
+    fd.append('id', id);
+
+    
+
+    fetch('', {method:'POST', body:fd})
+
+    .then(r => r.json())
+
+    .then(d => {
+
+        if(d.error) { alert(d.error); closeModal('pub-profile-modal'); return; }
+
+        
+
+        // Məlumatlar
+
+        document.getElementById('pp-avatar').src = d.user.avatar;
+
+        document.getElementById('pp-name').innerText = d.user.username;
+
+        document.getElementById('pp-fol').innerText = d.stats.followers;
+
+        document.getElementById('pp-song-cnt').innerText = d.stats.songs;
+
+        
+
+        // Button
+
+        const btn = document.getElementById('pp-btn');
+
+        if(userId == id) {
+
+            btn.style.display = 'none';
+
+        } else {
+
+            btn.style.display = 'inline-block';
+
+            btn.innerText = d.isFollowing ? 'İzləyirsən' : 'İzlə';
+
+            btn.style.background = d.isFollowing ? '#333' : '#F72585';
+
+            btn.onclick = function() { toggleFollowAPI(id); };
+
+        }
+
+        
+
+        // Mahnı Siyahısı
+
+        const list = document.getElementById('pp-list');
+
+        list.innerHTML = '';
+
+        
+
+        if(d.songs.length === 0) {
+
+            list.innerHTML = '<p style="text-align:center; color:#666; margin-top:20px;">Mahnı yoxdur.</p>';
+
+        } else {
+
+            d.songs.forEach((s, index) => {
+
+                const item = document.createElement('div');
+
+                item.className = 'item';
+
+                item.innerHTML = `
+
+                    <img src="${s.cover_image}">
+
+                    <div class="info">
+
+                        <h3>${s.title}</h3>
+
+                        <p>${s.artist}</p>
+
+                    </div>
+
+                    <div style="font-size:10px; color:#888; text-align:right;">
+
+                         <i class="fas fa-play" style="font-size:9px;"></i> ${s.plays} <br>
+
+                         <i class="fas fa-heart" style="font-size:9px;"></i> ${s.likes}
+
+                    </div>
+
+                `;
+
+                
+
+                // CLICK LOGIC
+
+                item.onclick = () => {
+
+                    // 1. Playlisti dəyiş
+
+                    currentPlaylist = d.songs;
+
+                    // 2. Mahnını oxut
+
+                    playFromIndex(index);
+
+                    // 3. TAM PLAYERİ AÇ (Modal bağlanmır, Player onun üstünə gəlir)
+
+                    openFullPlayer(); 
+
+                };
+
+                
+
+                list.appendChild(item);
+
+            });
+
+        }
+
+    })
+
+    .catch(err => {
+
+        // Xəta olsa modalı bağlama, sadəcə xəbər ver
+
+        document.getElementById('pp-list').innerHTML = '<p style="text-align:center;">Xəta baş verdi.</p>';
+
+    });
+
+}
+
+</script>
+
+
+<script>
+
+let currentUserSongs = []; // Yüklənmiş mahnıları yadda saxlamaq üçün
+
+function openPublicProfile(id) {
+
+    const modal = document.getElementById('pub-profile-modal');
+
+    modal.style.display = 'flex';
+
+    
+
+    // Header yüklənir...
+
+    document.getElementById('pp-name').innerText = "Yüklənir...";
+
+    
+
+    // TAB SİSTEMİNİ QURURUQ (Header-in altına)
+
+    // Əgər Tabs yoxdursa əlavə edirik (ilk dəfə)
+
+    let tabsCon = document.getElementById('pp-tabs-con');
+
+    if(!tabsCon) {
+
+        tabsCon = document.createElement('div');
+
+        tabsCon.id = 'pp-tabs-con';
+
+        tabsCon.className = 'p-tabs';
+
+        tabsCon.innerHTML = `
+
+            <div class="p-tab active" onclick="sortProfileSongs('all', this)">🎵 Hamısı</div>
+
+            <div class="p-tab" onclick="sortProfileSongs('plays', this)">🔥 Populyar</div>
+
+            <div class="p-tab" onclick="sortProfileSongs('likes', this)">❤️ Sevimli</div>
+
+            <div class="p-tab" onclick="sortProfileSongs('trend', this)">⚡ Trend</div>
+
+        `;
+
+        // Header div-indən sonra əlavə edirik (Header classı və ya style ilə tapmaq çətindir, ona görə listdən əvvələ atırıq)
+
+        const listEl = document.getElementById('pp-list');
+
+        listEl.parentNode.insertBefore(tabsCon, listEl);
+
+    }
+
+    
+
+    // Reset Tabs
+
+    document.querySelectorAll('.p-tab').forEach(t => t.classList.remove('active'));
+
+    document.querySelector('.p-tab').classList.add('active'); // "Hamısı" aktiv olsun
+
+    // List təmizlə
+
+    document.getElementById('pp-list').innerHTML = '<div style="text-align:center; padding:30px; color:#fff;"><i class="fas fa-spinner fa-spin"></i> Gətirilir...</div>';
+
+    const fd = new FormData();
+
+    fd.append('action', 'get_user_profile');
+
+    fd.append('id', id);
+
+    fetch('', {method:'POST', body:fd})
+
+    .then(r => r.json())
+
+    .then(d => {
+
+        if(d.error) { alert(d.error); closeModal('pub-profile-modal'); return; }
+
+        // User Info
+
+        document.getElementById('pp-avatar').src = d.user.avatar;
+
+        document.getElementById('pp-name').innerText = d.user.username;
+
+        document.getElementById('pp-fol').innerText = d.stats.followers;
+
+        document.getElementById('pp-song-cnt').innerText = d.stats.songs;
+
+        // Follow Btn
+
+        const btn = document.getElementById('pp-btn');
+
+        if(userId == id) {
+
+            btn.style.display = 'none';
+
+        } else {
+
+            btn.style.display = 'inline-block';
+
+            btn.innerText = d.isFollowing ? 'İzləyirsən' : 'İzlə';
+
+            btn.style.background = d.isFollowing ? '#333' : '#F72585';
+
+            btn.onclick = function() { toggleFollowAPI(id); };
+
+        }
+
+        // MAHNILARI YADDA SAXLA (Global Dəyişən)
+
+        currentUserSongs = d.songs;
+
+        
+
+        // İlk olaraq hamısını göstər
+
+        renderProfileList(currentUserSongs);
+
+    })
+
+    .catch(e => {
+
+        alert("İnternet xətası");
+
+        closeModal('pub-profile-modal');
+
+    });
+
+}
+
+// MAHNILARI EKRANA ÇIXARAN KÖMƏKÇİ FUNKSİYA
+
+function renderProfileList(songsToRender) {
+
+    const list = document.getElementById('pp-list');
+
+    list.innerHTML = '';
+
+    if(songsToRender.length === 0) {
+
+        list.innerHTML = '<p style="text-align:center; color:#666; margin-top:30px;">Bu kateqoriyada mahnı yoxdur.</p>';
+
+        return;
+
+    }
+
+    songsToRender.forEach((s, index) => {
+
+        // "YENİ" Məntiqi (24 Saat)
+
+        const createdDate = new Date(s.created_at);
+
+        const now = new Date();
+
+        const diffHours = (now - createdDate) / (1000 * 60 * 60);
+
+        
+
+        let badgeHTML = '';
+
+        if(diffHours < 24) {
+
+            badgeHTML = '<div class="pp-badge-new">🔥 YENİ</div>';
+
+        }
+
+        const item = document.createElement('div');
+
+        item.className = 'item';
+
+        item.innerHTML = `
+
+            <div style="position:relative;">
+
+                ${badgeHTML}
+
+                <img src="${s.cover_image}">
+
+            </div>
+
+            <div class="info">
+
+                <h3>${s.title}</h3>
+
+                <p>${s.artist}</p>
+
+            </div>
+
+            <div style="font-size:10px; color:#888; text-align:right; min-width:60px;">
+
+                <div style="margin-bottom:3px;"><i class="fas fa-play" style="font-size:9px;"></i> ${s.plays}</div>
+
+                <div><i class="fas fa-heart" style="font-size:9px;"></i> ${s.likes}</div>
+
+            </div>
+
+        `;
+
+        
+
+        item.onclick = () => {
+
+            currentPlaylist = songsToRender; // Hazırkı sıralamanı playlist et
+
+            playFromIndex(index);
+
+            openFullPlayer();
+
+        };
+
+        
+
+        list.appendChild(item);
+
+    });
+
+}
+
+// FİLTERLƏMƏ FUNKSİYASI (Tabs)
+
+function sortProfileSongs(type, tabElement) {
+
+    // Tab dizaynını dəyiş
+
+    document.querySelectorAll('.p-tab').forEach(t => t.classList.remove('active'));
+
+    tabElement.classList.add('active');
+
+    
+
+    let sortedSongs = [...currentUserSongs]; // Kopya alırıq (orijinalı pozmamaq üçün)
+
+    if (type === 'plays') {
+
+        // Çoxdan aza dinləmə
+
+        sortedSongs.sort((a, b) => b.plays - a.plays);
+
+    } else if (type === 'likes') {
+
+        // Çoxdan aza bəyənmə
+
+        sortedSongs.sort((a, b) => b.likes - a.likes);
+
+    } else if (type === 'trend') {
+
+        // Trend: Həm yeni (son 7 gün), həm də çox dinlənən (>100)
+
+        // Və ya sadəcə ən populyar ilk 10
+
+        sortedSongs.sort((a, b) => b.plays - a.plays);
+
+        sortedSongs = sortedSongs.slice(0, 10); // Top 10
+
+    } else {
+
+        // Hamısı (Default ID sırası)
+
+        // Heç nə etmirik, olduğu kimi qalır
+
+    }
+
+    renderProfileList(sortedSongs);
+
+}
+
+</script>
+
+
+<script>
+
+// TABS FIXER LOOP
+
+function ensureTabsVisible() {
+
+    const tabs = document.getElementById('pp-tabs-con');
+
+    const header = document.querySelector('#pub-profile-modal .m-box > div:first-child'); // Header hissəsi
+
+    
+
+    if(tabs && header) {
+
+        // Tabs header-dən dərhal sonra, amma list-dən əvvəl gəlməlidir
+
+        // Və sticky olması üçün parent elementin overflow-u düzgün olmalıdır.
+
+        tabs.style.position = 'sticky';
+
+        tabs.style.top = '0';
+
+    }
+
+}
+
+setInterval(ensureTabsVisible, 1000);
+
+</script>
+
+
+<script>
+
+// CURRENT SONG UPLOADER DATA
+
+let currentUploaderId = 0;
+
+// Player məlumatlarını yeniləyən funksiyanı "hook" edirik (PlayFromIndex içində işləyəcək)
+
+// Biz playFromIndex funksiyasının içini dəyişmək əvəzinə, player UI yenilənən yeri tapırıq.
+
+// 1. playFromIndex funksiyasını tapıb içinə kod yerləşdiririk
+
+// "document.getElementById('p-artist').innerText" sətrindən sonraya əlavə edirik.
+
+const uploaderLogic = `
+
+    // UPLOADER INFO UPDATE
+
+    const uploaderNameEl = document.getElementById('p-uploader-name');
+
+    const uploaderBox = document.getElementById('p-uploader-box');
+
+    
+
+    if(currentSong.username) {
+
+        uploaderNameEl.innerText = currentSong.username;
+
+        currentUploaderId = currentSong.user_id;
+
+        uploaderBox.style.display = 'inline-block';
+
+    } else {
+
+        // Əgər username yoxdursa (Məs: Admin panelindən birbaşa yüklənibsə və ya köhnədirsə)
+
+        uploaderNameEl.innerText = 'Yenimp3.az';
+
+        currentUploaderId = 0;
+
+        // uploaderBox.style.display = 'none'; // İstəsən gizlədə bilərsən
+
+    }
+
+`;
+
+// İndi bu kodu mövcud skriptə yerləşdiririk (p-artist yenilənən yerdən sonraya)
+
+// Belə bir sətir axtarırıq: document.getElementById('p-artist').innerText = ...
+
+// Və ya playFromIndex funksiyasının içinə atırıq.
+
+function openUploaderProfile() {
+
+    if(currentUploaderId > 0) {
+
+        // Playeri bağlamadan profil aç (əvvəlki kodun sayəsində player üstdə qalacaq, amma modal açılacaq)
+
+        // İstəyirsənsə playeri bağla: closePlayer();
+
+        openPublicProfile(currentUploaderId);
+
+        
+
+        // Player çox üstdədirsə, onu bir anlıq gizlət ki, profil görünsün? 
+
+        // Xeyr, sən istəyirdin player qalsın. 
+
+        // Amma profil playerin altında qalacaq. 
+
+        // Gəl belə edək: Profilə basanda Playeri "Mini" hala salaq ki, profil görünsün.
+
+        closePlayer(); 
+
+    } else {
+
+        alert("Bu mahnı Admin tərəfindən yüklənib.");
+
+    }
+
+}
+
+</script>
+
+
+<script>
+
+// GLOBAL DƏYİŞƏN
+
+let currentUploaderId = 0;
+
+// BU FUNKSİYA PLAYFROMINDEX İÇİNDƏ ÇAĞIRILACAQ
+
+function updateUploaderInfo(song) {
+
+    const nameEl = document.getElementById('p-uploader-name');
+
+    const boxEl = document.getElementById('p-uploader-box');
+
+    
+
+    // Əgər user_id varsa və 0 deyilsə
+
+    if (song.user_id && song.user_id > 0) {
+
+        currentUploaderId = song.user_id;
+
+        if(nameEl) nameEl.innerText = song.username || 'İstifadəçi';
+
+        if(boxEl) boxEl.style.display = 'inline-block';
+
+    } else {
+
+        currentUploaderId = 0;
+
+        if(nameEl) nameEl.innerText = 'Yenimp3.az';
+
+        // Admin mahnısıdırsa qutu qalsın, amma basanda xəbərdarlıq versin
+
+    }
+
+}
+
+// KLİK FUNKSİYASI (FIXED)
+
+function openUploaderProfile() {
+
+    console.log("Uploader ID:", currentUploaderId);
+
+    
+
+    if (currentUploaderId > 0) {
+
+        // 1. VACİB: Tam Playeri BAĞLA (Çünki Player profilin üstünü örtür)
+
+        document.getElementById('fullPlayer').classList.remove('active');
+
+        
+
+        // 2. Profili AÇ
+
+        setTimeout(() => {
+
+            openPublicProfile(currentUploaderId);
+
+        }, 300); // 0.3 saniyə gözlə ki, player getsin, sonra profil gəlsin (Animasiya üçün)
+
+    } else {
+
+        alert("Bu mahnı Admin tərəfindən yüklənib və ya istifadəçi tapılmadı.");
+
+    }
+
+}
+
+</script>
+
+
+<script>
+
+// --- PLAYER PROFILE LINK FIX ---
+
+// 1. Playerdəki məlumatı yeniləyən funksiya
+
+// Mahnı işə düşən kimi bu funksiya işləyəcək
+
+function updatePlayerUploaderUI() {
+
+    // Hazırkı mahnı
+
+    if (typeof currentSong === 'undefined' || !currentSong) return;
+
+    const nameEl = document.getElementById('p-uploader-name');
+
+    const boxEl = document.getElementById('p-uploader-box');
+
+    
+
+    // User ID yoxlayırıq (String və ya Number ola bilər)
+
+    const uID = parseInt(currentSong.user_id);
+
+    if (uID && uID > 0) {
+
+        // İstifadəçidirsə
+
+        if(nameEl) nameEl.innerText = currentSong.username || 'İstifadəçi';
+
+        if(boxEl) {
+
+            boxEl.style.display = 'inline-block';
+
+            boxEl.onclick = function() { openUploaderProfileFixed(uID); };
+
+        }
+
+    } else {
+
+        // Admindirsə
+
+        if(nameEl) nameEl.innerText = 'Yenimp3.az';
+
+        // Adminə basanda heç nə olmasın və ya alert versin
+
+        if(boxEl) {
+
+            boxEl.onclick = function() { alert("Bu mahnı Admin tərəfindən yüklənib."); };
+
+        }
+
+    }
+
+}
+
+// 2. Profili Açan Funksiya (FIXED)
+
+function openUploaderProfileFixed(id) {
+
+    // Əvvəlcə Playeri bağla (Çünki Player profilin üstünü tutur)
+
+    const player = document.getElementById('fullPlayer');
+
+    if(player) player.classList.remove('active');
+
+    // Bir az gözlə, sonra profili aç (Animasiya səliqəli olsun)
+
+    setTimeout(() => {
+
+        openPublicProfile(id);
+
+    }, 300);
+
+}
+
+// 3. Mövcud playFromIndex funksiyasına "qarmaq" (hook) atırıq
+
+// Orijinal funksiyanı saxlayıb, üzərinə əlavə edirik.
+
+const originalPlay = playFromIndex;
+
+playFromIndex = function(index) {
+
+    // Orijinal işini görsün
+
+    originalPlay(index);
+
+    
+
+    // Sonra bizim düzəlişi işə salsın
+
+    setTimeout(updatePlayerUploaderUI, 100);
+
+};
+
+// Player ilk açılanda da yoxla
+
+setInterval(() => {
+
+    const player = document.getElementById('fullPlayer');
+
+    if(player && player.classList.contains('active')) {
+
+        // Əgər hələ də "Yüklədi" yazısı boşdursa, yenilə
+
+        const nameEl = document.getElementById('p-uploader-name');
+
+        if(nameEl && nameEl.innerText === 'Admin' && currentSong && currentSong.user_id > 0) {
+
+            updatePlayerUploaderUI();
+
+        }
+
+    }
+
+}, 1000);
+
+</script>
+
+
+<div class="modal" id="auth-modal" style="z-index: 5000;">
+
+    <div class="m-box" style="width:90%; max-width:350px; text-align:center; padding:30px; background:#161b2c; border:1px solid #333;">
+
+        <i class="fas fa-times" style="position:absolute; top:15px; right:15px; cursor:pointer;" onclick="closeModal('auth-modal')"></i>
+
+        
+
+        <div style="font-size:24px; font-weight:bold; margin-bottom:20px; color:#fff;">Giriş <span style="color:#F72585;">Sistemi</span></div>
+
+        <div id="login-form">
+
+            <input type="text" id="l-user" class="inp" placeholder="İstifadəçi adı" style="background:#0f111a; color:#fff; border:1px solid #333; margin-bottom:10px;">
+
+            <input type="password" id="l-pass" class="inp" placeholder="Şifrə" style="background:#0f111a; color:#fff; border:1px solid #333; margin-bottom:20px;">
+
+            <button class="btn" onclick="submitAuth('login')" style="background:#F72585; color:#fff; font-weight:bold;">Daxil Ol</button>
+
+            <p style="margin-top:15px; font-size:12px; color:#888;">Hesabın yoxdur? <span onclick="toggleAuth('register')" style="color:#fff; cursor:pointer; text-decoration:underline;">Qeydiyyat</span></p>
+
+        </div>
+
+        <div id="register-form" style="display:none;">
+
+            <input type="text" id="r-name" class="inp" placeholder="Ad Soyad" style="background:#0f111a; color:#fff; border:1px solid #333; margin-bottom:10px;">
+<input type="text" id="r-user" class="inp" placeholder="Yeni İstifadəçi adı" style="background:#0f111a; color:#fff; border:1px solid #333; margin-bottom:10px;">
+
+            <input type="password" id="r-pass" class="inp" placeholder="Yeni Şifrə" style="background:#0f111a; color:#fff; border:1px solid #333; margin-bottom:20px;">
+
+            <button class="btn" onclick="submitAuth('register')" style="background:#4361ee; color:#fff; font-weight:bold;">Qeydiyyat Ol</button>
+
+            <p style="margin-top:15px; font-size:12px; color:#888;">Hesabın var? <span onclick="toggleAuth('login')" style="color:#fff; cursor:pointer; text-decoration:underline;">Giriş</span></p>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+// UI TOGGLE
+
+function toggleAuth(type) {
+
+    if(type === 'register') {
+
+        document.getElementById('login-form').style.display = 'none';
+
+        document.getElementById('register-form').style.display = 'block';
+
+    } else {
+
+        document.getElementById('login-form').style.display = 'block';
+
+        document.getElementById('register-form').style.display = 'none';
+
+    }
+
+}
+
+// SUBMIT (LOGIN/REGISTER)
+
+function submitAuth(type) {
+
+    const u = document.getElementById(type === 'login' ? 'l-user' : 'r-user').value;
+
+    const p = document.getElementById(type === 'login' ? 'l-pass' : 'r-pass').value;
+
+    
+
+    if(!u || !p) { alert("Xanaları doldurun!"); return; }
+
+    
+
+    // Düyməni deaktiv et
+
+    const btn = event.target;
+
+    const oldText = btn.innerText;
+
+    btn.innerText = "Gözləyin...";
+
+    btn.disabled = true;
+
+    const fd = new FormData();
+
+    fd.append('action', type);
+
+    fd.append('username', u);
+
+    fd.append('password', p);
+
+    fetch('', {method:'POST', body:fd})
+
+    .then(r => r.text()) // Əvvəl text kimi al
+
+    .then(text => {
+
+        try {
+
+            const d = JSON.parse(text);
+
+            if(d.success) {
+
+                location.reload(); // Uğurludursa səhifəni yenilə
+
+            } else {
+
+                alert(d.error || "Xəta baş verdi.");
+
+                btn.innerText = oldText;
+
+                btn.disabled = false;
+
+            }
+
+        } catch(e) {
+
+            console.error(text);
+
+            alert("Sistem xətası! Konsola baxın.");
+
+            btn.innerText = oldText;
+
+            btn.disabled = false;
+
+        }
+
+    });
+
+}
+
+// LOGOUT FUNCTION
+
+function logout() {
+
+    if(!confirm("Çıxış etmək istəyirsiniz?")) return;
+
+    
+
+    const fd = new FormData();
+
+    fd.append('action', 'logout');
+
+    
+
+    fetch('', {method:'POST', body:fd})
+
+    .then(r => r.json())
+
+    .then(d => {
+
+        if(d.success) location.reload();
+
+        else alert("Çıxış xətası.");
+
+    });
+
+}
+
+</script>
+
+
+<script>
+
+function submitAuth(type) {
+
+    const u = document.getElementById(type=='login'?'l-user':'r-user').value;
+
+    const p = document.getElementById(type=='login'?'l-pass':'r-pass').value;
+
+    let f = '';
+
+    
+
+    if(type==='register') {
+
+        const nInp = document.getElementById('r-name');
+
+        if(nInp) f = nInp.value;
+
+        if(!f) { alert("Ad Soyad yazın!"); return; }
+
+    }
+
+    
+
+    if(!u || !p) { alert("Məlumatları doldurun!"); return; }
+
+    
+
+    const btn = event.target;
+
+    btn.disabled = true; btn.innerText = "...";
+
+    
+
+    const fd = new FormData();
+
+    fd.append('action', type);
+
+    fd.append('username', u);
+
+    fd.append('password', p);
+
+    if(type==='register') fd.append('fullname', f);
+
+    
+
+    fetch('',{method:'POST',body:fd}).then(r=>r.json()).then(d=>{
+
+        if(d.success) location.reload();
+
+        else { alert(d.error); btn.disabled=false; btn.innerText=(type=='login'?'Daxil Ol':'Qeydiyyat'); }
+
+    }).catch(e=>{ alert("Sistem xətası"); btn.disabled=false; btn.innerText="Xəta"; });
+
+}
+
+function logout() {
+
+    if(!confirm('Çıxış edilsin?')) return;
+
+    const fd=new FormData(); fd.append('action','logout');
+
+    fetch('',{method:'POST',body:fd}).then(r=>r.json()).then(d=>{ if(d.success) location.reload(); });
+
+}
+
+</script>
+
+
+<script>
+
+// --- 1. PAYLAŞ FUNKSİYASI ---
+
+function shareCurrentSong() {
+
+    if(!currentSong) return;
+
+    
+
+    // Bazada artır
+
+    const fd = new FormData(); fd.append('action', 'count_share'); fd.append('id', currentSong.id);
+
+    fetch('', {method:'POST', body:fd});
+
+    
+
+    // UI-da artır
+
+    let el = document.getElementById('p-share-count');
+
+    if(el) el.innerText = parseInt(el.innerText||0) + 1;
+
+    // Paylaşım
+
+    const text = currentSong.artist + " - " + currentSong.title;
+
+    const url = window.location.origin + "?song=" + currentSong.id;
+
+    
+
+    if(navigator.share) {
+
+        navigator.share({ title: text, text: text, url: url }).catch(e=>{});
+
+    } else {
+
+        prompt("Linki kopyala:", url); // Prompt modalı z-index sayəsində üstdə olacaq
+
+    }
+
+}
+
+// --- 2. AĞILLI BİLDİRİŞLƏR ---
+
+function checkNotifications() {
+
+    if(!userId) return; // Login olmayıbsa yoxlama
+
+    
+
+    const fd = new FormData(); fd.append('action', 'check_notifs');
+
+    fetch('', {method:'POST', body:fd})
+
+    .then(r => r.json())
+
+    .then(d => {
+
+        const b = document.getElementById('n-badge');
+
+        if(d.count > 0) {
+
+            b.style.display = 'flex';
+
+            b.innerText = d.count;
+
+        } else {
+
+            b.style.display = 'none';
+
+        }
+
+    });
+
+}
+
+// Bell ikonuna basanda oxunmuş et
+
+// (Mövcud openNotifications funksiyasına hook edirik)
+
+const origOpenNotif = window.openNotifications || function(){}; // Əgər varsa
+
+window.openNotifications = function() {
+
+    // 1. UI-da badge-i gizlət
+
+    document.getElementById('n-badge').style.display = 'none';
+
+    
+
+    // 2. Serverə "oxundu" mesajı göndər
+
+    const fd = new FormData(); fd.append('action', 'read_notifs');
+
+    fetch('', {method:'POST', body:fd});
+
+    
+
+    // 3. Modalı aç (Köhnə funksiya və ya manual)
+
+    if(typeof openModal === 'function') openModal('notif-modal');
+
+}
+
+// Hər 5 saniyədən bir yoxla
+
+setInterval(checkNotifications, 5000);
+
+// --- 3. DOWNLOAD FIX ---
+
+// Download düyməsinə basanda, əgər modal açılırsa, o avtomatik 9999 z-index olacaq (CSS sayəsində).
+
+</script>
+
+
+<script>
+
+// --- 1. PAYLAŞ FUNKSİYASI ---
+
+function shareCurrentSong() {
+
+    if(!currentSong) return;
+
+    
+
+    // Bazada artır
+
+    const fd = new FormData(); fd.append('action', 'count_share'); fd.append('id', currentSong.id);
+
+    fetch('', {method:'POST', body:fd});
+
+    
+
+    // UI-da artır
+
+    let el = document.getElementById('p-share-count');
+
+    if(el) el.innerText = parseInt(el.innerText||0) + 1;
+
+    // Paylaşım
+
+    const text = currentSong.artist + " - " + currentSong.title;
+
+    const url = window.location.origin + "?song=" + currentSong.id;
+
+    
+
+    if(navigator.share) {
+
+        navigator.share({ title: text, text: text, url: url }).catch(e=>{});
+
+    } else {
+
+        prompt("Linki kopyala:", url); // Prompt modalı z-index sayəsində üstdə olacaq
+
+    }
+
+}
+
+// --- 2. AĞILLI BİLDİRİŞLƏR ---
+
+function checkNotifications() {
+
+    if(!userId) return; // Login olmayıbsa yoxlama
+
+    
+
+    const fd = new FormData(); fd.append('action', 'check_notifs');
+
+    fetch('', {method:'POST', body:fd})
+
+    .then(r => r.json())
+
+    .then(d => {
+
+        const b = document.getElementById('n-badge');
+
+        if(d.count > 0) {
+
+            b.style.display = 'flex';
+
+            b.innerText = d.count;
+
+        } else {
+
+            b.style.display = 'none';
+
+        }
+
+    });
+
+}
+
+// Bell ikonuna basanda oxunmuş et
+
+// (Mövcud openNotifications funksiyasına hook edirik)
+
+const origOpenNotif = window.openNotifications || function(){}; // Əgər varsa
+
+window.openNotifications = function() {
+
+    // 1. UI-da badge-i gizlət
+
+    document.getElementById('n-badge').style.display = 'none';
+
+    
+
+    // 2. Serverə "oxundu" mesajı göndər
+
+    const fd = new FormData(); fd.append('action', 'read_notifs');
+
+    fetch('', {method:'POST', body:fd});
+
+    
+
+    // 3. Modalı aç (Köhnə funksiya və ya manual)
+
+    if(typeof openModal === 'function') openModal('notif-modal');
+
+}
+
+// Hər 5 saniyədən bir yoxla
+
+setInterval(checkNotifications, 5000);
+
+// --- 3. DOWNLOAD FIX ---
+
+// Download düyməsinə basanda, əgər modal açılırsa, o avtomatik 9999 z-index olacaq (CSS sayəsində).
+
+</script>
+
+
+<style>
+    #pwa-install-banner {
+        display: none; /* Başlanğıcda gizli */
+        position: fixed;
+        bottom: 80px; /* Naviqasiyadan yuxarı */
+        left: 50%;
+        transform: translateX(-50%);
+        background: linear-gradient(45deg, #F72585, #7209b7);
+        color: white;
+        padding: 10px 20px;
+        border-radius: 30px;
+        box-shadow: 0 4px 15px rgba(247, 37, 133, 0.5);
+        z-index: 9999;
+        font-weight: bold;
+        cursor: pointer;
+        align-items: center;
+        gap: 10px;
+        white-space: nowrap;
+        animation: floatUp 0.5s ease-out;
+    }
+    #pwa-ios-prompt {
+        display: none;
+        position: fixed;
+        bottom: 0; left: 0; width: 100%;
+        background: #161b2c;
+        border-top: 2px solid #F72585;
+        padding: 20px;
+        text-align: center;
+        z-index: 10000;
+        color: #fff;
+    }
+    @keyframes floatUp { from { bottom: -50px; opacity: 0; } to { bottom: 80px; opacity: 1; } }
+</style>
+
+<div id="pwa-install-banner" onclick="installPWA()">
+    <i class="fas fa-download"></i> Tətbiqi Yüklə
+</div>
+
+<div id="pwa-ios-prompt">
+    <p style="margin:0 0 10px 0;">Tətbiqi yükləmək üçün:</p>
+    <p style="font-size:14px; color:#ccc;">
+        1. <i class="fas fa-share-square"></i> <b>Paylaş</b> düyməsinə basın.<br>
+        2. <i class="fas fa-plus-square"></i> <b>Ana ekrana əlavə et</b> seçin.
+    </p>
+    <button onclick="document.getElementById('pwa-ios-prompt').style.display='none'" class="btn" style="padding:5px 15px; margin-top:10px;">Bağla</button>
+</div>
+
+<script>
+    let deferredPrompt;
+    const installBtn = document.getElementById('pwa-install-banner');
+    const iosPrompt = document.getElementById('pwa-ios-prompt');
+
+    // 1. ANDROID / CHROME ÜÇÜN
+    window.addEventListener('beforeinstallprompt', (e) => {
+        // Brauzerin avtomatik bannerini bloklayırıq
+        e.preventDefault();
+        // Hadisəni yadda saxlayırıq ki, sonra istifadə edək
+        deferredPrompt = e;
+        // Düyməni göstəririk
+        installBtn.style.display = 'flex';
+    });
+
+    async function installPWA() {
+        if (deferredPrompt) {
+            // Quraşdırma pəncərəsini aç
+            deferredPrompt.prompt();
+            // İstifadəçinin nə seçdiyini gözlə
+            const { outcome } = await deferredPrompt.userChoice;
+            if (outcome === 'accepted') {
+                console.log('İstifadəçi qəbul etdi');
+            }
+            // Düyməni gizlət
+            installBtn.style.display = 'none';
+            deferredPrompt = null;
+        }
+    }
+
+    // 2. IOS / IPHONE ÜÇÜN
+    // iPhone-da "beforeinstallprompt" yoxdur, ona görə manual yoxlayırıq
+    const isIos = /iphone|ipad|ipod/.test( window.navigator.userAgent.toLowerCase() );
+    const isInStandaloneMode = ('standalone' in window.navigator) && (window.navigator.standalone);
+
+    // Əgər iPhone-dursa və hələ quraşdırılmayıbsa (browserdədirsə)
+    if (isIos && !isInStandaloneMode) {
+        // İlk girəndə və ya 5 saniyə sonra göstər
+        setTimeout(() => {
+            iosPrompt.style.display = 'block';
+        }, 3000);
+    }
+
+    // 3. ƏGƏR ARTIQ QURAŞDIRILIBSSA
+    window.addEventListener('appinstalled', () => {
+        installBtn.style.display = 'none';
+        iosPrompt.style.display = 'none';
+        console.log('Tətbiq uğurla quraşdırıldı');
+    });
+</script>
+<script>
+// --- 1. PLAYER DÜZƏLİŞİ (Profil və Mini Player Məntiqi) ---
+
+// Profildəki mahnı siyahısını quran funksiyanı yeniləyirik
+function renderProfileList(songsToRender) {
+    const list = document.getElementById('pp-list');
+    list.innerHTML = '';
+    
+    if(songsToRender.length === 0) {
+        list.innerHTML = '<p style="text-align:center; color:#666; margin-top:30px;">Mahnı yoxdur.</p>';
+        return;
+    }
+
+    songsToRender.forEach((s, index) => {
+        // Yeni badge məntiqi
+        const diff = (new Date() - new Date(s.created_at)) / 36e5;
+        let badge = diff < 24 ? '<div class="pp-badge-new">🔥 YENİ</div>' : '';
+
+        const item = document.createElement('div');
+        item.className = 'item';
+        item.innerHTML = `
+            <div style="position:relative;">${badge}<img src="${s.cover_image}"></div>
+            <div class="info"><h3>${s.title}</h3><p>${s.artist}</p></div>
+            <div style="font-size:10px; color:#888; text-align:right;">
+                <i class="fas fa-play"></i> ${s.plays}
+            </div>
+        `;
+        
+        // --- ƏSAS HİSSƏ: Mahnıya basanda SADECE Mini Player açılır ---
+        item.onclick = () => {
+            currentPlaylist = songsToRender;
+            playFromIndex(index); 
+            // openFullPlayer(); // BU SƏTRİ SİLDİK (Tam ekran açılmasın)
+        };
+        
+        list.appendChild(item);
+    });
+}
+
+// --- 2. AVTOMATİK YENİLƏNMƏ SİSTEMİ (Auto-Update) ---
+
+let lastCheckId = 0;
+
+// Siyahıdakı ən son ID-ni tapan köməkçi funksiya
+function updateLastId(list) {
+    if(list && list.length > 0) {
+        // Mövcud siyahıdan ən böyük ID-ni tapırıq
+        const max = Math.max(...list.map(s => parseInt(s.id)));
+        if(max > lastCheckId) lastCheckId = max;
+    }
+}
+
+// Sayt açılan kimi ilk ID-ni yadda saxla
+window.addEventListener('load', () => {
+    if(typeof songs !== 'undefined') {
+        updateLastId(songs);
+    }
+});
+
+// Hər 5 saniyədən bir serveri yoxla
+setInterval(() => {
+    // İnternet yoxdursa yoxlama (PWA və trafik qorumaq üçün)
+    if(!navigator.onLine) return;
+
+    const fd = new FormData();
+    fd.append('last_id', lastCheckId);
+
+    // update.php faylına sorğu göndəririk
+    fetch('update.php', { method: 'POST', body: fd })
+        .then(r => r.json())
+        .then(data => {
+            if (data.success && data.songs.length > 0) {
+                console.log("Yeni mahnılar gəldi:", data.songs.length);
+
+                // Yeni gələn mahnıları siyahının BAŞINA əlavə edirik
+                songs.unshift(...data.songs);
+                
+                // Ana səhifədəki siyahını yeniləyirik (Səhifəni yeniləmədən)
+                if(typeof render === 'function') {
+                    render(songs);
+                }
+                
+                // Son ID-ni yeniləyirik ki, təkrar yükləməsin
+                updateLastId(data.songs);
+                
+                // (İstəyə bağlı) Ekrana kiçik bildiriş çıxar
+                const btn = document.getElementById('new-songs-btn'); 
+                if(btn) {
+                    btn.style.display = 'block';
+                    btn.innerHTML = `<i class="fas fa-music"></i> ${data.songs.length} Yeni Mahnı!`;
+                    setTimeout(() => { btn.style.display = 'none'; }, 4000);
+                }
+            }
+        })
+        .catch(e => console.log("Yenilənmə xətası (Serverə qoşula bilmədi)"));
+
+}, 5000); // 5000 millissaniyə = 5 saniyə
+
+</script>
+</body>
+
+
+</html>

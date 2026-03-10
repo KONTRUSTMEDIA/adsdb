@@ -1,0 +1,2235 @@
+<!DOCTYPE html>
+<html lang="zh-Hans" data-bs-theme="dark">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="profile" href="https://gmpg.org/xfn/11">
+	<title>GS游享网游单机技术</title>
+<meta name='robots' content='max-image-preview:large' />
+	<style>img:is([sizes="auto" i], [sizes^="auto," i]) { contain-intrinsic-size: 3000px 1500px }</style>
+	<meta name="keywords" content="GS·游享网,游戏源码分享,网游单机,天龙八部服务端">
+<meta name="description" content="GS·游享所主要服务器环境搭建,网游技术研究,数据收集整理分享,天龙私服服务端">
+<link href="https://ghfast.top/https://raw.githubusercontent.com/yulinzhihou706/gsgameshare/master/wp-content/uploads/2021/09/1631423025-2431f9856ff3628.png" rel="icon">
+<link rel='stylesheet' id='Katex-css' href='https://gsgameshare.com/wp-content/plugins/wp-editormd/assets/KaTeX/katex.min.css?ver=10.2.1' media='all' />
+<link rel='stylesheet' id='Emojify.js-css' href='https://gsgameshare.com/wp-content/plugins/wp-editormd/assets/Emojify.js/css/basic/emojify.min.css?ver=10.2.1' media='all' />
+<link rel='stylesheet' id='prism-theme-style-css' href='https://gsgameshare.com/wp-content/plugins/wp-editormd/assets/Prism.js/themes/prism-tomorrow.css?ver=1.15.0' media='all' />
+<link rel='stylesheet' id='prism-plugin-toolbar-css' href='https://gsgameshare.com/wp-content/plugins/wp-editormd/assets/Prism.js/plugins/toolbar/prism-toolbar.css?ver=1.15.0' media='all' />
+<link rel='stylesheet' id='prism-plugin-line-numbers-css' href='https://gsgameshare.com/wp-content/plugins/wp-editormd/assets/Prism.js/plugins/line-numbers/prism-line-numbers.css?ver=1.15.0' media='all' />
+<link rel='stylesheet' id='Editormd_Front-css' href='https://gsgameshare.com/wp-content/plugins/wp-editormd/assets/Editormd/editormd.min.css?ver=10.2.1' media='all' />
+<link rel='stylesheet' id='csf-fa5-css' href='https://gsgameshare.com/wp-content/themes/ripro-v5/assets/css/font-awesome/css/all.min.css?ver=5.15.4' media='all' />
+<link rel='stylesheet' id='csf-fa5-v4-shims-css' href='https://gsgameshare.com/wp-content/themes/ripro-v5/assets/css/font-awesome/css/v4-shims.min.css?ver=5.15.4' media='all' />
+<link rel='stylesheet' id='main-css' href='https://gsgameshare.com/wp-content/themes/ripro-v5/assets/css/main.min.css?ver=9.0' media='all' />
+<script src="https://gsgameshare.com/wp-content/themes/ripro-v5/assets/js/jquery.min.js?ver=3.6.0" id="jquery-js"></script>
+</head>
+
+<body class="home blog wp-theme-ripro-v5">
+
+
+<header class="site-header">
+
+    <div class="container"> <!-- container-fluid px-lg-5 -->
+	    <div class="navbar">
+	      <!-- logo -->
+	      <div class="logo-wrapper">
+<a rel="nofollow noopener noreferrer" href="https://gsgameshare.com/"><img class="logo regular" data-light="https://ghfast.top/https://raw.githubusercontent.com/yulinzhihou706/gsgameshare/master/wp-content/uploads/2021/01/1611768462-96d6f2e7e1f705a.png" data-dark="https://ghfast.top/https://raw.githubusercontent.com/yulinzhihou706/gsgameshare/master/wp-content/uploads/2021/01/1611768462-96d6f2e7e1f705a.png" src="https://ghfast.top/https://raw.githubusercontent.com/yulinzhihou706/gsgameshare/master/wp-content/uploads/2021/01/1611768462-96d6f2e7e1f705a.png" alt="GS游享网游单机技术"></a></div>
+
+	      <div class="sep"></div>
+	      
+	      <nav class="main-menu d-none d-lg-block">
+	        <ul id="header-navbar" class="nav-list"><li class="menu-item"><a href="/"><i class="fas fa-home me-1"></i>首页</a></li>
+<li class="menu-item"><a href="/deploy"><i class="fas fa-photo-video me-1"></i>天龙架设</a></li>
+<li class="menu-item"><a href="/version"><i class="fab fa-git-alt me-1"></i>天龙版本</a></li>
+<li class="menu-item"><a href="/tools"><i class="fas fa-tools me-1"></i>天龙工具</a></li>
+<li class="menu-item"><a href="/code"><i class="far fa-file-code me-1"></i>源码相关</a></li>
+<li class="menu-item"><a href="https://gsgameshare.com/skill"><i class="fas fa-book-reader me-1"></i>涨知识</a></li>
+</ul>	      </nav>
+	      
+	      <div class="actions">
+	        
+
+	<span class="action-btn toggle-color" rel="nofollow noopener noreferrer">
+		<span title="亮色模式" data-mod="light" class=""><i class="fas fa-sun"></i></span>
+		<span title="深色模式" data-mod="dark" class=" show"><i class="fas fa-moon"></i></span>
+	</span>
+
+	<span class="action-btn toggle-search" rel="nofollow noopener noreferrer" title="站内搜索"><i class="fas fa-search"></i></span>
+
+
+
+
+	<a class="action-btn login-btn btn-sm btn" rel="nofollow noopener noreferrer" href="https://gsgameshare.com/login?redirect_to=https%3A%2F%2Fgsgameshare.com%2F"><i class="far fa-user me-1"></i>登录</a>
+
+
+	        <div class="burger d-flex d-lg-none"><i class="fas fa-bars"></i></div>
+	      </div>
+
+	      	      <div class="navbar-search">
+<div class="search-form">
+    <form method="get" action="https://gsgameshare.com/">
+                    <div class="search-select">
+                <select  name='cat' id='cat-search-select-1' class='form-select'>
+	<option value=''>全站</option>
+	<option class="level-0" value="100">涨知识</option>
+	<option class="level-0" value="12">天龙源码</option>
+	<option class="level-1" value="96">&nbsp;&nbsp;&nbsp;官方解包解密</option>
+	<option class="level-1" value="14">&nbsp;&nbsp;&nbsp;天龙工具源码</option>
+	<option class="level-1" value="13">&nbsp;&nbsp;&nbsp;天龙网站源码</option>
+	<option class="level-0" value="9">天龙工具</option>
+	<option class="level-1" value="11">&nbsp;&nbsp;&nbsp;天龙软件</option>
+	<option class="level-1" value="10">&nbsp;&nbsp;&nbsp;天龙GM工具</option>
+	<option class="level-0" value="4">天龙版本</option>
+	<option class="level-1" value="8">&nbsp;&nbsp;&nbsp;天龙唯美版本</option>
+	<option class="level-1" value="7">&nbsp;&nbsp;&nbsp;天龙经典版本</option>
+	<option class="level-1" value="6">&nbsp;&nbsp;&nbsp;天龙复古版本</option>
+	<option class="level-1" value="5">&nbsp;&nbsp;&nbsp;天龙怀旧版本</option>
+	<option class="level-0" value="1">天龙架设</option>
+	<option class="level-1" value="33">&nbsp;&nbsp;&nbsp;GS专属</option>
+	<option class="level-1" value="3">&nbsp;&nbsp;&nbsp;天龙教程</option>
+</select>
+            </div>
+        
+        <div class="search-fields">
+          <input type="text" class="" placeholder="输入关键词 回车..." autocomplete="off" value="" name="s" required="required">
+          <button title="点击搜索" type="submit"><i class="fas fa-search"></i></button>
+      </div>
+  </form>
+</div>
+</div>
+		  	      
+	    </div>
+    </div>
+
+</header>
+
+<div class="header-gap"></div>
+
+
+<!-- **************** MAIN CONTENT START **************** -->
+<main>
+	<div id="ri_home_search_widget-2" class="home-widget home-search-box">
+
+
+<div id="vanta-bg-699d8803474bf" class="search-bg bg-type-waves" >
+
+		<div class="search-bg-overlay"></div>
+	
+	
+	<div class="container search-warp">
+		<h1 class="search-title">GS游享网专注单机技术研究</h1>
+		<p class="search-desc">更多精彩资源分享</p>
+		
+<div class="search-form">
+    <form method="get" action="https://gsgameshare.com/">
+                    <div class="search-select">
+                <select  name='cat' id='cat-search-select-8' class='form-select'>
+	<option value=''>全站</option>
+	<option class="level-0" value="100">涨知识</option>
+	<option class="level-0" value="12">天龙源码</option>
+	<option class="level-1" value="96">&nbsp;&nbsp;&nbsp;官方解包解密</option>
+	<option class="level-1" value="14">&nbsp;&nbsp;&nbsp;天龙工具源码</option>
+	<option class="level-1" value="13">&nbsp;&nbsp;&nbsp;天龙网站源码</option>
+	<option class="level-0" value="9">天龙工具</option>
+	<option class="level-1" value="11">&nbsp;&nbsp;&nbsp;天龙软件</option>
+	<option class="level-1" value="10">&nbsp;&nbsp;&nbsp;天龙GM工具</option>
+	<option class="level-0" value="4">天龙版本</option>
+	<option class="level-1" value="8">&nbsp;&nbsp;&nbsp;天龙唯美版本</option>
+	<option class="level-1" value="7">&nbsp;&nbsp;&nbsp;天龙经典版本</option>
+	<option class="level-1" value="6">&nbsp;&nbsp;&nbsp;天龙复古版本</option>
+	<option class="level-1" value="5">&nbsp;&nbsp;&nbsp;天龙怀旧版本</option>
+	<option class="level-0" value="1">天龙架设</option>
+	<option class="level-1" value="33">&nbsp;&nbsp;&nbsp;GS专属</option>
+	<option class="level-1" value="3">&nbsp;&nbsp;&nbsp;天龙教程</option>
+</select>
+            </div>
+        
+        <div class="search-fields">
+          <input type="text" class="" placeholder="输入关键词 回车..." autocomplete="off" value="" name="s" required="required">
+          <button title="点击搜索" type="submit"><i class="fas fa-search"></i></button>
+      </div>
+  </form>
+</div>
+
+				<div class="search-hots">
+			<span class="me-1">搜索热词</span>
+			<span><a href="https://gsgameshare.com/search/%E8%A7%A3%E5%AF%86">解密</a></span><span><a href="https://gsgameshare.com/search/%E7%88%86%E7%8E%87">爆率</a></span><span><a href="https://gsgameshare.com/search/%E5%95%86%E5%9F%8E">商城</a></span><span><a href="https://gsgameshare.com/search/%E5%85%B3%E9%97%A8%E5%BC%9F%E5%AD%90">关门弟子</a></span><span><a href="https://gsgameshare.com/search/%E5%A4%A9%E9%BE%99%E6%80%80%E6%97%A7">天龙怀旧</a></span><span><a href="https://gsgameshare.com/search/%E7%BB%8F%E5%85%B8%E9%98%B2%E5%AE%98">经典防官</a></span><span><a href="https://gsgameshare.com/search/%E8%BD%AE%E5%9B%9E">轮回</a></span><span><a href="https://gsgameshare.com/search/%E5%8F%98%E6%80%81">变态</a></span><span><a href="https://gsgameshare.com/search/%E5%95%86%E4%B8%9A%E7%89%88%E6%9C%AC">商业版本</a></span><span><a href="https://gsgameshare.com/search/%E6%BA%90%E7%A0%81">源码</a></span><span><a href="https://gsgameshare.com/search/%E6%95%99%E7%A8%8B">教程</a></span>		</div>
+				
+	</div>
+
+	
+
+</div>
+
+
+<script src="https://gsgameshare.com/wp-content/themes/ripro-v5/assets/js/vantajs/three.min.js" defer></script>
+<script src="https://gsgameshare.com/wp-content/themes/ripro-v5/assets/js/vantajs/vanta.waves.min.js" defer></script>
+<script>
+	$(document).ready(function() {
+		var vanta = {"fun":"WAVES","opt":{"el":"#vanta-bg-699d8803474bf","mouseControls":true,"touchControls":true,"gyroControls":false,"minHeight":200,"minWidth":200,"scale":1,"scaleMobile":1,"color":"#dd9933"}};
+		var effect = VANTA[vanta.fun](vanta.opt);
+	});
+</script>
+
+</div><div id="ri_home_dynamic_widget-2" class="home-widget home-dynamic">
+
+<section class="container pt-3 pb-0">
+	<div class="row g-0">
+
+		<div class="col-12 bg-success bg-opacity-10 p-2 rounded">
+			<div class="dynamic-warp">
+				<div class="me-3">
+					<span class="badge bg-success px-2"><i class="fa fa-volume-up me-1"></i>网站动态</span>
+				</div>
+
+				<div class="dynamic-slider owl-carousel owl-theme" data-config='{"lazyLoad":false,"autoplay":true,"loop":true,"nav":true,"dots":false}'>
+				
+				<div class="item">
+					<div class="dynamic-slider-item">
+												<div class="d-flex align-items-center">
+							<div class="avatar avatar-xs"><img class="avatar-img rounded-circle border border-white border-2 shadow" src="//gsgameshare.com/wp-content/themes/ripro-v5/assets/img/avatar.png"></div>
+							<b class="name">a***n</b>
+							<p class="info">成功登录本站<span class="times">1 小时前</span></p>
+						</div>
+					</div>
+				</div>
+
+				
+				<div class="item">
+					<div class="dynamic-slider-item">
+												<div class="d-flex align-items-center">
+							<div class="avatar avatar-xs"><img class="avatar-img rounded-circle border border-white border-2 shadow" src="//gsgameshare.com/wp-content/themes/ripro-v5/assets/img/avatar.png"></div>
+							<b class="name">a***n</b>
+							<p class="info">成功登录本站<span class="times">1 小时前</span></p>
+						</div>
+					</div>
+				</div>
+
+				
+				<div class="item">
+					<div class="dynamic-slider-item">
+												<div class="d-flex align-items-center">
+							<div class="avatar avatar-xs"><img class="avatar-img rounded-circle border border-white border-2 shadow" src="//gsgameshare.com/wp-content/themes/ripro-v5/assets/img/avatar.png"></div>
+							<b class="name">a***n</b>
+							<p class="info">成功登录本站<span class="times">1 小时前</span></p>
+						</div>
+					</div>
+				</div>
+
+				
+				<div class="item">
+					<div class="dynamic-slider-item">
+												<div class="d-flex align-items-center">
+							<div class="avatar avatar-xs"><img class="avatar-img rounded-circle border border-white border-2 shadow" src="//gsgameshare.com/wp-content/themes/ripro-v5/assets/img/avatar.png"></div>
+							<b class="name">l*****w</b>
+							<p class="info">成功登录本站<span class="times">8 小时前</span></p>
+						</div>
+					</div>
+				</div>
+
+				
+				<div class="item">
+					<div class="dynamic-slider-item">
+												<div class="d-flex align-items-center">
+							<div class="avatar avatar-xs"><img class="avatar-img rounded-circle border border-white border-2 shadow" src="//gsgameshare.com/wp-content/uploads/1234/01/avatar-c370e0b452fb3ee0.jpg"></div>
+							<b class="name">a***n</b>
+							<p class="info">成功登录本站<span class="times">8 小时前</span></p>
+						</div>
+					</div>
+				</div>
+
+				
+				<div class="item">
+					<div class="dynamic-slider-item">
+												<div class="d-flex align-items-center">
+							<div class="avatar avatar-xs"><img class="avatar-img rounded-circle border border-white border-2 shadow" src="//gsgameshare.com/wp-content/themes/ripro-v5/assets/img/avatar.png"></div>
+							<b class="name">p*******3</b>
+							<p class="info"><a target="_blank" href="https://gsgameshare.com/version/992.html">下载了237新九洲天龙绝世技能秘籍弑神重楼进阶充值回馈</a><span class="times">10 小时前</span></p>
+						</div>
+					</div>
+				</div>
+
+				
+				<div class="item">
+					<div class="dynamic-slider-item">
+												<div class="d-flex align-items-center">
+							<div class="avatar avatar-xs"><img class="avatar-img rounded-circle border border-white border-2 shadow" src="//gsgameshare.com/wp-content/themes/ripro-v5/assets/img/avatar.png"></div>
+							<b class="name">p*******3</b>
+							<p class="info"><a target="_blank" href="https://gsgameshare.com/version/992.html">下载了237新九洲天龙绝世技能秘籍弑神重楼进阶充值回馈</a><span class="times">10 小时前</span></p>
+						</div>
+					</div>
+				</div>
+
+				
+				<div class="item">
+					<div class="dynamic-slider-item">
+												<div class="d-flex align-items-center">
+							<div class="avatar avatar-xs"><img class="avatar-img rounded-circle border border-white border-2 shadow" src="//gsgameshare.com/wp-content/themes/ripro-v5/assets/img/avatar.png"></div>
+							<b class="name">p*******3</b>
+							<p class="info">成功登录本站<span class="times">10 小时前</span></p>
+						</div>
+					</div>
+				</div>
+
+				
+				<div class="item">
+					<div class="dynamic-slider-item">
+												<div class="d-flex align-items-center">
+							<div class="avatar avatar-xs"><img class="avatar-img rounded-circle border border-white border-2 shadow" src="//gsgameshare.com/wp-content/themes/ripro-v5/assets/img/avatar.png"></div>
+							<b class="name">新*户</b>
+							<p class="info">成功登录本站<span class="times">12 小时前</span></p>
+						</div>
+					</div>
+				</div>
+
+				
+				<div class="item">
+					<div class="dynamic-slider-item">
+												<div class="d-flex align-items-center">
+							<div class="avatar avatar-xs"><img class="avatar-img rounded-circle border border-white border-2 shadow" src="//gsgameshare.com/wp-content/themes/ripro-v5/assets/img/avatar.png"></div>
+							<b class="name">2***w</b>
+							<p class="info"><a target="_blank" href="https://gsgameshare.com/version/3592.html">下载了🎮🔥GSXY-065-怀旧11门派闲人高仿源端带雕纹头饰背饰-武道三重-怪物掉落详情</a><span class="times">20 小时前</span></p>
+						</div>
+					</div>
+				</div>
+
+				
+				<div class="item">
+					<div class="dynamic-slider-item">
+												<div class="d-flex align-items-center">
+							<div class="avatar avatar-xs"><img class="avatar-img rounded-circle border border-white border-2 shadow" src="//gsgameshare.com/wp-content/themes/ripro-v5/assets/img/avatar.png"></div>
+							<b class="name">新*户</b>
+							<p class="info">成功登录本站<span class="times">23 小时前</span></p>
+						</div>
+					</div>
+				</div>
+
+				
+				<div class="item">
+					<div class="dynamic-slider-item">
+												<div class="d-flex align-items-center">
+							<div class="avatar avatar-xs"><img class="avatar-img rounded-circle border border-white border-2 shadow" src="//gsgameshare.com/wp-content/themes/ripro-v5/assets/img/avatar.png"></div>
+							<b class="name">新*户</b>
+							<p class="info">成功登录本站<span class="times">1 天前</span></p>
+						</div>
+					</div>
+				</div>
+
+							  	</div>
+
+			</div>
+		</div>
+
+		
+	</div>
+</section>
+
+</div><div id="ri_home_catpost_widget-3" class="home-widget home-cat-post">
+<section class="container">
+        <div class="section-title text-center mb-4">
+      <h3><a href="https://gsgameshare.com/version">天龙版本</a></h3>
+              <p class="text-muted mb-0"><p>天龙八部SF版本</p>
+</p>
+          </div>
+  
+  <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-2 g-md-3 g-lg-4">
+    
+
+	<div class="col">
+		<article class="post-item item-grid">
+
+			<div class="tips-badge position-absolute top-0 start-0 z-1 m-2">
+				
+								<div class="badge bg-warning bg-opacity-75">VIP</div>
+				
+			</div>
+			
+
+<div class="entry-media ratio ratio-3x2">
+	<a target="" class="media-img lazy bg-cover bg-center" href="https://gsgameshare.com/version/1988.html" title="485怀旧复古圣器法宝兽魂幻魂新江湖充值回馈" data-bg="https://ghfast.top/https://raw.githubusercontent.com/yulinzhihou706/gsgameshare/master/wp-content/uploads/2024/11/1730855114-218a0aefd1d1a4b-300x200.jpg">
+
+		
+		<!-- 音视频缩略图 -->
+		
+	</a>
+</div>			<div class="entry-wrapper">
+									<div class="entry-cat-dot"><a href="https://gsgameshare.com/version">天龙版本</a> <a href="https://gsgameshare.com/jd">天龙经典版本</a></div>
+				
+				<h2 class="entry-title">
+					<a target="" href="https://gsgameshare.com/version/1988.html" title="485怀旧复古圣器法宝兽魂幻魂新江湖充值回馈">485怀旧复古圣器法宝兽魂幻魂新江湖充值回馈</a>
+				</h2>
+
+									<div class="entry-desc">485怀旧复古新江湖：圣器法宝兽魂幻魂充值回馈盛典 485怀旧复古圣器法宝兽魂幻...</div>
+				
+				
+<div class="entry-meta">
+
+		<span class="meta-date"><i class="far fa-clock me-1"></i><time class="pub-date" datetime="2024-11-08T08:04:59+08:00">1 年前</time></span>
+	
+		<span class="meta-likes d-none d-md-inline-block"><i class="far fa-heart me-1"></i>0</span>
+	
+		<span class="meta-fav d-none d-md-inline-block"><i class="far fa-star me-1"></i>0</span>
+	
+		<span class="meta-views"><i class="far fa-eye me-1"></i>165</span>
+	
+		<span class="meta-price"><i class="far fa-gem me-1"></i>3588</span>
+	
+</div>			</div>
+		</article>
+	</div>
+
+
+
+	<div class="col">
+		<article class="post-item item-grid">
+
+			<div class="tips-badge position-absolute top-0 start-0 z-1 m-2">
+				
+								<div class="badge bg-warning bg-opacity-75">VIP</div>
+				
+			</div>
+			
+
+<div class="entry-media ratio ratio-3x2">
+	<a target="" class="media-img lazy bg-cover bg-center" href="https://gsgameshare.com/version/2922.html" title="🎮🔥GSXY-064-公益经典13门派-无字谱" data-bg="https://ghfast.top/https://raw.githubusercontent.com/yulinzhihou706/gsgameshare/master/wp-content/uploads/2025/11/Snipaste_2025-11-06_14-04-09-300x200.png">
+
+		
+		<!-- 音视频缩略图 -->
+		
+	</a>
+</div>			<div class="entry-wrapper">
+									<div class="entry-cat-dot"><a href="https://gsgameshare.com/version">天龙版本</a> <a href="https://gsgameshare.com/jd">天龙经典版本</a></div>
+				
+				<h2 class="entry-title">
+					<a target="" href="https://gsgameshare.com/version/2922.html" title="🎮🔥GSXY-064-公益经典13门派-无字谱">🎮🔥GSXY-064-公益经典13门派-无字谱</a>
+				</h2>
+
+									<div class="entry-desc">🎮🔥GSXY-064-公益经典13门派-无字谱 版本特点 1. 🚀体验完好：天龙...</div>
+				
+				
+<div class="entry-meta">
+
+		<span class="meta-date"><i class="far fa-clock me-1"></i><time class="pub-date" datetime="2025-11-07T07:15:30+08:00">4 月前</time></span>
+	
+		<span class="meta-likes d-none d-md-inline-block"><i class="far fa-heart me-1"></i>0</span>
+	
+		<span class="meta-fav d-none d-md-inline-block"><i class="far fa-star me-1"></i>0</span>
+	
+		<span class="meta-views"><i class="far fa-eye me-1"></i>182</span>
+	
+		<span class="meta-price"><i class="far fa-gem me-1"></i>1985</span>
+	
+</div>			</div>
+		</article>
+	</div>
+
+
+
+	<div class="col">
+		<article class="post-item item-grid">
+
+			<div class="tips-badge position-absolute top-0 start-0 z-1 m-2">
+				
+								<div class="badge bg-warning bg-opacity-75">VIP</div>
+				
+			</div>
+			
+
+<div class="entry-media ratio ratio-3x2">
+	<a target="" class="media-img lazy bg-cover bg-center" href="https://gsgameshare.com/version/645.html" title="124神器进阶手工防官兑换物品独创技能" data-bg="https://ghfast.top/https://raw.githubusercontent.com/yulinzhihou706/gsgameshare/master/wp-content/uploads/2023/06/1686977955-c8ffe9a587b126f.jpg.webp">
+
+		
+		<!-- 音视频缩略图 -->
+		
+	</a>
+</div>			<div class="entry-wrapper">
+									<div class="entry-cat-dot"><a href="https://gsgameshare.com/version">天龙版本</a> <a href="https://gsgameshare.com/jd">天龙经典版本</a></div>
+				
+				<h2 class="entry-title">
+					<a target="" href="https://gsgameshare.com/version/645.html" title="124神器进阶手工防官兑换物品独创技能">124神器进阶手工防官兑换物品独创技能</a>
+				</h2>
+
+									<div class="entry-desc">欢迎来到天龙八部，一个华丽的武侠世界。在这个世界里，玩家可以通过各种方式获得宝石...</div>
+				
+				
+<div class="entry-meta">
+
+		<span class="meta-date"><i class="far fa-clock me-1"></i><time class="pub-date" datetime="2023-07-27T07:57:31+08:00">3 年前</time></span>
+	
+		<span class="meta-likes d-none d-md-inline-block"><i class="far fa-heart me-1"></i>0</span>
+	
+		<span class="meta-fav d-none d-md-inline-block"><i class="far fa-star me-1"></i>0</span>
+	
+		<span class="meta-views"><i class="far fa-eye me-1"></i>173</span>
+	
+		<span class="meta-price"><i class="far fa-gem me-1"></i>3788</span>
+	
+</div>			</div>
+		</article>
+	</div>
+
+
+
+	<div class="col">
+		<article class="post-item item-grid">
+
+			<div class="tips-badge position-absolute top-0 start-0 z-1 m-2">
+				
+								<div class="badge bg-warning bg-opacity-75">VIP</div>
+				
+			</div>
+			
+
+<div class="entry-media ratio ratio-3x2">
+	<a target="" class="media-img lazy bg-cover bg-center" href="https://gsgameshare.com/version/237.html" title="011复古独家BOSS天龙9门派版" data-bg="https://ghfast.top/https://raw.githubusercontent.com/yulinzhihou706/gsgameshare/master/wp-content/uploads/2023/04/1680698488-84eb13cfed01764.jpg.webp">
+
+		
+		<!-- 音视频缩略图 -->
+		
+	</a>
+</div>			<div class="entry-wrapper">
+									<div class="entry-cat-dot"><a href="https://gsgameshare.com/fg">天龙复古版本</a> <a href="https://gsgameshare.com/version">天龙版本</a></div>
+				
+				<h2 class="entry-title">
+					<a target="" href="https://gsgameshare.com/version/237.html" title="011复古独家BOSS天龙9门派版">011复古独家BOSS天龙9门派版</a>
+				</h2>
+
+									<div class="entry-desc">011复古独家BOSS天龙9门派版天龙复古界面是天龙八部游戏中备受期待的一个版本...</div>
+				
+				
+<div class="entry-meta">
+
+		<span class="meta-date"><i class="far fa-clock me-1"></i><time class="pub-date" datetime="2023-04-05T20:42:21+08:00">3 年前</time></span>
+	
+		<span class="meta-likes d-none d-md-inline-block"><i class="far fa-heart me-1"></i>0</span>
+	
+		<span class="meta-fav d-none d-md-inline-block"><i class="far fa-star me-1"></i>0</span>
+	
+		<span class="meta-views"><i class="far fa-eye me-1"></i>546</span>
+	
+		<span class="meta-price"><i class="far fa-gem me-1"></i>4588</span>
+	
+</div>			</div>
+		</article>
+	</div>
+
+
+
+	<div class="col">
+		<article class="post-item item-grid">
+
+			<div class="tips-badge position-absolute top-0 start-0 z-1 m-2">
+				
+								<div class="badge bg-warning bg-opacity-75">VIP</div>
+				
+			</div>
+			
+
+<div class="entry-media ratio ratio-3x2">
+	<a target="" class="media-img lazy bg-cover bg-center" href="https://gsgameshare.com/version/703.html" title="143九门派复古回馈3件重楼防官橙宇名扬天下" data-bg="https://ghfast.top/https://raw.githubusercontent.com/yulinzhihou706/gsgameshare/master/wp-content/uploads/2023/06/1686984958-903ce9225fca3e9.jpg.webp">
+
+		
+		<!-- 音视频缩略图 -->
+		
+	</a>
+</div>			<div class="entry-wrapper">
+									<div class="entry-cat-dot"><a href="https://gsgameshare.com/fg">天龙复古版本</a> <a href="https://gsgameshare.com/version">天龙版本</a></div>
+				
+				<h2 class="entry-title">
+					<a target="" href="https://gsgameshare.com/version/703.html" title="143九门派复古回馈3件重楼防官橙宇名扬天下">143九门派复古回馈3件重楼防官橙宇名扬天下</a>
+				</h2>
+
+									<div class="entry-desc">143九门派复古回馈3件重楼防官橙宇名扬天下天龙经典界面 宝石 纯净月光石(7级...</div>
+				
+				
+<div class="entry-meta">
+
+		<span class="meta-date"><i class="far fa-clock me-1"></i><time class="pub-date" datetime="2023-08-15T07:54:07+08:00">3 年前</time></span>
+	
+		<span class="meta-likes d-none d-md-inline-block"><i class="far fa-heart me-1"></i>0</span>
+	
+		<span class="meta-fav d-none d-md-inline-block"><i class="far fa-star me-1"></i>0</span>
+	
+		<span class="meta-views"><i class="far fa-eye me-1"></i>111</span>
+	
+		<span class="meta-price"><i class="far fa-gem me-1"></i>3588</span>
+	
+</div>			</div>
+		</article>
+	</div>
+
+
+
+	<div class="col">
+		<article class="post-item item-grid">
+
+			<div class="tips-badge position-absolute top-0 start-0 z-1 m-2">
+				
+								<div class="badge bg-warning bg-opacity-75">VIP</div>
+				
+			</div>
+			
+
+<div class="entry-media ratio ratio-3x2">
+	<a target="" class="media-img lazy bg-cover bg-center" href="https://gsgameshare.com/version/1364.html" title="277九州劫早期版本唯美界面经典防官" data-bg="https://ghfast.top/https://raw.githubusercontent.com/yulinzhihou706/gsgameshare/master/wp-content/uploads/2024/01/1704163580-20f07591c6fcb22.jpg.webp">
+
+		
+		<!-- 音视频缩略图 -->
+		
+	</a>
+</div>			<div class="entry-wrapper">
+									<div class="entry-cat-dot"><a href="https://gsgameshare.com/wm">天龙唯美版本</a> <a href="https://gsgameshare.com/version">天龙版本</a></div>
+				
+				<h2 class="entry-title">
+					<a target="" href="https://gsgameshare.com/version/1364.html" title="277九州劫早期版本唯美界面经典防官">277九州劫早期版本唯美界面经典防官</a>
+				</h2>
+
+									<div class="entry-desc">277九州劫早期版本：唯美界面演绎经典防官传奇 珍兽与宝宝共舞九州 在277九州...</div>
+				
+				
+<div class="entry-meta">
+
+		<span class="meta-date"><i class="far fa-clock me-1"></i><time class="pub-date" datetime="2024-01-03T08:37:42+08:00">2 年前</time></span>
+	
+		<span class="meta-likes d-none d-md-inline-block"><i class="far fa-heart me-1"></i>0</span>
+	
+		<span class="meta-fav d-none d-md-inline-block"><i class="far fa-star me-1"></i>0</span>
+	
+		<span class="meta-views"><i class="far fa-eye me-1"></i>150</span>
+	
+		<span class="meta-price"><i class="far fa-gem me-1"></i>3998</span>
+	
+</div>			</div>
+		</article>
+	</div>
+
+
+
+	<div class="col">
+		<article class="post-item item-grid">
+
+			<div class="tips-badge position-absolute top-0 start-0 z-1 m-2">
+				
+								<div class="badge bg-warning bg-opacity-75">VIP</div>
+				
+			</div>
+			
+
+<div class="entry-media ratio ratio-3x2">
+	<a target="" class="media-img lazy bg-cover bg-center" href="https://gsgameshare.com/version/1699.html" title="339武器带放大公益版本会员装备可爆120级独创技能" data-bg="https://ghfast.top/https://raw.githubusercontent.com/yulinzhihou706/gsgameshare/master/wp-content/uploads/2024/01/1705028911-5945938be4ce234.jpg.webp">
+
+		
+		<!-- 音视频缩略图 -->
+		
+	</a>
+</div>			<div class="entry-wrapper">
+									<div class="entry-cat-dot"><a href="https://gsgameshare.com/version">天龙版本</a> <a href="https://gsgameshare.com/jd">天龙经典版本</a></div>
+				
+				<h2 class="entry-title">
+					<a target="" href="https://gsgameshare.com/version/1699.html" title="339武器带放大公益版本会员装备可爆120级独创技能">339武器带放大公益版本会员装备可爆120级独创技能</a>
+				</h2>
+
+									<div class="entry-desc">339武器带放大公益版本：120级独创技能，会员装备可爆 在339版本的《武器带...</div>
+				
+				
+<div class="entry-meta">
+
+		<span class="meta-date"><i class="far fa-clock me-1"></i><time class="pub-date" datetime="2024-03-03T08:07:11+08:00">2 年前</time></span>
+	
+		<span class="meta-likes d-none d-md-inline-block"><i class="far fa-heart me-1"></i>0</span>
+	
+		<span class="meta-fav d-none d-md-inline-block"><i class="far fa-star me-1"></i>0</span>
+	
+		<span class="meta-views"><i class="far fa-eye me-1"></i>161</span>
+	
+		<span class="meta-price"><i class="far fa-gem me-1"></i>4388</span>
+	
+</div>			</div>
+		</article>
+	</div>
+
+
+
+	<div class="col">
+		<article class="post-item item-grid">
+
+			<div class="tips-badge position-absolute top-0 start-0 z-1 m-2">
+				
+								<div class="badge bg-warning bg-opacity-75">VIP</div>
+				
+			</div>
+			
+
+<div class="entry-media ratio ratio-3x2">
+	<a target="" class="media-img lazy bg-cover bg-center" href="https://gsgameshare.com/version/3686.html" title="🎮🔥GSXY-077-九门归来【3】魔改怀旧修复版怀旧9门派" data-bg="https://ghfast.top/https://raw.githubusercontent.com/yulinzhihou706/gsgameshare/master/wp-content/uploads/2025/11/Snipaste_2025-11-24_15-06-35.png">
+
+		
+		<!-- 音视频缩略图 -->
+		
+	</a>
+</div>			<div class="entry-wrapper">
+									<div class="entry-cat-dot"><a href="https://gsgameshare.com/hj">天龙怀旧版本</a> <a href="https://gsgameshare.com/version">天龙版本</a></div>
+				
+				<h2 class="entry-title">
+					<a target="" href="https://gsgameshare.com/version/3686.html" title="🎮🔥GSXY-077-九门归来【3】魔改怀旧修复版怀旧9门派">🎮🔥GSXY-077-九门归来【3】魔改怀旧修复版怀旧9门派</a>
+				</h2>
+
+									<div class="entry-desc">🎮🔥GSXY-077-九门归来【3】魔改怀旧修复版怀旧9门派 版本特点 1. 🚀...</div>
+				
+				
+<div class="entry-meta">
+
+		<span class="meta-date"><i class="far fa-clock me-1"></i><time class="pub-date" datetime="2025-12-08T08:01:11+08:00">3 月前</time></span>
+	
+		<span class="meta-likes d-none d-md-inline-block"><i class="far fa-heart me-1"></i>0</span>
+	
+		<span class="meta-fav d-none d-md-inline-block"><i class="far fa-star me-1"></i>0</span>
+	
+		<span class="meta-views"><i class="far fa-eye me-1"></i>136</span>
+	
+		<span class="meta-price"><i class="far fa-gem me-1"></i>1678</span>
+	
+</div>			</div>
+		</article>
+	</div>
+
+  </div>
+
+</section>
+
+</div><div id="ri_home_catbox_widget-2" class="home-widget home-cat-box">
+
+<section class="container">
+	<div class="widget-catbox owl-carousel owl-theme" data-config='{"lazyLoad":false,"autoplay":false,"loop":false,"nav":false,"dots":false,"responsive":{"0":{"items":2,"nav":false},"768":{"items":3,"nav":false},"992":{"items":5,"nav":true}}}'>
+
+		
+		<div class="item">
+			<div class="widget-catbox-item lazy" data-bg="https://gsgameshare.com/wp-content/themes/ripro-v5/assets/img/bg.jpg">
+				
+				<a href="https://gsgameshare.com/course">
+					<div class="catbox-content">
+													<span class="badge bg-danger text-white bg-opacity-75 mb-2">28+</span>
+							                	<h3 class="catbox-title">天龙教程</h3>
+	                </div>
+				</a>
+				
+			</div>
+		</div>
+
+		
+		<div class="item">
+			<div class="widget-catbox-item lazy" data-bg="https://gsgameshare.com/wp-content/themes/ripro-v5/assets/img/bg.jpg">
+				
+				<a href="https://gsgameshare.com/gs-course">
+					<div class="catbox-content">
+													<span class="badge bg-primary text-white bg-opacity-75 mb-2">10+</span>
+							                	<h3 class="catbox-title">GS专属</h3>
+	                </div>
+				</a>
+				
+			</div>
+		</div>
+
+		
+		<div class="item">
+			<div class="widget-catbox-item lazy" data-bg="https://gsgameshare.com/wp-content/themes/ripro-v5/assets/img/bg.jpg">
+				
+				<a href="https://gsgameshare.com/code">
+					<div class="catbox-content">
+													<span class="badge bg-success text-white bg-opacity-75 mb-2">25+</span>
+							                	<h3 class="catbox-title">天龙源码</h3>
+	                </div>
+				</a>
+				
+			</div>
+		</div>
+
+		
+		<div class="item">
+			<div class="widget-catbox-item lazy" data-bg="https://gsgameshare.com/wp-content/themes/ripro-v5/assets/img/bg.jpg">
+				
+				<a href="https://gsgameshare.com/version">
+					<div class="catbox-content">
+													<span class="badge bg-warning text-white bg-opacity-75 mb-2">504+</span>
+							                	<h3 class="catbox-title">天龙版本</h3>
+	                </div>
+				</a>
+				
+			</div>
+		</div>
+
+		
+		<div class="item">
+			<div class="widget-catbox-item lazy" data-bg="https://gsgameshare.com/wp-content/themes/ripro-v5/assets/img/bg.jpg">
+				
+				<a href="https://gsgameshare.com/tools">
+					<div class="catbox-content">
+													<span class="badge bg-info text-white bg-opacity-75 mb-2">57+</span>
+							                	<h3 class="catbox-title">天龙工具</h3>
+	                </div>
+				</a>
+				
+			</div>
+		</div>
+
+			  	
+	</div>
+</section>
+
+</div><div id="ri_home_cmspost_widget-3" class="home-widget home-cms-post">
+<section class="container">
+
+        <div class="section-title text-center mb-4">
+      <h3><a href="https://gsgameshare.com/course">GS游享天龙架设教程</a></h3>
+              <p class="text-muted mb-0">天龙新手架设教程，一键开启你的部署之路</p>
+          </div>
+  
+
+  <div class="cms-post-warp grid-overlay row g-2 g-md-3">
+
+    
+    <div class="col-lg-6 col-sm-12 cms-left-itme">
+              <div class="row row-cols-1 g-2 g-md-3">
+          
+
+	<div class="col">
+		<article class="post-item item-grid grid-overlay">
+
+			<div class="tips-badge position-absolute top-0 start-0 z-1 m-2">
+				
+				
+			</div>
+
+			
+
+<div class="entry-media ratio ratio-3x2">
+	<a target="" class="media-img lazy bg-cover bg-center" href="https://gsgameshare.com/deploy/1.html" title="全系列天龙八部SF架设教程从0到精通之GS游享环境配套视频教程" data-bg="https://ghfast.top/https://raw.githubusercontent.com/yulinzhihou706/gsgameshare/master/wp-content/uploads/2023/02/1676465866-e541eeb37be2e60.png.webp">
+
+		
+		<!-- 音视频缩略图 -->
+		
+	</a>
+</div>
+			<div class="entry-wrapper">
+									<div class="entry-cat-dot"><a href="https://gsgameshare.com/course">天龙教程</a> <a href="https://gsgameshare.com/deploy">天龙架设</a></div>
+				
+				<h2 class="entry-title">
+					<a target="" href="https://gsgameshare.com/deploy/1.html" title="全系列天龙八部SF架设教程从0到精通之GS游享环境配套视频教程">全系列天龙八部SF架设教程从0到精通之GS游享环境配套视频教程</a>
+				</h2>
+
+									<div class="entry-desc">最全系列天龙八部SF架设教程从0到精通之GS游享环境配套视频教程和配套工具资源下...</div>
+				
+				
+<div class="entry-meta">
+
+		<span class="meta-date"><i class="far fa-clock me-1"></i><time class="pub-date" datetime="2023-02-14T16:30:51+08:00">3 年前</time></span>
+	
+		<span class="meta-likes d-none d-md-inline-block"><i class="far fa-heart me-1"></i>0</span>
+	
+		<span class="meta-fav d-none d-md-inline-block"><i class="far fa-star me-1"></i>0</span>
+	
+		<span class="meta-views"><i class="far fa-eye me-1"></i>42.5K</span>
+	
+	
+</div>
+
+			</div>
+		</article>
+	</div>
+
+
+        </div>
+            </div>
+
+    <div class="col-lg-6 col-sm-12 cms-right-itme ">
+      <div class="row row-cols-2 g-2 g-md-3">
+                            
+
+	<div class="col">
+		<article class="post-item item-grid grid-overlay">
+
+			<div class="tips-badge position-absolute top-0 start-0 z-1 m-2">
+				
+								<div class="badge bg-warning bg-opacity-75">VIP</div>
+				
+			</div>
+
+			
+
+<div class="entry-media ratio ratio-3x2">
+	<a target="" class="media-img lazy bg-cover bg-center" href="https://gsgameshare.com/deploy/23.html" title="天龙八部SF环境架设教程之GS游享网服务器环境安装V2版本" data-bg="https://ghfast.top/https://raw.githubusercontent.com/yulinzhihou706/gsgameshare/master/wp-content/uploads/2023/02/1676465795-a66202357461450.png.webp">
+
+		
+		<!-- 音视频缩略图 -->
+		
+	</a>
+</div>
+			<div class="entry-wrapper">
+									<div class="entry-cat-dot"><a href="https://gsgameshare.com/course">天龙教程</a> <a href="https://gsgameshare.com/deploy">天龙架设</a></div>
+				
+				<h2 class="entry-title">
+					<a target="" href="https://gsgameshare.com/deploy/23.html" title="天龙八部SF环境架设教程之GS游享网服务器环境安装V2版本">天龙八部SF环境架设教程之GS游享网服务器环境安装V2版本</a>
+				</h2>
+
+				
+				
+<div class="entry-meta">
+
+		<span class="meta-date"><i class="far fa-clock me-1"></i><time class="pub-date" datetime="2023-02-14T21:30:27+08:00">3 年前</time></span>
+	
+		<span class="meta-likes d-none d-md-inline-block"><i class="far fa-heart me-1"></i>0</span>
+	
+		<span class="meta-fav d-none d-md-inline-block"><i class="far fa-star me-1"></i>1</span>
+	
+		<span class="meta-views"><i class="far fa-eye me-1"></i>38.0K</span>
+	
+		<span class="meta-price"><i class="far fa-gem me-1"></i>3888</span>
+	
+</div>
+
+			</div>
+		</article>
+	</div>
+
+
+                              
+
+	<div class="col">
+		<article class="post-item item-grid grid-overlay">
+
+			<div class="tips-badge position-absolute top-0 start-0 z-1 m-2">
+				
+								<div class="badge bg-warning bg-opacity-75">VIP</div>
+				
+			</div>
+
+			
+
+<div class="entry-media ratio ratio-3x2">
+	<a target="" class="media-img lazy bg-cover bg-center" href="https://gsgameshare.com/deploy/30.html" title="天龙八部SF架设环境教程之GS天龙环境游享网服务器环境离线安装版本" data-bg="https://ghfast.top/https://raw.githubusercontent.com/yulinzhihou706/gsgameshare/master/wp-content/uploads/2023/02/1676465731-3ba0b4c11dfda41.png.webp">
+
+		
+		<!-- 音视频缩略图 -->
+		
+	</a>
+</div>
+			<div class="entry-wrapper">
+									<div class="entry-cat-dot"><a href="https://gsgameshare.com/course">天龙教程</a> <a href="https://gsgameshare.com/deploy">天龙架设</a></div>
+				
+				<h2 class="entry-title">
+					<a target="" href="https://gsgameshare.com/deploy/30.html" title="天龙八部SF架设环境教程之GS天龙环境游享网服务器环境离线安装版本">天龙八部SF架设环境教程之GS天龙环境游享网服务器环境离线安装版本</a>
+				</h2>
+
+				
+				
+<div class="entry-meta">
+
+		<span class="meta-date"><i class="far fa-clock me-1"></i><time class="pub-date" datetime="2023-02-14T21:39:04+08:00">3 年前</time></span>
+	
+		<span class="meta-likes d-none d-md-inline-block"><i class="far fa-heart me-1"></i>0</span>
+	
+		<span class="meta-fav d-none d-md-inline-block"><i class="far fa-star me-1"></i>0</span>
+	
+		<span class="meta-views"><i class="far fa-eye me-1"></i>36.9K</span>
+	
+		<span class="meta-price"><i class="far fa-gem me-1"></i>888</span>
+	
+</div>
+
+			</div>
+		</article>
+	</div>
+
+
+                              
+
+	<div class="col">
+		<article class="post-item item-grid grid-overlay">
+
+			<div class="tips-badge position-absolute top-0 start-0 z-1 m-2">
+				
+				
+			</div>
+
+			
+
+<div class="entry-media ratio ratio-3x2">
+	<a target="" class="media-img lazy bg-cover bg-center" href="https://gsgameshare.com/deploy/28.html" title="GS游享天龙八部SF环境架设命令及配置详解" data-bg="https://ghfast.top/https://raw.githubusercontent.com/yulinzhihou706/gsgameshare/master/wp-content/uploads/2023/02/1676465633-dcf6242714e94ed.png.webp">
+
+		
+		<!-- 音视频缩略图 -->
+		
+	</a>
+</div>
+			<div class="entry-wrapper">
+									<div class="entry-cat-dot"><a href="https://gsgameshare.com/course">天龙教程</a> <a href="https://gsgameshare.com/deploy">天龙架设</a></div>
+				
+				<h2 class="entry-title">
+					<a target="" href="https://gsgameshare.com/deploy/28.html" title="GS游享天龙八部SF环境架设命令及配置详解">GS游享天龙八部SF环境架设命令及配置详解</a>
+				</h2>
+
+				
+				
+<div class="entry-meta">
+
+		<span class="meta-date"><i class="far fa-clock me-1"></i><time class="pub-date" datetime="2023-02-14T21:36:59+08:00">3 年前</time></span>
+	
+		<span class="meta-likes d-none d-md-inline-block"><i class="far fa-heart me-1"></i>0</span>
+	
+		<span class="meta-fav d-none d-md-inline-block"><i class="far fa-star me-1"></i>0</span>
+	
+		<span class="meta-views"><i class="far fa-eye me-1"></i>32.6K</span>
+	
+	
+</div>
+
+			</div>
+		</article>
+	</div>
+
+
+                              
+
+	<div class="col">
+		<article class="post-item item-grid grid-overlay">
+
+			<div class="tips-badge position-absolute top-0 start-0 z-1 m-2">
+				
+								<div class="badge bg-warning bg-opacity-75">VIP</div>
+				
+			</div>
+
+			
+
+<div class="entry-media ratio ratio-3x2">
+	<a target="" class="media-img lazy bg-cover bg-center" href="https://gsgameshare.com/deploy/101.html" title="第十二节：天龙架设双机内网+内网穿透实现外网开服" data-bg="https://ghfast.top/https://raw.githubusercontent.com/yulinzhihou706/gsgameshare/master/wp-content/uploads/2023/02/1677511639-65818c54a329c02.png.webp">
+
+		
+		<!-- 音视频缩略图 -->
+		
+	</a>
+</div>
+			<div class="entry-wrapper">
+									<div class="entry-cat-dot"><a href="https://gsgameshare.com/course">天龙教程</a> <a href="https://gsgameshare.com/deploy">天龙架设</a></div>
+				
+				<h2 class="entry-title">
+					<a target="" href="https://gsgameshare.com/deploy/101.html" title="第十二节：天龙架设双机内网+内网穿透实现外网开服">第十二节：天龙架设双机内网+内网穿透实现外网开服</a>
+				</h2>
+
+				
+				
+<div class="entry-meta">
+
+		<span class="meta-date"><i class="far fa-clock me-1"></i><time class="pub-date" datetime="2023-02-27T23:27:43+08:00">3 年前</time></span>
+	
+		<span class="meta-likes d-none d-md-inline-block"><i class="far fa-heart me-1"></i>0</span>
+	
+		<span class="meta-fav d-none d-md-inline-block"><i class="far fa-star me-1"></i>0</span>
+	
+		<span class="meta-views"><i class="far fa-eye me-1"></i>19.6K</span>
+	
+		<span class="meta-price"><i class="far fa-gem me-1"></i>3688</span>
+	
+</div>
+
+			</div>
+		</article>
+	</div>
+
+
+                </div>
+    </div>
+
+    
+  </div>
+
+</section>
+
+</div><div id="ri_home_lastpost_widget-2" class="home-widget home-last-post">
+<section class="container">
+			    <div class="section-title text-center mb-4">
+	      <h3>最新推荐</h3>
+	      	        <p class="text-muted mb-0">当前最新发布更新的热门资源，我们将会持续保持更新</p>
+	      	    </div>
+	
+	
+	<div class="posts-warp row row-cols-2 row-cols-md-3 row-cols-lg-4 g-2 g-md-3 g-lg-4">
+		
+
+	<div class="col">
+		<article class="post-item item-grid">
+
+			<div class="tips-badge position-absolute top-0 start-0 z-1 m-2">
+				
+								<div class="badge bg-warning bg-opacity-75">VIP</div>
+				
+			</div>
+			
+
+<div class="entry-media ratio ratio-3x2">
+	<a target="" class="media-img lazy bg-cover bg-center" href="https://gsgameshare.com/version/3989.html" title="🎮🔥GSXY-092-天龙复古085改" data-bg="https://ghfast.top/https://raw.githubusercontent.com/yulinzhihou706/gsgameshare/master/wp-content/uploads/2026/01/Snipaste_2026-01-31_14-18-55-300x200.png">
+
+		
+		<!-- 音视频缩略图 -->
+		
+	</a>
+</div>			<div class="entry-wrapper">
+									<div class="entry-cat-dot"><a href="https://gsgameshare.com/fg">天龙复古版本</a> <a href="https://gsgameshare.com/version">天龙版本</a></div>
+				
+				<h2 class="entry-title">
+					<a target="" href="https://gsgameshare.com/version/3989.html" title="🎮🔥GSXY-092-天龙复古085改">🎮🔥GSXY-092-天龙复古085改</a>
+				</h2>
+
+									<div class="entry-desc">🎮🔥GSXY-092-天龙复古085改 版本特点 1. 🚀体验完好：复古9门派：...</div>
+				
+				
+<div class="entry-meta">
+
+		<span class="meta-date"><i class="far fa-clock me-1"></i><time class="pub-date" datetime="2026-01-31T16:04:47+08:00">3 周前</time></span>
+	
+		<span class="meta-likes d-none d-md-inline-block"><i class="far fa-heart me-1"></i>0</span>
+	
+		<span class="meta-fav d-none d-md-inline-block"><i class="far fa-star me-1"></i>0</span>
+	
+		<span class="meta-views"><i class="far fa-eye me-1"></i>85</span>
+	
+		<span class="meta-price"><i class="far fa-gem me-1"></i>1288</span>
+	
+</div>			</div>
+		</article>
+	</div>
+
+
+
+	<div class="col">
+		<article class="post-item item-grid">
+
+			<div class="tips-badge position-absolute top-0 start-0 z-1 m-2">
+				
+								<div class="badge bg-warning bg-opacity-75">VIP</div>
+				
+			</div>
+			
+
+<div class="entry-media ratio ratio-3x2">
+	<a target="" class="media-img lazy bg-cover bg-center" href="https://gsgameshare.com/tools/3710.html" title="GSDLQ-013-支持源端开服登录器" data-bg="https://ghfast.top/https://raw.githubusercontent.com/yulinzhihou706/gsgameshare/master/wp-content/uploads/2025/11/Snipaste_2025-11-25_16-38-57-300x200.png">
+
+		
+		<!-- 音视频缩略图 -->
+		
+	</a>
+</div>			<div class="entry-wrapper">
+									<div class="entry-cat-dot"><a href="https://gsgameshare.com/tools">天龙工具</a> <a href="https://gsgameshare.com/soft">天龙软件</a></div>
+				
+				<h2 class="entry-title">
+					<a target="" href="https://gsgameshare.com/tools/3710.html" title="GSDLQ-013-支持源端开服登录器">GSDLQ-013-支持源端开服登录器</a>
+				</h2>
+
+									<div class="entry-desc">天龙源端引擎64位 可以用来开服的登录器。</div>
+				
+				
+<div class="entry-meta">
+
+		<span class="meta-date"><i class="far fa-clock me-1"></i><time class="pub-date" datetime="2026-01-30T07:42:24+08:00">4 周前</time></span>
+	
+		<span class="meta-likes d-none d-md-inline-block"><i class="far fa-heart me-1"></i>0</span>
+	
+		<span class="meta-fav d-none d-md-inline-block"><i class="far fa-star me-1"></i>0</span>
+	
+		<span class="meta-views"><i class="far fa-eye me-1"></i>70</span>
+	
+		<span class="meta-price"><i class="far fa-gem me-1"></i>88</span>
+	
+</div>			</div>
+		</article>
+	</div>
+
+
+
+	<div class="col">
+		<article class="post-item item-grid">
+
+			<div class="tips-badge position-absolute top-0 start-0 z-1 m-2">
+				
+								<div class="badge bg-warning bg-opacity-75">VIP</div>
+				
+			</div>
+			
+
+<div class="entry-media ratio ratio-3x2">
+	<a target="" class="media-img lazy bg-cover bg-center" href="https://gsgameshare.com/code/3673.html" title="GSYM-017-天龙模型查看工具源码-MeshViewerCn" data-bg="https://ghfast.top/https://raw.githubusercontent.com/yulinzhihou706/gsgameshare/master/wp-content/uploads/2025/11/Snipaste_2025-11-24_10-12-47-300x200.png">
+
+		
+		<!-- 音视频缩略图 -->
+		
+	</a>
+</div>			<div class="entry-wrapper">
+									<div class="entry-cat-dot"><a href="https://gsgameshare.com/gjym">天龙工具源码</a> <a href="https://gsgameshare.com/code">天龙源码</a></div>
+				
+				<h2 class="entry-title">
+					<a target="" href="https://gsgameshare.com/code/3673.html" title="GSYM-017-天龙模型查看工具源码-MeshViewerCn">GSYM-017-天龙模型查看工具源码-MeshViewerCn</a>
+				</h2>
+
+									<div class="entry-desc">天龙模型查看工具源码-MeshViewerCn MeshViewerCn.rar...</div>
+				
+				
+<div class="entry-meta">
+
+		<span class="meta-date"><i class="far fa-clock me-1"></i><time class="pub-date" datetime="2026-01-28T07:13:42+08:00">4 周前</time></span>
+	
+		<span class="meta-likes d-none d-md-inline-block"><i class="far fa-heart me-1"></i>0</span>
+	
+		<span class="meta-fav d-none d-md-inline-block"><i class="far fa-star me-1"></i>0</span>
+	
+		<span class="meta-views"><i class="far fa-eye me-1"></i>68</span>
+	
+		<span class="meta-price"><i class="far fa-gem me-1"></i>688</span>
+	
+</div>			</div>
+		</article>
+	</div>
+
+
+
+	<div class="col">
+		<article class="post-item item-grid">
+
+			<div class="tips-badge position-absolute top-0 start-0 z-1 m-2">
+				
+								<div class="badge bg-warning bg-opacity-75">VIP</div>
+				
+			</div>
+			
+
+<div class="entry-media ratio ratio-3x2">
+	<a target="" class="media-img lazy bg-cover bg-center" href="https://gsgameshare.com/code/3604.html" title="GSYM-016-驱动反作弊+应用层反录制+内置情缘源码" data-bg="https://ghfast.top/https://raw.githubusercontent.com/yulinzhihou706/gsgameshare/master/wp-content/uploads/2025/11/Snipaste_2025-11-20_14-48-41.png">
+
+		
+		<!-- 音视频缩略图 -->
+		
+	</a>
+</div>			<div class="entry-wrapper">
+									<div class="entry-cat-dot"><a href="https://gsgameshare.com/gjym">天龙工具源码</a> <a href="https://gsgameshare.com/code">天龙源码</a></div>
+				
+				<h2 class="entry-title">
+					<a target="" href="https://gsgameshare.com/code/3604.html" title="GSYM-016-驱动反作弊+应用层反录制+内置情缘源码">GSYM-016-驱动反作弊+应用层反录制+内置情缘源码</a>
+				</h2>
+
+									<div class="entry-desc">驱动反作弊+应用层反录制+内置情缘源码 c++源码</div>
+				
+				
+<div class="entry-meta">
+
+		<span class="meta-date"><i class="far fa-clock me-1"></i><time class="pub-date" datetime="2026-01-26T07:19:03+08:00">4 周前</time></span>
+	
+		<span class="meta-likes d-none d-md-inline-block"><i class="far fa-heart me-1"></i>0</span>
+	
+		<span class="meta-fav d-none d-md-inline-block"><i class="far fa-star me-1"></i>0</span>
+	
+		<span class="meta-views"><i class="far fa-eye me-1"></i>48</span>
+	
+		<span class="meta-price"><i class="far fa-gem me-1"></i>1588</span>
+	
+</div>			</div>
+		</article>
+	</div>
+
+
+
+	<div class="col">
+		<article class="post-item item-grid">
+
+			<div class="tips-badge position-absolute top-0 start-0 z-1 m-2">
+				
+								<div class="badge bg-warning bg-opacity-75">VIP</div>
+				
+			</div>
+			
+
+<div class="entry-media ratio ratio-3x2">
+	<a target="" class="media-img lazy bg-cover bg-center" href="https://gsgameshare.com/code/3311.html" title="GSYM-013-AXP软件C++源码" data-bg="https://ghfast.top/https://raw.githubusercontent.com/yulinzhihou706/gsgameshare/master/wp-content/uploads/2025/11/Snipaste_2025-11-12_17-00-43-300x200.png">
+
+		
+		<!-- 音视频缩略图 -->
+		
+	</a>
+</div>			<div class="entry-wrapper">
+									<div class="entry-cat-dot"><a href="https://gsgameshare.com/gjym">天龙工具源码</a> <a href="https://gsgameshare.com/code">天龙源码</a></div>
+				
+				<h2 class="entry-title">
+					<a target="" href="https://gsgameshare.com/code/3311.html" title="GSYM-013-AXP软件C++源码">GSYM-013-AXP软件C++源码</a>
+				</h2>
+
+									<div class="entry-desc">AXPPacker, AxpUnpacker软件C++源码</div>
+				
+				
+<div class="entry-meta">
+
+		<span class="meta-date"><i class="far fa-clock me-1"></i><time class="pub-date" datetime="2026-01-24T07:34:55+08:00">1 月前</time></span>
+	
+		<span class="meta-likes d-none d-md-inline-block"><i class="far fa-heart me-1"></i>0</span>
+	
+		<span class="meta-fav d-none d-md-inline-block"><i class="far fa-star me-1"></i>0</span>
+	
+		<span class="meta-views"><i class="far fa-eye me-1"></i>56</span>
+	
+		<span class="meta-price"><i class="far fa-gem me-1"></i>588</span>
+	
+</div>			</div>
+		</article>
+	</div>
+
+
+
+	<div class="col">
+		<article class="post-item item-grid">
+
+			<div class="tips-badge position-absolute top-0 start-0 z-1 m-2">
+				
+								<div class="badge bg-warning bg-opacity-75">VIP</div>
+				
+			</div>
+			
+
+<div class="entry-media ratio ratio-3x2">
+	<a target="" class="media-img lazy bg-cover bg-center" href="https://gsgameshare.com/code/3297.html" title="GSYM-011-登录器源码" data-bg="https://ghfast.top/https://raw.githubusercontent.com/yulinzhihou706/gsgameshare/master/wp-content/uploads/2025/11/Snipaste_2025-11-11_16-55-18-300x200.png">
+
+		
+		<!-- 音视频缩略图 -->
+		
+	</a>
+</div>			<div class="entry-wrapper">
+									<div class="entry-cat-dot"><a href="https://gsgameshare.com/gjym">天龙工具源码</a> <a href="https://gsgameshare.com/code">天龙源码</a></div>
+				
+				<h2 class="entry-title">
+					<a target="" href="https://gsgameshare.com/code/3297.html" title="GSYM-011-登录器源码">GSYM-011-登录器源码</a>
+				</h2>
+
+									<div class="entry-desc">易语言天龙登录器源码</div>
+				
+				
+<div class="entry-meta">
+
+		<span class="meta-date"><i class="far fa-clock me-1"></i><time class="pub-date" datetime="2026-01-22T07:11:02+08:00">1 月前</time></span>
+	
+		<span class="meta-likes d-none d-md-inline-block"><i class="far fa-heart me-1"></i>0</span>
+	
+		<span class="meta-fav d-none d-md-inline-block"><i class="far fa-star me-1"></i>0</span>
+	
+		<span class="meta-views"><i class="far fa-eye me-1"></i>48</span>
+	
+		<span class="meta-price"><i class="far fa-gem me-1"></i>388</span>
+	
+</div>			</div>
+		</article>
+	</div>
+
+
+
+	<div class="col">
+		<article class="post-item item-grid">
+
+			<div class="tips-badge position-absolute top-0 start-0 z-1 m-2">
+				
+								<div class="badge bg-warning bg-opacity-75">VIP</div>
+				
+			</div>
+			
+
+<div class="entry-media ratio ratio-3x2">
+	<a target="" class="media-img lazy bg-cover bg-center" href="https://gsgameshare.com/tools/3537.html" title="GSDLQ-011-青云登录器" data-bg="https://ghfast.top/https://raw.githubusercontent.com/yulinzhihou706/gsgameshare/master/wp-content/uploads/2025/11/Snipaste_2025-11-18_16-06-37-300x200.png">
+
+		
+		<!-- 音视频缩略图 -->
+		
+	</a>
+</div>			<div class="entry-wrapper">
+									<div class="entry-cat-dot"><a href="https://gsgameshare.com/tools">天龙工具</a> <a href="https://gsgameshare.com/soft">天龙软件</a></div>
+				
+				<h2 class="entry-title">
+					<a target="" href="https://gsgameshare.com/tools/3537.html" title="GSDLQ-011-青云登录器">GSDLQ-011-青云登录器</a>
+				</h2>
+
+									<div class="entry-desc">青云登录器，雪宝登录器衍生版本，可支持源端。</div>
+				
+				
+<div class="entry-meta">
+
+		<span class="meta-date"><i class="far fa-clock me-1"></i><time class="pub-date" datetime="2026-01-20T08:00:08+08:00">1 月前</time></span>
+	
+		<span class="meta-likes d-none d-md-inline-block"><i class="far fa-heart me-1"></i>0</span>
+	
+		<span class="meta-fav d-none d-md-inline-block"><i class="far fa-star me-1"></i>0</span>
+	
+		<span class="meta-views"><i class="far fa-eye me-1"></i>35</span>
+	
+		<span class="meta-price"><i class="far fa-gem me-1"></i>88</span>
+	
+</div>			</div>
+		</article>
+	</div>
+
+
+
+	<div class="col">
+		<article class="post-item item-grid">
+
+			<div class="tips-badge position-absolute top-0 start-0 z-1 m-2">
+				
+								<div class="badge bg-warning bg-opacity-75">VIP</div>
+				
+			</div>
+			
+
+<div class="entry-media ratio ratio-3x2">
+	<a target="" class="media-img lazy bg-cover bg-center" href="https://gsgameshare.com/tools/3561.html" title="GSDLQ-012-最新007登录器生成器" data-bg="https://ghfast.top/https://raw.githubusercontent.com/yulinzhihou706/gsgameshare/master/wp-content/uploads/2025/11/Snipaste_2025-11-18_16-32-43-300x200.png">
+
+		
+		<!-- 音视频缩略图 -->
+		
+	</a>
+</div>			<div class="entry-wrapper">
+									<div class="entry-cat-dot"><a href="https://gsgameshare.com/tools">天龙工具</a> <a href="https://gsgameshare.com/soft">天龙软件</a></div>
+				
+				<h2 class="entry-title">
+					<a target="" href="https://gsgameshare.com/tools/3561.html" title="GSDLQ-012-最新007登录器生成器">GSDLQ-012-最新007登录器生成器</a>
+				</h2>
+
+									<div class="entry-desc">最新007登录器生成器</div>
+				
+				
+<div class="entry-meta">
+
+		<span class="meta-date"><i class="far fa-clock me-1"></i><time class="pub-date" datetime="2026-01-18T07:12:00+08:00">1 月前</time></span>
+	
+		<span class="meta-likes d-none d-md-inline-block"><i class="far fa-heart me-1"></i>0</span>
+	
+		<span class="meta-fav d-none d-md-inline-block"><i class="far fa-star me-1"></i>0</span>
+	
+		<span class="meta-views"><i class="far fa-eye me-1"></i>35</span>
+	
+		<span class="meta-price"><i class="far fa-gem me-1"></i>88</span>
+	
+</div>			</div>
+		</article>
+	</div>
+
+	</div>
+
+	<nav class="page-nav mt-4 infinite-scroll"><ul class="pagination"><li class="page-item disabled"><span class="page-link">1/78</span></li><li class="page-item active"><span class="page-link">1</span></li><li class="page-item"><a class="page-link" href="https://gsgameshare.com/page/2">2</a></li><li class="page-item"><a class="page-link" href="https://gsgameshare.com/page/3">3</a></li><li class="page-item"><a class="page-link" href="https://gsgameshare.com/page/4">4</a></li><li class="page-item"><a class="page-link page-next" href="https://gsgameshare.com/page/2">下一页<i class="fas fa-angle-right ms-1"></i></a></li><li class="page-item page-last"><a class="page-link" href="https://gsgameshare.com/page/78"><span title="最后一页" aria-hidden="true">&raquo;</span></a></li></ul><div class="infinite-scroll-action"><div class="infinite-scroll-button infinite-click btn btn-dark px-5 rounded-pill"><div class="infinite-scroll-status"><span class="spinner-grow spinner-grow-sm"></span></div>加载更多</div><p class="infinite-scroll-msg text-muted">已全部加载完毕</p></div></nav>
+</section>
+
+</div><div id="ri_home_background_widget-2" class="home-widget home-background">
+<div class="bg-warp scroll-circle lazy" data-bg="https://gsgameshare.com/wp-content/themes/ripro-v5/assets/img/bg.jpg">
+	<div class="container py-5">
+				<h4 class="bg-title">GS游享专业技术团队提供远程技术服务</h4>
+		
+						<p class="bg-desc">远程技术服务包括：BUG解决，搭建，环境问题，架设报错，掉引擎，脚本报错，闪退，网站开发等</p>
+		
+		<div class="bg-btns">
+				<a class="btn btn-info rounded-pill m-1 px-4" href="tencent://message/?uin=1303588722&Site=gsgameshare.com&Menu=yes"><i class="fab fa-buffer me-1"></i>联系客服</a>
+				<a class="btn btn-success rounded-pill m-1 px-4" href="https://qm.qq.com/q/uYMWYDhIVq"><i class="fab fa-qq me-1"></i>进技术群</a>
+				</div>
+	</div>
+</div>
+
+</div><div id="ri_home_catpost_widget-2" class="home-widget home-cat-post">
+<section class="container">
+        <div class="section-title text-center mb-4">
+      <h3><a href="https://gsgameshare.com/gs-course">GS专属</a></h3>
+              <p class="text-muted mb-0"><p>GS专属主要针对于单机和服务器等环境的技术，为各位广大技术爱好者提供更加优质的教程服务</p>
+</p>
+          </div>
+  
+  <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-2 g-md-3 g-lg-4">
+    
+
+	<div class="col">
+		<article class="post-item item-grid">
+
+			<div class="tips-badge position-absolute top-0 start-0 z-1 m-2">
+				
+				
+			</div>
+			
+
+<div class="entry-media ratio ratio-3x2">
+	<a target="" class="media-img lazy bg-cover bg-center" href="https://gsgameshare.com/deploy/350.html" title="收关门弟子-游戏搭建及修改教程" data-bg="https://fastly.jsdelivr.net/gh/yulinzhihou706/gsgameshare@master/wp-content/uploads/2021/09/1654868413-698d51a19d8a121.jpg.webp">
+
+		
+		<!-- 音视频缩略图 -->
+		
+	</a>
+</div>			<div class="entry-wrapper">
+									<div class="entry-cat-dot"><a href="https://gsgameshare.com/gs-course">GS专属</a> <a href="https://gsgameshare.com/deploy">天龙架设</a></div>
+				
+				<h2 class="entry-title">
+					<a target="" href="https://gsgameshare.com/deploy/350.html" title="收关门弟子-游戏搭建及修改教程">收关门弟子-游戏搭建及修改教程</a>
+				</h2>
+
+									<div class="entry-desc">持续更新中 ················· 问题：行业鱼龙混杂，不集中，不系...</div>
+				
+				
+<div class="entry-meta">
+
+		<span class="meta-date"><i class="far fa-clock me-1"></i><time class="pub-date" datetime="2023-05-22T16:38:02+08:00">3 年前</time></span>
+	
+		<span class="meta-likes d-none d-md-inline-block"><i class="far fa-heart me-1"></i>0</span>
+	
+		<span class="meta-fav d-none d-md-inline-block"><i class="far fa-star me-1"></i>0</span>
+	
+		<span class="meta-views"><i class="far fa-eye me-1"></i>31.3K</span>
+	
+		<span class="meta-price"><i class="far fa-gem me-1"></i>28880</span>
+	
+</div>			</div>
+		</article>
+	</div>
+
+
+
+	<div class="col">
+		<article class="post-item item-grid">
+
+			<div class="tips-badge position-absolute top-0 start-0 z-1 m-2">
+				
+				
+			</div>
+			
+
+<div class="entry-media ratio ratio-3x2">
+	<a target="" class="media-img lazy bg-cover bg-center" href="https://gsgameshare.com/deploy/1349.html" title="GS游享天龙八部 UI 功能案例精讲" data-bg="https://ghfast.top/https://raw.githubusercontent.com/yulinzhihou706/gsgameshare/master/wp-content/uploads/2023/12/1704029775-3ffb08d701c4281.jpg">
+
+		
+		<!-- 音视频缩略图 -->
+		
+	</a>
+</div>			<div class="entry-wrapper">
+									<div class="entry-cat-dot"><a href="https://gsgameshare.com/gs-course">GS专属</a> <a href="https://gsgameshare.com/course">天龙教程</a></div>
+				
+				<h2 class="entry-title">
+					<a target="" href="https://gsgameshare.com/deploy/1349.html" title="GS游享天龙八部 UI 功能案例精讲">GS游享天龙八部 UI 功能案例精讲</a>
+				</h2>
+
+									<div class="entry-desc">天龙八部 UI 功能案例精讲 一、开发修改环境准备 1、教程所需版本 下载地址：...</div>
+				
+				
+<div class="entry-meta">
+
+		<span class="meta-date"><i class="far fa-clock me-1"></i><time class="pub-date" datetime="2023-12-31T21:37:35+08:00">2 年前</time></span>
+	
+		<span class="meta-likes d-none d-md-inline-block"><i class="far fa-heart me-1"></i>0</span>
+	
+		<span class="meta-fav d-none d-md-inline-block"><i class="far fa-star me-1"></i>0</span>
+	
+		<span class="meta-views"><i class="far fa-eye me-1"></i>1.5K</span>
+	
+	
+</div>			</div>
+		</article>
+	</div>
+
+
+
+	<div class="col">
+		<article class="post-item item-grid">
+
+			<div class="tips-badge position-absolute top-0 start-0 z-1 m-2">
+				
+								<div class="badge bg-warning bg-opacity-75">VIP</div>
+				
+			</div>
+			
+
+<div class="entry-media ratio ratio-3x2">
+	<a target="" class="media-img lazy bg-cover bg-center" href="https://gsgameshare.com/deploy/366.html" title="[终级篇]虚拟机一键端提取-关于服务端提取程序或者服务端" data-bg="https://ghfast.top/https://raw.githubusercontent.com/yulinzhihou706/gsgameshare/master/wp-content/uploads/2023/05/1685153182-7f7c928df965903.jpg.webp">
+
+		
+		<!-- 音视频缩略图 -->
+		
+	</a>
+</div>			<div class="entry-wrapper">
+									<div class="entry-cat-dot"><a href="https://gsgameshare.com/gs-course">GS专属</a> <a href="https://gsgameshare.com/course">天龙教程</a></div>
+				
+				<h2 class="entry-title">
+					<a target="" href="https://gsgameshare.com/deploy/366.html" title="[终级篇]虚拟机一键端提取-关于服务端提取程序或者服务端">[终级篇]虚拟机一键端提取-关于服务端提取程序或者服务端</a>
+				</h2>
+
+									<div class="entry-desc">&#8211; [初级篇]虚拟机一键端提取-关于服务端提取程序或者服务端 基于初...</div>
+				
+				
+<div class="entry-meta">
+
+		<span class="meta-date"><i class="far fa-clock me-1"></i><time class="pub-date" datetime="2023-05-27T09:51:40+08:00">3 年前</time></span>
+	
+		<span class="meta-likes d-none d-md-inline-block"><i class="far fa-heart me-1"></i>0</span>
+	
+		<span class="meta-fav d-none d-md-inline-block"><i class="far fa-star me-1"></i>0</span>
+	
+		<span class="meta-views"><i class="far fa-eye me-1"></i>1.4K</span>
+	
+		<span class="meta-price"><i class="far fa-gem me-1"></i>1888</span>
+	
+</div>			</div>
+		</article>
+	</div>
+
+
+
+	<div class="col">
+		<article class="post-item item-grid">
+
+			<div class="tips-badge position-absolute top-0 start-0 z-1 m-2">
+				
+				
+			</div>
+			
+
+<div class="entry-media ratio ratio-3x2">
+	<a target="" class="media-img lazy bg-cover bg-center" href="https://gsgameshare.com/deploy/358.html" title="GS专用虚拟机+环境已安装好+适合测版本换端" data-bg="https://ghfast.top/https://raw.githubusercontent.com/yulinzhihou706/gsgameshare/master/wp-content/uploads/2023/05/1685153245-7946ced8ae8f1ce.jpg.webp">
+
+		
+		<!-- 音视频缩略图 -->
+		
+	</a>
+</div>			<div class="entry-wrapper">
+									<div class="entry-cat-dot"><a href="https://gsgameshare.com/gs-course">GS专属</a> <a href="https://gsgameshare.com/deploy">天龙架设</a></div>
+				
+				<h2 class="entry-title">
+					<a target="" href="https://gsgameshare.com/deploy/358.html" title="GS专用虚拟机+环境已安装好+适合测版本换端">GS专用虚拟机+环境已安装好+适合测版本换端</a>
+				</h2>
+
+									<div class="entry-desc">虚拟机简介 本虚拟机采用最新版本的CentOS 7.8.2003 发行版本进行环...</div>
+				
+				
+<div class="entry-meta">
+
+		<span class="meta-date"><i class="far fa-clock me-1"></i><time class="pub-date" datetime="2023-05-22T16:54:48+08:00">3 年前</time></span>
+	
+		<span class="meta-likes d-none d-md-inline-block"><i class="far fa-heart me-1"></i>4</span>
+	
+		<span class="meta-fav d-none d-md-inline-block"><i class="far fa-star me-1"></i>0</span>
+	
+		<span class="meta-views"><i class="far fa-eye me-1"></i>1.4K</span>
+	
+	
+</div>			</div>
+		</article>
+	</div>
+
+  </div>
+
+</section>
+
+</div><div id="ri_home_division_widget-2" class="home-widget home-division">
+
+<section class="container">
+	<div class="row row-cols-2 row-cols-lg-4 g-2 g-md-4">
+
+		
+		<div class="col">
+			<div class="division-item">
+				
+				<div class="division-icon rounded-circle" style="background-color:#8399ff"> <i class="fab fa-qq"></i></div>
+			    <div class="division-warp">
+			        <h4 class="division-title">
+			        						    	<a href="https://qm.qq.com/cgi-bin/qm/qr?k=RPBBJI0FR2qJcIwDvPMrN1fm-IePl-xn&jump_from=webapi&authKey=VWVxxeWTiGU2hAWTH5d5bRvYLilKJ4OScegUecWfMK81bA2LOhIDnwJFqFoLrIEP">技术交流群</a>
+					    			        </h4>
+			        <p class="division-desc">进入交流群，不定时更新分享各类资源</p>
+			    </div>
+				
+			</div>
+		</div>
+
+		
+		<div class="col">
+			<div class="division-item">
+				
+				<div class="division-icon rounded-circle" style="background-color:#FF9800"> <i class="fas fa-user"></i></div>
+			    <div class="division-warp">
+			        <h4 class="division-title">
+			        						    	GS游享唯一客服					    			        </h4>
+			        <p class="division-desc">有任何问题可以咨询 QQ 1303588722</p>
+			    </div>
+				
+			</div>
+		</div>
+
+		
+		<div class="col">
+			<div class="division-item">
+				
+				<div class="division-icon rounded-circle" style="background-color:#4c4c4c"> <i class="fas fa-coins"></i></div>
+			    <div class="division-warp">
+			        <h4 class="division-title">
+			        						    	<a href="https://gsgameshare.com/user/coin/">商城比例￥1=10GB</a>
+					    			        </h4>
+			        <p class="division-desc">支持支付宝，花呗，信用卡，微信支付，paypal，USDT</p>
+			    </div>
+				
+			</div>
+		</div>
+
+		
+		<div class="col">
+			<div class="division-item">
+				
+				<div class="division-icon rounded-circle" style="background-color:#ff75a4"> <i class="far fa-gem"></i></div>
+			    <div class="division-warp">
+			        <h4 class="division-title">
+			        						    	<a href="https://gsgameshare.com/user/vip/">永久会员SSVIP</a>
+					    			        </h4>
+			        <p class="division-desc">GS游享网永久会员享整站版本，99%数源码，工具，教程的免费下载。</p>
+			    </div>
+				
+			</div>
+		</div>
+
+			  	
+	</div>
+</section>
+
+</div><div id="ri_home_cmspost_widget-2" class="home-widget home-cms-post">
+<section class="container">
+
+        <div class="section-title text-center mb-4">
+      <h3><a href="https://gsgameshare.com/tools">天龙改端工具</a></h3>
+              <p class="text-muted mb-0">用来修改各种功能所使用到的工具</p>
+          </div>
+  
+
+  <div class="cms-post-warp grid-overlay row g-2 g-md-3">
+
+    
+    <div class="col-lg-6 col-sm-12 cms-left-itme">
+              <div class="row row-cols-1 g-2 g-md-3">
+          
+
+	<div class="col">
+		<article class="post-item item-grid grid-overlay">
+
+			<div class="tips-badge position-absolute top-0 start-0 z-1 m-2">
+				
+								<div class="badge bg-warning bg-opacity-75">VIP</div>
+				
+			</div>
+
+			
+
+<div class="entry-media ratio ratio-3x2">
+	<a target="" class="media-img lazy bg-cover bg-center" href="https://gsgameshare.com/tools/3130.html" title="GSGJ-001-合区工具（终身免费版）" data-bg="https://ghfast.top/https://raw.githubusercontent.com/yulinzhihou706/gsgameshare/master/wp-content/uploads/2025/11/Snipaste_2025-06-18_10-40-29-1-300x200.png">
+
+		
+		<!-- 音视频缩略图 -->
+		
+	</a>
+</div>
+			<div class="entry-wrapper">
+									<div class="entry-cat-dot"><a href="https://gsgameshare.com/tools">天龙工具</a> <a href="https://gsgameshare.com/soft">天龙软件</a></div>
+				
+				<h2 class="entry-title">
+					<a target="" href="https://gsgameshare.com/tools/3130.html" title="GSGJ-001-合区工具（终身免费版）">GSGJ-001-合区工具（终身免费版）</a>
+				</h2>
+
+									<div class="entry-desc">合区工具（终身免费版）</div>
+				
+				
+<div class="entry-meta">
+
+		<span class="meta-date"><i class="far fa-clock me-1"></i><time class="pub-date" datetime="2025-11-29T07:54:04+08:00">3 月前</time></span>
+	
+		<span class="meta-likes d-none d-md-inline-block"><i class="far fa-heart me-1"></i>0</span>
+	
+		<span class="meta-fav d-none d-md-inline-block"><i class="far fa-star me-1"></i>0</span>
+	
+		<span class="meta-views"><i class="far fa-eye me-1"></i>47</span>
+	
+		<span class="meta-price"><i class="far fa-gem me-1"></i>688</span>
+	
+</div>
+
+			</div>
+		</article>
+	</div>
+
+
+        </div>
+            </div>
+
+    <div class="col-lg-6 col-sm-12 cms-right-itme ">
+      <div class="row row-cols-2 g-2 g-md-3">
+                            
+
+	<div class="col">
+		<article class="post-item item-grid grid-overlay">
+
+			<div class="tips-badge position-absolute top-0 start-0 z-1 m-2">
+				
+				
+			</div>
+
+			
+
+<div class="entry-media ratio ratio-3x2">
+	<a target="" class="media-img lazy bg-cover bg-center" href="https://gsgameshare.com/tools/163.html" title="VMware 虚拟机官方版+激活密钥" data-bg="https://ghfast.top/https://raw.githubusercontent.com/yulinzhihou706/gsgameshare/master/wp-content/uploads/2023/03/1677678837-92963abd36c896b.png.webp">
+
+		
+		<!-- 音视频缩略图 -->
+		
+	</a>
+</div>
+			<div class="entry-wrapper">
+									<div class="entry-cat-dot"><a href="https://gsgameshare.com/tools">天龙工具</a> <a href="https://gsgameshare.com/soft">天龙软件</a></div>
+				
+				<h2 class="entry-title">
+					<a target="" href="https://gsgameshare.com/tools/163.html" title="VMware 虚拟机官方版+激活密钥">VMware 虚拟机官方版+激活密钥</a>
+				</h2>
+
+				
+				
+<div class="entry-meta">
+
+		<span class="meta-date"><i class="far fa-clock me-1"></i><time class="pub-date" datetime="2023-03-01T21:54:18+08:00">3 年前</time></span>
+	
+		<span class="meta-likes d-none d-md-inline-block"><i class="far fa-heart me-1"></i>0</span>
+	
+		<span class="meta-fav d-none d-md-inline-block"><i class="far fa-star me-1"></i>0</span>
+	
+		<span class="meta-views"><i class="far fa-eye me-1"></i>462</span>
+	
+		<span class="meta-price"><i class="far fa-gem me-1"></i>0</span>
+	
+</div>
+
+			</div>
+		</article>
+	</div>
+
+
+                              
+
+	<div class="col">
+		<article class="post-item item-grid grid-overlay">
+
+			<div class="tips-badge position-absolute top-0 start-0 z-1 m-2">
+				
+								<div class="badge bg-warning bg-opacity-75">VIP</div>
+				
+			</div>
+
+			
+
+<div class="entry-media ratio ratio-3x2">
+	<a target="" class="media-img lazy bg-cover bg-center" href="https://gsgameshare.com/tools/2552.html" title="GSGJ-002-天龙GM工具-GM工具（带刷游戏点）" data-bg="https://ghfast.top/https://raw.githubusercontent.com/yulinzhihou706/gsgameshare/master/wp-content/uploads/2025/10/Snipaste_2025-10-05_13-17-32-300x200.png">
+
+		
+		<!-- 音视频缩略图 -->
+		
+	</a>
+</div>
+			<div class="entry-wrapper">
+									<div class="entry-cat-dot"><a href="https://gsgameshare.com/gm">天龙GM工具</a> <a href="https://gsgameshare.com/tools">天龙工具</a></div>
+				
+				<h2 class="entry-title">
+					<a target="" href="https://gsgameshare.com/tools/2552.html" title="GSGJ-002-天龙GM工具-GM工具（带刷游戏点）">GSGJ-002-天龙GM工具-GM工具（带刷游戏点）</a>
+				</h2>
+
+				
+				
+<div class="entry-meta">
+
+		<span class="meta-date"><i class="far fa-clock me-1"></i><time class="pub-date" datetime="2025-10-08T07:27:11+08:00">5 月前</time></span>
+	
+		<span class="meta-likes d-none d-md-inline-block"><i class="far fa-heart me-1"></i>0</span>
+	
+		<span class="meta-fav d-none d-md-inline-block"><i class="far fa-star me-1"></i>0</span>
+	
+		<span class="meta-views"><i class="far fa-eye me-1"></i>52</span>
+	
+		<span class="meta-price"><i class="far fa-gem me-1"></i>22</span>
+	
+</div>
+
+			</div>
+		</article>
+	</div>
+
+
+                              
+
+	<div class="col">
+		<article class="post-item item-grid grid-overlay">
+
+			<div class="tips-badge position-absolute top-0 start-0 z-1 m-2">
+				
+								<div class="badge bg-warning bg-opacity-75">VIP</div>
+				
+			</div>
+
+			
+
+<div class="entry-media ratio ratio-3x2">
+	<a target="" class="media-img lazy bg-cover bg-center" href="https://gsgameshare.com/tools/2592.html" title="GSGJ-007-天龙GM工具-流光GM工具(源端专用)" data-bg="https://ghfast.top/https://raw.githubusercontent.com/yulinzhihou706/gsgameshare/master/wp-content/uploads/2025/10/Snipaste_2025-10-06_11-02-45-300x200.png">
+
+		
+		<!-- 音视频缩略图 -->
+		
+	</a>
+</div>
+			<div class="entry-wrapper">
+									<div class="entry-cat-dot"><a href="https://gsgameshare.com/gm">天龙GM工具</a> <a href="https://gsgameshare.com/tools">天龙工具</a></div>
+				
+				<h2 class="entry-title">
+					<a target="" href="https://gsgameshare.com/tools/2592.html" title="GSGJ-007-天龙GM工具-流光GM工具(源端专用)">GSGJ-007-天龙GM工具-流光GM工具(源端专用)</a>
+				</h2>
+
+				
+				
+<div class="entry-meta">
+
+		<span class="meta-date"><i class="far fa-clock me-1"></i><time class="pub-date" datetime="2025-10-11T07:23:15+08:00">5 月前</time></span>
+	
+		<span class="meta-likes d-none d-md-inline-block"><i class="far fa-heart me-1"></i>0</span>
+	
+		<span class="meta-fav d-none d-md-inline-block"><i class="far fa-star me-1"></i>0</span>
+	
+		<span class="meta-views"><i class="far fa-eye me-1"></i>81</span>
+	
+		<span class="meta-price"><i class="far fa-gem me-1"></i>22</span>
+	
+</div>
+
+			</div>
+		</article>
+	</div>
+
+
+                              
+
+	<div class="col">
+		<article class="post-item item-grid grid-overlay">
+
+			<div class="tips-badge position-absolute top-0 start-0 z-1 m-2">
+				
+								<div class="badge bg-warning bg-opacity-75">VIP</div>
+				
+			</div>
+
+			
+
+<div class="entry-media ratio ratio-3x2">
+	<a target="" class="media-img lazy bg-cover bg-center" href="https://gsgameshare.com/tools/3218.html" title="GSGJ-008-森雨全代码合区工具" data-bg="https://ghfast.top/https://raw.githubusercontent.com/yulinzhihou706/gsgameshare/master/wp-content/uploads/2025/11/Snipaste_2025-11-12_15-05-59-300x200.png">
+
+		
+		<!-- 音视频缩略图 -->
+		
+	</a>
+</div>
+			<div class="entry-wrapper">
+									<div class="entry-cat-dot"><a href="https://gsgameshare.com/tools">天龙工具</a> <a href="https://gsgameshare.com/soft">天龙软件</a></div>
+				
+				<h2 class="entry-title">
+					<a target="" href="https://gsgameshare.com/tools/3218.html" title="GSGJ-008-森雨全代码合区工具">GSGJ-008-森雨全代码合区工具</a>
+				</h2>
+
+				
+				
+<div class="entry-meta">
+
+		<span class="meta-date"><i class="far fa-clock me-1"></i><time class="pub-date" datetime="2025-12-13T07:22:09+08:00">2 月前</time></span>
+	
+		<span class="meta-likes d-none d-md-inline-block"><i class="far fa-heart me-1"></i>0</span>
+	
+		<span class="meta-fav d-none d-md-inline-block"><i class="far fa-star me-1"></i>0</span>
+	
+		<span class="meta-views"><i class="far fa-eye me-1"></i>36</span>
+	
+		<span class="meta-price"><i class="far fa-gem me-1"></i>88</span>
+	
+</div>
+
+			</div>
+		</article>
+	</div>
+
+
+                </div>
+    </div>
+
+    
+  </div>
+
+</section>
+
+</div><div id="ri_home_overview_widget-2" class="home-widget home-overview">
+<div class="bg-warp scroll-circle lazy" data-bg="https://gsgameshare.com/wp-content/themes/ripro-v5/assets/img/bg2.png">
+	<div class="container py-3 py-md-4">
+		
+
+		<div class="row row-cols-3 row-cols-md-4 row-cols-lg-5 g-2">
+			<div class="col"><div class="count-item"><span class="count-num">2521</span><strong><i class="fas fa-chart-line me-1"></i>运营天数</strong></div></div><div class="col"><div class="count-item"><span class="count-num">621</span><strong><i class="fas fa-database me-1"></i>文章总数</strong></div></div><div class="col"><div class="count-item"><span class="count-num">0</span><strong><i class="far fa-calendar-plus me-1"></i>近7天更新</strong></div></div><div class="col"><div class="count-item"><span class="count-num">16</span><strong><i class="far fa-folder me-1"></i>分类总数</strong></div></div><div class="col"><div class="count-item"><span class="count-num">346122</span><strong><i class="fab fa-hotjar me-1"></i>浏览量总数</strong></div></div>		</div>
+	</div>
+</div>
+
+</div><div id="ri_home_titlepost_widget-2" class="home-widget home-title-post">
+<section class="container">
+    
+
+
+  <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-2 g-md-3 g-lg-4">
+
+    <div class="col"><div class="list-posts"><div class="category-bg lazy" data-bg="https://ghfast.top/https://raw.githubusercontent.com/yulinzhihou706/gsgameshare/master/wp-content/uploads/2026/01/Snipaste_2026-01-31_14-18-55-300x200.png"><h3 class="category-title"><i class="fa fa-circle-o"></i>  <a target="" href="https://gsgameshare.com/gs-course">GS专属 &gt;</a></h3><div class="category-desc"><p>GS专属主要针对于单机和服务器等环境的技术，为各位广大技术爱好者提供更加优质的教程服务</p>
+</div></div><ul><li><div class="title"><span class="post-num num-1">1</span><a  href="https://gsgameshare.com/deploy/3966.html" title="GS游享天龙环境命令详解v2.8.28" rel="bookmark">GS游享天龙环境命令详解v2.8.28</a></div><span class="post-views">152<i class="fab fa-hotjar ms-1"></i></span></li><li><div class="title"><span class="post-num num-2">2</span><a  href="https://gsgameshare.com/deploy/3054.html" title="GSYM-004-天龙专用数据库自行选择" rel="bookmark">GSYM-004-天龙专用数据库自行选择</a></div><span class="post-views">141<i class="fab fa-hotjar ms-1"></i></span></li><li><div class="title"><span class="post-num num-3">3</span><a  href="https://gsgameshare.com/deploy/1349.html" title="GS游享天龙八部 UI 功能案例精讲" rel="bookmark">GS游享天龙八部 UI 功能案例精讲</a></div><span class="post-views">1.5K<i class="fab fa-hotjar ms-1"></i></span></li><li><div class="title"><span class="post-num num-4">4</span><a  href="https://gsgameshare.com/deploy/366.html" title="[终级篇]虚拟机一键端提取-关于服务端提取程序或者服务端" rel="bookmark">[终级篇]虚拟机一键端提取-关于服务端提取程序或者服务端</a></div><span class="post-views">1.4K<i class="fab fa-hotjar ms-1"></i></span></li><li><div class="title"><span class="post-num num-5">5</span><a  href="https://gsgameshare.com/deploy/364.html" title="[初级篇]虚拟机一键端提取-关于服务端提取程序或者服务端" rel="bookmark">[初级篇]虚拟机一键端提取-关于服务端提取程序或者服务端</a></div><span class="post-views">1.3K<i class="fab fa-hotjar ms-1"></i></span></li><li><div class="title"><span class="post-num num-6">6</span><a  href="https://gsgameshare.com/deploy/358.html" title="GS专用虚拟机+环境已安装好+适合测版本换端" rel="bookmark">GS专用虚拟机+环境已安装好+适合测版本换端</a></div><span class="post-views">1.4K<i class="fab fa-hotjar ms-1"></i></span></li></ul></div></div>
+
+    <div class="col"><div class="list-posts"><div class="category-bg lazy" data-bg="https://ghfast.top/https://raw.githubusercontent.com/yulinzhihou706/gsgameshare/master/wp-content/uploads/2026/01/Snipaste_2026-01-31_14-18-55-300x200.png"><h3 class="category-title"><i class="fa fa-circle-o"></i>  <a target="" href="https://gsgameshare.com/version">天龙版本 &gt;</a></h3><div class="category-desc"><p>天龙八部SF版本</p>
+</div></div><ul><li><div class="title"><span class="post-num num-1">1</span><a  href="https://gsgameshare.com/version/624.html" title="116回馈重楼天罚武器宝宝称号红叶天龙" rel="bookmark">116回馈重楼天罚武器宝宝称号红叶天龙</a></div><span class="post-views">160<i class="fab fa-hotjar ms-1"></i></span></li><li><div class="title"><span class="post-num num-2">2</span><a  href="https://gsgameshare.com/version/334.html" title="036新图三大地图轮回版" rel="bookmark">036新图三大地图轮回版</a></div><span class="post-views">214<i class="fab fa-hotjar ms-1"></i></span></li><li><div class="title"><span class="post-num num-3">3</span><a  href="https://gsgameshare.com/version/734.html" title="153通天塔马贼重楼靠刷手工生活副本新085" rel="bookmark">153通天塔马贼重楼靠刷手工生活副本新085</a></div><span class="post-views">145<i class="fab fa-hotjar ms-1"></i></span></li><li><div class="title"><span class="post-num num-4">4</span><a  href="https://gsgameshare.com/version/3774.html" title="🎮🔥GSXY-078-战力超变轮回9门派" rel="bookmark">🎮🔥GSXY-078-战力超变轮回9门派</a></div><span class="post-views">120<i class="fab fa-hotjar ms-1"></i></span></li><li><div class="title"><span class="post-num num-5">5</span><a  href="https://gsgameshare.com/version/3370.html" title="🎮🔥GSXY-071-天龙八部源端64位怀旧9门派九职业手工-武道二重" rel="bookmark">🎮🔥GSXY-071-天龙八部源端64位怀旧9门派九职业手工-武道二重</a></div><span class="post-views">132<i class="fab fa-hotjar ms-1"></i></span></li><li><div class="title"><span class="post-num num-6">6</span><a  href="https://gsgameshare.com/version/2356.html" title="🎮🔥GSXY-025-天龙复古08洛阳主城大背包CDK兑换重楼" rel="bookmark">🎮🔥GSXY-025-天龙复古08洛阳主城大背包CDK兑换重楼</a></div><span class="post-views">167<i class="fab fa-hotjar ms-1"></i></span></li></ul></div></div>
+
+    <div class="col"><div class="list-posts"><div class="category-bg lazy" data-bg="https://ghfast.top/https://raw.githubusercontent.com/yulinzhihou706/gsgameshare/master/wp-content/uploads/2026/01/Snipaste_2026-01-31_14-18-55-300x200.png"><h3 class="category-title"><i class="fa fa-circle-o"></i>  <a target="" href="https://gsgameshare.com/code">天龙源码 &gt;</a></h3><div class="category-desc"><p>天龙八部SF相关源码</p>
+</div></div><ul><li><div class="title"><span class="post-num num-1">1</span><a  href="https://gsgameshare.com/code/178.html" title="TLBB打包解包工具、登陆器配套E语言源码" rel="bookmark">TLBB打包解包工具、登陆器配套E语言源码</a></div><span class="post-views">1.8K<i class="fab fa-hotjar ms-1"></i></span></li><li><div class="title"><span class="post-num num-2">2</span><a  href="https://gsgameshare.com/code/184.html" title="Lua脚本修改时常用函数用法及功能点收集持续更新" rel="bookmark">Lua脚本修改时常用函数用法及功能点收集持续更新</a></div><span class="post-views">1.3K<i class="fab fa-hotjar ms-1"></i></span></li><li><div class="title"><span class="post-num num-3">3</span><a  href="https://gsgameshare.com/code/187.html" title="易语言便捷GM源码" rel="bookmark">易语言便捷GM源码</a></div><span class="post-views">1.2K<i class="fab fa-hotjar ms-1"></i></span></li><li><div class="title"><span class="post-num num-4">4</span><a  href="https://gsgameshare.com/code/182.html" title="天龙简易GM工具源码" rel="bookmark">天龙简易GM工具源码</a></div><span class="post-views">1.0K<i class="fab fa-hotjar ms-1"></i></span></li><li><div class="title"><span class="post-num num-5">5</span><a  href="https://gsgameshare.com/code/180.html" title="添加NPC工具易语言源码" rel="bookmark">添加NPC工具易语言源码</a></div><span class="post-views">820<i class="fab fa-hotjar ms-1"></i></span></li><li><div class="title"><span class="post-num num-6">6</span><a  href="https://gsgameshare.com/code/2130.html" title="天龙无限级代理网页系统，PHP+mysql配置支持所有开服版本" rel="bookmark">天龙无限级代理网页系统，PHP+mysql配置支持所有开服版本</a></div><span class="post-views">328<i class="fab fa-hotjar ms-1"></i></span></li></ul></div></div>
+
+    <div class="col"><div class="list-posts"><div class="category-bg lazy" data-bg="https://ghfast.top/https://raw.githubusercontent.com/yulinzhihou706/gsgameshare/master/wp-content/uploads/2026/01/Snipaste_2026-01-31_14-18-55-300x200.png"><h3 class="category-title"><i class="fa fa-circle-o"></i>  <a target="" href="https://gsgameshare.com/tools">天龙工具 &gt;</a></h3><div class="category-desc"><p>天龙八部SF工具软件</p>
+</div></div><ul><li><div class="title"><span class="post-num num-1">1</span><a  href="https://gsgameshare.com/tools/154.html" title="Hash文件校验工具" rel="bookmark">Hash文件校验工具</a></div><span class="post-views">131<i class="fab fa-hotjar ms-1"></i></span></li><li><div class="title"><span class="post-num num-2">2</span><a  href="https://gsgameshare.com/tools/2542.html" title="GSGJ-004-天龙GM工具-GM改装备属性" rel="bookmark">GSGJ-004-天龙GM工具-GM改装备属性</a></div><span class="post-views">78<i class="fab fa-hotjar ms-1"></i></span></li><li><div class="title"><span class="post-num num-3">3</span><a  href="https://gsgameshare.com/tools/2634.html" title="GSGJ-009-天龙GM工具-全代码合区工具" rel="bookmark">GSGJ-009-天龙GM工具-全代码合区工具</a></div><span class="post-views">94<i class="fab fa-hotjar ms-1"></i></span></li><li><div class="title"><span class="post-num num-4">4</span><a  href="https://gsgameshare.com/tools/2657.html" title="GSGJ-013-天龙GM工具-免费源端GM工具2.0" rel="bookmark">GSGJ-013-天龙GM工具-免费源端GM工具2.0</a></div><span class="post-views">179<i class="fab fa-hotjar ms-1"></i></span></li><li><div class="title"><span class="post-num num-5">5</span><a  href="https://gsgameshare.com/tools/175.html" title="Xshell-远程连接Linux机器的软件" rel="bookmark">Xshell-远程连接Linux机器的软件</a></div><span class="post-views">538<i class="fab fa-hotjar ms-1"></i></span></li><li><div class="title"><span class="post-num num-6">6</span><a  href="https://gsgameshare.com/tools/3157.html" title="GSGJ-003-合区工具（去注册无限制）" rel="bookmark">GSGJ-003-合区工具（去注册无限制）</a></div><span class="post-views">28<i class="fab fa-hotjar ms-1"></i></span></li></ul></div></div>
+
+    
+  </div>
+
+</section>
+</div><div id="ri_home_vip_card-2" class="home-widget home-vip-card">
+<section class="container">
+			    <div class="section-title text-center mb-4">
+	      <h3><i class="fa fa-diamond me-1"></i> 加入本站会员，开启尊贵特权之体验</h3>
+	      	        <p class="text-muted mb-0">本站资源支持会员下载专享，普通注册会员只能原价购买资源或者限制免费下载次数，付费会员所有资源可无限下载。并可享受资源折扣或者免费下载。</p>
+	      	    </div>
+	
+
+	<div class="row justify-content-center row-cols-1 row-cols-md-2 row-cols-lg-3 g-2 g-md-3">
+
+		
+		<div class="col">
+			<div class="price-card text-center bg-white rounded-3">
+			    <div class="price-header bg-success bg-opacity-75">
+			        <span class="price-plan">298元开永久会员(支付后找客服)</span>
+			        <span class="price-sub"><i class="far fa-gem me-1"></i>会员有效期365天</sup></span>
+			    </div>
+			    <div class="price-body">
+
+			    	<h3 class="price-ammount">2980<sup>G币</sup></h3>
+			    	<p class="price-day">尊享SVIP特权365天</p>
+			        <ul class="price-desc">
+			        	
+			        				        	<li>298直接购买后</li>
+			        				        	<li>找客服QQ:1303588722再转账1元</li>
+			        				        	<li>可以调整为588永久会员</li>
+			        				        	<li>网站所有资源：(手工端，一键端，工具，软件，资源，教程，源码）99%都免费下载</li>
+			        				        	<li>如果不想麻烦，可以直接购买588的永久会员。</li>
+			        				        </ul>
+			    </div>
+			    <div class="price-footer">
+			    	 
+			    	<a class="login-btn btn btn-dark-soft px-4 rounded-pill" rel="nofollow noopener noreferrer" href="https://gsgameshare.com/login?redirect_to=https%3A%2F%2Fgsgameshare.com%2F"><i class="far fa-user me-1"></i>登录后升级</a>
+			    	 
+
+			    </div>
+			</div>
+		</div>
+
+		
+		<div class="col">
+			<div class="price-card text-center bg-white rounded-3">
+			    <div class="price-header bg-warning bg-opacity-75">
+			        <span class="price-plan">永久会员</span>
+			        <span class="price-sub"><i class="far fa-gem me-1"></i>会员有效期永久</sup></span>
+			    </div>
+			    <div class="price-body">
+
+			    	<h3 class="price-ammount">5880<sup>G币</sup></h3>
+			    	<p class="price-day">尊享SSVIP特权永久</p>
+			        <ul class="price-desc">
+			        	
+			        				        	<li>可获取专属免费资源</li>
+			        				        	<li>每日可下载99个免费资源</li>
+			        				        	<li>全站无限制收藏次数</li>
+			        				        	<li>享受关门弟子套装减免588的活动</li>
+			        				        </ul>
+			    </div>
+			    <div class="price-footer">
+			    	 
+			    	<a class="login-btn btn btn-dark-soft px-4 rounded-pill" rel="nofollow noopener noreferrer" href="https://gsgameshare.com/login?redirect_to=https%3A%2F%2Fgsgameshare.com%2F"><i class="far fa-user me-1"></i>登录后升级</a>
+			    	 
+
+			    </div>
+			</div>
+		</div>
+
+			  	
+	</div>
+</section>
+
+</div>
+</main>
+<!-- **************** MAIN CONTENT END **************** -->
+
+<!-- =======================
+Footer START -->
+<footer class="site-footer py-md-4 py-2 mt-2 mt-md-4">
+	<div class="container">
+
+		
+
+<div class="row d-none d-lg-flex mb-3">
+  <div class="col-md-4">
+    <div class="logo-wrapper">
+          </div>
+    <div class="logo-wrapper">
+<a rel="nofollow noopener noreferrer" href="https://gsgameshare.com/"><img class="logo regular" data-light="https://ghfast.top/https://raw.githubusercontent.com/yulinzhihou706/gsgameshare/master/wp-content/uploads/2021/01/1611768462-96d6f2e7e1f705a.png" data-dark="https://ghfast.top/https://raw.githubusercontent.com/yulinzhihou706/gsgameshare/master/wp-content/uploads/2021/01/1611768462-96d6f2e7e1f705a.png" src="https://ghfast.top/https://raw.githubusercontent.com/yulinzhihou706/gsgameshare/master/wp-content/uploads/2021/01/1611768462-96d6f2e7e1f705a.png" alt="GS游享网游单机技术"></a></div>
+    <p class="small mb-0">GS·游享网,天龙服务端,天龙版本,天龙网游单机论坛,天龙改端教程</p>
+  </div>
+
+  <div class="col-md-2">
+    <h4 class="widget-title">快速导航</h4>
+    <ul class="list-unstyled widget-links">
+      <li><a href="https://gsgameshare.com/user">个人中心</a></li><li><a href="https://gsgameshare.com/tags">标签云</a></li><li><a href="https://gsgameshare.com/links">网址导航</a></li>    </ul>
+  </div>
+
+  <div class="col-md-2">
+    <h4 class="widget-title">关于本站</h4>
+    <ul class="list-unstyled widget-links">
+      <li><a href="https://gsgameshare.com/vip-prices">VIP介绍</a></li><li><a href="https://gsgameshare.com/user/ticket">客服咨询</a></li><li><a href="https://gsgameshare.com/user/aff">推广计划</a></li>    </ul>
+  </div>
+
+  <div class="col-md-4">
+    <h4 class="widget-title">联系我们</h4>
+    <div class=""><a href="https://qm.qq.com/q/rUymZ0Xt6i" target="_blank"><div><img width="80" height="80" src="https://ghfast.top/https://raw.githubusercontent.com/yulinzhihou706/gsgameshare/master/wp-content/uploads/2025/04/qrcode-454.png" style="float: left;" title="QQ群902281567"><span>QQ群902281567</span></div></a></div>
+  </div>
+</div>
+
+
+		<div class="text-center small w-100">
+			<div>Copyright © 2019-2025 <a href="https://gsgameshare.com/">GS·游享网</a> - All rights reserved -<a href="/sitemap.xml" target="_blank"><i class="fa fa-sitemap" aria-hidden="true"></i> XML地图</a></div>
+			<div class="">https://gsgameshare.comGS·游享网</div>
+		</div>
+
+		
+		
+	</div>
+</footer>
+<!-- =======================
+Footer END -->
+
+
+<!-- Back to top rollbar-->
+	<div class="rollbar">
+		<ul class="actions">
+			<li><a target="" href="https://gsgameshare.com/" rel="nofollow noopener noreferrer"><i class="fas fa-home"></i><span>首页</span></a></li><li><a target="_blank" href="https://qm.qq.com/q/rUymZ0Xt6i" rel="nofollow noopener noreferrer"><i class="far fa-user"></i><span>技术群</span></a></li><li><a target="" href="https://gsgameshare.com/vip-prices" rel="nofollow noopener noreferrer"><i class="fa fa-diamond"></i><span>会员</span></a></li><li><a target="" href="http://wpa.qq.com/msgrd?v=3&amp;uin=1303588722&amp;site=qq&amp;menu=yes" rel="nofollow noopener noreferrer"><i class="fab fa-qq"></i><span>客服</span></a></li>		</ul>
+	</div>
+<div class="back-top"><i class="fas fa-caret-up"></i></div>
+
+<!-- m-navbar -->
+	<div class="m-navbar">
+		<ul>
+			<li><a target="" href="https://gsgameshare.com" rel="nofollow noopener noreferrer"><i class="fas fa-home"></i><span>首页</span></a></li><li><a target="" href="https://gsgameshare.com/tags" rel="nofollow noopener noreferrer"><i class="fas fa-layer-group"></i><span>分类</span></a></li><li><a target="" href="https://qm.qq.com/q/rUymZ0Xt6i" rel="nofollow noopener noreferrer"><i class="far fa-gem"></i><span>技术群</span></a></li><li><a target="" href="https://gsgameshare.com/user" rel="nofollow noopener noreferrer"><i class="fas fa-user"></i><span>我的</span></a></li>		</ul>
+	</div>
+
+<!-- dimmer-->
+<div class="dimmer"></div>
+
+<div class="off-canvas">
+  <div class="canvas-close"><i class="fas fa-times"></i></div>
+  
+  <!-- logo -->
+  <div class="logo-wrapper">
+<a rel="nofollow noopener noreferrer" href="https://gsgameshare.com/"><img class="logo regular" data-light="https://ghfast.top/https://raw.githubusercontent.com/yulinzhihou706/gsgameshare/master/wp-content/uploads/2021/01/1611768462-96d6f2e7e1f705a.png" data-dark="https://ghfast.top/https://raw.githubusercontent.com/yulinzhihou706/gsgameshare/master/wp-content/uploads/2021/01/1611768462-96d6f2e7e1f705a.png" src="https://ghfast.top/https://raw.githubusercontent.com/yulinzhihou706/gsgameshare/master/wp-content/uploads/2021/01/1611768462-96d6f2e7e1f705a.png" alt="GS游享网游单机技术"></a></div>
+
+  
+  <div class="mobile-menu d-block d-lg-none"></div>
+
+</div>
+
+
+
+<script type="speculationrules">
+{"prefetch":[{"source":"document","where":{"and":[{"href_matches":"\/*"},{"not":{"href_matches":["\/wp-*.php","\/wp-admin\/*","{\/https\\:\/\/raw.githubusercontent.com\/yulinzhihou706\/gsgameshare\/master\/wp-content\/uploads}\/*","\/wp-content\/*","\/wp-content\/plugins\/*","\/wp-content\/themes\/ripro-v5\/*","\/*\\?(.+)"]}},{"not":{"selector_matches":"a[rel~=\"nofollow\"]"}},{"not":{"selector_matches":".no-prefetch, .no-prefetch a"}}]},"eagerness":"conservative"}]}
+</script>
+<script src="https://gsgameshare.com/wp-content/plugins/wp-editormd/assets/KaTeX/katex.min.js?ver=10.2.1" id="Katex-js"></script>
+<script src="https://gsgameshare.com/wp-content/plugins/wp-editormd/assets/Emojify.js/js/emojify.min.js?ver=10.2.1" id="Emojify.js-js"></script>
+<script src="https://gsgameshare.com/wp-content/plugins/wp-editormd/assets/ClipBoard/clipboard.min.js?ver=2.0.1" id="copy-clipboard-js"></script>
+<script src="https://gsgameshare.com/wp-content/plugins/wp-editormd/assets/Prism.js/components/prism-core.min.js?ver=1.15.0" id="prism-core-js-js"></script>
+<script src="https://gsgameshare.com/wp-content/plugins/wp-editormd/assets/Prism.js/plugins/autoloader/prism-autoloader.min.js?ver=1.15.0" id="prism-plugin-autoloader-js"></script>
+<script src="https://gsgameshare.com/wp-content/plugins/wp-editormd/assets/Prism.js/plugins/toolbar/prism-toolbar.min.js?ver=1.15.0" id="prism-plugin-toolbar-js"></script>
+<script src="https://gsgameshare.com/wp-content/plugins/wp-editormd/assets/Prism.js/plugins/line-numbers/prism-line-numbers.min.js?ver=1.15.0" id="prism-plugin-line-numbers-js"></script>
+<script src="https://gsgameshare.com/wp-content/plugins/wp-editormd/assets/Prism.js/plugins/show-language/prism-show-language.min.js?ver=1.15.0" id="prism-plugin-show-language-js"></script>
+<script src="https://gsgameshare.com/wp-content/plugins/wp-editormd/assets/Prism.js/plugins/copy-to-clipboard/prism-copy-to-clipboard.min.js?ver=1.15.0" id="prism-plugin-copy-to-clipboard-js"></script>
+<script src="https://gsgameshare.com/wp-content/plugins/wp-editormd/assets/Editormd/editormd.min.js?ver=10.2.1" id="Editormd_Front-js"></script>
+<script id="Config_Front-js-extra">
+var _Editormd = {"editormdUrl":"https:\/\/gsgameshare.com\/wp-content\/plugins\/wp-editormd","syncScrolling":"on","livePreview":"on","htmlDecode":"on","imageLink":"on","toc":"on","theme":"dark","previewTheme":"dark","editorTheme":"dracula","emoji":"on","tex":"katex","taskList":"off","imagePaste":"on","prismTheme":"tomorrow","prismLineNumbers":"on","mindMap":"off","mindMapURL":"https:\/\/gsgameshare.com\/wp-content\/plugins\/wp-editormd\/assets\/MindMap\/mindMap.min.js","mermaid":"off","placeholderEditor":"\u4eab\u53d7Markdown\u5199\u4f5c\u5feb\u611f\u5427\uff01","imgUploading":"\u56fe\u7247\u4e0a\u4f20\u4e2d...","imgUploadeFailed":"\u56fe\u7247\u4e0a\u4f20\u5931\u8d25\uff01","supportComment":"on","supportOther":""};
+</script>
+<script src="https://gsgameshare.com/wp-content/plugins/wp-editormd/assets/Config/editormd.min.js?ver=10.2.1" id="Config_Front-js"></script>
+<script src="https://gsgameshare.com/wp-content/plugins/wp-editormd/assets/Editormd/languages/en.js?ver=10.2.1" id="Editormd-lang-us_Front-js"></script>
+<script id="Front_Style-js-extra">
+var FrontStyle = {"openLinkInNewTab":"on"};
+</script>
+<script src="https://gsgameshare.com/wp-content/plugins/wp-editormd/assets/FrontStyle/frontstyle.min.js?ver=10.2.1" id="Front_Style-js"></script>
+<script src="https://gsgameshare.com/wp-content/themes/ripro-v5/assets/js/vendor.min.js?ver=9.0" id="vendor-js"></script>
+<script id="main-js-extra">
+var zb = {"home_url":"https:\/\/gsgameshare.com","ajax_url":"https:\/\/gsgameshare.com\/wp-admin\/admin-ajax.php","theme_url":"https:\/\/gsgameshare.com\/wp-content\/themes\/ripro-v5","singular_id":"0","post_content_nav":"1","site_popup_login":"1","site_notify_auto":"0","current_user_id":"0","ajax_nonce":"02d4be2e43","gettext":{"__copypwd":"\u5bc6\u7801\u5df2\u590d\u5236\u526a\u8d34\u677f","__copybtn":"\u590d\u5236","__copy_succes":"\u590d\u5236\u6210\u529f","__comment_be":"\u63d0\u4ea4\u4e2d...","__comment_succes":"\u8bc4\u8bba\u6210\u529f","__comment_succes_n":"\u8bc4\u8bba\u6210\u529f\uff0c\u5373\u5c06\u5237\u65b0\u9875\u9762","__buy_be_n":"\u8bf7\u6c42\u652f\u4ed8\u4e2d\u00b7\u00b7\u00b7","__buy_no_n":"\u652f\u4ed8\u5df2\u53d6\u6d88","__is_delete_n":"\u786e\u5b9a\u5220\u9664\u6b64\u8bb0\u5f55\uff1f"}};
+</script>
+<script src="https://gsgameshare.com/wp-content/themes/ripro-v5/assets/js/main.min.js?ver=9.0" id="main-js"></script>
+        <script type="text/javascript">
+            (function ($) {
+                $(document).ready(function () {
+                    $(".katex.math.inline").each(function () {
+                        var parent = $(this).parent()[0];
+                        if (parent.localName !== "code") {
+                            var texTxt = $(this).text();
+                            var el = $(this).get(0);
+                            try {
+                                katex.render(texTxt, el);
+                            } catch (err) {
+                                $(this).html("<span class=\"err\">" + err);
+                            }
+                        } else {
+                            $(this).parent().text($(this).parent().text());
+                        }
+                    });
+                    $(".katex.math.multi-line").each(function () {
+                        var texTxt = $(this).text();
+                        var el = $(this).get(0);
+                        try {
+                            katex.render(texTxt, el, {displayMode: true})
+                        } catch (err) {
+                            $(this).html("<span class=\"err\">" + err)
+                        }
+                    });
+                })
+            })(jQuery);
+        </script>
+                <script type="text/javascript">
+            window.onload = function () {
+                emojify.setConfig({
+                    img_dir: "https://gsgameshare.com/wp-content/plugins/wp-editormd/assets/Emojify.js/images/basic",//前端emoji资源地址
+                    blacklist: {
+                        "ids": [],
+                        "classes": ["no-emojify"],
+                        "elements": ["^script$", "^textarea$", "^pre$", "^code$"]
+                    }
+                });
+                emojify.run();
+            }
+        </script>
+                <script type="text/javascript">
+            Prism.plugins.autoloader.languages_path = "https://gsgameshare.com/wp-content/plugins/wp-editormd/assets/Prism.js/components/";
+        </script>
+        
+<!-- 自定义js代码 统计代码 -->
+<div style="display:none;">
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?f8400f8f231c868a56d88ddbdead081d";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+</div><!-- 自定义js代码 统计代码 END -->
+
+</body>
+</html>

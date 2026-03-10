@@ -1,0 +1,1491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>BMI Calculator | Calculate Your Body Mass Index </title>
+  <meta name="description" content="Free BMI calculator to measure your Body Mass Index. Instantly calculate your BMI score, understand weight categories (underweight, normal, overweight, obese), and get personalized health insights.">
+  <meta name="keywords" content="BMI calculator, body mass index, calculate BMI, BMI chart, healthy weight, overweight, underweight, obesity, health assessment">
+  <link rel="canonical" href="https://www.bmi-calculation.com/">
+  
+  <!-- Schema.org markup for better rich snippets -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "BMI Calculator",
+    "url": "https://www.bmi-calculation.com/",
+    "description": "Calculate your Body Mass Index (BMI) with our accurate and easy-to-use calculator",
+    "applicationCategory": "HealthApplication",
+    "operatingSystem": "All",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    }
+  }
+  </script>
+  
+  <!-- Open Graph data -->
+  <meta property="og:title" content="BMI Calculator | Calculate Your Body Mass Index">
+  <meta property="og:description" content="Free BMI calculator to measure your Body Mass Index. Calculate your BMI score and understand weight categories.">
+  <meta property="og:url" content="https://www.bmi-calculation.com/">
+  <meta property="og:site_name" content="BMI Calculation">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://www.bmi-calculation.com/images/android-chrome-512x512.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="BMI Calculator | Calculate Your Body Mass Index">
+  <meta name="twitter:description" content="Free BMI calculator to measure your Body Mass Index. Calculate your BMI score and understand weight categories.">
+  <meta name="twitter:image" content="https://www.bmi-calculation.com/images/android-chrome-512x512.png">
+  
+  <!-- Favicons & App Icons -->
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#0066cc">
+  <link rel="shortcut icon" href="/favicon.ico">
+  <meta name="msapplication-TileColor" content="#0066cc">
+  <meta name="msapplication-config" content="/browserconfig.xml">
+  <meta name="theme-color" content="#0066cc">
+
+<!-- Gauge.js Library -->
+<script src="js/gauge/dist/gauge.js"></script>
+
+<!-- GDPR Compliant Analytics -->
+<script>
+  // GDPR Compliance: Disable Google Analytics by default
+  window['ga-disable-G-VYP5ED3GP7'] = true;
+  
+  // Cookie consent management
+  function setCookie(name, value, days) {
+    const expires = new Date();
+    expires.setTime(expires.getTime() + (days * 24 * 60 * 60 * 1000));
+    document.cookie = name + '=' + value + ';expires=' + expires.toUTCString() + ';path=/;SameSite=Lax;Secure';
+  }
+  
+  function getCookie(name) {
+    const nameEQ = name + '=';
+    const ca = document.cookie.split(';');
+    for(let i = 0; i < ca.length; i++) {
+      let c = ca[i];
+      while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+      if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
+    }
+    return null;
+  }
+  
+  function deleteCookie(name) {
+    document.cookie = name + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;path=/';
+  }
+  
+  function loadGoogleAnalytics() {
+    // Only load if consent was given
+    if (getCookie('analytics_consent') === 'accepted') {
+      window['ga-disable-G-VYP5ED3GP7'] = false;
+      
+      var script = document.createElement('script');
+      script.async = true;
+      script.src = 'https://www.googletagmanager.com/gtag/js?id=G-VYP5ED3GP7';
+      document.head.appendChild(script);
+      
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-VYP5ED3GP7', {
+        'anonymize_ip': true,
+        'cookie_expires': 7776000, // 90 days in seconds
+        'allow_google_signals': false,
+        'allow_ad_personalization_signals': false
+      });
+    }
+  }
+  
+  function removeAnalyticsCookies() {
+    // Remove Google Analytics cookies
+    const cookiesToDelete = ['_ga', '_ga_G-VYP5ED3GP7', '_gid', '_gat_gtag_G_VYP5ED3GP7'];
+    cookiesToDelete.forEach(cookie => {
+      deleteCookie(cookie);
+      // Also try with different domains
+      document.cookie = cookie + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;path=/;domain=.' + window.location.hostname;
+      document.cookie = cookie + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;path=/;domain=' + window.location.hostname;
+    });
+  }
+</script>
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3501967089058824"
+     crossorigin="anonymous"></script>
+
+<style>
+
+:root {
+  --primary: #0066cc;
+  --primary-light: #3385ff;
+  --accent: #004d99;
+  --danger: #c84949;
+  --success: #4CAF50;
+  --bg: #f5f6f3;
+  --white: #fff;
+  --text-dark: #163229;
+  --text-light: #59776b;
+  --border-radius: 1.1rem;
+  --shadow: 0 4px 18px rgba(44,95,125,0.09);
+  --maxw: 700px;
+}
+* { box-sizing: border-box; }
+html { font-size: 17px; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  font-family: system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  color: var(--text-dark);
+  min-height: 100vh;
+  display: flex; flex-direction: column;
+}
+
+.main-result .result-details-value,
+.main-result .hero-bmi {
+  color: #fff !important;
+}
+.container {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 1.2rem;
+  padding-top: 2.5rem !important;
+}
+header {
+  text-align: center;
+  margin-bottom: 1.2rem;
+}
+h1, h2, h3, h4, .subtitle, .faq-block summary, .main-result-label, .results-explanation h4, .content-section caption {
+  text-align: center;
+}
+h1 {
+  color: var(--primary);
+  font-size: 2.1rem;
+  font-weight: 700;
+  margin-bottom: 0.3em;
+  letter-spacing: 0.01em;
+}
+.subtitle {
+  color: var(--text-light);
+  font-size: 1.11rem;
+  margin-bottom: 0.7em;
+  font-weight: 500;
+}
+.calculator-card {
+  background: var(--white);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+  padding: 1.5rem 1.2rem 1.1rem 1.2rem;
+  margin-bottom: 2rem;
+}
+.calculator-card h2 {
+  color: var(--primary);
+  margin-bottom: 0.4em;
+}
+.form-group {
+  margin-bottom: 1.15em;
+}
+.form-group label {
+  font-weight: 600;
+  font-size: 1rem;
+  margin-bottom: 0.35em;
+  display: block;
+}
+.toggle-group {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 0.6em;
+}
+.toggle-group label {
+  flex: 1;
+  background: #e6f0fa;
+  border: 2px solid #d6e4f2;
+  border-radius: 0.7em;
+  padding: 0.7em 0.6em;
+  text-align: center;
+  cursor: pointer;
+  font-weight: 500; /* Normal weight by default */
+  font-size: 1rem;
+  color: var(--primary);
+  transition: 0.13s all;
+  user-select: none;
+}
+
+.toggle-group label.active,
+.toggle-group input:checked + label {
+  background: var(--primary-light);
+  color: var(--white);
+  border-color: var(--primary-light);
+  font-weight: 700; /* Bold when active */
+}
+input[type="number"], select {
+  width: 100%;
+  padding: 0.7em;
+  border: 2px solid #d6e4f2;
+  border-radius: 0.6em;
+  font-size: 1rem;
+  background: #f0f7ff;
+  transition: 0.13s border-color;
+}
+input:focus, select:focus {
+  outline: none;
+  border-color: var(--primary);
+  background: #fff;
+}
+.calculate-btn {
+  width: 100%;
+  padding: 1em;
+  background: var(--primary);
+  color: #fff;
+  border: none;
+  border-radius: 0.8em;
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  margin-top: 0.7em;
+  transition: 0.15s background;
+}
+.calculate-btn:hover { background: var(--primary-light); }
+.results-section {
+  display: none;
+  background: var(--white);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+  padding: 1.5rem 1.2rem;
+  margin-bottom: 2rem;
+}
+.results-section.show { display: block; }
+.main-result {
+  background: var(--primary-light);
+  border-radius: var(--border-radius);
+  color: #fff;
+  text-align: center;
+  padding: 1.05rem 0.8rem 1.05rem 0.8rem;
+  margin-bottom: 1.15rem;
+}
+.main-result-title {
+  font-size: 1.18rem;
+  font-weight: 700;
+  margin-bottom: 0.2em;
+  color: #fff;
+  letter-spacing: 0.01em;
+}
+.hero-bmi {
+  font-size: 2.6rem;
+  font-weight: 900;
+  color: #fff;
+  margin: 0.1em 0 0.15em 0;
+  letter-spacing: 0.01em;
+}
+.main-result-label {
+  font-size: 1rem;
+  opacity: 0.95;
+  margin-bottom: 0.1em;
+}
+.result-details-row {
+  display: flex;
+  justify-content: center;
+  gap: 2.4em;
+  margin: 1em 0 0.6em 0;
+  font-size: 1.01em;
+}
+.result-details-label {
+  display: block;
+  color: #d4e6ff;
+  font-size: 0.96em;
+}
+.result-details-value {
+  color: #fff;
+  font-weight: 600;
+  font-size: 1.06em;
+}
+.goal-info {
+  background: #e5f0ff;
+  border-radius: 0.7em;
+  padding: 0.9em 0.7em;
+  margin-bottom: 1.1rem;
+  text-align: center;
+}
+.goal-value {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--accent);
+  margin-bottom: 0.25rem;
+}
+.goal-label { font-size: 0.98rem; color: var(--text-light); }
+.results-explanation h4 { margin-top: 0.6em; color: var(--primary); }
+.results-explanation { font-size: 1.03rem; }
+/* --- Rich Content --- */
+.content-section {
+  background: var(--white);
+  border-radius: var(--border-radius);
+  padding: 1.5rem 1rem;
+  margin-bottom: 1.4rem;
+  box-shadow: var(--shadow);
+  font-size: 1.06rem;
+}
+.content-section h2,
+.content-section h3 {
+  color: var(--primary);
+  margin-bottom: 0.6em;
+  margin-top: 0.4em;
+  font-weight: 700;
+  text-align: center;
+}
+.content-section h3 { color: var(--accent); font-size: 1.09rem;}
+.content-section ul, .content-section ol {
+  margin: 0.7em 0 0.7em 1.5em;
+  padding: 0;
+}
+.content-section table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0.8em 0;
+  background: #e6f0fa;
+  border-radius: 0.7em;
+  overflow: hidden;
+  font-size: 1.01rem;
+}
+.content-section th, .content-section td {
+  padding: 0.7em;
+  text-align: center;
+  font-size: 1rem;
+  border-bottom: 1px solid #d0e0f0;
+}
+.content-section th { background: #d6e6ff; color: var(--primary); }
+.content-section caption {
+  caption-side: top;
+  font-weight: 700;
+  color: var(--accent);
+  margin-bottom: 0.7em;
+  font-size: 1.06rem;
+}
+.formula-box {
+  background: #d6e6ff;
+  border: 1.5px dashed var(--accent);
+  border-radius: 0.7em;
+  padding: 1em;
+  margin: 1em auto;
+  font-family: 'Consolas', 'Courier New', monospace;
+  font-size: 0.97em;
+  color: #1a3d66;
+  max-width: 520px;
+  text-align: left;
+  box-shadow: 0 2px 10px rgba(0,102,204,0.06);
+}
+.faq-block details {
+  background: #f0f7ff;
+  border-radius: 0.7em;
+  border: 1.7px solid #d6e6ff;
+  margin-bottom: 0.7em;
+  padding: 0.85em 0.9em 0.3em 0.9em;
+  box-shadow: 0 2px 12px rgba(0,102,204,0.04);
+  font-size: 1rem;
+}
+.faq-block summary {
+  font-weight: bold;
+  color: var(--primary);
+  cursor: pointer;
+  font-size: 1.09rem;
+  margin-bottom: 0.4em;
+  outline: none;
+  padding: 2px 0;
+  list-style: none;
+  text-align: center;
+}
+.faq-block summary:hover { color: var(--accent); }
+.faq-block details[open] { background: #d6e6ff; }
+.faq-block details div { margin-top: 0.3em; color: var(--text-light); }
+.content-section p, .content-section li { color: var(--text-dark); }
+/* Goal-specific colors */
+.weight-loss { color: var(--danger); }
+.weight-gain { color: var(--success); }
+.weight-maintenance { color: var(--primary); }
+/* Footer */
+.footer {
+  background: var(--primary);
+  color: #fff;
+  text-align: center;
+  padding: 1.6rem 1rem 1.2rem 1rem;
+  border-radius: var(--border-radius) var(--border-radius) 0 0;
+  font-size: 0.96rem;
+  margin-top: auto;
+}
+.footer-links {
+  margin-bottom: 0.6em;
+  display: flex;
+  justify-content: center;
+  gap: 1.2em;
+  flex-wrap: wrap;
+}
+.footer-links a {
+  color: #fff;
+  text-decoration: underline;
+  opacity: 0.88;
+  font-size: 1rem;
+  transition: opacity 0.15s;
+}
+.footer-links a:hover { opacity: 1; }
+
+/* Navigation Styles */
+.health-nav {
+  background: var(--primary);
+  padding: 0.8rem 1rem;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.nav-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.nav-links {
+  display: flex;
+  justify-content: center;
+  gap: 0.8rem;
+  flex-wrap: nowrap;
+}
+
+.nav-link {
+  color: white !important;
+  text-decoration: none !important;
+  font-weight: 500;
+  font-size: 0.9rem;    /* Change from 1rem to 0.9rem */
+  padding: 0.4rem 0.6rem; /* Change from 0.5rem 0.8rem to 0.4rem 0.6rem */
+  border-radius: 0.5rem;
+  transition: background-color 0.2s;
+  white-space: nowrap;  /* Add this line */
+}
+
+.nav-link:hover {
+  background-color: rgba(255,255,255,0.15);
+}
+
+.nav-link.current {
+  background-color: var(--primary-light);
+  font-weight: 600;
+}
+
+/* Add some spacing below the nav */
+.container {
+  padding-top: 1.5rem !important;
+}
+
+/* GDPR Consent Banner */
+#cookie-banner {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #f5f6f3;
+  padding: 1rem;
+  box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+  z-index: 10000;
+  border-top: 2px solid var(--primary);
+  display: none;
+}
+
+.cookie-content {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: center;
+  justify-content: center;
+}
+
+.cookie-content p {
+  margin: 0;
+  flex: 1;
+  min-width: 300px;
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+
+.cookie-buttons {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.cookie-btn {
+  padding: 0.5rem 1.2rem;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: background-color 0.2s;
+}
+
+.accept-btn {
+  background: var(--primary);
+  color: white;
+}
+
+.accept-btn:hover {
+  background: var(--primary-light);
+}
+
+.reject-btn {
+  background: #e0e0e0;
+  color: #333;
+}
+
+.reject-btn:hover {
+  background: #d0d0d0;
+}
+
+.settings-btn {
+  background: #666;
+  color: white;
+}
+
+.settings-btn:hover {
+  background: #555;
+}
+
+/* Cookie settings modal */
+.cookie-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  z-index: 10001;
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+
+.cookie-modal-content {
+  background: white;
+  padding: 2rem;
+  border-radius: var(--border-radius);
+  max-width: 500px;
+  margin: 1rem;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+.cookie-modal h3 {
+  color: var(--primary);
+  margin-top: 0;
+  text-align: center;
+}
+
+.cookie-category {
+  margin: 1rem 0;
+  padding: 1rem;
+  border: 1px solid #e0e0e0;
+  border-radius: 0.5rem;
+}
+
+.cookie-category h4 {
+  margin: 0 0 0.5rem 0;
+  color: var(--accent);
+  text-align: left;
+}
+
+.cookie-category p {
+  margin: 0.5rem 0;
+  font-size: 0.9rem;
+  color: var(--text-light);
+}
+
+.cookie-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0.5rem 0;
+}
+
+.toggle-switch {
+  position: relative;
+  width: 50px;
+  height: 24px;
+  background: #ccc;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.toggle-switch.active {
+  background: var(--primary);
+}
+
+.toggle-switch::after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 20px;
+  height: 20px;
+  background: white;
+  border-radius: 50%;
+  transition: transform 0.3s;
+}
+
+.toggle-switch.active::after {
+  transform: translateX(26px);
+}
+
+.toggle-switch[data-disabled="true"] {
+  background: var(--primary);
+  cursor: not-allowed;
+}
+
+/* Responsive */
+@media (max-width: 700px) {
+  html { font-size: 15px; }
+  .container { padding: 0.6rem; }
+  .calculator-card, .results-section, .content-section { padding: 1.1rem 0.7rem; }
+}
+
+@media (max-width: 600px) {
+  .cookie-content {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .cookie-content p {
+    min-width: auto;
+  }
+  
+  .cookie-buttons {
+    flex-direction: column;
+    width: 100%;
+  }
+  
+  .cookie-btn {
+    width: 100%;
+    margin: 0.25rem 0;
+  }
+}
+
+@media (max-width: 480px) {
+  html { font-size: 14px; }
+  .main-result-value { font-size: 1.35rem; }
+  .content-section, .calculator-card, .results-section { padding: 1rem 0.5rem; }
+  .result-details-row { gap: 1.2em; font-size: 0.99em; }
+  .hero-bmi { font-size: 1.6rem; }
+  .main-result-title { font-size: 1.01rem; }
+}
+  </style>
+</head>
+
+<body>
+
+  <!-- GDPR Cookie Consent Banner -->
+  <div id="cookie-banner">
+    <div class="cookie-content">
+      <p>We use cookies to improve your experience and analyze site usage. You can choose which cookies to accept. <a href="/privacy/" style="color: var(--primary); text-decoration: underline;">Privacy Policy</a></p>
+      <div class="cookie-buttons">
+        <button id="accept-cookies" class="cookie-btn accept-btn">Accept All</button>
+        <button id="reject-cookies" class="cookie-btn reject-btn">Reject All</button>
+        <button id="cookie-settings" class="cookie-btn settings-btn">Settings</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Cookie Settings Modal -->
+  <div id="cookie-modal" class="cookie-modal">
+    <div class="cookie-modal-content">
+      <h3>Cookie Settings</h3>
+      <p>Choose which cookies you want to accept. You can change these settings at any time.</p>
+      
+      <div class="cookie-category">
+        <h4>Essential Cookies</h4>
+        <p>These cookies are necessary for the website to function and cannot be disabled.</p>
+        <div class="cookie-toggle">
+          <span>Required for site functionality</span>
+          <div class="toggle-switch active" data-disabled="true"></div>
+        </div>
+      </div>
+      
+      <div class="cookie-category">
+        <h4>Analytics Cookies</h4>
+        <p>These cookies help us understand how visitors interact with our website by collecting and reporting information anonymously.</p>
+        <div class="cookie-toggle">
+          <span>Google Analytics</span>
+          <div class="toggle-switch" id="analytics-toggle" data-consent="analytics"></div>
+        </div>
+      </div>
+      
+      <div style="display: flex; gap: 0.5rem; margin-top: 1.5rem;">
+        <button id="save-preferences" class="cookie-btn accept-btn">Save Preferences</button>
+        <button id="close-modal" class="cookie-btn reject-btn">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  
+<style>
+
+    #blog-menu-btn {
+      display: none;
+      position: fixed;
+      top: 60px;
+      left: 15px;
+      z-index: 1001;
+      background: var(--primary);
+      color: white;
+      border: none;
+      font-size: 16px;
+      cursor: pointer;
+      padding: 8px 12px;
+      border-radius: 4px;
+      box-shadow: 0 2px 8px rgba(0,102,204,0.3);
+    }
+    
+    #blog-menu-btn:hover { 
+      background: var(--primary-light);
+    }
+
+    /* BMI Blog Navigation Slide-out Panel - SLIMMER VERSION */
+    #blog-nav-menu {
+      position: fixed;
+      top: 0; /* Changed from top: 60px to extend to the top */
+      left: 0;
+      width: 220px; /* Reduced from 280px */
+      height: 100vh;
+      background: var(--white);
+      z-index: 1000;
+      overflow-y: auto;
+      box-shadow: 2px 0 12px rgba(0,102,204,0.1);
+      transform: translateX(-100%);
+      padding-top: 60px; /* Added padding to push content below header */
+    }
+    
+    #blog-nav-menu.show { 
+      transform: translateX(0); 
+    }
+
+
+    .blog-nav-content { 
+      padding: 15px 15px 25px; /* Reduced top padding since we added padding to container */
+    }
+
+    .blog-nav-title {
+      color: var(--primary);
+      font-size: 1.1rem; /* Slightly smaller */
+      font-weight: 700;
+      margin-bottom: 15px; /* Reduced margin */
+      text-align: left;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #eee;
+    }
+
+    .blog-nav-item {
+      display: block;
+      color: var(--text-dark);
+      padding: 10px 12px; /* Reduced padding */
+      text-decoration: none;
+      margin: 4px 0; /* Reduced margin */
+      font-size: 0.9rem; /* Slightly smaller font */
+      font-weight: 500;
+      border-radius: 4px;
+      transition: all 0.2s ease;
+      line-height: 1.3;
+    }
+    
+    .blog-nav-item:hover { 
+      background: var(--primary);
+      color: white;
+    }
+
+    .blog-nav-item.active {
+      background: var(--primary-light);
+      color: white;
+    }
+
+    .blog-nav-home {
+      color: var(--accent);
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+
+   
+    #blog-overlay {
+      position: fixed; 
+      top: 0; 
+      left: 0; 
+      right: 0; 
+      bottom: 0;
+      background: rgba(0,0,0,0.5);
+      z-index: 999;
+      display: none;
+    }
+
+    /* Responsive Design */
+    @media (min-width: 1200px) {
+      #blog-nav-menu { 
+        transform: translateX(0); 
+      }
+      #blog-menu-btn { 
+        display: none; 
+      }
+      body { 
+        padding-left: 220px; /* Adjusted to match new width */
+      }
+    }
+
+    @media (max-width: 1199px) {
+      #blog-menu-btn { 
+        display: block; 
+      }
+    }
+
+    @media (max-width: 768px) {
+      #blog-nav-menu { 
+        width: 80%; 
+        max-width: 220px; /* Adjusted to match new width */
+      }
+      body.blog-menu-open { 
+        overflow: hidden; 
+      }
+    }
+</style>
+
+<!-- Blog Menu Button -->
+<button id="blog-menu-btn" aria-label="Toggle navigation menu">☰</button>
+
+<!-- Blog Navigation Menu -->
+<nav id="blog-nav-menu" aria-label="BMI blog navigation">
+    <div class="blog-nav-content">
+        <div class="blog-nav-title">BMI Resources</div>
+
+        <a class="blog-nav-item blog-nav-home" href="https://www.bmi-calculation.com/">Home</a>
+
+        <div class="blog-nav-title" style="font-size: 0.95rem; margin-top: 1rem;">Guides</div>
+        <a class="blog-nav-item" href="https://www.bmi-calculation.com/guides/complete-bmi-guide">Complete BMI Guide</a>
+
+        <div class="blog-nav-title" style="font-size: 0.95rem; margin-top: 1rem;">Blog</div>
+        <a class="blog-nav-item" href="https://www.bmi-calculation.com/blog/bmi-athletes">BMI for Athletes</a>
+        <a class="blog-nav-item" href="https://www.bmi-calculation.com/blog/bmi-ethnicity">BMI by Ethnicity</a>
+        <a class="blog-nav-item" href="https://www.bmi-calculation.com/blog/bmi-kids">BMI for Kids</a>
+        <a class="blog-nav-item" href="https://www.bmi-calculation.com/blog/bmi-obesity">BMI for Obesity</a>
+        <a class="blog-nav-item" href="https://www.bmi-calculation.com/blog/bmi-pregnancy">BMI in Pregnancy</a>
+        <a class="blog-nav-item" href="https://www.bmi-calculation.com/blog/bmi-seniors">BMI for Seniors</a>
+        <a class="blog-nav-item" href="https://www.bmi-calculation.com/blog/bmi-teens">BMI for Teens</a>
+        <a class="blog-nav-item" href="https://www.bmi-calculation.com/blog/bmi-women">BMI for Women</a>
+    </div>
+</nav>
+
+<!-- Blog Navigation Overlay -->
+<div id="blog-overlay"></div>
+
+<script>
+// BMI Blog navigation functionality
+document.addEventListener('DOMContentLoaded', function() {
+    const blogMenuBtn = document.getElementById("blog-menu-btn");
+    const blogNavMenu = document.getElementById("blog-nav-menu");
+    const blogOverlay = document.getElementById("blog-overlay");
+    
+    // Only run if elements exist
+    if (blogMenuBtn && blogNavMenu && blogOverlay) {
+        function toggleBlogMenu() {
+            const isOpen = blogNavMenu.classList.toggle("show");
+            blogOverlay.style.display = isOpen ? "block" : "none";
+            blogMenuBtn.innerHTML = isOpen ? "✕" : "☰";
+            blogMenuBtn.setAttribute('aria-expanded', isOpen);
+            document.body.classList.toggle("blog-menu-open", isOpen);
+        }
+
+        blogMenuBtn.addEventListener("click", toggleBlogMenu);
+        blogOverlay.addEventListener("click", toggleBlogMenu);
+
+        // Close menu when clicking nav items on mobile
+        const blogNavItems = document.querySelectorAll('.blog-nav-item');
+        blogNavItems.forEach(item => {
+            item.addEventListener('click', () => {
+                if (window.innerWidth < 1200) toggleBlogMenu();
+            });
+        });
+
+        // Close on Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && blogNavMenu.classList.contains('show')) {
+                toggleBlogMenu();
+            }
+        });
+        
+        // Set active menu item based on current page
+        const currentPage = window.location.pathname;
+        blogNavItems.forEach(item => {
+            if (item.getAttribute('href') === currentPage) {
+                item.classList.add('active');
+                item.setAttribute('aria-current', 'page');
+            }
+        });
+    }
+});
+</script>
+  <!-- NAVIGATION BAR -->
+  <nav class="health-nav">
+    <div class="nav-container">
+      <div class="nav-links">
+        <a href="https://www.bmi-calculation.com" class="nav-link current">BMI Calculator</a>
+        <a href="https://www.tdee-calculation.com" class="nav-link">TDEE Calculator</a>
+        <a href="https://www.calorie-calculation.com" class="nav-link">Calorie Calculator</a>
+      </div>
+    </div>
+  </nav>
+
+  
+  <div class="container">
+    <header>
+      <h1>BMI Calculator</h1>
+      <div class="subtitle">Calculate your Body Mass Index and understand your weight category</div>
+    </header>
+
+    <div class="calculator-card">
+      <h2>Calculate Your BMI</h2>
+      <form id="bmiForm" autocomplete="off" novalidate>
+        <div class="form-group">
+          <label>Height</label>
+          <div class="toggle-group">
+            <label class="active"><input type="radio" name="heightUnit" value="cm" checked hidden> cm</label>
+            <label><input type="radio" name="heightUnit" value="ft" hidden> ft/in</label>
+          </div>
+          <div id="heightCm">
+            <input type="number" id="heightCmInput" placeholder="Height in cm" min="100" max="250" required>
+          </div>
+          <div id="heightFt" style="display:none;">
+            <input type="number" id="heightFtInput" placeholder="Feet" min="3" max="8" style="width:49%;display:inline-block;">
+            <input type="number" id="heightInInput" placeholder="Inches" min="0" max="11" style="width:49%;display:inline-block;">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Weight</label>
+          <div class="toggle-group">
+            <label class="active"><input type="radio" name="weightUnit" value="kg" checked hidden> kg</label>
+            <label><input type="radio" name="weightUnit" value="lbs" hidden> lbs</label>
+          </div>
+          <input type="number" id="weightInput" placeholder="Enter your weight" min="30" max="300" required>
+        </div>
+        <button type="submit" class="calculate-btn">Calculate BMI</button>
+      </form>
+    </div>
+
+    <div id="resultsSection" class="results-section">
+      <div class="main-result">
+        <div class="main-result-title">Your Body Mass Index</div>
+
+        <!-- Animated BMI Gauge -->
+        <div style="text-align: center; margin: 1.5rem 0;">
+          <canvas id="bmiGauge" width="280" height="180"></canvas>
+        </div>
+
+        <div id="bmiValue" class="hero-bmi">--</div>
+        <div id="bmiCategory" class="main-result-label">Calculate your BMI</div>
+        <div class="result-details-row">
+          <div>
+            <span class="result-details-label">Height</span>
+            <span id="heightValue" class="result-details-value">--</span>
+          </div>
+          <div>
+            <span class="result-details-label">Weight</span>
+            <span id="weightValue" class="result-details-value">--</span>
+          </div>
+          <div>
+            <span class="result-details-label">Healthy Range</span>
+            <span id="healthyRange" class="result-details-value">--</span>
+          </div>
+        </div>
+        <div id="categorySection" class="category-info" style="display:none;">
+          <div id="categoryValue" class="category-value">--</div>
+          <div id="categoryLabel" class="category-label">BMI Category</div>
+        </div>
+      </div>
+      <div class="results-explanation">
+        <h3>Your BMI Analysis</h3>
+        <div id="explanationText">Enter your details above to see your BMI results and analysis.</div>
+      </div>
+    </div>
+
+    <section class="content-section">
+      <h2>Understanding BMI</h2>
+      <p>
+        Body Mass Index (BMI) is a simple calculation using your height and weight to estimate body fat. It's a widely-used screening tool that helps identify weight categories that may lead to health problems. Simply enter your measurements above to get your BMI and personalized health insights.
+      </p>
+    </section>
+
+    <!-- CTA to Complete Guide -->
+    <section class="content-section" style="background: linear-gradient(135deg, #e6f0fa 0%, #d6e6ff 100%); border: 2px solid var(--primary); text-align: center;">
+      <h3 style="color: var(--primary); margin-top: 0;">Want to Learn More About BMI?</h3>
+      <p style="margin-bottom: 1.2rem;">
+        Discover BMI history, detailed limitations, alternative measurements (body fat %, waist-to-height ratio), and personalized recommendations in our comprehensive guide.
+      </p>
+      <a href="/guides/complete-bmi-guide" style="display: inline-block; background: var(--primary); color: white; padding: 0.9rem 1.8rem; border-radius: 0.6rem; text-decoration: none; font-weight: 700; font-size: 1.05rem; transition: background 0.2s;">
+        Read the Complete BMI Guide →
+      </a>
+    </section>
+
+    <section class="content-section">
+      <h2>BMI Categories</h2>
+      <table border="1" style="border-collapse:collapse;width:100%;max-width:480px;margin:14px auto;">
+        <caption style="font-weight:bold;">BMI Classification</caption>
+        <thead>
+          <tr><th>BMI Range</th><th>Category</th><th>Health Risk</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Below 18.5</td><td>Underweight</td><td>Possible nutritional deficiency</td></tr>
+          <tr><td>18.5 - 24.9</td><td>Healthy Weight</td><td>Low risk</td></tr>
+          <tr><td>25.0 - 29.9</td><td>Overweight</td><td>Moderate risk</td></tr>
+          <tr><td>30.0 - 34.9</td><td>Obese (Class I)</td><td>High risk</td></tr>
+          <tr><td>35.0 - 39.9</td><td>Obese (Class II)</td><td>Very high risk</td></tr>
+          <tr><td>40.0 and above</td><td>Obese (Class III)</td><td>Extremely high risk</td></tr>
+        </tbody>
+      </table>
+      <p style="text-align: center; margin-top: 1rem;">
+        <strong>Note:</strong> BMI is a screening tool. Individual factors like muscle mass and body composition should also be considered. <a href="/guides/complete-bmi-guide" style="color: var(--primary); font-weight: 600;">Learn more in our complete guide</a>.
+      </p>
+    </section>
+
+    <section class="content-section">
+      <h2>Frequently Asked Questions</h2>
+      <div class="faq-block">
+        <details>
+          <summary>Is BMI accurate for everyone?</summary>
+          <div>
+            BMI is a useful screening tool but has limitations. Athletes with high muscle mass may have a high BMI without excess fat. Older adults may have a normal BMI but high body fat percentage. It's best used alongside other measurements.
+          </div>
+        </details>
+        <details>
+          <summary>What's a healthy BMI?</summary>
+          <div>
+            For adults, a healthy BMI ranges from 18.5 to 24.9. This range is associated with the lowest risk of weight-related health problems. However, BMI should be considered alongside other health indicators.
+          </div>
+        </details>
+        <details>
+          <summary>How can I improve my BMI?</summary>
+          <div>
+            To reach a healthy BMI, focus on sustainable lifestyle changes: balanced nutrition, regular physical activity, and gradual weight loss (1-2 pounds per week). Strength training helps preserve muscle mass during weight loss.
+          </div>
+        </details>
+        <details>
+          <summary>What are BMI's limitations?</summary>
+          <div>
+            BMI doesn't account for muscle mass, bone density, or fat distribution. It may overestimate body fat in muscular individuals and underestimate it in older adults. <a href="/guides/complete-bmi-guide" style="color: var(--primary);">Learn about alternatives in our guide</a>.
+          </div>
+        </details>
+      </div>
+    </section>
+
+  </div>
+
+  <footer class="footer">
+  <style>
+    .footer {
+      text-align: center;
+      color: #fff;
+      padding: 1rem 0;
+    }
+    .footer-links a,
+    .footer-links a:visited,
+    .footer-links a:hover,
+    .footer-links a:active {
+      color: #fff !important;
+      text-decoration: none !important;
+      transition: opacity 0.15s;
+      opacity: 0.88;
+      margin: 0 8px;
+    }
+    .footer-links a:hover {
+      opacity: 1;
+    }
+    .footer p {
+      margin: 0.3rem 0; 
+      line-height: 1.3; 
+    }
+    .disclaimer {
+      font-size: 0.9em; 
+      margin: 0.2rem 0; 
+    }
+  </style>
+
+  <div class="footer-links">
+    <a href="/">Home</a>
+    <a href="/about/">About</a>
+    <a href="/privacy/">Privacy Policy</a>
+    <a href="mailto:info@bmi-calculation.com">Contact</a>
+  </div>
+
+  <div>
+<p class="disclaimer">For educational use only - not medical advice.</p> 
+<p class="disclaimer">Consult a doctor for personalized recommendations.</p>
+    <p>© 2025 BMI-Calculation.com</p>
+  </div>
+</footer>
+
+
+
+
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const menuBtn = document.getElementById("menu-btn");
+      const navMenu = document.getElementById("nav-menu");
+      const overlay = document.getElementById("overlay");
+
+      function toggleMenu() {
+        const isOpen = navMenu.classList.toggle("show");
+        overlay.style.display = isOpen ? "block" : "none";
+        menuBtn.innerHTML = isOpen ? "✕" : "☰";
+        document.body.classList.toggle("menu-open", isOpen);
+      }
+
+      menuBtn.addEventListener("click", toggleMenu);
+      overlay.addEventListener("click", toggleMenu);
+
+      // Close menu when clicking nav items on mobile
+      const navItems = document.querySelectorAll('.nav-item');
+      navItems.forEach(item => {
+        item.addEventListener('click', () => {
+          if (window.innerWidth < 1200) toggleMenu();
+        });
+      });
+
+      // Close on Escape key
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && navMenu.classList.contains('show')) {
+          toggleMenu();
+        }
+      });
+    });
+  </script>
+
+<script>
+// Initialize BMI Gauge
+var bmiGauge = null;
+var gaugeInitialized = false;
+
+// Gauge configuration options
+var gaugeOpts = {
+  angle: 0.15,           // The arc span
+  lineWidth: 0.35,       // Gauge line thickness
+  radiusScale: 1,        // Relative radius
+  pointer: {
+    length: 0.6,         // Pointer length
+    strokeWidth: 0.05,   // Pointer thickness
+    color: '#fff'        // White pointer
+  },
+  limitMax: false,       // Allow exceeding max value
+  limitMin: false,
+  colorStart: '#6FADCF', // Will be overridden by zones
+  colorStop: '#8FC0DA',
+  strokeColor: '#E0E0E0',
+  generateGradient: true,
+  highDpiSupport: true,
+  staticLabels: {
+    font: "12px sans-serif",
+    labels: [15, 18.5, 25, 30, 35, 40],
+    color: "#ffffff",
+    fractionDigits: 1
+  },
+  staticZones: [
+    {strokeStyle: "#5B9BD5", min: 0, max: 18.5},    // Underweight - Blue
+    {strokeStyle: "#70AD47", min: 18.5, max: 25},   // Healthy - Green
+    {strokeStyle: "#FFC000", min: 25, max: 30},     // Overweight - Yellow
+    {strokeStyle: "#ED7D31", min: 30, max: 35},     // Obese I - Orange
+    {strokeStyle: "#C00000", min: 35, max: 50}      // Obese II+ - Red
+  ],
+  renderTicks: {
+    divisions: 5,
+    divWidth: 1.5,
+    divLength: 0.7,
+    divColor: '#ffffff',
+    subDivisions: 4,
+    subLength: 0.4,
+    subWidth: 0.8,
+    subColor: '#ffffff'
+  }
+};
+
+// Function to initialize gauge (called after results section is visible)
+function initializeGauge() {
+  if (!gaugeInitialized && typeof Gauge !== 'undefined') {
+    var canvas = document.getElementById('bmiGauge');
+    if (canvas) {
+      bmiGauge = new Gauge(canvas).setOptions(gaugeOpts);
+      bmiGauge.maxValue = 50;  // BMI max value for gauge
+      bmiGauge.setMinValue(0); // BMI min value
+      bmiGauge.animationSpeed = 32; // Animation speed
+      gaugeInitialized = true;
+    }
+  }
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+
+  // GDPR Cookie Consent Management
+  const cookieBanner = document.getElementById('cookie-banner');
+  const cookieModal = document.getElementById('cookie-modal');
+  const acceptBtn = document.getElementById('accept-cookies');
+  const rejectBtn = document.getElementById('reject-cookies');
+  const settingsBtn = document.getElementById('cookie-settings');
+  const saveBtn = document.getElementById('save-preferences');
+  const closeBtn = document.getElementById('close-modal');
+  const analyticsToggle = document.getElementById('analytics-toggle');
+
+  // Check if user has already made a choice
+  function checkCookieConsent() {
+    const consentRecorded = getCookie('cookie_consent_recorded');
+    if (!consentRecorded) {
+      // Show banner if no consent has been recorded yet
+      cookieBanner.style.display = 'block';
+    } else {
+      // Hide banner if consent was already given/rejected
+      cookieBanner.style.display = 'none';
+      
+      // Load analytics only if explicitly accepted
+      if (getCookie('analytics_consent') === 'accepted') {
+        loadGoogleAnalytics();
+      }
+    }
+  }
+
+  // Accept all cookies
+  acceptBtn.addEventListener('click', function() {
+    setCookie('cookie_consent_recorded', 'true', 365);
+    setCookie('analytics_consent', 'accepted', 365);
+    cookieBanner.style.display = 'none';
+    loadGoogleAnalytics();
+  });
+
+  // Reject all cookies
+  rejectBtn.addEventListener('click', function() {
+    setCookie('cookie_consent_recorded', 'true', 365);
+    setCookie('analytics_consent', 'rejected', 365);
+    cookieBanner.style.display = 'none';
+    removeAnalyticsCookies();
+  });
+
+  // Open settings modal
+  settingsBtn.addEventListener('click', function() {
+    cookieModal.style.display = 'flex';
+    // Always set toggle based on current consent state - default to off if no choice
+    if (getCookie('analytics_consent') === 'accepted') {
+      analyticsToggle.classList.add('active');
+    } else {
+      analyticsToggle.classList.remove('active'); // Ensure it's off by default
+    }
+  });
+
+  // Close modal
+  closeBtn.addEventListener('click', function() {
+    cookieModal.style.display = 'none';
+  });
+
+  // Close modal by clicking outside
+  cookieModal.addEventListener('click', function(e) {
+    if (e.target === cookieModal) {
+      cookieModal.style.display = 'none';
+    }
+  });
+
+  // Toggle analytics consent
+  analyticsToggle.addEventListener('click', function() {
+    if (!this.hasAttribute('data-disabled')) {
+      this.classList.toggle('active');
+    }
+  });
+
+  // Save preferences
+  saveBtn.addEventListener('click', function() {
+    const analyticsEnabled = analyticsToggle.classList.contains('active');
+    
+    setCookie('cookie_consent_recorded', 'true', 365);
+    setCookie('analytics_consent', analyticsEnabled ? 'accepted' : 'rejected', 365);
+    
+    cookieBanner.style.display = 'none';
+    cookieModal.style.display = 'none';
+    
+    if (analyticsEnabled) {
+      loadGoogleAnalytics();
+    } else {
+      removeAnalyticsCookies();
+    }
+  });
+
+  // Initialize consent check
+  checkCookieConsent();
+
+  // The rest of your BMI calculator code remains unchanged...
+  // Height unit toggle functionality
+  const heightRadios = document.querySelectorAll('input[name="heightUnit"]');
+  const heightCmDiv = document.getElementById('heightCm');
+  const heightFtDiv = document.getElementById('heightFt');
+
+  heightRadios.forEach(radio => {
+    radio.addEventListener('change', function() {
+      // Update toggle button styling
+      document.querySelectorAll('.toggle-group label').forEach(label => {
+        label.classList.remove('active');
+      });
+      this.parentElement.classList.add('active');
+
+      // Show/hide height input fields
+      if (this.value === 'cm') {
+        heightCmDiv.style.display = 'block';
+        heightFtDiv.style.display = 'none';
+      } else {
+        heightCmDiv.style.display = 'none';
+        heightFtDiv.style.display = 'block';
+      }
+    });
+  });
+
+  // Weight unit toggle functionality
+  const weightRadios = document.querySelectorAll('input[name="weightUnit"]');
+  weightRadios.forEach(radio => {
+    radio.addEventListener('change', function() {
+      // Update toggle button styling
+      const weightLabels = document.querySelectorAll('input[name="weightUnit"]').forEach(r => {
+        r.parentElement.classList.remove('active');
+      });
+      this.parentElement.classList.add('active');
+    });
+  });
+
+  // BMI calculation functionality
+  const bmiForm = document.getElementById('bmiForm');
+  const resultsSection = document.getElementById('resultsSection');
+
+  bmiForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    // Get form values
+    const heightUnit = document.querySelector('input[name="heightUnit"]:checked').value;
+    const weightUnit = document.querySelector('input[name="weightUnit"]:checked').value;
+    const weightInput = document.getElementById('weightInput').value;
+
+    let height, weight;
+
+    // Get height in meters
+    if (heightUnit === 'cm') {
+      const heightCm = document.getElementById('heightCmInput').value;
+      if (!heightCm) {
+        alert('Please enter your height');
+        return;
+      }
+      height = heightCm / 100; // Convert to meters
+    } else {
+      const heightFt = document.getElementById('heightFtInput').value;
+      const heightIn = document.getElementById('heightInInput').value;
+      if (!heightFt || !heightIn) {
+        alert('Please enter your height in feet and inches');
+        return;
+      }
+      height = (parseInt(heightFt) * 12 + parseInt(heightIn)) * 0.0254; // Convert to meters
+    }
+
+    // Get weight in kg
+    if (weightUnit === 'kg') {
+      weight = parseFloat(weightInput);
+    } else {
+      weight = parseFloat(weightInput) * 0.453592; // Convert lbs to kg
+    }
+
+    if (!weightInput) {
+      alert('Please enter your weight');
+      return;
+    }
+
+    // Calculate BMI
+    const bmi = weight / (height * height);
+    const bmiRounded = Math.round(bmi * 10) / 10;
+
+    // Determine category
+    let category, categoryClass;
+    if (bmi < 18.5) {
+      category = 'Underweight';
+      categoryClass = 'underweight';
+    } else if (bmi < 25) {
+      category = 'Normal weight';
+      categoryClass = 'normal';
+    } else if (bmi < 30) {
+      category = 'Overweight';
+      categoryClass = 'overweight';
+    } else if (bmi < 35) {
+      category = 'Obese (Class I)';
+      categoryClass = 'obese';
+    } else if (bmi < 40) {
+      category = 'Obese (Class II)';
+      categoryClass = 'obese';
+    } else {
+      category = 'Obese (Class III)';
+      categoryClass = 'obese';
+    }
+
+    // Calculate healthy weight range
+    const minWeight = 18.5 * height * height;
+    const maxWeight = 24.9 * height * height;
+    let healthyRange;
+    if (weightUnit === 'kg') {
+      healthyRange = `${Math.round(minWeight)}-${Math.round(maxWeight)} kg`;
+    } else {
+      healthyRange = `${Math.round(minWeight * 2.20462)}-${Math.round(maxWeight * 2.20462)} lbs`;
+    }
+
+    // Display results
+    document.getElementById('bmiValue').textContent = bmiRounded;
+    document.getElementById('bmiCategory').textContent = category;
+
+    // Update the animated gauge
+    if (bmiGauge) {
+      bmiGauge.set(bmiRounded);
+    }
+
+    // Display input values
+    if (heightUnit === 'cm') {
+      document.getElementById('heightValue').textContent = `${document.getElementById('heightCmInput').value} cm`;
+    } else {
+      document.getElementById('heightValue').textContent = `${document.getElementById('heightFtInput').value}'${document.getElementById('heightInInput').value}"`;
+    }
+    
+    document.getElementById('weightValue').textContent = `${weightInput} ${weightUnit}`;
+    document.getElementById('healthyRange').textContent = healthyRange;
+
+    // Show explanation
+    let explanation = '';
+    if (bmi < 18.5) {
+      explanation = `Your BMI indicates you may be underweight. This could be due to genetics, high metabolism, or insufficient nutrition. Consider consulting a healthcare provider to ensure you're meeting your nutritional needs.`;
+    } else if (bmi < 25) {
+      explanation = `Excellent! Your BMI falls within the healthy weight range. This is associated with lower risk of weight-related health problems. Maintain your current lifestyle with balanced nutrition and regular physical activity.`;
+    } else if (bmi < 30) {
+      explanation = `Your BMI indicates you may be overweight. This slightly increases your risk for health conditions like heart disease and diabetes. Consider gradual lifestyle changes including balanced nutrition and increased physical activity.`;
+    } else {
+      explanation = `Your BMI indicates obesity, which significantly increases health risks. We strongly recommend consulting with healthcare professionals for personalized guidance on safe and effective weight management strategies.`;
+    }
+
+    document.getElementById('explanationText').innerHTML = `<p>${explanation}</p>`;
+
+    // Show results section FIRST
+    resultsSection.classList.add('show');
+
+    // Initialize gauge now that the canvas is visible
+    initializeGauge();
+
+    // Update the gauge with the BMI value
+    if (bmiGauge) {
+      bmiGauge.set(bmiRounded);
+    }
+
+    resultsSection.scrollIntoView({ behavior: 'smooth' });
+  });
+});
+</script>

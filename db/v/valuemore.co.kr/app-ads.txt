@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+
+    <meta name="naver-site-verification" content="47c893cb4dc3a91c263194ee80157f84f858829e" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>벨류모어</title>
+    <meta name="format-detection" content="telephone=no">
+    <link rel="stylesheet" type="text/css" href="/assets/css/homepage.bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Lato:300,400,700&amp;display=swap">
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans+KR:100,200,300,400,500,600,700&amp;subset=korean&amp;display=swap">
+    <link rel="stylesheet" type="text/css" href="/assets/css/homepage.css">
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg fixed-top navbar" style="display: block;">
+    <div class="container">
+        <a class="navbar-brand logo" href="/"><img src="/assets/img/homepage/logo_white.png" width height /></a>
+        <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarNav-1" style="border: none;color: #fff !important;"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+        <div id="navbarNav-1" class="collapse navbar-collapse">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item nav-item-white"><a class="nav-link" href="/intro">회사 소개</a></li>
+                <li class="nav-item nav-item-white"><a class="nav-link" href="/service">서비스소개</a></li>
+                <li class="nav-item nav-item-white"><a class="nav-link" href="/alliance">제휴 안내</a></li>
+                <li class="nav-item nav-item-white"><a class="nav-link" href="/recruit">채용 안내</a></li>
+                <li class="nav-item nav-item-white"><a class="nav-link" href="/location">오시는 길</a></li>
+                <li class="nav-item nav-item-white"><a class="nav-link" href="javascript:onQnaHomepage();">1:1문의</a></li>
+                <li class="nav-item nav-item-white"><a id="a-login" class="nav-link" href="javascript:onLogin();">로그인</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="container" style="position: relative;"><div style="position: absolute; right: 25px; top: 5px;"><a href="javascript:javascript:onQnaHomepage();" style="height: 30px; display: block; z-index: 999; position: absolute; right: 130px;"><img style="height: 100%;" src="/assets/img/common/qna.png" /></a><a href="javascript:onKakao();" style="height: 30px; display: block; z-index: 999; position: absolute; right: 0;"><img style="height: 100%;" src="/assets/img/common/kakaotalk.png" /></a></div></div>
+
+    <script type="text/javascript" src="/assets/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/assets/js/jquery-migrate.min.js"></script>
+    <script type="text/javascript" src="/assets/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/assets/js/script.js"></script>
+    <script>
+        /*<![CDATA[*/
+        var service_code = "PO";
+        var phone_number = null;
+        /*]]>*/
+
+        $(function() {
+            if (phone_number != null && phone_number.length > 0)
+                localStorage.setItem('phone_number', phone_number);
+
+            if (localStorage.getItem('phone_number') == null)
+                $('#a-login').html('로그인');
+            else
+                $('#a-login').html('로그아웃');
+        });
+
+        function onLogin() {
+            sessionStorage.setItem('homepage-progress', 'login');
+            login();
+        }
+
+        function login() {
+            if (localStorage.getItem('phone_number') != null)
+                logoutCustom();
+            else
+                popup('/login_homepage', 600, 500);
+        }
+
+        function logoutCustom() {
+            if (confirm('로그아웃 하시겠습니까?')) {
+                localStorage.removeItem('phone_number');
+
+                $('#a-login').html('로그인');
+                alert('로그아웃이 완료되었습니다.');
+            }
+            else {return;}
+        }
+
+        function loginProcess() {
+            $('#a-login').html('로그아웃');
+        }
+
+        function onService() {
+            sessionStorage.setItem('homepage-progress', 'service');
+
+            if (localStorage.getItem('phone_number') != null)
+                popup('/service_homepage', 600, 610);
+            else
+                login();
+        }
+
+        function onQnaHomepage() {
+            sessionStorage.setItem('homepage-progress', 'qna');
+            onQna();
+        }
+    </script>
+</nav>
+    <main>
+        <section class="section-index">
+            <div class="container">
+                <img src="/assets/img/homepage/index_text.png" /></div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4"><a href="javascript:onService();">가입된 서비스 확인하기</a></div>
+                    <div class="col-md-4"><a href="javascript:onQnaHomepage();">1:1 문의</a></div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div class="div-popup-homepage" id="popup-main" style="display:none;">
+    <main class="main-popup-homepage">
+        <span>서비스 가입 고객 전용</span><span>서비스 해지</span><span> 및 </span><span>가입한 서비스 확인하기</span>
+
+        <a class="link-move-popup-homepage" href="javascript:clickPopup();">
+            <div>
+                <span>핸드폰번호 로그인으로</span>
+                <span>가입한 서비스 확인하기</span></div>
+            <svg class="bi bi-arrow-right" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"></path></svg>
+        </a>
+        <a id="a-kakao" href="tel:07045042135" style="margin-top: 20px; display:none"><div><span style="background-color: #fff; color: #295997; padding: 5px; font-weight: 600; font-size: 1rem;">카카오페이 직통전화 : 070-4504-2135</span></div></a>
+    </main>
+
+    <div class="div-close-popup-homepage">
+        <div class="form-check" id="div-today"><input id="check-today" class="form-check-input" type="checkbox" /><label class="form-check-label" for="check-today">오늘 하루 보지 않기</label></div><a href="javascript:closePopup();">닫기</a>
+    </div>
+</div>
+    <footer class="footer">
+    <div class="container">
+        <a href="javascript:popup('/terms/service.html', 414, 700);">서비스 이용약관</a>
+        <a href="javascript:popup('/terms/privacy.html', 414, 700);">개인정보 취급방침</a></div>
+    <div class="container footer-info">
+        <div class="row">
+            <div class="col-md-6"><img src="/assets/img/homepage/footer_logo.png" style="height: 50px;" /></div>
+            <div class="col-md-6">
+                <p style="color: #fff;">상호명 : (주)벨류모어 | 대표 : 반승재 | 사업자등록번호 : 483-88-00071<br />주소 : 경기도 부천시 부광로 220 301호<br />E-mail : vmore.cs@gmail.com | 대표번호 : 02-6925-3007<br>통신판매업신고번호 : 제2022-경기부천-0990호</p>
+            </div>
+        </div>
+    </div>
+</footer>
+    <script>
+
+        var handleStorage = {
+            setStorage: function (name, exp) {
+                var date = new Date();
+                date = date.setTime(date.getTime() + exp * 24 * 60 * 60 * 1000);
+                localStorage.setItem(name, date)
+            },
+            getStorage: function (name) {
+                var now = new Date();
+                now = now.setTime(now.getTime());
+
+                return parseInt(localStorage.getItem(name)) > now
+            }
+        };
+
+        $(function() {
+            sessionStorage.setItem('service_code', service_code);
+
+            toggleMainPopup();
+
+            if (localStorage.getItem('phone_number') != null) {
+                if (kakao(localStorage.getItem('phone_number')) == 1) {
+                    $('#a-kakao').css('display', 'block');
+                    $('#div-today').hide();
+                    $('#popup-main').show();
+                }
+            }
+        });
+
+        function toggleMainPopup() {
+            if (handleStorage.getStorage('today'))
+                $('#popup-main').hide();
+            else
+                $('#popup-main').show();
+        }
+
+        function closePopup() {
+
+            if ($('#check-today').is(':checked'))
+                handleStorage.setStorage('today', 1);
+
+            $('#popup-main').hide();
+        }
+
+        function clickPopup() {
+            $('#popup-main').hide();
+            onService();
+        }
+    </script>
+</body>

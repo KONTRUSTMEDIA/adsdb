@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <!-- OTT-36323 Bg color in safari -->
+  <meta name="theme-color" content="#000" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#000" media="(prefers-color-scheme: dark)">
+  <meta charset="utf-8">
+  <!-- Prevent the browser from caching index.html -->
+  <!-- Fix the cache issue when making a new release but the changes are not reflected on the browser -->
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <!-- Font Awesome -->
+  <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" as="style" onload="this.rel='stylesheet'">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximun-scale=1.0, user-scalable=no">
+  <link rel="manifest" href="manifest.json">
+  <!--{{ NO-INDEX-PLACEHOLDER }}-->
+  <!--{{ IOS-META-TAG-PLACEHOLDER }}-->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#1976d2">
+
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.getRegistrations().then(function (registrations) {
+        if (registrations.length) {
+          for(let registration of registrations) {
+            registration.unregister();
+          }
+        }
+      });
+    }
+  </script>
+  <!-- reduced for brevity -->
+
+  <!-- inline spinner styles to be able to display spinner right away -->
+  <style type="text/css">
+    body {
+      background-color: black;
+    }
+
+    .app-loading {
+      height: 100vh;
+
+      /* template background color  */
+      background-color: black;
+
+      /* guigo background color  */
+      /* background-color: #3a2f69; */
+
+      overflow: hidden;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .app-loading .spinner div {
+      width: 20px;
+      height: 20px;
+      position: absolute;
+      left: -20px;
+      top: 60%;
+      background-color: white;
+      border-radius: 50%;
+      animation: move 4s infinite cubic-bezier(.2, .64, .81, .23);
+    }
+
+    .logo {
+      width: 300px;
+      /* width: 105px; */
+      height: 100px;
+      /* overflow: hidden; */
+      box-sizing: border-box;
+    }
+
+    .logo img {
+      width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      /* height: 100%; */
+    }
+
+    .spinner div:nth-child(2) {
+      animation-delay: 150ms;
+    }
+
+    .spinner div:nth-child(3) {
+      animation-delay: 300ms;
+    }
+
+    .spinner div:nth-child(4) {
+      animation-delay: 450ms;
+    }
+
+    @keyframes move {
+      0% {
+        left: 0%;
+      }
+
+      75% {
+        left: 100%;
+      }
+
+      100% {
+        left: 100%;
+      }
+    }
+  </style>
+<link rel="stylesheet" href="styles.25765f9bd14401d3.css"></head>
+
+<body>
+  <!-- loading layout replaced by app after startupp -->
+  <app-root>
+    <div class="app-loading">
+      <div id="app-loading-main-img" role="img" class="logo" tabindex="0" aria-label="loading content">
+        <img id="logo" src="" alt="Red dot" style="display: none;">
+      </div>
+      <div class="spinner" aria-hidden="true">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+    </div>
+  </app-root>
+  <noscript>Please enable JavaScript to continue using this application.</noscript>
+
+
+  <!-- config call -->
+  <script>
+    fetch('assets/configs/config.json?d=d5eff33e') // do not change the value d5eff33e
+    .then(data => data.json())
+    .then(config => {
+      // set config in window variable
+      window['beaconConfig'] = config;
+      // document title
+      document.title = config.title;
+
+      // set logo
+      let logo = document.getElementById("logo")
+      logo.src = config.logo.src;
+      logo.style.display = 'block';
+    });
+  </script>
+
+  <!-- Div to enable custom bgs content in all pages -->
+  <div id="beacon-web-app-overflow"></div>
+  <script>
+    (function() {
+      const mainLogo = document.getElementById('app-loading-main-img');
+      mainLogo && mainLogo.focus();
+    })();
+  </script>
+<script src="runtime.5cc80f9b6172f5c9.js" type="module"></script><script src="polyfills.d94dfabcc8c25acd.js" type="module"></script><script src="scripts.00ee5046255eaf32.js" defer></script><script src="main.696788babba51ce1.js" type="module"></script></body>
+
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LASTSCENE.COM</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+        #player {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div id="player"></div>
+
+    <script src="https://www.youtube.com/iframe_api"></script>
+    <script>
+        let player;
+        const playlistId = 'PLmIlhr6dh-CGXsyvugGNElypmvwGI_Za0'; // ここにYouTubeプレイリストIDを入力
+        const redirectUrl = 'https://lastscene.com/yx7/'; // 遷移先URL
+
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('player', {
+                width: '100%',
+                height: '100%',
+                playerVars: {
+                    listType: 'playlist',
+                    list: playlistId,
+                    autoplay: 1,
+                    controls: 1,
+                    fs: 1,
+                    rel: 0,
+                    modestbranding: 1
+                },
+                events: {
+                    'onReady': onPlayerReady,
+                    'onStateChange': onPlayerStateChange
+                }
+            });
+        }
+
+        function onPlayerReady(event) {
+            event.target.playVideo();
+            // 全画面表示にする
+            const iframe = document.getElementById('player');
+            if (iframe.requestFullscreen) {
+                iframe.requestFullscreen();
+            } else if (iframe.mozRequestFullScreen) {
+                iframe.mozRequestFullScreen();
+            } else if (iframe.webkitRequestFullscreen) {
+                iframe.webkitRequestFullscreen();
+            } else if (iframe.msRequestFullscreen) {
+                iframe.msRequestFullscreen();
+            }
+        }
+
+        function onPlayerStateChange(event) {
+            if (event.data === YT.PlayerState.ENDED) {
+                // プレイリストの最後の動画が終了したかチェック
+                const currentIndex = player.getPlaylistIndex();
+                const playlistLength = player.getPlaylist().length;
+                
+                if (currentIndex === playlistLength - 1) {
+                    // 最後の動画が終了したらリダイレクト
+                    window.location.href = redirectUrl;
+                }
+            }
+        }
+    </script>
+</body>
+</html>

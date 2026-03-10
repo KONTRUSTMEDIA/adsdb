@@ -1,0 +1,1078 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<style>
+    .gam-sport-banner-ad iframe,
+    .gam-sport-banner-ad-2 iframe
+    {
+        width: 100%;
+        height: auto;
+    }
+
+    .prog-mobile-banners #gam-banner-ad,
+    .prog-mobile-banners #gam-banner-ad-2
+    {
+        min-height: 100px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+</style>
+
+    <script async src="https://securepubads.g.doubleclick.net/tag/js/gpt.js"></script>
+    <script>
+        window.googletag = window.googletag || { cmd: [] };
+
+        function isMobile() {
+            return window.innerWidth <= 768;
+        }
+
+        googletag.cmd.push(function () {
+            var isMobileDevice = isMobile();
+            var REFRESH_KEY = 'refresh';
+            var REFRESH_VALUE = 'true';
+
+            // NEW: programmatic flag + refresh timing
+            var useProgrammaticAds = false;
+            var REFRESH_MS = useProgrammaticAds ? 30000 : 10000;
+
+            // NEW: add a body class only when programmatic + mobile (for stable layout)
+            if (useProgrammaticAds && isMobileDevice) {
+                document.body.classList.add('prog-mobile-banners');
+            }
+
+            // ------- PRESENTING SPONSOR-------
+            if (isMobileDevice) {
+                googletag.defineSlot('/22870419559/headerwebmobile', [[300, 75]], 'gam-presenting-sponsor-mobile')
+                    .setTargeting(REFRESH_KEY, REFRESH_VALUE)
+                    .addService(googletag.pubads());
+            } else {
+                googletag.defineSlot('/22870419559/headerwebdesktop', [[300, 75]], 'gam-presenting-sponsor-2')
+                    .setTargeting(REFRESH_KEY, REFRESH_VALUE)
+                    .addService(googletag.pubads());
+            }
+
+            // Build base arrays of allowed sizes
+            var desktopTabletProgrammatic = [[640, 100], [728, 90]];
+            var mobileProgrammatic = [[320, 50]];              // << mobile = 320x50 ONLY
+            var desktopTabletDefault = [[640, 100]];
+            var mobileDefault = [[640, 100]];
+
+            var allProgrammaticSizes = [[640, 100], [728, 90], [320, 50]];
+            var allDefaultSizes = [[640, 100]];
+
+            var bannerMapping = googletag.sizeMapping()
+                .addSize([1024, 0], useProgrammaticAds ? desktopTabletProgrammatic : desktopTabletDefault) // desktop
+                .addSize([768, 0], useProgrammaticAds ? desktopTabletProgrammatic : desktopTabletDefault) // tablet
+                .addSize([0, 0], useProgrammaticAds ? mobileProgrammatic : mobileDefault)        // phones
+                .build();
+
+            googletag.defineSlot(
+                '/22870419559/bannerweb',
+                useProgrammaticAds ? allProgrammaticSizes : allDefaultSizes,
+                'gam-banner-ad'
+            )
+                .defineSizeMapping(bannerMapping)
+                .setTargeting(REFRESH_KEY, REFRESH_VALUE)
+                .addService(googletag.pubads());
+
+            googletag.defineSlot(
+                '/22870419559/bannerweb',
+                useProgrammaticAds ? allProgrammaticSizes : allDefaultSizes,
+                'gam-banner-ad-2'
+            )
+                .defineSizeMapping(bannerMapping)
+                .setTargeting(REFRESH_KEY, REFRESH_VALUE)
+                .addService(googletag.pubads());
+
+            googletag.defineSlot('/22870419559/agent', [[300, 75]], 'gam-agent-ad')
+                .setTargeting(REFRESH_KEY, REFRESH_VALUE)
+                .addService(googletag.pubads());
+
+            googletag.pubads().setTargeting('siteid', '2483727');
+
+            // Refresh: now uses REFRESH_MS (30s when programmatic, else 10s)
+            googletag.pubads().addEventListener('impressionViewable', function (event) {
+                var slot = event.slot;
+                if (slot.getTargeting(REFRESH_KEY).indexOf(REFRESH_VALUE) > -1) {
+                    setTimeout(function () {
+                        googletag.pubads().refresh([slot]);
+                    }, REFRESH_MS);
+                }
+            });
+
+            googletag.enableServices();
+
+            // Add event listeners for responsive image handling
+            document.addEventListener('DOMContentLoaded', function () {
+                handleResponsiveImages();
+
+                // Add debounced resize handler
+                var resizeTimeout = null;
+                window.addEventListener('resize', function () {
+                    if (resizeTimeout) {
+                        clearTimeout(resizeTimeout);
+                    }
+
+                    resizeTimeout = setTimeout(function () {
+                        handleResponsiveImages();
+                    }, 250);
+                });
+            });
+
+            // Add slotRenderEnded event to handle styling right after ads render
+            googletag.pubads().addEventListener('slotRenderEnded', function (event) {
+                // Give a small delay to ensure content is available
+                setTimeout(function () {
+                    var id = event.slot.getSlotElementId();
+                    var container = document.getElementById(id);
+                    if (container) {
+                        var iframes = container.querySelectorAll('iframe[id^="google_ads_iframe"]');
+                        iframes.forEach(applyResponsiveStyles);
+                    }
+                }, 50);
+            });
+
+            // Function to handle responsive images
+            function handleResponsiveImages() {
+                ['gam-banner-ad', 'gam-banner-ad-2', 'gam-sport-banner-ad', 'gam-sport-banner-ad-2', 'gam-presenting-sponsor-2'].forEach(adId => {
+                    var adContainer = document.querySelector(`#${adId}`);
+                    if (adContainer) {
+                        observeIframeInsertion(adContainer);
+                        var iframes = adContainer.querySelectorAll('iframe[id^="google_ads_iframe"]');
+                        iframes.forEach(applyResponsiveStyles);
+                    }
+                });
+            }
+
+            // Function to observe iframe insertion - from original code
+            function observeIframeInsertion(container) {
+                var observer = new MutationObserver(function (mutations) {
+                    mutations.forEach(function (mutation) {
+                        if (mutation.addedNodes) {
+                            mutation.addedNodes.forEach(function (node) {
+                                if (node.tagName === 'IFRAME' && node.id.startsWith('google_ads_iframe')) {
+                                    applyResponsiveStyles(node);
+                                    observeIframeChanges(node);
+                                }
+                            });
+                        }
+                    });
+                });
+
+                observer.observe(container, {
+                    childList: true,
+                    subtree: true
+                });
+            }
+
+            function applyResponsiveStyles(iframe) {
+                if (
+                    (iframe && iframe.closest('.gam-banner-ad')) ||
+                    (iframe && iframe.closest('.gam-banner-ad-2')) ||
+                    (iframe && iframe.closest('.gam-sport-banner-ad')) ||
+                    (iframe && iframe.closest('.gam-sport-banner-ad-2')) ||
+                    (iframe && iframe.closest('.gam-presenting-sponsor-2'))
+                ) {
+                    if (isMobile()) {
+                        iframe.style.width = '100%';
+                        iframe.style.height = 'auto';
+
+                        try {
+                            var iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+                            var imgs = iframeDoc.querySelectorAll('img');
+                            imgs.forEach(function (img) {
+                                img.style.maxWidth = '100%';
+                                img.style.height = 'auto';
+                                // Only add 20% margin-top to gam-banner-ad images on mobile
+                                if (iframe.closest('.gam-banner-ad')) {
+                                    img.style.marginTop = '20%'; // This only applies on mobile due to the parent if(isMobile()) condition
+                                } else {
+                                    img.style.marginTop = '0';
+                                }
+                            });
+                        } catch (e) {
+                            console.error('Could not access iframe content:', e);
+                        }
+                    } else {
+                        // Desktop logic, specifically for gam-presenting-sponsor-desktop
+                        if (8 == 14 && (iframe.closest('.gam-presenting-sponsor-2') || iframe.closest('.gam-presenting-sponsor-mobile'))) {
+                            try {
+                                var iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+                                var imgs = iframeDoc.querySelectorAll('img');
+                                imgs.forEach(function (img) {
+                                    img.style.width = '225px';
+                                    img.style.height = 'auto';
+                                });
+                            } catch (e) {
+                                console.error('Could not access iframe content:', e);
+                            }
+                        }
+                    }
+                }
+            }
+
+            function observeIframeChanges(iframe) {
+                iframe.addEventListener('load', function () {
+                    applyResponsiveStyles(iframe);
+                });
+
+                var observer = new MutationObserver(function (mutations) {
+                    mutations.forEach(function (mutation) {
+                        if (mutation.type === 'childList' || (mutation.type === 'attributes' && mutation.attributeName === 'src')) {
+                            applyResponsiveStyles(iframe);
+                        }
+                    });
+                });
+
+                observer.observe(iframe, {
+                    childList: true,
+                    subtree: true,
+                    attributes: true,
+                    attributeFilter: ['src']
+                });
+            }
+        });
+    </script>
+
+    <!-- End GPT Tag -->
+        <!-- Google tag (gtag.js) -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-JVG9912LGZ"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag() { dataLayer.push(arguments); }
+            gtag('js', new Date());
+
+            gtag('config', 'G-JVG9912LGZ');
+        </script>
+    
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.0, user-scalable=yes" />
+    <title>Independence Blue Devil  (Independence, OH) </title>
+    <meta name="description" />
+    <meta name="keywords" />
+    <meta property="og:image" content="https://5starassets.blob.core.windows.net/athleticsites/2483727/1266/images/b29b1e01-938c-4259-a1f3-9906079941c9.png">
+    
+
+    
+        <script src="https://unpkg.com/focus-visible/dist/focus-visible.min.js"></script>
+
+        <!-- fonts now reside in the less config file -->
+        <!-- latest CDN compiled and minified CSS for lity (simple lightbox) -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lity/2.3.1/lity.min.css" integrity="sha256-0SZxASYAglrmIuTx+ZYHE3hzTnCZWB7XLu+iA8AG0Z0=" crossorigin="anonymous" />
+        <!-- latest CDN compiled and minified CSS for font awesome -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" integrity="sha256-NuCn4IvuZXdBaFKJOAcsU2Q3ZpwbdFisd5dux4jkQ5w=" crossorigin="anonymous" />
+        <!-- latest CDN compiled and minified CSS for slick slider -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css" integrity="sha256-UK1EiopXIL+KVhfbFa8xrmAWPeBjMVdvYMYkTAEv/HI=" crossorigin="anonymous" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.min.css" integrity="sha256-4hqlsNP9KM6+2eA8VUT0kk4RsMRTeS7QGHIM+MZ5sLY=" crossorigin="anonymous" />
+        <!-- latest CDN compiled and minified CSS for bootstrap 3 -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+        <!-- locally stored compiled and minified CSS for yamm -->
+        <link rel="stylesheet" href="/lib/yamm3/yamm/yamm.min.css" />
+        <!-- locally stored compiled and minified CSS for datatables -->
+        <link rel="stylesheet" href="/lib/datatables/media/css/dataTables.bootstrap.min.css" />
+        <!-- creates browser icon using schools mascot logo -->
+        <link rel="icon" type="image/png" href="https://5starassets.blob.core.windows.net/athleticsites/2483727/1266/images/b29b1e01-938c-4259-a1f3-9906079941c9.png">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/3.3.0/ekko-lightbox.min.css" integrity="sha512-vC3vvXGPI9bplTilrP7d0YKtmHrMAH4q9dF6QSfIL/uOFIMsHu2wkmAITtFRkNisTKt1e4EAhIiXpyXJgiJW4Q==" crossorigin="anonymous" referrerpolicy="no-referrer" />        <!-- created CSS from less config file; compiled, minified and stored locally -->
+        <link rel="stylesheet" href="/less/templates/5/main.min.css?v=1.3" />
+
+        <link href="/lib/sweetalert/dist/sweetalert.css" rel="stylesheet" />
+        <link rel="stylesheet" href="/less/Components/AIAgent.min.css?v=639075073367442433" />
+
+    
+    
+        <style>
+        .navbar-nav > li > a:hover{color: #fece06 !important;}
+</style>
+<style>
+        h1, h2, h3, h4, h5, h6 {color: #0750a3;}
+        ul li a {color: #0750a3;}
+        table tr{color:#0750a3;}
+        .header-topper:before{background:#0750a3;}
+        .header-topper .row:before {background:#0750a3;}
+        .border-right-xl-secondary{border-right: 20px solid #fece06;}
+        /* resused */
+        .bg-primary{background-color: #0750a3;}
+        .bg-secondary{background-color: #fece06;}
+        .text-primary{color: #0750a3 !important;}
+        .text-primary-font{color: #ffffff !important;}
+        .text-secondary{color: #fece06 !important;}
+        .border-all-thin-primary {border: solid 1px #0750a3; }
+        .border-right-xl-secondary{border-right: 20px solid #fece06;}
+        .border-right-xl-primary{border-right: 20px solid #0750a3;}
+        .bg-gradient-primary-dark{background-image: linear-gradient(180deg,#000,#0750a3);}
+</style>
+
+    
+
+    
+    
+</head>
+<body viewport="fixed">
+    <a href="#main-content" class="skip-link">Skip to Main Content</a>
+    <input type="hidden" value="2483727" id="schoolId" />
+    <input type="hidden" value="true" id="customAppSchool" />
+    <input type="hidden" value="1/20/2026 12:00:00 AM" id="adServingDateBegins" />
+
+    <header>
+        
+
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="feeder-menu bg-gradient-primary">
+    <div class="slant-tabs">
+        <ul class="nav">
+        </ul>
+    </div>
+</div>
+                </div>
+            </div>
+        <div class="header-topper">
+            <div class="row">
+                <h1 class="site-title"><small>&nbsp;&nbsp;&nbsp;<i>THE OFFICIAL SITE OF </i></small><br /><i>Independence Blue Devil Athletics</i></h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="main-menu-container bg-primary" id="fixedscroll">
+                    <div class="fixed-menu-container">
+                        <div class="header-social-media">
+                            
+<div class="feed-wrapper">
+</div>
+
+                        </div>
+                        <div id="center">
+                            <div class="header-gfx border-right-xl-secondary">
+                                <a href="/" aria-label="Return to Independence Home Page" tabindex="0">
+                                    <img src="https://5starassets.blob.core.windows.net/athleticsites/2483727/1266/images/a7eb656f-7fae-4af0-ad16-0650c40a7c7d.png" aria-label="Independence" alt="Independence Logo" />
+                                    <span class="mk-blank">-</span>
+                                </a>
+                            </div>
+
+                            <div class="primary-line border-right-xl-primary"></div>
+                        </div>
+                        <div class="">
+                            
+                                <nav class="custom-nav" role="navigation" aria-label="Main Navigation">
+    <div class="navbar yamm navbar-static-top">
+        <div class="container" id="nav-container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar bg-secondary"></span>
+                    <span class="icon-bar bg-secondary"></span>
+                    <span class="icon-bar bg-secondary"></span>
+                </button>
+                <a class="navbar-brand" href="/" aria-label="Return to Independence Home Page">
+                    <img src="https://5starassets.blob.core.windows.net/athleticsites/2483727/1266/images/4ae9a138-5a9d-49f2-9356-cdd81859752a.png" class="img-responsive tag" aria-label="Independence Logo" alt="Independence Logo" />
+                </a>
+                    <div class="presenting-sponsor hidden-md hidden-lg">
+                        <div class="adzone adzone-0 presenting-sponsor">
+                                <div class="ad-placement">
+    <div id='gam-presenting-sponsor-mobile' class="gam_ps">
+        <script>
+           if (isMobile()) {
+                googletag.cmd.push(function () { googletag.display('gam-presenting-sponsor-mobile'); });
+            }
+        </script>
+    </div>
+    </div>
+
+                        </div>
+                    </div>
+                </div>
+            <div id="navbar" class="navbar-collapse collapse" aria-expanded="false">
+                <ul class="nav navbar-nav" id="nav-links" role="menubar">
+                  
+                            <li class="dropdown yamm-fw" role="presentation">
+                                <a href="#" data-toggle="dropdown" class="dropdown-toggle text-primary-font" role="menuitem" aria-haspopup="true" aria-expanded="false" tabindex="0">SPORTS</a>
+                                    <ul id="dropdown1" class="dropdown-menu two-columns" role="menu">
+                                            <li role="menuitem">
+                                                <div class="sport-link-nfo">
+                                                    <div class="row">
+                                                        <div class="col-xs-12 col-sm-6">
+                                                            <div class="link">
+                                                                <a class="text-primary" href="/sport/baseball/boys/" role="menuitem" tabindex="0" aria-label="Baseball(Boys) go to Main Team Page">BASEBALL(BOYS)</a>
+                                                            </div>
+                                                        </div>
+                                                        <div class="hidden-xs col-sm-6">
+                                                            <div class="nfo">
+                                                                <a class="text-primary" href="/sport/baseball/boys/?tab=schedule" role="menuitem" aria-label="Baseball(Boys) - Schedules" tabindex="0">Schedules</a><span> /</span>
+                                                                <a class="text-primary" href="/sport/baseball/boys/?tab=roster" role="menuitem" aria-label="Baseball(Boys) - Rosters" tabindex="0">Rosters</a><span> /</span>
+                                                                <a class="text-primary" href="/sport/baseball/boys/?tab=news" role="menuitem" aria-label="Baseball(Boys) - News" tabindex="0">News</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li role="menuitem">
+                                                <div class="sport-link-nfo">
+                                                    <div class="row">
+                                                        <div class="col-xs-12 col-sm-6">
+                                                            <div class="link">
+                                                                <a class="text-primary" href="/sport/basketball/boys/" role="menuitem" tabindex="0" aria-label="Basketball(Boys) go to Main Team Page">BASKETBALL(BOYS)</a>
+                                                            </div>
+                                                        </div>
+                                                        <div class="hidden-xs col-sm-6">
+                                                            <div class="nfo">
+                                                                <a class="text-primary" href="/sport/basketball/boys/?tab=schedule" role="menuitem" aria-label="Basketball(Boys) - Schedules" tabindex="0">Schedules</a><span> /</span>
+                                                                <a class="text-primary" href="/sport/basketball/boys/?tab=roster" role="menuitem" aria-label="Basketball(Boys) - Rosters" tabindex="0">Rosters</a><span> /</span>
+                                                                <a class="text-primary" href="/sport/basketball/boys/?tab=news" role="menuitem" aria-label="Basketball(Boys) - News" tabindex="0">News</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li role="menuitem">
+                                                <div class="sport-link-nfo">
+                                                    <div class="row">
+                                                        <div class="col-xs-12 col-sm-6">
+                                                            <div class="link">
+                                                                <a class="text-primary" href="/sport/basketball/girls/" role="menuitem" tabindex="0" aria-label="Basketball(Girls) go to Main Team Page">BASKETBALL(GIRLS)</a>
+                                                            </div>
+                                                        </div>
+                                                        <div class="hidden-xs col-sm-6">
+                                                            <div class="nfo">
+                                                                <a class="text-primary" href="/sport/basketball/girls/?tab=schedule" role="menuitem" aria-label="Basketball(Girls) - Schedules" tabindex="0">Schedules</a><span> /</span>
+                                                                <a class="text-primary" href="/sport/basketball/girls/?tab=roster" role="menuitem" aria-label="Basketball(Girls) - Rosters" tabindex="0">Rosters</a><span> /</span>
+                                                                <a class="text-primary" href="/sport/basketball/girls/?tab=news" role="menuitem" aria-label="Basketball(Girls) - News" tabindex="0">News</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li role="menuitem">
+                                                <div class="sport-link-nfo">
+                                                    <div class="row">
+                                                        <div class="col-xs-12 col-sm-6">
+                                                            <div class="link">
+                                                                <a class="text-primary" href="/sport/cross country/boys/" role="menuitem" tabindex="0" aria-label="Cross Country(Boys) go to Main Team Page">CROSS COUNTRY(BOYS)</a>
+                                                            </div>
+                                                        </div>
+                                                        <div class="hidden-xs col-sm-6">
+                                                            <div class="nfo">
+                                                                <a class="text-primary" href="/sport/cross country/boys/?tab=schedule" role="menuitem" aria-label="Cross Country(Boys) - Schedules" tabindex="0">Schedules</a><span> /</span>
+                                                                <a class="text-primary" href="/sport/cross country/boys/?tab=roster" role="menuitem" aria-label="Cross Country(Boys) - Rosters" tabindex="0">Rosters</a><span> /</span>
+                                                                <a class="text-primary" href="/sport/cross country/boys/?tab=news" role="menuitem" aria-label="Cross Country(Boys) - News" tabindex="0">News</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li role="menuitem">
+                                                <div class="sport-link-nfo">
+                                                    <div class="row">
+                                                        <div class="col-xs-12 col-sm-6">
+                                                            <div class="link">
+                                                                <a class="text-primary" href="/sport/cross country/girls/" role="menuitem" tabindex="0" aria-label="Cross Country(Girls) go to Main Team Page">CROSS COUNTRY(GIRLS)</a>
+                                                            </div>
+                                                        </div>
+                                                        <div class="hidden-xs col-sm-6">
+                                                            <div class="nfo">
+                                                                <a class="text-primary" href="/sport/cross country/girls/?tab=schedule" role="menuitem" aria-label="Cross Country(Girls) - Schedules" tabindex="0">Schedules</a><span> /</span>
+                                                                <a class="text-primary" href="/sport/cross country/girls/?tab=roster" role="menuitem" aria-label="Cross Country(Girls) - Rosters" tabindex="0">Rosters</a><span> /</span>
+                                                                <a class="text-primary" href="/sport/cross country/girls/?tab=news" role="menuitem" aria-label="Cross Country(Girls) - News" tabindex="0">News</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li role="menuitem">
+                                                <div class="sport-link-nfo">
+                                                    <div class="row">
+                                                        <div class="col-xs-12 col-sm-6">
+                                                            <div class="link">
+                                                                <a class="text-primary" href="/sport/football/boys/" role="menuitem" tabindex="0" aria-label="Football(Boys) go to Main Team Page">FOOTBALL(BOYS)</a>
+                                                            </div>
+                                                        </div>
+                                                        <div class="hidden-xs col-sm-6">
+                                                            <div class="nfo">
+                                                                <a class="text-primary" href="/sport/football/boys/?tab=schedule" role="menuitem" aria-label="Football(Boys) - Schedules" tabindex="0">Schedules</a><span> /</span>
+                                                                <a class="text-primary" href="/sport/football/boys/?tab=roster" role="menuitem" aria-label="Football(Boys) - Rosters" tabindex="0">Rosters</a><span> /</span>
+                                                                <a class="text-primary" href="/sport/football/boys/?tab=news" role="menuitem" aria-label="Football(Boys) - News" tabindex="0">News</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li role="menuitem">
+                                                <div class="sport-link-nfo">
+                                                    <div class="row">
+                                                        <div class="col-xs-12 col-sm-6">
+                                                            <div class="link">
+                                                                <a class="text-primary" href="/sport/golf/boys/" role="menuitem" tabindex="0" aria-label="Golf(Boys) go to Main Team Page">GOLF(BOYS)</a>
+                                                            </div>
+                                                        </div>
+                                                        <div class="hidden-xs col-sm-6">
+                                                            <div class="nfo">
+                                                                <a class="text-primary" href="/sport/golf/boys/?tab=schedule" role="menuitem" aria-label="Golf(Boys) - Schedules" tabindex="0">Schedules</a><span> /</span>
+                                                                <a class="text-primary" href="/sport/golf/boys/?tab=roster" role="menuitem" aria-label="Golf(Boys) - Rosters" tabindex="0">Rosters</a><span> /</span>
+                                                                <a class="text-primary" href="/sport/golf/boys/?tab=news" role="menuitem" aria-label="Golf(Boys) - News" tabindex="0">News</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li role="menuitem">
+                                                <div class="sport-link-nfo">
+                                                    <div class="row">
+                                                        <div class="col-xs-12 col-sm-6">
+                                                            <div class="link">
+                                                                <a class="text-primary" href="/sport/golf/girls/" role="menuitem" tabindex="0" aria-label="Golf(Girls) go to Main Team Page">GOLF(GIRLS)</a>
+                                                            </div>
+                                                        </div>
+                                                        <div class="hidden-xs col-sm-6">
+                                                            <div class="nfo">
+                                                                <a class="text-primary" href="/sport/golf/girls/?tab=schedule" role="menuitem" aria-label="Golf(Girls) - Schedules" tabindex="0">Schedules</a><span> /</span>
+                                                                <a class="text-primary" href="/sport/golf/girls/?tab=roster" role="menuitem" aria-label="Golf(Girls) - Rosters" tabindex="0">Rosters</a><span> /</span>
+                                                                <a class="text-primary" href="/sport/golf/girls/?tab=news" role="menuitem" aria-label="Golf(Girls) - News" tabindex="0">News</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li role="menuitem">
+                                                <div class="sport-link-nfo">
+                                                    <div class="row">
+                                                        <div class="col-xs-12 col-sm-6">
+                                                            <div class="link">
+                                                                <a class="text-primary" href="/sport/soccer/boys/" role="menuitem" tabindex="0" aria-label="Soccer(Boys) go to Main Team Page">SOCCER(BOYS)</a>
+                                                            </div>
+                                                        </div>
+                                                        <div class="hidden-xs col-sm-6">
+                                                            <div class="nfo">
+                                                                <a class="text-primary" href="/sport/soccer/boys/?tab=schedule" role="menuitem" aria-label="Soccer(Boys) - Schedules" tabindex="0">Schedules</a><span> /</span>
+                                                                <a class="text-primary" href="/sport/soccer/boys/?tab=roster" role="menuitem" aria-label="Soccer(Boys) - Rosters" tabindex="0">Rosters</a><span> /</span>
+                                                                <a class="text-primary" href="/sport/soccer/boys/?tab=news" role="menuitem" aria-label="Soccer(Boys) - News" tabindex="0">News</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li role="menuitem">
+                                                <div class="sport-link-nfo">
+                                                    <div class="row">
+                                                        <div class="col-xs-12 col-sm-6">
+                                                            <div class="link">
+                                                                <a class="text-primary" href="/sport/soccer/girls/" role="menuitem" tabindex="0" aria-label="Soccer(Girls) go to Main Team Page">SOCCER(GIRLS)</a>
+                                                            </div>
+                                                        </div>
+                                                        <div class="hidden-xs col-sm-6">
+                                                            <div class="nfo">
+                                                                <a class="text-primary" href="/sport/soccer/girls/?tab=schedule" role="menuitem" aria-label="Soccer(Girls) - Schedules" tabindex="0">Schedules</a><span> /</span>
+                                                                <a class="text-primary" href="/sport/soccer/girls/?tab=roster" role="menuitem" aria-label="Soccer(Girls) - Rosters" tabindex="0">Rosters</a><span> /</span>
+                                                                <a class="text-primary" href="/sport/soccer/girls/?tab=news" role="menuitem" aria-label="Soccer(Girls) - News" tabindex="0">News</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li role="menuitem">
+                                                <div class="sport-link-nfo">
+                                                    <div class="row">
+                                                        <div class="col-xs-12 col-sm-6">
+                                                            <div class="link">
+                                                                <a class="text-primary" href="/sport/softball/girls/" role="menuitem" tabindex="0" aria-label="Softball(Girls) go to Main Team Page">SOFTBALL(GIRLS)</a>
+                                                            </div>
+                                                        </div>
+                                                        <div class="hidden-xs col-sm-6">
+                                                            <div class="nfo">
+                                                                <a class="text-primary" href="/sport/softball/girls/?tab=schedule" role="menuitem" aria-label="Softball(Girls) - Schedules" tabindex="0">Schedules</a><span> /</span>
+                                                                <a class="text-primary" href="/sport/softball/girls/?tab=roster" role="menuitem" aria-label="Softball(Girls) - Rosters" tabindex="0">Rosters</a><span> /</span>
+                                                                <a class="text-primary" href="/sport/softball/girls/?tab=news" role="menuitem" aria-label="Softball(Girls) - News" tabindex="0">News</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li role="menuitem">
+                                                <div class="sport-link-nfo">
+                                                    <div class="row">
+                                                        <div class="col-xs-12 col-sm-6">
+                                                            <div class="link">
+                                                                <a class="text-primary" href="/sport/swim and dive/coed/" role="menuitem" tabindex="0" aria-label="Swim and Dive(Coed) go to Main Team Page">SWIM AND DIVE(COED)</a>
+                                                            </div>
+                                                        </div>
+                                                        <div class="hidden-xs col-sm-6">
+                                                            <div class="nfo">
+                                                                <a class="text-primary" href="/sport/swim and dive/coed/?tab=schedule" role="menuitem" aria-label="Swim and Dive(Coed) - Schedules" tabindex="0">Schedules</a><span> /</span>
+                                                                <a class="text-primary" href="/sport/swim and dive/coed/?tab=roster" role="menuitem" aria-label="Swim and Dive(Coed) - Rosters" tabindex="0">Rosters</a><span> /</span>
+                                                                <a class="text-primary" href="/sport/swim and dive/coed/?tab=news" role="menuitem" aria-label="Swim and Dive(Coed) - News" tabindex="0">News</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li role="menuitem">
+                                                <div class="sport-link-nfo">
+                                                    <div class="row">
+                                                        <div class="col-xs-12 col-sm-6">
+                                                            <div class="link">
+                                                                <a class="text-primary" href="/sport/tennis/girls/" role="menuitem" tabindex="0" aria-label="Tennis(Girls) go to Main Team Page">TENNIS(GIRLS)</a>
+                                                            </div>
+                                                        </div>
+                                                        <div class="hidden-xs col-sm-6">
+                                                            <div class="nfo">
+                                                                <a class="text-primary" href="/sport/tennis/girls/?tab=schedule" role="menuitem" aria-label="Tennis(Girls) - Schedules" tabindex="0">Schedules</a><span> /</span>
+                                                                <a class="text-primary" href="/sport/tennis/girls/?tab=roster" role="menuitem" aria-label="Tennis(Girls) - Rosters" tabindex="0">Rosters</a><span> /</span>
+                                                                <a class="text-primary" href="/sport/tennis/girls/?tab=news" role="menuitem" aria-label="Tennis(Girls) - News" tabindex="0">News</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li role="menuitem">
+                                                <div class="sport-link-nfo">
+                                                    <div class="row">
+                                                        <div class="col-xs-12 col-sm-6">
+                                                            <div class="link">
+                                                                <a class="text-primary" href="/sport/track and field/coed/" role="menuitem" tabindex="0" aria-label="Track and Field(Coed) go to Main Team Page">TRACK AND FIELD(COED)</a>
+                                                            </div>
+                                                        </div>
+                                                        <div class="hidden-xs col-sm-6">
+                                                            <div class="nfo">
+                                                                <a class="text-primary" href="/sport/track and field/coed/?tab=schedule" role="menuitem" aria-label="Track and Field(Coed) - Schedules" tabindex="0">Schedules</a><span> /</span>
+                                                                <a class="text-primary" href="/sport/track and field/coed/?tab=roster" role="menuitem" aria-label="Track and Field(Coed) - Rosters" tabindex="0">Rosters</a><span> /</span>
+                                                                <a class="text-primary" href="/sport/track and field/coed/?tab=news" role="menuitem" aria-label="Track and Field(Coed) - News" tabindex="0">News</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li role="menuitem">
+                                                <div class="sport-link-nfo">
+                                                    <div class="row">
+                                                        <div class="col-xs-12 col-sm-6">
+                                                            <div class="link">
+                                                                <a class="text-primary" href="/sport/volleyball/boys/" role="menuitem" tabindex="0" aria-label="Volleyball(Boys) go to Main Team Page">VOLLEYBALL(BOYS)</a>
+                                                            </div>
+                                                        </div>
+                                                        <div class="hidden-xs col-sm-6">
+                                                            <div class="nfo">
+                                                                <a class="text-primary" href="/sport/volleyball/boys/?tab=schedule" role="menuitem" aria-label="Volleyball(Boys) - Schedules" tabindex="0">Schedules</a><span> /</span>
+                                                                <a class="text-primary" href="/sport/volleyball/boys/?tab=roster" role="menuitem" aria-label="Volleyball(Boys) - Rosters" tabindex="0">Rosters</a><span> /</span>
+                                                                <a class="text-primary" href="/sport/volleyball/boys/?tab=news" role="menuitem" aria-label="Volleyball(Boys) - News" tabindex="0">News</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li role="menuitem">
+                                                <div class="sport-link-nfo">
+                                                    <div class="row">
+                                                        <div class="col-xs-12 col-sm-6">
+                                                            <div class="link">
+                                                                <a class="text-primary" href="/sport/volleyball/girls/" role="menuitem" tabindex="0" aria-label="Volleyball(Girls) go to Main Team Page">VOLLEYBALL(GIRLS)</a>
+                                                            </div>
+                                                        </div>
+                                                        <div class="hidden-xs col-sm-6">
+                                                            <div class="nfo">
+                                                                <a class="text-primary" href="/sport/volleyball/girls/?tab=schedule" role="menuitem" aria-label="Volleyball(Girls) - Schedules" tabindex="0">Schedules</a><span> /</span>
+                                                                <a class="text-primary" href="/sport/volleyball/girls/?tab=roster" role="menuitem" aria-label="Volleyball(Girls) - Rosters" tabindex="0">Rosters</a><span> /</span>
+                                                                <a class="text-primary" href="/sport/volleyball/girls/?tab=news" role="menuitem" aria-label="Volleyball(Girls) - News" tabindex="0">News</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li role="menuitem">
+                                                <div class="sport-link-nfo">
+                                                    <div class="row">
+                                                        <div class="col-xs-12 col-sm-6">
+                                                            <div class="link">
+                                                                <a class="text-primary" href="/sport/wrestling/boys/" role="menuitem" tabindex="0" aria-label="Wrestling(Boys) go to Main Team Page">WRESTLING(BOYS)</a>
+                                                            </div>
+                                                        </div>
+                                                        <div class="hidden-xs col-sm-6">
+                                                            <div class="nfo">
+                                                                <a class="text-primary" href="/sport/wrestling/boys/?tab=schedule" role="menuitem" aria-label="Wrestling(Boys) - Schedules" tabindex="0">Schedules</a><span> /</span>
+                                                                <a class="text-primary" href="/sport/wrestling/boys/?tab=roster" role="menuitem" aria-label="Wrestling(Boys) - Rosters" tabindex="0">Rosters</a><span> /</span>
+                                                                <a class="text-primary" href="/sport/wrestling/boys/?tab=news" role="menuitem" aria-label="Wrestling(Boys) - News" tabindex="0">News</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                    </ul>
+                            </li>
+                            <li role="presentation">
+                                    <a class="slanted-btn text-primary-font" href="/HTtickets" role="menuitem" tabindex="0"><span>TICKETS</span></a>
+                            </li>
+                            <li role="presentation">
+                                    <a class="slanted-btn text-primary-font" href="https://www.indybluedevils.com/stream" target="_blank" role="menuitem" tabindex="0" aria-label="STREAM (opens in a new tab)"><span>STREAM</span></a>
+                            </li>
+                            <li class="dropdown" role="presentation">
+                                <a href="#" class="dropdown-toggle dropdown-text text-primary-font" data-toggle="dropdown" role="menuitem" aria-haspopup="true" aria-expanded="false" tabindex="0">
+                                    INSIDE ATHLETICS
+                                </a>
+                                <ul class="dropdown-menu two-columns dr-text" role="menu">
+                                        <li role="presentation">
+                                                <a class="text-primary" style="padding:10px" href="/athlete-information" role="menuitem" tabindex="0">ATHLETE INFORMATION</a>
+                                        </li>
+                                        <li role="presentation">
+                                                <a class="text-primary" style="padding:10px" href="/athletic-records" role="menuitem" tabindex="0">ATHLETIC RECORDS</a>
+                                        </li>
+                                        <li role="presentation">
+                                                <a class="text-primary" style="padding:10px" href="/championships" role="menuitem" tabindex="0">CHAMPIONSHIPS</a>
+                                        </li>
+                                        <li role="presentation">
+                                                <a class="text-primary" style="padding:10px" href="#" role="menuitem" tabindex="0">COACHES AND STAFF</a>
+                                        </li>
+                                        <li role="presentation">
+                                                <a class="text-primary" style="padding:10px" href="/coaches-education" role="menuitem" tabindex="0">COACHES EDUCATION</a>
+                                        </li>
+                                        <li role="presentation">
+                                                <a class="text-primary" style="padding:10px" href="/conference-website" role="menuitem" tabindex="0">CONFERENCE WEBSITE</a>
+                                        </li>
+                                        <li role="presentation">
+                                                <a class="text-primary" style="padding:10px" href="https://www.independence.k12.oh.us/o/ils/page/personnel" role="menuitem" tabindex="0" aria-label="Employment (opens in a new tab)">Employment</a>
+                                        </li>
+                                        <li role="presentation">
+                                                <a class="text-primary" style="padding:10px" href="/facilities" role="menuitem" tabindex="0">FACILITIES</a>
+                                        </li>
+                                        <li role="presentation">
+                                                <a class="text-primary" style="padding:10px" href="/news" role="menuitem" tabindex="0">NEWS</a>
+                                        </li>
+                                        <li role="presentation">
+                                                <a class="text-primary" style="padding:10px" href="/sports-medicine" role="menuitem" tabindex="0">SPORTS MEDICINE</a>
+                                        </li>
+                                </ul>
+                            </li>
+                            <li class="dropdown" role="presentation">
+                                <a href="#" class="dropdown-toggle dropdown-text text-primary-font" data-toggle="dropdown" role="menuitem" aria-haspopup="true" aria-expanded="false" tabindex="0">
+                                    COMMUNITY
+                                </a>
+                                <ul class="dropdown-menu two-columns dr-text" role="menu">
+                                        <li role="presentation">
+                                                <a class="text-primary" style="padding:10px" href="/alumni-association" role="menuitem" tabindex="0">ALUMNI ASSOCIATION</a>
+                                        </li>
+                                        <li role="presentation">
+                                                <a class="text-primary" style="padding:10px" href="/athletic-boosters" role="menuitem" tabindex="0">ATHLETIC BOOSTERS</a>
+                                        </li>
+                                        <li role="presentation">
+                                                <a class="text-primary" style="padding:10px" href="/athletic-hall-of-fame" role="menuitem" tabindex="0">ATHLETIC HALL OF FAME</a>
+                                        </li>
+                                        <li role="presentation">
+                                                <a class="text-primary" style="padding:10px" href="/music-boosters" role="menuitem" tabindex="0">MUSIC BOOSTERS</a>
+                                        </li>
+                                        <li role="presentation">
+                                                <a class="text-primary" style="padding:10px" href="/sponsorship" role="menuitem" tabindex="0">SPONSORSHIP</a>
+                                        </li>
+                                        <li role="presentation">
+                                                <a class="text-primary" style="padding:10px" href="/youth-camps-clinics" role="menuitem" tabindex="0">YOUTH CAMPS/CLINICS</a>
+                                        </li>
+                                        <li role="presentation">
+                                                <a class="text-primary" style="padding:10px" href="/youth-organizations" role="menuitem" tabindex="0">YOUTH ORGANIZATIONS</a>
+                                        </li>
+                                </ul>
+                            </li>
+                    <li id="more" class="hidden" role="presentation">
+                        <a class="dropdown-toggle text-primary-font" data-toggle="dropdown" aria-haspopup="true" href="#" role="menuitem" aria-expanded="false" tabindex="0">
+                            More <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-right" role="menu"></ul>
+                    </li>
+                </ul>
+
+                    <div class="presenting-sponsor-mobile-menu hidden-sm hidden-xs">
+                        <div class="adzone adzone-0 presenting-sponsor">
+                                <div class="ad-placement">
+    <div id='gam-presenting-sponsor-2' class="gam-presenting-sponsor-2">
+        <script>
+               if (!isMobile()) {
+                googletag.cmd.push(function () { googletag.display('gam-presenting-sponsor-2'); });
+            }
+        </script>
+    </div>
+    </div>
+
+                        </div>
+                    </div>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<!--Centerville-->
+
+                            
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                
+            </div>
+        </div>
+    </header>
+    <div class="banner-ad-container-sticky-footer">
+        <div class="banner-ad">
+            <div class="banner">
+    <div class="row">
+        <div class="col-md-12 col-sm-12">            
+            <div class="ad-placement">
+                <div id='gam-banner-ad' class="gam-banner-ad">
+                    <script>
+                        googletag.cmd.push(function () { googletag.display('gam-banner-ad'); });
+                    </script>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="content-wrapper">
+                
+<div class="row">
+    <div id="custom-bg" class="col-md-12">
+        <div class="container">
+    <!-- Content description for screen readers -->
+    <div class="content-description visually-hidden">
+        <p>This section contains dynamically generated content. Its purpose may vary depending on the context. Please refer to the following content for more information.</p>
+    </div>
+    
+    <!-- Dynamically generated content -->
+    <div class="custom-page-content">
+        <div id="dynamic-content" aria-live="polite">
+            <h1 class='text-center'>PAGE NOT FOUND</h1>
+        </div>
+    </div>
+</div>
+<style>
+    .visually-hidden
+    {
+        position: absolute !important;
+        clip: rect(1px, 1px, 1px, 1px);
+        padding: 0 !important;
+        border: 0 !important;
+        height: 1px !important;
+        width: 1px !important;
+        overflow: hidden !important;
+    }
+
+    .custom-page-content img
+    {
+        max-width: 100%;
+        height: auto;
+    }
+/*
+    .custom-page-content table
+    {
+        width: 100%;
+        overflow-x: auto;
+        display: block;
+    }*/
+
+    .custom-page-content
+    {
+        overflow-x: auto;
+    }
+
+
+        .custom-page-content iframe
+        {
+            max-width: 100%;
+            max-height: 100%;
+            border: none;
+        }
+
+</style>
+
+    </div>
+</div>
+
+
+            </div>
+        </div>
+    </div>
+
+    <div class="full-width-container primary-background secondary-bottom-border bg-primary">
+        
+            <div class="footer">
+    <div class="contact-us">
+        <div class="widget padded-box">
+            <p class="address">
+                CONTACT US
+                    <span id="phone-remove">216-642-5860</span> |
+                6001 ARCHWOOD RD, Independence, OH 44131
+            </p>
+            <br />
+            <p style="color: white; text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;">Thank you to all of our <a style="color: white; text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000; text-decoration: underline;" aria-label="Visit our Sponsors Page" href="/sponsor/SponsorsPage">Sponsors!</a></p>
+            <!-- app promotion -->
+            <div class="footer-items">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div id="app-downloads">
+                            <div id="badges">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                            <a href="https://apps.apple.com/us/app/independence-athletics/id6758158012" target="_blank"><img class="img-responsive download" src="/images/dl-apple.png" aria-label="navigate to apple app store to download app" alt="Apple App Store Badge" /></a>
+
+                                                <img aria-label="Independence"
+                                                     alt="Independence app logo"
+                                                     src="https://5starassets.blob.core.windows.net/athleticsites/2483727/1266/images/7f25b3a9-4990-411f-8c25-85fc9ecf487f.png"
+                                                     class="img-responsive app-icon" />
+                                        <span id="googleplay">
+                                                <a href="https://play.google.com/store/apps/details?id=mm.ohindependence" target="_blank"><img class="img-responsive download" src="/images/dl-google.png" aria-label="navigate to google play store to download school app" alt="Google Play Store Badge" /></a>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="feeder-schools-footer bg-primary">
+        </div>
+    </div>
+
+</div>
+<script type="text/javascript">
+    //Going to check the operating system, and if it is iOS, we will hide Google Play Icon bc it causes issues with App Store approvals
+    var getOS = {
+        iOS: function () {
+            return navigator.platform.match(/iPhone|iPad|iPod/i);
+        },
+        Mac: function () {
+            return navigator.platform.match("MacIntel");
+        },
+        Windows: function () {
+            return navigator.platform.match("Win32");
+        },
+    };
+    if (getOS.iOS()) {
+        document.getElementById('googleplay').style.display = "none";
+    }
+    if (getOS.Mac()) {
+        //console.log( 'Is an iOS');
+        document.getElementById('googleplay').style.display = "none";
+    }
+    else {
+        document.getElementById('googleplay').style.display = "inline";
+    }
+</script>
+
+        
+    </div>
+        <style>
+        /* the slides */
+        .slick-slide {
+            margin: 0 27px;
+        }
+        /* the parent */
+        .slick-list {
+            margin: 0 -27px;
+        }
+
+    </style>
+
+    <div class="full-width-container primary-background secondary-bottom-border">
+        
+            <div class="footer bg-primary">
+    <div class="widget padded-box">
+        <div class="footer-items">
+            <div class="row">
+                <div class="col-md-12">
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+        
+    </div>
+
+    <div class="privacy-terms">
+        <a href="http://www.mascotmedia.net/privacy-policy/" target="_blank" aria-label="Go to Mascot Media Privacy Policy">PRIVACY POLICY</a> |
+        <a href="/Home/Accessibility" aria-label="Go to Mascot Media Accessibility Statement">ACCESSIBILITY</a>
+        <span>&copy; 2026 MASCOT MEDIA, LLC</span>
+    </div>
+
+    <div class="ad-space">
+    </div>
+    
+        <!-- CDN compiled and minified jquery 2.2.0 -->
+        <script src="https://code.jquery.com/jquery-2.2.0.min.js" integrity="sha256-ihAoc6M/JPfrIiIeayPE9xjin4UWjsx2mjW/rtmxLM4=" crossorigin="anonymous"></script>
+        <!-- CDN compiled and minified slick slider js -->
+        <script src="https://cdn.jsdelivr.net/jquery.slick/1.3.15/slick.min.js"></script>
+        <!-- CDN compiled and minified lity lightbox js -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/lity/2.3.1/lity.min.js" integrity="sha256-3VzI8FuSG20IfvIDKRptBR+1d4T6G57eDIf6ZEO13iY=" crossorigin="anonymous"></script>
+        <!-- fixed navbar scrolling -->
+        <script type="text/javascript" src="/js/scrollfixed.min.js"></script>
+        <!-- CDN compiled and minified bootstrap 3 js -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/3.3.0/ekko-lightbox.min.js" integrity="sha512-J82mHQM4P5UsCSAAIYxj/UQyM/VsH/+ija5xaWr2BirVfRJHNktjd4IzGKBJMbhnvqoRUb/B+WgphcOObaaNEQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <!-- locally stored compiled and minified js files for datatables -->
+        <script src="/lib/datatables/media/js/jquery.dataTables.min.js"></script>
+        <script src="/lib/datatables/media/js/dataTables.bootstrap.min.js"></script>
+        <script src="/lib/datatables-responsive/js/dataTables.responsive.min.js"></script>
+        <script src="/js/UpcomingBroadcastSideTabStyle14.min.js"></script>
+        <script src="/lib/jquery.menu-aim/jquery.menu-aim.min.js"></script>
+        <script src="/js/topmenu2.min.js"></script>
+        <!-- stripe js -->
+        <script src="https://js.stripe.com/v3/"></script>
+        <!-- in-house ad rotator -->
+        <script src="/js/StagingButtons.min.js"></script>
+        <script src="/lib/sweetalert/dist/sweetalert.min.js"></script>
+        <script src="/lib/slick-carousel/slick/slick.min.js"></script>
+        <script src="/js/PlatinumSponsorStyle2.min.js"></script>
+        <script src="/js/CommitmentsStyle1.min.js"></script>
+
+
+
+    
+    
+    <script type="text/javascript">
+        $.extend(true, $.fn.dataTable.defaults, {
+            language: {
+                "processing": "<i class='fa fa-refresh fa-spin fa-2x'></i><br />Loading..."
+            }
+        });
+    </script>
+
+    <script type='text/javascript'>
+        var url = 'https://apps.apple.com/us/app/independence-athletics/id6758158012';
+        var regex = /([\d]{10,})/g;
+        var meta = document.createElement('meta');
+            meta.setAttribute('name', 'apple-itunes-app');
+            meta.setAttribute('content', 'app-id=' + url.match(regex));
+        document.getElementsByTagName('head')[0].appendChild(meta);
+    </script>
+
+    <!-- Quantcast Tag -->
+    <script type="text/javascript">
+        window._qevents = window._qevents || [];
+        (function () {
+            var elem = document.createElement('script');
+            elem.src = (document.location.protocol == "https:" ? "https://secure" : "http://edge") + ".quantserve.com/quant.js";
+            elem.async = true;
+            elem.type = "text/javascript";
+            var scpt = document.getElementsByTagName('script')[0];
+            scpt.parentNode.insertBefore(elem, scpt);
+        })();
+        window._qevents.push({
+            qacct: "p-L8Vz-DsnmdfCj",
+            uid: "__INSERT_EMAIL_HERE__"
+        });
+    </script>
+    <noscript>
+        <div style="display:none;">
+            <img src="//pixel.quantserve.com/pixel/p-L8Vz-DsnmdfCj.gif" border="0" height="1" width="1" alt="Quantcast" />
+        </div>
+    </noscript>
+    <!-- End Quantcast tag -->
+</body>
+</html>

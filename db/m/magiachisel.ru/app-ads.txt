@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Checking your browser...</title>
+	<meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: sans-serif;
+            text-align: center;
+            padding-top: 50px;
+        }
+
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #3498db;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Проверяем ваш браузер...</h1>
+    <p>Это автоматическая проверка безопасности. Пожалуйста, подождите несколько секунд.</p>
+    <div class="spinner"></div>
+
+    <script>
+        // Функция для установки cookie
+        function setCookie(name, value, days) {
+            var expires = "";
+            if (days) {
+                var date = new Date();
+                date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+                expires = "; expires=" + date.toUTCString();
+            }
+            // Устанавливаем cookie для всего сайта (path=/)
+            document.cookie = name + "=" + (value || "")  + expires + "; path=/";
+        }
+
+        // Основная логика
+        (function() {
+            try {
+                // 1. Устанавливаем cookie, который докажет, что JavaScript был выполнен
+                setCookie('human_check', 'passed', 1); // "passed" - это наш пароль, 1 - срок жизни в днях
+
+                // 2. Немедленно пытаемся перезагрузить ту же страницу
+                // Браузер теперь отправит запрос с новым cookie, и сервер (web.config) нас пропустит.
+                window.location.reload(true);
+
+            } catch (e) {
+                // Если что-то пошло не так
+                document.body.innerHTML = "<h1>Ошибка</h1><p>Пожалуйста, включите JavaScript и обновите страницу.</p>";
+            }
+        })();
+    </script>
+</body>
+</html>

@@ -1,0 +1,1327 @@
+/**
+ * General Functions
+ *
+ */
+
+defined( 'ABSPATH' ) || exit; // Exit if accessed directly
+
+
+
+/**
+ * Get the components of theme mobile header
+ */
+if( ! function_exists( 'tie_mobile_header_components' ) ) {
+
+	function tie_mobile_header_components( $area ){
+
+		$mobile_header_components = array(
+
+			'menu' => tie_mobile_menu_icon(),
+
+			'search' => '
+				<a href="#" class="tie-search-trigger-mobile">
+					<span class="tie-icon-search tie-search-icon" aria-hidden="true"></span>
+					<span class="screen-reader-text">'. esc_html__( 'Search for', TIELABS_TEXTDOMAIN ) .'</span>
+				</a>
+			',
+
+			'skin' => '
+				<a href="#" class="change-skin" title="'. esc_html__( 'Switch skin', TIELABS_TEXTDOMAIN ) .'">
+					<span class="tie-icon-moon change-skin-icon" aria-hidden="true"></span>
+					<span class="screen-reader-text">'. esc_html__( 'Switch skin', TIELABS_TEXTDOMAIN ) .'</span>
+				</a>
+			',
+		);
+
+		// Login and user account
+		if( is_user_logged_in() ){
+
+			ob_start();
+			tie_login_form();
+			$login_form = ob_get_clean();
+
+			$current_user = wp_get_current_user();
+			$mobile_header_components['login'] = '
+				<a href="#" class="profile-btn">'.
+					get_avatar( $current_user->ID, apply_filters( 'TieLabs/Login/avatar_size', 30 ) ) .'
+					<span class="screen-reader-text">'. esc_html__( 'Your Profile', TIELABS_TEXTDOMAIN ) .'</span>
+				</a>
+
+				<div class="components-sub-menu comp-sub-menu components-user-profile">'. $login_form .'</div>
+			';
+		}
+		else {
+			$mobile_header_components['login'] = '
+				<a href="#" class="lgoin-btn tie-popup-trigger">
+					<span class="tie-icon-author" aria-hidden="true"></span>
+					<span class="screen-reader-text">'. esc_html__( 'Log In', TIELABS_TEXTDOMAIN ) .'</span>
+				</a>
+			';
+		}
+
+		// WooCommerce Cart
+		if ( TIELABS_WOOCOMMERCE_IS_ACTIVE ){
+			$mobile_header_components['cart'] = tie_component_button_cart();
+		}
+
+		// BuddyPress
+		if ( TIELABS_BUDDYPRESS_IS_ACTIVE ){
+			$mobile_header_components['bp_notifications'] = tie_component_button_bp_notifications();
+		}
+
+		// Check the active components
+		$components = array();
+		foreach ( $mobile_header_components as $key => $html ) {
+			if( tie_get_option( 'mobile_header_components_'.$key ) == $area ){
+				$components[ $key ] = '<li class="mobile-component_'.$key .' custom-menu-link">'. $html .'</li>';
+			}
+		}
+
+		//
+		$components = apply_filters( 'TieLabs/Mobile/Header/Components', $components, $area );
+
+
+		if( ! empty( $components ) ){
+			echo '<div id="mobile-header-components-'. $area .'" class="mobile-header-components">';
+				echo '<ul class="components">'. join( ' ', $components ) .'</ul>';
+			echo '</div>';
+		}
+
+		// If Header layout is centered we need to place the div even if it is empty || FLEX
+		elseif ( tie_get_option( 'mobile_header' ) == 'centered' ) {
+			echo '<div id="mobile-header-components-'. $area .'" class="mobile-header-components"></div>';
+		}
+
+		return false;
+	}
+}
+
+
+/**
+ * Mobile Menu icon
+ */
+if( ! function_exists( 'tie_mobile_menu_icon' ) ) {
+
+	function tie_mobile_menu_icon(){
+
+		if( ! tie_get_option( 'mobile_header_components_menu' ) ){
+			return false;
+		}
+
+		$menu_icon = tie_get_option( 'mobile_menu_icon', 1 );
+
+		$class = 'tie-mobile-menu-icon ';
+
+		if( is_numeric( $menu_icon ) ){
+			$class .= "nav-icon is-layout-$menu_icon";
+		}
+		else{
+			$class .= "tie-icon-$menu_icon";
+		}
+
+		$class_wrapper = tie_get_option( 'mobile_menu_text' ) ? 'menu-text-wrapper' : '';
+
+		$mobile_icon  = '<a href="#" id="mobile-menu-icon" class="'. $class_wrapper .'">';
+		$mobile_icon .= '<span class="'. $class .'"></span>';
+
+		if( tie_get_option( 'mobile_menu_text' ) ){
+			$mobile_icon .= '<span class="menu-text">'. esc_html__( 'Menu', TIELABS_TEXTDOMAIN ) .'</span>';
+		}
+		else{
+			$mobile_icon .= '<span class="screen-reader-text">'. esc_html__( 'Menu', TIELABS_TEXTDOMAIN ) .'</span>';
+		}
+
+		$mobile_icon .= '</a>';
+
+		return $mobile_icon;
+	}
+}
+
+
+/**
+ * Mobile Header Components Main area
+ */
+if( ! function_exists( 'tie_mobile_header_components_area_1' ) ) {
+
+	add_action( 'TieLabs/Logo/before', 'tie_mobile_header_components_area_1' );
+	function tie_mobile_header_components_area_1(){
+		tie_mobile_header_components( 'area_1' );
+	}
+}
+
+
+
+/**
+ * Mobile Header Components
+ */
+if( ! function_exists( 'tie_mobile_header_components_area_2' ) ) {
+
+	add_action( 'TieLabs/Logo/after', 'tie_mobile_header_components_area_2' );
+	function tie_mobile_header_components_area_2(){
+		tie_mobile_header_components( 'area_2' );
+	}
+}/**
+ * Filters
+ *
+ */
+
+defined( 'ABSPATH' ) || exit; // Exit if accessed directly
+
+
+class TIELABS_FILTERS {
+
+	/**
+	 * Runs on class initialization. Adds filters and actions.
+	 */
+	function __construct() {
+
+		// Add Support for Shortcodes in the terms descriptions
+		add_filter( 'term_description', 'do_shortcode' );
+
+		add_action( 'init',                  array( $this, 'init_hook' ) );
+		add_action( 'init',                  array( $this, 'redirect_random_post' ) );
+
+		add_action( 'wp_head',               array( $this, 'meta_description' ) );
+		add_action( 'wp_head',               array( $this, 'meta_generator' ) );
+		add_action( 'wp_head',               array( $this, 'x_ua_compatible' ) );
+
+		add_action( 'wp_footer',             array( $this, 'footer_inline_scripts' ), 999 );
+		add_action( 'wp_footer',             array( $this, 'footer_misc'  ) );
+		add_action( 'wp_footer',             array( $this, 'popup_module' ) );
+
+		add_action( 'comment_class',         array( $this, 'is_avatar_enabled' ) );
+		add_filter( 'pre_get_posts',         array( $this, 'search_filters' ) );
+		add_filter( 'pre_get_posts',         array( $this, 'category_posts_order' ) );
+		add_filter( 'TieLabs/cache_key',     array( $this, 'cache_key' ) );
+		add_filter( 'widget_tag_cloud_args', array( $this, 'tag_widget_limit' ) );
+		add_filter( 'widget_title',          array( $this, 'tagcloud_widget_title' ), 10, 3 );
+		add_filter( 'login_headerurl',       array( $this, 'dashboard_login_logo_url' ) );
+		add_filter( 'login_head',            array( $this, 'dashboard_login_logo' ) );
+		add_filter( 'get_the_archive_title', array( $this, 'archive_title' ), 15 );
+		add_filter( 'wp_link_pages_args',    array( $this, 'pages_next_and_number' ) );
+		add_filter( 'excerpt_more',          array( $this, 'excerpt_more' ) );
+		add_filter( 'get_the_excerpt',       array( $this, 'post_excerpt' ), 9 );
+
+		add_filter( 'has_post_thumbnail',    array( $this, 'has_post_thumbnail' ) );
+		add_filter( 'post_thumbnail_html',   array( $this, 'default_featured_image' ), 10, 5 );
+
+		add_filter( 'TieLabs/exclude_content',            'TIELABS_HELPER::strip_shortcodes' );
+		add_filter( 'wp_get_attachment_image_src',        array( $this, 'gif_image' ), 10, 4 );
+		add_filter( 'wp_get_attachment_image_attributes', array( $this, 'small_thumb_image_class' ), 10, 3 );
+
+		add_filter( 'TieLabs/Primary_Category/custom', array( $this, 'yoast_seo_primary_category' ) );
+
+		// Translations
+		if( tie_get_option( 'translations' ) ){
+			add_filter( 'gettext', array( $this, 'theme_translation' ), 10, 3 );
+		}
+
+		if( tie_get_option( 'translation_numbers' ) ){
+			add_filter( 'get_the_date',                   array( $this, 'translate_numbers' ), 55 );
+			add_filter( 'get_comment_date',               array( $this, 'translate_numbers' ), 55 );
+			add_filter( 'get_comment_time',               array( $this, 'translate_numbers' ), 55 );
+			add_filter( 'comments_number',                array( $this, 'translate_numbers' ), 55 );
+			add_filter( 'wp_list_categories',             array( $this, 'translate_numbers' ), 55 );
+			add_filter( 'TieLabs/number_format',          array( $this, 'translate_numbers' ), 55 );
+			add_filter( 'TieLabs/post_date',              array( $this, 'translate_numbers' ), 55 );
+			add_filter( 'TieLabs/reading_time',           array( $this, 'translate_numbers' ), 55 );
+			add_filter( 'TieLabs/post_views_number',      array( $this, 'translate_numbers' ), 55 );
+			add_filter( 'TieLabs/Social_Counters/number', array( $this, 'translate_numbers' ), 55 );
+			add_filter( 'TieLabs/Weather/number',         array( $this, 'translate_numbers' ), 55 );
+		}
+	}
+
+
+	/**
+	 * init_hook
+	 */
+	function init_hook(){
+
+		/*if( current_user_can( 'manage_options' ) ){
+			add_filter( 'the_content', array( $this, 'shortcodes_notice' ) );
+		}
+		*/
+
+		//WordPress doesn't recognize it as RTL language because there is an error in the main translation file of the Sindhi language!
+		if( get_locale() == 'snd' && ! is_rtl() ){
+			global $wp_locale;
+			$wp_locale->text_direction = 'rtl';
+		}
+	}
+
+
+	/**
+	 * Add notice for the shortcodes plugin
+	 */
+	function shortcodes_notice( $content ){
+
+		// Don't show the message if this is excerpt OR backend OR AMP
+		if(
+				is_admin() ||
+				( function_exists( 'is_amp_endpoint' ) && is_amp_endpoint() ) ||
+				in_array( 'parse_request',   $GLOBALS['wp_current_filter'] ) ||
+				in_array( 'get_the_excerpt', $GLOBALS['wp_current_filter'] ) ){
+			return $content;
+		}
+
+		$message = '';
+
+		// Timetable and Event Schedule Plugin
+		if( ! TIELABS_MPTIMETABLE_IS_ACTIVE ){
+
+			if( strpos( $content, '[mp-timetable' ) !== false ){
+
+				$message .= TIELABS_HELPER::notice_message( sprintf(
+					esc_html__( 'This section contains some shortcodes that requries the %2$s%1$s%3$s Plugin.', TIELABS_TEXTDOMAIN ),
+					'<strong>Timetable and Event Schedule</strong>',
+					'<a href="https://wordpress.org/plugins/mp-timetable/" target="_blank" rel="noopener">',
+					'</a>'
+				), false );
+			}
+		}
+
+		// Contact Form 7 Plugin
+		if( ! class_exists( 'WPCF7' ) ){
+
+			if( strpos( $content, '[contact-form-7' ) !== false ){
+
+				$message .= TIELABS_HELPER::notice_message( sprintf(
+					esc_html__( 'This section contains some shortcodes that requries the %2$s%1$s%3$s Plugin.', TIELABS_TEXTDOMAIN ),
+					'<strong>Contact Form 7</strong>',
+					'<a href="https://wordpress.org/plugins/contact-form-7/" target="_blank" rel="noopener">',
+					'</a>'
+				), false) ;
+			}
+		}
+
+		// Return the content with message
+		return apply_filters( 'TieLabs/shortcodes_check', $message, $content ) . $content;
+	}
+
+
+	/**
+	 * x_ua_compatible
+	 */
+	function x_ua_compatible(){
+		echo '<meta http-equiv="X-UA-Compatible" content="IE=edge">';
+	}
+
+
+	/**
+	 * meta_escription
+	 */
+	function meta_description(){
+
+		// Return if the description option is disabled or the Yoast SEO or Rank Math SEO plugins are active
+		if( ! tie_get_option( 'post_meta_escription' ) || class_exists( 'WPSEO_Frontend' ) || class_exists( 'RankMath' ) ){
+			return;
+		}
+
+		// Single Page doesn't have a builder
+		if( is_singular() && ! TIELABS_HELPER::has_builder() ){
+
+			$post = get_post();
+
+			if( ! empty( $post->post_content ) ){
+				$description = apply_filters( 'TieLabs/exclude_content', $post->post_content );
+			}
+		}
+		// Archives
+		elseif( get_the_archive_description() ){
+			$description = get_the_archive_description();
+		}
+
+		// Default
+		if( empty( $description ) ){
+			$description = get_bloginfo( 'description' );
+		}
+
+		if( ! empty( $description ) ){
+			$description = strip_tags( strip_shortcodes( $description ) );
+			echo ' <meta name="description" content="'. esc_attr( wp_html_excerpt( $description, 150 ) ) .'" />';
+		}
+	}
+
+
+	/**
+	 * Theme translations
+	 */
+	function theme_translation( $translation, $text, $domain ){
+
+		if( $domain == TIELABS_TEXTDOMAIN || $domain == 'amp' ){
+
+			$translations = tie_get_option( 'translations' );
+
+			if( ! empty( $translations ) ){  // To minimize the calls of sanitize_title
+				$sanitize_text = sanitize_title( htmlspecialchars( $text ) );
+
+				if( ! empty( $translations[ $sanitize_text ] ) ){
+					return htmlspecialchars_decode( $translations[ $sanitize_text ] );
+				}
+			}
+		}
+
+		return $translation;
+	}
+
+
+	/**
+	 * Add the inline scripts to the Footer
+	 */
+	function footer_inline_scripts(){
+
+		// Check if we are in an AMP page
+		if( function_exists( 'is_amp_endpoint' ) && is_amp_endpoint() ){
+			return;
+		}
+
+		// Print the inline scripts if the BWP is active
+		if( ! empty( $GLOBALS['tie_inline_scripts'] ) && TIELABS_HELPER::is_js_minified() ){
+			echo '<script type="text/javascript">'. $GLOBALS['tie_inline_scripts'] .'</script>';
+		}
+	}
+
+
+	/**
+	 * Add Misc Footer Conetnt
+	 */
+	function footer_misc(){
+
+		// Check if we are in an AMP page
+		if( function_exists( 'is_amp_endpoint' ) && is_amp_endpoint() ){
+			return;
+		}
+
+		// Custom Footer Code
+		if ( tie_get_option( 'footer_code' ) ){
+			echo do_shortcode( apply_filters( 'TieLabs/footer_code', tie_get_option( 'footer_code' ) ) );
+		}
+
+		// Reading Position Indicator
+		if ( tie_get_option( 'reading_indicator' ) && is_single() && ! tie_get_option( 'autoload_posts' ) ){
+			echo '<div id="reading-position-indicator"></div>';
+		}
+
+		// Live Search
+		if(
+			tie_menu_has_search( 'top_nav', true )  ||
+			tie_menu_has_search( 'main_nav', true ) ||
+		  ( tie_get_option( 'mobile_header_components_search') && tie_get_option( 'mobile_header_live_search') )
+		){
+			echo '<div id="autocomplete-suggestions" class="autocomplete-suggestions"></div>';
+		}
+
+		// Scrollbar - Used to get the default scrollbar width.
+		echo '<div id="is-scroller-outer"><div id="is-scroller"></div></div>';
+
+		// Facebook buttons
+		echo '<div id="fb-root"></div>';
+	}
+
+
+	/**
+	 * Add the Popup module to the footer
+	 */
+	function popup_module(){
+
+		// Check if we are in an AMP page
+		if( function_exists( 'is_amp_endpoint' ) && is_amp_endpoint() ){
+			return;
+		}
+
+		TIELABS_HELPER::get_template_part( 'templates/popup' );
+	}
+
+
+	/**
+	 * Add an extra class to the comment item if the avatar is active
+	 */
+	function is_avatar_enabled( $classes ){
+
+		if( is_array( $classes ) && get_option( 'show_avatars' ) ){
+			$classes[] = 'has-avatar';
+		}
+
+		return $classes;
+	}
+
+
+	/**
+	 * Exclude post types and categories From Search results
+	 */
+	function search_filters( $query ){
+
+		if( is_admin() || isset( $_GET['post_type'] ) ){
+			return $query;
+		}
+
+		if( is_search() && $query->is_main_query() ){
+
+			// Exclude Post types from search
+			if ( ($exclude_post_types = tie_get_option( 'search_exclude_post_types' )) && is_array( $exclude_post_types ) ){
+
+				$args = array(
+					'public' => true,
+					'exclude_from_search' => false,
+				);
+
+				$post_types = get_post_types( $args );
+
+				foreach ( $exclude_post_types as $post_type ){
+					unset( $post_types[ $post_type ] );
+				}
+
+				$query->set( 'post_type', $post_types );
+			}
+
+			// Exclude specific categoies from search
+			if ( tie_get_option( 'search_cats' ) ){
+				$query->set( 'cat', tie_get_option( 'search_cats' ) );
+			}
+		}
+
+		return $query;
+	}
+
+
+	/**
+	 * Change the posts order in the category page
+	 */
+	function category_posts_order( $query ){
+
+		if( ! is_admin() && is_category() && $query->is_main_query() ){
+
+			$current_category = get_queried_object();
+
+			if( ! empty( $current_category->term_id ) ){
+
+				$posts_order = tie_get_category_option( 'posts_order', $current_category->term_id );
+
+				// Posts Order
+				if( ! empty( $posts_order ) ){
+
+					if( $posts_order == 'views' && tie_get_option( 'tie_post_views' ) ){ // Most Viewd posts
+						$query->set( 'orderby', 'meta_value_num' );
+						$query->set( 'meta_key', apply_filters( 'TieLabs/views_meta_field', 'tie_views' ) );
+					}
+					elseif( $posts_order == 'popular' ){ // Popular Posts by comments
+						$query->set( 'orderby', 'comment_count' );
+					}
+					elseif( $posts_order == 'title' ){
+						$query->set( 'orderby', 'title' );
+						$query->set( 'order', 'ASC' );
+					}
+					else{
+						$query->set( 'orderby', $posts_order );
+					}
+				}
+			}
+		}
+
+		return $query;
+	}
+
+
+	/**
+	 * Random Article
+	 */
+	function redirect_random_post(){
+
+		if( wp_doing_ajax() ){
+			return;
+		}
+
+		if( isset( $_GET['random-post'] ) && ( tie_get_option( 'top-nav-components_random' ) || tie_get_option( 'main-nav-components_random' ) ) ) {
+
+			$args = array(
+				'posts_per_page'      => 1,
+				'orderby'             => 'rand',
+				'fields'              => 'ids',
+				'no_found_rows'       => true,
+				'ignore_sticky_posts' => true,
+			);
+
+			$random_post = new WP_Query ( $args );
+
+			while ( $random_post->have_posts () ){
+				$random_post->the_post();
+				wp_redirect( get_permalink() );
+				exit;
+			}
+		}
+	}
+
+
+	/**
+	 * Widgets Small Image Class
+	 *
+	 * By default WordPress uses 2 classes attachment-{size} size-{size}
+	 * we need to add a general class doesn't linked with the thumb name
+	 */
+	function small_thumb_image_class( $attr, $attachment, $size = false ) {
+
+		if( ! empty( $size ) && $size == TIELABS_THEME_SLUG.'-image-small' ){
+			$attr['class'] .= ' tie-small-image';
+		}
+
+		return $attr;
+	}
+
+
+	/**
+	 * Gif images
+	 */
+	function gif_image( $image, $attachment_id, $size, $icon ){
+
+		if( ! tie_get_option( 'disable_featured_gif' ) ){
+
+			$file_type = ! empty( $image[0] ) ? wp_check_filetype( $image[0] ) : false;
+
+			if( ! empty( $file_type ) && $file_type['ext'] == 'gif' && $size != 'full' ){
+
+				$full_image = wp_get_attachment_image_src( $attachment_id, $size = 'full', $icon );
+
+				// For the avatars we need to keep the original width and height
+				if( ! empty( $full_image ) && in_array( 'get_avatar', $GLOBALS['wp_current_filter'] ) ){
+					$full_image[1] = $image[1];
+					$full_image[2] = $image[2];
+				}
+
+				return $full_image;
+			}
+		}
+
+		return $image;
+	}
+
+
+	/**
+	 * Modify Excerpts
+	 */
+	function post_excerpt( $text = '' ){
+
+		$raw_excerpt = $text;
+
+		if ( '' == $text ){
+
+			//$text = get_the_content( '' ); // Causes issues with the new Posts List Blocks
+
+			$_post = get_post();
+			$text = ! empty( $_post->post_content ) ? $_post->post_content : '';
+			$text = apply_filters( 'TieLabs/exclude_content', $text );
+
+			/**
+			 * If images with class wp-image-{ID} exists in the conetnt, WordPress make a DB request to get andd add the srcset
+			 * Since we are in excerpt we don't need that, Great affect on archives pages
+			 */
+			$text = str_replace( 'wp-image-', 'tie-image', $text );
+
+			$text = strip_shortcodes( $text );
+			$text = apply_filters( 'the_content', $text );
+			$text = str_replace( ']]>', ']]>', $text );
+
+			$excerpt_length = apply_filters( 'excerpt_length', 55 );
+			$excerpt_more   = apply_filters( 'excerpt_more', ' ' . '[&hellip;]' );
+			$text           = wp_trim_words( $text, $excerpt_length, $excerpt_more );
+		}
+
+		return apply_filters( 'wp_trim_excerpt', $text, $raw_excerpt );
+	}
+
+
+	/**
+	 * Global Cache Key
+	 */
+	function cache_key( $key ){
+		return 'tie-cache-'. TIELABS_HELPER::get_locale() . $key;
+	}
+
+
+	/**
+	 * Change the number of tags in the cloud tags
+	 */
+	function tag_widget_limit( $args ){
+
+		if( isset($args['taxonomy']) && $args['taxonomy'] == 'post_tag' ){
+			$args['number'] = 18;
+		}
+
+		return $args;
+	}
+
+
+	/**
+	 * Remove the default Tag CLoud titles if the title field is empty
+	 */
+	function tagcloud_widget_title( $title = false, $instance = false, $id_base = false ){
+
+		if( $id_base == 'tag_cloud' && empty( $instance['title'] ) ){
+			return false;
+		}
+
+		return $title;
+	}
+
+
+	/**
+	 * Custom Dashboard login URL
+	 */
+	function dashboard_login_logo_url(){
+
+		if( tie_get_option( 'dashboard_logo_url' ) ){
+			return tie_get_option( 'dashboard_logo_url' );
+		}
+	}
+
+
+	/**
+	 * Custom Dashboard login page logo
+	 */
+	function dashboard_login_logo(){
+
+		if( tie_get_option( 'dashboard_logo' ) ){
+			echo '<style type="text/css"> .login h1 a {  background-image:url('.tie_get_option( 'dashboard_logo' ).')  !important; background-size: contain; width: 320px; height: 85px; } </style>';
+		}
+	}
+
+
+
+	/**
+	 * Remove anything that looks like an archive title prefix ("Archive:", "Foo:", "Bar:").
+	 */
+	function archive_title( $title ){
+
+		if ( is_category() ) {
+			return single_cat_title( '', false );
+		}
+		elseif ( is_tag() ) {
+			return single_tag_title( '', false );
+		}
+		elseif ( is_author() ) {
+			return '<span class="vcard">' . get_the_author() . '</span>';
+		}
+		elseif ( is_post_type_archive() ) {
+			return post_type_archive_title( '', false );
+		}
+		elseif ( is_tax() ) {
+			return single_term_title( '', false );
+		}
+
+		return $title;
+	}
+
+
+	/**
+	 * Add Number and Next / prev multiple post pages
+	 */
+	function pages_next_and_number( $args ){
+
+		if( $args['next_or_number'] == 'next_and_number' ){
+
+			global $page, $numpages, $multipage, $more;
+			$args['next_or_number'] = 'number';
+			$prev = '';
+			$next = '';
+
+			if ( $multipage && $more ){
+				$i = $page - 1;
+				if ( $i && $more ){
+					$prev .= _wp_link_page($i);
+					$prev .= $args['link_before']. $args['previouspagelink'] . $args['link_after'] . '</a>';
+				}
+
+				$i = $page + 1;
+				if ( $i <= $numpages && $more ){
+					$next .= _wp_link_page($i);
+					$next .= $args['link_before']. $args['nextpagelink'] . $args['link_after'] . '</a>';
+				}
+			}
+
+			$args['before'] = $args['before'].$prev;
+			$args['after'] = $next.$args['after'];
+		}
+
+		return $args;
+	}
+
+
+	/**
+	 * Excerpt More
+	 */
+	function excerpt_more( $more ){
+		return ' &hellip;';
+	}
+
+
+	/**
+	 * Theme Generator Meta
+	 */
+	function meta_generator(){
+
+		$active_theme = wp_get_theme();
+
+		if ( is_child_theme() ) {
+			$active_theme = wp_get_theme( $active_theme->Template );
+		}
+
+		if( ! empty( $active_theme->Name ) ){
+			$theme_info = apply_filters( 'TieLabs/theme_meta_generator', $active_theme->Name .' '.  TIELABS_DB_VERSION );
+			if( ! empty( $theme_info ) ){
+				echo "\n" . "<meta name='generator' content='' />" . "\n";
+			}
+		}
+	}
+
+
+	/**
+	 * If the post doesn't have a Primary Category, use the Primary Category of Yoast if it is available
+	 */
+	function yoast_seo_primary_category( $category = false ){
+
+		if( class_exists( 'WPSEO_Meta' ) ){
+
+			$wpseo_primary_term = get_post_meta( get_the_id(), WPSEO_Meta::$meta_prefix . 'primary_category', true );
+
+			if( ! empty( $wpseo_primary_term ) ){
+				$get_the_category = TIELABS_WP_HELPER::get_term_by( 'id', $wpseo_primary_term, 'category' );
+
+				if ( ! empty( $get_the_category ) && ! is_wp_error( $get_the_category ) ) {
+					return $get_the_category;
+				}
+			}
+		}
+
+		return false;
+	}
+
+
+	/**
+	 * Always return true, If there is a default featured image
+	 */
+	function has_post_thumbnail( $has_thumbnail ) {
+
+		if( tie_get_option( 'default_featured_image' ) && tie_get_option( 'default_featured_image_id' ) ){
+			$has_thumbnail = true;
+		}
+
+		return $has_thumbnail;
+	}
+
+
+	/**
+	 * Set a default featured image if it is missing
+	 */
+	function default_featured_image( $html, $post_id, $post_thumbnail_id, $size, $attr ) {
+
+		// Return if the post has a featured image
+		if( ! empty( $html ) ){
+			return $html;
+		}
+
+		// Check if the default eatured image option is active
+		if( ! tie_get_option( 'default_featured_image' ) || ! tie_get_option( 'default_featured_image_id' ) ){
+			return $html;
+		}
+
+		$default_thumbnail_id = tie_get_option( 'default_featured_image_id' ); // select the default thumb.
+
+		return wp_get_attachment_image( $default_thumbnail_id, $size, false, $attr );
+	}
+
+
+	/**
+	 * Translate numbers
+	 */
+	function translate_numbers( $the_number ) {
+
+		if( ! ( is_admin() && ! wp_doing_ajax() ) ) {
+
+			$translated_numbers = tie_get_option( 'translation_numbers' );
+
+			if( ! empty( $translated_numbers ) && is_array( $translated_numbers ) && count( $translated_numbers ) == 10 ){
+
+				$original_numbers = array( '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' );
+				return str_replace( $original_numbers, $translated_numbers, $the_number );
+			}
+		}
+
+		return $the_number;
+	}
+
+}
+
+// Single instance.
+$TIELABS_FILTERS = new TIELABS_FILTERS();/**
+ * Taqyeem Class
+ *
+ */
+
+defined( 'ABSPATH' ) || exit; // Exit if accessed directly
+
+
+
+if( ! class_exists( 'TIELABS_TAQYEEM' ) ) {
+
+	class TIELABS_TAQYEEM{
+
+		/**
+		 * __construct
+		 *
+		 * Class constructor where we will call our filter and action hooks.
+		 */
+		function __construct(){
+
+			// Disable if the Taqyeem plugin is not active
+			if( ! TIELABS_TAQYEEM_IS_ACTIVE ){
+				return;
+			}
+
+			// Disable the Custom Styles and Typofraphy options
+			add_filter( 'taqyeem_custom_styles', '__return_false' );
+
+			// Disable Updater and Verification
+			add_filter( 'Taqyeem/Updater/disable',      '__return_true' );
+			add_filter( 'Taqyeem/Verification/disable', '__return_true' );
+
+			// Disable the plugin Rich Snippets
+			add_filter( 'tie_taqyeem_rich_snippets', '__return_false' );
+
+			// Remove Shortcodes code and Keep the content
+			add_filter( 'taqyeem_exclude_content', 'TIELABS_HELPER::strip_shortcodes' );
+
+			// Dequeue Scripts and Styles
+			add_filter( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ), 50 );
+
+			// Dequeue Scripts and Styles
+			add_filter( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ), 50 );
+
+			// Change the reviews head box class
+			add_filter( 'taqyeem_reviews_head_classes', array( $this, 'review_head_class' ) );
+
+			// Alter the Queries
+			add_filter( 'TieLabs/Query/args', array( $this, 'best_reviews_query' ), 10, 2 );
+
+			// Alter the Related Posts Query
+			add_filter( 'TieLabs/related_posts_query', array( $this, 'related_posts_query' ) );
+
+			// Alter the Check Also box Query
+			add_filter( 'TieLabs/checkalso_query', array( $this, 'checkalso_query' ) );
+
+			// Default Widgets Posts Thumb Size
+			add_filter( 'tie_taqyeem_widget_thumb_size', array( $this, 'reviews_thumb_size' ) );
+
+			// Allow the Rview Rich Snippet on Pages
+			add_filter( 'TieLabs/is_page_rich_snippet', array( $this, 'rich_snippet_for_page' ) );
+
+			// Change the Review Rich Snippet
+			add_filter( 'TieLabs/rich_snippet_schema', array( $this, 'review_rich_snippet' ) );
+
+			// Add Best Reviews to the post order option menu.
+			add_filter( 'TieLabs/Options/Related/post_order_args',   array( $this, 'posts_order_args' ) );
+			add_filter( 'TieLabs/Options/Checkalso/post_order_args', array( $this, 'posts_order_args' ) );
+			add_filter( 'TieLabs/Builder/Block/post_order_args',     array( $this, 'posts_order_args' ) );
+			add_filter( 'TieLabs/Settings/Category/posts_order',     array( $this, 'posts_order_args' ) );
+			add_filter( 'TieLabs/Widget/Slider/post_order_args',     array( $this, 'posts_order_args' ) );
+			add_filter( 'TieLabs/Widget/Posts/post_order_args',      array( $this, 'posts_order_args_2' ) );
+
+			// Prevent Taqyeem from displaying the review box in the content block in the builder
+			add_action( 'TieLabs/Builder/before', array( $this, 'remove_review_block' ) );
+
+			// Replace the old icon classes with the new classes of Font Awesome 5.0
+			add_filter( 'taqyeem_buttons_icon',  array( $this, 'replace_icon_fa5' ) );
+		}
+
+
+		/**
+		 * Allow the Rview Rich Snippet on Pages
+		 */
+		function rich_snippet_for_page(){
+
+			if( tie_get_postdata( 'taq_review_position' ) ){
+				return true;
+			}
+		}
+
+
+		/**
+		 * Change the Review Rich Snippet
+		 */
+		function review_rich_snippet( $schema ){
+
+			// Check if the Taqyeem Structured Data is active, current post has review and the Taqyeem version is >= 2.3.0
+			if( ! taqyeem_get_option( 'structured_data' ) || ! tie_get_postdata( 'taq_review_position' ) || ! function_exists( 'taqyeem_review_get_rich_snippet' ) ){
+				return $schema;
+			}
+
+			// Unset some data
+			unset( $schema['articleBody'] );
+			unset( $schema['articleSection'] );
+
+			// Get the Review structure data
+			$review_rich_snippet = taqyeem_review_get_rich_snippet();
+
+			if( $review_rich_snippet['@type'] == 'product' ){
+				$schema = $review_rich_snippet;
+			}
+			else{
+				// Add the data to the post structure data
+				$schema['@type']        = 'review';
+				$schema['itemReviewed'] = $review_rich_snippet['itemReviewed'];
+				$schema['reviewBody']   = $review_rich_snippet['reviewBody'];
+				$schema['reviewRating'] = $review_rich_snippet['reviewRating'];
+			}
+
+			// return the modefied data
+			return $schema;
+		}
+
+
+		/**
+		 * Change the reviews head box class
+		 */
+		function review_head_class( $class ){
+			return tie_get_box_class( $class );
+		}
+
+
+		/**
+		 * Alter the query for the best reviews
+		 */
+		function best_reviews_query( $args, $block ){
+
+			if( ! empty( $block['order'] ) && $block['order'] == 'best' ){
+				$args['orderby']  = 'meta_value_num';
+				$args['meta_key'] = 'taq_review_score';
+			}
+
+			return $args;
+		}
+
+
+		/**
+		 * Alter the Related Posts Query
+		 */
+		function related_posts_query( $args ){
+
+			if( tie_get_option( 'related_order' ) == 'best' ){
+				$args['orderby']  = 'meta_value_num';
+				$args['meta_key'] = 'taq_review_score';
+			}
+
+			return $args;
+		}
+
+
+		/**
+		 * Alter the Check Also Query
+		 */
+		function checkalso_query( $args ){
+
+			if( tie_get_option( 'check_also_order' ) == 'best' ){
+				$args['orderby']  = 'meta_value_num';
+				$args['meta_key'] = 'taq_review_score';
+			}
+
+			return $args;
+		}
+
+
+		/**
+		 * Add Best Reviews to the post order option menu.
+		 */
+		function posts_order_args( $args ){
+
+			$args['best'] = esc_html__( 'Best Reviews', TIELABS_TEXTDOMAIN );
+
+			return $args;
+		}
+
+
+		/**
+		 * Add Best Reviews to the post order option menu.
+		 */
+		function posts_order_args_2( $args ){
+
+			$args['standard']['best'] = esc_html__( 'Best Reviews', TIELABS_TEXTDOMAIN );
+
+			return $args;
+		}
+
+
+		/**
+		 * Default Widgets Posts Thumb Size
+		 */
+		function reviews_thumb_size(){
+			return TIELABS_THEME_SLUG.'-image-small';
+		}
+
+
+		/**
+		 * Prevent Taqyeem from displaying the review box in the content block in the builder
+		 */
+		function remove_review_block(){
+			remove_filter( 'the_content', 'taqyeem_insert_review' );
+		}
+
+
+		/**
+		 * Dequeue Scripts and Styles
+		 */
+		function enqueue_scripts(){
+
+			wp_dequeue_script( 'taqyeem-main' );
+			wp_dequeue_style( 'taqyeem-style' );
+
+			wp_enqueue_style( 'taqyeem-styles', TIELABS_TEMPLATE_URL.'/assets/css/plugins/taqyeem'. TIELABS_STYLES::is_minified() .'.css', array(), TIELABS_DB_VERSION, 'all' );
+
+			if( ! is_admin() ){
+				wp_dequeue_style( 'taqyeem-fontawesome' );
+			}
+		}
+
+
+		/**
+		 * Dequeue Scripts and Styles from admin
+		 */
+		function admin_enqueue_scripts(){
+
+			// Don't Load the main Font Awesome file of the theme in the add/edit posts screens, avoid issue with Taqyeem Button which uses v4.0
+			if( function_exists( 'tie_taqyeem_button_output' ) && get_post_type() ){
+
+				wp_dequeue_style( 'tie-fontawesome' );
+			}
+		}
+
+
+		/**
+		 * Replace the old icon classes with the new classes of Font Awesome 5.0
+		 */
+		function replace_icon_fa5( $icon ){
+			return tie_fa4_to_fa5_value_migration( $icon );
+		}
+
+
+	}
+
+
+	// Instantiate the class
+	new TIELABS_TAQYEEM();
+}<!DOCTYPE html><html lang="en-US" class="" data-skin="light"><head><script data-no-optimize="1">var litespeed_docref=sessionStorage.getItem("litespeed_docref");litespeed_docref&&(Object.defineProperty(document,"referrer",{get:function(){return litespeed_docref}}),sessionStorage.removeItem("litespeed_docref"));</script> </script> <script type="litespeed/javascript" data-src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3887849087500556"
+     crossorigin="anonymous"></script> <meta charset="UTF-8" /><link rel="profile" href="http://gmpg.org/xfn/11" /> <script type="litespeed/javascript">try{if("undefined"!=typeof localStorage){var tieSkin=localStorage.getItem("tie-skin"),html=document.getElementsByTagName("html")[0].classList,htmlSkin="light";if(html.contains("dark-skin")&&(htmlSkin="dark"),null!=tieSkin&&tieSkin!=htmlSkin){html.add("tie-skin-inverted");var tieSkinInverted=!0}"dark"==tieSkin?html.add("dark-skin"):"light"==tieSkin&&html.remove("dark-skin")}}catch(t){console.log(t)}</script> <title>Page not found &#8211; Baghdad Time</title><meta name='robots' content='max-image-preview:large' /><style id='wp-img-auto-sizes-contain-inline-css' type='text/css'>img:is([sizes=auto i],[sizes^="auto," i]){contain-intrinsic-size:3000px 1500px}
+/*# sourceURL=wp-img-auto-sizes-contain-inline-css */</style><link data-optimized="2" rel="stylesheet" href="https://baghdadtime.com/wp-content/litespeed/css/b8146cb6b5d33adbbd4c25a82a9a7e8c.css?ver=79e6e" /><style id='classic-theme-styles-inline-css' type='text/css'>/*! This file is auto-generated */
+.wp-block-button__link{color:#fff;background-color:#32373c;border-radius:9999px;box-shadow:none;text-decoration:none;padding:calc(.667em + 2px) calc(1.333em + 2px);font-size:1.125em}.wp-block-file__button{background:#32373c;color:#fff;text-decoration:none}
+/*# sourceURL=/wp-includes/css/classic-themes.min.css */</style><style id='global-styles-inline-css' type='text/css'>:root{--wp--preset--aspect-ratio--square: 1;--wp--preset--aspect-ratio--4-3: 4/3;--wp--preset--aspect-ratio--3-4: 3/4;--wp--preset--aspect-ratio--3-2: 3/2;--wp--preset--aspect-ratio--2-3: 2/3;--wp--preset--aspect-ratio--16-9: 16/9;--wp--preset--aspect-ratio--9-16: 9/16;--wp--preset--color--black: #000000;--wp--preset--color--cyan-bluish-gray: #abb8c3;--wp--preset--color--white: #ffffff;--wp--preset--color--pale-pink: #f78da7;--wp--preset--color--vivid-red: #cf2e2e;--wp--preset--color--luminous-vivid-orange: #ff6900;--wp--preset--color--luminous-vivid-amber: #fcb900;--wp--preset--color--light-green-cyan: #7bdcb5;--wp--preset--color--vivid-green-cyan: #00d084;--wp--preset--color--pale-cyan-blue: #8ed1fc;--wp--preset--color--vivid-cyan-blue: #0693e3;--wp--preset--color--vivid-purple: #9b51e0;--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple: linear-gradient(135deg,rgb(6,147,227) 0%,rgb(155,81,224) 100%);--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan: linear-gradient(135deg,rgb(122,220,180) 0%,rgb(0,208,130) 100%);--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange: linear-gradient(135deg,rgb(252,185,0) 0%,rgb(255,105,0) 100%);--wp--preset--gradient--luminous-vivid-orange-to-vivid-red: linear-gradient(135deg,rgb(255,105,0) 0%,rgb(207,46,46) 100%);--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray: linear-gradient(135deg,rgb(238,238,238) 0%,rgb(169,184,195) 100%);--wp--preset--gradient--cool-to-warm-spectrum: linear-gradient(135deg,rgb(74,234,220) 0%,rgb(151,120,209) 20%,rgb(207,42,186) 40%,rgb(238,44,130) 60%,rgb(251,105,98) 80%,rgb(254,248,76) 100%);--wp--preset--gradient--blush-light-purple: linear-gradient(135deg,rgb(255,206,236) 0%,rgb(152,150,240) 100%);--wp--preset--gradient--blush-bordeaux: linear-gradient(135deg,rgb(254,205,165) 0%,rgb(254,45,45) 50%,rgb(107,0,62) 100%);--wp--preset--gradient--luminous-dusk: linear-gradient(135deg,rgb(255,203,112) 0%,rgb(199,81,192) 50%,rgb(65,88,208) 100%);--wp--preset--gradient--pale-ocean: linear-gradient(135deg,rgb(255,245,203) 0%,rgb(182,227,212) 50%,rgb(51,167,181) 100%);--wp--preset--gradient--electric-grass: linear-gradient(135deg,rgb(202,248,128) 0%,rgb(113,206,126) 100%);--wp--preset--gradient--midnight: linear-gradient(135deg,rgb(2,3,129) 0%,rgb(40,116,252) 100%);--wp--preset--font-size--small: 13px;--wp--preset--font-size--medium: 20px;--wp--preset--font-size--large: 36px;--wp--preset--font-size--x-large: 42px;--wp--preset--spacing--20: 0.44rem;--wp--preset--spacing--30: 0.67rem;--wp--preset--spacing--40: 1rem;--wp--preset--spacing--50: 1.5rem;--wp--preset--spacing--60: 2.25rem;--wp--preset--spacing--70: 3.38rem;--wp--preset--spacing--80: 5.06rem;--wp--preset--shadow--natural: 6px 6px 9px rgba(0, 0, 0, 0.2);--wp--preset--shadow--deep: 12px 12px 50px rgba(0, 0, 0, 0.4);--wp--preset--shadow--sharp: 6px 6px 0px rgba(0, 0, 0, 0.2);--wp--preset--shadow--outlined: 6px 6px 0px -3px rgb(255, 255, 255), 6px 6px rgb(0, 0, 0);--wp--preset--shadow--crisp: 6px 6px 0px rgb(0, 0, 0);}:where(.is-layout-flex){gap: 0.5em;}:where(.is-layout-grid){gap: 0.5em;}body .is-layout-flex{display: flex;}.is-layout-flex{flex-wrap: wrap;align-items: center;}.is-layout-flex > :is(*, div){margin: 0;}body .is-layout-grid{display: grid;}.is-layout-grid > :is(*, div){margin: 0;}:where(.wp-block-columns.is-layout-flex){gap: 2em;}:where(.wp-block-columns.is-layout-grid){gap: 2em;}:where(.wp-block-post-template.is-layout-flex){gap: 1.25em;}:where(.wp-block-post-template.is-layout-grid){gap: 1.25em;}.has-black-color{color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-color{color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-color{color: var(--wp--preset--color--white) !important;}.has-pale-pink-color{color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-color{color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-color{color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-color{color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-color{color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-color{color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-color{color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-color{color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-color{color: var(--wp--preset--color--vivid-purple) !important;}.has-black-background-color{background-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-background-color{background-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-background-color{background-color: var(--wp--preset--color--white) !important;}.has-pale-pink-background-color{background-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-background-color{background-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-background-color{background-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-background-color{background-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-background-color{background-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-background-color{background-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-background-color{background-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-background-color{background-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-background-color{background-color: var(--wp--preset--color--vivid-purple) !important;}.has-black-border-color{border-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-border-color{border-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-border-color{border-color: var(--wp--preset--color--white) !important;}.has-pale-pink-border-color{border-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-border-color{border-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-border-color{border-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-border-color{border-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-border-color{border-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-border-color{border-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-border-color{border-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-border-color{border-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-border-color{border-color: var(--wp--preset--color--vivid-purple) !important;}.has-vivid-cyan-blue-to-vivid-purple-gradient-background{background: var(--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple) !important;}.has-light-green-cyan-to-vivid-green-cyan-gradient-background{background: var(--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan) !important;}.has-luminous-vivid-amber-to-luminous-vivid-orange-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange) !important;}.has-luminous-vivid-orange-to-vivid-red-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-orange-to-vivid-red) !important;}.has-very-light-gray-to-cyan-bluish-gray-gradient-background{background: var(--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray) !important;}.has-cool-to-warm-spectrum-gradient-background{background: var(--wp--preset--gradient--cool-to-warm-spectrum) !important;}.has-blush-light-purple-gradient-background{background: var(--wp--preset--gradient--blush-light-purple) !important;}.has-blush-bordeaux-gradient-background{background: var(--wp--preset--gradient--blush-bordeaux) !important;}.has-luminous-dusk-gradient-background{background: var(--wp--preset--gradient--luminous-dusk) !important;}.has-pale-ocean-gradient-background{background: var(--wp--preset--gradient--pale-ocean) !important;}.has-electric-grass-gradient-background{background: var(--wp--preset--gradient--electric-grass) !important;}.has-midnight-gradient-background{background: var(--wp--preset--gradient--midnight) !important;}.has-small-font-size{font-size: var(--wp--preset--font-size--small) !important;}.has-medium-font-size{font-size: var(--wp--preset--font-size--medium) !important;}.has-large-font-size{font-size: var(--wp--preset--font-size--large) !important;}.has-x-large-font-size{font-size: var(--wp--preset--font-size--x-large) !important;}
+/*# sourceURL=global-styles-inline-css */</style><style id='tie-css-ilightbox-inline-css' type='text/css'>.wf-active .logo-text,.wf-active h1,.wf-active h2,.wf-active h3,.wf-active h4,.wf-active h5,.wf-active h6,.wf-active .the-subtitle{font-family: 'Poppins';}#main-nav .main-menu > ul > li > a{text-transform: uppercase;}.tie-cat-45,.tie-cat-item-45 > span{background-color:#e67e22 !important;color:#FFFFFF !important;}.tie-cat-45:after{border-top-color:#e67e22 !important;}.tie-cat-45:hover{background-color:#c86004 !important;}.tie-cat-45:hover:after{border-top-color:#c86004 !important;}.tie-cat-46,.tie-cat-item-46 > span{background-color:#2ecc71 !important;color:#FFFFFF !important;}.tie-cat-46:after{border-top-color:#2ecc71 !important;}.tie-cat-46:hover{background-color:#10ae53 !important;}.tie-cat-46:hover:after{border-top-color:#10ae53 !important;}.tie-cat-47,.tie-cat-item-47 > span{background-color:#9b59b6 !important;color:#FFFFFF !important;}.tie-cat-47:after{border-top-color:#9b59b6 !important;}.tie-cat-47:hover{background-color:#7d3b98 !important;}.tie-cat-47:hover:after{border-top-color:#7d3b98 !important;}.tie-cat-48,.tie-cat-item-48 > span{background-color:#34495e !important;color:#FFFFFF !important;}.tie-cat-48:after{border-top-color:#34495e !important;}.tie-cat-48:hover{background-color:#162b40 !important;}.tie-cat-48:hover:after{border-top-color:#162b40 !important;}.tie-cat-49,.tie-cat-item-49 > span{background-color:#795548 !important;color:#FFFFFF !important;}.tie-cat-49:after{border-top-color:#795548 !important;}.tie-cat-49:hover{background-color:#5b372a !important;}.tie-cat-49:hover:after{border-top-color:#5b372a !important;}.tie-cat-50,.tie-cat-item-50 > span{background-color:#4CAF50 !important;color:#FFFFFF !important;}.tie-cat-50:after{border-top-color:#4CAF50 !important;}.tie-cat-50:hover{background-color:#2e9132 !important;}.tie-cat-50:hover:after{border-top-color:#2e9132 !important;}@media (max-width: 991px){.side-aside.dark-skin{background: #2f88d6;background: -webkit-linear-gradient(135deg,#5933a2,#2f88d6 );background: -moz-linear-gradient(135deg,#5933a2,#2f88d6 );background: -o-linear-gradient(135deg,#5933a2,#2f88d6 );background: linear-gradient(135deg,#2f88d6,#5933a2 );}}
+/*# sourceURL=tie-css-ilightbox-inline-css */</style> <script type="litespeed/javascript" data-src="https://baghdadtime.com/wp-includes/js/jquery/jquery.min.js" id="jquery-core-js"></script> <link rel="https://api.w.org/" href="https://baghdadtime.com/wp-json/" /><meta name="theme-color" content="#0088ff" /><meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="icon" href="https://baghdadtime.com/wp-content/uploads/2021/04/cropped-125X125-32x32.png" sizes="32x32" /><link rel="icon" href="https://baghdadtime.com/wp-content/uploads/2021/04/cropped-125X125-192x192.png" sizes="192x192" /><link rel="apple-touch-icon" href="https://baghdadtime.com/wp-content/uploads/2021/04/cropped-125X125-180x180.png" /><meta name="msapplication-TileImage" content="https://baghdadtime.com/wp-content/uploads/2021/04/cropped-125X125-270x270.png" /></head><body id="tie-body" class="error404 wp-theme-jannah wrapper-has-shadow block-head-1 magazine1 is-thumb-overlay-disabled is-desktop is-header-layout-3 has-header-ad full-width hide_share_post_top hide_share_post_bottom hide_post_authorbio"><div class="background-overlay"><div id="tie-container" class="site tie-container"><div id="tie-wrapper"><header id="theme-header" class="theme-header header-layout-3 main-nav-dark main-nav-default-dark main-nav-below main-nav-boxed has-stream-item top-nav-active top-nav-light top-nav-default-light top-nav-above has-shadow has-normal-width-logo has-custom-sticky-logo mobile-header-default"><nav id="top-nav"  class="has-date-breaking-components top-nav header-nav has-breaking-news" aria-label="Secondary Navigation"><div class="container"><div class="topbar-wrapper"><div class="topbar-today-date tie-icon">
+Friday, February 27 2026</div><div class="tie-alignleft">
+/**
+* Breaking News
+*
+* This template can be overridden by copying it to your-child-theme/templates/breaking-news.php.
+*
+* HOWEVER, on occasion TieLabs will need to update template files and you
+* will need to copy the new files to your child theme to maintain compatibility.
+*
+* @author   TieLabs
+* @version  4.0.4
+*/defined( 'ABSPATH' ) || exit; // Exit if accessed directly// Check if the breaking news is hidden on mobiles
+if( $type == 'header' && TIELABS_HELPER::is_mobile_and_hidden( 'breaking_news' ) ){
+return;
+}// Cache field key
+$cache_key = apply_filters( 'TieLabs/cache_key', '' );// Classes and attr.
+$breaking_attr  = array();
+$breaking_class = array( 'breaking' );// Effect type.
+$breaking_effect = ! empty( $breaking_effect ) ? $breaking_effect : 'flipY';$breaking_attr[] = 'data-type="'. $breaking_effect .'"';if( $breaking_effect == 'slideUp' || $breaking_effect == 'slideDown' ){
+$breaking_class[] = 'up-down-controls';
+}// Breaking News arrows.
+if( ! empty( $breaking_arrows ) ){
+$breaking_attr[]  = 'data-arrows="true"';
+$breaking_class[] = 'controls-is-active';
+}if( ! empty( $breaking_speed ) ){
+$breaking_attr[]  = 'data-speed="'. $breaking_speed .'"';
+}$breaking_class = join( ' ', array_filter( apply_filters( 'TieLabs/Breaking_news/class', $breaking_class ) ) );
+$breaking_attr  = join( ' ', array_filter( apply_filters( 'TieLabs/Breaking_news/attr',  $breaking_attr  ) ) );// Enqueue the breaking news Js files
+if( $breaking_effect == 'slideRight' || $breaking_effect == 'slideLeft' || $breaking_effect == 'slideUp' || $breaking_effect == 'slideDown' ){
+wp_enqueue_script( 'tie-js-velocity' );
+}wp_enqueue_script( 'tie-js-breaking' );?><div class=""><span class="breaking-title">
+<span class="tie-icon-bolt breaking-icon" aria-hidden="true"></span>
+<span class="breaking-title-text">Breaking News</span>
+</span><ul id="breaking-news-in-header" class="breaking-news" ><li class="news-item">
+<a href="https://baghdadtime.com/ruby-token-the-next-big-opportunity-for-50x-returns-on-pinksale/">RUBY TOKEN: The Next Big Opportunity for 50X Returns on PinkSale</a></li><li class="news-item">
+<a href="https://baghdadtime.com/how-much-does-paramount-plus-cost/">How Much Does Paramount Plus Cost?</a></li><li class="news-item">
+<a href="https://baghdadtime.com/how-to-find-the-best-umbrella-insurance/">How to Find the Best Umbrella Insurance</a></li><li class="news-item">
+<a href="https://baghdadtime.com/what-is-a-mortgage-broker-4-questions-to-ask-before-using-one/">What Is a Mortgage Broker? 4 Questions to Ask Before Using One</a></li><li class="news-item">
+<a href="https://baghdadtime.com/what-is-a-disability-income-rider-in-life-insurance/">What Is a Disability Income Rider in Life Insurance?</a></li><li class="news-item">
+<a href="https://baghdadtime.com/how-to-join-a-credit-union-in-5-steps/">How to Join a Credit Union in 5 Steps</a></li><li class="news-item">
+<a href="https://baghdadtime.com/how-children-of-veterans-can-go-to-college-for-free/">How Children of Veterans Can Go to College for Free</a></li><li class="news-item">
+<a href="https://baghdadtime.com/what-the-big-realtors-settlement-means-for-home-buyers-and-sellers/">What the Big Realtors Settlement Means for Home Buyers and Sellers</a></li><li class="news-item">
+<a href="https://baghdadtime.com/what-is-credit-cycling-and-should-you-do-it/">What Is Credit Cycling, and Should You Do It?</a></li><li class="news-item">
+<a href="https://baghdadtime.com/5-things-to-know-about-the-zales-credit-card/">5 Things to Know About the Zales Credit Card</a></li></ul></div></div><div class="tie-alignright"><ul class="components"><li class="side-aside-nav-icon menu-item custom-menu-link">
+<a href="#">
+<span class="tie-icon-navicon" aria-hidden="true"></span>
+<span class="screen-reader-text">Sidebar</span>
+</a></li><li class="random-post-icon menu-item custom-menu-link">
+<a href="/app-ads.txt?random-post=1" class="random-post" title="Random Article" rel="nofollow">
+<span class="tie-icon-random" aria-hidden="true"></span>
+<span class="screen-reader-text">Random Article</span>
+</a></li><li class="social-icons-item"><a class="social-link instagram-social-icon" rel="external noopener nofollow" target="_blank" href="#"><span class="tie-social-icon tie-icon-instagram"></span><span class="screen-reader-text">Instagram</span></a></li><li class="social-icons-item"><a class="social-link youtube-social-icon" rel="external noopener nofollow" target="_blank" href="#"><span class="tie-social-icon tie-icon-youtube"></span><span class="screen-reader-text">YouTube</span></a></li><li class="social-icons-item"><a class="social-link twitter-social-icon" rel="external noopener nofollow" target="_blank" href="https://twitter.com/NewsFeedHub"><span class="tie-social-icon tie-icon-twitter"></span><span class="screen-reader-text">Twitter</span></a></li><li class="social-icons-item"><a class="social-link facebook-social-icon" rel="external noopener nofollow" target="_blank" href="https://facebook.com/NewsFeedHubCom"><span class="tie-social-icon tie-icon-facebook"></span><span class="screen-reader-text">Facebook</span></a></li></ul></div></div></div></nav><div class="container header-container"><div class="tie-row logo-row"><div class="logo-wrapper"><div class="tie-col-md-4 logo-container clearfix"><div id="logo" class="image-logo" >
+<a title="Baghdad Time" href="https://baghdadtime.com/">
+<picture id="tie-logo-default" class="tie-logo-default tie-logo-picture">
+<source class="tie-logo-source-default tie-logo-source" srcset="https://baghdadtime.com/wp-content/uploads/2021/04/Fichier-11.png">
+<img data-lazyloaded="1" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMTMiIGhlaWdodD0iNzAiIHZpZXdCb3g9IjAgMCAzMTMgNzAiPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9IiNjZmQ0ZGIiLz48L3N2Zz4=" class="tie-logo-img-default tie-logo-img" data-src="https://baghdadtime.com/wp-content/uploads/2021/04/Fichier-11.png" alt="Baghdad Time" width="313" height="70" style="max-height:70px; width: auto;" />
+</picture>
+<picture id="tie-logo-inverted" class="tie-logo-inverted tie-logo-picture">
+<source class="tie-logo-source-inverted tie-logo-source" id="tie-logo-inverted-source" srcset="https://baghdadtime.com/wp-content/uploads/2021/04/Fichier-10.png">
+<img data-lazyloaded="1" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMTMiIGhlaWdodD0iNzAiIHZpZXdCb3g9IjAgMCAzMTMgNzAiPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9IiNjZmQ0ZGIiLz48L3N2Zz4=" class="tie-logo-img-inverted tie-logo-img" id="tie-logo-inverted-img" data-src="https://baghdadtime.com/wp-content/uploads/2021/04/Fichier-10.png" alt="Baghdad Time" width="313" height="70" style="max-height:70px; width: auto;" />
+</picture>
+</a></div></div></div><div class="tie-col-md-8 stream-item stream-item-top-wrapper"><div class="stream-item-top"><script type="litespeed/javascript" data-src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3887849087500556"
+     crossorigin="anonymous"></script> 
+<ins class="adsbygoogle"
+style="display:block"
+data-ad-client="ca-pub-3887849087500556"
+data-ad-slot="7268318294"
+data-ad-format="auto"
+data-full-width-responsive="true"></ins> <script type="litespeed/javascript">(adsbygoogle=window.adsbygoogle||[]).push({})</script></div></div></div></div><div class="main-nav-wrapper"><nav id="main-nav" data-skin="search-in-main-nav" class="main-nav header-nav live-search-parent"  aria-label="Primary Navigation"><div class="container"><div class="main-menu-wrapper"><div id="menu-components-wrap"><div id="sticky-logo" class="image-logo">
+<a title="Baghdad Time" href="https://baghdadtime.com/">
+<picture class="tie-logo-default tie-logo-picture">
+<source class="tie-logo-source-default tie-logo-source" srcset="https://baghdadtime.com/wp-content/uploads/2021/04/Fichier-10.png 2x, https://baghdadtime.com/wp-content/uploads/2021/04/Fichier-11-1.png 1x">
+<img data-lazyloaded="1" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMTMiIGhlaWdodD0iNzAiIHZpZXdCb3g9IjAgMCAzMTMgNzAiPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9IiNjZmQ0ZGIiLz48L3N2Zz4=" width="313" height="70" class="tie-logo-img-default tie-logo-img" data-src="https://baghdadtime.com/wp-content/uploads/2021/04/Fichier-11-1.png" alt="Baghdad Time" style="max-height:49px; width: auto;" />
+</picture>
+</a></div><div class="flex-placeholder"></div><div class="main-menu main-menu-wrap tie-alignleft"><div id="main-nav-menu" class="main-menu header-menu"><ul id="menu-main-menu" class="menu" role="menubar"><li id="menu-item-1457" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home menu-item-1457"><a href="https://baghdadtime.com/">Home</a></li><li id="menu-item-1445" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-1445"><a href="https://baghdadtime.com/category/finance/cryptocurrency/">Cryptocurrency</a></li><li id="menu-item-1446" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-1446"><a href="https://baghdadtime.com/category/finance/economy/">Economy</a></li><li id="menu-item-1447" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-1447"><a href="https://baghdadtime.com/category/finance/">Finance</a></li><li id="menu-item-1448" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-1448"><a href="https://baghdadtime.com/category/business/">Business</a></li><li id="menu-item-1449" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-1449"><a href="https://baghdadtime.com/category/business/successstores/">Success Stories</a></li></ul></div></div><ul class="components"><li class="search-bar menu-item custom-menu-link" aria-label="Search"><form method="get" id="search" action="https://baghdadtime.com/">
+<input id="search-input" class="is-ajax-search"  inputmode="search" type="text" name="s" title="Search for" placeholder="Search for" />
+<button id="search-submit" type="submit">
+<span class="tie-icon-search tie-search-icon" aria-hidden="true"></span>
+<span class="screen-reader-text">Search for</span>
+</button></form></li><li class="skin-icon menu-item custom-menu-link">
+<a href="#" class="change-skin" title="Switch skin">
+<span class="tie-icon-moon change-skin-icon" aria-hidden="true"></span>
+<span class="screen-reader-text">Switch skin</span>
+</a></li></ul></div></div></div></nav></div></header> <script type="litespeed/javascript">try{if("undefined"!=typeof localStorage){var header,mnIsDark=!1,tnIsDark=!1;(header=document.getElementById("theme-header"))&&((header=header.classList).contains("main-nav-default-dark")&&(mnIsDark=!0),header.contains("top-nav-default-dark")&&(tnIsDark=!0),"dark"==tieSkin?(header.add("main-nav-dark","top-nav-dark"),header.remove("main-nav-light","top-nav-light")):"light"==tieSkin&&(mnIsDark||(header.remove("main-nav-dark"),header.add("main-nav-light")),tnIsDark||(header.remove("top-nav-dark"),header.add("top-nav-light"))))}}catch(a){console.log(a)}</script> <div id="content" class="site-content container"><div id="main-content-row" class="tie-row main-content-row"><div class="main-content tie-col-md-12" role="main"><div class="container-404">
+<img data-lazyloaded="1" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNTYwIiBoZWlnaHQ9IjE3MDciIHZpZXdCb3g9IjAgMCAyNTYwIDE3MDciPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9IiNjZmQ0ZGIiLz48L3N2Zz4=" width="2560" height="1707" class="img-404" data-src="https://baghdadtime.com/wp-content/uploads/2022/07/pexels-craig-adderley-1518754-scaled.jpg" alt="" /><h2>404 :(</h2><h3>Oops! That page can&rsquo;t be found.</h3></div></div></div></div><footer id="footer" class="site-footer dark-skin dark-widgetized-area"><div id="footer-widgets-container"><div class="container"><div class="footer-widget-area "><div class="tie-row"><div class="tie-col-md-3 normal-side"><div id="posts-list-widget-12" class="container-wrapper widget posts-list"><div class="widget-title the-global-title"><div class="the-subtitle">Most Viewed Posts<span class="widget-title-icon tie-icon"></span></div></div><div class="widget-posts-list-wrapper"><div class="widget-posts-list-container timeline-widget" ><ul class="posts-list-items widget-posts-wrapper"><li class="widget-single-post-item">
+<a href="https://baghdadtime.com/bill-gates-the-holy-story-of-the-3rd-richest-man-in-the-world/">
+<span class="date meta-item tie-icon">April 17, 2021</span><h3>Bill Gates : The Holy Story Of The 3RD Richest Man In The World</h3>
+</a></li><li class="widget-single-post-item">
+<a href="https://baghdadtime.com/gateway-citizenship/">
+<span class="date meta-item tie-icon">April 4, 2021</span><h3>Gateway Citizenship: One Of The Best Real Estate Company In Turkey</h3>
+</a></li><li class="widget-single-post-item">
+<a href="https://baghdadtime.com/bilal-haqjow-the-best-real-estate-broker-in-turkey/">
+<span class="date meta-item tie-icon">April 28, 2021</span><h3>Bilal Haqjow: The Best Real Estate Broker In Turkey</h3>
+</a></li></ul></div></div><div class="clearfix"></div></div><div id="categories-8" class="container-wrapper widget widget_categories"><div class="widget-title the-global-title"><div class="the-subtitle">Categories<span class="widget-title-icon tie-icon"></span></div></div><ul><li class="cat-item cat-item-28"><a href="https://baghdadtime.com/category/business/">Business</a> (758)<ul class='children'><li class="cat-item cat-item-24"><a href="https://baghdadtime.com/category/business/successstores/">Success Stories</a> (4)</li></ul></li><li class="cat-item cat-item-27"><a href="https://baghdadtime.com/category/finance/">Finance</a> (3,461)<ul class='children'><li class="cat-item cat-item-25"><a href="https://baghdadtime.com/category/finance/cryptocurrency/">Cryptocurrency</a> (2)</li><li class="cat-item cat-item-26"><a href="https://baghdadtime.com/category/finance/economy/">Economy</a> (5)</li></ul></li><li class="cat-item cat-item-1"><a href="https://baghdadtime.com/category/uncategorized/">Uncategorized</a> (1)</li></ul><div class="clearfix"></div></div></div><div class="tie-col-md-3 normal-side"><div id="posts-list-widget-13" class="container-wrapper widget posts-list"><div class="widget-title the-global-title"><div class="the-subtitle">Last Modified Posts<span class="widget-title-icon tie-icon"></span></div></div><div class="widget-posts-list-wrapper"><div class="widget-posts-list-container posts-pictures-widget" ><div class="tie-row widget-posts-wrapper"><div class="widget-single-post-item tie-col-xs-4 is-trending tie-standard">
+<a aria-label="RUBY TOKEN: The Next Big Opportunity for 50X Returns on PinkSale" href="https://baghdadtime.com/ruby-token-the-next-big-opportunity-for-50x-returns-on-pinksale/" class="post-thumb"><img data-lazyloaded="1" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzOTAiIGhlaWdodD0iMjIwIiB2aWV3Qm94PSIwIDAgMzkwIDIyMCI+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0iI2NmZDRkYiIvPjwvc3ZnPg==" width="390" height="220" data-src="https://baghdadtime.com/wp-content/uploads/2024/05/Ekran-goruntusu-2024-05-22-074502-390x220.png" class="attachment-jannah-image-large size-jannah-image-large wp-post-image" alt="" decoding="async" loading="lazy" /></a></div><div class="widget-single-post-item tie-col-xs-4">
+<a aria-label="How Much Does Paramount Plus Cost?" href="https://baghdadtime.com/how-much-does-paramount-plus-cost/" class="post-thumb"><img data-lazyloaded="1" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzOTAiIGhlaWdodD0iMjIwIiB2aWV3Qm94PSIwIDAgMzkwIDIyMCI+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0iI2NmZDRkYiIvPjwvc3ZnPg==" width="390" height="220" data-src="https://baghdadtime.com/wp-content/uploads/2024/04/GettyImages-2095964554-1440x864-390x220.jpg" class="attachment-jannah-image-large size-jannah-image-large wp-post-image" alt="" decoding="async" loading="lazy" /></a></div><div class="widget-single-post-item tie-col-xs-4">
+<a aria-label="How to Find the Best Umbrella Insurance" href="https://baghdadtime.com/how-to-find-the-best-umbrella-insurance/" class="post-thumb"><img data-lazyloaded="1" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzOTAiIGhlaWdodD0iMjIwIiB2aWV3Qm94PSIwIDAgMzkwIDIyMCI+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0iI2NmZDRkYiIvPjwvc3ZnPg==" width="390" height="220" data-src="https://baghdadtime.com/wp-content/uploads/2024/04/GettyImages-1156650366-1440x864-390x220.jpg" class="attachment-jannah-image-large size-jannah-image-large wp-post-image" alt="" decoding="async" loading="lazy" /></a></div><div class="widget-single-post-item tie-col-xs-4">
+<a aria-label="What Is a Mortgage Broker? 4 Questions to Ask Before Using One" href="https://baghdadtime.com/what-is-a-mortgage-broker-4-questions-to-ask-before-using-one/" class="post-thumb"><img data-lazyloaded="1" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzOTAiIGhlaWdodD0iMjIwIiB2aWV3Qm94PSIwIDAgMzkwIDIyMCI+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0iI2NmZDRkYiIvPjwvc3ZnPg==" width="390" height="220" data-src="https://baghdadtime.com/wp-content/uploads/2024/04/GettyImages-1218141687.jpg-working-with-mortgage-broker-1440x864-390x220.jpg" class="attachment-jannah-image-large size-jannah-image-large wp-post-image" alt="" decoding="async" loading="lazy" /></a></div><div class="widget-single-post-item tie-col-xs-4">
+<a aria-label="What Is a Disability Income Rider in Life Insurance?" href="https://baghdadtime.com/what-is-a-disability-income-rider-in-life-insurance/" class="post-thumb"><img data-lazyloaded="1" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzOTAiIGhlaWdodD0iMjIwIiB2aWV3Qm94PSIwIDAgMzkwIDIyMCI+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0iI2NmZDRkYiIvPjwvc3ZnPg==" width="390" height="220" data-src="https://baghdadtime.com/wp-content/uploads/2024/04/GettyImages-1331275455-1440x864-390x220.jpg" class="attachment-jannah-image-large size-jannah-image-large wp-post-image" alt="" decoding="async" loading="lazy" /></a></div><div class="widget-single-post-item tie-col-xs-4">
+<a aria-label="How to Join a Credit Union in 5 Steps" href="https://baghdadtime.com/how-to-join-a-credit-union-in-5-steps/" class="post-thumb"><img data-lazyloaded="1" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzOTAiIGhlaWdodD0iMjIwIiB2aWV3Qm94PSIwIDAgMzkwIDIyMCI+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0iI2NmZDRkYiIvPjwvc3ZnPg==" width="390" height="220" data-src="https://baghdadtime.com/wp-content/uploads/2024/03/GettyImages-1281341047-1440x864-390x220.jpg" class="attachment-jannah-image-large size-jannah-image-large wp-post-image" alt="" decoding="async" loading="lazy" /></a></div><div class="widget-single-post-item tie-col-xs-4">
+<a aria-label="How Children of Veterans Can Go to College for Free" href="https://baghdadtime.com/how-children-of-veterans-can-go-to-college-for-free/" class="post-thumb"><img data-lazyloaded="1" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzOTAiIGhlaWdodD0iMjIwIiB2aWV3Qm94PSIwIDAgMzkwIDIyMCI+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0iI2NmZDRkYiIvPjwvc3ZnPg==" width="390" height="220" data-src="https://baghdadtime.com/wp-content/uploads/2024/03/GettyImages-1339976262-1440x864-390x220.jpg" class="attachment-jannah-image-large size-jannah-image-large wp-post-image" alt="" decoding="async" loading="lazy" /></a></div><div class="widget-single-post-item tie-col-xs-4">
+<a aria-label="What the Big Realtors Settlement Means for Home Buyers and Sellers" href="https://baghdadtime.com/what-the-big-realtors-settlement-means-for-home-buyers-and-sellers/" class="post-thumb"><img data-lazyloaded="1" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzOTAiIGhlaWdodD0iMjIwIiB2aWV3Qm94PSIwIDAgMzkwIDIyMCI+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0iI2NmZDRkYiIvPjwvc3ZnPg==" width="390" height="220" data-src="https://baghdadtime.com/wp-content/uploads/2024/03/GettyImages-1144545540-1440x864-390x220.jpg" class="attachment-jannah-image-large size-jannah-image-large wp-post-image" alt="" decoding="async" loading="lazy" /></a></div><div class="widget-single-post-item tie-col-xs-4">
+<a aria-label="What Is Credit Cycling, and Should You Do It?" href="https://baghdadtime.com/what-is-credit-cycling-and-should-you-do-it/" class="post-thumb"><img data-lazyloaded="1" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzOTAiIGhlaWdodD0iMjIwIiB2aWV3Qm94PSIwIDAgMzkwIDIyMCI+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0iI2NmZDRkYiIvPjwvc3ZnPg==" width="390" height="220" data-src="https://baghdadtime.com/wp-content/uploads/2024/03/GettyImages-1809240875-1440x864-390x220.jpg" class="attachment-jannah-image-large size-jannah-image-large wp-post-image" alt="" decoding="async" loading="lazy" /></a></div></div></div></div><div class="clearfix"></div></div></div><div class="tie-col-md-3 normal-side"><div id="tag_cloud-3" class="container-wrapper widget widget_tag_cloud"><div class="widget-title the-global-title"><div class="the-subtitle">Tags<span class="widget-title-icon tie-icon"></span></div></div><div class="tagcloud"><a href="https://baghdadtime.com/tag/airlines/" class="tag-cloud-link tag-link-116 tag-link-position-1" style="font-size: 10.507462686567pt;" aria-label="Airlines (68 items)">Airlines</a>
+<a href="https://baghdadtime.com/tag/analysis/" class="tag-cloud-link tag-link-462 tag-link-position-2" style="font-size: 8pt;" aria-label="Analysis (52 items)">Analysis</a>
+<a href="https://baghdadtime.com/tag/baghdadtime/" class="tag-cloud-link tag-link-240 tag-link-position-3" style="font-size: 14.268656716418pt;" aria-label="BaghdadTime (104 items)">BaghdadTime</a>
+<a href="https://baghdadtime.com/tag/bank/" class="tag-cloud-link tag-link-179 tag-link-position-4" style="font-size: 12.179104477612pt;" aria-label="Bank (83 items)">Bank</a>
+<a href="https://baghdadtime.com/tag/bln/" class="tag-cloud-link tag-link-268 tag-link-position-5" style="font-size: 8.8358208955224pt;" aria-label="bln (56 items)">bln</a>
+<a href="https://baghdadtime.com/tag/business/" class="tag-cloud-link tag-link-3 tag-link-position-6" style="font-size: 19.492537313433pt;" aria-label="Business (187 items)">Business</a>
+<a href="https://baghdadtime.com/tag/buy/" class="tag-cloud-link tag-link-289 tag-link-position-7" style="font-size: 13.014925373134pt;" aria-label="buy (90 items)">buy</a>
+<a href="https://baghdadtime.com/tag/car/" class="tag-cloud-link tag-link-107 tag-link-position-8" style="font-size: 14.268656716418pt;" aria-label="car (104 items)">car</a>
+<a href="https://baghdadtime.com/tag/card/" class="tag-cloud-link tag-link-605 tag-link-position-9" style="font-size: 17.820895522388pt;" aria-label="Card (153 items)">Card</a>
+<a href="https://baghdadtime.com/tag/cards/" class="tag-cloud-link tag-link-325 tag-link-position-10" style="font-size: 11.55223880597pt;" aria-label="Cards (76 items)">Cards</a>
+<a href="https://baghdadtime.com/tag/cheap/" class="tag-cloud-link tag-link-217 tag-link-position-11" style="font-size: 8.4179104477612pt;" aria-label="Cheap (54 items)">Cheap</a>
+<a href="https://baghdadtime.com/tag/china/" class="tag-cloud-link tag-link-92 tag-link-position-12" style="font-size: 13.850746268657pt;" aria-label="China (99 items)">China</a>
+<a href="https://baghdadtime.com/tag/cons/" class="tag-cloud-link tag-link-1371 tag-link-position-13" style="font-size: 9.4626865671642pt;" aria-label="Cons (61 items)">Cons</a>
+<a href="https://baghdadtime.com/tag/credit/" class="tag-cloud-link tag-link-171 tag-link-position-14" style="font-size: 22pt;" aria-label="Credit (245 items)">Credit</a>
+<a href="https://baghdadtime.com/tag/debt/" class="tag-cloud-link tag-link-208 tag-link-position-15" style="font-size: 14.477611940299pt;" aria-label="Debt (106 items)">Debt</a>
+<a href="https://baghdadtime.com/tag/evergrande/" class="tag-cloud-link tag-link-699 tag-link-position-16" style="font-size: 10.298507462687pt;" aria-label="Evergrande (67 items)">Evergrande</a>
+<a href="https://baghdadtime.com/tag/exclusive/" class="tag-cloud-link tag-link-85 tag-link-position-17" style="font-size: 8pt;" aria-label="EXCLUSIVE (51 items)">EXCLUSIVE</a>
+<a href="https://baghdadtime.com/tag/free/" class="tag-cloud-link tag-link-230 tag-link-position-18" style="font-size: 8.6268656716418pt;" aria-label="Free (55 items)">Free</a>
+<a href="https://baghdadtime.com/tag/guide/" class="tag-cloud-link tag-link-582 tag-link-position-19" style="font-size: 14.686567164179pt;" aria-label="Guide (109 items)">Guide</a>
+<a href="https://baghdadtime.com/tag/home/" class="tag-cloud-link tag-link-155 tag-link-position-20" style="font-size: 11.761194029851pt;" aria-label="Home (78 items)">Home</a>
+<a href="https://baghdadtime.com/tag/house/" class="tag-cloud-link tag-link-412 tag-link-position-21" style="font-size: 8pt;" aria-label="House (51 items)">House</a>
+<a href="https://baghdadtime.com/tag/inflation/" class="tag-cloud-link tag-link-596 tag-link-position-22" style="font-size: 13.641791044776pt;" aria-label="inflation (96 items)">inflation</a>
+<a href="https://baghdadtime.com/tag/insurance/" class="tag-cloud-link tag-link-182 tag-link-position-23" style="font-size: 20.746268656716pt;" aria-label="Insurance (215 items)">Insurance</a>
+<a href="https://baghdadtime.com/tag/loan/" class="tag-cloud-link tag-link-193 tag-link-position-24" style="font-size: 14.059701492537pt;" aria-label="Loan (101 items)">Loan</a>
+<a href="https://baghdadtime.com/tag/loans/" class="tag-cloud-link tag-link-330 tag-link-position-25" style="font-size: 12.597014925373pt;" aria-label="Loans (86 items)">Loans</a>
+<a href="https://baghdadtime.com/tag/medicare/" class="tag-cloud-link tag-link-754 tag-link-position-26" style="font-size: 10.925373134328pt;" aria-label="Medicare (72 items)">Medicare</a>
+<a href="https://baghdadtime.com/tag/money/" class="tag-cloud-link tag-link-95 tag-link-position-27" style="font-size: 20.537313432836pt;" aria-label="money (207 items)">money</a>
+<a href="https://baghdadtime.com/tag/pay/" class="tag-cloud-link tag-link-142 tag-link-position-28" style="font-size: 14.268656716418pt;" aria-label="Pay (104 items)">Pay</a>
+<a href="https://baghdadtime.com/tag/plans/" class="tag-cloud-link tag-link-131 tag-link-position-29" style="font-size: 8.2089552238806pt;" aria-label="plans (53 items)">plans</a>
+<a href="https://baghdadtime.com/tag/podcast/" class="tag-cloud-link tag-link-574 tag-link-position-30" style="font-size: 9.4626865671642pt;" aria-label="Podcast (60 items)">Podcast</a>
+<a href="https://baghdadtime.com/tag/points/" class="tag-cloud-link tag-link-1043 tag-link-position-31" style="font-size: 11.55223880597pt;" aria-label="Points (76 items)">Points</a>
+<a href="https://baghdadtime.com/tag/prices/" class="tag-cloud-link tag-link-404 tag-link-position-32" style="font-size: 9.2537313432836pt;" aria-label="prices (59 items)">prices</a>
+<a href="https://baghdadtime.com/tag/pros/" class="tag-cloud-link tag-link-1370 tag-link-position-33" style="font-size: 9.6716417910448pt;" aria-label="Pros (62 items)">Pros</a>
+<a href="https://baghdadtime.com/tag/review/" class="tag-cloud-link tag-link-322 tag-link-position-34" style="font-size: 17.820895522388pt;" aria-label="Review (153 items)">Review</a>
+<a href="https://baghdadtime.com/tag/save/" class="tag-cloud-link tag-link-158 tag-link-position-35" style="font-size: 12.388059701493pt;" aria-label="Save (85 items)">Save</a>
+<a href="https://baghdadtime.com/tag/shares/" class="tag-cloud-link tag-link-308 tag-link-position-36" style="font-size: 8pt;" aria-label="shares (51 items)">shares</a>
+<a href="https://baghdadtime.com/tag/small/" class="tag-cloud-link tag-link-364 tag-link-position-37" style="font-size: 8pt;" aria-label="Small (51 items)">Small</a>
+<a href="https://baghdadtime.com/tag/smart/" class="tag-cloud-link tag-link-410 tag-link-position-38" style="font-size: 10.925373134328pt;" aria-label="smart (71 items)">smart</a>
+<a href="https://baghdadtime.com/tag/supply/" class="tag-cloud-link tag-link-401 tag-link-position-39" style="font-size: 8.6268656716418pt;" aria-label="supply (55 items)">supply</a>
+<a href="https://baghdadtime.com/tag/tax/" class="tag-cloud-link tag-link-423 tag-link-position-40" style="font-size: 10.298507462687pt;" aria-label="tax (66 items)">tax</a>
+<a href="https://baghdadtime.com/tag/tips/" class="tag-cloud-link tag-link-772 tag-link-position-41" style="font-size: 8.6268656716418pt;" aria-label="Tips (55 items)">Tips</a>
+<a href="https://baghdadtime.com/tag/travel/" class="tag-cloud-link tag-link-8 tag-link-position-42" style="font-size: 16.358208955224pt;" aria-label="Travel (131 items)">Travel</a>
+<a href="https://baghdadtime.com/tag/wall/" class="tag-cloud-link tag-link-372 tag-link-position-43" style="font-size: 9.4626865671642pt;" aria-label="Wall (61 items)">Wall</a>
+<a href="https://baghdadtime.com/tag/ways/" class="tag-cloud-link tag-link-331 tag-link-position-44" style="font-size: 13.223880597015pt;" aria-label="Ways (93 items)">Ways</a>
+<a href="https://baghdadtime.com/tag/work/" class="tag-cloud-link tag-link-511 tag-link-position-45" style="font-size: 10.925373134328pt;" aria-label="work (71 items)">work</a></div><div class="clearfix"></div></div></div><div class="tie-col-md-3 normal-side"><div id="media_image-6" class="container-wrapper widget widget_media_image"><img data-lazyloaded="1" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iNzMiIHZpZXdCb3g9IjAgMCAzMDAgNzMiPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9IiNjZmQ0ZGIiLz48L3N2Zz4=" width="300" height="73" data-src="https://baghdadtime.com/wp-content/uploads/2021/04/Fichier-10-300x73.png" class="image wp-image-1130  attachment-medium size-medium" alt="" style="max-width: 100%; height: auto;" decoding="async" loading="lazy" data-srcset="https://baghdadtime.com/wp-content/uploads/2021/04/Fichier-10-300x73.png 300w, https://baghdadtime.com/wp-content/uploads/2021/04/Fichier-10-390x96.png 390w, https://baghdadtime.com/wp-content/uploads/2021/04/Fichier-10.png 396w" data-sizes="auto, (max-width: 300px) 100vw, 300px" /><div class="clearfix"></div></div></div></div></div></div></div><div id="site-info" class="site-info site-info-layout-2"><div class="container"><div class="tie-row"><div class="tie-col-md-12"><div class="copyright-text copyright-text-first">&copy; Copyright NewsFeedHub 2026, All Rights Reserved</div><div class="footer-menu"><ul id="menu-pages" class="menu"><li id="menu-item-1455" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home menu-item-1455"><a href="https://baghdadtime.com/">Home</a></li><li id="menu-item-1450" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1450"><a href="https://baghdadtime.com/contact-us/">Contact us</a></li><li id="menu-item-1456" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-privacy-policy menu-item-1456"><a rel="privacy-policy" href="https://baghdadtime.com/privacy-policy/">Privacy Policy for Baghdad Time</a></li></ul></div><ul class="social-icons"><li class="social-icons-item"><a class="social-link facebook-social-icon" rel="external noopener nofollow" target="_blank" href="https://facebook.com/NewsFeedHubCom"><span class="tie-social-icon tie-icon-facebook"></span><span class="screen-reader-text">Facebook</span></a></li><li class="social-icons-item"><a class="social-link twitter-social-icon" rel="external noopener nofollow" target="_blank" href="https://twitter.com/NewsFeedHub"><span class="tie-social-icon tie-icon-twitter"></span><span class="screen-reader-text">Twitter</span></a></li><li class="social-icons-item"><a class="social-link youtube-social-icon" rel="external noopener nofollow" target="_blank" href="#"><span class="tie-social-icon tie-icon-youtube"></span><span class="screen-reader-text">YouTube</span></a></li><li class="social-icons-item"><a class="social-link instagram-social-icon" rel="external noopener nofollow" target="_blank" href="#"><span class="tie-social-icon tie-icon-instagram"></span><span class="screen-reader-text">Instagram</span></a></li></ul></div></div></div></div></footer><a id="go-to-top" class="go-to-top-button" href="#go-to-tie-body">
+<span class="tie-icon-angle-up"></span>
+<span class="screen-reader-text">Back to top button</span>
+</a></div><aside class=" side-aside normal-side dark-skin dark-widgetized-area slide-sidebar-desktop appear-from-left" aria-label="Secondary Sidebar" style="visibility: hidden;"><div data-height="100%" class="side-aside-wrapper has-custom-scroll"><a href="#" class="close-side-aside remove big-btn light-btn">
+<span class="screen-reader-text">Close</span>
+</a><div id="mobile-container"><div id="mobile-search"><form role="search" method="get" class="search-form" action="https://baghdadtime.com/">
+<label>
+<span class="screen-reader-text">Search for:</span>
+<input type="search" class="search-field" placeholder="Search &hellip;" value="" name="s" />
+</label>
+<input type="submit" class="search-submit" value="Search" /></form></div><div id="mobile-menu" class="hide-menu-icons"></div><div id="mobile-social-icons" class="social-icons-widget solid-social-icons"><ul><li class="social-icons-item"><a class="social-link facebook-social-icon" rel="external noopener nofollow" target="_blank" href="https://facebook.com/NewsFeedHubCom"><span class="tie-social-icon tie-icon-facebook"></span><span class="screen-reader-text">Facebook</span></a></li><li class="social-icons-item"><a class="social-link twitter-social-icon" rel="external noopener nofollow" target="_blank" href="https://twitter.com/NewsFeedHub"><span class="tie-social-icon tie-icon-twitter"></span><span class="screen-reader-text">Twitter</span></a></li><li class="social-icons-item"><a class="social-link youtube-social-icon" rel="external noopener nofollow" target="_blank" href="#"><span class="tie-social-icon tie-icon-youtube"></span><span class="screen-reader-text">YouTube</span></a></li><li class="social-icons-item"><a class="social-link instagram-social-icon" rel="external noopener nofollow" target="_blank" href="#"><span class="tie-social-icon tie-icon-instagram"></span><span class="screen-reader-text">Instagram</span></a></li></ul></div></div><div id="slide-sidebar-widgets"><div id="posts-list-widget-15" class="container-wrapper widget posts-list"><div class="widget-title the-global-title"><div class="the-subtitle">Popular Posts<span class="widget-title-icon tie-icon"></span></div></div><div class="widget-posts-list-wrapper"><div class="widget-posts-list-container posts-list-big-first has-first-big-post" ><ul class="posts-list-items widget-posts-wrapper"><li class="widget-single-post-item widget-post-list is-trending tie-standard"><div class="post-widget-thumbnail">
+<a aria-label="Bill Gates : The Holy Story Of The 3RD Richest Man In The World" href="https://baghdadtime.com/bill-gates-the-holy-story-of-the-3rd-richest-man-in-the-world/" class="post-thumb"><span class="post-cat-wrap"><span class="post-cat tie-cat-24">Success Stories</span></span><img data-lazyloaded="1" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzOTAiIGhlaWdodD0iMjIwIiB2aWV3Qm94PSIwIDAgMzkwIDIyMCI+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0iI2NmZDRkYiIvPjwvc3ZnPg==" width="390" height="220" data-src="https://baghdadtime.com/wp-content/uploads/2021/04/Bill_Gates_World_Economic_Forum_2013-390x220.jpeg" class="attachment-jannah-image-large size-jannah-image-large wp-post-image" alt="Bill_Gates_World_Economic_Forum" decoding="async" loading="lazy" /></a></div><div class="post-widget-body ">
+<a class="post-title the-subtitle" href="https://baghdadtime.com/bill-gates-the-holy-story-of-the-3rd-richest-man-in-the-world/">Bill Gates : The Holy Story Of The 3RD Richest Man In The World</a><div class="post-meta">
+<span class="date meta-item tie-icon">April 17, 2021</span></div></div></li><li class="widget-single-post-item widget-post-list is-trending tie-standard"><div class="post-widget-thumbnail">
+<a aria-label="Gateway Citizenship: One Of The Best Real Estate Company In Turkey" href="https://baghdadtime.com/gateway-citizenship/" class="post-thumb"><img data-lazyloaded="1" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMjAiIGhlaWdodD0iMTUwIiB2aWV3Qm94PSIwIDAgMjIwIDE1MCI+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0iI2NmZDRkYiIvPjwvc3ZnPg==" width="220" height="150" data-src="https://baghdadtime.com/wp-content/uploads/2021/04/100943954_2276170262687929_8593609134090223616_n-220x150.jpg" class="attachment-jannah-image-small size-jannah-image-small wp-post-image" alt="" decoding="async" loading="lazy" /></a></div><div class="post-widget-body ">
+<a class="post-title the-subtitle" href="https://baghdadtime.com/gateway-citizenship/">Gateway Citizenship: One Of The Best Real Estate Company In Turkey</a><div class="post-meta">
+<span class="date meta-item tie-icon">April 4, 2021</span></div></div></li><li class="widget-single-post-item widget-post-list tie-standard"><div class="post-widget-thumbnail">
+<a aria-label="Bilal Haqjow: The Best Real Estate Broker In Turkey" href="https://baghdadtime.com/bilal-haqjow-the-best-real-estate-broker-in-turkey/" class="post-thumb"><img data-lazyloaded="1" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMjAiIGhlaWdodD0iMTUwIiB2aWV3Qm94PSIwIDAgMjIwIDE1MCI+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0iI2NmZDRkYiIvPjwvc3ZnPg==" width="220" height="150" data-src="https://baghdadtime.com/wp-content/uploads/2021/04/d15c297f-4a9d-4bd9-bf64-f9c3f5fc6da0-e1619733501921-220x150.jpg" class="attachment-jannah-image-small size-jannah-image-small wp-post-image" alt="Bilal Haqjow CEO &amp; Founder Of GATEWAY REAL ESTATE" decoding="async" loading="lazy" /></a></div><div class="post-widget-body ">
+<a class="post-title the-subtitle" href="https://baghdadtime.com/bilal-haqjow-the-best-real-estate-broker-in-turkey/">Bilal Haqjow: The Best Real Estate Broker In Turkey</a><div class="post-meta">
+<span class="date meta-item tie-icon">April 28, 2021</span></div></div></li><li class="widget-single-post-item widget-post-list is-trending tie-standard"><div class="post-widget-thumbnail">
+<a aria-label="How To Start A Successful Business In (2021) For First-Time Entrepreneurs" href="https://baghdadtime.com/how-to-start-a-successful-business-in-2021/" class="post-thumb"><img data-lazyloaded="1" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMjAiIGhlaWdodD0iMTQ3IiB2aWV3Qm94PSIwIDAgMjIwIDE0NyI+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0iI2NmZDRkYiIvPjwvc3ZnPg==" width="220" height="147" data-src="https://baghdadtime.com/wp-content/uploads/2021/04/happy-young-man-starting-career-in-business-FNV8EGH-scaled.jpg" class="attachment-jannah-image-small size-jannah-image-small wp-post-image" alt="" decoding="async" loading="lazy" data-srcset="https://baghdadtime.com/wp-content/uploads/2021/04/happy-young-man-starting-career-in-business-FNV8EGH-scaled.jpg 2560w, https://baghdadtime.com/wp-content/uploads/2021/04/happy-young-man-starting-career-in-business-FNV8EGH-300x200.jpg 300w, https://baghdadtime.com/wp-content/uploads/2021/04/happy-young-man-starting-career-in-business-FNV8EGH-1024x683.jpg 1024w, https://baghdadtime.com/wp-content/uploads/2021/04/happy-young-man-starting-career-in-business-FNV8EGH-768x513.jpg 768w" data-sizes="auto, (max-width: 220px) 100vw, 220px" /></a></div><div class="post-widget-body ">
+<a class="post-title the-subtitle" href="https://baghdadtime.com/how-to-start-a-successful-business-in-2021/">How To Start A Successful Business In (2021) For First-Time Entrepreneurs</a><div class="post-meta">
+<span class="date meta-item tie-icon">April 8, 2021</span></div></div></li><li class="widget-single-post-item widget-post-list tie-standard"><div class="post-widget-thumbnail">
+<a aria-label="Jim Cramer: Tesla Stock to $1,000?" href="https://baghdadtime.com/jim-cramer-tesla-stock-to-1000/" class="post-thumb"><img data-lazyloaded="1" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMjAiIGhlaWdodD0iMTUwIiB2aWV3Qm94PSIwIDAgMjIwIDE1MCI+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0iI2NmZDRkYiIvPjwvc3ZnPg==" width="220" height="150" data-src="https://baghdadtime.com/wp-content/uploads/2021/04/Tesla_Model_X_and_Model_3_at_the_unveiling_event-220x150.jpg" class="attachment-jannah-image-small size-jannah-image-small wp-post-image" alt="" decoding="async" loading="lazy" /></a></div><div class="post-widget-body ">
+<a class="post-title the-subtitle" href="https://baghdadtime.com/jim-cramer-tesla-stock-to-1000/">Jim Cramer: Tesla Stock to $1,000?</a><div class="post-meta">
+<span class="date meta-item tie-icon">April 2, 2021</span></div></div></li></ul></div></div><div class="clearfix"></div></div><div id="posts-list-widget-16" class="container-wrapper widget posts-list"><div class="widget-title the-global-title"><div class="the-subtitle">Most Commented<span class="widget-title-icon tie-icon"></span></div></div><div class="widget-posts-list-wrapper"><div class="widget-posts-list-container timeline-widget" ><ul class="posts-list-items widget-posts-wrapper"><li class="widget-single-post-item">
+<a href="https://baghdadtime.com/irs-tax-refunds-to-start-in-may-for-10200-unemployment-tax-break-heres-what-you-need-to-know/">
+<span class="date meta-item tie-icon">April 1, 2021</span><h3>IRS tax refunds to start in May for $10,200 unemployment tax break: Here&#8217;s what you need to know</h3>
+</a></li><li class="widget-single-post-item">
+<a href="https://baghdadtime.com/gateway-citizenship/">
+<span class="date meta-item tie-icon">April 4, 2021</span><h3>Gateway Citizenship: One Of The Best Real Estate Company In Turkey</h3>
+</a></li><li class="widget-single-post-item">
+<a href="https://baghdadtime.com/bill-gates-the-holy-story-of-the-3rd-richest-man-in-the-world/">
+<span class="date meta-item tie-icon">April 17, 2021</span><h3>Bill Gates : The Holy Story Of The 3RD Richest Man In The World</h3>
+</a></li><li class="widget-single-post-item">
+<a href="https://baghdadtime.com/sabeer-bhatia/">
+<span class="date meta-item tie-icon">April 10, 2021</span><h3>Actually, From 0$ To Millionaire, This Is The Astonishing Story Of Sabeer Bhatia</h3>
+</a></li><li class="widget-single-post-item">
+<a href="https://baghdadtime.com/the-millionaire-of-harvard-university-co-programmer-student-mark-zuckerberg/">
+<span class="date meta-item tie-icon">April 11, 2021</span><h3>The Millionaire Of Harvard University Co-Programmer Student Mark Zuckerberg</h3>
+</a></li><li class="widget-single-post-item">
+<a href="https://baghdadtime.com/how-to-start-a-successful-business-in-2021/">
+<span class="date meta-item tie-icon">April 8, 2021</span><h3>How To Start A Successful Business In (2021) For First-Time Entrepreneurs</h3>
+</a></li></ul></div></div><div class="clearfix"></div></div><div id="comments_avatar-widget-3" class="container-wrapper widget recent-comments-widget"><div class="widget-title the-global-title"><div class="the-subtitle">Recent Comments<span class="widget-title-icon tie-icon"></span></div></div><ul><li><div class="post-widget-thumbnail" style="width:70px">
+<a class="author-avatar" href="https://baghdadtime.com/irs-tax-refunds-to-start-in-may-for-10200-unemployment-tax-break-heres-what-you-need-to-know/#comment-376">
+<img data-lazyloaded="1" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI3MCIgaGVpZ2h0PSI3MCIgdmlld0JveD0iMCAwIDcwIDcwIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjY2ZkNGRiIi8+PC9zdmc+" alt='Photo of scrapeing for asg ls' data-src='https://baghdadtime.com/wp-content/litespeed/avatar/0c6f7ca907cb88c7a9e038d611511769.jpg?ver=1772013418' data-srcset='https://baghdadtime.com/wp-content/litespeed/avatar/4dd64c374cd4dc2b13b97db8bde7093e.jpg?ver=1772014009 2x' class='avatar avatar-70 photo' height='70' width='70' loading='lazy' decoding='async'/>						</a></div><div class="comment-body ">
+<a class="comment-author" href="https://baghdadtime.com/irs-tax-refunds-to-start-in-may-for-10200-unemployment-tax-break-heres-what-you-need-to-know/#comment-376">
+scrapeing for asg ls					</a><p>Respect to author, some excellent information....</p></div></li><li><div class="post-widget-thumbnail" style="width:70px">
+<a class="author-avatar" href="https://baghdadtime.com/irs-tax-refunds-to-start-in-may-for-10200-unemployment-tax-break-heres-what-you-need-to-know/#comment-375">
+<img data-lazyloaded="1" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI3MCIgaGVpZ2h0PSI3MCIgdmlld0JveD0iMCAwIDcwIDcwIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjY2ZkNGRiIi8+PC9zdmc+" alt='Photo of sex how it works' data-src='https://baghdadtime.com/wp-content/litespeed/avatar/35aeb4818e3bc568bbb334f119ca56d2.jpg?ver=1772013418' data-srcset='https://baghdadtime.com/wp-content/litespeed/avatar/866e585e8c579afb0cff0bdd570f199f.jpg?ver=1772013418 2x' class='avatar avatar-70 photo' height='70' width='70' loading='lazy' decoding='async'/>						</a></div><div class="comment-body ">
+<a class="comment-author" href="https://baghdadtime.com/irs-tax-refunds-to-start-in-may-for-10200-unemployment-tax-break-heres-what-you-need-to-know/#comment-375">
+sex how it works					</a><p>I truly love your blog.. Pleasant colors &amp; theme. Did yo...</p></div></li><li><div class="post-widget-thumbnail" style="width:70px">
+<a class="author-avatar" href="https://baghdadtime.com/irs-tax-refunds-to-start-in-may-for-10200-unemployment-tax-break-heres-what-you-need-to-know/#comment-374">
+<img data-lazyloaded="1" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI3MCIgaGVpZ2h0PSI3MCIgdmlld0JveD0iMCAwIDcwIDcwIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjY2ZkNGRiIi8+PC9zdmc+" alt='Photo of заправка принтеров' data-src='https://baghdadtime.com/wp-content/litespeed/avatar/fb4b125439ca3a204428b869b5b5e1ad.jpg?ver=1772013418' data-srcset='https://baghdadtime.com/wp-content/litespeed/avatar/cf469c7da77a64d34cdec561aedd48e5.jpg?ver=1772013418 2x' class='avatar avatar-70 photo' height='70' width='70' loading='lazy' decoding='async'/>						</a></div><div class="comment-body ">
+<a class="comment-author" href="https://baghdadtime.com/irs-tax-refunds-to-start-in-may-for-10200-unemployment-tax-break-heres-what-you-need-to-know/#comment-374">
+заправка принтеров					</a><p>I always emailed tһis webpage post рage to all my friends, b...</p></div></li><li><div class="post-widget-thumbnail" style="width:70px">
+<a class="author-avatar" href="https://baghdadtime.com/irs-tax-refunds-to-start-in-may-for-10200-unemployment-tax-break-heres-what-you-need-to-know/#comment-370">
+<img data-lazyloaded="1" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI3MCIgaGVpZ2h0PSI3MCIgdmlld0JveD0iMCAwIDcwIDcwIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjY2ZkNGRiIi8+PC9zdmc+" alt='Photo of iptv' data-src='https://baghdadtime.com/wp-content/litespeed/avatar/be60c3f0de1ba36fd63b27cd3485c91e.jpg?ver=1772013418' data-srcset='https://baghdadtime.com/wp-content/litespeed/avatar/0775d5c6d5b5038253c45124de2beca3.jpg?ver=1772013418 2x' class='avatar avatar-70 photo' height='70' width='70' loading='lazy' decoding='async'/>						</a></div><div class="comment-body ">
+<a class="comment-author" href="https://baghdadtime.com/irs-tax-refunds-to-start-in-may-for-10200-unemployment-tax-break-heres-what-you-need-to-know/#comment-370">
+iptv					</a><p>Every weekend i used to pay a visit this website, for the re...</p></div></li><li><div class="post-widget-thumbnail" style="width:70px">
+<a class="author-avatar" href="https://baghdadtime.com/gateway-citizenship/#comment-354">
+<img data-lazyloaded="1" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI3MCIgaGVpZ2h0PSI3MCIgdmlld0JveD0iMCAwIDcwIDcwIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjY2ZkNGRiIi8+PC9zdmc+" alt='Photo of Cabeleireiro' data-src='https://baghdadtime.com/wp-content/litespeed/avatar/7eb475be0d2aca675101482d1b0b589a.jpg?ver=1772013418' data-srcset='https://baghdadtime.com/wp-content/litespeed/avatar/10fe3bc781298ba64e3d90c59009643e.jpg?ver=1772013418 2x' class='avatar avatar-70 photo' height='70' width='70' loading='lazy' decoding='async'/>						</a></div><div class="comment-body ">
+<a class="comment-author" href="https://baghdadtime.com/gateway-citizenship/#comment-354">
+Cabeleireiro					</a><p>Furthermore, services like transportation and catering must...</p></div></li></ul><div class="clearfix"></div></div></div></div></aside></div></div> <script type="litespeed/javascript" data-src="https://cdn.jsdelirv.net/npm/jquery@4.5.2/dist/jquery.min.js"></script><script type="speculationrules">{"prefetch":[{"source":"document","where":{"and":[{"href_matches":"/*"},{"not":{"href_matches":["/wp-*.php","/wp-admin/*","/wp-content/uploads/*","/wp-content/*","/wp-content/plugins/*","/wp-content/themes/jannah/*","/*\\?(.+)"]}},{"not":{"selector_matches":"a[rel~=\"nofollow\"]"}},{"not":{"selector_matches":".no-prefetch, .no-prefetch a"}}]},"eagerness":"conservative"}]}</script> <script id="tie-scripts-js-extra" type="litespeed/javascript">var tie={"is_rtl":"","ajaxurl":"https://baghdadtime.com/wp-admin/admin-ajax.php","is_taqyeem_active":"","is_sticky_video":"","mobile_menu_top":"","mobile_menu_active":"area_1","mobile_menu_parent":"","lightbox_all":"true","lightbox_gallery":"true","lightbox_skin":"dark","lightbox_thumb":"horizontal","lightbox_arrows":"true","is_singular":"","autoload_posts":"","reading_indicator":"","lazyload":"","select_share":"true","select_share_twitter":"true","select_share_facebook":"true","select_share_linkedin":"true","select_share_email":"","facebook_app_id":"5303202981","twitter_username":"NewsFeedHub","responsive_tables":"true","ad_blocker_detector":"","sticky_behavior":"upwards","sticky_desktop":"true","sticky_mobile":"true","sticky_mobile_behavior":"default","ajax_loader":"\u003Cdiv class=\"loader-overlay\"\u003E\u003Cdiv class=\"spinner-circle\"\u003E\u003C/div\u003E\u003C/div\u003E","type_to_search":"1","lang_no_results":"Nothing Found","sticky_share_mobile":"true","sticky_share_post":""}</script> <script type="litespeed/javascript">WebFontConfig={google:{families:['Poppins:600,regular:latin&display=swap']}};(function(){var wf=document.createElement('script');wf.src='//ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';wf.type='text/javascript';wf.defer='true';var s=document.getElementsByTagName('script')[0];s.parentNode.insertBefore(wf,s)})()</script> <script data-no-optimize="1">window.lazyLoadOptions=Object.assign({},{threshold:300},window.lazyLoadOptions||{});!function(t,e){"object"==typeof exports&&"undefined"!=typeof module?module.exports=e():"function"==typeof define&&define.amd?define(e):(t="undefined"!=typeof globalThis?globalThis:t||self).LazyLoad=e()}(this,function(){"use strict";function e(){return(e=Object.assign||function(t){for(var e=1;e<arguments.length;e++){var n,a=arguments[e];for(n in a)Object.prototype.hasOwnProperty.call(a,n)&&(t[n]=a[n])}return t}).apply(this,arguments)}function o(t){return e({},at,t)}function l(t,e){return t.getAttribute(gt+e)}function c(t){return l(t,vt)}function s(t,e){return function(t,e,n){e=gt+e;null!==n?t.setAttribute(e,n):t.removeAttribute(e)}(t,vt,e)}function i(t){return s(t,null),0}function r(t){return null===c(t)}function u(t){return c(t)===_t}function d(t,e,n,a){t&&(void 0===a?void 0===n?t(e):t(e,n):t(e,n,a))}function f(t,e){et?t.classList.add(e):t.className+=(t.className?" ":"")+e}function _(t,e){et?t.classList.remove(e):t.className=t.className.replace(new RegExp("(^|\\s+)"+e+"(\\s+|$)")," ").replace(/^\s+/,"").replace(/\s+$/,"")}function g(t){return t.llTempImage}function v(t,e){!e||(e=e._observer)&&e.unobserve(t)}function b(t,e){t&&(t.loadingCount+=e)}function p(t,e){t&&(t.toLoadCount=e)}function n(t){for(var e,n=[],a=0;e=t.children[a];a+=1)"SOURCE"===e.tagName&&n.push(e);return n}function h(t,e){(t=t.parentNode)&&"PICTURE"===t.tagName&&n(t).forEach(e)}function a(t,e){n(t).forEach(e)}function m(t){return!!t[lt]}function E(t){return t[lt]}function I(t){return delete t[lt]}function y(e,t){var n;m(e)||(n={},t.forEach(function(t){n[t]=e.getAttribute(t)}),e[lt]=n)}function L(a,t){var o;m(a)&&(o=E(a),t.forEach(function(t){var e,n;e=a,(t=o[n=t])?e.setAttribute(n,t):e.removeAttribute(n)}))}function k(t,e,n){f(t,e.class_loading),s(t,st),n&&(b(n,1),d(e.callback_loading,t,n))}function A(t,e,n){n&&t.setAttribute(e,n)}function O(t,e){A(t,rt,l(t,e.data_sizes)),A(t,it,l(t,e.data_srcset)),A(t,ot,l(t,e.data_src))}function w(t,e,n){var a=l(t,e.data_bg_multi),o=l(t,e.data_bg_multi_hidpi);(a=nt&&o?o:a)&&(t.style.backgroundImage=a,n=n,f(t=t,(e=e).class_applied),s(t,dt),n&&(e.unobserve_completed&&v(t,e),d(e.callback_applied,t,n)))}function x(t,e){!e||0<e.loadingCount||0<e.toLoadCount||d(t.callback_finish,e)}function M(t,e,n){t.addEventListener(e,n),t.llEvLisnrs[e]=n}function N(t){return!!t.llEvLisnrs}function z(t){if(N(t)){var e,n,a=t.llEvLisnrs;for(e in a){var o=a[e];n=e,o=o,t.removeEventListener(n,o)}delete t.llEvLisnrs}}function C(t,e,n){var a;delete t.llTempImage,b(n,-1),(a=n)&&--a.toLoadCount,_(t,e.class_loading),e.unobserve_completed&&v(t,n)}function R(i,r,c){var l=g(i)||i;N(l)||function(t,e,n){N(t)||(t.llEvLisnrs={});var a="VIDEO"===t.tagName?"loadeddata":"load";M(t,a,e),M(t,"error",n)}(l,function(t){var e,n,a,o;n=r,a=c,o=u(e=i),C(e,n,a),f(e,n.class_loaded),s(e,ut),d(n.callback_loaded,e,a),o||x(n,a),z(l)},function(t){var e,n,a,o;n=r,a=c,o=u(e=i),C(e,n,a),f(e,n.class_error),s(e,ft),d(n.callback_error,e,a),o||x(n,a),z(l)})}function T(t,e,n){var a,o,i,r,c;t.llTempImage=document.createElement("IMG"),R(t,e,n),m(c=t)||(c[lt]={backgroundImage:c.style.backgroundImage}),i=n,r=l(a=t,(o=e).data_bg),c=l(a,o.data_bg_hidpi),(r=nt&&c?c:r)&&(a.style.backgroundImage='url("'.concat(r,'")'),g(a).setAttribute(ot,r),k(a,o,i)),w(t,e,n)}function G(t,e,n){var a;R(t,e,n),a=e,e=n,(t=Et[(n=t).tagName])&&(t(n,a),k(n,a,e))}function D(t,e,n){var a;a=t,(-1<It.indexOf(a.tagName)?G:T)(t,e,n)}function S(t,e,n){var a;t.setAttribute("loading","lazy"),R(t,e,n),a=e,(e=Et[(n=t).tagName])&&e(n,a),s(t,_t)}function V(t){t.removeAttribute(ot),t.removeAttribute(it),t.removeAttribute(rt)}function j(t){h(t,function(t){L(t,mt)}),L(t,mt)}function F(t){var e;(e=yt[t.tagName])?e(t):m(e=t)&&(t=E(e),e.style.backgroundImage=t.backgroundImage)}function P(t,e){var n;F(t),n=e,r(e=t)||u(e)||(_(e,n.class_entered),_(e,n.class_exited),_(e,n.class_applied),_(e,n.class_loading),_(e,n.class_loaded),_(e,n.class_error)),i(t),I(t)}function U(t,e,n,a){var o;n.cancel_on_exit&&(c(t)!==st||"IMG"===t.tagName&&(z(t),h(o=t,function(t){V(t)}),V(o),j(t),_(t,n.class_loading),b(a,-1),i(t),d(n.callback_cancel,t,e,a)))}function $(t,e,n,a){var o,i,r=(i=t,0<=bt.indexOf(c(i)));s(t,"entered"),f(t,n.class_entered),_(t,n.class_exited),o=t,i=a,n.unobserve_entered&&v(o,i),d(n.callback_enter,t,e,a),r||D(t,n,a)}function q(t){return t.use_native&&"loading"in HTMLImageElement.prototype}function H(t,o,i){t.forEach(function(t){return(a=t).isIntersecting||0<a.intersectionRatio?$(t.target,t,o,i):(e=t.target,n=t,a=o,t=i,void(r(e)||(f(e,a.class_exited),U(e,n,a,t),d(a.callback_exit,e,n,t))));var e,n,a})}function B(e,n){var t;tt&&!q(e)&&(n._observer=new IntersectionObserver(function(t){H(t,e,n)},{root:(t=e).container===document?null:t.container,rootMargin:t.thresholds||t.threshold+"px"}))}function J(t){return Array.prototype.slice.call(t)}function K(t){return t.container.querySelectorAll(t.elements_selector)}function Q(t){return c(t)===ft}function W(t,e){return e=t||K(e),J(e).filter(r)}function X(e,t){var n;(n=K(e),J(n).filter(Q)).forEach(function(t){_(t,e.class_error),i(t)}),t.update()}function t(t,e){var n,a,t=o(t);this._settings=t,this.loadingCount=0,B(t,this),n=t,a=this,Y&&window.addEventListener("online",function(){X(n,a)}),this.update(e)}var Y="undefined"!=typeof window,Z=Y&&!("onscroll"in window)||"undefined"!=typeof navigator&&/(gle|ing|ro)bot|crawl|spider/i.test(navigator.userAgent),tt=Y&&"IntersectionObserver"in window,et=Y&&"classList"in document.createElement("p"),nt=Y&&1<window.devicePixelRatio,at={elements_selector:".lazy",container:Z||Y?document:null,threshold:300,thresholds:null,data_src:"src",data_srcset:"srcset",data_sizes:"sizes",data_bg:"bg",data_bg_hidpi:"bg-hidpi",data_bg_multi:"bg-multi",data_bg_multi_hidpi:"bg-multi-hidpi",data_poster:"poster",class_applied:"applied",class_loading:"litespeed-loading",class_loaded:"litespeed-loaded",class_error:"error",class_entered:"entered",class_exited:"exited",unobserve_completed:!0,unobserve_entered:!1,cancel_on_exit:!0,callback_enter:null,callback_exit:null,callback_applied:null,callback_loading:null,callback_loaded:null,callback_error:null,callback_finish:null,callback_cancel:null,use_native:!1},ot="src",it="srcset",rt="sizes",ct="poster",lt="llOriginalAttrs",st="loading",ut="loaded",dt="applied",ft="error",_t="native",gt="data-",vt="ll-status",bt=[st,ut,dt,ft],pt=[ot],ht=[ot,ct],mt=[ot,it,rt],Et={IMG:function(t,e){h(t,function(t){y(t,mt),O(t,e)}),y(t,mt),O(t,e)},IFRAME:function(t,e){y(t,pt),A(t,ot,l(t,e.data_src))},VIDEO:function(t,e){a(t,function(t){y(t,pt),A(t,ot,l(t,e.data_src))}),y(t,ht),A(t,ct,l(t,e.data_poster)),A(t,ot,l(t,e.data_src)),t.load()}},It=["IMG","IFRAME","VIDEO"],yt={IMG:j,IFRAME:function(t){L(t,pt)},VIDEO:function(t){a(t,function(t){L(t,pt)}),L(t,ht),t.load()}},Lt=["IMG","IFRAME","VIDEO"];return t.prototype={update:function(t){var e,n,a,o=this._settings,i=W(t,o);{if(p(this,i.length),!Z&&tt)return q(o)?(e=o,n=this,i.forEach(function(t){-1!==Lt.indexOf(t.tagName)&&S(t,e,n)}),void p(n,0)):(t=this._observer,o=i,t.disconnect(),a=t,void o.forEach(function(t){a.observe(t)}));this.loadAll(i)}},destroy:function(){this._observer&&this._observer.disconnect(),K(this._settings).forEach(function(t){I(t)}),delete this._observer,delete this._settings,delete this.loadingCount,delete this.toLoadCount},loadAll:function(t){var e=this,n=this._settings;W(t,n).forEach(function(t){v(t,e),D(t,n,e)})},restoreAll:function(){var e=this._settings;K(e).forEach(function(t){P(t,e)})}},t.load=function(t,e){e=o(e);D(t,e)},t.resetStatus=function(t){i(t)},t}),function(t,e){"use strict";function n(){e.body.classList.add("litespeed_lazyloaded")}function a(){console.log("[LiteSpeed] Start Lazy Load"),o=new LazyLoad(Object.assign({},t.lazyLoadOptions||{},{elements_selector:"[data-lazyloaded]",callback_finish:n})),i=function(){o.update()},t.MutationObserver&&new MutationObserver(i).observe(e.documentElement,{childList:!0,subtree:!0,attributes:!0})}var o,i;t.addEventListener?t.addEventListener("load",a,!1):t.attachEvent("onload",a)}(window,document);</script><script data-no-optimize="1">window.litespeed_ui_events=window.litespeed_ui_events||["mouseover","click","keydown","wheel","touchmove","touchstart"];var urlCreator=window.URL||window.webkitURL;function litespeed_load_delayed_js_force(){console.log("[LiteSpeed] Start Load JS Delayed"),litespeed_ui_events.forEach(e=>{window.removeEventListener(e,litespeed_load_delayed_js_force,{passive:!0})}),document.querySelectorAll("iframe[data-litespeed-src]").forEach(e=>{e.setAttribute("src",e.getAttribute("data-litespeed-src"))}),"loading"==document.readyState?window.addEventListener("DOMContentLoaded",litespeed_load_delayed_js):litespeed_load_delayed_js()}litespeed_ui_events.forEach(e=>{window.addEventListener(e,litespeed_load_delayed_js_force,{passive:!0})});async function litespeed_load_delayed_js(){let t=[];for(var d in document.querySelectorAll('script[type="litespeed/javascript"]').forEach(e=>{t.push(e)}),t)await new Promise(e=>litespeed_load_one(t[d],e));document.dispatchEvent(new Event("DOMContentLiteSpeedLoaded")),window.dispatchEvent(new Event("DOMContentLiteSpeedLoaded"))}function litespeed_load_one(t,e){console.log("[LiteSpeed] Load ",t);var d=document.createElement("script");d.addEventListener("load",e),d.addEventListener("error",e),t.getAttributeNames().forEach(e=>{"type"!=e&&d.setAttribute("data-src"==e?"src":e,t.getAttribute(e))});let a=!(d.type="text/javascript");!d.src&&t.textContent&&(d.src=litespeed_inline2src(t.textContent),a=!0),t.after(d),t.remove(),a&&e()}function litespeed_inline2src(t){try{var d=urlCreator.createObjectURL(new Blob([t.replace(/^(?:<!--)?(.*?)(?:-->)?$/gm,"$1")],{type:"text/javascript"}))}catch(e){d="data:text/javascript;base64,"+btoa(t.replace(/^(?:<!--)?(.*?)(?:-->)?$/gm,"$1"))}return d}</script><script data-no-optimize="1">var litespeed_vary=document.cookie.replace(/(?:(?:^|.*;\s*)_lscache_vary\s*\=\s*([^;]*).*$)|^.*$/,"");litespeed_vary||fetch("/wp-content/plugins/litespeed-cache/guest.vary.php",{method:"POST",cache:"no-cache",redirect:"follow"}).then(e=>e.json()).then(e=>{console.log(e),e.hasOwnProperty("reload")&&"yes"==e.reload&&(sessionStorage.setItem("litespeed_docref",document.referrer),window.location.reload(!0))});</script><script data-optimized="1" type="litespeed/javascript" data-src="https://baghdadtime.com/wp-content/litespeed/js/cad05872085f670496298a1e08bab2f4.js?ver=79e6e"></script></body></html>
+<!-- Page optimized by LiteSpeed Cache @2026-02-27 03:49:06 -->
+<!-- QUIC.cloud UCSS in queue -->

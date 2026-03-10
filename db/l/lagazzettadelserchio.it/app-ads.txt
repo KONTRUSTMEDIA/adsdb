@@ -1,0 +1,515 @@
+<!doctype html><html lang="it-IT"><head><meta name="google-site-verification" content="CWjvyEGNJGgn3oNO5fGlEvFSk_BIW-i8SdATShCSlBg" /><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="profile" href="http://gmpg.org/xfn/11"> <script>window._gmp = window._gmp || {};window._gmp.pageType = 'mobskin_intropage';</script> <!-- InMobi Choice. Consent Manager Tag v3.0 (for TCF 2.2) --> <script type="text/javascript" async=true>(function() {
+  var host = 'www.lagazzettadelserchio.it';
+  var element = document.createElement('script');
+  var firstScript = document.getElementsByTagName('script')[0];
+  var url = 'https://cmp.inmobi.com'
+    .concat('/choice/', '5uBzFnJdUcdpe', '/', host, '/choice.js?tag_version=V3');
+  var uspTries = 0;
+  var uspTriesLimit = 3;
+  element.async = true;
+  element.type = 'text/javascript';
+  element.src = url;
+
+  firstScript.parentNode.insertBefore(element, firstScript);
+
+  function makeStub() {
+    var TCF_LOCATOR_NAME = '__tcfapiLocator';
+    var queue = [];
+    var win = window;
+    var cmpFrame;
+
+    function addFrame() {
+      var doc = win.document;
+      var otherCMP = !!(win.frames[TCF_LOCATOR_NAME]);
+
+      if (!otherCMP) {
+        if (doc.body) {
+          var iframe = doc.createElement('iframe');
+
+          iframe.style.cssText = 'display:none';
+          iframe.name = TCF_LOCATOR_NAME;
+          doc.body.appendChild(iframe);
+        } else {
+          setTimeout(addFrame, 5);
+        }
+      }
+      return !otherCMP;
+    }
+
+    function tcfAPIHandler() {
+      var gdprApplies;
+      var args = arguments;
+
+      if (!args.length) {
+        return queue;
+      } else if (args[0] === 'setGdprApplies') {
+        if (
+          args.length > 3 &&
+          args[2] === 2 &&
+          typeof args[3] === 'boolean'
+        ) {
+          gdprApplies = args[3];
+          if (typeof args[2] === 'function') {
+            args[2]('set', true);
+          }
+        }
+      } else if (args[0] === 'ping') {
+        var retr = {
+          gdprApplies: gdprApplies,
+          cmpLoaded: false,
+          cmpStatus: 'stub'
+        };
+
+        if (typeof args[2] === 'function') {
+          args[2](retr);
+        }
+      } else {
+        if(args[0] === 'init' && typeof args[3] === 'object') {
+          args[3] = Object.assign(args[3], { tag_version: 'V3' });
+        }
+        queue.push(args);
+      }
+    }
+
+    function postMessageEventHandler(event) {
+      var msgIsString = typeof event.data === 'string';
+      var json = {};
+
+      try {
+        if (msgIsString) {
+          json = JSON.parse(event.data);
+        } else {
+          json = event.data;
+        }
+      } catch (ignore) {}
+
+      var payload = json.__tcfapiCall;
+
+      if (payload) {
+        window.__tcfapi(
+          payload.command,
+          payload.version,
+          function(retValue, success) {
+            var returnMsg = {
+              __tcfapiReturn: {
+                returnValue: retValue,
+                success: success,
+                callId: payload.callId
+              }
+            };
+            if (msgIsString) {
+              returnMsg = JSON.stringify(returnMsg);
+            }
+            if (event && event.source && event.source.postMessage) {
+              event.source.postMessage(returnMsg, '*');
+            }
+          },
+          payload.parameter
+        );
+      }
+    }
+
+    while (win) {
+      try {
+        if (win.frames[TCF_LOCATOR_NAME]) {
+          cmpFrame = win;
+          break;
+        }
+      } catch (ignore) {}
+
+      if (win === window.top) {
+        break;
+      }
+      win = win.parent;
+    }
+    if (!cmpFrame) {
+      addFrame();
+      win.__tcfapi = tcfAPIHandler;
+      win.addEventListener('message', postMessageEventHandler, false);
+    }
+  };
+
+  makeStub();
+
+  function makeGppStub() {
+    const CMP_ID = 10;
+    const SUPPORTED_APIS = [
+      '2:tcfeuv2',
+      '6:uspv1',
+      '7:usnatv1',
+      '8:usca',
+      '9:usvav1',
+      '10:uscov1',
+      '11:usutv1',
+      '12:usctv1'
+    ];
+
+    window.__gpp_addFrame = function (n) {
+      if (!window.frames[n]) {
+        if (document.body) {
+          var i = document.createElement("iframe");
+          i.style.cssText = "display:none";
+          i.name = n;
+          document.body.appendChild(i);
+        } else {
+          window.setTimeout(window.__gpp_addFrame, 10, n);
+        }
+      }
+    };
+    window.__gpp_stub = function () {
+      var b = arguments;
+      __gpp.queue = __gpp.queue || [];
+      __gpp.events = __gpp.events || [];
+
+      if (!b.length || (b.length == 1 && b[0] == "queue")) {
+        return __gpp.queue;
+      }
+
+      if (b.length == 1 && b[0] == "events") {
+        return __gpp.events;
+      }
+
+      var cmd = b[0];
+      var clb = b.length > 1 ? b[1] : null;
+      var par = b.length > 2 ? b[2] : null;
+      if (cmd === "ping") {
+        clb(
+          {
+            gppVersion: "1.1", // must be “Version.Subversion”, current: “1.1”
+            cmpStatus: "stub", // possible values: stub, loading, loaded, error
+            cmpDisplayStatus: "hidden", // possible values: hidden, visible, disabled
+            signalStatus: "not ready", // possible values: not ready, ready
+            supportedAPIs: SUPPORTED_APIS, // list of supported APIs
+            cmpId: CMP_ID, // IAB assigned CMP ID, may be 0 during stub/loading
+            sectionList: [],
+            applicableSections: [-1],
+            gppString: "",
+            parsedSections: {},
+          },
+          true
+        );
+      } else if (cmd === "addEventListener") {
+        if (!("lastId" in __gpp)) {
+          __gpp.lastId = 0;
+        }
+        __gpp.lastId++;
+        var lnr = __gpp.lastId;
+        __gpp.events.push({
+          id: lnr,
+          callback: clb,
+          parameter: par,
+        });
+        clb(
+          {
+            eventName: "listenerRegistered",
+            listenerId: lnr, // Registered ID of the listener
+            data: true, // positive signal
+            pingData: {
+              gppVersion: "1.1", // must be “Version.Subversion”, current: “1.1”
+              cmpStatus: "stub", // possible values: stub, loading, loaded, error
+              cmpDisplayStatus: "hidden", // possible values: hidden, visible, disabled
+              signalStatus: "not ready", // possible values: not ready, ready
+              supportedAPIs: SUPPORTED_APIS, // list of supported APIs
+              cmpId: CMP_ID, // list of supported APIs
+              sectionList: [],
+              applicableSections: [-1],
+              gppString: "",
+              parsedSections: {},
+            },
+          },
+          true
+        );
+      } else if (cmd === "removeEventListener") {
+        var success = false;
+        for (var i = 0; i < __gpp.events.length; i++) {
+          if (__gpp.events[i].id == par) {
+            __gpp.events.splice(i, 1);
+            success = true;
+            break;
+          }
+        }
+        clb(
+          {
+            eventName: "listenerRemoved",
+            listenerId: par, // Registered ID of the listener
+            data: success, // status info
+            pingData: {
+              gppVersion: "1.1", // must be “Version.Subversion”, current: “1.1”
+              cmpStatus: "stub", // possible values: stub, loading, loaded, error
+              cmpDisplayStatus: "hidden", // possible values: hidden, visible, disabled
+              signalStatus: "not ready", // possible values: not ready, ready
+              supportedAPIs: SUPPORTED_APIS, // list of supported APIs
+              cmpId: CMP_ID, // CMP ID
+              sectionList: [],
+              applicableSections: [-1],
+              gppString: "",
+              parsedSections: {},
+            },
+          },
+          true
+        );
+      } else if (cmd === "hasSection") {
+        clb(false, true);
+      } else if (cmd === "getSection" || cmd === "getField") {
+        clb(null, true);
+      }
+      //queue all other commands
+      else {
+        __gpp.queue.push([].slice.apply(b));
+      }
+    };
+    window.__gpp_msghandler = function (event) {
+      var msgIsString = typeof event.data === "string";
+      try {
+        var json = msgIsString ? JSON.parse(event.data) : event.data;
+      } catch (e) {
+        var json = null;
+      }
+      if (typeof json === "object" && json !== null && "__gppCall" in json) {
+        var i = json.__gppCall;
+        window.__gpp(
+          i.command,
+          function (retValue, success) {
+            var returnMsg = {
+              __gppReturn: {
+                returnValue: retValue,
+                success: success,
+                callId: i.callId,
+              },
+            };
+            event.source.postMessage(msgIsString ? JSON.stringify(returnMsg) : returnMsg, "*");
+          },
+          "parameter" in i ? i.parameter : null,
+          "version" in i ? i.version : "1.1"
+        );
+      }
+    };
+    if (!("__gpp" in window) || typeof window.__gpp !== "function") {
+      window.__gpp = window.__gpp_stub;
+      window.addEventListener("message", window.__gpp_msghandler, false);
+      window.__gpp_addFrame("__gppLocator");
+    }
+  };
+
+  makeGppStub();
+
+  var uspStubFunction = function() {
+    var arg = arguments;
+    if (typeof window.__uspapi !== uspStubFunction) {
+      setTimeout(function() {
+        if (typeof window.__uspapi !== 'undefined') {
+          window.__uspapi.apply(window.__uspapi, arg);
+        }
+      }, 500);
+    }
+  };
+
+  var checkIfUspIsReady = function() {
+    uspTries++;
+    if (window.__uspapi === uspStubFunction && uspTries < uspTriesLimit) {
+      console.warn('USP is not accessible');
+    } else {
+      clearInterval(uspInterval);
+    }
+  };
+
+  if (typeof window.__uspapi === 'undefined') {
+    window.__uspapi = uspStubFunction;
+    var uspInterval = setInterval(checkIfUspIsReady, 6000);
+  }
+})();</script> <!-- End InMobi Choice. Consent Manager Tag v3.0 (for TCF 2.2) --> <script async src="https://adsystem.pages.dev/ad-system/lib/prebid.js" crossorigin="anonymous"></script> <script async src="https://securepubads.g.doubleclick.net/tag/js/gpt.js" crossorigin="anonymous"></script> <script async src="https://adsystem.pages.dev/ad-system/loader.js" crossorigin="anonymous"></script> <!-- tag meta - js_conf (standalone scripts)<meta name="js_conf_www.lagazzettadelserchio.it"
+data-adsense="true"
+data-adsense-client="ca-pub-2121737085751619"
+data-ga4="G-ZK357FNL1D"
+data-seedtag="6708-3098-01"
+data-teads="216753"
+data-mgid-flag="true"
+data-mgid-url="https://jsc.mgid.com/site/986888.js"
+data-viralize="true"
+data-viralize-url="https://ads.viralize.tv/display/?zid=AAFIfODTdhyiBQbz"
+data-vidoomy="true"
+data-vidoomy-url="https://ads.vidoomy.com/lagazzettadelserchioit_25889.js"
+data-vidoomy-delay="10000"><meta name="hb_conf_www.lagazzettadelserchio.it"
+data-teads-placement-id="233323"
+data-teads-page-id="216753"
+data-seedtag-publisherid="6708-3098-01"
+data-criteo-network-id="11596"
+data-pubmatic-publisher-id="163324"
+data-apstag-pubid="1ff2e623-a901-438b-b4ac-a92c9e6374f0"
+data-apstag-adserver="googletag"
+data-ga4="G-ZK357FNL1D"><meta name="wf_conf_www.lagazzettadelserchio.it"
+data-azerion-url="https://s.adplay.it/lagazzettadelserchio/adplay.js"
+data-oop-slot="/22820207193/Lagazzettadelserchio/INTERSTITIAL"
+data-ga4="G-ZK357FNL1D"--> <script>function fvmuag(){if(navigator.userAgent.match(/x11.*fox\/54|oid\s4.*xus.*ome\/62|oobot|ighth|tmetr|eadles|ingdo/i))return!1;if(navigator.userAgent.match(/x11.*ome\/75\.0\.3770\.100/i)){var e=screen.width,t=screen.height;if("number"==typeof e&&"number"==typeof t&&862==t&&1367==e)return!1}return!0}</script><meta name='robots' content='index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1' /><style>img:is([sizes="auto" i], [sizes^="auto," i]) { contain-intrinsic-size: 3000px 1500px }</style><link rel='preload' href='https://fonts.googleapis.com/css?family=Source%2BSans%2BPro%3A400%2C700%7CLato%3A400%2C700&#038;subset=latin&#038;display=swap' as='style' onload="this.onload=null;this.rel='stylesheet'" type='text/css' media='all' crossorigin='anonymous'><link rel='preconnect' href='https://fonts.googleapis.com' crossorigin='anonymous'><link rel='preconnect' href='https://fonts.gstatic.com' crossorigin='anonymous'><!-- This site is optimized with the Yoast SEO plugin v23.6 - https://yoast.com/wordpress/plugins/seo/ --><title>Home - La Gazzetta Del Serchio</title><link rel="canonical" href="https://www.lagazzettadelserchio.it/" /><meta property="og:locale" content="it_IT" /><meta property="og:type" content="website" /><meta property="og:title" content="Home - La Gazzetta Del Serchio" /><meta property="og:url" content="https://www.lagazzettadelserchio.it/" /><meta property="og:site_name" content="La Gazzetta Del Serchio" /><meta name="twitter:card" content="summary_large_image" /> <script type="application/ld+json" class="yoast-schema-graph">{"@context":"https://schema.org","@graph":[{"@type":"WebPage","@id":"https://www.lagazzettadelserchio.it/","url":"https://www.lagazzettadelserchio.it/","name":"Home - La Gazzetta Del Serchio","isPartOf":{"@id":"https://www.lagazzettadelserchio.it/#website"},"about":{"@id":"https://www.lagazzettadelserchio.it/#organization"},"datePublished":"2024-10-25T14:10:49+00:00","dateModified":"2024-10-25T14:10:49+00:00","breadcrumb":{"@id":"https://www.lagazzettadelserchio.it/#breadcrumb"},"inLanguage":"it-IT","potentialAction":[{"@type":"ReadAction","target":["https://www.lagazzettadelserchio.it/"]}]},{"@type":"BreadcrumbList","@id":"https://www.lagazzettadelserchio.it/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Home"}]},{"@type":"WebSite","@id":"https://www.lagazzettadelserchio.it/#website","url":"https://www.lagazzettadelserchio.it/","name":"La Gazzetta Del Serchio","description":"","publisher":{"@id":"https://www.lagazzettadelserchio.it/#organization"},"potentialAction":[{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://www.lagazzettadelserchio.it/?s={search_term_string}"},"query-input":{"@type":"PropertyValueSpecification","valueRequired":true,"valueName":"search_term_string"}}],"inLanguage":"it-IT"},{"@type":"Organization","@id":"https://www.lagazzettadelserchio.it/#organization","name":"La Gazzetta Del Serchio","url":"https://www.lagazzettadelserchio.it/","logo":{"@type":"ImageObject","inLanguage":"it-IT","@id":"https://www.lagazzettadelserchio.it/#/schema/logo/image/","url":"https://www.lagazzettadelserchio.it/wp-content/uploads/2024/10/cropped-lagazzettadelserchio@2x.png","contentUrl":"https://www.lagazzettadelserchio.it/wp-content/uploads/2024/10/cropped-lagazzettadelserchio@2x.png","width":270,"height":92,"caption":"La Gazzetta Del Serchio"},"image":{"@id":"https://www.lagazzettadelserchio.it/#/schema/logo/image/"}}]}</script> <!-- / Yoast SEO plugin. --><link rel="amphtml" href="https://www.lagazzettadelserchio.it/amp/" /><meta name="generator" content="AMP for WP 1.0.99.1"/><style type="text/css" media="all">@font-face{font-family:'Lato';font-display:block;font-style:normal;font-weight:400;font-display:swap;src:url(https://fonts.gstatic.com/s/lato/v24/S6uyw4BMUTPHjx4wWA.woff) format('woff')}@font-face{font-family:'Lato';font-display:block;font-style:normal;font-weight:700;font-display:swap;src:url(https://fonts.gstatic.com/s/lato/v24/S6u9w4BMUTPHh6UVSwiPHw.woff) format('woff')}</style><style id='wp-block-library-theme-inline-css' type='text/css'>.wp-block-audio :where(figcaption){color:#555;font-size:13px;text-align:center}.is-dark-theme .wp-block-audio :where(figcaption){color:#ffffffa6}.wp-block-audio{margin:0 0 1em}.wp-block-code{border:1px solid #ccc;border-radius:4px;font-family:Menlo,Consolas,monaco,monospace;padding:.8em 1em}.wp-block-embed :where(figcaption){color:#555;font-size:13px;text-align:center}.is-dark-theme .wp-block-embed :where(figcaption){color:#ffffffa6}.wp-block-embed{margin:0 0 1em}.blocks-gallery-caption{color:#555;font-size:13px;text-align:center}.is-dark-theme .blocks-gallery-caption{color:#ffffffa6}:root :where(.wp-block-image figcaption){color:#555;font-size:13px;text-align:center}.is-dark-theme :root :where(.wp-block-image figcaption){color:#ffffffa6}.wp-block-image{margin:0 0 1em}.wp-block-pullquote{border-bottom:4px solid;border-top:4px solid;color:currentColor;margin-bottom:1.75em}.wp-block-pullquote cite,.wp-block-pullquote footer,.wp-block-pullquote__citation{color:currentColor;font-size:.8125em;font-style:normal;text-transform:uppercase}.wp-block-quote{border-left:.25em solid;margin:0 0 1.75em;padding-left:1em}.wp-block-quote cite,.wp-block-quote footer{color:currentColor;font-size:.8125em;font-style:normal;position:relative}.wp-block-quote:where(.has-text-align-right){border-left:none;border-right:.25em solid;padding-left:0;padding-right:1em}.wp-block-quote:where(.has-text-align-center){border:none;padding-left:0}.wp-block-quote.is-large,.wp-block-quote.is-style-large,.wp-block-quote:where(.is-style-plain){border:none}.wp-block-search .wp-block-search__label{font-weight:700}.wp-block-search__button{border:1px solid #ccc;padding:.375em .625em}:where(.wp-block-group.has-background){padding:1.25em 2.375em}.wp-block-separator.has-css-opacity{opacity:.4}.wp-block-separator{border:none;border-bottom:2px solid;margin-left:auto;margin-right:auto}.wp-block-separator.has-alpha-channel-opacity{opacity:1}.wp-block-separator:not(.is-style-wide):not(.is-style-dots){width:100px}.wp-block-separator.has-background:not(.is-style-dots){border-bottom:none;height:1px}.wp-block-separator.has-background:not(.is-style-wide):not(.is-style-dots){height:2px}.wp-block-table{margin:0 0 1em}.wp-block-table td,.wp-block-table th{word-break:normal}.wp-block-table :where(figcaption){color:#555;font-size:13px;text-align:center}.is-dark-theme .wp-block-table :where(figcaption){color:#ffffffa6}.wp-block-video :where(figcaption){color:#555;font-size:13px;text-align:center}.is-dark-theme .wp-block-video :where(figcaption){color:#ffffffa6}.wp-block-video{margin:0 0 1em}:root :where(.wp-block-template-part.has-background){margin-bottom:0;margin-top:0;padding:1.25em 2.375em}</style><style id='global-styles-inline-css' type='text/css'>:root{--wp--preset--aspect-ratio--square: 1;--wp--preset--aspect-ratio--4-3: 4/3;--wp--preset--aspect-ratio--3-4: 3/4;--wp--preset--aspect-ratio--3-2: 3/2;--wp--preset--aspect-ratio--2-3: 2/3;--wp--preset--aspect-ratio--16-9: 16/9;--wp--preset--aspect-ratio--9-16: 9/16;--wp--preset--color--black: #000000;--wp--preset--color--cyan-bluish-gray: #abb8c3;--wp--preset--color--white: #ffffff;--wp--preset--color--pale-pink: #f78da7;--wp--preset--color--vivid-red: #cf2e2e;--wp--preset--color--luminous-vivid-orange: #ff6900;--wp--preset--color--luminous-vivid-amber: #fcb900;--wp--preset--color--light-green-cyan: #7bdcb5;--wp--preset--color--vivid-green-cyan: #00d084;--wp--preset--color--pale-cyan-blue: #8ed1fc;--wp--preset--color--vivid-cyan-blue: #0693e3;--wp--preset--color--vivid-purple: #9b51e0;--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple: linear-gradient(135deg,rgba(6,147,227,1) 0%,rgb(155,81,224) 100%);--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan: linear-gradient(135deg,rgb(122,220,180) 0%,rgb(0,208,130) 100%);--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange: linear-gradient(135deg,rgba(252,185,0,1) 0%,rgba(255,105,0,1) 100%);--wp--preset--gradient--luminous-vivid-orange-to-vivid-red: linear-gradient(135deg,rgba(255,105,0,1) 0%,rgb(207,46,46) 100%);--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray: linear-gradient(135deg,rgb(238,238,238) 0%,rgb(169,184,195) 100%);--wp--preset--gradient--cool-to-warm-spectrum: linear-gradient(135deg,rgb(74,234,220) 0%,rgb(151,120,209) 20%,rgb(207,42,186) 40%,rgb(238,44,130) 60%,rgb(251,105,98) 80%,rgb(254,248,76) 100%);--wp--preset--gradient--blush-light-purple: linear-gradient(135deg,rgb(255,206,236) 0%,rgb(152,150,240) 100%);--wp--preset--gradient--blush-bordeaux: linear-gradient(135deg,rgb(254,205,165) 0%,rgb(254,45,45) 50%,rgb(107,0,62) 100%);--wp--preset--gradient--luminous-dusk: linear-gradient(135deg,rgb(255,203,112) 0%,rgb(199,81,192) 50%,rgb(65,88,208) 100%);--wp--preset--gradient--pale-ocean: linear-gradient(135deg,rgb(255,245,203) 0%,rgb(182,227,212) 50%,rgb(51,167,181) 100%);--wp--preset--gradient--electric-grass: linear-gradient(135deg,rgb(202,248,128) 0%,rgb(113,206,126) 100%);--wp--preset--gradient--midnight: linear-gradient(135deg,rgb(2,3,129) 0%,rgb(40,116,252) 100%);--wp--preset--font-size--small: 13px;--wp--preset--font-size--medium: 20px;--wp--preset--font-size--large: 36px;--wp--preset--font-size--x-large: 42px;--wp--preset--spacing--20: 0.44rem;--wp--preset--spacing--30: 0.67rem;--wp--preset--spacing--40: 1rem;--wp--preset--spacing--50: 1.5rem;--wp--preset--spacing--60: 2.25rem;--wp--preset--spacing--70: 3.38rem;--wp--preset--spacing--80: 5.06rem;--wp--preset--shadow--natural: 6px 6px 9px rgba(0, 0, 0, 0.2);--wp--preset--shadow--deep: 12px 12px 50px rgba(0, 0, 0, 0.4);--wp--preset--shadow--sharp: 6px 6px 0px rgba(0, 0, 0, 0.2);--wp--preset--shadow--outlined: 6px 6px 0px -3px rgba(255, 255, 255, 1), 6px 6px rgba(0, 0, 0, 1);--wp--preset--shadow--crisp: 6px 6px 0px rgba(0, 0, 0, 1);}:root { --wp--style--global--content-size: 740px;--wp--style--global--wide-size: 1200px; }:where(body) { margin: 0; }.wp-site-blocks > .alignleft { float: left; margin-right: 2em; }.wp-site-blocks > .alignright { float: right; margin-left: 2em; }.wp-site-blocks > .aligncenter { justify-content: center; margin-left: auto; margin-right: auto; }:where(.wp-site-blocks) > * { margin-block-start: 24px; margin-block-end: 0; }:where(.wp-site-blocks) > :first-child { margin-block-start: 0; }:where(.wp-site-blocks) > :last-child { margin-block-end: 0; }:root { --wp--style--block-gap: 24px; }:root :where(.is-layout-flow) > :first-child{margin-block-start: 0;}:root :where(.is-layout-flow) > :last-child{margin-block-end: 0;}:root :where(.is-layout-flow) > *{margin-block-start: 24px;margin-block-end: 0;}:root :where(.is-layout-constrained) > :first-child{margin-block-start: 0;}:root :where(.is-layout-constrained) > :last-child{margin-block-end: 0;}:root :where(.is-layout-constrained) > *{margin-block-start: 24px;margin-block-end: 0;}:root :where(.is-layout-flex){gap: 24px;}:root :where(.is-layout-grid){gap: 24px;}.is-layout-flow > .alignleft{float: left;margin-inline-start: 0;margin-inline-end: 2em;}.is-layout-flow > .alignright{float: right;margin-inline-start: 2em;margin-inline-end: 0;}.is-layout-flow > .aligncenter{margin-left: auto !important;margin-right: auto !important;}.is-layout-constrained > .alignleft{float: left;margin-inline-start: 0;margin-inline-end: 2em;}.is-layout-constrained > .alignright{float: right;margin-inline-start: 2em;margin-inline-end: 0;}.is-layout-constrained > .aligncenter{margin-left: auto !important;margin-right: auto !important;}.is-layout-constrained > :where(:not(.alignleft):not(.alignright):not(.alignfull)){max-width: var(--wp--style--global--content-size);margin-left: auto !important;margin-right: auto !important;}.is-layout-constrained > .alignwide{max-width: var(--wp--style--global--wide-size);}body .is-layout-flex{display: flex;}.is-layout-flex{flex-wrap: wrap;align-items: center;}.is-layout-flex > :is(*, div){margin: 0;}body .is-layout-grid{display: grid;}.is-layout-grid > :is(*, div){margin: 0;}body{padding-top: 0px;padding-right: 0px;padding-bottom: 0px;padding-left: 0px;}a:where(:not(.wp-element-button)){text-decoration: none;}:root :where(.wp-element-button, .wp-block-button__link){background-color: #32373c;border-width: 0;color: #fff;font-family: inherit;font-size: inherit;line-height: inherit;padding: calc(0.667em + 2px) calc(1.333em + 2px);text-decoration: none;}.has-black-color{color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-color{color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-color{color: var(--wp--preset--color--white) !important;}.has-pale-pink-color{color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-color{color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-color{color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-color{color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-color{color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-color{color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-color{color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-color{color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-color{color: var(--wp--preset--color--vivid-purple) !important;}.has-black-background-color{background-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-background-color{background-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-background-color{background-color: var(--wp--preset--color--white) !important;}.has-pale-pink-background-color{background-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-background-color{background-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-background-color{background-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-background-color{background-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-background-color{background-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-background-color{background-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-background-color{background-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-background-color{background-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-background-color{background-color: var(--wp--preset--color--vivid-purple) !important;}.has-black-border-color{border-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-border-color{border-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-border-color{border-color: var(--wp--preset--color--white) !important;}.has-pale-pink-border-color{border-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-border-color{border-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-border-color{border-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-border-color{border-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-border-color{border-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-border-color{border-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-border-color{border-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-border-color{border-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-border-color{border-color: var(--wp--preset--color--vivid-purple) !important;}.has-vivid-cyan-blue-to-vivid-purple-gradient-background{background: var(--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple) !important;}.has-light-green-cyan-to-vivid-green-cyan-gradient-background{background: var(--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan) !important;}.has-luminous-vivid-amber-to-luminous-vivid-orange-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange) !important;}.has-luminous-vivid-orange-to-vivid-red-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-orange-to-vivid-red) !important;}.has-very-light-gray-to-cyan-bluish-gray-gradient-background{background: var(--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray) !important;}.has-cool-to-warm-spectrum-gradient-background{background: var(--wp--preset--gradient--cool-to-warm-spectrum) !important;}.has-blush-light-purple-gradient-background{background: var(--wp--preset--gradient--blush-light-purple) !important;}.has-blush-bordeaux-gradient-background{background: var(--wp--preset--gradient--blush-bordeaux) !important;}.has-luminous-dusk-gradient-background{background: var(--wp--preset--gradient--luminous-dusk) !important;}.has-pale-ocean-gradient-background{background: var(--wp--preset--gradient--pale-ocean) !important;}.has-electric-grass-gradient-background{background: var(--wp--preset--gradient--electric-grass) !important;}.has-midnight-gradient-background{background: var(--wp--preset--gradient--midnight) !important;}.has-small-font-size{font-size: var(--wp--preset--font-size--small) !important;}.has-medium-font-size{font-size: var(--wp--preset--font-size--medium) !important;}.has-large-font-size{font-size: var(--wp--preset--font-size--large) !important;}.has-x-large-font-size{font-size: var(--wp--preset--font-size--x-large) !important;} :root :where(.wp-block-pullquote){font-size: 1.5em;line-height: 1.6;}</style><link rel='stylesheet' id='fvm-header-0-css' href='https://www.lagazzettadelserchio.it/wp-content/uploads/cache/fvm/1754312320/out/header-02e351c51c108880a0bcecbaa9ff8d8e65fb0675.min.css' type='text/css' media='all' /> <script type="text/javascript" id="fvm-header-0-js-extra">/*  */
+var magellano_browserpush_vars = {"siteurl":"https:\/\/www.lagazzettadelserchio.it","api_uri":"https:\/\/infinitypush.magellanotech.it","theme":"CoverNews","sitename":"lagazzettadelserchio.it","is_post":""};
+/*  */</script> <script type="text/javascript" src="https://www.lagazzettadelserchio.it/wp-content/uploads/cache/fvm/1754312320/out/header-488cd0bda460208f26796dc8467e2199d387a359.min.js" id="fvm-header-0-js"></script><link rel="https://api.w.org/" href="https://www.lagazzettadelserchio.it/wp-json/" /><link rel="alternate" title="JSON" type="application/json" href="https://www.lagazzettadelserchio.it/wp-json/wp/v2/pages/31030" /><link rel="alternate" title="oEmbed (JSON)" type="application/json+oembed" href="https://www.lagazzettadelserchio.it/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fwww.lagazzettadelserchio.it%2F" /><link rel="alternate" title="oEmbed (XML)" type="text/xml+oembed" href="https://www.lagazzettadelserchio.it/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fwww.lagazzettadelserchio.it%2F&#038;format=xml" /> <script>var magellanoWebPushData = {"site":"lagazzettadelserchio.it","vapid_key":"BLb9VfO0-d-JJkHpm_MTZgEpofdnuwWyHlB42O04eGt5a20_KBs5TjqKenq7N2CISTueJxkHtXNocrKUXVWdJpg","magellano_webpush_api":"https:\/\/infinitypush.magellanotech.it\/api\/push"}</script><script src="https://www.lagazzettadelserchio.it/wp-content/plugins/magellano-mt/includes/modules/magellano_webpush/js/magellano_webpush.js"></script> <style type="text/css">.site-title, .site-description { position: absolute; clip: rect(1px, 1px, 1px, 1px); display: none; } .elementor-template-full-width .elementor-section.elementor-section-full_width > .elementor-container, .elementor-template-full-width .elementor-section.elementor-section-boxed > .elementor-container{ max-width: 1200px; } @media (min-width: 1600px){ .elementor-template-full-width .elementor-section.elementor-section-full_width > .elementor-container, .elementor-template-full-width .elementor-section.elementor-section-boxed > .elementor-container{ max-width: 1600px; } } .align-content-left .elementor-section-stretched, .align-content-right .elementor-section-stretched { max-width: 100%; left: 0 !important; }</style><link rel="icon" href="https://www.lagazzettadelserchio.it/wp-content/uploads/2024/10/cropped-favicon-32x32.png" sizes="32x32" /><link rel="icon" href="https://www.lagazzettadelserchio.it/wp-content/uploads/2024/10/cropped-favicon-192x192.png" sizes="192x192" /><link rel="apple-touch-icon" href="https://www.lagazzettadelserchio.it/wp-content/uploads/2024/10/cropped-favicon-180x180.png" /><meta name="msapplication-TileImage" content="https://www.lagazzettadelserchio.it/wp-content/uploads/2024/10/cropped-favicon-270x270.png" /><style type="text/css" id="wp-custom-css">.masthead-banner { background:transparent !important; } .main-navigation{ background:#353535; } .site-branding{ margin-left: 20px; } .cart-search{ display:none; } .main-navigation .menu ul li a { font-size: 17px; } .aft-main-banner-slider-grid .trending-story .figure-categories .cat-links a.covernews-categories, .full-plus-list .spotlight-post:first-of-type .figure-categories .cat-links a.covernews-categories, .figure-categories .cat-links a.covernews-categories { background-color: #35A6D8 !important; color: #fff !important; } .secondary-color, .site-content .search-form .search-submit, .site-footer .search-form .search-submit, .tagcloud a:hover { background: #35A6D8 !important; } body.default .entry-content > [class*="wp-block-"] .wp-block-categories-list.wp-block-categories a:not([class]):hover, body.dark .latest-posts-full .header-details-wrapper .entry-title a:hover, body.dark .entry-title a:visited:hover, body.dark .entry-title a:hover, body.dark h3.article-title.article-title-1 a:visited:hover, body.dark h3.article-title.article-title-1 a:hover, body.dark .trending-posts-carousel h3.article-title a:visited:hover, body.dark .trending-posts-carousel h3.article-title a:hover, body.dark .exclusive-slides a:visited:hover, body.dark .exclusive-slides a:hover, body.dark .article-title.article-title-1 a:visited:hover, body.dark .article-title.article-title-1 a:hover, body.dark .article-title a:visited:hover, body.dark .article-title a:hover, #wp-calendar caption, #wp-calendar td#today, .entry-title a:visited:hover, .entry-title a:hover, h3.article-title.article-title-1 a:visited:hover, h3.article-title.article-title-1 a:hover, .trending-posts-carousel h3.article-title a:visited:hover, .trending-posts-carousel h3.article-title a:hover, .exclusive-slides a:visited:hover, .exclusive-slides a:hover, .article-title.article-title-1 a:visited:hover, .article-title.article-title-1 a:hover, .article-title a:visited:hover, .article-title a:hover, .item-metadata.posts-date a:hover, .hentry .header-details-wrapper .posts-author a:hover, .grid-item-metadata .posts-date a:hover, .grid-item-metadata .posts-author a:hover, .aft-full-title-first .author-links a:hover, .aft-comment-count a:hover, .aft-view-count:hover, body.default.aft-main-banner-slider-full .main-slider .slider-figcaption .grid-item-metadata .author-links a:hover, body.dark.aft-main-banner-slider-full .main-slider .slider-figcaption .grid-item-metadata .author-links a:hover, body.default.aft-main-banner-slider-full .main-slider .slider-figcaption .grid-item-metadata .author-links a:hover i, body.dark.aft-main-banner-slider-full .main-slider .slider-figcaption .grid-item-metadata .author-links a:hover i, body.dark .item-metadata.posts-date a:hover, body.dark .hentry .header-details-wrapper .posts-author a:hover, body.dark .grid-item-metadata .posts-date a:hover, body.dark .grid-item-metadata .posts-author a:hover, body.dark .aft-full-title-first .author-links a:hover, body.dark .aft-comment-count a:hover, body.dark .aft-view-count a:hover, body .figure-categories-2 .cat-links a { color: #35A6D8; } .widget-title span::before, .covernews-heading-style::before, .em-reated-posts .related-title::before, .widget_block .wp-block-search__label::before, .widget_block .wp-block-group__inner-container h1::before, .widget_block .wp-block-group__inner-container h2::before, .widget_block .wp-block-group__inner-container h3::before, .widget_block .wp-block-group__inner-container h4::before, .widget_block .wp-block-group__inner-container h5::before, .widget_block .wp-block-group__inner-container h6::before, span.header-after:after { background-color: #35A6D8 !important; } @media (max-width:600px){ #primary-menu { background-color:#35A6D8!important; } #site-navigation .container { height: 0px; } .ham{ background-color:#fff; top: -32px; } .ham:before, .ham:after{ background-color:#fff; } .toggle-menu{ height:0px !important; } .af-search-wrap{ display:none; } .figure-categories{ display:none; } .entry-content-wrap { font-size: 15px; } .post h1 { font-size: 32px !important; line-height : 1.2; font-weight: 400; } .hentry .entry-header-details { padding: 8px; line-height: 0.5; } .wp-caption .wp-caption-text { margin: 0.8075em 0; font-size: 12px; } .covernews-breadcrumbs { font-size: 12px; padding: 0px 3px; } .hentry .entry-header-details .author-links { font-size: 12px; } .masthead-banner { padding: 10px!important; } .site-branding{ width:150px; } } body{ max-width: 1150px; margin: auto; } .slide-icon{ margin-top:12px } .home .posts-slider figcaption { background: #0000008f; } #primary-menu{ margin-left:10px; } p{ margin:15px 0px; } .teads-inread{ margin-bottom:20px; }</style></head><body class="home wp-singular page-template page-template-tmpl-front-page page-template-tmpl-front-page-php page page-id-31030 wp-custom-logo wp-embed-responsive wp-theme-covernews default-content-layout scrollup-sticky-header aft-sticky-header aft-sticky-sidebar default aft-container-default aft-main-banner-slider-editors-picks-trending single-content-mode-default header-image-default full-width-content"><div id="page" class="site"> <a class="skip-link screen-reader-text" href="#content">Skip to content</a><div class="header-layout-1"> <header id="masthead" class="site-header"><div class="masthead-banner " data-background=""><div class="container"><div class="row"><div class="col-md-4"><div class="site-branding"> <a href="https://www.lagazzettadelserchio.it/" class="custom-logo-link" rel="home" aria-current="page"><img width="270" height="92" src="https://www.lagazzettadelserchio.it/wp-content/uploads/2024/10/cropped-lagazzettadelserchio@2x.png" class="custom-logo" alt="La Gazzetta Del Serchio" decoding="async" /></a><h1 class="site-title font-family-1"> <a href="https://www.lagazzettadelserchio.it/" rel="home">La Gazzetta Del Serchio</a></h1></div></div><div class="col-md-8"></div></div></div></div> <nav id="site-navigation" class="main-navigation"><div class="container"><div class="row"><div class="kol-12"><div class="navigation-container"><div class="main-navigation-container-items-wrapper"><span class="toggle-menu" aria-controls="primary-menu" aria-expanded="false"> <a href="javascript:void(0)" class="aft-void-menu"> <span class="screen-reader-text">Primary Menu</span> <i class="ham"></i> </a> </span> <span class="af-mobile-site-title-wrap"> <a href="https://www.lagazzettadelserchio.it/" class="custom-logo-link" rel="home" aria-current="page"><img width="270" height="92" src="https://www.lagazzettadelserchio.it/wp-content/uploads/2024/10/cropped-lagazzettadelserchio@2x.png" class="custom-logo" alt="La Gazzetta Del Serchio" decoding="async" /></a><p class="site-title font-family-1"> <a href="https://www.lagazzettadelserchio.it/" rel="home">La Gazzetta Del Serchio</a></p> </span><div class="menu main-menu"><ul id="primary-menu" class="menu"><li id="menu-item-32522" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-32522"><a href="https://www.lagazzettadelserchio.it/primo-piano/">Primo piano</a></li><li id="menu-item-32519" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-32519"><a href="https://www.lagazzettadelserchio.it/cronaca/">Cronaca</a></li><li id="menu-item-32520" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-32520"><a href="https://www.lagazzettadelserchio.it/politica/">Politica</a></li><li id="menu-item-32521" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-32521"><a href="https://www.lagazzettadelserchio.it/eventi-sport/">Eventi &amp; Sport</a></li></ul></div></div><div class="cart-search"><div class="af-search-wrap"><div class="search-overlay"> <a href="#" title="Search" class="search-icon"> <i class="fa fa-search"></i> </a><div class="af-search-form"><form role="search" method="get" class="search-form" action="https://www.lagazzettadelserchio.it/"> <label> <span class="screen-reader-text">Ricerca per:</span> <input type="search" class="search-field" placeholder="Cerca &hellip;" value="" name="s" /> </label> <input type="submit" class="search-submit" value="Cerca" /></form></div></div></div></div></div></div></div></div> </nav> </header></div><section class="af-blocks"><div class="container af-main-banner default-section-slider aft-banner-1 order-1"><div class="row"></div></div><div class="container container-full-width"><div class="row"></div></div> </section><!-- end slider-section --><div id="content" class="container"> <!-- Main Content section --> <section class="section-block-upper"><div class="row"><div id="primary" class="content-area"><main id="main" class="site-main"><div id="covernews_posts_slider-3" class="widget covernews-widget covernews_posts_slider_widget"><div class="posts-slider"> <figure class="slick-item"><div class="data-bg-hover data-widget-slide read-bg-img"> <a href="https://www.lagazzettadelserchio.it/2025/09/23/riscatto-della-laurea-nuova-legge-propone-900-e-anno-per-andare-in-pensione-prima/"> <img width="640" height="360" src="https://www.lagazzettadelserchio.it/wp-content/uploads/2025/09/Laurea-fonte_Freepik.com-Lagazzettadelserchio.it_-1024x576.jpg" class="attachment-large size-large wp-post-image" alt="" decoding="async" srcset="https://www.lagazzettadelserchio.it/wp-content/uploads/2025/09/Laurea-fonte_Freepik.com-Lagazzettadelserchio.it_-1024x576.jpg 1024w, https://www.lagazzettadelserchio.it/wp-content/uploads/2025/09/Laurea-fonte_Freepik.com-Lagazzettadelserchio.it_-300x169.jpg 300w, https://www.lagazzettadelserchio.it/wp-content/uploads/2025/09/Laurea-fonte_Freepik.com-Lagazzettadelserchio.it_-768x432.jpg 768w, https://www.lagazzettadelserchio.it/wp-content/uploads/2025/09/Laurea-fonte_Freepik.com-Lagazzettadelserchio.it_-266x150.jpg 266w, https://www.lagazzettadelserchio.it/wp-content/uploads/2025/09/Laurea-fonte_Freepik.com-Lagazzettadelserchio.it_.jpg 1280w" sizes="(max-width: 640px) 100vw, 640px" /> </a> <figcaption class="slider-figcaption slider-figcaption-1"><div class="figure-categories figure-categories-bg"><ul class="cat-links"><li class="meta-category"> <a class="covernews-categories category-color-1" href="https://www.lagazzettadelserchio.it/primo-piano/" alt="View all posts in Primo piano"> Primo piano </a></li></ul></div><h2 class="slide-title"> <a href="https://www.lagazzettadelserchio.it/2025/09/23/riscatto-della-laurea-nuova-legge-propone-900-e-anno-per-andare-in-pensione-prima/">Riscatto della laurea: nuova legge propone 900 €/anno per andare in pensione prima</a></h2><div class="grid-item-metadata grid-item-metadata-1"> <span class="author-links"> <span class="item-metadata posts-author"> <i class="far fa-user-circle"></i> <a href="https://www.lagazzettadelserchio.it/author/alessandro-de-luca/"> Alessandro de Luca </a> </span> <span class="item-metadata posts-date"> <i class="far fa-clock"></i> <a href="https://www.lagazzettadelserchio.it/2025/09/"> 23 Settembre 2025 </a> </span> </span></div><div class="full-item-discription"><div class="post-description"><p>Una proposta al Senato punta a ridurre drasticamente il costo del riscatto degli anni universitari per docenti e personale scolastico, e permettere il pensionamento anticipato...</p><div class="aft-readmore-wrapper"><a href="https://www.lagazzettadelserchio.it/2025/09/23/riscatto-della-laurea-nuova-legge-propone-900-e-anno-per-andare-in-pensione-prima/" class="aft-readmore">Read More</a></div></div></div> </figcaption></div> </figure> <figure class="slick-item"><div class="data-bg-hover data-widget-slide read-bg-img"> <a href="https://www.lagazzettadelserchio.it/2025/09/22/pisa-tragedia-in-parcheggio-ikea-17enne-perde-la-vita-grave-lamico/"> <img width="640" height="370" src="https://www.lagazzettadelserchio.it/wp-content/uploads/2025/09/Megastore-Ikea-lagazzettadelserchio.it-Fonte_-Pixabay-1024x592.jpg" class="attachment-large size-large wp-post-image" alt="Supermercato Ikea" decoding="async" srcset="https://www.lagazzettadelserchio.it/wp-content/uploads/2025/09/Megastore-Ikea-lagazzettadelserchio.it-Fonte_-Pixabay-1024x592.jpg 1024w, https://www.lagazzettadelserchio.it/wp-content/uploads/2025/09/Megastore-Ikea-lagazzettadelserchio.it-Fonte_-Pixabay-300x173.jpg 300w, https://www.lagazzettadelserchio.it/wp-content/uploads/2025/09/Megastore-Ikea-lagazzettadelserchio.it-Fonte_-Pixabay-768x444.jpg 768w, https://www.lagazzettadelserchio.it/wp-content/uploads/2025/09/Megastore-Ikea-lagazzettadelserchio.it-Fonte_-Pixabay.jpg 1280w" sizes="(max-width: 640px) 100vw, 640px" /> </a> <figcaption class="slider-figcaption slider-figcaption-1"><div class="figure-categories figure-categories-bg"><ul class="cat-links"><li class="meta-category"> <a class="covernews-categories category-color-1" href="https://www.lagazzettadelserchio.it/cronaca/" alt="View all posts in Cronaca"> Cronaca </a></li><li class="meta-category"> <a class="covernews-categories category-color-1" href="https://www.lagazzettadelserchio.it/primo-piano/" alt="View all posts in Primo piano"> Primo piano </a></li></ul></div><h2 class="slide-title"> <a href="https://www.lagazzettadelserchio.it/2025/09/22/pisa-tragedia-in-parcheggio-ikea-17enne-perde-la-vita-grave-lamico/">Pisa, tragedia in parcheggio Ikea: 17enne perde la vita, grave l’amico</a></h2><div class="grid-item-metadata grid-item-metadata-1"> <span class="author-links"> <span class="item-metadata posts-author"> <i class="far fa-user-circle"></i> <a href="https://www.lagazzettadelserchio.it/author/riccardo-cantini/"> Riccardo Cantini </a> </span> <span class="item-metadata posts-date"> <i class="far fa-clock"></i> <a href="https://www.lagazzettadelserchio.it/2025/09/"> 22 Settembre 2025 </a> </span> </span></div><div class="full-item-discription"><div class="post-description"><p>A quanto pare, si tratta del tragico epilogo di un gioco praticato con frequenza tra i giovani centauri della zona. Un pomeriggio di spensieratezza si...</p><div class="aft-readmore-wrapper"><a href="https://www.lagazzettadelserchio.it/2025/09/22/pisa-tragedia-in-parcheggio-ikea-17enne-perde-la-vita-grave-lamico/" class="aft-readmore">Read More</a></div></div></div> </figcaption></div> </figure> <figure class="slick-item"><div class="data-bg-hover data-widget-slide read-bg-img"> <a href="https://www.lagazzettadelserchio.it/2025/09/19/boom-di-visitatori-per-incanto-e-fatica-nelle-crete-senesi-gia-oltre-3mila-presenze/"> <img width="640" height="360" src="https://www.lagazzettadelserchio.it/wp-content/uploads/2025/09/Crete-senesi-panorama-lagazzettadelserchio.it-Fonte_-Pixabay-1024x576.jpg" class="attachment-large size-large wp-post-image" alt="Pannorama delle crete senesi" decoding="async" srcset="https://www.lagazzettadelserchio.it/wp-content/uploads/2025/09/Crete-senesi-panorama-lagazzettadelserchio.it-Fonte_-Pixabay-1024x576.jpg 1024w, https://www.lagazzettadelserchio.it/wp-content/uploads/2025/09/Crete-senesi-panorama-lagazzettadelserchio.it-Fonte_-Pixabay-300x169.jpg 300w, https://www.lagazzettadelserchio.it/wp-content/uploads/2025/09/Crete-senesi-panorama-lagazzettadelserchio.it-Fonte_-Pixabay-768x432.jpg 768w, https://www.lagazzettadelserchio.it/wp-content/uploads/2025/09/Crete-senesi-panorama-lagazzettadelserchio.it-Fonte_-Pixabay-266x150.jpg 266w, https://www.lagazzettadelserchio.it/wp-content/uploads/2025/09/Crete-senesi-panorama-lagazzettadelserchio.it-Fonte_-Pixabay.jpg 1280w" sizes="(max-width: 640px) 100vw, 640px" /> </a> <figcaption class="slider-figcaption slider-figcaption-1"><div class="figure-categories figure-categories-bg"><ul class="cat-links"><li class="meta-category"> <a class="covernews-categories category-color-1" href="https://www.lagazzettadelserchio.it/attualita/" alt="View all posts in Attualità"> Attualità </a></li><li class="meta-category"> <a class="covernews-categories category-color-1" href="https://www.lagazzettadelserchio.it/primo-piano/" alt="View all posts in Primo piano"> Primo piano </a></li></ul></div><h2 class="slide-title"> <a href="https://www.lagazzettadelserchio.it/2025/09/19/boom-di-visitatori-per-incanto-e-fatica-nelle-crete-senesi-gia-oltre-3mila-presenze/">Boom di visitatori per “Incanto e fatica nelle Crete senesi”: già oltre 3mila presenze</a></h2><div class="grid-item-metadata grid-item-metadata-1"> <span class="author-links"> <span class="item-metadata posts-author"> <i class="far fa-user-circle"></i> <a href="https://www.lagazzettadelserchio.it/author/riccardo-cantini/"> Riccardo Cantini </a> </span> <span class="item-metadata posts-date"> <i class="far fa-clock"></i> <a href="https://www.lagazzettadelserchio.it/2025/09/"> 19 Settembre 2025 </a> </span> </span></div><div class="full-item-discription"><div class="post-description"><p>C'è tempo sino al prossimo gennaio per visitare, nei weekend, questo suggestivo percorso fra arte e memoria. Ha già conquistato più di 3.000 visitatori l'esposizione...</p><div class="aft-readmore-wrapper"><a href="https://www.lagazzettadelserchio.it/2025/09/19/boom-di-visitatori-per-incanto-e-fatica-nelle-crete-senesi-gia-oltre-3mila-presenze/" class="aft-readmore">Read More</a></div></div></div> </figcaption></div> </figure> <figure class="slick-item"><div class="data-bg-hover data-widget-slide read-bg-img"> <a href="https://www.lagazzettadelserchio.it/2025/09/18/orrore-nei-boschi-di-piazza-al-serchio-fungaiolo-trova-un-corpo-impiccato/"> <img width="640" height="360" src="https://www.lagazzettadelserchio.it/wp-content/uploads/2025/09/Una-strada-nel-bosco-lagazzettadelserchio.it-Fonte_-StockAdobe-1024x576.jpg" class="attachment-large size-large wp-post-image" alt="Strada nel bosco" decoding="async" srcset="https://www.lagazzettadelserchio.it/wp-content/uploads/2025/09/Una-strada-nel-bosco-lagazzettadelserchio.it-Fonte_-StockAdobe-1024x576.jpg 1024w, https://www.lagazzettadelserchio.it/wp-content/uploads/2025/09/Una-strada-nel-bosco-lagazzettadelserchio.it-Fonte_-StockAdobe-300x169.jpg 300w, https://www.lagazzettadelserchio.it/wp-content/uploads/2025/09/Una-strada-nel-bosco-lagazzettadelserchio.it-Fonte_-StockAdobe-768x432.jpg 768w, https://www.lagazzettadelserchio.it/wp-content/uploads/2025/09/Una-strada-nel-bosco-lagazzettadelserchio.it-Fonte_-StockAdobe-266x150.jpg 266w, https://www.lagazzettadelserchio.it/wp-content/uploads/2025/09/Una-strada-nel-bosco-lagazzettadelserchio.it-Fonte_-StockAdobe.jpg 1280w" sizes="(max-width: 640px) 100vw, 640px" /> </a> <figcaption class="slider-figcaption slider-figcaption-1"><div class="figure-categories figure-categories-bg"><ul class="cat-links"><li class="meta-category"> <a class="covernews-categories category-color-1" href="https://www.lagazzettadelserchio.it/cronaca/" alt="View all posts in Cronaca"> Cronaca </a></li><li class="meta-category"> <a class="covernews-categories category-color-1" href="https://www.lagazzettadelserchio.it/primo-piano/" alt="View all posts in Primo piano"> Primo piano </a></li></ul></div><h2 class="slide-title"> <a href="https://www.lagazzettadelserchio.it/2025/09/18/orrore-nei-boschi-di-piazza-al-serchio-fungaiolo-trova-un-corpo-impiccato/">Orrore nei boschi di Piazza al Serchio: fungaiolo trova un corpo impiccato</a></h2><div class="grid-item-metadata grid-item-metadata-1"> <span class="author-links"> <span class="item-metadata posts-author"> <i class="far fa-user-circle"></i> <a href="https://www.lagazzettadelserchio.it/author/riccardo-cantini/"> Riccardo Cantini </a> </span> <span class="item-metadata posts-date"> <i class="far fa-clock"></i> <a href="https://www.lagazzettadelserchio.it/2025/09/"> 18 Settembre 2025 </a> </span> </span></div><div class="full-item-discription"><div class="post-description"><p>La scoperta è avvenuta nel pomeriggio del 10 settembre scorso, quando un cercatore di funghi ha trovato il corpo. Un pomeriggio che doveva profumare di...</p><div class="aft-readmore-wrapper"><a href="https://www.lagazzettadelserchio.it/2025/09/18/orrore-nei-boschi-di-piazza-al-serchio-fungaiolo-trova-un-corpo-impiccato/" class="aft-readmore">Read More</a></div></div></div> </figcaption></div> </figure> <figure class="slick-item"><div class="data-bg-hover data-widget-slide read-bg-img"> <a href="https://www.lagazzettadelserchio.it/2025/09/17/livorno-legionella-nella-scuola-dinfanzia-struttura-chiusa-attivato-piano-alternativo/"> <img width="640" height="360" src="https://www.lagazzettadelserchio.it/wp-content/uploads/2025/09/Bambini-in-una-scuola-dinfanzia-lagazzettadelserchio.it-Fonte_-Pexels-1024x576.jpg" class="attachment-large size-large wp-post-image" alt="Asilo d&#039;infanzia" decoding="async" srcset="https://www.lagazzettadelserchio.it/wp-content/uploads/2025/09/Bambini-in-una-scuola-dinfanzia-lagazzettadelserchio.it-Fonte_-Pexels-1024x576.jpg 1024w, https://www.lagazzettadelserchio.it/wp-content/uploads/2025/09/Bambini-in-una-scuola-dinfanzia-lagazzettadelserchio.it-Fonte_-Pexels-300x169.jpg 300w, https://www.lagazzettadelserchio.it/wp-content/uploads/2025/09/Bambini-in-una-scuola-dinfanzia-lagazzettadelserchio.it-Fonte_-Pexels-768x432.jpg 768w, https://www.lagazzettadelserchio.it/wp-content/uploads/2025/09/Bambini-in-una-scuola-dinfanzia-lagazzettadelserchio.it-Fonte_-Pexels-266x150.jpg 266w, https://www.lagazzettadelserchio.it/wp-content/uploads/2025/09/Bambini-in-una-scuola-dinfanzia-lagazzettadelserchio.it-Fonte_-Pexels.jpg 1280w" sizes="(max-width: 640px) 100vw, 640px" /> </a> <figcaption class="slider-figcaption slider-figcaption-1"><div class="figure-categories figure-categories-bg"><ul class="cat-links"><li class="meta-category"> <a class="covernews-categories category-color-1" href="https://www.lagazzettadelserchio.it/cronaca/" alt="View all posts in Cronaca"> Cronaca </a></li><li class="meta-category"> <a class="covernews-categories category-color-1" href="https://www.lagazzettadelserchio.it/primo-piano/" alt="View all posts in Primo piano"> Primo piano </a></li></ul></div><h2 class="slide-title"> <a href="https://www.lagazzettadelserchio.it/2025/09/17/livorno-legionella-nella-scuola-dinfanzia-struttura-chiusa-attivato-piano-alternativo/">Livorno, Legionella nella scuola d’infanzia: struttura chiusa, attivato piano alternativo</a></h2><div class="grid-item-metadata grid-item-metadata-1"> <span class="author-links"> <span class="item-metadata posts-author"> <i class="far fa-user-circle"></i> <a href="https://www.lagazzettadelserchio.it/author/riccardo-cantini/"> Riccardo Cantini </a> </span> <span class="item-metadata posts-date"> <i class="far fa-clock"></i> <a href="https://www.lagazzettadelserchio.it/2025/09/"> 17 Settembre 2025 </a> </span> </span></div><div class="full-item-discription"><div class="post-description"><p>Il caso è scoppiato a Guasticce, frazione di Collesalvetti, nel livornese: scuola chiusa e bambini dirottati altrove. La presenza del batterio Legionella è stata accertata...</p><div class="aft-readmore-wrapper"><a href="https://www.lagazzettadelserchio.it/2025/09/17/livorno-legionella-nella-scuola-dinfanzia-struttura-chiusa-attivato-piano-alternativo/" class="aft-readmore">Read More</a></div></div></div> </figcaption></div> </figure></div></div><div id="covernews_posts_carousel-3" class="widget covernews-widget covernews_posts_carousel_widget grid-layout"><div class="posts-carousel row"><div class="slick-item"> <figure class="carousel-image col-sm-12"><div class="spotlight-post" data-mh="carousal-height"> <figure class="featured-article  inside-img"><div class="featured-article-wrapper"><div class="data-bg-hover data-bg-featured read-bg-img"> <a href="https://www.lagazzettadelserchio.it/2025/09/22/pisa-tragedia-in-parcheggio-ikea-17enne-perde-la-vita-grave-lamico/"> <img width="300" height="173" src="https://www.lagazzettadelserchio.it/wp-content/uploads/2025/09/Megastore-Ikea-lagazzettadelserchio.it-Fonte_-Pixabay-300x173.jpg" class="attachment-medium size-medium wp-post-image" alt="Supermercato Ikea" decoding="async" srcset="https://www.lagazzettadelserchio.it/wp-content/uploads/2025/09/Megastore-Ikea-lagazzettadelserchio.it-Fonte_-Pixabay-300x173.jpg 300w, https://www.lagazzettadelserchio.it/wp-content/uploads/2025/09/Megastore-Ikea-lagazzettadelserchio.it-Fonte_-Pixabay-1024x592.jpg 1024w, https://www.lagazzettadelserchio.it/wp-content/uploads/2025/09/Megastore-Ikea-lagazzettadelserchio.it-Fonte_-Pixabay-768x444.jpg 768w, https://www.lagazzettadelserchio.it/wp-content/uploads/2025/09/Megastore-Ikea-lagazzettadelserchio.it-Fonte_-Pixabay.jpg 1280w" sizes="(max-width: 300px) 100vw, 300px" /> </a></div></div><div class="figure-categories figure-categories-bg"><ul class="cat-links"><li class="meta-category"> <a class="covernews-categories category-color-1" href="https://www.lagazzettadelserchio.it/cronaca/" alt="View all posts in Cronaca"> Cronaca </a></li><li class="meta-category"> <a class="covernews-categories category-color-1" href="https://www.lagazzettadelserchio.it/primo-piano/" alt="View all posts in Primo piano"> Primo piano </a></li></ul></div> </figure><figcaption><div class="title-heading"><h3 class="article-title article-title-1"> <a href="https://www.lagazzettadelserchio.it/2025/09/22/pisa-tragedia-in-parcheggio-ikea-17enne-perde-la-vita-grave-lamico/"> Pisa, tragedia in parcheggio Ikea: 17enne perde la vita, grave l’amico </a></h3></div><div class="grid-item-metadata"> <span class="author-links"> <span class="item-metadata posts-author"> <i class="far fa-user-circle"></i> <a href="https://www.lagazzettadelserchio.it/author/riccardo-cantini/"> Riccardo Cantini </a> </span> <span class="item-metadata posts-date"> <i class="far fa-clock"></i> <a href="https://www.lagazzettadelserchio.it/2025/09/"> 22 Settembre 2025 </a> </span> </span></div> </figcaption></div> </figure></div><div class="slick-item"> <figure class="carousel-image col-sm-12"><div class="spotlight-post" data-mh="carousal-height"> <figure class="featured-article  inside-img"><div class="featured-article-wrapper"><div class="data-bg-hover data-bg-featured read-bg-img"> <a href="https://www.lagazzettadelserchio.it/2025/09/18/orrore-nei-boschi-di-piazza-al-serchio-fungaiolo-trova-un-corpo-impiccato/"> <img width="300" height="169" src="https://www.lagazzettadelserchio.it/wp-content/uploads/2025/09/Una-strada-nel-bosco-lagazzettadelserchio.it-Fonte_-StockAdobe-300x169.jpg" class="attachment-medium size-medium wp-post-image" alt="Strada nel bosco" decoding="async" srcset="https://www.lagazzettadelserchio.it/wp-content/uploads/2025/09/Una-strada-nel-bosco-lagazzettadelserchio.it-Fonte_-StockAdobe-300x169.jpg 300w, https://www.lagazzettadelserchio.it/wp-content/uploads/2025/09/Una-strada-nel-bosco-lagazzettadelserchio.it-Fonte_-StockAdobe-1024x576.jpg 1024w, https://www.lagazzettadelserchio.it/wp-content/uploads/2025/09/Una-strada-nel-bosco-lagazzettadelserchio.it-Fonte_-StockAdobe-768x432.jpg 768w, https://www.lagazzettadelserchio.it/wp-content/uploads/2025/09/Una-strada-nel-bosco-lagazzettadelserchio.it-Fonte_-StockAdobe-266x150.jpg 266w, https://www.lagazzettadelserchio.it/wp-content/uploads/2025/09/Una-strada-nel-bosco-lagazzettadelserchio.it-Fonte_-StockAdobe.jpg 1280w" sizes="(max-width: 300px) 100vw, 300px" /> </a></div></div><div class="figure-categories figure-categories-bg"><ul class="cat-links"><li class="meta-category"> <a class="covernews-categories category-color-1" href="https://www.lagazzettadelserchio.it/cronaca/" alt="View all posts in Cronaca"> Cronaca </a></li><li class="meta-category"> <a class="covernews-categories category-color-1" href="https://www.lagazzettadelserchio.it/primo-piano/" alt="View all posts in Primo piano"> Primo piano </a></li></ul></div> </figure><figcaption><div class="title-heading"><h3 class="article-title article-title-1"> <a href="https://www.lagazzettadelserchio.it/2025/09/18/orrore-nei-boschi-di-piazza-al-serchio-fungaiolo-trova-un-corpo-impiccato/"> Orrore nei boschi di Piazza al Serchio: fungaiolo trova un corpo impiccato </a></h3></div><div class="grid-item-metadata"> <span class="author-links"> <span class="item-metadata posts-author"> <i class="far fa-user-circle"></i> <a href="https://www.lagazzettadelserchio.it/author/riccardo-cantini/"> Riccardo Cantini </a> </span> <span class="item-metadata posts-date"> <i class="far fa-clock"></i> <a href="https://www.lagazzettadelserchio.it/2025/09/"> 18 Settembre 2025 </a> </span> </span></div> </figcaption></div> </figure></div><div class="slick-item"> <figure class="carousel-image col-sm-12"><div class="spotlight-post" data-mh="carousal-height"> <figure class="featured-article  inside-img"><div class="featured-article-wrapper"><div class="data-bg-hover data-bg-featured read-bg-img"> <a href="https://www.lagazzettadelserchio.it/2025/09/17/livorno-legionella-nella-scuola-dinfanzia-struttura-chiusa-attivato-piano-alternativo/"> <img width="300" height="169" src="https://www.lagazzettadelserchio.it/wp-content/uploads/2025/09/Bambini-in-una-scuola-dinfanzia-lagazzettadelserchio.it-Fonte_-Pexels-300x169.jpg" class="attachment-medium size-medium wp-post-image" alt="Asilo d&#039;infanzia" decoding="async" srcset="https://www.lagazzettadelserchio.it/wp-content/uploads/2025/09/Bambini-in-una-scuola-dinfanzia-lagazzettadelserchio.it-Fonte_-Pexels-300x169.jpg 300w, https://www.lagazzettadelserchio.it/wp-content/uploads/2025/09/Bambini-in-una-scuola-dinfanzia-lagazzettadelserchio.it-Fonte_-Pexels-1024x576.jpg 1024w, https://www.lagazzettadelserchio.it/wp-content/uploads/2025/09/Bambini-in-una-scuola-dinfanzia-lagazzettadelserchio.it-Fonte_-Pexels-768x432.jpg 768w, https://www.lagazzettadelserchio.it/wp-content/uploads/2025/09/Bambini-in-una-scuola-dinfanzia-lagazzettadelserchio.it-Fonte_-Pexels-266x150.jpg 266w, https://www.lagazzettadelserchio.it/wp-content/uploads/2025/09/Bambini-in-una-scuola-dinfanzia-lagazzettadelserchio.it-Fonte_-Pexels.jpg 1280w" sizes="(max-width: 300px) 100vw, 300px" /> </a></div></div><div class="figure-categories figure-categories-bg"><ul class="cat-links"><li class="meta-category"> <a class="covernews-categories category-color-1" href="https://www.lagazzettadelserchio.it/cronaca/" alt="View all posts in Cronaca"> Cronaca </a></li><li class="meta-category"> <a class="covernews-categories category-color-1" href="https://www.lagazzettadelserchio.it/primo-piano/" alt="View all posts in Primo piano"> Primo piano </a></li></ul></div> </figure><figcaption><div class="title-heading"><h3 class="article-title article-title-1"> <a href="https://www.lagazzettadelserchio.it/2025/09/17/livorno-legionella-nella-scuola-dinfanzia-struttura-chiusa-attivato-piano-alternativo/"> Livorno, Legionella nella scuola d’infanzia: struttura chiusa, attivato piano alternativo </a></h3></div><div class="grid-item-metadata"> <span class="author-links"> <span class="item-metadata posts-author"> <i class="far fa-user-circle"></i> <a href="https://www.lagazzettadelserchio.it/author/riccardo-cantini/"> Riccardo Cantini </a> </span> <span class="item-metadata posts-date"> <i class="far fa-clock"></i> <a href="https://www.lagazzettadelserchio.it/2025/09/"> 17 Settembre 2025 </a> </span> </span></div> </figcaption></div> </figure></div><div class="slick-item"> <figure class="carousel-image col-sm-12"><div class="spotlight-post" data-mh="carousal-height"> <figure class="featured-article  inside-img"><div class="featured-article-wrapper"><div class="data-bg-hover data-bg-featured read-bg-img"> <a href="https://www.lagazzettadelserchio.it/2025/09/15/sciopero-bus-pisa-lunedi-nero-per-i-pendolari-stop-di-24-ore-ecco-le-fasce-garantite/"> <img width="300" height="169" src="https://www.lagazzettadelserchio.it/wp-content/uploads/2025/09/Fermata-dellautobus-lagazzettadelserchio.it-Fonte_-StockAdobe-300x169.jpg" class="attachment-medium size-medium wp-post-image" alt="Bus stop" decoding="async" srcset="https://www.lagazzettadelserchio.it/wp-content/uploads/2025/09/Fermata-dellautobus-lagazzettadelserchio.it-Fonte_-StockAdobe-300x169.jpg 300w, https://www.lagazzettadelserchio.it/wp-content/uploads/2025/09/Fermata-dellautobus-lagazzettadelserchio.it-Fonte_-StockAdobe-1024x576.jpg 1024w, https://www.lagazzettadelserchio.it/wp-content/uploads/2025/09/Fermata-dellautobus-lagazzettadelserchio.it-Fonte_-StockAdobe-768x432.jpg 768w, https://www.lagazzettadelserchio.it/wp-content/uploads/2025/09/Fermata-dellautobus-lagazzettadelserchio.it-Fonte_-StockAdobe-266x150.jpg 266w, https://www.lagazzettadelserchio.it/wp-content/uploads/2025/09/Fermata-dellautobus-lagazzettadelserchio.it-Fonte_-StockAdobe.jpg 1280w" sizes="(max-width: 300px) 100vw, 300px" /> </a></div></div><div class="figure-categories figure-categories-bg"><ul class="cat-links"><li class="meta-category"> <a class="covernews-categories category-color-1" href="https://www.lagazzettadelserchio.it/cronaca/" alt="View all posts in Cronaca"> Cronaca </a></li><li class="meta-category"> <a class="covernews-categories category-color-1" href="https://www.lagazzettadelserchio.it/primo-piano/" alt="View all posts in Primo piano"> Primo piano </a></li></ul></div> </figure><figcaption><div class="title-heading"><h3 class="article-title article-title-1"> <a href="https://www.lagazzettadelserchio.it/2025/09/15/sciopero-bus-pisa-lunedi-nero-per-i-pendolari-stop-di-24-ore-ecco-le-fasce-garantite/"> Sciopero bus Pisa, lunedì nero per i pendolari | Stop di 24 ore, ecco le fasce garantite </a></h3></div><div class="grid-item-metadata"> <span class="author-links"> <span class="item-metadata posts-author"> <i class="far fa-user-circle"></i> <a href="https://www.lagazzettadelserchio.it/author/riccardo-cantini/"> Riccardo Cantini </a> </span> <span class="item-metadata posts-date"> <i class="far fa-clock"></i> <a href="https://www.lagazzettadelserchio.it/2025/09/"> 15 Settembre 2025 </a> </span> </span></div> </figcaption></div> </figure></div><div class="slick-item"> <figure class="carousel-image col-sm-12"><div class="spotlight-post" data-mh="carousal-height"> <figure class="featured-article  inside-img"><div class="featured-article-wrapper"><div class="data-bg-hover data-bg-featured read-bg-img"> <a href="https://www.lagazzettadelserchio.it/2025/09/11/parrucchiere-irregolare-in-toscana-questo-il-comune-che-ha-ordinato-la-chiusura-coatta-dellattivita/"> <img width="300" height="169" src="https://www.lagazzettadelserchio.it/wp-content/uploads/2025/09/Taglio-di-capelli-dal-parrucchiere-lagazzettadelserchio.it-Fonte_-StockAdobe-300x169.jpg" class="attachment-medium size-medium wp-post-image" alt="Parrucchiera taglia i capelli" decoding="async" srcset="https://www.lagazzettadelserchio.it/wp-content/uploads/2025/09/Taglio-di-capelli-dal-parrucchiere-lagazzettadelserchio.it-Fonte_-StockAdobe-300x169.jpg 300w, https://www.lagazzettadelserchio.it/wp-content/uploads/2025/09/Taglio-di-capelli-dal-parrucchiere-lagazzettadelserchio.it-Fonte_-StockAdobe-1024x576.jpg 1024w, https://www.lagazzettadelserchio.it/wp-content/uploads/2025/09/Taglio-di-capelli-dal-parrucchiere-lagazzettadelserchio.it-Fonte_-StockAdobe-768x432.jpg 768w, https://www.lagazzettadelserchio.it/wp-content/uploads/2025/09/Taglio-di-capelli-dal-parrucchiere-lagazzettadelserchio.it-Fonte_-StockAdobe-266x150.jpg 266w, https://www.lagazzettadelserchio.it/wp-content/uploads/2025/09/Taglio-di-capelli-dal-parrucchiere-lagazzettadelserchio.it-Fonte_-StockAdobe.jpg 1280w" sizes="(max-width: 300px) 100vw, 300px" /> </a></div></div><div class="figure-categories figure-categories-bg"><ul class="cat-links"><li class="meta-category"> <a class="covernews-categories category-color-1" href="https://www.lagazzettadelserchio.it/cronaca/" alt="View all posts in Cronaca"> Cronaca </a></li><li class="meta-category"> <a class="covernews-categories category-color-1" href="https://www.lagazzettadelserchio.it/primo-piano/" alt="View all posts in Primo piano"> Primo piano </a></li></ul></div> </figure><figcaption><div class="title-heading"><h3 class="article-title article-title-1"> <a href="https://www.lagazzettadelserchio.it/2025/09/11/parrucchiere-irregolare-in-toscana-questo-il-comune-che-ha-ordinato-la-chiusura-coatta-dellattivita/"> Parrucchiere irregolare in Toscana: questo il Comune che ha ordinato la chiusura coatta dell’attività </a></h3></div><div class="grid-item-metadata"> <span class="author-links"> <span class="item-metadata posts-author"> <i class="far fa-user-circle"></i> <a href="https://www.lagazzettadelserchio.it/author/riccardo-cantini/"> Riccardo Cantini </a> </span> <span class="item-metadata posts-date"> <i class="far fa-clock"></i> <a href="https://www.lagazzettadelserchio.it/2025/09/"> 11 Settembre 2025 </a> </span> </span></div> </figcaption></div> </figure></div></div></div><div id="covernews_posts_grid-3" class="widget covernews-widget covernews_Posts_Grid"><div class="widget-block"><div class="row"><div class="col-sm-6 full-plus-list"><div class="spotlight-post"> <figure class="categorised-article"><div class="categorised-article-wrapper"><div class="data-bg-hover data-bg-categorised read-bg-img"> <a href="https://www.lagazzettadelserchio.it/2025/10/23/ora-legale-addormentata-sanchez-spostare-le-lancette-due-volte-lanno-non-ha-piu-senso/"> <img width="300" height="173" src="https://www.lagazzettadelserchio.it/wp-content/uploads/2025/10/Bandiera-Spagnola-fonte_Pexels.com-Lagazzettadelserchio.it_-300x173.jpg" class="attachment-medium size-medium wp-post-image" alt="" decoding="async" srcset="https://www.lagazzettadelserchio.it/wp-content/uploads/2025/10/Bandiera-Spagnola-fonte_Pexels.com-Lagazzettadelserchio.it_-300x173.jpg 300w, https://www.lagazzettadelserchio.it/wp-content/uploads/2025/10/Bandiera-Spagnola-fonte_Pexels.com-Lagazzettadelserchio.it_-1024x592.jpg 1024w, https://www.lagazzettadelserchio.it/wp-content/uploads/2025/10/Bandiera-Spagnola-fonte_Pexels.com-Lagazzettadelserchio.it_-768x444.jpg 768w, https://www.lagazzettadelserchio.it/wp-content/uploads/2025/10/Bandiera-Spagnola-fonte_Pexels.com-Lagazzettadelserchio.it_.jpg 1280w" sizes="(max-width: 300px) 100vw, 300px" /> </a></div></div> </figure><figcaption><div class="figure-categories figure-categories-bg"><ul class="cat-links"><li class="meta-category"> <a class="covernews-categories category-color-1" href="https://www.lagazzettadelserchio.it/politica/" alt="View all posts in Politica"> Politica </a></li></ul></div><h3 class="article-title article-title-1"> <a href="https://www.lagazzettadelserchio.it/2025/10/23/ora-legale-addormentata-sanchez-spostare-le-lancette-due-volte-lanno-non-ha-piu-senso/"> Ora legale/addormentata? Sánchez: «Spostare le lancette due volte l’anno non ha più senso» </a></h3><div class="grid-item-metadata"> <span class="author-links"> <span class="item-metadata posts-author"> <i class="far fa-user-circle"></i> <a href="https://www.lagazzettadelserchio.it/author/alessandro-de-luca/"> Alessandro de Luca </a> </span> <span class="item-metadata posts-date"> <i class="far fa-clock"></i> <a href="https://www.lagazzettadelserchio.it/2025/10/"> 23 Ottobre 2025 </a> </span> </span></div> </figcaption></div><div class="spotlight-post"> <figure class="categorised-article"><div class="categorised-article-wrapper"><div class="data-bg-hover data-bg-categorised read-bg-img"> <a href="https://www.lagazzettadelserchio.it/2025/07/06/elezioni-regionali-alleanza-verdi-e-sinistra-portera-una-propria-lista/"> <img width="300" height="169" src="https://www.lagazzettadelserchio.it/wp-content/uploads/2025/07/Logo-Alleanza-Verdi-Sinistra-lagazzettadelserchio.it-Fonte_-sito-ufficiale-Sinistra-Italiana-300x169.jpg" class="attachment-medium size-medium wp-post-image" alt="Alleanza Verdi Sinistra" decoding="async" srcset="https://www.lagazzettadelserchio.it/wp-content/uploads/2025/07/Logo-Alleanza-Verdi-Sinistra-lagazzettadelserchio.it-Fonte_-sito-ufficiale-Sinistra-Italiana-300x169.jpg 300w, https://www.lagazzettadelserchio.it/wp-content/uploads/2025/07/Logo-Alleanza-Verdi-Sinistra-lagazzettadelserchio.it-Fonte_-sito-ufficiale-Sinistra-Italiana-1024x576.jpg 1024w, https://www.lagazzettadelserchio.it/wp-content/uploads/2025/07/Logo-Alleanza-Verdi-Sinistra-lagazzettadelserchio.it-Fonte_-sito-ufficiale-Sinistra-Italiana-768x432.jpg 768w, https://www.lagazzettadelserchio.it/wp-content/uploads/2025/07/Logo-Alleanza-Verdi-Sinistra-lagazzettadelserchio.it-Fonte_-sito-ufficiale-Sinistra-Italiana-266x150.jpg 266w, https://www.lagazzettadelserchio.it/wp-content/uploads/2025/07/Logo-Alleanza-Verdi-Sinistra-lagazzettadelserchio.it-Fonte_-sito-ufficiale-Sinistra-Italiana.jpg 1280w" sizes="(max-width: 300px) 100vw, 300px" /> </a></div></div> </figure><figcaption><div class="figure-categories figure-categories-bg"><ul class="cat-links"><li class="meta-category"> <a class="covernews-categories category-color-1" href="https://www.lagazzettadelserchio.it/politica/" alt="View all posts in Politica"> Politica </a></li></ul></div><h3 class="article-title article-title-1"> <a href="https://www.lagazzettadelserchio.it/2025/07/06/elezioni-regionali-alleanza-verdi-e-sinistra-portera-una-propria-lista/"> Elezioni regionali: Alleanza Verdi e Sinistra porterà una propria lista </a></h3><div class="grid-item-metadata"> <span class="author-links"> <span class="item-metadata posts-author"> <i class="far fa-user-circle"></i> <a href="https://www.lagazzettadelserchio.it/author/riccardo-cantini/"> Riccardo Cantini </a> </span> <span class="item-metadata posts-date"> <i class="far fa-clock"></i> <a href="https://www.lagazzettadelserchio.it/2025/07/"> 6 Luglio 2025 </a> </span> </span></div> </figcaption></div><div class="spotlight-post"> <figure class="categorised-article"><div class="categorised-article-wrapper"><div class="data-bg-hover data-bg-categorised read-bg-img"> <a href="https://www.lagazzettadelserchio.it/2025/07/05/rinnovo-commissioni-e-sottocommissioni-elettorali-ce-tempo-fino-all11-luglio-per-le-candidature/"> <img width="300" height="169" src="https://www.lagazzettadelserchio.it/wp-content/uploads/2025/07/Urna-elettorale-lagazzettadelserchio.it-Fonte_-StockAdobe-300x169.jpg" class="attachment-medium size-medium wp-post-image" alt="Mano depone una scheda in un&#039;urna elettorale" decoding="async" srcset="https://www.lagazzettadelserchio.it/wp-content/uploads/2025/07/Urna-elettorale-lagazzettadelserchio.it-Fonte_-StockAdobe-300x169.jpg 300w, https://www.lagazzettadelserchio.it/wp-content/uploads/2025/07/Urna-elettorale-lagazzettadelserchio.it-Fonte_-StockAdobe-1024x576.jpg 1024w, https://www.lagazzettadelserchio.it/wp-content/uploads/2025/07/Urna-elettorale-lagazzettadelserchio.it-Fonte_-StockAdobe-768x432.jpg 768w, https://www.lagazzettadelserchio.it/wp-content/uploads/2025/07/Urna-elettorale-lagazzettadelserchio.it-Fonte_-StockAdobe-266x150.jpg 266w, https://www.lagazzettadelserchio.it/wp-content/uploads/2025/07/Urna-elettorale-lagazzettadelserchio.it-Fonte_-StockAdobe.jpg 1280w" sizes="(max-width: 300px) 100vw, 300px" /> </a></div></div> </figure><figcaption><div class="figure-categories figure-categories-bg"><ul class="cat-links"><li class="meta-category"> <a class="covernews-categories category-color-1" href="https://www.lagazzettadelserchio.it/politica/" alt="View all posts in Politica"> Politica </a></li></ul></div><h3 class="article-title article-title-1"> <a href="https://www.lagazzettadelserchio.it/2025/07/05/rinnovo-commissioni-e-sottocommissioni-elettorali-ce-tempo-fino-all11-luglio-per-le-candidature/"> Rinnovo commissioni e sottocommissioni elettorali: c&#8217;è tempo fino all&#8217;11 luglio per le candidature </a></h3><div class="grid-item-metadata"> <span class="author-links"> <span class="item-metadata posts-author"> <i class="far fa-user-circle"></i> <a href="https://www.lagazzettadelserchio.it/author/riccardo-cantini/"> Riccardo Cantini </a> </span> <span class="item-metadata posts-date"> <i class="far fa-clock"></i> <a href="https://www.lagazzettadelserchio.it/2025/07/"> 5 Luglio 2025 </a> </span> </span></div> </figcaption></div><div class="spotlight-post"> <figure class="categorised-article"><div class="categorised-article-wrapper"><div class="data-bg-hover data-bg-categorised read-bg-img"> <a href="https://www.lagazzettadelserchio.it/2025/06/21/corte-dappello-di-firenze-respinto-lappello-del-comune-di-vagli-sotto-contro-coltelli-e-massari/"> <img width="300" height="169" src="https://www.lagazzettadelserchio.it/wp-content/uploads/2025/06/I-canonici-simboli-della-Giustizia-lagazzettadelserchio.it-Fonte_-StockAdobe-300x169.jpg" class="attachment-medium size-medium wp-post-image" alt="Giudice e simboli della Legge" decoding="async" srcset="https://www.lagazzettadelserchio.it/wp-content/uploads/2025/06/I-canonici-simboli-della-Giustizia-lagazzettadelserchio.it-Fonte_-StockAdobe-300x169.jpg 300w, https://www.lagazzettadelserchio.it/wp-content/uploads/2025/06/I-canonici-simboli-della-Giustizia-lagazzettadelserchio.it-Fonte_-StockAdobe-1024x576.jpg 1024w, https://www.lagazzettadelserchio.it/wp-content/uploads/2025/06/I-canonici-simboli-della-Giustizia-lagazzettadelserchio.it-Fonte_-StockAdobe-768x432.jpg 768w, https://www.lagazzettadelserchio.it/wp-content/uploads/2025/06/I-canonici-simboli-della-Giustizia-lagazzettadelserchio.it-Fonte_-StockAdobe-266x150.jpg 266w, https://www.lagazzettadelserchio.it/wp-content/uploads/2025/06/I-canonici-simboli-della-Giustizia-lagazzettadelserchio.it-Fonte_-StockAdobe.jpg 1280w" sizes="(max-width: 300px) 100vw, 300px" /> </a></div></div> </figure><figcaption><div class="figure-categories figure-categories-bg"><ul class="cat-links"><li class="meta-category"> <a class="covernews-categories category-color-1" href="https://www.lagazzettadelserchio.it/politica/" alt="View all posts in Politica"> Politica </a></li></ul></div><h3 class="article-title article-title-1"> <a href="https://www.lagazzettadelserchio.it/2025/06/21/corte-dappello-di-firenze-respinto-lappello-del-comune-di-vagli-sotto-contro-coltelli-e-massari/"> Corte d&#8217;Appello di Firenze: respinto l’appello del Comune di Vagli Sotto contro Coltelli e Massari </a></h3><div class="grid-item-metadata"> <span class="author-links"> <span class="item-metadata posts-author"> <i class="far fa-user-circle"></i> <a href="https://www.lagazzettadelserchio.it/author/riccardo-cantini/"> Riccardo Cantini </a> </span> <span class="item-metadata posts-date"> <i class="far fa-clock"></i> <a href="https://www.lagazzettadelserchio.it/2025/06/"> 21 Giugno 2025 </a> </span> </span></div> </figcaption></div></div><div class="col-sm-6 list"><div class="spotlight-post"> <figure class="categorised-article"><div class="categorised-article-wrapper"><div class="data-bg-hover data-bg-categorised read-bg-img"> <a  href="https://www.lagazzettadelserchio.it/2025/09/09/lucca-torna-il-september-lucensis-rievocazioni-palio-di-santa-croce-e-700-anni-dalla-battaglia-di-altopascio/"> <img width="150" height="150" src="https://www.lagazzettadelserchio.it/wp-content/uploads/2025/09/Lucca-piazza-Duomo-lagazzettadelserchio.it-Fonte_-StockAdobe-1-150x150.jpg" class="attachment-thumbnail size-thumbnail wp-post-image" alt="Panorama di piazza Duomo a Lucca" decoding="async" /> </a></div></div> </figure> <figcaption><div class="figure-categories figure-categories-bg"><ul class="cat-links"><li class="meta-category"> <a class="covernews-categories category-color-1" href="https://www.lagazzettadelserchio.it/eventi-sport/" alt="View all posts in Eventi &amp; Sport"> Eventi &amp; Sport </a></li><li class="meta-category"> <a class="covernews-categories category-color-1" href="https://www.lagazzettadelserchio.it/primo-piano/" alt="View all posts in Primo piano"> Primo piano </a></li></ul></div><h3 class="article-title article-title-1"> <a href="https://www.lagazzettadelserchio.it/2025/09/09/lucca-torna-il-september-lucensis-rievocazioni-palio-di-santa-croce-e-700-anni-dalla-battaglia-di-altopascio/"> Lucca, torna il September Lucensis: rievocazioni, Palio di Santa Croce e 700 anni dalla battaglia di Altopascio </a></h3><div class="grid-item-metadata"> <span class="author-links"> <span class="item-metadata posts-author"> <i class="far fa-user-circle"></i> <a href="https://www.lagazzettadelserchio.it/author/riccardo-cantini/"> Riccardo Cantini </a> </span> <span class="item-metadata posts-date"> <i class="far fa-clock"></i> <a href="https://www.lagazzettadelserchio.it/2025/09/"> 9 Settembre 2025 </a> </span> </span></div> </figcaption></div><div class="spotlight-post"> <figure class="categorised-article"><div class="categorised-article-wrapper"><div class="data-bg-hover data-bg-categorised read-bg-img"> <a  href="https://www.lagazzettadelserchio.it/2025/09/02/weekend-in-toscana-il-treno-diretto-roma-siena-tra-panorami-e-atmosfere-daltri-tempi/"> <img width="150" height="150" src="https://www.lagazzettadelserchio.it/wp-content/uploads/2025/08/Siena_-Piazza-del-Campo-e-Torre-del-Mangia-lagazzettadelserchio.it-Fonte_-StockAdobe-150x150.jpg" class="attachment-thumbnail size-thumbnail wp-post-image" alt="Siena: Piazza del Campo e Torre del Mangia - lagazzettadelserchio.it - Fonte: StockAdobe" decoding="async" /> </a></div></div> </figure> <figcaption><div class="figure-categories figure-categories-bg"><ul class="cat-links"><li class="meta-category"> <a class="covernews-categories category-color-1" href="https://www.lagazzettadelserchio.it/eventi-sport/" alt="View all posts in Eventi &amp; Sport"> Eventi &amp; Sport </a></li><li class="meta-category"> <a class="covernews-categories category-color-1" href="https://www.lagazzettadelserchio.it/primo-piano/" alt="View all posts in Primo piano"> Primo piano </a></li></ul></div><h3 class="article-title article-title-1"> <a href="https://www.lagazzettadelserchio.it/2025/09/02/weekend-in-toscana-il-treno-diretto-roma-siena-tra-panorami-e-atmosfere-daltri-tempi/"> Weekend in Toscana: il treno diretto Roma-Siena tra panorami e atmosfere d’altri tempi </a></h3><div class="grid-item-metadata"> <span class="author-links"> <span class="item-metadata posts-author"> <i class="far fa-user-circle"></i> <a href="https://www.lagazzettadelserchio.it/author/riccardo-cantini/"> Riccardo Cantini </a> </span> <span class="item-metadata posts-date"> <i class="far fa-clock"></i> <a href="https://www.lagazzettadelserchio.it/2025/09/"> 2 Settembre 2025 </a> </span> </span></div> </figcaption></div><div class="spotlight-post"> <figure class="categorised-article"><div class="categorised-article-wrapper"><div class="data-bg-hover data-bg-categorised read-bg-img"> <a  href="https://www.lagazzettadelserchio.it/2025/08/03/agosto-in-toscana-5-proposte-incredibili-che-ti-faranno-amare-questa-regione-come-mai-prima-dora/"> <img width="150" height="150" src="https://www.lagazzettadelserchio.it/wp-content/uploads/2025/07/firenze-Fonte-Pixabay-dominickvietor-LaGazzettadelSerchio.it-1-150x150.jpg" class="attachment-thumbnail size-thumbnail wp-post-image" alt="" decoding="async" /> </a></div></div> </figure> <figcaption><div class="figure-categories figure-categories-bg"><ul class="cat-links"><li class="meta-category"> <a class="covernews-categories category-color-1" href="https://www.lagazzettadelserchio.it/eventi-sport/" alt="View all posts in Eventi &amp; Sport"> Eventi &amp; Sport </a></li></ul></div><h3 class="article-title article-title-1"> <a href="https://www.lagazzettadelserchio.it/2025/08/03/agosto-in-toscana-5-proposte-incredibili-che-ti-faranno-amare-questa-regione-come-mai-prima-dora/"> Agosto in Toscana | 5 proposte incredibili che TI FARANNO AMARE questa regione come mai prima d’ora </a></h3><div class="grid-item-metadata"> <span class="author-links"> <span class="item-metadata posts-author"> <i class="far fa-user-circle"></i> <a href="https://www.lagazzettadelserchio.it/author/daniela-de-pisapia/"> Daniela De Pisapia </a> </span> <span class="item-metadata posts-date"> <i class="far fa-clock"></i> <a href="https://www.lagazzettadelserchio.it/2025/08/"> 3 Agosto 2025 </a> </span> </span></div> </figcaption></div><div class="spotlight-post"> <figure class="categorised-article"><div class="categorised-article-wrapper"><div class="data-bg-hover data-bg-categorised read-bg-img"> <a  href="https://www.lagazzettadelserchio.it/2025/07/21/ultimora-le-olimpiadi-si-spostano-in-toscana-grande-colpo-per-la-regione-attesi-migliaia-di-atleti/"> <img width="150" height="150" src="https://www.lagazzettadelserchio.it/wp-content/uploads/2025/07/medaglie-fonte-Pixabay-Gadini-LaGazzettadelSerchio.it_-150x150.jpg" class="attachment-thumbnail size-thumbnail wp-post-image" alt="olimpiadi spostate a Firenze" decoding="async" /> </a></div></div> </figure> <figcaption><div class="figure-categories figure-categories-bg"><ul class="cat-links"><li class="meta-category"> <a class="covernews-categories category-color-1" href="https://www.lagazzettadelserchio.it/eventi-sport/" alt="View all posts in Eventi &amp; Sport"> Eventi &amp; Sport </a></li></ul></div><h3 class="article-title article-title-1"> <a href="https://www.lagazzettadelserchio.it/2025/07/21/ultimora-le-olimpiadi-si-spostano-in-toscana-grande-colpo-per-la-regione-attesi-migliaia-di-atleti/"> ULTIM&#8217;ORA &#8211; Le OLIMPIADI si spostano in Toscana | Grande colpo per la Regione, attesi migliaia di atleti </a></h3><div class="grid-item-metadata"> <span class="author-links"> <span class="item-metadata posts-author"> <i class="far fa-user-circle"></i> <a href="https://www.lagazzettadelserchio.it/author/daniela-de-pisapia/"> Daniela De Pisapia </a> </span> <span class="item-metadata posts-date"> <i class="far fa-clock"></i> <a href="https://www.lagazzettadelserchio.it/2025/07/"> 21 Luglio 2025 </a> </span> </span></div> </figcaption></div><div class="spotlight-post"> <figure class="categorised-article"><div class="categorised-article-wrapper"><div class="data-bg-hover data-bg-categorised read-bg-img"> <a  href="https://www.lagazzettadelserchio.it/2025/07/18/jennifer-lopez-blinda-lucca-viabilita-rivoluzionata-per-il-concerto-ecco-le-strade-chiuse-e-le-aree-sosta-disponibili/"> <img width="150" height="150" src="https://www.lagazzettadelserchio.it/wp-content/uploads/2025/07/Jennifer-Lopez-lagazzettadelserchio.it-Fonte_-profilo-ufficiale-Instagram-150x150.jpg" class="attachment-thumbnail size-thumbnail wp-post-image" alt="" decoding="async" /> </a></div></div> </figure> <figcaption><div class="figure-categories figure-categories-bg"><ul class="cat-links"><li class="meta-category"> <a class="covernews-categories category-color-1" href="https://www.lagazzettadelserchio.it/eventi-sport/" alt="View all posts in Eventi &amp; Sport"> Eventi &amp; Sport </a></li><li class="meta-category"> <a class="covernews-categories category-color-1" href="https://www.lagazzettadelserchio.it/primo-piano/" alt="View all posts in Primo piano"> Primo piano </a></li></ul></div><h3 class="article-title article-title-1"> <a href="https://www.lagazzettadelserchio.it/2025/07/18/jennifer-lopez-blinda-lucca-viabilita-rivoluzionata-per-il-concerto-ecco-le-strade-chiuse-e-le-aree-sosta-disponibili/"> Jennifer Lopez ‘blinda’ Lucca: viabilità rivoluzionata per il concerto, ecco le strade chiuse e le aree sosta disponibili </a></h3><div class="grid-item-metadata"> <span class="author-links"> <span class="item-metadata posts-author"> <i class="far fa-user-circle"></i> <a href="https://www.lagazzettadelserchio.it/author/riccardo-cantini/"> Riccardo Cantini </a> </span> <span class="item-metadata posts-date"> <i class="far fa-clock"></i> <a href="https://www.lagazzettadelserchio.it/2025/07/"> 18 Luglio 2025 </a> </span> </span></div> </figcaption></div></div></div></div></div> </main></div></div> </section></div><footer class="site-footer"><div class="site-info"><div class="container"><div class="row"><div class="col-sm-12"> Copyright © Lagazzettadelserchio.it di proprietà di Magellano Tech Solutions Srl - Via Due Macelli 60, 00187 Roma - info@magellanotech.it <span class="sep"> | </span><div> <a href="https://www.magellanotech.it/cookie-policy/" target="_blank">Cookie Policy | </a> <a href="/privacy-policy">Privacy Policy | </a> <a href="/disclaimer">Disclaimer | </a> <a href="/redazione">Redazione | </a> <a href="/termini-e-condizioni-duso">Termini e Condizione d'Uso</a></div></div></div></div></div> </footer></div> <a id="scroll-up" class="secondary-color"> <i class="fa fa-angle-up"></i> </a> <script type="speculationrules">{"prefetch":[{"source":"document","where":{"and":[{"href_matches":"\/*"},{"not":{"href_matches":["\/wp-*.php","\/wp-admin\/*","\/wp-content\/uploads\/*","\/wp-content\/*","\/wp-content\/plugins\/*","\/wp-content\/themes\/covernews\/*","\/*\\?(.+)"]}},{"not":{"selector_matches":"a[rel~=\"nofollow\"]"}},{"not":{"selector_matches":".no-prefetch, .no-prefetch a"}}]},"eagerness":"conservative"}]}</script> <!-- Begin comScore Tag --> <script>var _comscore = _comscore || [];
+  _comscore.push({ c1: "2", c2: "37228040" });
+  (function() {
+    var s = document.createElement("script"), el = document.getElementsByTagName("script")[0]; s.async = true;
+    s.src = "https://sb.scorecardresearch.com/cs/37228040/beacon.js";
+    el.parentNode.insertBefore(s, el);
+  })();</script> <noscript> <img src="https://sb.scorecardresearch.com/p?c1=2&c2=37228040&cv=3.6.0&cj=1"> </noscript> <!-- End comScore Tag --><script>jQuery(function() {
+
+		var vidDefer = document.getElementsByTagName('iframe');
+		  for (var i=0; i<vidDefer.length; i++) {
+			if(vidDefer[i].getAttribute('data-src')) {
+				  vidDefer[i].setAttribute('src',vidDefer[i].getAttribute('data-src'));
+			}
+		}
+
+
+		if (jQuery(".twitter-tweet").length > 0) {
+			(function () {
+			 var s = document.createElement('script');
+			 s.type = 'text/javascript';
+			 s.async = true;
+			 s.src='https://platform.twitter.com/widgets.js' ;
+			 var sc = document.getElementsByTagName('script')[0];
+			 sc.parentNode.insertBefore(s, sc);
+		   })();
+		}
+
+		if (jQuery(".instagram-media").length > 0) {
+			(function () {
+			 var s = document.createElement('script');
+			 s.type = 'text/javascript';
+			 s.async = true;
+			 s.src='//www.instagram.com/embed.js' ;
+			 var sc = document.getElementsByTagName('script')[0];
+			 sc.parentNode.insertBefore(s, sc);
+		   })();
+		}
+	
+		if (jQuery(".reddit-embed-bq").length > 0) {
+			(function () {
+			 var s = document.createElement('script');
+			 s.type = 'text/javascript';
+			 s.async = true;
+			 s.src='//embed.reddit.com/widgets.js' ;
+			 var sc = document.getElementsByTagName('script')[0];
+			 sc.parentNode.insertBefore(s, sc);
+		   })();
+		}
+		
+		if (jQuery(".tiktok-embed").length > 0) {
+			(function () {
+			 var s = document.createElement('script');
+			 s.type = 'text/javascript';
+			 s.async = true;
+			 s.src='//www.tiktok.com/embed.js' ;
+			 var sc = document.getElementsByTagName('script')[0];
+			 sc.parentNode.insertBefore(s, sc);
+		   })();
+		}
+
+
+});</script> <style id="fvm-footer-0" media="all">.slick-slider{position:relative;display:block;box-sizing:border-box;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;-webkit-touch-callout:none;-khtml-user-select:none;-ms-touch-action:pan-y;touch-action:pan-y;-webkit-tap-highlight-color:transparent}.slick-list{position:relative;display:block;overflow:hidden;margin:0;padding:0}.slick-list:focus{outline:none}.slick-list.dragging{cursor:pointer;cursor:hand}.slick-slider .slick-track,.slick-slider .slick-list{-webkit-transform:translate3d(0,0,0);-moz-transform:translate3d(0,0,0);-ms-transform:translate3d(0,0,0);-o-transform:translate3d(0,0,0);transform:translate3d(0,0,0)}.slick-track{position:relative;top:0;left:0;display:block;margin-left:auto;margin-right:auto}.slick-track:before,.slick-track:after{display:table;content:''}.slick-track:after{clear:both}.slick-loading .slick-track{visibility:hidden}.slick-slide{display:none;float:left;height:100%;min-height:1px}[dir='rtl'] .slick-slide{float:right}.slick-slide img{display:block}.slick-slide.slick-loading img{display:none}.slick-slide.dragging img{pointer-events:none}.slick-initialized .slick-slide{display:block}.slick-loading .slick-slide{visibility:hidden}.slick-vertical .slick-slide{display:block;height:auto;border:1px solid transparent}.slick-arrow.slick-hidden{display:none}</style><script type="text/javascript" src="https://www.lagazzettadelserchio.it/wp-content/uploads/cache/fvm/1754312320/out/footer-d81c4dc7da50917eb5e6fa210397777d56167380.min.js" id="fvm-footer-0-js"></script> <script>(function() {
+            var s = document.createElement('script');
+            s.type = 'text/javascript';
+            s.async = true;
+            s.src = 'https://www.googletagmanager.com/gtag/js?id=G-8V65EYQTB1';
+            var sc = document.getElementsByTagName('script')[0];
+            sc.parentNode.insertBefore(s, sc);
+        })();
+
+        window.dataLayer = window.dataLayer || [];
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+        gtag('config', 'G-8V65EYQTB1');
+	
+	
+	function waitForConsentAndCmp(callback) {
+		const check = () => {
+			const hasConsentCookie = document.cookie.indexOf('euconsent-v2') !== -1;
+			const isTcfApiReady = typeof __tcfapi !== 'undefined';
+
+			if (isTcfApiReady) {
+				__tcfapi('ping', 2, (pingData, success) => {
+					if (success && pingData?.cmpStatus === 'loaded' && hasConsentCookie) {
+						callback();
+					} else {
+						setTimeout(check, 300);
+					}
+				});
+			} else {
+				setTimeout(check, 300);
+			}
+		};
+		check();
+	}
+	
+function loadScripts() {
+
+	 
+		gtag('config', 'G-TVEJTCMTGL');
+		gtag('config', 'G-L6JDV6YXS9');
+		
+		(function() {
+			var nat = document.createElement('script');
+			nat.type = 'text/javascript';
+			nat.async = true;
+			nat.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2121737085751619';
+			var nats = document.getElementsByTagName('script')[0];
+			nats.parentNode.insertBefore(nat, nats);
+		})();
+
+    (function() {
+        var endpoint = 'https://europe-west6-realtime-magellano.cloudfunctions.net/register-hit';
+        var referrer = document.referrer;
+
+        if (!sessionStorage.getItem('savedReferrer')) {
+            sessionStorage.setItem('savedReferrer', referrer);
+        }
+
+        if (sessionStorage.getItem('savedReferrer')) {
+            referrer = sessionStorage.getItem('savedReferrer');
+        }
+
+        var url = endpoint +
+            '?url=' + document.location.href +
+            '&referrer=' + encodeURIComponent(referrer);
+
+        fetch(url, {
+            method: "GET",
+            mode: "no-cors",
+            headers: {
+                "Access-Control-Allow-Origin": "*"
+            }
+        });
+    })();
+	
+	 (function() {
+        const placeholder = document.getElementById('outbrain-slot');
+        if (!placeholder) return;
+        const permalink = window.location.href;
+        const outbrainDiv = document.createElement('aside');
+        outbrainDiv.innerHTML = `<div class="OUTBRAIN" data-src="${permalink}" data-widget-id="AR_1"></div>`;
+        placeholder.appendChild(outbrainDiv);
+        const src = 'https://widgets.outbrain.com/outbrain.js';
+        if (!document.querySelector(`script[src="${src}"]`)) {
+            const script = document.createElement('script');
+            script.type = 'text/javascript';
+            script.async = true;
+            script.src = src;
+            document.head.appendChild(script);
+        } else if (typeof OB !== 'undefined' && typeof OB.render === 'function') {
+            OB.render();
+        }
+    })();
+
+    /*(function() {
+        const container = document.getElementById('mgid-slot');
+        if (!container) return;
+        container.innerHTML = '<div data-type="_mgwidget" data-widget-id="1677450"></div>';
+    })();*/
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    waitForConsentAndCmp(loadScripts);
+});</script> </body></html>
+<!-- Dynamic page generated in 0.303 seconds. -->
+<!-- Cached page generated by WP-Super-Cache on 2026-02-24 12:11:05 -->
+
+<!-- super cache -->

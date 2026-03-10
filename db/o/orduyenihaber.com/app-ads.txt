@@ -1,0 +1,1818 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Ordu Yeni Haber | Ordu Haber Merkezi</title>
+<link rel="manifest" href="/manifest.json?data=Bildirt">
+  <!-- Yazı tipleri & ikonlar -->
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@700;800&family=Inter:wght@400;600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+
+  <!-- Tema CSS (asset_v ile VERMEN YETER; ekstra ?v koyma) -->
+  <link rel="stylesheet" href="https://www.orduyenihaber.com/assets/style.css?v=1">
+</head>
+<body>
+
+  <style>
+/* =========================
+   HEADER & MENÜ (masaüstü + mobil çekmece)
+   ========================= */
+.main-menu-container { background:#fff; border-bottom:1px solid #eee; }
+.main-menu-container .container { display:flex; align-items:center; justify-content:space-between; gap:16px; }
+nav .menu-toggle { display:none; background:none; border:0; font-size:22px; padding:10px; cursor:pointer; }
+.nav-list { display:flex; gap:22px; align-items:center; list-style:none; margin:0; padding:0; }
+.nav-list > li > a { text-decoration:none; color:#222; font-weight:700; }
+
+/* Desktop dropdown */
+.nav-list .dropdown { position:relative; }
+.nav-list .dropdown > .dropdown-menu {
+  display:none; position:absolute; top:100%; left:0; min-width:220px; background:#fff; border:1px solid #eee;
+  border-radius:10px; padding:8px; box-shadow:0 10px 30px rgba(0,0,0,.08); z-index:50;
+}
+.nav-list .dropdown:hover > .dropdown-menu { display:block; }
+.nav-list .dropdown-menu li { list-style:none; }
+.nav-list .dropdown-menu a { display:block; padding:10px 12px; color:#222; border-radius:8px; }
+.nav-list .dropdown-menu a:hover { background:#f6f7f8; }
+
+/* ============== MOBİL ============== */
+@media (max-width: 992px) {
+  nav { position:relative; }
+  nav .menu-toggle { display:block; }
+
+  /* Arka plan (backdrop) */
+  nav .backdrop {
+    position:fixed; inset:0; background:rgba(0,0,0,.35);
+    opacity:0; pointer-events:none; transition:opacity .2s ease; z-index:98;
+  }
+  nav.open .backdrop { opacity:1; pointer-events:auto; }
+
+  /* Çekmece (sağdan) */
+  .nav-list{
+    position:fixed; right:0; top:0; height:100dvh; width:min(86vw,420px);
+    background:#fff; box-shadow: -20px 0 60px rgba(0,0,0,.18);
+    transform:translateX(100%); transition:transform .25s ease;
+    flex-direction:column; align-items:stretch; gap:0; padding:72px 16px 24px;
+    z-index:99; overflow:auto;
+  }
+  nav.open .nav-list { transform:translateX(0); }
+
+  /* Öğeler */
+  .nav-list > li > a { display:block; padding:14px 10px; border-radius:12px; }
+  .nav-list > li + li { border-top:1px solid #f1f1f1; }
+
+  /* Mobilde dropdown içeriği satır içi */
+  .nav-list .dropdown > a { display:flex; align-items:center; justify-content:space-between; }
+  .nav-list .dropdown > .dropdown-menu {
+    position:static; display:none; padding:6px 0 8px 10px; border:0; box-shadow:none; margin-top:-4px;
+  }
+  .nav-list .dropdown.open > .dropdown-menu { display:block; }
+}
+
+/* Gövde kaymasını kilitle */
+body.no-scroll { height:100vh; overflow:hidden; }
+
+/* =========================
+   SON DAKİKA BANTI
+   ========================= */
+#sd{background:#c40000;color:#fff}
+#sd .wrap{max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:16px;height:44px;overflow:hidden;padding:0 12px}
+#sd strong{font-weight:800;white-space:nowrap}
+#sd .belt{position:relative;flex:1;height:44px;overflow:hidden}
+#sd .lane{position:absolute;left:0;top:0;height:44px;display:flex;align-items:center;gap:28px;white-space:nowrap;will-change:transform}
+#sd .it{display:inline-flex;align-items:center;gap:10px;color:#fff;text-decoration:none}
+#sd time{background:rgba(255,255,255,.18);padding:3px 6px;border-radius:6px;font-weight:700;font-variant-numeric:tabular-nums}
+</style>
+
+  <!-- PHP KAPANIYOR, aşağısı HTML/CSS/JS -->
+
+<!-- ÜST ŞERİT -->
+<div class="top-menu">
+  <div class="container">
+    <span class="date">24 Şubat 2026 Salı</span>
+    <div class="quick">
+      <a href="/yazarlar"><i class="fa-solid fa-pen-nib"></i> Yazarlar</a>
+      <a href="/videolar"><i class="fa-solid fa-play"></i> Videolar</a>
+      <a href="/galeriler"><i class="fa-solid fa-camera"></i> Galeriler</a>
+      <a href="/roportajlar"><i class="fa-solid fa-microphone"></i> Röportajlar</a>
+      <a href="/eczane"><i class="fa-solid fa-clinic-medical"></i> Nöbetçi Eczaneler</a>
+      <a href="/ara" aria-label="Arama"><i class="fa-solid fa-magnifying-glass"></i></a>
+    </div>
+  </div>
+</div>
+
+<!-- LOGO + MENÜ -->
+<div class="main-menu-container">
+  <div class="container">
+    <div class="logo"><a href="/">ORDU YENİ HABER</a></div>
+
+    <nav aria-label="Ana menü">
+      <button class="menu-toggle" aria-label="Menüyü aç/kapat" aria-expanded="false">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+
+      <!-- Backdrop: JS yoksa dahi menü çalışsın -->
+      <div class="backdrop" aria-hidden="true"></div>
+
+      <ul class="nav-list" id="navList">
+                  <li><a href="/kategori/guncel">GÜNCEL</a></li>
+                  <li><a href="/kategori/ekonomi">EKONOMİ</a></li>
+                  <li><a href="/kategori/egitim">EĞİTİM</a></li>
+                  <li><a href="/kategori/kultur-sanat">KÜLTÜR&amp;SANAT</a></li>
+                  <li><a href="/kategori/magazin">MAGAZİN</a></li>
+                  <li><a href="/kategori/saglik">SAĞLIK</a></li>
+                  <li><a href="/kategori/siyaset">SİYASET</a></li>
+                  <li><a href="/kategori/spor">SPOR</a></li>
+        
+                  <li class="dropdown">
+            <a href="#" aria-expanded="false">DİĞER <i class="fa-solid fa-angle-down"></i></a>
+            <ul class="dropdown-menu">
+                              <li><a href="/kategori/teknoloji">TEKNOLOJİ</a></li>
+                              <li><a href="/kategori/resmi-ilanlar">RESMİ İLANLAR</a></li>
+                          </ul>
+          </li>
+              </ul>
+    </nav>
+  </div>
+</div>
+
+
+
+<script>
+// =========================
+// Son dakika: sonsuz akış
+// =========================
+(function(){
+  const lane  = document.getElementById('sd-lane');
+  const lane2 = document.getElementById('sd-lane2');
+  if (!lane || !lane2) return;
+  lane2.innerHTML = lane.innerHTML;
+
+  let x = 0, last = performance.now();
+  const speed = 70; // px/sn
+
+  function tick(now){
+    const dt = (now - last) / 1000; last = now;
+    const w = lane.offsetWidth || 1;
+    x -= speed * dt;
+    if (-x >= w) x += w;
+    lane.style.transform  = `translateX(${x}px)`;
+    lane2.style.transform = `translateX(${x + w}px)`;
+    requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+})();
+
+// =========================
+// MENÜ: çekmece aç/kapat
+// =========================
+(function(){
+  const nav = document.querySelector('.main-menu-container nav');
+  if(!nav) return;
+
+  const btn = nav.querySelector('.menu-toggle');
+  let backdrop = nav.querySelector('.backdrop');
+
+  // Backdrop yoksa otomatik oluştur
+  if(!backdrop){
+    backdrop = document.createElement('div');
+    backdrop.className = 'backdrop';
+    backdrop.setAttribute('aria-hidden','true');
+    nav.appendChild(backdrop);
+  }
+
+  const mq = window.matchMedia('(max-width: 992px)');
+
+  function open(){
+    nav.classList.add('open');
+    document.body.classList.add('no-scroll');
+    btn?.setAttribute('aria-expanded','true');
+  }
+  function close(){
+    nav.classList.remove('open');
+    document.body.classList.remove('no-scroll');
+    btn?.setAttribute('aria-expanded','false');
+    // mobil dropdownları da toparla
+    nav.querySelectorAll('.nav-list .dropdown.open').forEach(x=>x.classList.remove('open'));
+    nav.querySelectorAll('.nav-list .dropdown > a[aria-expanded="true"]').forEach(a=>a.setAttribute('aria-expanded','false'));
+  }
+  function toggle(){ nav.classList.contains('open') ? close() : open(); }
+
+  btn?.addEventListener('click', toggle);
+  backdrop.addEventListener('click', close);
+  window.addEventListener('keydown', e => { if(e.key === 'Escape') close(); });
+
+  // Ekran genişleyince (desktopa geçiş) kapat
+  function onMQ(e){ if(!e.matches) close(); }
+  if (mq.addEventListener) mq.addEventListener('change', onMQ); else mq.addListener(onMQ);
+
+  // Mobilde “DİĞER” alt menüsü: tıkla-aç (sadece çekmece açıkken)
+  nav.addEventListener('click', e=>{
+    const a = e.target.closest('.nav-list .dropdown > a');
+    if(!a) return;
+    // masaüstünde default davranış (hover) bozulmasın
+    if(!nav.classList.contains('open')) return;
+
+    e.preventDefault();
+    const li = a.parentElement;
+    const willOpen = !li.classList.contains('open');
+    // tek açık kalsın
+    nav.querySelectorAll('.nav-list .dropdown.open').forEach(x=>x.classList.remove('open'));
+    li.classList.toggle('open', willOpen);
+    a.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
+  });
+})();
+</script>
+  <style>
+.mw-bar { background:#f7f7f7; border-top:1px solid #eee; border-bottom:1px solid #eee; font-weight:700; color:#2a2a2a; }
+.mw-bar .container { display:flex; align-items:center; justify-content:space-between; gap:14px; overflow:hidden; min-height:46px; }
+.mw-list { display:flex; align-items:center; gap:5px; list-style:none; margin:0; padding:0; font-size:13px; flex:1 1 auto; min-width:0; }
+.mw-item { display:flex; align-items:center; gap:8px; white-space:nowrap; }
+.mw-item i { opacity:.6; }
+.mw-item .lab { opacity:.75; font-weight:600; letter-spacing:.2px; }
+.mw-item .val { font-variant-numeric: tabular-nums; }
+.mw-item .dir { font-size:.95em; margin-left:4px; }
+.mw-item.up   .val { color:#0a8f36; }   .mw-item.up   .dir { color:#0a8f36; }
+.mw-item.down .val { color:#c40000; }   .mw-item.down .dir { color:#c40000; }
+.mw-dot { width:4px; height:4px; border-radius:50%; background:#cfcfcf; opacity:.9; }
+.mw-weather { background:#2f2f2f; color:#fff; padding:6px 12px; border-radius:10px; display:flex; align-items:center; gap:8px; flex:0 0 auto; }
+.mw-weather .city { font-weight:800; letter-spacing:.3px; }
+.mw-weather .desc { opacity:.85; font-weight:700; }
+.mw-weather .deg { font-size:22px; line-height:1; font-variant-numeric: tabular-nums; }
+@media (max-width: 992px) {
+  .mw-bar .container { gap:10px; }
+  .mw-viewport{ position:relative; overflow:hidden; flex:1 1 auto; min-width:0; }
+  .mw-viewport .mw-list{ display:flex; flex-direction:column; gap:0; margin:0; padding:0; transform:translateY(0); }
+  .mw-item{ padding:10px 2px; }
+  .mw-dot{ display:none; }
+  .mw-weather{ padding:6px 10px; }
+}
+@media (max-width: 420px){ .mw-item .lab { display:none; } .mw-dot { display:none; } }
+</style>
+
+<div class="mw-bar" role="region" aria-label="Piyasa verileri ve hava durumu">
+  <div class="container">
+    <div class="mw-viewport">
+      <ul class="mw-list">
+        <li class="mw-item up">
+          <i class="fa-solid fa-dollar-sign"></i><span class="lab">DOLAR</span>
+          <span class="val">43,83 ₺</span>
+                      <span class="dir">▲</span>
+                  </li>
+        <span class="mw-dot" aria-hidden="true"></span>
+
+        <li class="mw-item up">
+          <i class="fa-solid fa-euro-sign"></i><span class="lab">EURO</span>
+          <span class="val">51,75 ₺</span>
+                      <span class="dir">▲</span>
+                  </li>
+        <span class="mw-dot" aria-hidden="true"></span>
+
+        <li class="mw-item up">
+          <i class="fa-solid fa-sterling-sign"></i><span class="lab">STERLİN</span>
+          <span class="val">59,33 ₺</span>
+                      <span class="dir">▲</span>
+                  </li>
+        <span class="mw-dot" aria-hidden="true"></span>
+
+        <li class="mw-item">
+          <i class="fa-solid fa-coins"></i><span class="lab">G.ALTIN</span>
+          <span class="val">4.811,27 ₺</span>
+        </li>
+        <span class="mw-dot" aria-hidden="true"></span>
+
+        <li class="mw-item">
+          <i class="fa-brands fa-bitcoin"></i><span class="lab">BTC</span>
+          <span class="val">4.786.096,00 ₺</span>
+        </li>
+        <span class="mw-dot" aria-hidden="true"></span>
+
+        <li class="mw-item">
+          <i class="fa-solid fa-chart-column"></i><span class="lab">BİST</span>
+          <span class="val">101.729,00</span>
+        </li>
+      </ul>
+    </div>
+
+    <div class="mw-weather" aria-label="Hava Durumu">
+      <span class="city">ORDU</span>
+      <span class="desc">Bulutlu</span>
+      <span class="deg">12°</span>
+      <i class="fa-solid fa-cloud"></i>
+    </div>
+  </div>
+</div>
+
+<script>
+/* MOBİL piyasa şeridi: 4 sn’de bir aşağı kaydır */
+(function(){
+  const vp  = document.querySelector('.mw-viewport');
+  const ul  = vp ? vp.querySelector('.mw-list') : null;
+  if(!vp || !ul) return;
+
+  const mq = window.matchMedia('(max-width: 992px)');
+  let timer = null, index = 0, rowH = 0, count = 0;
+
+  function setup(){
+    if(!mq.matches){
+      clearInterval(timer); timer=null;
+      ul.style.transition = ''; ul.style.transform = ''; vp.style.height = ''; return;
+    }
+    const items = Array.from(ul.children).filter(el => el.classList && el.classList.contains('mw-item'));
+    if(items.length === 0) return;
+
+    if(!ul.querySelector('.mw-clone')){
+      const clone = items[0].cloneNode(true);
+      clone.classList.add('mw-clone');
+      ul.appendChild(clone);
+    }
+    rowH = items[0].offsetHeight || 46;
+    vp.style.height = rowH + 'px';
+    count = items.length; index = 0;
+    ul.style.transition = 'transform .45s ease'; ul.style.transform = 'translateY(0)';
+    clearInterval(timer); timer = setInterval(next, 4000);
+  }
+  function next(){
+    index++; ul.style.transform = `translateY(-${index * rowH}px)`;
+    if(index >= count){ ul.addEventListener('transitionend', resetOnce, { once:true }); }
+  }
+  function resetOnce(){
+    ul.style.transition = 'none'; index = 0; ul.style.transform = 'translateY(0)';
+    void ul.offsetHeight; ul.style.transition = 'transform .45s ease';
+  }
+  setup(); if(mq.addEventListener) mq.addEventListener('change', setup); else mq.addListener(setup);
+  window.addEventListener('resize', () => { if(mq.matches) setup(); });
+})();
+</script>
+
+  <main class="container">
+    <div class="ad-zone" data-zone="header" class="ad ad-header"><div class="ad-item" data-id="7"><center><img src="https://www.orduyenihaber.com/uploads/ads/yeni-proje-3a7b6cd2.jpg"></center><img src="/go/7.gif?cb=1771934269" alt="" width="1" height="1" style="width:1px;height:1px;border:0;position:absolute;opacity:0;" loading="eager"></div></div>    
+
+<style nonce="+OWjEDB04efCXY0eakXYGA==">
+/* Varsayılan: 4 sütun */
+.feature4-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin:18px 0}
+
+/* Tablet ve küçük ekran: 2 sütun */
+@media (max-width:1100px){.feature4-grid{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:640px){ .feature4-grid{grid-template-columns:repeat(2,1fr)}}
+
+/* Çok dar ekran: 1 sütun (isteğe bağlı) */
+@media (max-width:380px){ .feature4-grid{grid-template-columns:1fr} }
+
+.feature4-card{position:relative;border-radius:16px;overflow:hidden;background:#f0f0f0}
+.feature4-card .imgwrap{position:relative;aspect-ratio:16/9;overflow:hidden}
+.feature4-card .imgwrap img{width:100%;height:100%;object-fit:cover;display:block;transform:scale(1);transition:transform .25s ease}
+.feature4-card .imgwrap .grad{position:absolute;left:0;right:0;bottom:0;top:40%;background:linear-gradient(180deg,rgba(0,0,0,0) 0%,rgba(0,0,0,.65) 100%);pointer-events:none}
+.feature4-card .imgwrap .badge{position:absolute;left:12px;top:12px;background:#c40000;color:#fff;font-weight:800;padding:6px 10px;border-radius:10px;font-size:14px;line-height:1;z-index:2}
+
+.feature4-card h3{
+  position:absolute;left:14px;right:14px;bottom:12px;margin:0;color:#fff;font-weight:800;
+  font-size:13px;text-align: center;line-height:1.25;text-shadow:0 1px 2px rgba(0,0,0,.35);
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;z-index:2
+}
+
+/* >>> Mobilde metni küçült <<< */
+@media (max-width:640px){
+  .feature4-card h3{font-size:13px;line-height:1.2}
+  .feature4-card .imgwrap .badge{font-size:12px;padding:5px 8px}
+}
+/* Çok dar cihazlarda biraz daha küçült */
+@media (max-width:380px){
+  .feature4-card h3{font-size:16px}
+}
+
+.feature4-card a.card-link{position:absolute;inset:0;display:block;border-radius:16px}
+.feature4-card:hover .imgwrap img{transform:scale(1.03)}
+.feature4-card:focus-within{outline:none}
+.feature4-card .card-link:focus{outline:none}
+.feature4-card .card-link:focus-visible{outline:3px solid #c40000;outline-offset:3px;border-radius:16px}
+</style>
+
+
+
+<section class="feature4-grid" aria-label="Öne çıkan haberler">
+      <article class="feature4-card">
+      <div class="imgwrap">
+        <img src="https://www.orduyenihaber.com/public/uploads/news/cover_20260224_140901_19a29088.jpg" alt="EVLİLİKTE DÜŞÜŞ, BOŞANMADA ARTIŞ!" loading="lazy" decoding="async">
+        <div class="grad" aria-hidden="true"></div>
+              </div>
+      <h3>EVLİLİKTE DÜŞÜŞ, BOŞANMADA ARTIŞ!</h3>
+      <a class="card-link" href="/evlilikte-dusus-bosanmada-artis-h50430.html" aria-label="EVLİLİKTE DÜŞÜŞ, BOŞANMADA ARTIŞ!"></a>
+    </article>
+      <article class="feature4-card">
+      <div class="imgwrap">
+        <img src="https://www.orduyenihaber.com/public/uploads/news/cover_20260224_133002_2ccdd8f1_780x444.jpg" alt="ALTINORDU’DA TARİH VE SANAT AYNI ÇATIDA   " loading="lazy" decoding="async">
+        <div class="grad" aria-hidden="true"></div>
+              </div>
+      <h3>ALTINORDU’DA TARİH VE SANAT AYNI ÇATIDA   </h3>
+      <a class="card-link" href="/altinordu-da-tarih-ve-sanat-ayni-catida-h50429.html" aria-label="ALTINORDU’DA TARİH VE SANAT AYNI ÇATIDA   "></a>
+    </article>
+      <article class="feature4-card">
+      <div class="imgwrap">
+        <img src="https://www.orduyenihaber.com/public/uploads/news/cover_20260224_132718_3eb74a08_780x444.jpg" alt="&quot;OKUL DIŞI ÖĞRENME&quot; DİJİTALDE!   " loading="lazy" decoding="async">
+        <div class="grad" aria-hidden="true"></div>
+              </div>
+      <h3>&quot;OKUL DIŞI ÖĞRENME&quot; DİJİTALDE!   </h3>
+      <a class="card-link" href="/okul-disi-ogrenme-dijitalde-h50428.html" aria-label="&quot;OKUL DIŞI ÖĞRENME&quot; DİJİTALDE!   "></a>
+    </article>
+      <article class="feature4-card">
+      <div class="imgwrap">
+        <img src="https://www.orduyenihaber.com/public/uploads/news/cover_20260224_114905_a1733a5e_780x444.jpg" alt="ŞEHİR İÇİ VE KIRSALDA MODERN YOL AĞI" loading="lazy" decoding="async">
+        <div class="grad" aria-hidden="true"></div>
+              </div>
+      <h3>ŞEHİR İÇİ VE KIRSALDA MODERN YOL AĞI</h3>
+      <a class="card-link" href="/sehir-ici-ve-kirsalda-modern-yol-agi-h50427.html" aria-label="ŞEHİR İÇİ VE KIRSALDA MODERN YOL AĞI"></a>
+    </article>
+  
+  </section>
+    
+<section class="manset ms" id="manset">
+  <div class="ms-viewport">
+          <article class="ms-slide is-active">
+        <!-- GÖRSEL: sağda daha dar kolon -->
+        <div class="ms-figure">
+          <img src="https://www.orduyenihaber.com/public/uploads/news/cover_20260224_141910_6e0de354_780x444.jpg" alt="KORGAN’DA BİRLİK MESAJI: “BÜYÜK BİR AİLEYİZ”">
+        </div>
+
+        <!-- Sol taraf maskesi (sadece metin alanını kapsar) -->
+        <div class="ms-shade" aria-hidden="true"></div>
+
+        
+        <div class="ms-content">
+          
+          
+          <h2 class="ms-title"><a href="/korgan-da-birlik-mesaji-buyuk-bir-aileyiz-h50431.html">KORGAN’DA BİRLİK MESAJI: “BÜYÜK BİR AİLEYİZ”</a></h2>
+
+                  </div>
+
+        <a class="ms-link" href="/korgan-da-birlik-mesaji-buyuk-bir-aileyiz-h50431.html" aria-label="Habere git"></a>
+      </article>
+          <article class="ms-slide ">
+        <!-- GÖRSEL: sağda daha dar kolon -->
+        <div class="ms-figure">
+          <img src="https://www.orduyenihaber.com/public/uploads/news/cover_20260224_133002_2ccdd8f1_780x444.jpg" alt="ALTINORDU’DA TARİH VE SANAT AYNI ÇATIDA   ">
+        </div>
+
+        <!-- Sol taraf maskesi (sadece metin alanını kapsar) -->
+        <div class="ms-shade" aria-hidden="true"></div>
+
+        
+        <div class="ms-content">
+          
+          
+          <h2 class="ms-title"><a href="/altinordu-da-tarih-ve-sanat-ayni-catida-h50429.html">ALTINORDU’DA TARİH VE SANAT AYNI ÇATIDA   </a></h2>
+
+                  </div>
+
+        <a class="ms-link" href="/altinordu-da-tarih-ve-sanat-ayni-catida-h50429.html" aria-label="Habere git"></a>
+      </article>
+          <article class="ms-slide ">
+        <!-- GÖRSEL: sağda daha dar kolon -->
+        <div class="ms-figure">
+          <img src="https://www.orduyenihaber.com/public/uploads/news/cover_20260224_132718_3eb74a08_780x444.jpg" alt="&quot;OKUL DIŞI ÖĞRENME&quot; DİJİTALDE!   ">
+        </div>
+
+        <!-- Sol taraf maskesi (sadece metin alanını kapsar) -->
+        <div class="ms-shade" aria-hidden="true"></div>
+
+        
+        <div class="ms-content">
+          
+          
+          <h2 class="ms-title"><a href="/okul-disi-ogrenme-dijitalde-h50428.html">&quot;OKUL DIŞI ÖĞRENME&quot; DİJİTALDE!   </a></h2>
+
+                  </div>
+
+        <a class="ms-link" href="/okul-disi-ogrenme-dijitalde-h50428.html" aria-label="Habere git"></a>
+      </article>
+          <article class="ms-slide ">
+        <!-- GÖRSEL: sağda daha dar kolon -->
+        <div class="ms-figure">
+          <img src="https://www.orduyenihaber.com/public/uploads/news/cover_20260224_114905_a1733a5e_780x444.jpg" alt="ŞEHİR İÇİ VE KIRSALDA MODERN YOL AĞI">
+        </div>
+
+        <!-- Sol taraf maskesi (sadece metin alanını kapsar) -->
+        <div class="ms-shade" aria-hidden="true"></div>
+
+        
+        <div class="ms-content">
+          
+          
+          <h2 class="ms-title"><a href="/sehir-ici-ve-kirsalda-modern-yol-agi-h50427.html">ŞEHİR İÇİ VE KIRSALDA MODERN YOL AĞI</a></h2>
+
+                  </div>
+
+        <a class="ms-link" href="/sehir-ici-ve-kirsalda-modern-yol-agi-h50427.html" aria-label="Habere git"></a>
+      </article>
+          <article class="ms-slide ">
+        <!-- GÖRSEL: sağda daha dar kolon -->
+        <div class="ms-figure">
+          <img src="https://www.orduyenihaber.com/public/uploads/news/cover_20260224_113020_927142ae_780x444.jpg" alt="SAĞLIKLI YAŞAM BİLİNCİ MÜNAZARA İLE GÜÇLENİYOR">
+        </div>
+
+        <!-- Sol taraf maskesi (sadece metin alanını kapsar) -->
+        <div class="ms-shade" aria-hidden="true"></div>
+
+        
+        <div class="ms-content">
+          
+          
+          <h2 class="ms-title"><a href="/saglikli-yasam-bilinci-munazara-ile-gucleniyor-h50426.html">SAĞLIKLI YAŞAM BİLİNCİ MÜNAZARA İLE GÜÇLENİYOR</a></h2>
+
+                  </div>
+
+        <a class="ms-link" href="/saglikli-yasam-bilinci-munazara-ile-gucleniyor-h50426.html" aria-label="Habere git"></a>
+      </article>
+    
+    <ul class="ms-pager" aria-label="Manşet sayfaları"></ul>
+  </div>
+</section>
+
+<style>
+/* === Ayarlanabilir görsel kolon genişliği === */
+.ms{ --figw: clamp(420px, 46%, 720px); }  /* Sağdaki görsel sütunu */
+
+/* Konteyner */
+.ms .ms-viewport{position:relative;border-radius:24px;overflow:hidden;min-height:260px;background:#000}
+
+/* Slayt */
+.ms .ms-slide{position:absolute;inset:0;opacity:0;pointer-events:none;transition:opacity .35s ease}
+.ms .ms-slide.is-active{opacity:1;pointer-events:auto}
+
+/* Görsel kolon (sağda) */
+.ms .ms-figure{
+  position:absolute; right:0; top:0; bottom:0;
+  width:var(--figw); z-index:1; overflow:hidden;
+}
+.ms .ms-figure img{
+  width:100%; height:100%; display:block;
+  object-fit:cover; object-position:right center;
+  transform:none; filter:brightness(.98);
+}
+
+/* Sol taraftaki koyu maske SADECE metin alanını kaplar */
+.ms .ms-shade{
+  position:absolute; left:0; top:0; bottom:0;
+  width:calc(100% - var(--figw));
+  background:linear-gradient(90deg, rgba(0,0,0,1) 0%, rgba(0,0,0,.9) 70%, rgba(0,0,0,0) 100%);
+  pointer-events:none; z-index:2;
+}
+
+/* Katman sıraları — pager en üstte kalsın */
+.ms .ms-right-badge{position:absolute;right:calc(var(--figw) + 24px);top:18px;z-index:5;background:#d90404;color:#fff;font-weight:900;padding:9px 14px;border-radius:12px;font-size:18px;line-height:1;box-shadow:0 2px 8px rgba(0,0,0,.25)}
+.ms .ms-content{
+  position:absolute;left:80px;top:40px;
+  right:calc(var(--figw) + 40px);  /* Metin alanı genişliği */
+  z-index:3;color:#fff;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif
+}
+.ms .ms-topbadge{display:inline-flex;align-items:center;gap:8px;background:#c40000;color:#fff;font-weight:900;padding:7px 12px;border-radius:12px;font-size:14px;line-height:1;margin-bottom:14px}
+.ms .ms-kicker{color:#f2c94c;font-weight:900;letter-spacing:.5px;font-size:26px;margin-bottom:6px}
+.ms .ms-title{font-family:Urbanist,Inter,system-ui,sans-serif;font-weight:900;font-size:40px;line-height:1.02;margin:0 0 10px 0;letter-spacing:.5px}
+.ms .ms-deck{font-size:16px;line-height:1.35;color:#dedede;max-width:900px}
+
+/* Pager */
+.ms .ms-pager{list-style:none;margin:0;padding:0;position:absolute;left:18px;top:16px;z-index:7;display:flex;flex-direction:column;gap:8px}
+.ms .ms-pager li{width:40px;height:40px;display:grid;place-items:center;background:#111;color:#fff;font-weight:900;border-radius:10px;cursor:pointer;border:1px solid rgba(255,255,255,.25);user-select:none;transition:transform .12s ease,background .12s ease,color .12s ease}
+.ms .ms-pager li.is-active{background:#fff;color:#111;border-color:#fff}
+.ms .ms-pager li:hover{transform:translateX(2px);background:#e40000;color:#fff}
+.ms .ms-pager li:focus-visible{outline:3px solid #e40000;outline-offset:2px}
+
+/* Link overlay: pager'ı örtmesin */
+.ms .ms-link{ position:absolute; inset:0; display:block; z-index:0; }
+
+/* Responsive */
+@media (max-width:1100px){
+  .ms .ms-viewport{min-height:340px}
+  .ms .ms-content{left:28px; right:calc(var(--figw) + 28px); top:44px}
+  .ms .ms-title{font-size:52px}
+  .ms .ms-deck{font-size:15px}
+  .ms .ms-right-badge{right:calc(var(--figw) + 18px); top:14px; font-size:15px}
+}
+@media (max-width:760px){
+  /* Mobilde resim tam genişlik, maske tüm genişlikte */
+  .ms{ --figw: 100%; }
+  .ms .ms-figure{ width:100%; }
+  .ms .ms-shade{ width:100%; }
+  .ms .ms-content{ left:18px; right:18px; top:36px }
+  .ms .ms-title{font-size:38px}
+  .ms .ms-kicker{font-size:18px}
+  .ms .ms-deck{font-size:15px;max-width:unset}
+  .ms .ms-right-badge{right:12px;top:12px;font-size:13px;padding:7px 10px}
+  .ms .ms-pager{left:16px;right:16px;top:auto;bottom:14px;flex-direction:row;gap:8px}
+  .ms .ms-pager li{width:34px;height:34px;border-radius:8px}
+}
+@media (prefers-reduced-motion:reduce){
+  .ms .ms-figure img{transition:none !important;transform:none !important}
+}
+
+</style>
+
+<script>
+// Manşet slider (masaüstü autoplay, mobilde yok)
+(function () {
+  const root = document.getElementById('manset');
+  if (!root) return;
+
+  const viewport = root.querySelector('.ms-viewport');
+  const slides   = Array.from(root.querySelectorAll('.ms-slide'));
+  const pager    = root.querySelector('.ms-pager');
+  if (!slides.length) return;
+
+  const isMobile = window.matchMedia('(max-width:760px)').matches;
+
+  // Pager
+  slides.forEach((_, i) => {
+    const li = document.createElement('li');
+    li.textContent = String(i + 1);
+    li.setAttribute('role', 'button');
+    li.setAttribute('tabindex', '0');
+    if (i === 0) li.classList.add('is-active');
+    li.addEventListener('mouseenter', () => { if (!isMobile) go(i); });
+    li.addEventListener('focus',     () => go(i));
+    li.addEventListener('click',     () => go(i));
+    pager.appendChild(li);
+  });
+
+  let index = 0, timer = null;
+
+  function go(i) {
+    if (i === index) return;
+    slides[index].classList.remove('is-active');
+    pager.children[index]?.classList.remove('is-active');
+    index = (i + slides.length) % slides.length;
+    slides[index].classList.add('is-active');
+    pager.children[index]?.classList.add('is-active');
+  }
+
+  // Klavye
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight') go(index + 1);
+    else if (e.key === 'ArrowLeft') go(index - 1);
+  });
+
+  // Autoplay (masaüstü)
+  const AUTOPLAY_MS = 7000;
+  function start() { stop(); timer = setInterval(() => go(index + 1), AUTOPLAY_MS); }
+  function stop()  { if (timer) { clearInterval(timer); timer = null; } }
+  if (!isMobile) {
+    root.addEventListener('mouseenter', stop);
+    root.addEventListener('mouseleave', start);
+    start();
+  }
+
+  // Swipe/Drag
+  let startX = 0, startY = 0, swiping = false;
+  const THRESH = 40;
+  const onPointerDown = (e) => { const t = e.touches ? e.touches[0] : e; startX=t.clientX; startY=t.clientY; swiping=true; };
+  const onPointerMove = (e) => {
+    if (!swiping) return;
+    const t = e.touches ? e.touches[0] : e;
+    const dx = t.clientX - startX, dy = t.clientY - startY;
+    if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > THRESH) {
+      swiping = false;
+      if (dx < 0) go(index + 1); else go(index - 1);
+    }
+  };
+  const onPointerUp = () => { swiping = false; };
+
+  viewport.addEventListener('touchstart', onPointerDown, { passive: true });
+  viewport.addEventListener('touchmove',  onPointerMove,  { passive: true });
+  viewport.addEventListener('touchend',   onPointerUp,    { passive: true });
+  viewport.addEventListener('mousedown',  onPointerDown);
+  window.addEventListener('mousemove',    onPointerMove);
+  window.addEventListener('mouseup',      onPointerUp);
+})();
+</script>
+
+    <!-- Manşet + Çok okunanlar -->
+    <section class="top-content-grid" aria-label="Manşet ve çok okunanlar">
+      <div class="featured-news">
+  <div class="featured-slider-container" aria-label="Manşetler" id="featuredSlider">
+          <a href="/evlilikte-dusus-bosanmada-artis-h50430.html"
+         class="featured-slide active-slide">
+        <!-- DİKKAT: data-src yok; native lazy kullanıyoruz. Optimizasyon dışı işaretleri eklendi. -->
+        <img
+          class="no-cache-img"
+          src="https://orduyenihaber.com/public/uploads/news/cover_20260224_140901_19a29088.jpg"
+          alt="EVLİLİKTE DÜŞÜŞ, BOŞANMADA ARTIŞ!"
+          loading="eager"
+          decoding="async"
+          fetchpriority="high"
+          data-no-optimize="1" data-no-lazy="1"
+          onerror="this.onerror=null;this.src='/assets/img/placeholder.webp'">
+        <div class="featured-text-overlay"><h2>EVLİLİKTE DÜŞÜŞ, BOŞANMADA ARTIŞ!</h2></div>
+      </a>
+          <a href="/altinordu-da-tarih-ve-sanat-ayni-catida-h50429.html"
+         class="featured-slide ">
+        <!-- DİKKAT: data-src yok; native lazy kullanıyoruz. Optimizasyon dışı işaretleri eklendi. -->
+        <img
+          class="no-cache-img"
+          src="https://orduyenihaber.com/public/uploads/news/cover_20260224_133002_2ccdd8f1_780x444.jpg"
+          alt="ALTINORDU’DA TARİH VE SANAT AYNI ÇATIDA   "
+          loading="lazy"
+          decoding="async"
+          fetchpriority="auto"
+          data-no-optimize="1" data-no-lazy="1"
+          onerror="this.onerror=null;this.src='/assets/img/placeholder.webp'">
+        <div class="featured-text-overlay"><h2>ALTINORDU’DA TARİH VE SANAT AYNI ÇATIDA   </h2></div>
+      </a>
+          <a href="/okul-disi-ogrenme-dijitalde-h50428.html"
+         class="featured-slide ">
+        <!-- DİKKAT: data-src yok; native lazy kullanıyoruz. Optimizasyon dışı işaretleri eklendi. -->
+        <img
+          class="no-cache-img"
+          src="https://orduyenihaber.com/public/uploads/news/cover_20260224_132718_3eb74a08_780x444.jpg"
+          alt="&quot;OKUL DIŞI ÖĞRENME&quot; DİJİTALDE!   "
+          loading="lazy"
+          decoding="async"
+          fetchpriority="auto"
+          data-no-optimize="1" data-no-lazy="1"
+          onerror="this.onerror=null;this.src='/assets/img/placeholder.webp'">
+        <div class="featured-text-overlay"><h2>&quot;OKUL DIŞI ÖĞRENME&quot; DİJİTALDE!   </h2></div>
+      </a>
+          <a href="/sehir-ici-ve-kirsalda-modern-yol-agi-h50427.html"
+         class="featured-slide ">
+        <!-- DİKKAT: data-src yok; native lazy kullanıyoruz. Optimizasyon dışı işaretleri eklendi. -->
+        <img
+          class="no-cache-img"
+          src="https://orduyenihaber.com/public/uploads/news/cover_20260224_114905_a1733a5e_780x444.jpg"
+          alt="ŞEHİR İÇİ VE KIRSALDA MODERN YOL AĞI"
+          loading="lazy"
+          decoding="async"
+          fetchpriority="auto"
+          data-no-optimize="1" data-no-lazy="1"
+          onerror="this.onerror=null;this.src='/assets/img/placeholder.webp'">
+        <div class="featured-text-overlay"><h2>ŞEHİR İÇİ VE KIRSALDA MODERN YOL AĞI</h2></div>
+      </a>
+          <a href="/saglikli-yasam-bilinci-munazara-ile-gucleniyor-h50426.html"
+         class="featured-slide ">
+        <!-- DİKKAT: data-src yok; native lazy kullanıyoruz. Optimizasyon dışı işaretleri eklendi. -->
+        <img
+          class="no-cache-img"
+          src="https://orduyenihaber.com/public/uploads/news/cover_20260224_113020_927142ae_780x444.jpg"
+          alt="SAĞLIKLI YAŞAM BİLİNCİ MÜNAZARA İLE GÜÇLENİYOR"
+          loading="lazy"
+          decoding="async"
+          fetchpriority="auto"
+          data-no-optimize="1" data-no-lazy="1"
+          onerror="this.onerror=null;this.src='/assets/img/placeholder.webp'">
+        <div class="featured-text-overlay"><h2>SAĞLIKLI YAŞAM BİLİNCİ MÜNAZARA İLE GÜÇLENİYOR</h2></div>
+      </a>
+          <a href="/engelli-aileler-onuruna-anlamli-iftar-h50425.html"
+         class="featured-slide ">
+        <!-- DİKKAT: data-src yok; native lazy kullanıyoruz. Optimizasyon dışı işaretleri eklendi. -->
+        <img
+          class="no-cache-img"
+          src="https://orduyenihaber.com/public/uploads/news/cover_20260224_111445_3f1acf3f_780x444.jpg"
+          alt="ENGELLİ AİLELER ONURUNA ANLAMLI İFTAR"
+          loading="lazy"
+          decoding="async"
+          fetchpriority="auto"
+          data-no-optimize="1" data-no-lazy="1"
+          onerror="this.onerror=null;this.src='/assets/img/placeholder.webp'">
+        <div class="featured-text-overlay"><h2>ENGELLİ AİLELER ONURUNA ANLAMLI İFTAR</h2></div>
+      </a>
+          <a href="/cimer-e-renk-kat-adli-odullu-resim-yarismasi-baslatti-h50379.html"
+         class="featured-slide ">
+        <!-- DİKKAT: data-src yok; native lazy kullanıyoruz. Optimizasyon dışı işaretleri eklendi. -->
+        <img
+          class="no-cache-img"
+          src="https://orduyenihaber.com/public/uploads/news/cover_20260220_112546_23891d03_780x444.jpg"
+          alt=" “CİMER’E RENK KAT” ADLI ÖDÜLLÜ RESİM YARIŞMASI BAŞLATTI"
+          loading="lazy"
+          decoding="async"
+          fetchpriority="auto"
+          data-no-optimize="1" data-no-lazy="1"
+          onerror="this.onerror=null;this.src='/assets/img/placeholder.webp'">
+        <div class="featured-text-overlay"><h2> “CİMER’E RENK KAT” ADLI ÖDÜLLÜ RESİM YARIŞMASI BAŞLATTI</h2></div>
+      </a>
+          <a href="/ramazan-in-ilk-iftari-sehit-aileleri-ve-gazilerle-yapildi-h50378.html"
+         class="featured-slide ">
+        <!-- DİKKAT: data-src yok; native lazy kullanıyoruz. Optimizasyon dışı işaretleri eklendi. -->
+        <img
+          class="no-cache-img"
+          src="https://orduyenihaber.com/public/uploads/news/cover_20260220_112520_1868feb6_780x444.jpg"
+          alt="RAMAZAN’IN İLK İFTARI ŞEHİT AİLELERİ VE GAZİLERLE YAPILDI   "
+          loading="lazy"
+          decoding="async"
+          fetchpriority="auto"
+          data-no-optimize="1" data-no-lazy="1"
+          onerror="this.onerror=null;this.src='/assets/img/placeholder.webp'">
+        <div class="featured-text-overlay"><h2>RAMAZAN’IN İLK İFTARI ŞEHİT AİLELERİ VE GAZİLERLE YAPILDI   </h2></div>
+      </a>
+          <a href="/ordu-da-ev-sicakliginda-sosyal-merkez-h50374.html"
+         class="featured-slide ">
+        <!-- DİKKAT: data-src yok; native lazy kullanıyoruz. Optimizasyon dışı işaretleri eklendi. -->
+        <img
+          class="no-cache-img"
+          src="https://orduyenihaber.com/public/uploads/news/cover_20260219_143500_0523d80b_780x444.jpg"
+          alt="ORDU’DA “EV SICAKLIĞINDA” SOSYAL MERKEZ"
+          loading="lazy"
+          decoding="async"
+          fetchpriority="auto"
+          data-no-optimize="1" data-no-lazy="1"
+          onerror="this.onerror=null;this.src='/assets/img/placeholder.webp'">
+        <div class="featured-text-overlay"><h2>ORDU’DA “EV SICAKLIĞINDA” SOSYAL MERKEZ</h2></div>
+      </a>
+          <a href="/ordu-da-tarim-ve-hayvancilikta-yeni-donem-h50373.html"
+         class="featured-slide ">
+        <!-- DİKKAT: data-src yok; native lazy kullanıyoruz. Optimizasyon dışı işaretleri eklendi. -->
+        <img
+          class="no-cache-img"
+          src="https://orduyenihaber.com/public/uploads/news/cover_20260219_142845_5b7ed32d_780x444.jpg"
+          alt="ORDU’DA TARIM VE HAYVANCILIKTA YENİ DÖNEM"
+          loading="lazy"
+          decoding="async"
+          fetchpriority="auto"
+          data-no-optimize="1" data-no-lazy="1"
+          onerror="this.onerror=null;this.src='/assets/img/placeholder.webp'">
+        <div class="featured-text-overlay"><h2>ORDU’DA TARIM VE HAYVANCILIKTA YENİ DÖNEM</h2></div>
+      </a>
+          <a href="/bizim-kampusumuz-19-ilcesiyle-ordu-dur-h50366.html"
+         class="featured-slide ">
+        <!-- DİKKAT: data-src yok; native lazy kullanıyoruz. Optimizasyon dışı işaretleri eklendi. -->
+        <img
+          class="no-cache-img"
+          src="https://orduyenihaber.com/public/uploads/news/cover_20260219_124840_0c10c1b7_780x444.jpg"
+          alt="“BİZİM KAMPÜSÜMÜZ 19 İLÇESİYLE ORDU’DUR”"
+          loading="lazy"
+          decoding="async"
+          fetchpriority="auto"
+          data-no-optimize="1" data-no-lazy="1"
+          onerror="this.onerror=null;this.src='/assets/img/placeholder.webp'">
+        <div class="featured-text-overlay"><h2>“BİZİM KAMPÜSÜMÜZ 19 İLÇESİYLE ORDU’DUR”</h2></div>
+      </a>
+          <a href="/kruvaziyer-turizminde-yeni-zirve-h50365.html"
+         class="featured-slide ">
+        <!-- DİKKAT: data-src yok; native lazy kullanıyoruz. Optimizasyon dışı işaretleri eklendi. -->
+        <img
+          class="no-cache-img"
+          src="https://orduyenihaber.com/public/uploads/news/cover_20260219_122523_272f95ea_780x444.jpg"
+          alt="KRUVAZİYER TURİZMİNDE YENİ ZİRVE   "
+          loading="lazy"
+          decoding="async"
+          fetchpriority="auto"
+          data-no-optimize="1" data-no-lazy="1"
+          onerror="this.onerror=null;this.src='/assets/img/placeholder.webp'">
+        <div class="featured-text-overlay"><h2>KRUVAZİYER TURİZMİNDE YENİ ZİRVE   </h2></div>
+      </a>
+          <a href="/odu-de-anadolu-lisesi-ruzg-ri-h50363.html"
+         class="featured-slide ">
+        <!-- DİKKAT: data-src yok; native lazy kullanıyoruz. Optimizasyon dışı işaretleri eklendi. -->
+        <img
+          class="no-cache-img"
+          src="https://orduyenihaber.com/public/uploads/news/cover_20260219_105126_29ae655b_780x444.jpg"
+          alt="ODÜ&#039;DE ANADOLU LİSESİ RÜZGÂRI"
+          loading="lazy"
+          decoding="async"
+          fetchpriority="auto"
+          data-no-optimize="1" data-no-lazy="1"
+          onerror="this.onerror=null;this.src='/assets/img/placeholder.webp'">
+        <div class="featured-text-overlay"><h2>ODÜ&#039;DE ANADOLU LİSESİ RÜZGÂRI</h2></div>
+      </a>
+          <a href="/ordu-da-tagsis-bal-skandali-h50362.html"
+         class="featured-slide ">
+        <!-- DİKKAT: data-src yok; native lazy kullanıyoruz. Optimizasyon dışı işaretleri eklendi. -->
+        <img
+          class="no-cache-img"
+          src="https://orduyenihaber.com/public/uploads/news/cover_20260218_153637_50dfb4e7_780x444.jpg"
+          alt="ORDU’DA TAĞŞİŞ BAL SKANDALI"
+          loading="lazy"
+          decoding="async"
+          fetchpriority="auto"
+          data-no-optimize="1" data-no-lazy="1"
+          onerror="this.onerror=null;this.src='/assets/img/placeholder.webp'">
+        <div class="featured-text-overlay"><h2>ORDU’DA TAĞŞİŞ BAL SKANDALI</h2></div>
+      </a>
+          <a href="/kent-lokantalari-iftarda-ucretsiz-h50361.html"
+         class="featured-slide ">
+        <!-- DİKKAT: data-src yok; native lazy kullanıyoruz. Optimizasyon dışı işaretleri eklendi. -->
+        <img
+          class="no-cache-img"
+          src="https://orduyenihaber.com/public/uploads/news/cover_20260218_152039_9e628b0d_780x444.jpg"
+          alt="KENT LOKANTALARI İFTARDA ÜCRETSİZ   "
+          loading="lazy"
+          decoding="async"
+          fetchpriority="auto"
+          data-no-optimize="1" data-no-lazy="1"
+          onerror="this.onerror=null;this.src='/assets/img/placeholder.webp'">
+        <div class="featured-text-overlay"><h2>KENT LOKANTALARI İFTARDA ÜCRETSİZ   </h2></div>
+      </a>
+      </div>
+
+  <div class="pagination new-style" aria-label="Manşet sayfalama">
+    <ul id="featuredPager">
+              <li class="active-pagination">
+          <a href="#" data-slide="0">1</a>
+        </li>
+              <li class="">
+          <a href="#" data-slide="1">2</a>
+        </li>
+              <li class="">
+          <a href="#" data-slide="2">3</a>
+        </li>
+              <li class="">
+          <a href="#" data-slide="3">4</a>
+        </li>
+              <li class="">
+          <a href="#" data-slide="4">5</a>
+        </li>
+              <li class="">
+          <a href="#" data-slide="5">6</a>
+        </li>
+              <li class="">
+          <a href="#" data-slide="6">7</a>
+        </li>
+              <li class="">
+          <a href="#" data-slide="7">8</a>
+        </li>
+              <li class="">
+          <a href="#" data-slide="8">9</a>
+        </li>
+              <li class="">
+          <a href="#" data-slide="9">10</a>
+        </li>
+              <li class="">
+          <a href="#" data-slide="10">11</a>
+        </li>
+              <li class="">
+          <a href="#" data-slide="11">12</a>
+        </li>
+              <li class="">
+          <a href="#" data-slide="12">13</a>
+        </li>
+              <li class="">
+          <a href="#" data-slide="13">14</a>
+        </li>
+              <li class="">
+          <a href="#" data-slide="14">15</a>
+        </li>
+          </ul>
+  </div>
+</div>
+
+<script>
+/* Son savunma: cache yine bozarsa undefined içeren görselleri anında düzelt */
+(function(){
+  const ph = '/assets/img/placeholder.webp';
+  document.querySelectorAll('.featured-slider-container img').forEach(img=>{
+    const fix = () => {
+      try {
+        const u = String(img.currentSrc || img.src || '');
+        if (!u || /undefined/i.test(u)) img.src = ph;
+      } catch(e){ img.src = ph; }
+    };
+    fix();
+    img.addEventListener('error', ()=>{ img.src = ph; });
+  });
+})();
+</script>
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@600;700;800&display=swap">
+
+<div class="mr1" id="mostRead">
+  <div class="mr1-head">
+    <h3>ÇOK OKUNANLAR</h3>
+    <div class="mr1-tabs" id="mostTabs" role="tablist" aria-label="Zaman filtresi">
+      <button class="mr1-tab on" data-tab="mr1-gun"   aria-selected="true">GÜN</button>
+      <button class="mr1-tab"    data-tab="mr1-hafta" aria-selected="false">HAFTA</button>
+      <button class="mr1-tab"    data-tab="mr1-ay"    aria-selected="false">AY</button>
+    </div>
+  </div>
+  <div class="mr1-underline" aria-hidden="true"></div>
+
+  <div class="mr1-box">
+    <!-- GÜN -->
+    <ul class="mr1-list on" id="mr1-gun">
+              <li class="mr1-item">
+          <span class="mr1-num"><i>1</i></span>
+          <a class="mr1-title" href="/mahmut-ozer-den-ordusiad-a-ziyaret-h50422.html">MAHMUT ÖZER’DEN ORDUSİAD’A ZİYARET</a>
+        </li>
+              <li class="mr1-item">
+          <span class="mr1-num"><i>2</i></span>
+          <a class="mr1-title" href="/baskan-tepe-aricilarin-da-yuzunu-guldurdu-h50423.html">BAŞKAN TEPE ARICILARIN DA YÜZÜNÜ GÜLDÜRDÜ</a>
+        </li>
+              <li class="mr1-item">
+          <span class="mr1-num"><i>3</i></span>
+          <a class="mr1-title" href="/saglikli-yasam-bilinci-munazara-ile-gucleniyor-h50426.html">SAĞLIKLI YAŞAM BİLİNCİ MÜNAZARA İLE GÜÇLENİYOR</a>
+        </li>
+              <li class="mr1-item">
+          <span class="mr1-num"><i>4</i></span>
+          <a class="mr1-title" href="/engelli-aileler-onuruna-anlamli-iftar-h50425.html">ENGELLİ AİLELER ONURUNA ANLAMLI İFTAR</a>
+        </li>
+              <li class="mr1-item">
+          <span class="mr1-num"><i>5</i></span>
+          <a class="mr1-title" href="/sehir-ici-ve-kirsalda-modern-yol-agi-h50427.html">ŞEHİR İÇİ VE KIRSALDA MODERN YOL AĞI</a>
+        </li>
+              <li class="mr1-item">
+          <span class="mr1-num"><i>6</i></span>
+          <a class="mr1-title" href="/ak-parti-aybasti-ilce-teskilati-iftar-sofrasinda-bulustu-h50424.html">AK PARTİ AYBASTI İLÇE TEŞKİLATI İFTAR SOFRASINDA BULUŞTU</a>
+        </li>
+          </ul>
+
+    <!-- HAFTA -->
+    <ul class="mr1-list" id="mr1-hafta">
+              <li class="mr1-item">
+          <span class="mr1-num"><i>1</i></span>
+          <a class="mr1-title" href="/ordu-da-tagsis-bal-skandali-h50362.html">ORDU’DA TAĞŞİŞ BAL SKANDALI</a>
+        </li>
+              <li class="mr1-item">
+          <span class="mr1-num"><i>2</i></span>
+          <a class="mr1-title" href="/kent-lokantalari-iftarda-ucretsiz-h50361.html">KENT LOKANTALARI İFTARDA ÜCRETSİZ   </a>
+        </li>
+              <li class="mr1-item">
+          <span class="mr1-num"><i>3</i></span>
+          <a class="mr1-title" href="/katli-otopark-ihalesi-11-mart-ta-h50356.html">KATLI OTOPARK İHALESİ 11 MART’TA</a>
+        </li>
+              <li class="mr1-item">
+          <span class="mr1-num"><i>4</i></span>
+          <a class="mr1-title" href="/ramazan-da-ordu-tek-sofrada-bulusacak-h50354.html">RAMAZAN’DA ORDU TEK SOFRADA BULUŞACAK   </a>
+        </li>
+              <li class="mr1-item">
+          <span class="mr1-num"><i>5</i></span>
+          <a class="mr1-title" href="/ramazan-coskusu-19-ilceye-yayacak-h50352.html">RAMAZAN COŞKUSU 19 İLÇEYE YAYACAK</a>
+        </li>
+              <li class="mr1-item">
+          <span class="mr1-num"><i>6</i></span>
+          <a class="mr1-title" href="/vali-erol-ramazan-in-manevi-iklimi-tum-yila-yayilmalidir-h50350.html">VALİ EROL: “RAMAZAN’IN MANEVİ İKLİMİ TÜM YILA YAYILMALIDIR”</a>
+        </li>
+          </ul>
+
+    <!-- AY -->
+    <ul class="mr1-list" id="mr1-ay">
+              <li class="mr1-item">
+          <span class="mr1-num"><i>1</i></span>
+          <a class="mr1-title" href="/ordu-nun-kalbinde-trafige-buyuk-cozum-h50118.html">ORDU’NUN KALBİNDE TRAFİĞE BÜYÜK ÇÖZÜM</a>
+        </li>
+              <li class="mr1-item">
+          <span class="mr1-num"><i>2</i></span>
+          <a class="mr1-title" href="/caybasi-ve-fatsa-da-turk-egitim-sen-farki-birlikte-gucluyuz-h50247.html">Çaybaşı ve Fatsa’da Türk Eğitim-Sen Farkı: &quot;Birlikte Güçlüyüz!&quot;</a>
+        </li>
+              <li class="mr1-item">
+          <span class="mr1-num"><i>3</i></span>
+          <a class="mr1-title" href="/torun-ureticinin-dayanacak-gucu-kalmadi-h50266.html">TORUN: ÜRETİCİNİN DAYANACAK GÜCÜ KALMADI</a>
+        </li>
+              <li class="mr1-item">
+          <span class="mr1-num"><i>4</i></span>
+          <a class="mr1-title" href="/unye-futbol-kulubu-super-amatorde-h50254.html">ÜNYE FUTBOL KULÜBÜ SÜPER AMATÖRDE</a>
+        </li>
+              <li class="mr1-item">
+          <span class="mr1-num"><i>5</i></span>
+          <a class="mr1-title" href="/fiyat-degil-yapisal-sorunlar-konusulmali-h50295.html">“FİYAT DEĞİL, YAPISAL SORUNLAR KONUŞULMALI”</a>
+        </li>
+              <li class="mr1-item">
+          <span class="mr1-num"><i>6</i></span>
+          <a class="mr1-title" href="/fifa-kokarti-takacak-hakemler-h50252.html">FIFA KOKARTI TAKACAK HAKEMLER</a>
+        </li>
+          </ul>
+  </div>
+</div>
+
+<style>
+/* ====== Kompakt / Profesyonel Stil ====== */
+.mr1{
+  --primary:#c40000; --ink:#222; --border:#e6e6e6;
+  font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+}
+.mr1 *{box-sizing:border-box}
+
+.mr1-head{
+  display:flex;align-items:center;justify-content:space-between;gap:10px;
+  background:#fff;padding:10px 12px 6px;border-radius:10px 10px 0 0
+}
+.mr1-head h3{margin:0;color:#2a2a2a;font-weight:800;font-size:1.1rem;letter-spacing:.5px}
+
+.mr1-tabs{display:flex;gap:6px}
+.mr1-tab{
+  appearance:none;border:1px solid #ddd;background:#efefef;color:#444;
+  padding:6px 12px;border-radius:20px;font-weight:800;font-size:.85rem;cursor:pointer;transition:.15s
+}
+.mr1-tab.on{background:var(--primary);border-color:var(--primary);color:#fff}
+
+.mr1-underline{height:3px;width:140px;background:var(--primary);border-radius:2px;margin:0 0 8px 12px}
+
+.mr1-box{background:#fff;border:1px solid var(--border);border-radius:8px;padding:6px 8px}
+
+.mr1-list{display:none;margin:0;padding:0;list-style:none}
+.mr1-list.on{display:block}
+.mr1-item{
+  display:flex;align-items:center;gap:12px;padding:10px 6px;border-bottom:1px solid #eee
+}
+.mr1-item:last-child{border-bottom:0}
+
+.mr1-num{
+  width:40px;height:40px;min-width:40px;border-radius:6px;background:#f2f2f2;
+  border:1px solid #ddd;position:relative;display:flex;align-items:center;justify-content:center
+}
+.mr1-num::after{content:"";position:absolute;inset:6px;border:1px solid #ededed;border-radius:4px}
+.mr1-num i{font-style:normal;color:#3a3a3a;font-weight:800;font-size:1.2rem;line-height:1}
+
+.mr1-title{
+  color:#1f1f1f;text-decoration:none;font-weight:700;font-size:.95rem;line-height:1.35
+}
+.mr1-title:hover{color:var(--primary)}
+
+@media (max-width:640px){
+  .mr1-head h3{font-size:1rem}
+  .mr1-tab{padding:5px 10px;font-size:.8rem}
+  .mr1-underline{margin-left:10px;width:120px}
+  .mr1-num{width:36px;height:36px;min-width:36px}
+  .mr1-title{font-size:.92rem}
+}
+</style>
+
+<script>
+/* Sekme geçişi – inline JS, eval yok (CSP dostu) */
+(function(){
+  const tabs  = document.querySelectorAll('#mostTabs .mr1-tab');
+  const lists = document.querySelectorAll('#mostRead .mr1-list');
+  if(!tabs.length) return;
+
+  function show(id){
+    lists.forEach(ul => ul.classList.toggle('on', ul.id === id));
+  }
+  tabs.forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      tabs.forEach(b=> b.classList.remove('on'));
+      btn.classList.add('on');
+      show(btn.dataset.tab);
+    });
+  });
+
+  // başlangıç
+  const current = document.querySelector('#mostTabs .mr1-tab.on') || tabs[0];
+  current.classList.add('on'); show(current.dataset.tab);
+})();
+</script>
+    </section>
+
+    
+    <!-- Öne çıkan başlıklar -->
+    
+<section class="main-headlines" aria-label="Öne çıkan başlıklar">
+      <div class="headline-item">
+              <span class="category-tag">Genel</span>
+      
+      <a class="headline-link" href="/potada-sampiyon-durugol-ortaokulu-h50435.html">
+        <img
+          src="/public/uploads/news/cover_20260224_143701_72d830fd_300x200.jpg"
+          alt="POTADA ŞAMPİYON DURUGÖL ORTAOKULU"
+          loading="lazy" decoding="async"
+          width="300" height="200"
+          onerror="this.onerror=null;this.src='/assets/img/placeholder.webp'">
+        <div class="text-content"><h3>POTADA ŞAMPİYON DURUGÖL ORTAOKULU</h3></div>
+      </a>
+    </div>
+      <div class="headline-item">
+              <span class="category-tag">Genel</span>
+      
+      <a class="headline-link" href="/fileler-16-kez-sallandi-h50433.html">
+        <img
+          src="/public/uploads/news/cover_20260224_143633_e8ca5ffb_300x200.jpg"
+          alt="FİLELER,16 KEZ SALLANDI"
+          loading="lazy" decoding="async"
+          width="300" height="200"
+          onerror="this.onerror=null;this.src='/assets/img/placeholder.webp'">
+        <div class="text-content"><h3>FİLELER,16 KEZ SALLANDI</h3></div>
+      </a>
+    </div>
+      <div class="headline-item">
+              <span class="category-tag">Genel</span>
+      
+      <a class="headline-link" href="/2-amatorde-23-gol-atildi-h50432.html">
+        <img
+          src="/public/uploads/news/cover_20260224_143607_2e529670_300x200.jpg"
+          alt="2.AMATÖRDE 23 GOL ATILDI"
+          loading="lazy" decoding="async"
+          width="300" height="200"
+          onerror="this.onerror=null;this.src='/assets/img/placeholder.webp'">
+        <div class="text-content"><h3>2.AMATÖRDE 23 GOL ATILDI</h3></div>
+      </a>
+    </div>
+      <div class="headline-item">
+              <a class="category-tag" href="/kategori/spor">SPOR</a>
+      
+      <a class="headline-link" href="/uefa-ulke-puani-guncellendi-h50421.html">
+        <img
+          src="/public/uploads/news/cover_20260223_145634_bc4f4290_300x200.jpg"
+          alt="UEFA ÜLKE PUANI GÜNCELLENDİ!"
+          loading="lazy" decoding="async"
+          width="300" height="200"
+          onerror="this.onerror=null;this.src='/assets/img/placeholder.webp'">
+        <div class="text-content"><h3>UEFA ÜLKE PUANI GÜNCELLENDİ!</h3></div>
+      </a>
+    </div>
+      <div class="headline-item">
+              <a class="category-tag" href="/kategori/spor">SPOR</a>
+      
+      <a class="headline-link" href="/milli-eldiven-efil-hedef-buyuttu-h50420.html">
+        <img
+          src="/public/uploads/news/cover_20260223_145615_877714f4_300x200.jpg"
+          alt="MİLLİ ELDİVEN EFİL HEDEF BÜYÜTTÜ"
+          loading="lazy" decoding="async"
+          width="300" height="200"
+          onerror="this.onerror=null;this.src='/assets/img/placeholder.webp'">
+        <div class="text-content"><h3>MİLLİ ELDİVEN EFİL HEDEF BÜYÜTTÜ</h3></div>
+      </a>
+    </div>
+      <div class="headline-item">
+              <a class="category-tag" href="/kategori/spor">SPOR</a>
+      
+      <a class="headline-link" href="/akkus-bldspor-halkbank-a-boyun-egdi-h50419.html">
+        <img
+          src="/public/uploads/news/cover_20260223_145556_c60dcb15_300x200.jpg"
+          alt="AKKUŞ BLDSPOR HALKBANK’A BOYUN EĞDİ"
+          loading="lazy" decoding="async"
+          width="300" height="200"
+          onerror="this.onerror=null;this.src='/assets/img/placeholder.webp'">
+        <div class="text-content"><h3>AKKUŞ BLDSPOR HALKBANK’A BOYUN EĞDİ</h3></div>
+      </a>
+    </div>
+      <div class="headline-item">
+              <a class="category-tag" href="/kategori/saglik">SAĞLIK</a>
+      
+      <a class="headline-link" href="/ramazan-da-kilo-almadan-oruc-tutmak-h50409.html">
+        <img
+          src="/public/uploads/news/cover_20260223_115700_28a06399_300x200.jpg"
+          alt="RAMAZAN’DA KİLO ALMADAN ORUÇ TUTMAK"
+          loading="lazy" decoding="async"
+          width="300" height="200"
+          onerror="this.onerror=null;this.src='/assets/img/placeholder.webp'">
+        <div class="text-content"><h3>RAMAZAN’DA KİLO ALMADAN ORUÇ TUTMAK</h3></div>
+      </a>
+    </div>
+      <div class="headline-item">
+              <span class="category-tag">Genel</span>
+      
+      <a class="headline-link" href="/unye-57-1-puanla-avundu-h50396.html">
+        <img
+          src="/public/uploads/news/cover_20260222_144410_7ba61282_300x200.jpg"
+          alt="ÜNYE 57,  ‘1’ PUANLA AVUNDU"
+          loading="lazy" decoding="async"
+          width="300" height="200"
+          onerror="this.onerror=null;this.src='/assets/img/placeholder.webp'">
+        <div class="text-content"><h3>ÜNYE 57,  ‘1’ PUANLA AVUNDU</h3></div>
+      </a>
+    </div>
+      <div class="headline-item">
+              <span class="category-tag">Genel</span>
+      
+      <a class="headline-link" href="/unye-kadin-spor-antal-yada-vurdu-h50395.html">
+        <img
+          src="/public/uploads/news/cover_20260222_144358_74939b33_300x200.jpg"
+          alt="ÜNYE KADIN SPOR ANTAL’YADA VURDU"
+          loading="lazy" decoding="async"
+          width="300" height="200"
+          onerror="this.onerror=null;this.src='/assets/img/placeholder.webp'">
+        <div class="text-content"><h3>ÜNYE KADIN SPOR ANTAL’YADA VURDU</h3></div>
+      </a>
+    </div>
+      <div class="headline-item">
+              <span class="category-tag">Genel</span>
+      
+      <a class="headline-link" href="/ulubey-arsin-den-bos-donmedi-h50394.html">
+        <img
+          src="/public/uploads/news/cover_20260222_144348_35c0cfc1_300x200.jpg"
+          alt="ULUBEY, ARSİN’DEN BOŞ DÖNMEDİ"
+          loading="lazy" decoding="async"
+          width="300" height="200"
+          onerror="this.onerror=null;this.src='/assets/img/placeholder.webp'">
+        <div class="text-content"><h3>ULUBEY, ARSİN’DEN BOŞ DÖNMEDİ</h3></div>
+      </a>
+    </div>
+      <div class="headline-item">
+              <span class="category-tag">Genel</span>
+      
+      <a class="headline-link" href="/pazarspor-fatsa-da-guldu-h50393.html">
+        <img
+          src="/public/uploads/news/cover_20260222_144337_e09031fc_300x200.jpg"
+          alt="PAZARSPOR FATSA’DA GÜLDÜ"
+          loading="lazy" decoding="async"
+          width="300" height="200"
+          onerror="this.onerror=null;this.src='/assets/img/placeholder.webp'">
+        <div class="text-content"><h3>PAZARSPOR FATSA’DA GÜLDÜ</h3></div>
+      </a>
+    </div>
+      <div class="headline-item">
+              <span class="category-tag">Genel</span>
+      
+      <a class="headline-link" href="/52-ordu-zirve-umutlarini-bitirdi-h50392.html">
+        <img
+          src="/public/uploads/news/cover_20260222_144326_8b2d5d32_300x200.jpg"
+          alt="52 ORDU ZİRVE UMUTLARINI BİTİRDİ"
+          loading="lazy" decoding="async"
+          width="300" height="200"
+          onerror="this.onerror=null;this.src='/assets/img/placeholder.webp'">
+        <div class="text-content"><h3>52 ORDU ZİRVE UMUTLARINI BİTİRDİ</h3></div>
+      </a>
+    </div>
+  
+  </section>
+
+
+
+
+    <!-- Anket + Foto Galeri -->
+    
+<section class="pg-wrap" aria-label="Anket ve Foto Galeri">
+  <!-- SOL KOLON / ANKET -->
+  <aside class="pg-poll">
+          <form method="post" id="pollForm">
+        <input type="hidden" name="vote_poll" value="1">
+        <h3 class="pg-poll-title">Bu sene hangi takım şampiyon olur?</h3>
+                  <p class="pg-poll-text">Şampiyonluğa ulaşacak takımı tahmin edebilirsin.</p>
+        
+                  <label class="pg-opt">
+            <span>
+              <input
+                type="radio"
+                name="vote_option"
+                value="1"
+                onchange="this.form.submit(); this.disabled=true;"              >
+              <span>Galatasaray</span>
+            </span>
+            <em>%0</em>
+          </label>
+                  <label class="pg-opt">
+            <span>
+              <input
+                type="radio"
+                name="vote_option"
+                value="2"
+                onchange="this.form.submit(); this.disabled=true;"              >
+              <span>Fenerbahçe</span>
+            </span>
+            <em>%0</em>
+          </label>
+                  <label class="pg-opt">
+            <span>
+              <input
+                type="radio"
+                name="vote_option"
+                value="3"
+                onchange="this.form.submit(); this.disabled=true;"              >
+              <span>Beşiktaş</span>
+            </span>
+            <em>%0</em>
+          </label>
+                  <label class="pg-opt">
+            <span>
+              <input
+                type="radio"
+                name="vote_option"
+                value="4"
+                onchange="this.form.submit(); this.disabled=true;"              >
+              <span>Trabzonspor</span>
+            </span>
+            <em>%0</em>
+          </label>
+        
+        <div class="pg-actions" style="margin-top:.5rem">
+                      <small class="text-muted">Toplam: 0 — Seçtiğiniz anda oy verilir.</small>
+                  </div>
+      </form>
+      </aside>
+
+  <!-- SAĞ KOLON / FOTO GALERİ -->
+  <div class="pg-photo">
+    <div class="pg-hdr">
+      <h3>FOTO GALERİ</h3>
+      <a href="/galeriler" class="pg-all">Tüm Galeriler</a>
+    </div>
+
+    <div class="pg-grid">
+      
+              <div class="pg-empty">Şimdilik galeri bulunamadı.</div>
+          </div>
+  </div>
+</section>
+
+<style>
+.pg-wrap{ display:grid; grid-template-columns: 340px 1fr; gap:18px; margin:18px 0; }
+@media (max-width:1024px){ .pg-wrap{ grid-template-columns: 1fr; } }
+
+.pg-poll{ background:#fff; border-radius:16px; padding:18px 16px; box-shadow:0 8px 24px rgba(0,0,0,.06); border:1px solid #eee; }
+.pg-poll-title{ margin:0 0 8px 0; font-weight:800; font-size:1.1rem; color:#222 }
+.pg-poll-text{ margin:0 0 10px 0; color:#555 }
+.pg-opt{ display:flex; align-items:center; justify-content:space-between; gap:12px; padding:10px 12px; border:1px solid #eee; border-radius:12px; background:#fafafa; margin-bottom:10px; cursor:pointer; }
+.pg-opt input{ margin-right:8px }
+.pg-opt em{ font-style:normal; font-weight:800; color:#a50000 }
+.pg-actions .btn{ padding:.35rem .7rem; font-weight:700 }
+
+.pg-photo{ border-radius:18px; padding:14px 14px 18px; background:linear-gradient(90deg,#5672b3,#8a4b7a,#b82924); color:#fff; position:relative; box-shadow:0 8px 24px rgba(0,0,0,.08); }
+.pg-hdr{ display:flex; align-items:center; justify-content:space-between; padding:2px 4px 8px }
+.pg-hdr h3{ margin:0; font-weight:900; letter-spacing:.5px }
+.pg-all{ color:#fff; text-decoration:none; font-weight:900; background:rgba(255,255,255,.22); padding:8px 14px; border-radius:20px; backdrop-filter: blur(2px); }
+.pg-all:hover{ background:rgba(255,255,255,.3) }
+
+.pg-grid{ display:grid; grid-template-columns: repeat(4, 1fr); gap:14px; }
+@media (max-width:1200px){ .pg-grid{ grid-template-columns: repeat(3, 1fr); } }
+@media (max-width:860px){  .pg-grid{ grid-template-columns: repeat(2, 1fr); } }
+@media (max-width:520px){  .pg-grid{ grid-template-columns: 1fr; } }
+
+.pg-card{ display:block; text-decoration:none; color:#fff; }
+.pg-thumb{ border-radius:12px; overflow:hidden; border:3px solid rgba(255,255,255,.18); aspect-ratio:16/9; background:#0b0b0b; }
+.pg-thumb img{ width:100%; height:100%; object-fit:cover; display:block; transform:scale(1.01) }
+.pg-title{ text-align:center; font-weight:900; margin-top:10px; line-height:1.25; text-shadow:0 1px 2px rgba(0,0,0,.25); display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
+.pg-empty{ padding:18px; text-align:center; background:rgba(255,255,255,.08); border-radius:12px }
+</style>
+
+    <!-- Yazarlar & Videolar -->
+    <section class="authors-videos-section">
+      <style>
+/* ====== Yazarlar (yatay kaydırmalı) – mevcut stiliniz aynen duruyor ====== */
+.author-container { position: relative; }
+.section-header {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 8px;
+}
+.section-header h2 { margin: 0; }
+.author-controls { display: flex; align-items: center; gap: 8px; }
+.author-controls .all-authors { margin-left: 8px; text-decoration: none; color: inherit; }
+
+.authors-grid {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  padding: 8px 2px 12px;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+  mask-image: linear-gradient(to right, transparent 0, black 24px, black calc(100% - 24px), transparent 100%);
+}
+
+.author-card {
+  flex: 0 0 auto;
+  width: 220px;
+  border: 1px solid #eee;
+  border-radius: 14px;
+  padding: 12px;
+  scroll-snap-align: start;
+  background: #fff;
+  box-shadow: 0 2px 8px rgba(0,0,0,.04);
+}
+/* Buradaki img kuralını bozmuyoruz; sadece daha spesifik bir sarmalayıcı ile override edeceğiz */
+.author-card img {
+  width: 100%; height: 140px; object-fit: cover; border-radius: 10px;
+  display: block; margin-bottom: 8px;
+}
+.author-card h3 { font-size: 16px; margin: 6px 0 4px; }
+.author-last-post a { color: #444; text-decoration: none; }
+.author-last-post a:hover { text-decoration: underline; }
+
+.author-btn {
+  width: 36px; height: 36px; border-radius: 50%;
+  border: 1px solid #ddd; background: #fff; cursor: pointer;
+  font-size: 18px; line-height: 1; display: grid; place-items: center;
+}
+.author-btn:disabled { opacity: .4; cursor: default; }
+
+/* ========= SADECE FOTOĞRAF İÇİN EK STİL (yuvarlak + kırmızı çerçeve) ========= */
+.author-card .author-photo{
+  width:110px; height:110px;
+  margin: 0 auto 10px;
+  border: 1px solid #cc0000;
+  border-radius: 50%;
+  overflow: hidden;
+  display: flex; align-items: center; justify-content: center;
+}
+.author-card .author-photo img{
+  width:100%; height:100%;
+  object-fit: cover;
+  border-radius:50%;
+  margin:0; /* üstteki genel img marginini sıfırla */
+}
+</style>
+
+<div class="section-container author-container">
+  <div class="section-header">
+    <h2>YAZARLAR</h2>
+    <div class="author-controls">
+      <button type="button" class="author-btn prev" aria-label="Geri">‹</button>
+      <button type="button" class="author-btn next" aria-label="İleri">›</button>
+      <a class="all-authors" href="https://www.orduyenihaber.com/yazarlar">Tüm Yazarlar</a>
+    </div>
+  </div>
+
+  <div id="authorsScroller" class="authors-grid">
+          <div class="author-card">
+        <!-- SADECE RESİM YUVARLAK: -->
+        <div class="author-photo">
+          <img src="https://www.orduyenihaber.com/public/uploads/users/Erol-KARAER_318.jpg" alt="Erol Karaer" />
+        </div>
+
+        <a href="https://www.orduyenihaber.com/yazar/erol-karaer-y18.html">
+          <h3>Erol Karaer</h3>
+        </a>
+
+                  <p class="author-last-post">
+            <a href="https://www.orduyenihaber.com/yazi/zam-mi-firsat-mi-a7175.html">ZAM MI, FIRSAT MI?</a>
+          </p>
+              </div>
+          <div class="author-card">
+        <!-- SADECE RESİM YUVARLAK: -->
+        <div class="author-photo">
+          <img src="https://www.orduyenihaber.com/public/uploads/users/HUSEYiN-DENiZ_332.jpg" alt="Hüseyin Deniz" />
+        </div>
+
+        <a href="https://www.orduyenihaber.com/yazar/huseyin-deniz-y66.html">
+          <h3>Hüseyin Deniz</h3>
+        </a>
+
+                  <p class="author-last-post">
+            <a href="https://www.orduyenihaber.com/yazi/orucu-bozup-sadece-kazaya-birakan-durumlar-a7174.html">ORUCU BOZUP SADECE KAZAYA BIRAKAN DURUMLAR!</a>
+          </p>
+              </div>
+          <div class="author-card">
+        <!-- SADECE RESİM YUVARLAK: -->
+        <div class="author-photo">
+          <img src="https://www.orduyenihaber.com/public/uploads/users/Safak-DELiCAKAR_694.jpg" alt="Şafak Deliçakar" />
+        </div>
+
+        <a href="https://www.orduyenihaber.com/yazar/safak-delicakar-y14.html">
+          <h3>Şafak Deliçakar</h3>
+        </a>
+
+                  <p class="author-last-post">
+            <a href="https://www.orduyenihaber.com/yazi/rakam-degil-hayat-60-gune-sigan-56-ciglik-a7172.html">RAKAM DEĞİL, HAYAT: 60 GÜNE SIĞAN 56 ÇIĞLIK</a>
+          </p>
+              </div>
+          <div class="author-card">
+        <!-- SADECE RESİM YUVARLAK: -->
+        <div class="author-photo">
+          <img src="https://www.orduyenihaber.com/public/uploads/users/Mehmet-KESKiN_556.jpg" alt="Mehmet Keskin" />
+        </div>
+
+        <a href="https://www.orduyenihaber.com/yazar/mehmet-keskin-y15.html">
+          <h3>Mehmet Keskin</h3>
+        </a>
+
+                  <p class="author-last-post">
+            <a href="https://www.orduyenihaber.com/yazi/aileler-dikkat-suc-artik-ekranda-a7171.html">AİLELER DİKKAT! SUÇ ARTIK EKRANDA!</a>
+          </p>
+              </div>
+          <div class="author-card">
+        <!-- SADECE RESİM YUVARLAK: -->
+        <div class="author-photo">
+          <img src="https://www.orduyenihaber.com/public/uploads/users/Ufuk-ERSOY_119.jpg" alt="Ufuk Ersoy" />
+        </div>
+
+        <a href="https://www.orduyenihaber.com/yazar/ufuk-ersoy-y43.html">
+          <h3>Ufuk Ersoy</h3>
+        </a>
+
+                  <p class="author-last-post">
+            <a href="https://www.orduyenihaber.com/yazi/ayuda-cikabulu-a7169.html">AYUDA ÇIKABÜLÜ</a>
+          </p>
+              </div>
+          <div class="author-card">
+        <!-- SADECE RESİM YUVARLAK: -->
+        <div class="author-photo">
+          <img src="https://www.orduyenihaber.com/public/uploads/users/NURi-KAHRAMAN_310.jpg" alt="Nuri Kahraman" />
+        </div>
+
+        <a href="https://www.orduyenihaber.com/yazar/nuri-kahraman-y72.html">
+          <h3>Nuri Kahraman</h3>
+        </a>
+
+                  <p class="author-last-post">
+            <a href="https://www.orduyenihaber.com/yazi/ispanya-mektuplari-1-ebul-hayir-dan-madrid-e-dogru-a7164.html">İSPANYA MEKTUPLARI-1:   EBÜL&#039;HAYIR&#039;DAN MADRİD&#039;E DOĞRU...   </a>
+          </p>
+              </div>
+          <div class="author-card">
+        <!-- SADECE RESİM YUVARLAK: -->
+        <div class="author-photo">
+          <img src="https://www.orduyenihaber.com/public/uploads/users/ABDULKADiR-DEMiR_124.jpg" alt="Abdülkadir Demir" />
+        </div>
+
+        <a href="https://www.orduyenihaber.com/yazar/abdulkadir-demir-y76.html">
+          <h3>Abdülkadir Demir</h3>
+        </a>
+
+                  <p class="author-last-post">
+            <a href="https://www.orduyenihaber.com/yazi/hosgeldin-sehr-i-ramazan-a7163.html">HOŞGELDİN ŞEHR-I RAMAZAN   </a>
+          </p>
+              </div>
+          <div class="author-card">
+        <!-- SADECE RESİM YUVARLAK: -->
+        <div class="author-photo">
+          <img src="https://www.orduyenihaber.com/public/uploads/users/Semra-GENCOSMANOGLU_708.jpg" alt="Semra Gençosmanoğlu" />
+        </div>
+
+        <a href="https://www.orduyenihaber.com/yazar/semra-gencosmanoglu-y19.html">
+          <h3>Semra Gençosmanoğlu</h3>
+        </a>
+
+                  <p class="author-last-post">
+            <a href="https://www.orduyenihaber.com/yazi/ramazan-in-isigi-yardimlasma-ve-dayanisma-a7155.html">RAMAZAN’IN IŞIĞI: YARDIMLAŞMA VE DAYANIŞMA</a>
+          </p>
+              </div>
+          <div class="author-card">
+        <!-- SADECE RESİM YUVARLAK: -->
+        <div class="author-photo">
+          <img src="https://www.orduyenihaber.com/public/uploads/users/DOC-DR-ALi-AYGUN_404.jpg" alt="Doç Aygün" />
+        </div>
+
+        <a href="https://www.orduyenihaber.com/yazar/doc-aygun-y77.html">
+          <h3>Doç Aygün</h3>
+        </a>
+
+                  <p class="author-last-post">
+            <a href="https://www.orduyenihaber.com/yazi/kadehlerdeki-gizli-katil-metil-alkol-zehirlenmesi-a7007.html">KADEHLERDEKİ GİZLİ KATİL: METİL ALKOL ZEHİRLENMESİ   </a>
+          </p>
+              </div>
+          <div class="author-card">
+        <!-- SADECE RESİM YUVARLAK: -->
+        <div class="author-photo">
+          <img src="https://www.orduyenihaber.com/public/uploads/users/Ersin-Erdogan_166.jpg" alt="Ersin Erdoğan" />
+        </div>
+
+        <a href="https://www.orduyenihaber.com/yazar/ersin-erdogan-y6.html">
+          <h3>Ersin Erdoğan</h3>
+        </a>
+
+                  <p class="author-last-post">
+            <a href="https://www.orduyenihaber.com/yazi/evrilmek-a3675.html">Evrilmek…</a>
+          </p>
+              </div>
+      </div>
+</div>
+
+<script>
+(function(){
+  const scroller = document.getElementById('authorsScroller');
+  const prevBtn = document.querySelector('.author-controls .prev');
+  const nextBtn = document.querySelector('.author-controls .next');
+
+  if (!scroller || !prevBtn || !nextBtn) return;
+
+  const updateButtons = () => {
+    const maxScroll = scroller.scrollWidth - scroller.clientWidth;
+    prevBtn.disabled = scroller.scrollLeft <= 0;
+    nextBtn.disabled = scroller.scrollLeft >= (maxScroll - 1);
+  };
+
+  const step = () => Math.max(240, Math.round(scroller.clientWidth * 0.9));
+
+  prevBtn.addEventListener('click', () => {
+    scroller.scrollBy({ left: -step(), behavior: 'smooth' });
+  });
+  nextBtn.addEventListener('click', () => {
+    scroller.scrollBy({ left: step(), behavior: 'smooth' });
+  });
+
+  scroller.addEventListener('scroll', updateButtons, { passive: true });
+  window.addEventListener('resize', updateButtons);
+  updateButtons();
+})();
+</script>
+      <style>
+/* ------ Video Galeri (profesyonel görünüm) ------ */
+.video-container {
+  border-radius: 16px;
+  padding: 18px 18px 8px;
+  background: linear-gradient(135deg,#0ea5a5 0%, #0b3a4b 100%);
+  color: #fff;
+}
+.video-container .section-header{
+  display:flex; align-items:center; justify-content:space-between; margin-bottom:12px;
+}
+.video-container .section-header h2{
+  font-weight:800; letter-spacing:.5px; font-size:22px; text-transform:uppercase; margin:0;
+}
+.video-container .section-header a{
+  color:#fff; text-decoration:none; font-weight:700; opacity:.9;
+}
+.video-grid{
+  display:grid; gap:18px; grid-template-columns: repeat(4, 1fr);
+}
+@media (max-width:1200px){ .video-grid{ grid-template-columns: repeat(3,1fr);} }
+@media (max-width:900px){ .video-grid{ grid-template-columns: repeat(2,1fr);} }
+@media (max-width:560px){ .video-grid{ grid-template-columns: 1fr; } }
+
+.video-card{
+  background: rgba(255,255,255,.06);
+  border-radius:14px; padding:12px;
+  box-shadow: 0 6px 16px rgba(0,0,0,.15);
+  transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
+}
+.video-card:hover{
+  transform: translateY(-2px);
+  box-shadow: 0 10px 22px rgba(0,0,0,.22);
+  background: rgba(255,255,255,.08);
+}
+.video-card a{ color:#fff; text-decoration:none; }
+
+.video-thumbnail-wrapper{
+  position:relative; border-radius:10px; overflow:hidden;
+  aspect-ratio:16/9; background:#0a0a0a;
+}
+.video-thumbnail-wrapper img{
+  width:100%; height:100%; object-fit:cover; display:block;
+}
+.video-thumbnail-wrapper::after{/* üstte hafif kenar gölgesi/çerçeve etkisi */
+  content:""; position:absolute; inset:0;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.06);
+  pointer-events:none;
+}
+/* Ortada play ikonunu CSS ile çiziyoruz */
+.play-icon{
+  position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+}
+.play-icon .circle{
+  width:58px; height:58px; border-radius:50%;
+  background: rgba(0,0,0,.45);
+  display:flex; align-items:center; justify-content:center;
+  backdrop-filter: blur(2px);
+}
+.play-icon .triangle{
+  width:0; height:0; border-left:14px solid #fff;
+  border-top:10px solid transparent; border-bottom:10px solid transparent; margin-left:4px;
+}
+.video-card h3{
+  margin:12px 6px 4px; font-size:14px; line-height:1.25; font-weight:800;
+}
+</style>
+
+<div class="section-container video-container">
+  <div class="section-header">
+    <h2>VİDEO</h2>
+    <a href="/videolar">Tüm Videolar</a>
+  </div>
+
+  <div class="video-grid">
+    
+          <div class="video-card"><h3>Şimdilik video bulunamadı.</h3></div>
+      </div>
+</div>
+    </section>
+
+  </main>
+
+  
+<footer class="main-footer">
+  <div class="footer-top">
+    <div class="container footer-grid">
+      <!-- Hakkımızda -->
+      <div class="footer-col about-us">
+        <div class="footer-logo">ORDU YENİ HABER</div>
+        <h4 class="slogan">Ordu Haber Merkezi</h4>        
+        
+                <ul class="contact-mini">
+                    <li><i class="fa-solid fa-location-dot"></i> Akyazı Mahallesi 860.Sokak No: 5/A ALTINORDU/ ORDU</li>
+                              <li><i class="fa-solid fa-phone"></i> <a href="tel:04522252960">0452 225 29 60</a></li>
+                              <li><i class="fa-solid fa-envelope"></i> <a href="/cdn-cgi/l/email-protection#6900070f0629061b0d1c100c070001080b0c1b470a0604"><span class="__cf_email__" data-cfemail="620b0c040d220d1006171b070c0b0a030007104c010d0f">[email&#160;protected]</span></a></li>
+                  </ul>
+              </div>
+
+      <!-- Sosyal + Servisler + Kurumsal -->
+      <div class="footer-col follow-us">
+        <h4>BİZİ TAKİP EDİN</h4>
+        <ul class="social-links">
+                                                            <li><a href="https://www.orduyenihaber.com/rss.xml" aria-label="RSS"><i class="fa-solid fa-rss"></i></a></li>        </ul>
+
+        
+              </div>
+
+      <!-- Kategoriler -->
+      <div class="footer-col categories">
+                  <h4>KATEGORİLER</h4>
+          <ul class="categories-list">
+            <li><i class="fa-solid fa-square-caret-right"></i><a href="https://www.orduyenihaber.com/kategori/egitim">EĞİTİM</a></li><li><i class="fa-solid fa-square-caret-right"></i><a href="https://www.orduyenihaber.com/kategori/ekonomi">EKONOMİ</a></li><li><i class="fa-solid fa-square-caret-right"></i><a href="https://www.orduyenihaber.com/kategori/guncel">GÜNCEL</a></li><li><i class="fa-solid fa-square-caret-right"></i><a href="https://www.orduyenihaber.com/kategori/kultur-sanat">KÜLTÜR&amp;SANAT</a></li><li><i class="fa-solid fa-square-caret-right"></i><a href="https://www.orduyenihaber.com/kategori/magazin">MAGAZİN</a></li><li><i class="fa-solid fa-square-caret-right"></i><a href="https://www.orduyenihaber.com/kategori/resmi-ilanlar">RESMİ İLANLAR</a></li><li><i class="fa-solid fa-square-caret-right"></i><a href="https://www.orduyenihaber.com/kategori/saglik">SAĞLIK</a></li><li><i class="fa-solid fa-square-caret-right"></i><a href="https://www.orduyenihaber.com/kategori/siyaset">SİYASET</a></li><li><i class="fa-solid fa-square-caret-right"></i><a href="https://www.orduyenihaber.com/kategori/spor">SPOR</a></li><li><i class="fa-solid fa-square-caret-right"></i><a href="https://www.orduyenihaber.com/kategori/teknoloji">TEKNOLOJİ</a></li>          </ul>
+              </div>
+    </div>
+  </div>
+<div style="display:none;">
+          <a href="https://www.orduviptransfer.com.tr" title="havaalanı transfer" rel="dofollow">ordu havaalanı transfer</a>
+          <a href="https://www.samsunhavalimanitransfer.com" title="samsun havaalanı transfer" rel="dofollow">samsun havaalanı transfer</a>
+          <a href="https://www.orduvip.com/hizmet-giresun-vip-transfer.html" title="giresun havaalanı transfer" rel="dofollow">giresun havaalanı transfer</a>
+          <a href="https://www.ogezi.com.tr/kategori/gunubirlik-turlar" title="günübirlik turlar" rel="dofollow">günübirlik turlar</a>
+          </div>
+  <div class="footer-bottom">
+    <div class="container footer-bottom-content">
+      <div class="footer-links">
+        <a href="https://www.orduyenihaber.com/yazarlar"><i class="fa-solid fa-pen-nib"></i>Yazarlar</a>
+        <a href="https://www.orduyenihaber.com/videolar"><i class="fa-solid fa-video"></i>Videolar</a>        <a href="https://www.orduyenihaber.com/galeriler"><i class="fa-solid fa-camera"></i>Galeriler</a>        <a href="https://www.orduyenihaber.com/roportajlar"><i class="fa-solid fa-microphone"></i>Röportajlar</a>        <a href="/firmalar"><i class="fa-solid fa-building"></i>Firmalar</a>
+        <a href="/ilanlar"><i class="fa-solid fa-briefcase"></i>İlanlar</a>
+        <a href="/resmi-ilanlar"><i class="fa-solid fa-newspaper"></i>Resmi İlanlar</a>
+        <a href="https://www.orduyenihaber.com/sitemap.xml"><i class="fa-solid fa-sitemap"></i>Sitemap</a>
+      </div>
+      <div class="footer-copyright-info">
+                  <p>Ordu Yeni Haber © 2025. Tüm Hakları Saklıdır.</p>
+                <p>Altyapı: GVN Yazılım</p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- schema.org -->
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script type="application/ld+json">
+{"@context":"https://schema.org","@type":"NewsMediaOrganization","name":"GVN Haber YAZILIMI","url":"https://www.orduyenihaber.com/","telephone":"0452 225 29 60","email":"info@dogruajans.com","address":{"@type":"PostalAddress","streetAddress":"Akyazı Mahallesi 860.Sokak No: 5/A ALTINORDU/ ORDU"}}</script>
+
+  <!-- Tema JS -->
+  <script src="https://www.orduyenihaber.com/assets/script.js?v=1" defer></script>
+<script>var uygulamaid="236605-5146-7122-8765-8343-6";</script>
+<script src="https://cdn2.bildirt.com/BildirtSDKfiles.js"></script>
+</body>
+</html>

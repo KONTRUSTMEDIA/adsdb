@@ -1,0 +1,193 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Welcome to Rojgar4u</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+<style>
+:root {
+    --navy-blue: #001f3f;
+    --white-text: #ffffff;
+    --primary-vibrant: #FF6F00;
+    --sidebar-heading-color: #4e73df;
+    
+    /* --- ANIMATION VARIABLES --- */
+    --icon-center-gap: 130px; /* ** FIX 1: दोनों आइकन को केंद्र से कितनी दूर रुकना है (डेस्कटॉप) ** */
+}
+
+body {
+    background-color: var(--navy-blue);
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+/* ===== PRELOADER CONTAINER (Full Screen) ===== */
+#preloader-container {
+    position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+    z-index: 99999;
+    background-color: var(--navy-blue);
+    color: var(--white-text);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    opacity: 1;
+    transition: opacity 0.6s ease-out;
+}
+
+/* ===== STRUCTURE: FLEX CONTAINERS FOR ANIMATION ===== */
+.preloader-icons {
+    position: relative; 
+    width: 300px; /* एनिमेशन क्षेत्र */
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+#jobseeker-element, #employer-element {
+    position: absolute; 
+    font-size: 3.5rem;
+    color: var(--sidebar-heading-color);
+    opacity: 0;
+    z-index: 5;
+    /* उन्हें केंद्र से शुरू करें */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); 
+}
+
+#logo-center {
+    max-width: 90px; max-height: 90px; object-fit: contain;
+    margin-bottom: 15px; opacity: 0; z-index: 10;
+}
+
+#handshake-icon {
+    font-size: 4rem; color: var(--primary-vibrant);
+    opacity: 0; z-index: 15; margin-bottom: 25px;
+}
+
+.preloader-tagline {
+    font-size: 1.2rem; font-weight: 300; text-align: center;
+    opacity: 0; color: var(--white-text); padding: 0 20px;
+}
+.preloader-tagline strong {
+    display: block; font-size: 1.5rem; font-weight: 700; margin-top: 5px;
+}
+
+/* === ANIMATIONS: ICONS DON'T CROSS EACH OTHER (FIXED) === */
+@keyframes fadeIn { to { opacity: 1; } }
+@keyframes vibrate { 0% { transform: translate(0,0); } 100% { transform: translate(1px,1px); } }
+
+/* Jobseeker: Right से Center के पास तक स्लाइड करता है */
+@keyframes slideSeeker { 
+    0% { transform: translate(calc(-50% + 500px), -50%); opacity: 0; } /* दूर से शुरू */
+    100% { transform: translate(calc(-50% - var(--icon-center-gap) / 2), -50%); opacity: 1; } /* केंद्र से बाईं ओर रुकें */
+}
+/* Employer: Left से Center के पास तक स्लाइड करता है */
+@keyframes slideEmployer { 
+    0% { transform: translate(calc(-50% - 500px), -50%); opacity: 0; } /* दूर से शुरू */
+    100% { transform: translate(calc(-50% + var(--icon-center-gap) / 2), -50%); opacity: 1; } /* केंद्र से दाईं ओर रुकें */
+}
+
+/* === TIMING SEQUENCE (0.3s Start and Adjusted) === */
+/* icons ko 1s me poora karenge */
+#jobseeker-element { animation: slideSeeker 1s ease-out 0.3s forwards; }
+#employer-element { animation: slideEmployer 1s ease-out 0.3s forwards; }
+/* logo 1.3s ke baad aayega */
+#logo-center { animation: fadeIn 0.8s ease-in 1.3s forwards; }
+/* handshake 2.3s ke baad aayega */
+#handshake-icon { animation: fadeIn 0.8s ease-in 2.3s forwards, vibrate 0.2s linear 3.1s infinite alternate; }
+/* tagline 3.5s ke baad aayega */
+.preloader-tagline { animation: fadeIn 0.8s ease-in 3.5s forwards; }
+
+
+/* === RESPONSIVE === */
+@media (max-width: 600px) {
+    .preloader-icons { width: 100%; height: 80px; }
+    #jobseeker-element, #employer-element { font-size: 2.5rem; }
+    #logo-center { max-width: 70px; }
+    #handshake-icon { font-size: 3rem; }
+    .preloader-tagline { font-size: 1rem; }
+    
+    /* मोबाइल पर कम दूरी पर रुकें */
+    :root { --icon-center-gap: 80px; } 
+}
+</style>
+</head>
+
+<body>
+
+<div id="preloader-container">
+    <div class="preloader-icons">
+        <i id="jobseeker-element" class="fas fa-user-tie"></i>
+        <i id="employer-element" class="fas fa-building"></i>
+    </div>
+
+    <img id="logo-center" src="/public/assets/images/logo.png" alt="Rojgar4u.com Logo">
+
+    <i id="handshake-icon" class="fas fa-handshake"></i>
+
+    <div class="preloader-tagline">
+        Your Next Step.
+        <strong>Your Next Opportunity.</strong>
+    </div>
+</div>
+
+<audio id="startSound" preload="auto">
+    <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_6d6cfb3d39.mp3?filename=startup-intro-sound-125125.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+// === STARTUP SOUND ===
+// Autoplay policy ke karan ho sakta hai ki sound hamesha play na ho
+window.addEventListener('load', () => {
+    const sound = document.getElementById('startSound');
+    if (sound) {
+        sound.volume = 0.4; 
+        sound.play().catch(() => {
+            console.log('Autoplay blocked');
+        }); 
+    }
+});
+
+// === REDIRECT CONTROL (FIXED) ===
+// Tagline ka animation 3.5s par shuru hota hai aur 0.8s lagta hai. 
+// Yani poora animation 4.3s par khatam hota hai.
+const ANIMATION_END_TIME = 4300; 
+
+// ** FIX 2: Text ko 3 seconds tak dikhane ke liye delay badhaya **
+const ADDITIONAL_VISIBLE_TIME = 1000; // 3 seconds extra
+const FADE_OUT_DURATION = 600;
+
+// Total delay before redirect = Animation End + Extra Visible Time + Fade Out Time
+const TOTAL_REDIRECT_DELAY = ANIMATION_END_TIME + ADDITIONAL_VISIBLE_TIME + FADE_OUT_DURATION; // Lagbhag 7.9 seconds
+
+// 1. Fade out the preloader
+setTimeout(() => {
+    const container = document.getElementById('preloader-container');
+    if (container) container.style.opacity = 0;
+}, ANIMATION_END_TIME + ADDITIONAL_VISIBLE_TIME); // Extra time ke baad fade out shuru karein
+
+// 2. मेन वेबसाइट पर रीडायरेक्ट करें
+setTimeout(() => { 
+    const targetUrl = '/';
+    
+    // ** FIX 3: Redirection ke liye ek aur majboot tarika **
+    if (targetUrl && targetUrl !== 'undefined') {
+         window.location.replace(targetUrl); 
+    } else {
+        // Fallback to home page if target URL is somehow missing
+        window.location.replace('/');
+    }
+    
+}, TOTAL_REDIRECT_DELAY); 
+</script>
+
+</body>
+</html>

@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Elox Digital: desenvolvimento de sistemas complexos, automação (RPA), robôs para mercado financeiro e infraestrutura blindada. Entregamos software de alta performance e segurança.">
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#050505">
+    <meta name="color-scheme" content="dark light">
+    <meta name="language" content="pt-BR">
+    <meta name="keywords" content="desenvolvimento de sistemas, automação, RPA, algoritmos quantitativos, robôs de trading, infraestrutura, segurança, software, Elox Digital">
+    <link rel="canonical" href="https://elox.digital/">
+    <link rel="alternate" hreflang="pt-BR" href="https://elox.digital/">
+    <link rel="alternate" hreflang="en" href="https://elox.digital/en/">
+    <link rel="alternate" hreflang="x-default" href="https://elox.digital/">
+    <title>Elox Digital | Sistemas, Automação e Quant · 2026</title>
+
+    <!-- Favicons (provisórios) -->
+    <link rel="icon" type="image/png" href="/elox_digital.png" sizes="64x64">
+    <link rel="apple-touch-icon" href="/elox_digital.png">
+
+    <!-- Open Graph / Twitter -->
+    <meta property="og:site_name" content="Elox Digital">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://elox.digital/">
+    <meta property="og:title" content="Elox Digital — Sistemas, Automação e Quant">
+    <meta property="og:description" content="Desenvolvimento full‑stack, robôs e automação (RPA) e infraestrutura blindada para escalar seu negócio.">
+    <meta property="og:image" content="https://elox.digital/works-junie-1.webp">
+    <meta property="og:image:alt" content="Marca Elox Digital sobre fundo escuro">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Elox Digital — Sistemas, Automação e Quant">
+    <meta name="twitter:description" content="Desenvolvimento full‑stack, robôs e automação (RPA) e infraestrutura blindada para escalar seu negócio.">
+    <meta name="twitter:image" content="https://elox.digital/works-junie-1.webp">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-color: #050505;
+            --text-main: #ffffff;
+            --text-muted: #888888;
+            --accent-color: #c3c3c3; /* Vermelho estilo Laravel */
+            --border-color: #333333;
+            --card-bg: rgba(255, 255, 255, 0.03);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            min-height: 100vh;
+            width: 100vw;
+            overflow-x: hidden;
+        }
+
+        /* --- BACKGROUND (Fixo) --- */
+        #bgVideo {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            object-fit: cover;
+            z-index: -2;
+            opacity: 0.2;
+            filter: grayscale(100%) contrast(1.2);
+        }
+
+        #snowCanvas {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: -1;
+            pointer-events: none;
+            
+            /* EFEITO NATURAL: Transição suave do fundo escuro */
+            /*transition: background-color 1.5s ease;*/
+            /*background-color: rgba(0,0,0,0.6);*/ /* Fundo escuro inicial */
+        }
+
+        /* Classe para quando a neve é desativada (Fundo transparente) */
+        #snowCanvas.snow-off {
+            background-color: rgba(0,0,0,0);
+        }
+
+        /* --- LAYOUT WRAPPER --- */
+        .layout-container {
+            max-width: 1500px;
+            margin: 0 auto;
+            padding: 0 5%;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* --- HEADER --- */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 40px 0;
+            width: 100%;
+            z-index: 10;
+        }
+
+        .logo-container img {
+            height: 45px;
+            width: auto;
+        }
+
+        .header-controls {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+        }
+
+        /* Toggle Neve */
+        .snow-toggle-label {
+            cursor: pointer;
+            width: 44px; height: 24px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 20px;
+            position: relative;
+            transition: background 0.3s;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .snow-toggle-slider {
+            position: absolute; top: 2px; left: 2px;
+            width: 18px; height: 18px;
+            background: #fff;
+            border-radius: 50%;
+            transition: transform 0.3s;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 10px; color: #000;
+        }
+        input:checked + .snow-toggle-slider { transform: translateX(20px); }
+
+        /* Botão Login */
+        .btn-login {
+            background: transparent;
+            color: var(--text-main);
+            border: 1px solid rgba(255,255,255,0.2);
+            padding: 8px 20px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            text-decoration: none;
+            letter-spacing: 1px;
+            border-radius: 4px;
+            transition: all 0.3s;
+        }
+        .btn-login:hover {
+            border-color: var(--text-main);
+            background: rgba(255,255,255,0.05);
+        }
+
+        /* --- HERO SECTION --- */
+        .hero-section {
+            padding: 80px 0 120px 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .meta-tag {
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 25px;
+            display: block;
+        }
+    
+        h1 {
+            font-size: clamp(2.5rem, 5vw, 4.5rem);
+            font-weight: 500; 
+            letter-spacing: -0.03em;
+            margin-bottom: 25px;
+            max-width: 900px;
+            
+            /* EFEITO ZINCO */
+            background-image:
+                linear-gradient(110deg, transparent 35%, rgba(255, 255, 255, 1) 50%, transparent 65%),
+                linear-gradient(180deg, #666666 0%, #bbbbbb 25%, #ffffff 45%, #ffffff 55%, #bbbbbb 75%, #666666 100%);
+            background-size: 200% 100%, 100% 100%;
+            background-position: 200% center, center center;
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            color: transparent;
+            animation: crystalShine 10s linear infinite;
+        }
+
+        @keyframes crystalShine {
+            to { background-position: -200% center, center center; }
+        }
+
+        p.subtitle {
+            font-size: clamp(1.2rem, 2vw, 1.8rem);
+            color: var(--text-muted);
+            font-weight: 400;
+            line-height: 1.4;
+            letter-spacing: -0.02em;
+            max-width: 800px;
+            margin-bottom: 60px;
+        }
+
+        /* Form Input */
+        .input-group {
+            display: flex;
+            gap: 15px;
+            max-width: 500px;
+        }
+        .input-wrapper { position: relative; flex: 1; }
+        
+        input[type="email"] {
+            width: 100%;
+            background: rgba(0,0,0,0.5);
+            border: 1px solid var(--border-color);
+            padding: 15px 20px;
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--text-main);
+            font-size: 0.9rem;
+            border-radius: 4px;
+            transition: border-color 0.3s;
+        }
+        input[type="email"]:focus { outline: none; border-color: var(--text-muted); }
+        
+        .btn-subscribe {
+            background: #1a1a1a;
+            color: var(--text-main);
+            border: 1px solid var(--border-color);
+            padding: 0 25px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: all 0.3s;
+            height: 48px; /* altura consistente em todas as telas */
+            line-height: 48px; /* alinha o texto verticalmente quando display inline */
+            display: inline-flex; /* garante alinhamento e altura fixa */
+            align-items: center;
+            justify-content: center;
+            white-space: nowrap;
+        }
+        .btn-subscribe:hover {
+            background: var(--text-main);
+            color: #000;
+            border-color: var(--text-main);
+        }
+
+        /* --- CARDS SECTION --- */
+        .cards-section { padding: 0 0 100px 0; }
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+        }
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 30px;
+            aspect-ratio: 1/1.2;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: transform 0.3s, border-color 0.3s;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(5px);
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(255,255,255,0.3);
+        }
+        .card:nth-child(1):hover { border-color: #10b981; box-shadow: 0 10px 30px -10px rgba(16, 185, 129, 0.2); }
+        .card:nth-child(2):hover { border-color: #f43f5e; box-shadow: 0 10px 30px -10px rgba(244, 63, 94, 0.2); }
+        .card:nth-child(3):hover { border-color: #8b5cf6; box-shadow: 0 10px 30px -10px rgba(139, 92, 246, 0.2); }
+        .card:nth-child(4):hover { border-color: #d946ef; box-shadow: 0 10px 30px -10px rgba(217, 70, 239, 0.2); }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+        }
+        .card-number {
+            font-size: 4rem;
+            font-weight: 700;
+            color: rgba(255,255,255,0.05);
+            align-self: center;
+            margin-top: auto;
+            margin-bottom: auto;
+            z-index: 1;
+        }
+        .card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(255,255,255,0.03) 0%, transparent 100%);
+            z-index: 0;
+        }
+        .card-content {
+            z-index: 1;
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--text-main);
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            border-top: 1px solid var(--border-color);
+            padding: 80px 0 40px 0;
+            margin-top: auto;
+        }
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1.5fr repeat(4, 1fr);
+            gap: 40px;
+        }
+        .footer-brand p {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--accent-color);
+            margin-bottom: 20px;
+            line-height: 1.4;
+        }
+        .footer-brand .desc {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            font-weight: 400;
+        }
+        .footer-col h4 {
+            font-size: 1rem;
+            margin-bottom: 20px;
+            color: var(--text-main);
+        }
+        .footer-col ul { list-style: none; }
+        .footer-col ul li { margin-bottom: 12px; }
+        .footer-col ul li a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.2s;
+        }
+        .footer-col ul li a:hover { color: var(--text-main); }
+        .footer-bottom {
+            margin-top: 60px;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            display: flex;
+            justify-content: space-between;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+        .social-icons { display: flex; gap: 15px; }
+
+        @media (max-width: 900px) {
+            .footer-grid { grid-template-columns: 1fr 1fr; }
+            .footer-brand { grid-column: span 2; margin-bottom: 30px; }
+        }
+        @media (max-width: 600px) {
+            /* Footer: manter no mínimo 2 colunas e centralizar no mobile */
+            .footer-grid { 
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                justify-items: center;
+                text-align: center;
+            }
+            /* Primeira seção (brand) centralizada e ocupando a largura inteira */
+            .footer-brand { 
+                grid-column: 1 / -1; 
+                text-align: center;
+            }
+            .footer-col { text-align: center; }
+            .footer-col ul { padding-left: 0; }
+            .social-icons { justify-content: center; }
+            .input-group { flex-direction: column; width: 100%; }
+            /* garante que o botão não cole no texto do input no mobile */
+            .input-group .btn-subscribe { width: 100%; line-height: normal; }
+            /* Footer bottom centralizado e empilhado */
+            .footer-bottom { 
+                flex-direction: column; 
+                align-items: center; 
+                gap: 10px;
+                text-align: center;
+            }
+            .footer-bottom > div { display: inline-flex; gap: 20px; }
+        }
+    </style>
+    
+    <!-- Structured Data: Organization -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "Elox Digital",
+      "url": "https://elox.digital/",
+      "logo": "https://elox.digital/elox_digital.png"
+    }
+    </script>
+    <!-- Structured Data: Website with SearchAction (placeholder) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "Elox Digital",
+      "url": "https://elox.digital/",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://www.google.com/search?q=site:elox.digital+{search_term}",
+        "query-input": "required name=search_term"
+      }
+    }
+    </script>
+</head>
+<body>
+
+    <video autoplay muted loop playsinline id="bgVideo" preload="metadata" poster="https://elox.digital/works-junie-1.webp">
+        <source src="https://elox.digital/investing.mov" type="video/mp4">
+        <source src="https://elox.digital/investing.mov" type="video/quicktime">
+    </video>
+
+    <canvas id="snowCanvas"></canvas>
+
+    <div class="layout-container">
+        
+        <header>
+            <div class="logo-container">
+                <a href="/" aria-label="Elox Digital — Início (Português)">
+                    <img src="https://elox.digital/elox_digital.png" alt="Logotipo da Elox Digital">
+                </a>
+            </div>
+
+            <div class="header-controls">
+                <label class="snow-toggle-label">
+                    <input type="checkbox" id="snowToggle" checked style="display:none;">
+                    <span class="snow-toggle-slider">❄️</span>
+                </label>
+
+                <nav aria-label="Seleção de idioma">
+                    <a href="/" class="btn-login" aria-label="Ver em Português (Brasil)">PT‑BR</a>
+                    <a href="/en/" class="btn-login" aria-label="View in English">EN</a>
+                </nav>
+            </div>
+        </header>
+
+        <main class="hero-section">
+            <span class="meta-tag">FELIZ NATAL E UM EXCELENTE 2026!</span>
+            
+            <h1>Elox Digital</h1>
+            
+            <p class="subtitle">
+                Desenvolvimento de sistemas complexos, quantificação de estratégias financeiras e automação blindada para escalar seu negócio.
+            </p>
+
+            <form action="#" method="POST" class="input-group" aria-label="Formulário de contato por e‑mail">
+                <div class="input-wrapper">
+                    <input type="email" placeholder="Digite seu e-mail" name="email" autocomplete="email" required>
+                </div>
+                <button type="submit" class="btn-subscribe" aria-label="Enviar seu e‑mail para contato">CONTATE-ME</button>
+            </form>
+        </main>
+
+        <section class="cards-section">
+            <div class="cards-grid">
+                <div class="card">
+                    <div class="card-header">
+                        <span>SISTEMAS</span>
+                        <span>[01]</span>
+                    </div>
+                    <div class="card-number">01</div>
+                    <div class="card-content">Full-Stack Dev</div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <span>FINANCEIRO</span>
+                        <span>[02]</span>
+                    </div>
+                    <div class="card-number">02</div>
+                    <div class="card-content">Algoritmos Quant</div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <span>AUTOMAÇÃO</span>
+                        <span>[03]</span>
+                    </div>
+                    <div class="card-number">03</div>
+                    <div class="card-content">Robôs & RPA</div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <span>SEGURANÇA</span>
+                        <span>[04]</span>
+                    </div>
+                    <div class="card-number">04</div>
+                    <div class="card-content">Infra Blindada</div>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <p>Elox Digital é a forma mais<br>produtiva de construir e<br>escalar software.</p>
+                    <div class="social-icons" aria-label="Redes sociais da Elox Digital">
+                        <a href="#" aria-label="GitHub da Elox Digital" style="cursor:pointer; color: inherit; text-decoration: none;">Github</a>
+                        <a href="#" aria-label="Twitter da Elox Digital" style="cursor:pointer; color: inherit; text-decoration: none;">Twitter</a>
+                        <a href="#" aria-label="YouTube da Elox Digital" style="cursor:pointer; color: inherit; text-decoration: none;">YouTube</a>
+                    </div>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Produtos</h4>
+                    <ul>
+                        <li><a href="#">Elox Farma</a></li>
+                        <li><a href="#">Elox SNGPC</a></li>
+                        <li><a href="#">Elox Trader</a></li>
+                        <li><a href="#">Elox COPY NT8</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Serviços</h4>
+                    <ul>
+                        <li><a href="#">Consultoria</a></li>
+                        <li><a href="#">Auditoria</a></li>
+                        <li><a href="#">Monitoramento</a></li>
+                        <li><a href="#">Segurança</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Recursos</h4>
+                    <ul>
+                        <li><a href="#">Documentação</a></li>
+                        <li><a href="#">Estudos de Caso</a></li>
+                        <li><a href="#">Blog Oficial</a></li>
+                        <li><a href="#">Comunidade</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Integrações</h4>
+                    <ul>
+                        <li><a href="#">AWS</a></li>
+                        <li><a href="#">CTrader</a></li>
+                        <li><a href="#">NinjaTrader</a></li>
+                        <li><a href="#">Cloudflare</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <span>&copy; 2026 Elox Digital. Todos os direitos reservados.</span>
+                <div>
+                    <a href="/privacy.html" style="margin-right: 20px; color: inherit; text-decoration: none;">Privacidade</a>
+                    <a href="/terms.html" style="margin-right: 20px; color: inherit; text-decoration: none;">Termos</a>
+                    <a href="#" style="color: inherit; text-decoration: none;">Status</a>
+                </div>
+            </div>
+        </footer>
+
+    </div> 
+    
+    <script type="bd79a78cb88104d35ae290b6-text/javascript">
+        const canvas = document.getElementById('snowCanvas');
+        const ctx = canvas.getContext('2d');
+        const snowToggle = document.getElementById('snowToggle');
+        
+        let width, height;
+        let particles = [];
+        let animationId; // Para controlar o loop
+        let isSnowing = true; // Controla se a neve CONTINUA sendo gerada
+
+        const particleCount = 100;
+
+        function resize() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        }
+        
+        function initParticles() {
+            particles = [];
+            for (let i = 0; i < particleCount; i++) {
+                particles.push({ 
+                    x: Math.random() * width, 
+                    y: Math.random() * height, 
+                    r: Math.random() * 2 + 0.5, 
+                    s: Math.random() * 0.5 + 0.2 // Velocidade
+                });
+            }
+        }
+
+        function draw() {
+            ctx.clearRect(0, 0, width, height);
+            ctx.fillStyle = "rgba(255, 255, 255, 0.6)";
+            ctx.beginPath();
+            
+            let activeParticles = 0; // Contador de partículas visíveis
+
+            for (let i = 0; i < particleCount; i++) {
+                const p = particles[i];
+                
+                // Só desenha se estiver dentro ou perto da tela
+                if (p.y <= height + 10) {
+                    ctx.moveTo(p.x, p.y);
+                    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2, true);
+                    activeParticles++;
+                }
+            }
+            ctx.fill();
+            update();
+            
+            // LÓGICA DE PARADA NATURAL:
+            // Continua animando se o toggle estiver ligado (isSnowing)
+            // OU se ainda existirem flocos caindo (activeParticles > 0)
+            if (isSnowing || activeParticles > 0) {
+                animationId = requestAnimationFrame(draw);
+            } else {
+                // Para totalmente quando tudo sumir
+                cancelAnimationFrame(animationId);
+                animationId = null; 
+            }
+        }
+
+        function update() {
+            for (let i = 0; i < particleCount; i++) {
+                const p = particles[i];
+                p.y += p.s; 
+                
+                // LÓGICA DE REGENERAÇÃO:
+                // Se saiu da tela E o switch está ligado, volta pro topo.
+                // Se o switch está desligado, ele ignora e deixa o floco cair pra sempre.
+                if (p.y > height && isSnowing) {
+                    particles[i] = { 
+                        x: Math.random() * width, 
+                        y: -5, 
+                        r: p.r, 
+                        s: p.s 
+                    };
+                }
+            }
+        }
+
+        function toggleSnow() {
+            if (snowToggle.checked) {
+                // LIGAR
+                isSnowing = true;
+                canvas.classList.remove('snow-off'); // Fade-in do fundo escuro
+                
+                // Se a animação estava parada, reinicia
+                if (!animationId) {
+                    initParticles(); // Reinicia posições (opcional, ou deixe cair do céu)
+                    draw();
+                }
+            } else {
+                // DESLIGAR
+                isSnowing = false;
+                canvas.classList.add('snow-off'); // Fade-out do fundo para transparente
+                // NÃO paramos a animação aqui. Deixamos o draw() terminar naturalmente.
+            }
+        }
+
+        // Inicialização
+        window.addEventListener('resize', () => {
+            resize();
+        });
+        
+        snowToggle.addEventListener('change', toggleSnow);
+
+        resize();
+        initParticles();
+        
+        // Estado inicial
+        if (snowToggle.checked) {
+            draw();
+        } else {
+            canvas.classList.add('snow-off');
+        }
+    </script>
+<script src="/cdn-cgi/scripts/7d0fa10a/cloudflare-static/rocket-loader.min.js" data-cf-settings="bd79a78cb88104d35ae290b6-|49" defer></script></body>
+</html>

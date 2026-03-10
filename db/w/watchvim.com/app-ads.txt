@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <!-- ✅ add viewport-fit=cover for iPhone safe-area (helps top-right pill) -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+
+    <!-- Primary SEO -->
+    <title>WatchVIM | Black-Owned Streaming Platform for Diverse & Independent Film</title>
+    <meta
+      name="description"
+      content="WatchVIM is a Black-owned streaming platform featuring diverse, independent films and series from underrepresented creators. Stream bold stories, niche cinema, and original voices."
+    />
+    <link rel="canonical" href="https://watchvim.com/" />
+    <meta name="robots" content="index,follow" />
+
+    <!-- Open Graph / Social -->
+    <meta property="og:site_name" content="WatchVIM" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="WatchVIM | Black-Owned Streaming Platform for Diverse & Independent Film" />
+    <meta
+      property="og:description"
+      content="Stream diverse and independent films and series on WatchVIM — a Black-owned platform built to elevate underrepresented voices."
+    />
+    <meta property="og:url" content="https://watchvim.com/" />
+    <!-- Optional: set this if you have a real OG image -->
+    <!-- <meta property="og:image" content="https://watchvim.com/og.png" /> -->
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <!-- ✅ Google AdSense (sitewide) -->
+    <script
+      async
+      src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9344636356304893"
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- Tailwind -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              watchBlack: "#0a0a0a",
+              watchRed: "#e50914",
+              watchGold: "#d4af37",
+            },
+          },
+        },
+      };
+    </script>
+
+    <style>
+      :root { color-scheme: dark; }
+      html, body { height: 100%; }
+
+      body {
+        margin: 0;
+        background: #0a0a0a;
+        color: #ffffff;
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+
+        /* ✅ Prevent any horizontal bleed (guide rows, cards, etc.) */
+        overflow-x: hidden;
+      }
+
+      #app {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+
+        /* ✅ Extra safety to stop bleed inside SPA container */
+        overflow-x: hidden;
+      }
+
+      /* ✅ Fallback for Tailwind line-clamp-1 (if not present in CDN build) */
+      .line-clamp-1 {
+        display: -webkit-box;
+        -webkit-line-clamp: 1;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+
+      /* Optional: nicer horizontal scrollers (guide row) */
+      .row-scroll {
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: thin;
+      }
+
+      /* Footer SEO links: visible but low-profile (optional if you use it later) */
+      .seo-links {
+        max-width: 980px;
+        margin: 0 auto;
+        padding: 14px 16px 22px;
+        font-size: 13px;
+        color: #aaa;
+      }
+      .seo-links a {
+        color: #d4af37;
+        text-decoration: none;
+      }
+      .seo-links a:hover {
+        text-decoration: underline;
+      }
+
+      /* ============================================================
+         ✅ WATCH PAGE "SCREENSAVER" OVERLAY (Small Poster + Title)
+         This is the CSS layer that allows app.js to show the overlay
+         ABOVE the player (Mux or <video>) when paused/ended.
+         ============================================================ */
+
+      /* Ensure mux-player behaves like a normal block element and doesn't create weird stacking */
+      mux-player {
+        display: block;
+        width: 100%;
+        position: relative;
+        z-index: 1;
+      }
+
+      /* The overlay container injected by app.js */
+      .wv-ss-overlay {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        pointer-events: none;
+        opacity: 0;
+        transition: opacity .35s ease;
+        z-index: 50; /* must be above mux-player */
+      }
+      .wv-ss-overlay.show {
+        opacity: 1;
+      }
+
+      /* The little "card" that holds poster + title */
+      .wv-ss-card {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        background: rgba(0,0,0,.62);
+        border: 1px solid rgba(255,255,255,.10);
+        padding: 12px 14px;
+        border-radius: 16px;
+        box-shadow: 0 10px 30px rgba(0,0,0,.45);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        max-width: min(520px, 92vw);
+      }
+
+      .wv-ss-poster {
+        width: 92px;              /* ✅ small poster size */
+        height: 130px;            /* keep consistent ratio */
+        border-radius: 12px;
+        object-fit: cover;
+        background: rgba(255,255,255,.06);
+        flex: 0 0 auto;
+      }
+
+      .wv-ss-text {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        min-width: 0;
+      }
+
+      .wv-ss-title {
+        margin: 0;
+        font: 700 16px/1.2 system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+        color: #fff;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 320px;
+      }
+
+      .wv-ss-sub {
+        margin: 0;
+        font: 600 12px/1.2 system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+        color: rgba(255,255,255,.70);
+        letter-spacing: .2px;
+        text-transform: uppercase;
+      }
+
+      /* If the parent container clips overflow, overlay might be cut off.
+         This helps in most layouts without breaking your UI. */
+      .wv-player-wrap,
+      .playerWrap,
+      .watch-player-wrap,
+      .watch-player,
+      #playerMount {
+        position: relative;
+        overflow: visible;
+      }
+    </style>
+
+    <!-- Organization Schema (Brand trust signal) -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "WatchVIM",
+        "url": "https://watchvim.com",
+        "description": "A Black-owned streaming platform featuring diverse and independent films and series from underrepresented creators.",
+        "sameAs": [
+          "https://www.youtube.com/@watchvim"
+        ]
+      }
+    </script>
+
+    <!-- Mux Player (required elsewhere in app) -->
+    <script src="https://unpkg.com/@mux/mux-player@latest/dist/mux-player.js"></script>
+
+    <!-- ✅ hls.js (recommended for LIVE HLS playback on Chrome/Edge/Firefox) -->
+    <script defer src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+
+    <!-- ✅ Google IMA SDK (PRELOAD for iOS/mobile user-gesture reliability) -->
+    <!-- This ensures your 3x pre-roll + countdown pill works consistently on mobile -->
+    <script defer src="https://imasdk.googleapis.com/js/sdkloader/ima3.js"></script>
+  </head>
+
+  <body class="bg-watchBlack text-white">
+    <noscript>
+      <div style="padding:16px;max-width:980px;margin:0 auto;">
+        <h1>WatchVIM</h1>
+        <p>WatchVIM is a Black-owned streaming platform featuring diverse and independent films and series.</p>
+        <p>Enable JavaScript to browse the catalog.</p>
+      </div>
+    </noscript>
+
+    <div id="app"></div>
+
+    <!-- Main SPA logic -->
+    <!-- ✅ Cache-bust so the latest app.js actually loads -->
+    <script defer src="/app.js?v=20260219"></script>
+  </body>
+</html>

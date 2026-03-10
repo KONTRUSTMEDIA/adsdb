@@ -1,0 +1,726 @@
+
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Looga - Venda de Domínios</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    :root {
+      --bg-light: #f9f9f9;
+      --text-light: #111;
+      --card-light: #fff;
+      --line-light: #eee;
+      
+      --bg-dark: #121212;
+      --border-dark: #2b2b2b;
+      --text-dark: #f9f9f9;
+      --card-dark: #1e1e1e;
+      --line-dark: #373434;
+      --highlight: #007bff;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Segoe UI", sans-serif;
+      background-color: var(--bg-light);
+      color: var(--text-light);
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    body.dark {
+      background-color: var(--bg-dark);
+      color: var(--text-dark);
+    }
+
+    header {
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: var(--card-light);
+    }
+
+    body.dark header {
+      background: var(--card-dark);
+    }
+
+    .toggle-mode {
+      padding: 0.5rem 1rem;
+      cursor: pointer;
+      background: var(--highlight);
+      border: none;
+      color: white;
+      border-radius: 5px;
+      font-weight: bold;
+    }
+
+    .container {
+      padding: 2rem;
+      display: grid;
+      gap: 1.5rem;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    }
+
+ 
+
+    .logo{
+        text-decoration: none;
+        color:#000;
+        font-size: 2em;
+        font-weight: bold;
+    }
+    
+    body.dark .logo{
+        color: var(--text-dark);
+    }
+   
+
+
+    .domain-title {
+      font-size: 1.4rem;
+      font-weight: 600;
+      margin-bottom:10px;
+    }
+
+    .da-box {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    .da-circle {
+      width: 48px;
+      height: 48px;
+      background: conic-gradient(var(--highlight) 32%, #eee 0%);
+      border-radius: 50%;
+      position: relative;
+    }
+
+    body.dark .da-circle {
+      background: conic-gradient(var(--highlight) 32%, #2e2e2e 0%);
+    }
+
+    .da-number {
+      font-size: 2rem;
+      font-weight: bold;
+    }
+
+  
+
+    .btn-mais {
+      padding: 0.6rem 1rem;
+      background: var(--highlight);
+      border: none;
+      color: white;
+      border-radius: 6px;
+      font-weight: bold;
+      text-align: center;
+      cursor: pointer;
+      text-decoration: none;
+      width: fit-content;
+    }
+
+    .tooltip {
+      cursor: help;
+      border-bottom: 1px dotted #888;
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    .card {
+      background: var(--card-light);
+      border-radius: 12px;
+      padding: 1.5rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      transition: background 0.3s;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+
+    }
+    
+    
+     body.dark .card, body.dark .dominio-item {
+      background: var(--card-dark);
+    }
+    
+    
+    body.dark #card-dominio h1,
+    body.dark #card-dominio h3,
+    body.dark #card-dominio h4
+    {
+      color: var(--text-dark);
+    }
+    
+    body.dark .info-block{
+        background: rgb(53, 53, 53);
+    }
+    
+    body.dark .info-block li{
+        color:#f1f1f1;
+    }
+    
+    
+    
+    
+     #card-dominio .da-badge {
+
+  background-color: #4e73df;
+  color: white;
+  font-size: 0.9rem;
+  padding: 3px 8px;
+  border-radius: 20px;
+  font-weight: bold;
+  margin-left: 6px;
+  cursor: help;
+  position: relative;
+}
+
+ #card-dominio .da-badge .tooltip
+ {
+
+visibility: hidden;
+   opacity: 0;
+    width: 250px;
+    background-color: #e5e5e5;
+    color: var(--text-light);
+    text-align: left;
+    border-radius: 6px;
+    padding: 8px 10px;
+    position: absolute;
+    top: -50px;
+    right: 0;
+    /* transform: translateX(-50%); */
+    transform: translateY(-50%);
+    font-size: 0.75rem;
+    line-height: 1.3;
+    transition: opacity 0.3s;
+    z-index: 10;
+}
+
+ body.dark #card-dominio .da-badge .tooltip
+ {
+    background-color: #000;
+    color:var(--text-dark);
+}
+
+ #card-dominio .da-badge:hover .tooltip {
+  visibility: visible;
+  opacity: 1;
+}
+
+    #card-dominio .verified-badge {
+  display: inline-block;
+  position: relative;
+  margin-left: 8px;
+  width: 20px;
+  height: 20px;
+  background-color: #25D366; /* cor estilo WhatsApp */
+  border-radius: 50%;
+  text-align: center;
+  line-height: 20px;
+  font-size: 14px;
+  color: white;
+  cursor: default;
+}
+
+ #card-dominio .verified-badge::after {
+  content: "Domínio verificado";
+  position: absolute;
+  bottom: 130%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #333;
+  color: #fff;
+  font-size: 0.75rem;
+  padding: 5px 8px;
+  border-radius: 6px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+  z-index: 10;
+}
+
+ #card-dominio .verified-badge:hover::after {
+  opacity: 1;
+}
+
+
+   
+    
+    #card-dominio{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 1200px;
+    margin: 80px auto;
+    }
+
+
+    #card-dominio .card 
+    {
+      border-radius: 16px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      max-width: 400px;
+      text-align: center;
+      padding: 20px;
+      position: relative;
+      width: 100%;
+    }
+
+     #card-dominio .card img {
+      width: 100%;
+      border-radius: 12px;
+      margin-bottom: 15px;
+    }
+
+     #card-dominio .card h1 {
+      font-size: 1.4rem;
+      margin-bottom: 10px;
+      color: #222;
+    }
+
+     #card-dominio .card p {
+      color: #555;
+      font-size: 0.95rem;
+      margin-bottom: 10px;
+    }
+
+     #card-dominio .price {
+      font-size: 2rem;
+      font-weight: bold;
+      color: #000000;
+      margin-bottom: 20px;
+    }
+    
+    body.dark #card-dominio .price 
+    {
+      color: #fff;
+    }
+
+     #card-dominio .btn {
+      display: block;
+      text-decoration: none;
+      padding: 12px;
+      border-radius: 8px;
+      font-weight: bold;
+      font-size: 1rem;
+      margin-bottom: 12px;
+      transition: background-color 0.3s ease;
+    }
+
+     #card-dominio .btn-ml {
+      background-color: #ffe600;
+      color: #000;
+    }
+
+     #card-dominio .btn-ml:hover {
+      background-color: #f7d800;
+    }
+
+     #card-dominio .btn-whatsapp {
+      background-color: #25D366;
+      color: white;
+    }
+
+     #card-dominio .btn-whatsapp:hover {
+      background-color: #1ebe5b;
+    }
+    
+     #card-dominio .btn-vendido {
+        background-color: #c9c6c7;
+        color: white;
+    }
+
+     #card-dominio .secure-text {
+      font-size: 0.85rem;
+      color: #888;
+      margin-top: 8px;
+    }
+
+     #card-dominio .secure-text::before {
+      content: "🔒 ";
+    }
+    
+    body.dark .card .info{
+      border-top: 1px solid var(--line-dark);
+    }
+
+    .info {
+      font-size: 0.85rem;
+      color: #444;
+      text-align: left;
+      border-top: 1px solid #eee;
+      padding: 10px 0;
+    }
+    
+    
+
+     #card-dominio .info button {
+      width: 100%;
+      padding: 10px;
+      font-weight: bold;
+      background-color: #f0f0f0;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      text-align: left;
+    }
+
+     #card-dominio .info ul {
+      padding-left: 20px;
+      margin-top: 5px;
+    }
+
+     #card-dominio .info ul li {
+      margin-bottom: 6px;
+    }
+
+  
+
+
+
+
+
+
+
+
+
+    .info-block {
+  margin-bottom: 20px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  overflow: hidden;
+  background-color: #fafafa;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+.info-toggle {
+  width: 100%;
+  background: #f0f0f0;
+  border: none;
+  padding: 14px 18px;
+  font-size: 1rem;
+  font-weight: 600;
+  text-align: left;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.info-toggle:hover {
+  background-color: #e6e6e6;
+}
+
+.toggle-content {
+  display: none;
+  padding: 15px 20px;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.toggle-content ul {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.toggle-content li {
+  margin-bottom: 8px;
+  font-size: 0.95rem;
+  color: #333;
+}
+
+.logo-examples {
+  justify-content: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.logo-examples img {
+  width: 80px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  transition: transform 0.3s ease;
+}
+.logo-examples img:hover {
+  transform: scale(1.05);
+}
+
+
+
+.outros-dominios {
+  margin-top: 40px;
+  text-align: center;
+  padding: 0 10px;
+}
+
+.outros-dominios h3 {
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+  color: #222;
+}
+
+.dominio-lista {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 16px;
+}
+
+.dominio-item {
+  background-color: #fff;
+  border: 1px solid #eee;
+  border-radius: 12px;
+  padding: 16px;
+  width: 260px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  transition: transform 0.2s ease;
+}
+
+body.dark .dominio-item{
+    border: 1px solid var(--border-dark);
+}
+
+
+.dominio-item:hover {
+  transform: translateY(-3px);
+}
+
+.dominio-item h4 {
+  font-size: 1.1rem;
+  margin-bottom: 8px;
+  color: #333;
+}
+
+.dominio-item .preco {
+  font-weight: bold;
+  color: #007b1e;
+  margin-bottom: 12px;
+}
+
+.btn-vermais {
+  display: inline-block;
+  padding: 8px 14px;
+  background-color: #007bff;
+  color: white;
+  text-decoration: none;
+  border-radius: 6px;
+  font-size: 0.9rem;
+}
+
+.btn-vermais:hover {
+  background-color: #005dc0;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 768px) {
+  #card-dominio .card {
+    top: 0;
+    left: 0;
+    width: 100vw;
+    max-width: 100%;
+    max-height: 100%;
+    border-radius: 0;
+    box-shadow: none;
+    z-index: 999;
+    position: relative;
+  }
+  
+  
+  #card-dominio {
+    margin: 80px 50px;
+  }
+  
+  .outros-dominios{
+      width: 100%;
+  }
+  
+
+}
+  </style>
+</head>
+<body>
+
+<header>
+    <a class="logo" href="/">Looga</a>
+    <button class="toggle-mode" onclick="toggleMode()">Alternar Tema</button>
+  </header>
+<div id="card-dominio">
+    
+
+<div class="card">
+   
+  <h4>Domínio à venda</h4>
+  <div class="itens" style="display: flex; align-items: baseline; justify-content: center; gap: 6px; flex-wrap: wrap;">
+      <h1>clashop.com.br</h1>
+  <span class="verified-badge">✔</span>
+      <span class="da-badge">
+      DA 11      <span class="tooltip">Autoridade do Domínio: métrica de SEO que varia de 0 a 100, quanto maior, melhor ranqueado no Google.</span>
+    </span>
+  </div>
+  <!--<p></p>-->
+  <div class="price">R$ 3.000,00</div>
+
+  
+      <a class="btn btn-whatsapp" href="https://wa.me/5548991209785?text=Olá,%20tenho%20interesse%20no%20dom%C3%ADnio%20clashop.com.br" target="_blank">
+      Negociar via WhatsApp
+    </a>
+      
+  
+  <div class="secure-text">Pagamento via Mercado Pago ou direto no WhatsApp</div>
+
+<div class="info">
+  <div class="info-block">
+    <button class="info-toggle" onclick="toggleSection('beneficios')">
+      ✅ Benefícios de adquirir este domínio
+    </button>
+    <div id="beneficios" class="toggle-content">
+      <ul>
+                  <li>Nome curto, sonoro e fácil de memorizar</li>
+                  <li>Mistura de “classificados” com “shop”, ideal para comércio online</li>
+                  <li>Versátil: pode ser loja virtual, classificados, ou vitrine de afiliados</li>
+                  <li>Domínio .com.br transmite segurança para o público brasileiro</li>
+                  <li>Potencial de marca forte e reconhecível no digital</li>
+              </ul>
+    </div>
+  </div>
+
+  <div class="info-block">
+    <button class="info-toggle" onclick="toggleSection('ideias')">
+      💡 Ideias de uso para o domínio
+    </button>
+    <div id="ideias" class="toggle-content">
+      <ul>
+                  <li>Plataforma de classificados online com foco em venda direta entre usuários</li>
+                  <li>Marketplace de produtos novos ou usados, estilo OLX ou Enjoei</li>
+                  <li>Loja de produtos importados, eletrônicos, acessórios ou roupas</li>
+                  <li>Vitrine de produtos com cashback ou links de afiliados (Shopee, Amazon, etc.)</li>
+                  <li>Site de oportunidades e promoções com cupons, ofertas e comparação de preços</li>
+                  <li>Portal com sistema de cadastro de vendedores, anúncios e área de pagamentos</li>
+              </ul>
+    </div>
+  </div>
+  
+  
+
+<!--
+  <div class="info-block">
+    <button class="info-toggle" onclick="toggleSection('logos')">
+      🎨 Exemplos de logo
+    </button>
+    <div id="logos" class="toggle-content logo-examples">
+      <img src="https://via.placeholder.com/80x80?text=Logo+1" alt="Logo 1">
+      <img src="https://via.placeholder.com/80x80?text=Logo+2" alt="Logo 2">
+      <img src="https://via.placeholder.com/80x80?text=Logo+3" alt="Logo 3">
+    </div>
+  </div>
+
+</div>-->
+
+
+
+<!--
+    <button onclick="toggleSection('beneficios')">✅ Benefícios de adquirir este domínio</button>
+    <div id="beneficios" class="toggle-content">
+      <ul>
+        <li><strong>Nome Memorável:</strong> Simples, direto e descritivo.</li>
+        <li><strong>Alta Credibilidade:</strong> Extensão .com.br transmite segurança.</li>
+        <li><strong>SEO Relevante:</strong> Contém palavras-chave com alto volume de busca.</li>
+        <li><strong>Pronto para uso:</strong> Transferência imediata após pagamento.</li>
+      </ul>
+    </div>-->
+
+<!--
+    <button onclick="toggleSection('ideias')">💡 Ideias de uso para o domínio</button>
+    <div id="ideias" class="toggle-content">
+      <ul>
+        <li><strong>Aplicativo de Alarme:</strong> Para celular ou navegador.</li>
+        <li><strong>Ferramenta Online:</strong> Alarme online, cronômetro, temporizador, etc.</li>
+        <li><strong>Conteúdo Motivacional:</strong> Blog ou vídeos para começar o dia.</li>
+        <li><strong>Canal no YouTube:</strong> Sons de alarme, meditação matinal ou produtividade.</li>
+      </ul>
+    </div>-->
+
+</div>
+</div>
+
+<div class="outros-dominios">
+  <h3>🔎 Veja outros domínios disponíveis</h3>
+  <div class="dominio-lista">
+
+          <div class="dominio-item">
+        <h4>divulgador.api.br</h4>
+        <p class="preco">R$ 0,00</p>
+        <a href="https://looga.com.br/comprar-dominio/divulgador.api.br" class="btn-vermais">Ver mais</a>
+      </div>
+          <div class="dominio-item">
+        <h4>buscarseo.com.br</h4>
+        <p class="preco">R$ 2.000,00</p>
+        <a href="https://looga.com.br/comprar-dominio/buscarseo.com.br" class="btn-vermais">Ver mais</a>
+      </div>
+    
+  </div>
+</div>
+<p style="font-size: 0.85rem; color: #888;">Essa página foi visitada por: 47617 usuários.</p>
+</div>
+
+
+
+ <script>
+    function toggleMode() {
+      document.body.classList.toggle('dark');
+      localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light');
+    }
+
+    // Carrega tema salvo
+    window.onload = () => {
+      if (localStorage.getItem('theme') === 'dark') {
+        document.body.classList.add('dark');
+      }
+    };
+  </script><script>
+  function toggleSection(id) {
+    const sections = document.querySelectorAll('.toggle-content');
+    sections.forEach(section => {
+      if (section.id === id) {
+        section.style.display = section.style.display === 'block' ? 'none' : 'block';
+      } else {
+        section.style.display = 'none';
+      }
+    });
+  }
+</script>
+
+</body>
+</html>

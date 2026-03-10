@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mousetap Games | Think Hybridcasual</title>
+    <link rel="icon" type="image/png" href="assets/Mousetap_Favicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --blue: #00a2ff;
+            --dark: #0a0a0a;
+            --white: #ffffff;
+        }
+
+        * { margin:0; padding:0; box-sizing:border-box; font-family:'Rubik',sans-serif; -webkit-font-smoothing:antialiased; }
+        html { scroll-behavior:smooth; }
+        body { background-color:var(--dark); color:var(--white); overflow-x:hidden; }
+        a { text-decoration:none; }
+
+        #intro-overlay {
+            position:fixed; inset:0; z-index:999;
+            background-color:var(--blue);
+            background-image:url('assets/mousetap_bg.png');
+            background-size:900px;
+            background-repeat:repeat;
+            pointer-events:none;
+            animation: overlayOut 0.45s ease-out 1.85s forwards, panBg 80s linear infinite;
+        }
+        @keyframes overlayOut { to { opacity:0; visibility:hidden; } }
+
+        #intro-logo {
+            position:fixed;
+            left:50%; top:50%;
+            transform:translate(-50%, -50%);
+            height:100px; width:auto;
+            mix-blend-mode:screen;
+            z-index:1000;
+            animation:
+                logoUp 0.9s cubic-bezier(0.76, 0, 0.24, 1) 0.7s forwards,
+                logoOut 0.3s ease-out 1.85s forwards;
+        }
+        @keyframes logoUp {
+            to { top:32px; left:50%; transform:translate(-50%, 0); height:52px; }
+        }
+        @keyframes logoOut { to { opacity:0; } }
+
+        header {
+            position:fixed; width:100%; padding:18px 5%;
+            display:flex; justify-content:center; align-items:center;
+            z-index:200; top:0;
+            transition: background 0.3s, backdrop-filter 0.3s, border-color 0.3s;
+            border-bottom:1px solid transparent;
+        }
+        header.scrolled {
+            background:rgba(10,10,10,0.92);
+            backdrop-filter:blur(14px);
+            border-color:rgba(255,255,255,0.07);
+        }
+
+        .logo-combined {
+            height:52px; width:auto; mix-blend-mode:screen;
+            opacity:0;
+            animation: fadeIn 0.25s ease-out 1.85s forwards;
+        }
+        .nav-cta {
+            position:absolute; right:5%;
+            opacity:0;
+            animation: fadeIn 0.5s ease-out 2.1s forwards;
+        }
+
+        .btn-outline {
+            display:inline-block; font-weight:500; font-size:0.95rem;
+            letter-spacing:0.2px; cursor:pointer;
+            border-radius:100px; padding:12px 26px;
+            background:transparent; color:var(--white);
+            border:1.5px solid rgba(255,255,255,0.4);
+            transition:border-color 0.2s, background 0.2s;
+        }
+        .btn-outline:hover { border-color:rgba(255,255,255,0.85); background:rgba(255,255,255,0.09); }
+
+        .hero {
+            background-color:var(--blue);
+            min-height:100vh; display:flex; align-items:center;
+            padding:110px 5% 80px; position:relative; overflow:hidden;
+        }
+        .hero::before {
+            content:''; position:absolute; inset:0;
+            background-image:url('assets/mousetap_bg.png');
+            background-size:900px; background-repeat:repeat; opacity:0.65;
+            animation:panBg 80s linear infinite; pointer-events:none;
+        }
+        @keyframes panBg { to { background-position:900px 900px; } }
+
+        .hero-content {
+            display:flex; align-items:center; justify-content:space-between;
+            width:100%; max-width:1300px; margin:0 auto; gap:60px;
+            position:relative; z-index:10;
+        }
+
+        .hero-text { flex:1; max-width:560px; }
+        .hero-text h1 {
+            font-size:clamp(2.8rem,5.5vw,5.2rem); font-weight:600;
+            line-height:1.05; margin-bottom:26px; letter-spacing:-1px;
+            opacity:0; transform:translateY(30px);
+            animation:fadeUp 0.9s cubic-bezier(0.16,1,0.3,1) 2.1s forwards;
+        }
+        .hero-text p {
+            font-size:clamp(1rem,1.8vw,1.2rem); line-height:1.65; font-weight:400;
+            opacity:0; transform:translateY(20px);
+            animation:fadeUp 0.9s cubic-bezier(0.16,1,0.3,1) 2.3s forwards;
+        }
+
+        .hero-visual {
+            flex:1; display:flex; justify-content:center;
+            opacity:0; transform:translateX(26px);
+            animation:fadeLeft 1s cubic-bezier(0.16,1,0.3,1) 2.2s forwards;
+        }
+        .app-icon-grid { display:flex; gap:16px; align-items:center; transform:rotate(-8deg); pointer-events:none; }
+        .icon-column { display:flex; flex-direction:column; gap:16px; }
+        .app-icon {
+            width:128px; height:128px; border-radius:26px; overflow:hidden;
+            box-shadow:0 8px 32px rgba(0,0,0,0.25);
+            animation:float var(--fd,4s) ease-in-out var(--fdy,0s) infinite alternate;
+        }
+        @keyframes float { to { transform:translateY(-12px); } }
+        .app-icon img { width:100%; height:100%; object-fit:cover; display:block; }
+
+        .reveal {
+            opacity:0; transform:translateY(36px);
+            transition:opacity 0.7s cubic-bezier(0.16,1,0.3,1), transform 0.7s cubic-bezier(0.16,1,0.3,1);
+        }
+        .reveal.in { opacity:1; transform:translateY(0); }
+        .d2 { transition-delay:0.2s; } .d3 { transition-delay:0.35s; }
+
+        .expertise {
+            padding:clamp(80px,10vw,140px) 5%; background:var(--dark); text-align:center;
+        }
+        .expertise h2 {
+            font-size:clamp(1.9rem,4.2vw,3.6rem); font-weight:600;
+            margin-bottom:20px; letter-spacing:-0.5px; line-height:1.1;
+        }
+        .expertise h2 span { color:var(--blue); }
+        .expertise .subtitle {
+            font-size:clamp(0.95rem,1.8vw,1.15rem); font-weight:400;
+            max-width:600px; margin:0 auto 70px; color:#777; line-height:1.65;
+        }
+
+        .ticker-wrap {
+            overflow:hidden;
+            mask-image:linear-gradient(to right,transparent,black 10%,black 90%,transparent);
+            -webkit-mask-image:linear-gradient(to right,transparent,black 10%,black 90%,transparent);
+        }
+        .ticker-track {
+            display:flex; gap:80px; align-items:center; width:max-content;
+            animation:ticker 35s linear infinite;
+        }
+        .ticker-track:hover { animation-play-state:paused; }
+        @keyframes ticker { to { transform:translateX(-50%); } }
+        .partner-logo {
+            height:90px; width:auto; flex-shrink:0;
+            mix-blend-mode:screen; filter:grayscale(100%) brightness(200%); opacity:0.45;
+            transition:opacity 0.3s, filter 0.3s;
+        }
+        .partner-logo:hover { opacity:0.9; filter:none; }
+
+        footer { background:#050505; padding:clamp(50px,7vw,80px) 5% 40px; border-top:1px solid #181818; }
+        .footer-container {
+            max-width:1200px; margin:0 auto; display:flex;
+            justify-content:space-between; gap:40px; flex-wrap:wrap;
+            border-bottom:1px solid #181818; padding-bottom:50px; margin-bottom:40px;
+        }
+        .footer-brand p { color:#484848; margin-top:14px; max-width:240px; font-size:0.9rem; line-height:1.6; }
+        .footer-block h3 { color:#555; font-size:0.72rem; font-weight:600; text-transform:uppercase; letter-spacing:1.5px; margin-bottom:16px; }
+        .footer-block a { color:#484848; display:block; margin-bottom:12px; font-size:0.92rem; transition:color 0.2s; }
+        .footer-block a:hover { color:var(--blue); }
+        .footer-bottom { text-align:center; color:#2a2a2a; font-size:0.82rem; }
+
+        @keyframes fadeIn   { to { opacity:1; } }
+        @keyframes fadeUp   { to { opacity:1; transform:translateY(0); } }
+        @keyframes fadeLeft { to { opacity:1; transform:translateX(0); } }
+
+        @media (max-width: 900px) {
+            header { justify-content:space-between; }
+            .nav-cta { position:static; }
+            .logo-combined { height:40px; }
+            .btn-outline { padding:10px 18px; font-size:0.85rem; }
+            .hero { padding:100px 5% 70px; }
+            .hero-content { flex-direction:column; text-align:left; gap:45px; }
+            .hero-text { max-width:100%; }
+            .hero-visual { width:100%; }
+            .app-icon-grid { transform:rotate(0deg); gap:10px; }
+            .app-icon { width:88px; height:88px; border-radius:20px; }
+            .icon-column { gap:10px; }
+            .icon-column:nth-child(1) { transform:translateY(16px); }
+            .icon-column:nth-child(2) { transform:translateY(-12px); }
+            .icon-column:nth-child(3) { transform:translateY(8px); }
+            .footer-container { flex-direction:column; gap:28px; }
+            #intro-logo { height:76px; }
+            .partner-logo { height:70px; }
+            .expertise { text-align:left; }
+            .expertise .subtitle { margin-left:0; }
+        }
+        @media (max-width: 480px) {
+            .app-icon { width:76px; height:76px; border-radius:16px; }
+            .partner-logo { height:58px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="intro-overlay"></div>
+    <img src="assets/Untitled-2.png" alt="" id="intro-logo" aria-hidden="true">
+
+    <header id="site-header">
+        <img src="assets/Untitled-2.png" alt="Mousetap Games" class="logo-combined">
+        <div class="nav-cta">
+            <a href="https://play.google.com/store/apps/dev?id=6350068639144431050" target="_blank" class="btn-outline">Our Games →</a>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1>Think<br>Hybridcasual.<br>Think<br>Mousetap.</h1>
+                <p>We create ultra-engaging hybridcasual games<br>with an ultra-efficient team.</p>
+            </div>
+            <div class="hero-visual">
+                <div class="app-icon-grid">
+                    <div class="icon-column" style="transform:translateY(40px)">
+                        <div class="app-icon" style="--fd:3.8s;--fdy:0s"><img src="assets/1.png" alt="Game"></div>
+                        <div class="app-icon" style="--fd:4.2s;--fdy:0.4s"><img src="assets/2.png" alt="Game"></div>
+                        <div class="app-icon" style="--fd:3.6s;--fdy:0.8s"><img src="assets/3.png" alt="Game"></div>
+                    </div>
+                    <div class="icon-column" style="transform:translateY(-30px)">
+                        <div class="app-icon" style="--fd:4.5s;--fdy:0.2s"><img src="assets/4.png" alt="Game"></div>
+                        <div class="app-icon" style="--fd:3.9s;--fdy:0.6s"><img src="assets/5.png" alt="Game"></div>
+                        <div class="app-icon" style="--fd:4.1s;--fdy:1s"><img src="assets/6.png" alt="Game"></div>
+                    </div>
+                    <div class="icon-column" style="transform:translateY(22px)">
+                        <div class="app-icon" style="--fd:4.3s;--fdy:0.1s"><img src="assets/7.png" alt="Game"></div>
+                        <div class="app-icon" style="--fd:3.7s;--fdy:0.5s"><img src="assets/8.png" alt="Game"></div>
+                        <div class="app-icon" style="--fd:4.6s;--fdy:0.9s"><img src="assets/9.png" alt="Game"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="expertise">
+        <h2 class="reveal">Hypercasual Expertise,<br><span>Hybridcasual Excellence.</span></h2>
+        <p class="subtitle reveal d2">Our seasoned team brings a wealth of expertise crafting highly scalable mobile experiences with top publishers worldwide.</p>
+        <div class="ticker-wrap reveal d3">
+            <div class="ticker-track">
+                <img src="assets/Voodoo_Logo_svg.png" class="partner-logo" alt="Voodoo">
+                <img src="assets/MooneeLogo.png" class="partner-logo" alt="Moonee">
+                <img src="assets/Logo2.png" class="partner-logo" alt="Partner">
+                <img src="assets/Logo3.png" class="partner-logo" alt="Partner">
+                <img src="assets/Logo4.png" class="partner-logo" alt="Partner">
+                <img src="assets/Logo5.png" class="partner-logo" alt="Partner">
+                <img src="assets/Logo6.png" class="partner-logo" alt="Partner">
+                <img src="assets/Logo7.png" class="partner-logo" alt="Partner">
+                <img src="assets/Voodoo_Logo_svg.png" class="partner-logo" alt="Voodoo">
+                <img src="assets/MooneeLogo.png" class="partner-logo" alt="Moonee">
+                <img src="assets/Logo2.png" class="partner-logo" alt="Partner">
+                <img src="assets/Logo3.png" class="partner-logo" alt="Partner">
+                <img src="assets/Logo4.png" class="partner-logo" alt="Partner">
+                <img src="assets/Logo5.png" class="partner-logo" alt="Partner">
+                <img src="assets/Logo6.png" class="partner-logo" alt="Partner">
+                <img src="assets/Logo7.png" class="partner-logo" alt="Partner">
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-brand">
+                <img src="assets/Untitled-2.png" alt="Mousetap Games" height="50" style="mix-blend-mode:screen">
+                <p>Building the next generation of hybridcasual hits.</p>
+            </div>
+            <div class="footer-block">
+                <h3>Contact</h3>
+                <a href="/cdn-cgi/l/email-protection#cba2a5ada48ba6a4beb8aebfaabbe5a8a4a6"><span class="__cf_email__" data-cfemail="8ce5e2eae3cce1e3f9ffe9f8edfca2efe3e1">[email&#160;protected]</span></a>
+                <a href="/cdn-cgi/l/email-protection#2c5f595c5c435e586c4143595f49584d5c024f4341"><span class="__cf_email__" data-cfemail="31424441415e4345715c5e4442544550411f525e5c">[email&#160;protected]</span></a>
+            </div>
+            <div class="footer-block">
+                <h3>Legal</h3>
+                <a href="privacy-policy.html">Privacy Policy</a>
+            </div>
+        </div>
+        <div class="footer-bottom">&copy; 2026 Mousetap Games. All rights reserved.</div>
+    </footer>
+
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script type="4c7cb5018a9a3f58088b91f5-text/javascript">
+        const header = document.getElementById('site-header');
+        window.addEventListener('scroll', () => {
+            header.classList.toggle('scrolled', window.scrollY > 40);
+        }, { passive:true });
+
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); observer.unobserve(e.target); } });
+        }, { threshold:0.15 });
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+        window.scrollTo(0, 0);
+    </script>
+<script src="/cdn-cgi/scripts/7d0fa10a/cloudflare-static/rocket-loader.min.js" data-cf-settings="4c7cb5018a9a3f58088b91f5-|49" defer></script></body>
+</html>

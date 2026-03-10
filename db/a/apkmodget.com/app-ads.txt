@@ -1,0 +1,734 @@
+<!doctype html><html lang="en" prefix="og: http://ogp.me/ns#" xmlns:og="http://ogp.me/ns#" xmlns:fb="http://ogp.me/ns/fb#"><head><script type="c406a33ce1cc997fbe027e3a-text/javascript">class ArsiLazyLoadScripts {constructor(e) {this.triggerEvents = e, this.eventOptions = {passive: !0}, this.userEventListener = this.triggerListener.bind(this), this.delayedScripts = {normal: [],async: [],defer: []}, this.allJQueries = []}_addUserInteractionListener(e) {this.triggerEvents.forEach((t => window.addEventListener(t, e.userEventListener, e.eventOptions)))}_removeUserInteractionListener(e) {this.triggerEvents.forEach((t => window.removeEventListener(t, e.userEventListener, e.eventOptions)))}triggerListener() {this._removeUserInteractionListener(this), "loading" === document.readyState ? document.addEventListener("DOMContentLoaded", this._loadEverythingNow.bind(this)) : this._loadEverythingNow()}async _loadEverythingNow() {this._delayEventListeners(), this._delayJQueryReady(this), this._handleDocumentWrite(), this._registerAllDelayedScripts(), this._preloadAllScripts(), await this._loadScriptsFromList(this.delayedScripts.normal), await this._loadScriptsFromList(this.delayedScripts.defer), await this._loadScriptsFromList(this.delayedScripts.async), await this._triggerDOMContentLoaded(), await this._triggerWindowLoad(), window.dispatchEvent(new Event("rocket-allScriptsLoaded"))}_registerAllDelayedScripts() {document.querySelectorAll("script[type=arsilazyloadscript]").forEach((e => {e.hasAttribute("src") ? e.hasAttribute("async") && !1 !== e.async ? this.delayedScripts.async.push(e) : e.hasAttribute("defer") && !1 !== e.defer || "module" === e.getAttribute("data-rocket-type") ? this.delayedScripts.defer.push(e) : this.delayedScripts.normal.push(e) : this.delayedScripts.normal.push(e)}))}async _transformScript(e) {return await this._requestAnimFrame(), new Promise((t => {const n = document.createElement("script");let i;[...e.attributes].forEach((e => {let t = e.nodeName;"type" !== t && ("data-rocket-type" === t && (t = "type", i = e.nodeValue), n.setAttribute(t, e.nodeValue))})), e.hasAttribute("src") && this._isValidScriptType(i) ? (n.addEventListener("load", t), n.addEventListener("error", t)) : (n.text = e.text, t()), e.parentNode.replaceChild(n, e)}))}_isValidScriptType(e) {return !e || "" === e || "string" == typeof e && ["text/javascript", "text/x-javascript", "text/ecmascript", "text/jscript", "application/javascript", "application/x-javascript", "application/ecmascript", "application/jscript", "module"].includes(e.toLowerCase())}async _loadScriptsFromList(e) {const t = e.shift();return t ? (await this._transformScript(t), this._loadScriptsFromList(e)) : Promise.resolve()}_preloadAllScripts() {var e = document.createDocumentFragment();[...this.delayedScripts.normal, ...this.delayedScripts.defer, ...this.delayedScripts.async].forEach((t => {const n = t.getAttribute("src");if (n) {const t = document.createElement("link");t.href = n, t.rel = "preload", t.as = "script", e.appendChild(t)}})), document.head.appendChild(e)}_delayEventListeners() {let e = {};function t(t, n) {! function(t) {function n(n) {return e[t].eventsToRewrite.indexOf(n) >= 0 ? "rocket-" + n : n}e[t] || (e[t] = {originalFunctions: {add: t.addEventListener,remove: t.removeEventListener},eventsToRewrite: []}, t.addEventListener = function() {arguments[0] = n(arguments[0]), e[t].originalFunctions.add.apply(t, arguments)}, t.removeEventListener = function() {arguments[0] = n(arguments[0]), e[t].originalFunctions.remove.apply(t, arguments)})}(t), e[t].eventsToRewrite.push(n)}function n(e, t) {let n = e[t];Object.defineProperty(e, t, {get: () => n || function() {},set(i) {e["rocket" + t] = n = i}})}t(document, "DOMContentLoaded"), t(window, "DOMContentLoaded"), t(window, "load"), t(window, "pageshow"), t(document, "readystatechange"), n(document, "onreadystatechange"), n(window, "onload"), n(window, "onpageshow")}_delayJQueryReady(e) {let t = window.jQuery;Object.defineProperty(window, "jQuery", {get: () => t,set(n) {if (n && n.fn && !e.allJQueries.includes(n)) {n.fn.ready = n.fn.init.prototype.ready = function(t) {e.domReadyFired ? t.bind(document)(n) : document.addEventListener("rocket-DOMContentLoaded", (() => t.bind(document)(n)))};const t = n.fn.on;n.fn.on = n.fn.init.prototype.on = function() {if (this[0] === window) {function e(e) {return e.split(" ").map((e => "load" === e || 0 === e.indexOf("load.") ? "rocket-jquery-load" : e)).join(" ")}"string" == typeof arguments[0] || arguments[0] instanceof String ? arguments[0] = e(arguments[0]) : "object" == typeof arguments[0] && Object.keys(arguments[0]).forEach((t => {delete Object.assign(arguments[0], {[e(t)]: arguments[0][t]})[t]}))}return t.apply(this, arguments), this}, e.allJQueries.push(n)}t = n}})}async _triggerDOMContentLoaded() {this.domReadyFired = !0, await this._requestAnimFrame(), document.dispatchEvent(new Event("rocket-DOMContentLoaded")), await this._requestAnimFrame(), window.dispatchEvent(new Event("rocket-DOMContentLoaded")), await this._requestAnimFrame(), document.dispatchEvent(new Event("rocket-readystatechange")), await this._requestAnimFrame(), document.rocketonreadystatechange && document.rocketonreadystatechange()}async _triggerWindowLoad() {await this._requestAnimFrame(), window.dispatchEvent(new Event("rocket-load")), await this._requestAnimFrame(), window.rocketonload && window.rocketonload(), await this._requestAnimFrame(), this.allJQueries.forEach((e => e(window).trigger("rocket-jquery-load"))), window.dispatchEvent(new Event("rocket-pageshow")), await this._requestAnimFrame(), window.rocketonpageshow && window.rocketonpageshow()}_handleDocumentWrite() {const e = new Map;document.write = document.writeln = function(t) {const n = document.currentScript;n || console.error("unable to document.write this: " + t);const i = document.createRange(),r = n.parentElement;let a = e.get(n);void 0 === a && (a = n.nextSibling, e.set(n, a));const o = document.createDocumentFragment();i.setStart(o, 0), o.appendChild(i.createContextualFragment(t)), r.insertBefore(o, a)}}async _requestAnimFrame() {return new Promise((e => requestAnimationFrame(e)))}static run() {const e = new ArsiLazyLoadScripts(["keydown", "mousemove", "touchmove", "touchstart", "touchend", "wheel"]);e._addUserInteractionListener(e)}}ArsiLazyLoadScripts.run();</script><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta charset="UTF-8"><meta name='robots' content='index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1' /><link rel="shortcut icon" href="https://apkmodget.com/images/favicon_27297.png" type="image/x-icon"/><meta name="theme-color" content="#B30000"><script type="c406a33ce1cc997fbe027e3a-text/javascript">var site_base = 'https://apkmodget.com/'; var base_url = 'https://apkmodget.com/'; var base_cdn = 'https://apkmodget.com/'; var base_img = 'https://apkmodget.com/';</script><title>THE LATEST ANDROID APPS AND GAMES</title><meta name="keywords" content="apk, mod, apk mod, apk mod get, apps, games, anroid, windows, ios, web"><meta name="description" content="Apk Mod Get provide the latest apps and games for android mobiles, Get All the Android Applications and games with Modified Apps free online here."><link rel="canonical" href="https://apkmodget.com/"><link rel='dns-prefetch' href='//fonts.gstatic.com' /><link rel='dns-prefetch' href='//securepubads.g.doubleclick.net' /><link rel='dns-prefetch' href='//pagead2.googlesyndication.com' /><link rel='dns-prefetch' href='//api.twitter.com' /><link rel='dns-prefetch' href='//adservice.google.com' /><link rel='dns-prefetch' href='//twitter.com' /><link rel='dns-prefetch' href='//platform.twitter.com' /><link rel='dns-prefetch' href='//connect.facebook.net' /><link rel='dns-prefetch' href='//static.ak.facebook.com' /><link rel='dns-prefetch' href='//s-static.ak.facebook.com' /><link rel='dns-prefetch' href='//fbstatic-a.akamaihd.net' /><link rel='dns-prefetch' href='//apis.google.com' /><link rel='dns-prefetch' href='//ssl.gstatic.com' /><link rel='dns-prefetch' href='//linkedin.com' /><link rel='dns-prefetch' href='//platform.linkedin.com' /><link rel='dns-prefetch' href='//static.licdn.com' /><link rel='dns-prefetch' href='//google-analytics.com' /><link rel='dns-prefetch' href='//ajax.googleapis.com' /><link rel='dns-prefetch' href='//themes.googleusercontent.com' /><link rel='dns-prefetch' href='//cdn.ampproject.org' /><link rel='dns-prefetch' href='//googletagservices.com' /><link rel='dns-prefetch' href='//tpc.googlesyndication.com' /><link rel='dns-prefetch' href='//cdn.jsdelivr.net' /><link rel='dns-prefetch' href='//youtube.com' /><link rel='dns-prefetch' href='//tags.bkrtx.com' /><link rel='dns-prefetch' href='//redirect.prod.experiment.routing.cloudfront.aws.a2z.com' /><link rel='dns-prefetch' href='//stags.bluekai.com' /><link rel='dns-prefetch' href='//google.com' /><link rel='dns-prefetch' href='//adtracker.ch' /><link rel='dns-prefetch' href='//hal900016.redintelligence.net' /><link rel='dns-prefetch' href='//hal9000.redintelligence.net' /><link rel='dns-prefetch' href='//track.adform.net' /><link rel='dns-prefetch' href='//s1.adform.net' /><link href='//fonts.gstatic.com' crossorigin rel='preconnect' /><script type="arsilazyloadscript" data-rocket-type='text/javascript' src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script><meta property="og:url" content="https://apkmodget.com/" /><meta property="og:title" content="THE LATEST ANDROID APPS AND GAMES" /><meta property="og:description" content="Apk Mod Get provide the latest apps and games for android mobiles, Get All the Android Applications and games with Modified Apps free online here." /><meta property="og:site_name" content="Apkmodget.com" /><meta property="og:image" content="https://apkmodget.com/images/social_36632.png" /><meta property="og:image:url" content="https://apkmodget.com/images/social_36632.png" /><meta property="og:image:type" content="image/png" /><meta property="og:image:width" content="600" /><meta property="og:image:height" content="400" /><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="THE LATEST ANDROID APPS AND GAMES"><meta name="twitter:description" content="Apk Mod Get provide the latest apps and games for android mobiles, Get All the Android Applications and games with Modified Apps free online here."><meta name="twitter:image" content="https://apkmodget.com/images/social_36632.png"><meta name="twitter:image:alt" content="THE LATEST ANDROID APPS AND GAMES" /><meta name="twitter:domain" content="apkmodget.com">
+
+<script type="application/ld+json">{"@context": "http://schema.org","@type": "Organization","url": "https://apkmodget.com/","logo": "https://apkmodget.com/images/apkmodget_d6926.png","contactPoint": [{"@type": "ContactPoint","telephone": "+9134654362","contactType": "customer service"}]}</script><script type="application/ld+json">{"@context": "http://schema.org","@type": "WebSite","name": "Apkmodget.com","url": "https://apkmodget.com/"}</script><script data-schema="WebPage" type="application/ld+json">{"@id":"https://apkmodget.com/","@type":"WebPage","@context":"http://schema.org"}</script>
+
+<style type="text/css">a,abbr,acronym,address,applet,article,aside,audio,b,big,blockquote,body,canvas,caption,center,cite,code,dd,del,details,dfn,div,dl,dt,em,embed,fieldset,figcaption,figure,footer,form,h1,h2,h3,h4,h5,h6,header,hgroup,html,i,iframe,img,ins,kbd,label,legend,li,mark,menu,nav,object,ol,output,p,pre,q,ruby,s,samp,section,small,span,strike,strong,sub,summary,sup,table,tbody,td,tfoot,th,thead,time,tr,tt,u,ul,var,video{margin:0;padding:0;border:0;font:inherit;vertical-align:baseline; outline: 0; background: transparent;} article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:after,blockquote:before,q:after,q:before{content:'';content:none}table{border-collapse:collapse;border-spacing:0}.clear{ clear:both; line-height:0px; margin:0; padding:0;}*{ box-sizing:border-box; transition-duration:.2s;}/*::-webkit-scrollbar {width: 8px; height: 60px;}::-webkit-scrollbar-thumb {background-color: #B30000;}*/::selection {background-color: #B30000; color:#ffffff;}body{ background: #f2f5f9; font-size: 16px; line-height: 1.4;color: #3b3d40; font-weight: 400;font-family: Arial, Helvetica, sans-serif;; }#main_wrap{ position:relative; width:100%; float:left; user-select: none;-moz-user-select: none;-ms-user-select: none;-webkit-user-select: none;}p,h1,h2,h3,h4,h5,h6{margin-bottom: 10px;}h1,h2,h3,h4,h5,h6{font-weight:700; position:relative; color:#141415;}.nobl{ border-left:none;}a{color: #0074df; text-decoration:none;}a:hover{ color:#ec2c3e; }p{ font-size: 18px;line-height: 1.8; margin-bottom:24px;}h1{ font-size: 24px;line-height: 32px;}h2{ font-size: 22px;line-height: 30px;}h3{ font-size: 20px;line-height: 28px;}h4{ font-size: 18px;line-height: 26px;}h5{ font-size: 17px;line-height: 25px;}h6{ font-size: 16px;line-height: 24px;}strong{ font-size:inherit; font-weight:700;}.bhead:after{content: '';position: absolute;width: 100px;height: 2px;background: #B30000;bottom: -5px;left: 0;right: 0;}iframe,img{max-width:100%;}figure{ text-align:center;}.round{border-radius:10%;-moz-border-radius:10%;-webkit-border-radius:10%;-ms-border-radius:10%;}.container{display: block;width: 1280px; margin: 0px auto; position:relative;}.main_bar{ width: 930px;float: left;position: relative;}.side_bar{ width: 330px;float: right; max-width: 100%;word-break: break-all;}@media(max-width:1280px){.container{width: 100%; padding: 0 10px;}    .main_bar{ width:72%; }    .side_bar{ width:26%;}}@media(max-width:1260px){    .main_bar{ width:70%; }    .side_bar{ width:28%;}}@media(max-width:1080px){    .main_bar{ width:100%; margin-bottom:15px;}    .side_bar{ width:100%;}}@media(max-width:800px){    .container{padding: 0 5px;}}header{width: 100%;height: 56px;margin-bottom: 20px;background: #039be5; border-bottom: 1px solid #e2e2e3;}header .logo_wrap{float: left;width: calc(24% - 60px); margin-left: 60px;height: 60px;line-height: 60px;}header #nav_wrap{float: left;width: 66%;}header .search_wrap{float: right;width: 15%;padding: 7px 0;}header .logo_wrap img.logo{ vertical-align: middle;} header #nav_wrap ul.main_nav{ float:left; width:100%; text-align: right;}header #nav_wrap ul.main_nav li{ position:relative; display: inline-block;}header #nav_wrap ul.main_nav li a{float: left;height: 56px;line-height: 56px;padding: 0 12px;color: #ffffff;font-size: 15px; text-transform:uppercase; font-weight:bold;}header #nav_wrap ul.main_nav li svg{ fill:#ffffff; vertical-align:middle;}header #nav_wrap ul.main_nav li img{margin-right: 4px; vertical-align:middle;}header #nav_wrap ul.main_nav li:hover > a{ color:#ffffff; background:#01579b;}header #nav_wrap ul.main_nav li>ul{ display:none; position: absolute;left: 0;top: 56px;background: #01579b;min-width: 180px; z-index:9999;}header #nav_wrap ul.main_nav li>ul li{ float:left; width:100%; border-bottom: solid 1px #e2e2e3;}header #nav_wrap ul.main_nav li>ul li a{float: left;width: 100%;padding: 10px;line-height: 22px;height: auto; text-align:left;}header #nav_wrap ul.main_nav li:hover > ul{ display:block;}header .btnsearch {float: right;padding: 7px;border-left: 1px solid #e2e2e3; cursor:pointer;}header .btnsearch svg{ fill:#ffffff;}header .lang_box{float: right;font-size: 15px;cursor: pointer;text-align: center;height: 56px;line-height: 45px;color: #ffffff;padding: 5px;font-weight: bold;position: relative;box-sizing: border-box;border-left: solid 1px #e2e2e3;border-right: solid 1px #e2e2e3;}header .lang_box img{margin-right: 5px;width: 20px;vertical-align: middle;}header .lang_box .lang_txt{ color:#ffffff;}header .lang_box .lang_toggler{ line-height:50px;}@media(min-width:801px){header .lang_box:hover > .lang_box_inner{ display:block;}}header .lang_box .lang_box_inner{position: absolute;width: 300px;right: 0;top: 56px;background: #039be5; padding-top:5px; display:none;z-index: 999999; border:solid 1px #e2e2e3;}header .lang_box .lang_box_inner .lang_item{float: left;width: 49%;margin-bottom: 2px;padding: 2px 10px;text-align: left;}header .lang_box .lang_box_inner .lang_item span{ color:#ffffff; font-weight:normal; font-size:14px; line-height:22px;}header .lang_box .lang_box_inner .lang_item:nth-child(odd){ margin-right:1%;}header .lang_box .lang_box_inner .lang_item:nth-child(even){ margin-left:1%;}header .lang_box .lang_box_inner .lang_item:hover{ background:#01579b;}header .lang_box .lang_box_inner .lang_item:hover > span{color:#ffffff;}@media(max-width:1320px){   header #nav_wrap ul.main_nav li a{ padding:0 10px;}}@media(max-width:1200px){    header .logo_wrap{  width:calc(100% - 60px); text-align:center;}header .lang_box{ position:absolute; right:1px; top:0;}header .btnsearch{ position:absolute; right:60px; top:0;}header #nav_wrap{display:none;}}@media(max-width:600px){header .logo_wrap{ width:calc(70% - 60px); padding-left:45px;} header .logo_wrap img.logo{ max-width:180px !important;}}@media(max-width:400px){header .btnsearch{ padding:11px 5px;} header .logo_wrap img.logo{ max-width:120px !important;}}header .menu_hndlr{position: absolute;left: 0;top: 0;padding: 7px 4px;cursor: pointer;}header .menu_hndlr svg{fill: #ffffff;vertical-align: middle;}header .menu_close{ cursor:pointer;}header .menu_close svg{fill: #039be5;vertical-align: middle;}header #snav_bar .snb_sec_item{width: 94%;margin: 15px auto 15px auto;display: block;background: #039be5;color: #ffffff;padding: 10px;border-radius: 10px; font-weight:bold; font-size:15px; clear:both;}header #snav_bar .snb_sec_item img{ vertical-align:middle; margin-right:10px; }header #snav_bar .snb_sec_item:hover{ background:#01579b; color:#ffffff;}header #snav_bar{display:none; position: fixed;width: 250px;background: #ffffff;top: 0px;left: 0;height: 100%;overflow-y: auto;box-shadow: 5px 0 12px rgba(18,26,33,.1);padding-bottom: 56px; z-index:999999;}header #snav_bar ul{margin-bottom: 15px; float:left; width:100%;}header #snav_bar ul li {width: 100%;text-align:left;}header #snav_bar ul li a{ padding: 6px;float: left;width: 100%;font-size: 14px;line-height: 24px;height: auto; color:#1f4e5a; font-weight:bold;}header #snav_bar ul li>ul{ display:inline-block; width:100%;}header #snav_bar ul li>ul li a{padding-left:20px; color:#7f949a; font-weight:normal;}header #snav_bar ul li a:hover{ background:#edf3f4;}.det_head {background: #fff;border-bottom: 1px solid #e8e8e8;color: #595959;padding: 15px;font-weight: 400;position: relative;margin-bottom: 0;font-size: 16px;}.bread_crumb{}.bread_crumb a{color:#70737a; font-size:13px;}.bread_crumb a svg{ fill:#70737a; vertical-align:middle;}.bread_crumb a.active, .bread_crumb a.hover{ color:#141415;}.bread_crumb a:after{ content:"/"; margin:0 6px; color:#70737a;}.bread_crumb a:last-child:after{ content:""; margin:0;}#ScrollToTop {display: none;position: fixed;bottom: 20px;right: 30px;z-index: 99;font-size: 18px;border: none;outline: none;background-color: #01579b;color: #ffffff;cursor: pointer;width: 40px;height: 40px;text-align: center;line-height: 35px;vertical-align: middle;}#ScrollToTop:hover { background:#222222; color:#ffffff;}#search_wrap{ position: fixed;display: none;width: 100%;height: 100%;top: 0;left: 0;right: 0;bottom: 0;background: #FAFAFA;  z-index: 9999999;cursor: pointer;}.search_inner{ width:800px; margin: 100px auto 0 auto; padding:10px; text-align:center;}.search_close{ color: #fff;padding: 20px;position: fixed;right: 0;top: 0;font-size: 25px;background: #121416; }.search_inner input[type="text"]{color: #000;font-size: 32px;font-weight: 500;outline: none;height:80px;line-height:80px;width: 100%;border: none;padding:0 15px;box-shadow: 0 0.5rem 1.375rem 0 rgb(0 0 0 / 7%);}@media(max-width:800px){.search_inner{ width:100%;}}.upper_footer{ background:#0277bd; color:#ffffff; margin-top:20px; padding:15px 0}.cooperation{ list-style:none; }.cooperation li{ display:inline-block; margin:5px 20px 5px 0;}.cooperation li:last-child{ margin-right:0;}.cooperation a{color:#ffffff; font-size:13px; text-decoration:underline;}.ftr_social_box{ width:100%; margin-bottom:20px;}.ftr_social_box li{ display:inline-block; margin:3px;}.ftr_social_box li a{color:#595959;}.ftr_social_box li i{display: inline-block;width: 40px;height: 40px;text-align: center;background: #f0f2f5;line-height: 40px;font-size: 16px;color: #fff;}.ftr_social_box .fsb_facebook{ background:#0071F3;}.ftr_social_box .fsb_twitter{background:#31C6F7; }.ftr_social_box .fsb_youtube{background:#F70000;}.ftr_social_box .fsb_pinterest{background:#C62026;}.ftr_social_box .fsb_linkedin{ background:#0077B0;}.ftr_social_box .fsb_gplus{ background:#D54836;}.ftr_social_box .fsb_reddit{ background:#F73E18;}.ftr_social_box .fsb_vimeo{ background:#3FABD4;}.ftr_social_box .fsb_telegram{ background:#0083C5;}.ftr_social_box .fsb_instagram{ background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);}.ftr_social_box i:hover{ background:#222;}footer{width: 100%; z-index: 1;color: #ffffff; padding:15px; background:#0082cf;}footer .ftr_link_box{ text-align:center; display:block;}footer .ftr_link_box a{display: inline-block;margin: 5px;font-size: 14px;font-weight:400;line-height: 22px;color: #ffffff;padding: 3px 8px;}footer .ftr_txt{ text-align:center; margin-bottom:0; font-size: 13px;}.rating {display: none;font-size: 20px;font-weight: bold;color: #ffb901;white-space: nowrap; cursor:pointer;}.rating .star {display: inline-block;position: relative;letter-spacing: 0.05em; }.rating .star::before {display: inline-block;color: #aaa;content: '☆';width: 1em;height: 1em; }.rating .star::after {display: inline-block;position: absolute;content: '★';top: 0;left: 0;opacity: 0;width: 0;height: 0;transition: all 0.1s linear;overflow: hidden; }.rating:not([disabled]) .star:hover::after,.rating .star.active::after {opacity: 1;width: 1em;height: 1em; }.rating .star.active.half::after {width: 0.5em;}.widget{background: #ffffff; border:solid 1px #e4e4e4; color:#141415; width: 100%;margin-bottom: 20px; overflow: hidden;}.widget .widget_head{ color:#141415;width: 100%;font-size: 20px;text-align: left;padding: 10px;white-space: nowrap;display: inline-block;line-height: 30px;}.widget h1, .widget h2, .widget h3, .widget h4, .widget h5, .widget h6, .widget strong {color:#141415;}.mlitem_wrap {width: 100%;padding: 10px;display: flex;flex-wrap: wrap;}.mlitem_wrap .mlitem {width: 33.3%;padding: 10px 5px;position: relative;overflow: hidden;}.mlitem_wrap .mlitem:hover {background-color: #f2f5f9;}.mlitem_wrap .mlitem:hover .down {bottom: 10px !important;transition: bottom 0.5s;}.mlitem_wrap .mlitem:hover .down:hover {background: #fa3548;}.mlitem_wrap .mlitem .name {color: #666;font-size: 13px;display: block;height: 24px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;font-size: 14px;font-weight: 600;line-height: 24px;margin-bottom: 0;}.mlitem_wrap .mlitem .name:hover {color: #00a6ed;}.mlitem_wrap .mlitem .pic {}.mlitem_wrap .mlitem .pic img {}.mlitem_wrap .mlitem .info {margin-left: 10px;}.mlitem_wrap .mlitem .info .stars {background: url("data:image/svg+xml,%3C%3Fxml%20version%3D%221.0%22%20standalone%3D%22no%22%3F%3E%3C!DOCTYPE%20svg%20PUBLIC%20%22-%2F%2FW3C%2F%2FDTD%20SVG%201.1%2F%2FEN%22%20%22http%3A%2F%2Fwww.w3.org%2FGraphics%2FSVG%2F1.1%2FDTD%2Fsvg11.dtd%22%3E%3Csvg%20t%3D%221489459550210%22%20class%3D%22icon%22%20style%3D%22%22%20viewBox%3D%220%200%201024%201024%22%20version%3D%221.1%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20p-id%3D%221546%22%20xmlns%3Axlink%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2Fxlink%22%20width%3D%2215%22%20height%3D%2215%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cpath%20d%3D%22M987.429%20412.367q0%2012.581-14.848%2027.429l-207.433%20202.277%2049.152%20285.696q0.585%203.986%200.585%2011.447%200%2011.995-5.998%2020.297t-17.445%208.302q-10.862%200-22.857-6.839l-256.585-134.839-256.585%20134.839q-12.581%206.839-22.857%206.839-11.995%200-17.993-8.302t-5.998-20.297q0-3.438%201.134-11.447l49.152-285.696-208.018-202.277q-14.299-15.433-14.299-27.429%200-21.138%2032-26.295l286.866-41.728%20128.585-259.986q10.862-23.442%2028.014-23.442t28.014%2023.442l128.585%20259.986%20286.866%2041.728q32%205.157%2032%2026.295z%22%20p-id%3D%221547%22%20fill%3D%22%23d9d9d9%22%3E%3C%2Fpath%3E%3C%2Fsvg%3E") repeat-x;height: 15px;width: 75px;clear: both;direction: ltr;position: relative;margin: 5px 0;}.mlitem_wrap .mlitem .info .stars .score {display: block;background: url("data:image/svg+xml,%3C%3Fxml%20version%3D%221.0%22%20standalone%3D%22no%22%3F%3E%3C!DOCTYPE%20svg%20PUBLIC%20%22-%2F%2FW3C%2F%2FDTD%20SVG%201.1%2F%2FEN%22%20%22http%3A%2F%2Fwww.w3.org%2FGraphics%2FSVG%2F1.1%2FDTD%2Fsvg11.dtd%22%3E%3Csvg%20t%3D%221489459550210%22%20class%3D%22icon%22%20style%3D%22%22%20viewBox%3D%220%200%201024%201024%22%20version%3D%221.1%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20p-id%3D%221546%22%20xmlns%3Axlink%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2Fxlink%22%20width%3D%2215%22%20height%3D%2215%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cpath%20d%3D%22M987.429%20412.367q0%2012.581-14.848%2027.429l-207.433%20202.277%2049.152%20285.696q0.585%203.986%200.585%2011.447%200%2011.995-5.998%2020.297t-17.445%208.302q-10.862%200-22.857-6.839l-256.585-134.839-256.585%20134.839q-12.581%206.839-22.857%206.839-11.995%200-17.993-8.302t-5.998-20.297q0-3.438%201.134-11.447l49.152-285.696-208.018-202.277q-14.299-15.433-14.299-27.429%200-21.138%2032-26.295l286.866-41.728%20128.585-259.986q10.862-23.442%2028.014-23.442t28.014%2023.442l128.585%20259.986%20286.866%2041.728q32%205.157%2032%2026.295z%22%20p-id%3D%221547%22%20fill%3D%22%23fa8b15%22%3E%3C%2Fpath%3E%3C%2Fsvg%3E") repeat-x;height: 15px;width: 75px;}.mlitem_wrap .mlitem .info .stars .star {position: absolute;left: 78px;line-height: 15px;top: 1px;color: #85480A;font-size: 13px;}.mlitem_wrap .mlitem .info .down {position: absolute;bottom: -30px;left: 84px;z-index: 1;display: block;min-width: 100px;padding: 0 5px;color: #fff;text-align: center;height: 24px;line-height: 24px;background: #ea4032;}.mlitem_wrap .mlitem .sale {position: relative;min-width: 220px;max-width: 260px;}.mlitem_wrap .mlitem .sale .pic {width: 7.5rem;height: 7.5rem;}.mlitem_wrap .mlitem .sale .sale-info {margin-left: 5px;width: 130px;}.mlitem_wrap .mlitem .sale .sale-info .category,.mlitem_wrap .mlitem .sale .sale-info .cp-name {font-size: 12px;margin-top: 4px;color: #828282;}.mlitem_wrap .mlitem .sale .sale-other {position: absolute;text-align: right;right: 0;}.mlitem_wrap .mlitem .sale .sale-other > span {display: block;text-align: right;}.mlitem_wrap .mlitem .sale .sale-other .price {font-size: 16px;line-height: 24px;color: #ff8b2f;}.mlitem_wrap .mlitem .sale .sale-other .origin-price {font-size: 12px;color: #828282;text-decoration: line-through;}.mlitem_wrap .mlitem .sale .sale-other .discount {margin-bottom: 4px;display: inline-block;padding: 1px;text-align: center;width: 50px;color: #fff;font-weight: 600;background-color: #ec2c3e;}.mlitem_wrap .app-inner {display: flex;}.mlitem_wrap .app-inner:hover {color: #f2f5f9;}.mlitem_wrap .app-inner.sale:hover {color: inherit;}.mlitem_wrap .app-inner.sale:hover .discount {background: #fe0202;}@media screen and (max-width: 1199px) and (min-width: 0) {.mlitem_wrap .mlitem .info {  width: 13rem;}}@media(max-width:850px){.mlitem_wrap .mlitem {width:50%;}}@media(max-width:500px){.mlitem_wrap .mlitem {width:100%;}}.category-model{}.category-model .item {width: 49%;display: inline-block;position: relative;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;}.category-model .item:hover .title {color: #00a6ed;}.category-model .inner {  position: relative;  padding: 5px 0 5px 15px;  display: block;  min-height: 45px;}.category-model .icon-cate {width: 30px;height: 30px;position: absolute;left: 15px;top: 50%;transform: translateY(-50%);}.category-model .descr {padding: 0 0 0 35px;overflow: hidden;}.category-model .descr p{ margin-bottom:0;}.category-model .descr .title {color: #343434;font-size: 12px;line-height: 18px;white-space: normal;word-break: break-all;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;font-weight: bold;}.category-model .descr p {color: #595959;font-size: 10px;line-height: 12px;}.app-list {padding: 0 10px;}.app-list .app-item {width: 100%;border-bottom: 1px solid #e3e3e3;padding: 10px 0;}.app-list .app-item:last-child {border-bottom: none;}.app-list .app-item:hover .name {color: #00a6ed !important;}.app-list .page404 .app-item-row .info {width: 160px !important;}.app-list .app-item-row {position: relative;text-align: left;width: 100%;}.app-list .app-item-row .app-inner {display: -webkit-box;display: -webkit-flex;display: flex;}.app-list .app-item-row .app-inner .pic {position: relative;display: inline-block;width: 60px;height: 60px;border-radius: 10px;overflow: hidden;margin-right: 10px;}.app-list .app-item-row .app-inner .info {width: 200px;margin-top: 3px;}.app-list .app-item-row .app-inner img {width: 60px;height: 60px;}.app-list .app-item-row .app-inner .name {font-size: 14px;font-weight:bold;color: #343434;overflow: hidden;line-height: 1.3rem;white-space: nowrap;width: 100%;text-overflow: ellipsis;margin: 0;}.app-list .app-item-row .app-inner .other {white-space: nowrap;  color: #595959;  font-size: 11px;  margin: 0;}.app-list .app-item-row .app-inner .size {padding-right: 5px;border-right: 1px #c6c6c6;}.app-list .app-item-row .app-inner .count {padding-left: 25px;  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAQCAYAAAAmlE46AAAAmklEQVQokdXTwQ2CMBgF4A+CAziWBwdwCNbBPUgYgh3YgMQjBxOCB6uBCpV48yVN0/7vtX2vbdY0jQhTPBGQzQf5Bukr/kxYeQZyxy3BnWatylGixgHHHZvVKHOMuKDdIWoDd3x5HHBGlxB1gTOwDKfHKfQxPmpxqotVU6dZu463Dwn/xYqQkFyo12uELSFcEzWF7d+QxM9P7gFsTCVKBUIoYwAAAABJRU5ErkJggg==) no-repeat 0.6rem center;  background-size: 8px auto;}.app-list .app-item-row .app-inner .star {color: #85480A;  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAPCAMAAADarb8dAAAAS1BMVEUAAADzjhbzjhbzjhbzjhbzjhbzjhbzjhbzjhbzjhbzjhbzjhbzjhbzjhbzjhbzjhbzjhbzjhbzjhbzjhbzjhbzjhbzjhbzjhbzjhbdd+E5AAAAGHRSTlMAVOm/Z15H+e7boJWOgHkMCNPSrKtKIR5GiPyAAAAAYElEQVQIHVXBCRKCMBREwfezsW8KOvc/qUhSVOimSImn7cVDkAKVxUlu4fYZdBq+/NnoWxWtH42jUaVJYKoYp6hb5DKrmMmiikg2qZjIeknOSerJvLqwrqGTJ3sbF9uBH0CTCXPK+5rOAAAAAElFTkSuQmCC) no-repeat left 0px top 1px;  background-size: 0.8rem auto;  padding-left: 18px;  padding-right: 2px;}.app-list .app-item-row .app-inner .category {padding-left: 0.5rem;}.cate-list {padding: 10px;display: flex;flex-wrap: wrap;}.cate-list li {width: 25%;padding: 15px 0;display: flex;flex-direction: column;align-items: center;}.cate-list li:hover {background: #f2f5f9;}.cate-list li:hover .category-template-title a {color: #00a6ed;}.category-template-img img {width: 126px;height: 126px;border-radius: 10px;}.category-template-img a {display: block;width: auto;text-align: center;padding: 10px;}.category-template-title {padding-bottom: 8px;}.category-template-title a {display: inline-block;width: 150px;font-size: 13px;text-align: center;color: #666;font-weight: 600;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;}.cate-list li .stars {display: block;background: url("https://apkmodget.com/images/stars_fill.svg") repeat-x;height: 15px;width: 75px;clear: both;direction: ltr;position: relative;}.cate-list li .stars .score {display: block;background: url("https://apkmodget.com/images/stars.svg") repeat-x;height: 15px;width: 75px;}.cate-list li span.star {position: absolute;left: 78px;line-height: 13px;color: #85480A;font-size: 13px;top: 1px;}.category-template-down {font-size: 13px;line-height: 30px;margin-top: 6px;}.category-template-down a {color: #00a6ed;text-decoration: none;}@media(max-width:650px){.cate-list li { width:33.3%;}}@media(max-width:480px){.cate-list li { width:50%;}}@media(max-width:320px){.cate-list li { width:100%;}}.youtube_embed {background-color: #000;margin-bottom: 30px;position: relative;padding-top: 56.25%;overflow: hidden;cursor: pointer;}.youtube_embed img {width: 100%;top: -16.82%;left: 0;opacity: 0.7;}.youtube_embed .yt_play_btn {width: 90px;height: 60px;background-color: #333;box-shadow: 0 0 30px rgba( 0,0,0,0.6 );z-index: 1;opacity: 0.8;border-radius: 6px;}.youtube_embed .yt_play_btn:before {content: "";border-style: solid;border-width: 15px 0 15px 26.0px;border-color: transparent transparent transparent #fff;}.youtube_embed img, .youtube_embed .yt_play_btn {cursor: pointer;}.youtube_embed img, .youtube_embed iframe, .youtube_embed .yt_play_btn, .youtube_embed .yt_play_btn:before {position: absolute;}.youtube_embed .yt_play_btn, .youtube_embed .yt_play_btn:before {top: 50%;left: 50%;transform: translate3d( -50%, -50%, 0 );}.youtube_embed iframe {height: 100%;width: 100%;top: 0;left: 0;}.schema-faq-question {background: #eee;padding: 15px 15px;}details.schema-faq-section {margin: 10px 0;background: #eee;border-radius: 5px;transition: all .25s ease-out;}details.schema-faq-section summary {font-weight: 500; cursor:pointer;}details[open].schema-faq-section summary {background: #ddd;}details[open].schema-faq-section {border-radius: 5px;}.schema-faq-answer {margin: 0;padding: 15px;}details>*:not(summary) {position: relative;z-index: 1;transition: all .3s ease-in-out;overflow: hidden;}details.schema-faq-section p:last-of-type {margin-bottom: 0;}details[open]>*:not(summary) {animation: collapse 500ms ease-in-out;}.more_link{float: left;width: 100%;font-size: 16px;line-height: 24px;color: #ffffff;text-align: center;padding: 10px;background: #01579b; cursor:pointer;}.more_link:hover{ background: #0277bd  !important; color:#ffffff !important;}.more_cmnts{background: #0277bd  !important; color:#ffffff !important; margin-top: 20px !important;}.social_sharer {width: 100%;box-sizing: border-box;text-align: center;}.social_sharer .ss_btn{box-shadow: inset 0 -4px 0 rgb(0 0 0 / 15%);border-radius: 50%;-webkit-border-radius: 50%;-webkit-box-shadow: inset 0 -4px 0 rgb(0 0 0 / 20%);color: #fff;display: inline-block;cursor: pointer;width: 50px;height: 50px;line-height: 50px;text-align: center;}.social_sharer .ss_btn i{font-size: 22px;line-height: 50px;}.social_sharer .ss_btn.facebook{ background:#3a579a;}.social_sharer .ss_btn.twitter{ background:#00abf0;}.social_sharer .ss_btn.reddit{ background:#D63C1A;}.social_sharer .ss_btn.pinterest{ background:#cd1c1f;}.social_sharer .ss_btn.whatsapp{ background:#5CBE4A;}.cnt_box i{ font-style:italic;}.cnt_box u{text-decoration:underline;}.cnt_box a{text-decoration: underline !important;}.cnt_box ol, .cnt_box ul{ padding-left:20px !important; margin-bottom: 10px !important; text-align:left;}.cnt_box ol{list-style: decimal !important;}.cnt_box ul{list-style: disc !important;}.aviwrap{background: #f3f3f3;padding: 15px 10px;}.shad_box {width: 100%;padding: 10px;box-sizing: border-box; background:#ffffff; border:solid 1px #e4e4e4; color:#141415; margin-bottom:20px;}.shad_box h1, .shad_box h2, .shad_box h3, .shad_box h4, .shad_box h5, .shad_box h6, .shad_box strong { color:#141415}.show{ display:block !important;}.hide{ display:none !important;}.full{ width:100% !important;}.fl{ float:left !important;}.fr{ float:right !important;}.mb0{ margin-bottom:0px !important; }.mb10{ margin-bottom:10px !important; }.mb15{ margin-bottom:15px !important; }.mb20{ margin-bottom:20px !important; }.mb25{ margin-bottom:25px !important; }.mb30{ margin-bottom:30px !important; }.mb50{ margin-bottom:50px !important; }.mt0{ margin-top:0px !important; }.mt10{ margin-top:10px !important; }.mt15{ margin-top:15px !important; }.mt20{ margin-top:20px !important; }.mt25{ margin-top:25px !important; }.mt30{ margin-top:30px !important; }.mr5{ margin-right:5px !important; }.pb0{ padding-bottom:0px !important; }.pb10{ padding-bottom:10px !important; }.pb15{ padding-bottom:15px !important; }.pb20{ padding-bottom:20px !important; }.pb25{ padding-bottom:25px !important; }.pb30{ padding-bottom:30px !important; }.pt0{ padding-top:0px !important; }.pt10{ padding-top:10px !important; }.pt15{ padding-top:15px !important; }.pt20{ padding-top:20px !important; }.pt25{ padding-top:25px !important; }.pt30{ padding-top:30px !important; }.vam{ vertical-align:middle;}.ac{ text-align:center !important;}.ar{ text-align:right !important;}.al{ text-align:left !important;}.aj{ text-align:justify !important;}.db{ display:block !important;}.dib{ display: inline-block !important;}.rtl{ direction:rtl !important;}.ltr{ direction:ltr !important;}.pad10{ padding:10px;}.pad15{ padding:15px;}.hide {display: none;}.show {display: block;}.fs17{ font-size:17px;}.txt_red{ color:#C14D44 !important;}.txt_green{ color:#063F4F !important;}.txt_suc{ color:#0ba50b !important;}.txt_err{ color:#C14D44 !important;}.txt_blue{ color:#084888 !important;}.txt_gray{ color:#646f78 !important;}.txt_white{ color:#fff !important;}.txt_black{ color:#000 !important;}.txt_orange{ color:#f29423  !important;}.blue_bg{ background:#F1F5FD; float: left;width: 100%;padding: 15px 0;}.hwa{ height: auto !important; width:auto !important;}</style><style>
+.cate-list li{ width:16.6%;}
+@media(max-width:900px){.cate-list li{ width:25%;}}
+@media(max-width:650px){.cate-list li { width:33.3%;}}		
+@media(max-width:480px){.cate-list li { width:50%;}}	
+@media(max-width:320px){.cate-list li { width:100%;}}	
+</style>
+<script async data-cfasync="false">
+  (function() {
+      const url = new URL(window.location.href);
+      const clickID = url.searchParams.get("click_id");
+      const sourceID = url.searchParams.get("source_id");
+
+      const s = document.createElement("script");
+      s.dataset.cfasync = "false";
+      s.src = "https://push-sdk.com/f/sdk.js?z=1173857";
+      s.onload = (opts) => {
+          opts.zoneID = 1173857;
+          opts.extClickID = clickID;
+          opts.subID1 = sourceID;
+          opts.actions.onPermissionGranted = () => {};
+          opts.actions.onPermissionDenied = () => {};
+          opts.actions.onAlreadySubscribed = () => {};
+          opts.actions.onError = () => {};
+      };
+      document.head.appendChild(s);
+  })()
+</script>
+
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QD87NVTS8F" type="c406a33ce1cc997fbe027e3a-text/javascript"></script>
+<script type="c406a33ce1cc997fbe027e3a-text/javascript">
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-QD87NVTS8F');
+</script>
+</head><body id="webpage">
+<div id="main_wrap"><header>
+    <div class="container">
+        <span id="menu_hndlr" class="menu_hndlr" onClick="if (!window.__cfRLUnblockHandlers) return false; snav_toggler();" data-cf-modified-c406a33ce1cc997fbe027e3a-="">
+			<svg width="45px" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 7C4 6.44771 4.44772 6 5 6H24C24.5523 6 25 6.44771 25 7C25 7.55229 24.5523 8 24 8H5C4.44772 8 4 7.55229 4 7Z" /><path d="M4 13.9998C4 13.4475 4.44772 12.9997 5 12.9997L16 13C16.5523 13 17 13.4477 17 14C17 14.5523 16.5523 15 16 15L5 14.9998C4.44772 14.9998 4 14.552 4 13.9998Z" /><path d="M5 19.9998C4.44772 19.9998 4 20.4475 4 20.9998C4 21.552 4.44772 21.9997 5 21.9997H22C22.5523 21.9997 23 21.552 23 20.9998C23 20.4475 22.5523 19.9998 22 19.9998H5Z"/></svg>
+        </span>
+        
+        
+        
+        <div class="logo_wrap">
+            <a href="https://apkmodget.com/"><img height="45" width="300"  class="logo hwa" src="https://apkmodget.com/images/apkmodget_d6926.png" alt="Apkmodget.com Icon" /></a> 
+        </div>
+        <div id="nav_wrap">
+            <ul class="main_nav">
+            	<li><a href="https://apkmodget.com/">Home</a></li>                
+                <li><a href="https://apkmodget.com/"><img alt="Android" class="lazyload hwa" width="24" height="24" src="https://apkmodget.com/images/p1x1.jpg" data-src="https://apkmodget.com/media/2025/12/_2/24x24/android_47d54.png"/> Android <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+	<path fill-rule="evenodd" clip-rule="evenodd" d="M7.00003 8.5C6.59557 8.5 6.23093 8.74364 6.07615 9.11732C5.92137 9.49099 6.00692 9.92111 6.29292 10.2071L11.2929 15.2071C11.6834 15.5976 12.3166 15.5976 12.7071 15.2071L17.7071 10.2071C17.9931 9.92111 18.0787 9.49099 17.9239 9.11732C17.7691 8.74364 17.4045 8.5 17 8.5H7.00003Z"/>
+	</svg></a><ul><li><a href="https://apkmodget.com/mac/"><img alt="mac" class="lazyload hwa" width="24" height="24" src="https://apkmodget.com/images/p1x1.jpg" data-src="https://apkmodget.com/media/2025/12/_2/24x24/mac_e5dd8.png"/> mac</a></li><li><a href="https://apkmodget.com/web-apps/"><img alt="web apps" class="lazyload hwa" width="24" height="24" src="https://apkmodget.com/images/p1x1.jpg" data-src="https://apkmodget.com/media/2025/12/_2/24x24/web_d5407.png"/> web apps</a></li><li><a href="https://apkmodget.com/windows/"><img alt="Windows" class="lazyload hwa" width="24" height="24" src="https://apkmodget.com/images/p1x1.jpg" data-src="https://apkmodget.com/media/2025/12/_2/24x24/windows_5f3f1.png"/> Windows</a></li></ul></li>	
+					
+        
+            </ul>
+        </div>
+        
+        <div id="snav_bar">
+        	<p class="ac">
+            	<span class="menu_close" onClick="if (!window.__cfRLUnblockHandlers) return false; snav_toggler();" data-cf-modified-c406a33ce1cc997fbe027e3a-=""><svg width="36px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M5.29289 5.29289C5.68342 4.90237 6.31658 4.90237 6.70711 5.29289L12 10.5858L17.2929 5.29289C17.6834 4.90237 18.3166 4.90237 18.7071 5.29289C19.0976 5.68342 19.0976 6.31658 18.7071 6.70711L13.4142 12L18.7071 17.2929C19.0976 17.6834 19.0976 18.3166 18.7071 18.7071C18.3166 19.0976 17.6834 19.0976 17.2929 18.7071L12 13.4142L6.70711 18.7071C6.31658 19.0976 5.68342 19.0976 5.29289 18.7071C4.90237 18.3166 4.90237 17.6834 5.29289 17.2929L10.5858 12L5.29289 6.70711C4.90237 6.31658 4.90237 5.68342 5.29289 5.29289Z"/>
+</svg></span>
+            </p>
+            
+            <ul><li><a href="https://apkmodget.com/">Home</a></li></ul>            
+                        
+            <a href="https://apkmodget.com/" class="snb_sec_item"><img alt="Android" class="lazyload hwa mr5" width="24" height="24" src="https://apkmodget.com/images/p1x1.jpg" data-src="https://apkmodget.com/media/2025/12/_2/24x24/android_47d54.png"/> Android</a><ul><li><a href="https://apkmodget.com/android/apps.html"><img alt="Apps" class="lazyload hwa vam mr5" width="24" height="24" src="https://apkmodget.com/images/p1x1.jpg" data-src="https://apkmodget.com/media/2025/12/_2/24x24/apps_f9456.png"/> Apps</a> <ul><li><a href="https://apkmodget.com/android/art-and-design.html"><img alt="Art &amp;amp; Design" class="lazyload hwa vam mr5" width="24" height="24" src="https://apkmodget.com/images/p1x1.jpg" data-src="https://apkmodget.com/media/2026/01/_2/24x24/art-design_923da.png"/> Art &amp; Design</a></li><li><a href="https://apkmodget.com/android/books-and-reference.html"><img alt="Books &amp;amp; Reference" class="lazyload hwa vam mr5" width="24" height="24" src="https://apkmodget.com/images/p1x1.jpg" data-src="https://apkmodget.com/media/2025/12/_2/24x24/books-reference_74b57.png"/> Books &amp; Reference</a></li><li><a href="https://apkmodget.com/android/communication.html"><img alt="Communication" class="lazyload hwa vam mr5" width="24" height="24" src="https://apkmodget.com/images/p1x1.jpg" data-src="https://apkmodget.com/media/2026/01/_2/24x24/communication_a9482.png"/> Communication</a></li><li><a href="https://apkmodget.com/android/education.html"><img alt="Education" class="lazyload hwa vam mr5" width="24" height="24" src="https://apkmodget.com/images/p1x1.jpg" data-src="https://apkmodget.com/media/2026/01/_2/24x24/education_c37de.png"/> Education</a></li><li><a href="https://apkmodget.com/android/entertainment.html"><img alt="Entertainment" class="lazyload hwa vam mr5" width="24" height="24" src="https://apkmodget.com/images/p1x1.jpg" data-src="https://apkmodget.com/media/2025/12/_2/24x24/entertainment_3303d.jpg"/> Entertainment</a></li><li><a href="https://apkmodget.com/android/lifestyle.html"><img alt="Lifestyle" class="lazyload hwa vam mr5" width="24" height="24" src="https://apkmodget.com/images/p1x1.jpg" data-src="https://apkmodget.com/media/2025/12/_2/24x24/lifestyle_a2399.png"/> Lifestyle</a></li><li><a href="https://apkmodget.com/android/music-and-audio.html"><img alt="Music &amp;amp; Audio" class="lazyload hwa vam mr5" width="24" height="24" src="https://apkmodget.com/images/p1x1.jpg" data-src="https://apkmodget.com/media/2025/12/_2/24x24/music-audio_7faf5.jpg"/> Music &amp; Audio</a></li><li><a href="https://apkmodget.com/android/personalization.html"><img alt="Personalization" class="lazyload hwa vam mr5" width="24" height="24" src="https://apkmodget.com/images/p1x1.jpg" data-src="https://apkmodget.com/media/2026/01/_2/24x24/personalization_59be4.png"/> Personalization</a></li><li><a href="https://apkmodget.com/android/photography.html"><img alt="Photography" class="lazyload hwa vam mr5" width="24" height="24" src="https://apkmodget.com/images/p1x1.jpg" data-src="https://apkmodget.com/media/2025/12/_2/24x24/photography_a8c21.png"/> Photography</a></li><li><a href="https://apkmodget.com/android/productivity.html"><img alt="Productivity" class="lazyload hwa vam mr5" width="24" height="24" src="https://apkmodget.com/images/p1x1.jpg" data-src="https://apkmodget.com/media/2026/01/_2/24x24/productivity_5fdc2.png"/> Productivity</a></li><li><a href="https://apkmodget.com/android/racing.html"><img alt="racing" class="lazyload hwa vam mr5" width="24" height="24" src="https://apkmodget.com/images/p1x1.jpg" data-src="https://apkmodget.com/media/2025/12/_2/24x24/racing_ac0d6.png"/> racing</a></li><li><a href="https://apkmodget.com/android/social.html"><img alt="Social" class="lazyload hwa vam mr5" width="24" height="24" src="https://apkmodget.com/images/p1x1.jpg" data-src="https://apkmodget.com/media/2025/12/_2/24x24/social_2e898.png"/> Social</a></li><li><a href="https://apkmodget.com/android/tools.html"><img alt="Tools" class="lazyload hwa vam mr5" width="24" height="24" src="https://apkmodget.com/images/p1x1.jpg" data-src="https://apkmodget.com/media/2025/12/_2/24x24/tools_db0db.png"/> Tools</a></li><li><a href="https://apkmodget.com/android/video-players-and-editors.html"><img alt="Video Players &amp;amp; Editors" class="lazyload hwa vam mr5" width="24" height="24" src="https://apkmodget.com/images/p1x1.jpg" data-src="https://apkmodget.com/media/2025/12/_2/24x24/video-players-editors_3bf92.jpg"/> Video Players &amp; Editors</a></li></ul></li><li><a href="https://apkmodget.com/android/games.html"><img alt="Games" class="lazyload hwa vam mr5" width="24" height="24" src="https://apkmodget.com/images/p1x1.jpg" data-src="https://apkmodget.com/media/2025/12/_2/24x24/games_18058.png"/> Games</a> <ul><li><a href="https://apkmodget.com/android/action.html"><img alt="Action" class="lazyload hwa vam mr5" width="24" height="24" src="https://apkmodget.com/images/p1x1.jpg" data-src="https://apkmodget.com/media/2025/12/_2/24x24/action_7b071.png"/> Action</a></li><li><a href="https://apkmodget.com/android/adventure.html"><img alt="Adventure" class="lazyload hwa vam mr5" width="24" height="24" src="https://apkmodget.com/images/p1x1.jpg" data-src="https://apkmodget.com/media/2025/12/_2/24x24/adventure_8c848.png"/> Adventure</a></li><li><a href="https://apkmodget.com/android/arcade.html"><img alt="Arcade" class="lazyload hwa vam mr5" width="24" height="24" src="https://apkmodget.com/images/p1x1.jpg" data-src="https://apkmodget.com/media/2025/12/_2/24x24/arcade_59293.png"/> Arcade</a></li><li><a href="https://apkmodget.com/android/board.html"><img alt="Board" class="lazyload hwa vam mr5" width="24" height="24" src="https://apkmodget.com/images/p1x1.jpg" data-src="https://apkmodget.com/media/2025/12/_2/24x24/board_abdc3.png"/> Board</a></li><li><a href="https://apkmodget.com/android/casual.html"><img alt="casual" class="lazyload hwa vam mr5" width="24" height="24" src="https://apkmodget.com/images/p1x1.jpg" data-src="https://apkmodget.com/media/2025/12/_2/24x24/casual_8761a.png"/> casual</a></li><li><a href="https://apkmodget.com/android/puzzle.html"><img alt="Puzzle" class="lazyload hwa vam mr5" width="24" height="24" src="https://apkmodget.com/images/p1x1.jpg" data-src="https://apkmodget.com/media/2026/01/_2/24x24/puzzle_346f7.png"/> Puzzle</a></li><li><a href="https://apkmodget.com/android/role-playing.html"><img alt="Role Playing" class="lazyload hwa vam mr5" width="24" height="24" src="https://apkmodget.com/images/p1x1.jpg" data-src="https://apkmodget.com/media/2026/01/_2/24x24/role-playing_ebba0.png"/> Role Playing</a></li><li><a href="https://apkmodget.com/android/simulations.html"><img alt="Simulations" class="lazyload hwa vam mr5" width="24" height="24" src="https://apkmodget.com/images/p1x1.jpg" data-src="https://apkmodget.com/media/2025/12/_2/24x24/simulations_13baa.png"/> Simulations</a></li><li><a href="https://apkmodget.com/android/sports.html"><img alt="Sports" class="lazyload hwa vam mr5" width="24" height="24" src="https://apkmodget.com/images/p1x1.jpg" data-src="https://apkmodget.com/media/2026/01/_2/24x24/sports_690e7.png"/> Sports</a></li><li><a href="https://apkmodget.com/android/strategy.html"><img alt="Strategy" class="lazyload hwa vam mr5" width="24" height="24" src="https://apkmodget.com/images/p1x1.jpg" data-src="https://apkmodget.com/media/2026/01/_2/24x24/strategy_0fd35.png"/> Strategy</a></li></ul></li></ul><a href="https://apkmodget.com/mac/" class="snb_sec_item"><img alt="mac" class="lazyload hwa mr5" width="24" height="24" src="https://apkmodget.com/images/p1x1.jpg" data-src="https://apkmodget.com/media/2025/12/_2/24x24/mac_e5dd8.png"/> mac</a><a href="https://apkmodget.com/web-apps/" class="snb_sec_item"><img alt="web apps" class="lazyload hwa mr5" width="24" height="24" src="https://apkmodget.com/images/p1x1.jpg" data-src="https://apkmodget.com/media/2025/12/_2/24x24/web_d5407.png"/> web apps</a><a href="https://apkmodget.com/windows/" class="snb_sec_item"><img alt="Windows" class="lazyload hwa mr5" width="24" height="24" src="https://apkmodget.com/images/p1x1.jpg" data-src="https://apkmodget.com/media/2025/12/_2/24x24/windows_5f3f1.png"/> Windows</a>	
+            
+                    </div>
+        
+        
+                <i onClick="if (!window.__cfRLUnblockHandlers) return false; on_search();" class="btnsearch" data-cf-modified-c406a33ce1cc997fbe027e3a-=""><svg width="40" height="40" xmlns="http://www.w3.org/2000/svg" version="1.0" viewBox="0 0 640 640"><path fill-opacity=".1" d="M180.2 281c0 1.4.2 1.9.5 1.2.2-.6.2-1.8 0-2.5-.3-.6-.5-.1-.5 1.3m278 0c0 1.4.2 1.9.5 1.2.2-.6.2-1.8 0-2.5-.3-.6-.5-.1-.5 1.3m-356 6c0 1.4.2 1.9.5 1.2.2-.6.2-1.8 0-2.5-.3-.6-.5-.1-.5 1.3M130 437.4c0 .2.8 1 1.8 1.7 1.5 1.3 1.6 1.2.3-.4s-2.1-2.1-2.1-1.3m140.8 21.3c.6.2 1.8.2 2.5 0 .6-.3.1-.5-1.3-.5s-1.9.2-1.2.5m13 0c.6.2 1.8.2 2.5 0 .6-.3.1-.5-1.3-.5s-1.9.2-1.2.5m287.6 111.5-1.9 2.3 2.3-1.9c1.2-1.1 2.2-2.1 2.2-2.3 0-.8-.8-.2-2.6 1.9"/><path fill-opacity=".2" d="M122.9 130.7c-1.3 1.6-1.2 1.7.4.4.9-.7 1.7-1.5 1.7-1.7 0-.8-.8-.3-2.1 1.3m315.1.7c0 .2.8 1 1.8 1.7 1.5 1.3 1.6 1.2.3-.4s-2.1-2.1-2.1-1.3M407.5 156c1 1.1 2 2 2.3 2s-.3-.9-1.3-2-2-2-2.3-2 .3.9 1.3 2m-259.1 4.2-2.9 3.3 3.3-2.9c3-2.8 3.7-3.6 2.9-3.6-.2 0-1.6 1.5-3.3 3.2m309.7 117.4c0 1.1.3 1.4.6.6.3-.7.2-1.6-.1-1.9-.3-.4-.6.2-.5 1.3m.1 7.4c0 1.4.2 1.9.5 1.2.2-.6.2-1.8 0-2.5-.3-.6-.5-.1-.5 1.3m1.3 147c2.1 2.2 4.1 4 4.4 4s-1.3-1.8-3.4-4-4.1-4-4.4-4 1.3 1.8 3.4 4m9 9c1 1.1 2 2 2.3 2s-.3-.9-1.3-2-2-2-2.3-2 .3.9 1.3 2m-200.7 17.7c.7.3 1.6.2 1.9-.1.4-.3-.2-.6-1.3-.5-1.1 0-1.4.3-.6.6m20 0c.7.3 1.6.2 1.9-.1.4-.3-.2-.6-1.3-.5-1.1 0-1.4.3-.6.6"/><path fill-opacity=".3" d="M429.5 123c1 1.1 2 2 2.3 2s-.3-.9-1.3-2-2-2-2.3-2 .3.9 1.3 2m-218.3 70c0 1.4.2 1.9.5 1.2.2-.6.2-1.8 0-2.5-.3-.6-.5-.1-.5 1.3m286 80c0 1.4.2 1.9.5 1.2.2-.6.2-1.8 0-2.5-.3-.6-.5-.1-.5 1.3m0 13c0 1.4.2 1.9.5 1.2.2-.6.2-1.8 0-2.5-.3-.6-.5-.1-.5 1.3m-91.8 120.2-1.9 2.3 2.3-1.9c1.2-1.1 2.2-2.1 2.2-2.3 0-.8-.8-.2-2.6 1.9M117 424.3c0 .2 1.5 1.6 3.3 3.3l3.2 2.9-2.9-3.3c-2.8-3-3.6-3.7-3.6-2.9m336.5 1.7c1 1.1 2 2 2.3 2s-.3-.9-1.3-2-2-2-2.3-2 .3.9 1.3 2m10.5 10.4c0 .2.8 1 1.8 1.7 1.5 1.3 1.6 1.2.3-.4s-2.1-2.1-2.1-1.3m12.5 12.6c3.3 3.3 6.2 6 6.4 6 .3 0-2.1-2.7-5.4-6s-6.2-6-6.4-6c-.3 0 2.1 2.7 5.4 6m-192.7 48.7c.6.2 1.8.2 2.5 0 .6-.3.1-.5-1.3-.5s-1.9.2-1.2.5"/><path fill-opacity=".4" d="M433.5 127c1 1.1 2 2 2.3 2s-.3-.9-1.3-2-2-2-2.3-2 .3.9 1.3 2m24.6 145.6c0 1.1.3 1.4.6.6.3-.7.2-1.6-.1-1.9-.3-.4-.6.2-.5 1.3m39.2 6.9c0 2.7.2 3.8.4 2.2.2-1.5.2-3.7 0-5-.2-1.2-.4 0-.4 2.8M145 296.4c0 .2.8 1 1.8 1.7 1.5 1.3 1.6 1.2.3-.4s-2.1-2.1-2.1-1.3m264.4 105.8-1.9 2.3 2.3-1.9c1.2-1.1 2.2-2.1 2.2-2.3 0-.8-.8-.2-2.6 1.9M123 430.4c0 .2.8 1 1.8 1.7 1.5 1.3 1.6 1.2.3-.4s-2.1-2.1-2.1-1.3m360 24.9c0 .2 1.5 1.6 3.3 3.3l3.2 2.9-2.9-3.3c-2.8-3-3.6-3.7-3.6-2.9m-203.2 42.4c.6.2 1.8.2 2.5 0 .6-.3.1-.5-1.3-.5s-1.9.2-1.2.5"/><path fill-opacity=".5" d="M134.9 118.7c-1.3 1.6-1.2 1.7.4.4.9-.7 1.7-1.5 1.7-1.7 0-.8-.8-.3-2.1 1.3m19 36c-1.3 1.6-1.2 1.7.4.4.9-.7 1.7-1.5 1.7-1.7 0-.8-.8-.3-2.1 1.3m1.6 253.3c2.7 2.7 5.1 5 5.4 5s-1.7-2.3-4.4-5c-2.7-2.8-5.1-5-5.4-5s1.7 2.2 4.4 5m289 65c13.7 13.7 25.2 25 25.5 25s-10.8-11.3-24.5-25c-13.7-13.8-25.2-25-25.5-25s10.8 11.2 24.5 25m54-2c5.5 5.5 10.2 10 10.5 10 .2 0-4-4.5-9.5-10s-10.2-10-10.5-10c-.2 0 4 4.5 9.5 10m-224.7 26.7c1.2.2 3 .2 4 0 .9-.3-.1-.5-2.3-.4-2.2 0-3 .2-1.7.4"/><path fill-opacity=".6" d="m131.4 122.2-1.9 2.3 2.3-1.9c2.1-1.8 2.7-2.6 1.9-2.6-.2 0-1.2 1-2.3 2.2M515 487.5c3.5 3.6 6.7 6.5 6.9 6.5.3 0-2.4-2.9-5.9-6.5s-6.7-6.5-6.9-6.5c-.3 0 2.4 2.9 5.9 6.5m-45 10.8c0 .1 3.5 3.6 7.8 7.7l7.7 7.5-7.5-7.8c-6.9-7.1-8-8.2-8-7.4m25 24.9c4.1 4.5 5 5.3 5 4.5 0-.2-2.1-2.3-4.7-4.7l-4.8-4.5z"/><path fill-opacity=".7" d="M279.8 101.7c1.2.2 3.2.2 4.5 0 1.2-.2.2-.4-2.3-.4s-3.5.2-2.2.4M529.5 502c4.4 4.4 8.2 8 8.5 8 .2 0-3.1-3.6-7.5-8s-8.2-8-8.5-8c-.2 0 3.1 3.6 7.5 8m20 20c5.5 5.5 10.2 10 10.5 10 .2 0-4-4.5-9.5-10s-10.2-10-10.5-10c-.2 0 4 4.5 9.5 10m-64.5-8.7c0 .2 1.5 1.6 3.3 3.3l3.2 2.9-2.9-3.3c-2.8-3-3.6-3.7-3.6-2.9m15 15c0 .2 1.5 1.6 3.3 3.3l3.2 2.9-2.9-3.3c-2.8-3-3.6-3.7-3.6-2.9m66 10.2c1.3 1.4 2.6 2.5 2.8 2.5.3 0-.5-1.1-1.8-2.5s-2.6-2.5-2.8-2.5c-.3 0 .5 1.1 1.8 2.5M520.5 549c2.7 2.7 5.1 5 5.4 5s-1.7-2.3-4.4-5c-2.7-2.8-5.1-5-5.4-5s1.7 2.2 4.4 5m7.5 7.4c0 .2.8 1 1.8 1.7 1.5 1.3 1.6 1.2.3-.4s-2.1-2.1-2.1-1.3m11.5 11.6c1 1.1 2 2 2.3 2s-.3-.9-1.3-2-2-2-2.3-2 .3.9 1.3 2"/><path fill-opacity=".8" d="M274.8 101.7c.6.2 1.8.2 2.5 0 .6-.3.1-.5-1.3-.5s-1.9.2-1.2.5M140.1 265.6c0 1.1.3 1.4.6.6.3-.7.2-1.6-.1-1.9-.3-.4-.6.2-.5 1.3m0 10c0 1.1.3 1.4.6.6.3-.7.2-1.6-.1-1.9-.3-.4-.6.2-.5 1.3M561.5 534c1 1.1 2 2 2.3 2s-.3-.9-1.3-2-2-2-2.3-2 .3.9 1.3 2m-51 5c2.7 2.7 5.1 5 5.4 5s-1.7-2.3-4.4-5c-2.7-2.8-5.1-5-5.4-5s1.7 2.2 4.4 5m23.5 23.5c1.9 1.9 3.6 3.5 3.9 3.5s-1-1.6-2.9-3.5-3.6-3.5-3.9-3.5 1 1.6 2.9 3.5"/><path fill-opacity=".9" d="M271.8 101.7c.7.3 1.6.2 1.9-.1.4-.3-.2-.6-1.3-.5-1.1 0-1.4.3-.6.6M427 121.5c1.3 1.4 2.6 2.5 2.8 2.5.3 0-.5-1.1-1.8-2.5s-2.6-2.5-2.8-2.5c-.3 0 .5 1.1 1.8 2.5m-303.6 9.7-1.9 2.3 2.3-1.9c1.2-1.1 2.2-2.1 2.2-2.3 0-.8-.8-.2-2.6 1.9m316.1 2.8c1 1.1 2 2 2.3 2s-.3-.9-1.3-2-2-2-2.3-2 .3.9 1.3 2m-325.6 7.7c-1.3 1.6-1.2 1.7.4.4.9-.7 1.7-1.5 1.7-1.7 0-.8-.8-.3-2.1 1.3m49 4c-1.3 1.6-1.2 1.7.4.4.9-.7 1.7-1.5 1.7-1.7 0-.8-.8-.3-2.1 1.3m233.1-1.3c0 .2.8 1 1.8 1.7 1.5 1.3 1.6 1.2.3-.4s-2.1-2.1-2.1-1.3m12 11.1c1.9 1.9 3.6 3.5 3.9 3.5s-1-1.6-2.9-3.5-3.6-3.5-3.9-3.5 1 1.6 2.9 3.5m-260.6 4.7-2.9 3.3 3.3-2.9c1.7-1.7 3.2-3.1 3.2-3.3 0-.8-.8-.1-3.6 2.9m31.8 114.3c0 1.6.2 2.2.5 1.2.2-.9.2-2.3 0-3-.3-.6-.5.1-.5 1.8M109 414.4c0 .2.8 1 1.8 1.7 1.5 1.3 1.6 1.2.3-.4s-2.1-2.1-2.1-1.3m285.9 2.3c-1.3 1.6-1.2 1.7.4.4s2.1-2.1 1.3-2.1c-.2 0-1 .8-1.7 1.7M118 424.4c0 .2.8 1 1.8 1.7 1.5 1.3 1.6 1.2.3-.4s-2.1-2.1-2.1-1.3m333 0c0 .2.8 1 1.8 1.7 1.5 1.3 1.6 1.2.3-.4s-2.1-2.1-2.1-1.3m5 4.9c0 .2 1.5 1.6 3.3 3.3l3.2 2.9-2.9-3.3c-2.8-3-3.6-3.7-3.6-2.9m-326 7.2c1.3 1.4 2.6 2.5 2.8 2.5.3 0-.5-1.1-1.8-2.5s-2.6-2.5-2.8-2.5c-.3 0 .5 1.1 1.8 2.5m337.5 4.5c1 1.1 2 2 2.3 2s-.3-.9-1.3-2-2-2-2.3-2 .3.9 1.3 2m102.4 129.7-2.4 2.8 2.8-2.4c1.5-1.4 2.7-2.6 2.7-2.8 0-.8-.8-.1-3.1 2.4"/><g stroke-width="0"><path d="M253.6 65.1C205 70.2 156.4 95.4 122.4 133c-30.3 33.4-46.2 64.2-55.1 106.5-2.1 10.1-2.6 15.7-3 34.9-.8 35.8 2.6 54.8 15.8 88.7 12.3 31.4 30.2 55.7 60.7 82.5 34.7 30.5 82.1 49.1 129.7 51.1 48.4 1.9 99.2-13.7 139.2-42.9 2.9-2.1 6.4-4.3 7.8-5 2.5-1.1 4.2.4 65.3 61.4 39.7 39.6 64 63.1 66.4 64.1 7.7 3.6 15.9 1.7 22-5.1 5.4-6 6.2-13.3 2.3-21.6-1-2-27.5-29.1-63.1-64.5-36.1-36-61.6-62-62-63.5-.4-1.9.5-3.8 4.4-8.8 32.7-41.9 48.6-98.1 43.1-151.9-3.3-32.6-17.2-71.2-35.5-98.4-28.8-43-70.4-73.7-118.8-87.6-24.9-7.2-62.4-10.5-88-7.8m40.5 37c30 3 60.1 13.5 84.8 29.6 28.6 18.6 47.1 39.9 62.5 72.4 18.6 39.2 22.4 79 11.6 122.2-11.7 46.6-47.7 91-91.8 113.1-17.8 8.9-36.1 14.8-56.7 18.1-11.8 2-39.2 1.9-51.1 0-20.1-3.2-46.2-13.1-67.3-25.4-24.6-14.4-48.3-39.9-63.5-68.2-23.5-44-27.2-94.9-10.4-144.4 3.6-10.7 13-29.9 18.6-38.2 12.2-18 32.5-37.7 52.3-50.8 22.1-14.6 49.8-24.6 77.8-28 13.6-1.7 20.5-1.7 33.2-.4"/><path d="M185.5 176.3c-5.4 2.1-7.6 4.1-14.6 12.9-20.6 26.1-30 51.8-30 82.3 0 14.1.8 17.9 4.5 23.5 5.6 8.4 19.1 10.3 26.9 3.6 5.4-4.6 6.9-9.6 7.3-23.4.8-26.8 6.6-43.7 21.1-61.7 8.3-10.3 9.8-13.3 9.8-20.1 0-5-.5-6.8-2.8-10.3-4.6-7-14.2-9.9-22.2-6.8"/></g></svg></i>
+        
+        
+    </div>
+</header>
+
+<div class="clear"></div>
+
+
+		
+    <div class="container">
+        
+                        
+            <div class="shad_box">
+				                <h1>LATEST APPS &amp; GAMES FOR ANDROID</h1>
+                                            </div>   
+                
+            
+            <div class="widget mb0">
+                    	<h2 class="widget_head">Latest Updates</h2>
+                        <div id="main_list_item">
+                        	<ul class="cate-list">
+							<li>
+					<div class="category-template-img">
+						<a title="War Drone Mod Apk" href="https://war-drone-mod-apk.apkmodget.com/android/"><img class="lazyload" width="126" height="126" src="https://apkmodget.com/images/p1x1.jpg" data-src="https://apkmodget.com/media/2026/02/_1/126x126/war-drone-mod-apk_0690c.jpg" alt="War Drone Mod Apk"></a>
+					</div>
+					<div class="category-template-title">
+						<a target="_blank" title="War Drone Mod Apk" href="https://war-drone-mod-apk.apkmodget.com/android/">War Drone Mod Apk</a>
+					</div>
+					<div class="stars"><span class="score" style="width: 100%"></span><span class="star">5</span></div>
+					<div class="category-template-down">
+						<a title="War Drone Mod Apk" href="https://war-drone-mod-apk.apkmodget.com/android/">Download APK</a>
+					</div>
+				</li><li>
+					<div class="category-template-img">
+						<a title=" Capcut APK" href="https://my-talking-tom-friends-mod-apk.apkmodget.com/android/"><img class="lazyload" width="126" height="126" src="https://apkmodget.com/images/p1x1.jpg" data-src="https://apkmodget.com/media/2026/02/_1/126x126/my-talking-tom-friends-mod-apk_56afe.jpg" alt="Capcut APK"></a>
+					</div>
+					<div class="category-template-title">
+						<a target="_blank" title=" Capcut APK" href="https://my-talking-tom-friends-mod-apk.apkmodget.com/android/"> Capcut APK</a>
+					</div>
+					<div class="stars"><span class="score" style="width: 100%"></span><span class="star">5</span></div>
+					<div class="category-template-down">
+						<a title=" Capcut APK" href="https://my-talking-tom-friends-mod-apk.apkmodget.com/android/">Download APK</a>
+					</div>
+				</li><li>
+					<div class="category-template-img">
+						<a title=" Capcut APK download" href="https://capcut-apk-mod.apkmodget.com/android/"><img class="lazyload" width="126" height="126" src="https://apkmodget.com/images/p1x1.jpg" data-src="https://apkmodget.com/media/2026/02/_1/126x126/capcut-apk_f1af8.jpg" alt="Capcut APK Download"></a>
+					</div>
+					<div class="category-template-title">
+						<a target="_blank" title=" Capcut APK download" href="https://capcut-apk-mod.apkmodget.com/android/"> Capcut APK download</a>
+					</div>
+					<div class="stars"><span class="score" style="width: 100%"></span><span class="star">5</span></div>
+					<div class="category-template-down">
+						<a title=" Capcut APK download" href="https://capcut-apk-mod.apkmodget.com/android/">Download APK</a>
+					</div>
+				</li><li>
+					<div class="category-template-img">
+						<a title="Free Fire APK MOD" href="https://free-fire-apk-mod.apkmodget.com/android/"><img class="lazyload" width="126" height="126" src="https://apkmodget.com/images/p1x1.jpg" data-src="https://apkmodget.com/media/2026/02/_1/126x126/free-fire-mod-apk_b9183.jpg" alt="Free Fire APK MOD"></a>
+					</div>
+					<div class="category-template-title">
+						<a target="_blank" title="Free Fire APK MOD" href="https://free-fire-apk-mod.apkmodget.com/android/">Free Fire APK MOD</a>
+					</div>
+					<div class="stars"><span class="score" style="width: 100%"></span><span class="star">5</span></div>
+					<div class="category-template-down">
+						<a title="Free Fire APK MOD" href="https://free-fire-apk-mod.apkmodget.com/android/">Download APK</a>
+					</div>
+				</li><li>
+					<div class="category-template-img">
+						<a title="Kuku TV Premium Mod Apk" href="https://kuku-tv-premium-mod-apk.apkmodget.com/android/"><img class="lazyload" width="126" height="126" src="https://apkmodget.com/images/p1x1.jpg" data-src="https://apkmodget.com/media/2026/02/_1/126x126/kuku-tv-premium-mod-apk_289bc.jpg" alt="Kuku TV Premium Mod Apk"></a>
+					</div>
+					<div class="category-template-title">
+						<a target="_blank" title="Kuku TV Premium Mod Apk" href="https://kuku-tv-premium-mod-apk.apkmodget.com/android/">Kuku TV Premium Mod Apk</a>
+					</div>
+					<div class="stars"><span class="score" style="width: 100%"></span><span class="star">5</span></div>
+					<div class="category-template-down">
+						<a title="Kuku TV Premium Mod Apk" href="https://kuku-tv-premium-mod-apk.apkmodget.com/android/">Download APK</a>
+					</div>
+				</li><li>
+					<div class="category-template-img">
+						<a title="Kinemaster Apk Mod" href="https://kinemaster-apk-mod.apkmodget.com/android/"><img class="lazyload" width="126" height="126" src="https://apkmodget.com/images/p1x1.jpg" data-src="https://apkmodget.com/media/2026/02/_1/126x126/kinemaster-apk-mod_6018b.jpg" alt="Kinemaster Apk Mod"></a>
+					</div>
+					<div class="category-template-title">
+						<a target="_blank" title="Kinemaster Apk Mod" href="https://kinemaster-apk-mod.apkmodget.com/android/">Kinemaster Apk Mod</a>
+					</div>
+					<div class="stars"><span class="score" style="width: 98%"></span><span class="star">4.9</span></div>
+					<div class="category-template-down">
+						<a title="Kinemaster Apk Mod" href="https://kinemaster-apk-mod.apkmodget.com/android/">Download APK</a>
+					</div>
+				</li><li>
+					<div class="category-template-img">
+						<a title="Instander Mod Apk" href="https://instander-mod-apk.apkmodget.com/android/"><img class="lazyload" width="126" height="126" src="https://apkmodget.com/images/p1x1.jpg" data-src="https://apkmodget.com/media/2026/02/_1/126x126/instander-mod-apk_a3134.jpg" alt="Instander Mod Apk"></a>
+					</div>
+					<div class="category-template-title">
+						<a target="_blank" title="Instander Mod Apk" href="https://instander-mod-apk.apkmodget.com/android/">Instander Mod Apk</a>
+					</div>
+					<div class="stars"><span class="score" style="width: 100%"></span><span class="star">5</span></div>
+					<div class="category-template-down">
+						<a title="Instander Mod Apk" href="https://instander-mod-apk.apkmodget.com/android/">Download APK</a>
+					</div>
+				</li><li>
+					<div class="category-template-img">
+						<a title="Jiocinema Mod Apk" href="https://jiocinema-mod-apk.apkmodget.com/android/"><img class="lazyload" width="126" height="126" src="https://apkmodget.com/images/p1x1.jpg" data-src="https://apkmodget.com/media/2026/02/_1/126x126/jiocinema-mod-apk_d646c.jpg" alt="Jiocinema Mod Apk"></a>
+					</div>
+					<div class="category-template-title">
+						<a target="_blank" title="Jiocinema Mod Apk" href="https://jiocinema-mod-apk.apkmodget.com/android/">Jiocinema Mod Apk</a>
+					</div>
+					<div class="stars"><span class="score" style="width: 100%"></span><span class="star">5</span></div>
+					<div class="category-template-down">
+						<a title="Jiocinema Mod Apk" href="https://jiocinema-mod-apk.apkmodget.com/android/">Download APK</a>
+					</div>
+				</li><li>
+					<div class="category-template-img">
+						<a title="Indycall Mod Apk" href="https://indycall-mod-apk.apkmodget.com/android/"><img class="lazyload" width="126" height="126" src="https://apkmodget.com/images/p1x1.jpg" data-src="https://apkmodget.com/media/2026/02/_1/126x126/indycall-mod-apk_a124d.jpg" alt="Indycall Mod Apk"></a>
+					</div>
+					<div class="category-template-title">
+						<a target="_blank" title="Indycall Mod Apk" href="https://indycall-mod-apk.apkmodget.com/android/">Indycall Mod Apk</a>
+					</div>
+					<div class="stars"><span class="score" style="width: 100%"></span><span class="star">5</span></div>
+					<div class="category-template-down">
+						<a title="Indycall Mod Apk" href="https://indycall-mod-apk.apkmodget.com/android/">Download APK</a>
+					</div>
+				</li><li>
+					<div class="category-template-img">
+						<a title="GTA Vice City Mod Apk" href="https://gta-vice-city-mod-apk.apkmodget.com/android/"><img class="lazyload" width="126" height="126" src="https://apkmodget.com/images/p1x1.jpg" data-src="https://apkmodget.com/media/2026/02/_1/126x126/gta-vice-city-mod-apk_6a6f9.jpg" alt="GTA Vice City Mod Apk"></a>
+					</div>
+					<div class="category-template-title">
+						<a target="_blank" title="GTA Vice City Mod Apk" href="https://gta-vice-city-mod-apk.apkmodget.com/android/">GTA Vice City Mod Apk</a>
+					</div>
+					<div class="stars"><span class="score" style="width: 93.4%"></span><span class="star">4.67</span></div>
+					<div class="category-template-down">
+						<a title="GTA Vice City Mod Apk" href="https://gta-vice-city-mod-apk.apkmodget.com/android/">Download APK</a>
+					</div>
+				</li><li>
+					<div class="category-template-img">
+						<a title="Indian Bike Driving 3D Mod Apk" href="https://indian-bike-driving-3d-mod-apk.apkmodget.com/android/"><img class="lazyload" width="126" height="126" src="https://apkmodget.com/images/p1x1.jpg" data-src="https://apkmodget.com/media/2026/02/_1/126x126/indian-bike-driving-3d-mod-apk_0829d.jpg" alt="Indian Bike Driving 3D Mod Apk"></a>
+					</div>
+					<div class="category-template-title">
+						<a target="_blank" title="Indian Bike Driving 3D Mod Apk" href="https://indian-bike-driving-3d-mod-apk.apkmodget.com/android/">Indian Bike Driving 3D Mod Apk</a>
+					</div>
+					<div class="stars"><span class="score" style="width: 90%"></span><span class="star">4.5</span></div>
+					<div class="category-template-down">
+						<a title="Indian Bike Driving 3D Mod Apk" href="https://indian-bike-driving-3d-mod-apk.apkmodget.com/android/">Download APK</a>
+					</div>
+				</li><li>
+					<div class="category-template-img">
+						<a title="Indian Car Simulator Mod Apk" href="https://indian-car-simulator-mod-apk.apkmodget.com/android/"><img class="lazyload" width="126" height="126" src="https://apkmodget.com/images/p1x1.jpg" data-src="https://apkmodget.com/media/2026/02/_1/126x126/indian-car-simulator-mod-apk_a97fa.jpg" alt="Indian Car Simulator Mod Apk"></a>
+					</div>
+					<div class="category-template-title">
+						<a target="_blank" title="Indian Car Simulator Mod Apk" href="https://indian-car-simulator-mod-apk.apkmodget.com/android/">Indian Car Simulator Mod Apk</a>
+					</div>
+					<div class="stars"><span class="score" style="width: 100%"></span><span class="star">5</span></div>
+					<div class="category-template-down">
+						<a title="Indian Car Simulator Mod Apk" href="https://indian-car-simulator-mod-apk.apkmodget.com/android/">Download APK</a>
+					</div>
+				</li>							</ul>
+                        </div>    
+                    </div>
+					
+										<div class="ac" id="main_list_item_next"><span onClick="if (!window.__cfRLUnblockHandlers) return false; get_more_latest_items();" class="more_link" data-cf-modified-c406a33ce1cc997fbe027e3a-="">Load More Latest Updates <i class="fa fa-angle-double-right" aria-hidden="true" aria-label="Load More Latest Updates"></i></span></div>
+					<div class="clear mb30"></div>
+											
+                    <script type="c406a33ce1cc997fbe027e3a-text/javascript">
+						var tsr = 0;
+						
+						function get_more_latest_items()
+						{
+							tsr++;
+							
+							document.getElementById("main_list_item_next").innerHTML = '<p style="text-align:center; font-size:20px; line-height:28px; font-weight:bold; color:blue; margin-top:20px; margin-bottom:20px;">Loading Please wait ... ...</p>';
+							
+							var http = new XMLHttpRequest();
+							var url = "https://apkmodget.com/ajax.php";
+							var params = "act=get_more_latest_items&asl=ZStrUk9nejlFd0F1VGMzU2o0ZzJSdz09&sec=K29BNWlLeldVc1dudUVEZGh4Y2Y4UT09&m="+tsr;
+							
+							http.open("POST", url, true);
+							http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+							
+							http.onreadystatechange = function() 
+							{	
+								if(http.readyState == 4 && http.status == 200) 
+								{
+									document.getElementById("main_list_item_next").innerHTML = '';
+									
+									var get_data = http.responseText;
+									var obj = JSON.parse(get_data);
+									
+									document.getElementById('main_list_item').innerHTML += '<ul class="cate-list">'+obj['data']+'</ul>';
+					
+									
+									if(obj['next'] == 1)
+									{
+										document.getElementById("main_list_item_next").innerHTML = '<span onClick="get_more_latest_items();" class="more_link">Load More Latest Updates </span>';
+									}
+								}
+							}
+							http.send(params);
+						}
+					</script>    
+					 
+			
+			
+			
+			                
+			<div class="widget mb0"><h2 class="widget_head">Games</h2><ul class="cate-list"><li>
+					<div class="category-template-img">
+						<a title="PlayStore MOD APK" href="https://playstore-mod-apk.apkmodget.com/android/"><img class="lazyload" width="126" height="126" src="https://apkmodget.com/images/p1x1.jpg" data-src="https://apkmodget.com/media/2025/12/_1/126x126/playstore-mod-apk_3c3f6.jpg" alt="PlayStore MOD APK"></a>
+					</div>
+					<div class="category-template-title">
+						<a target="_blank" title="PlayStore MOD APK" href="https://playstore-mod-apk.apkmodget.com/android/">PlayStore MOD APK</a>
+					</div>
+					<div class="stars"><span class="score" style="width: 71%"></span><span class="star">3.55</span></div>
+					<div class="category-template-down">
+						<a title="PlayStore MOD APK" href="https://playstore-mod-apk.apkmodget.com/android/">Download APK</a>
+					</div>
+				</li><li>
+					<div class="category-template-img">
+						<a title="FA 20 Indian Tractor MOD APK" href="https://fa-20-indian-tractor-mod-apk.apkmodget.com/android/"><img class="lazyload" width="126" height="126" src="https://apkmodget.com/images/p1x1.jpg" data-src="https://apkmodget.com/media/2026/01/_1/126x126/fa-20-indian-tractor-mod-apk_cc4db.jpg" alt="FA 20 Indian Tractor MOD APK"></a>
+					</div>
+					<div class="category-template-title">
+						<a target="_blank" title="FA 20 Indian Tractor MOD APK" href="https://fa-20-indian-tractor-mod-apk.apkmodget.com/android/">FA 20 Indian Tractor MOD APK</a>
+					</div>
+					<div class="stars"><span class="score" style="width: 78.4%"></span><span class="star">3.92</span></div>
+					<div class="category-template-down">
+						<a title="FA 20 Indian Tractor MOD APK" href="https://fa-20-indian-tractor-mod-apk.apkmodget.com/android/">Download APK</a>
+					</div>
+				</li><li>
+					<div class="category-template-img">
+						<a title="Garena Free Fire MOD APK" href="https://garena-free-fire-mod-apk.apkmodget.com/android/"><img class="lazyload" width="126" height="126" src="https://apkmodget.com/images/p1x1.jpg" data-src="https://apkmodget.com/media/2025/12/_1/126x126/garena-free-fire_2c0c2.jpg" alt="Garena Free Fire MOD APK"></a>
+					</div>
+					<div class="category-template-title">
+						<a target="_blank" title="Garena Free Fire MOD APK" href="https://garena-free-fire-mod-apk.apkmodget.com/android/">Garena Free Fire MOD APK</a>
+					</div>
+					<div class="stars"><span class="score" style="width: 74.6%"></span><span class="star">3.73</span></div>
+					<div class="category-template-down">
+						<a title="Garena Free Fire MOD APK" href="https://garena-free-fire-mod-apk.apkmodget.com/android/">Download APK</a>
+					</div>
+				</li><li>
+					<div class="category-template-img">
+						<a title="Minecraft Pocket Edition Apk" href="https://minecraft-pocket-edition-apk.apkmodget.com/android/"><img class="lazyload" width="126" height="126" src="https://apkmodget.com/images/p1x1.jpg" data-src="https://apkmodget.com/media/2025/12/_1/126x126/minecraft-apks_bd869.jpg" alt="Minecraft Pocket Edition Apk"></a>
+					</div>
+					<div class="category-template-title">
+						<a target="_blank" title="Minecraft Pocket Edition Apk" href="https://minecraft-pocket-edition-apk.apkmodget.com/android/">Minecraft Pocket Edition Apk</a>
+					</div>
+					<div class="stars"><span class="score" style="width: 97.2%"></span><span class="star">4.86</span></div>
+					<div class="category-template-down">
+						<a title="Minecraft Pocket Edition Apk" href="https://minecraft-pocket-edition-apk.apkmodget.com/android/">Download APK</a>
+					</div>
+				</li><li>
+					<div class="category-template-img">
+						<a title="Carrom MOD APK" href="https://carrom-mod-apk.apkmodget.com/android/"><img class="lazyload" width="126" height="126" src="https://apkmodget.com/images/p1x1.jpg" data-src="https://apkmodget.com/media/2026/01/_1/126x126/carrom-pool-mod-apk_47807.jpg" alt="Carrom MOD APK"></a>
+					</div>
+					<div class="category-template-title">
+						<a target="_blank" title="Carrom MOD APK" href="https://carrom-mod-apk.apkmodget.com/android/">Carrom MOD APK</a>
+					</div>
+					<div class="stars"><span class="score" style="width: 100%"></span><span class="star">5</span></div>
+					<div class="category-template-down">
+						<a title="Carrom MOD APK" href="https://carrom-mod-apk.apkmodget.com/android/">Download APK</a>
+					</div>
+				</li><li>
+					<div class="category-template-img">
+						<a title="GTA Vice City Mod Apk" href="https://gta-vice-city-mod-apk.apkmodget.com/android/"><img class="lazyload" width="126" height="126" src="https://apkmodget.com/images/p1x1.jpg" data-src="https://apkmodget.com/media/2026/02/_1/126x126/gta-vice-city-mod-apk_6a6f9.jpg" alt="GTA Vice City Mod Apk"></a>
+					</div>
+					<div class="category-template-title">
+						<a target="_blank" title="GTA Vice City Mod Apk" href="https://gta-vice-city-mod-apk.apkmodget.com/android/">GTA Vice City Mod Apk</a>
+					</div>
+					<div class="stars"><span class="score" style="width: 93.4%"></span><span class="star">4.67</span></div>
+					<div class="category-template-down">
+						<a title="GTA Vice City Mod Apk" href="https://gta-vice-city-mod-apk.apkmodget.com/android/">Download APK</a>
+					</div>
+				</li><li>
+					<div class="category-template-img">
+						<a title="GTA San Andreas Mod Apk" href="https://gta-san-andreas-mod-apk.apkmodget.com/android/"><img class="lazyload" width="126" height="126" src="https://apkmodget.com/images/p1x1.jpg" data-src="https://apkmodget.com/media/2025/12/_1/126x126/gta-san-andreas-mod-apk_b5fa7.jpg" alt="GTA San Andreas Mod Apk"></a>
+					</div>
+					<div class="category-template-title">
+						<a target="_blank" title="GTA San Andreas Mod Apk" href="https://gta-san-andreas-mod-apk.apkmodget.com/android/">GTA San Andreas Mod Apk</a>
+					</div>
+					<div class="stars"><span class="score" style="width: 100%"></span><span class="star">5</span></div>
+					<div class="category-template-down">
+						<a title="GTA San Andreas Mod Apk" href="https://gta-san-andreas-mod-apk.apkmodget.com/android/">Download APK</a>
+					</div>
+				</li><li>
+					<div class="category-template-img">
+						<a title="Minecraft Java Edition Mod Apk" href="https://minecraft-java-edition-mod-apk.apkmodget.com/android/"><img class="lazyload" width="126" height="126" src="https://apkmodget.com/images/p1x1.jpg" data-src="https://apkmodget.com/media/2025/12/_1/126x126/minecraft-java-edition-mod-apk_630c7.jpg" alt="Minecraft Java Edition Mod Apk"></a>
+					</div>
+					<div class="category-template-title">
+						<a target="_blank" title="Minecraft Java Edition Mod Apk" href="https://minecraft-java-edition-mod-apk.apkmodget.com/android/">Minecraft Java Edition Mod Apk</a>
+					</div>
+					<div class="stars"><span class="score" style="width: 96.6%"></span><span class="star">4.83</span></div>
+					<div class="category-template-down">
+						<a title="Minecraft Java Edition Mod Apk" href="https://minecraft-java-edition-mod-apk.apkmodget.com/android/">Download APK</a>
+					</div>
+				</li><li>
+					<div class="category-template-img">
+						<a title="Annelids Mod Apk" href="https://annelids-mod-apk.apkmodget.com/android/"><img class="lazyload" width="126" height="126" src="https://apkmodget.com/images/p1x1.jpg" data-src="https://apkmodget.com/media/2025/12/_1/126x126/annelids-mod-apk_da345.jpg" alt="Annelids Mod Apk"></a>
+					</div>
+					<div class="category-template-title">
+						<a target="_blank" title="Annelids Mod Apk" href="https://annelids-mod-apk.apkmodget.com/android/">Annelids Mod Apk</a>
+					</div>
+					<div class="stars"><span class="score" style="width: 100%"></span><span class="star">5</span></div>
+					<div class="category-template-down">
+						<a title="Annelids Mod Apk" href="https://annelids-mod-apk.apkmodget.com/android/">Download APK</a>
+					</div>
+				</li><li>
+					<div class="category-template-img">
+						<a title="Buggy Racing Mod Apk" href="https://buggy-racing-mod-apk.apkmodget.com/android/"><img class="lazyload" width="126" height="126" src="https://apkmodget.com/images/p1x1.jpg" data-src="https://apkmodget.com/media/2025/12/_1/126x126/buggy-racing-mod-apk_ee65b.jpg" alt="Buggy Racing Mod Apk"></a>
+					</div>
+					<div class="category-template-title">
+						<a target="_blank" title="Buggy Racing Mod Apk" href="https://buggy-racing-mod-apk.apkmodget.com/android/">Buggy Racing Mod Apk</a>
+					</div>
+					<div class="stars"><span class="score" style="width: 80%"></span><span class="star">4</span></div>
+					<div class="category-template-down">
+						<a title="Buggy Racing Mod Apk" href="https://buggy-racing-mod-apk.apkmodget.com/android/">Download APK</a>
+					</div>
+				</li><li>
+					<div class="category-template-img">
+						<a title="Cloud Gaming Zone Mod Apk" href="https://cloud-gaming-mod-apk.apkmodget.com/android/"><img class="lazyload" width="126" height="126" src="https://apkmodget.com/images/p1x1.jpg" data-src="https://apkmodget.com/media/2025/12/_1/126x126/cloud-gaming-mod-apk_56434.jpg" alt="Cloud Gaming Zone Mod Apk"></a>
+					</div>
+					<div class="category-template-title">
+						<a target="_blank" title="Cloud Gaming Zone Mod Apk" href="https://cloud-gaming-mod-apk.apkmodget.com/android/">Cloud Gaming Zone Mod Apk</a>
+					</div>
+					<div class="stars"><span class="score" style="width: 100%"></span><span class="star">5</span></div>
+					<div class="category-template-down">
+						<a title="Cloud Gaming Zone Mod Apk" href="https://cloud-gaming-mod-apk.apkmodget.com/android/">Download APK</a>
+					</div>
+				</li><li>
+					<div class="category-template-img">
+						<a title="Indian Bike Driving 3D Mod Apk" href="https://indian-bike-driving-3d-mod-apk.apkmodget.com/android/"><img class="lazyload" width="126" height="126" src="https://apkmodget.com/images/p1x1.jpg" data-src="https://apkmodget.com/media/2026/02/_1/126x126/indian-bike-driving-3d-mod-apk_0829d.jpg" alt="Indian Bike Driving 3D Mod Apk"></a>
+					</div>
+					<div class="category-template-title">
+						<a target="_blank" title="Indian Bike Driving 3D Mod Apk" href="https://indian-bike-driving-3d-mod-apk.apkmodget.com/android/">Indian Bike Driving 3D Mod Apk</a>
+					</div>
+					<div class="stars"><span class="score" style="width: 90%"></span><span class="star">4.5</span></div>
+					<div class="category-template-down">
+						<a title="Indian Bike Driving 3D Mod Apk" href="https://indian-bike-driving-3d-mod-apk.apkmodget.com/android/">Download APK</a>
+					</div>
+				</li></ul></div>
+							
+							<div class="clear"></div>
+					
+							<a href="https://apkmodget.com/android/games.html" class="more_link">See More Games <i class="fa fa-angle-double-right" aria-hidden="true" aria-label="Games"></i></a>
+							
+							<div class="clear mb20"></div>
+							
+							<div class="widget mb0"><h2 class="widget_head">Apps</h2><ul class="cate-list"><li>
+					<div class="category-template-img">
+						<a title="PlayStore MOD APK" href="https://playstore-mod-apk.apkmodget.com/android/"><img class="lazyload" width="126" height="126" src="https://apkmodget.com/images/p1x1.jpg" data-src="https://apkmodget.com/media/2025/12/_1/126x126/playstore-mod-apk_3c3f6.jpg" alt="PlayStore MOD APK"></a>
+					</div>
+					<div class="category-template-title">
+						<a target="_blank" title="PlayStore MOD APK" href="https://playstore-mod-apk.apkmodget.com/android/">PlayStore MOD APK</a>
+					</div>
+					<div class="stars"><span class="score" style="width: 71%"></span><span class="star">3.55</span></div>
+					<div class="category-template-down">
+						<a title="PlayStore MOD APK" href="https://playstore-mod-apk.apkmodget.com/android/">Download APK</a>
+					</div>
+				</li><li>
+					<div class="category-template-img">
+						<a title="Phonepe Mod Apk" href="https://phonepe-mod-apk.apkmodget.com/android/"><img class="lazyload" width="126" height="126" src="https://apkmodget.com/images/p1x1.jpg" data-src="https://apkmodget.com/media/2026/01/_1/126x126/phonepe-mod-apk_cf016.jpg" alt="Phonepe Mod Apk"></a>
+					</div>
+					<div class="category-template-title">
+						<a target="_blank" title="Phonepe Mod Apk" href="https://phonepe-mod-apk.apkmodget.com/android/">Phonepe Mod Apk</a>
+					</div>
+					<div class="stars"><span class="score" style="width: 88.6%"></span><span class="star">4.43</span></div>
+					<div class="category-template-down">
+						<a title="Phonepe Mod Apk" href="https://phonepe-mod-apk.apkmodget.com/android/">Download APK</a>
+					</div>
+				</li><li>
+					<div class="category-template-img">
+						<a title="Kuku TV Premium Mod Apk" href="https://kuku-tv-premium-mod-apk.apkmodget.com/android/"><img class="lazyload" width="126" height="126" src="https://apkmodget.com/images/p1x1.jpg" data-src="https://apkmodget.com/media/2026/02/_1/126x126/kuku-tv-premium-mod-apk_289bc.jpg" alt="Kuku TV Premium Mod Apk"></a>
+					</div>
+					<div class="category-template-title">
+						<a target="_blank" title="Kuku TV Premium Mod Apk" href="https://kuku-tv-premium-mod-apk.apkmodget.com/android/">Kuku TV Premium Mod Apk</a>
+					</div>
+					<div class="stars"><span class="score" style="width: 100%"></span><span class="star">5</span></div>
+					<div class="category-template-down">
+						<a title="Kuku TV Premium Mod Apk" href="https://kuku-tv-premium-mod-apk.apkmodget.com/android/">Download APK</a>
+					</div>
+				</li><li>
+					<div class="category-template-img">
+						<a title=" Capcut Pro APK" href="https://capcut-pro-apk.apkmodget.com/android/"><img class="lazyload" width="126" height="126" src="https://apkmodget.com/images/p1x1.jpg" data-src="https://apkmodget.com/media/2026/01/_1/126x126/capcut-pro-mod-apk_af525.jpg" alt="Capcut Pro APK"></a>
+					</div>
+					<div class="category-template-title">
+						<a target="_blank" title=" Capcut Pro APK" href="https://capcut-pro-apk.apkmodget.com/android/"> Capcut Pro APK</a>
+					</div>
+					<div class="stars"><span class="score" style="width: 83%"></span><span class="star">4.15</span></div>
+					<div class="category-template-down">
+						<a title=" Capcut Pro APK" href="https://capcut-pro-apk.apkmodget.com/android/">Download APK</a>
+					</div>
+				</li><li>
+					<div class="category-template-img">
+						<a title="Fake Phonepe Apk" href="https://fake-phonepe-apk.apkmodget.com/android/"><img class="lazyload" width="126" height="126" src="https://apkmodget.com/images/p1x1.jpg" data-src="https://apkmodget.com/media/2026/01/_1/126x126/phonepe-mod-apk_72d4b.jpg" alt="Fake Phonepe Apk"></a>
+					</div>
+					<div class="category-template-title">
+						<a target="_blank" title="Fake Phonepe Apk" href="https://fake-phonepe-apk.apkmodget.com/android/">Fake Phonepe Apk</a>
+					</div>
+					<div class="stars"><span class="score" style="width: 100%"></span><span class="star">5</span></div>
+					<div class="category-template-down">
+						<a title="Fake Phonepe Apk" href="https://fake-phonepe-apk.apkmodget.com/android/">Download APK</a>
+					</div>
+				</li><li>
+					<div class="category-template-img">
+						<a title="After Effects Premium Apk" href="https://after-effects-premium-apk.apkmodget.com/android/"><img class="lazyload" width="126" height="126" src="https://apkmodget.com/images/p1x1.jpg" data-src="https://apkmodget.com/media/2025/12/_1/126x126/after-effects-premium-apk_6b2d0.jpg" alt="After Effects Premium Apk"></a>
+					</div>
+					<div class="category-template-title">
+						<a target="_blank" title="After Effects Premium Apk" href="https://after-effects-premium-apk.apkmodget.com/android/">After Effects Premium Apk</a>
+					</div>
+					<div class="stars"><span class="score" style="width: 91.4%"></span><span class="star">4.57</span></div>
+					<div class="category-template-down">
+						<a title="After Effects Premium Apk" href="https://after-effects-premium-apk.apkmodget.com/android/">Download APK</a>
+					</div>
+				</li><li>
+					<div class="category-template-img">
+						<a title="Insta Pro APK Download" href="https://insta-pro-apk-download.apkmodget.com/android/"><img class="lazyload" width="126" height="126" src="https://apkmodget.com/images/p1x1.jpg" data-src="https://apkmodget.com/media/2025/12/_1/126x126/insta-pro-apk-download_a2bff.jpg" alt="Insta Pro APK Download"></a>
+					</div>
+					<div class="category-template-title">
+						<a target="_blank" title="Insta Pro APK Download" href="https://insta-pro-apk-download.apkmodget.com/android/">Insta Pro APK Download</a>
+					</div>
+					<div class="stars"><span class="score" style="width: 68.4%"></span><span class="star">3.42</span></div>
+					<div class="category-template-down">
+						<a title="Insta Pro APK Download" href="https://insta-pro-apk-download.apkmodget.com/android/">Download APK</a>
+					</div>
+				</li><li>
+					<div class="category-template-img">
+						<a title="GTA Vice City Mod Apk" href="https://gta-vice-city-mod-apk.apkmodget.com/android/"><img class="lazyload" width="126" height="126" src="https://apkmodget.com/images/p1x1.jpg" data-src="https://apkmodget.com/media/2026/02/_1/126x126/gta-vice-city-mod-apk_6a6f9.jpg" alt="GTA Vice City Mod Apk"></a>
+					</div>
+					<div class="category-template-title">
+						<a target="_blank" title="GTA Vice City Mod Apk" href="https://gta-vice-city-mod-apk.apkmodget.com/android/">GTA Vice City Mod Apk</a>
+					</div>
+					<div class="stars"><span class="score" style="width: 93.4%"></span><span class="star">4.67</span></div>
+					<div class="category-template-down">
+						<a title="GTA Vice City Mod Apk" href="https://gta-vice-city-mod-apk.apkmodget.com/android/">Download APK</a>
+					</div>
+				</li><li>
+					<div class="category-template-img">
+						<a title="Walk Band Mod Apk" href="https://walk-band-mod-apk.apkmodget.com/android/"><img class="lazyload" width="126" height="126" src="https://apkmodget.com/images/p1x1.jpg" data-src="https://apkmodget.com/media/2025/12/_1/126x126/walk-band-mod-apk_46068.jpg" alt="Walk Band Mod Apk"></a>
+					</div>
+					<div class="category-template-title">
+						<a target="_blank" title="Walk Band Mod Apk" href="https://walk-band-mod-apk.apkmodget.com/android/">Walk Band Mod Apk</a>
+					</div>
+					<div class="stars"><span class="score" style="width: 93.4%"></span><span class="star">4.67</span></div>
+					<div class="category-template-down">
+						<a title="Walk Band Mod Apk" href="https://walk-band-mod-apk.apkmodget.com/android/">Download APK</a>
+					</div>
+				</li><li>
+					<div class="category-template-img">
+						<a title="Ullu MOD APK" href="https://ullu-mod-apk.apkmodget.com/android/"><img class="lazyload" width="126" height="126" src="https://apkmodget.com/images/p1x1.jpg" data-src="https://apkmodget.com/media/2025/12/_1/126x126/ullu-mod-apk_b6415.jpg" alt="Ullu MOD APK"></a>
+					</div>
+					<div class="category-template-title">
+						<a target="_blank" title="Ullu MOD APK" href="https://ullu-mod-apk.apkmodget.com/android/">Ullu MOD APK</a>
+					</div>
+					<div class="stars"><span class="score" style="width: 100%"></span><span class="star">5</span></div>
+					<div class="category-template-down">
+						<a title="Ullu MOD APK" href="https://ullu-mod-apk.apkmodget.com/android/">Download APK</a>
+					</div>
+				</li><li>
+					<div class="category-template-img">
+						<a title="Kinemaster Apk Mod" href="https://kinemaster-apk-mod.apkmodget.com/android/"><img class="lazyload" width="126" height="126" src="https://apkmodget.com/images/p1x1.jpg" data-src="https://apkmodget.com/media/2026/02/_1/126x126/kinemaster-apk-mod_6018b.jpg" alt="Kinemaster Apk Mod"></a>
+					</div>
+					<div class="category-template-title">
+						<a target="_blank" title="Kinemaster Apk Mod" href="https://kinemaster-apk-mod.apkmodget.com/android/">Kinemaster Apk Mod</a>
+					</div>
+					<div class="stars"><span class="score" style="width: 98%"></span><span class="star">4.9</span></div>
+					<div class="category-template-down">
+						<a title="Kinemaster Apk Mod" href="https://kinemaster-apk-mod.apkmodget.com/android/">Download APK</a>
+					</div>
+				</li><li>
+					<div class="category-template-img">
+						<a title="Spotify Premium MOD APK" href="https://spotify-premium-mod-apk.apkmodget.com/android/"><img class="lazyload" width="126" height="126" src="https://apkmodget.com/images/p1x1.jpg" data-src="https://apkmodget.com/media/2025/12/_1/126x126/spotify-premium-mod-apk_2edaf.jpg" alt="Spotify Premium MOD APK"></a>
+					</div>
+					<div class="category-template-title">
+						<a target="_blank" title="Spotify Premium MOD APK" href="https://spotify-premium-mod-apk.apkmodget.com/android/">Spotify Premium MOD APK</a>
+					</div>
+					<div class="stars"><span class="score" style="width: 90.8%"></span><span class="star">4.54</span></div>
+					<div class="category-template-down">
+						<a title="Spotify Premium MOD APK" href="https://spotify-premium-mod-apk.apkmodget.com/android/">Download APK</a>
+					</div>
+				</li></ul></div>
+							
+							<div class="clear"></div>
+					
+							<a href="https://apkmodget.com/android/apps.html" class="more_link">See More Apps <i class="fa fa-angle-double-right" aria-hidden="true" aria-label="Apps"></i></a>
+							
+							<div class="clear mb20"></div>
+							
+							            
+			
+			            
+            
+            
+                        <div class="clear mb15"></div>
+            <div class="shad_box">
+				<h2>Get Safe &amp; Verified MOD APKs for Android</h2>
+<p><span style="font-weight: 400;"><a title="apk mod" href="https://apkmodget.com/"><strong>APKModGet</strong></a> is an outstanding platform that provides APK files, MOD version, games and all the related updates so the best one to download for safe and verified files. There will be no requirement of getting registration but gives a fast and direct download. Action and adventure MOD games and apps are provided here.&nbsp;</span></p>
+<p><span style="font-weight: 400;">Don't forget to visit our trusted website for downloading the app now but don't forget to enable the unknown sources of your device. All the sports and racing games with entertaining apps are provided to the users without charging even a single penny.</span></p>
+<p>&nbsp;</p>            </div>
+            	
+            
+        
+        <div class="clear"></div>
+    </div>
+        
+	<div class="clear"></div>
+
+    <div class="upper_footer">
+    	<div class="container">
+        
+        	<ul class="ftr_social_box">
+                                
+                                
+                                
+                                
+                               
+                                
+                                
+                                
+                                
+                 
+            </ul>
+            
+            
+        
+            <ul class="cooperation">
+            <li><a href="https://apkmodget.com/information/cookie-policy.html">Cookie Policy</a></li><li><a href="https://apkmodget.com/information/copyright-holders.html">Copyright Holders</a></li><li><a href="https://apkmodget.com/information/terms-and-conditions.html">Terms And Conditions</a></li><li><a href="https://apkmodget.com/information/advertisement.html">Advertisement</a></li><li><a href="https://apkmodget.com/information/contact-us.html">Contact Us</a></li><li><a href="https://apkmodget.com/information/about-us.html">About Us</a></li><li><a href="https://apkmodget.com/information/disclaimer.html">DMCA</a></li><li><a href="https://apkmodget.com/information/privacy-policy.html">Privacy Policy</a></li>            </ul>
+            
+            
+        </div>
+    </div>
+    
+    <footer>
+        <div class="container">
+            <p class="ftr_txt">Copyright © 2025 Apkmodget.xyz. All rights reserved</p>
+        </div>
+        <div class="clear"></div>
+    </footer>
+    
+</div>
+
+<div class="clear"></div>
+<span onClick="if (!window.__cfRLUnblockHandlers) return false; topFunction()" id="ScrollToTop" aria-label="Go to top" title="Go to top" data-cf-modified-c406a33ce1cc997fbe027e3a-=""><i class="fa fa-angle-up"></i></span>
+
+<div id="search_wrap">
+	<div class="search_inner">
+    	<span onclick="if (!window.__cfRLUnblockHandlers) return false; off_search()" class="search_close" data-cf-modified-c406a33ce1cc997fbe027e3a-=""><i aria-hidden="true" class="fa fa-times" title="Close search Box"></i></span>
+        <form method="post" action="https://apkmodget.com/set_search.php">
+        	<input autocomplete="off" name="kwd" id="kwd" type="text" placeholder="Search ...">
+        </form>
+    </div>
+</div>        
+<noscript id="deferred-styles">
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"/>
+</noscript>
+<script type="arsilazyloadscript">var loadDeferredStyles=function(){var a=document.getElementById("deferred-styles"),b=document.createElement("div");b.innerHTML=a.textContent,document.body.appendChild(b),a.parentElement.removeChild(a)},raf=requestAnimationFrame||mozRequestAnimationFrame||webkitRequestAnimationFrame||msRequestAnimationFrame;raf?raf(function(){window.setTimeout(loadDeferredStyles,0)}):window.addEventListener("load",loadDeferredStyles);</script>
+
+<script type="c406a33ce1cc997fbe027e3a-text/javascript">
+    function lang_toggler()
+    {
+        var element = document.getElementById("lang_box_inner");
+        element.classList.toggle("show");
+    }
+	
+	function snav_toggler()
+    {
+        var element = document.getElementById("snav_bar");
+        element.classList.toggle("show");
+    }
+
+    function on_search() {
+      document.getElementById("search_wrap").style.display = "block";
+      document.getElementById("kwd").focus();
+      document.getElementsByTagName('body')[0].style.overflow = "hidden";
+    }
+    
+    function off_search() {
+      document.getElementById("search_wrap").style.display = "none";
+      document.getElementsByTagName('body')[0].style.overflow = "scroll";
+    }
+    
+    var ScrollButton = document.getElementById("ScrollToTop");
+    window.onscroll = function() {scrollFunction()};
+    function scrollFunction() {
+      if (window.pageYOffset > 20) {
+        ScrollButton.style.display = "block";
+      } else {
+        ScrollButton.style.display = "none";
+      }
+    }
+    function topFunction() {
+      document.body.scrollIntoView({behavior: "smooth"});
+    }
+    
+    function scrollToi(id) 
+    {
+        this.event.preventDefault();	
+        const yOffset = 0; 
+        const element = document.getElementById(id);
+        const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
+        window.scrollTo({top: y, behavior: 'smooth'});
+    }
+    
+    function scrollToc(to_id) 
+    {
+        this.event.preventDefault();
+        var element = document.getElementById(to_id);
+        element.scrollIntoView({ behavior: 'smooth', block: 'start'});
+        setTimeout(function(){window.location.hash = to_id; }, 100);
+    }
+    
+    function mod_box_toggle()
+    {
+        document.getElementById("mod_box_in_wrap").classList.toggle('mod_box_in_hide');
+    }
+    
+    function faq_toggle(wrap)
+    {
+        document.getElementById(wrap).classList.toggle('faq_hide');
+    }
+</script>
+<script type="arsilazyloadscript">
+  ( function() {
+
+	if(document.querySelectorAll( ".youtube_embed" ))
+	{
+		var youtube = document.querySelectorAll( ".youtube_embed" );
+		
+		for (var i = 0; i < youtube.length; i++) 
+		{
+		
+		var source = "https://img.youtube.com/vi/"+ youtube[i].dataset.embed +"/hqdefault.jpg";
+		
+		var image = new Image();
+		image.src = source;
+		image.addEventListener( "load", function() {
+			youtube[ i ].appendChild( image );
+		}( i ) );
+
+		youtube[i].addEventListener( "click", function() {
+
+			var iframe = document.createElement( "iframe" );
+			iframe.setAttribute( "frameborder", "0" );
+			iframe.setAttribute( "allowfullscreen", "" );
+			iframe.setAttribute( "src", "https://www.youtube.com/embed/"+ this.dataset.embed +"?rel=0&showinfo=0&autoplay=1" );
+			this.innerHTML = "";
+			this.appendChild( iframe );
+		} );    
+	};
+	}
+	
+} )();
+</script>
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.2.2/lazysizes-umd.min.js" type="c406a33ce1cc997fbe027e3a-text/javascript"></script>
+  
+<script src="/cdn-cgi/scripts/7d0fa10a/cloudflare-static/rocket-loader.min.js" data-cf-settings="c406a33ce1cc997fbe027e3a-|49" defer></script></body></html>

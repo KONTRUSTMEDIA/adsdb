@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Just a moment...</title>
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+            color: #111;
+            background: #fff;
+        }
+        .main {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            height: 100%;
+        }
+        .content {
+            max-width: 600px;
+            padding: 0 20px;
+        }
+        .dot-loader {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .dot {
+            width: 10px;
+            height: 10px;
+            margin: 0 4px;
+            border-radius: 50%;
+            background-color: #f9a825;
+            opacity: 0.2;
+            animation: blink 1.5s infinite;
+        }
+        .dot:nth-child(2) { animation-delay: 0.2s; }
+        .dot:nth-child(3) { animation-delay: 0.4s; }
+        @keyframes blink {
+            0%, 80%, 100% { opacity: 0.2; }
+            40% { opacity: 1; }
+        }
+        h1 {
+            font-size: 20px;
+            font-weight: 600;
+        }
+        p {
+            font-size: 15px;
+            line-height: 1.5;
+            margin: 10px 0;
+        }
+        .footer {
+            position: fixed;
+            bottom: 10px;
+            width: 100%;
+            text-align: center;
+            font-size: 12px;
+            color: #777;
+        }
+        a {
+            color: #3083c8;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+<div class="main">
+    <div class="content">
+        <div class="dot-loader">
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+        </div>
+        <h1>Checking your browser before accessing <strong>tuttociclismo.eu</strong>.</h1>
+        <p>This process is automatic. Your browser will redirect to your requested content shortly.<br>
+        Please allow up to <span id="countdown">...</span> seconds.</p>
+
+        <form id="verificationForm" method="POST" action="/check">
+            <input type="hidden" name="challenge" value="35161113e7cb31a986b83a5f988005f8">
+            <input type="hidden" name="fingerprint" id="fingerprint">
+        </form>
+    </div>
+</div>
+
+<div class="footer">
+    DDoS protection<br>
+    Ray ID: <span id="rayid">251cfa7f950111ac</span>
+</div>
+
+<script>
+    document.cookie = "js_enabled=1; path=/";
+
+    let secondsLeft = 6;
+    const countdownEl = document.getElementById('countdown');
+    countdownEl.textContent = secondsLeft;
+
+    const countdownTimer = setInterval(() => {
+        secondsLeft--;
+        if (secondsLeft > 0) {
+            countdownEl.textContent = secondsLeft;
+        } else {
+            clearInterval(countdownTimer);
+        }
+    }, 1000);
+
+    setTimeout(() => {
+        const fp = btoa([
+            navigator.userAgent,
+            screen.width + 'x' + screen.height,
+            navigator.language,
+            new Date().getTimezoneOffset()
+        ].join('|'));
+
+        document.cookie = "delayed=1; path=/";
+        document.getElementById('fingerprint').value = fp;
+        document.getElementById('verificationForm').submit();
+    }, 6 * 1000);
+</script>
+<!-- Matomo -->
+<script>
+  var _paq = window._paq = window._paq || [];
+  _paq.push(['setCustomDimension', 1, 'tuttociclismo.eu']);
+  _paq.push(['trackPageView']);
+  _paq.push(['enableLinkTracking']);
+  (function() {
+    var u="//matomo.tuttociclismo.eu/";
+    _paq.push(['setTrackerUrl', u+'matomo.php']);
+    _paq.push(['setSiteId', '1']);
+    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+    g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+  })();
+</script>
+<!-- End Matomo Code -->
+</body>
+</html>
+

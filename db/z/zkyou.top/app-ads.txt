@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="./styles.css" rel="stylesheet" />
+    <link rel="shortcut icon" href="./assets/logo.png" />
+    <script src="./js/tailwind.js"></script>
+    <script src="./js/components.js"></script>
+    <title>Adventure Time</title>
+    <!-- <script async src="https://securepubads.g.doubleclick.net/tag/js/gpt.js" crossorigin="anonymous"></script> -->
+    <script type="text/javascript" async src="//c.pubguru.net/pg.zkyou.js"></script>
+    <meta
+      name="description"
+      content="A platform dedicated to game lovers. Discover and play the latest web games across various categories." />
+    <meta name="keywords" content="games, online games, arcade, puzzle, strategy, Adventure Time" />
+    <style>
+    /* 移除 scoped 属性 */
+    .showGoogleAds{
+      width: 100%;
+      min-height: 280px;
+    }
+    </style>
+    <style>
+      [v-cloak] {
+        display: none;
+      }
+      /* 添加一些游戏相关的样式 */
+      .game-card {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+      .game-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+      }
+      .play-btn {
+        background: linear-gradient(45deg, #FF6B6B, #FF8E53);
+        transition: all 0.3s ease;
+      }
+      .play-btn:hover {
+        background: linear-gradient(45deg, #FF8E53, #FF6B6B);
+        transform: scale(1.05);
+      }
+      /* More Games 按钮样式 */
+      .more-games-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        margin: 40px auto;
+        padding: 12px 24px;
+        background-color: #3b82f6;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+      .more-games-btn:hover {
+        background-color: #2563eb;
+        transform: translateY(-2px);
+      }
+    </style>
+    <style>
+        .fx-r { display: flex; flex-direction: row; }
+        .fx-bc { display: flex; justify-content: space-between; align-items: center; }
+        .fx-c { display: flex; flex-direction: column; }
+        .fx-cc { display: flex; justify-content: center; align-items: center; }
+        .navbar { position: sticky; top: 0; z-index: 50; }
+        .mobile-menu { 
+            position: fixed; 
+            top: 0; 
+            right: 0; 
+            height: 100vh; 
+            width: 70%; 
+            max-width: 300px;
+            transform: translateX(100%);
+            transition: transform 0.3s ease-in-out;
+            z-index: 100;
+        }
+        .mobile-menu.open {
+            transform: translateX(0);
+        }
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 99;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease-in-out;
+        }
+        .overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        .game-card { transition: transform 0.3s ease; }
+        .game-card:hover { transform: translateY(-5px); }
+        .category-btn.active { background-color: #3b82f6; color: white; }
+    </style>
+  </head>
+  <body class="bg-[#F0FFF4]">
+    <div id="app" v-cloak>
+      <div class="fx-h fx-ac">
+        <header class="top-0 sticky justify-between gap-3 p-4 px-2 md:px-32 py-4 md:h-30 fx-r fx-bc navbar bg-white shadow-md">
+          <div class="gap-3 cursor-pointer fx-r fx-bc" @click="toHome">
+            <img class="navLogo w-10 h-10" src="./assets/logo.png" alt="Adventure Time Logo" />
+            <div class="font-bold text-blue-600 text-[20px] md:text-[28px] navtitle">Adventure Time</div>
+          </div>
+          
+          <div class="flex gap-2 md:gap-5">
+            <div class="hidden md:flex gap-2">
+                
+            </div>
+            <img src="./assets/menunav.png" class="invert w-[24px] aspect-square cursor-pointer filter" alt="Adventure Time menu" @click="toggleCategoryMenu" />
+          </div>
+
+        </header>
+
+        <!-- 手机端菜单 -->
+        <div class="overlay" :class="{ 'active': showCategoryMenu }" @click="toggleCategoryMenu"></div>
+        <div class="mobile-menu bg-white shadow-lg" :class="{ 'open': showCategoryMenu }">
+            <!-- 顶部关闭按钮区域 -->
+            <div class="p-4 fx-r fx-bc border-b sticky top-0 bg-white z-10">
+                <div></div> <!-- 占位元素，使关闭按钮居右 -->
+                <button @click="toggleCategoryMenu" class="text-gray-500 hover:text-gray-700">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+            
+            <!-- 分类列表 - 可滚动区域 -->
+            <div class="p-4 fx-c gap-3 max-h-[calc(100vh-80px)] overflow-y-auto">
+                <button 
+                    v-for="category in categories" 
+                    :key="category" 
+                    @click="selectCategory(category)"
+                    :class="['category-btn px-4 py-3 rounded-lg text-left border border-gray-200 hover:bg-blue-50 transition-all duration-300', selectedCategory === category ? 'bg-blue-100 text-blue-700 border-blue-300' : '']">
+                    {{ category }}
+                </button>
+            </div>
+        </div>
+        <!-- <menu-component :show-menu="showMenu" @toggle-menu="toogleMenu"></menu-component> -->
+        <main class="p-5 content-container fx-h fx-ac fx-bc">
+          <pubguru data-pg-ad="zkyou.top_banner1" ></pubguru>
+          <!-- 搜索框区域 - 修正版本 -->
+          <div class="search-section w-full max-w-6xl mx-auto mb-8">
+            <div class="search-container relative w-full">
+              <input 
+                type="text" 
+                v-model="searchValue" 
+                placeholder="Search games..." 
+                class="search-box w-full pl-10 pr-24 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300"
+                @keyup.enter="performSearch">
+              <svg class="w-5 h-5 absolute left-3 top-3.5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+              </svg>
+              <button 
+                @click="performSearch"
+                class="search-btn absolute right-2 top-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-1.5 px-4 rounded-md transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
+                Search
+              </button>
+            </div>
+          </div>
+
+          <!-- 分类筛选按钮 -->
+          <!-- <div class="categories-section w-full max-w-6xl mx-auto mb-8">
+            <div class="flex flex-wrap gap-2 justify-center">
+              <button 
+                v-for="category in categories" 
+                :key="category" 
+                @click="filterByCategory(category)"
+                class="category-btn px-4 py-2 rounded-full text-sm border border-gray-300 text-gray-700 hover:bg-blue-500 hover:text-white transition-all duration-300">
+                {{ category }}
+              </button>
+            </div>
+          </div> -->
+
+          <div class="section-title mb-8">
+            <h2 class="text-3xl font-bold text-gray-800">Featured Games</h2>
+            <div class="title-divider bg-blue-500 h-1 w-20 mt-2 mx-auto"></div>
+          </div>
+          
+          <!-- <div id='div-gpt-ad-1765471124300-0' style='min-width: 300px; min-height: 250px;'></div> -->
+          <!-- 精选游戏区域 -->
+           
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full max-w-6xl">
+            <div
+              v-for="(game, index) in featuredGames"
+              :key="game.id"
+              class="game-card bg-white rounded-lg overflow-hidden shadow-md"
+              :style="{ animationDelay: index * 0.1 + 's' }">
+              <img :src="game.thumb" :alt="game.title" loading="lazy" class="w-full h-48 object-cover" />
+              <div class="p-4">
+                <span class="text-xs font-semibold text-blue-600 bg-blue-100 px-2 py-1 rounded">{{game.category}}</span>
+                <h3 class="item-title text-lg font-bold mt-2 mb-2">{{game.title}}</h3>
+                <p class="item-excerpt text-gray-600 text-sm mb-4">{{game.description}}</p>
+                <button @click="playGame(game)" class="play-btn w-full py-2 text-white font-semibold rounded-lg">
+                  Play Now
+                </button>
+              </div>
+            </div>
+          </div>
+          
+          <div class="section-title my-12">
+            <h2 class="text-3xl font-bold text-gray-800">Hot Games</h2>
+            <div class="title-divider bg-blue-500 h-1 w-20 mt-2 mx-auto"></div>
+          </div>
+          <pubguru data-pg-ad="zkyou.top_banner2" ></pubguru>
+          <!-- <div id='div-gpt-ad-1765033784678-0' style='min-width: 300px; min-height: 250px;'></div> -->
+          <!-- 热门游戏横向滚动区域 -->
+          <div class="horizontal-scroll-container w-full max-w-6xl mb-12">
+            <div class="horizontal-scroll-list flex overflow-x-auto pb-4">
+              <div
+                v-for="(game, index) in hotGames"
+                :key="game.id"
+                class="horizontal-item flex-shrink-0 w-64 bg-white rounded-lg overflow-hidden shadow-md mr-4"
+                :style="{ animationDelay: index * 0.1 + 's' }"
+                @click="playGame(game)">
+                <img :src="game.thumb" :alt="game.title" loading="lazy" class="w-full h-40 object-cover" />
+                <div class="p-4">
+                  <span class="text-xs font-semibold text-blue-600">{{game.category}}</span>
+                  <h4 class="item-title text-md font-semibold mt-2">{{game.title}}</h4>
+                  <p class="item-excerpt text-gray-600 text-sm mt-2 line-clamp-2">{{game.description}}</p>
+                </div>
+              </div>
+            </div>
+            <div class="scroll-indicator"></div>
+          </div>
+          
+          <div class="section-title my-12">
+            <h2 class="text-3xl font-bold text-gray-800">All Games</h2>
+            <div class="title-divider bg-blue-500 h-1 w-20 mt-2 mx-auto"></div>
+          </div>
+          
+          <!-- 所有游戏列表 - 仅显示15个 -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 w-full max-w-6xl">
+            <div
+              v-for="(game, index) in displayedGames.slice(0, 12)"
+              :key="game.id"
+              class="game-item bg-white rounded-lg overflow-hidden shadow-md transition-transform duration-300 hover:scale-105 cursor-pointer"
+              :style="{ animationDelay: index * 0.05 + 's' }"
+              @click="playGame(game)">
+              <div class="relative">
+                <img :src="game.thumb" :alt="game.title" loading="lazy" class="w-full h-40 object-cover" />
+                <span class="absolute top-2 left-2 bg-blue-500 text-white text-xs px-2 py-1 rounded">{{game.category}}</span>
+              </div>
+              <div class="p-3">
+                <h4 class="item-title text-md font-semibold truncate">{{game.title}}</h4>
+                <p class="item-excerpt text-gray-600 text-xs mt-1 line-clamp-2">{{game.description}}</p>
+                <div class="flex justify-between items-center mt-2">
+                  <span class="text-xs text-gray-500">{{game.tags.split(',')[0]}}</span>
+                  <button @click.stop="playGame(game)" class="text-xs bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600 transition">
+                    Play
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- More Games 按钮 -->
+          <button v-if="hasMoreGames" class="more-games-btn" @click="toAllGames">
+            <span>More Games</span>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round">
+              <path d="m5 12 7 7 7-7" />
+              <path d="M12 19V5" />
+            </svg>
+          </button>
+          
+          <!-- <div class="mt-12 text-center">
+            <h3 class="text-xl font-semibold text-gray-700 mb-4">Can't find what you're looking for?</h3>
+            <p class="text-gray-600 mb-6">We're constantly adding new games to our collection</p>
+            <button class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-6 rounded-full transition duration-300">
+              Suggest a Game
+            </button>
+          </div> -->
+        </main>
+        <footer-component></footer-component>
+      </div>
+      <button id="back-to-top" @click="scrollToTop" class="fixed bottom-5 right-5 bg-blue-600 text-white p-3 rounded-full shadow-lg hover:bg-blue-700 transition">↑</button>
+    </div>
+    <script src="./js/vue/vue.js"></script>
+    <script src="./js/games.js"></script>
+    <script src="./js/components/HeaderComponent.js"></script>
+    <script src="./js/components/MenuComponent.js"></script>
+    <script src="./js/components/FooterComponent.js"></script>
+    
+    <script>
+      new Vue({
+        el: "#app",
+        components: { "header-component": HeaderComponent, "menu-component": MenuComponent, "footer-component": FooterComponent },
+        data: { 
+          games: [], 
+          displayedGames: [], // 当前显示的游戏
+          gamesPerPage: 12, // 每页显示的游戏数量
+          currentPage: 1, // 当前页码
+          showSearch: false, 
+          searchValue: "", 
+          selectedCategories: [],
+          showMenu: false,
+          showCategoryMenu: false, //
+          selectedCategory: null //  
+        },
+        computed: {
+          // 随机游戏列表（内部先打乱一次）
+          randomizedGames() {
+            return [...this.games].sort(() => 0.5 - Math.random());
+          },
+          categories() {
+                    // 获取所有不重复的游戏分类
+                    return [...new Set(this.games.map(game => game.category))].sort();
+                },
+          // 精选游戏（随机取6个）
+          randomizedGames() {
+            return [...this.games].sort(() => 0.5 - Math.random());
+          },
+          featuredGames() {
+            return this.randomizedGames.slice(0, 3);
+          },
+          hotGames() {
+            return this.randomizedGames.slice(6, 14);
+          },
+          // 是否还有更多游戏可以加载
+          hasMoreGames() {
+            return this.displayedGames.length < this.games.length;
+          }
+        },
+        mounted() {
+          window.addEventListener("scroll", this.handleScroll);
+          this.getData();
+        },
+        beforeDestroy() {
+          window.removeEventListener("scroll", this.handleScroll);
+        },
+        methods: {
+          toggleSearch() {
+            if (this.searchValue) {
+              // 搜索功能
+              const filteredGames = this.games.filter(game => 
+                game.title.toLowerCase().includes(this.searchValue.toLowerCase()) ||
+                game.category.toLowerCase().includes(this.searchValue.toLowerCase()) ||
+                game.tags.toLowerCase().includes(this.searchValue.toLowerCase())
+              );
+              // 跳转到搜索结果页面
+              window.location.href = `./allGames.html?search=${encodeURIComponent(this.searchValue)}`;
+            } else {
+              this.showSearch = !this.showSearch;
+            }
+          },
+          performSearch() {
+            if (this.searchValue.trim()) {
+              // 跳转到搜索结果页面
+              window.location.href = `./allGames.html?search=${encodeURIComponent(this.searchValue)}`;
+            }
+          },
+          // 按分类筛选 - 跳转到所有游戏页面并传递分类参数
+          filterByCategory(category) {
+            window.location.href = `./allGames.html?category=${encodeURIComponent(category)}`;
+          },
+          handleScroll() {
+            const backToTopButton = document.getElementById("back-to-top");
+            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+              backToTopButton.style.display = "flex";
+            } else {
+              backToTopButton.style.display = "none";
+            }
+          },
+          scrollToTop() {
+            window.scrollTo({ top: 0, behavior: "smooth" });
+          },
+          toggleCategoryMenu() {
+              this.showCategoryMenu = !this.showCategoryMenu;
+          },
+          selectCategory(category) {
+              this.filterByCategory(category);
+              this.toggleCategoryMenu(); // 选择分类后关闭菜单
+          },
+          getData() {
+            this.games = games;
+            // 初始化显示的游戏
+            this.loadMoreGames();
+          },
+          playGame(game) {
+            // 打开游戏URL
+            //window.open(game.url, '_blank');
+            window.location.href = "./detail.html?id="+game.id;
+          },
+          toHome() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          },
+          toogleMenu() {
+            this.showMenu = !this.showMenu;
+          },
+          // 加载更多游戏
+          loadMoreGames() {
+            const startIndex = this.displayedGames.length;
+            const endIndex = startIndex + this.gamesPerPage;
+            const newGames = this.games.slice(startIndex, endIndex);
+            
+            this.displayedGames = [...this.displayedGames, ...newGames];
+            this.currentPage++;
+          },
+          // 跳转到所有游戏页面（原toAllList功能）
+          toAllGames() {
+            window.location.href = "./allGames.html";
+          }
+        },
+      });
+    
+      // var bn1,bn2,anchorSlot,interstitialSlot
+      // window.googletag = window.googletag || {cmd: []};
+      // googletag.cmd.push(function() {
+
+
+      //   anchorSlot = googletag
+      //       .defineOutOfPageSlot('/23322811424/pg_anchor_zkyou.top_1212', googletag.enums.OutOfPageFormat.BOTTOM_ANCHOR)
+      //   if (anchorSlot) {
+      //       anchorSlot.addService(googletag.pubads()).setConfig({
+      //           targeting: {
+      //               test: "anchor",
+      //           },
+      //       });
+      //   }
+
+      //   interstitialSlot = googletag.defineOutOfPageSlot('/23322811424/pg_interstitial_zkyou.top_1212', googletag.enums.OutOfPageFormat.INTERSTITIAL);
+      //   if (interstitialSlot) {
+      //       interstitialSlot.addService(googletag.pubads()).setConfig({
+      //           interstitial: {
+      //               triggers: {
+      //                   navBar: true,
+      //                   unhideWindow: true,
+      //               },
+      //           },
+      //       });
+      //   }
+
+      //   bn1 = googletag.defineSlot('/23322811424/zkyou.top_banner1_1212', [300, 250], 'div-gpt-ad-1765471124300-0').addService(googletag.pubads());
+      //   bn2 = googletag.defineSlot('/23322811424/zkyou.top_banner2_1212', [300, 250], 'div-gpt-ad-1765033784678-0').addService(googletag.pubads());
+        
+
+      //   googletag.pubads().enableSingleRequest();
+      //   googletag.enableServices();
+      //   googletag.display(bn1);
+      // });
+    </script>
+
+  </body>
+</html>

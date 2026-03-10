@@ -1,0 +1,823 @@
+
+<html><head>
+
+<!-- InMobi Choice. Consent Manager Tag v3.0 (for TCF 2.2) -->
+<script type='text/javascript' async=true>
+(function() {
+  var host = window.location.hostname;
+  var element = document.createElement('script');
+  var firstScript = document.getElementsByTagName('script')[0];
+  var url = 'https://cmp.inmobi.com'
+    .concat('/choice/', 'qCFd9J78Y1wTx', '/', host, '/choice.js?tag_version=V3');
+  var uspTries = 0;
+  var uspTriesLimit = 3;
+  element.async = true;
+  element.type = 'text/javascript';
+  element.src = url;
+
+  firstScript.parentNode.insertBefore(element, firstScript);
+
+  function makeStub() {
+    var TCF_LOCATOR_NAME = '__tcfapiLocator';
+    var queue = [];
+    var win = window;
+    var cmpFrame;
+
+    function addFrame() {
+      var doc = win.document;
+      var otherCMP = !!(win.frames[TCF_LOCATOR_NAME]);
+
+      if (!otherCMP) {
+        if (doc.body) {
+          var iframe = doc.createElement('iframe');
+
+          iframe.style.cssText = 'display:none';
+          iframe.name = TCF_LOCATOR_NAME;
+          doc.body.appendChild(iframe);
+        } else {
+          setTimeout(addFrame, 5);
+        }
+      }
+      return !otherCMP;
+    }
+
+    function tcfAPIHandler() {
+      var gdprApplies;
+      var args = arguments;
+
+      if (!args.length) {
+        return queue;
+      } else if (args[0] === 'setGdprApplies') {
+        if (
+          args.length > 3 &&
+          args[2] === 2 &&
+          typeof args[3] === 'boolean'
+        ) {
+          gdprApplies = args[3];
+          if (typeof args[2] === 'function') {
+            args[2]('set', true);
+          }
+        }
+      } else if (args[0] === 'ping') {
+        var retr = {
+          gdprApplies: gdprApplies,
+          cmpLoaded: false,
+          cmpStatus: 'stub'
+        };
+
+        if (typeof args[2] === 'function') {
+          args[2](retr);
+        }
+      } else {
+        if(args[0] === 'init' && typeof args[3] === 'object') {
+          args[3] = Object.assign(args[3], { tag_version: 'V3' });
+        }
+        queue.push(args);
+      }
+    }
+
+    function postMessageEventHandler(event) {
+      var msgIsString = typeof event.data === 'string';
+      var json = {};
+
+      try {
+        if (msgIsString) {
+          json = JSON.parse(event.data);
+        } else {
+          json = event.data;
+        }
+      } catch (ignore) {}
+
+      var payload = json.__tcfapiCall;
+
+      if (payload) {
+        window.__tcfapi(
+          payload.command,
+          payload.version,
+          function(retValue, success) {
+            var returnMsg = {
+              __tcfapiReturn: {
+                returnValue: retValue,
+                success: success,
+                callId: payload.callId
+              }
+            };
+            if (msgIsString) {
+              returnMsg = JSON.stringify(returnMsg);
+            }
+            if (event && event.source && event.source.postMessage) {
+              event.source.postMessage(returnMsg, '*');
+            }
+          },
+          payload.parameter
+        );
+      }
+    }
+
+    while (win) {
+      try {
+        if (win.frames[TCF_LOCATOR_NAME]) {
+          cmpFrame = win;
+          break;
+        }
+      } catch (ignore) {}
+
+      if (win === window.top) {
+        break;
+      }
+      win = win.parent;
+    }
+    if (!cmpFrame) {
+      addFrame();
+      win.__tcfapi = tcfAPIHandler;
+      win.addEventListener('message', postMessageEventHandler, false);
+    }
+  };
+
+  makeStub();
+
+  function makeGppStub() {
+    const CMP_ID = 10;
+    const SUPPORTED_APIS = [
+      '2:tcfeuv2',
+      '6:uspv1',
+      '7:usnatv1',
+      '8:usca',
+      '9:usvav1',
+      '10:uscov1',
+      '11:usutv1',
+      '12:usctv1'
+    ];
+
+    window.__gpp_addFrame = function (n) {
+      if (!window.frames[n]) {
+        if (document.body) {
+          var i = document.createElement('iframe');
+          i.style.cssText = 'display:none';
+          i.name = n;
+          document.body.appendChild(i);
+        } else {
+          window.setTimeout(window.__gpp_addFrame, 10, n);
+        }
+      }
+    };
+    window.__gpp_stub = function () {
+      var b = arguments;
+      __gpp.queue = __gpp.queue || [];
+      __gpp.events = __gpp.events || [];
+
+      if (!b.length || (b.length == 1 && b[0] == 'queue')) {
+        return __gpp.queue;
+      }
+
+      if (b.length == 1 && b[0] == 'events') {
+        return __gpp.events;
+      }
+
+      var cmd = b[0];
+      var clb = b.length > 1 ? b[1] : null;
+      var par = b.length > 2 ? b[2] : null;
+      if (cmd === 'ping') {
+        clb(
+          {
+            gppVersion: '1.1', // must be “Version.Subversion”, current: “1.1”
+            cmpStatus: 'stub', // possible values: stub, loading, loaded, error
+            cmpDisplayStatus: 'hidden', // possible values: hidden, visible, disabled
+            signalStatus: 'not ready', // possible values: not ready, ready
+            supportedAPIs: SUPPORTED_APIS, // list of supported APIs
+            cmpId: CMP_ID, // IAB assigned CMP ID, may be 0 during stub/loading
+            sectionList: [],
+            applicableSections: [-1],
+            gppString: '',
+            parsedSections: {},
+          },
+          true
+        );
+      } else if (cmd === 'addEventListener') {
+        if (!('lastId' in __gpp)) {
+          __gpp.lastId = 0;
+        }
+        __gpp.lastId++;
+        var lnr = __gpp.lastId;
+        __gpp.events.push({
+          id: lnr,
+          callback: clb,
+          parameter: par,
+        });
+        clb(
+          {
+            eventName: 'listenerRegistered',
+            listenerId: lnr, // Registered ID of the listener
+            data: true, // positive signal
+            pingData: {
+              gppVersion: '1.1', // must be “Version.Subversion”, current: “1.1”
+              cmpStatus: 'stub', // possible values: stub, loading, loaded, error
+              cmpDisplayStatus: 'hidden', // possible values: hidden, visible, disabled
+              signalStatus: 'not ready', // possible values: not ready, ready
+              supportedAPIs: SUPPORTED_APIS, // list of supported APIs
+              cmpId: CMP_ID, // list of supported APIs
+              sectionList: [],
+              applicableSections: [-1],
+              gppString: '',
+              parsedSections: {},
+            },
+          },
+          true
+        );
+      } else if (cmd === 'removeEventListener') {
+        var success = false;
+        for (var i = 0; i < __gpp.events.length; i++) {
+          if (__gpp.events[i].id == par) {
+            __gpp.events.splice(i, 1);
+            success = true;
+            break;
+          }
+        }
+        clb(
+          {
+            eventName: 'listenerRemoved',
+            listenerId: par, // Registered ID of the listener
+            data: success, // status info
+            pingData: {
+              gppVersion: '1.1', // must be “Version.Subversion”, current: “1.1”
+              cmpStatus: 'stub', // possible values: stub, loading, loaded, error
+              cmpDisplayStatus: 'hidden', // possible values: hidden, visible, disabled
+              signalStatus: 'not ready', // possible values: not ready, ready
+              supportedAPIs: SUPPORTED_APIS, // list of supported APIs
+              cmpId: CMP_ID, // CMP ID
+              sectionList: [],
+              applicableSections: [-1],
+              gppString: '',
+              parsedSections: {},
+            },
+          },
+          true
+        );
+      } else if (cmd === 'hasSection') {
+        clb(false, true);
+      } else if (cmd === 'getSection' || cmd === 'getField') {
+        clb(null, true);
+      }
+      //queue all other commands
+      else {
+        __gpp.queue.push([].slice.apply(b));
+      }
+    };
+    window.__gpp_msghandler = function (event) {
+      var msgIsString = typeof event.data === 'string';
+      try {
+        var json = msgIsString ? JSON.parse(event.data) : event.data;
+      } catch (e) {
+        var json = null;
+      }
+      if (typeof json === 'object' && json !== null && '__gppCall' in json) {
+        var i = json.__gppCall;
+        window.__gpp(
+          i.command,
+          function (retValue, success) {
+            var returnMsg = {
+              __gppReturn: {
+                returnValue: retValue,
+                success: success,
+                callId: i.callId,
+              },
+            };
+            event.source.postMessage(msgIsString ? JSON.stringify(returnMsg) : returnMsg, '*');
+          },
+          'parameter' in i ? i.parameter : null,
+          'version' in i ? i.version : '1.1'
+        );
+      }
+    };
+    if (!('__gpp' in window) || typeof window.__gpp !== 'function') {
+      window.__gpp = window.__gpp_stub;
+      window.addEventListener('message', window.__gpp_msghandler, false);
+      window.__gpp_addFrame('__gppLocator');
+    }
+  };
+
+  makeGppStub();
+
+  var uspStubFunction = function() {
+    var arg = arguments;
+    if (typeof window.__uspapi !== uspStubFunction) {
+      setTimeout(function() {
+        if (typeof window.__uspapi !== 'undefined') {
+          window.__uspapi.apply(window.__uspapi, arg);
+        }
+      }, 500);
+    }
+  };
+
+  var checkIfUspIsReady = function() {
+    uspTries++;
+    if (window.__uspapi === uspStubFunction && uspTries < uspTriesLimit) {
+      console.warn('USP is not accessible');
+    } else {
+      clearInterval(uspInterval);
+    }
+  };
+
+  if (typeof window.__uspapi === 'undefined') {
+    window.__uspapi = uspStubFunction;
+    var uspInterval = setInterval(checkIfUspIsReady, 6000);
+  }
+})();
+</script>
+<!-- End InMobi Choice. Consent Manager Tag v3.0 (for TCF 2.2) -->
+
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-VCM6XQ51D5"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag("js", new Date());
+
+  gtag("config", "G-VCM6XQ51D5");
+</script>
+
+<title>JobbMintATv.pro | Ingyen Online Nézhető Sorozatok minden mennyiségben</title>
+
+
+
+<meta http-equiv="content-type" content="text/html; charset=windows-1250">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="shortcut icon" href="//jobbmintatv.pro/img/favicon.ico">
+<link rel="stylesheet" type="text/css" href="//jobbmintatv.pro/owl-carousel/owl-carousel.css"/>
+ 
+  
+<link rel="stylesheet" type="text/css" href="//jobbmintatv.pro/css.css?v=68"/>
+<link rel="stylesheet" type="text/css" href="//jobbmintatv.pro/css3.css?v=68"/>
+
+<script async src="//paslsa.com/c/jobbmintatv.online.js"></script>
+
+
+
+</head>
+
+<!--[if lt IE 9]><script src="jquery-1.11.3.js"></script><![endif]--><!--[if gte IE 9]><!-->
+<script type="text/javascript" src="//jobbmintatv.pro/js/jquery.js"></script><!--<![endif]-->
+
+<script type="text/javascript" src="//jobbmintatv.pro/js/index.js"></script>
+<script type="text/javascript" src="//jobbmintatv.pro/owl-carousel/owl.carousel.min.js"></script>
+<script async src="https://admanager.netadclick.com/admanager.js"></script>
+<body>
+
+<div id='header'>
+<a href='//jobbmintatv.pro/' class='info' pozicio='fent' info='kezdőlap'><div id='logo'>JobbMintATv</div><span id='home'></span></a><a href='//jobbmintatv.pro/random' class='info' pozicio='fent' info='véletlen film'><span id='velet'></span></a>
+<a id='sorozatok' class='info' pozicio='fent' info='sorozatok'><span id='series'></span></a><a id='kereses' class='info' pozicio='fent' info='keresés'><span id='search'></span></a><a class='info' pozicio='jobbra' info='bejelentkezés' href='//jobbmintatv.pro/profil/'><span id='login'></span></a>
+<div id='szamol'>   <a href='//jobbmintatv.pro/sorozatok/1/1'>2143 Sorozat</a><a href='//jobbmintatv.pro/filmek/1/1'>7374 Film</a></div>
+</div>
+
+<script type='text/javascript'>
+$(function() {
+
+
+
+
+
+
+$('#sorozatok').click(function(){
+ if ($('#sorozatok-menu-leugro').css('display')=='none'){ 
+  $('#sorozatok-menu-leugro').css('display','block'); 
+  $.ajax({url: '//jobbmintatv.pro/ajax.php?kat=friss',type: 'GET',dataType: 'html',beforeSend: function(x) {
+if (x && x.overrideMimeType) {x.overrideMimeType('text/html; charset=ISO-8859-2');}},
+success: function(data){
+if ($('#kereses-input2').is(':focus')){
+
+}else{
+$('#kereses-input2').focus();
+}
+
+$('#sorozatok-menu-leugro #tartalom').html(data);
+}});}});
+
+
+$('.bbinsert').click(function(){
+var kurzpoz= $('#post_szoveg').prop('selectionStart');
+var eredetiszoveg = $('#post_szoveg').val();
+var bb=$(this).attr('bbinsert');
+let ujszoveg = eredetiszoveg.substr(0,kurzpoz)+bb+eredetiszoveg.substr(kurzpoz, 4000);
+
+$('#post_szoveg').val(ujszoveg).focus().setCursorPosition(-4);
+
+});
+
+$('#trl').click(function(){
+var asd=$(this).attr('link')
+$.ajax({url: '//jobbmintatv.pro/ajax.php?trl='+$(this).attr('vidid'),type: 'GET',dataType: 'html',beforeSend: function(x) {
+if (x && x.overrideMimeType) {x.overrideMimeType('text/html; charset=ISO-8859-2');}},
+success: function(data){
+}});
+function trlkeslelt(){
+window.location=asd;
+;}
+setTimeout(trlkeslelt,500);
+});
+$('#lapozmen').click(function(){  
+var suti=getCookie('lapozmen');
+var lapsz=$(this).attr('lapsz');
+
+if(suti==4){
+ setCookie('lapozmen',3);$(this).html('3');
+ $(this).css('background','#292929');
+ $(this).attr('info','3 rész múlva megáll a lejátszás');
+ $('#info').html('3 rész múlva megáll a lejátszás');
+}
+else if(suti==3){
+ setCookie('lapozmen',2);$(this).html('2');
+ $(this).attr('info','2 rész múlva megáll a lejátszás');
+ $('#info').html('2 rész múlva megáll a lejátszás');
+}
+else if(suti==2){
+ setCookie('lapozmen',1);$(this).html('1');
+ $(this).attr('info','1 rész múlva megáll a lejátszás');
+ $('#info').html('1 rész múlva megáll a lejátszás');
+}
+else if(suti==1){
+ setCookie('lapozmen',4);$(this).html('zZz');
+ $('#info').html('zZz');
+ $(this).attr('info','zZz');
+}
+else if(suti==0){
+ setCookie('lapozmen',4);$(this).html('zZz');
+ $('#info').html('zZz');
+ $(this).attr('info','alvó mód');
+}
+});
+
+$('#aut_play').click(function(){  
+var suti=getCookie('aut_play');
+var lapsz=$(this).attr('lapsz');
+
+if(suti==1){
+ setCookie('aut_play',0);
+ $(this).html('a');
+ $(this).attr('info','Automatikus lejátszás kikapcsolása');
+ $('#info').html('Automatikus lejátszás kikapcsolása');
+}
+else{
+ setCookie('aut_play',1);
+ $(this).html('A');
+ $(this).attr('info','Automatikus lejátszás bekapcsolása');
+ $('#info').html('Automatikus lejátszás bekapcsolása');
+}
+});
+
+$('.graf_film').hover(function(){
+var grafpontid=$(this).attr('grafpontid');
+var grnum='#gr'+grafpontid+'p';
+$('.graf_pontok').css('z-index',0);
+$(grnum).css('background','#b53c3c').css('z-index',100);
+$(this).css('background','#b53c3c');
+});
+$('.graf_pontok').hover(function(){
+var grafpontid=$(this).attr('grafpontid');
+var grnum='#gr'+grafpontid+'l';
+$(grnum).css('background','#b53c3c');
+$(this).css('background','#b53c3c');
+});
+$('.graf_film').mouseleave(function(){
+$('.graf_pontok').css('background','#a4b351');
+$('.graf_film').css('background','#3f3f4f');
+});
+$('.graf_pontok').mouseleave(function(){
+$('.graf_film').css('background','#3f3f4f');
+$('.graf_pontok').css('background','#a4b351');
+});
+
+$('.indaiframechange').click(function(){
+var change=$(this).attr('change');
+$('#indaiframechangeframe').attr('src','http://indavideo.hu/search/text/'+change+'#p_uni');
+});
+$('.c_up,.c_down').click(function(){
+apa=$(this).parent();
+$.ajax({url: '//jobbmintatv.pro/ajax.php?mire='+$(this).attr('cid')+'&mit='+$(this).attr('mit')+'&tipus='+$(this).attr('tipus'),type: 'GET',dataType: 'html',beforeSend: function(x) {
+if (x && x.overrideMimeType) {x.overrideMimeType('text/html; charset=ISO-8859-2');}},
+success: function(data){
+$(apa).html(data);
+}});
+});
+$('.chkkat').click(function(){
+if ($(this).is(':checked') ) {
+che=1;
+}else{che=0;}
+checks=$(this).attr('kat_id');
+$.ajax({url: '//jobbmintatv.pro/ajax.php?chkkat=&checks='+checks+'&che='+che,type: 'GET',dataType: 'html',beforeSend: function(x) {
+if (x && x.overrideMimeType) {x.overrideMimeType('text/html; charset=ISO-8859-2');}},
+success: function(data){
+}});
+});
+$('.chkkat_gy').click(function(){
+checks=$(this).attr('gykat_id');
+if ($(this).is(':checked') ) {
+che=1;
+}else{che=0;}
+$.ajax({url: '//jobbmintatv.pro/ajax.php?chkkat_gy=&checks='+checks+'&che='+che,type: 'GET',dataType: 'html',beforeSend: function(x) {
+if (x && x.overrideMimeType) {x.overrideMimeType('text/html; charset=ISO-8859-2');}},
+success: function(data){
+}});
+});
+
+
+$('#szinesz_borito_csere_submit').click(function(){
+var szinimdblink=$('#szinesz_borito_csere_submit').attr('szinimdblink');
+$.ajax({url: '//jobbmintatv.pro/ajax.php?szinesz_boritocsere='+szinimdblink+'&borito='+$('#szinesz_borito_csere_input').val(),type: 'GET',dataType: 'html',beforeSend: function(x) {
+if (x && x.overrideMimeType) {x.overrideMimeType('text/html; charset=ISO-8859-2');}},
+success: function(data){
+$('#szinesz_borito_csere_submit').html(data);
+location.reload();
+}});
+});
+$('#szinesz_borito_csere_keres_gomb').click(function(){
+$('#szinesz_borito_csere_input').focus();
+});
+$('#szinesz_leiras_csere_submit').click(function(){
+$.ajax({url: '//jobbmintatv.pro/ajax.php?szinesz_leiras=&leiras='+$('#szinesz_leiras_csere_input').val(),type: 'GET',dataType: 'html',beforeSend: function(x) {
+if (x && x.overrideMimeType) {x.overrideMimeType('text/html; charset=ISO-8859-2');}},
+success: function(data){
+$('#szinesz_leiras_csere_submit').html(data);
+location.reload();
+}});
+});
+$('#szinesz_evjarat_csere_submit').click(function(){
+$.ajax({url: '//jobbmintatv.pro/ajax.php?szinesz_evjarat=&ev='+$('#szinesz_evjarat_csere_input').val(),type: 'GET',dataType: 'html',beforeSend: function(x) {
+if (x && x.overrideMimeType) {x.overrideMimeType('text/html; charset=ISO-8859-2');}},
+success: function(data){
+$('#szinesz_evjarat_csere_submit').html(data);
+location.reload();
+}});
+});
+
+
+$('#borito_csere_submit').click(function(){
+$.ajax({url: '//jobbmintatv.pro/ajax.php?boritocsere=&boritolink='+$('#borito_csere_input').val(),type: 'GET',dataType: 'html',beforeSend: function(x) {
+if (x && x.overrideMimeType) {x.overrideMimeType('text/html; charset=ISO-8859-2');}},
+success: function(data){
+$('#borito_csere_submit').html(data);
+location.reload();
+}});
+});
+$('#borito_csere_keres_gomb').click(function(){
+$('#borito_csere_input').focus();
+});
+$('#embed_csere_submit').click(function(){
+$.ajax({url: '//jobbmintatv.pro/ajax.php?embedcsere=&embed='+$('#embed_csere_input').val(),type: 'GET',dataType: 'html',beforeSend: function(x) {
+if (x && x.overrideMimeType) {x.overrideMimeType('text/html; charset=ISO-8859-2');}},
+success: function(data){
+$('#embed_csere_submit').html(data);
+location.reload();
+}});
+});
+$('#evjarat_csere_submit').click(function(){
+$.ajax({url: '//jobbmintatv.pro/ajax.php?evjarat=&ev='+$('#evjarat_csere_input').val(),type: 'GET',dataType: 'html',beforeSend: function(x) {
+if (x && x.overrideMimeType) {x.overrideMimeType('text/html; charset=ISO-8859-2');}},
+success: function(data){
+$('#evjarat_csere_submit').html(data);
+location.reload();
+}});
+});
+$('#pg_csere_submit').click(function(){
+$.ajax({url: '//jobbmintatv.pro/ajax.php?pg=&korhatar='+$('#pg_csere_input').val(),type: 'GET',dataType: 'html',beforeSend: function(x) {
+if (x && x.overrideMimeType) {x.overrideMimeType('text/html; charset=ISO-8859-2');}},
+success: function(data){
+$('#pg_csere_submit').html(data);
+location.reload();
+}});
+});
+$('#cim_csere_submit').click(function(){
+$.ajax({url: '//jobbmintatv.pro/ajax.php?cimcsere=&cim='+$('#cim_csere_input').val(),type: 'GET',dataType: 'html',beforeSend: function(x) {
+if (x && x.overrideMimeType) {x.overrideMimeType('text/html; charset=ISO-8859-2');}},
+success: function(data){
+$('#cim_csere_submit').html(data);
+
+}});
+});
+$('#leiras_csere_submit').click(function(){
+$.ajax({url: '//jobbmintatv.pro/ajax.php?leirascsere=&leiras='+$('#leiras_csere_input').val(),type: 'GET',dataType: 'html',beforeSend: function(x) {
+if (x && x.overrideMimeType) {x.overrideMimeType('text/html; charset=ISO-8859-2');}},
+success: function(data){
+$('#leiras_csere_submit').html(data);
+location.reload();
+}});
+});
+$('#imdb_pont_csere_submit').click(function(){
+$.ajax({url: '//jobbmintatv.pro/ajax.php?imdbpontcsere=&pont='+$('#imdb_pont_csere_input').val(),type: 'GET',dataType: 'html',beforeSend: function(x) {
+if (x && x.overrideMimeType) {x.overrideMimeType('text/html; charset=ISO-8859-2');}},
+success: function(data){
+$('#imdb_csere_submit').html(data);
+location.reload();
+}});
+});
+$('#imdb_link_csere_submit').click(function(){
+$.ajax({url: '//jobbmintatv.pro/ajax.php?imdblinkcsere=&imdb='+$('#imdb_link_csere_input').val(),type: 'GET',dataType: 'html',beforeSend: function(x) {
+if (x && x.overrideMimeType) {x.overrideMimeType('text/html; charset=ISO-8859-2');}},
+success: function(data){
+$('#imdb_csere_submit').html(data);
+location.reload();
+}});
+});
+$('#eredeti_csere_submit').click(function(){
+$.ajax({url: '//jobbmintatv.pro/ajax.php?eredeticsere=&eredeti='+$('#eredeti_csere_input').val(),type: 'GET',dataType: 'html',beforeSend: function(x) {
+if (x && x.overrideMimeType) {x.overrideMimeType('text/html; charset=ISO-8859-2');}},
+success: function(data){
+$('#eredeti_csere_submit').html(data);
+location.reload();
+}});
+});
+$('#ajanl').click(function(){
+var bg='#277912';
+if (''=='1'){var bg='#555';}
+$('#ajanl').css('background',bg);
+$.ajax({url: '//jobbmintatv.pro/ajax.php?ajanl=&kibe=',type: 'GET',dataType: 'html',beforeSend: function(x) {
+if (x && x.overrideMimeType) {x.overrideMimeType('text/html; charset=ISO-8859-2');}},
+success: function(data){
+$('#szurkit').html(data);
+}});
+});
+$('.c_rep').click(function(){
+
+apa=$(this).parent().parent().find('.rep_ajax');
+$('.rep_ajax').html('');
+$.ajax({url: '//jobbmintatv.pro/ajax.php?valasz='+$(this).attr('cid'),type: 'GET',dataType: 'html',beforeSend: function(x) {
+if (x && x.overrideMimeType) {x.overrideMimeType('text/html; charset=ISO-8859-2');}},
+success: function(data){
+$(apa).html(data);
+$('#valasz').focus();
+}});
+});
+$('.hasab .lista').hover(function(){
+$('.torles').css('display','none');
+$(this).next('.torles').css('display','inline');
+$(this).next('.torles').next('.torles').css('display','inline');
+});
+$('.hasab').mouseleave(function(){
+$('.torles').css('display','none');
+});
+$('.kedvenc_adatlap').click(function(){
+$(this).attr('info','kedvencekhez adva');
+$('#info').html('kedvencekhez adva');
+$.ajax({url: '//jobbmintatv.pro/ajax.php?fav='+$(this).attr('sid'),type: 'GET',dataType: 'html',beforeSend: function(x) {
+if (x && x.overrideMimeType) {x.overrideMimeType('text/html; charset=ISO-8859-2');}},
+success: function(data){
+$('.kedvenc_adatlap').html(data);
+}});
+});
+$('.kedvenc_szinesz').click(function(){
+$(this).attr('info','kedvencekhez adva');
+$('#info').html('kedvencekhez adva');
+$.ajax({url: '//jobbmintatv.pro/ajax.php?favszin='+$(this).attr('szinid'),type: 'GET',dataType: 'html',beforeSend: function(x) {
+if (x && x.overrideMimeType) {x.overrideMimeType('text/html; charset=ISO-8859-2');}},
+success: function(data){
+$('.kedvenc_szinesz').html(data);
+}});
+});
+$('.kedvenc_video').click(function(){
+$.ajax({url: '//jobbmintatv.pro/ajax.php?fav='+$(this).attr('sid')+'&evad='+$(this).attr('evad')+'&resz='+$(this).attr('resz')+'&sorozat='+$(this).attr('sorozat'),type: 'GET',dataType: 'html',beforeSend: function(x) {
+if (x && x.overrideMimeType) {x.overrideMimeType('text/html; charset=ISO-8859-2');}},
+success: function(data){
+$('.kedvenc_video').html(data);
+}});
+if ($(this).attr('sorozat')=='0'){ $(this).attr('info','rész kedvencekhez adása');$('#info').html('rész kedvencekhez adása');$(this).attr('sorozat','1');}
+else{ $(this).attr('info','kedvencekhez adva');$('#info').html('kedvencekhez adva');}
+});
+
+var timer;
+
+$('#kereses-input').keyup(function(){
+  clearTimeout(timer);
+  var keres=$('#kereses-input').val();
+    
+  var ms=Math.round(Number((5-($('#kereses-input').val().length+0.4))*1000));
+  if (ms<0) ms=200;   
+ 
+  $('#kereses-leugro').css('margin-left','0px');
+  timer = setTimeout(function() {
+  $.ajax({url: '//jobbmintatv.pro/ajax.php?keres='+keres,type: 'GET',dataType: 'html',beforeSend: function(x) {
+  if (x && x.overrideMimeType) {x.overrideMimeType('text/html; charset=ISO-8859-2');}},
+  success: function(data){
+  $('#kereses-leugro-talalat').html(data);
+  }});
+  }, ms);
+});
+
+$('#kereses-input-gomb').click(function(){
+  $('#kereses-leugro').css('margin-left','0px');
+  var keres=$('#kereses-input').val();
+  $.ajax({url: '//jobbmintatv.pro/ajax.php?keres='+keres,type: 'GET',dataType: 'html',beforeSend: function(x) {
+  if (x && x.overrideMimeType) {x.overrideMimeType('text/html; charset=ISO-8859-2');}},
+  success: function(data){
+  $('#kereses-leugro-talalat').html(data);
+}});
+});
+
+$('#kereses-input2').keyup(function(){
+ clearTimeout(timer);
+ var keres=$('#kereses-input2').val(); 
+ 
+ var ms=Math.round(Number((5-($('#kereses-input2').val().length+0.4))*1000));
+ if (ms<0) ms=200;  
+ 
+ timer = setTimeout(function() {     
+ if (keres.length>1){
+ $.ajax({url: '//jobbmintatv.pro/ajax.php?keres2='+keres,type: 'GET',dataType: 'html',beforeSend: function(x) {
+ if (x && x.overrideMimeType) {x.overrideMimeType('text/html; charset=ISO-8859-2');}},
+ success: function(data){
+ $('#sorozatok-menu-leugro #tartalom').html(data);
+ }}); }    
+ }, ms);   
+});
+
+$('#linkdont').focus();
+$('#linkdont').keyup(function(){
+ var link=$('#linkdont').val();
+ var linktor=$('#linktorol').attr('href');
+ var linkmar=$('#linkmarad').attr('href');
+ if (link==1){window.location=linktor;}
+ if (link==2){window.location=linkmar;}
+});
+
+$('.kategoriak a').click(function(){
+$('.kategoriak a').css('background','#25252f');
+$(this).css('background','#313145');
+var kat='friss';
+var kat=$(this).attr('kat');
+$('#tobbi-tartalom').attr('kat',kat);
+$.ajax({url: '//jobbmintatv.pro/ajax.php?kat='+kat,type: 'GET',dataType: 'html',beforeSend: function(x) {
+if (x && x.overrideMimeType) {x.overrideMimeType('text/html; charset=ISO-8859-2');}},
+success: function(data){
+$('#sorozatok-menu-leugro #tartalom').html(data);
+}});
+});
+$('#tobbi-tartalom').click(function(){
+var kat='friss';
+var kat=$('#tobbi-tartalom').attr('kat');
+$.ajax({url: '//jobbmintatv.pro/ajax.php?kat='+kat+'&tobbi=1',type: 'GET',dataType: 'html',beforeSend: function(x) {
+if (x && x.overrideMimeType) {x.overrideMimeType('text/html; charset=ISO-8859-2');}},
+success: function(data){
+$('#sorozatok-menu-leugro #tartalom').html(data);
+}});
+});
+$('#navigacio3 .evadok').click(function(){
+$.ajax({url: '//jobbmintatv.pro/ajax.php?sid='+$(this).attr('sid')+'&evad='+$(this).attr('evad')+'&evadnez='+$(this).attr('evadnez'),
+type: 'GET',dataType: 'html',beforeSend: function(x) {
+if (x && x.overrideMimeType) {x.overrideMimeType('text/html; charset=ISO-8859-2');}},
+success: function(data){
+$('#navigacio3').html(data);
+}});
+});
+});</script>
+<div id="sorozatok-menu-leugro">
+<div id="szurkit"></div>
+<input id="kereses-input2" type="text" name="keres-post"   autocomplete="off" placeholder="Keresés">
+<div class="kategoriak">
+<a kat="friss" style="width:24%;background:#313145;">frissesség</a>
+<a kat="nez" style="width:23%;">nézettség</a>
+<a kat="imdb" style="width:14%;">imdb</a>
+<a kat="filmek" style="width:16%;">filmek</a>
+<a kat="sorozatok" style="width:23%;">sorozatok</a>
+</div><div id="leugro_bezar"> X </div>
+<div id="tartalom">
+
+<a id="tobbi-tartalom" kat="friss"><div>További tartalom...</div></a></div></div>
+<div id="kereses-leugro">
+<input id="kereses-input" type="text" name="keres-post" autocomplete="off" placeholder="Részletes keresés (cimkékben is)">
+<div  id="kereses-input-gomb"><img src="//jobbmintatv.pro/img/search2.png"></div>
+<div id="leugro_bezar2"> X </div><div id="kereses-leugro-talalat"></div>
+</div><!-- (C)2000-2022 Gemius SA - gemiusPrism  / jobbmintatv.online/Aloldal_new -->
+<script type="text/javascript">
+<!--//--><![CDATA[//><!--
+var pp_gemius_identifier = "zDuQnTvvfv6TsslC.p98E8dS73vYNM8WBuvVbVXrjcX.j7";
+var pp_gemius_use_cmp = true;
+var pp_gemius_cmp_timeout = Infinity;
+// lines below shouldn"t be edited
+function gemius_pending(i) { window[i] = window[i] || function() {var x = window[i+"_pdata"] = window[i+"_pdata"] || []; x[x.length]=arguments;};};
+gemius_pending("gemius_hit"); gemius_pending("gemius_event"); gemius_pending("gemius_init"); gemius_pending("pp_gemius_hit"); gemius_pending("pp_gemius_event"); gemius_pending("pp_gemius_init");
+(function(d,t) {try {var gt=d.createElement(t),s=d.getElementsByTagName(t)[0],l="http"+((location.protocol=="https:")?"s":""); gt.setAttribute("async","async");
+gt.setAttribute("defer","defer"); gt.src=l+"://gahu.hit.gemius.pl/xgemius.js"; s.parentNode.insertBefore(gt,s);} catch (e) {}})(document,"script");
+//--><!]]>
+</script>
+<div id="footer">
+<div>
+<a href="//jobbmintatv.pro/">JobbMintATv.pro</a>
+<a href="//jobbmintatv.pro/sugo">Súgó</a>
+<a href="//jobbmintatv.pro/adatvedelem">Adatvédelem</a>
+<a href="//jobbmintatv.pro/jogi_nyilatkozat">Jogi Nyilatkozat</a>
+<a href="//jobbmintatv.pro/ujoldal">Új oldal</a>
+<a href="//jobbmintatv.pro/kapcsolat">Kapcsolat</a>
+<a href="//jobbmintatv.pro/feher">Világos mód</a>
+<a target="_Blank" href="https://discord.gg/ghGdAKxRk3">Discord</a>
+<a href="//jobbmintatv.pro/sorozatok/1/1">Sorozatok</a>
+<a href="//jobbmintatv.pro/filmek/1/1">Filmek</a>
+<a href="//jobbmintatv.pro/csatorna">Csatornák</a>
+
+</div>
+
+<div><p>Az oldal célja egy olyan közösség létrehozása, aminek tagjai egyszerűen tudják megtekinteni és megosztani az őket érdeklő magyar szinkronos sorozatokat és filmeket ingyen és hogy mindezt a lehető legegyszerűbben, legkényelmesebben tegyék meg. Jó szórakozást kívánunk és kínálunk!</p></div>
+</div></div>
+
+
+
+</body>
+</html>

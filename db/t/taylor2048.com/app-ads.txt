@@ -1,0 +1,934 @@
+ <!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Taylor2048</title>
+
+  <link href="style/main.css" rel="stylesheet" type="text/css">
+  <link rel="shortcut icon" href="favicon.png">
+  <link rel="apple-touch-icon" href="meta/taylor-600.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0, maximum-scale=1, user-scalable=no, minimal-ui">
+  <meta property="og:title" content="Taylor2048! - taylor swift 2048 game!" />
+  <meta property="og:url" content="http://taylor2408.com/" />
+  <meta property="og:description" content="This is the cutest version of 2048 swifty! Play 2048 Taylor Swift Albums online." />
+  <meta property="og:image" content="http://taylor2408.com/meta/fbshare3.jpg">
+  <meta property="og:image:type" content="image/jpg">
+  <meta property="og:image:width" content="600">
+  <meta property="og:image:height" content="600">
+
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:title" content="Taylor 2048">
+  <meta property="twitter:image" content="https://taylor2048.com/images/taylor2048.png">
+
+<style>
+  .content-profile {
+    text-align: center;
+    color: black; 
+    font-weight: bold;
+   
+}
+
+    body {
+      margin: 0;
+      padding: 0;
+    }
+
+    footer {
+      background-color: white;
+      padding: 20px;
+      text-align: center;
+    }
+ 
+
+</style>
+<link rel="stylesheet" href="css/pwa.css">
+<link rel="manifest" href="manifest.json">
+<script async src="js/app.js"></script>
+
+<link href="css/style.css?v6.4" rel="stylesheet" type="text/css" id="theme-opt">	  
+
+
+    
+<!-- MODAL -->
+ 
+ 
+ 
+<script>
+ 
+  $(document).ready(function(){
+
+      $("#myModal").modal('show');
+
+  });
+
+</script>
+
+
+
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.8.2.js"></script>
+  
+<style type="text/css">
+  /* Fondo semi-transparente */
+  #overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.7);
+      z-index: 100;
+      display: none;
+  }
+
+  /* Modal */
+  .popup {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%); /* Centrado absoluto */
+      z-index: 101;
+      text-align: center;
+      max-width: 90%;
+      width: 100%;
+  }
+
+  /* Contenedor del modal */
+  .cnt223 {
+      background: #ffffff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      overflow: hidden;
+  }
+
+  .cnt223 p {
+      color: #333333;
+      font-size: 16px;
+      font-family: 'Arial', sans-serif;
+      margin-bottom: 15px;
+  }
+
+  .cnt223 a#MyButton {
+      color: #ffffff;
+      background-color: #28a745;
+      padding: 12px 25px;
+      font-size: 18px;
+      text-decoration: none;
+      border-radius: 10px;
+      font-weight: bold;
+      display: inline-block;
+      margin-top: 10px;
+  }
+
+  .cnt223 a#MyButton:hover {
+      background-color: #218838;
+      cursor: pointer;
+  }
+
+  /* Cerrar el modal */
+  .cnt223 .x {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      font-size: 24px;
+      color: #555;
+  }
+
+  .cnt223 .x:hover {
+      cursor: pointer;
+      color: #ff0000;
+  }
+
+  /* Estilo para las imágenes de los juegos */
+  .modal-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr); /* Tres columnas fijas */
+      gap: 15px;
+      margin-top: 20px;
+      justify-items: center;
+  }
+
+  .modal-column {
+      text-align: center;
+  }
+
+  /* Estilo para las imágenes dentro de las columnas */
+  .modal-column img {
+      width: 100%;
+      max-width: 200px; /* Limitar el tamaño máximo de las imágenes */
+      height: 150px; /* Ajusta el tamaño de las imágenes */
+      object-fit: contain; /* Asegura que la imagen se ajuste sin deformarse */
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .modal-column img:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+  }
+
+  /* Títulos de los juegos */
+  .modal-game-name {
+      font-size: 14px;
+      text-transform: uppercase;
+      font-family: 'Press Start 2P', cursive;
+      color: #28a745;
+      font-weight: bold;
+      margin-top: 10px;
+      display: block;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  }
+
+  .modal-game-name:hover {
+      color: #218838;
+  }
+
+  /* Responsividad */
+  @media (max-width: 1200px) {
+      .modal-row {
+          grid-template-columns: repeat(3, 1fr); /* Tres columnas fijas en pantallas medianas */
+      }
+      .modal-column img {
+          height: 150px; /* Ajuste de tamaño en pantallas medianas */
+      }
+
+      .modal-game-name {
+          font-size: 12px; /* Reducción de tamaño de los títulos */
+      }
+  }
+
+  @media (max-width: 900px) {
+      .modal-row {
+          grid-template-columns: repeat(3, 1fr); /* Tres columnas fijas en pantallas más pequeñas */
+      }
+
+      .modal-column img {
+          height: 120px; /* Ajuste de tamaño en pantallas más pequeñas */
+      }
+
+      .modal-game-name {
+          font-size: 12px; /* Reducción de tamaño de los títulos */
+      }
+  }
+
+  @media (max-width: 600px) {
+      .modal-row {
+          grid-template-columns: repeat(3, 1fr); /* Tres columnas fijas en pantallas muy pequeñas */
+      }
+
+      .modal-column img {
+          height: 100px; /* Reducción del tamaño de las imágenes en pantallas pequeñas */
+      }
+
+      .modal-game-name {
+          font-size: 10px; /* Reducción del tamaño de los títulos en pantallas pequeñas */
+      }
+
+      .cnt223 p {
+          font-size: 14px; /* Ajuste en el tamaño del texto */
+      }
+
+      .cnt223 a#MyButton {
+          padding: 10px 20px;
+          font-size: 16px; /* Ajuste del tamaño del botón */
+      }
+  }
+</style>
+
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+
+
+<script type='text/javascript'>
+
+  $(function(){
+  
+  var overlay = $('<div id="overlay"></div>');
+  
+  overlay.show();
+  
+  overlay.appendTo(document.body);
+  
+  $('.popup').show();
+  
+  $('.close').click(function(){
+  
+  $('.popup').hide();
+  
+  overlay.appendTo(document.body).remove();
+  
+  return false;
+  
+  });
+  
+  
+  
+  
+  
+   
+  
+  
+  
+  $('.x').click(function(){
+  
+  $('.popup').hide();
+  
+  overlay.appendTo(document.body).remove();
+  
+  return false;
+  
+  });
+  
+  });
+  
+  </script>
+  
+  <div class='popup'>
+      <div class='cnt223'>
+          <p style="font-weight: bold; font-size: 20px;">WWW.TAYLOR2048.COM</p>
+  
+          <p class="modal-text">
+              New features added! Now you will see a single advertisement. Thanks for the patience.
+          </p>
+          
+          <!-- Botón separado -->
+          <a href='' class='close' id="MyButton" class="modal-button">PLAY</a>
+          <br><br>
+          <p style="font-weight: bold; font-size: 20px;">TRY NEW GAMES!</p>
+  
+          <!-- Nueva sección con tres celdas -->
+          <div class="modal-row">
+              <!-- Celda 1: Blossom Word Game -->
+              <div class="modal-column">
+                  <a href="https://taylordle.net/taydle/" target="_blank">
+                      <img src="../images/games/taydle.png" alt="taydle">
+                  </a>
+                  <span class="modal-game-name">Taydle</span>
+              </div>
+              <!-- Celda 2: Rangele -->
+              <div class="modal-column">
+                  <a href="https://taylor2048.com/taylortions/daily" target="_blank">
+                      <img src="../images/games/taylortions.png" alt="taylortions">
+                  </a>
+                  <span class="modal-game-name">Taylor Connections</p>
+              </div>
+              <!-- Celda 3: Rangele -->
+              <div class="modal-column">
+                  <a href="https://usernamle.com/rangele/" target="_blank">
+                      <img src="../images/games/rangele.png" alt="Rangele">
+                  </a>
+                  <span class="modal-game-name">Rangele Game</p>
+              </div>
+          </div>
+      </div>
+  </div>
+ 
+ 
+
+<script>
+
+        $(document).ready(function(){
+
+          $('#MyButton').click(function(){
+
+            init();
+
+          });
+
+        });
+
+      </script> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+
+window.adsbygoogle = window.adsbygoogle || [];
+
+const adBreak = adConfig = function(o) {adsbygoogle.push(o);}
+
+</script>
+
+
+
+
+
+
+
+<script>
+
+function init() {
+
+  // Game start logic, show loading screen
+
+  adConfig({
+
+    preloadAdBreaks: 'on',
+
+    onReady: showAd
+
+  });
+
+  // Don't start the gameplay just yet, keep loading.
+
+}
+
+
+
+function showAd() {
+
+  // Show an ad
+
+  adBreak({
+
+    type: 'start',
+
+    //adBreakDone: ,  // always called, unblocks the game logic
+
+   
+
+  });
+
+}
+
+</script>
+
+
+ 
+
+
+
+
+
+<style>
+  #mydiv {
+    text-align: center;
+  }
+
+  .image_full {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: 0 auto; /* Esto centra la imagen en la pantalla */
+  }
+
+  .image_mobile {
+    display: none;
+  }
+
+  @media (max-width: 640px) and (min-width: 320px) {
+    .image_full {
+      display: none;
+    }
+
+    .image_mobile {
+      display: block;
+      max-width: 100%;
+      height: auto;
+    }
+  }
+</style>
+
+
+
+
+
+
+
+
+
+
+
+
+<script async src="../js/cmpgoogle.js"></script>
+
+</head>
+
+<body>
+  
+
+
+
+
+
+  <div class="container">
+    <div class="heading">
+      <h1 class="title">Taylor Swift <span style="color:pink">2</span><span style="color:pink">0</span><span style="color:pink">4</span><span style="color:pink">8</span>
+      </h1>
+
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <div class="scores-container">
+        <div class="score-container">0</div>
+        <div class="best-container">0</div>
+      </div>
+    </div>
+
+    <div class="game-container">
+      <div class="doge-says">
+        <p></p>
+      </div>
+      <div class="info">
+        <!-- <div class="hide-info"><a>HIDE</a></div> -->
+       <p>Use your arrow keys or swipe to combine similar Taylor Swift Albums and score points! </p>
+       <h3>How to win Taylor Swift 2048?</h3>
+       <p>Join the Taylors and Unlock all 11 Taylor Swift Albums to win <b>taylor swift 2048 unblocked</b> game!</p>       
+          <p> 2048 Created by <a href="http://gabrielecirulli.com" target="_blank">Gabriele Cirulli.</a></p> 
+       <p>Based on <a href="https://itunes.apple.com/us/app/1024!/id823499224" target="_blank">1024 by Veewo Studio</a> and conceptually similar to <a href="http://asherv.com/threes/" target="_blank">Threes by Asher Vollmer.</a>
+    </p>
+      </div>
+      <div class="game-message">
+        <p></p>
+        <div class="lower">
+	  <a class="keep-playing-button">Keep going</a>
+          <a class="retry-button">Try again</a>
+          <div class="game-end-fb-share-container">
+            <div class="fb-like" data-href="http://www.taylor2048.com" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid-container">
+        <div class="grid-row">
+          <div class="grid-cell"></div>
+          <div class="grid-cell"></div>
+          <div class="grid-cell"></div>
+          <div class="grid-cell"></div>
+        </div>
+        <div class="grid-row">
+          <div class="grid-cell"></div>
+          <div class="grid-cell"></div>
+          <div class="grid-cell"></div>
+          <div class="grid-cell"></div>
+        </div>
+        <div class="grid-row">
+          <div class="grid-cell"></div>
+          <div class="grid-cell"></div>
+          <div class="grid-cell"></div>
+          <div class="grid-cell"></div>
+        </div>
+        <div class="grid-row">
+          <div class="grid-cell"></div>
+          <div class="grid-cell"></div>
+          <div class="grid-cell"></div>
+          <div class="grid-cell"></div>
+        </div>
+      </div>
+
+      <div class="tile-container">
+
+      </div>
+    </div>
+
+<!--
+    <div id="mydiv">
+      <a href="https://copecart.com/us/products/7d30121c/p/kukoks" rel="nofollow" target="_blank">
+          <img class="image_full" src="/images/desktop.jpg" />
+      </a>
+      <a href="https://copecart.com/us/products/7d30121c/p/kukoks" rel="nofollow" target="_blank">
+          <img class="image_mobile" src="/images/mobile.jpg" />
+      </a>
+  </div>
+-->
+    <p class="game-explanation">Use your arrow keys or swipe to combine similar taylor swifty albums and score points!</p>
+  
+    <div class="info-container">
+      
+      <a class="show-info">INFO</a>
+    </div>
+  </div>
+  <div class="footer">
+    <!-- <div class="fb-like" data-href="http://taylor2408.com" data-layout="button_count" data-action="like" data-show-faces="true" data-share="false"></div> -->
+    <div class="fb-like" data-href="https://www.taylor2408.com" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true"></div>
+    <a href="https://twitter.com/share" class="twitter-share-button" data-text="Check out taylor2408, a game where you join Taylor Swift Albums to score high! #2048game #taylor2048 #taylorswift2048 #taylorswift #taylorswiftgames" data-via="wordgames360" data-url="https://taylor2408.com" data-counturl="https://taylor2408.com">Tweet</a>
+    <!-- <script src="http://cdn.bitmindo.com/dogecoin.min.js"></script> -->
+  </div>
+
+  
+  <script src="js/animframe_polyfill.js"></script>
+  <script src="js/keyboard_input_manager.js"></script>
+  <script src="js/html_actuator.js"></script>
+  <script src="js/grid.js"></script>
+  <script src="js/tile.js"></script>
+  <script src="js/local_score_manager.js"></script>
+  <script src="js/game_manager.js"></script>
+  <script src="js/application.js"></script>
+  <div id="fb-root"></div>
+  <script>
+    (function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=404490936345705";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+  </script>
+  </div>
+  <script>
+    !function(d,s,id){
+        var js,fjs=d.getElementsByTagName(s)[0];
+        if(!d.getElementById(id)){
+            js=d.createElement(s);
+            js.id=id;
+            js.src="https://platform.twitter.com/widgets.js";
+            fjs.parentNode.insertBefore(js,fjs);
+        }
+    }
+    (document,"script","twitter-wjs");</script>
+
+
+
+<footer>
+
+
+  <div id="mainContainer" style="padding: 16px; display: flex; justify-content: center; align-items: center;">
+    <!-- Contenedor para la imagen, el texto y el botón -->
+    <div id="instalarContainer" style="text-align: center; padding: 0; margin: 0;">
+      <img id="instalarImg" src="../images/games/taylor2048.png" alt="Download PWA" style="width: 100px; height: auto; cursor: pointer; margin: 0;">
+      <p class="spcb-h2 text-muted" style="margin-top: 0; margin-bottom: 0;">Taylor 2048 APP</p>
+      <div style="display: flex; align-items: center; margin: 0;">
+        <button id="instalarBtn" style="background-color: #4CAF50; color: white; padding: 15px 32px; text-align: center; text-decoration: none; font-size: 16px; border-radius: 10px; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; margin: 0;">
+          <img src="../images/share/googleplay.webp" alt="Google Play" style="width: 24px; height: 24px; margin-right: 5px; margin: 8;"> Install Now!
+        </button>
+        <p style="margin-left: 10px; margin-bottom: 0; margin: 8;">  4,7★</p>
+      </div>
+    </div>
+  </div>
+  
+
+  <script>
+    let deferredPrompt;
+  
+    window.addEventListener('beforeinstallprompt', event => {
+      event.preventDefault();
+      deferredPrompt = event;
+  
+      // Muestra el contenedor de la imagen y el botón para instalar la PWA
+      document.getElementById('instalarContainer').style.display = 'block';
+  
+      // Agrega un evento clic a la imagen para que el usuario pueda instalar la PWA
+      document.getElementById('instalarImg').addEventListener('click', () => {
+        // Muestra la ventana de instalación
+        deferredPrompt.prompt();
+  
+        // Espera a que el usuario responda
+        deferredPrompt.userChoice
+          .then(choiceResult => {
+            if (choiceResult.outcome === 'accepted') {
+              console.log('El usuario ha aceptado instalar la PWA');
+            } else {
+              console.log('El usuario ha rechazado instalar la PWA');
+            }
+            // Limpia la variable deferredPrompt para que no se muestre la instalación nuevamente
+            deferredPrompt = null;
+          });
+      });
+  
+      // Agrega un evento clic al botón para que el usuario pueda instalar la PWA
+      document.getElementById('instalarBtn').addEventListener('click', () => {
+        // Muestra la ventana de instalación
+        deferredPrompt.prompt();
+  
+        // Espera a que el usuario responda
+        deferredPrompt.userChoice
+          .then(choiceResult => {
+            if (choiceResult.outcome === 'accepted') {
+              console.log('El usuario ha aceptado instalar la PWA');
+            } else {
+              console.log('El usuario ha rechazado instalar la PWA');
+            }
+            // Limpia la variable deferredPrompt para que no se muestre la instalación nuevamente
+            deferredPrompt = null;
+          });
+      });
+    });
+  </script>
+  
+  <style>
+    /* Estilos para centrar vertical y horizontalmente */
+    #instalarContainer {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+  
+    #mainContainer {
+      padding: 12px;
+    }
+  </style>
+  
+</div>
+
+                   
+<div class="row justify-content-center">
+    <div class="col-lg-12">
+        <div class="frames_block">
+            <div class="st-total ">
+                <div>
+                  <div class="st-label">425.1k</div>
+                  <div class="st-shares">
+                    Shares
+                  </div>
+                </div>  
+            </div>                    
+            <a class="share_b" style="background-color:#4267B2" href="cookie/consent_prompt/index-1.htm?u=https://taylor2048.com/" target="_blank" onclick="window.open(this.href,'targetWindow','toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=600,height=400'); return false;">
+                <img src="../images/share/facebook.svg" class="share_i">
+                <span class="we_d">Share</span>
+            </a>                    
+            <a class="share_b" style="background-color:black;color:white" href="https://twitter.com/intent/tweet?text=taylor Swift Games&hashtags=taylortions,taylorswift,taylor2048&url=https://taylor2048.com/taylortions/" target="_blank" onclick="window.open(this.href,'targetWindow','toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=600,height=400'); return false;">
+                <img src="../images/share/twitter.svg" class="share_i">
+                <span class="we_d">Tweet</span>
+            </a>                    
+                         
+            <a class="share_b" style="background-color:#ff4500" href="http://www.reddit.com/submit?url=https://taylor2048.com/&title=" target="_blank" onclick="window.open(this.href,'targetWindow','toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=600,height=400'); return false;">
+                <img src="../images/share/reddit.svg" class="share_i">
+                <span class="we_d">Share</span>
+            </a>                    
+            <a class="share_b" style="background-color:#25d366" href="whatsapp://send?text=https://taylor2048.com/ data-action=" share/whatsapp/share"="" target="_blank" onclick="window.open(this.href,'targetWindow','toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=600,height=400'); return false;">
+                <img src="../images/share/whatsapp.svg" class="share_i">
+                <span class="we_d">Share</span>
+            </a>                    
+            
+            <a class="share_b" style="background-color:#FF7E00;color:white" href="https://classroom.google.com/share?url=https%3A%2F%2Ftaylor2048.com/" target="_blank" onclick="window.open(this.href,'targetWindow','toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=600,height=400'); return false;">
+                <img src="../images/share/classroom.png" class="share_i">
+                <span class="we_d">Share</span>
+            </a>  
+            
+            <a class="share_b" style="background-color:#0088cc" href="https://t.me/share/url?url=https://taylor2048.com/" target="_blank" onclick="window.open(this.href,'targetWindow','toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=600,height=400'); return false;">
+                <img src="../images/share/telegram.svg" class="share_i">
+                <span class="we_d">Share</span>
+            </a>
+        </div>
+    </div>
+</div> 
+
+  <div class="content-profile">
+    <h2>Taylor Swift Games</h2>
+    <p class="mb-0 list-inline-item">Think you are a true swiftie expert? Take one of the thousands of these great <a href="https://taylor2048.com/taylor-swift-games/">Taylor Swift Games</a></p>
+  </div>
+
+
+  <section class="mt-4" style="margin-bottom:44px">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+           
+           
+             
+            <div class="frames_block">
+
+              <a class="we_but" style="background-color:#e2f8ff" href="/taylortions/" target="_blank">
+                <img src="../images/games/taylortions.png" alt="Taylor Swift Connections" class="wemage">
+                <div class="we_d">
+                <b>Taylortions</b><br>
+               Taylor Swift Connections
+                </div>
+            </a> 
+
+              <a class="we_but" style="background-color:#e2f8ff" href="/taylor-suika-game.htm" target="_blank">
+                <img src="../images/games/taylorgame.png" alt="taylorgame" class="wemage">
+                <div class="we_d">
+                <b>Taylor Suika Game</b><br>
+               Taylor Swift balls game
+                </div>
+            </a> 
+
+              <a class="we_but" style="background-color:#e2f8ff" href="/taylordoku.htm" target="_blank">
+                <img src="../images/games/taylordoku.png" alt="taylordoku" class="wemage">
+                <div class="we_d">
+                <b>Taylordoku</b><br>
+               Taylor Swift Songs
+                </div>
+            </a> 
+
+              <a class="we_but" style="background-color:#e2f8ff" href="/swiftsong.htm" target="_blank">
+                <img src="../images/games/swiftsong.png" alt="A wordle-like quiz for Taylor Swift lyrics" class="wemage">
+                <div class="we_d">
+                <b>SwiftSong</b><br>
+                Quiz for Swift lyrics
+                </div>
+            </a> 
+
+              <a class="we_but" style="background-color:#e2f8ff" href="/swiftyle/" target="_blank">
+                <img src="../images/games/swiftyle.png" alt="Swiftyle" class="wemage">
+                <div class="we_d">
+                <b>Swiftyle</b><br>
+                Guess Taylor Swift Songs
+                </div>
+            </a> 
+
+<a class="we_but" style="background-color:#e2f8ff" href="/taylordle.htm" target="_blank">
+                  <img src="/images/games/taylordle.png" alt="Taylordle" class="wemage">
+                  <div class="we_d">
+                  <b>Taylordle</b><br>
+                  Guess the Taylordle Word
+                  </div>
+              </a> 
+
+<a class="we_but" style="background-color:#e2f8ff" href="https://taylor2048.com/swiftle-taylor-swift-heardle/" target="_blank">
+              <img src="/images/games/swiftle.webp" alt="Swiftle" class="wemage">
+              <div class="we_d">
+              <b>Swiftle</b><br>
+              Taylor Swift Heardle
+              </div>
+          </a> 
+
+          <a class="we_but" style="background-color:#e2f8ff" href="https://nealfun.io/how-to-make-taylor-swift-in-infinite-craft/" target="_blank">
+            <img src="../images/games/taylorcraft.png" alt="Infinite Craft taylor swfit" class="wemage">
+            <div class="we_d">
+            <b>Infinite Craft</b><br>
+           Taylor Swift
+            </div>
+        </a> 
+
+</div>
+    </div>
+</div>               
+                
+            </div>
+        </div>
+    </div>
+
+    
+    <section class="bg-half">
+      <div class="container">
+          <div class="row justify-content-center">
+              <div class="col-lg-8 col-md-8 text-center">
+                  <div>
+                      <h2 class="spcb-h1">Taylor Swift 2048</h2>
+
+                      <p class="spcb-h2 text-muted"><b>Taylor Swift 2048</b> presents a puzzle game adaptation based on the timeless 2048 classic. Set on a 4x4 grid, players engage by sliding and merging tiles adorned with images of Taylor Swift, with the ultimate goal of creating a tile bearing the number 2048.
+                          </p>   
+                          
+                          <p class="spcb-h2 text-muted">Are you a devoted follower of Taylor Swift's work and a fervent enthusiast of addictive puzzle games? If so, Taylor Swift 2048 promises an ideal amalgamation for you. Merging the captivating mechanics of the original 2048 with Taylor Swift's iconic music and imagery, this game delivers a distinct and gratifying experience tailored for Swifties and puzzle aficionados alike. The gameplay is straightforward and accessible to players of all ages, yet what sets this game apart is the delightful integration of Taylor Swift's music and album covers into the gaming experience. Immerse yourself in the captivating world of Taylor Swift 2048!
+                          </p> 
+                  </div>
+              </div>
+          </div>
+      </div> 
+  </section>  
+  
+  <section class="bg-half">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 col-md-9">
+                <div class="section-title" style="text-align:left!important;">
+                    <h2 class="spcb_head mb-4" style="text-align:left!important;font-weight:600;font-size:26px">How to play Taylor Swift 2048 Game</h2>
+                    <p class="spcb-h2 text-muted">Like any other game in the same genre, players will start with a grid filled with numbered tiles, and the main goal is to combine matching tiles to create the number 2048. However, instead of showing numbers on the grid, you will see covers of Taylor Swift albums. 
+
+                    </p>         
+
+
+                    <div class="wordle_step"><div class="number">1</div><div class="spcb_text" style="margin-left:26px">Aim to position the highest-numbered tile in one of the corners of the board. This strategy creates a consolidated area for merging tiles, reducing the likelihood of them obstructing each other.</div></div>
+                    <div class="wordle_step"><div class="number">2</div><div class="spcb_text" style="margin-left:26px">Direct the tile with the highest value towards one direction. Once it's nestled in a corner, strive to maintain its position while executing your moves. This allows you to concentrate on merging tiles in the opposite direction, preserving the flow of gameplay.</div></div>
+                    <div class="wordle_step"><div class="number">3</div><div class="spcb_text" style="margin-left:26px">Exercise patience with each move and refrain from haphazard maneuvers. Waiting for opportune moments to merge tiles can be more beneficial than hastily making moves that may impede progress.</div></div>
+                    <p class="spcb-h2 text-muted">
+                      Taylor Swift 2048 isn't just an entertaining and captivating game; it's also a tribute to Taylor Swift's remarkable musical odyssey. It provides fans with a distinctive opportunity to interact with her music while challenging their puzzle-solving prowess. Whether you're a devoted Swiftie or merely seeking a delightful puzzle experience, Taylor Swift 2048 unblocked offers an enjoyable gaming adventure. Prepare to tap, merge, and harmonize with Taylor Swift's melodies as you strive to achieve the ultimate goal.
+
+            </div>
+        </div>
+    </div>
+</section>    
+
+<section class="bg-half">
+  <div class="container">
+      <div class="row justify-content-center">
+          <div class="col-lg-8 col-md-9">
+              <div class="section-title" style="text-align:left!important;">
+                  <h3 class="spcb_head mb-4" style="text-align:left!important;font-weight:600;font-size:26px">Taylor Swift albums in 2048 game</h3>
+                  <p class="spcb-h2 text-muted">Here is a list of the Taylor Switch albums that appear in the game:
+
+                  </p>         
+
+
+                  <div class="wordle_step"><div class="number">1</div><div class="spcb_text" style="margin-left:26px">Taylor Swift (2006)</div></div>
+                  <div class="wordle_step"><div class="number">2</div><div class="spcb_text" style="margin-left:26px">Fearless (2008)</div></div>
+                  <div class="wordle_step"><div class="number">3</div><div class="spcb_text" style="margin-left:26px">Speak Now (2010)</div></div>
+                  <div class="wordle_step"><div class="number">4</div><div class="spcb_text" style="margin-left:26px">Red (2012)</div></div>
+                  <div class="wordle_step"><div class="number">5</div><div class="spcb_text" style="margin-left:26px">1989 (2014)</div></div>
+                  <div class="wordle_step"><div class="number">6</div><div class="spcb_text" style="margin-left:26px">Reputation (2017)</div></div>
+                  <div class="wordle_step"><div class="number">7</div><div class="spcb_text" style="margin-left:26px">Lover (2019)</div></div>
+                  <div class="wordle_step"><div class="number">8</div><div class="spcb_text" style="margin-left:26px">Folklore (2020)</div></div>
+                  <div class="wordle_step"><div class="number">9</div><div class="spcb_text" style="margin-left:26px">Evermore (2020)</div></div>
+                  <div class="wordle_step"><div class="number">10</div><div class="spcb_text" style="margin-left:26px">Midnights (2022)</div></div>
+                  
+          </div>
+      </div>
+  </div>
+</section>   
+
+    
+    <div class="rich-text">
+      <h2 class="spcb_head mb-4" style="text-align:center!important;font-weight:600;font-size:26px">Daily Answers in Game Like Wordle</h2>
+  </div>
+
+
+  <div class="frames_block">
+      
+      <a class="we_but" style="background-color:#e2f8ff" href="daily-answers" target="_blank">
+          <img src="images/games/daily-answers.png" alt="Games like wordle solutions" class="wemage">
+          <div class="we_d">
+          <b>Daily Answers</b><br>
+        Games like wordle solutions
+          </div>
+      </a>       
+      </div>
+             
+</section>  
+
+
+  <div class="container text-center">
+      <div class="row align-items-center">
+          <div class="col-sm-6">
+              <div class="text-sm-start">
+
+                
+                  <p class="mb-0 list-inline-item">© 2025 <a href="https://taylor2048.com/">Taylor2048.com</a></p>
+                  <p class="mb-0 list-inline-item">This website is contributed by game enthusiasts. It is made for fun purposes. taylor2048.com is not affiliated with "Wordle" by NYTimes in any way. taylor2048.com is integrated into the Amazon affiliation system, with this we want to tell you that, without involving an extra cost in your purchase, we earn a small % with each purchase. This web does not own any event or logos depicted within this site. Use of any logos on this website does not constitute a sponsorship or endorsement by the Taylor Swift, or trademark holders.</p>
+              </div>
+          </div>
+
+          <div class="col-sm-6 mt-4 mt-sm-0 pt-2 pt-sm-0">
+              <ul class="list-unstyled text-sm-end mb-0">
+                  <li class="list-inline-item"><a href="terms-conditions">Terms of Use</a></li>
+                  <li class="list-inline-item"> | </li>
+                  <li class="list-inline-item"><a href="dmca">DMCA</a></li>
+                  <li class="list-inline-item"> | </li>
+<li class="list-inline-item"><a href="privacy-policy">Privacy Policy</a></li>
+                  <li class="list-inline-item"> | </li>
+                  <li class="list-inline-item"><a href="mailto:info@taylor2048.com">Contact Us</a></li>
+              </ul>
+          </div>
+      </div>
+  </div>
+</footer>
+
+
+
+
+
+
+</body>
+</html>

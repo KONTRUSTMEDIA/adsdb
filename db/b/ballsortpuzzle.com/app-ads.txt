@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ball Sort Puzzle</title>
+  <meta name="description" content="Play Ball Sort Puzzle online for free! Test your logic and strategy by sorting colorful balls into matching tubes. Fun, addictive, and brain-boosting gameplay for all ages."/>
+  <meta name="keywords" content="Ball Sort Puzzle"/>
+  <link rel="canonical" href="https://www.ballsortpuzzle.com/"/>
+  <meta property="og:title" content="Ball Sort puzzle">
+  <meta property="og:description" content="Play Ball Sort Puzzle online for free! Test your logic and strategy by sorting colorful balls into matching tubes. Fun, addictive, and brain-boosting gameplay for all ages.">
+  <meta property="og:image" content="https://www.ballsortpuzzle.com/ball-sort-puzzle.png">
+  <meta property="og:url" content="https://www.ballsortpuzzle.com/">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <link rel="manifest" href="/manifest.json">
+
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      overflow: hidden;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    .top-bar {
+      height: 30px;
+      background-color: #333;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 12px;
+      position: relative;
+      z-index: 10;
+    }
+
+    .top-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .logo { height: 22px; margin-right: 8px; }
+
+    .game-name {
+      font-size: 14px;
+      font-weight: bold;
+    }
+
+    /* Header button (About) */
+    .header-btn {
+      font-size: 12px;
+      line-height: 1;
+      padding: 6px 10px;
+      border-radius: 6px;
+      border: 1px solid #555;
+      background: #444;
+      color: #fff;
+      cursor: pointer;
+      transition: background .2s ease, border-color .2s ease;
+    }
+    .header-btn:hover { background: #555; border-color: #777; }
+
+    .menu-button {
+      background: none;
+      border: none;
+      cursor: pointer;
+      fill: white;
+      padding: 5px;
+      position: absolute;
+      right: 320px; /* New position */
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    @media (max-width: 1279px) { .menu-button { right: 10px; } }
+
+    .dropdown-menu {
+      position: absolute;
+      top: 30px;
+      right: 300px;
+      background-color: #222;
+      color: white;
+      border-radius: 8px;
+      padding: 10px 0;
+      width: 200px;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+      display: flex;
+      flex-direction: column;
+      opacity: 0;
+      transform: translateY(-10px);
+      pointer-events: none;
+      transition: opacity 0.2s ease, transform 0.2s ease;
+    }
+    .dropdown-menu.open { opacity: 1; transform: translateY(0); pointer-events: auto; }
+
+    .dropdown-menu a {
+      padding: 10px 16px;
+      text-decoration: none;
+      color: white;
+      transition: background 0.2s ease;
+    }
+    .dropdown-menu a:hover { background-color: #444; }
+
+    .container { display: flex; height: calc(100vh - 30px); }
+
+    .main-content {
+      flex: 1;
+      background-color: #000;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .sidebar {
+      width: 300px;
+      background-color: #000000;
+      padding: 10px;
+      box-sizing: border-box;
+    }
+
+    .iframe-wrapper iframe {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      border: none;
+    }
+
+    .overlay {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background-image: url('assets/ball-sort-puzzle-background.png');
+      background-size: cover;
+      background-position: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 5;
+    }
+
+    .preview-box { display: flex; flex-direction: column; align-items: center; }
+
+    .preview-image {
+      width: 260px; height: 145px;
+      object-fit: cover; margin-bottom: 16px; border-radius: 8px;
+    }
+
+    .play-now-button {
+      width: 260px; height: 60px;
+      background-color: white; color: black; border: none; border-radius: 12px;
+      font-size: 18px; font-weight: bold; cursor: pointer; transition: background 0.2s ease;
+    }
+    .play-now-button:hover { background-color: #e5e5e5; }
+
+    @media (max-width: 1279px) { .sidebar { display: none; } .dropdown-menu { right: 10px; } }
+
+    /* ===== Modal (About & How to Play) ===== */
+    .modal {
+      position: fixed;
+      inset: 0;
+      display: none;                 /* hidden by default */
+      align-items: center;
+      justify-content: center;
+      background: rgba(0,0,0,.6);
+      z-index: 9999;
+      padding: 20px;
+    }
+    .modal.open { display: flex; }
+
+    .modal-dialog {
+      width: min(900px, 96vw);
+      max-height: 90vh;
+      overflow: auto;
+      background: #111;
+      color: #eee;
+      border-radius: 14px;
+      box-shadow: 0 20px 60px rgba(0,0,0,.5);
+      padding: 20px 22px;
+    }
+    .modal-header {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 12px; padding-bottom: 8px; border-bottom: 1px solid #222;
+    }
+    .modal-title { font-size: 20px; font-weight: 700; margin: 0; }
+    .close-btn {
+      appearance: none; border: 0; background: #222; color: #eee;
+      border-radius: 8px; padding: 6px 10px; cursor: pointer;
+    }
+    .close-btn:hover { background: #333; }
+
+    .modal-content {
+      line-height: 1.6;
+      font-size: 15px;
+      padding-top: 10px;
+    }
+    .modal-content h1, .modal-content h2, .modal-content h3 {
+      color: #fff; margin: 12px 0 6px;
+    }
+    .modal-content a { color: #9ad; }
+
+    /* Crawlable fallback when JS disabled */
+    noscript section {
+      padding: 12px;
+      max-width: 900px;
+      margin: 0 auto;
+      color: #fff;
+      background: #1a1a1a;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+<body>
+  <div class="top-bar">
+    <div class="top-left">
+      <img class="logo" src="assets/ball-sort-puzzle.png" alt="Ball Sort Puzzle Logo" />
+      <div class="game-name">Ball Sort Puzzle</div>
+      <!-- NEW: About button -->
+      <button class="header-btn" id="aboutBtn" aria-haspopup="dialog" aria-controls="aboutModal">About &amp; How to Play</button>
+    </div>
+    <button class="menu-button" onclick="toggleMenu()" aria-label="Open menu">
+      <svg xmlns="http://www.w3.org/2000/svg" height="20" width="20" viewBox="0 0 20 20" role="img" aria-hidden="true">
+        <path d="M0 3h20v2H0zM0 9h20v2H0zM0 15h20v2H0z"/>
+      </svg>
+    </button>
+    <div class="dropdown-menu" id="dropdownMenu">
+            <a href="https://www.blockblast2048.com">Block Blast 2048</a>
+            <a href="https://www.bubblearound.com" target="_blank">Bubble Around</a>
+            <a href="https://www.bubbleshooter.co/" target="_blank">Bubble Shooter</a>
+            <a href="https://www.solitaire.top/" target="_blank">Solitaire</a>
+            <a href="https://mahjong.direct/" target="_blank">Mahjong</a>
+            <a href="https://www.leveldevil.online/" target="_blank">Level Devil</a>
+            <a href="https://www.bubblespinner.co/" target="_blank">Bubble Spinner</a>
+            <a href="https://www.ballsortpuzzle.com/" target="_blank">Ball Sort Puzzle</a>
+            <a href="http://www.bubblesextreme.com/" target="_blank">Bubble Shooter Extreme</a>
+            <a href="https://www.geometrydash.net/" target="_blank">Geometry Dash</a>
+            <a href="https://www.zumagames.com" target="_blank">Zuma</a>
+            <a href="https://www.mahjongdimensions.com" target="_blank">Mahjong Dimensions</a>
+            <a href="https://www.bubblegame3.net" target="_blank">Bubble Game 3</a>
+            <a href="https://www.bubblehit.net" target="_blank">Bubble Hit</a>
+            <a href="https://play.google.com/store/apps/details?id=com.bubbleshooter.blockblast2048" target="_blank">Block Blast 2048 APP</a>
+            <a href="https://play.google.com/store/apps/details?id=com.bubbleshooter.hexsort" target="_blank">Hexa Sort Puzzle APP</a>
+            <a href="https://play.google.com/store/apps/details?id=com.bubbleshooter.bubblearound" target="_blank">Bubble Around APP</a>
+            <a href="https://www.jopi.com/" target="_blank">Online Games</a>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="main-content" id="mainContent">
+      <div class="overlay" id="overlay">
+        <div class="preview-box">
+          <img src="assets/ball-sort-puzzle.png" alt="Ball Sort Puzzle" class="preview-image" />
+          <button class="play-now-button" onclick="loadGame()">Play Now</button>
+        </div>
+      </div>
+
+      <div class="iframe-wrapper" id="iframeWrapper"></div>
+    </div>
+    <div class="sidebar"></div>
+  </div>
+
+  <!-- ===== About / Description Modal (SEO-friendly content in DOM) ===== -->
+  <div class="modal" id="aboutModal" role="dialog" aria-modal="true" aria-labelledby="aboutTitle">
+    <div class="modal-dialog" role="document" tabindex="-1">
+      <div class="modal-header">
+        <h2 class="modal-title" id="aboutTitle">About Ball Sort Puzzle — Sort Colors, Clear Tubes</h2>
+        <button class="close-btn" id="aboutClose" aria-label="Close description">Close ✕</button>
+      </div>
+      <div class="modal-content" id="aboutContent">
+        <h1>Play Ball Sort Puzzle Online — Free Logic Sorting Game</h1>
+        <p>
+          <strong>Ball Sort Puzzle</strong> is a simple yet addictive logic game. Your goal is to
+          <strong>sort colored balls</strong> so that each tube contains balls of a single color. Move one
+          ball at a time, plan a few steps ahead, and use empty tubes as buffers to avoid deadlocks.
+          Relaxing, brain-boosting, and perfect for short sessions—no download required.
+        </p>
+
+        <h2>How to Play</h2>
+        <ol>
+          <li>Tap/click a tube to pick up the <strong>top ball</strong>, then tap another tube to drop it.</li>
+          <li>You can place a ball only on a tube that is <strong>empty</strong> or has the <strong>same color on top</strong>.</li>
+          <li>You can’t move onto a <strong>full tube</strong>.</li>
+          <li>Complete the level when every tube contains <strong>one color</strong> (or is empty).</li>
+        </ol>
+
+        <h2>Tips &amp; Strategy</h2>
+        <ul>
+          <li><strong>Create a buffer:</strong> Free up at least one empty tube early for flexibility.</li>
+          <li><strong>Build from the bottom:</strong> Try not to bury mismatched colors under correct stacks.</li>
+          <li><strong>Prioritize near-complete tubes:</strong> Finishing one color often opens space elsewhere.</li>
+          <li><strong>Avoid ping-pong:</strong> Two-move cycles waste turns—look for a third tube to break loops.</li>
+          <li><strong>Look ahead:</strong> Visualize two or three moves to prevent getting stuck.</li>
+        </ul>
+
+        <h2>Why Players Love Ball Sort Puzzle</h2>
+        <p>
+          Clean visuals, soothing pacing, and satisfying “aha!” moments make Ball Sort Puzzle great for all ages.
+          It trains planning and pattern recognition without pressure—play free in your browser.
+        </p>
+
+        <h2>FAQ</h2>
+        <h3>Is Ball Sort Puzzle free?</h3>
+        <p>Yes, you can play Ball Sort Puzzle online for free.</p>
+        <h3>Do I need to download anything?</h3>
+        <p>No—press <em>Play Now</em> and start sorting in your browser.</p>
+        <h3>Does it work on mobile?</h3>
+        <p>Yes, it runs in modern mobile browsers with touch controls.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Crawlable fallback if JS is disabled -->
+  <noscript>
+    <section>
+      <h1>Ball Sort Puzzle — Free Online Sorting Game</h1>
+      <p>Move one ball at a time, use empty tubes as buffers, and sort colors so each tube is uniform. Relaxing, brain-boosting play right in your browser.</p>
+    </section>
+  </noscript>
+
+  <!-- Optional: JSON-LD (VideoGame + FAQPage) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "VideoGame",
+    "name": "Ball Sort Puzzle",
+    "url": "https://www.ballsortpuzzle.com/",
+    "image": "https://www.ballsortpuzzle.com/ball-sort-puzzle.png",
+    "genre": ["Puzzle", "Logic", "Sorting"],
+    "playMode": "SinglePlayer",
+    "applicationCategory": "Game",
+    "operatingSystem": "Web Browser",
+    "description": "Ball Sort Puzzle is a logic sorting game. Move one ball at a time, use empty tubes as buffers, and make every tube a single color—free to play online."
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      { "@type": "Question", "name": "Is Ball Sort Puzzle free?", "acceptedAnswer": { "@type": "Answer", "text": "Yes, you can play Ball Sort Puzzle online for free." } },
+      { "@type": "Question", "name": "Do I need to download anything?", "acceptedAnswer": { "@type": "Answer", "text": "No—press Play Now and start sorting in your browser." } },
+      { "@type": "Question", "name": "Does it work on mobile?", "acceptedAnswer": { "@type": "Answer", "text": "Yes, it runs in modern mobile browsers with touch controls." } }
+    ]
+  }
+  </script>
+
+  <script>
+    function toggleMenu() {
+      const menu = document.getElementById('dropdownMenu');
+      menu.classList.toggle('open');
+    }
+
+    document.addEventListener('click', function (e) {
+      const menu = document.getElementById('dropdownMenu');
+      const button = document.querySelector('.menu-button');
+      if (!menu.contains(e.target) && !button.contains(e.target)) {
+        menu.classList.remove('open');
+      }
+    });
+
+    function loadGame() {
+      const overlay = document.getElementById('overlay');
+      const iframeWrapper = document.getElementById('iframeWrapper');
+
+      overlay.style.display = 'none';
+
+      const iframe = document.createElement('iframe');
+      iframe.src = 'https://ubg98.github.io/BallSortPuzzle/';
+      iframeWrapper.appendChild(iframe);
+    }
+
+    // ===== Modal open/close + accessibility =====
+    const aboutBtn = document.getElementById('aboutBtn');
+    const aboutModal = document.getElementById('aboutModal');
+    const aboutClose = document.getElementById('aboutClose');
+    const aboutDialog = aboutModal ? aboutModal.querySelector('.modal-dialog') : null;
+
+    function openAbout() {
+      if (!aboutModal) return;
+      aboutModal.classList.add('open');
+      if (aboutDialog) {
+        aboutDialog.setAttribute('tabindex', '-1');
+        aboutDialog.focus();
+      }
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeAbout() {
+      if (!aboutModal) return;
+      aboutModal.classList.remove('open');
+      document.body.style.overflow = '';
+      if (aboutBtn) aboutBtn.focus();
+    }
+
+    if (aboutBtn) aboutBtn.addEventListener('click', openAbout);
+    if (aboutClose) aboutClose.addEventListener('click', closeAbout);
+
+    if (aboutModal) {
+      aboutModal.addEventListener('click', (e) => {
+        if (e.target === aboutModal) closeAbout();
+      });
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && aboutModal && aboutModal.classList.contains('open')) closeAbout();
+    });
+  </script>
+</body>
+</html>

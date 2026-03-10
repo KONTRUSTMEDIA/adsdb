@@ -1,0 +1,2816 @@
+<!DOCTYPE html>
+<html data-theme='default'>
+<head>
+<meta charset='utf-8'>
+<title>BOLA228 🆔 Agen Mix Parlay Link Taruhan Situs Judi Bola Online Piala Dunia Resmi Terpercaya</title>
+<meta name="keywords" content="bola228, mix parlay, judi bola, situs taruhan bola, piala dunia"/>
+<link rel="icon" type="image/x-icon" href="https://www.venomsoftball1.com/media/2026/favicon.webp" />
+<link rel="apple-touch-icon" href="https://www.venomsoftball1.com/media/2026/favicon.webp">
+<link rel="canonical" href="https://www.venomsoftball1.com/news-updates">
+<link rel="amphtml" href="https://venomsoftball1.pages.dev/" />
+<link as='image' href='https://www.venomsoftball1.com/media/2026/banner-bola228.webp' rel='preload'>
+<link crossorigin href='https://fonts.googleapis.com' rel='preconnect'>
+<link crossorigin href='https://ajax.googleapis.com' rel='preconnect'>
+<link crossorigin href='https://www.googletagmanager.com' rel='preconnect'>
+<link crossorigin href='https://www.gstatic.com' rel='preconnect'>
+<link crossorigin href='https://connect.facebook.net' rel='preconnect'>
+<link rel="stylesheet" href="https://assets.teepublic.com/assets/bundles/product-27efacddfffc4e9541c100011b9e0cf4258b53d4bd8386ac5e37135f3cd07974.css" media="all" />
+<link as='font' crossorigin='anonymous' href='https://assets.teepublic.com/assets/Roobert-Medium-88ba78029f73fa9f18e1e3c31c1f076acdc49223af70a78b2ea4bdbab8168283.woff2' rel='preload' type='font/woff2'>
+<link as='font' crossorigin='anonymous' href='https://assets.teepublic.com/assets/Roobert-SemiBold-9d9c1ae0fc78f67d82c4fc43987857f5b897d29b903701d1e97c2e207311d636.woff2' rel='preload' type='font/woff2'>
+<link as='font' crossorigin='anonymous' href='https://assets.teepublic.com/assets/Roobert-Bold-e95979b74ebe06c1851ece294f8f7e9e6d3ad0d817d1968dcbfb26373f0b4de5.woff2' rel='preload' type='font/woff2'>
+<link as='font' crossorigin='anonymous' href='https://assets.teepublic.com/assets/SharpGroteskBold-f0bacf6ef6410646205690dca3bc65f5bb2d31b9417a358ad9c07237a310d196.woff2' rel='preload' type='font/woff2'>
+<script>
+  (function(h,o,u,n,d) {
+    h=h[d]=h[d]||{q:[],onReady:function(c){h.q.push(c)}}
+    d=o.createElement(u);d.async=1;d.src=n
+    n=o.getElementsByTagName(u)[0];n.parentNode.insertBefore(d,n)
+  })(window,document,'script','https://www.datadoghq-browser-agent.com/us5/v5/datadog-rum.js','DD_RUM')
+  
+  DD_RUM.onReady(function() {
+    DD_RUM.init({
+      clientToken: 'pub8afcb76e7747723499bda481aef4828f',
+      applicationId: '815ab20a-1d12-45bb-9881-005646b95f6b',
+      site: 'us5.datadoghq.com',
+      service: 'teepublic',
+      env: 'production',
+      version: '18173265448-2844-1',
+      sessionSampleRate: 5,
+      sessionReplaySampleRate: 0,
+      traceSampleRate: 5,
+      trackUserInteractions: true,
+      trackResources: true,
+      trackLongTasks: true,
+      defaultPrivacyLevel: 'mask-user-input',
+      allowedTracingUrls: [
+        'https://www.venomsoftball1.com/news-updates',
+        'https://www.venomsoftball1.com/news-updates'
+      ]
+    });
+  })
+</script>
+
+<meta content='F9EF52AA90C6458518CEE48CF835744E' name='msvalidate.01'>
+<meta content='width=device-width, initial-scale=1, maximum-scale=1' name='viewport'>
+<meta content='teepublic' name='cloudinary_cloud_name'>
+<meta content='index, follow' name='robots'>
+<meta content='BOLA228 merupakan agen mix parlay link taruhan situs judi bola online piala dunia resmi terpercaya, yang memberikan promo bonus terbesar untuk semua member setia.'name='description'>
+<meta property="og:title" content="BOLA228 🆔 Agen Mix Parlay Link Taruhan Situs Judi Bola Online Piala Dunia Resmi Terpercaya">
+<meta property="og:description" content="BOLA228 merupakan agen mix parlay link taruhan situs judi bola online piala dunia resmi terpercaya, yang memberikan promo bonus terbesar untuk semua member setia.">
+<meta property="og:price:amount" content="99.00">
+<meta property="og:price:currency" content="USD">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://www.venomsoftball1.com/news-updates">
+<meta property="og:image" content="https://res.cloudinary.com/teepublic/image/private/s--YWqeFj3h--/t_Preview/b_rgb:c62b29,c_lpad,f_jpg,h_630,q_90,w_1200/v1744337506/production/designs/74165272_0.jpg">
+<meta property="og:site_name" content="TeePublic">
+<meta property="product:price:amount" content="23.00">
+<meta property="product:brand" content="TeePublic">
+<meta property="product:price:currency" content="USD">
+<meta property="product:availability" content="in stock">
+<meta property="product:retailer_item_id" content="74165272D1V">
+<meta property="product:condition" content="new">
+<meta content='TeePublic' name='apple-mobile-web-app-title'>
+
+<script>
+  window.dataLayer = window.dataLayer || [];
+</script>
+<script>
+  dataLayer.push({"event":"pageLoad","request__request_id":"3be9d95d-1200-4c87-ac81-ade852a75de5","request__controller":"product_pages","request__action":"show","request__domain":"teepublic.com","request__base_url":"https://www.venomsoftball1.com/news-updates","request__ab_tests":{"con-3051-pasf":"default"},"request__safe_search":true,"request__referring_affiliate_id":null,"request__referring_affiliate_ua_id":null,"request__referring_affiliate_ga4_id":null,"request__referring_affiliate_network_id":null,"locale__locale":"en","locale__currency_iso":"USD","locale__gdprcookie":"all","locale__euvisitor":false,"cart__items":[],"design__design_id":74165272,"design__canvas_id":1,"design__product_id":357,"design__parent_id":"74165272D1V","design__variant_id":"19G79A8C","design__variant":"{\"Gender\":\"Male Fit\",\"Style\":\"Classic T-Shirt\",\"Color\":\"Red\"}","design__mock_image":"https://res.cloudinary.com/teepublic/image/private/s--r5y407gx--/t_Resized Artwork/c_crop,x_10,y_10/c_fit,w_470/c_crop,g_north_west,h_626,w_470,x_0,y_0/g_north_west,u_upload:v1462829021:production:blanks:ypmyd1fntg5klzifbc7n,x_-395,y_-325/b_rgb:eeeeee/c_limit,f_jpg,h_630,q_90,w_630/v1744337506/production/designs/74165272_0.jpg","design__url":"https://www.venomsoftball1.com/news-updates","design__canvas":"T-Shirt","design__canvas_canonical_name":"T-Shirt","design__design_title":"BOLA228 merupakan agen mix parlay link taruhan situs judi bola online piala dunia resmi terpercaya, yang memberikan promo bonus terbesar untuk semua member setia.","design__price":23.0,"design__price_usd":23.0,"design__price_in_currency":23.0,"design__primary_tag":"george-kittle","design__owner_type":"designer","design__owner_id":6075586,"design__on_sale":false,"design__currency_iso":"USD","design__feed_sku":null,"design__designer_name":"Hey siriusly","design__designer_ua_id":null,"design__designer_ga4_id":null,"design__marketing_sku":"74165272D1V19G79A8C"})
+</script>
+<script>
+  window.dataLayer.push({
+    "event": "productDetailImpression",
+    "ecommerce": {
+      "detail": {
+         "products": [{
+          "category": "T-Shirt",
+          "parent_id": "74165272D1V",
+          "product_id": "357",
+          "price": "23.0",
+          "price_usd": "23.0",
+          "name": "George Kittle F Dallas Kittle",
+          "id": "74165272",
+          "brand": "Hey siriusly",
+          "design_color": "Red",
+          "product_image": "https://res.cloudinary.com/teepublic/image/private/s--r5y407gx--/t_Resized Artwork/c_crop,x_10,y_10/c_fit,w_470/c_crop,g_north_west,h_626,w_470,x_0,y_0/g_north_west,u_upload:v1462829021:production:blanks:ypmyd1fntg5klzifbc7n,x_-395,y_-325/b_rgb:eeeeee/c_limit,f_jpg,h_630,q_90,w_630/v1744337506/production/designs/74165272_0.jpg",
+          "variant_id": "19G79A8C",
+          "design_owner_id": "6075586",
+          "design_primary_tag": "george-kittle",
+          "design_on_sale": "false",
+          "variant": '{"Gender":"Male Fit","Style":"Classic T-Shirt","Color":"Red"}',
+            "dimension34": '74165272D1V19G79A8C',
+            "dimension37": 'false',
+            "dimension42": 'https://res.cloudinary.com/teepublic/image/private/s--r5y407gx--/t_Resized Artwork/c_crop,x_10,y_10/c_fit,w_470/c_crop,g_north_west,h_626,w_470,x_0,y_0/g_north_west,u_upload:v1462829021:production:blanks:ypmyd1fntg5klzifbc7n,x_-395,y_-325/b_rgb:eeeeee/c_limit,f_jpg,h_630,q_90,w_630/v1744337506/production/designs/74165272_0.jpg',
+            "dimension44": 'george-kittle',
+            "dimension46": '6075586',
+            "dimension47": 'designer'
+         }]
+       }
+     }
+  });
+</script>
+<!-- Google Analytics -->
+<script type='text/javascript'>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-39467830-1', 'auto');
+ga('require', 'GTM-KL7BC3L');
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+<!-- End Google Analytics -->
+<style>
+  /* KUNCI overflow agar tidak meluber ke kanan */
+  .preview,
+  .m-product-preview__glider,
+  .glide,
+  .glide__track {
+    overflow: hidden !important;
+    max-width: 100% !important;
+  }
+
+  /* Biarkan Glide bekerja normal */
+  .glide__slides {
+    display: flex !important;       /* jaga-jaga */
+    margin: 0 !important;
+    /* rollback kalau sebelumnya sempat dipasang: */
+    contain: none !important;
+  }
+
+  /* Pastikan gambar terlihat dan tidak “ngecil 0” */
+  .glide__slide img,
+  .m-product-preview__glider-img img,
+  .preview .jsProductMainImage {
+    max-width: 100% !important;
+    height: auto !important;
+    display: block !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+  }
+
+  /* Anti scroll horizontal */
+  html, body { overflow-x: hidden !important; }
+</style>
+
+</head>
+<body class='no-user' data-action='lazyload@window-&gt;checkout--checkout#initCheckout' data-controller='checkout--checkout utilities--ab-test utilities--timer' data-utilities--timer-containers--countdown-outlet='.containers--countdown' id='teepublic'>
+
+
+<div class='m-top-banner'>
+<div class='free-shipping'>
+<span class='free-shipping__icon'>
+<span class="teepublicon teepublicon--blue-default teepublicon-background--transparent teepublicon-spacing--right"><img src="https://assets.teepublic.com/assets/teepublicons/truck_primary200-71f9f7038a26ec24cb8c157dca28eb42731aaeb528dacc4cbd3493371be19d8b.svg" loading="lazy" height="20" width="20" aria_hidden="true" focusable="false"></span>
+</span>
+<strong>
+BOLA228
+</strong>
+AGEN MIX PARLAY & SITUS JUDI BOLA
+<strong>
+TERPERCAYA
+</strong>
+</div>
+</div>
+
+
+<header class="vc-header jsHead" data-controller="rudderstack--link-clicked navigation--header navigation--tray-trigger sticky-header" data-rudderstack--link-clicked-location-value="nav-main" data-navigation--header-target="header" data-navigation--tray-trigger-containers--drawer-component-outlet=".jsHeaderTray" data-navigation--tray-trigger-navigation--cart-outlet=".jsCartTray" data-action="showElement@document-&gt;sticky-header#showHeader" data-sticky-header-containers--banner-outlet=".containers--banner" data-sticky-header-rendering-rails-ctrl-value="product_pages"><div class='vc-header__container wrapper'>
+<div class='vc-header__menu-container'>
+<button type="button" class="btn vc-header__shop-button btn--no-space tp-btn--medium btn--no-background" data-rudderstack-event-type="cta" data-action="rudderstack--link-clicked#track navigation--tray-trigger#openTray" data-button-label="Shop" data-targeted-tray="Shop"><span class="teepublicon teepublicon--primary-400 teepublicon-background--transparent"><svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 48 48" width="28" height="28" focusable="false" aria-hidden="true"><path fill-rule="evenodd" d="" clip-rule="evenodd"></path></svg></span>
+<div class='button__content'>
+<span class='vc-header__shop-button-text'>Shop</span>
+
+</div>
+
+</button></div>
+<div class="vc-header-logo"><a aria-label="Home Link" title="Home" href="https://www.venomsoftball1.com/news-updates" class="link vc-header-logo__wrapper link--1 link--default">
+<span class='link__content'>
+<picture>
+  <source srcset="https://www.venomsoftball1.com/media/2026/logo.webp" type="image/webp">
+  <img class="vc-header-logo__image" 
+       src="https://www.venomsoftball1.com/media/2026/logo.webp"
+       style="max-width:150px; height:auto; display:block; margin:0 auto;" 
+       alt="BOLA228 Logo">
+</picture>
+
+
+</span>
+
+</a><div class='vc-header-logo__content'>
+
+</div>
+</div>
+<div class='vc-header__search-container'>
+<div class='m-header__search m-header__search--animate jsHeadSearch inactive' data-navigation--header-target='searchFieldWrapper' data-sticky-header-target='searchRow'>
+<form id="search_form" class="jsHeadSearchForm gtmSearchHeader input-group" action="https://www.venomsoftball1.com/news-updates" accept-charset="UTF-8" method="post"><input type="hidden" name="_method" value="patch" autocomplete="off" /><input type="hidden" name="authenticity_token" value="8vSeoYeGtlUiSjsTwv8MriSNw5KsyqV7SxcuKPWCkOHPWqc69ZHaEMWFV-CLUNdpe3IV90JnlZWjJ2U8fOsR1A" autocomplete="off" />
+<div class='m-header__search-field-container'>
+<div class='m-header__search-field-placeholder-wrapper' data-navigation--header-target='placeholderWrapper'>
+<div class='m-header__search-field-placeholder'>
+<p>Selamat datang di BOLA228, agen mix parlay dan situs judi bola online resmi terpercaya.</p>
+<p>BOLA228 menghadirkan layanan taruhan bola Piala Dunia dengan pasaran lengkap dan odds kompetitif.</p>
+<p>Sistem modern dan tampilan responsif membuat pengalaman taruhan jadi lebih nyaman dan terarah.</p>
+<p>Proses pendaftaran cepat, akses mudah, dan cocok untuk pemain pemula maupun berpengalaman.</p>
+<p>Keamanan data pengguna dijaga dengan sistem perlindungan yang stabil dan terkelola dengan baik.</p>
+<p>Promo bonus terbesar disediakan khusus untuk semua member setia BOLA228.</p>
+<p>BOLA228 menjadi pilihan tepat bagi pecinta judi bola online dan mix parlay berkualitas.</p>
+<p>Situs judi bola online resmi dengan layanan profesional dan performa yang konsisten.</p>
+</div>
+</div>
+<input type="text" name="query" id="jsAutoCompleteHeader" class="form__control m-header__search-field jsHeadSearchField gtmSearchHeaderQuery" data-searchUrl="/search/autocomplete" data-trendingSearchResults="[{&quot;result&quot;:&quot;kpop demon hunters&quot;,&quot;score&quot;:38.23},{&quot;result&quot;:&quot;weird twitter&quot;,&quot;score&quot;:18.57},{&quot;result&quot;:&quot;eagles football&quot;,&quot;score&quot;:17.06},{&quot;result&quot;:&quot;detroit lions&quot;,&quot;score&quot;:16.81},{&quot;result&quot;:&quot;i offended you&quot;,&quot;score&quot;:16.45},{&quot;result&quot;:&quot;i run a tight shipwreck&quot;,&quot;score&quot;:7.38},{&quot;result&quot;:&quot;bad bunny&quot;,&quot;score&quot;:7.13},{&quot;result&quot;:&quot;jane goodall&quot;,&quot;score&quot;:6.8},{&quot;result&quot;:&quot;bad knees&quot;,&quot;score&quot;:6.16},{&quot;result&quot;:&quot;kindness is punk&quot;,&quot;score&quot;:5.91},{&quot;result&quot;:&quot;aunt tifa&quot;,&quot;score&quot;:5.86},{&quot;result&quot;:&quot;steelers football&quot;,&quot;score&quot;:5.7},{&quot;result&quot;:&quot;eyepatch rev&quot;,&quot;score&quot;:4.9},{&quot;result&quot;:&quot;eagles&quot;,&quot;score&quot;:4.41},{&quot;result&quot;:&quot;jaxson dart&quot;,&quot;score&quot;:4.02},{&quot;result&quot;:&quot;buffalo bills&quot;,&quot;score&quot;:3.94},{&quot;result&quot;:&quot;dungeon crawler carl&quot;,&quot;score&quot;:3.89},{&quot;result&quot;:&quot;doctor who&quot;,&quot;score&quot;:3.87},{&quot;result&quot;:&quot;government shutdown&quot;,&quot;score&quot;:3.61},{&quot;result&quot;:&quot;ankylosaurus&quot;,&quot;score&quot;:3.51},{&quot;result&quot;:&quot;chicago bears&quot;,&quot;score&quot;:3.34},{&quot;result&quot;:&quot;crucial catch&quot;,&quot;score&quot;:2.9},{&quot;result&quot;:&quot;sumud flotilla&quot;,&quot;score&quot;:2.82},{&quot;result&quot;:&quot;funny hardhat&quot;,&quot;score&quot;:2.29},{&quot;result&quot;:&quot;haunted by 67&quot;,&quot;score&quot;:2.21},{&quot;result&quot;:&quot;ozzy osbourne&quot;,&quot;score&quot;:2.2},{&quot;result&quot;:&quot;buffalo bills football team&quot;,&quot;score&quot;:2.13},{&quot;result&quot;:&quot;i am aunt tifa&quot;,&quot;score&quot;:2.04},{&quot;result&quot;:&quot;the river city&quot;,&quot;score&quot;:2.0},{&quot;result&quot;:&quot;super mario&quot;,&quot;score&quot;:1.99},{&quot;result&quot;:&quot;rocky horror&quot;,&quot;score&quot;:1.99},{&quot;result&quot;:&quot;halloween 3&quot;,&quot;score&quot;:1.82},{&quot;result&quot;:&quot;michael jordan&quot;,&quot;score&quot;:1.81},{&quot;result&quot;:&quot;creepshow&quot;,&quot;score&quot;:1.81},{&quot;result&quot;:&quot;scott hall&quot;,&quot;score&quot;:1.8},{&quot;result&quot;:&quot;boston celtics&quot;,&quot;score&quot;:1.79},{&quot;result&quot;:&quot;3i atlas&quot;,&quot;score&quot;:1.77},{&quot;result&quot;:&quot;same shit different&quot;,&quot;score&quot;:1.7},{&quot;result&quot;:&quot;chinga la migra&quot;,&quot;score&quot;:1.62},{&quot;result&quot;:&quot;radical left&quot;,&quot;score&quot;:1.61},{&quot;result&quot;:&quot;digimon&quot;,&quot;score&quot;:1.6},{&quot;result&quot;:&quot;halloween cat&quot;,&quot;score&quot;:1.6},{&quot;result&quot;:&quot;tropic thunder&quot;,&quot;score&quot;:1.42},{&quot;result&quot;:&quot;no kings anti trump&quot;,&quot;score&quot;:1.41},{&quot;result&quot;:&quot;no concert today&quot;,&quot;score&quot;:1.41},{&quot;result&quot;:&quot;the life of a showgirl&quot;,&quot;score&quot;:1.4},{&quot;result&quot;:&quot;seven samurai&quot;,&quot;score&quot;:1.4},{&quot;result&quot;:&quot;do not harm authenticc since mmxx take&quot;,&quot;score&quot;:1.4},{&quot;result&quot;:&quot;acdc&quot;,&quot;score&quot;:1.4},{&quot;result&quot;:&quot;ohio state buckeyes&quot;,&quot;score&quot;:1.4},{&quot;result&quot;:&quot;borderlands&quot;,&quot;score&quot;:1.39},{&quot;result&quot;:&quot;star trek&quot;,&quot;score&quot;:1.37},{&quot;result&quot;:&quot;80s movies&quot;,&quot;score&quot;:1.29},{&quot;result&quot;:&quot;max verstappen&quot;,&quot;score&quot;:1.21},{&quot;result&quot;:&quot;robocop&quot;,&quot;score&quot;:1.21},{&quot;result&quot;:&quot;siempre antifascista&quot;,&quot;score&quot;:1.21},{&quot;result&quot;:&quot;pelosi funny&quot;,&quot;score&quot;:1.21},{&quot;result&quot;:&quot;pete rose&quot;,&quot;score&quot;:1.2},{&quot;result&quot;:&quot;macho man fred savage&quot;,&quot;score&quot;:1.2},{&quot;result&quot;:&quot;youngboy masa&quot;,&quot;score&quot;:1.2},{&quot;result&quot;:&quot;dirty dancing&quot;,&quot;score&quot;:1.2},{&quot;result&quot;:&quot;las vegas aces&quot;,&quot;score&quot;:1.2},{&quot;result&quot;:&quot;syracuse&quot;,&quot;score&quot;:1.2},{&quot;result&quot;:&quot;war games&quot;,&quot;score&quot;:1.2},{&quot;result&quot;:&quot;johnny cash&quot;,&quot;score&quot;:1.2},{&quot;result&quot;:&quot;surfing&quot;,&quot;score&quot;:1.19},{&quot;result&quot;:&quot;steelers ireland&quot;,&quot;score&quot;:1.19},{&quot;result&quot;:&quot;iron man&quot;,&quot;score&quot;:1.19},{&quot;result&quot;:&quot;attack on titan&quot;,&quot;score&quot;:1.18},{&quot;result&quot;:&quot;michael myers&quot;,&quot;score&quot;:1.13},{&quot;result&quot;:&quot;resident evil&quot;,&quot;score&quot;:1.1},{&quot;result&quot;:&quot;wait what&quot;,&quot;score&quot;:1.05},{&quot;result&quot;:&quot;wkrp in cincinnati&quot;,&quot;score&quot;:1.01},{&quot;result&quot;:&quot;dodgers baseball&quot;,&quot;score&quot;:1.01},{&quot;result&quot;:&quot;cartoon network&quot;,&quot;score&quot;:1.01},{&quot;result&quot;:&quot;blue velvwt&quot;,&quot;score&quot;:1.01},{&quot;result&quot;:&quot;tombstone&quot;,&quot;score&quot;:1.01},{&quot;result&quot;:&quot;can i lick it&quot;,&quot;score&quot;:1.01},{&quot;result&quot;:&quot;contra&quot;,&quot;score&quot;:1.01},{&quot;result&quot;:&quot;george kittle&quot;,&quot;score&quot;:1.01},{&quot;result&quot;:&quot;rick and morty&quot;,&quot;score&quot;:1.0},{&quot;result&quot;:&quot;knicks basketball&quot;,&quot;score&quot;:1.0},{&quot;result&quot;:&quot;blondie band&quot;,&quot;score&quot;:1.0},{&quot;result&quot;:&quot;cyberpunk edgerunners&quot;,&quot;score&quot;:1.0},{&quot;result&quot;:&quot;drake rapper&quot;,&quot;score&quot;:1.0},{&quot;result&quot;:&quot;benito bowl&quot;,&quot;score&quot;:1.0},{&quot;result&quot;:&quot;battlefront 2&quot;,&quot;score&quot;:1.0},{&quot;result&quot;:&quot;chad powers&quot;,&quot;score&quot;:1.0},{&quot;result&quot;:&quot;slapshot&quot;,&quot;score&quot;:1.0},{&quot;result&quot;:&quot;book lovers&quot;,&quot;score&quot;:1.0},{&quot;result&quot;:&quot;modest mouse&quot;,&quot;score&quot;:1.0},{&quot;result&quot;:&quot;new balance&quot;,&quot;score&quot;:1.0},{&quot;result&quot;:&quot;sunami&quot;,&quot;score&quot;:1.0},{&quot;result&quot;:&quot;youngboy&quot;,&quot;score&quot;:1.0},{&quot;result&quot;:&quot;rock climbing&quot;,&quot;score&quot;:1.0},{&quot;result&quot;:&quot;beanie&quot;,&quot;score&quot;:1.0},{&quot;result&quot;:&quot;halloweentown est 1998&quot;,&quot;score&quot;:1.0},{&quot;result&quot;:&quot;dnd warlock&quot;,&quot;score&quot;:1.0},{&quot;result&quot;:&quot;definitely not a cop&quot;,&quot;score&quot;:1.0},{&quot;result&quot;:&quot;i love fall most of all&quot;,&quot;score&quot;:1.0},{&quot;result&quot;:&quot;renathornton&quot;,&quot;score&quot;:1.0},{&quot;result&quot;:&quot;retro philadelphia phillies&quot;,&quot;score&quot;:1.0},{&quot;result&quot;:&quot;no problemo&quot;,&quot;score&quot;:1.0},{&quot;result&quot;:&quot;weed&quot;,&quot;score&quot;:1.0},{&quot;result&quot;:&quot;school bus driver&quot;,&quot;score&quot;:1.0},{&quot;result&quot;:&quot;chinga tu maga&quot;,&quot;score&quot;:1.0},{&quot;result&quot;:&quot;nj devils&quot;,&quot;score&quot;:1.0},{&quot;result&quot;:&quot;sci fi&quot;,&quot;score&quot;:1.0},{&quot;result&quot;:&quot;possum&quot;,&quot;score&quot;:1.0},{&quot;result&quot;:&quot;replacements band&quot;,&quot;score&quot;:1.0},{&quot;result&quot;:&quot;spite&quot;,&quot;score&quot;:1.0},{&quot;result&quot;:&quot;political protest&quot;,&quot;score&quot;:1.0},{&quot;result&quot;:&quot;scream&quot;,&quot;score&quot;:1.0},{&quot;result&quot;:&quot;dad&quot;,&quot;score&quot;:1.0},{&quot;result&quot;:&quot;red bull&quot;,&quot;score&quot;:1.0},{&quot;result&quot;:&quot;80s tv&quot;,&quot;score&quot;:1.0},{&quot;result&quot;:&quot;pabst blue ribbon&quot;,&quot;score&quot;:0.99},{&quot;result&quot;:&quot;pittsburgh steelers&quot;,&quot;score&quot;:0.93},{&quot;result&quot;:&quot;cleveland browns&quot;,&quot;score&quot;:0.9},{&quot;result&quot;:&quot;eyepatch reveille&quot;,&quot;score&quot;:0.85},{&quot;result&quot;:&quot;rams football&quot;,&quot;score&quot;:0.81},{&quot;result&quot;:&quot;engineer&quot;,&quot;score&quot;:0.81},{&quot;result&quot;:&quot;road house&quot;,&quot;score&quot;:0.81},{&quot;result&quot;:&quot;pigeon&quot;,&quot;score&quot;:0.81},{&quot;result&quot;:&quot;lock em up&quot;,&quot;score&quot;:0.81},{&quot;result&quot;:&quot;patsymahon&quot;,&quot;score&quot;:0.81},{&quot;result&quot;:&quot;jesus meme&quot;,&quot;score&quot;:0.81},{&quot;result&quot;:&quot;darmok and jalad&quot;,&quot;score&quot;:0.81},{&quot;result&quot;:&quot;enemy within&quot;,&quot;score&quot;:0.81},{&quot;result&quot;:&quot;unreliable narrator&quot;,&quot;score&quot;:0.81},{&quot;result&quot;:&quot;miller high life&quot;,&quot;score&quot;:0.81},{&quot;result&quot;:&quot;bernie parent - philadelphia blazers&quot;,&quot;score&quot;:0.81},{&quot;result&quot;:&quot;black keys&quot;,&quot;score&quot;:0.81},{&quot;result&quot;:&quot;rhino&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;gibson guitar&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;disney land&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;oddworld&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;mike mussina in baltimore orioles&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;dressed to impress roblox&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;ryan bingham&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;emmet otter&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;zildjian cymbals&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;no you hang up&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;luigi&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;ace ventura&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;tyler thecreator&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;berserk anime&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;grandpa&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;the growlers&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;the warning&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;care bear&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;protect ya neck&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;poison&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;jason&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;fernando valenzuela&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;pulseretail&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;show business&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;trailer park&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;terry mclaurin washington scary terry&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;liliaamer1&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;9/11&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;rey mysterio&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;demon slayer inosuke&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;ally&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;german shepherd&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;game of thrones&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;lebron&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;dance&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;returns and refund&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;glacier national park montana&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;investor&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;miller lite&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;casper&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;terry funk&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;big boy&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;ny yankees&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;super furry animals&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;one lonely beastie i be&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;dismember band&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;bluey lions&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;revenge of the ninja&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;silence ofthe lambs dog&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;dia de los muertos sugar skull&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;don&#39;t tell mom the babysitter&#39;s dead&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;siouxie and banshees&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;fraggle rock  long sleeved&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;halloween characters&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;river city&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;retro kansas city football vintage chiefs est 1960&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;the life of an eldest daughter&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;manual transmission&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;pete rose vintage&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;light yellow tshirt with green lini g&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;international harvester&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;black cats&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;wonder twins&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;volbeat band&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;smiley&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;they&#39;re coming to get you barbara&quot;,&quot;score&quot;:0.8}]" data-maxresults="6" data-animated="true" data-navigation--header-target="searchField" data-search-history="true" data-search-history-ca-show-notice="false" data-search-history-clear="<span class=&quot;teepublicon teepublicon--color-neutral-400 teepublicon-background--transparent&quot;><svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewbox=&quot;0 0 48 48&quot; width=&quot;16&quot; height=&quot;16&quot; focusable=&quot;false&quot; aria-hidden=&quot;true&quot;><path d=&quot;M6.88 36.879a3 3 0 1 0 4.242 4.242L24 28.243 36.879 41.12a3 3 0 1 0 4.243-4.242L28.243 24l12.879-12.879a3 3 0 1 0-4.243-4.242L24.001 19.757 11.12 6.88a3 3 0 1 0-4.24 4.24L19.758 24 6.879 36.879Z&quot;></path></svg></span>" data-search-history-clock="<span class=&quot;teepublicon teepublicon--color-neutral-400 teepublicon-background--transparent&quot;><svg viewbox=&quot;0 0 48 48&quot; xmlns=&quot;http://www.w3.org/2000/svg&quot; width=&quot;16&quot; height=&quot;16&quot; focusable=&quot;false&quot; aria-hidden=&quot;true&quot;>
+<path d=&quot;M5.98911 7.03107C6.17346 5.73963 7.37897 4.84085 8.6817 5.02359C9.98435 5.20633 10.8909 6.4015 10.7067 7.69285C10.6142 8.34917 10.5458 8.00429 10.4943 8.67678C14.0408 5.75738 18.6173 4 23.603 4C34.8311 4 44 12.918 44 24C44 35.082 34.8311 44 23.603 44C14.4904 44 6.75081 38.1355 4.14317 30.008C3.63659 28.4291 4.51708 26.742 6.10979 26.2398C7.7025 25.7376 9.40432 26.6105 9.9109 28.1894C11.7294 33.8574 17.1586 38 23.603 38C31.5621 38 37.9476 31.6957 37.9476 24C37.9476 16.3043 31.5621 10 23.603 10C20.0968 10 16.8927 11.2244 14.4041 13.2572C15.2972 13.2141 15.1887 13.1278 16.0743 13.0047C17.3768 12.8222 18.5821 13.7209 18.7665 15.0122C18.9508 16.3037 18.0426 17.499 16.7399 17.6817C15.0076 17.9228 14.2854 18.0513 12.5379 17.9598C11.2917 17.8945 9.99833 17.8575 8.80123 17.4672C8.33973 17.3167 7.70293 17.046 7.16659 16.5143C6.63027 15.9826 6.35719 15.3513 6.20541 14.8938C5.76759 13.5741 5.76508 12.1649 5.68671 10.7906C5.59661 9.21028 5.76768 8.59659 5.98911 7.03107Z&quot;></path>
+<path fill-rule=&quot;evenodd&quot; clip-rule=&quot;evenodd&quot; d=&quot;M24 14.5047C25.6569 14.5047 27 15.8478 27 17.5047V24.8061L30.5435 26.9322C31.9642 27.7847 32.4249 29.6274 31.5725 31.0482C30.72 32.4689 28.8773 32.9296 27.4565 32.0772L21 28.2033V17.5047C21 15.8478 22.3431 14.5047 24 14.5047Z&quot;></path>
+</svg></span>" autocomplete="off" spellcheck="false" autocapitalize="off" autocorrect="off" placeholder="" tabIndex="1" />
+<input type="hidden" name="search_submission_data" id="search_submission_data" class="jsAutoCompleteData" autocomplete="off" />
+<input type="hidden" name="search_location" id="search_location" value="header" autocomplete="off" />
+<input type="hidden" name="canvas" id="canvas" value="t-shirts" autocomplete="off" />
+<input type="hidden" name="referred_from_merch" id="referred_from_merch" value="false" autocomplete="off" />
+<input type="hidden" name="artist_search" id="artist_search" class="jsArtistSearchData" autocomplete="off" />
+<div class='m-header__search-close hide jsClearHeaderSearch' data-controller='rudderstack--filter-clicked' data-rudderstack--filter-clicked-location-value='nav-search'>
+<button type="reset" class="btn m-header__search-close-button tp-btn--medium btn--no-background tp-btn--icon"><span data-action="click-&gt;rudderstack--filter-clicked#track" data-cart-id="9a8c68d58aaa0c110ea9655af8a790a4" data-filter-name="Clear Search" class="teepublicon teepublicon--dark-default teepublicon-background--transparent"><svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 48 48" width="12" height="12" aria-labelledby="title"><path d="M6.88 36.879a3 3 0 1 0 4.242 4.242L24 28.243 36.879 41.12a3 3 0 1 0 4.243-4.242L28.243 24l12.879-12.879a3 3 0 1 0-4.243-4.242L24.001 19.757 11.12 6.88a3 3 0 1 0-4.24 4.24L19.758 24 6.879 36.879Z"></path><title>Clear Search</title></svg></span>
+<div class='button__content'>
+
+</div>
+
+</button></div>
+</div>
+<button type="submit" class="btn m-header__search-submit input-group-append tp-btn--medium tp-btn--icon"><span class="teepublicon teepublicon--light-default teepublicon-background--transparent"><svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 48 48" width="16" height="16" aria-labelledby="title"><path fill-rule="evenodd" d="M31.523 35.766a17.393 17.393 0 0 1-10.051 3.178C11.822 38.944 4 31.121 4 21.472 4 11.822 11.822 4 21.472 4c9.65 0 17.472 7.822 17.472 17.472 0 3.741-1.176 7.208-3.178 10.05l7.355 7.356a3 3 0 1 1-4.243 4.243l-7.355-7.355Zm1.42-14.294c0 6.335-5.136 11.471-11.471 11.471s-11.471-5.136-11.471-11.471 5.136-11.471 11.471-11.471 11.471 5.136 11.471 11.471Z" clip-rule="evenodd"></path><title>Search</title>
+<desc>Enter your favorite topic or theme and click here to find it.</desc></svg></span>
+<div class='button__content'>
+
+</div>
+
+</button></form>
+
+</div>
+
+</div>
+<div class='vc-header__actions-container'>
+<div class='vc-header__account'>
+<button type="button" class="btn vc-header__account-button btn--no-space tp-btn--medium btn--no-background" data-rudderstack-event-type="cta" data-action="rudderstack--link-clicked#track navigation--tray-trigger#openTray" data-button-label="Account" data-targeted-tray="Account"><span class="teepublicon teepublicon--primary-400 teepublicon-background--transparent"><svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 48 48" width="28" height="28" focusable="false" aria-hidden="true"><path fill-rule="evenodd" d="M44 24c0 11.046-8.954 20-20 20-11.045 0-20-8.954-20-20S12.956 4 24 4c11.046 0 20 8.954 20 20Zm-13-7a7 7 0 1 1-14 0 7 7 0 0 1 14 0Zm-7 22c-4.745 0-8.672-2.913-10.398-4.432-.596-.525-.736-1.369-.298-2.031C14.564 30.634 17.782 27 24.001 27c6.219 0 9.437 3.634 10.696 5.537.438.662.298 1.506-.298 2.03C32.673 36.088 28.746 39 24.001 39Z" clip-rule="evenodd"></path></svg></span>
+<div class='button__content'>
+<span class='vc-header__account-button-text'>Account</span>
+
+</div>
+
+</button></div>
+<div class='vc-header__cart'>
+<button type="button" class="btn vc-header__cart-button btn--no-space tp-btn--medium btn--no-background" data-rudderstack-event-type="cta" data-action="rudderstack--link-clicked#track navigation--tray-trigger#lazyloadCartTray" data-button-label="Cart" data-targeted-tray="Cart">
+<div class='button__content'>
+<div class="vc-badge-notification jsNotificationBadge vc-header__cart-badge vc-badge-notification--default" data-controller="badges--notification" data-badges--notification-count-value="0"><span class="teepublicon teepublicon--primary-400 teepublicon-background--transparent vc-badge-notification__icon"><svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 48 48" width="28" height="28" focusable="false" aria-hidden="true"><path d="M7 4a3 3 0 1 0 0 6c1.053 0 1.64.11 2.015.332.196.117.747.49 1.026 2.161a770.83 770.83 0 0 0 1.62 9.423c.516 2.863 1.016 5.464 1.34 6.574.348 1.193 1.037 2.88 2.546 4.273 1.575 1.453 3.756 2.322 6.567 2.322H38a3 3 0 1 0 0-6H22.114c-1.501 0-2.168-.428-2.498-.732-.395-.365-.666-.895-.855-1.543a22.139 22.139 0 0 1-.333-1.431c.27.074.52.127.739.16 1.556.224 6.006.506 9.86.455 2.997-.04 5.978-.178 7.658-.456 1.68-.278 4.454-1.678 5.256-3.634C42.896 19.58 44 15.678 44 13.58c0-2.097-.405-3.652-4.191-3.577-2.55.05-5.02.033-7.394.016-1.152-.008-2.282-.016-3.387-.016h-13.41c-.65-2.205-1.848-3.823-3.535-4.827C10.212 4.063 8.187 4 7 4Zm16 36.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0ZM37.5 44a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Z"></path></svg></span>
+<div class="vc-badge-notification__counter vc-header__cart-counter hidden" data-badges--notification-target="counter">0</div>
+
+</div><span class='vc-header__cart-text'>Cart</span>
+
+</div>
+
+</button></div>
+<div class='vc-header__cta'>
+<a data-rudderstack-event-type="cta" data-action="rudderstack--link-clicked#track navigation--tray-trigger#openTray" data-button-label="Create Account" data-targeted-tray="Create Account" id="create-link" href="https://www.venomsoftball1.com/news-updates" class="link vc-header__cta-button btn--no-space btn c-link__button tp-btn--medium link--default link--strong">
+<span class='link__content'>
+BUAT AKUN
+
+</span>
+
+</a></div>
+</div>
+</div>
+</header>
+<div class='m-explore-nav jsExploreNav' data-controller='navigation--tray-trigger rudderstack--link-clicked rudderstack--filter-clicked' data-navigation--tray-trigger-containers--drawer-component-outlet='.jsHeaderTray' data-rudderstack--filter-clicked-location-value='nav-sub' data-rudderstack--link-clicked-location-value='nav-sub'>
+<section class="m-tab-nav m-tab-nav--init m-explore-nav__container wrapper" data-controller="utilities--tab" data-utilities--tab-initial-tab-value="0"><ul class='m-tab-nav__list'>
+<li class="m-tab-nav__item"><a data-action='click-&gt;utilities--tab#changeTab click-&gt;rudderstack--filter-clicked#track' data-cart-id='9a8c68d58aaa0c110ea9655af8a790a4' data-filter-name='Category' data-filter-option-label='Explore Categories' data-tab-nav-index='0' data-utilities--tab-target='tab'>
+Explore Categories
+</a>
+</li>
+<li class="m-tab-nav__item"><a data-action='click-&gt;utilities--tab#changeTab click-&gt;rudderstack--filter-clicked#track' data-cart-id='9a8c68d58aaa0c110ea9655af8a790a4' data-filter-name='Canvas' data-filter-option-label='Popular Products' data-tab-nav-index='1' data-utilities--tab-target='tab'>
+Popular Products
+</a>
+</li>
+</ul>
+<div class='m-tab-nav__content'>
+<div class="m-tab-nav__tab-content" data-utilities--tab-target="content" data-tab-content-index="0"><div class='m-explore-nav__tab-content'>
+<a data-rudderstack-event-type="link" data-action="click-&gt;rudderstack--link-clicked#track" data-link-label="Shop All Designs" data-href="/t-shirts" href="/t-shirts" class="link m-explore-nav__cta link--1 link--default">
+<span class='link__content'>
+Shop All Designs
+</span>
+
+</a>
+<a data-rudderstack-event-type="link" data-action="click-&gt;rudderstack--link-clicked#track" data-link-label="Halloween" data-href="https://www.venomsoftball1.com/news-updates" title="Halloween T-Shirts" href="https://www.venomsoftball1.com/news-updates" class="link m-explore-nav__link link--1 link--default tp-btn--icon"><span class="teepublicon teepublicon--blue-default teepublicon-background--transparent"><img src="https://www.venomsoftball1.com/media/2026/favicon.webp" loading="auto" height="40" width="40" aria_hidden="true" focusable="false"></span>
+<span class='link__content'>
+BOLA228
+
+</span>
+
+</a><a data-rudderstack-event-type="link" data-action="click-&gt;rudderstack--link-clicked#track" data-link-label="Music" data-href="https://www.venomsoftball1.com/news-updates" title="Music T-Shirts" href="https://www.venomsoftball1.com/news-updates" class="link m-explore-nav__link link--1 link--default tp-btn--icon"><span class="teepublicon teepublicon--blue-default teepublicon-background--transparent"><img src="https://www.venomsoftball1.com/media/2026/favicon.webp" loading="auto" height="40" width="40" aria_hidden="true" focusable="false"></span>
+<span class='link__content'>
+MIX PARLAY
+
+</span>
+
+</a><a data-rudderstack-event-type="link" data-action="click-&gt;rudderstack--link-clicked#track" data-link-label="Sports" data-href="https://www.venomsoftball1.com/news-updates" title="Sport T-Shirts" href="https://www.venomsoftball1.com/news-updates" class="link m-explore-nav__link link--1 link--default tp-btn--icon"><span class="teepublicon teepublicon--blue-default teepublicon-background--transparent"><img src="https://www.venomsoftball1.com/media/2026/favicon.webp" loading="auto" height="40" width="40" aria_hidden="true" focusable="false"></span>
+<span class='link__content'>
+JUDI BOLA
+
+</span>
+
+</a><a data-rudderstack-event-type="link" data-action="click-&gt;rudderstack--link-clicked#track" data-link-label="Movies" data-href="https://www.venomsoftball1.com/news-updates" title="Movie T-Shirts" href="https://www.venomsoftball1.com/news-updates" class="link m-explore-nav__link link--1 link--default tp-btn--icon"><span class="teepublicon teepublicon--blue-default teepublicon-background--transparent"><img src="https://www.venomsoftball1.com/media/2026/favicon.webp" loading="auto" height="40" width="40" aria_hidden="true" focusable="false"></span>
+<span class='link__content'>
+SITUS TARUHAN BOLA
+
+</span>
+
+</a><a data-rudderstack-event-type="link" data-action="click-&gt;rudderstack--link-clicked#track" data-link-label="Vintage" data-href="https://www.venomsoftball1.com/news-updates" title="Vintage T-Shirts" href="https://www.venomsoftball1.com/news-updates" class="link m-explore-nav__link link--1 link--default tp-btn--icon"><span class="teepublicon teepublicon--blue-default teepublicon-background--transparent"><img src="https://www.venomsoftball1.com/media/2026/favicon.webp" loading="auto" height="40" width="40" aria_hidden="true" focusable="false"></span>
+<span class='link__content'>
+PIALA DUNIA 2026
+
+</span>
+
+
+</a></div>
+</div>
+
+</a></div>
+</div>
+</div>
+
+</section></div>
+
+<form id="applepay_form" action="/checkout/applepay" accept-charset="UTF-8" method="post"><input type="hidden" name="authenticity_token" value="ftcZb-GKSUWKuED9ZAdlP17f-deDvqmS8t2HWzuG-k2-1-JtQKQigwmLNRgaLuomTN0ZPG3x71D-NcYA6_TJhA" autocomplete="off" /><input type="hidden" name="applepay_nonce" id="applepay_nonce" autocomplete="off" /><input type="hidden" name="applepay_address" id="applepay_address" autocomplete="off" /><input type="hidden" name="applepay_shipping" id="applepay_shipping" autocomplete="off" /><input type="hidden" name="checkout[payment_option]" id="checkout_payment_option" value="ApplePay" autocomplete="off" /></form>
+
+
+
+
+<div class='main-wrapper overflow-hidden'>
+<div id='site'>
+<div id='fb-root'></div>
+<noscript>
+<div class='no-js-warning'>
+You have Javascript disabled. Javascript is required for this site to function properly.
+Please enable Javascript and return here.
+</div>
+</noscript>
+<div id='content'>
+<div class='flash x'>
+</div>
+<script type='application/ld+json'>
+{
+  "@context":    "http://schema.org",
+  "@type":       "Product",
+  "name":        "BOLA228 🆔 Agen Mix Parlay Link Taruhan Situs Judi Bola Online Piala Dunia Resmi Terpercaya",
+  "description": "BOLA228 merupakan agen mix parlay link taruhan situs judi bola online piala dunia resmi terpercaya, yang memberikan promo bonus terbesar untuk semua member setia.",
+  "category":    "T-Shirt",
+  "url":         "https://www.venomsoftball1.com/news-updates",
+  "sku":         "74165272D1V19G79A8C",
+  "image":       {
+                    "@type": "ImageObject",
+                    "url": "https://res.cloudinary.com/teepublic/image/private/s--r5y407gx--/t_Resized Artwork/c_crop,x_10,y_10/c_fit,w_470/c_crop,g_north_west,h_626,w_470,x_0,y_0/g_north_west,u_upload:v1462829021:production:blanks:ypmyd1fntg5klzifbc7n,x_-395,y_-325/b_rgb:eeeeee/c_limit,f_jpg,h_630,q_90,w_630/v1744337506/production/designs/74165272_0.jpg",
+                    "thumbnail": "https://res.cloudinary.com/teepublic/image/private/s--MTEwbo-g--/t_Preview/b_rgb:c62b29,c_limit,f_jpg,h_76,q_90,w_76/v1744337506/production/designs/74165272_0.jpg"
+  },
+  "offers":      {
+    "@type":         "Offer",
+    "priceCurrency": "USD",
+    "price":         "99.00",
+    "availability":  "http://schema.org/InStock",
+    "priceValidUntil": "2025-12-26",
+    "suggestedGender": "http://schema.org/Male",
+    "hasMerchantReturnPolicy": {
+      "@type": "MerchantReturnPolicy",
+      "merchantReturnDays": "29",
+      "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnWindow"
+    }
+  }
+}
+
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Apa itu BOLA228 dan fokus layanannya?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "BOLA228 adalah agen mix parlay dan situs judi bola online resmi terpercaya yang menyediakan berbagai pasaran pertandingan, termasuk ajang besar seperti Piala Dunia, dengan sistem yang tertata dan mudah diakses."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Apakah BOLA228 menyediakan layanan mix parlay?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Ya, BOLA228 menghadirkan opsi mix parlay fleksibel yang memungkinkan pemain menggabungkan beberapa pertandingan dalam satu tiket sesuai dengan strategi taruhan masing-masing."
+      }              
+    },
+    {
+      "@type": "Question",
+      "name": "Bagaimana sistem keamanan dan kepercayaan di BOLA228?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "BOLA228 mengelola sistem dengan pendekatan keamanan yang stabil dan perlindungan data pengguna, serta pengelolaan layanan yang konsisten untuk menjaga kenyamanan dan kepercayaan member."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Apa keunggulan BOLA228 sebagai situs judi bola online terpercaya?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Keunggulan BOLA228 terletak pada pasaran bola yang lengkap, update odds yang konsisten, sistem yang responsif, serta penyajian informasi yang jelas dan mudah dipahami."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Apakah BOLA228 cocok untuk pemain pemula maupun berpengalaman?",
+      "acceptedAnswer": {
+        "@type": "Answer", 
+        "text": "Ya, dengan tampilan yang ramah pengguna, akses mudah, dan layanan yang tertata, BOLA228 dapat digunakan oleh pemain pemula maupun pemain berpengalaman yang ingin fokus pada taruhan bola dan mix parlay."
+      }
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://www.venomsoftball1.com/news-updates",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "BOLA228",
+          "item": "https://www.venomsoftball1.com/news-updates"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "MIX PARLAY",
+          "item": "https://www.venomsoftball1.com/news-updates"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "JUDI BOLA",
+          "item": "https://www.venomsoftball1.com/news-updates"
+        },
+        {
+          "@type": "ListItem",
+          "position": 4,
+          "name": "SITUS TARUHAN BOLA",
+          "item": "https://www.venomsoftball1.com/news-updates"
+        },
+        {
+          "@type": "ListItem",
+          "position": 5,
+          "name": "JUDI BOLA PIALA DUNIA",
+          "item": "https://www.venomsoftball1.com/news-updates"
+        }
+      ]
+    },
+    {
+      "@type": "Product",
+      "@id": "https://www.venomsoftball1.com/news-updates",
+      "name": "BOLA228 🆔 Agen Mix Parlay Link Taruhan Situs Judi Bola Online Piala Dunia Resmi Terpercaya",
+      "description": "BOLA228 merupakan agen mix parlay dan link taruhan situs judi bola online Piala Dunia resmi terpercaya dengan pasaran lengkap, sistem stabil, dan promo bonus terbesar untuk member setia.",
+      "brand": {
+        "@type": "Brand",
+        "name": "BOLA228"
+      },
+      "image": [
+        "https://www.venomsoftball1.com/media/2026/banner-bola228.webp"
+      ],
+      "category": "Sports Betting < Football Betting < Mix Parlay",
+      "offers": {
+        "@type": "Offer",
+        "url": "https://www.venomsoftball1.com/news-updates",
+        "price": "0",
+        "priceCurrency": "IDR",
+        "availability": "https://schema.org/InStock",
+        "itemCondition": "https://schema.org/NewCondition",
+        "seller": {
+          "@type": "Organization",
+          "name": "BOLA228"
+        }
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.8",
+        "reviewCount": "3"
+      },
+      "review": [
+        {
+          "@type": "Review",
+          "author": { "@type": "Person", "name": "Rian Saputra" },
+          "datePublished": "2026-01-12",
+          "name": "Mix Parlay Fleksibel & Mudah Dipahami",
+          "reviewBody": "BOLA228 memberikan pengalaman mix parlay yang rapi dan mudah diatur. Pasaran lengkap dan update odds konsisten membuat taruhan bola terasa lebih terarah.",
+          "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" }
+        },
+        {
+          "@type": "Review",
+          "author": { "@type": "Person", "name": "Fajar Nugroho" },
+          "datePublished": "2026-01-13",
+          "name": "Taruhan Bola Piala Dunia Nyaman",
+          "reviewBody": "Akses cepat dan tampilan responsif sangat membantu saat mengikuti pertandingan Piala Dunia. Sistem stabil dan cocok dimainkan dari mobile.",
+          "reviewRating": { "@type": "Rating", "ratingValue": "4.7", "bestRating": "5" }
+        },
+        {
+          "@type": "Review",
+          "author": { "@type": "Person", "name": "Dewi Anggraini" },
+          "datePublished": "2026-01-14",
+          "name": "Situs Judi Bola Online Terpercaya",
+          "reviewBody": "Informasi pertandingan jelas, navigasi mudah, dan layanan berjalan konsisten. Cocok untuk pemain pemula maupun yang sudah berpengalaman.",
+          "reviewRating": { "@type": "Rating", "ratingValue": "4.8", "bestRating": "5" }
+        }
+      ]
+    }
+  ]
+}
+</script>
+<div class='jsDesignSecretId m-design__secret-id hidden'>
+Design ID:
+74165272
+</div>
+<div class='jsDesignId' style='display: none;'>74165272</div>
+<div class='jsCanvasId' style='display: none;'>1</div>
+<div class='jsDesignOnSale' style='display: none;'>false</div>
+<div class='jsSizeChartCanvasId' style='display:none;'>1</div>
+<div class='m-design jsPdpDesign'>
+<div class='contain contain--wide-3'>
+
+<div class='m-design__content'>
+
+
+<div class='m-design__product' data-controller='rudderstack--link-clicked' data-rudderstack--link-clicked-location-value='pdp'>
+<div class='m-design-details__title'>
+<h1 class='h__h1--sm h--no-s-b' title='George Kittle F Dallas Kittle - George Kittle - T-Shirt'>BOLA228 🆔 Agen Mix Parlay Link Taruhan Situs Judi Bola Online Piala Dunia Resmi Terpercaya</h1>
+<div class='m-design__prices'>
+<span class='m-design__price m-design__price--sale jsProductSalePrice'>
+$16
+</span>
+<span class='m-design__price m-design__price--regular jsProductRegularPrice'>
+$270
+</span>
+</div>
+
+</div>
+<div class='m-design__preview'>
+<div class='m-product-preview' data-controller='rudderstack--filter-clicked' data-rudderstack--filter-clicked-location-value='product_preview'>
+<div class='m-design__admin-tools'>
+<div class='m-design__favorite-button-container' data-controller='rudderstack--filter-clicked design-tile--favorite' data-design-tile--favorite-add-icon-path-value='https://assets.teepublic.com/assets/teepublicons/heart_outline_primary500-aca86b959a2c54c785eda99a573d6d36c710e4020198f005b663335568299452.svg' data-design-tile--favorite-remove-icon-path-value='https://assets.teepublic.com/assets/teepublicons/heart_filled_danger500-e771e023bff5a3a668324db08daf887281d612a4d9e70d5e084c1a9052129bff.svg' data-rudderstack--filter-clicked-account-type-value='guest' data-rudderstack--filter-clicked-location-value='product_preview'>
+<button type="button" class="btn tp-favorite-button tp-favorite-button--inactive tp-btn--medium btn--white" data-action="click-&gt;rudderstack--filter-clicked#track click-&gt;design-tile--favorite#redirectSignUpPage touchstart-&gt;design-tile--favorite#handleTouch mouseenter-&gt;utilities--tooltip#show mouseleave-&gt;utilities--tooltip#hide" data-cart-id="9a8c68d58aaa0c110ea9655af8a790a4" data-filter-name="heart_icon" data-filter-option-label="add_to_favorites" data-controller="utilities--tooltip" data-utilities--tooltip-target="element" data-utilities--tooltip-placement-value="left" data-button-action="add" data-design-id="74165272" data-product-id="357" data-redirect-route="/users/sign_up">
+<div class='button__content'>
+<span class="teepublicon teepublicon--color-neutral-500 teepublicon-background--transparent"><img src="https://assets.teepublic.com/assets/teepublicons/heart_outline_neutral500-d0f44092d0f4b0ebf862fd41310088de645ae521b8525b1ab75997142f61e9a5.svg" loading="lazy" height="20" width="20" aria_hidden="true" focusable="false"></span>
+
+<div class="tp-tooltip tp-favorite-button__tooltip" data-utilities--tooltip-target="tooltip" role="tooltip">Create an account to favorite this design!
+<div class='tp-tooltip--arrow' data-popper-arrow=''></div>
+</div>
+
+</div>
+
+</button>
+</div>
+</div>
+<div class='m-product-preview__main jsProductMainImages'>
+<div class='m-product-preview__gallery'>
+<div class='glide m-product-preview__glider jsProductImgGlide'>
+<div class='m-product-preview__back-flag' style='display: none;'>
+<div class='jsProductPreviewImgLabel'>
+Back
+</div>
+</div>
+<div class='glide__track m-product-preview__glider-track' data-glide-el='track'>
+<ul class='glide__slides'>
+<li class='glide__slide m-product-preview__glider-slide' data-default='active' data-id='0' data-label=''>
+<picture class='m-product-preview__glider-img'>
+<img alt='BOLA228 🆔 Agen Mix Parlay Link Taruhan Situs Judi Bola Online Piala Dunia Resmi Terpercaya by Hey siriusly' class='mockup jsProductMainImage' src='https://www.venomsoftball1.com/media/2026/banner-bola228.webp'>
+</picture>
+</li>
+<li class='glide__slide m-product-preview__glider-slide' data-default='' data-id='1' data-label=''>
+<picture class='m-product-preview__glider-img'>
+<img alt='George Kittle F Dallas Kittle by Hey siriusly' class='preview jsProductMainImage' src='https://www.venomsoftball1.com/media/2026/banner-bola228.webp'>
+</picture>
+</li>
+</ul>
+</div>
+<div class='glide__arrows'>
+<button type="button" class="btn glide__arrow m-product-preview__glider-ctrl next jsGalleryGlideArrowNext tp-btn--medium" aria-label="Next Image" data-action="click-&gt;rudderstack--filter-clicked#track" data-cart-id="9a8c68d58aaa0c110ea9655af8a790a4" data-filter-name="next" tabindex="0">
+<div class='button__content'>
+<span class="teepublicon teepublicon--blue-default teepublicon-background--light-default"><img src="https://assets.teepublic.com/assets/teepublicons/arrow_right_neutral900-2a0eae4c27392751071e1b2af2fb4575bdba340ee7bc9d7dfdd54da1d291348a.svg" loading="lazy" height="24" width="24" aria_hidden="true" focusable="false"></span>
+
+</div>
+
+</button><button type="button" class="btn glide__arrow m-product-preview__glider-ctrl prev jsGalleryGlideArrowPrev tp-btn--medium" aria-label="Previous Image" data-action="click-&gt;rudderstack--filter-clicked#track" data-cart-id="9a8c68d58aaa0c110ea9655af8a790a4" data-filter-name="previous" tabindex="0">
+<div class='button__content'>
+<span class="teepublicon teepublicon--blue-default teepublicon-background--light-default"><img src="https://assets.teepublic.com/assets/teepublicons/arrow_right_neutral900-2a0eae4c27392751071e1b2af2fb4575bdba340ee7bc9d7dfdd54da1d291348a.svg" loading="lazy" height="24" width="24" aria_hidden="true" focusable="false"></span>
+
+</div>
+
+</button></div>
+</div>
+<div class='m-product-preview__thumbs jsProductPreviewThumbs jsProductImgGlideCtrls' data-glide-el='controls'>
+<a data-id="0" href="javascript:void(0);" class="link m-product-preview__thumb jsProductPreviewThumb jsCtrl on">
+<span class='link__content'>
+<picture data-action='click-&gt;rudderstack--filter-clicked#track' data-cart-id='9a8c68d58aaa0c110ea9655af8a790a4' data-filter-name='thumbnail' data-glide-dir='0'>
+<img alt='BOLA228 🆔 Agen Mix Parlay Link Taruhan Situs Judi Bola Online Piala Dunia Resmi Terpercaya by Hey siriusly' class='mockup' loading='lazy' src='https://www.venomsoftball1.com/media/2026/banner-bola228.webp'>
+</picture>
+
+</span>
+
+</a><a data-id="1" href="javascript:void(0);" class="link m-product-preview__thumb jsProductPreviewThumb jsCtrl">
+<span class='link__content'>
+<picture data-action='click-&gt;rudderstack--filter-clicked#track' data-cart-id='9a8c68d58aaa0c110ea9655af8a790a4' data-filter-name='thumbnail' data-glide-dir='1'>
+<img alt='George Kittle F Dallas Kittle by Hey siriusly' class='preview' loading='lazy' src='https://www.venomsoftball1.com/media/2026/banner-bola228.webp'>
+</picture>
+
+</span>
+
+</a></div>
+</div>
+</div>
+</div>
+
+</div>
+<div class='m-design__options' data-controller='rudderstack--checkout-clicked rudderstack--link-clicked' data-rudderstack--checkout-clicked-cart-id-value='9a8c68d58aaa0c110ea9655af8a790a4' data-rudderstack--checkout-clicked-currency-code-value='USD' data-rudderstack--checkout-clicked-discount-usd-value='0.0' data-rudderstack--checkout-clicked-location-value='pdp' data-rudderstack--checkout-clicked-on-sale-savings-usd-value='0.0' data-rudderstack--checkout-clicked-product-revenue-usd-value='0.0' data-rudderstack--checkout-clicked-products-value='[]' data-rudderstack--checkout-clicked-request-action-value='show' data-rudderstack--checkout-clicked-request-controller-value='product_pages' data-rudderstack--link-clicked-location-value='pdp'>
+<div class='m-design__cart-config'>
+<form action='/add_to_cart' class='m-cart-config jsConfigOptions jsConfigForm' method='POST'>
+<div class='m-cart-config__option m-cart-config__option--color jsCartConfigColorOption' data-action='change-&gt;rudderstack--filter-clicked#track' data-cart-id='9a8c68d58aaa0c110ea9655af8a790a4' data-controller='rudderstack--filter-clicked' data-filter-name='color' data-rudderstack--filter-clicked-location-value='product_attributes'>
+<p class='m-cart-config__color-label'>
+<strong>Color: </strong>
+<span class='m-cart-config__color-name jsConfigColorName'>Cyan</span>
+</p>
+<div class='m-cart-config__colors2 jsCartConfigColors jsHorizontalScroll' role='radiogroup'>
+</div>
+</div>
+
+<div class='m-cart-config__option radio-selector' data-action='change-&gt;rudderstack--filter-clicked#track' data-cart-id='9a8c68d58aaa0c110ea9655af8a790a4' data-controller='rudderstack--filter-clicked' data-filter-name='gender' data-rudderstack--filter-clicked-location-value='product_attributes'>
+<div class='m-cart-config__select-label'>
+</div>
+<a href="https://bola228aman.com" class="btn-x">DAFTAR DISINI</a>
+<a href="https://bola228aman.com" class="btn-x">LOGIN DISINI</a>
+
+<style>
+.btn-x{
+  display:inline-block;
+  min-width:200px;       /* panjang minimum tombol */
+  text-align:center;     /* teks di tengah */
+  padding:14px 28px;     /* lebih besar dari 12x18 */
+  margin:5px;
+  background:#ffd700;
+  color:#fff;
+  font-weight:700;
+  border-radius:10px;
+  text-decoration:none;
+  box-shadow:0 2px 6px rgba(0,0,0,.2);
+  cursor:pointer;
+}
+.btn-x:hover{
+  background:#1f2937;    /* warna saat hover */
+}
+/* Sembunyikan total kolom kanan di desktop kalau kosong */
+.right-rail:empty,
+.sidebar:empty,
+.product__aside:empty {
+  display: none !important;
+}
+
+/* Jika pakai grid 2 kolom, jadikan 1 kolom saat kolom kanan hilang */
+.page-grid {
+  display: grid;
+  grid-template-columns: 1fr; /* semula: 1fr 360px */
+  gap: 24px;
+}
+</style>
+</div>
+</div>
+
+<div class='m-cart-config__option radio-selector' data-action='change-&gt;rudderstack--filter-clicked#track' data-cart-id='9a8c68d58aaa0c110ea9655af8a790a4' data-controller='rudderstack--filter-clicked update-label' data-filter-name='style' data-rudderstack--filter-clicked-location-value='product_attributes'>
+<div class='m-cart-config__select-label'>
+Style
+</div>
+<div class='m-cart-config__quick-info-label' data-update-label-target='label'></div>
+<div class='radio-selector__radios radio-selector__radios--wrap jsCartConfigRadio radio-selector__radios--wrap-3 style'>
+<label>
+<input checked class='radio-selector__radio' type='radio' value='79'>
+<span class='radio-selector__select'>BOLA228</span>
+</label>
+<label>
+<input class='radio-selector__radio' type='radio' value='218'>
+<span class='radio-selector__select'>MIX PARLAY</span>
+</label>
+<label>
+<input class='radio-selector__radio' type='radio' value='80'>
+<span class='radio-selector__select'>JUDI BOLA</span>
+</label>
+<label>
+<input class='radio-selector__radio' type='radio' value='395'>
+<span class='radio-selector__select'>SITUS TARUHAN BOLA</span>
+</label>
+<label>
+<input class='radio-selector__radio' type='radio' value='135'>
+<span class='radio-selector__select'>AGEN BOLA</span>
+</label>
+<label>
+<input class='radio-selector__radio' type='radio' value='81'>
+<span class='radio-selector__select'>BANDAR BOLA</span>
+</label>
+<label>
+<input class='radio-selector__radio' type='radio' value='378'>
+<span class='radio-selector__select'>SITUS BOLA</span>
+</label>
+<label>
+<input class='radio-selector__radio' type='radio' value='370'>
+<span class='radio-selector__select'>JUDI BOLA TERPERCAYA</span>
+</label>
+<label>
+<input class='radio-selector__radio' type='radio' value='371'>
+<span class='radio-selector__select'>JUDI BOLA ONLINE</span>
+</label>
+</div>
+</div>
+
+<div class='m-cart-config__option radio-selector' data-action='change-&gt;rudderstack--filter-clicked#track' data-cart-id='9a8c68d58aaa0c110ea9655af8a790a4' data-controller='rudderstack--filter-clicked' data-filter-name='size' data-rudderstack--filter-clicked-location-value='product_attributes'>
+<div class='m-cart-config__select-label'>
+Size
+<a aria-label="Size Chart" data-rudderstack-event-type="link" data-action="click-&gt;rudderstack--link-clicked#track" data-link-label="View Size Chart" data-href="javascript:void(0);" tabindex="0" href="javascript:void(0);" class="link m-cart-config__sizer-mobile-ctrl jsShowSliderSizechart link__cta link__cta--on-light link--small tp-btn--icon"><span class="teepublicon teepublicon--blue-default teepublicon-background--transparent teepublicon-spacing--right"><img src="https://assets.teepublic.com/assets/teepublicons/hanger_primary500-626f3e1864da84e8e4c6f756207b72ced5d4f2cb5912d613828546eb0bf8c478.svg" loading="lazy" height="16" width="16" aria_hidden="true" focusable="false"></span>
+<span class='link__content'>
+View Size Chart
+
+</span>
+
+</a><a aria-label="Size Chart" data-canvas="T-Shirt" data-rudderstack-event-type="link" data-action="click-&gt;rudderstack--link-clicked#track" data-link-label="View Size Chart" data-href="javascript:void(0);" id="gtmSizeChart" tabindex="0" href="javascript:void(0);" class="link m-cart-config__sizechart-desktop-ctrl jsSizechartOpen link__cta link__cta--on-light link--small tp-btn--icon"><span class="teepublicon teepublicon--blue-default teepublicon-background--transparent teepublicon-spacing--right"><img src="https://assets.teepublic.com/assets/teepublicons/hanger_primary500-626f3e1864da84e8e4c6f756207b72ced5d4f2cb5912d613828546eb0bf8c478.svg" loading="lazy" height="16" width="16" aria_hidden="true" focusable="false"></span>
+<span class='link__content'>                                                                                                                                                                  
+PASARAN BOLA
+
+</span>
+
+</a></div>
+<div class='radio-selector__radios radio-selector__radios--wrap jsCartConfigRadio radio-selector__radios--wrap-4 size'>
+<label>
+<input class='radio-selector__radio' type='radio' value='21'>
+<span class='radio-selector__select'>HANDICAP</span>
+</label>
+<label>
+<input class='radio-selector__radio' type='radio' value='22'>
+<span class='radio-selector__select'>OVER/UNDER</span>
+</label>
+<label>
+<input class='radio-selector__radio' type='radio' value='23'>
+<span class='radio-selector__select'>ODD/EVEN</span>
+</label>
+<label>
+<input class='radio-selector__radio' type='radio' value='24'>
+<span class='radio-selector__select'>MIX PARLAY</span>
+</label>
+<label>
+<input class='radio-selector__radio' type='radio' value='25'>
+<span class='radio-selector__select'>DOUBLE CHANCE</span>
+</label>
+<label>
+<input class='radio-selector__radio' type='radio' value='26'>
+<span class='radio-selector__select'>TEBAK SKOR</span>
+</label>
+<label>
+<input class='radio-selector__radio' type='radio' value='83'>
+<span class='radio-selector__select'>SUPER COMBO</span>
+</label>
+<label>
+<input class='radio-selector__radio' type='radio' value='84'>
+<span class='radio-selector__select'>OUTRIGHT/SPECIALS</span>
+</label>
+</div>
+</div>
+
+<div class='m-cart-config__quantity m-cart-config__option'>
+<div class='m-cart-config__select-label'>Quantity</div>
+<div class='m-cart-config__quantity-container'>
+<div class='quantity-stepper__container'>
+<button aria-label='decrement item quantity' class='btn--segmented btn--segmented--neutral quantity-stepper__controls jsQuantityDecrement' data-action='click-&gt;rudderstack--filter-clicked#track' data-cart-id='9a8c68d58aaa0c110ea9655af8a790a4' data-controller='rudderstack--filter-clicked' data-filter-name='quantity' data-input-type='increment' data-rudderstack--filter-clicked-location-value='product_attributes' type='button'>-</button>
+<input class='form-control jsProductPageQuantity jsQuantityStepper' data-action='change-&gt;rudderstack--filter-clicked#track' data-cart-id='9a8c68d58aaa0c110ea9655af8a790a4' data-controller='rudderstack--filter-clicked' data-filter-name='quantity' data-rudderstack--filter-clicked-location-value='product_attributes' id='jsProductPageQuantity' max='100' min='1' name='quantity' tabindex='-1' type='number' value='1'>
+<button aria-label='increment item quantity' class='btn--segmented btn--segmented--neutral quantity-stepper__controls jsQuantityIncrement' data-action='click-&gt;rudderstack--filter-clicked#track' data-cart-id='9a8c68d58aaa0c110ea9655af8a790a4' data-controller='rudderstack--filter-clicked' data-filter-name='quantity' data-input-type='increment' data-rudderstack--filter-clicked-location-value='product_attributes' type='button'>+</button>
+</div>
+
+</div>
+</div>
+<input class='field' id='canvas_id' type='hidden' value='1'>
+<input class='field' id='product_id' type='hidden' value='357'>
+
+</form>
+
+</div>
+<div class='cqd-banner m-design__cqd-banner'>
+<div class='cqd-banner__container'>
+<div class="tp-text-note cqd-banner__banner tp-text-note--information tp-text-note--on-light"><span class="teepublicon teepublicon--blue-default teepublicon-background--transparent tp-text-note--icon"><svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 48 48" width="24" height="24" focusable="false" aria-hidden="true"><path d="M28.595 5.507c-.198-1.463-1.789-2.005-2.847-.976-2.148 2.09-5.57 5.816-9.26 11.392-3.87 5.85-5.614 9.665-6.377 11.688-.372.988.222 1.917 1.273 2.005 1.357.113 3.646.222 7.416.222h.023c-.015.711-.024 1.458-.024 2.242 0 4.794.308 8.222.606 10.416.198 1.463 1.788 2.005 2.847.976 2.148-2.089 5.57-5.816 9.259-11.392 3.87-5.85 5.615-9.665 6.377-11.688.372-.988-.221-1.917-1.273-2.004-1.357-.113-3.645-.223-7.415-.223h-.023c.015-.711.024-1.458.024-2.242 0-4.794-.308-8.222-.606-10.416Z"></path></svg></span>
+<div class='tp-text-note__body'>
+
+<p class='tp-text-note__text'>
+Get <span class="strong">Unlock 15%</span> OFF Instantly When You Buy <span class="strong">5+ BOLA228
+
+</p>
+
+</div>
+</div></div>
+</div>
+<div class='m-design__tip-container jsProductTips' style=''>
+
+</div>
+<div class='m-design__buy-ctas'>
+<div class='m-design__cart-buy-now jsApplePayCheckout hidden apple-pay-button-with-text' data-action='click-&gt;utilities--ab-test#endTestClick click-&gt;rudderstack--checkout-clicked#track' data-checkout--checkout-target='applePayBuyNow' data-designId='74165272' data-rudderstack-checkout-type='apple-pay'></div>
+
+<button class='m-design__cart-add btn btn--big btn--full jsAddToCart' data-action='click-&gt;rudderstack--link-clicked#track' data-design='74165272' data-link-label='BOLA228' data-rudderstack-event-type='cta'>
+BOLA228
+</button>
+
+</div>
+<div class='guarantee m-design__guarantee'>
+<span class="teepublicon teepublicon--blue-default teepublicon-background--transparent">
+  <img src="https://www.venomsoftball1.com/media/2026/logo.webp" 
+       alt="BOLA228 Badge" 
+       loading="lazy" 
+       style="max-width:80px; height:auto; display:block;">
+</span>
+<div class='guarantee__text'>
+<p>
+Perfection made simple.
+<strong>Zero fees, zero hassle.</strong>
+</p>
+<a data-controller="rudderstack--link-clicked" data-rudderstack--link-clicked-location-value="pdp" data-rudderstack-event-type="link" data-action="click-&gt;rudderstack--link-clicked#track" data-link-label="BOLA228" data-href="https://www.venomsoftball1.com/news-updates" target="_blank" href="https://www.venomsoftball1.com/news-updates" class="link link__cta link__cta--on-light link--default">
+<span class='link__content'>
+BOLA228
+
+</span>
+
+</a></div>
+</div>
+
+<div class='m-design-details__description' data-controller='utilities--read-more'>
+<h3 class='m-design-details__description-title'>Description</h3>
+<p class='m-design-details__description-text' data-utilities--read-more-target='content'>
+BOLA228 merupakan agen mix parlay link taruhan situs judi bola online piala dunia resmi terpercaya, yang memberikan promo bonus terbesar untuk semua member setia.
+</p>
+<button type="button" class="btn m-design-details__description-button tp-btn--medium btn--no-background btn--cta btn--cta--on-light" data-utilities--read-more-target="showMoreBtn" data-action="utilities--read-more#showMore" style="display:none;">
+<div class='button__content'>
+Read more
+</div>
+
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class='m-similar-designs jsSimilarProducts'>
+
+</div>
+<div class="m-tab-nav__tab-content" data-also-available-products-target="tilesContainer" data-category-content="adult_apparel" data-utilities--tab-target="content" data-tab-content-index="1"></div>
+<div class="m-tab-nav__tab-content" data-also-available-products-target="tilesContainer" data-category-content="kids_apparel" data-utilities--tab-target="content" data-tab-content-index="2"></div>
+<div class="m-tab-nav__tab-content" data-also-available-products-target="tilesContainer" data-category-content="accessories" data-utilities--tab-target="content" data-tab-content-index="3"></div>
+<div class="m-tab-nav__tab-content" data-also-available-products-target="tilesContainer" data-category-content="home_goods" data-utilities--tab-target="content" data-tab-content-index="4"></div>
+</div>
+<div data-also-available-products-target="loader" class="tp-loader m-tab-nav__loader tp-loader--inline hidden"><div class='tp-loader__spinner updating tp-loader__spinner--inline'></div>
+</div>
+</section>
+</div>
+</div>
+<div class='m-design__ratings'>
+<h3 class='m-design__ratings-heading'>People Love TeePublic!</h3>
+<div class='m-design__ratings-services'>
+<div class='m-design__ratings-service'>
+<div class='m-design__ratings-service-name'>Trustpilot Rating</div>
+<div class='m-design__ratings-service-stars'>
+<span class="teepublicon teepublicon--blue-default teepublicon-background--transparent"><img src="https://assets.teepublic.com/assets/teepublicons/star_warning400-140c727473c9c31e0f5d9ffc791a31dc3ba8dfccc44380702fd86fd805ef817d.svg" loading="lazy" height="20" width="20" aria_hidden="true" focusable="false"></span>
+<span class="teepublicon teepublicon--blue-default teepublicon-background--transparent"><img src="https://assets.teepublic.com/assets/teepublicons/star_warning400-140c727473c9c31e0f5d9ffc791a31dc3ba8dfccc44380702fd86fd805ef817d.svg" loading="lazy" height="20" width="20" aria_hidden="true" focusable="false"></span>
+<span class="teepublicon teepublicon--blue-default teepublicon-background--transparent"><img src="https://assets.teepublic.com/assets/teepublicons/star_warning400-140c727473c9c31e0f5d9ffc791a31dc3ba8dfccc44380702fd86fd805ef817d.svg" loading="lazy" height="20" width="20" aria_hidden="true" focusable="false"></span>
+<span class="teepublicon teepublicon--blue-default teepublicon-background--transparent"><img src="https://assets.teepublic.com/assets/teepublicons/star_warning400-140c727473c9c31e0f5d9ffc791a31dc3ba8dfccc44380702fd86fd805ef817d.svg" loading="lazy" height="20" width="20" aria_hidden="true" focusable="false"></span>
+<span class="teepublicon teepublicon--blue-default teepublicon-background--transparent"><img src="https://assets.teepublic.com/assets/teepublicons/star_half_warning400-9c7cfa17d17f2c09f38dcb6a7a16abe5c16e8a8b4153c91472d7d8ac39798e4e.svg" loading="lazy" height="20" width="20" aria_hidden="true" focusable="false"></span>
+</div>
+<div class='m-design__ratings-details'>4.9 out of 5</div>
+</div>
+<div class='m-design__ratings-service'>
+<div class='m-design__ratings-service-name'>Zendesk Satisfaction Rating</div>
+<div class='m-design__ratings-service-stars'>
+<span class="teepublicon teepublicon--blue-default teepublicon-background--transparent"><img src="https://assets.teepublic.com/assets/teepublicons/star_warning400-140c727473c9c31e0f5d9ffc791a31dc3ba8dfccc44380702fd86fd805ef817d.svg" loading="lazy" height="20" width="20" aria_hidden="true" focusable="false"></span>
+<span class="teepublicon teepublicon--blue-default teepublicon-background--transparent"><img src="https://assets.teepublic.com/assets/teepublicons/star_warning400-140c727473c9c31e0f5d9ffc791a31dc3ba8dfccc44380702fd86fd805ef817d.svg" loading="lazy" height="20" width="20" aria_hidden="true" focusable="false"></span>
+<span class="teepublicon teepublicon--blue-default teepublicon-background--transparent"><img src="https://assets.teepublic.com/assets/teepublicons/star_warning400-140c727473c9c31e0f5d9ffc791a31dc3ba8dfccc44380702fd86fd805ef817d.svg" loading="lazy" height="20" width="20" aria_hidden="true" focusable="false"></span>
+<span class="teepublicon teepublicon--blue-default teepublicon-background--transparent"><img src="https://assets.teepublic.com/assets/teepublicons/star_warning400-140c727473c9c31e0f5d9ffc791a31dc3ba8dfccc44380702fd86fd805ef817d.svg" loading="lazy" height="20" width="20" aria_hidden="true" focusable="false"></span>
+<span class="teepublicon teepublicon--blue-default teepublicon-background--transparent"><img src="https://assets.teepublic.com/assets/teepublicons/star_half_warning400-9c7cfa17d17f2c09f38dcb6a7a16abe5c16e8a8b4153c91472d7d8ac39798e4e.svg" loading="lazy" height="20" width="20" aria_hidden="true" focusable="false"></span>
+</div>
+<div class='m-design__ratings-details'>4.9 out of 5</div>
+</div>
+<div class='m-design__ratings-service'>
+<div class='m-design__ratings-service-name'>Google Customer Reviews</div>
+<div class='m-design__ratings-service-stars'>
+<span class="teepublicon teepublicon--blue-default teepublicon-background--transparent"><img src="https://assets.teepublic.com/assets/teepublicons/star_warning400-140c727473c9c31e0f5d9ffc791a31dc3ba8dfccc44380702fd86fd805ef817d.svg" loading="lazy" height="20" width="20" aria_hidden="true" focusable="false"></span>
+<span class="teepublicon teepublicon--blue-default teepublicon-background--transparent"><img src="https://assets.teepublic.com/assets/teepublicons/star_warning400-140c727473c9c31e0f5d9ffc791a31dc3ba8dfccc44380702fd86fd805ef817d.svg" loading="lazy" height="20" width="20" aria_hidden="true" focusable="false"></span>
+<span class="teepublicon teepublicon--blue-default teepublicon-background--transparent"><img src="https://assets.teepublic.com/assets/teepublicons/star_warning400-140c727473c9c31e0f5d9ffc791a31dc3ba8dfccc44380702fd86fd805ef817d.svg" loading="lazy" height="20" width="20" aria_hidden="true" focusable="false"></span>
+<span class="teepublicon teepublicon--blue-default teepublicon-background--transparent"><img src="https://assets.teepublic.com/assets/teepublicons/star_warning400-140c727473c9c31e0f5d9ffc791a31dc3ba8dfccc44380702fd86fd805ef817d.svg" loading="lazy" height="20" width="20" aria_hidden="true" focusable="false"></span>
+<span class="teepublicon teepublicon--blue-default teepublicon-background--transparent"><img src="https://assets.teepublic.com/assets/teepublicons/star_half_warning400-9c7cfa17d17f2c09f38dcb6a7a16abe5c16e8a8b4153c91472d7d8ac39798e4e.svg" loading="lazy" height="20" width="20" aria_hidden="true" focusable="false"></span>
+</div>
+<div class='m-design__ratings-details'>4.6 out of 5</div>
+</div>
+</div>
+</div>
+
+<div class='m-design__inline-search'>
+<h3 class='m-design__inline-search__header h--no-s-t'>
+Not what you're looking for?
+<br class='mobile-break'>
+Try another search.
+</h3>
+<div class='m-design__inline-search__search-container'>
+<div class="c-search-form c-search-form--rainbow"><form id="productPageSearch" class="c-search-form__search gtmproductPageSearch" action="https://www.venomsoftball1.com/news-updates" accept-charset="UTF-8" method="post"><input type="hidden" name="_method" value="patch" autocomplete="off" /><input type="hidden" name="authenticity_token" value="WqdN_WXrX6Na7SUrf7lbwZt_QM57bq_hTf22P0YlO3xnCXRmF_wz5r0iSdg2FoAGxICWq5XDnw-lzf0rz0y6SQ" autocomplete="off" />
+<div class='form__fields form__fields--inline'>
+<div class='form__fields--autocomplete-search-inline'>
+<input type="text" name="query" id="jsAutoCompleteproductPage" placeholder="Search by topic, theme, product..." data-searchUrl="/search/autocomplete" data-maxresults="6" class="form__control jsproductPageSearchField gtmproductPageSearchQuery" autocomplete="off" spellcheck="false" autocapitalize="off" autocorrect="off" />
+<input type="hidden" name="canvas" value="t-shirts" autocomplete="off" />
+<input type="hidden" name="search_location" value="productPage" autocomplete="off" />
+<input type="hidden" name="search_submission_data" value="{&quot;used_autocomplete&quot;:false,&quot;feedback&quot;:null,&quot;selection&quot;:null,&quot;search_input_id&quot;:&quot;jsAutoCompleteproductPage&quot;}" autocomplete="off" />
+</div>
+<div class='form__actions form__actions--no-margin-mobile'>
+<button name="button" type="submit" class="btn btn--black btn--no-space query-submit gtmproductPageSearchButton "><span class="teepublicon teepublicon--blue-default teepublicon-background--transparent"><img src="https://assets.teepublic.com/assets/teepublicons/search_white-dfea27fafd855fea17a6c1835adec7b24d92ae54796f2c4251028698a51cc679.svg" loading="lazy" alt="Search" height="16" width="16" aria_hidden="false" focusable="true"></span>
+</button></div>
+</div>
+</form>
+</div>
+</div>
+</div>
+
+<title>FAQ & Review BOLA228</title>
+
+<style>
+/* ===== GLOBAL ===== */
+body {
+  font-family: Arial, sans-serif;
+  background: #ffffff;
+  color: #000;
+}
+
+.container {
+  max-width: 900px;
+  margin: 30px auto;
+}
+
+/* ===== FAQ ===== */
+h2 {
+  margin: 25px 0 15px;
+}
+
+.faq-item {
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+
+.faq-q {
+  width: 100%;
+  background: #f2f2f2;
+  color: #000;
+  padding: 12px 14px;
+  border: none;
+  text-align: left;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.faq-a {
+  display: none;
+  background: #ffffff;
+  color: #000;
+  padding: 12px 14px;
+  line-height: 1.6;
+}
+
+/* ===== REVIEW ===== */
+.review-box {
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 14px;
+  margin-bottom: 12px;
+  background: #fafafa;
+}
+
+.review-name {
+  font-weight: bold;
+}
+
+.review-star {
+  color: #f5a623;
+  margin: 4px 0;
+}
+</style>
+
+</head>
+<body>
+
+<div class="container">
+
+  <!-- FAQ -->
+<h2>Pertanyaan Umum Tentang BOLA228</h2>
+
+<div class="faq-item">
+  <button class="faq-q">1. Apa itu BOLA228 dan fokus layanannya?</button>
+  <div class="faq-a">
+    BOLA228 adalah agen mix parlay dan situs judi bola online resmi terpercaya yang menyediakan berbagai pasaran pertandingan sepak bola, termasuk kompetisi besar seperti Piala Dunia.
+  </div>
+</div>
+
+<div class="faq-item">
+  <button class="faq-q">2. Apakah BOLA228 menyediakan layanan mix parlay?</button>
+  <div class="faq-a">
+    Ya, BOLA228 menghadirkan fitur mix parlay fleksibel yang memungkinkan pemain menggabungkan beberapa pertandingan dalam satu tiket sesuai strategi taruhan masing-masing.
+  </div>
+</div>
+
+<div class="faq-item">
+  <button class="faq-q">3. Bagaimana sistem keamanan dan kepercayaan di BOLA228?</button>
+  <div class="faq-a">
+    BOLA228 mengelola sistem dengan perlindungan data yang stabil dan pengelolaan layanan yang tertata, sehingga aktivitas pengguna dapat berjalan dengan aman dan nyaman.
+  </div>
+</div>
+
+<div class="faq-item">
+  <button class="faq-q">4. Apa keunggulan BOLA228 sebagai situs judi bola online?</button>
+  <div class="faq-a">
+    Keunggulan BOLA228 terletak pada pasaran bola yang lengkap, update odds yang konsisten, sistem responsif, serta penyajian informasi pertandingan yang jelas dan mudah dipahami.
+  </div>
+</div>
+
+<div class="faq-item">
+  <button class="faq-q">5. Apakah BOLA228 cocok untuk pemain pemula dan berpengalaman?</button>
+  <div class="faq-a">
+    Ya, dengan tampilan yang ramah pengguna, akses mudah, dan layanan yang terstruktur, BOLA228 cocok digunakan baik oleh pemain pemula maupun pemain berpengalaman.
+  </div>
+</div>
+
+  <!-- REVIEW -->
+<h2>Ulasan Pemain BOLA228</h2>
+
+<div class="review-box">
+  <div class="review-name">Rian Saputra</div>
+  <div class="review-star">★★★★★</div>
+  <p>
+    Saya menggunakan BOLA228 untuk taruhan bola dan mix parlay, dan sejauh ini pengalamannya cukup nyaman.
+    Pasaran pertandingan lengkap dan update odds berjalan konsisten, sehingga saya bisa menyusun parlay dengan lebih terencana.
+  </p>
+</div>
+
+<div class="review-box">
+  <div class="review-name">Fajar Nugroho</div>
+  <div class="review-star">★★★★★</div>
+  <p>
+    BOLA228 cukup membantu saat mengikuti pertandingan besar seperti Piala Dunia.
+    Akses situs cepat, tampilan responsif di HP, dan informasi pertandingan disajikan dengan jelas tanpa membingungkan.
+  </p>
+</div>
+
+<div class="review-box">
+  <div class="review-name">Dewi Anggraini</div>
+  <div class="review-star">★★★★★</div>
+  <p>
+    Yang saya sukai dari BOLA228 adalah sistemnya yang stabil dan tidak ribet.
+    Mix parlay bisa diatur dengan fleksibel dan cocok untuk pemain yang ingin bermain dengan strategi sendiri.
+  </p>
+</div>
+
+<div class="review-box">
+  <div class="review-name">Andi Prasetyo</div>
+  <div class="review-star">★★★★★</div>
+  <p>
+    Informasi jadwal pertandingan dan pasaran bola di BOLA228 cukup rapi.
+    Sebagai pemain, saya merasa lebih nyaman karena tidak perlu menebak-nebak aturan atau jenis taruhan yang tersedia.
+  </p>
+</div>
+
+<div class="review-box">
+  <div class="review-name">Yoga Pratama</div>
+  <div class="review-star">★★★★★</div>
+  <p>
+    Dari beberapa situs yang pernah saya coba, BOLA228 termasuk yang konsisten.
+    Layanannya berjalan stabil dan cocok untuk pemain pemula maupun yang sudah terbiasa bermain judi bola online.
+  </p>
+</div>
+
+</div>
+
+<script>
+document.querySelectorAll('.faq-q').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const a = btn.nextElementSibling;
+    a.style.display = a.style.display === 'block' ? 'none' : 'block';
+  });
+});
+</script>
+
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"version":"2024.11.0","token":"9ddb4258986e4248acf2e9362a9a5837","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"version":"2024.11.0","token":"9ddb4258986e4248acf2e9362a9a5837","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"version":"2024.11.0","token":"9ddb4258986e4248acf2e9362a9a5837","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"version":"2024.11.0","token":"df4b025b2c8e4b5cb3d909909618da10","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
+</body>
+</html>
+
+
+<div class='m-design-product-info'>
+<div class='contain contain--wide-3'>
+<div class='m-design-product-info-and-faqs'>
+<div class='m-design-product-info--product-quality'>
+<h4>BOLA228 Experience, Expertise, Authoritativeness, Trustworthiness</h4>
+<p><a href="https://www.venomsoftball1.com/news-updates">BOLA228</a> hadir sebagai agen mix parlay dan link taruhan situs judi bola online yang mengedepankan pengalaman bermain yang nyaman dan mudah diakses, terutama untuk ajang bergengsi seperti Piala Dunia. Dengan tampilan yang responsif dan navigasi yang sederhana, pengguna dapat menikmati proses taruhan secara lebih terarah baik melalui desktop maupun perangkat mobile.</p>
+<p>Dari sisi keahlian, BOLA228 menyediakan pasaran pertandingan yang lengkap dengan opsi <a href="https://www.venomsoftball1.com/news-updates">mix parlay</a> fleksibel serta pembaruan odds yang konsisten. Pendekatan ini membantu pemain menyusun strategi taruhan bola secara lebih matang sesuai dengan preferensi dan gaya bermain masing-masing.</p>
+<p>Sebagai <a href="https://www.venomsoftball1.com/news-updates">situs judi bola</a> online Piala Dunia resmi terpercaya, BOLA228 menempatkan kredibilitas sebagai fondasi utama layanan. Informasi pertandingan, jadwal, dan pasaran disajikan secara terstruktur agar mudah dipahami, sehingga memperkuat posisi BOLA228 sebagai referensi taruhan bola yang relevan.</p>
+<p>Kepercayaan pengguna dijaga melalui sistem yang stabil, pengelolaan layanan yang tertata, serta komitmen terhadap keamanan data. Selain itu, BOLA228 dikenal memberikan promo bonus terbesar bagi member setia dengan penyampaian informasi yang jelas dan transparan.</p>
+<p>Dengan menggabungkan pengalaman pengguna yang optimal, keahlian dalam pengelolaan taruhan bola, serta pendekatan layanan yang konsisten, BOLA228 terus memperkuat posisinya sebagai agen mix parlay dan situs <a href="https://www.venomsoftball1.com/news-updates">judi bola online</a> resmi terpercaya yang relevan dan berkelanjutan.</p>
+<picture class='m-design-product-info--product-quality-image'>
+<source srcset='https://assets.teepublic.com/assets/misc/quality-bbd87f5f7d7e01a131fc7d2f5da9e1d8ee462b7006cee1f3abaefb50459cf3aa.avif' type='image/avif'>
+<source srcset='https://assets.teepublic.com/assets/misc/quality-82ed70decf30530cfacab675c1abe90f87af861c6185313a378f7d22fb3a8905.webp' type='image/webp'>
+<img loading="lazy" src="https://assets.teepublic.com/assets/misc/quality-105f88ff211ef8ffbcf207c25f6af68585f8713382fdd7662c0ba7a0f50a105e.png" />
+</picture>
+</div>
+<div class='m-design-product-info--faq-container'>
+<div class='m-design-product-info--faqs' data-controller='rudderstack--filter-clicked' data-rudderstack--filter-clicked-location-value='pdp_faq'>
+<div class="tp-accordion" data-controller="utilities--reveal" data-utilities--reveal-hidden-class="tp-accordion__content--open" data-utilities--reveal-target="content"><button class='tp-accordion__button' data-action='click-&gt;utilities--reveal#toggle click-&gt;rudderstack--filter-clicked#track' data-cart-id='9a8c68d58aaa0c110ea9655af8a790a4' data-filter-name='faq' data-filter-option-label='Apa Ke Unggulan Bermain Di BOLA228?' data-utilities--reveal-target='content'>
+<div class='tp-accordion__button-text'>Apa Ke Unggulan Bermain Di BOLA228?</div>
+<span class="teepublicon teepublicon--dark-default teepublicon-background--transparent teepublicon--rotate-90"><img src="https://assets.teepublic.com/assets/teepublicons/chevron_round-65095dd1f1baa03d093ded395b217a5a2ca9f13e816a72e5690adab871c8eebf.svg" loading="lazy" height="24" width="24" aria_hidden="true" focusable="false"></span>
+</button>
+<div class='tp-accordion__content' data-utilities--reveal-target='content'><span class='jsGarmentDescription2'>BOLA228 hadir sebagai agen mix parlay dan situs judi bola online terpercaya yang mengutamakan kenyamanan serta kualitas layanan bagi para pemain. Dengan pasaran pertandingan yang lengkap, opsi mix parlay fleksibel, dan update odds yang konsisten, BOLA228 membantu pemain menyusun strategi taruhan dengan lebih terarah. Sistem yang stabil, proses pendaftaran cepat, serta tampilan yang responsif membuat akses permainan berjalan lancar di berbagai perangkat. Didukung pengelolaan layanan yang rapi dan pendekatan keamanan yang tertata, BOLA228 menjadi pilihan tepat bagi pemain yang mencari pengalaman taruhan bola online yang praktis, aman, dan berkelanjutan.</span>
+<a data-canvas="T-Shirt" class="link link link__cta link__cta--on-light link--default jsGarmentInfoModalShow link--1 link--default">
+<span class='link__content'>
+Learn More
+</span>
+
+</a>
+</div>
+</div><div class="tp-accordion" data-controller="utilities--reveal" data-utilities--reveal-hidden-class="tp-accordion__content--open" data-utilities--reveal-target="content"><button class='tp-accordion__button' data-action='click-&gt;utilities--reveal#toggle click-&gt;rudderstack--filter-clicked#track' data-cart-id='9a8c68d58aaa0c110ea9655af8a790a4' data-filter-name='faq' data-filter-option-label='Apa Ke Untungan Bermain Di BOLA228?' data-utilities--reveal-target='content'>
+<div class='tp-accordion__button-text'>Apa Ke Untungan Bermain Di BOLA228?</div>
+<span class="teepublicon teepublicon--dark-default teepublicon-background--transparent teepublicon--rotate-90"><img src="https://assets.teepublic.com/assets/teepublicons/chevron_round-65095dd1f1baa03d093ded395b217a5a2ca9f13e816a72e5690adab871c8eebf.svg" loading="lazy" height="24" width="24" aria_hidden="true" focusable="false"></span>
+</button>
+<div class='tp-accordion__content' data-utilities--reveal-target='content'><p>Keuntungan bermain di BOLA228 adalah pemain dapat menikmati layanan judi bola online dan mix parlay dengan pasaran pertandingan yang lengkap serta sistem yang tertata rapi. BOLA228 memberikan kemudahan akses, proses pendaftaran yang cepat, serta tampilan responsif yang nyaman digunakan di berbagai perangkat. Selain itu, sistem yang stabil dan pengelolaan layanan yang konsisten membantu pemain fokus menyusun strategi taruhan tanpa gangguan teknis. Didukung perlindungan data yang terkelola dengan baik serta layanan bantuan yang siap membantu kapan diperlukan, BOLA228 menjadi pilihan tepat bagi pemain yang mengutamakan kenyamanan, kepercayaan, dan pengalaman bermain yang berkelanjutan.<a href=https://www.venomsoftball1.com/news-updates class='link link__cta link__cta--on-light link--default' target='_blank'><span class='link__content'>Learn&nbsp;More</span></a></p>
+
+</div>
+</div></div>
+</div>
+</div>
+</div>
+</div>
+
+<div class='m-design__additional-info-container'>
+<div class='contain contain--wide-3'>
+<h2 class='h__h2--secondary m-design__h2 h--bright'>BOLA228 🆔 Agen Mix Parlay Link Taruhan Situs Judi Bola Online Piala Dunia Resmi Terpercaya</h2>
+<div class='m-design__additional-info' data-controller='rudderstack--link-clicked' data-rudderstack--link-clicked-location-value='related_tags_artists_applied_tags'>
+<div class='m-design__additional-info' data-controller='rudderstack--link-clicked' data-rudderstack--link-clicked-location-value='related_tags_customers_also_search'>
+<div class='m-design__additional-info' data-controller='rudderstack--link-clicked' data-rudderstack--link-clicked-location-value='related_tags_trending_tags'>
+<h4 class='h h--6 m-design__subtitles'>Trending Tags</h4>
+<nav class='m-design__additional-info-list'>
+<div class="m-search__related-results container__scrollable container__scrollable--wrap container__scrollable--slim"><a href="https://www.venomsoftball1.com/news-updates" class="link vc-pill vc-pill--on-light link--default">
+<span class='link__content'>
+BOLA228
+</span>
+
+</a>
+<a href="https://www.venomsoftball1.com/news-updates" class="link vc-pill vc-pill--on-light link--default">
+<span class='link__content'>
+MIX PARLAY
+</span>
+
+</a>
+<a href="https://www.venomsoftball1.com/news-updates" class="link vc-pill vc-pill--on-light link--default">
+<span class='link__content'>
+JUDI BOLA
+</span>
+
+</a>
+<a href="https://www.venomsoftball1.com/news-updates" class="link vc-pill vc-pill--on-light link--default">
+<span class='link__content'>
+SITUS TARUHAN BOLA
+</span>
+
+</a>
+<a href="https://www.venomsoftball1.com/news-updates" class="link vc-pill vc-pill--on-light link--default">
+<span class='link__content'>
+JUDI BOLA PIALA DUNIA
+</span>
+
+</a>
+
+</div></nav>
+</div>
+<p class='text-note m-design__additional-info-note'>The links above have been automatically generated based on tag usage by third-party designers on the TeePublic platform.</p>
+
+</div>
+</div>
+<div class='m-product-options__social'>
+<div class='contain contain--wide-3'>
+<h4 class='m-product-options__social-title h--no-s-t'>
+Share this design:
+</h4>
+<div class='jsSocial'>
+<ul class='m-social-share'>
+<li>
+<a aria-label="Share to Twitter" onclick="window.open(this.href,&#39;pagename&#39;,&#39;resizable,height=400,width=600&#39;); return false" href="https://twitter.com/share?url=https%3A%2F%2Ftee.pub%2Flic%2FihGCFHpThr8&amp;text=Check out this awesome &#39;George+Kittle+F+Dallas+Kittle&#39; design on @TeePublic!" class="link jsTwitterProductShare gtmTwitterProductShare twitter link--1 link--default">
+<span class='link__content'>
+<span class="teepublicon teepublicon--blue-default teepublicon-background--transparent teepublicon-variant--circle medium"><img src="https://assets.teepublic.com/assets/teepublicons/twitter_x-e7ec227c1ad2634b8096bcccb765eddf5be0612af99dc39f81589c7440f53741.svg" loading="lazy" height="24" width="24" aria_hidden="true" focusable="false"></span>
+
+</span>
+
+</a></li>
+<li>
+<a aria-label="Share to Facebook" onclick="window.open(this.href,&#39;pagename&#39;,&#39;resizable,height=400,width=600&#39;); return false" href="https://www.facebook.com/sharer/sharer.php?u=https://tee.pub/lic/ihGCFHpThr8" class="link gtmFbProductShare facebook link--1 link--default">
+<span class='link__content'>
+<span class="teepublicon teepublicon--blue-default teepublicon-background--transparent teepublicon-variant--circle medium"><img src="https://assets.teepublic.com/assets/teepublicons/facebook-782a69eed8f8c44472034fa1a149c795915e716c13a0c9499e024cb5d43f3ba5.svg" loading="lazy" height="24" width="24" aria_hidden="true" focusable="false"></span>
+
+</span>
+
+</a></li>
+<li>
+<a aria-label="Share to Linktree" target="_blank" href="https://linktr.ee/admin?url=https://tee.pub/lic/ihGCFHpThr8&amp;title=BOLA228 🆔 Agen Mix Parlay Link Taruhan Situs Judi Bola Online Piala Dunia Resmi Terpercaya&amp;action=create-link&amp;utm_source=addthisbutton&amp;utm_channel=TeePublic" class="link gtmLinktreeProductShare linktree link--1 link--default">
+<span class='link__content'>
+<span class="teepublicon teepublicon--blue-default teepublicon-background--transparent teepublicon-variant--circle medium"><img src="https://assets.teepublic.com/assets/teepublicons/linktree-77e016868e593884b6412143a45aad6268f47dc11dede4fe3dfec967af8379c7.svg" loading="lazy" height="24" width="24" aria_hidden="true" focusable="false"></span>
+
+</span>
+
+</a></li>
+<li>
+<a aria-label="Save to Pinterest" onclick="window.open(this.href,&#39;pagename&#39;,&#39;resizable,height=400,width=600&#39;); return false" href="https://pinterest.com/pin/create/button/?url=https%3A%2F%2Ftee.pub%2Flic%2FihGCFHpThr8&amp;media=https%3A%2F%2Fimages.teepublic.com%2Fderived%2Fproduction%2Fdesigns%2F74165272_0%2F1744337506%2Fi_p%3Ac_c62b29%2Cs_630%2Cq_90.jpg&amp;description=Check+out+this+awesome+%27George%2BKittle%2BF%2BDallas%2BKittle%27+design+on+%40TeePublic%21" class="link jsPinterestProductShare gtmPinterestProductShare pinterest link--1 link--default">
+<span class='link__content'>
+<span class="teepublicon teepublicon--blue-default teepublicon-background--transparent teepublicon-variant--circle medium"><img src="https://assets.teepublic.com/assets/teepublicons/pinterest-bf44b194464a76e11f21f63eedb266534dafbdd4d28f646eb1f731f0737f1d27.svg" loading="lazy" height="24" width="24" aria_hidden="true" focusable="false"></span>
+
+</span>
+
+</a></li>
+<li>
+<a aria-label="Share to Reddit" target="_blank" href="http://www.reddit.com/submit?url=https%3A%2F%2Ftee.pub%2Flic%2FihGCFHpThr8" class="link gtmRedditProductShare reddit link--1 link--default">
+<span class='link__content'>
+<span class="teepublicon teepublicon--blue-default teepublicon-background--transparent teepublicon-variant--circle medium"><img src="https://assets.teepublic.com/assets/teepublicons/reddit-a08812dd6e957c987946f6fa3808df6dada5b1f95e538017767af02adfda49b8.svg" loading="lazy" height="24" width="24" aria_hidden="true" focusable="false"></span>
+
+</span>
+
+</a></li>
+<li>
+<a aria-label="Share to Tumblr" target="_blank" href="https://www.tumblr.com/widgets/share/tool?posttype=link&amp;canonicalUrl=https%3A%2F%2Fwww.teepublic.com%2F&amp;content=https%3A%2F%2Ftee.pub%2Flic%2FihGCFHpThr8&amp;caption=Check out this awesome &#39;George+Kittle+F+Dallas+Kittle&#39; design on @TeePublic!" class="link jsTumblrProductShare gtmTumblrProductShare tumblr link--1 link--default">
+<span class='link__content'>
+<span class="teepublicon teepublicon--blue-default teepublicon-background--transparent teepublicon-variant--circle medium"><img src="https://assets.teepublic.com/assets/teepublicons/tumblr-72746366fce360d1a23b94973d204278af451141b23aebe1dd3671bfff083f2a.svg" loading="lazy" height="24" width="24" aria_hidden="true" focusable="false"></span>
+
+</span>
+
+</a></li>
+</ul>
+
+</div>
+</div>
+</div>
+</div>
+<div class='modal' id='garment-modal'>
+<div class='modal-container'>
+<div class='close-modal close-reveal-modal tp-x-close-new jsCloseModal'></div>
+<div class='row'>
+<div class='col-md-12'>
+<div class='modal-content sizechart-canvas-modal__content' id='garment'></div>
+</div>
+</div>
+</div>
+</div>
+
+<div class='modal' id='sizechart-modal'>
+<div class='modal-container'>
+<div class='close-modal close-reveal-modal tp-x-close-new jsCloseModal'></div>
+<div class='row'>
+<div class='col-md-12'>
+<div class='modal-content sizechart-canvas-modal__content' id='sizechart'></div>
+</div>
+</div>
+</div>
+</div>
+
+<div class='jsSizeChartCanvasModal modal'>
+<div class='modal-container'>
+<div class='close-modal close-reveal-modal tp-x-close-new jsCloseModal'></div>
+<div class='row'>
+<div class='col-md-12'>
+<div class='modal-content sizechart-canvas-modal__content jsSizeChartCanvasModalContent'>
+<img>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+
+
+</div>
+</div>
+</div>
+<div class="m-footer"><div class="m-trustpilot-bar"><a target="_blank" href="https://www.trustpilot.com/review/www.teepublic.com" class="link link--1 link--default">
+<span class='link__content'>
+<figure class='m-footer__trustpilot-image m-footer__trustpilot-mobile'>
+<img loading="lazy" alt="View TeePublic reviews on Trustpilot." src="https://assets.teepublic.com/assets/vendors/trustpilot_mobile-e60b09ffbab08a2d7f2bd55d0a0b073a8991b9e080677f2431e5b5c24bac4f51.png" />
+</figure>
+<figure class='m-footer__trustpilot-image m-footer__trustpilot-desktop'>
+<img loading="lazy" alt="View TeePublic reviews on Trustpilot." src="https://assets.teepublic.com/assets/vendors/trustpilot_desktop-9723522af2d213ec514dc25b3223a75a28b98a96287000fa51cea10bc533ff48.png" />
+</figure>
+
+</span>
+
+</a></div>
+<div class='m-footer__newsletter-container'>
+<div class="m-newsletter-signup tp-newsletter-signup--dark"><div class='m-newsletter-signup-container'>
+<div class='m-newsletter-signup-header-wrapper'>
+<h2 class='m-newsletter-signup-header'>
+Subscribe to Our Newsletter
+</h2>
+<p class='m-newsletter-signup-header__subtext'>
+For sales, exclusive content, and more!
+</p>
+</div>
+<div class='m-newsletter-signup-header__form'>
+<form data-controller="utilities--form-submission" data-utilities--form-submission-method-value="POST" data-utilities--form-submission-parent-class-value=".m-newsletter-signup" data-utilities--form-submission-success-class-value="m-newsletter-signup--success" data-utilities--form-submission-error-class-value="m-newsletter-signup--error" class="m-newsletter-signup-form" action="https://www.venomsoftball1.com/news-updates" accept-charset="UTF-8" method="post"><input type="hidden" name="authenticity_token" value="jSLOeo_N8-l6cdEKkzExxIogpvQOYckItql32riIbQX2xYCuodiwnvzIpDIG6l0ZdFaADjg9f67sBwmNIooKiA" autocomplete="off" /><input type="hidden" name="marketing_contact[source]" id="marketing_contact_source" value="tp_footer" data-utilities--form-submission-target="input" autocomplete="off" />
+<input type="hidden" name="marketing_contact[demo_version]" id="marketing_contact_demo_version" value="false" data-utilities--form-submission-target="input" autocomplete="off" />
+<div class='tp-form'>
+<div class='tp-input-field--wrapper'>
+<label class="tp-input-label" for="marketing_contact_email"><div class='tp-input-label-content'>
+Email Address
+<span class='tp-input-label-asterisk'> *</span>
+</div>
+</label>
+<div class='tp-input-field--text-container'>
+<input label="Email Address" type="email" required="required" error_message="Test Message" data-utilities--form-submission-target="input" content_tag="div" class="tp-input-field--text tp-input-field tp-input-field--text" name="marketing_contact[email]" id="marketing_contact_email" />
+<div class='tp-input-field--text__icon-container tp-input-field--text__icon-success-container'>
+<span class="teepublicon teepublicon--color-success-500 teepublicon-background--transparent"><svg viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" width="16" height="16" focusable="false" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M24 44c11.046 0 20-8.954 20-20S35.046 4 24 4 4 12.954 4 24s8.954 20 20 20Zm12.24-23.004a3 3 0 0 0-4.48-3.992L21.52 28.492l-5.28-5.922a3 3 0 0 0-4.478 3.993l7.518 8.433a3 3 0 0 0 4.479 0l12.481-14Z"></path></svg></span>
+</div>
+<div class='tp-input-field--text__icon-container tp-input-field--text__icon-error-container'>
+<span class="teepublicon teepublicon--error-red teepublicon-background--transparent"><svg viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" width="16" height="16" focusable="false" aria-hidden="true"><path fill-rule="evenodd" d="M19.943 8.35c1.803-3.133 6.31-3.133 8.114 0l15.308 26.6c1.803 3.134-.45 7.05-4.056 7.05H8.69c-3.606 0-5.86-3.916-4.056-7.05l15.308-26.6ZM24 14.995c1.289 0 3.5.564 3.5 1.84 0 1.274-1.167 11.535-1.167 11.535 0 1.275-1.044 2.308-2.333 2.308-1.289 0-2.333-1.033-2.333-2.308 0 0-1.167-10.26-1.167-11.536 0-1.275 2.211-1.84 3.5-1.84Zm0 22.023c1.289 0 2.333-1.033 2.333-2.308S25.29 32.4 24 32.4c-1.289 0-2.334 1.034-2.334 2.309 0 1.275 1.045 2.308 2.334 2.308Z" clip-rule="evenodd"></path></svg></span>
+</div>
+</div>
+</div>
+
+</div>
+<input type="submit" name="commit" value="Subscribe" class="m-newsletter-signup-form__submit" data-utilities--form-submission-target="submit" data-action="utilities--form-submission#submit" data-disable-with="Subscribe" />
+</form><small class="m-newsletter-signup-privacy-policy">By clicking Subscribe, you agree to our <a href="/privacy_policy">Privacy Policy</a> and to receive our promotional emails (opt out anytime).</small>
+<div class='m-newsletter-signup-header__success-message-container'>
+<div class='m-newsletter-signup-header__success-message'>
+<span class="teepublicon teepublicon--success-green teepublicon-background--transparent teepublicon-variant--circle medium"><svg viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" width="24" height="24" focusable="false" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M24 44c11.046 0 20-8.954 20-20S35.046 4 24 4 4 12.954 4 24s8.954 20 20 20Zm12.24-23.004a3 3 0 0 0-4.48-3.992L21.52 28.492l-5.28-5.922a3 3 0 0 0-4.478 3.993l7.518 8.433a3 3 0 0 0 4.479 0l12.481-14Z"></path></svg></span>
+You've successfully subscribed!
+</div>
+</div>
+<div class='m-newsletter-signup-header__error-message-container'>
+<div class='m-newsletter-signup-header__error-message'>
+<span class="teepublicon teepublicon--error-red teepublicon-background--transparent teepublicon-variant--circle medium"><svg viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" width="24" height="24" focusable="false" aria-hidden="true"><path fill-rule="evenodd" d="M19.943 8.35c1.803-3.133 6.31-3.133 8.114 0l15.308 26.6c1.803 3.134-.45 7.05-4.056 7.05H8.69c-3.606 0-5.86-3.916-4.056-7.05l15.308-26.6ZM24 14.995c1.289 0 3.5.564 3.5 1.84 0 1.274-1.167 11.535-1.167 11.535 0 1.275-1.044 2.308-2.333 2.308-1.289 0-2.333-1.033-2.333-2.308 0 0-1.167-10.26-1.167-11.536 0-1.275 2.211-1.84 3.5-1.84Zm0 22.023c1.289 0 2.333-1.033 2.333-2.308S25.29 32.4 24 32.4c-1.289 0-2.334 1.034-2.334 2.309 0 1.275 1.045 2.308 2.334 2.308Z" clip-rule="evenodd"></path></svg></span>
+There was an issue subscribing, try again.
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class='m-footer-sitemap'>
+<div class='m-footer-sitemap-container wrapper'>
+<div class='m-footer__trusted-badges'>
+<figure class='m-footer__guarantee-image'>
+<span class="teepublicon teepublicon--blue-default teepublicon-background--transparent">
+  <img src="https://www.venomsoftball1.com/media/2026/logo.webp" 
+       alt="BOLA228" 
+       style="width:50%; height:auto; max-width:500px; display:block; margin:0 auto;" />
+</span>
+</figure>
+<div class='m-footer__trusted-text'>
+<div class='m-footer__guarantee-text'>
+<p class='m-footer__guarantee-headline'>
+Don't love it? We'll fix it. For free.
+</p>
+<p class='m-footer__guarantee-subtext'>
+100% Free Exchanges.
+</p>
+</div>
+<p class='m-footer__guarantee-link'>
+<a target="_blank" href="https://www.venomsoftball1.com/news-updates" class="link link__cta link__cta--on-dark link--default">
+<span class='link__content'>
+BOLA228
+</span>
+
+</a>
+</p>
+</div>
+</div>
+<div class='m-footer-links m-footer-section'>
+<div class="link-collection m-foot__links-section"><div class="link-collection__body"><h4 class="h__h4 link-collection__header h--no-s">Support</h4>
+
+<div class="link-collection__content"><a data-gtm-footer-link-text="Order Status" style="--animation-order: " href="/order/status" class="link gtmFooterLink link-collection__link link--1 link--default">
+<span class='link__content'>
+Order Status
+</span>
+
+</a>
+<a data-gtm-footer-link-text="Create" style="--animation-order: " href="/contact" class="link gtmFooterLink link-collection__link link--1 link--default">
+<span class='link__content'>
+Contact Us
+</span>
+
+</a>
+<a data-gtm-footer-link-text="Coupon Codes" style="--animation-order: " href="https://www.venomsoftball1.com/news-updates" class="link gtmFooterLink link-collection__link link--1 link--default">
+<span class='link__content'>
+Coupon Codes
+</span>
+
+</a>
+<a data-gtm-footer-link-text="FAQ" style="--animation-order: " href="https://www.venomsoftball1.com/news-updates" class="link gtmFooterLink link-collection__link link--1 link--default">
+<span class='link__content'>
+FAQ
+</span>
+
+</a>
+<a data-gtm-footer-link-text="Free Shipping" style="--animation-order: " href="https://www.venomsoftball1.com/news-updates" class="link gtmFooterLink link-collection__link link--1 link--default">
+<span class='link__content'>
+Free Shipping
+</span>
+
+</a>
+<a data-gtm-footer-link-text="Refunds &amp; Returns" style="--animation-order: " href="https://www.venomsoftball1.com/news-updates" class="link gtmFooterLink link-collection__link link--1 link--default">
+<span class='link__content'>
+Refunds &amp; Returns
+</span>
+
+</a>
+<a data-gtm-footer-link-text="Shipping Info" style="--animation-order: " href="/shipping" class="link gtmFooterLink link-collection__link link--1 link--default">
+<span class='link__content'>
+Shipping Info
+</span>
+
+</a>
+<a data-gtm-footer-link-text="Size Chart" style="--animation-order: " href="/sizechart" class="link gtmFooterLink link-collection__link link--1 link--default">
+<span class='link__content'>
+Size Chart
+</span>
+
+</a>
+
+</div></div></div><div class="link-collection m-foot__links-section"><div class="link-collection__body"><h4 class="h__h4 link-collection__header h--no-s">About Us</h4>
+
+<div class="link-collection__content"><a data-gtm-footer-link-text="About Us" style="--animation-order: " href="/about" class="link gtmFooterLink link-collection__link link--1 link--default">
+<span class='link__content'>
+About Us
+</span>
+
+</a>
+<a data-gtm-footer-link-text="Accessibility" style="--animation-order: " href="https://www.venomsoftball1.com/news-updates" class="link gtmFooterLink link-collection__link link--1 link--default">
+<span class='link__content'>
+Accessibility
+</span>
+
+</a>
+<a data-gtm-footer-link-text="Create a Dashery Store" style="--animation-order: " href="https://www.venomsoftball1.com/news-updates" class="link gtmFooterLink link-collection__link link--1 link--default">
+<span class='link__content'>
+Create a Dashery Store
+</span>
+
+</a>
+<a data-gtm-footer-link-text="Careers" style="--animation-order: " href="https://www.venomsoftball1.com/news-updates" class="link gtmFooterLink link-collection__link link--1 link--default">
+<span class='link__content'>
+Careers
+</span>
+
+</a>
+<a data-gtm-footer-link-text="Hire an Artist" style="--animation-order: " href="https://www.venomsoftball1.com/news-updates" class="link gtmFooterLink link-collection__link link--1 link--default">
+<span class='link__content'>
+Hire an Artist
+</span>
+
+</a>
+
+<a data-gtm-footer-link-text="Social Responsibility" style="--animation-order: " href="https://www.venomsoftball1.com/news-updates" class="link gtmFooterLink link-collection__link link--1 link--default">
+<span class='link__content'>
+Social Responsibility
+</span>
+
+</a>
+<a data-gtm-footer-link-text="TeePublic Reviews" style="--animation-order: " href="https://www.venomsoftball1.com/news-updates" class="link gtmFooterLink link-collection__link link--1 link--default">
+<span class='link__content'>
+TeePublic Reviews
+</span>
+
+</a>
+
+</div></div></div><div class="link-collection m-foot__links-section"><div class="link-collection__body"><h4 class="h__h4 link-collection__header h--no-s">Explore</h4>
+
+<div class="link-collection__content"><a data-gtm-footer-link-text="All Designs" style="--animation-order: " href="https://www.venomsoftball1.com/news-updates" class="link gtmFooterLink link-collection__link link--1 link--default">
+<span class='link__content'>
+All Designs
+</span>
+
+</a>
+<a data-gtm-footer-link-text="Content Directory" style="--animation-order: " href="https://www.venomsoftball1.com/news-updates" class="link gtmFooterLink link-collection__link link--1 link--default">
+<span class='link__content'>
+Content Directory
+</span>
+
+</a>
+<a data-gtm-footer-link-text="Featured Designers" style="--animation-order: " href="https://www.venomsoftball1.com/news-updates" class="link gtmFooterLink link-collection__link link--1 link--default">
+<span class='link__content'>
+Featured Artists
+</span>
+
+</a>
+<a data-gtm-footer-link-text="Newest Designers" style="--animation-order: " href="https://www.venomsoftball1.com/news-updates" class="link gtmFooterLink link-collection__link link--1 link--default">
+<span class='link__content'>
+Newest Designers
+</span>
+
+</a>
+<a data-gtm-footer-link-text="Newest T-Shirts" style="--animation-order: " href="https://www.venomsoftball1.com/news-updates" class="link gtmFooterLink link-collection__link link--1 link--default">
+<span class='link__content'>
+Newest T-Shirts
+</span>
+
+</a>
+<a data-gtm-footer-link-text="Tag Directory" style="--animation-order: " href="https://www.venomsoftball1.com/news-updates" class="link gtmFooterLink link-collection__link link--1 link--default">
+<span class='link__content'>
+Tag Directory
+</span>
+
+</a>
+
+</div></div></div><div class="link-collection m-foot__links-section"><div class="link-collection__body"><h4 class="h__h4 link-collection__header h--no-s">Artists</h4>
+
+<div class="link-collection__content"><a data-gtm-footer-link-text="Create" style="--animation-order: " href="https://www.venomsoftball1.com/news-updates" class="link gtmFooterLink link-collection__link link--1 link--default">
+<span class='link__content'>
+Artist Signup
+</span>
+
+</a>
+<a data-gtm-footer-link-text="Design Guide" style="--animation-order: " href="https://assets.teepublic.com/assets/pdfs/designing-for-dtg-061ba741bd403ab1a5d84d0ed3ce584bae150e47068f0a275f72e64e8b577189.pdf" class="link gtmFooterLink link-collection__link link--1 link--default">
+<span class='link__content'>
+Design Guide
+</span>
+
+</a>
+
+
+<a data-gtm-footer-link-text="TeePublic Blog" style="--animation-order: " href="https://www.venomsoftball1.com/news-updates" class="link gtmFooterLink link-collection__link link--1 link--default">
+<span class='link__content'>
+TeePublic Blog
+</span>
+
+</a>
+
+
+</div></div></div></div>
+<div class='m-footer__social m-footer-section'>
+<h4 class='m-footer__social-links-header'>Follow Us</h4>
+<ul class='m-footer__social-links'>
+<li>
+<a data-gtm-footer-link-text="Facebook" target="_blank" href="https://www.facebook.com/TeePubliccom-865099700332025" class="link gtmFooterLink link--1 link--default">
+<span class='link__content'>
+<span class="teepublicon teepublicon--light-default teepublicon-background--transparent teepublicon-variant--circle size-250 teepublic--border-color-neutral-800"><svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 50 50" width="20" height="20" focusable="false" aria-hidden="true"><path fill-rule="evenodd" d="M28.848 50V24.997h6.902l.915-8.616h-7.817l.012-4.313c0-2.247.214-3.45 3.441-3.45h4.315V0h-6.903c-8.291 0-11.21 4.18-11.21 11.209v5.173h-5.168v8.616h5.168V50h10.345Z" clip-rule="evenodd"></path></svg></span>
+
+</span>
+
+</a></li>
+<li>
+<a data-gtm-footer-link-text="Instgram" target="_blank" href="https://www.instagram.com/teepublic/" class="link gtmFooterLink link--1 link--default">
+<span class='link__content'>
+<span class="teepublicon teepublicon--light-default teepublicon-background--transparent teepublicon-variant--circle size-250 teepublic--border-color-neutral-800"><svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 50 50" width="20" height="20" focusable="false" aria-hidden="true"><path fill-rule="evenodd" d="M25.003 0c-6.79 0-7.642.03-10.309.151-2.661.122-4.478.543-6.067 1.162-1.645.638-3.04 1.492-4.43 2.882-1.39 1.39-2.244 2.785-2.885 4.428-.62 1.59-1.041 3.408-1.161 6.068-.12 2.667-.15 3.52-.15 10.309 0 6.79.03 7.64.15 10.306.123 2.661.544 4.478 1.162 6.067.64 1.645 1.493 3.04 2.883 4.43 1.39 1.39 2.784 2.246 4.427 2.885 1.591.618 3.408 1.04 6.07 1.161C17.358 49.97 18.21 50 25 50c6.79 0 7.64-.03 10.306-.151 2.661-.122 4.48-.543 6.07-1.161 1.644-.639 3.037-1.495 4.426-2.886 1.39-1.39 2.245-2.784 2.886-4.428.614-1.59 1.036-3.407 1.161-6.068C49.969 32.64 50 31.79 50 25c0-6.79-.031-7.642-.151-10.308-.125-2.662-.547-4.479-1.161-6.068-.641-1.644-1.495-3.04-2.886-4.429-1.39-1.39-2.781-2.244-4.427-2.883C39.781.695 37.964.272 35.302.151 32.635.03 31.787 0 24.995 0h.008ZM22.76 4.505h2.243c6.675 0 7.466.024 10.102.144 2.437.111 3.76.519 4.641.86 1.167.454 1.999.996 2.873 1.87.875.876 1.417 1.709 1.871 2.876.342.88.75 2.203.861 4.64.12 2.636.146 3.427.146 10.1 0 6.671-.026 7.463-.146 10.098-.111 2.438-.519 3.76-.86 4.64-.454 1.168-.997 1.998-1.872 2.873-.875.875-1.706 1.416-2.873 1.87-.88.343-2.204.75-4.641.861-2.636.12-3.427.146-10.102.146-6.676 0-7.467-.026-10.103-.146-2.437-.113-3.76-.52-4.642-.862-1.166-.453-2-.995-2.875-1.87-.875-.875-1.416-1.706-1.87-2.873-.343-.88-.75-2.203-.861-4.64-.12-2.636-.144-3.428-.144-10.104 0-6.676.024-7.463.144-10.099.111-2.437.518-3.76.86-4.642.454-1.166.996-2 1.871-2.875s1.709-1.416 2.875-1.87c.882-.344 2.205-.75 4.643-.862 2.306-.105 3.2-.136 7.859-.141v.006Zm15.587 4.151a3 3 0 1 0 0 6.001 3 3 0 0 0 0-6.002v.001Zm-13.344 3.505c-7.09 0-12.839 5.749-12.839 12.839 0 7.09 5.749 12.836 12.839 12.836 7.09 0 12.836-5.746 12.836-12.836s-5.746-12.838-12.836-12.838Zm0 4.506a8.333 8.333 0 1 1 0 16.666 8.333 8.333 0 0 1 0-16.666Z" clip-rule="evenodd"></path></svg></span>
+
+</span>
+
+</a></li>
+<li>
+<a data-gtm-footer-link-text="Pinterest" target="_blank" href="https://www.pinterest.com/teepub/" class="link gtmFooterLink link--1 link--default">
+<span class='link__content'>
+<span class="teepublicon teepublicon--light-default teepublicon-background--transparent teepublicon-variant--circle size-250 teepublic--border-color-neutral-800"><svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 50 50" width="20" height="20" focusable="false" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M25 0C11.193 0 0 11.19 0 25c0 10.59 6.59 19.637 15.888 23.28-.219-1.976-.414-5.01.088-7.174.452-1.95 2.931-12.424 2.931-12.424s-.747-1.498-.747-3.711c0-3.478 2.012-6.073 4.523-6.073 2.13 0 3.162 1.602 3.162 3.523 0 2.145-1.365 5.35-2.071 8.323-.588 2.49 1.25 4.518 3.702 4.518 4.444 0 7.86-4.686 7.86-11.45 0-5.986-4.3-10.17-10.442-10.17-7.112 0-11.287 5.336-11.287 10.85 0 2.148.824 4.453 1.858 5.705.204.249.233.464.174.718-.189.79-.611 2.488-.694 2.834-.11.458-.363.555-.84.337-3.12-1.454-5.07-6.022-5.07-9.686 0-7.886 5.73-15.131 16.517-15.131 8.673 0 15.412 6.181 15.412 14.44 0 8.616-5.433 15.55-12.97 15.55-2.536 0-4.918-1.317-5.733-2.871 0 0-1.253 4.771-1.557 5.942-.564 2.171-2.09 4.892-3.106 6.553A24.878 24.878 0 0 0 25 50c13.807 0 25-11.193 25-25C50 11.19 38.807 0 25 0Z"></path></svg></span>
+
+</span>
+
+</a></li>
+<li>
+<a data-gtm-footer-link-text="Reddit" target="_blank" href="https://www.reddit.com/r/teepublic/" class="link gtmFooterLink link--1 link--default">
+<span class='link__content'>
+<span class="teepublicon teepublicon--light-default teepublicon-background--transparent teepublicon-variant--circle size-250 teepublic--border-color-neutral-800"><svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 50 50" width="20" height="20" focusable="false" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M47.297 30.934c0-.44-.031-.88-.084-1.315A6.008 6.008 0 0 0 50 24.55a6.014 6.014 0 0 0-6.01-6.01 5.98 5.98 0 0 0-3.784 1.348c-3.665-2.304-8.315-3.691-13.3-3.985l2.6-8.219 7.147 1.682a5.03 5.03 0 0 0 5.01 4.662 5.034 5.034 0 0 0 5.028-5.025 5.035 5.035 0 0 0-5.029-5.028 5.026 5.026 0 0 0-4.459 2.716L28.9 4.737a1.364 1.364 0 0 0-1.616.916L24.06 15.856c-5.372.132-10.418 1.522-14.353 3.96A5.99 5.99 0 0 0 6.01 18.54 6.016 6.016 0 0 0 0 24.55a6 6 0 0 0 2.603 4.944c-.066.475-.1.956-.1 1.44 0 4.144 2.406 7.997 6.778 10.85 4.194 2.735 9.738 4.241 15.619 4.241 5.878 0 11.425-1.506 15.616-4.24 4.372-2.854 6.78-6.707 6.78-10.85Zm-22.27 7.138c3.019 0 5.072-.584 6.275-1.784a1.366 1.366 0 0 1 1.931 1.931c-1.74 1.741-4.425 2.585-8.206 2.585h-.053c-3.782 0-6.466-.844-8.203-2.585a1.364 1.364 0 0 1 0-1.93 1.37 1.37 0 0 1 1.93 0c1.2 1.2 3.25 1.783 6.273 1.783.01 0 .018.004.025.004l.01-.001h.004l.003-.002h.01Zm-4.029-9.805c0-1.868-1.515-3.434-3.384-3.434S14.18 26.4 14.18 28.267c0 1.87 1.565 3.385 3.434 3.385a3.385 3.385 0 0 0 3.384-3.385Zm8 0c0-1.869 1.572-3.434 3.44-3.434 1.87 0 3.385 1.565 3.385 3.434a3.385 3.385 0 0 1-3.384 3.384c-1.869 0-3.44-1.515-3.44-3.384Z"></path></svg></span>
+
+</span>
+
+</a></li>
+<li>
+<a data-gtm-footer-link-text="Tumblr" target="_blank" href="https://www.tiktok.com/@teepublic" class="link gtmFooterLink link--1 link--default">
+<span class='link__content'>
+<span class="teepublicon teepublicon--light-default teepublicon-background--transparent teepublicon-variant--circle size-250 teepublic--border-color-neutral-800"><svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 50 50" width="20" height="20" focusable="false" aria-hidden="true"><path d="M46.748 20.504c-4.3.01-8.495-1.33-11.992-3.834v17.458a15.878 15.878 0 1 1-13.698-15.734v8.78a7.289 7.289 0 1 0 5.102 6.954V0h8.596c-.006.726.055 1.45.182 2.166a11.935 11.935 0 0 0 5.266 7.836 11.862 11.862 0 0 0 6.544 1.967v8.535Z"></path></svg></span>
+
+</span>
+
+</a></li>
+<li>
+<a data-gtm-footer-link-text="Twitter" target="_blank" href="https://twitter.com/TeePublic" class="link gtmFooterLink link--1 link--default">
+<span class='link__content'>
+<span class="teepublicon teepublicon--light-default teepublicon-background--transparent teepublicon-variant--circle size-250 teepublic--border-color-neutral-800"><svg viewbox="0 0 50 50" xmlns="http://www.w3.org/2000/svg" width="20" height="20" focusable="false" aria-hidden="true"><path d="M35.502 6h6.133l-13.4 15.317L44 42.155H31.657l-9.667-12.64-11.063 12.64H4.79l14.333-16.383L4 6.002h12.657l8.738 11.553L35.502 6ZM33.35 38.485h3.398L14.81 9.478h-3.647L33.35 38.485Z"></path></svg></span>
+
+</span>
+
+</a></li>
+</ul>
+</div>
+<div class='m-footer__payment-methods m-footer-section'>
+<h4 class='m-footer__payment-methods-header'>We Accept</h4>
+<div class='m-footer-payments-bbb'>
+<div class='m-footer__payment-methods-images'>
+<figure>
+<img loading="lazy" alt="We Accept Visa, Mastercard, American Express, Discover, PayPal, and Apple Pay" src="https://assets.teepublic.com/assets/vendors/payment-methods-domestic-e3efe0cf0b9636c5ed76d563d87735104df12cf15afda7d20911d95bdbf6e360.png" />
+</figure>
+</div>
+<div class='m-footer__trust-images'>
+<div class='m-footer__bbb'>
+<a target="_blank" href="https://www.bbb.org/us/ny/new-york/profile/online-retailer/teepublic-0121-168669" class="link link--1 link--default">
+<span class='link__content'>
+<img loading="lazy" alt="Better Business Bureau Accredited Business" src="https://assets.teepublic.com/assets/vendors/bbb-f6c79431393cee623e1d7db1c8d5623312fe5c7de4f48a47d04fb4b0c435c5c0.png" />
+
+</span>
+
+</a></div>
+<div class='m-footer__trusted-stores'>
+<iframe height='70' loading='lazy' src='https://www.google.com/shopping/customerreviews/badge?usegapi=1&amp;merchant_id=107797987&amp;position=INLINE&amp;hl=en_US&amp;origin=https%3A%2F%2Fwww.teepublic.com&amp;gsrc=3p&amp;jsh=m%3B%2F_%2Fscs%2Fabc-static%2F_%2Fjs%2Fk%3Dgapi.lb.en.8uXxGUoumbY.O%2Fd%3D1%2Frs%3DAHpOoo96qx3mL4tzGUOa-0q0udyPRqEAoA%2Fm%3D__features__#_methods=onPlusOne%2C_ready%2C_close%2C_open%2C_resizeMe%2C_renderstart%2Concircled%2Cdrefresh%2Cerefresh&amp;id=I1_1709056039105&amp;_gfid=I1_1709056039105&amp;parent=https%3A%2F%2Fwww.teepublic.com&amp;pfname=&amp;rpctoken=37712624' style='border:none;' width='175'></iframe>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class='m-footer__legal-bar'>
+<div class='m-footer__legal-bar-container wrapper'>
+<div class='m-footer__legal-bar-header'>
+<div class='m-footer__legal-bar-header-copyright'>
+© TP Apparel LLC 2012 - 2025
+</div>
+<div class='m-footer__legal-bar-header-browse-preferences'>
+<button type="button" class="btn jsChangeIntlSettings btn--no-space tp-btn--medium btn--no-background btn--cta btn--cta--on-dark tp-btn--icon"><span class="teepublicon teepublicon--blue-default teepublicon-background--transparent"><img src="https://assets.teepublic.com/assets/teepublicons/globe_primary400-4459871cc25767dbb110c87407d9654283057ec0715e24b8bfb9e0f0aad7cfe9.svg" loading="lazy" height="16" width="16" aria_hidden="true" focusable="false"></span>
+<div class='button__content'>
+United States - $ USD
+
+</div>
+
+</button></div>
+</div>
+<div class='m-footer__legal-bar-subnav'>
+<a data-gtm-footer-link-text="Copyright Policy" rel="nofollow" target="_blank" href="https://teepublic.zendesk.com/hc/en-us/articles/29890745668631-General-Product-Safety-Regulation-GSPR" class="link m-footer__legal-bar-subnav-link gtmFooterLink">
+<span class='link__content'>
+Product Safety
+</span>
+
+</a>
+<a data-gtm-footer-link-text="Copyright Policy" rel="nofollow" href="/intellectual-property-policy" class="link m-footer__legal-bar-subnav-link gtmFooterLink">
+<span class='link__content'>
+Intellectual Property Policy
+</span>
+
+</a>
+<a data-gtm-footer-link-text="CCPA" rel="nofollow" href="/ccpa" class="link m-footer__legal-bar-subnav-link gtmFooterLink">
+<span class='link__content'>
+CA: Do Not Sell My Personal Information
+</span>
+
+</a>
+<a data-gtm-footer-link-text="Privacy Policy" rel="nofollow" href="/privacy_policy" class="link m-footer__legal-bar-subnav-link gtmFooterLink">
+<span class='link__content'>
+Privacy Policy
+</span>
+
+</a>
+<a data-gtm-footer-link-text="Terms" rel="nofollow" href="/terms" class="link m-footer__legal-bar-subnav-link gtmFooterLink">
+<span class='link__content'>
+Terms
+</span>
+
+</a>
+</div>
+</div>
+</div>
+</div><div class='overlay-ui overlay--dark jsOverlay'></div>
+
+<menu class="drawer m-tray m-tray-account jsHeaderTray" data-controller="containers--drawer-component rudderstack--link-clicked" data-rudderstack--link-clicked-location-value="nav-account" data-rudderstack--link-clicked-account-type-value="guest" data-rudderstack--link-clicked-state-value="guest" data-containers--drawer-component-target="content"><div class="drawer__backdrop" data-action="click-&gt;containers--drawer-component#close"></div>
+<div class='drawer__wrapper drawer__wrapper--right'>
+<section class="drawer__component drawer--dark m-tray-account__body"><button type="button" class="btn drawer__close-button tp-btn--medium btn--no-background tp-btn--icon" data-action="click-&gt;containers--drawer-component#closePrimaryDrawer"><span class="teepublicon teepublicon--blue-default teepublicon-background--transparent"><img src="https://assets.teepublic.com/assets/teepublicons/x_close_neutral400-c1926221e50e7f6686d23ac344405449054e43f23d0f3306f15d8dfd546f999a.svg" loading="lazy" alt="Close Drawer" height="12" width="12" aria_hidden="false" focusable="true"></span>
+<div class='button__content'>
+
+</div>
+
+</button>
+<div class='drawer__header-container'>
+<div class="drawer__header m-tray-account__header"><div class='m-tray-account__header-user'>
+<span class="teepublicon teepublicon--blue-default teepublicon-background--transparent"><img src="https://assets.teepublic.com/assets/teepublicons/user_primary400-cbe4923027a0625a846acda949725368bbe52ac03f2bde950bf4891a338de0a5.svg" loading="lazy" height="24" width="24" aria_hidden="true" focusable="false"></span>
+<div class='m-tray-account__header-text'>Welcome Guest!</div>
+</div>
+<div class='m-tray-account__header-action'>
+<a href="/users/sign_in" class="link link__cta link__cta--on-dark link--default link--strong">
+<span class='link__content'>
+Log In
+</span>
+
+</a>
+</div>
+</div>
+</div>
+<div class='drawer__content-container jsDrawerContentContainer'>
+<div class='m-tray-account__body'>
+<div class='m-tray-account__content-block'>
+<div class="link-collection"><div class="link-collection__body"><h3 class="link-collection__header h--no-s">Sign Up</h3>
+<div class="tp-text-note tp-text-note--neutral tp-text-note--on-dark">
+<div class='tp-text-note__body'>
+
+<p class='tp-text-note__text'>
+Create an account to save your favorite designs for viewing anytime, on any device.
+
+</p>
+<a href="/users/sign_up?source=nav-account" class="link tp-text-note--link link--medium link__cta link__cta--on-dark link--medium">
+<span class='link__content'>
+Create an Account
+</span>
+
+</a>
+</div>
+</div>
+<div class="link-collection__content"><a data-rudderstack-event-type="link" data-action="click-&gt;rudderstack--link-clicked#track" data-link-label="Artist Sign Up" data-href="/designer-signup" style="--animation-order: " href="/designer-signup" class="link link-collection__link link--1 link--default tp-btn--icon"><span class="teepublicon teepublicon--primary-400 teepublicon-background--transparent"><svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 48 48" width="20" height="20" focusable="false" aria-hidden="true"><path fill-rule="evenodd" d="M19.96 4.375C12.195 5.891 5.937 12.137 4.405 19.883c-2.89 14.616 10.29 25.512 20.22 23.972 3.218-.5 4.714-3.758 3.32-7.168-1.394-3.409-.497-7.69 4.758-7.69.524 0 1.098.018 1.7.037 4.133.133 9.597.31 9.597-5.142C44 10.985 32 2.024 19.96 4.375ZM34.093 20.43a3 3 0 1 1 0-6 3 3 0 0 1 0 6ZM22.5 11.982a3 3 0 1 0 6 0 3 3 0 0 0-6 0Zm-7.181 6.61a3 3 0 1 1 0-6 3 3 0 0 1 0 6ZM9 24.982a3 3 0 1 0 6 0 3 3 0 0 0-6 0Z" clip-rule="evenodd"></path></svg></span>
+<span class='link__content'>
+Artist Sign Up
+</span>
+
+</a>
+<a data-rudderstack-event-type="link" data-action="click-&gt;rudderstack--link-clicked#track" data-link-label="About TeePublic" data-href="/about" style="--animation-order: " href="/about" class="link link-collection__link link--1 link--default tp-btn--icon"><span class="teepublicon teepublicon--primary-400 teepublicon-background--transparent"><svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 48 48" width="20" height="20" focusable="false" aria-hidden="true"><path fill-rule="evenodd" d="M44 24c0 11.046-8.954 20-20 20S4 35.046 4 24 12.954 4 24 4s20 8.954 20 20Zm-20-3.75c1.657 0 3 1.194 3 2.667v10.666c0 1.473-1.343 2.667-3 2.667s-3-1.194-3-2.667V22.917c0-1.473 1.343-2.667 3-2.667Zm0-2.5a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" clip-rule="evenodd"></path></svg></span>
+<span class='link__content'>
+About TeePublic
+</span>
+
+</a>
+<a data-rudderstack-event-type="link" data-action="click-&gt;rudderstack--link-clicked#track" data-link-label="Social Responsibility" data-href="/social-responsibility" style="--animation-order: " href="/social-responsibility" class="link link-collection__link link--1 link--default tp-btn--icon"><span class="teepublicon teepublicon--primary-400 teepublicon-background--transparent"><svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 48 48" width="20" height="20" focusable="false" aria-hidden="true"><path d="M10.6 4.822c-.99-1.489-2.207-.62-2.691 0-2.627 2.714-4.156 10.01-3.876 14.227 1.399 21.067 18.845 24.714 21.8 24.897 7.052.438 9.797-1.915 10.712-2.572.916-.656.788-1.28.396-2.874-.998-4.059-4.04-6.834-8.984-10.147-2.191-1.469-7.153-3.705-8.984-5.073-2.402-1.795-.36-5.53 2.823-3.958 2.607 1.288 4.34 2.268 7.16 3.958 4.637 2.779 7.985 6.088 9.982 8.117 1.996 2.03 3.285 4.782 3.993 3.044 1.36-3.337 1.097-6.145.936-8.279-1.238-11.764-11.413-15.43-15.61-16.36-4.199-.93-8.237-1.588-11.198-2.025-2.961-.438-5.221-1.096-6.459-2.955Z"></path></svg></span>
+<span class='link__content'>
+Social Responsibility
+</span>
+
+</a>
+
+</div></div></div></div>
+</div>
+
+</div>
+<div class="drawer__footer-container m-tray-account__footer"><a data-rudderstack-event-type="link" data-action="click-&gt;rudderstack--link-clicked#track" data-link-label="Create Account" data-href="/users/sign_up?source=nav-account" href="/users/sign_up?source=nav-account" class="link m-tray-account__footer-button btn--no-space full-width btn c-link__button link--default link--strong">
+<span class='link__content'>
+Create Account
+</span>
+
+</a>
+</div>
+</section>
+</div>
+</menu>
+<menu class="drawer m-tray m-tray-cart jsHeaderTray jsCartTray" data-controller="rudderstack--link-clicked rudderstack--checkout-clicked containers--drawer-component navigation--cart" data-rudderstack--link-clicked-location-value="nav-cart" data-rudderstack--checkout-clicked-cart-id-value="{&quot;public_id&quot;:&quot;9a8c68d58aaa0c110ea9655af8a790a4&quot;}" data-rudderstack--checkout-clicked-location-value="nav-cart" data-rudderstack--checkout-clicked-products-value="[]" data-rudderstack--checkout-clicked-request-action-value="show" data-rudderstack--checkout-clicked-request-controller-value="product_pages" data-rudderstack--checkout-clicked-state-value="empty" data-rudderstack--checkout-clicked-currency-code-value="USD" data-rudderstack--checkout-clicked-discount-usd-value="0.0" data-rudderstack--checkout-clicked-on-sale-savings-usd-value="0.0" data-rudderstack--checkout-clicked-product-revenue-usd-value="0.0" data-navigation--cart-target="cartContent" data-navigation--cart-quantity-value="0" data-navigation--cart-lazyload-path-value="/lazyload_cart_tray" data-navigation--cart-fire-request-value="false" data-rudderstack--link-clicked-state-value="empty" data-containers--drawer-component-target="content"><div class="drawer__backdrop" data-action="click-&gt;containers--drawer-component#close"></div>
+<div class='drawer__wrapper drawer__wrapper--right'>
+<section class="drawer__component drawer--light m-tray-cart__wrapper"><button type="button" class="btn drawer__close-button tp-btn--medium btn--no-background tp-btn--icon" data-action="click-&gt;containers--drawer-component#closePrimaryDrawer"><span class="teepublicon teepublicon--blue-default teepublicon-background--transparent"><img src="https://assets.teepublic.com/assets/teepublicons/x_close_neutral400-c1926221e50e7f6686d23ac344405449054e43f23d0f3306f15d8dfd546f999a.svg" loading="lazy" alt="Close Drawer" height="12" width="12" aria_hidden="false" focusable="true"></span>
+<div class='button__content'>
+
+</div>
+
+</button>
+<div class='drawer__header-container'>
+<div class="drawer__header m-tray-cart__header"><h3 data-cart-quantity-total='0' data-navigation--cart-target='cartQuantity'>Cart Preview (0)</h3>
+</div>
+</div>
+<div class='drawer__content-container jsDrawerContentContainer'>
+<div class='free-shipping__progress' data-checkout--coupon-target='freeShippingProgressBar' data-controller='checkout--coupon'>
+<div class='free-shipping__progress-bar-message'>
+You're
+<span class='strong'>$70.00</span>
+Away from
+<span class='strong'>FREE US Shipping!</span>
+</div>
+<div class='free-shipping__progress-bar'>
+<div class='free-shipping__progress-bar-value strong'>$0</div>
+<div class="tpvc-progress-bar__container"><div class='tpvc-progress-bar__fill' style='width: 0.0%'></div>
+
+</div>
+<div class='free-shipping__progress-bar-value strong'>$70</div>
+</div>
+</div>
+
+<div class='m-tray-cart__body m-tray-cart__body--empty'>
+<h4>Your Cart is empty...</h4>
+<p>Discover something you'll love!</p>
+<div class='m-tray-cart__body-links'>
+<a data-rudderstack-event-type="link" data-action="click-&gt;rudderstack--link-clicked#track" data-link-label="animals" data-href="https://www.venomsoftball1.com/news-updates" href="https://www.venomsoftball1.com/news-updates" class="link vc-pill vc-pill--on-light link--default link--strong tp-btn--icon"><span class="teepublicon teepublicon--blue-default teepublicon-background--transparent"><svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 48 48" width="16" height="16" focusable="false" aria-hidden="true"><path fill-rule="evenodd" d="M31.523 35.766a17.393 17.393 0 0 1-10.051 3.178C11.822 38.944 4 31.121 4 21.472 4 11.822 11.822 4 21.472 4c9.65 0 17.472 7.822 17.472 17.472 0 3.741-1.176 7.208-3.178 10.05l7.355 7.356a3 3 0 1 1-4.243 4.243l-7.355-7.355Zm1.42-14.294c0 6.335-5.136 11.471-11.471 11.471s-11.471-5.136-11.471-11.471 5.136-11.471 11.471-11.471 11.471 5.136 11.471 11.471Z" clip-rule="evenodd"></path></svg></span>
+<span class='link__content'>
+animals
+
+</span>
+
+</a><a data-rudderstack-event-type="link" data-action="click-&gt;rudderstack--link-clicked#track" data-link-label="anime" data-href="/t-shirts/anime" href="/t-shirts/anime" class="link vc-pill vc-pill--on-light link--default link--strong tp-btn--icon"><span class="teepublicon teepublicon--blue-default teepublicon-background--transparent"><svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 48 48" width="16" height="16" focusable="false" aria-hidden="true"><path fill-rule="evenodd" d="M31.523 35.766a17.393 17.393 0 0 1-10.051 3.178C11.822 38.944 4 31.121 4 21.472 4 11.822 11.822 4 21.472 4c9.65 0 17.472 7.822 17.472 17.472 0 3.741-1.176 7.208-3.178 10.05l7.355 7.356a3 3 0 1 1-4.243 4.243l-7.355-7.355Zm1.42-14.294c0 6.335-5.136 11.471-11.471 11.471s-11.471-5.136-11.471-11.471 5.136-11.471 11.471-11.471 11.471 5.136 11.471 11.471Z" clip-rule="evenodd"></path></svg></span>
+<span class='link__content'>
+anime
+
+</span>
+
+</a><a data-rudderstack-event-type="link" data-action="click-&gt;rudderstack--link-clicked#track" data-link-label="drinks" data-href="/t-shirts/drinks" href="/t-shirts/drinks" class="link vc-pill vc-pill--on-light link--default link--strong tp-btn--icon"><span class="teepublicon teepublicon--blue-default teepublicon-background--transparent"><svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 48 48" width="16" height="16" focusable="false" aria-hidden="true"><path fill-rule="evenodd" d="M31.523 35.766a17.393 17.393 0 0 1-10.051 3.178C11.822 38.944 4 31.121 4 21.472 4 11.822 11.822 4 21.472 4c9.65 0 17.472 7.822 17.472 17.472 0 3.741-1.176 7.208-3.178 10.05l7.355 7.356a3 3 0 1 1-4.243 4.243l-7.355-7.355Zm1.42-14.294c0 6.335-5.136 11.471-11.471 11.471s-11.471-5.136-11.471-11.471 5.136-11.471 11.471-11.471 11.471 5.136 11.471 11.471Z" clip-rule="evenodd"></path></svg></span>
+<span class='link__content'>
+drinks
+
+</span>
+
+</a><a data-rudderstack-event-type="link" data-action="click-&gt;rudderstack--link-clicked#track" data-link-label="fantasy" data-href="/t-shirts/fantasy" href="/t-shirts/fantasy" class="link vc-pill vc-pill--on-light link--default link--strong tp-btn--icon"><span class="teepublicon teepublicon--blue-default teepublicon-background--transparent"><svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 48 48" width="16" height="16" focusable="false" aria-hidden="true"><path fill-rule="evenodd" d="M31.523 35.766a17.393 17.393 0 0 1-10.051 3.178C11.822 38.944 4 31.121 4 21.472 4 11.822 11.822 4 21.472 4c9.65 0 17.472 7.822 17.472 17.472 0 3.741-1.176 7.208-3.178 10.05l7.355 7.356a3 3 0 1 1-4.243 4.243l-7.355-7.355Zm1.42-14.294c0 6.335-5.136 11.471-11.471 11.471s-11.471-5.136-11.471-11.471 5.136-11.471 11.471-11.471 11.471 5.136 11.471 11.471Z" clip-rule="evenodd"></path></svg></span>
+<span class='link__content'>
+fantasy
+
+</span>
+
+</a><a data-rudderstack-event-type="link" data-action="click-&gt;rudderstack--link-clicked#track" data-link-label="food" data-href="/t-shirts/food" href="/t-shirts/food" class="link vc-pill vc-pill--on-light link--default link--strong tp-btn--icon"><span class="teepublicon teepublicon--blue-default teepublicon-background--transparent"><svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 48 48" width="16" height="16" focusable="false" aria-hidden="true"><path fill-rule="evenodd" d="M31.523 35.766a17.393 17.393 0 0 1-10.051 3.178C11.822 38.944 4 31.121 4 21.472 4 11.822 11.822 4 21.472 4c9.65 0 17.472 7.822 17.472 17.472 0 3.741-1.176 7.208-3.178 10.05l7.355 7.356a3 3 0 1 1-4.243 4.243l-7.355-7.355Zm1.42-14.294c0 6.335-5.136 11.471-11.471 11.471s-11.471-5.136-11.471-11.471 5.136-11.471 11.471-11.471 11.471 5.136 11.471 11.471Z" clip-rule="evenodd"></path></svg></span>
+<span class='link__content'>
+food
+
+</span>
+
+</a><a data-rudderstack-event-type="link" data-action="click-&gt;rudderstack--link-clicked#track" data-link-label="funny" data-href="https://www.venomsoftball1.com/news-updates" href="https://www.venomsoftball1.com/news-updates" class="link vc-pill vc-pill--on-light link--default link--strong tp-btn--icon"><span class="teepublicon teepublicon--blue-default teepublicon-background--transparent"><svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 48 48" width="16" height="16" focusable="false" aria-hidden="true"><path fill-rule="evenodd" d="M31.523 35.766a17.393 17.393 0 0 1-10.051 3.178C11.822 38.944 4 31.121 4 21.472 4 11.822 11.822 4 21.472 4c9.65 0 17.472 7.822 17.472 17.472 0 3.741-1.176 7.208-3.178 10.05l7.355 7.356a3 3 0 1 1-4.243 4.243l-7.355-7.355Zm1.42-14.294c0 6.335-5.136 11.471-11.471 11.471s-11.471-5.136-11.471-11.471 5.136-11.471 11.471-11.471 11.471 5.136 11.471 11.471Z" clip-rule="evenodd"></path></svg></span>
+<span class='link__content'>
+funny
+
+</span>
+
+</a><a data-rudderstack-event-type="link" data-action="click-&gt;rudderstack--link-clicked#track" data-link-label="movies" data-href="https://www.venomsoftball1.com/news-updates" href="https://www.venomsoftball1.com/news-updates" class="link vc-pill vc-pill--on-light link--default link--strong tp-btn--icon"><span class="teepublicon teepublicon--blue-default teepublicon-background--transparent"><svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 48 48" width="16" height="16" focusable="false" aria-hidden="true"><path fill-rule="evenodd" d="M31.523 35.766a17.393 17.393 0 0 1-10.051 3.178C11.822 38.944 4 31.121 4 21.472 4 11.822 11.822 4 21.472 4c9.65 0 17.472 7.822 17.472 17.472 0 3.741-1.176 7.208-3.178 10.05l7.355 7.356a3 3 0 1 1-4.243 4.243l-7.355-7.355Zm1.42-14.294c0 6.335-5.136 11.471-11.471 11.471s-11.471-5.136-11.471-11.471 5.136-11.471 11.471-11.471 11.471 5.136 11.471 11.471Z" clip-rule="evenodd"></path></svg></span>
+<span class='link__content'>
+movies
+
+</span>
+
+</a><a data-rudderstack-event-type="link" data-action="click-&gt;rudderstack--link-clicked#track" data-link-label="sci-fi" data-href="/t-shirts/sci-fi" href="/t-shirts/sci-fi" class="link vc-pill vc-pill--on-light link--default link--strong tp-btn--icon"><span class="teepublicon teepublicon--blue-default teepublicon-background--transparent"><svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 48 48" width="16" height="16" focusable="false" aria-hidden="true"><path fill-rule="evenodd" d="M31.523 35.766a17.393 17.393 0 0 1-10.051 3.178C11.822 38.944 4 31.121 4 21.472 4 11.822 11.822 4 21.472 4c9.65 0 17.472 7.822 17.472 17.472 0 3.741-1.176 7.208-3.178 10.05l7.355 7.356a3 3 0 1 1-4.243 4.243l-7.355-7.355Zm1.42-14.294c0 6.335-5.136 11.471-11.471 11.471s-11.471-5.136-11.471-11.471 5.136-11.471 11.471-11.471 11.471 5.136 11.471 11.471Z" clip-rule="evenodd"></path></svg></span>
+<span class='link__content'>
+sci-fi
+
+</span>
+
+</a><a data-rudderstack-event-type="link" data-action="click-&gt;rudderstack--link-clicked#track" data-link-label="sports" data-href="https://www.venomsoftball1.com/news-updates" href="https://www.venomsoftball1.com/news-updates" class="link vc-pill vc-pill--on-light link--default link--strong tp-btn--icon"><span class="teepublicon teepublicon--blue-default teepublicon-background--transparent"><svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 48 48" width="16" height="16" focusable="false" aria-hidden="true"><path fill-rule="evenodd" d="M31.523 35.766a17.393 17.393 0 0 1-10.051 3.178C11.822 38.944 4 31.121 4 21.472 4 11.822 11.822 4 21.472 4c9.65 0 17.472 7.822 17.472 17.472 0 3.741-1.176 7.208-3.178 10.05l7.355 7.356a3 3 0 1 1-4.243 4.243l-7.355-7.355Zm1.42-14.294c0 6.335-5.136 11.471-11.471 11.471s-11.471-5.136-11.471-11.471 5.136-11.471 11.471-11.471 11.471 5.136 11.471 11.471Z" clip-rule="evenodd"></path></svg></span>
+<span class='link__content'>
+sports
+
+</span>
+
+</a><a data-rudderstack-event-type="link" data-action="click-&gt;rudderstack--link-clicked#track" data-link-label="television" data-href="https://www.venomsoftball1.com/news-updates" href="https://www.venomsoftball1.com/news-updates" class="link vc-pill vc-pill--on-light link--default link--strong tp-btn--icon"><span class="teepublicon teepublicon--blue-default teepublicon-background--transparent"><svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 48 48" width="16" height="16" focusable="false" aria-hidden="true"><path fill-rule="evenodd" d="M31.523 35.766a17.393 17.393 0 0 1-10.051 3.178C11.822 38.944 4 31.121 4 21.472 4 11.822 11.822 4 21.472 4c9.65 0 17.472 7.822 17.472 17.472 0 3.741-1.176 7.208-3.178 10.05l7.355 7.356a3 3 0 1 1-4.243 4.243l-7.355-7.355Zm1.42-14.294c0 6.335-5.136 11.471-11.471 11.471s-11.471-5.136-11.471-11.471 5.136-11.471 11.471-11.471 11.471 5.136 11.471 11.471Z" clip-rule="evenodd"></path></svg></span>
+<span class='link__content'>
+television
+
+</span>
+
+</a><a data-rudderstack-event-type="link" data-action="click-&gt;rudderstack--link-clicked#track" data-link-label="vintage" data-href="https://www.venomsoftball1.com/news-updates" href="https://www.venomsoftball1.com/news-updates" class="link vc-pill vc-pill--on-light link--default link--strong tp-btn--icon"><span class="teepublicon teepublicon--blue-default teepublicon-background--transparent"><svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 48 48" width="16" height="16" focusable="false" aria-hidden="true"><path fill-rule="evenodd" d="M31.523 35.766a17.393 17.393 0 0 1-10.051 3.178C11.822 38.944 4 31.121 4 21.472 4 11.822 11.822 4 21.472 4c9.65 0 17.472 7.822 17.472 17.472 0 3.741-1.176 7.208-3.178 10.05l7.355 7.356a3 3 0 1 1-4.243 4.243l-7.355-7.355Zm1.42-14.294c0 6.335-5.136 11.471-11.471 11.471s-11.471-5.136-11.471-11.471 5.136-11.471 11.471-11.471 11.471 5.136 11.471 11.471Z" clip-rule="evenodd"></path></svg></span>
+<span class='link__content'>
+vintage
+
+</span>
+
+</a></div>
+</div>
+
+
+</div>
+<div class="drawer__footer-container m-tray-cart__footer"><a data-rudderstack-event-type="link" data-action="click-&gt;rudderstack--link-clicked#track" data-link-label="Shop All Designs" data-href="/t-shirts" href="/t-shirts" class="link full-width btn--no-space btn c-link__button tp-btn--large btn--animated link--default">
+<span class='link__content'>
+Shop All Designs
+</span>
+
+</a>
+</div>
+</section>
+</div>
+</menu>
+<menu class="drawer m-tray m-tray-shop jsHeaderTray jsDrawerPrimary" data-controller="containers--drawer-component navigation--tray-trigger rudderstack--filter-clicked rudderstack--link-clicked" data-navigation--tray-trigger-containers--drawer-component-outlet=".jsSecondaryShopTray" data-rudderstack--filter-clicked-location-value="nav-shop-l1" data-rudderstack--link-clicked-location-value="nav-shop-l1" data-containers--drawer-component-target="content"><div class="drawer__backdrop" data-action="click-&gt;navigation--tray-trigger#closeAllOutletTrays click-&gt;containers--drawer-component#close"></div>
+<div class='drawer__wrapper drawer__wrapper--left'>
+<div class="drawer__component drawer--light m-tray-shop-secondary jsSecondaryShopTray m-tray-shop-designs" data-containers--drawer-component-target="content" data-containers--drawer-component-containers--drawer-component-outlet=".jsDrawerPrimary" data-controller="containers--drawer-component rudderstack--link-clicked rudderstack--filter-clicked" data-rudderstack--link-clicked-location-value="nav-shop-l2" data-rudderstack--filter-clicked-location-value="nav-shop-l2"><button type="button" class="btn drawer__close-button tp-btn--medium btn--no-background tp-btn--icon" data-action="click-&gt;containers--drawer-component#closePrimaryDrawer"><span class="teepublicon teepublicon--blue-default teepublicon-background--transparent"><img src="https://assets.teepublic.com/assets/teepublicons/x_close_neutral400-c1926221e50e7f6686d23ac344405449054e43f23d0f3306f15d8dfd546f999a.svg" loading="lazy" alt="Close Drawer" height="12" width="12" aria_hidden="false" focusable="true"></span>
+<div class='button__content'>
+
+</div>
+
+</button>
+<div class='drawer__content-container jsDrawerContentContainer'>
+<div class='m-tray-shop-secondary__body'>
+<div class='m-tray-shop-secondary__content'>
+<h3>Shop Designs</h3>
+<div class='m-tray-shop-secondary__designs' data-containers--content-lazy-loader-fire-request-value='true' data-containers--content-lazy-loader-url-value='/lazyload_shop_tray_best_sellers_content' data-controller='containers--content-lazy-loader'>
+<div class="tp-loader m-tray-shop-secondary__loader jsShopTrayBestSellersLoader tp-loader--default"><div class='tp-loader__spinner updating tp-loader__spinner--default'></div>
+</div>
+</div>
+<div class="link-collection m-tray-shop-secondary__links"><div class="link-collection__body">
+
+<div class="link-collection__content"><a data-rudderstack-event-type="link" data-action="click-&gt;rudderstack--link-clicked#track" data-link-label="Shop All Designs" data-href="/t-shirts" style="--animation-order: " href="/t-shirts" class="link m-tray-shop-secondary__link link-collection__link link--1 link--default">
+<span class='link__content'>
+Shop All Designs
+</span>
+
+</a>
+<a data-rudderstack-event-type="link" data-action="click-&gt;rudderstack--link-clicked#track" data-link-label="New Tees on Sale" data-href="/t-shirts?sort=newest" style="--animation-order: " href="/t-shirts?sort=newest" class="link m-tray-shop-secondary__link link-collection__link link--1 link--default">
+<span class='link__content'>
+New Tees on Sale
+</span>
+
+</a>
+<a data-rudderstack-event-type="link" data-action="click-&gt;rudderstack--link-clicked#track" data-link-label="Newest Designers" data-href="/newest-designers" style="--animation-order: " href="/newest-designers" class="link m-tray-shop-secondary__link link-collection__link link--1 link--default">
+<span class='link__content'>
+Newest Designers
+</span>
+
+</a>
+<a data-rudderstack-event-type="link" data-action="click-&gt;rudderstack--link-clicked#track" data-link-label="Tag Directory" data-href="/tag-directory" style="--animation-order: " href="/tag-directory" class="link m-tray-shop-secondary__link link-collection__link link--1 link--default">
+<span class='link__content'>
+Tag Directory
+</span>
+
+</a>
+
+</div></div></div></div>
+<div class='m-tray-shop-secondary__content'>
+<h3>Artist Collections</h3>
+<div class="link-collection m-tray-shop-secondary__links"><div class="link-collection__body">
+
+<div class="link-collection__content"><a data-rudderstack-event-type="link" data-action="click-&gt;rudderstack--link-clicked#track" data-link-label="Featured Designers" data-href="/featured-designers" style="--animation-order: " href="/featured-designers" class="link m-tray-shop-secondary__link link-collection__link link--1 link--default">
+<span class='link__content'>
+Featured Designers
+</span>
+
+</a>
+<a data-rudderstack-event-type="link" data-action="click-&gt;rudderstack--link-clicked#track" data-link-label="Artists to Watch" data-href="/stores/artists-to-watch" style="--animation-order: " href="/stores/artists-to-watch" class="link m-tray-shop-secondary__link link-collection__link link--1 link--default">
+<span class='link__content'>
+Artists to Watch
+</span>
+
+</a>
+<a data-rudderstack-event-type="link" data-action="click-&gt;rudderstack--link-clicked#track" data-link-label="Creators to Watch" data-href="/stores/creators-to-watch " style="--animation-order: " href="/stores/creators-to-watch " class="link m-tray-shop-secondary__link link-collection__link link--1 link--default">
+<span class='link__content'>
+Creators to Watch
+</span>
+
+</a>
+<a data-rudderstack-event-type="link" data-action="click-&gt;rudderstack--link-clicked#track" data-link-label="AAPI Artists" data-href="/stores/aapi-artists" style="--animation-order: " href="/stores/aapi-artists" class="link m-tray-shop-secondary__link link-collection__link link--1 link--default">
+<span class='link__content'>
+AAPI Artists
+</span>
+
+</a>
+<a data-rudderstack-event-type="link" data-action="click-&gt;rudderstack--link-clicked#track" data-link-label="BIPOC Artists" data-href="/stores/bipoc-artists" style="--animation-order: " href="/stores/bipoc-artists" class="link m-tray-shop-secondary__link link-collection__link link--1 link--default">
+<span class='link__content'>
+BIPOC Artists
+</span>
+
+</a>
+<a data-rudderstack-event-type="link" data-action="click-&gt;rudderstack--link-clicked#track" data-link-label="Black Artists" data-href="/stores/black-artists-on-teepublic" style="--animation-order: " href="/stores/black-artists-on-teepublic" class="link m-tray-shop-secondary__link link-collection__link link--1 link--default">
+<span class='link__content'>
+Black Artists
+</span>
+
+</a>
+<a data-rudderstack-event-type="link" data-action="click-&gt;rudderstack--link-clicked#track" data-link-label="Celebrate Women Artists" data-href="/stores/celebrate-women" style="--animation-order: " href="/stores/celebrate-women" class="link m-tray-shop-secondary__link link-collection__link link--1 link--default">
+<span class='link__content'>
+Celebrate Women Artists
+</span>
+
+</a>
+<a data-rudderstack-event-type="link" data-action="click-&gt;rudderstack--link-clicked#track" data-link-label="LGBTQIA Artists" data-href="/stores/lgbtqia-artists" style="--animation-order: " href="/stores/lgbtqia-artists" class="link m-tray-shop-secondary__link link-collection__link link--1 link--default">
+<span class='link__content'>
+LGBTQIA Artists
+</span>
+
+</a>
+<a data-rudderstack-event-type="link" data-action="click-&gt;rudderstack--link-clicked#track" data-link-label="Ukrainian Artists" data-href="/stores/ukrainian-artists" style="--animation-order: " href="/stores/ukrainian-artists" class="link m-tray-shop-secondary__link link-collection__link link--1 link--default">
+<span class='link__content'>
+Ukrainian Artists
+</span>
+
+</a>
+
+</div></div></div></div>
+</div>
+
+</div>
+<div class="drawer__footer-container m-tray-shop-secondary__footer"><button type="button" class="btn m-shop-tray-secondary__back-btn btn--no-space tp-btn--medium btn--no-background btn--cta btn--cta--on-light" data-action="containers--drawer-component#closeDrawer containers--drawer-component#handleBackToMenu click-&gt;rudderstack--filter-clicked#track" data-cart-id="0ce71249954f259d214421f37b14aeee" data-filter-name="back to menu" data-filter-option-label="Back to Menu"><span class="teepublicon teepublicon--blue-default teepublicon-background--transparent teepublicon--rotate-180"><svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 48 48" width="16" height="16" focusable="false" aria-hidden="true"><path fill-rule="evenodd" d="M44 24c0 .755-.26 1.361-.395 1.648-.165.35-.367.677-.554.955-.378.558-.868 1.163-1.381 1.755-1.037 1.196-4.383 4.582-5.683 5.87a177.078 177.078 0 0 1-5.221 4.963l-.002.002c-1.242 1.13-3.19 1.066-4.35-.145a2.947 2.947 0 0 1 .148-4.24c2.066-1.887 6.094-5.816 8.053-7.808H7.078C5.378 27 4 25.657 4 24s1.378-3 3.078-3h27.537c-1.959-1.992-6.741-6.612-8.051-7.806-1.31-1.194-1.31-3.03-.15-4.241a3.134 3.134 0 0 1 4.35-.146 169.18 169.18 0 0 1 5.223 4.965c1.3 1.288 4.646 4.675 5.683 5.87.513.592 1.003 1.197 1.38 1.756.188.277.39.604.555.954.135.287.395.894.395 1.648Z" clip-rule="evenodd"></path></svg></span>
+<div class='button__content'>
+Back To Menu
+
+</div>
+
+</button></div>
+</div>
+<div class="drawer__component drawer--light m-tray-shop-secondary jsSecondaryShopTray m-tray-shop-apparel" data-containers--drawer-component-target="content" data-containers--drawer-component-containers--drawer-component-outlet=".jsDrawerPrimary" data-controller="containers--drawer-component rudderstack--link-clicked rudderstack--filter-clicked" data-rudderstack--link-clicked-location-value="nav-shop-l2" data-rudderstack--filter-clicked-location-value="nav-shop-l2"><button type="button" class="btn drawer__close-button tp-btn--medium btn--no-background tp-btn--icon" data-action="click-&gt;containers--drawer-component#closePrimaryDrawer"><span class="teepublicon teepublicon--blue-default teepublicon-background--transparent"><img src="https://assets.teepublic.com/assets/teepublicons/x_close_neutral400-c1926221e50e7f6686d23ac344405449054e43f23d0f3306f15d8dfd546f999a.svg" loading="lazy" alt="Close Drawer" height="12" width="12" aria_hidden="false" focusable="true"></span>
+<div class='button__content'>
+
+</div>
+
+</button>
+<div class='drawer__content-container jsDrawerContentContainer'>
+<div class='m-tray-shop-secondary__body'>
+<div class='m-tray-shop-secondary__content'>
+<h3>Adult Apparel</h3>
+<div class='m-tray-shop-secondary__links'>
+<a class="m-tray-shop-secondary__link" data-rudderstack-event-type="link" data-action="click-&gt;rudderstack--link-clicked#track" data-link-label="T-Shirts" data-href="/t-shirts" href="/t-shirts">
+<h4 class="h--no-s">T-Shirts</h4>
+
+</a><a class="m-tray-shop-secondary__link--new" data-rudderstack-event-type="link" data-action="click-&gt;rudderstack--link-clicked#track" data-link-label="Shorts" data-href="/shorts" href="/shorts">
+<h4 class="h--no-s">Shorts</h4>
+<div class="tp-label tp-label--highlight">
+New!
+
+</div>
+</a><a class="m-tray-shop-secondary__link" data-rudderstack-event-type="link" data-action="click-&gt;rudderstack--link-clicked#track" data-link-label="Hoodies" data-href="/hoodie" href="/hoodie">
+<h4 class="h--no-s">Hoodies</h4>
+
+</a><a class="m-tray-shop-secondary__link" data-rudderstack-event-type="link" data-action="click-&gt;rudderstack--link-clicked#track" data-link-label="Long Sleeve T-Shirts" data-href="/long-sleeve-t-shirt" href="/long-sleeve-t-shirt">
+<h4 class="h--no-s">Long Sleeve T-Shirts</h4>
+
+</a><a class="m-tray-shop-secondary__link" data-rudderstack-event-type="link" data-action="click-&gt;rudderstack--link-clicked#track" data-link-label="Crewneck Sweatshirts" data-href="/crewneck-sweatshirt" href="/crewneck-sweatshirt">
+<h4 class="h--no-s">Crewneck Sweatshirts</h4>
+
+</a><a class="m-tray-shop-secondary__link" data-rudderstack-event-type="link" data-action="click-&gt;rudderstack--link-clicked#track" data-link-label="Tank Tops" data-href="/tank-top" href="/tank-top">
+<h4 class="h--no-s">Tank Tops</h4>
+
+</a><a class="m-tray-shop-secondary__link" data-rudderstack-event-type="link" data-action="click-&gt;rudderstack--link-clicked#track" data-link-label="Baseball T-Shirts" data-href="/baseball-t-shirt" href="/baseball-t-shirt">
+<h4 class="h--no-s">Baseball T-Shirts</h4>
+
+</a></div>
+</div>
+<div class='m-tray-shop-secondary__content'>
+<h3>Kids Apparel</h3>
+<div class='m-tray-shop-secondary__links'>
+<a class="m-tray-shop-secondary__link" data-rudderstack-event-type="link" data-action="click-&gt;rudderstack--link-clicked#track" data-link-label="Kids T-Shirts" data-href="/kids-t-shirt" href="/kids-t-shirt">
+<h4 class="h--no-s">Kids T-Shirts</h4>
+
+</a><a class="m-tray-shop-secondary__link" data-rudderstack-event-type="link" data-action="click-&gt;rudderstack--link-clicked#track" data-link-label="Kids Hoodie" data-href="/kids-hoodies" href="/kids-hoodies">
+<h4 class="h--no-s">Kids Hoodie</h4>
+
+</a><a class="m-tray-shop-secondary__link" data-rudderstack-event-type="link" data-action="click-&gt;rudderstack--link-clicked#track" data-link-label="Kids Long Sleeve T-Shirt" data-href="/kids-long-sleeve-t-shirts" href="/kids-long-sleeve-t-shirts">
+<h4 class="h--no-s">Kids Long Sleeve T-Shirt</h4>
+
+</a></div>
+</div>
+</div>
+
+</div>
+<div class="drawer__footer-container m-tray-shop-secondary__footer"><button type="button" class="btn m-shop-tray-secondary__back-btn btn--no-space tp-btn--medium btn--no-background btn--cta btn--cta--on-light" data-action="containers--drawer-component#closeDrawer containers--drawer-component#handleBackToMenu click-&gt;rudderstack--filter-clicked#track" data-cart-id="0ce71249954f259d214421f37b14aeee" data-filter-name="back to menu" data-filter-option-label="Back to Menu"><span class="teepublicon teepublicon--blue-default teepublicon-background--transparent teepublicon--rotate-180"><svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 48 48" width="16" height="16" focusable="false" aria-hidden="true"><path fill-rule="evenodd" d="M44 24c0 .755-.26 1.361-.395 1.648-.165.35-.367.677-.554.955-.378.558-.868 1.163-1.381 1.755-1.037 1.196-4.383 4.582-5.683 5.87a177.078 177.078 0 0 1-5.221 4.963l-.002.002c-1.242 1.13-3.19 1.066-4.35-.145a2.947 2.947 0 0 1 .148-4.24c2.066-1.887 6.094-5.816 8.053-7.808H7.078C5.378 27 4 25.657 4 24s1.378-3 3.078-3h27.537c-1.959-1.992-6.741-6.612-8.051-7.806-1.31-1.194-1.31-3.03-.15-4.241a3.134 3.134 0 0 1 4.35-.146 169.18 169.18 0 0 1 5.223 4.965c1.3 1.288 4.646 4.675 5.683 5.87.513.592 1.003 1.197 1.38 1.756.188.277.39.604.555.954.135.287.395.894.395 1.648Z" clip-rule="evenodd"></path></svg></span>
+<div class='button__content'>
+Back To Menu
+
+</div>
+
+</button></div>
+</div>
+<div class="drawer__component drawer--light m-tray-shop-secondary jsSecondaryShopTray m-tray-shop-accessories" data-containers--drawer-component-target="content" data-containers--drawer-component-containers--drawer-component-outlet=".jsDrawerPrimary" data-controller="containers--drawer-component rudderstack--link-clicked rudderstack--filter-clicked" data-rudderstack--link-clicked-location-value="nav-shop-l2" data-rudderstack--filter-clicked-location-value="nav-shop-l2"><button type="button" class="btn drawer__close-button tp-btn--medium btn--no-background tp-btn--icon" data-action="click-&gt;containers--drawer-component#closePrimaryDrawer"><span class="teepublicon teepublicon--blue-default teepublicon-background--transparent"><img src="https://assets.teepublic.com/assets/teepublicons/x_close_neutral400-c1926221e50e7f6686d23ac344405449054e43f23d0f3306f15d8dfd546f999a.svg" loading="lazy" alt="Close Drawer" height="12" width="12" aria_hidden="false" focusable="true"></span>
+<div class='button__content'>
+
+</div>
+
+</button>
+<div class='drawer__content-container jsDrawerContentContainer'>
+<div class='m-tray-shop-secondary__body'>
+<div class='m-tray-shop-secondary__content'>
+<h3>Accessories</h3>
+<div class='m-tray-shop-secondary__links'>
+<a class="m-tray-shop-secondary__link--new" data-rudderstack-event-type="link" data-action="click-&gt;rudderstack--link-clicked#track" data-link-label="Hats" data-href="/hats" href="/hats">
+<h4 class="h--no-s">Hats</h4>
+<div class="tp-label tp-label--highlight">
+New!
+
+</div>
+</a><a class="m-tray-shop-secondary__link" data-rudderstack-event-type="link" data-action="click-&gt;rudderstack--link-clicked#track" data-link-label="Stickers" data-href="/stickers" href="/stickers">
+<h4 class="h--no-s">Stickers</h4>
+
+</a><a class="m-tray-shop-secondary__link" data-rudderstack-event-type="link" data-action="click-&gt;rudderstack--link-clicked#track" data-link-label="Magnets" data-href="/magnets" href="/magnets">
+<h4 class="h--no-s">Magnets</h4>
+
+</a><a class="m-tray-shop-secondary__link" data-rudderstack-event-type="link" data-action="click-&gt;rudderstack--link-clicked#track" data-link-label="Phone Cases" data-href="/phone-case" href="/phone-case">
+<h4 class="h--no-s">Phone Cases</h4>
+
+</a><a class="m-tray-shop-secondary__link" data-rudderstack-event-type="link" data-action="click-&gt;rudderstack--link-clicked#track" data-link-label="Pins" data-href="/pins" href="/pins">
+<h4 class="h--no-s">Pins</h4>
+
+</a><a class="m-tray-shop-secondary__link" data-rudderstack-event-type="link" data-action="click-&gt;rudderstack--link-clicked#track" data-link-label="Totes" data-href="/totes" href="/totes">
+<h4 class="h--no-s">Totes</h4>
+
+</a></div>
+</div>
+</div>
+
+</div>
+<div class="drawer__footer-container m-tray-shop-secondary__footer"><button type="button" class="btn m-shop-tray-secondary__back-btn btn--no-space tp-btn--medium btn--no-background btn--cta btn--cta--on-light" data-action="containers--drawer-component#closeDrawer containers--drawer-component#handleBackToMenu click-&gt;rudderstack--filter-clicked#track" data-cart-id="0ce71249954f259d214421f37b14aeee" data-filter-name="back to menu" data-filter-option-label="Back to Menu"><span class="teepublicon teepublicon--blue-default teepublicon-background--transparent teepublicon--rotate-180"><svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 48 48" width="16" height="16" focusable="false" aria-hidden="true"><path fill-rule="evenodd" d="M44 24c0 .755-.26 1.361-.395 1.648-.165.35-.367.677-.554.955-.378.558-.868 1.163-1.381 1.755-1.037 1.196-4.383 4.582-5.683 5.87a177.078 177.078 0 0 1-5.221 4.963l-.002.002c-1.242 1.13-3.19 1.066-4.35-.145a2.947 2.947 0 0 1 .148-4.24c2.066-1.887 6.094-5.816 8.053-7.808H7.078C5.378 27 4 25.657 4 24s1.378-3 3.078-3h27.537c-1.959-1.992-6.741-6.612-8.051-7.806-1.31-1.194-1.31-3.03-.15-4.241a3.134 3.134 0 0 1 4.35-.146 169.18 169.18 0 0 1 5.223 4.965c1.3 1.288 4.646 4.675 5.683 5.87.513.592 1.003 1.197 1.38 1.756.188.277.39.604.555.954.135.287.395.894.395 1.648Z" clip-rule="evenodd"></path></svg></span>
+<div class='button__content'>
+Back To Menu
+
+</div>
+
+</button></div>
+</div>
+<div class="drawer__component drawer--light m-tray-shop-secondary jsSecondaryShopTray m-tray-shop-home-goods" data-containers--drawer-component-target="content" data-containers--drawer-component-containers--drawer-component-outlet=".jsDrawerPrimary" data-controller="containers--drawer-component rudderstack--link-clicked rudderstack--filter-clicked" data-rudderstack--link-clicked-location-value="nav-shop-l2" data-rudderstack--filter-clicked-location-value="nav-shop-l2"><button type="button" class="btn drawer__close-button tp-btn--medium btn--no-background tp-btn--icon" data-action="click-&gt;containers--drawer-component#closePrimaryDrawer"><span class="teepublicon teepublicon--blue-default teepublicon-background--transparent"><img src="https://assets.teepublic.com/assets/teepublicons/x_close_neutral400-c1926221e50e7f6686d23ac344405449054e43f23d0f3306f15d8dfd546f999a.svg" loading="lazy" alt="Close Drawer" height="12" width="12" aria_hidden="false" focusable="true"></span>
+<div class='button__content'>
+
+</div>
+
+</button>
+<div class='drawer__content-container jsDrawerContentContainer'>
+<div class='m-tray-shop-secondary__body'>
+<div class='m-tray-shop-secondary__content'>
+<h3>Home Goods</h3>
+<div class='m-tray-shop-secondary__links'>
+<a class="m-tray-shop-secondary__link" data-rudderstack-event-type="link" data-action="click-&gt;rudderstack--link-clicked#track" data-link-label="Mugs" data-href="/mug" href="/mug">
+<h4 class="h--no-s">Mugs</h4>
+
+</a><a class="m-tray-shop-secondary__link" data-rudderstack-event-type="link" data-action="click-&gt;rudderstack--link-clicked#track" data-link-label="Tapestries" data-href="/tapestries" href="/tapestries">
+<h4 class="h--no-s">Tapestries</h4>
+
+</a><a class="m-tray-shop-secondary__link" data-rudderstack-event-type="link" data-action="click-&gt;rudderstack--link-clicked#track" data-link-label="Wall Art" data-href="/posters-and-art" href="/posters-and-art">
+<h4 class="h--no-s">Wall Art</h4>
+
+</a><a class="m-tray-shop-secondary__link" data-rudderstack-event-type="link" data-action="click-&gt;rudderstack--link-clicked#track" data-link-label="Pillows" data-href="/throw-pillows" href="/throw-pillows">
+<h4 class="h--no-s">Pillows</h4>
+
+</a></div>
+</div>
+</div>
+
+</div>
+<div class="drawer__footer-container m-tray-shop-secondary__footer"><button type="button" class="btn m-shop-tray-secondary__back-btn btn--no-space tp-btn--medium btn--no-background btn--cta btn--cta--on-light" data-action="containers--drawer-component#closeDrawer containers--drawer-component#handleBackToMenu click-&gt;rudderstack--filter-clicked#track" data-cart-id="0ce71249954f259d214421f37b14aeee" data-filter-name="back to menu" data-filter-option-label="Back to Menu"><span class="teepublicon teepublicon--blue-default teepublicon-background--transparent teepublicon--rotate-180"><svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 48 48" width="16" height="16" focusable="false" aria-hidden="true"><path fill-rule="evenodd" d="M44 24c0 .755-.26 1.361-.395 1.648-.165.35-.367.677-.554.955-.378.558-.868 1.163-1.381 1.755-1.037 1.196-4.383 4.582-5.683 5.87a177.078 177.078 0 0 1-5.221 4.963l-.002.002c-1.242 1.13-3.19 1.066-4.35-.145a2.947 2.947 0 0 1 .148-4.24c2.066-1.887 6.094-5.816 8.053-7.808H7.078C5.378 27 4 25.657 4 24s1.378-3 3.078-3h27.537c-1.959-1.992-6.741-6.612-8.051-7.806-1.31-1.194-1.31-3.03-.15-4.241a3.134 3.134 0 0 1 4.35-.146 169.18 169.18 0 0 1 5.223 4.965c1.3 1.288 4.646 4.675 5.683 5.87.513.592 1.003 1.197 1.38 1.756.188.277.39.604.555.954.135.287.395.894.395 1.648Z" clip-rule="evenodd"></path></svg></span>
+<div class='button__content'>
+Back To Menu
+
+</div>
+
+</button></div>
+</div>
+<section class="drawer__component drawer--dark m-tray-shop__body"><button type="button" class="btn drawer__close-button tp-btn--medium btn--no-background tp-btn--icon" data-action="click-&gt;containers--drawer-component#closePrimaryDrawer" data-containers--drawer-component-target="primaryDrawerCloseButton"><span class="teepublicon teepublicon--blue-default teepublicon-background--transparent"><img src="https://assets.teepublic.com/assets/teepublicons/x_close_neutral400-c1926221e50e7f6686d23ac344405449054e43f23d0f3306f15d8dfd546f999a.svg" loading="lazy" alt="Close Drawer" height="12" width="12" aria_hidden="false" focusable="true"></span>
+<div class='button__content'>
+
+</div>
+
+</button>
+<div class='drawer__content-container jsDrawerContentContainer'>
+<div class='m-tray-shop__body'>
+<div class='m-tray-shop__logo-container'>
+<div class="vc-header-logo"><a aria-label="Home Link" title="Home" href="https://www.venomsoftball1.com/news-updates" class="link vc-header-logo__wrapper link--1 link--default">
+<span class='link__content'>
+<picture>
+  <source srcset="https://www.venomsoftball1.com/media/2026/logo.webp" type="image/webp">
+  <img class="vc-header-logo__image" 
+       src="https://www.venomsoftball1.com/media/2026/logo.webp"
+       style="max-width:150px; height:auto; display:block; margin:0 auto;" 
+       alt="BOLA228 Logo">
+</picture>
+
+
+</span>
+
+</a><div class='vc-header-logo__content'>
+
+</div>
+</div></div>
+
+<div class='m-tray-shop__secondary-actions'>
+<button type="button" class="btn m-tray-shop__secondary-action btn--no-space btn--full-width tp-btn--medium" data-action="navigation--tray-trigger#openTray containers--drawer-component#handlePrimaryDrawerCloseButton click-&gt;rudderstack--filter-clicked#track" data-targeted-tray="shop-designs" data-cart-id="0ce71249954f259d214421f37b14aeee" data-filter-name="Designs" data-filter-option-label="Shop Designs">
+<div class='button__content'>
+<div class='m-tray-shop__secondary-action-text'>
+<h4>Shop Designs</h4>
+<p>Discover a classic design or new favorite artist</p>
+</div>
+
+</div>
+<span class="teepublicon teepublicon--primary-400 teepublicon-background--transparent"><svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 48 48" width="24" height="24" focusable="false" aria-hidden="true"><path fill-rule="evenodd" d="M44 24c0 .755-.26 1.361-.395 1.648-.165.35-.367.677-.554.955-.378.558-.868 1.163-1.381 1.755-1.037 1.196-4.383 4.582-5.683 5.87a177.078 177.078 0 0 1-5.221 4.963l-.002.002c-1.242 1.13-3.19 1.066-4.35-.145a2.947 2.947 0 0 1 .148-4.24c2.066-1.887 6.094-5.816 8.053-7.808H7.078C5.378 27 4 25.657 4 24s1.378-3 3.078-3h27.537c-1.959-1.992-6.741-6.612-8.051-7.806-1.31-1.194-1.31-3.03-.15-4.241a3.134 3.134 0 0 1 4.35-.146 169.18 169.18 0 0 1 5.223 4.965c1.3 1.288 4.646 4.675 5.683 5.87.513.592 1.003 1.197 1.38 1.756.188.277.39.604.555.954.135.287.395.894.395 1.648Z" clip-rule="evenodd"></path></svg></span>
+</button><button type="button" class="btn m-tray-shop__secondary-action btn--no-space btn--full-width tp-btn--medium" data-action="navigation--tray-trigger#openTray containers--drawer-component#handlePrimaryDrawerCloseButton click-&gt;rudderstack--filter-clicked#track" data-targeted-tray="shop-apparel" data-cart-id="0ce71249954f259d214421f37b14aeee" data-filter-name="Canvas" data-filter-option-label="Apparel">
+<div class='button__content'>
+<div class='m-tray-shop__secondary-action-text'>
+<h4>Apparel</h4>
+<p>Shop for Adults &amp; Kids</p>
+</div>
+
+</div>
+<span class="teepublicon teepublicon--primary-400 teepublicon-background--transparent"><svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 48 48" width="24" height="24" focusable="false" aria-hidden="true"><path fill-rule="evenodd" d="M44 24c0 .755-.26 1.361-.395 1.648-.165.35-.367.677-.554.955-.378.558-.868 1.163-1.381 1.755-1.037 1.196-4.383 4.582-5.683 5.87a177.078 177.078 0 0 1-5.221 4.963l-.002.002c-1.242 1.13-3.19 1.066-4.35-.145a2.947 2.947 0 0 1 .148-4.24c2.066-1.887 6.094-5.816 8.053-7.808H7.078C5.378 27 4 25.657 4 24s1.378-3 3.078-3h27.537c-1.959-1.992-6.741-6.612-8.051-7.806-1.31-1.194-1.31-3.03-.15-4.241a3.134 3.134 0 0 1 4.35-.146 169.18 169.18 0 0 1 5.223 4.965c1.3 1.288 4.646 4.675 5.683 5.87.513.592 1.003 1.197 1.38 1.756.188.277.39.604.555.954.135.287.395.894.395 1.648Z" clip-rule="evenodd"></path></svg></span>
+</button><button type="button" class="btn m-tray-shop__secondary-action btn--no-space btn--full-width tp-btn--medium" data-action="navigation--tray-trigger#openTray containers--drawer-component#handlePrimaryDrawerCloseButton click-&gt;rudderstack--filter-clicked#track" data-targeted-tray="shop-accessories" data-cart-id="0ce71249954f259d214421f37b14aeee" data-filter-name="Canvas" data-filter-option-label="Accessories">
+<div class='button__content'>
+<div class='m-tray-shop__secondary-action-text'>
+<h4>Accessories</h4>
+<p>Express yourself with stickers and more</p>
+</div>
+
+</div>
+<span class="teepublicon teepublicon--primary-400 teepublicon-background--transparent"><svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 48 48" width="24" height="24" focusable="false" aria-hidden="true"><path fill-rule="evenodd" d="M44 24c0 .755-.26 1.361-.395 1.648-.165.35-.367.677-.554.955-.378.558-.868 1.163-1.381 1.755-1.037 1.196-4.383 4.582-5.683 5.87a177.078 177.078 0 0 1-5.221 4.963l-.002.002c-1.242 1.13-3.19 1.066-4.35-.145a2.947 2.947 0 0 1 .148-4.24c2.066-1.887 6.094-5.816 8.053-7.808H7.078C5.378 27 4 25.657 4 24s1.378-3 3.078-3h27.537c-1.959-1.992-6.741-6.612-8.051-7.806-1.31-1.194-1.31-3.03-.15-4.241a3.134 3.134 0 0 1 4.35-.146 169.18 169.18 0 0 1 5.223 4.965c1.3 1.288 4.646 4.675 5.683 5.87.513.592 1.003 1.197 1.38 1.756.188.277.39.604.555.954.135.287.395.894.395 1.648Z" clip-rule="evenodd"></path></svg></span>
+</button><button type="button" class="btn m-tray-shop__secondary-action btn--no-space btn--full-width tp-btn--medium" data-action="navigation--tray-trigger#openTray containers--drawer-component#handlePrimaryDrawerCloseButton click-&gt;rudderstack--filter-clicked#track" data-targeted-tray="shop-home-goods" data-cart-id="0ce71249954f259d214421f37b14aeee" data-filter-name="Canvas" data-filter-option-label="Home Goods">
+<div class='button__content'>
+<div class='m-tray-shop__secondary-action-text'>
+<h4>Home Goods</h4>
+<p>Decorate with pillows, tapestries, and more</p>
+</div>
+
+</div>
+<span class="teepublicon teepublicon--primary-400 teepublicon-background--transparent"><svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 48 48" width="24" height="24" focusable="false" aria-hidden="true"><path fill-rule="evenodd" d="M44 24c0 .755-.26 1.361-.395 1.648-.165.35-.367.677-.554.955-.378.558-.868 1.163-1.381 1.755-1.037 1.196-4.383 4.582-5.683 5.87a177.078 177.078 0 0 1-5.221 4.963l-.002.002c-1.242 1.13-3.19 1.066-4.35-.145a2.947 2.947 0 0 1 .148-4.24c2.066-1.887 6.094-5.816 8.053-7.808H7.078C5.378 27 4 25.657 4 24s1.378-3 3.078-3h27.537c-1.959-1.992-6.741-6.612-8.051-7.806-1.31-1.194-1.31-3.03-.15-4.241a3.134 3.134 0 0 1 4.35-.146 169.18 169.18 0 0 1 5.223 4.965c1.3 1.288 4.646 4.675 5.683 5.87.513.592 1.003 1.197 1.38 1.756.188.277.39.604.555.954.135.287.395.894.395 1.648Z" clip-rule="evenodd"></path></svg></span>
+</button></div>
+
+<div class="m-tray-shop__popular-products"><h3>Popular Products</h3>
+<div class='m-tray-shop__popular-products-grid'>
+<a data-rudderstack-event-type="link" data-action="click-&gt;rudderstack--link-clicked#track" data-link-label="T-Shirts" data-href="/t-shirts" href="/t-shirts" class="link m-tray-shop__popular-product tshirt">
+<span class='link__content'>
+<span>T-Shirts</span>
+
+</span>
+
+</a><a data-rudderstack-event-type="link" data-action="click-&gt;rudderstack--link-clicked#track" data-link-label="Shorts" data-href="/shorts" href="/shorts" class="link m-tray-shop__popular-product shorts m-tray-shop__popular-product--new">
+<span class='link__content'>
+<span>Shorts</span>
+
+</span>
+
+</a><a data-rudderstack-event-type="link" data-action="click-&gt;rudderstack--link-clicked#track" data-link-label="Hoodies" data-href="/hoodie" href="/hoodie" class="link m-tray-shop__popular-product hoodie">
+<span class='link__content'>
+<span>Hoodies</span>
+
+</span>
+
+</a><a data-rudderstack-event-type="link" data-action="click-&gt;rudderstack--link-clicked#track" data-link-label="Hats" data-href="/hats" href="/hats" class="link m-tray-shop__popular-product hat">
+<span class='link__content'>
+<span>Hats</span>
+
+</span>
+
+</a><a data-rudderstack-event-type="link" data-action="click-&gt;rudderstack--link-clicked#track" data-link-label="Kids T-Shirts" data-href="/kids-t-shirt" href="/kids-t-shirt" class="link m-tray-shop__popular-product kids">
+<span class='link__content'>
+<span>Kids T-Shirts</span>
+
+</span>
+
+</a><a data-rudderstack-event-type="link" data-action="click-&gt;rudderstack--link-clicked#track" data-link-label="Stickers" data-href="/stickers" href="/stickers" class="link m-tray-shop__popular-product sticker">
+<span class='link__content'>
+<span>Stickers</span>
+
+</span>
+
+</a><a data-rudderstack-event-type="link" data-action="click-&gt;rudderstack--link-clicked#track" data-link-label="Tank Tops" data-href="/tank-top" href="/tank-top" class="link m-tray-shop__popular-product tank">
+<span class='link__content'>
+<span>Tank Tops</span>
+
+</span>
+
+</a><a data-rudderstack-event-type="link" data-action="click-&gt;rudderstack--link-clicked#track" data-link-label="Mugs" data-href="/mug" href="/mug" class="link m-tray-shop__popular-product mug">
+<span class='link__content'>
+<span>Mugs</span>
+
+</span>
+
+</a></div>
+
+</div>
+<div class="m-tray-shop__popular-topics"><h3>Browse All Topics</h3>
+<div class='m-tray-shop__popular-topics-content'>
+<a data-rudderstack-event-type="link" data-action="click-&gt;rudderstack--link-clicked#track" data-link-label="funny" data-href="https://www.venomsoftball1.com/news-updates" title="Funny" href="https://www.venomsoftball1.com/news-updates" class="link m-tray-shop__popular-topic vc-pill vc-pill--on-dark link--default link--strong">
+<span class='link__content'>
+funny
+</span>
+
+</a>
+<a data-rudderstack-event-type="link" data-action="click-&gt;rudderstack--link-clicked#track" data-link-label="music" data-href="https://www.venomsoftball1.com/news-updates" title="Music" href="https://www.venomsoftball1.com/news-updates" class="link m-tray-shop__popular-topic vc-pill vc-pill--on-dark link--default link--strong">
+<span class='link__content'>
+music
+</span>
+
+</a>
+<a data-rudderstack-event-type="link" data-action="click-&gt;rudderstack--link-clicked#track" data-link-label="anime" data-href="/t-shirts/anime" title="Anime" href="/t-shirts/anime" class="link m-tray-shop__popular-topic vc-pill vc-pill--on-dark link--default link--strong">
+<span class='link__content'>
+anime
+</span>
+
+</a>
+<a data-rudderstack-event-type="link" data-action="click-&gt;rudderstack--link-clicked#track" data-link-label="movies" data-href="https://www.venomsoftball1.com/news-updates" title="Movies" href="https://www.venomsoftball1.com/news-updates" class="link m-tray-shop__popular-topic vc-pill vc-pill--on-dark link--default link--strong">
+<span class='link__content'>
+movies
+</span>
+
+</a>
+<a data-rudderstack-event-type="link" data-action="click-&gt;rudderstack--link-clicked#track" data-link-label="television" data-href="https://www.venomsoftball1.com/news-updates" title="Television" href="https://www.venomsoftball1.com/news-updates" class="link m-tray-shop__popular-topic vc-pill vc-pill--on-dark link--default link--strong">
+<span class='link__content'>
+television
+</span>
+
+</a>
+<a data-rudderstack-event-type="link" data-action="click-&gt;rudderstack--link-clicked#track" data-link-label="sports" data-href="https://www.venomsoftball1.com/news-updates" title="Sports" href="https://www.venomsoftball1.com/news-updates" class="link m-tray-shop__popular-topic vc-pill vc-pill--on-dark link--default link--strong">
+<span class='link__content'>
+sports
+</span>
+
+</a>
+<a data-rudderstack-event-type="link" data-action="click-&gt;rudderstack--link-clicked#track" data-link-label="sci-fi" data-href="/t-shirts/sci-fi" title="Sci-Fi" href="/t-shirts/sci-fi" class="link m-tray-shop__popular-topic vc-pill vc-pill--on-dark link--default link--strong">
+<span class='link__content'>
+sci-fi
+</span>
+
+</a>
+<a data-rudderstack-event-type="link" data-action="click-&gt;rudderstack--link-clicked#track" data-link-label="vintage" data-href="https://www.venomsoftball1.com/news-updates" title="Vintage" href="https://www.venomsoftball1.com/news-updates" class="link m-tray-shop__popular-topic vc-pill vc-pill--on-dark link--default link--strong">
+<span class='link__content'>
+vintage
+</span>
+
+</a>
+<a data-rudderstack-event-type="link" data-action="click-&gt;rudderstack--link-clicked#track" data-link-label="animals" data-href="https://www.venomsoftball1.com/news-updates" title="Animals" href="https://www.venomsoftball1.com/news-updates" class="link m-tray-shop__popular-topic vc-pill vc-pill--on-dark link--default link--strong">
+<span class='link__content'>
+animals
+</span>
+
+</a>
+<a data-rudderstack-event-type="link" data-action="click-&gt;rudderstack--link-clicked#track" data-link-label="drinks" data-href="/t-shirts/drinks" title="Drinks" href="/t-shirts/drinks" class="link m-tray-shop__popular-topic vc-pill vc-pill--on-dark link--default link--strong">
+<span class='link__content'>
+drinks
+</span>
+
+</a>
+<a data-rudderstack-event-type="link" data-action="click-&gt;rudderstack--link-clicked#track" data-link-label="food" data-href="/t-shirts/food" title="Food" href="/t-shirts/food" class="link m-tray-shop__popular-topic vc-pill vc-pill--on-dark link--default link--strong">
+<span class='link__content'>
+food
+</span>
+
+</a>
+<a data-rudderstack-event-type="link" data-action="click-&gt;rudderstack--link-clicked#track" data-link-label="politics" data-href="/t-shirts/politics" title="Politics" href="/t-shirts/politics" class="link m-tray-shop__popular-topic vc-pill vc-pill--on-dark link--default link--strong">
+<span class='link__content'>
+politics
+</span>
+
+</a>
+</div>
+<a data-rudderstack-event-type="link" data-action="click-&gt;rudderstack--link-clicked#track" data-link-label="All Popular Designs" data-href="/t-shirts?sort=popular" href="/t-shirts?sort=popular" class="link m-tray-shop__popular-topics-cta link__cta link__cta--on-dark link--default">
+<span class='link__content'>
+All Popular Designs
+</span>
+
+</a>
+
+</div>
+<div class='m-tray-shop__support'>
+<h3>Support</h3>
+<div class='m-tray-shop__support-links'>
+<a data-rudderstack-event-type="link" data-action="click-&gt;rudderstack--link-clicked#track" data-link-label="Order Status" data-href="/order/status" href="/order/status" class="link m-tray-shop__support-link link--1 link--default link--strong tp-btn--icon"><span class="teepublicon teepublicon--primary-400 teepublicon-background--transparent"><svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 48 48" width="20" height="20" focusable="false" aria-hidden="true"><path d="M38.652 14.318c-.75.414-1.62.892-2.556 1.404L18.694 5.944a252.71 252.71 0 0 1 2.536-1.289 6.182 6.182 0 0 1 5.54 0c2.01 1.007 4.716 2.395 6.73 3.543 1.98 1.13 4.512 2.723 6.362 3.912.412.264.785.573 1.116.918l-.383.213c-.467.26-1.136.631-1.943 1.077ZM26.111 44a6.16 6.16 0 0 0 .66-.284c2.008-1.007 4.715-2.394 6.73-3.543 1.98-1.129 4.51-2.723 6.361-3.911a6.013 6.013 0 0 0 2.763-4.58c.175-2.199.375-5.205.375-7.496 0-2.22-.188-5.11-.359-7.288a728.66 728.66 0 0 1-4.852 2.673v5.122c0 .388-.217.743-.563.924l-3.778 1.976c-.703.367-1.548-.137-1.548-.924V22.74c-1.263.666-2.47 1.293-3.522 1.82a57.41 57.41 0 0 1-2.267 1.086V44Zm3.63-24.857-17.217-9.78a202.872 202.872 0 0 0-4.386 2.747 6.117 6.117 0 0 0-1.116.918l.383.213a743.059 743.059 0 0 0 7.928 4.343 255.811 255.811 0 0 0 6.196 3.247c.88.442 1.618.796 2.162 1.035l.309.132c.09-.037.192-.08.309-.132.544-.24 1.281-.593 2.162-1.035.972-.487 2.09-1.066 3.27-1.688ZM21.23 43.716c.215.108.435.203.659.284V25.647a57.343 57.343 0 0 1-2.267-1.086 259.738 259.738 0 0 1-6.306-3.305 666.21 666.21 0 0 1-7.957-4.358C5.187 19.076 5 21.966 5 24.186c0 2.291.2 5.297.375 7.496a6.014 6.014 0 0 0 2.763 4.58c1.85 1.188 4.382 2.782 6.362 3.911 2.014 1.149 4.72 2.536 6.73 3.543Zm2.378-21.573.034-.009a.378.378 0 0 1-.034.01Zm.75-.009a.23.23 0 0 1 .034.01l-.034-.01Z"></path></svg></span>
+<span class='link__content'>
+<span>Order Status</span>
+
+</span>
+
+</a><a data-rudderstack-event-type="link" data-action="click-&gt;rudderstack--link-clicked#track" data-link-label="FAQ" data-href="https://teepublic.zendesk.com/hc/" href="https://teepublic.zendesk.com/hc/" class="link m-tray-shop__support-link link--1 link--default link--strong tp-btn--icon"><span class="teepublicon teepublicon--primary-400 teepublicon-background--transparent"><svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 48 48" width="20" height="20" focusable="false" aria-hidden="true"><path d="M42.049 21.297a1.951 1.951 0 0 1 0 3.902H39.95a1.951 1.951 0 0 1 0-3.902h2.098Zm-36.098 0a1.951 1.951 0 0 0 0 3.902H8.05a1.951 1.951 0 0 0 0-3.902h-2.1ZM22 6a2 2 0 1 1 4 0v1.854a2 2 0 1 1-4 0V6Zm-.373 38a2.927 2.927 0 0 1 0-5.854h5.146a2.927 2.927 0 0 1 0 5.854h-5.146ZM35.353 9.89a2.035 2.035 0 0 1 2.829 0 1.918 1.918 0 0 1 0 2.76l-1.414 1.38a2.035 2.035 0 0 1-2.829 0 1.918 1.918 0 0 1 0-2.76l1.414-1.38Zm-22.706 0a2.035 2.035 0 0 0-2.829 0 1.918 1.918 0 0 0 0 2.76l1.414 1.38a2.035 2.035 0 0 0 2.829 0 1.918 1.918 0 0 0 0-2.76l-1.414-1.38ZM30.5 33c0-.352.121-.708.395-.93A10.98 10.98 0 0 0 35 23.5c0-6.075-4.925-11-11-11s-11 4.925-11 11a10.98 10.98 0 0 0 4.105 8.57c.274.222.395.578.395.93a2.5 2.5 0 0 0 2.5 2.5h8a2.5 2.5 0 0 0 2.5-2.5Z"></path></svg></span>
+<span class='link__content'>
+<span>FAQ</span>
+
+</span>
+
+</a><a data-rudderstack-event-type="link" data-action="click-&gt;rudderstack--link-clicked#track" data-link-label="Contact Us" data-href="/contact" href="/contact" class="link m-tray-shop__support-link link--1 link--default link--strong tp-btn--icon"><span class="teepublicon teepublicon--primary-400 teepublicon-background--transparent"><svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 48 48" width="20" height="20" focusable="false" aria-hidden="true"><path d="M28.595 5.507c-.198-1.463-1.789-2.005-2.847-.976-2.148 2.09-5.57 5.816-9.26 11.392-3.87 5.85-5.614 9.665-6.377 11.688-.372.988.222 1.917 1.273 2.005 1.357.113 3.646.222 7.416.222h.023c-.015.711-.024 1.458-.024 2.242 0 4.794.308 8.222.606 10.416.198 1.463 1.788 2.005 2.847.976 2.148-2.089 5.57-5.816 9.259-11.392 3.87-5.85 5.615-9.665 6.377-11.688.372-.988-.221-1.917-1.273-2.004-1.357-.113-3.645-.223-7.415-.223h-.023c.015-.711.024-1.458.024-2.242 0-4.794-.308-8.222-.606-10.416Z"></path></svg></span>
+<span class='link__content'>
+<span>Contact Us</span>
+
+</span>
+
+</a></div>
+</div>
+
+
+</div>
+
+</div>
+<div class="drawer__footer-container m-tray-shop__footer"><a data-rudderstack-event-type="link" data-action="click-&gt;rudderstack--link-clicked#track" data-link-label="Shop All Designs" data-href="/t-shirts" href="/t-shirts" class="link m-tray-shop__footer-button full-width btn--no-space btn c-link__button tp-btn--medium btn--animated link--default">
+<span class='link__content'>
+Shop All Designs
+</span>
+
+</a>
+</div>
+</section>
+</div>
+</menu>
+
+
+
+<div class='modal modal-default' id='intl-settings'>
+<div class='modal-container'>
+<div class='modal__close-ctrl close-modal close-reveal-modal jsCloseModal'>
+<span class="teepublicon teepublicon--color-neutral-400 teepublicon-background--transparent"><svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 48 48" width="16" height="16" focusable="false" aria-hidden="true"><path d="M6.88 36.879a3 3 0 1 0 4.242 4.242L24 28.243 36.879 41.12a3 3 0 1 0 4.243-4.242L28.243 24l12.879-12.879a3 3 0 1 0-4.243-4.242L24.001 19.757 11.12 6.88a3 3 0 1 0-4.24 4.24L19.758 24 6.879 36.879Z"></path></svg></span>
+</div>
+<div class='custom-modal-content'>
+<div class='m-browse-preferences'>
+<div class='m-browse-preferences__h'>Update Your Browsing Preferences</div>
+<form action="/browse_preferences/change" accept-charset="UTF-8" method="post"><input type="hidden" name="authenticity_token" value="i-HmcXSZvpcEsQcH8y1vIvPXN7DZ4eco4eiM7RuYF7hROv90NvndPP1djOPVqdtNfP3cXlm-rwXt4_6VCtbelA" autocomplete="off" /><input value="{&quot;design_slug&quot;:&quot;t-shirt&quot;,&quot;controller&quot;:&quot;product_pages&quot;,&quot;action&quot;:&quot;show&quot;,&quot;id&quot;:&quot;74165272-george-kittle-f-dallas-kittle&quot;}" autocomplete="off" type="hidden" name="referring_params" id="referring_params" />
+<div class='form__group'>
+<div class='form__field'>
+<label class="label--heavy" for="country">Shipping Country:</label>
+<div class='select__wrap'>
+<select class="select form__control" name="country" id="country"><option value="AG">Antigua and Barbuda</option>
+<option value="AR">Argentina</option>
+<option value="AW">Aruba</option>
+<option value="AU">Australia</option>
+<option value="AT">Austria</option>
+<option value="BS">Bahamas</option>
+<option value="BB">Barbados</option>
+<option value="BE">Belgium</option>
+<option value="BZ">Belize</option>
+<option value="BM">Bermuda</option>
+<option value="BG">Bulgaria</option>
+<option value="CA">Canada</option>
+<option value="KY">Cayman Islands</option>
+<option value="CO">Colombia</option>
+<option value="CR">Costa Rica</option>
+<option value="HR">Croatia</option>
+<option value="CY">Cyprus</option>
+<option value="CZ">Czech Republic</option>
+<option value="DK">Denmark</option>
+<option value="DO">Dominican Republic</option>
+<option value="EE">Estonia</option>
+<option value="FI">Finland</option>
+<option value="FR">France</option>
+<option value="GE">Georgia</option>
+<option value="DE">Germany</option>
+<option value="GI">Gibraltar</option>
+<option value="GR">Greece</option>
+<option value="HT">Haiti</option>
+<option value="HK">Hong Kong</option>
+<option value="HU">Hungary</option>
+<option value="IS">Iceland</option>
+<option value="IE">Ireland</option>
+<option value="IT">Italy</option>
+<option value="JM">Jamaica</option>
+<option value="JP">Japan</option>
+<option value="KR">Korea, Republic of</option>
+<option value="LV">Latvia</option>
+<option value="LI">Liechtenstein</option>
+<option value="LT">Lithuania</option>
+<option value="LU">Luxembourg</option>
+<option value="MY">Malaysia</option>
+<option value="MV">Maldives</option>
+<option value="MT">Malta</option>
+<option value="MC">Monaco</option>
+<option value="NL">Netherlands</option>
+<option value="NZ">New Zealand</option>
+<option value="NO">Norway</option>
+<option value="PL">Poland</option>
+<option value="PT">Portugal</option>
+<option value="PR">Puerto Rico</option>
+<option value="RO">Romania</option>
+<option value="KN">Saint Kitts and Nevis</option>
+<option value="LC">Saint Lucia</option>
+<option value="RS">Serbia</option>
+<option value="SG">Singapore</option>
+<option value="SK">Slovakia (Slovak Republic)</option>
+<option value="SI">Slovenia</option>
+<option value="ES">Spain</option>
+<option value="LK">Sri Lanka</option>
+<option value="SE">Sweden</option>
+<option value="CH">Switzerland</option>
+<option value="TW">Taiwan</option>
+<option value="TH">Thailand</option>
+<option value="TT">Trinidad and Tobago</option>
+<option value="GB">United Kingdom</option>
+<option selected="selected" value="US">United States</option>
+<option value="UY">Uruguay</option></select>
+</div>
+</div>
+<div class='form__field'>
+<label class="label--heavy" for="currency">Currency:</label>
+<div class='select__wrap'>
+<select class="select form__control" name="currency" id="currency"><option selected="selected" value="USD">$ United States Dollar (USD)</option>
+<option value="AUD">$ Australian Dollar (AUD)</option>
+<option value="CAD">$ Canadian Dollar (CAD)</option>
+<option value="GBP">£ Pound Sterling (GBP)</option>
+<option value="EUR">€ Euro (EUR)</option></select>
+</div>
+</div>
+<div class='m-browse-preferences__btn-cont'>
+<input type="submit" name="commit" value="Update" class="btn btn--large btn--full" data-disable-with="Update" />
+</div>
+<div class='m-browse-preferences__btn-cont'>
+<a class='link link--1 text-center close-modal close-reveal-modal jsCloseModal' id='dismiss-modal-custom'>Cancel</a>
+</div>
+</div>
+</form></div>
+
+</div>
+</div>
+<div class='modal__close-ctrl close-modal close-reveal-modal jsCloseModal'>
+<span class="teepublicon teepublicon--light-default teepublicon-background--transparent"><svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 48 48" width="24" height="24" focusable="false" aria-hidden="true"><path d="M6.88 36.879a3 3 0 1 0 4.242 4.242L24 28.243 36.879 41.12a3 3 0 1 0 4.243-4.242L28.243 24l12.879-12.879a3 3 0 1 0-4.243-4.242L24.001 19.757 11.12 6.88a3 3 0 1 0-4.24 4.24L19.758 24 6.879 36.879Z"></path></svg></span>
+</div>
+</div>
+
+<div class='modal modal-default' id='mobile-size-chart'>
+<div class='modal-container'>
+<div class='modal__close-ctrl close-modal close-reveal-modal jsCloseModal'>
+<span class="teepublicon teepublicon--color-neutral-400 teepublicon-background--transparent"><svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 48 48" width="16" height="16" focusable="false" aria-hidden="true"><path d="M6.88 36.879a3 3 0 1 0 4.242 4.242L24 28.243 36.879 41.12a3 3 0 1 0 4.243-4.242L28.243 24l12.879-12.879a3 3 0 1 0-4.243-4.242L24.001 19.757 11.12 6.88a3 3 0 1 0-4.24 4.24L19.758 24 6.879 36.879Z"></path></svg></span>
+</div>
+<div class='custom-modal-content'>
+<div class='m-sizer jsProductMainImage jsSizer hidden'>
+<div class='m-sizer__slider jsSizerSlider glide'>
+<div class='glide__wrapper m-sizer__slider-wrap jsSizerWrap'></div>
+<div class='glide__bullets'></div>
+<div class='glide__arrows m-sizer__slider-arrows' data-glide-el='controls'>
+<div class='m-sizer__slider-arrow glide__arrow prev' data-glide-dir='&lt;'>
+<span class='jsSizerPrevText'></span>
+</div>
+<div class='m-sizer__slider-arrow glide__arrow next' data-glide-dir='&gt;'>
+<span class='jsSizerNextText'></span>
+</div>
+</div>
+</div>
+<p class='m-sizer__slider-text'>
+<span class='m-sizer__slider-name jsSizerModelName'>Katie:</span>
+<span class='jsSizerModelHeight'>5'10"</span>
+<span class='jsSizerModelWeight'>160</span>
+</p>
+<div class='m-sizer__configs-wrap jsSizerConfigs on' data-canvas='1'>
+<span class="teepublicon teepublicon--light-default teepublicon-background--transparent m-sizer__configs-ctrl jsShowSizerConfigs"><svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 50 50" width="24" height="24" aria-labelledby="title"><path fill-rule="evenodd" d="M49 38.5H38.845A7.494 7.494 0 0 0 32.5 35a7.494 7.494 0 0 0-6.345 3.5H1a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h25.155A7.494 7.494 0 0 0 32.5 50a7.494 7.494 0 0 0 6.345-3.5H49a1 1 0 0 0 1-1v-6a1 1 0 0 0-1-1Zm-16.5 8a4 4 0 1 0 0-8 4 4 0 0 0 0 8ZM49 21H18.845a7.494 7.494 0 0 0-6.345-3.5A7.495 7.495 0 0 0 6.155 21H1a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h5.155a7.495 7.495 0 0 0 6.345 3.5 7.494 7.494 0 0 0 6.345-3.5H49a1 1 0 0 0 1-1v-6a1 1 0 0 0-1-1Zm-36.5 8a4 4 0 1 0 0-8 4 4 0 0 0 0 8ZM49 3.5h-5.155A7.494 7.494 0 0 0 37.5 0a7.494 7.494 0 0 0-6.345 3.5H1a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h30.155A7.494 7.494 0 0 0 37.5 15a7.494 7.494 0 0 0 6.345-3.5H49a1 1 0 0 0 1-1v-6a1 1 0 0 0-1-1Zm-11.5 8a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z" clip-rule="evenodd"></path><title>Filter Options</title>
+<desc>Click to return to the Size Chart filter options menu.</desc></svg></span>
+<div class='m-sizer__configs text-center'>
+<div class='m-sizer__config'>
+<label class='m-sizer__prompt'>Select your person:</label>
+<div class='m-sizer__btns jsSizerConfigBtns jsSizerConfigGenders'>
+<button class='btn on' data-config='gender-male'>Male</button>
+<button class='btn' data-config='gender-female'>Female</button>
+</div>
+</div>
+<div class='m-sizer__config'>
+<label class='m-sizer__label'>Height</label>
+<div class='m-sizer__btns jsSizerConfigBtns'>
+<button class='btn' data-config='height-short'>Short</button>
+<button class='btn on' data-config='height-reg'>Med</button>
+<button class='btn' data-config='height-tall'>Tall</button>
+</div>
+</div>
+<div class='m-sizer__config'>
+<label class='m-sizer__label'>Weight</label>
+<div class='m-sizer__btns jsSizerConfigBtns'>
+<button class='btn' data-config='weight-thin'>Slim</button>
+<button class='btn on' data-config='weight-reg'>Avg</button>
+<button class='btn jsSizerBtnWeight' data-config='weight-curvy'>Heavy</button>
+</div>
+</div>
+<div class='m-sizer__view'>
+<button class='btn btn--green btn--large jsViewSizerSlider'>View Size Chart</button>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div class='modal__close-ctrl close-modal close-reveal-modal jsCloseModal'>
+<span class="teepublicon teepublicon--light-default teepublicon-background--transparent"><svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 48 48" width="24" height="24" focusable="false" aria-hidden="true"><path d="M6.88 36.879a3 3 0 1 0 4.242 4.242L24 28.243 36.879 41.12a3 3 0 1 0 4.243-4.242L28.243 24l12.879-12.879a3 3 0 1 0-4.243-4.242L24.001 19.757 11.12 6.88a3 3 0 1 0-4.24 4.24L19.758 24 6.879 36.879Z"></path></svg></span>
+</div>
+</div>
+
+
+
+<script>
+  window.TeePublic = window.TeePublic || {};
+  window.TeePublic.features = {};
+  window.TeePublic._data = {};
+  window.TeePublic.requestController = 'product_pages';
+  window.TeePublic.requestAction = 'show';
+  window.TeePublic.requestId = '3be9d95d-1200-4c87-ac81-ade852a75de5';
+</script>
+<script>
+  var xhr = new XMLHttpRequest();
+  xhr.open('GET', '/designs/74165272/canvas/1/product_images', true);
+  xhr.onload = function() {
+    if (xhr.status >= 200 && xhr.status < 400) {
+      var data = JSON.parse(xhr.responseText);
+      var productImages = data.images;
+      window.TeePublic.ProductImages = productImages;
+
+      // Update the gallery if a product selection has been made
+      const productImageSwapQueue = window.TeePublic && window.TeePublic.ProductImageSwapQueue;
+      if (!productImageSwapQueue) return;
+
+      window.TeePublic.ProductHelper.updateGallery(
+        productImageSwapQueue.gallery,
+        productImageSwapQueue.productId
+      );
+
+    } else {
+      console.error('Error: ' + xhr.status);
+    }
+  };
+
+  xhr.onerror = function(error) {
+    console.error('Error: ' + error);
+  };
+
+  xhr.send();
+
+  function checkProductImageSwapQueue() {
+    
+  }
+</script>
+
+
+<script src="https://assets.teepublic.com/assets/product_page-2af4d77ccb74974f4afec6972768b6abd2dca23b01d5b2e7380c8a38dff3c308.js"></script>
+<script src="https://assets.teepublic.com/packs/js/product_page-c8d7a3eb618da10ad666.js"></script>
+
+
+<script>
+  TeePublic.initialSelectedProduct = 357
+  TeePublic['ab_tests'] = {};
+  TeePublic['icons'] = {"selected_check":"\u003cspan class=\"teepublicon teepublicon--dark-default teepublicon-background--light-default teepublicon-variant--circle default\"\u003e\u003csvg viewbox=\"0 0 48 48\" xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" focusable=\"false\" aria-hidden=\"true\"\u003e\u003cpath fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M24 44c11.046 0 20-8.954 20-20S35.046 4 24 4 4 12.954 4 24s8.954 20 20 20Zm12.24-23.004a3 3 0 0 0-4.48-3.992L21.52 28.492l-5.28-5.922a3 3 0 0 0-4.478 3.993l7.518 8.433a3 3 0 0 0 4.479 0l12.481-14Z\"\u003e\u003c/path\u003e\u003c/svg\u003e\u003c/span\u003e","uploader_remove_img":"\u003cspan class=\"teepublicon teepublicon--error-red teepublicon-background--light-default teepublicon--round\"\u003e\u003csvg xmlns=\"http://www.w3.org/2000/svg\" viewbox=\"0 0 50 50\" width=\"16\" height=\"16\" aria-labelledby=\"title\"\u003e\u003cpath fill-rule=\"evenodd\" d=\"M50 25c0 13.807-11.193 25-25 25S0 38.807 0 25 11.193 0 25 0s25 11.193 25 25ZM15.611 11.793a1 1 0 0 1 1.415 0l7.99 7.99 7.99-7.99a1 1 0 0 1 1.414 0l3.819 3.818a1 1 0 0 1 0 1.415l-7.99 7.99 7.99 7.99a1 1 0 0 1 0 1.414l-3.819 3.82a1 1 0 0 1-1.414 0l-7.99-7.99-7.99 7.99a1 1 0 0 1-1.415 0l-3.818-3.819a1 1 0 0 1 0-1.414l7.99-7.99-7.99-7.99a1 1 0 0 1 0-1.415l3.818-3.818Z\" clip-rule=\"evenodd\"\u003e\u003c/path\u003e\u003ctitle\u003eRemove from upload\u003c/title\u003e\u003c/svg\u003e\u003c/span\u003e","tee_outline":"\u003cspan class=\"teepublicon teepublicon--blue-default teepublicon-background--transparent\"\u003e\u003csvg xmlns=\"http://www.w3.org/2000/svg\" viewbox=\"0 0 50 50\" width=\"24\" height=\"24\" focusable=\"false\" aria-hidden=\"true\"\u003e\u003cpath d=\"M25.004 8.974c3.745 0 6.805-2.94 7.01-5.27a.218.218 0 0 1 .25-.2l6.178 1.133c.207.038.396.139.543.289l10.724 10.94c.392.4.387 1.042-.011 1.436l-7.383 7.294a1.016 1.016 0 0 1-1.393.034l-2.196-1.973a.203.203 0 0 0-.339.155l.356 22.655a1.017 1.017 0 0 1-1.017 1.033H12.282a1.017 1.017 0 0 1-1.017-1.033l.356-22.663a.203.203 0 0 0-.339-.155l-2.204 1.98c-.4.36-1.01.345-1.394-.033L.302 17.302a1.018 1.018 0 0 1-.01-1.437l10.732-10.94c.146-.15.336-.25.542-.288l6.178-1.134a.218.218 0 0 1 .251.2c.204 2.33 3.264 5.271 7.01 5.271Z\"\u003e\u003c/path\u003e\u003c/svg\u003e\u003c/span\u003e","medical_heart":"\u003cspan class=\"teepublicon teepublicon--error-red teepublicon-background--transparent\"\u003e\u003csvg xmlns=\"http://www.w3.org/2000/svg\" viewbox=\"0 0 50 50\" width=\"24\" height=\"24\" focusable=\"false\" aria-hidden=\"true\"\u003e\u003cpath fill-rule=\"evenodd\" d=\"M25 7.46a13.82 13.82 0 0 1 11.382-5.658C43.967 1.919 50.087 8.237 50 15.814c-.154 13.301-16.281 26.418-23.072 31.722a3.13 3.13 0 0 1-3.854 0C16.283 42.232.155 29.116 0 15.814-.087 8.237 6.033 1.92 13.618 1.802A13.82 13.82 0 0 1 25 7.459Zm2.944 7.052a1.06 1.06 0 0 1 1.058 1.06v5.94h5.942a1.06 1.06 0 0 1 1.058 1.06v5.882c0 .584-.474 1.058-1.058 1.058h-5.942v5.942a1.06 1.06 0 0 1-1.058 1.059H22.06a1.059 1.059 0 0 1-1.059-1.06v-5.94h-5.94a1.059 1.059 0 0 1-1.06-1.06v-5.882a1.06 1.06 0 0 1 1.06-1.059h5.94v-5.94c0-.585.475-1.06 1.06-1.06h5.882Z\" clip-rule=\"evenodd\"\u003e\u003c/path\u003e\u003c/svg\u003e\u003c/span\u003e","product_info":"\u003cspan class=\"teepublicon teepublicon--blue-default teepublicon-background--transparent\"\u003e\u003csvg xmlns=\"http://www.w3.org/2000/svg\" viewbox=\"0 0 50 50\" width=\"24\" height=\"24\" focusable=\"false\" aria-hidden=\"true\"\u003e\u003cpath d=\"M40.958 0a6.982 6.982 0 0 1 6.982 6.982V33.91a6.982 6.982 0 0 1-6.982 6.981H25l-13.41 8.94a.997.997 0 0 1-1.55-.83v-8.11h-.998A6.982 6.982 0 0 1 2.06 33.91V6.98A6.982 6.982 0 0 1 9.042 0h31.916Zm-15.46 27.627h-.997a2.992 2.992 0 0 0-2.992 2.992v.998a2.992 2.992 0 0 0 2.992 2.992h.998a2.992 2.992 0 0 0 2.992-2.992v-.998a2.992 2.992 0 0 0-2.992-2.992Zm1.439-20.845h-3.874l-.057.001a1.995 1.995 0 0 0-1.936 2.051l.383 13.365a1.995 1.995 0 0 0 1.995 1.938h3.105c1.079 0 1.962-.86 1.994-1.938l.384-13.365v-.057a1.995 1.995 0 0 0-1.994-1.995Z\"\u003e\u003c/path\u003e\u003c/svg\u003e\u003c/span\u003e","add_to_merch_light":"\u003cspan class=\"teepublicon teepublicon--light-default teepublicon-background--transparent\"\u003e\u003csvg viewbox=\"0 0 48 48\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" focusable=\"false\" aria-hidden=\"true\"\u003e\n\u003cpath fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M44 24C44 35.0457 35.0457 44 24 44C12.9543 44 4 35.0457 4 24C4 12.9543 12.9543 4 24 4C35.0457 4 44 12.9543 44 24ZM24 10.1106C25.6569 10.1106 27 11.4537 27 13.1106V21H34.8895C36.5463 21 37.8895 22.3431 37.8895 24C37.8895 25.6569 36.5463 27 34.8895 27H27V34.8895C27 36.5463 25.6569 37.8895 24 37.8895C22.3431 37.8895 21 36.5463 21 34.8895V27H13.1106C11.4537 27 10.1106 25.6569 10.1106 24C10.1106 22.3431 11.4537 21 13.1106 21H21V13.1106C21 11.4537 22.3431 10.1106 24 10.1106Z\"\u003e\u003c/path\u003e\n\u003c/svg\u003e\u003c/span\u003e","add_to_merch_primary":"\u003cspan class=\"teepublicon teepublicon--primary-500 teepublicon-background--transparent\"\u003e\u003csvg viewbox=\"0 0 48 48\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" focusable=\"false\" aria-hidden=\"true\"\u003e\n\u003cpath fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M44 24C44 35.0457 35.0457 44 24 44C12.9543 44 4 35.0457 4 24C4 12.9543 12.9543 4 24 4C35.0457 4 44 12.9543 44 24ZM24 10.1106C25.6569 10.1106 27 11.4537 27 13.1106V21H34.8895C36.5463 21 37.8895 22.3431 37.8895 24C37.8895 25.6569 36.5463 27 34.8895 27H27V34.8895C27 36.5463 25.6569 37.8895 24 37.8895C22.3431 37.8895 21 36.5463 21 34.8895V27H13.1106C11.4537 27 10.1106 25.6569 10.1106 24C10.1106 22.3431 11.4537 21 13.1106 21H21V13.1106C21 11.4537 22.3431 10.1106 24 10.1106Z\"\u003e\u003c/path\u003e\n\u003c/svg\u003e\u003c/span\u003e","remove_from_merch_light":"\u003cspan class=\"teepublicon teepublicon--light-default teepublicon-background--transparent\"\u003e\u003csvg viewbox=\"0 0 48 48\" xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" focusable=\"false\" aria-hidden=\"true\"\u003e\u003cpath fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M24 44C35.0457 44 44 35.0457 44 24C44 12.9543 35.0457 4 24 4C12.9543 4 4 12.9543 4 24C4 35.0457 12.9543 44 24 44ZM13.1106 21.0003C11.4537 21.0003 10.1106 22.3434 10.1106 24.0003C10.1106 25.6571 11.4537 27.0003 13.1106 27.0003L34.8895 27.0003C36.5463 27.0003 37.8895 25.6571 37.8895 24.0003C37.8895 22.3434 36.5463 21.0003 34.8895 21.0003L13.1106 21.0003Z\"\u003e\u003c/path\u003e\n\u003c/svg\u003e\u003c/span\u003e","remove_from_merch_primary":"\u003cspan class=\"teepublicon teepublicon--primary-500 teepublicon-background--transparent\"\u003e\u003csvg viewbox=\"0 0 48 48\" xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" focusable=\"false\" aria-hidden=\"true\"\u003e\u003cpath fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M24 44C35.0457 44 44 35.0457 44 24C44 12.9543 35.0457 4 24 4C12.9543 4 4 12.9543 4 24C4 35.0457 12.9543 44 24 44ZM13.1106 21.0003C11.4537 21.0003 10.1106 22.3434 10.1106 24.0003C10.1106 25.6571 11.4537 27.0003 13.1106 27.0003L34.8895 27.0003C36.5463 27.0003 37.8895 25.6571 37.8895 24.0003C37.8895 22.3434 36.5463 21.0003 34.8895 21.0003L13.1106 21.0003Z\"\u003e\u003c/path\u003e\n\u003c/svg\u003e\u003c/span\u003e"}
+  TeePublic['ProductOptions'] = {"DesignOptions": {"active_product_ids":[2952,2953,2954,2955,2956,2958,2959,2960,2961,2962,2982,2983,2984,2985,2986,2964,2965,2966,2967,2968,2970,2971,2972,2973,2974,2957,2963,2987,2969,2975,315,316,317,318,363,364,365,366,321,322,323,324,1672,1673,1674,1675,357,358,359,360,1814,1815,1816,1817,1808,1809,1810,1811,381,382,383,384,1696,1697,1698,1699,1684,1685,1686,1687,369,370,371,372,1690,1691,1692,1693,339,340,341,342,351,352,353,354,375,376,377,378,327,328,329,330,1678,1679,1680,1681,345,346,347,348,1666,1667,1668,1669,333,334,335,336,919,920,921,922,901,902,903,904,1752,1753,1754,1755,913,914,915,916,1746,1747,1748,1749,907,908,909,910,925,926,927,928,3217,3218,3221,3220,387,388,389,390,397,398,399,400,392,393,394,395,1708,1709,1710,1711,442,443,444,445,1732,1733,1734,1735,422,423,424,425,1720,1721,1722,1723,427,428,429,430,432,433,434,435,3181,3182,3183,3184,1726,1727,1728,1729,412,413,414,415,417,418,419,420,402,403,404,405,3199,3200,3201,3202,437,438,439,440,1702,1703,1704,1705,407,408,409,410,3127,3128,3129,3130,3145,3146,3147,3148,3163,3164,3165,3166,1,19,3,1676,15,1818,1812,21,1700,1688,373,1694,9,13,17,5,1682,11,1670,337,923,905,1756,917,1750,911,929,3219,391,401,396,1712,446,1736,426,1724,431,436,3185,1730,416,421,406,3203,441,1706,411,3131,3149,3167,2,20,4,1677,16,1819,1813,22,1701,1689,374,1695,10,14,18,6,1683,12,1671,8,924,906,1757,918,1751,912,930,2836,2837,2838,2839,2844,2845,2846,2847,2852,2853,2854,2855,2860,2861,2862,2863,2868,2869,2870,2871,2876,2877,2878,2879,2884,2885,2886,2887,984,979,976,1713,983,1737,978,3319,981,3186,982,977,3204,1967,1707,980,3132,3150,3168,3500,3508,3516,3524,3503,3511,3519,3527,3499,3507,3515,3523,3506,3514,3522,3530,3502,3510,3518,3526,3505,3513,3521,3529,3501,3509,3517,3525,3504,3512,3520,3528,2814,2815,2816,2817,2808,2809,2810,2811,2790,2791,2792,2793,2802,2803,2804,2805,2826,2827,2828,2829,2820,2821,2822,2823,2796,2797,2798,2799,3569,3578,3587,3596,3605,3571,3580,3589,3598,3607,3567,3576,3585,3594,3603,3575,3584,3593,3602,3611,3574,3583,3592,3601,3610,3572,3581,3590,3599,3608,3573,3582,3591,3600,3609,542,543,536,537,534,535,3403,3406,540,541,3427,3430,3409,3412,3439,3442,3445,3448,3415,3418,3433,3436,3421,3424,3451,3454,960,531,532,533,3457,3460,3463,3466,3469,3472,538,539,3475,3478,3487,3490,3481,3484,3493,3496,3348,3349,3350,3351,3354,3355,3356,3357,3336,3337,3338,3339,3342,3343,3344,3345,3360,3361,3362,3363,3366,3367,3368,3369,3532,3535,3531,3538,3534,3537,3533,3536,3233,3234,3247,3246,3249,3250,3244,3251,3248,3238,3235,3236,3240,3241,3239,3237,1020,1021,1022,1023,1025,1026,1027,1028,829,830,831,832,1035,1036,1037,1038,823,824,825,826,1045,1046,1047,1048,1030,1031,1032,1033,1040,1041,1042,1043,985,986,987,988,990,991,992,993,806,807,808,809,1000,1001,1002,1003,1010,1011,1012,1013,995,996,997,998,1005,1006,1007,1008,1015,1016,1017,1018,1136,1137,1138,1139,1104,1105,1106,1107,1108,1109,1110,1111,1100,1101,1102,1103,1128,1129,1130,1131,1116,1117,1118,1119,1120,1121,1122,1123,1112,1113,1114,1115,1132,1133,1134,1135,1124,1125,1126,1127,1357,1358,1359,1360,1342,1343,1344,1345,1327,1328,1329,1330,1352,1353,1354,1355,1347,1348,1349,1350,1332,1333,1334,1335,1322,1323,1324,1325,1337,1338,1339,1340,3614,3623,3616,3625,3612,3621,3620,3629,3619,3628,3617,3626,3618,3627,896,897,898,899,3089,3092,3090,3091,851,852,853,854,886,887,888,889,876,877,878,879,871,872,873,874,891,892,893,894,3094,3097,3095,3096,2840,2841,2842,2843,2848,2849,2850,2851,2856,2857,2858,2859,2864,2865,2866,2867,2872,2873,2874,2875,2880,2881,2882,2883,2888,2889,2890,2891,3352,3358,3340,3346,3364,3370,3540,3543,3539,3546,3542,3545,3541,3544,2818,2819,2812,2813,2794,2795,2806,2807,2830,2831,2824,2825,2800,2801,3243,3245,3232,3242,1024,1029,833,1039,827,1049,1034,1044,989,994,1820,1004,1014,999,1009,1019,1361,1346,1331,1356,1351,1336,1326,1341,900,3093,855,890,880,875,895,3098,3353,3359,3341,3347,3365,3371,1830,1831,1832,1833,1845,1846,1847,1848,1825,1826,1827,1828,3025,3026,3027,3028,3018,3019,3020,3021,3031,3032,3033,3034,3037,3038,3039,3040,3274,3275,3297,3296,3301,3269,3280,3276,3302,3285,3278,3282,3268,3267,3291,3294,3313,3311,3312,3314,3289,3288,3286,3283,3293,3284,3281,3273,1834,1849,1829,3029,3022,3035,3041,3271,3298,3270,3277,3315,3290,3299,2074,3024,2068,3030,3023,3036,3042,3300,3272,3279,3292,3316,3287,3295]}, "CanvasOptions": {"hierarchy":[{"name":"Fit","sort_order":0,"product_page_input_style":"radio","is_preselected":true,"slug":"gender","configuration_column":"gender_id","id_method":"gender_id","display_value_method":"gender_display_value","sort_order_method":"gender_sort_order"},{"name":"Style","sort_order":1,"product_page_input_style":"radio","is_preselected":true,"slug":"style","configuration_column":"style_id","id_method":"style_id","display_value_method":"style_display_value","sort_order_method":"style_sort_order"},{"name":"Size","sort_order":2,"product_page_input_style":"radio","is_preselected":false,"slug":"size","configuration_column":"size_id","id_method":"size_id","display_value_method":"size_display_value","sort_order_method":"size_sort_order"},{"name":"Color","sort_order":3,"product_page_input_style":"swatch","is_preselected":true,"slug":"color","configuration_column":"color_id","id_method":"color_id","display_value_method":"color_display_value","sort_order_method":"color_sort_order"}],"products":{"attrIdsOrder":["gender","style","size","color"],"attrs":{"gender":{"19":{"unique_id":null,"id":19,"name":"DAFTAR DISINI","sort":1},"20":{"unique_id":null,"id":20,"name":"LOGIN DISINI","sort":2}},"style":{"79":{"unique_id":null,"id":79,"name":"Classic","sort":199},"80":{"unique_id":null,"id":80,"name":"Tri-Blend","sort":205},"81":{"unique_id":null,"id":81,"name":"V-Neck","sort":210},"218":{"unique_id":null,"id":218,"name":"Heavyweight","sort":202},"213":{"unique_id":null,"id":213,"name":"Heavyweight","sort":235},"135":{"unique_id":null,"id":135,"name":"Premium","sort":209},"328":{"unique_id":null,"id":328,"name":"Eco","sort":260},"370":{"unique_id":null,"id":370,"name":"Tall","sort":270},"371":{"unique_id":null,"id":371,"name":"Active","sort":280},"104":{"unique_id":null,"id":104,"name":"Dolman","sort":220},"393":{"unique_id":null,"id":393,"name":"Boxy","sort":206},"395":{"unique_id":null,"id":395,"name":"Streetwear","sort":208},"378":{"unique_id":null,"id":378,"name":"Vintage","sort":218}},"size":{"22":{"unique_id":null,"id":22,"name":"M","sort":15},"23":{"unique_id":null,"id":23,"name":"L","sort":20},"24":{"unique_id":null,"id":24,"name":"XL","sort":25},"21":{"unique_id":null,"id":21,"name":"S","sort":10},"26":{"unique_id":null,"id":26,"name":"3XL","sort":35},"84":{"unique_id":null,"id":84,"name":"5XL","sort":45},"83":{"unique_id":null,"id":83,"name":"4XL","sort":40},"25":{"unique_id":null,"id":25,"name":"2XL","sort":30},"1":{"unique_id":null,"id":1,"name":"XS","sort":5}},"color":{"3":{"unique_id":null,"id":3,"name":"Creme","sort":200},"12":{"unique_id":null,"id":12,"name":"White","sort":1},"1":{"unique_id":null,"id":1,"name":"Black","sort":70},"10":{"unique_id":null,"id":10,"name":"Teal","sort":330},"4":{"unique_id":null,"id":4,"name":"Heather","sort":400},"5":{"unique_id":null,"id":5,"name":"Kelly","sort":240},"6":{"unique_id":null,"id":6,"name":"Light Blue","sort":360},"7":{"unique_id":null,"id":7,"name":"Navy","sort":290},"8":{"unique_id":null,"id":8,"name":"Red","sort":110},"11":{"unique_id":null,"id":11,"name":"Asphalt","sort":40},"9":{"unique_id":null,"id":9,"name":"Royal Blue","sort":310},"45":{"unique_id":null,"id":45,"name":"Royal Heather","sort":550},"2":{"unique_id":null,"id":2,"name":"Brown","sort":140},"42":{"unique_id":null,"id":42,"name":"Red Heather","sort":460},"43":{"unique_id":null,"id":43,"name":"Navy Heather","sort":510},"44":{"unique_id":null,"id":44,"name":"Vintage Green","sort":490},"19":{"unique_id":null,"id":19,"name":"Charcoal Heather","sort":450},"27":{"unique_id":null,"id":27,"name":"Purple","sort":380},"24":{"unique_id":null,"id":24,"name":"Maroon","sort":90},"69":{"unique_id":null,"id":69,"name":"Slate","sort":332},"23":{"unique_id":null,"id":23,"name":"Yellow","sort":180},"67":{"unique_id":null,"id":67,"name":"Military Green","sort":222},"21":{"unique_id":null,"id":21,"name":"Orange","sort":160},"70":{"unique_id":null,"id":70,"name":"Purple Heather","sort":491},"71":{"unique_id":null,"id":71,"name":"Turquoise Heather","sort":489},"72":{"unique_id":null,"id":72,"name":"Hot Pink","sort":132},"22":{"unique_id":null,"id":22,"name":"Soft Pink","sort":130},"68":{"unique_id":null,"id":68,"name":"Light Olive","sort":272},"60":{"unique_id":null,"id":60,"name":"Leaf","sort":270},"47":{"unique_id":null,"id":47,"name":"Vintage Brown","sort":480},"18":{"unique_id":null,"id":18,"name":"Dark Green","sort":230},"74":{"unique_id":null,"id":74,"name":"Heather Sea Blue","sort":585},"107":{"unique_id":null,"id":107,"name":"Marine Blue","sort":315},"46":{"unique_id":null,"id":46,"name":"Vintage Black","sort":440},"65":{"unique_id":null,"id":65,"name":"Vintage Royal","sort":540},"20":{"unique_id":null,"id":20,"name":"Coastal Blue","sort":340},"62":{"unique_id":null,"id":62,"name":"Mint","sort":280},"26":{"unique_id":null,"id":26,"name":"Oxford","sort":20},"33":{"unique_id":null,"id":33,"name":"Midnight Navy","sort":500},"113":{"unique_id":null,"id":113,"name":"Latte","sort":205},"38":{"unique_id":null,"id":38,"name":"Vintage Heather","sort":420},"57":{"unique_id":null,"id":57,"name":"Dark Grey Heather","sort":430},"30":{"unique_id":null,"id":30,"name":"Light Grey","sort":15},"75":{"unique_id":null,"id":75,"name":"Pine","sort":245},"31":{"unique_id":null,"id":31,"name":"Dark Grey","sort":30},"54":{"unique_id":null,"id":54,"name":"Vintage White","sort":390},"40":{"unique_id":null,"id":40,"name":"Vintage Grape","sort":590},"108":{"unique_id":null,"id":108,"name":"Tie Dye","sort":660},"59":{"unique_id":null,"id":59,"name":"Indigo","sort":520},"111":{"unique_id":null,"id":111,"name":"Faded Red","sort":133},"110":{"unique_id":null,"id":110,"name":"Acid Black","sort":72},"112":{"unique_id":null,"id":112,"name":"Ghost","sort":12},"28":{"unique_id":null,"id":28,"name":"Tennessee Orange","sort":170},"114":{"unique_id":null,"id":114,"name":"Salmon","sort":131}}},"prices":{"23-16":{"retail_price":23.0,"retail_price_usd":"23.0","retail_price_formatted":"$23.00","sale_price":16.0,"sale_price_usd":"16.0","sale_price_formatted":"$16.00"},"26-19":{"retail_price":26.0,"retail_price_usd":"26.0","retail_price_formatted":"$26.00","sale_price":19.0,"sale_price_usd":"19.0","sale_price_formatted":"$19.00"},"29-24":{"retail_price":29.0,"retail_price_usd":"29.0","retail_price_formatted":"$29.00","sale_price":24.0,"sale_price_usd":"24.0","sale_price_formatted":"$24.00"},"31-26":{"retail_price":31.0,"retail_price_usd":"31.0","retail_price_formatted":"$31.00","sale_price":26.0,"sale_price_usd":"26.0","sale_price_formatted":"$26.00"},"25-18":{"retail_price":25.0,"retail_price_usd":"25.0","retail_price_formatted":"$25.00","sale_price":18.0,"sale_price_usd":"18.0","sale_price_formatted":"$18.00"},"29-22":{"retail_price":29.0,"retail_price_usd":"29.0","retail_price_formatted":"$29.00","sale_price":22.0,"sale_price_usd":"22.0","sale_price_formatted":"$22.00"},"25-20":{"retail_price":25.0,"retail_price_usd":"25.0","retail_price_formatted":"$25.00","sale_price":20.0,"sale_price_usd":"20.0","sale_price_formatted":"$20.00"},"27-20":{"retail_price":27.0,"retail_price_usd":"27.0","retail_price_formatted":"$27.00","sale_price":20.0,"sale_price_usd":"20.0","sale_price_formatted":"$20.00"},"30-22":{"retail_price":30.0,"retail_price_usd":"30.0","retail_price_formatted":"$30.00","sale_price":22.0,"sale_price_usd":"22.0","sale_price_formatted":"$22.00"},"31-23":{"retail_price":31.0,"retail_price_usd":"31.0","retail_price_formatted":"$31.00","sale_price":23.0,"sale_price_usd":"23.0","sale_price_formatted":"$23.00"},"32-24":{"retail_price":32.0,"retail_price_usd":"32.0","retail_price_formatted":"$32.00","sale_price":24.0,"sale_price_usd":"24.0","sale_price_formatted":"$24.00"},"27-19":{"retail_price":27.0,"retail_price_usd":"27.0","retail_price_formatted":"$27.00","sale_price":19.0,"sale_price_usd":"19.0","sale_price_formatted":"$19.00"},"24-17":{"retail_price":24.0,"retail_price_usd":"24.0","retail_price_formatted":"$24.00","sale_price":17.0,"sale_price_usd":"17.0","sale_price_formatted":"$17.00"},"28-19":{"retail_price":28.0,"retail_price_usd":"28.0","retail_price_formatted":"$28.00","sale_price":19.0,"sale_price_usd":"19.0","sale_price_formatted":"$19.00"},"26-21":{"retail_price":26.0,"retail_price_usd":"26.0","retail_price_formatted":"$26.00","sale_price":21.0,"sale_price_usd":"21.0","sale_price_formatted":"$21.00"},"27-22":{"retail_price":27.0,"retail_price_usd":"27.0","retail_price_formatted":"$27.00","sale_price":22.0,"sale_price_usd":"22.0","sale_price_formatted":"$22.00"},"30-23":{"retail_price":30.0,"retail_price_usd":"30.0","retail_price_formatted":"$30.00","sale_price":23.0,"sale_price_usd":"23.0","sale_price_formatted":"$23.00"},"28-21":{"retail_price":28.0,"retail_price_usd":"28.0","retail_price_formatted":"$28.00","sale_price":21.0,"sale_price_usd":"21.0","sale_price_formatted":"$21.00"},"30-25":{"retail_price":30.0,"retail_price_usd":"30.0","retail_price_formatted":"$30.00","sale_price":25.0,"sale_price_usd":"25.0","sale_price_formatted":"$25.00"},"28-20":{"retail_price":28.0,"retail_price_usd":"28.0","retail_price_formatted":"$28.00","sale_price":20.0,"sale_price_usd":"20.0","sale_price_formatted":"$20.00"}},"prices_keys":["23-16","26-19","29-24","31-26","25-18","29-22","25-20","27-20","30-22","31-23","32-24","27-19","24-17","28-19","26-21","27-22","30-23","28-21","30-25","28-20"],"370":[0,[19,79,22,3]],"371":[0,[19,79,23,3]],"372":[0,[19,79,24,3]],"316":[0,[19,79,22,12]],"317":[0,[19,79,23,12]],"318":[0,[19,79,24,12]],"321":[0,[19,79,21,1]],"322":[0,[19,79,22,1]],"323":[0,[19,79,23,1]],"324":[0,[19,79,24,1]],"327":[0,[19,79,21,10]],"328":[0,[19,79,22,10]],"329":[0,[19,79,23,10]],"330":[0,[19,79,24,10]],"333":[0,[19,79,21,4]],"334":[0,[19,79,22,4]],"335":[0,[19,79,23,4]],"336":[0,[19,79,24,4]],"339":[0,[19,79,21,5]],"340":[0,[19,79,22,5]],"341":[0,[19,79,23,5]],"342":[0,[19,79,24,5]],"345":[0,[19,79,21,6]],"346":[0,[19,79,22,6]],"347":[0,[19,79,23,6]],"348":[0,[19,79,24,6]],"351":[0,[19,79,21,7]],"352":[0,[19,79,22,7]],"353":[0,[19,79,23,7]],"354":[0,[19,79,24,7]],"357":[0,[19,79,21,8]],"358":[0,[19,79,22,8]],"359":[0,[19,79,23,8]],"360":[0,[19,79,24,8]],"363":[0,[19,79,21,11]],"364":[0,[19,79,22,11]],"365":[0,[19,79,23,11]],"366":[0,[19,79,24,11]],"369":[0,[19,79,21,3]],"375":[0,[19,79,21,9]],"376":[0,[19,79,22,9]],"377":[0,[19,79,23,9]],"927":[0,[19,79,23,45]],"928":[0,[19,79,24,45]],"378":[0,[19,79,24,9]],"381":[0,[19,79,21,2]],"382":[0,[19,79,22,2]],"383":[0,[19,79,23,2]],"384":[0,[19,79,24,2]],"901":[0,[19,79,21,42]],"902":[0,[19,79,22,42]],"903":[0,[19,79,23,42]],"904":[0,[19,79,24,42]],"907":[0,[19,79,21,43]],"908":[0,[19,79,22,43]],"909":[0,[19,79,23,43]],"910":[0,[19,79,24,43]],"913":[0,[19,79,21,44]],"914":[0,[19,79,22,44]],"915":[0,[19,79,23,44]],"916":[0,[19,79,24,44]],"919":[0,[19,79,21,19]],"920":[0,[19,79,22,19]],"921":[0,[19,79,23,19]],"922":[0,[19,79,24,19]],"925":[0,[19,79,21,45]],"926":[0,[19,79,22,45]],"315":[0,[19,79,21,12]],"1666":[0,[19,79,21,27]],"1667":[0,[19,79,22,27]],"1668":[0,[19,79,23,27]],"1669":[0,[19,79,24,27]],"1672":[0,[19,79,21,24]],"1673":[0,[19,79,22,24]],"1674":[0,[19,79,23,24]],"1675":[0,[19,79,24,24]],"1678":[0,[19,79,21,69]],"1679":[0,[19,79,22,69]],"1680":[0,[19,79,23,69]],"1681":[0,[19,79,24,69]],"1684":[0,[19,79,21,23]],"1685":[0,[19,79,22,23]],"1686":[0,[19,79,23,23]],"1687":[0,[19,79,24,23]],"1690":[0,[19,79,21,67]],"1691":[0,[19,79,22,67]],"1692":[0,[19,79,23,67]],"1693":[0,[19,79,24,67]],"1696":[0,[19,79,21,21]],"1697":[0,[19,79,22,21]],"1698":[0,[19,79,23,21]],"1699":[0,[19,79,24,21]],"1746":[0,[19,79,21,70]],"1747":[0,[19,79,22,70]],"1748":[0,[19,79,23,70]],"1749":[0,[19,79,24,70]],"1752":[0,[19,79,21,71]],"1753":[0,[19,79,22,71]],"1754":[0,[19,79,23,71]],"1755":[0,[19,79,24,71]],"1808":[0,[19,79,21,72]],"1809":[0,[19,79,22,72]],"1810":[0,[19,79,23,72]],"1811":[0,[19,79,24,72]],"1814":[0,[19,79,21,22]],"1815":[0,[19,79,22,22]],"1816":[0,[19,79,23,22]],"1817":[0,[19,79,24,22]],"2378":[0,[19,79,22,3]],"2379":[0,[19,79,23,3]],"2380":[0,[19,79,24,3]],"2381":[0,[19,79,22,12]],"2382":[0,[19,79,23,12]],"2384":[0,[19,79,21,1]],"2387":[0,[19,79,24,1]],"2390":[0,[19,79,23,10]],"2404":[0,[19,79,22,6]],"2514":[0,[19,79,21,43]],"2520":[0,[19,79,21,44]],"2577":[0,[19,79,21,67]],"2578":[0,[19,79,22,67]],"2625":[0,[19,79,21,70]],"2628":[0,[19,79,24,70]],"2632":[0,[19,79,22,71]],"4":[1,[19,79,26,1]],"930":[1,[19,79,26,45]],"543":[1,[19,79,84,12]],"2421":[1,[19,79,26,3]],"2136":[2,[19,79,21,9]],"2262":[2,[19,79,21,12]],"2279":[2,[19,79,21,69]],"2348":[2,[19,79,24,71]],"2353":[2,[19,79,23,72]],"2354":[2,[19,79,24,72]],"3403":[1,[19,79,83,24]],"2208":[3,[19,79,83,1]],"389":[0,[20,79,23,12]],"403":[0,[20,79,22,10]],"407":[0,[20,79,21,4]],"415":[0,[20,79,24,7]],"419":[0,[20,79,23,9]],"1729":[0,[20,79,24,68]],"1734":[0,[20,79,23,22]],"2447":[0,[20,79,23,11]],"2466":[0,[20,79,22,9]],"2468":[0,[20,79,24,9]],"2472":[0,[20,79,23,2]],"2473":[0,[20,79,23,3]],"2476":[0,[20,79,21,5]],"2478":[0,[20,79,23,5]],"2484":[0,[20,79,24,6]],"2615":[0,[20,79,23,68]],"2621":[0,[20,79,23,22]],"1967":[4,[20,79,26,6]],"976":[4,[20,79,26,1]],"3138":[4,[20,79,26,19]],"2538":[4,[20,79,26,8]],"3408":[3,[19,79,84,24]],"3194":[2,[20,79,22,60]],"3141":[2,[20,79,23,19]],"2175":[2,[20,79,22,7]],"3178":[2,[20,79,24,45]],"2321":[2,[20,79,21,23]],"2335":[2,[20,79,23,22]],"826":[5,[19,80,24,47]],"3094":[6,[20,81,21,4]],"3095":[6,[20,81,23,4]],"854":[6,[20,81,24,1]],"2852":[4,[19,218,21,8]],"2860":[4,[19,218,21,18]],"2869":[4,[19,218,22,7]],"2883":[7,[19,218,84,9]],"2889":[7,[19,218,26,4]],"2891":[7,[19,218,84,4]],"2790":[4,[20,213,21,1]],"2799":[4,[20,213,24,4]],"2803":[4,[20,213,22,7]],"2810":[4,[20,213,23,11]],"2814":[4,[20,213,21,12]],"2822":[4,[20,213,23,27]],"3409":[1,[19,79,83,72]],"1827":[8,[19,135,23,11]],"1828":[8,[19,135,24,11]],"1831":[8,[19,135,22,12]],"1834":[9,[19,135,25,12]],"2068":[10,[19,135,26,11]],"2954":[6,[19,328,23,12]],"2971":[6,[19,328,22,19]],"2977":[6,[19,328,22,74]],"3240":[11,[19,370,21,107]],"3241":[11,[19,370,22,107]],"3267":[12,[19,371,22,8]],"3311":[12,[19,371,22,5]],"1103":[13,[20,104,24,46]],"1117":[13,[20,104,22,44]],"1130":[13,[20,104,23,42]],"1131":[13,[20,104,24,42]],"1134":[13,[20,104,23,65]],"2383":[0,[19,79,24,12]],"2393":[0,[19,79,22,4]],"2398":[0,[19,79,21,5]],"2414":[0,[19,79,24,8]],"2415":[0,[19,79,21,11]],"2508":[0,[19,79,21,42]],"2646":[0,[19,79,24,22]],"2":[1,[19,79,26,12]],"8":[1,[19,79,26,4]],"12":[1,[19,79,26,6]],"531":[1,[19,79,84,7]],"16":[1,[19,79,26,8]],"2373":[1,[19,79,26,5]],"2375":[1,[19,79,26,6]],"2491":[1,[19,79,84,7]],"2492":[1,[19,79,83,9]],"2493":[1,[19,79,84,9]],"2495":[1,[19,79,84,1]],"2496":[1,[19,79,83,11]],"2499":[1,[19,79,84,4]],"2503":[1,[19,79,84,12]],"3404":[1,[19,79,83,24]],"2541":[1,[19,79,26,8]],"2545":[1,[19,79,26,11]],"3452":[1,[19,79,83,5]],"2648":[1,[19,79,26,22]],"2096":[2,[19,79,23,12]],"2115":[2,[19,79,24,5]],"2247":[2,[19,79,22,45]],"2267":[2,[19,79,21,27]],"2273":[2,[19,79,21,24]],"2280":[2,[19,79,22,69]],"2282":[2,[19,79,24,69]],"2288":[2,[19,79,24,23]],"2300":[2,[19,79,24,21]],"2351":[2,[19,79,21,72]],"2135":[3,[19,79,26,3]],"2213":[3,[19,79,84,4]],"2216":[3,[19,79,83,12]],"2218":[3,[19,79,83,7]],"3498":[3,[19,79,84,45]],"2227":[3,[19,79,26,42]],"2350":[3,[19,79,26,71]],"394":[0,[20,79,23,1]],"397":[0,[20,79,21,11]],"413":[0,[20,79,22,7]],"438":[0,[20,79,22,6]],"440":[0,[20,79,24,6]],"445":[0,[20,79,24,8]],"3183":[0,[20,79,23,60]],"3205":[0,[20,79,21,20]],"3128":[0,[20,79,22,19]],"3130":[0,[20,79,24,19]],"1711":[0,[20,79,24,24]],"1716":[0,[20,79,23,62]],"1726":[0,[20,79,21,68]],"2620":[0,[20,79,22,22]],"981":[4,[20,79,26,5]],"3499":[4,[20,393,21,1]],"3526":[4,[20,393,24,3]],"3567":[7,[19,395,1,1]],"2507":[4,[20,79,26,2]],"2171":[2,[20,79,23,4]],"2179":[2,[20,79,21,9]],"2311":[2,[20,79,23,24]],"2312":[2,[20,79,24,24]],"3595":[7,[19,395,23,26]],"3597":[7,[19,395,23,33]],"3599":[7,[19,395,23,113]],"995":[5,[20,80,21,43]],"998":[5,[20,80,24,43]],"1012":[5,[20,80,23,44]],"1324":[6,[19,81,23,38]],"1333":[6,[19,81,22,9]],"1335":[6,[19,81,24,9]],"1338":[6,[19,81,22,57]],"3090":[6,[20,81,23,11]],"900":[14,[20,81,25,12]],"2845":[4,[19,218,22,1]],"2847":[4,[19,218,24,1]],"2871":[4,[19,218,24,7]],"2876":[4,[19,218,21,9]],"3623":[5,[19,395,26,12]],"2873":[7,[19,218,26,7]],"2874":[7,[19,218,83,7]],"2890":[7,[19,218,83,4]],"2792":[4,[20,213,23,1]],"2805":[4,[20,213,24,7]],"2823":[4,[20,213,24,27]],"2829":[4,[20,213,24,9]],"1845":[8,[19,135,21,30]],"3033":[8,[19,135,23,4]],"3034":[8,[19,135,24,4]],"3039":[8,[19,135,23,19]],"3035":[9,[19,135,25,4]],"3024":[10,[19,135,26,30]],"3030":[10,[19,135,26,1]],"2985":[6,[19,328,24,3]],"2993":[15,[19,328,26,75]],"2969":[15,[19,328,26,4]],"3249":[11,[19,370,21,31]],"3239":[11,[19,370,23,107]],"1106":[13,[20,104,23,38]],"1109":[13,[20,104,22,57]],"2385":[0,[19,79,22,1]],"2386":[0,[19,79,23,1]],"2388":[0,[19,79,21,10]],"2403":[0,[19,79,21,6]],"2418":[0,[19,79,24,11]],"2515":[0,[19,79,22,43]],"2521":[0,[19,79,22,44]],"2523":[0,[19,79,24,44]],"2094":[2,[19,79,24,3]],"2097":[2,[19,79,24,12]],"2125":[2,[19,79,21,8]],"2129":[2,[19,79,21,11]],"2130":[2,[19,79,22,11]],"2147":[2,[19,79,24,2]],"2268":[2,[19,79,22,27]],"2269":[2,[19,79,23,27]],"2347":[2,[19,79,23,71]],"2083":[3,[19,79,26,10]],"2205":[3,[19,79,84,7]],"2210":[3,[19,79,83,11]],"2211":[3,[19,79,84,11]],"3405":[3,[19,79,83,24]],"387":[0,[20,79,21,12]],"392":[0,[20,79,21,1]],"400":[0,[20,79,24,11]],"425":[0,[20,79,24,2]],"2442":[0,[20,79,23,1]],"2458":[0,[20,79,24,4]],"2461":[0,[20,79,22,7]],"2465":[0,[20,79,21,9]],"2471":[0,[20,79,22,2]],"2477":[0,[20,79,22,5]],"2481":[0,[20,79,21,6]],"2482":[0,[20,79,22,6]],"2483":[0,[20,79,23,6]],"2489":[0,[20,79,24,8]],"2549":[0,[20,79,24,2]],"2608":[0,[20,79,22,23]],"2614":[0,[20,79,22,68]],"982":[4,[20,79,26,7]],"3192":[4,[20,79,26,60]],"1707":[4,[20,79,26,27]],"3410":[1,[19,79,83,72]],"2506":[4,[20,79,26,9]],"2159":[2,[20,79,21,11]],"2160":[2,[20,79,22,11]],"2164":[2,[20,79,21,10]],"2165":[2,[20,79,22,10]],"2176":[2,[20,79,23,7]],"2180":[2,[20,79,22,9]],"2181":[2,[20,79,23,9]],"2187":[2,[20,79,23,3]],"3193":[2,[20,79,21,60]],"3195":[2,[20,79,23,60]],"824":[5,[19,80,22,47]],"825":[5,[19,80,23,47]],"1020":[5,[19,80,21,54]],"1039":[16,[19,80,25,42]],"985":[5,[20,80,21,54]],"997":[5,[20,80,23,43]],"1017":[5,[20,80,23,40]],"1018":[5,[20,80,24,40]],"1009":[16,[20,80,25,45]],"1328":[6,[19,81,22,1]],"1342":[6,[19,81,21,11]],"3021":[8,[19,135,24,107]],"3031":[8,[19,135,21,4]],"1829":[9,[19,135,25,11]],"3235":[11,[19,370,23,1]],"3238":[11,[19,370,22,1]],"3246":[11,[19,370,24,12]],"3237":[11,[19,370,24,107]],"3316":[1,[19,371,26,5]],"1100":[13,[20,104,21,46]],"1116":[13,[20,104,21,44]],"3417":[3,[19,79,83,23]],"2389":[0,[19,79,22,10]],"2395":[0,[19,79,24,4]],"2419":[0,[19,79,21,3]],"2429":[0,[19,79,24,9]],"2527":[0,[19,79,22,19]],"2528":[0,[19,79,23,19]],"3406":[1,[19,79,84,24]],"2582":[1,[19,79,26,67]],"2093":[2,[19,79,23,3]],"2106":[2,[19,79,21,4]],"2356":[3,[19,79,26,72]],"3411":[3,[19,79,83,72]],"414":[0,[20,79,23,7]],"420":[0,[20,79,24,9]],"444":[0,[20,79,23,8]],"3184":[0,[20,79,24,60]],"3188":[0,[20,79,22,60]],"3127":[0,[20,79,21,19]],"3134":[0,[20,79,22,19]],"1704":[0,[20,79,23,27]],"1732":[0,[20,79,21,22]],"2436":[0,[20,79,22,12]],"2441":[0,[20,79,22,1]],"2443":[0,[20,79,24,1]],"2457":[0,[20,79,23,4]],"2460":[0,[20,79,21,7]],"2462":[0,[20,79,23,7]],"2488":[0,[20,79,23,8]],"2551":[0,[20,79,21,3]],"2589":[0,[20,79,21,27]],"2591":[0,[20,79,23,27]],"2592":[0,[20,79,24,27]],"3420":[3,[19,79,84,23]],"3426":[3,[19,79,84,67]],"2190":[2,[20,79,21,5]],"3157":[2,[20,79,21,43]],"1042":[5,[19,80,23,45]],"1046":[5,[19,80,22,44]],"1034":[16,[19,80,25,43]],"990":[5,[20,80,21,4]],"993":[5,[20,80,24,4]],"1004":[16,[20,80,25,42]],"1019":[16,[20,80,25,40]],"1325":[6,[19,81,24,38]],"1327":[6,[19,81,21,1]],"1329":[6,[19,81,23,1]],"1330":[6,[19,81,24,1]],"852":[6,[20,81,22,1]],"2861":[4,[19,218,22,18]],"2859":[7,[19,218,84,8]],"3500":[4,[20,393,21,12]],"3510":[4,[20,393,22,3]],"2881":[7,[19,218,26,9]],"2820":[4,[20,213,21,27]],"2821":[4,[20,213,22,27]],"3020":[8,[19,135,23,107]],"3026":[8,[19,135,22,1]],"2952":[6,[19,328,21,12]],"2979":[6,[19,328,24,74]],"2965":[6,[19,328,22,4]],"2975":[15,[19,328,26,19]],"3250":[11,[19,370,22,31]],"3274":[12,[19,371,21,12]],"3282":[12,[19,371,24,1]],"3284":[12,[19,371,22,9]],"3287":[1,[19,371,26,7]],"3295":[1,[19,371,26,9]],"1101":[13,[20,104,22,46]],"1107":[13,[20,104,24,38]],"1126":[13,[20,104,23,40]],"1135":[13,[20,104,24,65]],"1138":[13,[20,104,23,54]],"1139":[13,[20,104,24,54]],"2391":[0,[19,79,24,10]],"2392":[0,[19,79,21,4]],"2405":[0,[19,79,23,6]],"2411":[0,[19,79,21,8]],"2422":[0,[19,79,21,9]],"2423":[0,[19,79,22,9]],"2567":[0,[19,79,23,69]],"2571":[0,[19,79,21,23]],"2631":[0,[19,79,21,71]],"2638":[0,[19,79,22,72]],"2639":[0,[19,79,23,72]],"2640":[0,[19,79,24,72]],"2643":[0,[19,79,21,22]],"2644":[0,[19,79,22,22]],"533":[1,[19,79,84,9]],"536":[1,[19,79,83,11]],"537":[1,[19,79,84,11]],"538":[1,[19,79,83,4]],"906":[1,[19,79,26,42]],"924":[1,[19,79,26,19]],"1671":[1,[19,79,26,27]],"2622":[0,[20,79,24,22]],"980":[4,[20,79,26,4]],"983":[4,[20,79,26,8]],"3156":[4,[20,79,26,43]],"3407":[1,[19,79,84,24]],"2505":[4,[20,79,26,1]],"2594":[4,[20,79,26,27]],"2150":[2,[20,79,22,12]],"2152":[2,[20,79,24,12]],"2162":[2,[20,79,24,11]],"2170":[2,[20,79,22,4]],"1043":[5,[19,80,24,45]],"1005":[5,[20,80,21,45]],"1008":[5,[20,80,24,45]],"1013":[5,[20,80,24,44]],"1334":[6,[19,81,23,9]],"1352":[6,[19,81,21,8]],"1341":[14,[19,81,25,57]],"872":[6,[20,81,22,7]],"873":[6,[20,81,23,7]],"892":[6,[20,81,22,9]],"893":[6,[20,81,23,9]],"855":[14,[20,81,25,1]],"2959":[6,[19,328,22,1]],"2982":[6,[19,328,21,3]],"2984":[6,[19,328,23,3]],"3233":[11,[19,370,21,12]],"3247":[11,[19,370,23,12]],"3248":[11,[19,370,21,1]],"3251":[11,[19,370,24,31]],"3273":[12,[19,371,24,9]],"3278":[12,[19,371,23,1]],"3281":[12,[19,371,23,9]],"3291":[12,[19,371,23,8]],"3293":[12,[19,371,21,9]],"3312":[12,[19,371,23,5]],"3314":[12,[19,371,24,5]],"3302":[12,[19,371,21,1]],"1111":[13,[20,104,24,57]],"1118":[13,[20,104,23,44]],"1124":[13,[20,104,21,40]],"1128":[13,[20,104,21,42]],"2394":[0,[19,79,23,4]],"2399":[0,[19,79,22,5]],"2416":[0,[19,79,22,11]],"3230":[0,[19,79,22,108]],"2522":[0,[19,79,23,44]],"2533":[0,[19,79,22,45]],"2553":[0,[19,79,21,27]],"2573":[0,[19,79,23,23]],"2585":[0,[19,79,23,21]],"10":[1,[19,79,26,5]],"534":[1,[19,79,83,1]],"539":[1,[19,79,84,4]],"1689":[1,[19,79,26,23]],"2365":[1,[19,79,26,12]],"2371":[1,[19,79,26,4]],"3412":[1,[19,79,84,72]],"2513":[1,[19,79,26,42]],"2558":[1,[19,79,26,27]],"2362":[3,[19,79,26,22]],"393":[0,[20,79,22,1]],"423":[0,[20,79,22,2]],"435":[0,[20,79,24,5]],"437":[0,[20,79,21,6]],"439":[0,[20,79,23,6]],"3190":[0,[20,79,24,60]],"427":[0,[20,79,21,3]],"1733":[0,[20,79,22,22]],"3153":[0,[20,79,23,43]],"3200":[0,[20,79,22,20]],"2450":[0,[20,79,21,10]],"2453":[0,[20,79,24,10]],"2470":[0,[20,79,21,2]],"2596":[0,[20,79,22,24]],"2616":[0,[20,79,24,68]],"3414":[3,[19,79,84,72]],"3140":[2,[20,79,22,19]],"3196":[2,[20,79,24,60]],"3142":[2,[20,79,24,19]],"3139":[2,[20,79,21,19]],"3159":[2,[20,79,23,43]],"2174":[2,[20,79,21,7]],"1003":[5,[20,80,24,42]],"1007":[5,[20,80,23,45]],"1016":[5,[20,80,22,40]],"3416":[1,[19,79,83,23]],"3477":[3,[19,79,83,19]],"3478":[1,[19,79,84,19]],"2400":[0,[19,79,23,5]],"2410":[0,[19,79,24,7]],"2424":[0,[19,79,23,9]],"2425":[0,[19,79,23,45]],"2432":[0,[19,79,23,2]],"3229":[0,[19,79,24,108]],"2510":[0,[19,79,23,42]],"2516":[0,[19,79,23,43]],"2517":[0,[19,79,24,43]],"2526":[0,[19,79,21,19]],"2529":[0,[19,79,24,19]],"2532":[0,[19,79,21,45]],"2555":[0,[19,79,23,27]],"2556":[0,[19,79,24,27]],"2559":[0,[19,79,21,24]],"2560":[0,[19,79,22,24]],"2566":[0,[19,79,22,69]],"2568":[0,[19,79,24,69]],"2586":[0,[19,79,24,21]],"2626":[0,[19,79,22,70]],"2627":[0,[19,79,23,70]],"2645":[0,[19,79,23,22]],"14":[1,[19,79,26,7]],"532":[1,[19,79,83,9]],"18":[1,[19,79,26,9]],"1677":[1,[19,79,26,24]],"3413":[1,[19,79,84,72]],"3479":[1,[19,79,84,19]],"2428":[1,[19,79,26,45]],"2501":[1,[19,79,84,8]],"2502":[1,[19,79,83,12]],"2519":[1,[19,79,26,43]],"2570":[1,[19,79,26,69]],"3501":[4,[20,393,21,4]],"2588":[1,[19,79,26,21]],"2636":[1,[19,79,26,71]],"2642":[1,[19,79,26,72]],"2118":[2,[19,79,22,6]],"2131":[2,[19,79,23,11]],"2146":[2,[19,79,23,2]],"2224":[2,[19,79,23,42]],"2229":[2,[19,79,22,43]],"2235":[2,[19,79,22,44]],"2274":[2,[19,79,22,24]],"3505":[4,[20,393,21,69]],"2091":[3,[19,79,26,7]],"2284":[3,[19,79,26,69]],"3129":[0,[20,79,23,19]],"3171":[0,[20,79,23,45]],"3207":[0,[20,79,23,20]],"3165":[0,[20,79,23,45]],"2448":[0,[20,79,24,11]],"2463":[0,[20,79,24,7]],"2467":[0,[20,79,23,9]],"2479":[0,[20,79,24,5]],"2487":[0,[20,79,22,8]],"2552":[0,[20,79,22,3]],"2191":[2,[20,79,22,5]],"2304":[2,[20,79,22,27]],"2310":[2,[20,79,22,24]],"2316":[2,[20,79,22,62]],"1036":[5,[19,80,22,42]],"833":[16,[19,80,25,46]],"808":[5,[20,80,23,46]],"3568":[7,[19,395,1,26]],"2401":[0,[19,79,24,5]],"2406":[0,[19,79,24,6]],"3226":[0,[19,79,21,108]],"2511":[0,[19,79,24,42]],"2554":[0,[19,79,22,27]],"374":[1,[19,79,26,3]],"542":[1,[19,79,83,12]],"912":[1,[19,79,26,43]],"3415":[1,[19,79,83,23]],"2500":[1,[19,79,83,8]],"2576":[1,[19,79,26,23]],"2095":[2,[19,79,22,12]],"2105":[2,[19,79,24,10]],"2137":[2,[19,79,22,9]],"2143":[2,[19,79,24,9]],"2270":[2,[19,79,24,27]],"2275":[2,[19,79,23,24]],"2345":[2,[19,79,21,71]],"3473":[1,[19,79,84,27]],"2142":[3,[19,79,26,45]],"2212":[3,[19,79,83,4]],"2214":[3,[19,79,83,8]],"2239":[3,[19,79,26,44]],"409":[0,[20,79,23,4]],"433":[0,[20,79,22,5]],"1705":[0,[20,79,24,27]],"1721":[0,[20,79,22,23]],"3135":[0,[20,79,23,19]],"3172":[0,[20,79,24,45]],"3154":[0,[20,79,24,43]],"2437":[0,[20,79,23,12]],"2474":[0,[20,79,24,3]],"2486":[0,[20,79,21,8]],"2601":[0,[20,79,21,62]],"3475":[1,[19,79,83,19]],"3174":[4,[20,79,26,45]],"2154":[2,[20,79,21,1]],"2317":[2,[20,79,23,62]],"2322":[2,[20,79,22,23]],"2328":[2,[20,79,22,68]],"2329":[2,[20,79,23,68]],"2334":[2,[20,79,22,22]],"2336":[2,[20,79,24,22]],"2248":[3,[20,79,26,11]],"2250":[3,[20,79,26,5]],"3502":[4,[20,393,21,3]],"829":[5,[19,80,21,46]],"1022":[5,[19,80,23,54]],"1032":[5,[19,80,23,43]],"1041":[5,[19,80,22,45]],"1024":[16,[19,80,25,54]],"807":[5,[20,80,22,46]],"809":[5,[20,80,24,46]],"3096":[6,[20,81,24,4]],"853":[6,[20,81,23,1]],"871":[6,[20,81,21,7]],"877":[6,[20,81,22,22]],"888":[6,[20,81,23,8]],"889":[6,[20,81,24,8]],"896":[6,[20,81,21,12]],"897":[6,[20,81,22,12]],"878":[6,[20,81,23,22]],"886":[6,[20,81,21,8]],"2838":[4,[19,218,23,12]],"2862":[4,[19,218,23,18]],"2863":[4,[19,218,24,18]],"2870":[4,[19,218,23,7]],"2841":[7,[19,218,26,12]],"2843":[7,[19,218,84,12]],"2850":[7,[19,218,83,1]],"3537":[1,[20,393,25,69]],"2865":[7,[19,218,26,18]],"2866":[7,[19,218,83,18]],"2798":[4,[20,213,23,4]],"2811":[4,[20,213,24,11]],"2826":[4,[20,213,21,9]],"3028":[8,[19,135,24,1]],"3032":[8,[19,135,22,4]],"3038":[8,[19,135,22,19]],"3268":[12,[19,371,21,8]],"3276":[12,[19,371,24,11]],"3292":[1,[19,371,26,8]],"1102":[13,[20,104,23,46]],"1105":[13,[20,104,22,38]],"1113":[13,[20,104,22,59]],"1120":[13,[20,104,21,43]],"1121":[13,[20,104,22,43]],"2407":[0,[19,79,21,7]],"2408":[0,[19,79,22,7]],"2412":[0,[19,79,22,8]],"3231":[0,[19,79,23,108]],"2548":[0,[19,79,21,12]],"2561":[0,[19,79,23,24]],"2562":[0,[19,79,24,24]],"2565":[0,[19,79,21,69]],"2579":[0,[19,79,23,67]],"2583":[0,[19,79,21,21]],"2634":[0,[19,79,24,71]],"535":[1,[19,79,84,1]],"2547":[1,[19,79,26,2]],"2101":[2,[19,79,24,1]],"2102":[2,[19,79,21,10]],"2107":[2,[19,79,22,4]],"2109":[2,[19,79,24,4]],"2113":[2,[19,79,22,5]],"2242":[2,[19,79,23,19]],"2243":[2,[19,79,24,19]],"2340":[2,[19,79,22,70]],"2296":[3,[19,79,26,67]],"395":[0,[20,79,24,1]],"424":[0,[20,79,23,2]],"429":[0,[20,79,23,3]],"3208":[0,[20,79,24,20]],"3166":[0,[20,79,24,45]],"3202":[0,[20,79,24,20]],"3170":[0,[20,79,22,45]],"1702":[0,[20,79,21,27]],"1720":[0,[20,79,21,23]],"3201":[0,[20,79,23,20]],"3152":[0,[20,79,22,43]],"3146":[0,[20,79,22,43]],"2440":[0,[20,79,21,1]],"2446":[0,[20,79,22,11]],"2451":[0,[20,79,22,10]],"2455":[0,[20,79,21,4]],"2456":[0,[20,79,22,4]],"2590":[0,[20,79,22,27]],"2595":[0,[20,79,21,24]],"2607":[0,[20,79,21,23]],"978":[4,[20,79,26,2]],"3454":[1,[19,79,84,5]],"3213":[2,[20,79,23,20]],"3214":[2,[20,79,24,20]],"3212":[2,[20,79,22,20]],"3211":[2,[20,79,21,20]],"3158":[2,[20,79,22,43]],"2172":[2,[20,79,24,4]],"2182":[2,[20,79,24,9]],"2266":[2,[20,79,22,3]],"2306":[2,[20,79,24,27]],"2309":[2,[20,79,21,24]],"2318":[2,[20,79,24,62]],"2323":[2,[20,79,23,23]],"2324":[2,[20,79,24,23]],"2333":[2,[20,79,21,22]],"2308":[3,[20,79,26,27]],"3460":[1,[19,79,84,69]],"1021":[5,[19,80,22,54]],"1820":[16,[20,80,25,46]],"1358":[6,[19,81,22,12]],"3093":[14,[20,81,25,11]],"3098":[14,[20,81,25,4]],"2886":[4,[19,218,23,4]],"3465":[3,[19,79,83,6]],"2858":[7,[19,218,83,8]],"2875":[7,[19,218,84,7]],"2793":[4,[20,213,24,1]],"2808":[4,[20,213,21,11]],"2809":[4,[20,213,22,11]],"2815":[4,[20,213,22,12]],"2816":[4,[20,213,23,12]],"1830":[8,[19,135,21,12]],"1833":[8,[19,135,24,12]],"2409":[0,[19,79,23,7]],"2417":[0,[19,79,23,11]],"2426":[0,[19,79,24,45]],"3218":[0,[19,79,22,108]],"3220":[0,[19,79,24,108]],"2509":[0,[19,79,22,42]],"2580":[0,[19,79,24,67]],"2584":[0,[19,79,22,21]],"2633":[0,[19,79,23,71]],"540":[1,[19,79,83,8]],"541":[1,[19,79,84,8]],"960":[1,[19,79,83,7]],"918":[1,[19,79,26,44]],"3418":[1,[19,79,84,23]],"1751":[1,[19,79,26,70]],"3438":[3,[19,79,84,3]],"1757":[1,[19,79,26,71]],"2494":[1,[19,79,83,1]],"2543":[1,[19,79,26,9]],"2112":[2,[19,79,21,5]],"2120":[2,[19,79,24,6]],"2128":[2,[19,79,24,8]],"2297":[2,[19,79,21,21]],"2299":[2,[19,79,23,21]],"2342":[2,[19,79,24,70]],"2346":[2,[19,79,22,71]],"2358":[2,[19,79,22,22]],"2359":[2,[19,79,23,22]],"3225":[2,[19,79,24,108]],"3445":[1,[19,79,83,21]],"2302":[3,[19,79,26,21]],"3469":[1,[19,79,83,27]],"398":[0,[20,79,22,11]],"405":[0,[20,79,24,10]],"408":[0,[20,79,22,4]],"410":[0,[20,79,24,4]],"434":[0,[20,79,23,5]],"3199":[0,[20,79,21,20]],"3206":[0,[20,79,22,20]],"1717":[0,[20,79,24,62]],"1727":[0,[20,79,22,68]],"1735":[0,[20,79,24,22]],"3164":[0,[20,79,22,45]],"3181":[0,[20,79,21,60]],"2438":[0,[20,79,24,12]],"2597":[0,[20,79,23,24]],"2598":[0,[20,79,24,24]],"2603":[0,[20,79,23,62]],"2604":[0,[20,79,24,62]],"3317":[3,[20,79,26,3]],"3503":[4,[20,393,21,11]],"2221":[3,[20,79,26,2]],"2252":[3,[20,79,26,8]],"2314":[3,[20,79,26,24]],"1031":[5,[19,80,22,43]],"1044":[16,[19,80,25,45]],"806":[5,[20,80,21,46]],"986":[5,[20,80,22,54]],"987":[5,[20,80,23,54]],"1015":[5,[20,80,21,40]],"1014":[16,[20,80,25,44]],"1323":[6,[19,81,22,38]],"1332":[6,[19,81,21,9]],"1350":[6,[19,81,24,7]],"1326":[14,[19,81,25,38]],"3089":[6,[20,81,21,11]],"3092":[6,[20,81,22,11]],"876":[6,[20,81,21,22]],"887":[6,[20,81,22,8]],"875":[14,[20,81,25,7]],"2836":[4,[19,218,21,12]],"2846":[4,[19,218,23,1]],"2817":[4,[20,213,24,12]],"3037":[8,[19,135,21,19]],"1849":[9,[19,135,25,30]],"3036":[10,[19,135,26,4]],"2989":[6,[19,328,22,75]],"2957":[15,[19,328,26,12]],"2981":[15,[19,328,26,74]],"3234":[11,[19,370,22,12]],"3569":[7,[19,395,1,12]],"3269":[12,[19,371,22,11]],"3275":[12,[19,371,22,12]],"3280":[12,[19,371,23,11]],"3283":[12,[19,371,24,7]],"3286":[12,[19,371,23,7]],"3294":[12,[19,371,24,8]],"3297":[12,[19,371,23,12]],"3272":[1,[19,371,26,11]],"3601":[7,[19,395,23,3]],"3279":[1,[19,371,26,1]],"3618":[17,[19,395,25,60]],"1108":[13,[20,104,21,57]],"1114":[13,[20,104,23,59]],"1119":[13,[20,104,24,44]],"1127":[13,[20,104,24,40]],"1132":[13,[20,104,21,65]],"2413":[0,[19,79,23,8]],"2430":[0,[19,79,21,2]],"2433":[0,[19,79,24,2]],"3217":[0,[19,79,21,108]],"2572":[0,[19,79,22,23]],"2574":[0,[19,79,24,23]],"2637":[0,[19,79,21,72]],"1683":[1,[19,79,26,69]],"1701":[1,[19,79,26,21]],"1813":[1,[19,79,26,72]],"1819":[1,[19,79,26,22]],"2525":[1,[19,79,26,44]],"2531":[1,[19,79,26,19]],"2564":[1,[19,79,26,24]],"2099":[2,[19,79,22,1]],"2103":[2,[19,79,22,10]],"2104":[2,[19,79,23,10]],"2108":[2,[19,79,23,4]],"2117":[2,[19,79,21,6]],"2119":[2,[19,79,23,6]],"2124":[2,[19,79,24,7]],"2126":[2,[19,79,22,8]],"2127":[2,[19,79,23,8]],"2132":[2,[19,79,24,11]],"2223":[2,[19,79,22,42]],"2237":[2,[19,79,24,44]],"2291":[2,[19,79,21,67]],"2292":[2,[19,79,22,67]],"2294":[2,[19,79,24,67]],"2339":[2,[19,79,21,70]],"2087":[3,[19,79,26,5]],"2206":[3,[19,79,83,9]],"2217":[3,[19,79,84,12]],"2233":[3,[19,79,26,43]],"2255":[3,[19,79,26,8]],"2278":[3,[19,79,26,24]],"3145":[0,[20,79,21,43]],"3163":[0,[20,79,21,45]],"2602":[0,[20,79,22,62]],"977":[4,[20,79,26,9]],"979":[4,[20,79,26,11]],"2539":[4,[20,79,26,12]],"3175":[2,[20,79,21,45]],"2149":[2,[20,79,21,12]],"2151":[2,[20,79,23,12]],"2155":[2,[20,79,22,1]],"2157":[2,[20,79,24,1]],"2169":[2,[20,79,21,4]],"2193":[2,[20,79,24,5]],"2195":[2,[20,79,21,6]],"2249":[3,[20,79,26,4]],"3419":[1,[19,79,84,23]],"823":[5,[19,80,21,47]],"830":[5,[19,80,22,46]],"1026":[5,[19,80,22,4]],"1047":[5,[19,80,23,44]],"1037":[5,[19,80,23,42]],"1038":[5,[19,80,24,42]],"992":[5,[20,80,23,4]],"1002":[5,[20,80,23,42]],"999":[16,[20,80,25,43]],"1348":[6,[19,81,22,7]],"1355":[6,[19,81,24,8]],"1357":[6,[19,81,21,12]],"894":[6,[20,81,24,9]],"879":[6,[20,81,24,22]],"2837":[4,[19,218,22,12]],"2868":[4,[19,218,21,7]],"2877":[4,[19,218,22,9]],"2878":[4,[19,218,23,9]],"2879":[4,[19,218,24,9]],"2884":[4,[19,218,21,4]],"2867":[7,[19,218,84,18]],"2882":[7,[19,218,83,9]],"2796":[4,[20,213,21,4]],"2802":[4,[20,213,21,7]],"2827":[4,[20,213,22,9]],"1826":[8,[19,135,22,11]],"1847":[8,[19,135,23,30]],"1848":[8,[19,135,24,30]],"3018":[8,[19,135,21,107]],"3019":[8,[19,135,22,107]],"3027":[8,[19,135,23,1]],"3022":[9,[19,135,25,107]],"3029":[9,[19,135,25,1]],"2978":[6,[19,328,23,74]],"2990":[6,[19,328,23,75]],"2988":[6,[19,328,21,75]],"3285":[12,[19,371,22,1]],"1112":[13,[20,104,21,59]],"2431":[0,[19,79,22,2]],"3221":[0,[19,79,23,108]],"20":[1,[19,79,26,11]],"22":[1,[19,79,26,2]],"1695":[1,[19,79,26,67]],"2369":[1,[19,79,26,10]],"2377":[1,[19,79,26,7]],"2630":[1,[19,79,26,70]],"2092":[2,[19,79,22,3]],"2122":[2,[19,79,22,7]],"2123":[2,[19,79,23,7]],"2140":[2,[19,79,24,45]],"2225":[2,[19,79,24,42]],"2231":[2,[19,79,24,43]],"2234":[2,[19,79,21,44]],"2276":[2,[19,79,24,24]],"3223":[2,[19,79,23,108]],"3224":[2,[19,79,22,108]],"2079":[3,[19,79,26,12]],"2089":[3,[19,79,26,6]],"2215":[3,[19,79,84,8]],"2245":[3,[19,79,26,19]],"2257":[3,[19,79,26,9]],"3421":[1,[19,79,83,67]],"2290":[3,[19,79,26,23]],"2344":[3,[19,79,26,70]],"388":[0,[20,79,22,12]],"390":[0,[20,79,24,12]],"402":[0,[20,79,21,10]],"404":[0,[20,79,23,10]],"412":[0,[20,79,21,7]],"418":[0,[20,79,22,9]],"428":[0,[20,79,22,3]],"3189":[0,[20,79,23,60]],"3133":[0,[20,79,21,19]],"1703":[0,[20,79,22,27]],"1715":[0,[20,79,22,62]],"3169":[0,[20,79,21,45]],"3151":[0,[20,79,21,43]],"3472":[1,[19,79,84,27]],"3168":[4,[20,79,26,45]],"1713":[4,[20,79,26,24]],"1737":[4,[20,79,26,22]],"2363":[4,[20,79,26,6]],"1337":[6,[19,81,21,57]],"1339":[6,[19,81,23,57]],"1351":[14,[19,81,25,7]],"3091":[6,[20,81,24,11]],"1846":[8,[19,135,22,30]],"3025":[8,[19,135,21,1]],"3040":[8,[19,135,24,19]],"3042":[10,[19,135,26,19]],"3495":[3,[19,79,83,45]],"3496":[1,[19,79,84,45]],"3504":[4,[20,393,21,47]],"3506":[4,[20,393,21,111]],"3570":[7,[19,395,1,33]],"6":[1,[19,79,26,10]],"2367":[1,[19,79,26,1]],"3422":[1,[19,79,83,67]],"2497":[1,[19,79,84,11]],"2498":[1,[19,79,83,4]],"2504":[1,[19,79,83,7]],"2098":[2,[19,79,21,1]],"2100":[2,[19,79,23,1]],"2114":[2,[19,79,23,5]],"2121":[2,[19,79,21,7]],"2133":[2,[19,79,21,3]],"2138":[2,[19,79,23,9]],"2139":[2,[19,79,23,45]],"2144":[2,[19,79,21,2]],"2145":[2,[19,79,22,2]],"2222":[2,[19,79,21,42]],"2228":[2,[19,79,21,43]],"2230":[2,[19,79,23,43]],"2236":[2,[19,79,23,44]],"2240":[2,[19,79,21,19]],"2241":[2,[19,79,22,19]],"2246":[2,[19,79,21,45]],"2281":[2,[19,79,23,69]],"2285":[2,[19,79,21,23]],"2286":[2,[19,79,22,23]],"2287":[2,[19,79,23,23]],"2293":[2,[19,79,23,67]],"2298":[2,[19,79,22,21]],"2341":[2,[19,79,23,70]],"2352":[2,[19,79,22,72]],"2357":[2,[19,79,21,22]],"2360":[2,[19,79,24,22]],"3227":[2,[19,79,21,108]],"3427":[1,[19,79,83,22]],"2081":[3,[19,79,26,1]],"2085":[3,[19,79,26,4]],"2207":[3,[19,79,84,9]],"2209":[3,[19,79,84,1]],"3433":[1,[19,79,83,3]],"2259":[3,[19,79,26,11]],"2261":[3,[19,79,26,2]],"2272":[3,[19,79,26,27]],"3443":[1,[19,79,84,2]],"399":[0,[20,79,23,11]],"417":[0,[20,79,21,9]],"422":[0,[20,79,21,2]],"430":[0,[20,79,24,3]],"432":[0,[20,79,21,5]],"442":[0,[20,79,21,8]],"443":[0,[20,79,22,8]],"3136":[0,[20,79,24,19]],"1708":[0,[20,79,21,24]],"1709":[0,[20,79,22,24]],"1710":[0,[20,79,23,24]],"1714":[0,[20,79,21,62]],"1722":[0,[20,79,23,23]],"1723":[0,[20,79,24,23]],"1728":[0,[20,79,23,68]],"3147":[0,[20,79,23,43]],"3148":[0,[20,79,24,43]],"3182":[0,[20,79,22,60]],"3187":[0,[20,79,21,60]],"2435":[0,[20,79,21,12]],"2445":[0,[20,79,21,11]],"2452":[0,[20,79,23,10]],"2609":[0,[20,79,23,23]],"2610":[0,[20,79,24,23]],"2613":[0,[20,79,21,68]],"2619":[0,[20,79,21,22]],"984":[4,[20,79,26,12]],"3318":[4,[20,79,26,3]],"3319":[4,[20,79,26,3]],"3484":[1,[19,79,84,43]],"3204":[4,[20,79,26,20]],"2624":[4,[20,79,26,22]],"3160":[2,[20,79,24,43]],"2200":[2,[20,79,21,8]],"2263":[2,[20,79,24,2]],"2303":[2,[20,79,21,27]],"3198":[3,[20,79,26,60]],"3485":[1,[19,79,84,43]],"3216":[3,[20,79,26,20]],"3144":[3,[20,79,26,19]],"3487":[1,[19,79,83,42]],"3186":[4,[20,79,26,60]],"3210":[4,[20,79,26,20]],"3132":[4,[20,79,26,19]],"3150":[4,[20,79,26,43]],"3423":[3,[19,79,83,67]],"2534":[4,[20,79,26,11]],"2535":[4,[20,79,26,4]],"2536":[4,[20,79,26,5]],"2537":[4,[20,79,26,7]],"2600":[4,[20,79,26,24]],"3177":[2,[20,79,23,45]],"3176":[2,[20,79,22,45]],"2156":[2,[20,79,23,1]],"2161":[2,[20,79,23,11]],"2166":[2,[20,79,23,10]],"2167":[2,[20,79,24,10]],"2177":[2,[20,79,24,7]],"2184":[2,[20,79,21,2]],"2185":[2,[20,79,22,2]],"2186":[2,[20,79,23,2]],"2188":[2,[20,79,24,3]],"2192":[2,[20,79,23,5]],"2196":[2,[20,79,22,6]],"2197":[2,[20,79,23,6]],"2198":[2,[20,79,24,6]],"2201":[2,[20,79,22,8]],"2202":[2,[20,79,23,8]],"2203":[2,[20,79,24,8]],"2265":[2,[20,79,21,3]],"2305":[2,[20,79,23,27]],"2315":[2,[20,79,21,62]],"2327":[2,[20,79,21,68]],"2330":[2,[20,79,24,68]],"3180":[3,[20,79,26,45]],"2077":[3,[20,79,26,6]],"3483":[3,[19,79,83,43]],"3162":[3,[20,79,26,43]],"3492":[3,[19,79,84,42]],"2219":[3,[20,79,26,1]],"2220":[3,[20,79,26,9]],"2251":[3,[20,79,26,7]],"2253":[3,[20,79,26,12]],"3507":[4,[20,393,22,1]],"3509":[4,[20,393,22,4]],"2338":[3,[20,79,26,22]],"831":[5,[19,80,23,46]],"832":[5,[19,80,24,46]],"1023":[5,[19,80,24,54]],"1025":[5,[19,80,21,4]],"1027":[5,[19,80,23,4]],"1028":[5,[19,80,24,4]],"1030":[5,[19,80,21,43]],"1033":[5,[19,80,24,43]],"1040":[5,[19,80,21,45]],"1045":[5,[19,80,21,44]],"1048":[5,[19,80,24,44]],"1035":[5,[19,80,21,42]],"827":[16,[19,80,25,47]],"1029":[16,[19,80,25,4]],"1049":[16,[19,80,25,44]],"988":[5,[20,80,24,54]],"991":[5,[20,80,22,4]],"996":[5,[20,80,22,43]],"1000":[5,[20,80,21,42]],"1001":[5,[20,80,22,42]],"1006":[5,[20,80,22,45]],"1010":[5,[20,80,21,44]],"1011":[5,[20,80,22,44]],"989":[16,[20,80,25,54]],"994":[16,[20,80,25,4]],"1322":[6,[19,81,21,38]],"1340":[6,[19,81,24,57]],"1343":[6,[19,81,22,11]],"1344":[6,[19,81,23,11]],"1345":[6,[19,81,24,11]],"1347":[6,[19,81,21,7]],"1349":[6,[19,81,23,7]],"1353":[6,[19,81,22,8]],"1354":[6,[19,81,23,8]],"1359":[6,[19,81,23,12]],"1360":[6,[19,81,24,12]],"1331":[14,[19,81,25,1]],"1336":[14,[19,81,25,9]],"1346":[14,[19,81,25,11]],"1356":[14,[19,81,25,8]],"1361":[14,[19,81,25,12]],"3097":[6,[20,81,22,4]],"851":[6,[20,81,21,1]],"874":[6,[20,81,24,7]],"2839":[4,[19,218,24,12]],"2844":[4,[19,218,21,1]],"2885":[4,[19,218,22,4]],"2887":[4,[19,218,24,4]],"2842":[7,[19,218,83,12]],"2849":[7,[19,218,26,1]],"2857":[7,[19,218,26,8]],"2791":[4,[20,213,22,1]],"2960":[6,[19,328,23,1]],"2967":[6,[19,328,24,4]],"2972":[6,[19,328,23,19]],"2976":[6,[19,328,21,74]],"2966":[6,[19,328,23,4]],"3236":[11,[19,370,24,1]],"3424":[1,[19,79,84,67]],"3437":[1,[19,79,84,3]],"3459":[3,[19,79,83,69]],"3508":[4,[20,393,22,12]],"3540":[7,[20,393,26,12]],"891":[6,[20,81,21,9]],"898":[6,[20,81,23,12]],"2955":[6,[19,328,24,12]],"2970":[6,[19,328,21,19]],"3425":[1,[19,79,84,67]],"3441":[3,[19,79,83,2]],"3444":[3,[19,79,84,2]],"3448":[1,[19,79,84,21]],"3336":[1,[19,378,21,110]],"3337":[1,[19,378,22,110]],"3353":[17,[19,378,26,30]],"3449":[1,[19,79,84,21]],"3511":[4,[20,393,22,11]],"3516":[4,[20,393,23,12]],"3518":[4,[20,393,23,3]],"3538":[1,[20,393,25,111]],"3545":[7,[20,393,26,69]],"3571":[7,[19,395,1,112]],"3572":[7,[19,395,1,113]],"3573":[7,[19,395,1,60]],"3576":[7,[19,395,21,1]],"3587":[7,[19,395,22,12]],"3589":[7,[19,395,22,112]],"3590":[7,[19,395,22,113]],"899":[6,[20,81,24,12]],"890":[14,[20,81,25,8]],"895":[14,[20,81,25,9]],"880":[14,[20,81,25,22]],"2853":[4,[19,218,22,8]],"2854":[4,[19,218,23,8]],"2851":[7,[19,218,84,1]],"2828":[4,[20,213,23,9]],"1825":[8,[19,135,21,11]],"1832":[8,[19,135,23,12]],"3041":[9,[19,135,25,19]],"3023":[10,[19,135,26,107]],"2973":[6,[19,328,24,19]],"3428":[1,[19,79,83,22]],"3429":[3,[19,79,83,22]],"3300":[1,[19,371,26,12]],"3462":[3,[19,79,84,69]],"3464":[1,[19,79,83,6]],"3338":[1,[19,378,23,110]],"3340":[7,[19,378,25,110]],"3347":[17,[19,378,26,28]],"2855":[4,[19,218,24,8]],"2797":[4,[20,213,22,4]],"2804":[4,[20,213,23,7]],"2958":[6,[19,328,21,1]],"2961":[6,[19,328,24,1]],"2964":[6,[19,328,21,4]],"2983":[6,[19,328,22,3]],"2991":[6,[19,328,24,75]],"2963":[15,[19,328,26,1]],"2987":[15,[19,328,26,3]],"3244":[11,[19,370,23,31]],"3288":[12,[19,371,22,7]],"3289":[12,[19,371,21,7]],"3296":[12,[19,371,24,12]],"3313":[12,[19,371,21,5]],"3301":[12,[19,371,21,11]],"3430":[1,[19,79,84,22]],"1104":[13,[20,104,21,38]],"1110":[13,[20,104,23,57]],"1133":[13,[20,104,22,65]],"1136":[13,[20,104,21,54]],"1137":[13,[20,104,22,54]],"3432":[3,[19,79,84,22]],"3482":[1,[19,79,83,43]],"3486":[3,[19,79,84,43]],"2074":[10,[19,135,26,12]],"2953":[6,[19,328,22,12]],"3431":[1,[19,79,84,22]],"3439":[1,[19,79,83,2]],"3447":[3,[19,79,83,21]],"3339":[1,[19,378,24,110]],"3352":[7,[19,378,25,30]],"3357":[1,[19,378,24,1]],"3359":[17,[19,378,26,1]],"3363":[1,[19,378,24,68]],"3367":[1,[19,378,22,9]],"3368":[1,[19,378,23,9]],"3512":[4,[20,393,22,47]],"3574":[7,[19,395,1,3]],"3594":[7,[19,395,23,1]],"3600":[7,[19,395,23,60]],"3624":[5,[19,395,26,33]],"1115":[13,[20,104,24,59]],"1122":[13,[20,104,23,43]],"1123":[13,[20,104,24,43]],"1125":[13,[20,104,22,40]],"1129":[13,[20,104,22,42]],"3434":[1,[19,79,83,3]],"3440":[1,[19,79,83,2]],"3341":[17,[19,378,26,110]],"3369":[1,[19,378,24,9]],"3453":[3,[19,79,83,5]],"3435":[3,[19,79,83,3]],"3451":[1,[19,79,83,5]],"3457":[1,[19,79,83,69]],"3342":[1,[19,378,21,28]],"3351":[1,[19,378,24,30]],"3355":[1,[19,378,22,1]],"3361":[1,[19,378,22,68]],"3364":[7,[19,378,25,68]],"3513":[4,[20,393,22,69]],"3519":[4,[20,393,23,11]],"3524":[4,[20,393,24,12]],"3575":[7,[19,395,1,114]],"3436":[1,[19,79,84,3]],"3450":[3,[19,79,84,21]],"3343":[1,[19,378,22,28]],"3346":[7,[19,378,25,28]],"3371":[17,[19,378,26,9]],"3455":[1,[19,79,84,5]],"3456":[3,[19,79,84,5]],"3458":[1,[19,79,83,69]],"3470":[1,[19,79,83,27]],"3474":[3,[19,79,84,27]],"3476":[1,[19,79,83,19]],"3480":[3,[19,79,84,19]],"3491":[1,[19,79,84,42]],"3493":[1,[19,79,83,45]],"3514":[4,[20,393,22,111]],"3517":[4,[20,393,23,4]],"3525":[4,[20,393,24,4]],"3543":[7,[20,393,26,11]],"3577":[7,[19,395,21,26]],"3591":[7,[19,395,22,60]],"3615":[17,[19,395,25,33]],"3617":[17,[19,395,25,113]],"3622":[5,[19,395,26,26]],"3442":[1,[19,79,84,2]],"3344":[1,[19,378,23,28]],"3358":[7,[19,378,25,1]],"3463":[1,[19,79,83,6]],"3497":[1,[19,79,84,45]],"3515":[4,[20,393,23,1]],"3529":[4,[20,393,24,69]],"3533":[1,[20,393,25,4]],"3578":[7,[19,395,21,12]],"3593":[7,[19,395,22,114]],"3610":[7,[19,395,24,3]],"3345":[1,[19,378,24,28]],"3356":[1,[19,378,23,1]],"3362":[1,[19,378,23,68]],"3370":[7,[19,378,25,9]],"3446":[1,[19,79,83,21]],"3520":[4,[20,393,23,47]],"3527":[4,[20,393,24,11]],"3541":[7,[20,393,26,4]],"3542":[7,[20,393,26,3]],"3579":[7,[19,395,21,33]],"3580":[7,[19,395,21,112]],"3625":[5,[19,395,26,112]],"3627":[5,[19,395,26,60]],"3348":[1,[19,378,21,30]],"3349":[1,[19,378,22,30]],"3354":[1,[19,378,21,1]],"3461":[1,[19,79,84,69]],"3466":[1,[19,79,84,6]],"3467":[1,[19,79,84,6]],"3468":[3,[19,79,84,6]],"3521":[4,[20,393,23,69]],"3522":[4,[20,393,23,111]],"3581":[7,[19,395,21,113]],"3584":[7,[19,395,21,114]],"3598":[7,[19,395,23,112]],"3350":[1,[19,378,23,30]],"3360":[1,[19,378,21,68]],"3365":[17,[19,378,26,68]],"3366":[1,[19,378,21,9]],"3471":[3,[19,79,83,27]],"3523":[4,[20,393,24,1]],"3582":[7,[19,395,21,60]],"3583":[7,[19,395,21,3]],"3586":[7,[19,395,22,26]],"3596":[7,[19,395,23,12]],"3609":[7,[19,395,24,60]],"3611":[7,[19,395,24,114]],"2368":[12,[19,79,25,10]],"3":[12,[19,79,25,1]],"2581":[12,[19,79,25,67]],"1":[12,[19,79,25,12]],"337":[12,[19,79,25,4]],"2569":[12,[19,79,25,69]],"21":[12,[19,79,25,2]],"1700":[12,[19,79,25,21]],"2647":[12,[19,79,25,22]],"923":[12,[19,79,25,19]],"2427":[12,[19,79,25,45]],"15":[12,[19,79,25,8]],"373":[12,[19,79,25,3]],"1688":[12,[19,79,25,23]],"11":[12,[19,79,25,6]],"9":[12,[19,79,25,5]],"1818":[12,[19,79,25,22]],"1750":[12,[19,79,25,70]],"13":[12,[19,79,25,7]],"17":[12,[19,79,25,9]],"1676":[12,[19,79,25,24]],"1694":[12,[19,79,25,67]],"5":[12,[19,79,25,10]],"2629":[12,[19,79,25,70]],"3228":[12,[19,79,25,108]],"929":[12,[19,79,25,45]],"905":[12,[19,79,25,42]],"911":[12,[19,79,25,43]],"917":[12,[19,79,25,44]],"3219":[12,[19,79,25,108]],"2376":[12,[19,79,25,7]],"2396":[12,[19,79,25,4]],"2575":[12,[19,79,25,23]],"19":[12,[19,79,25,11]],"2587":[12,[19,79,25,21]],"2420":[12,[19,79,25,3]],"2641":[12,[19,79,25,72]],"2530":[12,[19,79,25,19]],"2544":[12,[19,79,25,11]],"2540":[12,[19,79,25,8]],"2512":[12,[19,79,25,42]],"2557":[12,[19,79,25,27]],"2518":[12,[19,79,25,43]],"1670":[12,[19,79,25,27]],"1682":[12,[19,79,25,69]],"2524":[12,[19,79,25,44]],"2366":[12,[19,79,25,1]],"1812":[12,[19,79,25,72]],"1756":[12,[19,79,25,71]],"2546":[12,[19,79,25,2]],"2542":[12,[19,79,25,9]],"2364":[12,[19,79,25,12]],"2372":[12,[19,79,25,5]],"2374":[12,[19,79,25,6]],"2635":[12,[19,79,25,71]],"2563":[12,[19,79,25,24]],"3481":[1,[19,79,83,43]],"3490":[1,[19,79,84,42]],"3528":[4,[20,393,24,47]],"3532":[1,[20,393,25,12]],"3585":[7,[19,395,22,1]],"3607":[7,[19,395,24,112]],"3608":[7,[19,395,24,113]],"3619":[17,[19,395,25,3]],"2349":[18,[19,79,25,71]],"2256":[18,[19,79,25,9]],"2141":[18,[19,79,25,45]],"2078":[18,[19,79,25,12]],"2088":[18,[19,79,25,6]],"2134":[18,[19,79,25,3]],"2343":[18,[19,79,25,70]],"2355":[18,[19,79,25,72]],"2283":[18,[19,79,25,69]],"3222":[18,[19,79,25,108]],"2361":[18,[19,79,25,22]],"2238":[18,[19,79,25,44]],"2289":[18,[19,79,25,23]],"2295":[18,[19,79,25,67]],"2301":[18,[19,79,25,21]],"2244":[18,[19,79,25,19]],"2254":[18,[19,79,25,8]],"2258":[18,[19,79,25,11]],"2271":[18,[19,79,25,27]],"2090":[18,[19,79,25,7]],"2232":[18,[19,79,25,43]],"2110":[18,[19,79,25,4]],"2080":[18,[19,79,25,1]],"2086":[18,[19,79,25,5]],"2226":[18,[19,79,25,42]],"2277":[18,[19,79,25,24]],"2260":[18,[19,79,25,2]],"2082":[18,[19,79,25,10]],"441":[12,[20,79,25,6]],"2464":[12,[20,79,25,7]],"3173":[12,[20,79,25,45]],"3203":[12,[20,79,25,20]],"3209":[12,[20,79,25,20]],"1718":[12,[20,79,25,62]],"2623":[12,[20,79,25,22]],"391":[12,[20,79,25,12]],"436":[12,[20,79,25,5]],"396":[12,[20,79,25,1]],"406":[12,[20,79,25,10]],"421":[12,[20,79,25,9]],"446":[12,[20,79,25,8]],"2490":[12,[20,79,25,8]],"2617":[12,[20,79,25,68]],"2611":[12,[20,79,25,23]],"2459":[12,[20,79,25,4]],"2454":[12,[20,79,25,10]],"426":[12,[20,79,25,2]],"3155":[12,[20,79,25,43]],"431":[12,[20,79,25,3]],"3137":[12,[20,79,25,19]],"2444":[12,[20,79,25,1]],"2475":[12,[20,79,25,3]],"1724":[12,[20,79,25,23]],"2599":[12,[20,79,25,24]],"2605":[12,[20,79,25,62]],"3149":[12,[20,79,25,43]],"2593":[12,[20,79,25,27]],"1712":[12,[20,79,25,24]],"3185":[12,[20,79,25,60]],"2449":[12,[20,79,25,11]],"3191":[12,[20,79,25,60]],"416":[12,[20,79,25,7]],"2469":[12,[20,79,25,9]],"2485":[12,[20,79,25,6]],"3131":[12,[20,79,25,19]],"401":[12,[20,79,25,11]],"3167":[12,[20,79,25,45]],"2480":[12,[20,79,25,5]],"2550":[12,[20,79,25,2]],"1730":[12,[20,79,25,68]],"1706":[12,[20,79,25,27]],"2439":[12,[20,79,25,12]],"1736":[12,[20,79,25,22]],"411":[12,[20,79,25,4]],"3143":[18,[20,79,25,19]],"3161":[18,[20,79,25,43]],"3215":[18,[20,79,25,20]],"2168":[18,[20,79,25,10]],"2325":[18,[20,79,25,23]],"2264":[18,[20,79,25,2]],"2163":[18,[20,79,25,11]],"2194":[18,[20,79,25,5]],"2313":[18,[20,79,25,24]],"2319":[18,[20,79,25,62]],"2153":[18,[20,79,25,12]],"2189":[18,[20,79,25,3]],"2307":[18,[20,79,25,27]],"3197":[18,[20,79,25,60]],"2158":[18,[20,79,25,1]],"2173":[18,[20,79,25,4]],"2178":[18,[20,79,25,7]],"2183":[18,[20,79,25,9]],"3179":[18,[20,79,25,45]],"2199":[18,[20,79,25,6]],"2204":[18,[20,79,25,8]],"2331":[18,[20,79,25,68]],"2337":[18,[20,79,25,22]],"2840":[1,[19,218,25,12]],"2888":[1,[19,218,25,4]],"2848":[1,[19,218,25,1]],"2872":[1,[19,218,25,7]],"2880":[1,[19,218,25,9]],"2864":[1,[19,218,25,18]],"2856":[1,[19,218,25,8]],"2812":[1,[20,213,25,11]],"2818":[1,[20,213,25,12]],"2794":[1,[20,213,25,1]],"2800":[1,[20,213,25,4]],"2824":[1,[20,213,25,27]],"2806":[1,[20,213,25,7]],"2830":[1,[20,213,25,9]],"2962":[14,[19,328,25,1]],"2968":[14,[19,328,25,4]],"2956":[14,[19,328,25,12]],"2980":[14,[19,328,25,74]],"2986":[14,[19,328,25,3]],"2974":[14,[19,328,25,19]],"2992":[14,[19,328,25,75]],"3298":[4,[19,371,25,11]],"3299":[4,[19,371,25,9]],"3315":[4,[19,371,25,5]],"3277":[4,[19,371,25,8]],"3290":[4,[19,371,25,7]],"3270":[4,[19,371,25,1]],"3271":[4,[19,371,25,12]],"3489":[3,[19,79,83,42]],"3530":[4,[20,393,24,111]],"3531":[1,[20,393,25,1]],"3534":[1,[20,393,25,3]],"3588":[7,[19,395,22,33]],"3602":[7,[19,395,23,114]],"3605":[7,[19,395,24,12]],"3616":[17,[19,395,25,112]],"3245":[19,[19,370,25,31]],"3242":[19,[19,370,25,107]],"3243":[19,[19,370,25,12]],"3232":[19,[19,370,25,1]],"2795":[7,[20,213,26,1]],"2813":[7,[20,213,26,11]],"3535":[1,[20,393,25,11]],"3592":[7,[19,395,22,3]],"3628":[5,[19,395,26,3]],"2801":[7,[20,213,26,4]],"3488":[1,[19,79,83,42]],"3494":[1,[19,79,83,45]],"3536":[1,[20,393,25,47]],"3539":[7,[20,393,26,1]],"3603":[7,[19,395,24,1]],"3604":[7,[19,395,24,26]],"3613":[17,[19,395,25,26]],"2807":[7,[20,213,26,7]],"3544":[7,[20,393,26,47]],"3606":[7,[19,395,24,33]],"3614":[17,[19,395,25,12]],"2819":[7,[20,213,26,12]],"3546":[7,[20,393,26,111]],"3612":[17,[19,395,25,1]],"2825":[7,[20,213,26,27]],"3620":[17,[19,395,25,114]],"3626":[5,[19,395,26,113]],"2831":[7,[20,213,26,9]],"3621":[5,[19,395,26,1]],"3629":[5,[19,395,26,114]]},"descriptions":[["50% Cotton / 50% Polyester. Heathered colors offer additional stretch and options -- the softest shirts in the business and the perfect weight for a graphic tee.",[1339,1338,1340,1337,1341]],["Cotton/Poly blend. The softest in the business and the perfect weight for a graphic tee",[2393,8,2085,2172,337,2535,338,2212,2213,2371,2459,407,409,410,2458,2498,539,1325,980,2111,2107,2395,2396,2455,2169,408,2456,2170,2457,2171,2249,2392,2394,333,334,1324,1322,335,336,1323,538,1326,2397,2109,2106,2110,2108,2499,411,2173]],["100% combed ringspun cotton. The perfect fabric for a graphic tee in a relaxed cut and still the softest in the business.",[2806,2799,2796,2801,2824,2795,2830,2829,2810,2809,2794,2800,2815,2797,2825,2813,2819,2804,2812,2817,2811,2791,2792,2793,2807,2802,2803,2826,2827,2831,2820,2821,2822,2823,2798,2814,2808,2790,2805,2816,2818,2828]],["65% Polyester, 35% Viscose. Lightweight with the perfect cut and a flattering v-neck. Fabric drapes loosely across body for a comfortable, relaxed fit.",[1785,1786,1787,1788,1790,1791,1793,1798,1799,1802,1805,1806,1796,1783,1792,1804,1797,1800,1801,1807,1784,1789,1794,1803,1795]],["50% Polyester, 25% Cotton, 25% Rayon blend. A light, bouncy shirt with a flowy, relaxed fit and dolman sleeves.",[1130,1121,1108,1111,1100,1101,1102,1129,1116,1127,1107,1120,1119,1105,1109,1110,1112,1115,1132,1124,1136,1137,1104,1138,1139,1106,1103,1128,1131,1122,1123,1113,1114,1133,1134,1135,1125,1126,1117,1118]],["Combed ringspun cotton/poly blend. A perfectly comfortable combination of classic cut and vintage style.",[2776,2786,2787,2781,2782,2783,2780,2785,2770,2772,2775,2777,2771,2773,2778,2788]],["100% Airlume pre-shrunk combed and ringspun cotton",[3247,3241,3236,3246,3250,3243,3248,3249,3251,3239,3234,3244,3232,3233,3235,3237,3238,3240,3242,3245]],["BOLA228 hadir sebagai bandar togel 4D dan toto togel resmi yang mengutamakan kenyamanan dan kepercayaan pemain di tahun 2026. Dengan penerapan min bet 100 perak, BOLA228 memberi kesempatan bermain lebih ringan dan fleksibel, cocok untuk pemula maupun pemain berpengalaman. Sistem yang stabil, proses pendaftaran cepat, serta keamanan data yang terjaga membuat aktivitas bermain terasa aman dan lancar. Ditambah layanan pelanggan 24 jam yang responsif, BOLA228 menjadi pilihan tepat bagi pemain yang mencari situs togel online resmi, praktis, dan terpercaya.",[3408,3403,3404,2478,3452,3498,3417,3252,3405,3460,3465,3454,2637,3406,2205,3411,3407,3421,3416,881,3412,3414,3261,3413,3479,3127,3438,3445,3418,3410,3469,3436,3439,2415,3450,3419,3437,3424,3495,3420,3427,3422,2558,2582,3423,3448,3441,3444,3426,364,2368,3253,3428,3429,3,3462,3464,7,3259,3430,3432,3263,3264,3265,2122,3256,3266,2500,2501,3254,3260,1,357,3440,3434,3258,3262,3255,2264,3210,3453,2191,3457,3435,2206,329,4,3257,3451,1680,540,1709,2310,3463,3497,2272,3442,3446,374,377,875,20,3449,2193,2165,2305,2121,3141,3458,2592,2306,3171,3456,2125,3455,2133,3466,3467,358,376,3461,3468,3475,3476,2442,2451,3493,3480,2360,3491,1334,3425,22,341,3209,378,3490,3481,441,2593,389,391,3487,433,436,421,383,3203,3431,3488,3494,1967,10,315,316,366,1361,1344,3489,344,3496,382,348,2151,2154,1704,3134,369,3471,3133,3096,1808,2192,352,1348,3443,3478,2331,2175,3215,2569,3409,3160,3169,1710,2489,21,2471,3415,3459,3177,3091,854,1700,3447,2388,878,2440,3433,2581,1711,1723,3319,3482,2256,400,887,892,855,2647,1811,327,328,2083,3486,3193,360,1819,3470,2549,2187,3183,3214,3472,2598,2315,2176,415,861,3098,870,3473,3484,3485,396,2319,406,2482,443,2487,2333,425,405,3474,3477,2419,2421,2159,3492,2586,2248,2201,2438,2445,15,2252,3483,1329,2311,2203,2194,981,2330,1718,402,2615,2464,535,3217,883,2443,2507,3220,323,395,2640,340,1335,2186,2158,2600,2117,2309,3227,2155,446,2490,543,2576,2538,2334,858,2146,372,373,2138,848,2163,2184,1726,2078,866,2450,2589,2157,370,347,2088,445,365,2387,2105,1720,2607,2323,2324,2611,2551,2623,423,1722,427,2475,435,3185,3197,1688,1679,2119,2204,3224,2325,2266,3181,2127,384,2400,11,2250,324,3317,3139,3128,3150,1695,2150,2337,2190,1717,3204,2136,2553,2327,2536,2328,2329,1729,1714,1716,2179,1727,2614,3206,2483,354,2316,2537,3189,542,417,2617,2468,2644,2539,2477,2317,2178,2506,404,371,2452,444,420,403,2164,3205,3213,2166,2167,3143,3156,2253,2453,322,2454,2168,437,2437,2263,439,2197,2199,3225,2363,2312,381,428,3151,3152,3163,3178,339,426,412,3173,3093,342,3132,2338,3154,3155,3161,3162,3175,3174,9,3180,429,431,2354,2375,896,898,3137,2441,1671,2444,2448,3182,2591,3130,3153,2152,2447,1678,1681,1697,1699,1691,1701,346,2505,2472,1815,2470,2484,1818,1724,2473,3195,3186,2547,2476,2616,3148,531,1735,2474,432,857,353,533,2479,3140,2579,859,1814,2572,14,534,2599,536,537,2596,2605,2604,865,867,2603,3179,2610,2620,2609,3149,351,3212,3216,846,3187,1737,13,3226,3136,1359,1328,359,1352,1349,1351,16,3230,3198,982,397,393,2307,1707,2379,541,2087,2207,12,17,3231,1673,3190,3188,3168,2298,2300,375,3223,2079,2095,2077,3176,3147,2597,1712,2313,2134,1713,2486,2200,2097,2143,2101,1694,1683,1674,3138,1676,847,960,2102,2104,1733,1734,2335,2622,2336,2126,2355,1732,2267,2185,3170,330,5,2156,2217,2275,2188,860,2608,2270,2265,2552,2189,3228,6,2209,2282,434,442,3158,864,3144,2278,2449,2221,3191,3192,2283,3229,3159,2601,2602,1336,3194,856,2318,3089,2460,2174,3157,2461,2462,2463,862,2177,416,3211,3184,2251,1333,3196,3146,863,2465,18,418,532,2180,2181,2182,885,3222,2466,2467,2469,2183,977,2220,318,3164,3199,3200,2380,2403,3202,1346,1347,3207,3221,317,3208,3219,3165,2351,984,2352,2408,2424,2481,438,983,2195,2196,2365,3201,440,2198,2485,3218,3166,2590,2304,1705,2412,2357,2376,3092,388,394,2361,2353,2429,2594,2575,2308,345,2381,3318,2382,2386,2414,399,2322,2369,2404,2613,1666,3135,19,3129,3142,3131,2,321,363,2606,3145,1693,2502,2559,401,3172,3167,2587,2577,2578,2410,2436,398,2432,2406,2416,430,392,2641,2585,2420,2545,422,424,2417,978,386,976,979,2497,2570,2595,2493,2480,1343,1331,413,2540,414,3090,2544,2580,2557,852,853,2534,888,889,890,876,2639,877,874,880,871,872,873,897,893,899,419,1342,390,2624,3097,894,895,3094,1354,1357,1358,1330,1353,1356,2550,2588,850,868,3095,1345,1332,1360,1355,1350,1685,2541,2560,2565,2567,886,869,1327,1698,1692,900,851,882,1687,1677,1708,1668,2584,2573,1719,849,879,1684,1686,1682,884,1670,891,1731,1730,2619,387,1696,2621,2148,2261,2286,1703,1706,2288,2135,2268,2144,2112,2093,2116,2115,2123,2128,2290,2124,2153,2208,2145,2297,2299,2289,2292,2295,2215,2301,2302,2279,2274,2434,2285,2291,2218,2287,2366,2294,2284,2262,2273,1715,1689,1675,1667,2356,2269,1669,2439,2254,2255,1672,1690,2384,2259,2258,1736,1721,1816,1817,1809,1810,1812,1725,2358,2359,2418,1728,2378,2561,1813,2583,2409,2390,2564,2612,2433,2422,2391,2405,2646,2638,2546,2402,2398,2413,2430,2431,2399,2401,2407,2435,2504,2446,2423,2492,2494,2503,2495,2542,2618,2554,2555,2556,2271,2321,2320,2326,2571,2092,2090,2543,2103,2566,2132,2202,2131,2089,2098,2214,2161,2113,2137,2149,2389,2216,2096,2099,2276,2081,2100,2094,2118,2084,2080,2086,2160,2091,2211,2210,2130,2120,2147,2162,2488,2281,2548,2562,2373,2364,2367,2332,2362,2293,2372,2257,2280,2383,2377,2491,2374,2277,2496,2260,2370,2385,2648,2314,2411,2643,2645,2642,2563,2568,2574,2219,1702,2296,2303,2114,2082,2129]],["100% combed cotton. A feminine cut featuring a v-neck in extended sizes that are all designed to wear, wash and age well.",[2667,2660,2662,2663,2664,2673,2655,2656,2657,2674,2659,2661,2668,2669,2671,2672,2658,2665,2666,2670]],["Moisture management/antimicrobial performance fabric, 100% Polyester",[3291,3271,3296,3280,3295,3278,3287,3315,3294,3293,3313,3268,3273,3272,3269,3292,3279,3285,3281,3267,3283,3286,3289,3290,3297,3270,3301,3312,3298,3314,3274,3277,3288,3311,3299,3276,3275,3284,3302,3282,3300,3316]],["100% combed ringspun cotton (Heather is a cotton/poly blend) with a heavier weight than the Classic T-Shirt for a timeless fit. The perfect fabric for a graphic tee in a standard cut up to 5XL - and still the softest in the business.",[2878,2870,2845,2869,2858,2879,2856,2863,2872,2860,2865,2874,2868,2885,2887,2883,2877,2847,2866,2881,2864,2875,2876,2855,2859,2850,2880,2890,2886,2891,2889,2857,2841,2849,2853,2873,2871,2836,2867,2851,2852,2854,2861,2862,2842,2882,2884,2840,2843,2846,2844,2839,2888,2837,2838,2848]],["100% Cotton. Lightweight with the perfect cut. Fabric drapes loosely across body for a comfortable, relaxed fit. Due to availability, some colors may be a poly-viscose blend.",[1761,1762,1778,1779,1772,1773,1782,1758,1763,1764,1766,1759,1760,1774,1768,1770,1771,1775,1776,1777,1781,1780,1765,1767,1769]],["Polyester/cotton/rayon blend. A lighter, super soft tee with stretch.",[1820,1008,1049,1019,836,1010,1027,1018,837,844,806,823,1046,1001,830,831,993,998,1015,1037,988,808,1003,994,809,1011,989,990,1006,1005,995,997,999,1007,1009,1016,1017,1020,815,1038,817,1031,1024,1025,1028,1034,812,810,811,816,820,821,828,814,818,813,841,839,843,842,1021,1022,834,835,838,840,845,1026,833,1048,1030,1032,1033,1040,1041,1042,1035,1029,1023,1036,1039,1045,1047,807,1002,1004,1012,1013,1014,822,1000,829,832,824,825,827,826,1043,1044,819,992,996,985,986,987,991]],["100% combed cotton. The perfect fabric for a graphic tee and the softest in the business.",[3358,3344,3351,3364,3355,3338,3367,3352,3365,3342,3345,3349,3369,3348,3361,3343,3363,3368,3370,3346,3347,3353,3371,3340,3341,3362,3337,3359,3350,3356,3339,3336,3354,3366,3360,3357]],["100% combed ringspun cotton. A perfectly comfortable combination of classic cut and vintage style.",[2784,2779,2789,2774]],["100% combed cotton.  A feminine cut in extended sizes that are all designed to wear, wash and age well.",[1924,1925,1937,1932,1933,1928,1931,1935,1934,1939,1941,1926,1927,1929,1930,1936,1922,1923,1938,1940]],["60% Cotton / 40% Polyester. A heathered, feminine cut in extended sizes that are all designed to wear, wash and age well.\r\n",[1943,1945,1942,1944,2676,2677,2678,2675]],["Cotton/Poly blend.  Heathered versions of our classic tee colors -- the softest shirts in the business and the perfect weight for a graphic tee.",[916,2340,2239,2228,2141,2349,2519,2527,2227,2508,2347,2230,923,902,925,2427,2627,2525,2139,913,2426,2142,2229,2234,2428,2509,2344,2345,1750,2517,2532,901,1751,2632,2633,912,2343,2231,2510,2629,2514,2516,2233,2235,926,929,930,2242,903,905,921,2243,2342,2246,904,906,917,918,911,908,909,2526,2350,2520,2528,2530,2531,2631,2513,2521,2523,2515,2512,2628,2518,919,920,922,924,914,915,907,910,927,928,2533,2625,1746,2626,2240,2238,2630,2222,2237,2241,2244,2524,1753,1748,1752,2339,1747,1749,1756,1757,1754,1755,2511,2529,2247,2232,2140,2223,2224,2245,2236,2522,2225,2226,2348,2425,2346,2341,2634,2636,2635]],["60% Organic Cotton, 40% Recycled Poly RPET - approximately 4 recycled RPET bottles are used per shirt. A heavier weight than the Classic T-Shirt, for enhanced comfort and durability. Your favorite t-shirt, made better. ",[2954,2959,2986,2981,2988,2976,2956,2977,2975,2978,2958,2991,2992,2960,2982,2989,2993,2967,2971,2973,2974,2980,2952,2969,2984,2987,2970,2972,2955,2962,2957,2985,2968,2953,2983,2965,2979,2961,2963,2990,2964,2966]],["100% Combed Ring-Spun Cotton. A heavyweight, breathable fabric with a smooth, comfortable feel. Designed with a relaxed, boxy fit and mid-length hem for a modern, easygoing silhouette.",[3535,3500,3526,3542,3529,3510,3518,3507,3537,3539,3538,3504,3540,3520,3511,3544,3519,3506,3546,3534,3521,3523,3508,3516,3499,3528,3545,3531,3524,3536,3502,3527,3503,3532,3543,3522,3515,3514,3530,3513,3505,3512]],["90% Combed Ring-Spun Cotton, 10% Polyester. A heavyweight, breathable fabric with a smooth, comfortable feel. Designed with a relaxed, boxy fit and mid-length hem for a modern, easygoing silhouette.",[3541,3517,3533,3509,3525,3501]],["100% Combed Ring Spun Cotton. This heavyweight, breathable fabric offers a smooth, comfortable feel. Designed with a relaxed fit, and drop shoulder for an easy, laid-back look. ",[2074,1848,2068,1838,1837,1836,1825,1849,2072,3024,3027,3035,1831,1842,3032,1830,1827,1845,1841,1846,1832,1833,1835,2075,3029,3031,3018,3019,2069,3028,3033,3022,3030,1840,1844,1847,1828,1839,1834,1843,1829,1826,3023,3040,2076,2070,2071,2073,3041,3036,3025,3026,3021,3037,3038,3020,3034,3039,3042]],["This tee is made from 100% heavyweight cotton and garment-dyed for a soft, broken-in feel. It features a relaxed fit, crew neckline, and a slightly cropped length. Each piece is one of a kind thanks to the dye process. Durable and easy to wear.",[3567,3578,3568,3616,3573,3569,3595,3571,3589,3626,3576,3572,3581,3574,3575,3592,3583,3591,3577,3579,3587,3582,3622,3602,3614,3580,3625,3590,3588,3585,3601,3598,3586,3603,3594,3599,3596,3611,3608,3606,3604,3605,3617,3609,3624,3607,3621,3613,3619,3623,3628,3627,3629,3612,3618,3593,3620,3610,3615,3570,3597,3600,3584]]],"tooltips":[{"type":"tee_outline","header":"TEE TIP!","tip":"When in doubt, size up.","product_ids":[2624,387,388,389,390,391,392,393,394,395,396,397,398,399,400,401,402,403,404,405,406,407,408,409,410,411,412,413,414,415,416,417,418,419,420,421,422,423,424,425,426,427,428,429,430,431,432,433,434,435,436,437,438,439,440,441,442,443,444,445,446,2363,2434,2435,2436,2437,2438,2439,2440,2441,2442,2443,2444,2445,2446,2447,2448,2449,2450,2451,2452,2453,2454,2455,2456,2457,2458,2459,2460,2461,2462,2463,2464,2465,2466,2467,2468,2469,2470,2471,2472,2473,2474,2475,2476,2477,2478,2479,2480,2481,2482,2483,2484,2485,2486,2487,2488,2489,2490,2505,2506,2507,2534,2535,2536,2537,2538,2539,2549,2550,2551,2552,2589,2590,2591,2592,2593,2594,2595,2596,2597,2598,2599,2600,2601,2602,2603,2604,2605,2606,2607,2608,2609,2610,2611,2612,2613,2614,2615,2616,2617,2618,2619,2620,2621,2622,2623,386,976,977,978,979,980,981,982,983,984,1702,1703,1704,1705,1706,1707,1708,1709,1710,1711,1712,1713,1714,1715,1716,1717,1718,1719,1720,1721,1722,1723,1724,1725,1726,1727,1728,1729,1730,1731,1732,1733,1734,1735,1736,1737,1967,2077,2148,2149,2150,2151,2152,2153,2154,2155,2156,2157,2158,2159,2160,2161,2162,2163,2164,2165,2166,2167,2168,2169,2170,2171,2172,2173,2174,2175,2176,2177,2178,2179,2180,2181,2182,2183,2184,2185,2186,2187,2188,2189,2190,2191,2192,2193,2194,2195,2196,2197,2198,2199,2200,2201,2202,2203,2204,2219,2220,2221,2248,2249,2250,2251,2252,2253,2263,2264,2265,2266,2303,2304,2305,2306,2307,2308,2309,2310,2311,2312,2313,2314,2315,2316,2317,2318,2319,2320,2321,2322,2323,2324,2325,2326,2327,2328,2329,2330,2331,2332,2333,2334,2335,2336,2337,2338]},{"type":"tee_outline","header":"TEE TIP!","tip":"Many customers prefer to order a size or two up for the Tri-Blend T-Shirt","product_ids":[806,807,808,809,810,811,812,813,814,815,816,817,818,819,820,821,1012,1013,1014,1015,1016,1017,1018,1019,1820,985,986,987,988,989,990,991,992,993,994,995,996,997,998,999,1000,1001,1002,1003,1004,1005,1006,1007,1008,1009,1010,1011]},{"type":"tee_outline","header":"TEE TIP!","tip":"When in doubt, size up.","product_ids":[882,883,884,885,886,887,888,889,890,891,892,893,894,895,896,897,898,899,900,846,847,848,849,850,851,852,853,854,855,856,857,858,859,860,861,862,863,864,865,866,867,868,869,870,871,872,873,874,875,876,877,878,879,880,881]}],"colors":{"40":{"id":40,"name":"Vintage Grape","display_name":"Vintage Grape","hex":"#4a3b62","sort_order":590,"slug":"vintage_grape","classes":"heather","image":null,"seasonal":false},"59":{"id":59,"name":"Indigo","display_name":"Indigo","hex":"#4c4f61","sort_order":520,"slug":"indigo","classes":"heather","image":null,"seasonal":false},"6":{"id":6,"name":"Light Blue","display_name":"Light Blue","hex":"#c8e0ec","sort_order":360,"slug":"light_blue","classes":"","image":null,"seasonal":false},"12":{"id":12,"name":"White","display_name":"White","hex":"#ffffff","sort_order":1,"slug":"white","classes":"bordered","image":null,"seasonal":false},"74":{"id":74,"name":"Heather Sea Blue","display_name":"Heather Sea Blue","hex":"#95adb1","sort_order":585,"slug":"heather_sea_blue","classes":"heather","image":null,"seasonal":false},"19":{"id":19,"name":"Charcoal Heather","display_name":"Charcoal Heather","hex":"#39383d","sort_order":450,"slug":"charcoal_heather","classes":"heather","image":null,"seasonal":false},"71":{"id":71,"name":"Turquoise Heather","display_name":"Turquoise Heather","hex":"#33a5cf","sort_order":489,"slug":"turquoise_heather","classes":"heather","image":null,"seasonal":false},"107":{"id":107,"name":"Marine Blue","display_name":"Marine Blue","hex":"#04507f","sort_order":315,"slug":"marine_blue","classes":"","image":null,"seasonal":false},"57":{"id":57,"name":"Dark Grey Heather","display_name":"Dark Grey Heather","hex":"#686268","sort_order":430,"slug":"dark_grey_heather","classes":"heather","image":null,"seasonal":false},"68":{"id":68,"name":"Light Olive","display_name":"Light Olive","hex":"#878361","sort_order":272,"slug":"light_olive","classes":"","image":null,"seasonal":false},"42":{"id":42,"name":"Red Heather","display_name":"Red Heather","hex":"#ec465a","sort_order":460,"slug":"red_heather","classes":"heather","image":null,"seasonal":false},"8":{"id":8,"name":"Red","display_name":"Red","hex":"#c62b29","sort_order":110,"slug":"red","classes":"","image":null,"seasonal":false},"72":{"id":72,"name":"Hot Pink","display_name":"Hot Pink","hex":"#ef4a81","sort_order":132,"slug":"hot_pink","classes":"","image":null,"seasonal":false},"31":{"id":31,"name":"Dark Grey","display_name":"Dark Grey","hex":"#6e6e6e","sort_order":30,"slug":"dark_grey","classes":"","image":null,"seasonal":false},"21":{"id":21,"name":"Orange","display_name":"Orange","hex":"#dc4405","sort_order":160,"slug":"orange","classes":"","image":null,"seasonal":false},"65":{"id":65,"name":"Vintage Royal","display_name":"Vintage Royal","hex":"#5157a7","sort_order":540,"slug":"vintage_royal","classes":"heather","image":null,"seasonal":false},"67":{"id":67,"name":"Military Green","display_name":"Military Green","hex":"#5d5334","sort_order":222,"slug":"military_green","classes":"","image":null,"seasonal":false},"111":{"id":111,"name":"Faded Red","display_name":"Faded Red","hex":"#dc6876","sort_order":133,"slug":"faded_red","classes":"","image":null,"seasonal":false},"113":{"id":113,"name":"Latte","display_name":"Latte","hex":"#d9c2a3","sort_order":205,"slug":"latte","classes":"","image":null,"seasonal":false},"10":{"id":10,"name":"Teal","display_name":"Teal","hex":"#0195c3","sort_order":330,"slug":"teal","classes":"","image":null,"seasonal":false},"36":{"id":36,"name":"Sky Blue","display_name":"Sky Blue","hex":"#9ec4ff","sort_order":570,"slug":"sky_blue","classes":"heather","image":null,"seasonal":false},"9":{"id":9,"name":"Royal Blue","display_name":"Royal Blue","hex":"#36538b","sort_order":310,"slug":"royal_blue","classes":"","image":null,"seasonal":false},"108":{"id":108,"name":"Tie Dye","display_name":"Tie Dye","hex":"#fefefe","sort_order":660,"slug":"tie_dye","classes":"tie_dye","image":null,"seasonal":false},"70":{"id":70,"name":"Purple Heather","display_name":"Purple Heather","hex":"#7b6189","sort_order":491,"slug":"purple_heather","classes":"heather","image":null,"seasonal":false},"44":{"id":44,"name":"Vintage Green","display_name":"Vintage Green","hex":"#76ba7f","sort_order":490,"slug":"vintage_green","classes":"heather","image":null,"seasonal":false},"18":{"id":18,"name":"Dark Green","display_name":"Dark Green","hex":"#005030","sort_order":230,"slug":"dark_green","classes":"","image":null,"seasonal":false},"11":{"id":11,"name":"Asphalt","display_name":"Asphalt","hex":"#484849","sort_order":40,"slug":"asphalt","classes":"","image":null,"seasonal":false},"22":{"id":22,"name":"Soft Pink","display_name":"Soft Pink","hex":"#fac2cd","sort_order":130,"slug":"soft_pink","classes":"","image":null,"seasonal":false},"110":{"id":110,"name":"Acid Black","display_name":"Acid Black","hex":"#463f46","sort_order":72,"slug":"acid_black","classes":"heather","image":null,"seasonal":false},"75":{"id":75,"name":"Pine","display_name":"Pine","hex":"#47605a","sort_order":245,"slug":"pine","classes":"","image":null,"seasonal":false},"35":{"id":35,"name":"Grass","display_name":"Grass","hex":"#5aad52","sort_order":250,"slug":"grass","classes":"","image":null,"seasonal":false},"45":{"id":45,"name":"Royal Heather","display_name":"Royal Heather","hex":"#3973b9","sort_order":550,"slug":"royal_heather","classes":"heather","image":null,"seasonal":false},"63":{"id":63,"name":"Plum","display_name":"Plum","hex":"#3b2134","sort_order":370,"slug":"plum","classes":"","image":null,"seasonal":false},"1":{"id":1,"name":"Black","display_name":"Black","hex":"#191919","sort_order":70,"slug":"black","classes":"","image":null,"seasonal":false},"60":{"id":60,"name":"Leaf","display_name":"Leaf","hex":"#9cb58c","sort_order":270,"slug":"leaf","classes":"","image":null,"seasonal":false},"24":{"id":24,"name":"Maroon","display_name":"Maroon","hex":"#6e2229","sort_order":90,"slug":"maroon","classes":"","image":null,"seasonal":false},"48":{"id":48,"name":"Black/White","display_name":"Black/White","hex":"#191920","sort_order":600,"slug":"black_white","classes":"bordered","image":"https://assets.teepublic.com/assets/colors/svg/color_tile_black_white-54c1a2d052cb4b469d0955f9bcf8601ba81ce60482e3b57b3e33483c50877dd5.svg","seasonal":false},"62":{"id":62,"name":"Mint","display_name":"Mint","hex":"#d3ddd8","sort_order":280,"slug":"mint","classes":"","image":null,"seasonal":false},"51":{"id":51,"name":"White/Navy","display_name":"White/Navy","hex":"#feffff","sort_order":650,"slug":"white_navy","classes":"bordered","image":"https://assets.teepublic.com/assets/colors/svg/color_tile_white_navy-69bf39351610a792c3f65a9c561c0a65f5c39c7e0120141d798b356680b13f2f.svg","seasonal":false},"23":{"id":23,"name":"Yellow","display_name":"Yellow","hex":"#ffb81c","sort_order":180,"slug":"yellow","classes":"","image":null,"seasonal":false},"4":{"id":4,"name":"Heather","display_name":"Heather","hex":"#fffffe","sort_order":400,"slug":"heather","classes":"heather bordered","image":null,"seasonal":false},"112":{"id":112,"name":"Ghost","display_name":"Ghost","hex":"#e8e4df","sort_order":12,"slug":"ghost","classes":"","image":null,"seasonal":false},"27":{"id":27,"name":"Purple","display_name":"Purple","hex":"#5e366e","sort_order":380,"slug":"purple","classes":"","image":null,"seasonal":false},"46":{"id":46,"name":"Vintage Black","display_name":"Vintage Black","hex":"#2d2b33","sort_order":440,"slug":"vintage_black","classes":"heather","image":null,"seasonal":false},"43":{"id":43,"name":"Navy Heather","display_name":"Navy Heather","hex":"#3b4356","sort_order":510,"slug":"navy_heather","classes":"heather","image":null,"seasonal":false},"3":{"id":3,"name":"Creme","display_name":"Creme","hex":"#eae0c7","sort_order":200,"slug":"creme","classes":"","image":null,"seasonal":false},"26":{"id":26,"name":"Oxford","display_name":"Oxford","hex":"#909091","sort_order":20,"slug":"oxford","classes":"","image":null,"seasonal":false},"38":{"id":38,"name":"Vintage Heather","display_name":"Vintage Heather","hex":"#908d91","sort_order":420,"slug":"vintage_heather","classes":"heather","image":null,"seasonal":false},"20":{"id":20,"name":"Coastal Blue","display_name":"Coastal Blue","hex":"#7da1c4","sort_order":340,"slug":"coastal_blue","classes":"","image":null,"seasonal":false},"14":{"id":14,"name":"Deep Royal","display_name":"Deep Royal","hex":"#233a7e","sort_order":300,"slug":"deep_royal","classes":"","image":null,"seasonal":false},"33":{"id":33,"name":"Midnight Navy","display_name":"Midnight Navy","hex":"#002a43","sort_order":500,"slug":"midnight_navy","classes":"","image":null,"seasonal":false},"53":{"id":53,"name":"White/Red","display_name":"White/Red","hex":"#fefeff","sort_order":630,"slug":"white_red","classes":"bordered","image":"https://assets.teepublic.com/assets/colors/svg/color_tile_white_red-28de49cbdf6cc0bb2d21ef2ee2e5a7d84dfa4c75d3180b0c0761f6975cbaeb9b.svg","seasonal":false},"2":{"id":2,"name":"Brown","display_name":"Brown","hex":"#42332c","sort_order":140,"slug":"brown","classes":"","image":null,"seasonal":false},"54":{"id":54,"name":"Vintage White","display_name":"Vintage White","hex":"#fefefd","sort_order":390,"slug":"vintage_white","classes":"light_heather bordered","image":null,"seasonal":false},"114":{"id":114,"name":"Salmon","display_name":"Salmon","hex":"#e3c2bf","sort_order":131,"slug":"salmon","classes":"","image":null,"seasonal":false},"69":{"id":69,"name":"Slate","display_name":"Slate","hex":"#768e9a","sort_order":332,"slug":"slate","classes":"","image":null,"seasonal":false},"5":{"id":5,"name":"Kelly","display_name":"Kelly","hex":"#0f7b47","sort_order":240,"slug":"kelly","classes":"","image":null,"seasonal":false},"28":{"id":28,"name":"Tennessee Orange","display_name":"Tennessee Orange","hex":"#ed8b00","sort_order":170,"slug":"tennessee_orange","classes":"","image":null,"seasonal":false},"109":{"id":109,"name":"Raspberry Sorbet","display_name":"Raspberry Sorbet (Limited Edition)","hex":"#c6057b","sort_order":75,"slug":"raspberry_sorbet","classes":"","image":null,"seasonal":true},"73":{"id":73,"name":"Navy/White","display_name":"Navy/White","hex":"#262c3b","sort_order":601,"slug":"navy_white","classes":"bordered","image":"https://assets.teepublic.com/assets/colors/svg/color_tile_navy_white-f2abffeb7cceff195ea1da8d91fcdb57d2ccbb7c7e064cead6e200f42b58c648.svg","seasonal":false},"30":{"id":30,"name":"Light Grey","display_name":"Light Grey","hex":"#c9c5bd","sort_order":15,"slug":"light_grey","classes":"","image":null,"seasonal":false},"47":{"id":47,"name":"Vintage Brown","display_name":"Vintage Brown","hex":"#6a5f5d","sort_order":480,"slug":"vintage_brown","classes":"heather","image":null,"seasonal":false},"7":{"id":7,"name":"Navy","display_name":"Navy","hex":"#262c3a","sort_order":290,"slug":"navy","classes":"","image":null,"seasonal":false}},"currency":{"symbol_first":true,"thousands_separator":",","html_entity":"$","decimal_mark":".","name":"United States Dollar","symbol":"$","iso_code":"USD"}}};
+  TeePublic['oos'] = [3500,3460,3412,3414,3413,3479,3418,3419,3420,3444,916,3291,2368,3462,2264,3210,329,1709,2310,3442,2340,2165,2239,1130,3461,3475,3476,2349,2451,3480,3491,3209,3490,3539,3203,3504,1108,1111,1848,1010,1129,3443,3478,2331,3215,3160,1710,2471,3091,2954,1116,2806,2388,2959,878,1711,1723,3319,1127,327,328,2083,2347,2549,3183,3214,2598,2315,1119,2319,406,2333,425,405,2801,3477,1849,3492,2986,2981,2627,2525,2248,2988,2976,2858,2956,2311,2977,2330,1718,402,2615,2507,1109,1110,3295,913,2975,2186,2600,2978,2863,2334,3287,3315,2184,1726,2958,2450,3294,2105,1720,2607,2323,2324,2611,2991,2623,423,1722,3185,3197,2325,3313,3317,3150,2337,1717,3204,2327,2328,2329,1729,1714,1716,1727,2614,3206,2316,3268,3189,2617,2317,404,2452,3272,403,2234,2164,3205,3213,2824,2166,3528,2167,3156,2453,2454,2168,2263,2312,2860,3151,3152,3292,3024,426,2344,3093,2795,3154,3155,3161,3162,3174,1011,2865,2345,3180,3267,1112,1115,3283,3503,2874,3543,3182,3153,2830,2829,3286,3289,3290,2868,2472,3512,2470,1132,1724,2815,3195,3186,2825,2883,3297,2616,3148,1735,3270,1750,2813,3312,2866,2819,1845,2864,2599,1846,2875,2596,2605,2604,2603,1751,2859,2632,2610,2992,2620,2609,3149,2804,3314,2633,3212,3216,3277,3198,2890,3288,3311,2960,2891,2982,2989,2993,2967,2971,2973,2974,2980,3190,3188,3168,3147,2597,1712,2313,1713,2102,2104,3251,3316,1733,1734,2335,2622,2336,1732,2343,2185,330,5,2608,2629,6,3158,2221,3191,3192,2235,3159,2601,2602,2857,3194,2318,3157,2952,2342,3211,3184,3196,3146,917,918,3199,3200,3202,3207,3208,3239,3201,3244,1124,3318,2322,2369,2350,2520,2613,3145,2969,422,424,3341,978,1012,979,1013,1014,2631,2521,2523,2628,2534,876,2984,2987,2970,877,880,2550,1128,914,915,1131,1113,1114,1133,1134,1135,1125,1126,2625,2867,879,2851,2817,1730,2972,1746,2807,2861,2802,2803,2955,2826,2827,2862,2962,2831,2820,2821,2822,2823,2957,2619,2621,2626,2238,2630,3237,986,3242,1117,3245,1118,2985,2237,2524,1715,1753,1736,1721,1748,1847,1752,2339,1747,1749,1756,1757,1728,2390,1754,1755,2814,2391,2805,2321,2103,3040,2968,2389,2843,2236,2816,2522,2348,2818,2953,2346,2828,2341,2634,2636,2314,2635,3041,3021,3037,3038,2983,2965,2979,3039,3042,2961,2963,2990,2964,2966,2082];
+  TeePublic['tax_rate'] = 1.0;
+  TeePublic['campaign'] = {
+    id: null
+  };
+  
+  TeePublic.Toggler.init();
+  new TeePublic.Components.QuantityStepper();
+  
+  $(function(){
+    TeePublic.ProductHelper.initPage(
+      {"design_id":74165272,"store_id":null,"images":true,"paths":{"similar_products_path":"/designs/74165272/canvas/1/similar_products","similar_products_personalized_path":"/designs/74165272/canvas/1/similar_products_personalized"},"similar_products_enabled":true,"similar_products_personalized_enabled":true},
+      0
+    );
+  });
+</script>
+<script>
+  TeePublic.ProductPage.Designs.secretDesignId();
+</script>
+<script>
+  $(function() {
+    TeePublic.Components.Utilities.copier('.jsCopyText')
+  });
+</script>
+<script>
+  $(function() {
+    new TeePublic.Components.TrayController();
+  });
+  
+  TeePublic.Cart.Settings.btEnv = 'production';
+  TeePublic.Cart.Settings.btKey = 'production_9q3f7xnc_j35qfr8fn98hvg3r';
+</script>
+<script>
+  window.addEventListener('load', function() {
+    var src = "https://assets.teepublic.com/assets/product_page_non_critical-b3c32616b74cc64a463d89f471cc5f8ab832c96195372ee2960a820a2e3fd0a3.js";
+  
+    TeePublic.ProductPage.Utils.appendScript(src).then(() => {
+  
+      var json = '[{"model":{"name":"Jackson","height":{"feet":5,"inches":11,"cm":180},"weight":{"lbs":180,"kg":82}},"height":"reg","weight":"curvy","gender":"male","default":2,"images":[{"url":"https://static.teepublic.com/sizechart/mobile/tshirt/male/reg_curvy_180_5_11/0_Jackson_Reg_Curvy_Male_S.jpg","size":"S"},{"url":"https://static.teepublic.com/sizechart/mobile/tshirt/male/reg_curvy_180_5_11/1_Jackson_Reg_Curvy_Male_M.jpg","size":"M"},{"url":"https://static.teepublic.com/sizechart/mobile/tshirt/male/reg_curvy_180_5_11/2_Jackson_Reg_Curvy_Male_default_L.jpg","size":"L"},{"url":"https://static.teepublic.com/sizechart/mobile/tshirt/male/reg_curvy_180_5_11/3_Jackson_Reg_Curvy_Male_XL.jpg","size":"XL"},{"url":"https://static.teepublic.com/sizechart/mobile/tshirt/male/reg_curvy_180_5_11/4_Jackson_Reg_Curvy_Male_2XL.jpg","size":"2XL"},{"url":"https://static.teepublic.com/sizechart/mobile/tshirt/male/reg_curvy_180_5_11/5_Jackson_Reg_Curvy_Male_3XL.jpg","size":"3XL"},{"url":"https://static.teepublic.com/sizechart/mobile/tshirt/male/reg_curvy_180_5_11/6_Jackson_Reg_Curvy_Male_4XL.jpg","size":"4XL"}]},{"model":{"name":"Bryan","height":{"feet":5,"inches":11,"cm":180},"weight":{"lbs":165,"kg":75}},"height":"reg","weight":"reg","gender":"male","default":0,"images":[{"url":"https://static.teepublic.com/sizechart/mobile/tshirt/male/reg_reg_165_5_11/0_Bryan_Reg_Reg_Male_default_S.jpg","size":"S"},{"url":"https://static.teepublic.com/sizechart/mobile/tshirt/male/reg_reg_165_5_11/1_Bryan_Reg_Reg_Male_M.jpg","size":"M"},{"url":"https://static.teepublic.com/sizechart/mobile/tshirt/male/reg_reg_165_5_11/2_Bryan_Reg_Reg_Male_L.jpg","size":"L"},{"url":"https://static.teepublic.com/sizechart/mobile/tshirt/male/reg_reg_165_5_11/3_Bryan_Reg_Reg_Male_XL.jpg","size":"XL"},{"url":"https://static.teepublic.com/sizechart/mobile/tshirt/male/reg_reg_165_5_11/4_Bryan_Reg_Reg_Male_2XL.jpg","size":"2XL"}]},{"model":{"name":"Ian","height":{"feet":5,"inches":10,"cm":178},"weight":{"lbs":145,"kg":66}},"height":"reg","weight":"thin","gender":"male","default":0,"images":[{"url":"https://static.teepublic.com/sizechart/mobile/tshirt/male/reg_thin_145_5_10/0_Ian_Reg_Thin_Male_default_S.jpg","size":"S"},{"url":"https://static.teepublic.com/sizechart/mobile/tshirt/male/reg_thin_145_5_10/1_Ian_Reg_Thin_Male_M.jpg","size":"M"},{"url":"https://static.teepublic.com/sizechart/mobile/tshirt/male/reg_thin_145_5_10/2_Ian_Reg_Thin_Male_L.jpg","size":"L"},{"url":"https://static.teepublic.com/sizechart/mobile/tshirt/male/reg_thin_145_5_10/3_Ian_Reg_Thin_Male_XL.jpg","size":"XL"}]},{"model":{"name":"Jerry","height":{"feet":5,"inches":6,"cm":168},"weight":{"lbs":165,"kg":75}},"height":"short","weight":"curvy","gender":"male","default":1,"images":[{"url":"https://static.teepublic.com/sizechart/mobile/tshirt/male/short_curvy_165_5_6/0_Jerry_Short_Curvy_Male_M.jpg","size":"M"},{"url":"https://static.teepublic.com/sizechart/mobile/tshirt/male/short_curvy_165_5_6/1_Jerry_Short_Curvy_Male_default_L.jpg","size":"L"},{"url":"https://static.teepublic.com/sizechart/mobile/tshirt/male/short_curvy_165_5_6/2_Jerry_Short_Curvy_Male_XL.jpg","size":"XL"}]},{"model":{"name":"Darius","height":{"feet":5,"inches":6,"cm":168},"weight":{"lbs":150,"kg":68}},"height":"short","weight":"reg","gender":"male","default":0,"images":[{"url":"https://static.teepublic.com/sizechart/mobile/tshirt/male/short_reg_150_5_6/0_Darius_Short_Reg_Male_default_S.jpg","size":"S"},{"url":"https://static.teepublic.com/sizechart/mobile/tshirt/male/short_reg_150_5_6/1_Darius_Short_Reg_Male_M.jpg","size":"M"},{"url":"https://static.teepublic.com/sizechart/mobile/tshirt/male/short_reg_150_5_6/2_Darius_Short_Reg_Male_L.jpg","size":"L"},{"url":"https://static.teepublic.com/sizechart/mobile/tshirt/male/short_reg_150_5_6/3_Darius_Short_Reg_Male_XL.jpg","size":"XL"},{"url":"https://static.teepublic.com/sizechart/mobile/tshirt/male/short_reg_150_5_6/4_Darius_Short_Reg_Male_2XL.jpg","size":"2XL"}]},{"model":{"name":"Mike","height":{"feet":5,"inches":5,"cm":165},"weight":{"lbs":130,"kg":59}},"height":"short","weight":"thin","gender":"male","default":0,"images":[{"url":"https://static.teepublic.com/sizechart/mobile/tshirt/male/short_thin_130_5_5/0_Mike_Short_Thin_Male_default_S.jpg","size":"S"},{"url":"https://static.teepublic.com/sizechart/mobile/tshirt/male/short_thin_130_5_5/1_Mike_Short_Thin_Male_M.jpg","size":"M"},{"url":"https://static.teepublic.com/sizechart/mobile/tshirt/male/short_thin_130_5_5/2_Mike_Short_Thin_Male_L.jpg","size":"L"}]},{"model":{"name":"Chris","height":{"feet":6,"inches":4,"cm":193},"weight":{"lbs":200,"kg":91}},"height":"tall","weight":"curvy","gender":"male","default":1,"images":[{"url":"https://static.teepublic.com/sizechart/mobile/tshirt/male/tall_curvy_200_6_4/0_Chris_Tall_Curvy_Male_M.jpg","size":"M"},{"url":"https://static.teepublic.com/sizechart/mobile/tshirt/male/tall_curvy_200_6_4/1_Chris_Tall_Curvy_Male_default_L.jpg","size":"L"},{"url":"https://static.teepublic.com/sizechart/mobile/tshirt/male/tall_curvy_200_6_4/2_Chris_Tall_Curvy_Male_XL.jpg","size":"XL"},{"url":"https://static.teepublic.com/sizechart/mobile/tshirt/male/tall_curvy_200_6_4/3_Chris_Tall_Curvy_Male_2XL.jpg","size":"2XL"}]},{"model":{"name":"Jake","height":{"feet":6,"inches":4,"cm":193},"weight":{"lbs":185,"kg":84}},"height":"tall","weight":"reg","gender":"male","default":1,"images":[{"url":"https://static.teepublic.com/sizechart/mobile/tshirt/male/tall_reg_185_6_4/0_Jake_Tall_Reg_Male_M.jpg","size":"M"},{"url":"https://static.teepublic.com/sizechart/mobile/tshirt/male/tall_reg_185_6_4/1_Jake_Tall_Reg_Male_default_L.jpg","size":"L"},{"url":"https://static.teepublic.com/sizechart/mobile/tshirt/male/tall_reg_185_6_4/2_Jake_Tall_Reg_Male_XL.jpg","size":"XL"},{"url":"https://static.teepublic.com/sizechart/mobile/tshirt/male/tall_reg_185_6_4/3_Jake_Tall_Reg_Male_2XL.jpg","size":"2XL"},{"url":"https://static.teepublic.com/sizechart/mobile/tshirt/male/tall_reg_185_6_4/4_Jake_Tall_Reg_Male_3XL.jpg","size":"3XL"},{"url":"https://static.teepublic.com/sizechart/mobile/tshirt/male/tall_reg_185_6_4/5_Jake_Tall_Reg_Male_4XL.jpg","size":"4XL"},{"url":"https://static.teepublic.com/sizechart/mobile/tshirt/male/tall_reg_185_6_4/6_Jake_Tall_Reg_Male_5XL.jpg","size":"5XL"}]},{"model":{"name":"Anthony","height":{"feet":6,"inches":2,"cm":188},"weight":{"lbs":160,"kg":73}},"height":"tall","weight":"thin","gender":"male","default":0,"images":[{"url":"https://static.teepublic.com/sizechart/mobile/tshirt/male/tall_thin_160_6_2/0_Anthony_Tall_Thin_Male_default_S.jpg","size":"S"},{"url":"https://static.teepublic.com/sizechart/mobile/tshirt/male/tall_thin_160_6_2/1_Anthony_Tall_Thin_Male_M.jpg","size":"M"},{"url":"https://static.teepublic.com/sizechart/mobile/tshirt/male/tall_thin_160_6_2/2_Anthony_Tall_Thin_Male_L.jpg","size":"L"},{"url":"https://static.teepublic.com/sizechart/mobile/tshirt/male/tall_thin_160_6_2/3_Anthony_Tall_Thin_Male_XL.jpg","size":"XL"},{"url":"https://static.teepublic.com/sizechart/mobile/tshirt/male/tall_thin_160_6_2/4_Anthony_Tall_Thin_Male_2XL.jpg","size":"2XL"}]},{"model":{"name":"Florinda","height":{"feet":5,"inches":6,"cm":168},"weight":{"lbs":170,"kg":77}},"height":"reg","weight":"curvy","gender":"female","default":1,"images":[{"url":"https://static.teepublic.com/sizechart/mobile/tshirt/female/reg_curvy_170_5_6/0_Florinda_Reg_Curvy_Female_XL.jpg","size":"XL"},{"url":"https://static.teepublic.com/sizechart/mobile/tshirt/female/reg_curvy_170_5_6/1_Florinda_Reg_Curvy_Female_default_2XL.jpg","size":"2XL"},{"url":"https://static.teepublic.com/sizechart/mobile/tshirt/female/reg_curvy_170_5_6/2_Florinda_Reg_Curvy_Female_3XL.jpg","size":"3XL"},{"url":"https://static.teepublic.com/sizechart/mobile/tshirt/female/reg_curvy_170_5_6/3_Florinda_Reg_Curvy_Male_S.jpg","size":"S"},{"url":"https://static.teepublic.com/sizechart/mobile/tshirt/female/reg_curvy_170_5_6/4_Florinda_Reg_Curvy_Male_M.jpg","size":"M"},{"url":"https://static.teepublic.com/sizechart/mobile/tshirt/female/reg_curvy_170_5_6/5_Florinda_Reg_Curvy_Male_L.jpg","size":"L"}]},{"model":{"name":"Gillian","height":{"feet":5,"inches":8,"cm":173},"weight":{"lbs":150,"kg":68}},"height":"reg","weight":"reg","gender":"female","default":0,"images":[{"url":"https://static.teepublic.com/sizechart/mobile/tshirt/female/reg_reg_150_5_8/00_Gillian_Reg_Reg_Female_default_S.jpg","size":"S"},{"url":"https://static.teepublic.com/sizechart/mobile/tshirt/female/reg_reg_150_5_8/01_Gillian_Reg_Reg_Female_M.jpg","size":"M"},{"url":"https://static.teepublic.com/sizechart/mobile/tshirt/female/reg_reg_150_5_8/02_Gillian_Reg_Reg_Female_L.jpg","size":"L"},{"url":"https://static.teepublic.com/sizechart/mobile/tshirt/female/reg_reg_150_5_8/03_Gillian_Reg_Reg_Female_XL.jpg","size":"XL"},{"url":"https://static.teepublic.com/sizechart/mobile/tshirt/female/reg_reg_150_5_8/04_Gillian_Reg_Reg_Female_2L.jpg","size":"2L"},{"url":"https://static.teepublic.com/sizechart/mobile/tshirt/female/reg_reg_150_5_8/05_Gillian_Reg_Reg_Female_3XL.jpg","size":"3XL"},{"url":"https://static.teepublic.com/sizechart/mobile/tshirt/female/reg_reg_150_5_8/06_Gillian_Reg_Reg_Male_S.jpg","size":"S"},{"url":"https://static.teepublic.com/sizechart/mobile/tshirt/female/reg_reg_150_5_8/07_Gillian_Reg_Reg_Male_M.jpg","size":"M"},{"url":"https://static.teepublic.com/sizechart/mobile/tshirt/female/reg_reg_150_5_8/08_Gillian_Reg_Reg_Male_L.jpg","size":"L"},{"url":"https://static.teepublic.com/sizechart/mobile/tshirt/female/reg_reg_150_5_8/09_Gillian_Reg_Reg_Male_XL.jpg","size":"XL"},{"url":"https://static.teepublic.com/sizechart/mobile/tshirt/female/reg_reg_150_5_8/10_Gillian_Reg_Reg_Male_2XL.jpg","size":"2XL"}]},{"model":{"name":"Kourtney","height":{"feet":5,"inches":6,"cm":168},"weight":{"lbs":120,"kg":54}},"height":"reg","weight":"thin","gender":"female","default":0,"images":[{"url":"https://static.teepublic.com/sizechart/mobile/tshirt/female/reg_thin_120_5_6/0_Kourtney_Reg_Thin_Female_default_S.jpg","size":"S"},{"url":"https://static.teepublic.com/sizechart/mobile/tshirt/female/reg_thin_120_5_6/1_Kourtney_Reg_Thin_Female_M.jpg","size":"M"},{"url":"https://static.teepublic.com/sizechart/mobile/tshirt/female/reg_thin_120_5_6/2_Kourtney_Reg_Thin_Female_L.jpg","size":"L"},{"url":"https://static.teepublic.com/sizechart/mobile/tshirt/female/reg_thin_120_5_6/3_Kourtney_Reg_Thin_Female_XL.jpg","size":"XL"},{"url":"https://static.teepublic.com/sizechart/mobile/tshirt/female/reg_thin_120_5_6/4_Kourtney_Reg_Thin_Female_2XL.jpg","size":"2XL"},{"url":"https://static.teepublic.com/sizechart/mobile/tshirt/female/reg_thin_120_5_6/5_Kourtney_Reg_Thin_Male_S.jpg","size":"S"},{"url":"https://static.teepublic.com/sizechart/mobile/tshirt/female/reg_thin_120_5_6/6_Kourtney_Reg_Thin_Male_M.jpg","size":"M"},{"url":"https://static.teepublic.com/sizechart/mobile/tshirt/female/reg_thin_120_5_6/7_Kourtney_Reg_Thin_Male_L.jpg","size":"L"}]},{"model":{"name":"Farrah","height":{"feet":5,"inches":3,"cm":160},"weight":{"lbs":200,"kg":91}},"height":"short","weight":"curvy","gender":"female","default":1,"images":[{"url":"https://static.teepublic.com/sizechart/mobile/tshirt/female/short_curvy_200_5_3/0_Farrah_Short_Curvy_Female_2XL.jpg","size":"2XL"},{"url":"https://static.teepublic.com/sizechart/mobile/tshirt/female/short_curvy_200_5_3/1_Farrah_Short_Curvy_Female_default_3XL.jpg","size":"3XL"},{"url":"https://static.teepublic.com/sizechart/mobile/tshirt/female/short_curvy_200_5_3/2_Farrah_Short_Curvy_Male_L.jpg","size":"L"},{"url":"https://static.teepublic.com/sizechart/mobile/tshirt/female/short_curvy_200_5_3/3_Farrah_Short_Curvy_Male_XL.jpg","size":"XL"},{"url":"https://static.teepublic.com/sizechart/mobile/tshirt/female/short_curvy_200_5_3/4_Farrah_Short_Curvy_Male_2XL.jpg","size":"2XL"},{"url":"https://static.teepublic.com/sizechart/mobile/tshirt/female/short_curvy_200_5_3/5_Farrah_Short_Curvy_Male_3XL.jpg","size":"3XL"}]},{"model":{"name":"Katy","height":{"feet":5,"inches":2,"cm":157},"weight":{"lbs":125,"kg":57}},"height":"short","weight":"reg","gender":"female","default":1,"images":[{"url":"https://static.teepublic.com/sizechart/mobile/tshirt/female/short_reg_125_5_2/0_Katy_Short_Reg_Female.jpg","size":"Female"},{"url":"https://static.teepublic.com/sizechart/mobile/tshirt/female/short_reg_125_5_2/default_S.jpg","size":"S"},{"url":"https://static.teepublic.com/sizechart/mobile/tshirt/female/short_reg_125_5_2/1_Katy_Short_Reg_Female_M.jpg","size":"M"},{"url":"https://static.teepublic.com/sizechart/mobile/tshirt/female/short_reg_125_5_2/2_Katy_Short_Reg_Female_L.jpg","size":"L"},{"url":"https://static.teepublic.com/sizechart/mobile/tshirt/female/short_reg_125_5_2/3_Katy_Short_Reg_Female_XL.jpg","size":"XL"},{"url":"https://static.teepublic.com/sizechart/mobile/tshirt/female/short_reg_125_5_2/4_Katy_Short_Reg_Female_2XL.jpg","size":"2XL"},{"url":"https://static.teepublic.com/sizechart/mobile/tshirt/female/short_reg_125_5_2/5_Katy_Short_Reg_Female_3XL.jpg","size":"3XL"},{"url":"https://static.teepublic.com/sizechart/mobile/tshirt/female/short_reg_125_5_2/6_Katy_Short_Reg_Male_S.jpg","size":"S"},{"url":"https://static.teepublic.com/sizechart/mobile/tshirt/female/short_reg_125_5_2/7_Katy_Short_Reg_Male_M.jpg","size":"M"},{"url":"https://static.teepublic.com/sizechart/mobile/tshirt/female/short_reg_125_5_2/8_Katy_Short_Reg_Male_L.jpg","size":"L"}]},{"model":{"name":"Maeve","height":{"feet":5,"inches":2,"cm":157},"weight":{"lbs":115,"kg":52}},"height":"short","weight":"thin","gender":"female","default":0,"images":[{"url":"https://static.teepublic.com/sizechart/mobile/tshirt/female/short_thin_115_5_2/0_Maeve_Short_Thin_Female_default_S.jpg","size":"S"},{"url":"https://static.teepublic.com/sizechart/mobile/tshirt/female/short_thin_115_5_2/1_Maeve_Short_Thin_Female_M.jpg","size":"M"},{"url":"https://static.teepublic.com/sizechart/mobile/tshirt/female/short_thin_115_5_2/2_Maeve_Short_Thin_Female_L.jpg","size":"L"},{"url":"https://static.teepublic.com/sizechart/mobile/tshirt/female/short_thin_115_5_2/3_Maeve_Short_Thin_Female_XL.jpg","size":"XL"},{"url":"https://static.teepublic.com/sizechart/mobile/tshirt/female/short_thin_115_5_2/4_Maeve_Short_Thin_Male_S.jpg","size":"S"},{"url":"https://static.teepublic.com/sizechart/mobile/tshirt/female/short_thin_115_5_2/5_Maeve_Short_Thin_Male_M.jpg","size":"M"}]},{"model":{"name":"Sarah","height":{"feet":5,"inches":10,"cm":178},"weight":{"lbs":190,"kg":86}},"height":"tall","weight":"curvy","gender":"female","default":1,"images":[{"url":"https://static.teepublic.com/sizechart/mobile/tshirt/female/tall_curvy_190_5_10/0_Sarah_Tall_Curvy_Female_2XL.jpg","size":"2XL"},{"url":"https://static.teepublic.com/sizechart/mobile/tshirt/female/tall_curvy_190_5_10/2_Sarah_Tall_Curvy_Female_default_3XL.jpg","size":"3XL"},{"url":"https://static.teepublic.com/sizechart/mobile/tshirt/female/tall_curvy_190_5_10/2_Sarah_Tall_Curvy_Male_M.jpg","size":"M"},{"url":"https://static.teepublic.com/sizechart/mobile/tshirt/female/tall_curvy_190_5_10/3_Sarah_Tall_Curvy_Male_L.jpg","size":"L"},{"url":"https://static.teepublic.com/sizechart/mobile/tshirt/female/tall_curvy_190_5_10/4_Sarah_Tall_Curvy_Male_XL.jpg","size":"XL"},{"url":"https://static.teepublic.com/sizechart/mobile/tshirt/female/tall_curvy_190_5_10/5_Sarah_Tall_Curvy_Male_2XL.jpg","size":"2XL"},{"url":"https://static.teepublic.com/sizechart/mobile/tshirt/female/tall_curvy_190_5_10/6_Sarah_Tall_Curvy_Male_3XL.jpg","size":"3XL"}]},{"model":{"name":"Sandra","height":{"feet":5,"inches":10,"cm":178},"weight":{"lbs":155,"kg":70}},"height":"tall","weight":"reg","gender":"female","default":1,"images":[{"url":"https://static.teepublic.com/sizechart/mobile/tshirt/female/tall_reg_155_5_10/0_Sandra_Tall_Reg_Female_S.jpg","size":"S"},{"url":"https://static.teepublic.com/sizechart/mobile/tshirt/female/tall_reg_155_5_10/1_Sandra_Tall_Reg_Female_default_M.jpg","size":"M"},{"url":"https://static.teepublic.com/sizechart/mobile/tshirt/female/tall_reg_155_5_10/2_Sandra_Tall_Reg_Female_L.jpg","size":"L"},{"url":"https://static.teepublic.com/sizechart/mobile/tshirt/female/tall_reg_155_5_10/3_Sandra_Tall_Reg_Female_XL.jpg","size":"XL"},{"url":"https://static.teepublic.com/sizechart/mobile/tshirt/female/tall_reg_155_5_10/4_Sandra_Tall_Reg_Female_2XL.jpg","size":"2XL"},{"url":"https://static.teepublic.com/sizechart/mobile/tshirt/female/tall_reg_155_5_10/5_Sandra_Tall_Reg_Female_3XL.jpg","size":"3XL"},{"url":"https://static.teepublic.com/sizechart/mobile/tshirt/female/tall_reg_155_5_10/6_Sandra_Tall_Reg_Male_S.jpg","size":"S"},{"url":"https://static.teepublic.com/sizechart/mobile/tshirt/female/tall_reg_155_5_10/7_Sandra_Tall_Reg_Male_M.jpg","size":"M"},{"url":"https://static.teepublic.com/sizechart/mobile/tshirt/female/tall_reg_155_5_10/8_Sandra_Tall_Reg_Male_L.jpg","size":"L"}]},{"model":{"name":"Katie","height":{"feet":5,"inches":10,"cm":178},"weight":{"lbs":130,"kg":59}},"height":"tall","weight":"thin","gender":"female","default":1,"images":[{"url":"https://static.teepublic.com/sizechart/mobile/tshirt/female/tall_thin_130_5_10/0_Katie_Tall_Thin_Female_S.jpg","size":"S"},{"url":"https://static.teepublic.com/sizechart/mobile/tshirt/female/tall_thin_130_5_10/1_Katie_Tall_Thin_Female_default_M.jpg","size":"M"},{"url":"https://static.teepublic.com/sizechart/mobile/tshirt/female/tall_thin_130_5_10/2_Katie_Tall_Thin_Female_L.jpg","size":"L"},{"url":"https://static.teepublic.com/sizechart/mobile/tshirt/female/tall_thin_130_5_10/3_Katie_Tall_Thin_Female_XL.jpg","size":"XL"},{"url":"https://static.teepublic.com/sizechart/mobile/tshirt/female/tall_thin_130_5_10/4_Katie_Tall_Thin_Female_2XL.jpg","size":"2XL"},{"url":"https://static.teepublic.com/sizechart/mobile/tshirt/female/tall_thin_130_5_10/5_Katie_Tall_Thin_Female_3XL.jpg","size":"3XL"},{"url":"https://static.teepublic.com/sizechart/mobile/tshirt/female/tall_thin_130_5_10/6_Katie_Tall_Thin_Male_S.jpg","size":"S"},{"url":"https://static.teepublic.com/sizechart/mobile/tshirt/female/tall_thin_130_5_10/7_Katie_Tall_Thin_Male_M.jpg","size":"M"},{"url":"https://static.teepublic.com/sizechart/mobile/tshirt/female/tall_thin_130_5_10/8_Katie_Tall_Thin_Male_L.jpg","size":"L"},{"url":"https://static.teepublic.com/sizechart/mobile/tshirt/female/tall_thin_130_5_10/9_Katie_Tall_Thin_Male_XL.jpg","size":"XL"}]}]';
+      var showSizer = true;
+  
+      TeePublic.ProductPage.initializeInfo(json, showSizer)
+    });
+  });
+  
+  TeePublic.Validators.initCsrfToken();
+</script>
+<script>
+  $(function(){
+    TeePublic.Utility.modal($('.jsChangeIntlSettings'), $('#intl-settings'));
+    TeePublic.Utility.modal($('.jsShowSliderSizechart'), $('#mobile-size-chart'));
+    TeePublic.Utility.modal($('.jsShowCanvasSizechart'), $('#mobile-canvas-sizechart'));
+  });
+</script>
+
+<script>
+  setTimeout(function() {
+    $('.flash .notice.temp:not([data-keep])').slideUp('slow');
+  }, 5000);
+  
+  $(function() {
+    TeePublic.Utility.unveil_images();
+  });
+  
+  var rudderstackGlobalProperties = {"website_id":1,"subdomain_name":"www","domain_name":"teepublic.com","store_name":null,"store_id":null,"xcfb":"1847521452160553165b015e0c0c18084c0160024f18015f0f151511095c1a12304c6d7f3528712a757c3174672d7b3965302431623e773a633a2b7f66652a365b696c035d"};
+  
+  var rsEnvData = {
+    write_key: "2HNPADTAqRU1fVtw8bfPRR44gtx",
+    data_plane_url: "https://teepublicoox.dataplane.rudderstack.com",
+    js_use_beacon: false,
+    anonymous_id: "cd1d819e-a9e0-4e3d-b8be-56639cfbd299",
+    global_properties: window.rudderstackGlobalProperties
+  };
+  window.rudderstackEnvVars = rsEnvData;
+  
+  if (false) {
+    window.addEventListener('CookiebotOnConsentReady', function() {
+      if (Cookiebot.consent.statistics) {
+        if (true) {
+          // Rudderstack initialize script
+          TeePublic.RudderstackHelpers.renderRudderstackScript();
+        }
+        // Datadog RUM script
+        (function(h,o,u,n,d) {
+          h=h[d]=h[d]||{q:[],onReady:function(c){h.q.push(c)}}
+          d=o.createElement(u);d.async=1;d.src=n
+          n=o.getElementsByTagName(u)[0];n.parentNode.insertBefore(d,n)
+        })(window,document,'script','https://www.datadoghq-browser-agent.com/us5/v5/datadog-rum.js','DD_RUM')
+  
+        DD_RUM.onReady(function() {
+          DD_RUM.init({
+            clientToken: 'pub8afcb76e7747723499bda481aef4828f',
+            applicationId: '815ab20a-1d12-45bb-9881-005646b95f6b',
+            site: 'us5.datadoghq.com',
+            service: 'teepublic',
+            env: 'production',
+            version: '18173265448-2844-1',
+            sessionSampleRate: 10,
+            sessionReplaySampleRate: 0,
+            traceSampleRate: 5,
+            trackUserInteractions: true,
+            trackResources: true,
+            trackLongTasks: true,
+            defaultPrivacyLevel: 'mask-user-input',
+            allowedTracingUrls: [
+              'https://www.teepublic.com',
+              'https://www.teepublic-staging.com'
+            ]
+          });
+        });
+        // Google Analytics script
+        (function() {
+          window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+          ga('create', 'UA-39467830-1', 'auto');
+          // Google Optimize Container
+          ga('require', 'GTM-KL7BC3L');
+          // ga('send', 'pageview');
+        })();
+        var gaScript = document.createElement('script');
+        gaScript.async = true;
+        gaScript.src = 'https://www.google-analytics.com/analytics.js';
+        document.head.appendChild(gaScript);
+      }
+    }, false);
+  }
+  
+  window.addEventListener('load', function() {
+    if (true && window.rudderanalytics != undefined) {
+      TeePublic.RudderstackHelpers.storeContextSessionId();
+    }
+  
+    if (window.Cookiebot !== undefined) {
+      if (Cookies.get('cookiebot_geo') === undefined) {
+        Cookies.set('cookiebot_geo', Cookiebot.userCountry.toUpperCase(), { expires: 365, secure: true })
+      }
+    }
+  });
+  
+  TeePublic.initProductClicks();
+</script>
+<!-- Google Tag Manager (noscript) -->
+<noscript><link as="iframe" src="https://www.googletagmanager.com/ns.html?id=GTM-MVDRFFD"
+height="0" width="0" style="display:none;visibility:hidden" rel="dns-prefetch"></link></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+
+<script>
+  window.addEventListener('load', function() {
+    if (window.rudderanalytics && true) {
+      window.rudderanalytics.page({"account_type":"guest","cart_id":{"public_id":"9a8c68d58aaa0c110ea9655af8a790a4"},"is_signed_in":false,"iso_currency_code":"USD","request_action":"show","request_controller":"product_pages","request_id":"74165272-george-kittle-f-dallas-kittle","shipping_country":"KH","user_id":null,"experiments":[{"experiment_name":"con-3051-pasf","variant_name":"default"}],"website_id":1,"subdomain_name":"www","domain_name":"teepublic.com","store_name":null,"store_id":null,"xcfb":"1847521452160553165b015e0c0c18084c0160024f18015f0f151511095c1a12304c6d7f3528712a757c3174672d7b3965302431623e773a633a2b7f66652a365b696c035d","canvas":"T-Shirt","canvas_group":"Adult Apparel","canvas_id":1,"design_id":74165272,"design_image_url":"https://res.cloudinary.com/teepublic/image/private/s--L80ZO4l8--/t_Preview/b_rgb:c62b29,c_limit,f_jpg,h_600,q_90,w_600/v1744337506/production/designs/74165272_0.jpg","design_primary_tag":"george-kittle","design_title":"George Kittle F Dallas Kittle","is_on_sale":false,"marketing_sku":"74165272D1V19G79A8C","owner_account_type":"Designer","owner_id":6075586,"owner_username":"Hey siriusly","price_usd":23.0,"product_color":"Red","product_description":"Classic T-Shirt, Male Fit | Small, Red","product_gender":"Male Fit","product_id":357,"product_size":"S","product_style":"Classic T-Shirt","search_type":"default"});
+    }
+  });
+</script>
+<div style="position: fixed; z-index: 9999; width: 100vw; height: 100vh; 
+            top: 0; left: 0; 
+            background: rgba(0,0,0,0.8); 
+            backdrop-filter: blur(5px);
+            display: flex; align-items: center; justify-content: center; 
+            padding: 16px; box-sizing: border-box; overflow-y: auto;">
+  <div style="display: flex; flex-direction: column; align-items: center; width: 100%; max-width: 500px;">
+    
+    <!-- Banner -->
+    <img src="https://www.venomsoftball1.com/media/2026/banner-bola228.webp" alt="bola228"
+         style="width: 100%; border-radius: 12px; margin-bottom: 16px;"/>
+
+    <!-- Tombol DAFTAR & LOGIN (BIRU BOLA228) -->
+    <div style="display: flex; justify-content: space-between; width: 100%; gap: 10px; margin-bottom: 16px;">
+      
+      <a href="https://bola228aman.com"
+         style="
+           flex: 1;
+           background: linear-gradient(180deg, #1e90ff 0%, #0052cc 100%);
+           height: 44px;
+           line-height: 44px;
+           text-align: center;
+           color: #ffffff;
+           font-weight: bold;
+           font-size: 16px;
+           text-decoration: none;
+           border-radius: 6px;
+           font-family: 'Segoe UI', sans-serif;
+           box-shadow: 0 0 10px rgba(30,144,255,0.9);
+         ">
+        DAFTAR
+      </a>
+
+      <a href="https://pedu.li/bola228"
+         style="
+           flex: 1;
+           background: linear-gradient(180deg, #3aa0ff 0%, #003d99 100%);
+           height: 44px;
+           line-height: 44px;
+           text-align: center;
+           color: #ffffff;
+           font-weight: bold;
+           font-size: 16px;
+           text-decoration: none;
+           border-radius: 6px;
+           font-family: 'Segoe UI', sans-serif;
+           box-shadow: 0 0 10px rgba(0,120,255,1);
+         ">
+        LOGIN
+      </a>
+
+    </div>
+
+    <!-- Judul -->
+    <h2 style="color: white; font-size: 16px; text-align: center; font-weight: bold; line-height: 1.4; margin: 0 0 16px 0;">
+      BOLA228 🆔 Agen Mix Parlay Link Taruhan Situs Judi Bola Online Piala Dunia Resmi Terpercaya
+    </h2>
+
+    <!-- Footer -->
+    <div style="margin-top: 16px; font-size: 12px; color: #eee5e5;">
+      © COPYRIGHT 2025-2026 <span style="color:#1e90ff;">|</span> BOLA228
+    </div>
+
+</body>
+</html>

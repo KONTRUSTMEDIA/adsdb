@@ -1,0 +1,283 @@
+<!doctype html>
+<html lang="en-US">
+<head>
+    <title>Mini Royale: Nations</title>
+    <link rel="icon" type="image/png" href="favicon.png">
+
+    <meta charset="utf-8">
+
+    <meta name="description" content="Battle for control of different nations with your Clan and become an economic or military superpower. Proudly made by Faraway">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+    <meta name="keywords" content="battle royale, multiplayer, io, 3D Battle Royale, browser game, br, survival, game, web game">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="google-site-verification" content="cigM80uSj2Vg_S3O9poee_cR5HkV7zxGtsV14cRqVqY" />
+
+    <meta property="og:image" content="https://miniroyale.io/thumbnail.jpg?v=1.1.145">
+    <meta property="og:description" content="Battle for control of different nations with your Clan and become an economic or military superpower. Proudly made by Faraway">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Mini Royale: Nations">
+    <meta property="og:url" content="https://miniroyale.io/">
+    <meta property="og:site_name" content="miniroyale.io">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+
+    <link rel="canonical" href="https://miniroyale.io" />
+    <style>
+        @font-face {
+            font-family: 'Forza-Medium';
+            src: url('./fonts/Forza-Medium.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: 'Forza-BoldItalic';
+            src: url('./fonts/Forza-BoldItalic.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: 'Forza-Bold';
+            src: url('./fonts/Forza-Bold.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        body {
+            background: #000;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            font-family: 'Bebas Neue', cursive;
+        }
+
+        #links {
+            display: none;
+        }
+
+        #about {
+            display: none;
+        }
+
+        #content-wrapper {
+            display: none;
+            position: absolute;
+        }
+
+        #application-splash-wrapper {
+            background: #283538 url('./overlay.jpg?v=1.1.145') no-repeat center center;
+            background-size: cover !important;
+            font-family: 'Roboto', sans-serif;
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+        }
+
+        #application-splash-wrapper-preview {
+            background: #283538 url('./overlay_preview.jpg?v=1.1.145') no-repeat center center;
+            background-size: cover !important;
+            font-family: 'Roboto', sans-serif;
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+        }
+
+        #application-splash {
+            position: absolute;
+            top: calc(50% - 150px);
+            width: 300px;
+            left: calc(50% - 150px);
+        }
+
+        #application-splash img {
+            width: 100%;
+        }
+
+        @media (max-width: 480px) {
+            #application-splash {
+                width: 170px;
+                left: calc(50% - 85px);
+            }
+        }
+
+        #progress-bar-bg {
+            position: absolute;
+            left: 5%;
+            bottom: 2vw;
+            height: 0.9vw;
+            width: 90%;
+            margin: auto;
+            background-color: #252525;
+            opacity: 1;
+        }
+
+        #progress-bar-bg-preview {
+            position: absolute;
+            left: 35%;
+            bottom: 2vw;
+            height: 0.9vw;
+            width: 30%;
+            margin: auto;
+            background-color: #2F3B4C;
+            opacity: 1;
+            border-radius: 50px;
+        }
+
+        #progress-bar {
+            position: absolute;
+            left: 5.1%;
+            bottom: 2.15vw;
+            height: 0.6vw;
+            width: 0;
+            margin: auto;
+            background-color: #FFCA0E;
+        }
+
+        #progress-bar-preview {
+            position: absolute;
+            left: 35.1%;
+            bottom: 2.15vw;
+            height: 0.6vw;
+            width: 0%;
+            margin: auto;
+            background-color: #00FFFF;
+            border-radius: 50px;
+        }
+
+        #version-code {
+            font-family: 'Forza-Bold', sans-serif;
+            text-align: center;
+            color: #dadada;
+            display: block;
+            font-size: 0.85vw;
+            position: fixed;
+            right: 5.3%;
+            bottom: 0.4vw;
+        }
+
+        #loading-assets-text {
+            font-family: 'Forza-Bold', sans-serif;
+            text-align: center;
+            color: #fff;
+            bottom: 3.7vw;
+            font-size: 1.1vw;
+            position: absolute;
+            left: calc(50% - 3vw);
+        }
+
+        #loading-assets-text-preview {
+            font-family: 'Forza-Bold', sans-serif;
+            text-align: center;
+            color: #fff;
+            bottom: 3.7vw;
+            font-size: 1.1vw;
+            position: absolute;
+            left: calc(50% - 9vw);
+        }
+
+        #application-canvas {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            outline: none !important;
+        }
+
+        @media only screen and (orientation: portrait) {
+            #application-splash-wrapper.banner {
+                background-size: cover;
+            }
+
+            #version-code.banner {
+                right: 37%;
+                bottom: 5vw;
+            }
+
+            button.banner {
+                bottom: 10vw;
+            }
+        }
+
+        @media only screen and (orientation: landscape) {
+            #application-splash-wrapper.banner {
+                background-size: cover;
+            }
+
+            #version-code.banner {
+                right: 5%;
+                bottom: 2vw;
+            }
+
+            button.banner {
+                bottom: 5vw;
+            }
+        }
+    </style>
+    <script src="js/hiring.js?v=1.1.145"></script>
+    <script src="https://checkout.faraway.com/faraway-wallets-provider-latest.js"></script>
+    <script src="https://checkout.faraway.com/faraway-checkout-latest.js"></script>
+    <script src="https://connect-v2.faraway.com/faraway-connect-latest.js"></script>
+
+    <script src="https://sdk.crazygames.com/crazygames-sdk-v2.js"></script>
+    <script src="js/server_bundle.js?v=1.1.145"></script>
+    <script src="js/playcanvas-stable.min.js?v=1.1.145"></script>
+    <script src="js/__settings__.js?v=1.1.145"></script>
+
+    <script>
+        VERSION = "1.1.145";
+        BRANCH = "main";
+        ENVIRONMENT = "prod";
+        DOMAIN = "miniroyale.io";
+        ASSET_PREFIX = "";
+        SCRIPT_PREFIX = "";
+        SCENE_PATH = "1175392.json?v=1.1.145";
+        CONTEXT_OPTIONS = {
+            'antialias': true,
+            'alpha': false,
+            'preserveDrawingBuffer': false,
+            'preferWebGl2': true,
+            'powerPreference': "high-performance",
+        };
+        CONFIG_FILENAME = "config.json?v=1.1.145";
+        MAP_PREFIX = "https://maps.miniroyale.io/";
+        GS_TAG = "main";
+        SENTRY_DSN = "https://b372ac0926094f9bb9ffa5329453a986@o967800.ingest.sentry.io/6752571";
+    </script>
+    <script src ="js/rpm-stream.js?v=1.1.145"></script>
+    <script src="js/__override__.js?v=1.1.145"></script>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-44EV46Q15W"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-44EV46Q15W');
+    </script>
+</head>
+<body>
+    <script type="text/javascript" src="js/__modules__.js"></script>
+    <!-- <script type="text/javascript" src="js/__start__.js?v=1.1.145"></script> -->
+    <script type="text/javascript" src="js/__start__legacy.js?v=1.1.145"></script> 
+    <script src="js/analytics.js?v=1.1.145"></script>
+    <script type="text/javascript" src="js/__loading__.js?v=1.1.145"></script>
+
+    <script type="text/javascript">
+        (function(w,d,s,r,k,h,m){
+            if(w.performance && w.performance.timing && w.performance.navigation) {
+                w[r] = w[r] || function(){(w[r].q = w[r].q || []).push(arguments)};
+                h=d.createElement('script');h.async=true;h.setAttribute('src',s+k);
+                d.getElementsByTagName('head')[0].appendChild(h);
+                (m = window.onerror),(window.onerror = function (b, c, d, f, g) {
+                    m && m(b, c, d, f, g),g || (g = new Error(b)),(w[r].q = w[r].q || []).push(["captureException",g]);})
+            }
+        })(window,document,'//static.site24x7rum.eu/beacon/site24x7rum-min.js?appKey=','s247r','6bbde4312bb4aa27610f2556162573ef');
+    </script>
+</body>
+</html>

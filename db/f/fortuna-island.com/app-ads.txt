@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!--
+    If you are serving your web app in a path other than the root, change the
+    href value below to reflect the base path you are serving from.
+
+    The path provided below has to start and end with a slash "/" in order for
+    it to work correctly.
+
+    For more details:
+    * https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base
+
+    This is a placeholder for base href that will be replaced by the value of
+    the `--base-href` argument provided to `flutter build`.
+  -->
+  <base href="/">
+
+  <meta charset="UTF-8">
+  <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+  <meta name="description" content="Fortuna Island - Quantum Edition">
+
+  <!-- iOS meta tags & icons -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Fortuna Island">
+  <link rel="apple-touch-icon" href="icons/Icon-192.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="icons/Icon-192.png">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="favicon.png"/>
+
+  <!-- Google Fonts pour fallback -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <!-- Material Icons font is handled by Flutter's uses-material-design: true -->
+
+  <!-- Styles pour éviter les erreurs de polices -->
+  <style>
+    /* Material Icons font is handled by Flutter's uses-material-design: true */
+
+    /* Fallback fonts pour éviter les erreurs */
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* Support pour les emojis */
+    .emoji {
+      font-family: 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji', 'Android Emoji', 'EmojiSymbols', 'EmojiOne Mozilla', 'Twemoji Mozilla', 'Segoe UI', sans-serif;
+    }
+
+    /* Support pour les icônes Material */
+    .material-icons {
+      font-family: 'MaterialIcons', 'Material Icons', sans-serif;
+      font-weight: normal;
+      font-style: normal;
+      font-size: 24px;
+      line-height: 1;
+      letter-spacing: normal;
+      text-transform: none;
+      display: inline-block;
+      white-space: nowrap;
+      word-wrap: normal;
+      direction: ltr;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* Prévention des erreurs de rendu */
+    * {
+      -webkit-text-size-adjust: 100%;
+      -ms-text-size-adjust: 100%;
+    }
+
+    /* Fallback pour les caractères manquants */
+    .missing-char {
+      font-family: 'Roboto', 'Arial', sans-serif;
+      font-weight: 400;
+    }
+
+    /* Fallback pour MaterialIcons quand la police n'est pas chargée */
+    body.material-icons-fallback .material-icons,
+    body.material-icons-fallback [class*="material-icons"] {
+      font-family: 'Roboto', 'Arial', sans-serif !important;
+      font-weight: 400;
+      font-style: normal;
+      font-variant: normal;
+      text-transform: none;
+      line-height: 1;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* Remplacement textuel pour les icônes communes */
+    body.material-icons-fallback .material-icons:before {
+      content: '•';
+      font-weight: bold;
+    }
+
+    /* Icônes spécifiques avec remplacement textuel */
+    body.material-icons-fallback [class*="home"]:before { content: '⌂'; }
+    body.material-icons-fallback [class*="settings"]:before { content: '⚙'; }
+    body.material-icons-fallback [class*="person"]:before { content: '👤'; }
+    body.material-icons-fallback [class*="chat"]:before { content: '💬'; }
+    body.material-icons-fallback [class*="leaderboard"]:before { content: '🏆'; }
+    body.material-icons-fallback [class*="casino"]:before { content: '🎲'; }
+    body.material-icons-fallback [class*="group"]:before { content: '👥'; }
+    body.material-icons-fallback [class*="share"]:before { content: '📤'; }
+    body.material-icons-fallback [class*="flag"]:before { content: '🚩'; }
+  </style>
+
+  <title>Fortuna Island - Quantum Edition</title>
+  <link rel="manifest" href="manifest.json">
+</head>
+<body>
+  <!-- Console Logger pour les tests API -->
+  <script src="console_logger.js"></script>
+
+  <!-- Script pour gérer les erreurs JavaScript -->
+  <script>
+    // Configuration pour éviter les erreurs JavaScript
+    window.addEventListener('load', function(ev) {
+      // Gestion améliorée des erreurs de polices et ressources
+      const originalWarn = console.warn;
+      const originalError = console.error;
+
+      // Filtrer les warnings de polices et ressources
+      console.warn = function(...args) {
+        const message = args[0];
+        if (typeof message === 'string') {
+          // Ignorer les warnings de polices
+          if (message.includes('MaterialIcons') ||
+              message.includes('font') ||
+              message.includes('Noto') ||
+              message.includes('Police gérée automatiquement')) {
+            console.log('Police gérée automatiquement:', ...args);
+            return;
+          }
+          // Ignorer les warnings de ressources préchargées
+          if (message.includes('was preloaded using link preload but not used') ||
+              message.includes('preload')) {
+            console.log('Ressource préchargée gérée automatiquement');
+            return;
+          }
+        }
+        originalWarn.apply(console, args);
+      };
+
+      // Gestion des erreurs JavaScript avec filtrage
+      window.addEventListener('error', function(e) {
+        const message = e.message || '';
+
+        // Ignorer les erreurs de polices
+        if (message.includes('MaterialIcons') ||
+            message.includes('font') ||
+            message.includes('Failed to load font') ||
+            message.includes('Could not find a set of Noto fonts')) {
+          console.log('Erreur de police gérée automatiquement:', message);
+          e.preventDefault();
+          return false;
+        }
+
+        // Ignorer les erreurs d'icônes du manifest
+        if (message.includes('Icon-192.png') ||
+            message.includes('Download error or resource isn\'t a valid image')) {
+          console.log('Erreur d\'icône gérée automatiquement:', message);
+          e.preventDefault();
+          return false;
+        }
+
+        // Log des autres erreurs
+        console.error('Erreur JavaScript:', message, e.filename, e.lineno);
+      });
+
+      // Gestion des erreurs de promesse non gérées
+      window.addEventListener('unhandledrejection', function(e) {
+        const reason = e.reason;
+        if (reason && reason.message) {
+          const message = reason.message;
+
+          // Ignorer les erreurs de polices dans les promesses
+          if (message.includes('font') ||
+              message.includes('MaterialIcons') ||
+              message.includes('Failed to load font')) {
+            console.log('Erreur de police dans promesse gérée automatiquement');
+            e.preventDefault();
+            return false;
+          }
+        }
+
+        // Log des autres erreurs de promesse
+        console.error('Promesse rejetée non gérée:', reason);
+      });
+
+      // Prévention des erreurs de caractères spéciaux
+      String.prototype.normalize = String.prototype.normalize || function() {
+        return this;
+      };
+
+      // Fonction pour vérifier la disponibilité des polices
+      window.checkFontAvailability = function() {
+        const testElement = document.createElement('span');
+        testElement.style.fontFamily = 'MaterialIcons';
+        testElement.style.position = 'absolute';
+        testElement.style.left = '-9999px';
+        testElement.textContent = ''; // Code point pour une icône Material
+
+        document.body.appendChild(testElement);
+
+        setTimeout(() => {
+          const hasMaterialIcons = testElement.offsetWidth > 0;
+          console.log('Police MaterialIcons disponible:', hasMaterialIcons);
+
+          if (!hasMaterialIcons) {
+            console.log('Utilisation de la police de fallback pour les icônes');
+            // Appliquer une classe CSS pour utiliser les fallbacks
+            document.body.classList.add('material-icons-fallback');
+          }
+
+          document.body.removeChild(testElement);
+        }, 100);
+      };
+
+      // Vérifier les polices après un court délai
+      setTimeout(window.checkFontAvailability, 500);
+    });
+
+    // Fonction de fallback pour les caractères manquants
+    window.getFontFallback = function(char) {
+      // Retourner une police système appropriée
+      if (char && char.length > 0) {
+        const code = char.charCodeAt(0);
+        if (code >= 0x1F600 && code <= 0x1F64F) { // Emojis
+          return 'Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji';
+        }
+      }
+      return 'Roboto, Arial, sans-serif';
+    };
+  </script>
+
+  <script src="flutter_bootstrap.js" async></script>
+</body>
+</html>

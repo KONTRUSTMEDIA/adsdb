@@ -1,0 +1,545 @@
+<!doctype html>
+<html lang="en-US">
+    <head>
+            <title>BIRME - Bulk Image Resizing Made Easy (Online &amp; Free) </title>
+<meta charset="utf-8" />
+<script async src="https://cdn.fuseplatform.net/publift/tags/2/3216/fuse.js"></script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-EW3WNCR8MJ"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+        dataLayer.push(arguments);
+    }
+    gtag("js", new Date());
+    gtag("config", "G-EW3WNCR8MJ");
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300&display=swap" rel="stylesheet" />
+
+<meta name="viewport" content="initial-scale=0.5, maximum-scale=1" />
+<meta
+    name="description"
+    content="BIRME is a flexible and easy to use bulk image resizer. It can resize multiple images to any specific dimension and crop images if necessary." />
+<meta property="og:image" content="https://birme.net/static/images/fb-share.png" />
+<link rel="shortcut icon" type="image/png" href="/static/images/favicon.png" />
+                <link rel="shortcut icon" href="/static/images/favicon.ico">
+                                <link rel='stylesheet' href="/static/css/styles-f5c40.css?08d7be16" type='text/css' media='all'/>
+
+    </head>
+
+        <body>
+<nav class="d-flex align-items-end justify-content-between pt-3 fixed-top">
+    <ul class="d-inline-block list-inline m-0">
+        <li class="list-inline-item">
+            <button class="logo border-0" type="button" onclick="birme.show_section('main')">Birme</button>
+        </li>
+        <li class="list-inline-item">
+            <button class="nav-link border-0" type="button" onclick="birme.show_section('about')">About</button>
+        </li>
+        <li class="list-inline-item">
+            <button class="nav-link border-0" type="button" onclick="birme.show_section('faqs')">FAQs</button>
+        </li>
+        <li class="list-inline-item">
+            <button class="nav-link border-0" type="button" onclick="birme.open_google_form()">Feedback</button>
+        </li>
+        <li class="list-inline-item">
+            <button class="nav-link border-0" type="button" onclick="window.location.href='/scanner/'">Doc Scanner</button>
+        </li>
+        <li class="list-inline-item d-none">
+            <a class="nav-link" href="/blog/">Blog</a>
+        </li>
+        <li class="list-inline-item">
+            <a href="https://www.buymeacoffee.com/birme" class="nav-link" style="display: block; transform: translate(0, -3px)">
+                <img
+                    src="https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&emoji=X&slug=birme&button_colour=FFDD00&font_colour=000000&font_family=Arial&outline_colour=000000&coffee_colour=ffffff"
+                    height="30"
+                    alt="buy me a coffee" />
+            </a>
+        </li>
+    </ul>
+    <div class="version mr-1">Last update: 2025-11-03</div>
+</nav>
+
+<div class="section section-main">
+    <div class="preview-left">
+        <div class="tiles-holder"></div>
+        <div class="welcome">
+            <div class="text-center w-50">
+                <h1>
+                    <span>Bulk</span>
+                    <span>Image</span>
+                    <span>Resizing</span>
+                    <span>Made</span>
+                    <span>Easy</span>
+                </h1>
+                <p>
+                    The ultimate free bulk image resizer trusted by 50,000+ monthly users.
+                    <br />
+                    Instantly resize multiple images to exact dimensions with smart cropping.
+                    <br />
+                    No signup, no downloads, 100% privacy-focused. Resize hundreds images in seconds
+                    <br />
+                    - serving millions since 2013.
+                </p>
+                <div class="icon icon-drag"></div>
+                <p class="pb-0 mb-2 text-uppercase">Drop your images here</p>
+
+                <div class="small">- OR -</div>
+                <div class="btn-browse btn btn-primary">
+    <input type="file" class="inputfile" multiple onchange="birme.add_all(event)" />
+    <span>Browse from your computer</span>
+</div>
+
+                <p class="text-danger text-bold directorypicker-warning">
+                    If you use "Save into a folder" function and encounter an error "this folder contains system files",
+                    <br />
+                    please create a subfolder inside them and use that.
+                </p>
+                <p class="text-muted mt-4">
+                    Made a new tool. Have a try if you need to scan documents or receipts: <a href="/scanner/">Doc Scanner</a>
+                </p>
+            </div>
+        </div>
+        <div class="btn-browse btn btn-primary">
+    <input type="file" class="inputfile" multiple onchange="birme.add_all(event)" />
+    <span>Add more files</span>
+</div>
+ <div class="panels">
+    <div style="min-height: 260px">
+        <div data-fuse="22909105081"></div>
+    </div>
+    <div class="panel panel-resize show">
+        <button type="button" onclick="config.toggle_panel(this)" class="btn btn-toggle">Resize / Crop</button>
+        <!-- Resize by pixel -->
+
+        <div class="options-holder" style="display: block">
+            <div class="width-input">
+                <div class="width-height mr-5">
+                    <label for="target_width">Width</label>
+                    <input type="number" id="target_width" min="1" onchange="config.update(this)" />
+                    px
+                </div>
+                <label>
+                    <input tabindex="-1" type="checkbox" id="auto_width" onchange="config.update(this)" />
+                    Auto Width
+                </label>
+            </div>
+            <div class="height-input mt-2">
+                <div class="width-height mr-5">
+                    <label for="target_width">Height</label>
+                    <input type="number" id="target_height" min="1" onchange="config.update(this)" />
+                    px
+                </div>
+                <label>
+                    <input tabindex="-1" type="checkbox" id="auto_height" onchange="config.update(this)" />
+                    Auto height
+                </label>
+            </div>
+            <div class="height-input mt-2 ratio">
+                <div class="width-height mr-5">
+                    <label for="target_width">Ratio</label>
+                    <input id="ratio_w" type="number" class="w-25" onchange="config.update_ratio()" />
+                    :
+                    <input id="ratio_h" class="w-25" type="number" onchange="config.update_ratio()" />
+                </div>
+            </div>
+            <div class="mt-4">
+                <input type="checkbox" onchange="config.update(this)" id="pica" />
+                <label for="pica">Use High Quality Resize Method</label><br/>
+                <small class="text-muted pl-4">(May crash in some browsers)</small>
+            </div>
+            <div class="crop-auto mt-2 d-none">
+                <input type="checkbox" onchange="config.update(this)" id="auto_focal" />
+                <label for="auto_focal">Auto detect image focal point</label>
+            </div>
+            <div class="crop-align mt-4 d-none">
+                <div class="anchor-points mx-auto">
+                    <div data-n="0" onclick="config.set_focal(this)" class="mouse-pointer"></div>
+                    <div data-n="1" onclick="config.set_focal(this)" class="mouse-pointer"></div>
+                    <div data-n="2" onclick="config.set_focal(this)" class="mouse-pointer"></div>
+                    <div data-n="3" onclick="config.set_focal(this)" class="mouse-pointer"></div>
+                    <div data-n="4" onclick="config.set_focal(this)" class="mouse-pointer"></div>
+                    <div data-n="5" onclick="config.set_focal(this)" class="mouse-pointer"></div>
+                    <div data-n="6" onclick="config.set_focal(this)" class="mouse-pointer"></div>
+                    <div data-n="7" onclick="config.set_focal(this)" class="mouse-pointer"></div>
+                    <div data-n="8" onclick="config.set_focal(this)" class="mouse-pointer"></div>
+                    <div class="indicator" onclick="config.set_focal(this)"></div>
+                </div>
+                <div class="mt-2 text-center">Set image focal point</div>
+            </div>
+            <label class="mt-2 no-resize">
+                <input tabindex="-1" type="checkbox" id="no_resize" onchange="config.update(this)" />
+                Do not resize
+            </label>
+        </div>
+    </div>
+    <!-- BORDER  -->
+    <div class="panel">
+        <div class="d-flex">
+            <button type="button" onclick="birme.show_modal('wm')" class="btn btn-wm w-50 mr-1">Watermark</button>
+            <button type="button" onclick="config.toggle_panel(this.parentNode)" class="btn btn-toggle w-50">Border</button>
+        </div>
+
+        <div class="options-holder">
+            <div class="border-options d-flex justify-content-between">
+                <div>
+                    Color:
+                    <input type="color" id="border_color" onchange="config.update(this)" />
+                </div>
+                <div class="mb-2">
+                    Thickness:
+                    <input type="number" id="border_width" onchange="config.update(this)" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="panel">
+        <button type="button" onclick="config.toggle_panel(this)" class="btn btn-toggle">Image Format &amp; Quality</button>
+        <div class="options-holder">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+                <div>
+                    <input type="radio" name="image_format" id="image_format_preserve" value="preserve" onchange="config.update(this)" />
+                    <label for="image_format_preserve">Same as original images</label>
+                </div>
+            </div>
+
+            <div class="d-flex justify-content-between align-items-center mb-2">
+                <div>
+                    <input type="radio" name="image_format" id="image_format_jpeg" value="jpeg" onchange="config.update(this)" />
+                    <label for="image_format_jpeg">JPEG</label>
+                </div>
+                <div>
+                    Quality
+                    <input type="number" min="10" max="100" id="quality_jpeg" onchange="config.update(this)" />
+                    %
+                </div>
+            </div>
+
+            <div class="d-flex justify-content-between align-items-center mb-2">
+                <div>
+                    <input type="radio" name="image_format" id="image_format_webp" value="webp" onchange="config.update(this)" />
+                    <label for="image_format_webp">WEBP</label>
+                </div>
+                <div>
+                    Quality
+                    <input type="number" min="10" max="100" id="quality_webp" onchange="config.update(this)" />
+                    %
+                </div>
+            </div>
+            <div class="d-flex justify-content-between align-items-center mb-2">
+                <div>
+                    <input type="radio" name="image_format" id="image_format_avif" value="avif" onchange="config.update(this)" />
+                    <label for="image_format_avif">AVIF</label>
+                </div>
+                <div>
+                    Quality
+                    <input type="number" min="10" max="100" id="quality_avif" onchange="config.update(this)" />
+                    %
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- RENAME -->
+    <div class="panel">
+        <button type="button" onclick="config.toggle_panel(this)" class="btn btn-toggle">Rename</button>
+
+        <div class="options-holder">
+            Pattern
+            <br />
+            e.g. image-
+            <span class="text-danger">xxx</span>
+            or
+            <span class="text-danger">ORIGINAL-NAME</span>
+            _400x400
+            <input type="text" id="rename" onchange="config.update(this)" />
+            <br />
+            <br />
+            Starting number
+            <input type="number" id="rename_start" onchange="config.update(this)" class="w-100 mb-2" />
+        </div>
+    </div>
+    <div class="save-btns d-flex mb-2">
+        <div class="w-50 pr-1">
+            <button type="button" class="btn btn-primary btn-sm w-100 mr-1" onclick="birme.save_all(true,false);">Download zip</button>
+        </div>
+        <div class="w-50 pl-1">
+            <button type="button" class="btn btn-primary btn-sm w-100" onclick="birme.save_all(false, false);">Download Files</button>
+        </div>
+    </div>
+    <button type="button" class="btn-picker btn btn-primary btn-sm w-100 d-none" onclick="birme.save_all(false,true);">
+        Save into a folder
+    </button>
+    <div class="d-flex">
+        <a class="btn btn-sm btn-remove-all w-50" href="javascript:birme.remove_all()">Remove All</a>
+        <a class="btn btn-sm btn-reset w-50" href="javascript:config.load(true)">Reset Settings</a>
+    </div>
+</div>    </div>
+</div>
+<div class="section section-about">
+  <div class="content col-md-6 offset-md-3 col-xl-4 offset-xl-4">
+    <h2>About Birme</h2>
+
+    <h4>Features</h4>
+    <ul>
+      <li>NEW* Added AVIF format support (thanks Gerz for the suggestion).</li>
+      <li>NEW* Integrated pica as image resize engine, better image quality.</li>
+      <li>NEW* Save images directly to a folder instead of downloading, better efficency.</li>
+      <li>NEW* Support local fonts for watermarking</li>
+      <li>Supports WebP format</li>
+      <li>Adjust the focal point of each photo individualy</li>
+      <li>Customizable watermark</li>
+      <li>Auto load previous settings you used</li>
+      <li>Auto focal point detection</li>
+      <li>Renaming file names in bulk</li>
+    </ul>
+    <h4>A bit of history</h4>
+    <p>
+      Almost 20 years ago, I had the pleasure of creating a beautifully themed WordPress website for a client. However,
+      as time went by, the website's appearance took a hit because the images uploaded by the client became distorted.
+      It turned out that the person responsible for uploading photos didn't have the right tools to crop them properly.
+    </p>
+
+    <p>
+      Buying Photoshop just to resize images in bulk didn't seem like the smartest option. Even if you have Photoshop,
+      recording a batch action to resize images isn't too difficult. But if you need different dimensions, you'll have
+      to create separate batch actions, eventually cluttering your Photoshop with many presets. The same goes for using
+      Automator on a Mac.
+    </p>
+
+    <p>
+      Finding user-friendly software to batch crop and resize images was a challenge. Most options either resulted in
+      pixelated images or distorted them to fit dimensions without cropping. To this day, it's a mystery why anyone
+      would want a squashed image just to meet a specific size!
+    </p>
+
+    <p>
+      Another hurdle was the need to install these software solutions, which could be problematic due to strict security
+      policies requiring multiple layers of approval for installations.
+    </p>
+
+    <p>
+      Determined to tackle this issue, I initially attempted to develop an app that wouldn't require installation.
+      However, I quickly encountered a major obstacle in supporting multiple operating systems. Each version of Windows
+      and Mac required different executable files, and I lacked the resources to test on all systems.
+    </p>
+
+    <p>
+      Then one day, inspiration struck: why not create a website to solve this problem? While a website might not be as
+      powerful as software, it could certainly get the job done effectively.
+    </p>
+
+    <p>
+      The first version of BIRME came to life in 2012, built with HTML, JavaScript, and a little help from Flash
+      (remember Flash?). By 2015, we phased out the Flash component that was used for generating zip files and prompting
+      downloads.
+    </p>
+
+    <p>
+      The design of BIRME 2.0 was completed in 2016, and since then, we've been gradually refreshing the code. Today,
+      it's almost exactly what we envisioned from the start!
+    </p>
+  </div>
+</div> <div class="section section-faqs" style="padding-bottom: 100px;">
+  <div class="content col-md-6 offset-md-3 col-xl-4 offset-xl-4">
+    <h2>FAQs</h2>
+    <div class="faqs-holder">
+      <div class="faq">
+        <h4>Is it safe to use BIRME?</h4>
+        <div class="foldable">
+          <p>
+            Yes! BIRME works entirely in your browser using JavaScript to resize and crop your photos. Your images never
+            leave your computer - nothing gets uploaded to any server.
+          </p>
+          <p>
+            The code is completely transparent and can be reviewed by anyone with programming knowledge. This open
+            approach ensures there's no way to hide anything malicious in BIRME.
+          </p>
+        </div>
+      </div>
+      <div class="faq">
+        <h4>What is "auto focal" detection?</h4>
+        <div class="foldable">
+          <p>
+            When cropping your images to specific dimensions, BIRME needs to decide which parts to keep and which to
+            remove. This is where auto focal detection comes in handy!
+          </p>
+          <p>
+            Auto focal detection uses a brilliant Javascript library called This feature uses a clever JavaScript
+            library called
+            <a href="https://29a.ch/2014/04/03/smartcrop-content-aware-image-cropping" target="_blank">"smartcrop"</a>
+            to identify the most important parts of your image. It looks for areas with more details (lines, curves, and
+            visual complexity) since these are typically the "interesting" parts you want to keep. The system analyzes
+            your photo, identifies these detail-rich areas, and preserves them while trimming away the less important
+            parts.
+          </p>
+        </div>
+      </div>
+      <div class="faq">
+        <h4>The "save files" button only saves one photo. Where are the rest?</h4>
+        <div class="foldable">
+          <p>
+            For security reasons, browsers typically restrict websites from downloading multiple files at once. The
+            first time you use BIRME to save multiple files, your browser will ask for permission.
+          </p>
+          <p>
+            If you accidentally clicked "no," don't worry! You can easily change this in your browser settings. Just
+            search for "allow [your browser] download multiple files" to find instructions. As an alternative, you can
+            also use the convenient "save as zip file" function.
+          </p>
+        </div>
+      </div>
+      <div class="faq">
+        <h4>How to use "rename" function?</h4>
+        <div class="foldable">
+          <p>
+            The rename feature is super simple! Just include "x" characters in your naming pattern, and BIRME will
+            replace them with sequential numbers. For example, if you have 3 images
+            <i>bird.jpg</i>
+            ,
+            <i>cat.jpg</i>
+            and
+            <i>dog.jpg</i>
+            , A pattern like
+            <i>my-pet-xxx</i>
+            will rename them into
+            <i>my-pet-001.jpg</i>
+            ,
+            <i>my-pet-002.jpg</i>
+            , and
+            <i>my-pet-003.jpg</i>
+            .
+          </p>
+          <p>
+            Another special keyword is
+            <i>ORIGINAL-NAME</i>
+            . If you use a pattern like
+            <i>ORIGINAL-NAME_400x400</i>
+            , the images will be renamed to
+            <i>bird_400x400.jpg</i>
+            ,
+            <i>cat_400x400.jpg</i>
+            and
+            <i>dog_400x400.jpg</i>
+            .
+          </p>
+          <p>
+            You can also set a starting number for the sequence. For example, if you set it to 100, the first image will
+            be named
+            <i>my-pet-100.jpg</i>
+            .
+          </p>
+        </div>
+      </div>
+      <div class="faq">
+        <h4>What is the recommend image quality for JPG/WebP photos?</h4>
+        <div class="foldable">
+          <p>
+            For most online uses, 80% quality offers an excellent balance between image quality and file size. There's
+            rarely a need to go above 90% unless you have specific requirements.
+          </p>
+          <p>
+            Keeping your images optimized helps websites load faster and saves bandwidth for mobile users. Feel free to
+            experiment with different quality settings to find what works best for your specific needs!
+          </p>
+        </div>
+      </div>
+
+      <div class="faq">
+        <h4>Why my photos are pixelated?</h4>
+        <div class="foldable">
+          <p>
+            Pixelation happens when you try to make an image larger than its original size. You may need some special AI
+            tool like "superpixel".
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div><div class="modal">
+    <div class="loading text-center">
+        <svg
+            xmlns:svg="http://www.w3.org/2000/svg"
+            xmlns="http://www.w3.org/2000/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+            version="1.0"
+            width="64px"
+            height="64px"
+            viewBox="0 0 128 128"
+            xml:space="preserve">
+            <g>
+                <path
+                    d="M75.4 126.63a11.43 11.43 0 0 1-2.1-22.65 40.9 40.9 0 0 0 30.5-30.6 11.4 11.4 0 1 1 22.27 4.87h.02a63.77 63.77 0 0 1-47.8 48.05v-.02a11.38 11.38 0 0 1-2.93.37z"
+                    fill="#000000"
+                    fill-opacity="1" />
+                <animateTransform
+                    attributeName="transform"
+                    type="rotate"
+                    from="0 64 64"
+                    to="360 64 64"
+                    dur="1400ms"
+                    repeatCount="indefinite"></animateTransform>
+            </g>
+        </svg>
+        <br />
+        <span class="short">Processing...</span>
+        <span class="long">
+            Please select a folder to save the files.
+            <br />
+            If you see the error of
+            <strong>"this folder contains system files"</strong>
+            ,
+            <br />
+            please create a subfolder inside it and select that.
+        </span>
+    </div>
+    <div class="wm">
+        <div class="wm-preview">
+            <img src="/static/images/watermark.webp" alt="watermark preview" class="w-100" />
+            <div class="text"></div>
+            <div class="image"></div>
+        </div>
+        <div class="wm-settings p-4">
+            <button class="icon icon-delete" onclick="birme.hide_modal()"></button>
+            <div class="form-group">
+                <label for="wm_text">Watermark text</label>
+                <input type="text" class="form-control" id="wm_text" name="wm_text" placeholder="" onkeyup="config.update(this)" />
+            </div>
+            <div class="form-group">
+                <label for="wm_font">Font</label>
+                <select type="select" class="form-control" id="wm_font" name="wm_font" onchange="config.update(this)">
+                    <option value="sans-serif">Arial/Helvetica</option>
+                    <option value="serif">Times New Roman</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="wm_size">Font Size</label>
+                <input type="number" min="5" max="100" id="wm_size" name="wm_size" onchange="config.update(this)" />
+            </div>
+            <hr />
+            <h3 class="text-center">&nbsp;Or&nbsp;</h3>
+            <div class="form-group text-center">
+                <div class="btn-browse btn btn-primary" style="position: relative">
+                    <input type="file" class="inputfile" onchange="config.upload_wm(event)" />
+                    <span>Upload a watermark image</span>
+                </div>
+                <div class="wm_image"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/masonry/4.2.2/masonry.pkgd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/blueimp-load-image/5.16.0/load-image.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/smartcrop/2.0.5/smartcrop.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+<script type="module" src="/static/js/modules.js"></script>
+            <script  type=text/javascript i src="/static/js/pica-f5c40.js?4092af2d"></script>
+             <script  type=text/javascript i src="/static/js/scripts-f5c40.js?01608481"></script>
+
+        </body>
+</html>

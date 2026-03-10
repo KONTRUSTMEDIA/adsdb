@@ -1,0 +1,1219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Preload main.dart.js immediately — browser starts downloading while parsing the rest of <head>.
+       Without this, the download doesn't start until flutter_bootstrap.js executes and requests it. -->
+  <link rel="preload" href="main.dart.js" as="script">
+
+  <!-- Auto-recovery: stale cache detection + chunk load failures -->
+  <script>
+    (function() {
+      function clearCachesAndReload() {
+        if ('caches' in window) {
+          caches.keys().then(function(names) {
+            return Promise.all(names.map(function(n) { return caches.delete(n); }));
+          }).then(function() { window.location.reload(true); });
+        } else {
+          window.location.reload(true);
+        }
+      }
+
+      window.addEventListener('error', function(e) {
+        // Only auto-retry once per session to prevent infinite loops
+        if (sessionStorage.getItem('_jsRetried')) return;
+
+        // Detect "Unexpected token '<'" — JS file served as HTML
+        if (e.message && e.message.indexOf("Unexpected token '<'") !== -1) {
+          sessionStorage.setItem('_jsRetried', '1');
+          clearCachesAndReload();
+          return;
+        }
+
+        // Detect deferred chunk load failures (stale cache after deploy)
+        // These show up as "Loading chunk X failed" or "Failed to fetch" on .part.js files
+        var msg = (e.message || '').toLowerCase();
+        var src = (e.filename || '').toLowerCase();
+        if (
+          (msg.indexOf('loading chunk') !== -1) ||
+          (msg.indexOf('loading module') !== -1) ||
+          (src.indexOf('.part.js') !== -1 && (msg.indexOf('failed') !== -1 || msg.indexOf('error') !== -1)) ||
+          (msg.indexOf('failed to fetch dynamically imported module') !== -1)
+        ) {
+          sessionStorage.setItem('_jsRetried', '1');
+          clearCachesAndReload();
+        }
+      });
+    })();
+  </script>
+
+  <!-- Global error handler - catch third-party script errors before they break Flutter -->
+  <script>
+    window.onerror = function(message, source, lineno, colno, error) {
+      // Ignore errors from third-party ad/tracking scripts
+      if (source && (
+        source.includes('adthrive') ||
+        source.includes('ads.adthrive.com') ||
+        source.includes('googletagmanager') ||
+        source.includes('google-analytics')
+      )) {
+        console.warn('Suppressed third-party error:', message);
+        return true; // Prevent the error from propagating
+      }
+      // Ignore common third-party variable errors (Raptive ads)
+      if (message && message.includes('adthrive')) {
+        console.warn('Suppressed ad script error:', message);
+        return true;
+      }
+
+      // Log app errors to GA4 (skip third-party)
+      try {
+        if (typeof gtag === 'function') {
+          var desc = String(message || 'unknown').substring(0, 150);
+          gtag('event', 'exception', {
+            description: desc,
+            fatal: true,
+            error_context: 'window.onerror',
+            source: source ? source.substring(0, 100) : 'unknown',
+            line: lineno || 0,
+          });
+        }
+      } catch(_) {}
+
+      return false; // Let other errors propagate normally
+    };
+
+    // Catch unhandled Promise rejections
+    window.onunhandledrejection = function(event) {
+      try {
+        if (typeof gtag === 'function') {
+          var reason = event.reason ? String(event.reason).substring(0, 150) : 'unknown';
+          gtag('event', 'exception', {
+            description: reason,
+            fatal: false,
+            error_context: 'unhandled_rejection',
+          });
+        }
+      } catch(_) {}
+    };
+
+    // Memory monitoring (Chrome/Edge only — covers ~70% of users)
+    // Expose for Dart JS interop
+    window.getMemoryInfo = function() {
+      if (performance && performance.memory) {
+        return Math.round(performance.memory.usedJSHeapSize / 1048576 * 10) / 10;
+      }
+      return null;
+    };
+
+    // Periodic memory check — log to GA4 if approaching limits
+    (function() {
+      var _memThresholdsFired = {};
+      setInterval(function() {
+        var mb = window.getMemoryInfo();
+        if (mb === null) return;
+        var thresholds = [100, 150, 200];
+        for (var i = 0; i < thresholds.length; i++) {
+          var t = thresholds[i];
+          if (mb >= t && !_memThresholdsFired[t]) {
+            _memThresholdsFired[t] = true;
+            try {
+              if (typeof gtag === 'function') {
+                gtag('event', 'memory_warning', {
+                  threshold_mb: t,
+                  actual_mb: mb,
+                  context: 'periodic_check',
+                  route: location.pathname || 'unknown',
+                });
+              }
+            } catch(_) {}
+          }
+        }
+      }, 30000); // Check every 30 seconds
+    })();
+  </script>
+
+  <!-- Raptive Ad Network (production only, free tier only) -->
+  <script data-no-optimize="1" data-cfasync="false">
+  (function(w, d) {
+      var isProduction = w.location.hostname === 'sticktothemodel.com' ||
+                         w.location.hostname === 'www.sticktothemodel.com';
+      if (!isProduction) return;
+
+      // Callable function to inject Raptive ads (used by Flutter on auth changes)
+      w.__loadRaptiveAds = function() {
+          if (w.__raptiveLoaded) return; // Only load once
+          w.__raptiveLoaded = true;
+          w.adthrive = w.adthrive || {};
+          w.adthrive.cmd = w.adthrive.cmd || [];
+          w.adthrive.plugin = 'adthrive-ads-manual';
+          w.adthrive.host = 'ads.adthrive.com';
+          var s = d.createElement('script');
+          s.async = true;
+          s.referrerpolicy='no-referrer-when-downgrade';
+          s.src = 'https://' + w.adthrive.host + '/sites/69728cad6ac6c15b059c0b7d/ads.min.js?referrer=' + w.encodeURIComponent(w.location.href) + '&cb=' + (Math.floor(Math.random() * 100) + 1);
+          var n = d.getElementsByTagName('script')[0];
+          n.parentNode.insertBefore(s, n);
+      };
+
+      // Check localStorage for paid tier (set by Flutter app on login)
+      var tier = null;
+      try { tier = w.localStorage.getItem('sttm_tier'); } catch(e) {}
+      if (tier === 'pro' || tier === 'elite') return; // No ads for paid users
+
+      // Free/anonymous users: load ads immediately
+      w.__loadRaptiveAds();
+  })(window, document);
+  </script>
+  <!-- End of Raptive Head Tag -->
+
+  <!--
+    If you are serving your web app in a path other than the root, change the
+    href value below to reflect the base path you are serving from.
+
+    The path provided below has to start and end with a slash "/" in order for
+    it to work correctly.
+
+    For more details:
+    * https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base
+
+    This is a placeholder for base href that will be replaced by the value of
+    the `--base-href` argument provided to `flutter build`.
+  -->
+  <base href="/">
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+  
+  <!-- Primary Meta Tags -->
+  <title id="page-title">StickToTheModel | Free NFL Analytics Platform - GM Mode, Draft, Rankings & Betting</title>
+  <meta name="title" content="StickToTheModel | Free NFL Analytics Platform - GM Mode, Draft, Rankings & Betting">
+  <meta id="page-description" name="description" content="All-in-one NFL analytics platform. Be A GM with real cap data, run mock drafts, explore player rankings by position, track betting angles, and analyze NFL stats. Professional tools, always free.">
+  <meta name="keywords" content="NFL analytics platform, be a gm nfl, NFL GM simulator, NFL mock draft, player rankings, NFL tools, NFL betting analytics, NFL data, fantasy football, NFL cap space, free agency tracker">
+  <meta name="author" content="StickToTheModel">
+  
+  <!-- Canonical URL -->
+  <link id="canonical-url" rel="canonical" href="https://sticktothemodel.com">
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta id="og-url" property="og:url" content="https://sticktothemodel.com">
+  <meta id="og-title" property="og:title" content="StickToTheModel | Free NFL Analytics Platform - GM Mode, Draft, Rankings & Betting">
+  <meta id="og-description" property="og:description" content="All-in-one NFL analytics platform. Be A GM with real cap data, run mock drafts, explore player rankings by position, track betting angles, and analyze NFL stats. Professional tools, always free.">
+  <meta property="og:image" content="https://sticktothemodel.com/og-image.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="StickToTheModel - NFL Analytics Platform">
+  <meta property="og:site_name" content="StickToTheModel">
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta id="twitter-url" property="twitter:url" content="https://sticktothemodel.com">
+  <meta id="twitter-title" property="twitter:title" content="StickToTheModel | Free NFL Analytics Platform - GM Mode, Draft, Rankings & Betting">
+  <meta id="twitter-description" property="twitter:description" content="All-in-one NFL analytics platform. Be A GM with real cap data, run mock drafts, explore player rankings by position, track betting angles, and analyze NFL stats. Professional tools, always free.">
+  <meta property="twitter:image" content="https://sticktothemodel.com/og-image.jpg">
+  <meta property="twitter:image:alt" content="StickToTheModel - NFL Analytics Platform">
+
+  <!-- Rewardful Affiliate Tracking -->
+  <script>(function(w,r){w._rwq=r;w[r]=w[r]||function(){(w[r].q=w[r].q||[]).push(arguments)}})(window,'rewardful');</script>
+  <script async src='https://r.wdfl.co/rw.js' data-rewardful='d6ae79'></script>
+
+  <!-- Apple Touch Icon -->
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+
+  <!-- Structured Data - Organization -->
+  <script type="application/ld+json" id="organization-schema">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "StickToTheModel",
+      "url": "https://sticktothemodel.com",
+      "logo": "https://sticktothemodel.com/icons/Icon-512.png",
+      "description": "NFL analytics platform with draft tools, fantasy football rankings, player statistics, and betting insights",
+      "sameAs": [
+        "https://twitter.com/sticktothemodel"
+      ],
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "contactType": "customer service",
+        "url": "https://sticktothemodel.com/contact"
+      }
+    }
+  </script>
+
+  <!-- Structured Data - WebSite -->
+  <script type="application/ld+json" id="website-schema">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "StickToTheModel",
+      "url": "https://sticktothemodel.com",
+      "description": "NFL analytics platform with draft tools, fantasy rankings, and betting insights",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://sticktothemodel.com/search?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    }
+  </script>
+
+  <!-- Structured Data - SoftwareApplication (for /draft page rich snippets) -->
+  <script type="application/ld+json" id="software-app-schema">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "NFL Mock Draft Simulator",
+      "applicationCategory": "SportsApplication",
+      "operatingSystem": "Web Browser",
+      "url": "https://sticktothemodel.com/draft",
+      "description": "Free NFL mock draft simulator with 7 rounds, realistic AI opponents, pick trading, and instant draft grades. No signup required.",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.8",
+        "ratingCount": "2847",
+        "bestRating": "5",
+        "worstRating": "1"
+      },
+      "featureList": [
+        "Full 7-round NFL Draft simulation",
+        "All 32 NFL teams playable",
+        "Realistic pick trading with AI evaluation",
+        "Instant draft grading and analysis",
+        "AI trained on 300,000+ real draft picks",
+        "No account or signup required"
+      ],
+      "screenshot": "https://sticktothemodel.com/og-image.jpg",
+      "author": {
+        "@type": "Organization",
+        "name": "StickToTheModel"
+      }
+    }
+  </script>
+
+  <!-- Additional SEO Meta Tags -->
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+  <meta name="googlebot" content="index, follow, max-image-preview:large">
+  <!-- Google Search Console - Verified via Google Analytics (G-8QGNSTTZGH) -->
+  <!-- No separate verification tag needed -->
+  <meta name="theme-color" content="#1976d2">
+
+  <!-- Mobile SEO -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="format-detection" content="telephone=no">
+
+  <!-- Language & Geo targeting -->
+  <meta name="language" content="English">
+  <meta name="geo.region" content="US">
+  <meta name="geo.placename" content="United States">
+
+  <!-- Dublin Core metadata -->
+  <meta name="DC.title" content="StickToTheModel - NFL Analytics Platform">
+  <meta name="DC.creator" content="StickToTheModel">
+  <meta name="DC.subject" content="NFL, Draft Analysis, Fantasy Football, Betting, Analytics">
+  <meta name="DC.description" content="NFL analytics platform with draft tools, fantasy rankings, player stats, and betting insights">
+
+  <!-- Performance Hints -->
+  <link rel="dns-prefetch" href="https://ads.adthrive.com">
+  <link rel="preconnect" href="https://ads.adthrive.com">
+  <link rel="preconnect" href="https://www.google-analytics.com">
+  
+  <!-- Enhanced Google Analytics 4 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-8QGNSTTZGH"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    
+    // Enhanced configuration for deeper insights
+    gtag('config', 'G-8QGNSTTZGH', {
+      page_title: document.title,
+      page_location: window.location.href,
+      send_page_view: true,
+      // Enhanced measurements
+      enhanced_measurements: true,
+      // Custom dimensions for tracking
+      custom_map: {
+        'custom_parameter_1': 'tool_type',
+        'custom_parameter_2': 'user_action',
+        'custom_parameter_3': 'engagement_level'
+      },
+      // Engagement tracking
+      engagement_time_msec: 100,
+      // Session tracking
+      session_duration: true,
+      // Scroll tracking
+      scroll_depth_threshold: 90
+    });
+    
+    // Track enhanced ecommerce for premium features
+    gtag('config', 'G-8QGNSTTZGH', {
+      currency: 'USD',
+      allow_enhanced_conversions: true
+    });
+  </script>
+
+  <!-- iOS meta tags & icons -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="StickToTheModel">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="favicon.png?v=2"/>
+
+  <!-- Preconnect to external domains for performance -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://accounts.google.com">
+
+  <!-- Preload Inter font for faster rendering (matches GoogleFonts.inter() in Flutter) -->
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"></noscript>
+
+  <!-- Google Sign-In meta tag - Required for web authentication -->
+  <meta name="google-signin-client_id" content="900728713837-u2mais5ttf8rvqnsv96jsjk029oa2rc3.apps.googleusercontent.com">
+
+  <link rel="manifest" href="manifest.json">
+
+  <!-- Scroll handling for horizontal tables -->
+  <style>
+    /* Allow horizontal scrolling while preventing browser navigation gestures */
+    body {
+      overscroll-behavior-x: contain;
+    }
+
+    /* For horizontally scrollable elements, only allow horizontal pan */
+    flt-glass-pane {
+      touch-action: pan-y pinch-zoom;
+    }
+  </style>
+
+  <!-- Handle legacy ?/ URLs and SPA routing -->
+  <script>
+    (function() {
+      var search = window.location.search;
+
+      // Handle legacy GitHub Pages redirect URLs (with ?/ prefix)
+      if (search.indexOf('?/') === 0) {
+        // Remove the ?/ and redirect to clean URL
+        var newPath = search.slice(2) + window.location.hash;
+        window.history.replaceState(null, null, '/' + newPath);
+        return;
+      }
+
+      // Handle SPA routing from 404 page
+      var urlParams = new URLSearchParams(search);
+      var pathParam = urlParams.get('path');
+      if (pathParam) {
+        // Restore the original path that was preserved by 404.html
+        window.history.replaceState(null, null, decodeURIComponent(pathParam));
+      }
+    })();
+  </script>
+
+  <!-- JavaScript Functions for Dynamic SEO -->
+  <script>
+    // Function to update meta tags dynamically (for Flutter SPA)
+    function updateMetaTags(title, description, url) {
+      try {
+        // Update title
+        document.getElementById('page-title').textContent = title;
+        document.title = title;
+        
+        // Update meta description
+        const descriptionMeta = document.getElementById('page-description');
+        if (descriptionMeta) {
+          descriptionMeta.setAttribute('content', description);
+        }
+        
+        // Update canonical URL
+        const canonicalLink = document.getElementById('canonical-url');
+        if (canonicalLink) {
+          canonicalLink.setAttribute('href', url);
+        }
+        
+        // Update Open Graph tags
+        const ogTitle = document.getElementById('og-title');
+        const ogDescription = document.getElementById('og-description');
+        const ogUrl = document.getElementById('og-url');
+        
+        if (ogTitle) ogTitle.setAttribute('content', title);
+        if (ogDescription) ogDescription.setAttribute('content', description);
+        if (ogUrl) ogUrl.setAttribute('content', url);
+        
+        // Update Twitter tags
+        const twitterTitle = document.getElementById('twitter-title');
+        const twitterDescription = document.getElementById('twitter-description');
+        const twitterUrl = document.getElementById('twitter-url');
+        
+        if (twitterTitle) twitterTitle.setAttribute('content', title);
+        if (twitterDescription) twitterDescription.setAttribute('content', description);
+        if (twitterUrl) twitterUrl.setAttribute('content', url);
+        
+        // Track the page view with enhanced data
+        if (typeof gtag !== 'undefined') {
+          gtag('event', 'page_view', {
+            page_title: title,
+            page_location: url,
+            engagement_time_msec: 100
+          });
+        }
+        
+      } catch (error) {
+        console.error('Error updating meta tags:', error);
+      }
+    }
+
+    // Function to update structured data
+    function updateStructuredData(data) {
+      try {
+        const script = document.createElement('script');
+        script.type = 'application/ld+json';
+        script.textContent = JSON.stringify(data);
+        document.head.appendChild(script);
+      } catch (error) {
+        console.error('Error updating structured data:', error);
+      }
+    }
+
+    // Function specifically for NFL Draft pages
+    function updateDraftPageSEO(year, team, description) {
+      try {
+        let title, metaDescription, url;
+        
+        if (year && team && team !== 'All Teams') {
+          title = `${team} ${year} NFL Draft Picks - Complete Results & Analysis | StickToTheModel`;
+          metaDescription = `Complete ${team} draft history for ${year} including all rounds, picks, players, positions, and schools. Export data and analyze draft performance.`;
+          url = `https://sticktothemodel.com/draft/history?year=${year}&team=${encodeURIComponent(team)}`;
+        } else if (year) {
+          title = `${year} NFL Draft History - All Teams Results & Analysis | StickToTheModel`;
+          metaDescription = `Complete ${year} NFL draft results for all teams with detailed player information, statistics, and analysis. Search by team, position, or player.`;
+          url = `https://sticktothemodel.com/draft/history?year=${year}`;
+        } else {
+          title = `NFL Draft History Database - Complete Results by Team & Year | StickToTheModel`;
+          metaDescription = `Search and analyze complete NFL draft history database with filtering, statistics, and export capabilities. Historical draft picks from all teams and years.`;
+          url = `https://sticktothemodel.com/draft/history`;
+        }
+        
+        updateMetaTags(title, metaDescription, url);
+        
+        // Add structured data for draft content
+        const draftSchema = {
+          "@context": "https://schema.org",
+          "@type": "Dataset",
+          "name": title,
+          "description": metaDescription,
+          "url": url,
+          "creator": {
+            "@type": "Organization",
+            "name": "StickToTheModel"
+          },
+          "keywords": ["NFL Draft", "Draft History", "NFL Teams", "Draft Picks", "Football Analytics"],
+          "license": "https://creativecommons.org/licenses/by/4.0/",
+          "isAccessibleForFree": true
+        };
+        
+        updateStructuredData(draftSchema);
+        
+      } catch (error) {
+        console.error('Error updating draft page SEO:', error);
+      }
+    }
+
+    // Function to generate BreadcrumbList schema
+    function updateBreadcrumbs(breadcrumbs) {
+      try {
+        // Remove any existing breadcrumb schema
+        const existing = document.querySelector('script[data-breadcrumb]');
+        if (existing) existing.remove();
+
+        const breadcrumbSchema = {
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          "itemListElement": breadcrumbs.map((crumb, index) => ({
+            "@type": "ListItem",
+            "position": index + 1,
+            "name": crumb.name,
+            "item": crumb.url
+          }))
+        };
+
+        const script = document.createElement('script');
+        script.type = 'application/ld+json';
+        script.setAttribute('data-breadcrumb', 'true');
+        script.textContent = JSON.stringify(breadcrumbSchema);
+        document.head.appendChild(script);
+      } catch (error) {
+        console.error('Error updating breadcrumbs:', error);
+      }
+    }
+
+    // Auto-generate breadcrumbs based on current path
+    function generateBreadcrumbsFromPath() {
+      const path = window.location.pathname;
+      const breadcrumbs = [{ name: 'Home', url: 'https://sticktothemodel.com' }];
+
+      // Define breadcrumb mappings for major sections
+      const sectionNames = {
+        'draft': 'NFL Draft',
+        'fantasy': 'Fantasy Football',
+        'betting': 'Betting',
+        'blog': 'Blog',
+        'data': 'Statistics',
+        'player': 'Players',
+        'draft-big-board': 'Prospect Rankings',
+        'gm-hub': 'GM Hub',
+        'trade-analyzer': 'Trade Analyzer'
+      };
+
+      const positionNames = {
+        'qb': 'Quarterbacks',
+        'wr': 'Wide Receivers',
+        'rb': 'Running Backs',
+        'te': 'Tight Ends',
+        'edge': 'Edge Rushers',
+        'cb': 'Cornerbacks',
+        'dl': 'Defensive Line',
+        'lb': 'Linebackers',
+        's': 'Safeties',
+        'ot': 'Offensive Tackles',
+        'ioz': 'Interior O-Line'
+      };
+
+      if (path === '/' || path === '') {
+        return; // No breadcrumbs needed for homepage
+      }
+
+      const segments = path.split('/').filter(s => s);
+      let currentPath = '';
+
+      segments.forEach((segment, index) => {
+        currentPath += '/' + segment;
+        let name = sectionNames[segment] || positionNames[segment] ||
+                   segment.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
+
+        breadcrumbs.push({
+          name: name,
+          url: 'https://sticktothemodel.com' + currentPath
+        });
+      });
+
+      if (breadcrumbs.length > 1) {
+        updateBreadcrumbs(breadcrumbs);
+      }
+    }
+
+    // Generate breadcrumbs on page load
+    document.addEventListener('DOMContentLoaded', generateBreadcrumbsFromPath);
+  </script>
+</head>
+<body>
+  <!-- Vercel deployment -->
+  
+
+  <!-- Clean, professional loading screen (what users actually see) -->
+  <div id="app-loading" style="
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #1976d2 0%, #1565c0 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+  ">
+    <div style="text-align: center; color: white;">
+      <!-- Logo or Brand -->
+      <div style="
+        font-size: 48px;
+        font-weight: 700;
+        margin-bottom: 20px;
+        font-family: system-ui, -apple-system, sans-serif;
+        letter-spacing: -1px;
+      ">
+        StickToTheModel
+      </div>
+
+      <!-- Animated Loading Bar -->
+      <div style="
+        width: 200px;
+        height: 4px;
+        background: rgba(255,255,255,0.3);
+        border-radius: 2px;
+        overflow: hidden;
+        margin: 0 auto;
+      ">
+        <div style="
+          width: 100%;
+          height: 100%;
+          background: white;
+          animation: loading 1.2s ease-in-out infinite;
+          transform-origin: left;
+        "></div>
+      </div>
+
+      <style>
+        @keyframes loading {
+          0% { transform: translateX(-100%); }
+          100% { transform: translateX(100%); }
+        }
+      </style>
+    </div>
+  </div>
+
+  <!-- Prerender for SEO (fallback for no-JS) -->
+  <noscript>
+    <div style="padding: 40px; max-width: 1200px; margin: 0 auto; font-family: system-ui, -apple-system, sans-serif; background: #fff3cd; border: 2px solid #ffc107; border-radius: 8px;">
+      <p style="font-size: 24px; font-weight: bold; color: #856404;">StickToTheModel - NFL Analytics Platform</p>
+      <p style="font-size: 18px; color: #856404; margin: 20px 0;">JavaScript is required to use the StickToTheModel interactive tools and features.</p>
+      <p style="font-size: 16px; color: #856404;">Please enable JavaScript in your browser settings to access:</p>
+      <ul style="color: #856404;">
+        <li>Draft Simulator with 7-round drafts and trade functionality</li>
+        <li>Fantasy Football Big Board with VORP-based rankings</li>
+        <li>Player Comparison Tool for head-to-head statistical analysis</li>
+        <li>Interactive Player Statistics Database with advanced metrics</li>
+        <li>Custom Rankings Builder for personalized fantasy football rankings</li>
+      </ul>
+    </div>
+  </noscript>
+
+  <!-- Hidden SEO Content for AI Crawlers and Search Engines -->
+  <!-- IMPORTANT: Homepage targets "NFL analytics platform" - NOT "simulator" keywords -->
+  <div id="seo-content" style="position: absolute; left: -10000px; top: auto; width: 1px; height: 1px; overflow: hidden;">
+    <h2>Free NFL Analytics Platform</h2>
+
+    <p>StickToTheModel offers free NFL analytics tools including fantasy football rankings, player statistics, prospect analysis, and betting insights. No signup required.</p>
+
+    <h2>Main Tools and Features</h2>
+
+    <ul>
+      <li><a href="/draft">NFL Draft Hub</a> - Complete draft preparation and analysis</li>
+      <li><a href="/draft/simulator">NFL Mock Draft Simulator</a> - 7-round draft with trades and AI</li>
+      <li><a href="/fantasy">Fantasy Football Tools</a> - Rankings, big board, and projections</li>
+      <li><a href="/fantasy-draft">Fantasy Mock Draft Simulator</a> - Practice drafts with AI opponents</li>
+      <li><a href="/draft-big-board">2026 Prospect Rankings</a> - Position-specific rankings updated weekly</li>
+      <li><a href="/data">NFL Statistics Database</a> - Player stats and advanced metrics</li>
+      <li><a href="/betting">Betting Insights</a> - Data-driven betting analysis</li>
+      <li><a href="/betting/angles">NFL Betting Angles</a> - Historical trends and patterns</li>
+      <li><a href="/trade-analyzer">Trade Analyzer</a> - Fantasy and NFL draft trade evaluation</li>
+      <li><a href="/playoff-machine">NFL Playoff Machine</a> - Playoff scenario calculator</li>
+      <li><a href="/blog">NFL Analysis Blog</a> - Draft and fantasy insights</li>
+    </ul>
+
+    <h2>NFL Draft Tools</h2>
+    <ul>
+      <li><a href="/draft">2026 NFL Draft Hub</a></li>
+      <li><a href="/draft/simulator">Mock Draft Simulator</a></li>
+      <li><a href="/draft-big-board">Draft Big Board</a></li>
+      <li><a href="/draft/history">Draft History Database</a></li>
+      <li><a href="/draft-big-board/qb">QB Prospect Rankings</a></li>
+      <li><a href="/draft-big-board/wr">WR Prospect Rankings</a></li>
+      <li><a href="/draft-big-board/rb">RB Prospect Rankings</a></li>
+      <li><a href="/draft-big-board/edge">EDGE Prospect Rankings</a></li>
+      <li><a href="/draft-big-board/cb">CB Prospect Rankings</a></li>
+      <li><a href="/draft-big-board/ot">OT Prospect Rankings</a></li>
+    </ul>
+
+    <h2>Fantasy Football Tools</h2>
+    <ul>
+      <li><a href="/fantasy">Fantasy Hub</a></li>
+      <li><a href="/fantasy-draft">Fantasy Mock Draft</a></li>
+      <li><a href="/fantasy/player-comparison">Player Comparison</a></li>
+      <li><a href="/fantasy/player-projections">Player Projections</a></li>
+      <li><a href="/player-comparison">NFL Player Comparison Tool</a></li>
+      <li><a href="/rankings/qb">QB Rankings</a></li>
+      <li><a href="/rankings/rb">RB Rankings</a></li>
+      <li><a href="/rankings/wr">WR Rankings</a></li>
+      <li><a href="/rankings/te">TE Rankings</a></li>
+    </ul>
+
+    <h2>NFL Team Tools</h2>
+    <ul>
+      <li><a href="/teams">All Teams</a></li>
+      <li><a href="/depth-charts">NFL Depth Charts</a></li>
+      <li><a href="/nfl-rosters">NFL Rosters</a></li>
+      <li><a href="/free-agents">2026 Free Agents</a></li>
+      <li><a href="/gm-hub">GM Hub</a></li>
+      <li><a href="/trade-analyzer">Trade Analyzer</a></li>
+    </ul>
+
+    <h2>NFL Betting Tools</h2>
+    <ul>
+      <li><a href="/betting">Betting Hub</a></li>
+      <li><a href="/betting/angles">Betting Angles</a></li>
+      <li><a href="/betting/lines">Weekly Lines</a></li>
+      <li><a href="/betting/trend-detector">Trend Detector</a></li>
+      <li><a href="/betting/line-tracker">Line Movement Tracker</a></li>
+    </ul>
+
+    <h2>Top 2026 Draft Prospects</h2>
+    <ul>
+      <li><a href="/draft/prospect/arvell-reese">Arvell Reese - EDGE, Ohio State</a></li>
+      <li><a href="/draft/prospect/rueben-bain-jr">Rueben Bain Jr - DL, Miami</a></li>
+      <li><a href="/draft/prospect/caleb-downs">Caleb Downs - S, Ohio State</a></li>
+      <li><a href="/draft/prospect/fernando-mendoza">Fernando Mendoza - QB, Indiana</a></li>
+      <li><a href="/draft/prospect/jordyn-tyson">Jordyn Tyson - WR, Arizona State</a></li>
+      <li><a href="/draft/prospect/carnell-tate">Carnell Tate - WR, Ohio State</a></li>
+      <li><a href="/draft/prospect/spencer-fano">Spencer Fano - OT, Utah</a></li>
+      <li><a href="/draft/prospect/jeremiyah-love">Jeremiyah Love - RB, Notre Dame</a></li>
+    </ul>
+
+    <h2>Platform Features</h2>
+
+    <p>Our platform offers data-driven NFL analysis with tools for draft preparation, fantasy football, and player research. All core features are free with daily updates during the NFL season.</p>
+
+    <p>Popular tools include the <a href="/draft">draft preparation hub</a>, <a href="/fantasy/big-board">VORP-based fantasy rankings</a>, and comprehensive <a href="/data">player statistics</a> with advanced metrics. Access <a href="/draft-big-board">position-specific rankings</a> for all positions.</p>
+
+    <p>The platform serves fantasy football players, NFL Draft enthusiasts, dynasty league managers, sports bettors, content creators, and casual fans exploring NFL statistics.</p>
+
+    <nav>
+      <a href="/draft">Draft</a> |
+      <a href="/fantasy">Fantasy Tools</a> |
+      <a href="/draft-big-board">Rankings</a> |
+      <a href="/data">Stats</a> |
+      <a href="/betting">Betting</a> |
+      <a href="/blog">Blog</a>
+    </nav>
+  </div>
+
+  <script>
+    // FLUTTER BOOTSTRAP LOADER
+    (function() {
+      var script = document.createElement('script');
+      script.src = 'flutter_bootstrap.js';
+      script.async = true;
+      document.head.appendChild(script);
+    })();
+  </script>
+
+  <!-- SEO: Bot-only content for page identification (zero UI impact) -->
+  <script>
+    (function() {
+      // Detect search engine bots
+      var isBot = /bot|crawler|spider|crawling|googlebot|bingbot|slurp|duckduckbot|baiduspider|yandexbot|facebookexternalhit|twitterbot|rogerbot|linkedinbot|embedly|quora link preview|showyoubot|outbrain|pinterest\/|slackbot|vkShare|W3C_Validator|whatsapp|lighthouse/i.test(navigator.userAgent);
+
+      if (isBot) {
+        var path = window.location.pathname;
+
+        // SEO content map for each major page
+        var seoMap = {
+          '/draft': {
+            title: 'NFL Mock Draft Simulator 2026 - Free 7-Round Draft with Trades | StickToTheModel',
+            description: 'Think you can draft better than NFL GMs? Prove it. Free 7-round mock draft with realistic trades, AI opponents, and instant grades. No signup required.',
+            features: [
+              'Full 7-round NFL Draft simulation with all 32 teams',
+              'Trade calculator using Jimmy Johnson and Rich Hill charts',
+              'Realistic AI opponents that draft based on team needs',
+              'Real-time draft grading and pick analysis',
+              'Team needs analysis for every NFL franchise',
+              'Draft from any team perspective',
+              'Completely free, no signup or account required'
+            ],
+            faqs: [
+              {
+                question: 'Is the NFL mock draft simulator free?',
+                answer: 'Yes, completely free with no signup required. All 7 rounds, trades, AI opponents, and instant grading are included at no cost.'
+              },
+              {
+                question: 'How many rounds can I simulate?',
+                answer: 'All 7 rounds of the NFL Draft with 256+ total picks. Each round includes compensatory picks and any traded selections.'
+              },
+              {
+                question: 'Can I trade picks in the mock draft?',
+                answer: 'Yes, you can propose trades at any point. The AI evaluates trades using the Jimmy Johnson and Rich Hill value charts, accepting or rejecting based on fairness.'
+              },
+              {
+                question: 'How realistic are the AI draft picks?',
+                answer: 'Our AI is trained on 300,000+ real draft picks and uses current rankings, team needs, and historical patterns to make realistic selections matching actual team tendencies.'
+              }
+            ]
+          },
+          '/fantasy-draft': {
+            title: 'Fantasy Football Mock Draft Simulator',
+            description: 'Practice fantasy football drafts with AI opponents. Support for ESPN, Yahoo, Sleeper scoring formats. PPR, Standard, and Half-PPR leagues. 100% free, no account needed.',
+            features: [
+              'Fantasy football mock draft practice tool',
+              'AI opponents with realistic draft strategies',
+              'Support for ESPN, Yahoo, Sleeper scoring systems',
+              'PPR, Standard, and Half-PPR scoring formats',
+              'Customizable league sizes (8-20 teams)',
+              'Real-time pick analysis and recommendations',
+              'Export draft results and rankings',
+              'Completely free with no account required'
+            ]
+          },
+          '/fantasy-draft/setup': {
+            title: 'Fantasy Football Mock Draft Setup',
+            description: 'Configure your fantasy football mock draft settings. Choose league size, scoring format, draft position, and more.'
+          },
+          '/big-board': {
+            title: 'Fantasy Football Big Board - VORP Rankings',
+            description: 'VORP-based fantasy football rankings with custom tiers. Adjust weights for your league scoring (PPR/Standard). Export cheat sheets. Updated daily.',
+            features: [
+              'VORP (Value Over Replacement Player) calculations',
+              'Customizable stat weights for your league',
+              'Tier-based player rankings',
+              'PPR, Standard, and Half-PPR formats',
+              'Export rankings as cheat sheets',
+              'Updated daily with latest stats and news'
+            ]
+          },
+          '/player-comparison': {
+            title: 'Fantasy Football Player Comparison Tool',
+            description: 'Compare fantasy football players head-to-head. See EPA, target share, snap counts, and advanced metrics side-by-side. Perfect for draft decisions and trade analysis.'
+          },
+          '/rankings': {
+            title: 'NFL Fantasy Football Rankings by Position',
+            description: 'NFL Fantasy Rankings by Position - QB, RB, WR, TE. Tier-based rankings with custom stat weights. PPR and Standard formats. Updated daily with injury news.',
+            features: [
+              'Position-specific rankings (QB, RB, WR, TE)',
+              'Tier-based analysis',
+              'Custom statistical weighting',
+              'PPR and Standard scoring formats',
+              'Updated daily with injury reports',
+              'Advanced metrics and projections'
+            ]
+          },
+          '/gm-hub': {
+            title: 'NFL GM Simulator - Build Your Team',
+            description: 'NFL GM Simulator - Build Your Team Like a Real GM. Run mock drafts, evaluate bust risk, analyze team needs. Used by 10,000+ draft enthusiasts monthly.'
+          },
+          '/data': {
+            title: 'NFL Player Stats Database',
+            description: 'NFL Player Stats Database - 435,000+ Plays Analyzed. Search any player\'s stats, EPA, success rate. Export to CSV. Perfect for fantasy research and betting analysis.'
+          },
+          '/fantasy': {
+            title: 'Free Fantasy Football Tools | VORP Rankings & Mock Drafts',
+            description: 'Free fantasy football toolkit: VORP big board, custom rankings, player comparisons, mock drafts. PPR, Standard, Half-PPR. No signup required.'
+          },
+          '/draft-big-board': {
+            title: '2026 NFL Draft Big Board | Top 300 Prospect Rankings',
+            description: 'Complete 2026 NFL draft big board with 300+ prospects ranked. Filter by position, see grades, measurements, and scouting reports. Updated weekly.',
+            features: [
+              '300+ prospects ranked and graded',
+              'Filter by position (QB, WR, RB, etc.)',
+              'Combine measurements and college stats',
+              'Weekly ranking updates',
+              'Scouting report summaries',
+              'Sortable by grade, position, school'
+            ]
+          },
+          '/fantasy-draft': {
+            title: 'Fantasy Football Mock Draft Simulator | Free Practice Tool',
+            description: 'Free fantasy football mock draft simulator with AI opponents. Practice for ESPN, Yahoo, Sleeper leagues. PPR, Standard, Half-PPR scoring. No signup required.',
+            features: [
+              'AI opponents with realistic draft strategies',
+              'ESPN, Yahoo, Sleeper scoring formats',
+              'PPR, Standard, and Half-PPR support',
+              'Customizable league sizes (8-20 teams)',
+              'Real-time pick recommendations',
+              'Export draft results',
+              'Completely free - no account needed'
+            ],
+            faqs: [
+              {
+                question: 'Is the fantasy mock draft simulator free?',
+                answer: 'Yes, completely free with no signup required. Practice unlimited drafts with AI opponents.'
+              },
+              {
+                question: 'What scoring formats are supported?',
+                answer: 'PPR, Standard, and Half-PPR scoring. Compatible with ESPN, Yahoo, and Sleeper league settings.'
+              }
+            ]
+          },
+          '/playoff-machine': {
+            title: 'NFL Playoff Machine 2025 | Playoff Scenario Calculator',
+            description: 'NFL playoff machine and scenario calculator. Simulate game outcomes and see playoff implications. Track wild card standings and clinching scenarios.',
+            features: [
+              'Simulate remaining NFL games',
+              'Track playoff clinching scenarios',
+              'Wild card standings calculator',
+              'Division standings tracker',
+              'Real-time updates during season'
+            ]
+          },
+          '/betting': {
+            title: 'NFL Betting Analytics | Lines, Angles & Trends',
+            description: 'Free NFL betting analytics with historical angles, line movement tracking, and trend detection. Data-driven betting insights updated daily.',
+            features: [
+              'NFL betting angles with historical data',
+              'Line movement tracking',
+              'Trend detection algorithms',
+              'Weekly betting lines analysis',
+              'Performance tracking tools'
+            ]
+          },
+          '/betting/angles': {
+            title: 'NFL Betting Angles | Historical Trends & Patterns',
+            description: 'Discover profitable NFL betting angles backed by historical data. Find edges in spreads, totals, and props with our angle finder tool.'
+          },
+          '/player-comparison': {
+            title: 'NFL Player Comparison Tool | Head-to-Head Stats',
+            description: 'Compare NFL players head-to-head with advanced stats. See EPA, target share, snap counts, and fantasy points side-by-side.'
+          },
+          '/trade-analyzer': {
+            title: 'NFL Trade Analyzer | Draft Pick Value Calculator',
+            description: 'Analyze NFL trades with our draft pick value calculator. Uses Jimmy Johnson and Rich Hill value charts to evaluate trade fairness.'
+          },
+          '/free-agents': {
+            title: '2026 NFL Free Agents | Top Players by Position',
+            description: 'Complete 2026 NFL free agent tracker. Browse top free agents by position, contract status, and projected market value.'
+          },
+          '/depth-charts': {
+            title: 'NFL Depth Charts 2025 | All 32 Teams',
+            description: 'Current NFL depth charts for all 32 teams. Updated weekly with injuries, roster moves, and projected starters.'
+          },
+          '/rankings/qb': {
+            title: 'NFL QB Rankings 2025 | Quarterback Tiers & Stats',
+            description: 'NFL quarterback rankings with tier analysis. EPA, completion percentage, and advanced passing metrics for all starting QBs.'
+          },
+          '/rankings/wr': {
+            title: 'NFL WR Rankings 2025 | Wide Receiver Tiers',
+            description: 'NFL wide receiver rankings with target share, yards per route run, and fantasy football projections.'
+          },
+          '/rankings/rb': {
+            title: 'NFL RB Rankings 2025 | Running Back Tiers',
+            description: 'NFL running back rankings with rushing efficiency, receiving usage, and workload analysis.'
+          }
+        };
+
+        var seo = seoMap[path];
+        if (seo) {
+          var featuresHTML = '';
+          if (seo.features && seo.features.length > 0) {
+            featuresHTML = '<ul>' + seo.features.map(function(f) {
+              return '<li>' + f + '</li>';
+            }).join('') + '</ul>';
+          }
+
+          // Build FAQ HTML content (hidden but crawlable)
+          var faqHTML = '';
+          if (seo.faqs && seo.faqs.length > 0) {
+            faqHTML = '<section><h3>Frequently Asked Questions</h3>';
+            seo.faqs.forEach(function(faq) {
+              faqHTML += '<div><h4>' + faq.question + '</h4><p>' + faq.answer + '</p></div>';
+            });
+            faqHTML += '</section>';
+
+            // Inject FAQ Schema (JSON-LD) - completely invisible
+            var faqSchema = {
+              "@context": "https://schema.org",
+              "@type": "FAQPage",
+              "mainEntity": seo.faqs.map(function(faq) {
+                return {
+                  "@type": "Question",
+                  "name": faq.question,
+                  "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": faq.answer
+                  }
+                };
+              })
+            };
+            var schemaScript = document.createElement('script');
+            schemaScript.type = 'application/ld+json';
+            schemaScript.textContent = JSON.stringify(faqSchema);
+            document.head.appendChild(schemaScript);
+          }
+
+          var seoHTML =
+            '<div style="position: absolute; left: -10000px; top: auto; width: 1px; height: 1px; overflow: hidden;" aria-hidden="true">' +
+              '<h2>' + seo.title + '</h2>' +
+              '<p>' + seo.description + '</p>' +
+              featuresHTML +
+              faqHTML +
+            '</div>';
+
+          document.body.insertAdjacentHTML('afterbegin', seoHTML);
+
+          console.log('SEO content injected for bots on: ' + path);
+        }
+      }
+    })();
+  </script>
+
+  <script>
+    (function() {
+      var flutterRendered = false;
+
+      function removeLoadingScreen() {
+        var loadingDiv = document.getElementById('app-loading');
+        if (loadingDiv) {
+          loadingDiv.style.transition = 'opacity 0.3s ease-out';
+          loadingDiv.style.opacity = '0';
+          setTimeout(function() { loadingDiv.remove(); }, 300);
+        }
+      }
+
+      // Remove the loading screen once Flutter app loads
+      window.addEventListener('flutter-first-frame', function() {
+        flutterRendered = true;
+        removeLoadingScreen();
+      });
+
+      // At 3s: check if Flutter painted via glass-pane (event may have been missed)
+      setTimeout(function() {
+        if (flutterRendered) return;
+        var glassPane = document.querySelector('flt-glass-pane');
+        if (glassPane) {
+          flutterRendered = true;
+          removeLoadingScreen();
+        }
+      }, 3000);
+
+      // At 8s: subtle reassurance — keep the loading bar, just add "Almost ready..."
+      setTimeout(function() {
+        if (flutterRendered) return;
+        var loadingDiv = document.getElementById('app-loading');
+        if (!loadingDiv) return;
+        // Add subtle text below the loading bar without replacing the whole screen
+        var hint = document.createElement('p');
+        hint.style.cssText = 'font-size: 14px; margin-top: 16px; font-family: system-ui, sans-serif; opacity: 0.7; color: white;';
+        hint.textContent = 'Almost ready...';
+        var inner = loadingDiv.querySelector('div');
+        if (inner) inner.appendChild(hint);
+      }, 8000);
+
+      // At 15s: genuine failure — show refresh button
+      setTimeout(function() {
+        if (flutterRendered) return;
+        var loadingDiv = document.getElementById('app-loading');
+        if (!loadingDiv) return;
+
+        loadingDiv.innerHTML = '<div style="text-align: center; color: white; padding: 20px;">' +
+          '<div style="font-size: 36px; font-weight: 700; margin-bottom: 20px; font-family: system-ui, -apple-system, sans-serif;">StickToTheModel</div>' +
+          '<p style="font-size: 16px; margin-bottom: 24px; font-family: system-ui, sans-serif; opacity: 0.9;">Having trouble loading. Try refreshing.</p>' +
+          '<button onclick="clearCachesAndReload()" style="' +
+            'background: white; color: #1565c0; border: none; padding: 12px 28px; ' +
+            'font-size: 16px; font-weight: 600; border-radius: 8px; cursor: pointer; ' +
+            'font-family: system-ui, sans-serif;">' +
+            'Refresh Page</button>' +
+          '</div>';
+      }, 15000);
+
+      // Last resort: if still nothing after 20s, force remove loading screen
+      setTimeout(function() {
+        if (flutterRendered) return;
+        removeLoadingScreen();
+      }, 20000);
+    })();
+
+    // Global function for the refresh button
+    function clearCachesAndReload() {
+      // Clear all caches
+      if ('caches' in window) {
+        caches.keys().then(function(names) {
+          return Promise.all(names.map(function(name) { return caches.delete(name); }));
+        }).then(function() {
+          window.location.reload(true);
+        });
+      } else {
+        window.location.reload(true);
+      }
+    }
+  </script>
+
+  <script>
+    // Smart horizontal scroll handling - prevent browser navigation only when actively scrolling
+    (function() {
+      let scrollableElement = null;
+      let startX = 0;
+      let startScrollLeft = 0;
+
+      document.addEventListener('pointerdown', function(e) {
+        // Find if we clicked on a horizontally scrollable element
+        let element = e.target;
+        while (element && element !== document.body) {
+          const hasHorizontalScroll = element.scrollWidth > element.clientWidth;
+          if (hasHorizontalScroll) {
+            startX = e.clientX;
+            startScrollLeft = element.scrollLeft;
+            scrollableElement = element;
+            break;
+          }
+          element = element.parentElement;
+        }
+      }, { passive: true });
+
+      document.addEventListener('pointermove', function(e) {
+        if (!scrollableElement) return;
+
+        const deltaX = e.clientX - startX;
+        const scrollLeft = scrollableElement.scrollLeft;
+        const maxScrollLeft = scrollableElement.scrollWidth - scrollableElement.clientWidth;
+
+        // Determine if we can scroll in the desired direction
+        const movingRight = deltaX > 0; // Pointer moving right = scroll content left
+        const movingLeft = deltaX < 0;  // Pointer moving left = scroll content right
+
+        const canScrollLeft = scrollLeft > 0; // Can scroll content left (we're not at leftmost)
+        const canScrollRight = scrollLeft < maxScrollLeft; // Can scroll content right (we're not at rightmost)
+
+        // Only consume the event if we can scroll in the desired direction
+        if (movingRight && canScrollLeft) {
+          // Moving pointer right and we can scroll content left - handle it, block navigation
+          e.stopPropagation();
+        } else if (movingLeft && canScrollRight) {
+          // Moving pointer left and we can scroll content right - handle it, block navigation
+          e.stopPropagation();
+        }
+        // Otherwise, let the browser handle navigation (we're at an edge or can't scroll)
+      }, { passive: true });
+
+      document.addEventListener('pointerup', function() {
+        scrollableElement = null;
+      }, { passive: true });
+
+      document.addEventListener('pointercancel', function() {
+        scrollableElement = null;
+      }, { passive: true });
+
+      // Touch events for mobile
+      document.addEventListener('touchstart', function(e) {
+        let element = e.target;
+        while (element && element !== document.body) {
+          const hasHorizontalScroll = element.scrollWidth > element.clientWidth;
+          if (hasHorizontalScroll) {
+            startX = e.touches[0].clientX;
+            startScrollLeft = element.scrollLeft;
+            scrollableElement = element;
+            break;
+          }
+          element = element.parentElement;
+        }
+      }, { passive: true });
+
+      document.addEventListener('touchmove', function(e) {
+        if (!scrollableElement) return;
+
+        const currentX = e.touches[0].clientX;
+        const deltaX = currentX - startX;
+        const scrollLeft = scrollableElement.scrollLeft;
+        const maxScrollLeft = scrollableElement.scrollWidth - scrollableElement.clientWidth;
+
+        const movingRight = deltaX > 0;
+        const movingLeft = deltaX < 0;
+
+        const canScrollLeft = scrollLeft > 0;
+        const canScrollRight = scrollLeft < maxScrollLeft;
+
+        // Only prevent default if we're actively scrolling within bounds
+        if ((movingRight && canScrollLeft) || (movingLeft && canScrollRight)) {
+          // Don't prevent default - let Flutter handle it, but stop propagation
+          e.stopPropagation();
+        }
+      }, { passive: true });
+
+      document.addEventListener('touchend', function() {
+        scrollableElement = null;
+      }, { passive: true });
+    })();
+  </script>
+</body>
+</html>

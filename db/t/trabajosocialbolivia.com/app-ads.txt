@@ -1,0 +1,2086 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="UTF-8">
+		<script type="text/html" id="tmpl-bb-link-preview">
+<% if ( link_scrapping ) { %>
+	<% if ( link_loading ) { %>
+		<span class="bb-url-scrapper-loading bb-ajax-loader"><i class="bb-icon-l bb-icon-spinner animate-spin"></i>Cargando vista previa...</span>
+	<% } %>
+	<% if ( link_success || link_error ) { %>
+		<a title="Cancelar vista previa" href="#" id="bb-close-link-suggestion">Retirar previsualización</a>
+		<div class="bb-link-preview-container">
+
+			<% if ( link_images && link_images.length && link_success && ! link_error && '' !== link_image_index ) { %>
+				<div id="bb-url-scrapper-img-holder">
+					<div class="bb-link-preview-image">
+						<div class="bb-link-preview-image-cover">
+							<img src="<%= link_images[link_image_index] %>"/>
+						</div>
+						<div class="bb-link-preview-icons">
+							<%
+							if ( link_images.length > 1 ) { %>
+								<a data-bp-tooltip-pos="up" data-bp-tooltip="Change image" href="#" class="icon-exchange toolbar-button bp-tooltip" id="icon-exchange"><i class="bb-icon-l bb-icon-exchange"></i></a>
+							<% } %>
+							<% if ( link_images.length ) { %>
+								<a data-bp-tooltip-pos="up" data-bp-tooltip="Remove image" href="#" class="icon-image-slash toolbar-button bp-tooltip" id="bb-link-preview-remove-image"><i class="bb-icon-l bb-icon-image-slash"></i></a>
+							<% } %>
+							<a data-bp-tooltip-pos="up" data-bp-tooltip="Confirmar" class="toolbar-button bp-tooltip" href="#" id="bb-link-preview-select-image">
+								<i class="bb-icon-check bb-icon-l"></i>
+							</a>
+						</div>
+					</div>
+					<% if ( link_images.length > 1 ) { %>
+						<div class="bb-url-thumb-nav">
+							<button type="button" id="bb-url-prevPicButton"><span class="bb-icon-l bb-icon-angle-left"></span></button>
+							<button type="button" id="bb-url-nextPicButton"><span class="bb-icon-l bb-icon-angle-right"></span></button>
+							<div id="bb-url-scrapper-img-count">
+								Imagen <%= link_image_index + 1 %>&nbsp;de&nbsp;<%= link_images.length %>
+							</div>
+						</div>
+					<% } %>
+				</div>
+			<% } %>
+
+			<% if ( link_success && ! link_error && link_url ) { %>
+				<div class="bb-link-preview-info">
+					<% var a = document.createElement('a');
+						a.href = link_url;
+						var hostname = a.hostname;
+						var domainName = hostname.replace('www.', '' );
+					%>
+
+					<% if ( 'undefined' !== typeof link_title && link_title.trim() && link_description ) { %>
+						<p class="bb-link-preview-link-name"><%= domainName %></p>
+					<% } %>
+
+					<% if ( link_success && ! link_error ) { %>
+						<p class="bb-link-preview-title"><%= link_title %></p>
+					<% } %>
+
+					<% if ( link_success && ! link_error ) { %>
+						<div class="bb-link-preview-excerpt"><p><%= link_description %></p></div>
+					<% } %>
+				</div>
+			<% } %>
+			<% if ( link_error && ! link_success ) { %>
+				<div id="bb-url-error" class="bb-url-error"><%= link_error_msg %></div>
+			<% } %>
+		</div>
+	<% } %>
+<% } %>
+</script>
+<script type="text/html" id="tmpl-profile-card-popup">
+	<div id="profile-card" class="bb-profile-card bb-popup-card" data-bp-item-id="" data-bp-item-component="members">
+
+		<div class="skeleton-card">
+			<div class="skeleton-card-body">
+				<div class="skeleton-card-avatar bb-loading-bg"></div>
+				<div class="skeleton-card-entity">
+					<div class="skeleton-card-type bb-loading-bg"></div>
+					<div class="skeleton-card-heading bb-loading-bg"></div>
+					<div class="skeleton-card-meta bb-loading-bg"></div>
+				</div>
+			</div>
+						<div class="skeleton-card-footer skeleton-footer-plain">
+				<div class="skeleton-card-button bb-loading-bg"></div>
+				<div class="skeleton-card-button bb-loading-bg"></div>
+				<div class="skeleton-card-button bb-loading-bg"></div>
+			</div>
+		</div>
+
+		<div class="bb-card-content">
+			<div class="bb-card-body">
+				<div class="bb-card-avatar">
+					<span class="card-profile-status"></span>
+					<img src="" alt="">
+				</div>
+				<div class="bb-card-entity">
+					<div class="bb-card-profile-type"></div>
+					<h4 class="bb-card-heading"></h4>
+					<div class="bb-card-meta">
+						<span class="card-meta-item card-meta-joined">Joined <span></span></span>
+						<span class="card-meta-item card-meta-last-active"></span>
+											</div>
+				</div>
+			</div>
+			<div class="bb-card-footer">
+								<div class="bb-card-action bb-card-action-outline">
+					<a href="" class="card-button card-button-profile">Ver Perfil</a>
+				</div>
+			</div>
+		</div>
+
+	</div>
+</script>
+<script type="text/html" id="tmpl-group-card-popup">
+	<div id="group-card" class="bb-group-card bb-popup-card" data-bp-item-id="" data-bp-item-component="groups">
+
+		<div class="skeleton-card">
+			<div class="skeleton-card-body">
+				<div class="skeleton-card-avatar bb-loading-bg"></div>
+				<div class="skeleton-card-entity">
+					<div class="skeleton-card-heading bb-loading-bg"></div>
+					<div class="skeleton-card-meta bb-loading-bg"></div>
+				</div>
+			</div>
+						<div class="skeleton-card-footer skeleton-footer-plain">
+				<div class="skeleton-card-button bb-loading-bg"></div>
+				<div class="skeleton-card-button bb-loading-bg"></div>
+			</div>
+		</div>
+
+		<div class="bb-card-content">
+			<div class="bb-card-body">
+				<div class="bb-card-avatar">
+					<img src="" alt="">
+				</div>
+				<div class="bb-card-entity">
+					<h4 class="bb-card-heading"></h4>
+					<div class="bb-card-meta">
+						<span class="card-meta-item card-meta-status"></span>
+						<span class="card-meta-item card-meta-type"></span>
+						<span class="card-meta-item card-meta-last-active"></span>
+					</div>
+					<div class="card-group-members">
+						<span class="bs-group-members"></span>
+					</div>
+				</div>
+			</div>
+			<div class="bb-card-footer">
+								<div class="bb-card-action bb-card-action-outline">
+					<a href="" class="card-button card-button-group">View Group</a>
+				</div>
+			</div>
+		</div>
+
+	</div>
+</script>
+<style type="text/css">div[id^="wpcf7-f3569"] button.cf7mls_next {   }div[id^="wpcf7-f3569"] button.cf7mls_back {   }div[id^="wpcf7-f2474"] button.cf7mls_next {   }div[id^="wpcf7-f2474"] button.cf7mls_back {   }div[id^="wpcf7-f2267"] button.cf7mls_next {   }div[id^="wpcf7-f2267"] button.cf7mls_back {   }div[id^="wpcf7-f2112"] button.cf7mls_next {   }div[id^="wpcf7-f2112"] button.cf7mls_back {   }</style><meta name='robots' content='index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1' />
+
+	<!-- This site is optimized with the Yoast SEO plugin v27.0 - https://yoast.com/product/yoast-seo-wordpress/ -->
+	<title>404 - Trabajo Social Bolivia</title>
+	<link rel="canonical" href="https://trabajosocialbolivia.com/404-2/" />
+	<meta property="og:locale" content="es_ES" />
+	<meta property="og:type" content="article" />
+	<meta property="og:title" content="404 - Trabajo Social Bolivia" />
+	<meta property="og:description" content="¡Oops! 404 Parece que esta página se ha perdido en el espacio&#8230; o simplemente nunca existió. Pero no te preocupes, puedes volver a la página de inicio y seguir explorando. Volver" />
+	<meta property="og:url" content="https://trabajosocialbolivia.com/404-2/" />
+	<meta property="og:site_name" content="Trabajo Social Bolivia" />
+	<meta property="article:modified_time" content="2025-06-03T03:46:03+00:00" />
+	<meta property="og:image" content="https://trabajosocialbolivia.com/wp-content/uploads/2025/05/homer-computer-doh1.png" />
+	<meta name="twitter:card" content="summary_large_image" />
+	<script type="application/ld+json" class="yoast-schema-graph">{"@context":"https://schema.org","@graph":[{"@type":"WebPage","@id":"https://trabajosocialbolivia.com/404-2/","url":"https://trabajosocialbolivia.com/404-2/","name":"404 - Trabajo Social Bolivia","isPartOf":{"@id":"https://trabajosocialbolivia.com/#website"},"primaryImageOfPage":{"@id":"https://trabajosocialbolivia.com/404-2/#primaryimage"},"image":{"@id":"https://trabajosocialbolivia.com/404-2/#primaryimage"},"thumbnailUrl":"https://trabajosocialbolivia.com/wp-content/uploads/2025/05/homer-computer-doh1.png","datePublished":"2025-05-28T02:14:27+00:00","dateModified":"2025-06-03T03:46:03+00:00","breadcrumb":{"@id":"https://trabajosocialbolivia.com/404-2/#breadcrumb"},"inLanguage":"es","potentialAction":[{"@type":"ReadAction","target":["https://trabajosocialbolivia.com/404-2/"]}]},{"@type":"ImageObject","inLanguage":"es","@id":"https://trabajosocialbolivia.com/404-2/#primaryimage","url":"https://trabajosocialbolivia.com/wp-content/uploads/2025/05/homer-computer-doh1.png","contentUrl":"https://trabajosocialbolivia.com/wp-content/uploads/2025/05/homer-computer-doh1.png","width":600,"height":381},{"@type":"BreadcrumbList","@id":"https://trabajosocialbolivia.com/404-2/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Portada","item":"https://trabajosocialbolivia.com/"},{"@type":"ListItem","position":2,"name":"404"}]},{"@type":"WebSite","@id":"https://trabajosocialbolivia.com/#website","url":"https://trabajosocialbolivia.com/","name":"Trabajo Social Bolivia","description":"Directorio de Instituciones, ONGs y Fundaciones de Bolivia","publisher":{"@id":"https://trabajosocialbolivia.com/#organization"},"potentialAction":[{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://trabajosocialbolivia.com/?s={search_term_string}"},"query-input":{"@type":"PropertyValueSpecification","valueRequired":true,"valueName":"search_term_string"}}],"inLanguage":"es"},{"@type":"Organization","@id":"https://trabajosocialbolivia.com/#organization","name":"Trabajo Social Bolivia","url":"https://trabajosocialbolivia.com/","logo":{"@type":"ImageObject","inLanguage":"es","@id":"https://trabajosocialbolivia.com/#/schema/logo/image/","url":"https://trabajosocialbolivia.com/wp-content/uploads/2025/06/logoTSB-.png","contentUrl":"https://trabajosocialbolivia.com/wp-content/uploads/2025/06/logoTSB-.png","width":588,"height":210,"caption":"Trabajo Social Bolivia"},"image":{"@id":"https://trabajosocialbolivia.com/#/schema/logo/image/"}}]}</script>
+	<!-- / Yoast SEO plugin. -->
+
+
+<link rel='dns-prefetch' href='//www.googletagmanager.com' />
+<link rel='dns-prefetch' href='//fonts.googleapis.com' />
+<link rel='dns-prefetch' href='//use.fontawesome.com' />
+<link href='https://fonts.gstatic.com' crossorigin rel='preconnect' />
+<link rel="alternate" type="application/rss+xml" title="Trabajo Social Bolivia &raquo; Feed" href="https://trabajosocialbolivia.com/feed/" />
+<link rel="alternate" type="application/rss+xml" title="Trabajo Social Bolivia &raquo; Feed de los comentarios" href="https://trabajosocialbolivia.com/comments/feed/" />
+<link rel="alternate" title="oEmbed (JSON)" type="application/json+oembed" href="https://trabajosocialbolivia.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Ftrabajosocialbolivia.com%2F404-2%2F" />
+<link rel="alternate" title="oEmbed (XML)" type="text/xml+oembed" href="https://trabajosocialbolivia.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Ftrabajosocialbolivia.com%2F404-2%2F&#038;format=xml" />
+<style id='wp-img-auto-sizes-contain-inline-css' type='text/css'>
+img:is([sizes=auto i],[sizes^="auto," i]){contain-intrinsic-size:3000px 1500px}
+/*# sourceURL=wp-img-auto-sizes-contain-inline-css */
+</style>
+<link rel='stylesheet' id='bp-nouveau-icons-map-css' href='https://trabajosocialbolivia.com/wp-content/plugins/buddyboss-platform/bp-templates/bp-nouveau/icons/css/icons-map.min.css?ver=2.14.4' type='text/css' media='all' />
+<link rel='stylesheet' id='bp-nouveau-bb-icons-css' href='https://trabajosocialbolivia.com/wp-content/plugins/buddyboss-platform/bp-templates/bp-nouveau/icons/css/bb-icons.min.css?ver=1.0.8' type='text/css' media='all' />
+<link rel='stylesheet' id='dashicons-css' href='https://trabajosocialbolivia.com/wp-includes/css/dashicons.min.css?ver=6.9.1' type='text/css' media='all' />
+<link rel='stylesheet' id='bp-nouveau-css' href='https://trabajosocialbolivia.com/wp-content/plugins/buddyboss-platform/bp-templates/bp-nouveau/css/buddypress.min.css?ver=2.14.4' type='text/css' media='all' />
+<style id='bp-nouveau-inline-css' type='text/css'>
+.list-wrap .bs-group-cover a:before{ background:unset; }#buddypress #header-cover-image.has-default, #buddypress #header-cover-image.has-default .guillotine-window img, .bs-group-cover a img{ background-color: #e2e9ef; }
+/*# sourceURL=bp-nouveau-inline-css */
+</style>
+<style id='wp-emoji-styles-inline-css' type='text/css'>
+
+	img.wp-smiley, img.emoji {
+		display: inline !important;
+		border: none !important;
+		box-shadow: none !important;
+		height: 1em !important;
+		width: 1em !important;
+		margin: 0 0.07em !important;
+		vertical-align: -0.1em !important;
+		background: none !important;
+		padding: 0 !important;
+	}
+/*# sourceURL=wp-emoji-styles-inline-css */
+</style>
+<style id='dailyverses-bible-verse-of-the-day-style-inline-css' type='text/css'>
+.dailyVerses.bibleVerse a{font-weight:700}.dailyVerses.linkToWebsite a{font-size:12px;opacity:.6;text-decoration:none}
+
+/*# sourceURL=https://trabajosocialbolivia.com/wp-content/plugins/bible-verse-of-the-day/build/style-index.css */
+</style>
+<style id='font-awesome-svg-styles-default-inline-css' type='text/css'>
+.svg-inline--fa {
+  display: inline-block;
+  height: 1em;
+  overflow: visible;
+  vertical-align: -.125em;
+}
+/*# sourceURL=font-awesome-svg-styles-default-inline-css */
+</style>
+<link rel='stylesheet' id='font-awesome-svg-styles-css' href='https://trabajosocialbolivia.com/wp-content/uploads/font-awesome/v6.7.2/css/svg-with-js.css' type='text/css' media='all' />
+<style id='font-awesome-svg-styles-inline-css' type='text/css'>
+   .wp-block-font-awesome-icon svg::before,
+   .wp-rich-text-font-awesome-icon svg::before {content: unset;}
+/*# sourceURL=font-awesome-svg-styles-inline-css */
+</style>
+<style id='global-styles-inline-css' type='text/css'>
+:root{--wp--preset--aspect-ratio--square: 1;--wp--preset--aspect-ratio--4-3: 4/3;--wp--preset--aspect-ratio--3-4: 3/4;--wp--preset--aspect-ratio--3-2: 3/2;--wp--preset--aspect-ratio--2-3: 2/3;--wp--preset--aspect-ratio--16-9: 16/9;--wp--preset--aspect-ratio--9-16: 9/16;--wp--preset--color--black: #000000;--wp--preset--color--cyan-bluish-gray: #abb8c3;--wp--preset--color--white: #ffffff;--wp--preset--color--pale-pink: #f78da7;--wp--preset--color--vivid-red: #cf2e2e;--wp--preset--color--luminous-vivid-orange: #ff6900;--wp--preset--color--luminous-vivid-amber: #fcb900;--wp--preset--color--light-green-cyan: #7bdcb5;--wp--preset--color--vivid-green-cyan: #00d084;--wp--preset--color--pale-cyan-blue: #8ed1fc;--wp--preset--color--vivid-cyan-blue: #0693e3;--wp--preset--color--vivid-purple: #9b51e0;--wp--preset--color--primary: #ef5455;--wp--preset--color--secondary: #41848f;--wp--preset--color--red: #c0392b;--wp--preset--color--green: #27ae60;--wp--preset--color--blue: #2980b9;--wp--preset--color--yellow: #f1c40f;--wp--preset--color--grey: #95a5a6;--wp--preset--color--custom-daylight: #97c0b7;--wp--preset--color--custom-sun: #eee9d1;--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple: linear-gradient(135deg,rgb(6,147,227) 0%,rgb(155,81,224) 100%);--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan: linear-gradient(135deg,rgb(122,220,180) 0%,rgb(0,208,130) 100%);--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange: linear-gradient(135deg,rgb(252,185,0) 0%,rgb(255,105,0) 100%);--wp--preset--gradient--luminous-vivid-orange-to-vivid-red: linear-gradient(135deg,rgb(255,105,0) 0%,rgb(207,46,46) 100%);--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray: linear-gradient(135deg,rgb(238,238,238) 0%,rgb(169,184,195) 100%);--wp--preset--gradient--cool-to-warm-spectrum: linear-gradient(135deg,rgb(74,234,220) 0%,rgb(151,120,209) 20%,rgb(207,42,186) 40%,rgb(238,44,130) 60%,rgb(251,105,98) 80%,rgb(254,248,76) 100%);--wp--preset--gradient--blush-light-purple: linear-gradient(135deg,rgb(255,206,236) 0%,rgb(152,150,240) 100%);--wp--preset--gradient--blush-bordeaux: linear-gradient(135deg,rgb(254,205,165) 0%,rgb(254,45,45) 50%,rgb(107,0,62) 100%);--wp--preset--gradient--luminous-dusk: linear-gradient(135deg,rgb(255,203,112) 0%,rgb(199,81,192) 50%,rgb(65,88,208) 100%);--wp--preset--gradient--pale-ocean: linear-gradient(135deg,rgb(255,245,203) 0%,rgb(182,227,212) 50%,rgb(51,167,181) 100%);--wp--preset--gradient--electric-grass: linear-gradient(135deg,rgb(202,248,128) 0%,rgb(113,206,126) 100%);--wp--preset--gradient--midnight: linear-gradient(135deg,rgb(2,3,129) 0%,rgb(40,116,252) 100%);--wp--preset--font-size--small: 13px;--wp--preset--font-size--medium: 20px;--wp--preset--font-size--large: 36px;--wp--preset--font-size--x-large: 42px;--wp--preset--font-size--larger: 39px;--wp--preset--spacing--20: 0.44rem;--wp--preset--spacing--30: 0.67rem;--wp--preset--spacing--40: 1rem;--wp--preset--spacing--50: 1.5rem;--wp--preset--spacing--60: 2.25rem;--wp--preset--spacing--70: 3.38rem;--wp--preset--spacing--80: 5.06rem;--wp--preset--shadow--natural: 6px 6px 9px rgba(0, 0, 0, 0.2);--wp--preset--shadow--deep: 12px 12px 50px rgba(0, 0, 0, 0.4);--wp--preset--shadow--sharp: 6px 6px 0px rgba(0, 0, 0, 0.2);--wp--preset--shadow--outlined: 6px 6px 0px -3px rgb(255, 255, 255), 6px 6px rgb(0, 0, 0);--wp--preset--shadow--crisp: 6px 6px 0px rgb(0, 0, 0);}:root { --wp--style--global--content-size: 840px;--wp--style--global--wide-size: 1200px; }:where(body) { margin: 0; }.wp-site-blocks > .alignleft { float: left; margin-right: 2em; }.wp-site-blocks > .alignright { float: right; margin-left: 2em; }.wp-site-blocks > .aligncenter { justify-content: center; margin-left: auto; margin-right: auto; }:where(.wp-site-blocks) > * { margin-block-start: 24px; margin-block-end: 0; }:where(.wp-site-blocks) > :first-child { margin-block-start: 0; }:where(.wp-site-blocks) > :last-child { margin-block-end: 0; }:root { --wp--style--block-gap: 24px; }:root :where(.is-layout-flow) > :first-child{margin-block-start: 0;}:root :where(.is-layout-flow) > :last-child{margin-block-end: 0;}:root :where(.is-layout-flow) > *{margin-block-start: 24px;margin-block-end: 0;}:root :where(.is-layout-constrained) > :first-child{margin-block-start: 0;}:root :where(.is-layout-constrained) > :last-child{margin-block-end: 0;}:root :where(.is-layout-constrained) > *{margin-block-start: 24px;margin-block-end: 0;}:root :where(.is-layout-flex){gap: 24px;}:root :where(.is-layout-grid){gap: 24px;}.is-layout-flow > .alignleft{float: left;margin-inline-start: 0;margin-inline-end: 2em;}.is-layout-flow > .alignright{float: right;margin-inline-start: 2em;margin-inline-end: 0;}.is-layout-flow > .aligncenter{margin-left: auto !important;margin-right: auto !important;}.is-layout-constrained > .alignleft{float: left;margin-inline-start: 0;margin-inline-end: 2em;}.is-layout-constrained > .alignright{float: right;margin-inline-start: 2em;margin-inline-end: 0;}.is-layout-constrained > .aligncenter{margin-left: auto !important;margin-right: auto !important;}.is-layout-constrained > :where(:not(.alignleft):not(.alignright):not(.alignfull)){max-width: var(--wp--style--global--content-size);margin-left: auto !important;margin-right: auto !important;}.is-layout-constrained > .alignwide{max-width: var(--wp--style--global--wide-size);}body .is-layout-flex{display: flex;}.is-layout-flex{flex-wrap: wrap;align-items: center;}.is-layout-flex > :is(*, div){margin: 0;}body .is-layout-grid{display: grid;}.is-layout-grid > :is(*, div){margin: 0;}body{padding-top: 0px;padding-right: 0px;padding-bottom: 0px;padding-left: 0px;}a:where(:not(.wp-element-button)){text-decoration: none;}:root :where(.wp-element-button, .wp-block-button__link){background-color: #32373c;border-width: 0;color: #fff;font-family: inherit;font-size: inherit;font-style: inherit;font-weight: inherit;letter-spacing: inherit;line-height: inherit;padding-top: calc(0.667em + 2px);padding-right: calc(1.333em + 2px);padding-bottom: calc(0.667em + 2px);padding-left: calc(1.333em + 2px);text-decoration: none;text-transform: inherit;}:root :where(.wp-element-caption, .wp-block-audio figcaption, .wp-block-embed figcaption, .wp-block-gallery figcaption, .wp-block-image figcaption, .wp-block-table figcaption, .wp-block-video figcaption){font-size: var(--wp--preset--font-size--small);font-style: italic;}.has-black-color{color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-color{color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-color{color: var(--wp--preset--color--white) !important;}.has-pale-pink-color{color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-color{color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-color{color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-color{color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-color{color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-color{color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-color{color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-color{color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-color{color: var(--wp--preset--color--vivid-purple) !important;}.has-primary-color{color: var(--wp--preset--color--primary) !important;}.has-secondary-color{color: var(--wp--preset--color--secondary) !important;}.has-red-color{color: var(--wp--preset--color--red) !important;}.has-green-color{color: var(--wp--preset--color--green) !important;}.has-blue-color{color: var(--wp--preset--color--blue) !important;}.has-yellow-color{color: var(--wp--preset--color--yellow) !important;}.has-grey-color{color: var(--wp--preset--color--grey) !important;}.has-custom-daylight-color{color: var(--wp--preset--color--custom-daylight) !important;}.has-custom-sun-color{color: var(--wp--preset--color--custom-sun) !important;}.has-black-background-color{background-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-background-color{background-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-background-color{background-color: var(--wp--preset--color--white) !important;}.has-pale-pink-background-color{background-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-background-color{background-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-background-color{background-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-background-color{background-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-background-color{background-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-background-color{background-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-background-color{background-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-background-color{background-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-background-color{background-color: var(--wp--preset--color--vivid-purple) !important;}.has-primary-background-color{background-color: var(--wp--preset--color--primary) !important;}.has-secondary-background-color{background-color: var(--wp--preset--color--secondary) !important;}.has-red-background-color{background-color: var(--wp--preset--color--red) !important;}.has-green-background-color{background-color: var(--wp--preset--color--green) !important;}.has-blue-background-color{background-color: var(--wp--preset--color--blue) !important;}.has-yellow-background-color{background-color: var(--wp--preset--color--yellow) !important;}.has-grey-background-color{background-color: var(--wp--preset--color--grey) !important;}.has-custom-daylight-background-color{background-color: var(--wp--preset--color--custom-daylight) !important;}.has-custom-sun-background-color{background-color: var(--wp--preset--color--custom-sun) !important;}.has-black-border-color{border-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-border-color{border-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-border-color{border-color: var(--wp--preset--color--white) !important;}.has-pale-pink-border-color{border-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-border-color{border-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-border-color{border-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-border-color{border-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-border-color{border-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-border-color{border-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-border-color{border-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-border-color{border-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-border-color{border-color: var(--wp--preset--color--vivid-purple) !important;}.has-primary-border-color{border-color: var(--wp--preset--color--primary) !important;}.has-secondary-border-color{border-color: var(--wp--preset--color--secondary) !important;}.has-red-border-color{border-color: var(--wp--preset--color--red) !important;}.has-green-border-color{border-color: var(--wp--preset--color--green) !important;}.has-blue-border-color{border-color: var(--wp--preset--color--blue) !important;}.has-yellow-border-color{border-color: var(--wp--preset--color--yellow) !important;}.has-grey-border-color{border-color: var(--wp--preset--color--grey) !important;}.has-custom-daylight-border-color{border-color: var(--wp--preset--color--custom-daylight) !important;}.has-custom-sun-border-color{border-color: var(--wp--preset--color--custom-sun) !important;}.has-vivid-cyan-blue-to-vivid-purple-gradient-background{background: var(--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple) !important;}.has-light-green-cyan-to-vivid-green-cyan-gradient-background{background: var(--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan) !important;}.has-luminous-vivid-amber-to-luminous-vivid-orange-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange) !important;}.has-luminous-vivid-orange-to-vivid-red-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-orange-to-vivid-red) !important;}.has-very-light-gray-to-cyan-bluish-gray-gradient-background{background: var(--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray) !important;}.has-cool-to-warm-spectrum-gradient-background{background: var(--wp--preset--gradient--cool-to-warm-spectrum) !important;}.has-blush-light-purple-gradient-background{background: var(--wp--preset--gradient--blush-light-purple) !important;}.has-blush-bordeaux-gradient-background{background: var(--wp--preset--gradient--blush-bordeaux) !important;}.has-luminous-dusk-gradient-background{background: var(--wp--preset--gradient--luminous-dusk) !important;}.has-pale-ocean-gradient-background{background: var(--wp--preset--gradient--pale-ocean) !important;}.has-electric-grass-gradient-background{background: var(--wp--preset--gradient--electric-grass) !important;}.has-midnight-gradient-background{background: var(--wp--preset--gradient--midnight) !important;}.has-small-font-size{font-size: var(--wp--preset--font-size--small) !important;}.has-medium-font-size{font-size: var(--wp--preset--font-size--medium) !important;}.has-large-font-size{font-size: var(--wp--preset--font-size--large) !important;}.has-x-large-font-size{font-size: var(--wp--preset--font-size--x-large) !important;}.has-larger-font-size{font-size: var(--wp--preset--font-size--larger) !important;}
+:root :where(.wp-block-columns-is-layout-flow) > :first-child{margin-block-start: 0;}:root :where(.wp-block-columns-is-layout-flow) > :last-child{margin-block-end: 0;}:root :where(.wp-block-columns-is-layout-flow) > *{margin-block-start: 30px;margin-block-end: 0;}:root :where(.wp-block-columns-is-layout-constrained) > :first-child{margin-block-start: 0;}:root :where(.wp-block-columns-is-layout-constrained) > :last-child{margin-block-end: 0;}:root :where(.wp-block-columns-is-layout-constrained) > *{margin-block-start: 30px;margin-block-end: 0;}:root :where(.wp-block-columns-is-layout-flex){gap: 30px;}:root :where(.wp-block-columns-is-layout-grid){gap: 30px;}
+:root :where(.wp-block-pullquote){font-size: 1.5em;font-weight: 300;line-height: 1.4;}
+:root :where(.wp-block-avatar img){border-radius: 100px;}
+:root :where(.wp-block-buttons-is-layout-flow) > :first-child{margin-block-start: 0;}:root :where(.wp-block-buttons-is-layout-flow) > :last-child{margin-block-end: 0;}:root :where(.wp-block-buttons-is-layout-flow) > *{margin-block-start: 16px;margin-block-end: 0;}:root :where(.wp-block-buttons-is-layout-constrained) > :first-child{margin-block-start: 0;}:root :where(.wp-block-buttons-is-layout-constrained) > :last-child{margin-block-end: 0;}:root :where(.wp-block-buttons-is-layout-constrained) > *{margin-block-start: 16px;margin-block-end: 0;}:root :where(.wp-block-buttons-is-layout-flex){gap: 16px;}:root :where(.wp-block-buttons-is-layout-grid){gap: 16px;}
+:root :where(.wp-block-comment-author-name){font-size: var(--wp--preset--font-size--small);font-weight: 700;}
+:root :where(.wp-block-comment-content){font-size: var(--wp--preset--font-size--medium);}
+:root :where(.wp-block-comment-date){font-size: var(--wp--preset--font-size--small);}
+:root :where(.wp-block-comment-edit-link){font-size: var(--wp--preset--font-size--small);}
+:root :where(.wp-block-comment-reply-link){font-size: var(--wp--preset--font-size--small);}
+:root :where(.wp-block-comments-pagination){font-size: var(--wp--preset--font-size--medium);}
+:root :where(.wp-block-list li){margin-top: 0.5rem;}
+:root :where(.wp-block-navigation){font-size: var(--wp--preset--font-size--medium);}
+:root :where(.wp-block-navigation a:where(:not(.wp-element-button))){text-decoration: none;}
+:root :where(.wp-block-navigation a:where(:not(.wp-element-button)):hover){text-decoration: underline;}
+:root :where(.wp-block-post-date){font-size: var(--wp--preset--font-size--small);}
+:root :where(.wp-block-post-navigation-link){font-size: var(--wp--preset--font-size--medium);}
+:root :where(.wp-block-post-terms){font-size: var(--wp--preset--font-size--small);font-weight: 600;}
+:root :where(.wp-block-post-title a:where(:not(.wp-element-button))){text-decoration: none;}
+:root :where(.wp-block-post-title a:where(:not(.wp-element-button)):hover){text-decoration: underline;}
+:root :where(.wp-block-query-pagination){font-size: var(--wp--preset--font-size--medium);font-weight: 500;}
+:root :where(.wp-block-quote){font-weight: 300;}
+:root :where(.wp-block-quote cite){font-size: var(--wp--preset--font-size--small);font-style: normal;}
+:root :where(.wp-block-search .wp-block-search__label, .wp-block-search .wp-block-search__input, .wp-block-search .wp-block-search__button){font-size: var(--wp--preset--font-size--medium);}
+:root :where(.wp-block-separator){border-color: currentColor;border-width: 0 0 1px 0;border-style: solid;}
+:root :where(.wp-block-site-tagline){font-size: var(--wp--preset--font-size--medium);}
+:root :where(.wp-block-site-title){font-weight: 700;}
+:root :where(.wp-block-site-title a:where(:not(.wp-element-button))){text-decoration: none;}
+:root :where(.wp-block-site-title a:where(:not(.wp-element-button)):hover){text-decoration: underline;}
+:root :where(.wp-block-term-description){font-size: var(--wp--preset--font-size--medium);}
+/*# sourceURL=global-styles-inline-css */
+</style>
+<link rel='stylesheet' id='bp-mentions-css-css' href='https://trabajosocialbolivia.com/wp-content/plugins/buddyboss-platform/bp-core/css/mentions.min.css?ver=2.14.4' type='text/css' media='all' />
+<link rel='stylesheet' id='cf7mls-css' href='https://trabajosocialbolivia.com/wp-content/plugins/cf7-multi-step/assets/frontend/css/cf7mls.css?ver=2.7.9' type='text/css' media='all' />
+<link rel='stylesheet' id='cf7mls_animate-css' href='https://trabajosocialbolivia.com/wp-content/plugins/cf7-multi-step/assets/frontend/animate/animate.min.css?ver=2.7.9' type='text/css' media='all' />
+<link rel='stylesheet' id='contact-form-7-css' href='https://trabajosocialbolivia.com/wp-content/plugins/contact-form-7/includes/css/styles.css?ver=6.1.5' type='text/css' media='all' />
+<link rel='stylesheet' id='menu-image-css' href='https://trabajosocialbolivia.com/wp-content/plugins/menu-image/includes/css/menu-image.css?ver=3.13' type='text/css' media='all' />
+<link rel='stylesheet' id='searchandfilter-css' href='https://trabajosocialbolivia.com/wp-content/plugins/search-filter/style.css?ver=1' type='text/css' media='all' />
+<link rel='stylesheet' id='st-trigger-button-style-css' href='https://trabajosocialbolivia.com/wp-content/plugins/suretriggers/assets/css/st-trigger-button.css?ver=1.1.20' type='text/css' media='all' />
+<link rel='stylesheet' id='widgetopts-styles-css' href='https://trabajosocialbolivia.com/wp-content/plugins/widget-options/assets/css/widget-options.css?ver=4.1.3' type='text/css' media='all' />
+<link rel='stylesheet' id='buddyx-style-css' href='https://trabajosocialbolivia.com/wp-content/themes/buddyx/style.css?ver=6.9.1' type='text/css' media='all' />
+<link rel='stylesheet' id='buddyx-child-style-css' href='https://trabajosocialbolivia.com/wp-content/themes/buddyx-child-theme-master/style.css?ver=3.2.0' type='text/css' media='all' />
+<link rel='stylesheet' id='buddyx-fonts-css' href='https://fonts.googleapis.com/css?family=Open%20Sans:300,300i,400,400i,700,700i,900&#038;display=swap|Montserrat:100,100i,300,500,500i,700,700i&#038;display=swap' type='text/css' media='all' />
+<link rel='stylesheet' id='buddyx-global-css' href='https://trabajosocialbolivia.com/wp-content/themes/buddyx/assets/css/global.min.css?ver=1771809411' type='text/css' media='all' />
+<style id='buddyx-global-inline-css' type='text/css'>
+body { --color-site-title-hover: #404a66 !important;--color-header-bg: #ffffff !important;--color-menu: #404a66 !important;--color-menu-hover: #78a6d2 !important;--color-menu-active: #78a6d2 !important;--global-font-color: #000000 !important;--color-theme-body: #fafdff !important;--color-layout-boxed: #ffffff !important;--color-theme-white-box: #ffffff !important;--global-body-lightcolor: #fafafa !important;--color-theme-primary: #78a6d2 !important;--color-link-hover: #78a6d2 !important;--button-background-color: #78a6d2 !important;--button-background-hover-color: #78a6d2 !important;--button-text-color: #ffffff !important;--button-border-color: #404a66 !important;--button-border-hover-color: #78a6d2 !important;--color-footer-link-hover: #78a6d2 !important;--color-copyright-link-hover: #78a6d2 !important;}
+body {--global-border-radius: 9px !important;}
+body {--button-border-radius: 9px !important;}
+body {--form-border-radius: 9px !important;}
+/*# sourceURL=buddyx-global-inline-css */
+</style>
+<link rel='stylesheet' id='buddyx-site-loader-css' href='https://trabajosocialbolivia.com/wp-content/themes/buddyx/assets/css/loaders.min.css?ver=1771809411' type='text/css' media='all' />
+<link rel='stylesheet' id='buddyx-load-fontawesome-css' href='https://trabajosocialbolivia.com/wp-content/themes/buddyx/assets/css/fontawesome.min.css?ver=1771809411' type='text/css' media='all' />
+<link rel='stylesheet' id='buddyx-buddypress-css' href='https://trabajosocialbolivia.com/wp-content/themes/buddyx/assets/css/buddypress.min.css?ver=6.9.1' type='text/css' media='all' />
+<link rel='stylesheet' id='buddyx-platform-css' href='https://trabajosocialbolivia.com/wp-content/themes/buddyx/assets/css/platform.min.css?ver=6.9.1' type='text/css' media='all' />
+<link rel='stylesheet' id='buddyx-bbpress-css' href='https://trabajosocialbolivia.com/wp-content/themes/buddyx/assets/css/bbpress.min.css?ver=6.9.1' type='text/css' media='all' />
+<link rel="stylesheet" id="buddyx-slick-css" href="https://trabajosocialbolivia.com/wp-content/themes/buddyx/assets/css/slick.min.css?ver=6.9.1" media="print" onload="this.media='all'" /><noscript><link rel="stylesheet" id="buddyx-slick-css-noscript" href="https://trabajosocialbolivia.com/wp-content/themes/buddyx/assets/css/slick.min.css?ver=6.9.1" media="all" /></noscript><link rel='stylesheet' id='buddyx-dark-mode-css' href='https://trabajosocialbolivia.com/wp-content/themes/buddyx/assets/css/dark-mode.min.css?ver=6.9.1' type='text/css' media='all' />
+<link rel='stylesheet' id='font-awesome-official-css' href='https://use.fontawesome.com/releases/v6.7.2/css/all.css' type='text/css' media='all' integrity="sha384-nRgPTkuX86pH8yjPJUAFuASXQSSl2/bBUiNV47vSYpKFxHJhbcrGnmlYpYJMeD7a" crossorigin="anonymous" />
+<link rel='stylesheet' id='elementor-frontend-css' href='https://trabajosocialbolivia.com/wp-content/plugins/elementor/assets/css/frontend.min.css?ver=3.35.5' type='text/css' media='all' />
+<link rel='stylesheet' id='widget-nav-menu-css' href='https://trabajosocialbolivia.com/wp-content/plugins/pro-elements/assets/css/widget-nav-menu.min.css?ver=3.35.0' type='text/css' media='all' />
+<link rel='stylesheet' id='widget-image-css' href='https://trabajosocialbolivia.com/wp-content/plugins/elementor/assets/css/widget-image.min.css?ver=3.35.5' type='text/css' media='all' />
+<link rel='stylesheet' id='widget-spacer-css' href='https://trabajosocialbolivia.com/wp-content/plugins/elementor/assets/css/widget-spacer.min.css?ver=3.35.5' type='text/css' media='all' />
+<link rel='stylesheet' id='elementor-post-235-css' href='https://trabajosocialbolivia.com/wp-content/uploads/elementor/css/post-235.css?ver=1771912602' type='text/css' media='all' />
+<link rel='stylesheet' id='pd-pcf-style-css' href='https://trabajosocialbolivia.com/wp-content/plugins/blog-posts-and-category-for-elementor//assets/css/style.css?ver=1.0.0' type='text/css' media='all' />
+<link rel='stylesheet' id='widget-heading-css' href='https://trabajosocialbolivia.com/wp-content/plugins/elementor/assets/css/widget-heading.min.css?ver=3.35.5' type='text/css' media='all' />
+<link rel='stylesheet' id='elementor-post-1399-css' href='https://trabajosocialbolivia.com/wp-content/uploads/elementor/css/post-1399.css?ver=1771913015' type='text/css' media='all' />
+<link rel='stylesheet' id='elementor-post-2288-css' href='https://trabajosocialbolivia.com/wp-content/uploads/elementor/css/post-2288.css?ver=1771912602' type='text/css' media='all' />
+<link rel='stylesheet' id='elementor-post-2385-css' href='https://trabajosocialbolivia.com/wp-content/uploads/elementor/css/post-2385.css?ver=1771912602' type='text/css' media='all' />
+<link rel='stylesheet' id='cf7cf-style-css' href='https://trabajosocialbolivia.com/wp-content/plugins/cf7-conditional-fields/style.css?ver=2.6.8' type='text/css' media='all' />
+<link rel='stylesheet' id='font-awesome-official-v4shim-css' href='https://use.fontawesome.com/releases/v6.7.2/css/v4-shims.css' type='text/css' media='all' integrity="sha384-npPMK6zwqNmU3qyCCxEcWJkLBNYxEFM1nGgSoAWuCCXqVVz0cvwKEMfyTNkOxM2N" crossorigin="anonymous" />
+<link rel='stylesheet' id='elementor-gf-local-roboto-css' href='https://trabajosocialbolivia.com/wp-content/uploads/elementor/google-fonts/css/roboto.css?ver=1747547536' type='text/css' media='all' />
+<link rel='stylesheet' id='elementor-gf-local-robotoslab-css' href='https://trabajosocialbolivia.com/wp-content/uploads/elementor/google-fonts/css/robotoslab.css?ver=1747547545' type='text/css' media='all' />
+<link rel='stylesheet' id='elementor-gf-local-poppins-css' href='https://trabajosocialbolivia.com/wp-content/uploads/elementor/google-fonts/css/poppins.css?ver=1748398612' type='text/css' media='all' />
+<script type="text/javascript">
+            window._nslDOMReady = (function () {
+                const executedCallbacks = new Set();
+            
+                return function (callback) {
+                    /**
+                    * Third parties might dispatch DOMContentLoaded events, so we need to ensure that we only run our callback once!
+                    */
+                    if (executedCallbacks.has(callback)) return;
+            
+                    const wrappedCallback = function () {
+                        if (executedCallbacks.has(callback)) return;
+                        executedCallbacks.add(callback);
+                        callback();
+                    };
+            
+                    if (document.readyState === "complete" || document.readyState === "interactive") {
+                        wrappedCallback();
+                    } else {
+                        document.addEventListener("DOMContentLoaded", wrappedCallback);
+                    }
+                };
+            })();
+        </script><script type="text/javascript" src="https://trabajosocialbolivia.com/wp-includes/js/jquery/jquery.min.js?ver=3.7.1" id="jquery-core-js"></script>
+<script type="text/javascript" src="https://trabajosocialbolivia.com/wp-includes/js/jquery/jquery-migrate.min.js?ver=3.4.1" id="jquery-migrate-js"></script>
+<script type="text/javascript" id="bb-twemoji-js-extra">
+/* <![CDATA[ */
+var bbemojiSettings = {"baseUrl":"https://s.w.org/images/core/emoji/14.0.0/72x72/","ext":".png","svgUrl":"https://s.w.org/images/core/emoji/14.0.0/svg/","svgExt":".svg"};
+//# sourceURL=bb-twemoji-js-extra
+/* ]]> */
+</script>
+<script type="text/javascript" src="https://trabajosocialbolivia.com/wp-includes/js/twemoji.min.js?ver=2.14.4" id="bb-twemoji-js"></script>
+<script type="text/javascript" src="https://trabajosocialbolivia.com/wp-content/plugins/buddyboss-platform/bp-core/js/bb-emoji-loader.min.js?ver=2.14.4" id="bb-emoji-loader-js"></script>
+<script type="text/javascript" src="https://trabajosocialbolivia.com/wp-content/plugins/buddyboss-platform/bp-core/js/vendor/magnific-popup.js?ver=2.14.4" id="bp-nouveau-magnific-popup-js"></script>
+<script type="text/javascript" src="https://trabajosocialbolivia.com/wp-content/plugins/buddyboss-platform/bp-core/js/widget-members.min.js?ver=2.14.4" id="bp-widget-members-js"></script>
+<script type="text/javascript" src="https://trabajosocialbolivia.com/wp-content/plugins/buddyboss-platform/bp-core/js/jquery-query.min.js?ver=2.14.4" id="bp-jquery-query-js"></script>
+<script type="text/javascript" src="https://trabajosocialbolivia.com/wp-content/plugins/buddyboss-platform/bp-core/js/vendor/jquery-cookie.min.js?ver=2.14.4" id="bp-jquery-cookie-js"></script>
+<script type="text/javascript" src="https://trabajosocialbolivia.com/wp-content/plugins/buddyboss-platform/bp-core/js/vendor/jquery-scroll-to.min.js?ver=2.14.4" id="bp-jquery-scroll-to-js"></script>
+<script type="text/javascript" id="bp-media-dropzone-js-extra">
+/* <![CDATA[ */
+var bp_media_dropzone = {"dictDefaultMessage":"Arrastra los archivos aqu\u00ed para subirlos","dictFallbackMessage":"Su navegador no admite la carga de archivos mediante la funci\u00f3n de arrastrar y soltar.","dictFallbackText":"Utilice el siguiente formulario alternativo para cargar sus archivos como en los viejos tiempos.","dictFileTooBig":"El tama\u00f1o del archivo es demasiado grande ({{filesize}} MB). Tama\u00f1o m\u00e1ximo del archivo: {{maxFilesize}} MB.","dictInvalidFileType":"No puedes subir archivos de este tipo.","dictResponseError":"La respuesta del servidor es: {{statusCode}}","dictCancelUpload":"Cancelar carga","dictUploadCanceled":"Carga cancelada.","dictCancelUploadConfirmation":"\u00bfEst\u00e1s seguro de que deseas cancelar esta carga?","dictRemoveFile":"Remover archivo","dictMaxFilesExceeded":"No puede cargar m\u00e1s de 10 archivos a la vez."};
+//# sourceURL=bp-media-dropzone-js-extra
+/* ]]> */
+</script>
+<script type="text/javascript" src="https://trabajosocialbolivia.com/wp-content/plugins/buddyboss-platform/bp-core/js/vendor/dropzone.min.js?ver=2.14.4" id="bp-media-dropzone-js"></script>
+<script type="text/javascript" src="https://trabajosocialbolivia.com/wp-content/plugins/buddyboss-platform/bp-core/js/vendor/exif.js?ver=2.14.4" id="bp-exif-js"></script>
+<script type="text/javascript" src="https://trabajosocialbolivia.com/wp-content/plugins/buddyboss-platform/bp-groups/js/widget-groups.min.js?ver=2.14.4" id="groups_widget_groups_list-js-js"></script>
+
+<!-- Fragmento de código de la etiqueta de Google (gtag.js) añadida por Site Kit -->
+<!-- Fragmento de código de Google Analytics añadido por Site Kit -->
+<script type="text/javascript" src="https://www.googletagmanager.com/gtag/js?id=GT-NGM4GNC7" id="google_gtagjs-js" async></script>
+<script type="text/javascript" id="google_gtagjs-js-after">
+/* <![CDATA[ */
+window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}
+gtag("set","linker",{"domains":["trabajosocialbolivia.com"]});
+gtag("js", new Date());
+gtag("set", "developer_id.dZTNiMT", true);
+gtag("config", "GT-NGM4GNC7");
+ window._googlesitekit = window._googlesitekit || {}; window._googlesitekit.throttledEvents = []; window._googlesitekit.gtagEvent = (name, data) => { var key = JSON.stringify( { name, data } ); if ( !! window._googlesitekit.throttledEvents[ key ] ) { return; } window._googlesitekit.throttledEvents[ key ] = true; setTimeout( () => { delete window._googlesitekit.throttledEvents[ key ]; }, 5 ); gtag( "event", name, { ...data, event_source: "site-kit" } ); }; 
+//# sourceURL=google_gtagjs-js-after
+/* ]]> */
+</script>
+<link rel="https://api.w.org/" href="https://trabajosocialbolivia.com/wp-json/" /><link rel="alternate" title="JSON" type="application/json" href="https://trabajosocialbolivia.com/wp-json/wp/v2/pages/1399" /><link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://trabajosocialbolivia.com/xmlrpc.php?rsd" />
+<meta name="generator" content="WordPress 6.9.1" />
+<link rel='shortlink' href='https://trabajosocialbolivia.com/?p=1399' />
+
+	<script>var ajaxurl = 'https://trabajosocialbolivia.com/wp-admin/admin-ajax.php';</script>
+
+	<meta name="generator" content="Site Kit by Google 1.173.0" />		<script type="text/javascript">
+			(function(c, l, a, r, i, t, y) {
+				c[a] = c[a] || function() {
+					(c[a].q = c[a].q || []).push(arguments)
+				};
+				t = l.createElement(r);
+				t.async = 1;
+				t.src = "https://www.clarity.ms/tag/" + i + "?ref=wordpress";
+				y = l.getElementsByTagName(r)[0];
+				y.parentNode.insertBefore(t, y);
+			})(window, document, "clarity", "script", "s6rbtgv0lo");
+		</script>
+				<script>document.documentElement.classList.remove( 'no-js' );</script>
+			<meta name="generator" content="Elementor 3.35.5; features: e_font_icon_svg, additional_custom_breakpoints; settings: css_print_method-external, google_font-enabled, font_display-swap">
+			<style>
+				.e-con.e-parent:nth-of-type(n+4):not(.e-lazyloaded):not(.e-no-lazyload),
+				.e-con.e-parent:nth-of-type(n+4):not(.e-lazyloaded):not(.e-no-lazyload) * {
+					background-image: none !important;
+				}
+				@media screen and (max-height: 1024px) {
+					.e-con.e-parent:nth-of-type(n+3):not(.e-lazyloaded):not(.e-no-lazyload),
+					.e-con.e-parent:nth-of-type(n+3):not(.e-lazyloaded):not(.e-no-lazyload) * {
+						background-image: none !important;
+					}
+				}
+				@media screen and (max-height: 640px) {
+					.e-con.e-parent:nth-of-type(n+2):not(.e-lazyloaded):not(.e-no-lazyload),
+					.e-con.e-parent:nth-of-type(n+2):not(.e-lazyloaded):not(.e-no-lazyload) * {
+						background-image: none !important;
+					}
+				}
+			</style>
+			<style type="text/css">.site-title, .site-description { position: absolute; clip: rect(1px, 1px, 1px, 1px); }</style><link rel="icon" href="https://trabajosocialbolivia.com/wp-content/uploads/2025/05/cropped-colibri-32x32.png" sizes="32x32" />
+<link rel="icon" href="https://trabajosocialbolivia.com/wp-content/uploads/2025/05/cropped-colibri-192x192.png" sizes="192x192" />
+<link rel="apple-touch-icon" href="https://trabajosocialbolivia.com/wp-content/uploads/2025/05/cropped-colibri-180x180.png" />
+<meta name="msapplication-TileImage" content="https://trabajosocialbolivia.com/wp-content/uploads/2025/05/cropped-colibri-270x270.png" />
+<style type="text/css">div.nsl-container[data-align="left"] {
+    text-align: left;
+}
+
+div.nsl-container[data-align="center"] {
+    text-align: center;
+}
+
+div.nsl-container[data-align="right"] {
+    text-align: right;
+}
+
+
+div.nsl-container div.nsl-container-buttons a[data-plugin="nsl"] {
+    text-decoration: none;
+    box-shadow: none;
+    border: 0;
+}
+
+div.nsl-container .nsl-container-buttons {
+    display: flex;
+    padding: 5px 0;
+}
+
+div.nsl-container.nsl-container-block .nsl-container-buttons {
+    display: inline-grid;
+    grid-template-columns: minmax(145px, auto);
+}
+
+div.nsl-container-block-fullwidth .nsl-container-buttons {
+    flex-flow: column;
+    align-items: center;
+}
+
+div.nsl-container-block-fullwidth .nsl-container-buttons a,
+div.nsl-container-block .nsl-container-buttons a {
+    flex: 1 1 auto;
+    display: block;
+    margin: 5px 0;
+    width: 100%;
+}
+
+div.nsl-container-inline {
+    margin: -5px;
+    text-align: left;
+}
+
+div.nsl-container-inline .nsl-container-buttons {
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+div.nsl-container-inline .nsl-container-buttons a {
+    margin: 5px;
+    display: inline-block;
+}
+
+div.nsl-container-grid .nsl-container-buttons {
+    flex-flow: row;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+div.nsl-container-grid .nsl-container-buttons a {
+    flex: 1 1 auto;
+    display: block;
+    margin: 5px;
+    max-width: 280px;
+    width: 100%;
+}
+
+@media only screen and (min-width: 650px) {
+    div.nsl-container-grid .nsl-container-buttons a {
+        width: auto;
+    }
+}
+
+div.nsl-container .nsl-button {
+    cursor: pointer;
+    vertical-align: top;
+    border-radius: 4px;
+}
+
+div.nsl-container .nsl-button-default {
+    color: #fff;
+    display: flex;
+}
+
+div.nsl-container .nsl-button-icon {
+    display: inline-block;
+}
+
+div.nsl-container .nsl-button-svg-container {
+    flex: 0 0 auto;
+    padding: 8px;
+    display: flex;
+    align-items: center;
+}
+
+div.nsl-container svg {
+    height: 24px;
+    width: 24px;
+    vertical-align: top;
+}
+
+div.nsl-container .nsl-button-default div.nsl-button-label-container {
+    margin: 0 24px 0 12px;
+    padding: 10px 0;
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    line-height: 20px;
+    letter-spacing: .25px;
+    overflow: hidden;
+    text-align: center;
+    text-overflow: clip;
+    white-space: nowrap;
+    flex: 1 1 auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-transform: none;
+    display: inline-block;
+}
+
+div.nsl-container .nsl-button-google[data-skin="light"] {
+    box-shadow: inset 0 0 0 1px #747775;
+    color: #1f1f1f;
+}
+
+div.nsl-container .nsl-button-google[data-skin="dark"] {
+    box-shadow: inset 0 0 0 1px #8E918F;
+    color: #E3E3E3;
+}
+
+div.nsl-container .nsl-button-google[data-skin="neutral"] {
+    color: #1F1F1F;
+}
+
+div.nsl-container .nsl-button-google div.nsl-button-label-container {
+    font-family: "Roboto Medium", Roboto, Helvetica, Arial, sans-serif;
+}
+
+div.nsl-container .nsl-button-apple .nsl-button-svg-container {
+    padding: 0 6px;
+}
+
+div.nsl-container .nsl-button-apple .nsl-button-svg-container svg {
+    height: 40px;
+    width: auto;
+}
+
+div.nsl-container .nsl-button-apple[data-skin="light"] {
+    color: #000;
+    box-shadow: 0 0 0 1px #000;
+}
+
+div.nsl-container .nsl-button-facebook[data-skin="white"] {
+    color: #000;
+    box-shadow: inset 0 0 0 1px #000;
+}
+
+div.nsl-container .nsl-button-facebook[data-skin="light"] {
+    color: #1877F2;
+    box-shadow: inset 0 0 0 1px #1877F2;
+}
+
+div.nsl-container .nsl-button-spotify[data-skin="white"] {
+    color: #191414;
+    box-shadow: inset 0 0 0 1px #191414;
+}
+
+div.nsl-container .nsl-button-apple div.nsl-button-label-container {
+    font-size: 17px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+}
+
+div.nsl-container .nsl-button-slack div.nsl-button-label-container {
+    font-size: 17px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+}
+
+div.nsl-container .nsl-button-slack[data-skin="light"] {
+    color: #000000;
+    box-shadow: inset 0 0 0 1px #DDDDDD;
+}
+
+div.nsl-container .nsl-button-tiktok[data-skin="light"] {
+    color: #161823;
+    box-shadow: 0 0 0 1px rgba(22, 24, 35, 0.12);
+}
+
+
+div.nsl-container .nsl-button-kakao {
+    color: rgba(0, 0, 0, 0.85);
+}
+
+.nsl-clear {
+    clear: both;
+}
+
+.nsl-container {
+    clear: both;
+}
+
+.nsl-disabled-provider .nsl-button {
+    filter: grayscale(1);
+    opacity: 0.8;
+}
+
+/*Button align start*/
+
+div.nsl-container-inline[data-align="left"] .nsl-container-buttons {
+    justify-content: flex-start;
+}
+
+div.nsl-container-inline[data-align="center"] .nsl-container-buttons {
+    justify-content: center;
+}
+
+div.nsl-container-inline[data-align="right"] .nsl-container-buttons {
+    justify-content: flex-end;
+}
+
+
+div.nsl-container-grid[data-align="left"] .nsl-container-buttons {
+    justify-content: flex-start;
+}
+
+div.nsl-container-grid[data-align="center"] .nsl-container-buttons {
+    justify-content: center;
+}
+
+div.nsl-container-grid[data-align="right"] .nsl-container-buttons {
+    justify-content: flex-end;
+}
+
+div.nsl-container-grid[data-align="space-around"] .nsl-container-buttons {
+    justify-content: space-around;
+}
+
+div.nsl-container-grid[data-align="space-between"] .nsl-container-buttons {
+    justify-content: space-between;
+}
+
+/* Button align end*/
+
+/* Redirect */
+
+#nsl-redirect-overlay {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    z-index: 1000000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    backdrop-filter: blur(1px);
+    background-color: RGBA(0, 0, 0, .32);;
+}
+
+#nsl-redirect-overlay-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    padding: 30px;
+    border-radius: 10px;
+}
+
+#nsl-redirect-overlay-spinner {
+    content: '';
+    display: block;
+    margin: 20px;
+    border: 9px solid RGBA(0, 0, 0, .6);
+    border-top: 9px solid #fff;
+    border-radius: 50%;
+    box-shadow: inset 0 0 0 1px RGBA(0, 0, 0, .6), 0 0 0 1px RGBA(0, 0, 0, .6);
+    width: 40px;
+    height: 40px;
+    animation: nsl-loader-spin 2s linear infinite;
+}
+
+@keyframes nsl-loader-spin {
+    0% {
+        transform: rotate(0deg)
+    }
+    to {
+        transform: rotate(360deg)
+    }
+}
+
+#nsl-redirect-overlay-title {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+    font-size: 18px;
+    font-weight: bold;
+    color: #3C434A;
+}
+
+#nsl-redirect-overlay-text {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+    text-align: center;
+    font-size: 14px;
+    color: #3C434A;
+}
+
+/* Redirect END*/</style><style type="text/css">/* Notice fallback */
+#nsl-notices-fallback {
+    position: fixed;
+    right: 10px;
+    top: 10px;
+    z-index: 10000;
+}
+
+.admin-bar #nsl-notices-fallback {
+    top: 42px;
+}
+
+#nsl-notices-fallback > div {
+    position: relative;
+    background: #fff;
+    border-left: 4px solid #fff;
+    box-shadow: 0 1px 1px 0 rgba(0, 0, 0, .1);
+    margin: 5px 15px 2px;
+    padding: 1px 20px;
+}
+
+#nsl-notices-fallback > div.error {
+    display: block;
+    border-left-color: #dc3232;
+}
+
+#nsl-notices-fallback > div.updated {
+    display: block;
+    border-left-color: #46b450;
+}
+
+#nsl-notices-fallback p {
+    margin: .5em 0;
+    padding: 2px;
+}
+
+#nsl-notices-fallback > div:after {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    content: '\00d7';
+    display: block;
+    height: 16px;
+    width: 16px;
+    line-height: 16px;
+    text-align: center;
+    font-size: 20px;
+    cursor: pointer;
+}</style>		<style type="text/css" id="wp-custom-css">
+			/* Ajusta la separación entre ACF y Contenido del Post */
+.institucion-detalles {
+    	margin-bottom: 9px; 
+			padding-right:23px;
+			padding-bottom:18px;
+      border-radius: 5px;
+}
+/* Espacio entre cada campo ACF */
+.institucion-detalles .campo {
+    margin-bottom: 9px;
+		text-align: justify;
+}
+
+.single-post-main-wrapper .site-main .post-content,
+.single-post-main-wrapper .site-main p {
+    text-align: justify !important;
+		padding-right:23px;
+}
+
+/*Menú principal*/
+@media (min-width: 768px) {
+.main-navigation {
+    background-color: #404a66;
+	  width: 100vw;
+}
+}
+/*Efecto hover en el menú*/
+@media (min-width: 768px) {
+.main-navigation .menu-item a {
+    text-transform: uppercase;
+	  text-align: center;
+    color: #ddeffa;
+    transition: background-color 0.3s ease-in-out;
+    min-width: 180px; /* Ancho mínimo */
+}
+
+.main-navigation .menu-item a:hover {
+    /*background-color: #78a6d2;*/
+	    color: #ddeffa;
+}
+
+/*Submenú: fondo blanco, texto oscuro*/
+.main-navigation ul.sub-menu {
+    background-color: #ffffff;
+    border-radius: 5px;
+    min-width: 300px; /* Ancho mínimo del submenú */
+}
+
+/*Color del texto en el submenú*/
+.main-navigation ul.sub-menu li a {
+    color: #404a66;
+}
+
+/*Efecto hover en el submenú*/
+.main-navigation ul.sub-menu li a:hover {
+    background-color: #78a6d2;
+    color: #ffffff;
+    transition: 0.3s ease-in-out;
+}
+.nav--toggle-sub li.menu-item--has-toggle:after, .nav--toggle-sub li.menu-item-has-children:after {
+    content: "\f107";
+    color: white;
+}
+
+.fa-magnifying-glass:before, .fa-search:before {
+    content: "\f002";
+	  color: white;
+}
+	
+.user-link-wrap .bp-user {
+    padding-right: 15px;
+    color: white;
+}
+	
+/* Ajusta el signo + y - de los campo repetitivos */
+.wpcf7-field-group-add, .wpcf7-field-group-remove {
+    font-size: 25px; 
+    width: 36px;
+    height: 36px;
+    border-radius: 7px;
+    background-color: #78a6d2; /* Cambia el color */
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.wpcf7-field-group-add:hover, .wpcf7-field-group-remove:hover {
+    background-color: #404a66; /* Color al pasar el cursor */
+}
+	
+.buddypress-icons-wrapper .btn-login, .buddypress-icons-wrapper .btn-register {
+    color: #FFFFFF;
+}
+
+.user-registration-Button {
+    background-color: #78a6d2 !important;
+}
+
+.user-registration-Button:hover {
+    background-color: #404a66 !important;
+}
+	
+	.user-registration-before-login-btn .user-registration-LostPassword a {
+    color: #31689d !important;
+}
+	
+	.user-registration-register a {
+    color: #31689d !important;
+}
+	
+/*CSS Contact Form 7*/
+	.wpcf7 input[type="text"],
+.wpcf7 input[type="email"],
+.wpcf7 input[type="tel"],
+.wpcf7 select,
+.wpcf7 textarea {
+  width: 100%;
+	height: 44px;
+  padding: 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  margin-bottom: 12px;
+  font-size: 16px;
+  background-color: #fefefe;
+}
+	
+.wpcf7 select:focus,
+.wpcf7 input:focus,
+.wpcf7 textarea:focus {
+  border-color: #1565c0;
+  outline: none;
+  box-shadow: 0 0 4px rgba(21, 101, 192, 0.4);
+}
+
+/*Estilo del boton de envío*/
+.wpcf7 input[type="submit"] {
+  background-color: #78A6D2;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 12px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.wpcf7 input[type="submit"]:hover {
+  background-color: #404A66;
+}
+
+	/*Opción Checkbox filas*/
+	.wpcf7-form .wpcf7-checkbox {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.wpcf7-form .wpcf7-checkbox label {
+  display: block;
+  padding: 10px 14px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background-color: #fefefe;
+  transition: background-color 0.2s ease;
+  cursor: pointer;
+}
+
+.wpcf7-form .wpcf7-checkbox input[type="checkbox"] {
+  margin-right: 8px;
+}
+
+/* Opcional: resalta cuando está marcado */
+.wpcf7-form .wpcf7-checkbox input[type="checkbox"]:checked + span {
+  font-weight: 600;
+  color: #1565c0;
+}
+	
+/*Campo Select*/
+.wpcf7 select {
+  min-height: 44px;
+  line-height: 1.2;
+  padding-top: 12px;
+  padding-bottom: 12px;
+	}
+	
+	/* Opción Radio en columnas */
+.wpcf7-form .wpcf7-radio {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+/* Estilo visual del radio button y su etiqueta */
+.wpcf7-form .wpcf7-radio label {
+    display: block;
+    padding: 10px 14px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    background-color: #fefefe;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    font-weight: 400;
+    font-size: 16px;
+}
+
+/* Separación interna del botón radio */
+.wpcf7-form .wpcf7-radio input[type="radio"] {
+    margin-right: 8px;
+}
+
+/* Opcional: destaca la opción seleccionada */
+.wpcf7-form .wpcf7-radio input[type="radio"]:checked + span {
+    font-weight: 600;
+    color: #1565c0;
+}
+
+/* Fondo y color del titulo de los Widgets */
+.widget-area .widget .widget-title {
+  background-color: #78A6D2;
+  color: #fff;
+  padding: 8px 12px; 
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+	font-weight: bold;
+	text-align: right;
+	font-size: 19px;
+}
+	
+/*Parte del texto en instituciones*/
+	.contenido-editorial {
+  margin: 30px 0;
+  padding: 20px;
+  background-color: #f2f9ff;
+  border-left: 5px solid #78a6d2;
+  border-radius: 6px;
+  font-size: 1rem;
+  line-height: 1.7;
+  color: #333;
+	text-align: justify;
+}
+
+.contenido-editorial h2,
+.contenido-editorial h3 {
+  margin-top: 1.5em;
+  color: #007c5a;
+  font-weight: 600;
+}
+
+.contenido-editorial p {
+  margin-bottom: 1em;
+}
+
+.contenido-editorial ul,
+.contenido-editorial ol {
+  margin-left: 1.5em;
+  padding-left: 0.5em;
+}
+
+.contenido-editorial a {
+  color: #007c5a;
+  text-decoration: underline;
+}
+
+.contenido-editorial blockquote {
+  margin: 1.5em 0;
+  padding: 1em;
+  background-color: #eef6f3;
+  border-left: 3px solid #007c5a;
+  font-style: italic;
+}
+
+/*Formulario de registro*/
+	.wpcf7 form {
+  background: #f1faff;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.05);
+  max-width: 800px;
+  margin: auto;
+}
+	/* Botón Siguiente */
+.cf7mls-btns .cf7mls_next.action-button {
+  background-color: #78a6d2;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 7px;
+}
+
+/* Botón Anterior */
+.cf7mls-btns .cf7mls_back.action-button {
+  background-color: #78a6d2;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 7px;
+}
+	
+/* Estilo para el enlace de reset de BP Profile Search */
+a[onclick*="bp_ps_clear_form_elements"] {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 12px;
+  background-color: #78a6d2;
+  color: #FFF;
+  border: 1px solid #000;
+  border-radius: 9px;
+  font-family: 'Nunito Sans', sans-serif;
+  font-size: 16px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+a[onclick*="bp_ps_clear_form_elements"]:hover {
+  background-color: #404a66;
+  color: #FFF;
+}
+		</style>
+		<style id="kirki-inline-styles">.container{max-width:1170px;}.site-title a{font-family:Nunito Sans;}.site-description{font-family:Nunito Sans;}h1{font-family:Nunito Sans;font-size:27px;}h2{font-family:Nunito Sans;font-size:23px;}h3{font-family:Nunito Sans;font-size:21px;}h4{font-family:Nunito Sans;}h5{font-family:Nunito Sans;}h6{font-family:Nunito Sans;}.main-navigation a, .main-navigation ul li a, .nav--toggle-sub li.menu-item-has-children, .nav--toggle-small .menu-toggle{font-family:Nunito Sans;text-transform:none;}.main-navigation ul#primary-menu>li .sub-menu a{font-family:Nunito Sans;}body:not(.block-editor-page):not(.wp-core-ui), input, optgroup, select, textarea{font-family:Nunito Sans;font-size:16px;text-align:left;}.site-sub-header, .site-sub-header .entry-header .entry-title, .site-sub-header .page-header .page-title, .site-sub-header .entry-header, .site-sub-header .page-header, .site-sub-header .entry-title, .site-sub-header .page-title{text-transform:none;}.site-info{border-color:#e8e8e8;}.buddyx-section-title-over.has-featured-image.has-featured-image .post-thumbnail:after{background:rgba(0, 0, 0, 0.1);}/* cyrillic-ext */
+@font-face {
+  font-family: 'Nunito Sans';
+  font-style: normal;
+  font-weight: 400;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url(https://trabajosocialbolivia.com/wp-content/fonts/nunito-sans/pe1mMImSLYBIv1o4X1M8ce2xCx3yop4tQpF_MeTm0lfGWVpNn64CL7U8upHZIbMV51Q42ptCp5F5bxqqtQ1yiU4G1ilXvlUlM_Y.woff2) format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'Nunito Sans';
+  font-style: normal;
+  font-weight: 400;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url(https://trabajosocialbolivia.com/wp-content/fonts/nunito-sans/pe1mMImSLYBIv1o4X1M8ce2xCx3yop4tQpF_MeTm0lfGWVpNn64CL7U8upHZIbMV51Q42ptCp5F5bxqqtQ1yiU4G1ilXt1UlM_Y.woff2) format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Nunito Sans';
+  font-style: normal;
+  font-weight: 400;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url(https://trabajosocialbolivia.com/wp-content/fonts/nunito-sans/pe1mMImSLYBIv1o4X1M8ce2xCx3yop4tQpF_MeTm0lfGWVpNn64CL7U8upHZIbMV51Q42ptCp5F5bxqqtQ1yiU4G1ilXvFUlM_Y.woff2) format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Nunito Sans';
+  font-style: normal;
+  font-weight: 400;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url(https://trabajosocialbolivia.com/wp-content/fonts/nunito-sans/pe1mMImSLYBIv1o4X1M8ce2xCx3yop4tQpF_MeTm0lfGWVpNn64CL7U8upHZIbMV51Q42ptCp5F5bxqqtQ1yiU4G1ilXvVUlM_Y.woff2) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Nunito Sans';
+  font-style: normal;
+  font-weight: 400;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url(https://trabajosocialbolivia.com/wp-content/fonts/nunito-sans/pe1mMImSLYBIv1o4X1M8ce2xCx3yop4tQpF_MeTm0lfGWVpNn64CL7U8upHZIbMV51Q42ptCp5F5bxqqtQ1yiU4G1ilXs1Ul.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}/* cyrillic-ext */
+@font-face {
+  font-family: 'Nunito Sans';
+  font-style: normal;
+  font-weight: 400;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url(https://trabajosocialbolivia.com/wp-content/fonts/nunito-sans/pe1mMImSLYBIv1o4X1M8ce2xCx3yop4tQpF_MeTm0lfGWVpNn64CL7U8upHZIbMV51Q42ptCp5F5bxqqtQ1yiU4G1ilXvlUlM_Y.woff2) format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'Nunito Sans';
+  font-style: normal;
+  font-weight: 400;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url(https://trabajosocialbolivia.com/wp-content/fonts/nunito-sans/pe1mMImSLYBIv1o4X1M8ce2xCx3yop4tQpF_MeTm0lfGWVpNn64CL7U8upHZIbMV51Q42ptCp5F5bxqqtQ1yiU4G1ilXt1UlM_Y.woff2) format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Nunito Sans';
+  font-style: normal;
+  font-weight: 400;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url(https://trabajosocialbolivia.com/wp-content/fonts/nunito-sans/pe1mMImSLYBIv1o4X1M8ce2xCx3yop4tQpF_MeTm0lfGWVpNn64CL7U8upHZIbMV51Q42ptCp5F5bxqqtQ1yiU4G1ilXvFUlM_Y.woff2) format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Nunito Sans';
+  font-style: normal;
+  font-weight: 400;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url(https://trabajosocialbolivia.com/wp-content/fonts/nunito-sans/pe1mMImSLYBIv1o4X1M8ce2xCx3yop4tQpF_MeTm0lfGWVpNn64CL7U8upHZIbMV51Q42ptCp5F5bxqqtQ1yiU4G1ilXvVUlM_Y.woff2) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Nunito Sans';
+  font-style: normal;
+  font-weight: 400;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url(https://trabajosocialbolivia.com/wp-content/fonts/nunito-sans/pe1mMImSLYBIv1o4X1M8ce2xCx3yop4tQpF_MeTm0lfGWVpNn64CL7U8upHZIbMV51Q42ptCp5F5bxqqtQ1yiU4G1ilXs1Ul.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}</style>	<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" /></head>
+<body class="bp-nouveau wp-singular page-template page-template-elementor_canvas page page-id-1399 wp-embed-responsive wp-theme-buddyx wp-child-theme-buddyx-child-theme-master has-sidebar-right layout-wide sticky-sidebar-enable  round-avatars bp-search elementor-default elementor-template-canvas elementor-kit-235 elementor-page elementor-page-1399 no-js">
+			<div data-elementor-type="wp-page" data-elementor-id="1399" class="elementor elementor-1399" data-elementor-post-type="page">
+				<div class="elementor-element elementor-element-5d206852 e-flex e-con-boxed e-con e-parent" data-id="5d206852" data-element_type="container" data-e-type="container" data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
+					<div class="e-con-inner">
+				<div class="elementor-element elementor-element-92dc92 elementor-widget elementor-widget-heading" data-id="92dc92" data-element_type="widget" data-e-type="widget" data-widget_type="heading.default">
+				<div class="elementor-widget-container">
+					<h2 class="elementor-heading-title elementor-size-default">¡Oops! 404</h2>				</div>
+				</div>
+				<div class="elementor-element elementor-element-ed66aa5 elementor-widget elementor-widget-image" data-id="ed66aa5" data-element_type="widget" data-e-type="widget" data-widget_type="image.default">
+				<div class="elementor-widget-container">
+															<img fetchpriority="high" decoding="async" width="600" height="381" src="https://trabajosocialbolivia.com/wp-content/uploads/2025/05/homer-computer-doh1.png" class="attachment-large size-large wp-image-1407" alt="" srcset="https://trabajosocialbolivia.com/wp-content/uploads/2025/05/homer-computer-doh1.png 600w, https://trabajosocialbolivia.com/wp-content/uploads/2025/05/homer-computer-doh1-300x191.png 300w" sizes="(min-width: 960px) 75vw, 100vw" />															</div>
+				</div>
+				<div class="elementor-element elementor-element-85db580 elementor-widget elementor-widget-spacer" data-id="85db580" data-element_type="widget" data-e-type="widget" data-widget_type="spacer.default">
+				<div class="elementor-widget-container">
+							<div class="elementor-spacer">
+			<div class="elementor-spacer-inner"></div>
+		</div>
+						</div>
+				</div>
+				<div class="elementor-element elementor-element-1101b019 elementor-widget elementor-widget-text-editor" data-id="1101b019" data-element_type="widget" data-e-type="widget" data-widget_type="text-editor.default">
+				<div class="elementor-widget-container">
+									<p>Parece que esta página se ha perdido en el espacio&#8230; o simplemente nunca existió.</p>								</div>
+				</div>
+				<div class="elementor-element elementor-element-c998a0f elementor-widget elementor-widget-text-editor" data-id="c998a0f" data-element_type="widget" data-e-type="widget" data-widget_type="text-editor.default">
+				<div class="elementor-widget-container">
+									<p>Pero no te preocupes, puedes volver a la <strong><a href="https://trabajosocialbolivia.com/">página de inicio</a></strong> y seguir explorando.</p>								</div>
+				</div>
+				<div class="elementor-element elementor-element-6d8767cd elementor-align-center elementor-widget elementor-widget-button" data-id="6d8767cd" data-element_type="widget" data-e-type="widget" data-widget_type="button.default">
+				<div class="elementor-widget-container">
+									<div class="elementor-button-wrapper">
+					<a class="elementor-button elementor-button-link elementor-size-sm" href="https://trabajosocialbolivia.com/">
+						<span class="elementor-button-content-wrapper">
+									<span class="elementor-button-text">Volver</span>
+					</span>
+					</a>
+				</div>
+								</div>
+				</div>
+					</div>
+				</div>
+				</div>
+		<script type="speculationrules">
+{"prefetch":[{"source":"document","where":{"and":[{"href_matches":"/*"},{"not":{"href_matches":["/wp-*.php","/wp-admin/*","/wp-content/uploads/*","/wp-content/*","/wp-content/plugins/*","/wp-content/themes/buddyx-child-theme-master/*","/wp-content/themes/buddyx/*","/*\\?(.+)"]}},{"not":{"selector_matches":"a[rel~=\"nofollow\"]"}},{"not":{"selector_matches":".no-prefetch, .no-prefetch a"}}]},"eagerness":"conservative"}]}
+</script>
+
+<div id="content-report" class="content-report-popup moderation-popup mfp-hide">
+	<div class="modal-mask bb-white bbm-model-wrap bbm-uploader-model-wrap">
+		<div class="modal-wrapper">
+			<div class="modal-container">
+				<header class="bb-model-header">
+					<h4>Reportar <span class="bp-reported-type"></span></h4>
+					<button title="Cerrar (Esc)" type="button" class="mfp-close">
+						<span class="bb-icon-l bb-icon-times"></span>
+					</button>
+				</header>
+				<div class="bp-feedback bp-feedback-v2 error" id="notes-error" style="display: none;">
+					<span class="bp-icon" aria-hidden="true"></span>
+					<p>There was a problem reporting this post.</p>
+				</div>
+								<div class="bb-report-type-wrp">
+					<form id="bb-report-content" action="javascript:void(0);">
+
+														<div class="form-item form-item-category content_members">
+									<label for="report-category-183">
+										<input type="radio" id="report-category-183" name="report_category" value="183" checked>
+										<span>Harassment</span>
+									</label>
+									<span>Harassment or bullying behavior</span>
+								</div>
+																<div class="form-item form-item-category content_members">
+									<label for="report-category-180">
+										<input type="radio" id="report-category-180" name="report_category" value="180" >
+										<span>Inappropriate</span>
+									</label>
+									<span>Contains mature or sensitive content</span>
+								</div>
+																<div class="form-item form-item-category content_members">
+									<label for="report-category-181">
+										<input type="radio" id="report-category-181" name="report_category" value="181" >
+										<span>Misinformation</span>
+									</label>
+									<span>Contains misleading or false information</span>
+								</div>
+																<div class="form-item form-item-category content_members">
+									<label for="report-category-179">
+										<input type="radio" id="report-category-179" name="report_category" value="179" >
+										<span>Offensive</span>
+									</label>
+									<span>Contains abusive or derogatory content</span>
+								</div>
+																<div class="form-item form-item-category content_members">
+									<label for="report-category-182">
+										<input type="radio" id="report-category-182" name="report_category" value="182" >
+										<span>Suspicious</span>
+									</label>
+									<span>Contains spam, fake content or potential malware</span>
+								</div>
+								
+						<div class="form-item">
+							<label for="report-category-other">
+								<input type="radio" id="report-category-other" name="report_category" value="other">
+								<span>Otro</span>
+							</label>
+						</div>
+						<div class="form-item bp-hide">
+							<label for="report-note">
+								<span class="screen-reader-text">Report note</span>
+								<textarea id="report-note" placeholder="Enter your reason for reporting..." name="note" class="bp-other-report-cat"></textarea>
+							</label>
+						</div>
+						<footer class="bb-model-footer">
+							<input type="button" class="bb-cancel-report-content button" value="Cancelar"/>
+							<button type="submit" class="report-submit button">Reportar</button>
+							<input type="hidden" name="content_id" class="bp-content-id"/>
+							<input type="hidden" name="content_type" class="bp-content-type"/>
+							<input type="hidden" name="_wpnonce" class="bp-nonce"/>
+						</footer>
+					</form>
+					<div class="bp-report-form-err"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>
+
+<div id="block-member" class="block-member-popup moderation-popup mfp-hide">
+	<div class="modal-mask bb-white bbm-model-wrap bbm-uploader-model-wrap">
+			<div class="modal-wrapper">
+				<div class="modal-container">
+					<header class="bb-model-header">
+						<h4>¿Bloquear alumno?</h4>
+						<button title="Cerrar (Esc)" type="button" class="mfp-close">
+							<span class="bb-icon-l bb-icon-times"></span>
+						</button>
+					</header>
+
+					<div class="bb-report-type-wrp">
+						<p>
+							Por favor, confirme que desea bloquear a este miembro.						</p>
+						<p>
+							Ya no podrás hacerlo:						</p>
+						<ul>
+														<li>
+								Ver los mensajes de los miembros bloqueados							</li>
+														<li>
+								Mencionar a este miembro en los mensajes							</li>
+														<li>
+								Invitar a este miembro a grupos							</li>
+																					<li>
+								Mensaje a este miembro							</li>
+																					<li>
+								Agregar este miembro como un amigo							</li>
+													</ul>
+
+						<p>
+															<strong>Tenga en cuenta: </strong>
+								Esta acción también eliminará a este miembro de sus amigos y enviará un informe al administrador del sitio.							
+							Espere unos minutos para que se complete este proceso.						</p>
+						<form id="bb-block-member" action="javascript:void(0);">
+							<footer class="bb-model-footer">
+								<input type="button" class="bb-cancel-report-content button" value="Cancelar"/>
+								<button type="submit" class="report-submit button">Confirmar</button>
+								<input type="hidden" name="content_id" class="bp-content-id"/>
+								<input type="hidden" name="content_type" class="bp-content-type"/>
+								<input type="hidden" name="_wpnonce" class="bp-nonce"/>
+							</footer>
+						</form>
+												<div class="bp-report-form-err"></div>
+					</div>
+
+				</div>
+			</div>
+	</div>
+
+</div>
+
+<div id="reported-content" class="content-report-popup moderation-popup mfp-hide">
+	<div class="modal-mask bb-white bbm-model-wrap bbm-uploader-model-wrap">
+		<div class="modal-wrapper">
+			<div class="modal-container">
+				<header class="bb-model-header">
+					<h4>
+						Reportar <span class="bp-reported-type"></span>					</h4>
+					<button title="Cerrar (Esc)" type="button" class="mfp-close">
+						<span class="bb-icon-l bb-icon-times"></span>
+					</button>
+				</header>
+
+				<div class="bb-report-type-wrp">
+					Ya has reportado de esto <span class="bp-reported-type"></span>.				</div>
+			</div>
+		</div>
+	</div>
+</div>
+			<script>
+				const lazyloadRunObserver = () => {
+					const lazyloadBackgrounds = document.querySelectorAll( `.e-con.e-parent:not(.e-lazyloaded)` );
+					const lazyloadBackgroundObserver = new IntersectionObserver( ( entries ) => {
+						entries.forEach( ( entry ) => {
+							if ( entry.isIntersecting ) {
+								let lazyloadBackground = entry.target;
+								if( lazyloadBackground ) {
+									lazyloadBackground.classList.add( 'e-lazyloaded' );
+								}
+								lazyloadBackgroundObserver.unobserve( entry.target );
+							}
+						});
+					}, { rootMargin: '200px 0px 200px 0px' } );
+					lazyloadBackgrounds.forEach( ( lazyloadBackground ) => {
+						lazyloadBackgroundObserver.observe( lazyloadBackground );
+					} );
+				};
+				const events = [
+					'DOMContentLoaded',
+					'elementor/lazyload/observe',
+				];
+				events.forEach( ( event ) => {
+					document.addEventListener( event, lazyloadRunObserver );
+				} );
+			</script>
+			<script type="text/javascript" src="https://trabajosocialbolivia.com/wp-content/plugins/blog-posts-and-category-for-elementor/assets/vendors/imagesloaded/imagesloaded.pkgd.js?ver=1.0.0" id="pd-pcf-imagesloaded-js"></script>
+<script type="text/javascript" src="https://trabajosocialbolivia.com/wp-content/plugins/blog-posts-and-category-for-elementor/assets/vendors/packery/packery.pkgd.min.js?ver=1.0.0" id="pd-pcf-packery-library-js"></script>
+<script type="text/javascript" src="https://trabajosocialbolivia.com/wp-content/plugins/blog-posts-and-category-for-elementor/assets/vendors/isotope/isotope.pkgd.min.js?ver=1.0.0" id="pd-pcf-isotop-library-js"></script>
+<script type="text/javascript" id="pd-pcf-main-js-extra">
+/* <![CDATA[ */
+var pd_pcf_ajax_object = {"ajax_url":"https://trabajosocialbolivia.com/wp-admin/admin-ajax.php"};
+//# sourceURL=pd-pcf-main-js-extra
+/* ]]> */
+</script>
+<script type="text/javascript" src="https://trabajosocialbolivia.com/wp-content/plugins/blog-posts-and-category-for-elementor/assets/js/main.js?ver=1.0.0" id="pd-pcf-main-js"></script>
+<script type="text/javascript" src="https://trabajosocialbolivia.com/wp-content/plugins/buddyboss-platform/bp-core/js/vendor/isInViewport.min.js?ver=2.14.4" id="isInViewport-js"></script>
+<script type="text/javascript" src="https://trabajosocialbolivia.com/wp-includes/js/dist/vendor/moment.min.js?ver=2.30.1" id="moment-js"></script>
+<script type="text/javascript" id="moment-js-after">
+/* <![CDATA[ */
+moment.updateLocale( 'es_ES', {"months":["enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre"],"monthsShort":["Ene","Feb","Mar","Abr","May","Jun","Jul","Ago","Sep","Oct","Nov","Dic"],"weekdays":["domingo","lunes","martes","mi\u00e9rcoles","jueves","viernes","s\u00e1bado"],"weekdaysShort":["Dom","Lun","Mar","Mi\u00e9","Jue","Vie","S\u00e1b"],"week":{"dow":0},"longDateFormat":{"LT":"g:i a","LTS":null,"L":null,"LL":"F j, Y","LLL":"j \\d\\e F \\d\\e Y H:i","LLLL":null}} );
+moment.updateLocale( 'es_ES', {"relativeTime":{"future":" %s","past":"%s atr\u00e1s","s":"segundo","ss":"%d seconds","m":"un minuto","mm":"%d minutes","h":"una hora","hh":"%d hours","d":"un d\u00eda","dd":"%d days","w":"una semana","ww":"%d weeks","M":"a month","MM":"%d months","y":"un a\u00f1o","yy":"%d years"}} );
+//# sourceURL=moment-js-after
+/* ]]> */
+</script>
+<script type="text/javascript" id="bp-livestamp-js-extra">
+/* <![CDATA[ */
+var bb_livestamp = {"year_in_seconds":"31536000","day_in_seconds":"86400","week_in_seconds":"604800","hour_in_seconds":"3600","minute_in_seconds":"60","chunks":[31536000,5256000,2592000,604800,86400,3600,60,1],"unknown_text":"algun tiempo","right_now_text":"Just now","ago_text":"%s atr\u00e1s","second_text":"un segundo","seconds_text":"segundos","minute_text":"un minuto","minutes_text":"minutos","hour_text":"una hora","hours_text":"horas","day_text":"un d\u00eda","days_text":"d\u00edas","week_text":"una semana","weeks_text":"semanas","month_text":"a month","months_text":"meses","year_text":"un a\u00f1o","years_text":"a\u00f1os"};
+//# sourceURL=bp-livestamp-js-extra
+/* ]]> */
+</script>
+<script type="text/javascript" src="https://trabajosocialbolivia.com/wp-content/plugins/buddyboss-platform/bp-core/js/livestamp.min.js?ver=2.14.4" id="bp-livestamp-js"></script>
+<script type="text/javascript" src="https://trabajosocialbolivia.com/wp-includes/js/underscore.min.js?ver=1.13.7" id="underscore-js"></script>
+<script type="text/javascript" id="wp-util-js-extra">
+/* <![CDATA[ */
+var _wpUtilSettings = {"ajax":{"url":"/wp-admin/admin-ajax.php"}};
+//# sourceURL=wp-util-js-extra
+/* ]]> */
+</script>
+<script type="text/javascript" src="https://trabajosocialbolivia.com/wp-includes/js/wp-util.min.js?ver=6.9.1" id="wp-util-js"></script>
+<script type="text/javascript" src="https://trabajosocialbolivia.com/wp-includes/js/dist/hooks.min.js?ver=dd5603f07f9220ed27f1" id="wp-hooks-js"></script>
+<script type="text/javascript" src="https://trabajosocialbolivia.com/wp-includes/js/dist/i18n.min.js?ver=c26c3dc7bed366793375" id="wp-i18n-js"></script>
+<script type="text/javascript" id="wp-i18n-js-after">
+/* <![CDATA[ */
+wp.i18n.setLocaleData( { 'text direction\u0004ltr': [ 'ltr' ] } );
+//# sourceURL=wp-i18n-js-after
+/* ]]> */
+</script>
+<script type="text/javascript" id="bp-nouveau-js-extra">
+/* <![CDATA[ */
+var BP_Nouveau = {"ajaxurl":"https://trabajosocialbolivia.com/wp-admin/admin-ajax.php","only_admin_notice":"Como eres el \u00fanico organizador de este grupo, no puedes dejarlo. Puede eliminar el grupo o promover a otro miembro para que sea un organizador primero y luego abandonar el grupo.","is_friend_confirm":"\u00bfEst\u00e1 seguro de que desea eliminar su conexi\u00f3n con este miembro?","confirm":"\u00bfEst\u00e1s seguro?","confirm_delete_set":"\u00bfEst\u00e1 seguro/a que desea eliminar esta necesidad? Esto no se puede deshacer.","show_x_comments":"View more comments","unsaved_changes":"Tu perfil tiene cambios no guardados. Si abandonas esta p\u00e1gina, los cambios se perder\u00e1n.","object_nav_parent":"#buddypress","anchorPlaceholderText":"Paste or type a link","empty_field":"Nuevo campo","close":"Cerrar","parent_group_leave_confirm":"By leaving this main group you will automatically be removed and unsubscribed to any subgroups relating to this group.","group_leave_confirm":"\u003Cp\u003E\u00bfEst\u00e1s seguro de que quieres salir? \u003Cspan class=\"bb-group-name\"\u003E\u003C/span\u003E?\u003C/p\u003E","wpTime":"2026-02-24 08:39:17","wpTimezone":"","dir_labels":{"members":{"singular":"Miembro","plural":"Miembros"},"followers":{"singular":"Follower","plural":"Seguidores"},"connections":{"singular":"Connection","plural":"Conexiones"},"groups":{"singular":"Grupo","plural":"Grupos"},"video":{"singular":"Video","plural":"Videos"},"album":{"singular":"Album","plural":"\u00c1lbumes"},"media":{"singular":"Foto","plural":"Fotos"}},"rest_url":"https://trabajosocialbolivia.com/wp-json/buddyboss/v1","rest_nonce":"394f5bfd8f","member_label":"miembro","members_label":"miembros","objects":["activity","members","groups","blogs","xprofile","friends","media","document","video","messages","settings","notifications","search","moderation","group_members","group_requests","group_subgroups"],"nonces":{"activity":"429d5a029d","members":"33f6ff6d1a","groups":"dabc238586","blogs":"4ac19d76ef","xprofile":"1763d378a2","friends":"3816585a65","media":"e3ca3a9cf2","document":"376bbea6f0","video":"26c79b97d7","messages":"3a6a1ce95b","settings":"e89ffbed56","notifications":"9b13d48cc9","search":"2b7536d677","moderation":"68efba7c96","group_members":"8b7876b240"},"is_send_ajax_request":"","bb_enable_content_counts":"","more_menu_items":"Menu Items","more_menu_text":"M\u00e1s","modbypass":null,"forums":{"params":{"bb_current_user_id":0,"link_preview":true},"nonces":{"post_topic_reply_draft":"22579756ca"},"strings":{"discardButton":"Discard Draft"},"draft":[]},"nonce":{"bp_moderation_content_nonce":"a689a5de30"},"current":{"message_user_id":0},"archived_threads":[],"activity":{"params":{"user_id":0,"object":"user","backcompat":false,"post_nonce":"ab89782aa1","post_draft_nonce":"41fd52b35a","excluded_hosts":[],"user_can_post":false,"is_activity_edit":false,"displayed_user_id":0,"errors":{"empty_post_update":"Lo sentimos, tu actualizaci\u00f3n no puede estar vac\u00eda.","post_fail":"Se ha producido un error al guardar tu mensaje.","media_fail":"Para cambiar el tipo de medio, elimine el medio existente de su publicaci\u00f3n."},"is_activity_post_title_required":false,"activity_post_title_maxlength":80,"avatar_url":"https://trabajosocialbolivia.com/wp-content/plugins/buddyboss-platform/bp-core/images/profile-avatar-buddyboss-50.png","avatar_width":150,"avatar_height":150,"user_display_name":false,"user_domain":"","avatar_alt":"Foto de perfil de ","autoload":true,"link_preview":true,"objects":{"profile":{"text":"Publicar en: Perfil","autocomplete_placeholder":"","priority":5}},"draft_activity":false,"access_control_settings":{"can_create_activity":true,"can_create_activity_media":true,"can_create_activity_document":true}},"strings":{"whatsnewPlaceholder":"Comparte lo que tienes en mente, ...","whatsnewLabel":"Qu\u00e9 hay de nuevo","whatsnewpostinLabel":"Publicar en","postUpdateButton":"Publicar","updatePostButton":"Actualizar publicaci\u00f3n","cancelButton":"Cancelar","commentLabel":"%d Comenta","commentsLabel":"%d comentarios","loadingMore":"Cargando...","discardButton":"Discard Draft","pinPost":"Pin to Feed","unpinPost":"Unpin from Feed","pinGroupPost":"Pin to Group","unpinGroupPost":"Unpin from Group","pinPostError":"There was a problem marking this operation. Please try again.","reactionAjaxError":"There was a problem marking this operation. Please try again.","closeComments":"Turn off commenting","uncloseComments":"Turn on commenting","closeCommentsError":"There was a problem marking this operation. Please try again.","commentPostError":"There was a problem posting your comment.","muteNotification":"Turn off notifications","unmuteNotification":"Turn on notifications","whatsNewTitle":"Title (optional)"}},"media":{"max_upload_size":64,"profile_media":false,"profile_album":false,"group_media":false,"group_album":true,"messages_media":true,"messages_media_active":true,"dropzone_media_message":"\u003Cstrong\u003EAgregar fotos\u003C/strong\u003E Arrastra y suelta para reordenar archivos de medios","media_select_error":"Este tipo de archivo no es compatible con las cargas de fotos.","empty_media_type":"Archivos multimedia vac\u00edos no se cargar\u00e1n.","invalid_media_type":"No se pudo cargar el archivo","media_size_error_header":"Archivo demasiado grande ","media_size_error_description":"Este tipo de archivo es demasiado grande.","dictFileTooBig":"El tama\u00f1o del archivo es demasiado grande ({{filesize}} MB). Tama\u00f1o m\u00e1ximo del archivo: {{maxFilesize}} MB.","cover_photo_size_error_header":"No se puede cambiar la posici\u00f3n de la imagen ","cover_photo_size_error_description":"Para cambiar la posici\u00f3n de la foto de portada, cargue una imagen m\u00e1s grande y vuelva a intentarlo.","maxFiles":10,"is_media_directory":"no","create_album_error_title":"Introduce el t\u00edtulo del \u00e1lbum","current_album":0,"current_type":"","move_to_id_popup":0,"media_dict_file_exceeded":"S\u00f3lo puedes subir 10 fotos a la vez.","can_manage_media":false,"create_album_title":"Crear \u00c1lbum","dictCancelUploadConfirmation":"\u00bfEst\u00e1s seguro de que deseas cancelar esta carga?","connection_lost_error":"Connection lost with the server.","emoji":{"profile":false,"groups":false,"messages":false,"forums":false,"document":true},"emoji_filter_url":"https://trabajosocialbolivia.com/wp-content/plugins/buddyboss-platform/bp-core/images/emojifilter/","gif":{"profile":true,"groups":true,"messages":true,"forums":true,"document":true},"gif_api_key":"0TuNOnyFzcSwKuOE22yNEGCkP8RdpNct","i18n_strings":{"select":"Seleccionar","unselect":"Deseleccionar","selectall":"Seleccionar todo","unselectall":"Deseleccionar todo","no_photos_found":"Lo sentimos, no se encontraron fotos","upload":"Subir","uploading":"Subiendo","upload_status":"%1$d de %2$d subido","album_delete_confirm":"\u00bfEst\u00e1s seguro de que deseas eliminar este \u00e1lbum? Las fotos de este \u00e1lbum tambi\u00e9n se eliminar\u00e1n.","album_delete_error":"Se ha producido un problema al eliminar el \u00e1lbum.","media_delete_confirm":"\u00bfSeguro que deseas eliminar este archivo multimedia?","folder_delete_confirm":"\u00bfEst\u00e1 seguro de que desea eliminar esta carpeta? \u00bfLos archivos de esta carpeta tambi\u00e9n se eliminar\u00e1n?","document_delete_confirm":"\u00bfEst\u00e1 seguro/a de que deseas eliminar este documento?","folder_delete_error":"Hubo un problema al eliminar la carpeta.","folder_move_error":"Seleccione la carpeta de destino."},"profile_document":false,"group_document":false,"messages_document":false,"messages_document_active":false,"document_type":"application/x-abiword,text/xml,application/x-ace-compressed,application/postscript,application/pdf,application/vnd.android.package-archive,application/java-archive,text/css,text/plain,text/csv,application/msword,application/vnd.ms-word.document.macroenabled.12,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.ms-word.template.macroenabled.12,image/x-eps,image/gif,application/x-gzip,application/gzip,text/html,image/x-icon,text/calendar,application/octet-stream,image/jpeg,application/javascript,audio/mpeg,application/vnd.oasis.opendocument.spreadsheet,application/vnd.oasis.opendocument.text,image/png,application/vnd.ms-powerpoint.template.macroenabled.12,application/vnd.openxmlformats-officedocument.presentationml.template,application/vnd.openxmlformats-officedocument.presentationml.presentation,application/vnd.ms-powerpoint,application/vnd.openxmlformats-officedocument.presentationml.slideshow,application/vnd.ms-powerpoint.presentation.macroenabled.12,image/vnd.adobe.photoshop,application/x-rar-compressed,application/x-rar,application/rss+xml,application/rtf,application/x-sqlite3,image/svg+xml,application/x-tar,image/tiff,text/x-vcard,text/vcard,audio/x-wav,application/vnd.ms-excel.sheet.binary.macroenabled.12,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel.sheet.macroenabled.12,application/vnd.ms-excel.template.macroenabled.12,application/vnd.openxmlformats-officedocument.spreadsheetml.template,text/yaml,application/zip,application/x-7z-compressed,video/mp4,video/webm,video/ogg,video/quicktime,.abw,.ace,.ai,.apk,.css,.csv,.doc,.docm,.docx,.dotm,.dotx,.eps,.gif,.gz,.gzip,.htm,.html,.ico,.ics,.ipa,.jar,.jpeg,.jpg,.js,.mp3,.ods,.odt,.pdf,.png,.potm,.potx,.pps,.ppsx,.ppt,.pptm,.pptx,.psd,.rar,.rss,.rtf,.sketch,.svg,.tar,.tiff,.txt,.vcf,.wav,.xlam,.xls,.xlsb,.xlsm,.xlsx,.xltm,.xltx,.xml,.yaml,.zip,.7z,.mp4,.webm,.ogg,.mov","empty_document_type":"Los archivos vac\u00edos no se cargar\u00e1n.","current_folder":0,"current_user_id":0,"current_group_id":0,"target_text":"Documentos","create_folder_error_title":"Introduzca el t\u00edtulo de la carpeta","invalid_file_type":"No se pudo cargar el archivo","document_select_error":"Cargue solo los siguientes tipos de archivos: \u003Cbr /\u003E\u003Cdiv class=\"bb-allowed-file-types\"\u003E.abw, .ace, .ai, .apk, .css, .csv, .doc, .docm, .docx, .dotm, .dotx, .eps, .gif, .gz, .gzip, .htm, .html, .ico, .ics, .ipa, .jar, .jpeg, .jpg, .js, .mp3, .ods, .odt, .pdf, .png, .potm, .potx, .pps, .ppsx, .ppt, .pptm, .pptx, .psd, .rar, .rss, .rtf, .sketch, .svg, .tar, .tiff, .txt, .vcf, .wav, .xlam, .xls, .xlsb, .xlsm, .xlsx, .xltm, .xltx, .xml, .yaml, .zip, .7z, .mp4, .webm, .ogg, .mov\u003C/div\u003E","dropzone_document_message":"\u003Cstrong\u003EAgregar archivos\u003C/strong\u003E Arrastra y suelta para reordenar archivos de medios","is_document_directory":"no","document_preview_error":"\u00a1Lo siento! algo sali\u00f3 mal y no podemos obtener una vista previa.","move_to_folder":"Mover carpeta a ...","move_to_file":"Mover archivo a\u2026","copy_to_clip_board_text":"Copiado en el portapapeles","download_button":"Descargar","document_size_error_header":"Archivo demasiado grande ","document_size_error_description":"Este tipo de archivo es demasiado grande.","sidebar_download_text":"Descargar","sidebar_view_text":"Ver","create_folder":"Crear carpeta","document_dict_file_exceeded":"Solo se le permite subir 10 archivos a la vez.","can_manage_document":false},"video":{"max_upload_size":64,"video_type":"video/mp4,video/webm,video/ogg,video/quicktime,.mp4,.webm,.ogg,.mov","profile_video":false,"profile_album":false,"group_video":false,"group_album":true,"messages_video":false,"messages_video_active":false,"dropzone_video_message":"\u003Cstrong\u003EAgregar videos\u003C/strong\u003E Arrastra y suelta para reordenar archivos de medios","dropzone_video_thumbnail_message":"Cargar thumbnail","video_select_error":"Este tipo de archivo no es compatible con la subida de v\u00eddeos.","empty_video_type":"El archivo de v\u00eddeo vac\u00edo no se cargar\u00e1.","invalid_video_type":"No se pudo cargar el archivo","video_size_error_header":"Archivo demasiado grande ","video_size_error_description":"Este tipo de archivo es demasiado grande.","dictFileTooBig":"El tama\u00f1o del archivo es demasiado grande ({{filesize}} MB). Tama\u00f1o m\u00e1ximo del archivo: {{maxFilesize}} MB.","maxFiles":10,"is_video_directory":"no","create_album_error_title":"Introduce el t\u00edtulo del \u00e1lbum","cover_video_size_error_header":"No se puede cambiar la posici\u00f3n de la imagen ","cover_video_size_error_description":"Para reposicionar su v\u00eddeo de portada, cargue una imagen m\u00e1s grande y vuelva a intentarlo.","current_album":0,"current_type":"","move_to_id_popup":0,"video_dict_file_exceeded":"S\u00f3lo puedes subir 10 v\u00eddeos a la vez.","thumb_dict_file_exceeded":"S\u00f3lo se puede subir una imagen a la vez.","dictInvalidFileType":"Cargue solo los siguientes tipos de archivos: \u003Cbr /\u003E\u003Cdiv class=\"bb-allowed-file-types\"\u003Evideo/mp4, video/webm, video/ogg, video/quicktime, .mp4, .webm, .ogg, .mov\u003C/div\u003E","is_ffpmeg_installed":false,"generating_thumb":"Generating thumbnail\u2026","dictCancelUploadConfirmation":"\u00bfEst\u00e1s seguro de que deseas cancelar esta carga?","i18n_strings":{"select":"Seleccionar","unselect":"Deseleccionar","selectall":"Seleccionar todo","unselectall":"Deseleccionar todo","no_videos_found":"Lo sentimos, no se ha encontrado ning\u00fan v\u00eddeo","upload":"Subir","upload_thumb":"Cambiar la imagen en miniatura","uploading":"Subiendo","upload_status":"%1$d de %2$d subido","album_delete_confirm":"\u00bfEst\u00e1 seguro de que quiere eliminar este \u00e1lbum? Los v\u00eddeos de este \u00e1lbum tambi\u00e9n se eliminar\u00e1n.","album_delete_error":"Se ha producido un problema al eliminar el \u00e1lbum.","video_delete_confirm":"\u00bfEst\u00e1s seguro de que deseas eliminar este video?","video_enlarge_text":"Ampliar","video_fullscreen_text":"Full screen","video_play_text":"Reproducir","video_pause_text":"Pausa","video_uploaded_text":"Subido","video_volume_text":"Volumen","video_miniplayer_text":"Miniplayer","video_speed_text":"Velocidad","video_skip_back_text":"Paso atr\u00e1s (5)","video_skip_forward_text":"Paso adelante (5)","video_picture_in_text":"This video is playing in the miniplayer."}},"moderation":{"unblock_user_msg":"\u00bfEst\u00e1s seguro de que deseas desbloquear a este miembro?","no_user_msg":"No se encontraron miembros bloqueados."},"document":{"dictInvalidFileType":"Cargue solo los siguientes tipos de archivos: \u003Cbr /\u003E\u003Cdiv class=\"bb-allowed-file-types\"\u003E.abw, .ace, .ai, .apk, .css, .csv, .doc, .docm, .docx, .dotm, .dotx, .eps, .gif, .gz, .gzip, .htm, .html, .ico, .ics, .ipa, .jar, .jpeg, .jpg, .js, .mp3, .ods, .odt, .pdf, .png, .potm, .potx, .pps, .ppsx, .ppt, .pptm, .pptx, .psd, .rar, .rss, .rtf, .sketch, .svg, .tar, .tiff, .txt, .vcf, .wav, .xlam, .xls, .xlsb, .xlsm, .xlsx, .xltm, .xltx, .xml, .yaml, .zip, .7z, .mp4, .webm, .ogg, .mov\u003C/div\u003E","max_upload_size":64,"maxFiles":10,"mp3_preview_extension":"mp3,wav,ogg"}};
+var BB_Nouveau_Presence = {"heartbeat_enabled":"1","presence_interval":"60","presence_default_interval":"60","presence_time_span":"20","idle_inactive_span":"180","rest_nonce":"394f5bfd8f","native_presence":"1","native_presence_url":"https://trabajosocialbolivia.com/wp-content/plugins/buddyboss-platform/bp-core/bb-core-native-presence.php","presence_rest_url":"https://trabajosocialbolivia.com/wp-json/buddyboss/v1/members/presence"};
+//# sourceURL=bp-nouveau-js-extra
+/* ]]> */
+</script>
+<script type="text/javascript" src="https://trabajosocialbolivia.com/wp-content/plugins/buddyboss-platform/bp-templates/bp-nouveau/js/buddypress-nouveau.min.js?ver=2.14.4" id="bp-nouveau-js"></script>
+<script type="text/javascript" src="https://trabajosocialbolivia.com/wp-content/plugins/buddyboss-platform/bp-templates/bp-nouveau/js/jquery.guillotine.min.js?ver=2.14.4" id="guillotine-js-js"></script>
+<script type="text/javascript" src="https://trabajosocialbolivia.com/wp-includes/js/comment-reply.min.js?ver=6.9.1" id="comment-reply-js" async="async" data-wp-strategy="async" fetchpriority="low"></script>
+<script type="text/javascript" id="heartbeat-js-extra">
+/* <![CDATA[ */
+var heartbeatSettings = {"ajaxurl":"/wp-admin/admin-ajax.php"};
+//# sourceURL=heartbeat-js-extra
+/* ]]> */
+</script>
+<script type="text/javascript" src="https://trabajosocialbolivia.com/wp-includes/js/heartbeat.min.js?ver=6.9.1" id="heartbeat-js"></script>
+<script type="text/javascript" src="https://trabajosocialbolivia.com/wp-content/plugins/buddyboss-platform/bp-core/js/vendor/codemirror.min.js?ver=2.14.4" id="bp-nouveau-codemirror-js"></script>
+<script type="text/javascript" src="https://trabajosocialbolivia.com/wp-content/plugins/buddyboss-platform/bp-core/js/vendor/css.min.js?ver=2.14.4" id="bp-nouveau-codemirror-css-js"></script>
+<script type="text/javascript" src="https://trabajosocialbolivia.com/wp-content/plugins/buddyboss-platform/bp-templates/bp-nouveau/js/buddypress-media.min.js?ver=2.14.4" id="bp-nouveau-media-js"></script>
+<script type="text/javascript" src="https://trabajosocialbolivia.com/wp-includes/js/jquery/ui/core.min.js?ver=1.13.3" id="jquery-ui-core-js"></script>
+<script type="text/javascript" src="https://trabajosocialbolivia.com/wp-includes/js/jquery/ui/menu.min.js?ver=1.13.3" id="jquery-ui-menu-js"></script>
+<script type="text/javascript" src="https://trabajosocialbolivia.com/wp-includes/js/dist/dom-ready.min.js?ver=f77871ff7694fffea381" id="wp-dom-ready-js"></script>
+<script type="text/javascript" id="wp-a11y-js-translations">
+/* <![CDATA[ */
+( function( domain, translations ) {
+	var localeData = translations.locale_data[ domain ] || translations.locale_data.messages;
+	localeData[""].domain = domain;
+	wp.i18n.setLocaleData( localeData, domain );
+} )( "default", {"translation-revision-date":"2026-01-30 19:24:13+0000","generator":"GlotPress\/4.0.3","domain":"messages","locale_data":{"messages":{"":{"domain":"messages","plural-forms":"nplurals=2; plural=n != 1;","lang":"es"},"Notifications":["Avisos"]}},"comment":{"reference":"wp-includes\/js\/dist\/a11y.js"}} );
+//# sourceURL=wp-a11y-js-translations
+/* ]]> */
+</script>
+<script type="text/javascript" src="https://trabajosocialbolivia.com/wp-includes/js/dist/a11y.min.js?ver=cb460b4676c94bd228ed" id="wp-a11y-js"></script>
+<script type="text/javascript" src="https://trabajosocialbolivia.com/wp-includes/js/jquery/ui/autocomplete.min.js?ver=1.13.3" id="jquery-ui-autocomplete-js"></script>
+<script type="text/javascript" id="bp-nouveau-search-js-extra">
+/* <![CDATA[ */
+var BP_SEARCH = {"nonce":"048a283474","action":"bp_search_ajax","debug":"1","ajaxurl":"https://trabajosocialbolivia.com/wp-admin/admin-ajax.php","loading_msg":"Cargando sugerencias","enable_ajax_search":"1","per_page":"5","autocomplete_selector":"form[role='search']:not(.bp-dir-search-form), form.search-form:not(.bp-dir-search-form), form.searchform:not(.bp-dir-search-form), form#adminbarsearch:not(.bp-dir-search-form), .bp-search-form\u003E#search-form:not(.bp-dir-search-form)","form_selector":".bp-search-page form.bp-dir-search-form[role='search']","forums_autocomplete":"1"};
+//# sourceURL=bp-nouveau-search-js-extra
+/* ]]> */
+</script>
+<script type="text/javascript" src="https://trabajosocialbolivia.com/wp-content/plugins/buddyboss-platform/bp-templates/bp-nouveau/js/buddypress-search.min.js?ver=2.14.4" id="bp-nouveau-search-js"></script>
+<script type="text/javascript" src="https://trabajosocialbolivia.com/wp-content/plugins/buddyboss-platform/bp-templates/bp-nouveau/js/buddypress-moderation.min.js?ver=2.14.4" id="bp-nouveau-moderation-js"></script>
+<script type="text/javascript" src="https://trabajosocialbolivia.com/wp-content/plugins/buddyboss-platform/bp-core/js/vendor/jquery.caret.min.js?ver=2.14.4" id="jquery-caret-js"></script>
+<script type="text/javascript" src="https://trabajosocialbolivia.com/wp-content/plugins/buddyboss-platform/bp-core/js/jquery.atwho.min.js?ver=2.14.4" id="jquery-atwho-js"></script>
+<script type="text/javascript" id="bp-mentions-js-extra">
+/* <![CDATA[ */
+var BP_Mentions_Options = {"selectors":[".bp-suggestions","#comments form textarea",".wp-editor-area",".bbp-the-content"],"insert_tpl":"@${ID}","display_tpl":"\u003Cli data-value=\"@${ID}\"\u003E\u003Cimg src=\"${image}\" /\u003E\u003Cspan class=\"username\"\u003E@${ID}\u003C/span\u003E\u003Csmall\u003E${name}\u003C/small\u003E\u003C/li\u003E","extra_options":[]};
+//# sourceURL=bp-mentions-js-extra
+/* ]]> */
+</script>
+<script type="text/javascript" src="https://trabajosocialbolivia.com/wp-content/plugins/buddyboss-platform/bp-core/js/mentions.min.js?ver=2.14.4" id="bp-mentions-js"></script>
+<script type="text/javascript" src="https://trabajosocialbolivia.com/wp-content/plugins/contact-form-7/includes/swv/js/index.js?ver=6.1.5" id="swv-js"></script>
+<script type="text/javascript" id="contact-form-7-js-translations">
+/* <![CDATA[ */
+( function( domain, translations ) {
+	var localeData = translations.locale_data[ domain ] || translations.locale_data.messages;
+	localeData[""].domain = domain;
+	wp.i18n.setLocaleData( localeData, domain );
+} )( "contact-form-7", {"translation-revision-date":"2025-12-01 15:45:40+0000","generator":"GlotPress\/4.0.3","domain":"messages","locale_data":{"messages":{"":{"domain":"messages","plural-forms":"nplurals=2; plural=n != 1;","lang":"es"},"This contact form is placed in the wrong place.":["Este formulario de contacto est\u00e1 situado en el lugar incorrecto."],"Error:":["Error:"]}},"comment":{"reference":"includes\/js\/index.js"}} );
+//# sourceURL=contact-form-7-js-translations
+/* ]]> */
+</script>
+<script type="text/javascript" id="contact-form-7-js-before">
+/* <![CDATA[ */
+var wpcf7 = {
+    "api": {
+        "root": "https:\/\/trabajosocialbolivia.com\/wp-json\/",
+        "namespace": "contact-form-7\/v1"
+    }
+};
+//# sourceURL=contact-form-7-js-before
+/* ]]> */
+</script>
+<script type="text/javascript" src="https://trabajosocialbolivia.com/wp-content/plugins/contact-form-7/includes/js/index.js?ver=6.1.5" id="contact-form-7-js"></script>
+<script type="text/javascript" id="cf7mls-js-extra">
+/* <![CDATA[ */
+var cf7mls_object = {"ajax_url":"https://trabajosocialbolivia.com/wp-json/","is_rtl":"","disable_submit":"true","cf7mls_error_message":"","scroll_step":"true","scroll_first_error":"true","disable_enter_key":"false","check_step_before_submit":"true"};
+//# sourceURL=cf7mls-js-extra
+/* ]]> */
+</script>
+<script type="text/javascript" src="https://trabajosocialbolivia.com/wp-content/plugins/cf7-multi-step/assets/frontend/js/cf7mls.js?ver=2.7.9" id="cf7mls-js"></script>
+<script type="text/javascript" src="https://trabajosocialbolivia.com/wp-content/plugins/cf7-repeatable-fields/dist/scripts.js?ver=2.0.2" id="wpcf7-field-group-script-js"></script>
+<script type="text/javascript" id="st-trigger-button-script-js-extra">
+/* <![CDATA[ */
+var st_ajax_object = {"ajax_url":"https://trabajosocialbolivia.com/wp-admin/admin-ajax.php"};
+//# sourceURL=st-trigger-button-script-js-extra
+/* ]]> */
+</script>
+<script type="text/javascript" src="https://trabajosocialbolivia.com/wp-content/plugins/suretriggers/assets/js/st-trigger-button.js?ver=1.1.20" id="st-trigger-button-script-js"></script>
+<script type="text/javascript" id="buddyx-navigation-js-extra">
+/* <![CDATA[ */
+var buddyxScreenReaderText = {"expand":"Expandir submen\u00fa","collapse":"Contraer submen\u00fa"};
+//# sourceURL=buddyx-navigation-js-extra
+/* ]]> */
+</script>
+<script type="text/javascript" src="https://trabajosocialbolivia.com/wp-content/themes/buddyx/assets/js/navigation.min.js?ver=1771809411" id="buddyx-navigation-js" async></script>
+<script type="text/javascript" src="https://trabajosocialbolivia.com/wp-content/themes/buddyx/assets/js/superfish.min.js?ver=1771809411" id="buddyx-superfish-js"></script>
+<script type="text/javascript" src="https://trabajosocialbolivia.com/wp-content/themes/buddyx/assets/js/isotope.pkgd.min.js?ver=1771809411" id="buddyx-isotope-pkgd-js" defer></script>
+<script type="text/javascript" src="https://trabajosocialbolivia.com/wp-content/themes/buddyx/assets/js/fitvids.min.js?ver=1771809411" id="buddyx-fitvids-js" defer></script>
+<script type="text/javascript" src="https://trabajosocialbolivia.com/wp-content/themes/buddyx/assets/js/sticky-kit.min.js?ver=1771809411" id="buddyx-sticky-kit-js" defer></script>
+<script type="text/javascript" src="https://trabajosocialbolivia.com/wp-content/themes/buddyx/assets/js/jquery-cookie.min.js?ver=1771809411" id="buddyx-jquery-cookie-js"></script>
+<script type="text/javascript" src="https://trabajosocialbolivia.com/wp-content/themes/buddyx/assets/js/slick.min.js?ver=1771809411" id="buddyx-slick-js" defer></script>
+<script type="text/javascript" id="buddyx-custom-js-extra">
+/* <![CDATA[ */
+var buddyx_ajax = {"nonce":"88f2fa0fb5","ajaxurl":"https://trabajosocialbolivia.com/wp-admin/admin-ajax.php"};
+//# sourceURL=buddyx-custom-js-extra
+/* ]]> */
+</script>
+<script type="text/javascript" src="https://trabajosocialbolivia.com/wp-content/themes/buddyx/assets/js/custom.min.js?ver=1771809411" id="buddyx-custom-js"></script>
+<script type="text/javascript" src="https://trabajosocialbolivia.com/wp-content/themes/buddyx/assets/js/buddyx-buddypress.min.js?ver=1771809411" id="buddyx-buddypress-js"></script>
+<script type="text/javascript" src="https://trabajosocialbolivia.com/wp-content/plugins/pro-elements/assets/lib/smartmenus/jquery.smartmenus.min.js?ver=1.2.1" id="smartmenus-js"></script>
+<script type="text/javascript" src="https://trabajosocialbolivia.com/wp-content/plugins/elementor/assets/js/webpack.runtime.min.js?ver=3.35.5" id="elementor-webpack-runtime-js"></script>
+<script type="text/javascript" src="https://trabajosocialbolivia.com/wp-content/plugins/elementor/assets/js/frontend-modules.min.js?ver=3.35.5" id="elementor-frontend-modules-js"></script>
+<script type="text/javascript" id="elementor-frontend-js-before">
+/* <![CDATA[ */
+var elementorFrontendConfig = {"environmentMode":{"edit":false,"wpPreview":false,"isScriptDebug":false},"i18n":{"shareOnFacebook":"Compartir en Facebook","shareOnTwitter":"Compartir en Twitter","pinIt":"Pinear","download":"Descargar","downloadImage":"Descargar imagen","fullscreen":"Pantalla completa","zoom":"Zoom","share":"Compartir","playVideo":"Reproducir v\u00eddeo","previous":"Anterior","next":"Siguiente","close":"Cerrar","a11yCarouselPrevSlideMessage":"Diapositiva anterior","a11yCarouselNextSlideMessage":"Diapositiva siguiente","a11yCarouselFirstSlideMessage":"Esta es la primera diapositiva","a11yCarouselLastSlideMessage":"Esta es la \u00faltima diapositiva","a11yCarouselPaginationBulletMessage":"Ir a la diapositiva"},"is_rtl":false,"breakpoints":{"xs":0,"sm":480,"md":768,"lg":1025,"xl":1440,"xxl":1600},"responsive":{"breakpoints":{"mobile":{"label":"M\u00f3vil vertical","value":767,"default_value":767,"direction":"max","is_enabled":true},"mobile_extra":{"label":"M\u00f3vil horizontal","value":880,"default_value":880,"direction":"max","is_enabled":false},"tablet":{"label":"Tableta vertical","value":1024,"default_value":1024,"direction":"max","is_enabled":true},"tablet_extra":{"label":"Tableta horizontal","value":1200,"default_value":1200,"direction":"max","is_enabled":false},"laptop":{"label":"Port\u00e1til","value":1366,"default_value":1366,"direction":"max","is_enabled":false},"widescreen":{"label":"Pantalla grande","value":2400,"default_value":2400,"direction":"min","is_enabled":false}},"hasCustomBreakpoints":false},"version":"3.35.5","is_static":false,"experimentalFeatures":{"e_font_icon_svg":true,"additional_custom_breakpoints":true,"container":true,"theme_builder_v2":true,"nested-elements":true,"home_screen":true,"global_classes_should_enforce_capabilities":true,"e_variables":true,"cloud-library":true,"e_opt_in_v4_page":true,"e_components":true,"e_interactions":true,"e_editor_one":true,"import-export-customization":true,"e_pro_variables":true},"urls":{"assets":"https:\/\/trabajosocialbolivia.com\/wp-content\/plugins\/elementor\/assets\/","ajaxurl":"https:\/\/trabajosocialbolivia.com\/wp-admin\/admin-ajax.php","uploadUrl":"https:\/\/trabajosocialbolivia.com\/wp-content\/uploads"},"nonces":{"floatingButtonsClickTracking":"b1319451c4"},"swiperClass":"swiper","settings":{"page":[],"editorPreferences":[]},"kit":{"active_breakpoints":["viewport_mobile","viewport_tablet"],"global_image_lightbox":"yes","lightbox_enable_counter":"yes","lightbox_enable_fullscreen":"yes","lightbox_enable_zoom":"yes","lightbox_enable_share":"yes","lightbox_title_src":"title","lightbox_description_src":"description"},"post":{"id":1399,"title":"404%20-%20Trabajo%20Social%20Bolivia","excerpt":"","featuredImage":false}};
+//# sourceURL=elementor-frontend-js-before
+/* ]]> */
+</script>
+<script type="text/javascript" src="https://trabajosocialbolivia.com/wp-content/plugins/elementor/assets/js/frontend.min.js?ver=3.35.5" id="elementor-frontend-js"></script>
+<script type="text/javascript" id="wpcf7cf-scripts-js-extra">
+/* <![CDATA[ */
+var wpcf7cf_global_settings = {"ajaxurl":"https://trabajosocialbolivia.com/wp-admin/admin-ajax.php"};
+//# sourceURL=wpcf7cf-scripts-js-extra
+/* ]]> */
+</script>
+<script type="text/javascript" src="https://trabajosocialbolivia.com/wp-content/plugins/cf7-conditional-fields/js/scripts.js?ver=2.6.8" id="wpcf7cf-scripts-js"></script>
+<script type="text/javascript" src="https://www.google.com/recaptcha/api.js?render=6Le72kgrAAAAAAoHnhIN1IK8dWxRz-7SUE7uNwzY&amp;ver=3.0" id="google-recaptcha-js"></script>
+<script type="text/javascript" src="https://trabajosocialbolivia.com/wp-includes/js/dist/vendor/wp-polyfill.min.js?ver=3.15.0" id="wp-polyfill-js"></script>
+<script type="text/javascript" id="wpcf7-recaptcha-js-before">
+/* <![CDATA[ */
+var wpcf7_recaptcha = {
+    "sitekey": "6Le72kgrAAAAAAoHnhIN1IK8dWxRz-7SUE7uNwzY",
+    "actions": {
+        "homepage": "homepage",
+        "contactform": "contactform"
+    }
+};
+//# sourceURL=wpcf7-recaptcha-js-before
+/* ]]> */
+</script>
+<script type="text/javascript" src="https://trabajosocialbolivia.com/wp-content/plugins/contact-form-7/modules/recaptcha/index.js?ver=6.1.5" id="wpcf7-recaptcha-js"></script>
+<script type="text/javascript" src="https://trabajosocialbolivia.com/wp-content/plugins/google-site-kit/dist/assets/js/googlesitekit-events-provider-contact-form-7-83c32a029ed2cf5b6a82.js" id="googlesitekit-events-provider-contact-form-7-js" defer></script>
+<script type="text/javascript" src="https://trabajosocialbolivia.com/wp-content/plugins/pro-elements/assets/js/webpack-pro.runtime.min.js?ver=3.35.0" id="elementor-pro-webpack-runtime-js"></script>
+<script type="text/javascript" id="elementor-pro-frontend-js-before">
+/* <![CDATA[ */
+var ElementorProFrontendConfig = {"ajaxurl":"https:\/\/trabajosocialbolivia.com\/wp-admin\/admin-ajax.php","nonce":"c66f44f5e7","urls":{"assets":"https:\/\/trabajosocialbolivia.com\/wp-content\/plugins\/pro-elements\/assets\/","rest":"https:\/\/trabajosocialbolivia.com\/wp-json\/"},"settings":{"lazy_load_background_images":true},"popup":{"hasPopUps":false},"shareButtonsNetworks":{"facebook":{"title":"Facebook","has_counter":true},"twitter":{"title":"Twitter"},"linkedin":{"title":"LinkedIn","has_counter":true},"pinterest":{"title":"Pinterest","has_counter":true},"reddit":{"title":"Reddit","has_counter":true},"vk":{"title":"VK","has_counter":true},"odnoklassniki":{"title":"OK","has_counter":true},"tumblr":{"title":"Tumblr"},"digg":{"title":"Digg"},"skype":{"title":"Skype"},"stumbleupon":{"title":"StumbleUpon","has_counter":true},"mix":{"title":"Mix"},"telegram":{"title":"Telegram"},"pocket":{"title":"Pocket","has_counter":true},"xing":{"title":"XING","has_counter":true},"whatsapp":{"title":"WhatsApp"},"email":{"title":"Email"},"print":{"title":"Print"},"x-twitter":{"title":"X"},"threads":{"title":"Threads"}},"facebook_sdk":{"lang":"es_ES","app_id":""},"lottie":{"defaultAnimationUrl":"https:\/\/trabajosocialbolivia.com\/wp-content\/plugins\/pro-elements\/modules\/lottie\/assets\/animations\/default.json"}};
+//# sourceURL=elementor-pro-frontend-js-before
+/* ]]> */
+</script>
+<script type="text/javascript" src="https://trabajosocialbolivia.com/wp-content/plugins/pro-elements/assets/js/frontend.min.js?ver=3.35.0" id="elementor-pro-frontend-js"></script>
+<script type="text/javascript" src="https://trabajosocialbolivia.com/wp-content/plugins/pro-elements/assets/js/elements-handlers.min.js?ver=3.35.0" id="pro-elements-handlers-js"></script>
+		<style>
+			.unlimited-elements-background-overlay{
+				position:absolute;
+				top:0px;
+				left:0px;
+				width:100%;
+				height:100%;
+				z-index:0;
+			}
+
+			.unlimited-elements-background-overlay.uc-bg-front{
+				z-index:999;
+			}
+		</style>
+
+		<script type='text/javascript'>
+
+			jQuery(document).ready(function(){
+					
+				function ucBackgroundOverlayPutStart(){
+				
+					var objBG = jQuery(".unlimited-elements-background-overlay").not(".uc-bg-attached");
+
+					if(objBG.length == 0)
+						return(false);
+
+					objBG.each(function(index, bgElement){
+
+						var objBgElement = jQuery(bgElement);
+
+						var targetID = objBgElement.data("forid");
+
+						var location = objBgElement.data("location");
+
+						switch(location){
+							case "body":
+							case "body_front":
+								var objTarget = jQuery("body");
+							break;
+							case "layout":
+							case "layout_front":
+								var objLayout = jQuery("*[data-id=\""+targetID+"\"]");
+								var objTarget = objLayout.parents(".elementor");
+								if(objTarget.length > 1)
+									objTarget = jQuery(objTarget[0]);
+							break;
+							default:
+								var objTarget = jQuery("*[data-id=\""+targetID+"\"]");
+							break;
+						}
+
+
+						if(objTarget.length == 0)
+							return(true);
+
+						var objVideoContainer = objTarget.children(".elementor-background-video-container");
+
+						if(objVideoContainer.length == 1)
+							objBgElement.detach().insertAfter(objVideoContainer).show();
+						else
+							objBgElement.detach().prependTo(objTarget).show();
+
+
+						var objTemplate = objBgElement.children("template");
+
+						if(objTemplate.length){
+							
+					        var clonedContent = objTemplate[0].content.cloneNode(true);
+
+					    	var objScripts = jQuery(clonedContent).find("script");
+					    	if(objScripts.length)
+					    		objScripts.attr("type","text/javascript");
+					        
+					        objBgElement.append(clonedContent);
+							
+							objTemplate.remove();
+						}
+
+						objBgElement.trigger("bg_attached");
+						objBgElement.addClass("uc-bg-attached");
+
+					});
+				}
+
+				ucBackgroundOverlayPutStart();
+
+				jQuery( document ).on( 'elementor/popup/show', ucBackgroundOverlayPutStart);
+				jQuery( "body" ).on( 'uc_dom_updated', ucBackgroundOverlayPutStart);
+
+			});
+
+
+		</script>
+				<script>
+		/(trident|msie)/i.test(navigator.userAgent)&&document.getElementById&&window.addEventListener&&window.addEventListener("hashchange",function(){var t,e=location.hash.substring(1);/^[A-z0-9_-]+$/.test(e)&&(t=document.getElementById(e))&&(/^(?:a|select|input|button|textarea)$/i.test(t.tagName)||(t.tabIndex=-1),t.focus())},!1);
+		</script>
+		<script id="wp-emoji-settings" type="application/json">
+{"baseUrl":"https://s.w.org/images/core/emoji/17.0.2/72x72/","ext":".png","svgUrl":"https://s.w.org/images/core/emoji/17.0.2/svg/","svgExt":".svg","source":{"concatemoji":"https://trabajosocialbolivia.com/wp-includes/js/wp-emoji-release.min.js?ver=6.9.1"}}
+</script>
+<script type="module">
+/* <![CDATA[ */
+/*! This file is auto-generated */
+const a=JSON.parse(document.getElementById("wp-emoji-settings").textContent),o=(window._wpemojiSettings=a,"wpEmojiSettingsSupports"),s=["flag","emoji"];function i(e){try{var t={supportTests:e,timestamp:(new Date).valueOf()};sessionStorage.setItem(o,JSON.stringify(t))}catch(e){}}function c(e,t,n){e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(t,0,0);t=new Uint32Array(e.getImageData(0,0,e.canvas.width,e.canvas.height).data);e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(n,0,0);const a=new Uint32Array(e.getImageData(0,0,e.canvas.width,e.canvas.height).data);return t.every((e,t)=>e===a[t])}function p(e,t){e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(t,0,0);var n=e.getImageData(16,16,1,1);for(let e=0;e<n.data.length;e++)if(0!==n.data[e])return!1;return!0}function u(e,t,n,a){switch(t){case"flag":return n(e,"\ud83c\udff3\ufe0f\u200d\u26a7\ufe0f","\ud83c\udff3\ufe0f\u200b\u26a7\ufe0f")?!1:!n(e,"\ud83c\udde8\ud83c\uddf6","\ud83c\udde8\u200b\ud83c\uddf6")&&!n(e,"\ud83c\udff4\udb40\udc67\udb40\udc62\udb40\udc65\udb40\udc6e\udb40\udc67\udb40\udc7f","\ud83c\udff4\u200b\udb40\udc67\u200b\udb40\udc62\u200b\udb40\udc65\u200b\udb40\udc6e\u200b\udb40\udc67\u200b\udb40\udc7f");case"emoji":return!a(e,"\ud83e\u1fac8")}return!1}function f(e,t,n,a){let r;const o=(r="undefined"!=typeof WorkerGlobalScope&&self instanceof WorkerGlobalScope?new OffscreenCanvas(300,150):document.createElement("canvas")).getContext("2d",{willReadFrequently:!0}),s=(o.textBaseline="top",o.font="600 32px Arial",{});return e.forEach(e=>{s[e]=t(o,e,n,a)}),s}function r(e){var t=document.createElement("script");t.src=e,t.defer=!0,document.head.appendChild(t)}a.supports={everything:!0,everythingExceptFlag:!0},new Promise(t=>{let n=function(){try{var e=JSON.parse(sessionStorage.getItem(o));if("object"==typeof e&&"number"==typeof e.timestamp&&(new Date).valueOf()<e.timestamp+604800&&"object"==typeof e.supportTests)return e.supportTests}catch(e){}return null}();if(!n){if("undefined"!=typeof Worker&&"undefined"!=typeof OffscreenCanvas&&"undefined"!=typeof URL&&URL.createObjectURL&&"undefined"!=typeof Blob)try{var e="postMessage("+f.toString()+"("+[JSON.stringify(s),u.toString(),c.toString(),p.toString()].join(",")+"));",a=new Blob([e],{type:"text/javascript"});const r=new Worker(URL.createObjectURL(a),{name:"wpTestEmojiSupports"});return void(r.onmessage=e=>{i(n=e.data),r.terminate(),t(n)})}catch(e){}i(n=f(s,u,c,p))}t(n)}).then(e=>{for(const n in e)a.supports[n]=e[n],a.supports.everything=a.supports.everything&&a.supports[n],"flag"!==n&&(a.supports.everythingExceptFlag=a.supports.everythingExceptFlag&&a.supports[n]);var t;a.supports.everythingExceptFlag=a.supports.everythingExceptFlag&&!a.supports.flag,a.supports.everything||((t=a.source||{}).concatemoji?r(t.concatemoji):t.wpemoji&&t.twemoji&&(r(t.twemoji),r(t.wpemoji)))});
+//# sourceURL=https://trabajosocialbolivia.com/wp-includes/js/wp-emoji-loader.min.js
+/* ]]> */
+</script>
+<script type="text/javascript">(function (undefined) {let scriptOptions={"_localizedStrings":{"redirect_overlay_title":"Espera","redirect_overlay_text":"Est\u00e1s siendo redirigido a otra p\u00e1gina,<br>puede tardar unos segundos.","webview_notification_text":"\u00a1El proveedor seleccionado no admite navegadores incrustados!"},"_targetWindow":"prefer-popup","_redirectOverlay":"overlay-with-spinner-and-message","_unsupportedWebviewBehavior":""};
+/**
+ * Used when Cross-Origin-Opener-Policy blocked the access to the opener. We can't have a reference of the opened windows, so we should attempt to refresh only the windows that has opened popups.
+ */
+window._nslHasOpenedPopup = false;
+window._nslWebViewNoticeElement = null;
+
+window.NSLPopup = function (url, title, w, h) {
+
+    /**
+     * Cross-Origin-Opener-Policy blocked the access to the opener
+     */
+    if (typeof BroadcastChannel === "function") {
+        const _nslLoginBroadCastChannel = new BroadcastChannel('nsl_login_broadcast_channel');
+        _nslLoginBroadCastChannel.onmessage = (event) => {
+            if (window?._nslHasOpenedPopup && event.data?.action === 'redirect') {
+                window._nslHasOpenedPopup = false;
+
+                const url = event.data?.href;
+                _nslLoginBroadCastChannel.close();
+                if (typeof window.nslRedirect === 'function') {
+                    window.nslRedirect(url);
+                } else {
+                    window.opener.location = url;
+                }
+            }
+        };
+    }
+
+    const userAgent = navigator.userAgent,
+        mobile = function () {
+            return /\b(iPhone|iP[ao]d)/.test(userAgent) ||
+                /\b(iP[ao]d)/.test(userAgent) ||
+                /Android/i.test(userAgent) ||
+                /Mobile/i.test(userAgent);
+        },
+        screenX = window.screenX !== undefined ? window.screenX : window.screenLeft,
+        screenY = window.screenY !== undefined ? window.screenY : window.screenTop,
+        outerWidth = window.outerWidth !== undefined ? window.outerWidth : document.documentElement.clientWidth,
+        outerHeight = window.outerHeight !== undefined ? window.outerHeight : document.documentElement.clientHeight - 22,
+        targetWidth = mobile() ? null : w,
+        targetHeight = mobile() ? null : h,
+        left = parseInt(screenX + (outerWidth - targetWidth) / 2, 10),
+        right = parseInt(screenY + (outerHeight - targetHeight) / 2.5, 10),
+        features = [];
+    if (targetWidth !== null) {
+        features.push('width=' + targetWidth);
+    }
+    if (targetHeight !== null) {
+        features.push('height=' + targetHeight);
+    }
+    features.push('left=' + left);
+    features.push('top=' + right);
+    features.push('scrollbars=1');
+
+    const newWindow = window.open(url, title, features.join(','));
+
+    if (window.focus) {
+        newWindow.focus();
+    }
+
+    window._nslHasOpenedPopup = true;
+
+    return newWindow;
+};
+
+let isWebView = null;
+
+function checkWebView() {
+    if (isWebView === null) {
+        function _detectOS(ua) {
+            if (/Android/.test(ua)) {
+                return "Android";
+            } else if (/iPhone|iPad|iPod/.test(ua)) {
+                return "iOS";
+            } else if (/Windows/.test(ua)) {
+                return "Windows";
+            } else if (/Mac OS X/.test(ua)) {
+                return "Mac";
+            } else if (/CrOS/.test(ua)) {
+                return "Chrome OS";
+            } else if (/Firefox/.test(ua)) {
+                return "Firefox OS";
+            }
+            return "";
+        }
+
+        function _detectBrowser(ua) {
+            let android = /Android/.test(ua);
+
+            if (/Opera Mini/.test(ua) || / OPR/.test(ua) || / OPT/.test(ua)) {
+                return "Opera";
+            } else if (/CriOS/.test(ua)) {
+                return "Chrome for iOS";
+            } else if (/Edge/.test(ua)) {
+                return "Edge";
+            } else if (android && /Silk\//.test(ua)) {
+                return "Silk";
+            } else if (/Chrome/.test(ua)) {
+                return "Chrome";
+            } else if (/Firefox/.test(ua)) {
+                return "Firefox";
+            } else if (android) {
+                return "AOSP";
+            } else if (/MSIE|Trident/.test(ua)) {
+                return "IE";
+            } else if (/Safari\//.test(ua)) {
+                return "Safari";
+            } else if (/AppleWebKit/.test(ua)) {
+                return "WebKit";
+            }
+            return "";
+        }
+
+        function _detectBrowserVersion(ua, browser) {
+            if (browser === "Opera") {
+                return /Opera Mini/.test(ua) ? _getVersion(ua, "Opera Mini/") :
+                    / OPR/.test(ua) ? _getVersion(ua, " OPR/") :
+                        _getVersion(ua, " OPT/");
+            } else if (browser === "Chrome for iOS") {
+                return _getVersion(ua, "CriOS/");
+            } else if (browser === "Edge") {
+                return _getVersion(ua, "Edge/");
+            } else if (browser === "Chrome") {
+                return _getVersion(ua, "Chrome/");
+            } else if (browser === "Firefox") {
+                return _getVersion(ua, "Firefox/");
+            } else if (browser === "Silk") {
+                return _getVersion(ua, "Silk/");
+            } else if (browser === "AOSP") {
+                return _getVersion(ua, "Version/");
+            } else if (browser === "IE") {
+                return /IEMobile/.test(ua) ? _getVersion(ua, "IEMobile/") :
+                    /MSIE/.test(ua) ? _getVersion(ua, "MSIE ")
+                        :
+                        _getVersion(ua, "rv:");
+            } else if (browser === "Safari") {
+                return _getVersion(ua, "Version/");
+            } else if (browser === "WebKit") {
+                return _getVersion(ua, "WebKit/");
+            }
+            return "0.0.0";
+        }
+
+        function _getVersion(ua, token) {
+            try {
+                return _normalizeSemverString(ua.split(token)[1].trim().split(/[^\w\.]/)[0]);
+            } catch (o_O) {
+            }
+            return "0.0.0";
+        }
+
+        function _normalizeSemverString(version) {
+            const ary = version.split(/[\._]/);
+            return (parseInt(ary[0], 10) || 0) + "." +
+                (parseInt(ary[1], 10) || 0) + "." +
+                (parseInt(ary[2], 10) || 0);
+        }
+
+        function _isWebView(ua, os, browser, version, options) {
+            switch (os + browser) {
+                case "iOSSafari":
+                    return false;
+                case "iOSWebKit":
+                    return _isWebView_iOS(options);
+                case "AndroidAOSP":
+                    return false;
+                case "AndroidChrome":
+                    return parseFloat(version) >= 42 ? /; wv/.test(ua) : /\d{2}\.0\.0/.test(version) ? true : _isWebView_Android(options);
+            }
+            return false;
+        }
+
+        function _isWebView_iOS(options) {
+            const document = (window["document"] || {});
+
+            if ("WEB_VIEW" in options) {
+                return options["WEB_VIEW"];
+            }
+            return !("fullscreenEnabled" in document || "webkitFullscreenEnabled" in document || false);
+        }
+
+        function _isWebView_Android(options) {
+            if ("WEB_VIEW" in options) {
+                return options["WEB_VIEW"];
+            }
+            return !("requestFileSystem" in window || "webkitRequestFileSystem" in window || false);
+        }
+
+        const options = {},
+            nav = window.navigator || {},
+            ua = nav.userAgent || "",
+            os = _detectOS(ua),
+            browser = _detectBrowser(ua),
+            browserVersion = _detectBrowserVersion(ua, browser);
+
+        isWebView = _isWebView(ua, os, browser, browserVersion, options);
+    }
+
+    return isWebView;
+}
+
+function isAllowedWebViewForUserAgent(provider) {
+    const facebookAllowedWebViews = [
+        'Instagram',
+        'FBAV',
+        'FBAN'
+    ];
+    let whitelist = [];
+
+    if (provider && provider === 'facebook') {
+        whitelist = facebookAllowedWebViews;
+    }
+
+    const nav = window.navigator || {},
+        ua = nav.userAgent || "";
+
+    if (whitelist.length && ua.match(new RegExp(whitelist.join('|')))) {
+        return true;
+    }
+
+    return false;
+}
+
+function disableButtonInWebView(providerButtonElement) {
+    if (providerButtonElement) {
+        providerButtonElement.classList.add('nsl-disabled-provider');
+        providerButtonElement.setAttribute('href', '#');
+
+        providerButtonElement.addEventListener('pointerdown', (e) => {
+            if (!window._nslWebViewNoticeElement) {
+                window._nslWebViewNoticeElement = document.createElement('div');
+                window._nslWebViewNoticeElement.id = "nsl-notices-fallback";
+                window._nslWebViewNoticeElement.addEventListener('pointerdown', function (e) {
+                    this.parentNode.removeChild(this);
+                    window._nslWebViewNoticeElement = null;
+                });
+                const webviewNoticeHTML = '<div class="error"><p>' + scriptOptions._localizedStrings.webview_notification_text + '</p></div>';
+
+                window._nslWebViewNoticeElement.insertAdjacentHTML("afterbegin", webviewNoticeHTML);
+                document.body.appendChild(window._nslWebViewNoticeElement);
+            }
+        });
+    }
+
+}
+
+window._nslDOMReady(function () {
+
+    window.nslRedirect = function (url) {
+        if (scriptOptions._redirectOverlay) {
+            const overlay = document.createElement('div');
+            overlay.id = "nsl-redirect-overlay";
+            let overlayHTML = '';
+            const overlayContainer = "<div id='nsl-redirect-overlay-container'>",
+                overlayContainerClose = "</div>",
+                overlaySpinner = "<div id='nsl-redirect-overlay-spinner'></div>",
+                overlayTitle = "<p id='nsl-redirect-overlay-title'>" + scriptOptions._localizedStrings.redirect_overlay_title + "</p>",
+                overlayText = "<p id='nsl-redirect-overlay-text'>" + scriptOptions._localizedStrings.redirect_overlay_text + "</p>";
+
+            switch (scriptOptions._redirectOverlay) {
+                case "overlay-only":
+                    break;
+                case "overlay-with-spinner":
+                    overlayHTML = overlayContainer + overlaySpinner + overlayContainerClose;
+                    break;
+                default:
+                    overlayHTML = overlayContainer + overlaySpinner + overlayTitle + overlayText + overlayContainerClose;
+                    break;
+            }
+
+            overlay.insertAdjacentHTML("afterbegin", overlayHTML);
+            document.body.appendChild(overlay);
+        }
+
+        window.location = url;
+    };
+
+    let targetWindow = scriptOptions._targetWindow || 'prefer-popup',
+        lastPopup = false;
+
+
+    document.addEventListener('click', function (e) {
+        if (e.target) {
+            const buttonLinkElement = e.target.closest('a[data-plugin="nsl"][data-action="connect"]') || e.target.closest('a[data-plugin="nsl"][data-action="link"]');
+            if (buttonLinkElement) {
+                if (lastPopup && !lastPopup.closed) {
+                    e.preventDefault();
+                    lastPopup.focus();
+                } else {
+
+                    let href = buttonLinkElement.href,
+                        success = false;
+                    if (href.indexOf('?') !== -1) {
+                        href += '&';
+                    } else {
+                        href += '?';
+                    }
+
+                    const redirectTo = buttonLinkElement.dataset.redirect;
+                    if (redirectTo === 'current') {
+                        href += 'redirect=' + encodeURIComponent(window.location.href) + '&';
+                    } else if (redirectTo && redirectTo !== '') {
+                        href += 'redirect=' + encodeURIComponent(redirectTo) + '&';
+                    }
+
+                    if (targetWindow !== 'prefer-same-window' && checkWebView()) {
+                        targetWindow = 'prefer-same-window';
+                    }
+
+                    if (targetWindow === 'prefer-popup') {
+                        lastPopup = NSLPopup(href + 'display=popup', 'nsl-social-connect', buttonLinkElement.dataset.popupwidth, buttonLinkElement.dataset.popupheight);
+                        if (lastPopup) {
+                            success = true;
+                            e.preventDefault();
+                        }
+                    } else if (targetWindow === 'prefer-new-tab') {
+                        const newTab = window.open(href + 'display=popup', '_blank');
+                        if (newTab) {
+                            if (window.focus) {
+                                newTab.focus();
+                            }
+                            success = true;
+                            window._nslHasOpenedPopup = true;
+                            e.preventDefault();
+                        }
+                    }
+
+                    if (!success) {
+                        window.location = href;
+                        e.preventDefault();
+                    }
+                }
+            }
+        }
+    });
+
+    let buttonCountChanged = false;
+
+    const googleLoginButtons = document.querySelectorAll(' a[data-plugin="nsl"][data-provider="google"]');
+    if (googleLoginButtons.length && checkWebView()) {
+        googleLoginButtons.forEach(function (googleLoginButton) {
+            if (scriptOptions._unsupportedWebviewBehavior === 'disable-button') {
+                disableButtonInWebView(googleLoginButton);
+            } else {
+                googleLoginButton.remove();
+                buttonCountChanged = true;
+            }
+        });
+    }
+
+    const facebookLoginButtons = document.querySelectorAll(' a[data-plugin="nsl"][data-provider="facebook"]');
+    if (facebookLoginButtons.length && checkWebView() && /Android/.test(window.navigator.userAgent) && !isAllowedWebViewForUserAgent('facebook')) {
+        facebookLoginButtons.forEach(function (facebookLoginButton) {
+            if (scriptOptions._unsupportedWebviewBehavior === 'disable-button') {
+                disableButtonInWebView(facebookLoginButton);
+            } else {
+                facebookLoginButton.remove();
+                buttonCountChanged = true;
+            }
+        });
+    }
+
+    const separators = document.querySelectorAll('div.nsl-separator');
+    if (buttonCountChanged && separators.length) {
+        separators.forEach(function (separator) {
+            const separatorParentNode = separator.parentNode;
+            if (separatorParentNode) {
+                const separatorButtonContainer = separatorParentNode.querySelector('div.nsl-container-buttons');
+                if (separatorButtonContainer && !separatorButtonContainer.hasChildNodes()) {
+                    separator.remove();
+                }
+            }
+        })
+    }
+});})();</script>	</body>
+</html>

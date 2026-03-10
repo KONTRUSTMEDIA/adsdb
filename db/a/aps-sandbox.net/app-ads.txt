@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><head>
+    <link href="https://d3oia8etllorh5.cloudfront.net/20240614193835/css/bootstrap.min.css" rel="stylesheet"
+        media="screen" />
+    <link href="https://d3oia8etllorh5.cloudfront.net/20240614193835/css/cognito-login.css" rel="stylesheet"
+        media="screen" />
+    
+    <title>Signin</title>
+
+    <script src="https://d3oia8etllorh5.cloudfront.net/20240614193835/js/amazon-cognito-advanced-security-data.min.js" ></script>
+    <script>
+    function getAdvancedSecurityData(formReference) {
+        if (typeof AmazonCognitoAdvancedSecurityData === "undefined") {
+            return true;
+        }
+
+        // UserpoolId is not available on frontend for springboard. We do not use userPoolId
+        // anyway other than put in context data. 
+        var userPoolId = "";
+        var clientId = getUrlParameter("client_id");
+
+        var username = "";
+        var usernameInput = document.getElementsByName("username")[0];
+        if (usernameInput && usernameInput.value) {
+            username = usernameInput.value;
+        }
+
+        var asfData = AmazonCognitoAdvancedSecurityData.getData(username, userPoolId, clientId);
+        if (typeof asfData === "undefined") {
+            return true;
+        }
+
+        if (formReference && formReference.cognitoAsfData) {
+            formReference.cognitoAsfData.value = asfData
+        }
+
+        return true;
+    }
+
+    function getUrlParameter(name) {
+        name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+        var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+        var results = regex.exec(location.search);
+        return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+    }
+
+    function onSubmit(evt, formRef) {
+        formRef.querySelector('button[type="submit"]').disabled = true;
+        if (!!formRef.submitted) {
+            evt.preventDefault();
+            return false;
+        } else {
+            formRef.submitted = true;
+            return getAdvancedSecurityData(formRef);
+        }
+    }
+
+    function onSubmitLoginForm (formRef) {
+        formRef.querySelector('input[name="signInSubmitButton"]').disabled = true;
+        getAdvancedSecurityData(formRef)
+    }
+</script>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head></head>
+<body spellcheck="false">
+    <div class="container">
+        <div class="modal-dialog">
+            <div class="modal-content background-customizable modal-content-mobile visible-xs visible-sm">
+                <div><div>
+                    <div class="banner-customizable">
+                        <center>
+                            
+                        </center>
+                    </div>
+                </div></div>
+                <div class="modal-body">
+                    <div><div>
+    
+</div></div>
+                    <div>
+                        <div><div>
+    
+</div></div>
+                        <div><div>
+    
+</div></div>
+                        <div>
+                            
+                            <div><div>
+    
+        <Span class="textDescription-customizable ">Sign in with your username and password</Span>
+        <form action="/login?client_id=5p0jbe8qs4r78u8v9lvkupe6da&amp;response_type=code&amp;scope=openid&amp;redirect_uri=https%3A%2F%2Fauth.aps-sandbox.net%2Foauth2%2Fidpresponse" method="POST" name="cognitoSignInForm"
+              class="cognito-asf" onsubmit="onSubmitLoginForm(this);"><input type="hidden" name="_csrf" value="dbe0988d-7010-4d22-97be-cd1edbddddc0"/>
+
+            
+
+            
+            <label for="signInFormUsername" class="label-customizable">Username</label>
+            <div>
+                
+                
+                <input id="signInFormUsername" name="username" type="text" class="form-control inputField-customizable"
+                       placeholder="Username" autocapitalize="none" required value="">
+            </div>
+
+            <label for="signInFormPassword" class="label-customizable">Password</label>
+            <div><input id="signInFormPassword" name="password" type="password" class="form-control inputField-customizable"
+                   placeholder="Password"
+                   required></div>
+            <input type="hidden" class="form-control inputField-customizable" name="cognitoAsfData"/>
+            
+            <input name="signInSubmitButton" type="Submit" value="Sign in"
+                   class="btn btn-primary submitButton-customizable" aria-label="submit"/>
+            <br/>
+            
+        </form>
+    
+</div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            
+
+            <div class="modal-content background-customizable modal-content-mobile visible-md visible-lg">
+                <div><div>
+                    <div class="banner-customizable">
+                        <center>
+                            
+                        </center>
+                    </div>
+                </div></div>
+                <div class="modal-body">
+                    <div><div>
+    
+</div></div>
+                    <div>
+                        <div>
+                            <div><div>
+    
+</div></div>
+                            <div><div>
+    
+</div></div>
+                        </div>
+                        <div>
+                            <div><div>
+    
+        <Span class="textDescription-customizable ">Sign in with your username and password</Span>
+        <form action="/login?client_id=5p0jbe8qs4r78u8v9lvkupe6da&amp;response_type=code&amp;scope=openid&amp;redirect_uri=https%3A%2F%2Fauth.aps-sandbox.net%2Foauth2%2Fidpresponse" method="POST" name="cognitoSignInForm"
+              class="cognito-asf" onsubmit="onSubmitLoginForm(this);"><input type="hidden" name="_csrf" value="dbe0988d-7010-4d22-97be-cd1edbddddc0"/>
+
+            
+
+            
+            <label for="signInFormUsername" class="label-customizable">Username</label>
+            <div>
+                
+                
+                <input id="signInFormUsername" name="username" type="text" class="form-control inputField-customizable"
+                       placeholder="Username" autocapitalize="none" required value="">
+            </div>
+
+            <label for="signInFormPassword" class="label-customizable">Password</label>
+            <div><input id="signInFormPassword" name="password" type="password" class="form-control inputField-customizable"
+                   placeholder="Password"
+                   required></div>
+            <input type="hidden" class="form-control inputField-customizable" name="cognitoAsfData"/>
+            
+            <input name="signInSubmitButton" type="Submit" value="Sign in"
+                   class="btn btn-primary submitButton-customizable" aria-label="submit"/>
+            <br/>
+            
+        </form>
+    
+</div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var inputs = document.querySelectorAll("input");
+
+        inputs.forEach((input) => {
+            input.addEventListener("input", function () {
+                var name = this.name;
+                var value = this.value;
+                var matchingInputs = document.querySelectorAll(`input[name="${name}"]`);
+
+                matchingInputs.forEach((match) => {
+                    if (match !== this) {
+                        match.value = value;
+                    }
+                });
+            });
+        });
+    });
+</script>
+</body>
+
+</html>

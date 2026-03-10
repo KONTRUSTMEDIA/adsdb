@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Google tag (gtag.js) start -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-RZYQ9KKNRM"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "G-RZYQ9KKNRM");
+    </script>
+    <!-- Google tag (gtag.js) end -->
+
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "G-RZYQ9KKNRM");
+    </script>
+    <link rel="icon" sizes="16x16" type="image/png" href="images/behnevis_icon_16.png" />
+    <link rel="icon" sizes="32x32" type="image/png" href="images/behnevis_icon_32.png" />
+    <link rel="icon" sizes="48x48" type="image/png" href="images/behnevis_icon_48.png" />
+    <link rel="icon" sizes="120x120" type="image/png" href="images/behnevis_icon_120.png" />
+    <link rel="icon" sizes="180x180" type="image/png" href="images/behnevis_icon_180.png" />
+    <link rel="icon" sizes="192x192" type="image/png" href="images/behnevis_icon_192.png" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="keywords"
+      content="farsi editor transliteration pinglish finglish persian iran‌ iranian irani pars keyboard editor dictionary translation speech"
+    />
+    <meta
+      name="description"
+      content="Behnevis offers easy Persian transliteration and speech-to-text features, allowing you to convert Pinglish/Finglish and Persian speech to Persian script."
+    />
+
+    <title>Behnevis Persian (Farsi) Keyboard, Editor and Speech to Text</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+    <!-- Pinglish Conversion scripts-->
+    <script type="text/javascript" src="javascript/convertbyrule.js"></script>
+    <script type="text/javascript" src="javascript/localconvert_air.js"></script>
+    <script type="text/javascript" src="javascript/correctconvert_air.js"></script>
+
+    <!-- Minimal knownWordsTable_map table as a placeholder until combined_tables is loaded asynchronously -->
+    <script type="text/javascript">
+      knownWordsTable_map = { salam: "سلام" };
+      knownWordsTable = new Hash();
+      knownWordsTable.items = knownWordsTable_map;
+      knownWordsTable.length = Object.keys(knownWordsTable.items).length;
+    </script>
+
+    <script async type="text/javascript" src="javascript/combined_tables.js"></script>
+
+    <!-- converting rich html text with range() to persian -->
+    <script type="text/javascript" src="javascript/richconvert.js"></script>
+
+    <!-- For proudction, after manually minifying behnevis plugin -->
+    <script language="javascript" type="text/javascript" src="javascript/tinymce/tinymce.min.js"></script>
+
+    <!-- For development, after manually minifying behnevis plugin -->
+    <!-- <script
+      language="javascript"
+      type="text/javascript"
+      src="javascript/tinymce/tinymce.js"
+    ></script> -->
+
+    <!--- for speech to text-->
+    <script language="javascript" type="text/javascript" src="javascript/speech2text/volume-meter.js"></script>
+    <script language="javascript" type="text/javascript" src="javascript/speech2text/sp2txt_obf.js"></script>
+    <script language="javascript" type="text/javascript" src="javascript/speech2text/language_map.js"></script>
+    <link href="javascript/speech2text/sp2txt.css" rel="stylesheet" type="text/css" />
+
+    <!--- Start of code block for membership management and checking whether the user is paid-->
+    <script>
+      var MemberSpace = window.MemberSpace || { subdomain: "behnevis" };
+      (function (d) {
+        var s = d.createElement("script");
+        s.src = "https://cdn.memberspace.com/scripts/widgets.js";
+        var e = d.getElementsByTagName("script")[0];
+        e.parentNode.insertBefore(s, e);
+      })(document);
+    </script>
+
+    <script language="javascript" type="text/javascript" src="javascript/user_paid_status.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        if (window.updateUserisUnPaid) {
+          window.updateUserisUnPaid();
+        } else {
+          console.error("updateUserisUnPaid is not defined");
+        }
+      });
+    </script>
+    <!--- End of code block for membership management and checking whether the user is paid-->
+
+    <!-- Rich editor customizations, needs to be seperate script tags -->
+    <script type="text/javascript">
+      var MAX_FREE_WORD_COUNT = 7;
+      var firstTimeFocus = true;
+
+      tinymce.init({
+        selector: "textarea#latinTextArea",
+        language: "en",
+        promotion: false,
+        branding: false,
+        browser_spellcheck: false,
+        content_css: "css/farsi_editor_content.css",
+        font_size_formats: "8pt 9pt 10pt 11pt 12pt 14pt 18pt 24pt 30pt 36pt 48pt 60pt 72pt 96pt 128pt 200pt",
+        font_family_formats:
+          "Andale Mono=andale mono,times; Arial=arial,helvetica,sans-serif; Arial Black=arial black,avant garde; Book Antiqua=book antiqua,palatino; Comic Sans MS=comic sans ms,sans-serif; Courier New=courier new,courier; Georgia=georgia,palatino; Helvetica=helvetica; Impact=impact,chicago; Oswald=oswald; Symbol=symbol; Tahoma=tahoma,arial,helvetica,sans-serif; Terminal=terminal,monaco; Times New Roman=times new roman,times; Trebuchet MS=trebuchet ms,geneva; Verdana=verdana,geneva; Webdings=webdings; Wingdings=wingdings,zapf dingbats",
+        plugins:
+          "behnevis, directionality, pagebreak,table,lists, visualchars, charmap, link, insertdatetime,preview,searchreplace,fullscreen,visualchars,wordcount,advlist", // Ensure this is the name of your plugin
+        toolbar:
+          "undo redo | ltr rtl | formatselect | bold italic forecolor backcolor | fontfamily fontsize " +
+          "alignleft aligncenter alignright alignjustify | " +
+          "bullist numlist outdent indent | removeformat | khattati nimFaaseleh tabdilfarsi",
+
+        menu: {
+          file: {
+            title: "File",
+            items: "newdocument restoredraft | preview | print ",
+          },
+          edit: {
+            title: "Edit",
+            items: "undo redo | cut copy paste pastetext | selectall | searchreplace",
+          },
+          view: {
+            title: "View",
+            items: "code | visualaid visualchars visualblocks | preview fullscreen",
+          },
+          insert: {
+            title: "Insert",
+            items:
+              "image link unlink media template inserttable | charmap emoticons hr | nimFaaseleh | besmellah besmetaala enshalla",
+          },
+          format: {
+            title: "Format",
+            items:
+              "bold italic underline strikethrough superscript subscript | bullist numlist | formats blockformats fontformats fontsizes align lineheight | forecolor backcolor | removeformat",
+          },
+          tools: {
+            title: "Tools",
+            items: "wordcount",
+          },
+          table: {
+            title: "Table",
+            items: "inserttable | cell row column | tableprops deletetable",
+          },
+        },
+
+        setup: function (editor) {
+          editor.on("init", function (e) {
+            initPageVariables(editor);
+
+            // Select the element and set spellcheck to false
+            editorElement = document.querySelector("textarea#latinTextArea");
+            editorElement.setAttribute("spellcheck", "false");
+          });
+
+          editor.on("focus", function () {
+            if (firstTimeFocus) {
+              editor.setContent('<p dir="rtl"><strong></strong></p>');
+              firstTimeFocus = false;
+            }
+          });
+        },
+        init_instance_callback: function (editor) {
+          editor.on("beforeinput", function (e) {
+            convertLastWordOnSpaceOrEnterKeyUp(editor, e);
+
+            var wordCount = tinymce.activeEditor.plugins.wordcount.body.getWordCount();
+
+            window.updateUserisUnPaid().then(() => {
+              // receives updated userisUnPaid value
+              if (window.userisUnPaid && wordCount > MAX_FREE_WORD_COUNT) {
+                MAX_FREE_WORD_COUNT = 10;
+                openFreeLimitModal();
+              }
+            });
+          });
+
+          editor.on("mouseup", function (e) {
+            onContextMenu(editor, e);
+          });
+        },
+      });
+    </script>
+
+    <!-- Pinglish conversion with rich editor utilities -->
+    <script type="text/javascript">
+      function onContextMenu(ed, e) {
+        farsiEditorClicked();
+        return false;
+      }
+
+      function cleanLatinTextonFirstKeyDownOrClick(ed, e) {
+        if (IsFirstTimeLatinInput) {
+          ed.setContent("");
+          IsFirstTimeLatinInput = false;
+          convertAutomatically = true;
+        }
+        keyUpDetected();
+      }
+
+      function initPageVariables(editor) {
+        latinTinyMCE = editor;
+        farsiTinyMCE = editor;
+        latinTextIsHtml = true;
+        convertAutomatically = false;
+
+        // for correction
+        initIframe();
+      }
+
+      // global object
+      var behnevisStore;
+
+      function onBodyLoad() {
+        sp2txt.updateTotalMinutesText();
+      }
+
+      function testchar() {
+        latinTinyMCE = tinyMCE.activeEditor;
+        var rng = latinTinyMCE.selection.getRng();
+
+        a = rng.startContainer.textContent.substr(-1);
+        alert('"' + a + '" ' + a.charCodeAt(0));
+      }
+    </script>
+
+    <!-- Speech button interactions, launching model dialog for free users -->
+    <script type="text/javascript">
+      // function to be called when the user clicks on the speech button
+      function onSpeechButtonClick() {
+        window.updateUserisUnPaid().then(() => {
+          // receives updated userisUnPaid value
+          if (window.userisUnPaid) openFreeLimitModal();
+          else {
+            // hide the alert if it's visible
+            if (typeof hideAlert === "function") {
+              hideAlert();
+            }
+
+            sp2txt.toggleRecordingButton();
+          }
+        });
+      }
+    </script>
+
+    <!-- Common CSS -->
+    <link href="css/common.css" rel="stylesheet" />
+
+    <!-- Modal dialog CSS -->
+    <link href="css/modal.css" rel="stylesheet" />
+
+    <style>
+      .speech-table {
+        width: 100%;
+        /* Make the table span the full width of the footer */
+        border-collapse: collapse;
+        /* Remove any default spacing */
+      }
+
+      .speech-table td {
+        vertical-align: middle;
+        /* Center content vertically */
+      }
+
+      .speech-table {
+        width: 100%;
+        table-layout: fixed;
+        border-collapse: collapse;
+      }
+
+      .speech-table td {
+        text-align: center;
+        vertical-align: middle;
+      }
+
+      .speech-table td:first-child,
+      .speech-table td:last-child {
+        width: 25%;
+      }
+
+      .speech-table td:nth-child(2) {
+        width: 50%;
+      }
+    </style>
+  </head>
+
+  <body class="mainPageBody" onLoad="onBodyLoad();">
+    <header>
+      <!-- Top Image; ensure it's inside the navbar for the same height -->
+      <a href="index.html">
+        <img src="images/behnevis_logo.gif" class="img-fluid" alt="Header Image" />
+      </a>
+
+      <!-- Navigation Bar -->
+      <nav class="navbar navbar-expand-lg navbar-light">
+        <div class="container-fluid">
+          <!-- <a class="navbar-brand" href="#">Behnevis</a> -->
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarNav"
+            aria-controls="navbarNav"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="index.html">Home</a>
+              </li>
+
+              <li class="nav-item">
+                <a class="nav-link" href="legacy_editor.html" title="The old two-part editor available for free"
+                  >Old Editor</a
+                >
+              </li>
+
+              <li class="nav-item">
+                <a class="nav-link" href="?msopen=/member/plans/all">Sign up</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="?msopen=/member/sign_in">Log In</a>
+              </li>
+
+              <li class="nav-item">
+                <a class="nav-link" href="help.html" title="Guide for writing in Finglish">How to Write</a>
+              </li>
+
+              <li class="nav-item">
+                <a class="nav-link" href="downloads.html" title="Guide for writing in Finglish">Downloads</a>
+              </li>
+
+              <li class="nav-item">
+                <a class="nav-link" href="pricing.html" title="Behnevis subscription plans and their prices">Pricing</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="https://laatingar.com" title="Convert Persian text to Latin script"
+                  >Persian to Latin</a
+                >
+              </li>
+              <li class="nav-item dropdown">
+                <a
+                  class="nav-link dropdown-toggle"
+                  href="#"
+                  id="navbarDropdownMenuLink"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  ChatGPTs
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                  <li>
+                    <a
+                      class="dropdown-item"
+                      href="https://chat.openai.com/g/g-EMC4Hfzdm-behnevis"
+                      title="An OpenAI GPT chatbot that you can talk to in Finglish and it answers you in Persian script"
+                      >Always Answers in Persian Script</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      class="dropdown-item"
+                      href="https://chat.openai.com/g/g-PKX8YFkqB-farsi-teacher"
+                      title="An OpenAI GPT chatbot that teaches you Persian and answers in Finglish"
+                      >Persian Teacher with Finglish</a
+                    >
+                  </li>
+
+                  <li>
+                    <a
+                      class="dropdown-item"
+                      href="https://chat.openai.com/g/g-4mPCO1Zp3-mulla-nasreddin-persian-shkhs-ml-nsrldyn"
+                      title="The persian chatbot impersonating Mulla Nasreddin ملا نصرالدین"
+                      >Mulla Nasreddin</a
+                    >
+                  </li>
+                </ul>
+              </li>
+
+              <li class="nav-item">
+                <a class="nav-link" href="about.html">About</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-fluid">
+      <!-- The Modal -->
+      <div id="myModal" class="modal">
+        <!-- Modal content -->
+        <div class="modal-content" style="font-size: 14pt">
+          <span class="close">&times;</span>
+          <p>
+            This feature is only included in
+            <a class="green_link" href="pricing.html">Behnevis paid plans</a>. You can try
+            <a class="green_link" href="?msopen=/member/plans/9iw8swjbmu">Behnevis Premium </a>for free (45 days).
+          </p>
+          <p>
+            The
+            <a class="green_link" href="legacy_editor.html">old (legacy) two-part interface </a>is still available for
+            free and without any limitations.
+          </p>
+        </div>
+      </div>
+
+      <p>
+        Here you can convert (transliterate) Persian written in english letters, called Pinglish or Finglish, to Persian
+        language script. You can directly email the text or save it as a document from this site. You can also copy the
+        converted text into your blog or any other web page. Please click on each Persian word to correct it.
+      </p>
+      <p>
+        Another feature of Behnevis is converting Persian speech to text, which is available below. The text converted
+        from speech will appear in the editor.
+      </p>
+
+      <div align="right" class="nav_items" id="convertTip" dir="rtl">
+        <div align="right">
+          <img src="images/persian_text_top2.png" width="1034" height="45" alt="" />
+        </div>
+        <p></p>
+        <div
+          id="carouselExampleIndicators"
+          class="carousel slide"
+          data-bs-ride="carousel"
+          dir="ltr"
+          style="width: 50%; margin: auto"
+        >
+          <ol class="carousel-indicators">
+            <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"></li>
+            <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"></li>
+            <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"></li>
+          </ol>
+
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <a href="https://laatingar.com"
+                ><img class="d-block w-100" src="images/laatingar_dorood_bar_shomaa.webp" alt="Persian romanization" />
+                <div class="carousel-caption d-none d-md-block">
+                  <h5>Persian Romanization: convert Persian to Latin script</h5>
+                </div>
+              </a>
+            </div>
+
+            <div class="carousel-item">
+              <a href="downloads.html"
+                ><img class="d-block w-100" src="images/b4w_snaphot.gif" alt="Behnevis Add-on for MS Word" />
+                <div class="carousel-caption d-none d-md-block">
+                  <h5>Add-on for MS Word (Windows)</h5>
+                </div>
+              </a>
+            </div>
+
+            <div class="carousel-item">
+              <a href="https://chat.openai.com/g/g-EMC4Hfzdm-behnevis"
+                ><img class="d-block w-100" src="images/behnevis_gpt.png" alt="Persian GPT"
+              /></a>
+              <div class="carousel-caption d-none d-md-block">
+                <h5>Persian OpenAI ChatGPT</h5>
+              </div>
+            </div>
+          </div>
+          <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </a>
+          <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </a>
+        </div>
+
+        <p></p>
+        <div align="right">
+          <img src="images/persian_text_speech.png" width="788" height="31" alt="" />
+        </div>
+      </div>
+
+      <p></p>
+      <div id="ad-placeholder" class="ad-container"></div>
+
+      <table class="speech-table mb-4">
+        <tr>
+          <td style="width: 35%">
+            <!-- Left element -->
+            <!-- <a class="farsiText" href="help.html#speechToText" target="_blank">راهنمای تبدیل گفتار به متن</a> -->
+            <div align="right">
+              <a class="farsiText" href="help.html#speechToText" target="_blank"
+                ><img src="images/speech_to_text_help.png" width="163" height="27" alt=""
+              /></a>
+            </div>
+            <!-- <label class="farsiText" name="minuteCounter"> دقیقه: </label> -->
+          </td>
+          <td style="width: 30%">
+            <!-- Middle element, centered -->
+
+            <button
+              name="recButton"
+              onclick="onSpeechButtonClick()"
+              class="micButton"
+              style="width: 70px; height: 70px"
+              aria-label="Record Speech"
+            >
+              <img src="images/mic_black.svg" alt="Black Microphone" />
+            </button>
+          </td>
+          <td style="width: 35%" dir="rtl"></td>
+        </tr>
+      </table>
+
+      <div align="center" style="width: 100%; height: 10%">
+        <textarea
+          name="latinTextArea"
+          wrap="virtual"
+          id="latinTextArea"
+          style="width: 100%"
+          tabindex="1"
+          rows="35"
+          cols="10"
+          class="mceAdvanced"
+          onclick="latinTinyMCE.setContent('');"
+          spellcheck="false"
+          dir="rtl"
+        ></textarea>
+      </div>
+    </main>
+
+    <footer class="text-center text-lg-start mt-4">
+      <!-- Footer Image -->
+      <img src="images/small_logo.gif" class="img-fluid" alt="Footer Image" />
+      <div class="text-center p-3">© 2009 - <span id="current-year">2024</span> Behnevis</div>
+      <div class="text-center">
+        <a href="privacy_policy.txt">Privcy Policy</a>
+      </div>
+    </footer>
+
+    <!-- Bootstrap 5 JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Updates copyright year when the document is fully loaded -->
+    <script src="javascript/year_copyright.js"></script>
+
+    <script>
+      // Get the modal
+      var modal = document.getElementById("myModal");
+
+      // Get the <span> element that closes the modal
+      var span = document.getElementsByClassName("close")[0];
+
+      // Function to open the modal
+      function openFreeLimitModal() {
+        modal.style.display = "block";
+      }
+
+      // Function to close the modal
+      function closeModal() {
+        modal.style.display = "none";
+      }
+
+      // When the user clicks on <span> (x), close the modal
+      span.onclick = function () {
+        closeModal();
+      };
+
+      // When the user clicks anywhere outside of the modal, close it
+      window.onclick = function (event) {
+        if (event.target == modal) {
+          closeModal();
+        }
+      };
+    </script>
+
+    <script>
+      // JavaScript to show the alert and set its HTML content
+      function recreateAlertIfNeeded() {
+        if (!document.getElementById("alertBox")) {
+          var alertHTML = `
+              <div id="alertBox" class="alert alert-warning alert-dismissible fade fixed-top m-0" role="alert" style="display:none;">
+                  <span id="alertText">Initial notification message!</span>
+                  <button type="button" class="btn-close" aria-label="Close"></button>
+              </div>
+          `;
+          document.body.insertAdjacentHTML("afterbegin", alertHTML);
+
+          // Re-attach the event listener for the close button
+          document.querySelector("#alertBox .btn-close").addEventListener("click", function () {
+            var alertDiv = document.getElementById("alertBox");
+            alertDiv.style.display = "none";
+            alertDiv.classList.remove("show");
+          });
+        }
+      }
+
+      // JavaScript to show the alert and set its HTML content
+      function showAlert(htmlContent) {
+        recreateAlertIfNeeded();
+
+        var alertDiv = document.getElementById("alertBox");
+        var alertTextSpan = document.getElementById("alertText");
+
+        if (alertDiv && alertTextSpan) {
+          // Set the alert's HTML content
+          alertTextSpan.innerHTML = htmlContent;
+
+          // Make the alert visible
+          alertDiv.style.display = "block";
+          alertDiv.classList.add("show");
+        } else {
+          console.error("Alert elements not found!");
+        }
+      }
+
+      function hideAlert() {
+        var alertDiv = document.getElementById("alertBox");
+        if (alertDiv) {
+          alertDiv.style.display = "none"; // Hide the alert
+          alertDiv.classList.remove("show"); // Remove 'show' class to hide it with Bootstrap as well
+        }
+      }
+
+      function isSafari() {
+        var userAgent = navigator.userAgent.toLowerCase();
+        var isSafari = /^((?!chrome|android).)*safari/i.test(userAgent);
+
+        return isSafari;
+      }
+
+      if (isSafari())
+        showAlert(
+          "You are using Safari browser which is not supported by the new Behnevis editor. We suggest using <a href='https://www.google.com/chrome/'>Google Chrome</a> instead."
+        );
+    </script>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        var myCarousel = document.querySelector("#carouselExampleIndicators");
+
+        // Get the instance of the carousel
+        var carousel = new bootstrap.Carousel(myCarousel, {
+          interval: 6000, // Adjust the interval to suit your needs
+          wrap: false, // Prevents wrapping after the last slide
+        });
+
+        // Add an event listener for when the carousel completes a slide transition
+        myCarousel.addEventListener("slid.bs.carousel", function () {
+          var activeItemIndex = myCarousel.querySelector(".carousel-item.active").getAttribute("data-bs-slide-to");
+          // Convert index to an integer
+          activeItemIndex = parseInt(activeItemIndex, 10);
+
+          // Check if the current slide is the last slide
+          var totalItems = myCarousel.querySelectorAll(".carousel-item").length;
+          if (activeItemIndex === totalItems - 1) {
+            // This is the last item, pause the carousel
+            carousel.pause();
+          }
+        });
+      });
+    </script>
+
+    <!-- Google ads added by Javascript-->
+    <script src="javascript/add_google_ad.js"></script>
+  </body>
+</html>

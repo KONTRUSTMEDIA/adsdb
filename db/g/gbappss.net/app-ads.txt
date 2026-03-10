@@ -1,0 +1,501 @@
+<!doctype html><html class="no-js" lang="en-US" prefix="og: https://ogp.me/ns#"><head><script>class ArsiLazyLoadScripts {constructor(e) {this.triggerEvents = e, this.eventOptions = {passive: !0}, this.userEventListener = this.triggerListener.bind(this), this.delayedScripts = {normal: [],async: [],defer: []}, this.allJQueries = []}_addUserInteractionListener(e) {this.triggerEvents.forEach((t => window.addEventListener(t, e.userEventListener, e.eventOptions)))}_removeUserInteractionListener(e) {this.triggerEvents.forEach((t => window.removeEventListener(t, e.userEventListener, e.eventOptions)))}triggerListener() {this._removeUserInteractionListener(this), "loading" === document.readyState ? document.addEventListener("DOMContentLoaded", this._loadEverythingNow.bind(this)) : this._loadEverythingNow()}async _loadEverythingNow() {this._delayEventListeners(), this._delayJQueryReady(this), this._handleDocumentWrite(), this._registerAllDelayedScripts(), this._preloadAllScripts(), await this._loadScriptsFromList(this.delayedScripts.normal), await this._loadScriptsFromList(this.delayedScripts.defer), await this._loadScriptsFromList(this.delayedScripts.async), await this._triggerDOMContentLoaded(), await this._triggerWindowLoad(), window.dispatchEvent(new Event("rocket-allScriptsLoaded"))}_registerAllDelayedScripts() {document.querySelectorAll("script[type=arsilazyloadscript]").forEach((e => {e.hasAttribute("src") ? e.hasAttribute("async") && !1 !== e.async ? this.delayedScripts.async.push(e) : e.hasAttribute("defer") && !1 !== e.defer || "module" === e.getAttribute("data-rocket-type") ? this.delayedScripts.defer.push(e) : this.delayedScripts.normal.push(e) : this.delayedScripts.normal.push(e)}))}async _transformScript(e) {return await this._requestAnimFrame(), new Promise((t => {const n = document.createElement("script");let i;[...e.attributes].forEach((e => {let t = e.nodeName;"type" !== t && ("data-rocket-type" === t && (t = "type", i = e.nodeValue), n.setAttribute(t, e.nodeValue))})), e.hasAttribute("src") && this._isValidScriptType(i) ? (n.addEventListener("load", t), n.addEventListener("error", t)) : (n.text = e.text, t()), e.parentNode.replaceChild(n, e)}))}_isValidScriptType(e) {return !e || "" === e || "string" == typeof e && ["text/javascript", "text/x-javascript", "text/ecmascript", "text/jscript", "application/javascript", "application/x-javascript", "application/ecmascript", "application/jscript", "module"].includes(e.toLowerCase())}async _loadScriptsFromList(e) {const t = e.shift();return t ? (await this._transformScript(t), this._loadScriptsFromList(e)) : Promise.resolve()}_preloadAllScripts() {var e = document.createDocumentFragment();[...this.delayedScripts.normal, ...this.delayedScripts.defer, ...this.delayedScripts.async].forEach((t => {const n = t.getAttribute("src");if (n) {const t = document.createElement("link");t.href = n, t.rel = "preload", t.as = "script", e.appendChild(t)}})), document.head.appendChild(e)}_delayEventListeners() {let e = {};function t(t, n) {! function(t) {function n(n) {return e[t].eventsToRewrite.indexOf(n) >= 0 ? "rocket-" + n : n}e[t] || (e[t] = {originalFunctions: {add: t.addEventListener,remove: t.removeEventListener},eventsToRewrite: []}, t.addEventListener = function() {arguments[0] = n(arguments[0]), e[t].originalFunctions.add.apply(t, arguments)}, t.removeEventListener = function() {arguments[0] = n(arguments[0]), e[t].originalFunctions.remove.apply(t, arguments)})}(t), e[t].eventsToRewrite.push(n)}function n(e, t) {let n = e[t];Object.defineProperty(e, t, {get: () => n || function() {},set(i) {e["rocket" + t] = n = i}})}t(document, "DOMContentLoaded"), t(window, "DOMContentLoaded"), t(window, "load"), t(window, "pageshow"), t(document, "readystatechange"), n(document, "onreadystatechange"), n(window, "onload"), n(window, "onpageshow")}_delayJQueryReady(e) {let t = window.jQuery;Object.defineProperty(window, "jQuery", {get: () => t,set(n) {if (n && n.fn && !e.allJQueries.includes(n)) {n.fn.ready = n.fn.init.prototype.ready = function(t) {e.domReadyFired ? t.bind(document)(n) : document.addEventListener("rocket-DOMContentLoaded", (() => t.bind(document)(n)))};const t = n.fn.on;n.fn.on = n.fn.init.prototype.on = function() {if (this[0] === window) {function e(e) {return e.split(" ").map((e => "load" === e || 0 === e.indexOf("load.") ? "rocket-jquery-load" : e)).join(" ")}"string" == typeof arguments[0] || arguments[0] instanceof String ? arguments[0] = e(arguments[0]) : "object" == typeof arguments[0] && Object.keys(arguments[0]).forEach((t => {delete Object.assign(arguments[0], {[e(t)]: arguments[0][t]})[t]}))}return t.apply(this, arguments), this}, e.allJQueries.push(n)}t = n}})}async _triggerDOMContentLoaded() {this.domReadyFired = !0, await this._requestAnimFrame(), document.dispatchEvent(new Event("rocket-DOMContentLoaded")), await this._requestAnimFrame(), window.dispatchEvent(new Event("rocket-DOMContentLoaded")), await this._requestAnimFrame(), document.dispatchEvent(new Event("rocket-readystatechange")), await this._requestAnimFrame(), document.rocketonreadystatechange && document.rocketonreadystatechange()}async _triggerWindowLoad() {await this._requestAnimFrame(), window.dispatchEvent(new Event("rocket-load")), await this._requestAnimFrame(), window.rocketonload && window.rocketonload(), await this._requestAnimFrame(), this.allJQueries.forEach((e => e(window).trigger("rocket-jquery-load"))), window.dispatchEvent(new Event("rocket-pageshow")), await this._requestAnimFrame(), window.rocketonpageshow && window.rocketonpageshow()}_handleDocumentWrite() {const e = new Map;document.write = document.writeln = function(t) {const n = document.currentScript;n || console.error("unable to document.write this: " + t);const i = document.createRange(),r = n.parentElement;let a = e.get(n);void 0 === a && (a = n.nextSibling, e.set(n, a));const o = document.createDocumentFragment();i.setStart(o, 0), o.appendChild(i.createContextualFragment(t)), r.insertBefore(o, a)}}async _requestAnimFrame() {return new Promise((e => requestAnimationFrame(e)))}static run() {const e = new ArsiLazyLoadScripts(["keydown", "mousemove", "touchmove", "touchstart", "touchend", "wheel"]);e._addUserInteractionListener(e)}}ArsiLazyLoadScripts.run();</script>     <meta name="robots" content="follow, index, max-snippet:-1, max-video-preview:-1, max-image-preview:large"/>          <meta http-equiv="X-UA-Compatible" content="IE=edge">    <meta name="viewport" content="width=device-width, initial-scale=1">    <meta charset="UTF-8">            <link rel="shortcut icon" href="https://gb-apps.pk/images/favicon_c8_63a81.png" type="image/x-icon"/>            <link rel='dns-prefetch' href='//fonts.gstatic.com'/>    <link rel='preconnect' href='//fonts.gstatic.com' crossorigin />    <link rel='dns-prefetch' href='//securepubads.g.doubleclick.net'/>    <link rel='dns-prefetch' href='//pagead2.googlesyndication.com'/>    <link rel='dns-prefetch' href='//api.twitter.com'/>    <link rel='dns-prefetch' href='//adservice.google.com'/>    <link rel='dns-prefetch' href='//twitter.com'/>    <link rel='dns-prefetch' href='//platform.twitter.com'/>    <link rel='dns-prefetch' href='//connect.facebook.net'/>    <link rel='dns-prefetch' href='//static.ak.facebook.com'/>    <link rel='dns-prefetch' href='//s-static.ak.facebook.com'/>    <link rel='dns-prefetch' href='//fbstatic-a.akamaihd.net'/>    <link rel='dns-prefetch' href='//apis.google.com'/>    <link rel='dns-prefetch' href='//ssl.gstatic.com'/>    <link rel='dns-prefetch' href='//linkedin.com'/>    <link rel='dns-prefetch' href='//platform.linkedin.com'/>    <link rel='dns-prefetch' href='//static.licdn.com'/>    <link rel='dns-prefetch' href='//google-analytics.com'/>    <link rel='dns-prefetch' href='//ajax.googleapis.com'/>    <link rel='dns-prefetch' href='//themes.googleusercontent.com'/>    <link rel='dns-prefetch' href='//cdn.ampproject.org'/>    <link rel='dns-prefetch' href='//googletagservices.com'/>    <link rel='dns-prefetch' href='//tpc.googlesyndication.com'/>    <link rel='dns-prefetch' href='//cdn.jsdelivr.net'/>    <link rel='dns-prefetch' href='//youtube.com'/>    <link rel='dns-prefetch' href='//tags.bkrtx.com'/>    <link rel='dns-prefetch' href='//redirect.prod.experiment.routing.cloudfront.aws.a2z.com'/>    <link rel='dns-prefetch' href='//stags.bluekai.com'/>    <link rel='dns-prefetch' href='//google.com'/>    <link rel='dns-prefetch' href='//adtracker.ch'/>    <link rel='dns-prefetch' href='//hal900016.redintelligence.net'/>    <link rel='dns-prefetch' href='//hal9000.redintelligence.net'/>    <link rel='dns-prefetch' href='//track.adform.net'/>    <link rel='dns-prefetch' href='//s1.adform.net'/>                             	
+	<script type="arsilazyloadscript" data-rocket-type='text/javascript' src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script type="text/javascript">var site_base='https://gb-apps.pk/';var base_url='https://gb-apps.pk/';var base_cdn='https://gb-apps.pk/';var base_img='https://gb-apps.pk/';</script>                    <title>GB WhatsApp Download APK Latest Version (Updated) 2026 | Official</title>    <meta name="keywords" content="gb whatsapp, gb whatsapp download, gbwhatsapp download, gbwhatsapp, gb whatsapp apk">    <meta name="description" content="Download GB WhatsApp APK Latest Version (Updated) 2026. GB WhatsApp is an updated version of the official WhatsApp. This app has many features and functions that everyone will love.">        <link rel="canonical" href="https://gb-apps.pk/">            <meta property="og:url" content="https://gb-apps.pk/"/>        <meta property="og:title" content="GB WhatsApp Download APK Latest Version (Updated) 2026 | Official"/>        <meta property="og:description" content="Download GB WhatsApp APK Latest Version (Updated) 2026. GB WhatsApp is an updated version of the official WhatsApp. This app has many features and functions that everyone will love."/>        <meta property="og:site_name" content="Gb-Apps.PK"/>        <meta property="og:image" content="https://gb-apps.pk/images/gb-appspk-social_5a5fd.png"/>        <meta property="og:image:url" content="https://gb-apps.pk/images/gb-appspk-social_5a5fd.png"/>        <meta property="og:image:type" content="image/png"/>        <meta property="og:image:width" content="600"/>        <meta property="og:image:height" content="400"/>                                                <meta name="twitter:card" content="summary_large_image">        <meta name="twitter:title" content="GB WhatsApp Download APK Latest Version (Updated) 2026 | Official">        <meta name="twitter:description" content="Download GB WhatsApp APK Latest Version (Updated) 2026. GB WhatsApp is an updated version of the official WhatsApp. This app has many features and functions that everyone will love.">        <meta name="twitter:image" content="https://gb-apps.pk/images/gb-appspk-social_5a5fd.png">        <meta name="twitter:image:alt" content="GB WhatsApp Download APK Latest Version (Updated) 2026 | Official"/>        <meta name="twitter:domain" content="gb-apps.pk">                        
+			<script type="application/ld+json">{"@context": "http://schema.org","@type": "Organization","url": "https://gb-apps.pk/","logo": "https://gb-apps.pk/images/gb-appspk-460x80_f42df.png","contactPoint": [{"@type": "ContactPoint","telephone": "+91321112450032","contactType": "customer service"}]}</script><script type="application/ld+json">{"@context": "http://schema.org","@type": "WebSite","name": "Gb-Apps.PK","url": "https://gb-apps.pk/"}</script><script data-schema="WebPage" type="application/ld+json">{"@id":"https://gb-apps.pk/","@type":"WebPage","@context":"http://schema.org"}</script>
+        <script type="text/javascript">var upgj_w=window,upgj_d=document,upgj_e=upgj_d.documentElement,upgj_g=upgj_d.getElementsByTagName('body')[0],upgj_x=upgj_w.innerWidth||upgj_e.clientWidth||upgj_g.clientWidth,upgj_y=upgj_w.innerHeight||upgj_e.clientHeight||upgj_g.clientHeight,upgj_protocol=window.location.protocol,upgj_host_name=window.location.hostname,upgj_pathname=window.location.pathname,upgj_queryString=window.location.search,upgj_curent_url=document.URL,upgj_path_list=upgj_pathname.split('/');</script>
+        
+                
+
+    <style>a,abbr,acronym,address,applet,article,aside,audio,b,big,blockquote,body,canvas,caption,center,cite,code,dd,del,details,dfn,div,dl,dt,em,embed,fieldset,figcaption,figure,footer,form,h1,h2,h3,h4,h5,h6,header,hgroup,html,i,iframe,img,ins,kbd,label,legend,li,mark,menu,nav,object,ol,output,p,pre,q,ruby,s,samp,section,small,span,strike,strong,sub,summary,sup,table,tbody,td,tfoot,th,thead,time,tr,tt,u,ul,var,video{margin:0;padding:0;border:0;font:inherit;vertical-align:baseline;outline:0;background:transparent}article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:after,blockquote:before,q:after,q:before{content:'';content:none}table{border-collapse:collapse;border-spacing:0}.clear{clear:both;line-height:0;margin:0;padding:0}*{box-sizing:border-box;transition-duration:.2s}::selection{background-color:#222;color:#fff}body{font-family:'Nunito',sans-serif;font-size:16px;line-height:24px;font-weight:400;color:#000;background:#fff}.english,.en,.arial{font-family:'Nunito',sans-serif}#main_wrap{position:relative;width:100%;float:left;user-select:none;-moz-user-select:none;-ms-user-select:none;-webkit-user-select:none;overflow:hidden}@media (max-width:600px){#main_wrap{margin-bottom:150px}}p,h1,h2,h3,h4,h5,h6{margin-bottom:15px}h1,h2,h3,h4,h5,h6{font-weight:700;position:relative}.nobl{border-left:none}a{color:#056172;text-decoration:none}a:hover{color:#222}h1{font-size:38px;line-height:46px}h2{font-size:30px;line-height:38px}h3{font-size:28px;line-height:36px}h4{font-size:26px;line-height:34px}h5{font-size:24px;line-height:32px}h6{font-size:22px;line-height:30px}@media (max-width:600px){h1{font-size:32px;line-height:40px}h2{font-size:28px;line-height:36px}h3{font-size:26px;line-height:34px}h4{font-size:24px;line-height:32px}h5{font-size:22px;line-height:30px}h6{font-size:20px;line-height:28px}}strong{font-size:inherit;font-weight:bold}ul,ol{padding-left:20px;font-size:15px;line-height:23px}ul{list-style:disc}ol{list-style:decimal}.bhead:after{content:'';position:absolute;width:100px;height:2px;background:red;bottom:-5px;left:0;right:0}iframe,img{max-width:100%}.round{border-radius:10%;-moz-border-radius:10%;-webkit-border-radius:10%;-ms-border-radius:10%}.container{display:block;width:1150px;max-width:100%;padding:0 10px;margin:0 auto;position:relative}.main_bar{width:780px;float:left;position:relative}.side_bar{width:320px;float:right;max-width:100%;overflow:hidden;word-break:break-all}@media (max-width:1080px){.container{width:100%;padding:0 10px}.main_bar{width:75%}.side_bar{width:23%}}@media (max-width:800px){.container{padding:0 5px}.main_bar{width:100%;margin-bottom:15px}.side_bar{width:100%}}header{width:100%;background:#056172;border:none;box-shadow:0 2px 0 0 #f5f5f5;height:54px;margin-bottom:20px}header .logo_wrap{float:left;width:22%;height:50px;line-height:50px}header #nav_wrap{float:left;width:73%}header .search_wrap{float:right;width:15%;padding:7px 0}header .logo_wrap img.logo{vertical-align:middle}header #nav_wrap ul.main_nav{display:flex;justify-content:flex-end;list-style:none;padding-left:0}header #nav_wrap ul.main_nav li{float:left;position:relative;list-style:none}header #nav_wrap ul.main_nav li a{float:left;height:54px;line-height:54px;padding:0 20px;color:#fff;font-size:16px;text-transform:uppercase;font-weight:bold}header #nav_wrap ul.main_nav li:hover>a,header #nav_wrap ul.main_nav li>a.active{color:#056172;background:#fff}header #nav_wrap ul.main_nav li>ul{display:none;position:absolute;left:0;top:54px;background:#fff;min-width:200px;box-shadow: 0 2px 1px 0 rgb(50 50 50 / 20%)}header #nav_wrap ul.main_nav li>ul li{float:left;width:100%}header #nav_wrap ul.main_nav li>ul li a{float:left;width:100%;padding:10px;line-height:22px;height:auto;color:#056172}header #nav_wrap ul.main_nav li:hover>ul{display:block;z-index:99999}header .menu_hndlr{display:none;position:absolute;left:0;top:0;padding:15px;cursor:pointer}header .menu_hndlr i{color:#fff;font-size:20px}header .btnsearch{float:right;padding:18px}header .btnsearch i{color:#fff;font-size:18px}header .btnsearch:hover{background:#fff}header .btnsearch:hover i{color:#056172}@media (max-width:1320px){header #nav_wrap ul.main_nav li a{padding:0 10px}}@media (max-width:1080px){header .logo_wrap{width:100%;text-align:center}header .btnsearch{position:absolute;right:0;top:0}header .menu_hndlr{display:block}header #nav_wrap{display:none;position:fixed;width:250px;background:#fff;top:0;left:0;height:100%;overflow-y:auto;box-shadow:5px 0 12px rgba(18,26,33,.1);padding-bottom:60px;z-index:999999}header #nav_wrap ul.main_nav{display:block}header #nav_wrap ul.main_nav li{width:100%;border-bottom:1px solid #ccc}header #nav_wrap ul.main_nav li a{padding:8px;float:left;width:100%;font-size:15px;font-weight:normal;line-height:23px;height:auto;color:#000}header #nav_wrap ul.main_nav li>ul{display:inline-block;width:100%;position:static;background:#fbfbfb;padding-left:0;box-shadow:none}header #nav_wrap ul.main_nav li>ul li{padding-left:15px}header #nav_wrap ul.main_nav li>ul li:last-child{border-bottom:none}}.mob_menu_close{background:#26272b;margin-bottom:0;height:50px;display:none}.mob_menu_close i{padding:15px;color:#fff;font-size:18px}header .show_mob_menu{display:block!important}header .show_mob_menu .mob_menu_close{display:block}.breadcrumbs{font-size:15px;color:#056172;line-height:18px;margin-bottom:15px}.breadcrumbs a{color:#056172}.breadcrumbs i{margin:0 5px}.breadcrumbs a:hover,.breadcrumbs a:last-child{color:#444;opacity:1;-webkit-transition:none;transition:none}#ScrollToTop{display:none;position:fixed;bottom:20px;right:30px;z-index:999999999;font-size:18px;border:none;outline:none;background-color:#222;color:#fff;cursor:pointer;border-radius:3px;width:40px;height:40px;text-align:center;line-height:35px;vertical-align:middle}#ScrollToTop i{line-height:40px}#ScrollToTop:hover{background-color:#056172}#search_wrap{position:fixed;display:none;width:100%;height:100%;top:0;left:0;right:0;bottom:0;background:#212424;z-index:9999999;cursor:pointer}.search_inner{width:600px;margin:50px auto 0 auto;padding:10px;text-align:center}.search_close{color:#fff;padding:8px 10px;border:solid 1px #fff;border-radius:50%;-webkit-border-radius:50%;-o-border-radius:50%;-moz-border-radius:50%;position:fixed;right:20px;top:20px}.search_inner input[type="text"]{-webkit-appearance:none;background:none;border:none;color:#fcfcfc;font-size:44px;font-weight:500;outline:none;padding-bottom:15px;text-align:center;width:75%;box-shadow:0 -2px 0 0 #333 inset}@media (max-width:600px){.search_inner{width:100%}}.list_item_wrap{display:flex;flex-wrap:wrap}.list_item_wrap .list_item{width:23%;margin:1%}.list_item_wrap .list_item img{margin-bottom:10px;width:100%;height:auto}.list_item_wrap .list_item h4{font-size:16px;line-height:24px;font-weight:700;margin-bottom:0;color:#056172}@media (max-width:850px){.list_item_wrap .list_item{width:31.33%}}@media (max-width:650px){.list_item_wrap .list_item{width:48%}}@media (max-width:350px){.list_item_wrap .list_item{width:100%;margin:0 0 10px 0}}.related_list_item_wrap{display:flex;flex-wrap:wrap}.related_list_item_wrap .related_list_item{width:31.33%;margin:1%}.related_list_item_wrap .related_list_item img{margin-bottom:10px;width:100%;height:auto}.related_list_item_wrap .related_list_item h4{font-size:16px;line-height:24px;font-weight:700;margin-bottom:0;color:#056172}@media (max-width:650px){.related_list_item_wrap .related_list_item{width:48%}}@media (max-width:350px){.related_list_item_wrap .related_list_item{width:100%;margin:0 0 10px 0}}.side_bar .widget{margin-bottom:20px}.side_bar .widget h3{font-size:24px;line-height:32px}.side_list_item_wrap{width:100%;float:left}.side_list_item_wrap .side_list_item{width:100%;float:left;margin-bottom:20px}.side_list_item_wrap .side_list_item img{float:left;width:70px;height:60px;margin-right:10px}.side_list_item_wrap .side_list_item h4{font-size:15px;line-height:24px;font-weight:400;color:#222;margin:0}footer{width:100%}footer .footer_bottom{padding:12px 0}footer .footer_bottom .footer_bottom_in{display:flex;flex-wrap:wrap}footer .footer_bottom .footer_bottom_in .ftr_text{width:44%;color:#000;font-size:14px;line-height:22px}footer .footer_bottom .footer_bottom_in .ftr_links{width:56%;text-align:right}footer .footer_bottom .footer_bottom_in .ftr_links a{display:inline-block;font-size:12px;line-height:24px;color:#056172;margin-right:5px}footer .footer_bottom .footer_bottom_in .ftr_links a:after{content:"|";color:#056172;padding-left:5px}footer .footer_bottom .footer_bottom_in .ftr_links a:hover{color:red}footer .footer_bottom .footer_bottom_in .ftr_links a:last-child{margin-right:0}footer .footer_bottom .footer_bottom_in .ftr_links a:last-child:after{content:"";padding-left:0}@media (max-width:800px){footer .footer_bottom .footer_bottom_in .ftr_text{width:100%;text-align:center;margin-bottom:5px}footer .footer_bottom .footer_bottom_in .ftr_links{width:100%;text-align:center}}.youtube_embed{background-color:#000;margin-bottom:30px;position:relative;padding-top:56.25%;overflow:hidden;cursor:pointer}.youtube_embed .yt_play_btn,.youtube_embed .yt_play_btn:before{top:50%;left:50%;transform:translate3d(-50%,-50%,0)}.youtube_embed img,.youtube_embed iframe,.youtube_embed .yt_play_btn,.youtube_embed .yt_play_btn:before{position:absolute}.youtube_embed img,.youtube_embed .yt_play_btn{cursor:pointer}.youtube_embed .yt_play_btn{width:90px;height:60px;background-color:#333;box-shadow:0 0 30px rgba(0,0,0,.6);z-index:1;opacity:.8;border-radius:6px}.youtube_embed .yt_play_btn,.youtube_embed .yt_play_btn:before{top:50%;left:50%;transform:translate3d(-50%,-50%,0)}.youtube_embed img,.youtube_embed iframe,.youtube_embed .yt_play_btn,.youtube_embed .yt_play_btn:before{position:absolute}.youtube_embed .yt_play_btn:before{content:"";border-style:solid;border-width:15px 0 15px 26px;border-color:transparent transparent transparent #fff}.youtube_embed img,.youtube_embed iframe,.youtube_embed .yt_play_btn,.youtube_embed .yt_play_btn:before{position:absolute}.youtube_embed img,.youtube_embed .yt_play_btn{cursor:pointer}.youtube_embed img{width:100%;top:-16.82%;left:0;opacity:.7}.youtube_embed iframe{height:100%;width:100%;top:0;left:0}.youtube_embed img,.youtube_embed iframe,.youtube_embed .yt_play_btn,.youtube_embed .yt_play_btn:before{position:absolute}.more_link{width:80%;font-size:16px;line-height:24px;color:#fff;display:inline-block;text-align:center;padding:10px;border-radius:5px;background:#056172;margin:20px auto}.more_link:hover{color:#fff;background:#222}.ac-inputs,.ac-textarea{margin-bottom:15px}.fx-row{display:-ms-flexbox;display:-webkit-flex;display:flex;-ms-flex-wrap:wrap;-webkit-flex-wrap:wrap;flex-wrap:wrap;-ms-flex-pack:justify;-webkit-justify-content:space-between;justify-content:space-between}.fx-col{display:-ms-flexbox;display:-webkit-flex;display:flex;-ms-flex-direction:column;-webkit-flex-direction:column;flex-direction:column}.fx-center{-ms-flex-pack:center;-webkit-justify-content:center;justify-content:center}.fx-middle{-ms-flex-align:center;-webkit-align-items:center;align-items:center}.fx-start{-webkit-justify-content:flex-start;justify-content:flex-start}.fx-between{-ms-flex-pack:justify;-webkit-justify-content:space-between;justify-content:space-between}.fx-first{-ms-flex-order:-1;-webkit-order:-1;order:-1}.fx-last{-ms-flex-order:10;-webkit-order:10;order:10}.fx-1{-ms-flex-preferred-size:0;flex-basis:0;-webkit-box-flex:1;-ms-flex-positive:1;flex-grow:1;max-width:100%;min-width:50px}#cmnt_form input[type="text"],#cmnt_form textarea{width:100%;background-color:#fff;color:#000;box-shadow:inset 0 0 0 1px #e3e3e3 , inset 1px 2px 5px rgba(0,0,0,.1);appearance:none;-webkit-appearance:none;border-radius:4px;border:0;padding:10px 15px;outline:none}#cmnt_form input[type="text"]{height:40px;line-height:40px}#cmnt_form button[type="submit"],#cmnt_form button[type="button"]{padding:10px 20px;border:none;outline:none;background:#666;color:#fff;font-size:18px;line-height:26px;cursor:pointer}.ac-inputs input{width:49%!important}.comments-tree-list{display:block;margin:0;padding:0;list-style:none}.comments-tree-list .comments-tree-list{padding-left:25px;position:relative}.comments-tree-list .comments-tree-list:before{content:"\f178 ";font-family:'FontAwesome'}.comments-tree-item{display:block;margin:0;padding:0}.comm-item{margin-top:30px;font-size:12px}.comm-left{width:50px;margin-right:25px}.comm-right{background-color:#ebeff3;padding:15px 15px;border-radius:6px;position:relative}.comm-right:before{content:'';border:10px solid transparent;border-right:10px solid #ebeff3;position:absolute;right:100%;top:17px}.comm-img{height:50px;border-radius:50%;background-color:transparent;overflow:hidden;position:relative}.comm-img img{width:100%;min-height:100%;display:block}.comm-two{margin:10px 0 15px 0}.comm-one>span{margin-right:15px;color:#939393;font-weight:300}.comm-one>span.comm-author{color:#27ae60;font-weight:400}.comm-one>span.comm-author a{color:#27ae60}.comm-three-left>a,.comm-three-right li a{color:#939393}.comm-three-left>a>.fa{margin-right:10px}.comm-three-right li{display:inline-block;margin-left:10px}.comm-three a:hover{text-decoration:underline}.nowrap{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.full-text{font-size:14px;line-height:1.7;color:#5c5c5c}.full-text img:not(.emoji) {max-width:100%;margin:10px 0}.full-text>img[style*="left"],.full-text>.highslide img[style*="left"]{margin:0 10px 10px 0}.full-text>img[style*="right"],.full-text>.highslide img[style*="right"]{margin:0 0 10px 10px}.full-text a{text-decoration:underline;color:#34ace0}.full-text a:hover{text-decoration:none}.full-text h2,.full-text h3,.full-text h4,.full-text h5{margin:10px 0;font-size:18px;font-weight:500}.full-text p{margin-bottom:10px}.full-text>ul,.full-text>ol{margin:0}.full-text>ul li{list-style:disc;margin-left:40px}.full-text>ol li{list-style:decimal;margin-left:40px}.txt_err{color:#c14d44}.txt_suc{color:green}figure{text-align:center}.main_head{font-weight:bold;font-size:24px;line-height:32px;text-align:center}.main_head{font-size:20px;line-height:28px}.main_table_press{margin-bottom:20px;border-collapse:collapse;width:100%;overflow:hidden;word-break:break-all}.main_table_press thead th{background-color:#d9edf7}.main_table_press tbody tr:nth-child(even) {background:#f9f9f9}.main_table_press td,.main_table_press th{border:1px solid #ededed;padding:8px;text-align:left}.main_table_press th{font-weight:bold;font-size:15px;line-height:23px}.main_table{width:100%;margin:0 auto 20px auto}.main_table tr{border-collapse:collapse}.main_table tr:last-child{border-bottom:none}.main_table th,.main_table td{padding:10px;font-size:15px;text-align:left;line-height:24px;vertical-align:top}.main_table th{font-weight:600}.main_table tr:nth-child(odd) {background:rgba(0,0,0,.05)}.main_table2{margin-bottom:20px;border-collapse:collapse;width:100%;overflow:hidden;word-break:break-all}.main_table2 tr{border-bottom:1px solid #ededed}.main_table2 td,.main_table2 th{padding:3px;text-align:left}.main_table2 th{font-weight:bold;font-size:16px;line-height:14px}.main_table2 tbody tr:nth-child(even) {background:#f2f2f2}.spec_table{width:100%;margin:0 auto 20px auto}.spec_table tr{border-collapse:collapse}.spec_table tr:last-child{border-bottom:none}.spec_table th,.spec_table td{padding:10px;font-size:15px;text-align:left;line-height:24px;vertical-align:top}.spec_table th{font-weight:600}.spec_table tr:nth-child(odd) {background:rgba(0,0,0,.05)}.btn_apkdownload{background-color:#056172;padding:20px 30px;color:#fff;position:relative;display:inline-block;font-weight:700;border-radius:5px;-moz-border-radius:5px;-webkit-border-radius:5px;font-size:16px;line-height:24px}.btn_apkdownload2{background-color:#056172;color:#fff;border-color:transparent;width:80%;padding:10px;display:block;margin:0 auto;border-radius:4px;margin-top:15px;margin-bottom:15px;text-align:center}.btn_apkdownload2:hover{color:#fff}.explore_box{border:solid 1px #ccc;width:75%;margin:20px auto}.explore_box .explode_head{text-align:center;font-size:18px;line-height:26px;display:block;padding:10px;border-bottom:solid 1px #ccc}.explore_box .explore_box_inner{padding:10px}.explore_box .explore_box_inner p:last-child{margin-bottom:0}.explore_box .explore_box_inner span{background:#056172;border-radius:50%;margin-right:10px;width:20px;height:20px;line-height:20px;display:inline-block;text-align:center;color:#fff;font-size:11px;font-weight:bold;vertical-align:middle}.explore_box .explore_box_inner a{color:#000;text-decoration:none;font-size:14px;line-height:22px}@media (max-width:600px){.explore_box{width:92%}}.cnt_box{margin:0 0 15px 0;font-size:16px;line-height:24px;width:100%;box-sizing:border-box;background:#fff}.cnt_box p,.cnt_box h1,.cnt_box h2,.cnt_box h3,.cnt_box h4,.cnt_box h5,.cnt_box h6{margin-bottom:10px}.cnt_box strong,.cnt_box b,.cnt_box em{font-weight:bold}.cnt_box h1,.cnt_box h2,.cnt_box h3,.cnt_box h4,.cnt_box h5,.cnt_box h6{font-weight:bold;margin:10px 0}.cnt_box h2{font-size:24px!important;line-height:32px!important}.cnt_box h3{font-size:22px!important;line-height:30px!important}.cnt_box h4{font-size:20px!important;line-height:28px!important}.cnt_box h5{font-size:18px!important;line-height:26px!important}.cnt_box h6{font-size:16px!important;line-height:24px!important}.cnt_box i{font-style:italic}.cnt_box u{text-decoration:underline}.cnt_box a{color:#000}.cnt_box ol,.cnt_box ul{padding-left:20px!important;margin-bottom:10px!important;text-align:left}.cnt_box ol{list-style:decimal!important}.cnt_box ul{list-style:disc!important}.side_cat_item{width:50%;float:left;margin-bottom:0;border:none;border-bottom:1px solid #ededed;text-align:left;padding:5px 0;color:#101010;white-space:nowrap;font-size:14px;line-height:22px}.side_cat_item i{margin-right:2px;font-weight:bold}.rating{display:none;font-size:35px;font-weight:bold;color:#ff8c00;white-space:nowrap;cursor:pointer}.rating .star{display:inline-block;position:relative;letter-spacing:.05em}.rating .star::before{display:inline-block;color:#aaa;content:'☆';width:1em;height:1em}.rating .star::after{display:inline-block;position:absolute;content:'★';top:0;left:0;opacity:0;width:0;height:0;transition:all .1s linear;overflow:hidden}.rating:not([disabled]) .star:hover::after,.rating .star.active::after {opacity:1;width:1em;height:1em}.rating .star.active.half::after{width:.5em}.hwa{height:auto;width:auto}.full{width:100%!important}.fl{float:left!important}.fr{float:right!important}.mb0{margin-bottom:0!important}.mb10{margin-bottom:10px!important}.mb15{margin-bottom:15px!important}.mb20{margin-bottom:20px!important}.mb25{margin-bottom:25px!important}.mb30{margin-bottom:30px!important}.mt0{margin-top:0!important}.mt10{margin-top:10px!important}.mt15{margin-top:15px!important}.mt20{margin-top:20px!important}.mt25{margin-top:25px!important}.mt30{margin-top:30px!important}.pb0{padding-bottom:0!important}.pb10{padding-bottom:10px!important}.pb15{padding-bottom:15px!important}.pb20{padding-bottom:20px!important}.pb25{padding-bottom:25px!important}.pb30{padding-bottom:30px!important}.pt0{padding-top:0!important}.pt10{padding-top:10px!important}.pt15{padding-top:15px!important}.pt20{padding-top:20px!important}.pt25{padding-top:25px!important}.pt30{padding-top:30px!important}.vam{vertical-align:middle}.ac{text-align:center!important}.aj{text-align:justify!important}.db{display:block!important}.dib{display:inline-block!important}.rtl{direction:rtl!important}.ltr{direction:ltr!important}.pad10{padding:10px}.pad15{padding:15px}.hide{display:none}.show{display:block}.fs17{font-size:17px}.txt_red{color:#c14d44!important}.txt_green{color:#063f4f!important}.txt_suc{color:#0ba50b!important}.txt_blue{color:#084888!important}.txt_gray{color:#333!important}.txt_white{color:#fff!important}.txt_black{color:#000!important}.txt_orange{color:#f29423!important}.blue_bg{background:#f1f5fd;float:left;width:100%;padding:15px 0}.hero_box_wrap{background:#4a867b;padding:30px 0;text-align:center;color:#fff}#header_ad{height:280px!important}@media (max-width:800px){#header_ad{height:100px!important}}</style><style>.mb-button{position:relative;display:inline-block;margin-bottom:1em;border:none;outline:none;-webkit-box-shadow:none;-moz-box-shadow:none;box-shadow:none;text-shadow:none;text-transform:none;-webkit-font-smoothing:subpixel-antialiased!important;font-size:17px;font-family:'Nunito',sans-serif;background:#056172;color:#fff!important;text-decoration:none!important;-webkit-transition:all linear .2s;-moz-transition:all linear .2s;transition:all linear .2s;-webkit-border-radius:.25em;-moz-border-radius:.25em;border-radius:.25em;cursor:pointer;padding:1em 2em;line-height:1.5}.mb-button.mb-style-bordered{border:.2em solid rgba(0,0,0,.05);border-top:.1em solid rgba(255,255,255,.1)}.mb-button.mb-corners-default{-webkit-border-radius:.25em;-moz-border-radius:.25em;border-radius:.25em}.mb-button.mb-text-style-default{font-weight:600;letter-spacing:0;box-shadow: 0px 7px 10px 0 rgb(0 0 0 / 33%);border:3px solid #fff;border-radius:5px!important;padding:10px 30px;margin-bottom:15px}.mb-button.mb-corners-pill{-webkit-border-radius:3em;-moz-border-radius:3em;border-radius:3em}.mb-button.mb-size-large{font-size:21px;padding:1em 2.25em}.download-body{border:2px solid #ededed;border-radius:5px;padding:10px;margin-bottom:10px}.column.is-12{flex:none;width:100%}.app div:first-child{width:64px;float:left;text-align:center;font-size:.75rem;letter-spacing:1px;margin:0 12px 0 0}.app>div:last-child{padding-left:66px}.file-icon{width:27px;height:36px;background:#8ec155;position:relative;border-radius:2px;text-align:left;-webkit-font-smoothing:antialiased}.file-icon::before{display:block;content:"";position:absolute;top:0;right:0;width:0;height:0;border-bottom-left-radius:2px;border-width:5px;border-style:solid;border-color: #fff #fff #ffffff59 #ffffff59}.file-icon::after{display:block;content:attr(data-type);position:absolute;bottom:0;left:0;font-size:12px;color:#fff;text-transform:lowercase;width:100%;padding:2px;white-space:nowrap;overflow:hidden}.file-icon[data-type="zip"]{background-color:#ffb229}.abutton a,.abutton a:visited,.abutton a:active,.abutton a:focus{background-color:#000;color:red;border-color:transparent;width:80%;padding:20px;display:block;margin:0 auto;border-radius:4px;margin-top:15px;margin-bottom:15px;text-align:center}.app-info-body{line-height:1.5em;letter-spacing:.3px;color:#444}.app-info-body>div div:nth-child(1) {width:40%}.app-info-body>div div:nth-child(2) {width:60%}.app-info-body>div{display:flex!important;flex-wrap:wrap;align-items:center;padding-top:5px;padding-bottom:5px;border-bottom:1px solid #ededed}</style>
+<script type="application/ld+json">
+{"@context": "https://schema.org/",
+    "@type": "hatom",
+	  "hentry": {
+		"@type": "hentry",
+		"entry-title": "GB WhatsApp Download APK Latest Version (Updated) 2026 | Official",
+		"entry-content": "
+GB WhatsApp Download APK
+Introduction of GB WhatsApp APK
+
+
+
+App Details
+Description
+
+
+App Name
+GB WhatsApp
+
+
+Android Version
+4.3 and above
+
+
+Current Version
+Latest Version
+
+
+Total .."
+	  }
+}
+</script>
+<script type="application/ld+json">{"@context": "https://schema.org/",
+    "@type": "CreativeWorkSeries",
+    "name": "GB WhatsApp Download APK Latest Version (Updated) 2026 | Official",
+    "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.9",
+        "bestRating": "5",
+        "ratingCount": "99136762"
+    }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "NewsArticle",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://gb-apps.pk/"
+  },
+  "headline": "GB WhatsApp Download APK Latest Version (Updated) 2026 | Official",
+    "image": "https://gb-apps.pk/images/gb-appspk-social_5a5fd.png",
+    "datePublished": "2024-12-22T19:22:28+0500",
+  "dateModified": "2024-12-22T22:31:08+0500",
+  "publisher": {
+	"@type": "Organization",
+	"name": "Gb-Apps.PK",
+	"logo": {
+	  "@type": "ImageObject",
+	  "url": "https://gb-apps.pk/images/gb-appspk-460x80_f42df.png"
+	}
+  },
+  "author": {
+        "@type": "Person",
+        "name": "GbApps"
+      },
+  "description": "&lt;p&gt;&lt;img class=&quot;aligncenter wp-image-343 size-full lazyloaded&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; src=&quot;../../images/favicon_c8_63a81.png&quot; alt=&quot;gbwhatsapp&quot; width=&quot;200&quot; height=&quot;200&quot; /&gt;&lt;/p&gt;
+&lt;p style=&quot;text-align: center;&quot;&gt;&lt;a class=&quot;mb-button mb-style-flat mb-size-default mb-corners-default mb-text-style-default&quot; title=&quot;GB WhatsApp Download APK&quot; href=&quot;https://gbroid.pk/GBWhats_App.apk&quot;&gt;GB WhatsApp Download APK&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;Introduction of GB WhatsApp APK&lt;/h2&gt;
+&lt;table class=&quot;main_table&quot;&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;App Details&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;&lt;strong&gt;Description&lt;/strong&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;App Name&lt;/td&gt;
+&lt;td&gt;GB WhatsApp&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Android Version&lt;/td&gt;
+&lt;td&gt;4.3 and above&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Current Version&lt;/td&gt;
+&lt;td&gt;Latest Version&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Total Downloads&lt;/td&gt;
+&lt;td&gt;115,000,000+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;App Size&lt;/td&gt;
+&lt;td&gt;60.1 MB&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Root Requirement&lt;/td&gt;
+&lt;td&gt;Not Required&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Primary Purpose&lt;/td&gt;
+&lt;td&gt;Extra WhatsApp Features&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Last Updated&lt;/td&gt;
+&lt;td&gt;5 hours ago&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;WhatsApp mods are very different from the official WhatsApp in terms of features. GB WhatsApp is another modified version of WhatsApp that has many special features for its users. To fully understand this process, you must read the entire article. So you know what GB WhatsApp is and why it is designed.&lt;/p&gt;
+&lt;h2&gt;What is GB WhatsApp APK?&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;../../&quot;&gt;&lt;strong&gt;GB WhatsApp&lt;/strong&gt;&lt;/a&gt; is an updated version of the official WhatsApp. This app has many features and functions that everyone will love. You can do many things with this program like &lt;strong&gt;hide blue tick icons&lt;/strong&gt;, &lt;strong&gt;read deleted messages&lt;/strong&gt;, and &lt;strong&gt;save your call history&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;You get advanced recording features that allow you to listen to recordings without tapping each recording on &lt;strong&gt;GBWhatsApp&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;GBWhatsApp is an updated version of the official WhatsApp that offers different ways to communicate with your friends. You won't have any problem while using it.&lt;/p&gt;
+&lt;p&gt;&lt;/p&gt;
+&lt;h2&gt;What are The Differences Between GBWhatsApp and Normal WhatsApp?&lt;/h2&gt;
+&lt;p&gt;Of course, there are some differences between GBWhatsApp and normal WhatsApp APK, but all the differences are good with GBWhatsApp. This app was designed to meet the needs of users who want more freedom and privacy than what WhatsApp offers.&lt;/p&gt;
+&lt;p&gt;This is why GBWhatsApp got so many fans when it was released. The app quickly became as popular as the original WhatsApp app, with &lt;strong&gt;over 5 million downloads&lt;/strong&gt; since its launch.&lt;/p&gt;
+&lt;p&gt;There are many versions of GBWhatsApp, each with its own unique features and benefits. In this app, you will find more than 200 new features, many of which were previously available but are now available to everyone. It is worth mentioning that GBWhatsApp is not available on the Google Play Store, so we are providing a direct download link.&lt;/p&gt;
+&lt;table class=&quot;main_table&quot;&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;Feature&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;&lt;strong&gt;GB WhatsApp APK&lt;/strong&gt;&lt;/td&gt;
+&lt;th&gt;&lt;strong&gt;WhatsApp&lt;/strong&gt;&lt;/th&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Status Character Length&lt;/td&gt;
+&lt;td&gt;Up to 255 Characters&lt;/td&gt;
+&lt;td&gt;Up to 139 Characters&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Document Sharing (at once)&lt;/td&gt;
+&lt;td&gt;100&lt;/td&gt;
+&lt;td&gt;30&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Media Sharing Limit&lt;/td&gt;
+&lt;td&gt;100 MB&lt;/td&gt;
+&lt;td&gt;15 MB&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Hide Last Seen&lt;/td&gt;
+&lt;td&gt;Available&lt;/td&gt;
+&lt;td&gt;Not Available&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Status Copying&lt;/td&gt;
+&lt;td&gt;Available&lt;/td&gt;
+&lt;td&gt;Not Available&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Document Sharing Formatsly&lt;/td&gt;
+&lt;td&gt;PDF, TXT&lt;/td&gt;
+&lt;td&gt;Limited Formats&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Languages Supported&lt;/td&gt;
+&lt;td&gt;45&lt;/td&gt;
+&lt;td&gt;130&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Send Blank Messages&lt;/td&gt;
+&lt;td&gt;Available&lt;/td&gt;
+&lt;td&gt;Not Available&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Theme Customization&lt;/td&gt;
+&lt;td&gt;Available&lt;/td&gt;
+&lt;td&gt;Not Available&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h2&gt;Download the GB WhatsApp Apk for Android 2026 latest&lt;/h2&gt;
+&lt;p&gt;Before you start downloading, we want to say that there are many advantages of downloading WhatsApp GB, including &lt;strong&gt;privacy and security&lt;/strong&gt;, &lt;strong&gt;customization options&lt;/strong&gt;, &lt;strong&gt;performance&lt;/strong&gt;, &lt;strong&gt;advanced messaging options&lt;/strong&gt;, and &lt;strong&gt;social media sharing&lt;/strong&gt;. However, it is important to note that GBWhatsApp apk is a third-party app and is not supported by WhatsApp. Users should be careful while downloading GB WhatsApp. Look for a reliable website that provides updated&lt;br /&gt;download the link to get the latest version.&lt;/p&gt;
+&lt;h2&gt;Enhancement or Privacy Features (The main difference between GBWhatsApp and WhatsApp)&lt;/h2&gt;
+&lt;p&gt;The main difference between GB WhatsApp and WhatsApp is the privacy and security settings. GBWhatsApp gives users more control over their privacy by providing options to change the privacy of contacts and groups. Users can choose who can see their online status and profile picture. GB What's also offers features like a 'type' indicator, blue ticks, and hidden 'last view'.&lt;/p&gt;
+&lt;p&gt;WhatsApp GB also provides blocking that allows users to protect their chats and prevent unauthorized access.&lt;/p&gt;
+&lt;h2&gt;Features of GB WhatsApp&lt;/h2&gt;
+&lt;h3&gt;Auto send Messages&lt;/h3&gt;
+&lt;p&gt;Now you can write a new message and mark the message as sent. You can schedule these posts by day or month of the year. It will be sent automatically when the time you selected arrives.&lt;/p&gt;
+&lt;p&gt;It is considered a good solution for people who do not have a strong memory to remember a lot of information. For example, you can use this feature to celebrate your birthdays, holidays, etc.&lt;/p&gt;
+&lt;h3&gt;Advanced privacy settings and security features:&lt;/h3&gt;
+&lt;p&gt;It allows users to change their privacy settings to match the official WhatsApp. Users can choose who can see their online status and profile picture. Users can manage their people and let them control their appearance on the site.&lt;/p&gt;
+&lt;p&gt;Change your message to let someone know how busy you are.&lt;/p&gt;
+&lt;h3&gt;Block unwanted calls:&lt;/h3&gt;
+&lt;p&gt;If you don't want to receive calls from someone, you can simply block them using this app.&lt;/p&gt;
+&lt;h3&gt;Images shared from GBWhatsApp:&lt;/h3&gt;
+&lt;p&gt;With GBWhatsApp, the number of images that can be sent simultaneously has increased. Choose to send a small amount at a time. The sending process on GBWhatsApp is fast and smooth. There were no messages about the transfer failing, etc., and the images came back with quality and resolution.&lt;/p&gt;
+&lt;h3&gt;Video shared by GBWhatsApp:&lt;/h3&gt;
+&lt;p&gt;For videos, there are many advantages and disadvantages. Videos up to 50 MB can now be shared instead of 15 MB. Previously, the user was asked to split the video into parts before uploading. You don't have to go through those horrible steps. Now videos can be streamed in high HD quality with high transfer speeds.&lt;/p&gt;
+&lt;h3&gt;Hide last seen:&lt;/h3&gt;
+&lt;p&gt;You can hide your last-seen updates on your phone.&lt;/p&gt;
+&lt;h3&gt;Hide online history:&lt;/h3&gt;
+&lt;p&gt;This app can hide your identity online which is a great advantage because no one knows whether you are using this app or not.&lt;/p&gt;
+&lt;h3&gt;Hide information :&lt;/h3&gt;
+&lt;p&gt;We understand that sometimes you want to keep someone's personal information private. By thinking about this problem, you can hide the way you see it.&lt;/p&gt;
+&lt;h3&gt;Hide messages&lt;/h3&gt;
+&lt;p&gt;You can hide all WhatsApp messages on your phone screen so that no one can see them.&lt;/p&gt;
+&lt;h3&gt;Phone screen:&lt;/h3&gt;
+&lt;p&gt;You can change the background and colors of the contact icons for outgoing, incoming, missed, and volume calls.&lt;/p&gt;
+&lt;h3&gt;Increased file sharing limits:&lt;/h3&gt;
+&lt;p&gt;Unlike the official WhatsApp, GB WhatsApp allows users to send files larger than the file size. Users can share high-quality photos and videos without clipping, ensuring that media content retains its original and clear message. &lt;br /&gt;This feature is very useful when sharing files on a larger platform that needs to be reliable.&lt;/p&gt;
+&lt;h3&gt;Process messages and special replies:&lt;/h3&gt;
+&lt;p&gt;It has an editing function that allows users to write and edit messages that are sent later. Sending a reminder, thank you, or important message can sometimes be helpful. Additionally, users can set up auto-reply messages to automatically respond to incoming messages when they cannot do so manually. This helps to monitor the information and prepare appropriate responses.&lt;/p&gt;
+&lt;h2&gt;How to download the GB WhatsApp APK?&lt;/h2&gt;
+&lt;p&gt;GBWhatsApp apk is not available in official stores like &lt;a href=&quot;https://play.google.com/store/apps/details?id=com.whatsapp&amp;amp;hl=en&quot;&gt;Google Play Store&lt;/a&gt; or Apple App Store, so users have to download it from unofficial sources.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Since it is not available from an official app store, users need to enable the 'Unknown Source' option to install the APK file on their devices. This option allows you to install apps from sources other than the store.&lt;/li&gt;
+&lt;li&gt;To open unknown sources, go to your &lt;strong&gt;device settings&lt;/strong&gt;, check the &lt;strong&gt;Security or Privacy section&lt;/strong&gt;, and turn on the option to allow installation from &lt;strong&gt;unknown sources&lt;/strong&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img class=&quot;aligncenter wp-image-343 size-full lazyloaded&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; src=&quot;../../media/2024/12/_3/760x450/unknown-source_67310.jpg&quot; alt=&quot;unknown-source&quot; width=&quot;735&quot; height=&quot;450&quot; /&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;After downloading the GBWhatsApp APK file, locate the file in your &lt;strong&gt;device storage or file manager&lt;/strong&gt; and click to start the installation.&lt;/li&gt;
+&lt;li&gt;Follow the on-screen instructions to &lt;strong&gt;complete the installation&lt;/strong&gt;.&lt;/li&gt;
+&lt;li&gt;After installation, &lt;strong&gt;launch the GBWhatsApp APK&lt;/strong&gt; from the desktop of your device.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Enter the mobile number&lt;/strong&gt; and go through the verification process, which means receiving an OTP (one-time password) &lt;strong&gt;via SMS or phone&lt;/strong&gt;.&lt;/li&gt;
+&lt;li&gt;After verifying the number, GB WhatsApp will check the WhatsApp attachment files and you can now use it&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img class=&quot;aligncenter wp-image-343 size-full lazyloaded&quot; style=&quot;display: block; margin-left: auto; margin-right: auto;&quot; src=&quot;../../media/2024/12/_3/760x450/gbwhatsapp-apk-install-1_d9171.jpg&quot; alt=&quot;gbwhatsapp-apk-install&quot; width=&quot;760&quot; height=&quot;387&quot; /&gt;&lt;/p&gt;
+&lt;h2&gt;Conclusion&lt;/h2&gt;
+&lt;p&gt;GBWhatsApp offers unlimited themes and features. you can set a password for each chat. You can also change the default video player to another video player installed on your phone. GBWhatsApp supports multiple languages including &lt;strong&gt;Arabic, English, Spanish, Portuguese, and Italian&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;You can change the colors and sizes of all images according to your needs.&lt;/p&gt;
+&lt;p&gt;Messages can be set to be sent automatically at specific times.&lt;/p&gt;
+&lt;p&gt;If you want more features in your official WhatsApp, why not switch to GB WhatsApp?&lt;/p&gt;
+&lt;p style=&quot;text-align: center;&quot;&gt;&lt;em&gt;&lt;strong&gt;Let us know in the comments section what you think about using this app on your phone.&lt;/strong&gt;&lt;/em&gt;&lt;/p&gt;"
+}
+</script>
+
+</head><body>
+<div id="main_wrap"><header>
+    <div class="container">
+        <span id="menu_hndlr" class="menu_hndlr"><i onClick="show_menu_mob();" class="fa fa-bars"></i></span>
+        <div class="logo_wrap">
+            <a href="https://gb-apps.pk/"><img style="width:230px;height:40px;" class="logo hwa" src="https://gb-apps.pk/images/gb-appspk-460x80_f42df.png" alt="Gb-Apps.PK"></a>
+        </div>
+        <div id="nav_wrap">
+            <p class="mob_menu_close"><i onclick="hide_menu_mob();" class="fa fa-times"></i></p>
+            <ul class="main_nav">
+                <li><a href="https://gb-apps.pk/">GB WhatsApp </a></li><li><a href="https://gb-apps.pk/whatsapp-plus/">WhatsApp Plus </a></li><li><a href="https://gb-apps.pk/fm-whatsapp/">FM WhatsApp </a></li>            </ul>
+        </div>
+        <span onClick="on_search();" class="btnsearch"><i class="fa fa-search"></i></span>
+    </div>
+</header>
+
+
+    <div class="container">
+        
+		        <h1>GB WhatsApp Download APK Latest Version (Updated) 2026 | Official</h1>
+                
+             	
+        
+
+                <div class="clear mb30"></div>
+<div class="cnt_box">
+            <p><img class="aligncenter wp-image-343 size-full lazyloaded" style="display: block; margin-left: auto; margin-right: auto;" src="../../images/favicon_c8_63a81.png" alt="gbwhatsapp" width="200" height="200"/></p>
+<p style="text-align: center;"><a class="mb-button mb-style-flat mb-size-default mb-corners-default mb-text-style-default" title="GB WhatsApp Download APK" href="https://gbroid.pk/GBWhats_App.apk">GB WhatsApp Download APK</a></p>
+<h2>Introduction of GB WhatsApp APK</h2>
+<table class="main_table">
+<tbody>
+<tr>
+<td><strong>App Details</strong></td>
+<td><strong>Description</strong></td>
+</tr>
+<tr>
+<td>App Name</td>
+<td>GB WhatsApp</td>
+</tr>
+<tr>
+<td>Android Version</td>
+<td>4.3 and above</td>
+</tr>
+<tr>
+<td>Current Version</td>
+<td>Latest Version</td>
+</tr>
+<tr>
+<td>Total Downloads</td>
+<td>115,000,000+</td>
+</tr>
+<tr>
+<td>App Size</td>
+<td>60.1 MB</td>
+</tr>
+<tr>
+<td>Root Requirement</td>
+<td>Not Required</td>
+</tr>
+<tr>
+<td>Primary Purpose</td>
+<td>Extra WhatsApp Features</td>
+</tr>
+<tr>
+<td>Last Updated</td>
+<td>5 hours ago</td>
+</tr>
+</tbody>
+</table>
+<p>WhatsApp mods are very different from the official WhatsApp in terms of features. GB WhatsApp is another modified version of WhatsApp that has many special features for its users. To fully understand this process, you must read the entire article. So you know what GB WhatsApp is and why it is designed.</p>
+<h2>What is GB WhatsApp APK?</h2>
+<p><a href="../../"><strong>GB WhatsApp</strong></a> is an updated version of the official WhatsApp. This app has many features and functions that everyone will love. You can do many things with this program like <strong>hide blue tick icons</strong>, <strong>read deleted messages</strong>, and <strong>save your call history</strong>.</p>
+<p>You get advanced recording features that allow you to listen to recordings without tapping each recording on <strong>GBWhatsApp</strong>.</p>
+<p>GBWhatsApp is an updated version of the official WhatsApp that offers different ways to communicate with your friends. You won't have any problem while using it.</p>
+<p><figure><img class="lazyload" data-src="https://gb-apps.pk/media/2024/12/_3/760x450/gb-whatsapp_e8567.jpg" width="100%" height="auto" alt="Gb Whatsapp"/></figure></p>
+<h2>What are The Differences Between GBWhatsApp and Normal WhatsApp?</h2>
+<p>Of course, there are some differences between GBWhatsApp and normal WhatsApp APK, but all the differences are good with GBWhatsApp. This app was designed to meet the needs of users who want more freedom and privacy than what WhatsApp offers.</p>
+<p>This is why GBWhatsApp got so many fans when it was released. The app quickly became as popular as the original WhatsApp app, with <strong>over 5 million downloads</strong> since its launch.</p>
+<p>There are many versions of GBWhatsApp, each with its own unique features and benefits. In this app, you will find more than 200 new features, many of which were previously available but are now available to everyone. It is worth mentioning that GBWhatsApp is not available on the Google Play Store, so we are providing a direct download link.</p>
+<table class="main_table">
+<tbody>
+<tr>
+<td><strong>Feature</strong></td>
+<td><strong>GB WhatsApp APK</strong></td>
+<th><strong>WhatsApp</strong></th>
+</tr>
+<tr>
+<td>Status Character Length</td>
+<td>Up to 255 Characters</td>
+<td>Up to 139 Characters</td>
+</tr>
+<tr>
+<td>Document Sharing (at once)</td>
+<td>100</td>
+<td>30</td>
+</tr>
+<tr>
+<td>Media Sharing Limit</td>
+<td>100 MB</td>
+<td>15 MB</td>
+</tr>
+<tr>
+<td>Hide Last Seen</td>
+<td>Available</td>
+<td>Not Available</td>
+</tr>
+<tr>
+<td>Status Copying</td>
+<td>Available</td>
+<td>Not Available</td>
+</tr>
+<tr>
+<td>Document Sharing Formatsly</td>
+<td>PDF, TXT</td>
+<td>Limited Formats</td>
+</tr>
+<tr>
+<td>Languages Supported</td>
+<td>45</td>
+<td>130</td>
+</tr>
+<tr>
+<td>Send Blank Messages</td>
+<td>Available</td>
+<td>Not Available</td>
+</tr>
+<tr>
+<td>Theme Customization</td>
+<td>Available</td>
+<td>Not Available</td>
+</tr>
+</tbody>
+</table>
+<h2>Download the GB WhatsApp Apk for Android 2026 latest</h2>
+<p>Before you start downloading, we want to say that there are many advantages of downloading WhatsApp GB, including <strong>privacy and security</strong>, <strong>customization options</strong>, <strong>performance</strong>, <strong>advanced messaging options</strong>, and <strong>social media sharing</strong>. However, it is important to note that GBWhatsApp apk is a third-party app and is not supported by WhatsApp. Users should be careful while downloading GB WhatsApp. Look for a reliable website that provides updated<br/>download the link to get the latest version.</p>
+<h2>Enhancement or Privacy Features (The main difference between GBWhatsApp and WhatsApp)</h2>
+<p>The main difference between GB WhatsApp and WhatsApp is the privacy and security settings. GBWhatsApp gives users more control over their privacy by providing options to change the privacy of contacts and groups. Users can choose who can see their online status and profile picture. GB What's also offers features like a 'type' indicator, blue ticks, and hidden 'last view'.</p>
+<p>WhatsApp GB also provides blocking that allows users to protect their chats and prevent unauthorized access.</p>
+<h2>Features of GB WhatsApp</h2>
+<h3>Auto send Messages</h3>
+<p>Now you can write a new message and mark the message as sent. You can schedule these posts by day or month of the year. It will be sent automatically when the time you selected arrives.</p>
+<p>It is considered a good solution for people who do not have a strong memory to remember a lot of information. For example, you can use this feature to celebrate your birthdays, holidays, etc.</p>
+<h3>Advanced privacy settings and security features:</h3>
+<p>It allows users to change their privacy settings to match the official WhatsApp. Users can choose who can see their online status and profile picture. Users can manage their people and let them control their appearance on the site.</p>
+<p>Change your message to let someone know how busy you are.</p>
+<h3>Block unwanted calls:</h3>
+<p>If you don't want to receive calls from someone, you can simply block them using this app.</p>
+<h3>Images shared from GBWhatsApp:</h3>
+<p>With GBWhatsApp, the number of images that can be sent simultaneously has increased. Choose to send a small amount at a time. The sending process on GBWhatsApp is fast and smooth. There were no messages about the transfer failing, etc., and the images came back with quality and resolution.</p>
+<h3>Video shared by GBWhatsApp:</h3>
+<p>For videos, there are many advantages and disadvantages. Videos up to 50 MB can now be shared instead of 15 MB. Previously, the user was asked to split the video into parts before uploading. You don't have to go through those horrible steps. Now videos can be streamed in high HD quality with high transfer speeds.</p>
+<h3>Hide last seen:</h3>
+<p>You can hide your last-seen updates on your phone.</p>
+<h3>Hide online history:</h3>
+<p>This app can hide your identity online which is a great advantage because no one knows whether you are using this app or not.</p>
+<h3>Hide information :</h3>
+<p>We understand that sometimes you want to keep someone's personal information private. By thinking about this problem, you can hide the way you see it.</p>
+<h3>Hide messages</h3>
+<p>You can hide all WhatsApp messages on your phone screen so that no one can see them.</p>
+<h3>Phone screen:</h3>
+<p>You can change the background and colors of the contact icons for outgoing, incoming, missed, and volume calls.</p>
+<h3>Increased file sharing limits:</h3>
+<p>Unlike the official WhatsApp, GB WhatsApp allows users to send files larger than the file size. Users can share high-quality photos and videos without clipping, ensuring that media content retains its original and clear message. <br/>This feature is very useful when sharing files on a larger platform that needs to be reliable.</p>
+<h3>Process messages and special replies:</h3>
+<p>It has an editing function that allows users to write and edit messages that are sent later. Sending a reminder, thank you, or important message can sometimes be helpful. Additionally, users can set up auto-reply messages to automatically respond to incoming messages when they cannot do so manually. This helps to monitor the information and prepare appropriate responses.</p>
+<h2>How to download the GB WhatsApp APK?</h2>
+<p>GBWhatsApp apk is not available in official stores like <a href="https://play.google.com/store/apps/details?id=com.whatsapp&amp;hl=en">Google Play Store</a> or Apple App Store, so users have to download it from unofficial sources.</p>
+<ul>
+<li>Since it is not available from an official app store, users need to enable the 'Unknown Source' option to install the APK file on their devices. This option allows you to install apps from sources other than the store.</li>
+<li>To open unknown sources, go to your <strong>device settings</strong>, check the <strong>Security or Privacy section</strong>, and turn on the option to allow installation from <strong>unknown sources</strong>.</li>
+</ul>
+<p><img class="aligncenter wp-image-343 size-full lazyloaded" style="display: block; margin-left: auto; margin-right: auto;" src="../../media/2024/12/_3/760x450/unknown-source_67310.jpg" alt="unknown-source" width="735" height="450"/></p>
+<ul>
+<li>After downloading the GBWhatsApp APK file, locate the file in your <strong>device storage or file manager</strong> and click to start the installation.</li>
+<li>Follow the on-screen instructions to <strong>complete the installation</strong>.</li>
+<li>After installation, <strong>launch the GBWhatsApp APK</strong> from the desktop of your device.</li>
+<li><strong>Enter the mobile number</strong> and go through the verification process, which means receiving an OTP (one-time password) <strong>via SMS or phone</strong>.</li>
+<li>After verifying the number, GB WhatsApp will check the WhatsApp attachment files and you can now use it</li>
+</ul>
+<p><img class="aligncenter wp-image-343 size-full lazyloaded" style="display: block; margin-left: auto; margin-right: auto;" src="../../media/2024/12/_3/760x450/gbwhatsapp-apk-install-1_d9171.jpg" alt="gbwhatsapp-apk-install" width="760" height="387"/></p>
+<h2>Conclusion</h2>
+<p>GBWhatsApp offers unlimited themes and features. you can set a password for each chat. You can also change the default video player to another video player installed on your phone. GBWhatsApp supports multiple languages including <strong>Arabic, English, Spanish, Portuguese, and Italian</strong>.</p>
+<p>You can change the colors and sizes of all images according to your needs.</p>
+<p>Messages can be set to be sent automatically at specific times.</p>
+<p>If you want more features in your official WhatsApp, why not switch to GB WhatsApp?</p>
+<p style="text-align: center;"><em><strong>Let us know in the comments section what you think about using this app on your phone.</strong></em></p><h2>&nbsp;</h2>            			<div class="clear mb15"></div><div class="clear mb15"></div>        </div>
+                
+    </div>
+<div class="clear mb30"></div>
+<div class="container">
+    <footer>
+        <div class="footer_bottom">
+            <div class="footer_bottom_in">
+                <div class="ftr_text">Copyright © 2025 Gb-Apps.PK All Rights Reserved.</div>
+                <div class="ftr_links">
+                    <a href="https://gb-apps.pk/about/">About</a><a href="https://gb-apps.pk/disclaimer/">Disclaimer</a><a href="https://gb-apps.pk/privacy-policy/">Privacy Policy</a><a href="https://gb-apps.pk/contact/">Contact Us</a>                </div>
+            </div>
+        </div>
+        <div class="clear"></div>
+    </footer>
+</div>
+<div class="clear"></div>
+<span onClick="topFunction()" id="ScrollToTop" aria-label="Go to top" title="Go to top">&#8687;</span>
+<div id="search_wrap">
+    <div class="search_inner">
+        <div class="ac mb20">
+            <img class="lazyload hwa" width="155" height="40" data-src="https://gb-apps.pk/images/gbapps-237x45_7f74b.png" src="https://gb-apps.pk/images/search-logo-holder.jpg" alt="Gb-Apps.PK"/>
+        </div>
+        <span onclick="off_search()" class="search_close">&#10006;</span>
+        <form method="post" action="https://gb-apps.pk/set_search.php">
+            <input autocomplete="off" name="kwd" id="kwd" type="text">
+        </form>
+    </div>
+</div>        
+<noscript id="deferred-styles">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;700&display=swap">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" type="text/css">
+</noscript>
+<script type="arsilazyloadscript">var loadDeferredStyles=function(){var a=document.getElementById("deferred-styles"),b=document.createElement("div");b.innerHTML=a.textContent,document.body.appendChild(b),a.parentElement.removeChild(a)},raf=requestAnimationFrame||mozRequestAnimationFrame||webkitRequestAnimationFrame||msRequestAnimationFrame;raf?raf(function(){window.setTimeout(loadDeferredStyles,0)}):window.addEventListener("load",loadDeferredStyles);</script>
+<script type="text/javascript">function show_menu_mob(){document.getElementById("nav_wrap").className+='show_mob_menu';}function hide_menu_mob(){document.getElementById("nav_wrap").className='';}function on_search(){document.getElementById("search_wrap").style.display="block";document.getElementById("kwd").focus();}function off_search(){document.getElementById("search_wrap").style.display="none";}var ScrollButton=document.getElementById("ScrollToTop");window.onscroll=function(){scrollFunction()};function scrollFunction(){if(window.pageYOffset>20){ScrollButton.style.display="block";}else{ScrollButton.style.display="none";}}function topFunction(){document.body.scrollIntoView({behavior:"smooth"});}function scrollToi(id){this.event.preventDefault();document.getElementById(id).scrollIntoView({behavior:"smooth"});}function scrollToc(to_id){this.event.preventDefault();var element=document.getElementById(to_id);element.scrollIntoView({behavior:'smooth',block:'start'});setTimeout(function(){window.location.hash=to_id;},100);}function manage_cat_box(type){if(type=='games'){document.getElementById("cat_hndlr_games").className="cat_hndlr active";document.getElementById("cat_hndlr_apps").className="cat_hndlr";document.getElementById("cat_wrap_games").className="cat_list_box show";document.getElementById("cat_wrap_apps").className="cat_list_box hide";}else if(type=='apps'){document.getElementById("cat_hndlr_games").className="cat_hndlr ";document.getElementById("cat_hndlr_apps").className="cat_hndlr active";document.getElementById("cat_wrap_games").className="cat_list_box hide";document.getElementById("cat_wrap_apps").className="cat_list_box show";}}</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.2.2/lazysizes-umd.min.js" type="text/javascript"></script>
+<!-- Google tag (gtag.js) -->
+<script type="arsilazyloadscript" async src="https://www.googletagmanager.com/gtag/js?id=G-XXX"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-XXX');</script>  
+<script>var lsr=0;function get_more_latest_items(){lsr++;document.getElementById("latest_list_items_next").innerHTML='<p class="ac fs20 lh28 fwb txt_blue mt20 mb20">Loading Please wait ...</p>';var http=new XMLHttpRequest();var url="https://gb-apps.pk/ajax.php";var params="act=get_more_latest_items&m="+lsr;http.open("POST",url,true);http.setRequestHeader("Content-type","application/x-www-form-urlencoded");http.onreadystatechange=function(){if(http.readyState==4&&http.status==200){document.getElementById("latest_list_items_next").innerHTML='';var get_data=http.responseText;var obj=JSON.parse(get_data);document.getElementById('latest_list_items').innerHTML+='<div class="list_item_wrap">'+obj['data']+'</div><div class="clear"></div>';if(obj['next']==1){document.getElementById("latest_list_items_next").innerHTML='<a onclick="get_more_latest_items();" class="more_link" href="javascript:void(0);">Load More Latest Updates <i class="fa fa-angle-double-down"></i></a>';}}}
+http.send(params);}</script>    
+<script type="arsilazyloadscript">
+  ( function() {
+
+	if(document.querySelectorAll( ".youtube_embed" ))
+	{
+		var youtube = document.querySelectorAll( ".youtube_embed" );
+		
+		for (var i = 0; i < youtube.length; i++) 
+		{
+		
+		var source = "https://img.youtube.com/vi/"+ youtube[i].dataset.embed +"/hqdefault.jpg";
+		
+		var image = new Image();
+		image.src = source;
+		image.addEventListener( "load", function() {
+			youtube[ i ].appendChild( image );
+		}( i ) );
+
+		youtube[i].addEventListener( "click", function() {
+
+			var iframe = document.createElement( "iframe" );
+			iframe.setAttribute( "frameborder", "0" );
+			iframe.setAttribute( "allowfullscreen", "" );
+			iframe.setAttribute( "src", "https://www.youtube.com/embed/"+ this.dataset.embed +"?rel=0&showinfo=0&autoplay=1" );
+			this.innerHTML = "";
+			this.appendChild( iframe );
+		} );    
+	};
+	}
+	
+} )();
+</script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-4KVWQYRC6C"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-4KVWQYRC6C');</script></body></html>    

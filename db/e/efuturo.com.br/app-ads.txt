@@ -1,0 +1,407 @@
+<? session_start();
+set_time_limit(30);
+error_reporting(0);
+
+include("funcoes_mysql.php");
+
+conexao();
+
+$EmailConvite=$_GET['EmailConvite'];
+$EmailConvite=seguranca($EmailConvite);
+$EmailConvite=trim($EmailConvite);
+
+
+$deixarMala=$_GET['deixarMala'];
+$deixarMala=seguranca($deixarMala);
+$deixarMala=trim($deixarMala);
+
+if($deixarMala!=''){
+	$Sqlupdatemala= "UPDATE T_DADOS_PESSOAIS SET ST_NAO_RECEBER_EMAIL='X' WHERE TX_EMAIL='$deixarMala'";
+	$QueryMala = mysqli_query ($Ok, $Sqlupdatemala) or die ("erro ao conectar o <br>Sqlupdatemala");
+}
+
+
+
+
+
+$UsuarioConviteSite=$_GET['UsuarioConviteSite'];
+$UsuarioConviteSite=seguranca($UsuarioConviteSite);
+$UsuarioConviteSite=trim($UsuarioConviteSite);
+
+
+if($emailconvite!=""){
+$_SESSION['EmailConvite']="$EmailConvite";
+$_SESSION['UsuarioConviteSite'];
+}
+
+
+$logoff=$_GET['logoff'];
+
+ // recupera valor de chave
+
+if (isset($_GET[logoff])){
+
+	if ($_GET[logoff] == 1){
+
+									$_SESSION[UsuarioEfuturo]='';
+
+									$_SESSION[NomeEfuturo]='';
+
+									$_SESSION[EmailEfuturo]='';
+
+									$_SESSION[stAdministradorEfuturo]='';
+
+									session_destroy();
+
+									session_unset();	
+
+									unset($UsuarioEfuturo);
+
+									unset($NomeEfuturo);
+
+									unset($EmailEfuturo);
+
+									unset($stAdministradorEfuturo);
+
+									$CdUsuarioAcesso="";
+
+									$txNomeUsuario="";
+
+									$txEmailUsuario = "";	
+
+									$stAdministradorEfuturo = "";	
+
+									//echo"<Br><Br><Br><Br><Br><Br><Br><Br><h1>tem que sair</h1>";
+
+	}
+
+}
+
+
+
+
+
+
+
+if($_SESSION['UsuarioEfuturo']>0){
+
+?>
+
+
+
+<script language= "JavaScript">
+
+location.href="principal.php"
+
+</script>	
+
+
+
+<? 
+
+}
+
+$idioma=1;
+switch($idioma){
+	case 1:
+	
+	$titulo="Página de Jogos Educativos";
+	$titulo2="Nossos Jogos Online";
+	$comojogar="Como Jogar: ";
+	$conheca="Utilize na sala de aula virtual. Compartilhe nas Redes Sociais. Envie link pelo WhatsApp.";
+	$jogar="Jogar";
+	$tituloidioma="<html lang='pt-br'>";
+$titulopagina="Rede Social Educativa Epedagogia - Página de Jogos educativos Online- Os melhores jogos educativos e em 3 idiomas. Diversas disciplinas. Games educativos para diversas idades e disciplinas.";
+$palavraschavespagina="Rede Social, Epedagogia,  jogos, games, jogos educativos, melhores, idiomas, disciplinas, idades, lúdico, qualidade, ensino, aprendizagem, século XXI";
+$descricaopagina="Rede Social Educativa Epedagogia - Página de Jogos educativos Online- Os melhores jogos educativos e em 3 idiomas. Diversas disciplinas. Games educativos para diversas idades e disciplinas. Aproveite, divirta-se e aprenda com nossos jogos lúdicos e prontos para o ensino e aprendizado do século XXI";
+	
+	break;
+	case 2:
+	
+	$titulo="Página de Juegos Educativos";
+	$titulo2="Nuestros juegos en línea";
+	$comojogar="Como jugar: ";
+	$conheca="Conoce algunos de nuestros juegos en línea. Haz clic para saber y jugar. ";
+	$jogar="Jugar";
+	$tituloidioma="<html lang='es'>";
+$titulopagina="Educational Social Network Epedagogia - Página de juegos educativos en línea: los mejores juegos educativos en 3 idiomas. Varias disciplinas. Juegos educativos para diferentes edades y disciplinas.";
+$palavraschavespagina="Red social, Epedagogía, juegos, juegos, juegos educativos, mejores, idiomas, asignaturas, edades, juguetón, calidad, enseñanza, aprendizaje, siglo XXI";
+$descricaopagina="Educational Social Network Epedagogia - Página de juegos educativos en línea: los mejores juegos educativos en 3 idiomas. Varias disciplinas. Juegos educativos para diferentes edades y disciplinas. Disfruta, diviértete y aprende con nuestros juegos lúdicos listos para la enseñanza y el aprendizaje del siglo XXI.";
+	
+	break;
+	case 3:
+	
+	$titulo="Educational Games Page";
+	$titulo2="Our Online Games";
+	$comojogar="How to play: ";
+	$conheca="Meet some of our online games. Click to know and play.";	
+	$jogar="Play";
+	$tituloidioma="<html lang='en'>";
+$titulopagina="Educational Social Network Epedagogia - Online Educational Games Page- The best educational games in 3 languages. Several disciplines. Educational games for different ages and disciplines.";
+$palavraschavespagina="Social Network, Epedagogy, games, games, educational games, best, languages, subjects, ages, playful, quality, teaching, learning, 21st century";
+$descricaopagina="Educational Social Network Epedagogia - Online Educational Games Page- The best educational games in 3 languages. Several disciplines. Educational games for different ages and disciplines. Enjoy, have fun and learn with our playful games ready for 21st century teaching and learning.";
+	
+	break;
+}
+
+
+
+?>
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+<meta name="lomadee-verification" content="23241486" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="content-language" content="pt-br">
+<title>Efuturo é  uma Rede Social Educativa e Conhecimentos. Aulas remotas e EAD. Criação de material pedagógico educativo com qualidade através de Jogos, marketing, banco ideias, formação  professores qualificados, universidades, aulas qualidade, meteriais educativos, aulas,  Games Online, textos com especialistas, Espaço Literário e Interação online.</title>
+<meta name="keywords" content="Efuturo,rede social, Aulas remotas, EAD, conhecimentos, ensino, aprendizado, material pedagógico online, marketing institucional, universidades, arketing, banco ideias, material pedagógico grátis, formação, EAD, lúdico, material pedagógico qualidade, professores especialistas, qualidade educação, colaborativo, jogos educativos, compartilhar, educação, jogos educativos, games educativos online, professor, aluno, educacional, criar jogos, quizz, puzzle, sala aula virtual, material pedagógico, estudos">
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="Efuturo é uma Rede Social Educativa e Conhecimentos, Criação de material pedagógico educativo com qualidade através de Jogos lúdicos, universidade, games Educativos online com ensino educação a distância. Marketing Institucional, banco de ideias. Formação Qualidade na educação, Especialistas, Aprendizado Colaborativo." />
+<meta http-equiv="cache-control" content=" public, max-age=31536000, pre-check=10800" />
+
+<meta http-equiv="Pragma" content="private"> 
+<!-- css -->
+  <link href="libefuturo/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="cssefuturo/style.css" rel="stylesheet">  
+  
+  		<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+		<link href="https://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
+		<script charset="UTF-8" src="//web.webpushs.com/js/push/d5c2e585c0d71274f7324ff40ebdf94c_1.js" async></script>
+		<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3558562395421074"
+     crossorigin="anonymous"></script>
+	 
+	 
+
+        <style type="text/css">
+<!--
+.style1 {
+	font-size: 24px;
+	font-weight: bold;
+}
+.style5 {
+	color: #FFFFFF;
+	font-size: 24px;
+	font-weight: bold;
+}
+-->
+        </style>
+</head>
+
+<body>
+
+
+
+<div id="wrapper">
+
+	<!-- start header -->
+
+<? 
+include("cabecalhoepedagogiaindex.php"); 
+?>
+
+  <section id="intro" class="clearfix">
+	<div class="container">
+
+
+
+
+<div class="row">	
+<div class="col-lg-6"><h2><a href='https://www.epedagogia.com.br'><font color=white>Epedagogia</font></a> é a nova versão do Efuturo. <br><a href='https://www.epedagogia.com.br'>
+    <font color=white>Epedagogia. Clique aqui para conhecer!</font></font></a></h2>
+</div>
+<div class="col-lg-6">
+<a href='https://www.youtube.com/embed/5HrMhVd3qYQ' target='_blank' title='Aprenda no Youtube como Criar seu cadastro...'>
+<font color='#FFFFFF'>Aprender a fazer o Cadastro.</font> <img src="youtubeimagem.png" alt="Imagem do Logo Youyube"></a>
+ <hr>
+ <br><font color='#FFFFFF'>	
+<b>Ainda n&atilde;o est&aacute; cadastrado no Efuturo? </b></font>
+			<h3><a href="registro.php">  <font color='#FFFFFF'>Fa&ccedil;a seu Cadastro, clique aqui! </font></a></h3>
+			<hr>		
+											<form action="login.php" method="post" name="frmlogin" class="register-form" id="frmlogin">
+											  <h3><font color='#FFFFFF'>Login. <small>Que tal come&ccedil;ar agora? </small></font></h3>
+
+											  <div class="form-group">
+
+												<input type="email" name="tbTxEmail" id="tbTxEmail" class="form-control input-lg" placeholder="Digite seu Email" tabindex="1" required />
+
+											  </div>
+
+											  <div class="form-group">
+
+												<input type="password" name="tbTxSenha" class="form-control input-lg" id="tbTxSenha" placeholder="Senha"  tabindex="2" required />
+
+											  </div>
+
+											  <div class="row">
+												<br>
+<br>
+
+												  <input type="submit" value="Login" class="form-control btn btn-primary btn-block btn-lg" tabindex="7" />
+												<br />
+											  </div> 
+ 
+ <div align="right"><a href='recuperarsenha.php'><font color='#FFFFFF'><span class="glyphicon glyphicon-check"></span><img src="img/cadeado2.png" alt="Cadeado Recuperar Senha" /> Recuperar Senha </font></a>
+
+ <br>
+<br>
+ </div>
+											</form>
+</div>
+
+
+ </section>
+	<div class="container">
+<div class="row">	
+<div class="col-lg-12">
+
+<h1 align="center"><font color="#0066FF">Crie jogos educativos sem precisar programar!</font><br>
+</h1>
+
+<HR />
+
+<div align="center"><font color="#0066FF">Jogos com palavras, preenchedo apenas 01(um formulário)
+  </font><br />
+    <a href="palavras_gerais.php"><img src="jogospalavras.png" /></a><br />
+<font color="#0066FF">E muito mais como: Jogos de Memória, Quebra-Cabeça, Puzze, Raspadinha, Jogos de Perguntas e Respostas.</font><br />
+</div>
+</div>
+</div>
+		<div class="container">
+				  <section id="why-us" class="wow fadeIn">
+							  <div class="container">
+							  
+									<header class="section-header">
+									  <h3 align="center">Nossos Jogos Online Oficiais</h3>
+									  <p align="center">Utilize na sala de aula virtual. Compartilhe nas Redes Sociais. Envie link pelo WhatsApp.</p>
+									</header>
+								
+									<div class="row row-eq-height justify-content-center">
+																			  <div class="col-lg-3 mb-3">
+														<div class="card wow bounceInUp">
+															  <div class="card-body">
+																<h5 align="center" class="card-title"><a href="pagina_jogos.php?cdJogo=1" class="readmore" title="Nave – Romanos Espaciais Acerte as naves com os valores corretos.">
+																<SMALL>Nave – Romanos Espaciais</SMALL></a></h5>
+																<p align="center" class="card-text"><a href="pagina_jogos.php?cdJogo=1" class="readmore" title="Nave – Romanos Espaciais Acerte as naves com os valores corretos."><img src="imagens_jogos/1.jpg" width="150" height="100" alt="Imagem do jogo: Nave – Romanos Espaciais" /></a></p>
+																<div align="center"><a href="pagina_jogos.php?cdJogo=1" class="readmore" title="Nave – Romanos Espaciais Acerte as naves com os valores corretos.">Jogar</a>              
+													            </div>
+														  </div>
+														</div>
+													  </div>
+						
+																			  <div class="col-lg-3 mb-3">
+														<div class="card wow bounceInUp">
+															  <div class="card-body">
+																<h5 align="center" class="card-title"><a href="pagina_jogos.php?cdJogo=2" class="readmore" title="Amor - Jogo Cupido – Operações Matemática Para quem é apaixonado pela matemática, esse desafio do cupido é o ideal. ">
+																<SMALL>Amor - Jogo Cupido – Operações Matemática</SMALL></a></h5>
+																<p align="center" class="card-text">
+																<a href="pagina_jogos.php?cdJogo=2" class="readmore" title="Amor - Jogo Cupido – Operações Matemática Para quem é apaixonado pela matemática, esse desafio do cupido é o ideal. ">
+																<img src="imagens_jogos/2.jpg" width="150" height="100" alt="Imagem do jogo: Amor - Jogo Cupido – Operações Matemática"></a></p>
+																<div align="center"><a href="pagina_jogos.php?cdJogo=2" class="readmore" title="Amor - Jogo Cupido – Operações Matemática Para quem é apaixonado pela matemática, esse desafio do cupido é o ideal. ">Jogar</a>              
+													            </div>
+														  </div>
+														</div>
+													  </div>
+						
+																			  <div class="col-lg-3 mb-3">
+														<div class="card wow bounceInUp">
+															  <div class="card-body">
+																<h5 align="center" class="card-title"><a href="pagina_jogos.php?cdJogo=3" class="readmore" title="Navio – Viking Acerte as imagens com base na letra inicial que está no barco.">
+																<SMALL>Navio – Viking</SMALL></a></h5>
+																<p align="center" class="card-text">
+																<a href="pagina_jogos.php?cdJogo=3" class="readmore" title="Navio – Viking Acerte as imagens com base na letra inicial que está no barco.">
+																<img src="imagens_jogos/3.jpg" width="150" height="100" alt="Imagem do jogo: Navio – Viking"></a></p>
+																<div align="center"><a href="pagina_jogos.php?cdJogo=3" class="readmore" title="Navio – Viking Acerte as imagens com base na letra inicial que está no barco.">Jogar</a>              
+													            </div>
+														  </div>
+														</div>
+													  </div>
+						
+																			  <div class="col-lg-3 mb-3">
+														<div class="card wow bounceInUp">
+															  <div class="card-body">
+																<h5 align="center" class="card-title"><a href="pagina_jogos.php?cdJogo=11" class="readmore" title="Nave – Número Idiomas Acerte as naves com os valores corretos.">
+																<SMALL>Nave – Número Idiomas</SMALL></a></h5>
+																<p align="center" class="card-text">
+																<a href="pagina_jogos.php?cdJogo=11" class="readmore" title="Nave – Número Idiomas Acerte as naves com os valores corretos.">
+																<img src="imagens_jogos/11.jpg" width="150" height="100" alt="Imagem do jogo: Nave – Número Idiomas"></a></p>
+																<div align="center"><a href="pagina_jogos.php?cdJogo=11" class="readmore" title="Nave – Número Idiomas Acerte as naves com os valores corretos.">Jogar</a>              
+													            </div>
+														  </div>
+														</div>
+													  </div>
+						
+																			  <div class="col-lg-3 mb-3">
+														<div class="card wow bounceInUp">
+															  <div class="card-body">
+																<h5 align="center" class="card-title"><a href="pagina_jogos.php?cdJogo=25" class="readmore" title="Arraste para a sobra correspondente – Bonecos Arraste a imagem para sua sombra correta.">
+																<SMALL>Arraste para a sobra correspondente – Bonecos</SMALL></a></h5>
+																<p align="center" class="card-text">
+																<a href="pagina_jogos.php?cdJogo=25" class="readmore" title="Arraste para a sobra correspondente – Bonecos Arraste a imagem para sua sombra correta.">
+																<img src="imagens_jogos/25.jpg" width="150" height="100" alt="Imagem do jogo: Arraste para a sobra correspondente – Bonecos"></a></p>
+																<div align="center"><a href="pagina_jogos.php?cdJogo=25" class="readmore" title="Arraste para a sobra correspondente – Bonecos Arraste a imagem para sua sombra correta.">Jogar</a>              
+													            </div>
+														  </div>
+														</div>
+													  </div>
+						
+																			  <div class="col-lg-3 mb-3">
+														<div class="card wow bounceInUp">
+															  <div class="card-body">
+																<h5 align="center" class="card-title"><a href="pagina_jogos.php?cdJogo=41" class="readmore" title="Ligar pontos – Girafa Ligue os pontos para encontrar o animal escondido.">
+
+																<SMALL>Ligar pontos – Girafa</SMALL></a></h5>
+																<p align="center" class="card-text">
+																<a href="pagina_jogos.php?cdJogo=41" class="readmore" title="Ligar pontos – Girafa Ligue os pontos para encontrar o animal escondido.">
+																<img src="imagens_jogos/41.jpg" width="150" height="100" alt="Imagem do jogo: Ligar pontos – Girafa"></a></p>
+																<div align="center"><a href="pagina_jogos.php?cdJogo=41" class="readmore" title="Ligar pontos – Girafa Ligue os pontos para encontrar o animal escondido.">Jogar</a>              
+													            </div>
+														  </div>
+														</div>
+													  </div>
+						
+																			  <div class="col-lg-3 mb-3">
+														<div class="card wow bounceInUp">
+															  <div class="card-body">
+																<h5 align="center" class="card-title"><a href="pagina_jogos.php?cdJogo=68" class="readmore" title="Jogo do Fazendeiro - Operações Matemáticas Encare o desafio desse fazendeiro.">
+																<SMALL>Jogo do Fazendeiro - Operações Matemáticas</SMALL></a></h5>
+																<p align="center" class="card-text">
+																<a href="pagina_jogos.php?cdJogo=68" class="readmore" title="Jogo do Fazendeiro - Operações Matemáticas Encare o desafio desse fazendeiro.">
+																<img src="imagens_jogos/68.jpg" width="150" height="100" alt="Imagem do jogo: Jogo do Fazendeiro - Operações Matemáticas"></a></p>
+																<div align="center"><a href="pagina_jogos.php?cdJogo=68" class="readmore" title="Jogo do Fazendeiro - Operações Matemáticas Encare o desafio desse fazendeiro.">Jogar</a>              
+													            </div>
+														  </div>
+														</div>
+													  </div>
+						
+																			  <div class="col-lg-3 mb-3">
+														<div class="card wow bounceInUp">
+															  <div class="card-body">
+																<h5 align="center" class="card-title"><a href="pagina_jogos.php?cdJogo=79" class="readmore" title="A Galeria das Operações Matemáticas Clique ou pressione o quadro com a resposta correta.">
+																<SMALL>A Galeria das Operações Matemáticas</SMALL></a></h5>
+																<p align="center" class="card-text">
+																<a href="pagina_jogos.php?cdJogo=79" class="readmore" title="A Galeria das Operações Matemáticas Clique ou pressione o quadro com a resposta correta.">
+																<img src="imagens_jogos/79.jpg" width="150" height="100" alt="Imagem do jogo: A Galeria das Operações Matemáticas"></a></p>
+																<div align="center"><a href="pagina_jogos.php?cdJogo=79" class="readmore" title="A Galeria das Operações Matemáticas Clique ou pressione o quadro com a resposta correta.">Jogar</a>              
+													            </div>
+														  </div>
+														</div>
+													  </div>
+	<div class="col-lg-12 mb-12">
+			<div class="card wow bounceInUp">
+					  <div class="card-body">
+						<h3 align="center"><a href="pagina_jogos.php"  class="readmore">Clique aqui para ver a lista completa dos jogos.</a></h3>
+					  </div>
+			</div>
+	</div>
+								  </div>
+		</div>
+		  </section>
+
+     </div>
+ </div>
+<? include("rodapenovoindex.php"); ?>
+</body>
+</html>

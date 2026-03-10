@@ -1,0 +1,285 @@
+<!doctype html>
+<html lang="en-za">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <!-- Cache optimization meta tags for 1-year cache lifetime -->
+    <meta http-equiv="Cache-Control" content="public, max-age=31536000, immutable" data-assets="static" />
+    <meta name="cache-lifetime" content="1year" />
+    
+    <!-- 
+      SEO Meta Tags - Title fallback only for non-JS scenarios
+      All other SEO (description, keywords, canonical, OG, Twitter) comes from react-helmet-async/SEOHead
+      which reads from the database via /admin/seo-management
+    -->
+    <title>NDRC - Debt Counselling & Debt Review Removal South Africa</title>
+    <meta name="author" content="National Debt Review Center" />
+    
+    <!-- Noscript fallback - ensure visibility without JS -->
+    <noscript>
+      <style>
+        body { visibility: visible !important; }
+        html { background: white !important; }
+      </style>
+    </noscript>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="shortcut icon" href="/favicon-32x32.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/ndrc-logo.png">
+
+    <!-- Critical resource preloads for performance -->
+    <link rel="modulepreload" href="data:application/octet-stream;base64,aW1wb3J0IFJlYWN0LCB7IFN0cmljdE1vZGUgfSBmcm9tICJyZWFjdCI7CmltcG9ydCB7IGNyZWF0ZVJvb3QgfSBmcm9tICJyZWFjdC1kb20vY2xpZW50IjsKaW1wb3J0IEFwcCBmcm9tICIuL0FwcC50c3giOwppbXBvcnQgIi4vaW5kZXguY3NzIjsKCmNyZWF0ZVJvb3QoZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoInJvb3QiKSEpLnJlbmRlcigKICA8U3RyaWN0TW9kZT4KICAgIDxBcHAgLz4KICA8L1N0cmljdE1vZGU+Cik7CgovLyBSZXZlYWwgY29udGVudCBhZnRlciBSZWFjdCBtb3VudHMgLSBwcmV2ZW50cyBGT1VDCmRvY3VtZW50LmJvZHkuY2xhc3NMaXN0LmFkZCgnYXBwLXJlYWR5Jyk7Cg==" />
+    
+    <!-- Critical CSS for instant render - prevents FOUC -->
+    <style>
+      /* Critical rendering path optimization */
+      :root {
+        --primary: 138 69% 35%;
+        --primary-dark: 138 69% 25%;
+        --secondary: 25 95% 53%;
+        --background: 0 0% 100%;
+        --foreground: 210 11% 15%;
+      }
+      
+      /* Full-page green background as immediate fallback */
+      html { 
+        scroll-behavior: smooth;
+        background: linear-gradient(135deg, hsl(138 69% 35%) 0%, hsl(138 69% 25%) 100%);
+      }
+      
+      /* FOUC Prevention - Hide body until React loads */
+      body { 
+        margin: 0; 
+        font-family: 'Inter', system-ui, -apple-system, sans-serif;
+        background-color: hsl(var(--background));
+        color: hsl(var(--foreground));
+        line-height: 1.6;
+        visibility: hidden;
+      }
+      
+      body.app-ready {
+        visibility: visible;
+      }
+      
+      /* FOUC Prevention - Full-screen branded splash while React hydrates */
+      #root:empty {
+        position: fixed;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(135deg, hsl(138 69% 35%) 0%, hsl(138 69% 25%) 100%);
+        z-index: 9999;
+      }
+      
+      #root:empty::before {
+        content: '';
+        width: 48px;
+        height: 48px;
+        border: 3px solid rgba(255, 255, 255, 0.3);
+        border-top-color: white;
+        border-radius: 50%;
+        animation: loading-spin 0.8s linear infinite;
+      }
+      
+      @keyframes loading-spin {
+        to { transform: rotate(360deg); }
+      }
+      
+      #root { min-height: 100vh; }
+      
+      /* Hero section critical styles - prevent CLS */
+      .hero-section { 
+        min-height: 100vh; 
+        display: flex; 
+        align-items: center;
+        background: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--primary-dark)) 100%);
+        position: relative;
+      }
+      
+      /* Navigation critical styles - prevent CLS */
+      .navigation { 
+        position: fixed; 
+        top: 0; 
+        width: 100%; 
+        z-index: 50;
+        background: rgba(255, 255, 255, 0.95);
+        -webkit-backdrop-filter: blur(10px);
+                backdrop-filter: blur(10px);
+        height: 64px;
+      }
+      
+      /* Logo optimization - prevent CLS */
+      .logo-image { 
+        max-width: 100%; 
+        height: auto; 
+        width: 150px;
+        height: 32px;
+        -o-object-fit: contain;
+           object-fit: contain;
+      }
+      
+      /* Form elements - prevent CLS */
+      .hero-form {
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 12px;
+        padding: 24px;
+        -webkit-backdrop-filter: blur(10px);
+                backdrop-filter: blur(10px);
+        min-height: 400px;
+      }
+      
+      /* Button styles - prevent CLS */
+      .btn-primary {
+        background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-dark)));
+        color: white;
+        padding: 12px 24px;
+        border-radius: 8px;
+        border: none;
+        font-weight: 600;
+        cursor: pointer;
+        width: 100%;
+        min-height: 48px;
+      }
+      
+      /* Input styles - prevent CLS */
+      .form-input {
+        width: 100%;
+        padding: 12px 16px;
+        border: 1px solid #e5e7eb;
+        border-radius: 8px;
+        font-size: 16px;
+        min-height: 48px;
+        box-sizing: border-box;
+      }
+      
+      /* Prevent layout shifts */
+      img {
+        max-width: 100%;
+        height: auto;
+        display: block;
+      }
+      
+      /* Critical font loading */
+      @font-face {
+        font-family: 'Inter';
+        font-style: normal;
+        font-weight: 400;
+        font-display: swap;
+        src: url('https://fonts.gstatic.com/s/inter/v12/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuLyfAZ9hiA.woff2') format('woff2');
+        unicode-range: U+0000-00FF;
+      }
+    </style>
+    
+    <script>
+      // Load additional font weights after page load (non-blocking)
+      window.addEventListener('load', () => {
+        const link = document.createElement('link');
+        link.href = 'https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700&display=swap';
+        link.rel = 'stylesheet';
+        document.head.appendChild(link);
+      });
+    </script>
+    
+    <!-- Performance optimizations -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="dns-prefetch" href="//fonts.googleapis.com">
+    <link rel="dns-prefetch" href="//fonts.gstatic.com">
+    <link rel="dns-prefetch" href="//www.google-analytics.com">
+    <link rel="dns-prefetch" href="//www.googletagmanager.com">
+    
+    <!-- Resource hints for faster loading -->
+    <link rel="prefetch" href="/assets/DebtCounsellingPage-58hUvw9e.tsx">
+    <link rel="prefetch" href="/assets/ContactPage-4mx3m-_q.tsx">
+    <link rel="prefetch" href="/assets/ServicesPage-jmczIv8H.tsx">
+
+    <script type="module" crossorigin src="/assets/index-Bl90AIlu.js"></script>
+    <link rel="modulepreload" crossorigin href="/assets/utils-B20swqhD.js">
+    <link rel="modulepreload" crossorigin href="/assets/ui-P0_Z3Tyj.js">
+    <link rel="modulepreload" crossorigin href="/assets/charts-D9MjJ_J0.js">
+    <link rel="modulepreload" crossorigin href="/assets/icons-D-EOzdX7.js">
+    <link rel="stylesheet" crossorigin href="/assets/index-C7ggLRCY.css">
+  <meta name="description" content="Expert debt counselling & debt review removal in South Africa. Free consultation, clearance certificates. Stop creditor harassment & reduce debt repayments.">
+<meta name="keywords" content="debt counselling, debt review, ncr, debt review removal, debt relief, debt, south africa">
+<meta name="prerendered-route" content="/">
+<meta name="prerendered-at" content="2026-02-23T13:20:01.148Z">
+
+    <meta property="og:title" content="NDRC - Debt Counselling & Debt Review Removal South Africa">
+    <meta property="og:description" content="Expert debt counselling & debt review removal in South Africa. Free consultation, clearance certificates. Stop creditor harassment & reduce debt repayments.">
+    <meta property="og:url" content="https://ndrc.org.za">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://duthdzlvbbjatahnzoxf.supabase.co/storage/v1/object/public/avatars/seo-images/1759306024607-dg9o19.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="NDRC - Debt Counselling & Debt Review Removal South Africa">
+    <meta name="twitter:description" content="Expert debt counselling & debt review removal in South Africa. Free consultation, clearance certificates. Stop creditor harassment & reduce debt repayments.">
+    <meta name="twitter:image" content="https://duthdzlvbbjatahnzoxf.supabase.co/storage/v1/object/public/avatars/seo-images/1759306024607-dg9o19.png">
+<link rel="canonical" href="https://ndrc.org.za">
+</head>
+
+  <body>
+    <div id="root"><main><h1>NDRC - Debt Counselling & Debt Review Removal South Africa</h1><p>Expert debt counselling & debt review removal in South Africa. Free consultation, clearance certificates. Stop creditor harassment & reduce debt repayments.</p><h2>Our Services</h2><ul><li>NCR Registered Debt Counselling</li><li>Debt Review Removal & Clearance Certificates</li><li>Legal Protection from Creditors</li><li>Reduce Monthly Payments by up to 60%</li><li>Free Initial Consultation</li></ul><h2>Why Choose NDRC?</h2><p>The National Debt Review Center is South Africa's trusted partner for debt relief. Our NCR registered debt counsellors have helped thousands of families achieve financial freedom.</p></main></div>
+    
+    <!-- Performance and loading optimization -->
+    <script>
+      // Optimized for immediate content display - no artificial loading delays
+      
+      // Progressive image loading
+      function optimizeImages() {
+        const images = document.querySelectorAll('img[data-src]');
+        const imageObserver = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              const img = entry.target;
+              img.src = img.dataset.src;
+              img.removeAttribute('data-src');
+              imageObserver.unobserve(img);
+            }
+          });
+        }, { rootMargin: '50px' });
+        
+        images.forEach(img => imageObserver.observe(img));
+      }
+      
+      // Service worker for caching
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js').catch(() => {});
+        });
+      }
+      
+      // Critical resource preloading with high priority
+      const preloadCritical = () => {
+        const resources = [
+          { href: '/src/assets/ndrc-hero-background.jpg', as: 'image', fetchpriority: 'high' },
+          { href: '/src/components/HeroSection.tsx', as: 'script' }
+        ];
+        
+        resources.forEach(({ href, as, fetchpriority }) => {
+          const link = document.createElement('link');
+          link.rel = 'prefetch';
+          link.as = as;
+          link.href = href;
+          if (fetchpriority) link.fetchpriority = fetchpriority;
+          document.head.appendChild(link);
+        });
+      };
+      
+      // Use idle time for optimization
+      if ('requestIdleCallback' in window) {
+        requestIdleCallback(() => {
+          optimizeImages();
+          preloadCritical();
+        }, { timeout: 1000 });
+      } else {
+        setTimeout(() => {
+          optimizeImages();
+          preloadCritical();
+        }, 200);
+      }
+    </script>
+  </body>
+</html>

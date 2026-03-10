@@ -1,0 +1,637 @@
+<!DOCTYPE html><html lang="fi"><head><meta charSet="utf-8"/><meta name="viewport" content="width=device-width"/><meta name="next-head-count" content="2"/><link data-react-helmet="true" rel="icon" href="https://wp.demokraatti.fi/wp-content/themes/demokraatti2/favicon.png"/><meta data-react-helmet="true" name="viewport" content="width=device-width, initial-scale=1"/><meta data-react-helmet="true" property="fb:app_id" content="1551043425108839"/><script data-react-helmet="true" type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/iframe-resizer/3.5.16/iframeResizer.min.js"></script><script data-react-helmet="true" type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5adf23f1cfefa1a1"></script><script data-react-helmet="true" type="text/javascript">var _comscore=_comscore||[];_comscore.push({c1:"2",c2:"21176418"});(function(){var s=document.createElement("script"),el=document.getElementsByTagName("script")[0];s.async=!0;s.src=(document.location.protocol=="https:"?"https://sb":"http://b")+".scorecardresearch.com/beacon.js";el.parentNode.insertBefore(s,el)})()</script><title data-react-helmet="true">Demokraatti.fi</title><script async="" src="//www.googletagservices.com/tag/js/gpt.js"></script><script async="" src="//d2kw48hc3eag2v.cloudfront.net/s.js"></script><script async="" src="//apps-cdn.relevant-digital.com/static/tags/5accb7574668122665ba9d25.js"></script><script>
+              var desktop = '6047452f1e6b0bb5e037aea3';
+                var mobile = '6047451aa80ff2591637aea2';
+                var cid;
+                if(window.innerWidth > 812){
+                    cid = desktop;
+                } else {
+                    cid = mobile;
+                }
+              function loadAds(noSlotReload) {
+                window.relevantDigital = window.relevantDigital || {};
+                relevantDigital.cmd = relevantDigital.cmd || [];
+                relevantDigital.cmd.push(function() {
+                  relevantDigital.loadPrebid({
+                    configId: cid,
+                    manageAdserver: true,
+                    collapseEmptyDivs: true,
+                    collapseBeforeAdFetch: false,
+                    noGpt: true,
+                    allowedDivIds: null, // set to an array to only load certain <div>s, example - ["divId1", "divId2"]
+                    noSlotReload: noSlotReload, // set true to only load ad slots that have never been loaded
+                    createAdUnitCode: function (params) { // remove parent ad unit path to make HBA work
+                            var p = params.unit.data.parentAdUnit;
+                            return p ? params.code.replace('/' + p + '/', '/') : params.code;
+                    },
+                    onBeforeAuctionSetup: function(params) { // Insert parent ad unit path
+                            params.auction.adUnits.forEach(function(unit) {
+                                    var parent = unit.data.parentAdUnit;
+                                    var path = unit.gamPath;
+                                    var parts = path && path.split('/');
+                                    if(parent && path && path.split('/').length === 3) {
+                                            unit.gamPath = '/' + parts[1] + '/' + parent + '/' + parts[2];
+                                    }
+                            });
+                    },
+                  });
+                });
+              };
+              function lazyLoad() {
+                var needLoad;
+                Array.from(document.querySelectorAll('[data-lazy-ad-unit-id]')).forEach((div) => {
+                  const { top, bottom } = div.getBoundingClientRect();
+                  const CLOSE = 50;
+                  if(top > innerHeight + CLOSE || bottom < -CLOSE) {
+                    return;
+                  }
+                  div.setAttribute('data-ad-unit-id', div.getAttribute('data-lazy-ad-unit-id'));
+                  div.removeAttribute('data-lazy-ad-unit-id');
+                  needLoad = true;
+                });
+                if (needLoad) {
+                  loadAds(true);
+                }
+              }
+            </script><script>
+                (function() {
+
+                    var LOG_ENABLE = true;
+
+                    function getAdWrapper(event) {
+                        var e;
+                        for(e = document.getElementById(event.slot.getSlotElementId()); e && !/AdStyles.*Wrapper/.exec(e.className || ''); e = e.parentNode);
+                        return e;
+                    }
+
+                    function onSlotRenderEnded(event) {
+                        var id = event.slot.getAdUnitPath();
+
+                        function log(str) {
+                            LOG_ENABLE && console.info("[" + id + "] - " + str);
+                        }
+
+                        var adWrapper = getAdWrapper(event);
+                        if(!adWrapper) {
+                            log('No ad wrapper');
+                            return;
+                        }
+                        // will be called at the final step in the passback chain
+                        function onRendered(ev) {
+                            log("onRendered: isEmpty(" + ev.isEmpty + ")");
+                            if(ev.isEmpty) {
+                                adWrapper.style.display = 'none';
+                            }
+                        }
+
+                        function waitForFinalRender(doc, ev) {
+                            log("waitForFinalRender (" + ev.slot.getSlotElementId() + ")");
+                            if(ev.isEmpty) {
+                                return onRendered(ev);
+                            }
+                            var elm = doc.getElementById(ev.slot.getSlotElementId());
+                            var ifr = elm.getElementsByTagName('iframe')[0];
+                            var win = ifr.contentWindow;
+                            if(ifr.src) {
+                                return onRendered(ev); // A safe frame, that means not a passback but real ad
+                            }
+                            win.googletag = win.googletag || { cmd: [] };
+                            win.googletag.cmd.push(function() {
+                                win.googletag.pubads().addEventListener('slotRenderEnded', function(nextEv) {
+                                    waitForFinalRender(win.document, nextEv);
+                                });
+                            });
+                            ifr.contentWindow.addEventListener('load', function() {
+                                log("load");
+                                if(!win.googletag.pubads) { // ad didn't contain a google-tag, so this wasn't a passback but a real ad
+                                onRendered(ev);
+                            }
+                        });
+                    }
+                    waitForFinalRender(document, event);
+                }
+
+                window['gtag_enable_tcf_support'] = true;
+                window.googletag = window.googletag || {cmd: [] };
+                googletag.cmd.push(function() {
+                  window.allSlotsByPath = {};
+                  googletag.pubads().getSlots().map(function(slot) {
+                      window.allSlotsByPath[slot.getAdUnitPath()] = { slot };
+                  });
+                  googletag.pubads().addEventListener('slotRenderEnded', onSlotRenderEnded);
+                })
+            })();
+                </script><noscript data-n-css=""></noscript><script defer="" nomodule="" src="/_next/static/chunks/polyfills-78c92fac7aa8fdd8.js"></script><script src="/_next/static/chunks/webpack-9ff1e33b723bbc6b.js" defer=""></script><script src="/_next/static/chunks/framework-a49cefb74c28681e.js" defer=""></script><script src="/_next/static/chunks/main-7f42ff1c3e32b6a4.js" defer=""></script><script src="/_next/static/chunks/pages/_app-b002846160935231.js" defer=""></script><script src="/_next/static/chunks/103-d319090e19b40155.js" defer=""></script><script src="/_next/static/chunks/321-55c27c1c81293278.js" defer=""></script><script src="/_next/static/chunks/914-86c514c532577a0f.js" defer=""></script><script src="/_next/static/chunks/61-b1d70299c257d8e0.js" defer=""></script><script src="/_next/static/chunks/95-4aa9b47ab0dae26a.js" defer=""></script><script src="/_next/static/chunks/224-f848964224e1e634.js" defer=""></script><script src="/_next/static/chunks/970-28b769e6c51bf42c.js" defer=""></script><script src="/_next/static/chunks/229-29aafb80be776898.js" defer=""></script><script src="/_next/static/chunks/868-60c952dcf42ad841.js" defer=""></script><script src="/_next/static/chunks/pages/post-ae9d2e09b0bf5ac7.js" defer=""></script><script src="/_next/static/9qEXB9YiMVaY4LYqjG3Cb/_buildManifest.js" defer=""></script><script src="/_next/static/9qEXB9YiMVaY4LYqjG3Cb/_ssgManifest.js" defer=""></script><style data-styled="" data-styled-version="5.3.11">html{font-size:16px;}/*!sc*/
+@media screen and (min-width:360px){html{font-size:calc(16px + 2 * ((100vw - 320px) / 680));}}/*!sc*/
+@media screen and (min-width:1280px){html{font-size:18px;}}/*!sc*/
+body{background:#FAFAFA;}/*!sc*/
+data-styled.g1[id="sc-global-ddmoGk1"]{content:"sc-global-ddmoGk1,"}/*!sc*/
+.jPAUbQ{color:white;}/*!sc*/
+data-styled.g316[id="sc-cDsqlO"]{content:"jPAUbQ,"}/*!sc*/
+.jpBKt{margin-bottom:2px;}/*!sc*/
+data-styled.g317[id="sc-eLtQCx"]{content:"jpBKt,"}/*!sc*/
+.bBdOgL{font-family:Merriweather;font-weight:400;font-size:12px;color:#FFFFFF;-webkit-letter-spacing:0;-moz-letter-spacing:0;-ms-letter-spacing:0;letter-spacing:0;}/*!sc*/
+data-styled.g318[id="sc-jhlPcU"]{content:"bBdOgL,"}/*!sc*/
+.gsHzED{display:inline-block;margin:18px 0px;padding:11px 17px;text-transform:uppercase;background:#FFFFFF;font-family:Roboto;font-weight:500;font-size:12px;-webkit-letter-spacing:0.36px;-moz-letter-spacing:0.36px;-ms-letter-spacing:0.36px;letter-spacing:0.36px;line-height:14px;font-family:LucidaGrande-Bold;font-size:11px;color:#000000;-webkit-letter-spacing:0.36px;-moz-letter-spacing:0.36px;-ms-letter-spacing:0.36px;letter-spacing:0.36px;-webkit-text-decoration:none;text-decoration:none;}/*!sc*/
+data-styled.g320[id="sc-fuTSoq"]{content:"gsHzED,"}/*!sc*/
+.hJSZiT{margin:38px 0 28px 0;}/*!sc*/
+.hJSZiT a{display:block;color:white;-webkit-text-decoration:none;text-decoration:none;font-family:Roboto;font-weight:300;font-size:12px;color:#FFFFFF;-webkit-letter-spacing:0;-moz-letter-spacing:0;-ms-letter-spacing:0;letter-spacing:0;text-transform:uppercase;margin:12px 0;}/*!sc*/
+data-styled.g321[id="sc-ffZAAA"]{content:"hJSZiT,"}/*!sc*/
+.Haxka{background:#2A2E69;padding:0px 40px 30px 60px;-webkit-flex:1;-ms-flex:1;flex:1;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-pack:start;-webkit-justify-content:flex-start;-ms-flex-pack:start;justify-content:flex-start;}/*!sc*/
+@media screen and (max-width:800px){.Haxka{margin-top:90px;-webkit-flex-direction:column;-ms-flex-direction:column;flex-direction:column;height:100%;padding:0px 17px 0px;}}/*!sc*/
+data-styled.g323[id="sc-kdIgRK"]{content:"Haxka,"}/*!sc*/
+.bzBerz{margin-top:40px;width:50%;}/*!sc*/
+.bzBerz p{font-family:Roboto;font-weight:400;font-size:12px;color:#FFFFFF;-webkit-letter-spacing:0.36px;-moz-letter-spacing:0.36px;-ms-letter-spacing:0.36px;letter-spacing:0.36px;margin:0;}/*!sc*/
+@media screen and (max-width:800px){.bzBerz{width:100%;-webkit-order:2;-ms-flex-order:2;order:2;margin-top:0;padding-bottom:50px;}}/*!sc*/
+.bzBerz .manageSettings{display:block;margin-top:2rem;-webkit-text-decoration:none;text-decoration:none;color:#FFFFFF;}/*!sc*/
+data-styled.g324[id="sc-IqJVf"]{content:"bzBerz,"}/*!sc*/
+.hjKgdm{border:1px solid #f1f1f1;box-shadow:0 6px 20px 0 rgba(0,0,0,0.06);background:white;color:black;width:75%;max-width:780px;position:relative;top:-34px;padding:13px;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;}/*!sc*/
+@media screen and (max-width:800px){.hjKgdm{width:100%;-webkit-order:1;-ms-flex-order:1;order:1;height:auto;padding:0;-webkit-flex-direction:column;-ms-flex-direction:column;flex-direction:column;padding-bottom:80px;}}/*!sc*/
+data-styled.g325[id="sc-eiQriw"]{content:"hjKgdm,"}/*!sc*/
+.gKwZME{margin-top:70px;}/*!sc*/
+@media screen and (max-width:800px){.gKwZME{margin-top:90px;}}/*!sc*/
+data-styled.g326[id="sc-gcUDKN"]{content:"gKwZME,"}/*!sc*/
+.ehHJFT{width:67%;}/*!sc*/
+.ehHJFT img{width:100%;height:auto;}/*!sc*/
+@media screen and (max-width:800px){.ehHJFT{width:100%;text-align:center;margin-bottom:30px;}.ehHJFT img{width:100%;}}/*!sc*/
+data-styled.g327[id="sc-jgyXzG"]{content:"ehHJFT,"}/*!sc*/
+.ccsjvV{width:50%;height:95%;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-pack:center;-webkit-justify-content:center;-ms-flex-pack:center;justify-content:center;-webkit-flex-direction:column;-ms-flex-direction:column;flex-direction:column;margin-left:8px;margin-right:20px;}/*!sc*/
+.ccsjvV h1{font-size:24px;color:#2A2E69;-webkit-letter-spacing:0.27px;-moz-letter-spacing:0.27px;-ms-letter-spacing:0.27px;letter-spacing:0.27px;line-height:24px;margin-bottom:39px;}/*!sc*/
+.ccsjvV p{font-family:Merriweather;font-weight:400;font-size:16px;color:#2A2E69;-webkit-letter-spacing:0.27px;-moz-letter-spacing:0.27px;-ms-letter-spacing:0.27px;letter-spacing:0.27px;line-height:24px;}/*!sc*/
+.ccsjvV a,.ccsjvV span{background:#D03535;font-family:Roboto;font-weight:400;font-size:12px;color:#FFFFFF;-webkit-letter-spacing:0.26px;-moz-letter-spacing:0.26px;-ms-letter-spacing:0.26px;letter-spacing:0.26px;padding:18px 22px;position:absolute;right:50px;bottom:23px;}/*!sc*/
+@media screen and (max-width:1100px){.ccsjvV{max-height:490px;}.ccsjvV h1{font-size:18px;margin-top:-23px;margin-bottom:20px;}.ccsjvV p{font-size:14px;-webkit-letter-spacing:0.27px;-moz-letter-spacing:0.27px;-ms-letter-spacing:0.27px;letter-spacing:0.27px;line-height:24px;}}/*!sc*/
+@media screen and (max-width:800px){.ccsjvV{width:100%;margin-left:0px;padding:0 31px;min-height:200px;}.ccsjvV a{bottom:10px;right:20px;padding:12px 16px;}}/*!sc*/
+data-styled.g328[id="sc-la-DkbX"]{content:"ccsjvV,"}/*!sc*/
+.eIGEyq{-webkit-flex:1;-ms-flex:1;flex:1;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-pack:justify;-webkit-justify-content:space-between;-ms-flex-pack:justify;justify-content:space-between;-webkit-flex-wrap:wrap;-ms-flex-wrap:wrap;flex-wrap:wrap;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;font-family:Roboto;font-weight:300;font-size:12px;color:#494949;-webkit-letter-spacing:0.36px;-moz-letter-spacing:0.36px;-ms-letter-spacing:0.36px;letter-spacing:0.36px;line-height:14px;-webkit-text-decoration:none;text-decoration:none;padding:23px 60px 20px 60px;}/*!sc*/
+@media screen and (max-width:809px){.eIGEyq{margin-bottom:83px;}}/*!sc*/
+@media screen and (max-width:800px){.eIGEyq{padding:20px;}}/*!sc*/
+data-styled.g329[id="sc-harTkY"]{content:"eIGEyq,"}/*!sc*/
+.ghgBDy{-webkit-flex:1;-ms-flex:1;flex:1;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-pack:start;-webkit-justify-content:flex-start;-ms-flex-pack:start;justify-content:flex-start;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;}/*!sc*/
+data-styled.g330[id="sc-iUwfNp"]{content:"ghgBDy,"}/*!sc*/
+.fgTohg{color:black;-webkit-text-decoration:none;text-decoration:none;-webkit-flex:1;-ms-flex:1;flex:1;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-pack:center;-webkit-justify-content:center;-ms-flex-pack:center;justify-content:center;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;}/*!sc*/
+.fgTohg:hover{-webkit-text-decoration:underline;text-decoration:underline;}/*!sc*/
+@media screen and (max-width:675px){.fgTohg{-webkit-order:-1;-ms-flex-order:-1;order:-1;-webkit-flex:auto;-ms-flex:auto;flex:auto;font-weight:600;width:100%;margin-bottom:10px;}}/*!sc*/
+data-styled.g331[id="sc-blKGMR"]{content:"fgTohg,"}/*!sc*/
+.dQRDTM{-webkit-flex:1;-ms-flex:1;flex:1;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-pack:end;-webkit-justify-content:flex-end;-ms-flex-pack:end;justify-content:flex-end;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;}/*!sc*/
+data-styled.g332[id="sc-fHCFno"]{content:"dQRDTM,"}/*!sc*/
+</style></head><style>
+
+/* Lol inlining normalize because next.js can&#x27;t even. */
+
+
+/*! normalize.css v7.0.0 | MIT License | github.com/necolas/normalize.css */
+
+/* Document
+   ========================================================================== */
+
+/**
+ * 1. Correct the line height in all browsers.
+ * 2. Prevent adjustments of font size after orientation changes in
+ *    IE on Windows Phone and in iOS.
+ */
+
+html {
+  line-height: 1.15; /* 1 */
+  -ms-text-size-adjust: 100%; /* 2 */
+  -webkit-text-size-adjust: 100%; /* 2 */
+}
+
+/* Sections
+   ========================================================================== */
+
+/**
+ * Remove the margin in all browsers (opinionated).
+ */
+
+body {
+  margin: 0;
+}
+
+/**
+ * Add the correct display in IE 9-.
+ */
+
+article,
+aside,
+footer,
+header,
+nav,
+section {
+  display: block;
+}
+
+h1 {
+  font-size: 2em;
+  margin: 0.67em 0;
+}
+
+/* Grouping content
+   ========================================================================== */
+
+/**
+ * Add the correct display in IE 9-.
+ * 1. Add the correct display in IE.
+ */
+figcaption,
+figure,
+main { /* 1 */
+  display: block;
+}
+
+/**
+ * Add the correct margin in IE 8.
+ */
+
+figure {
+  margin: 1em 40px;
+}
+
+/**
+ * 1. Add the correct box sizing in Firefox.
+ * 2. Show the overflow in Edge and IE.
+ */
+
+hr {
+  box-sizing: content-box; /* 1 */
+  height: 0; /* 1 */
+  overflow: visible; /* 2 */
+}
+
+pre {
+  font-family: monospace, monospace; /* 1 */
+  font-size: 1em; /* 2 */
+}
+
+/* Text-level semantics
+   ========================================================================== */
+
+/**
+ * 1. Remove the gray background on active links in IE 10.
+ * 2. Remove gaps in links underline in iOS 8+ and Safari 8+.
+ */
+
+a {
+  background-color: transparent; /* 1 */
+  -webkit-text-decoration-skip: objects; /* 2 */
+}
+
+/**
+ * 1. Remove the bottom border in Chrome 57- and Firefox 39-.
+ * 2. Add the correct text decoration in Chrome, Edge, IE, Opera, and Safari.
+ */
+
+abbr[title] {
+  border-bottom: none; /* 1 */
+  text-decoration: underline; /* 2 */
+  text-decoration: underline dotted; /* 2 */
+}
+
+b,
+strong {
+  font-weight: inherit;
+}
+
+/**
+ * Add the correct font weight in Chrome, Edge, and Safari.
+ */
+
+b,
+strong {
+  font-weight: bolder;
+}
+
+code,
+kbd,
+samp {
+  font-family: monospace, monospace; /* 1 */
+  font-size: 1em; /* 2 */
+}
+
+/**
+ * Add the correct font style in Android 4.3-.
+ */
+
+dfn {
+  font-style: italic;
+}
+
+/**
+ * Add the correct background and color in IE 9-.
+ */
+
+mark {
+  background-color: #ff0;
+  color: #000;
+}
+
+/**
+ * Add the correct font size in all browsers.
+ */
+
+small {
+  font-size: 80%;
+}
+
+sub,
+sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+
+sub {
+  bottom: -0.25em;
+}
+
+sup {
+  top: -0.5em;
+}
+
+/* Embedded content
+   ========================================================================== */
+
+/**
+ * Add the correct display in IE 9-.
+ */
+
+audio,
+video {
+  display: inline-block;
+}
+
+/**
+ * Add the correct display in iOS 4-7.
+ */
+
+audio:not([controls]) {
+  display: none;
+  height: 0;
+}
+
+/**
+ * Remove the border on images inside links in IE 10-.
+ */
+
+img {
+  border-style: none;
+}
+
+/**
+ * Hide the overflow in IE.
+ */
+
+svg:not(:root) {
+  overflow: hidden;
+}
+
+/* Forms
+   ========================================================================== */
+
+/**
+ * 1. Change the font styles in all browsers (opinionated).
+ * 2. Remove the margin in Firefox and Safari.
+ */
+
+button,
+input,
+optgroup,
+select,
+textarea {
+  font-family: sans-serif; /* 1 */
+  font-size: 100%; /* 1 */
+  line-height: 1.15; /* 1 */
+  margin: 0; /* 2 */
+}
+
+/**
+ * Show the overflow in IE.
+ * 1. Show the overflow in Edge.
+ */
+
+button,
+input { /* 1 */
+  overflow: visible;
+}
+
+/**
+ * Remove the inheritance of text transform in Edge, Firefox, and IE.
+ * 1. Remove the inheritance of text transform in Firefox.
+ */
+
+button,
+select { /* 1 */
+  text-transform: none;
+}
+
+button,
+html [type=&quot;button&quot;], /* 1 */
+[type=&quot;reset&quot;],
+[type=&quot;submit&quot;] {
+  -webkit-appearance: button; /* 2 */
+}
+
+/**
+ * Remove the inner border and padding in Firefox.
+ */
+
+button::-moz-focus-inner,
+[type=&quot;button&quot;]::-moz-focus-inner,
+[type=&quot;reset&quot;]::-moz-focus-inner,
+[type=&quot;submit&quot;]::-moz-focus-inner {
+  border-style: none;
+  padding: 0;
+}
+
+/**
+ * Restore the focus styles unset by the previous rule.
+ */
+
+button:-moz-focusring,
+[type=&quot;button&quot;]:-moz-focusring,
+[type=&quot;reset&quot;]:-moz-focusring,
+[type=&quot;submit&quot;]:-moz-focusring {
+  outline: 1px dotted ButtonText;
+}
+
+/**
+ * Correct the padding in Firefox.
+ */
+
+fieldset {
+  padding: 0.35em 0.75em 0.625em;
+}
+
+legend {
+  box-sizing: border-box; /* 1 */
+  color: inherit; /* 2 */
+  display: table; /* 1 */
+  max-width: 100%; /* 1 */
+  padding: 0; /* 3 */
+  white-space: normal; /* 1 */
+}
+
+/**
+ * 1. Add the correct display in IE 9-.
+ * 2. Add the correct vertical alignment in Chrome, Firefox, and Opera.
+ */
+
+progress {
+  display: inline-block; /* 1 */
+  vertical-align: baseline; /* 2 */
+}
+
+/**
+ * Remove the default vertical scrollbar in IE.
+ */
+
+textarea {
+  overflow: auto;
+}
+
+/**
+ * 1. Add the correct box sizing in IE 10-.
+ * 2. Remove the padding in IE 10-.
+ */
+
+[type=&quot;checkbox&quot;],
+[type=&quot;radio&quot;] {
+  box-sizing: border-box; /* 1 */
+  padding: 0; /* 2 */
+}
+
+/**
+ * Correct the cursor style of increment and decrement buttons in Chrome.
+ */
+
+[type=&quot;number&quot;]::-webkit-inner-spin-button,
+[type=&quot;number&quot;]::-webkit-outer-spin-button {
+  height: auto;
+}
+
+/**
+ * 1. Correct the odd appearance in Chrome and Safari.
+ * 2. Correct the outline style in Safari.
+ */
+
+[type=&quot;search&quot;] {
+  -webkit-appearance: textfield; /* 1 */
+  outline-offset: -2px; /* 2 */
+}
+
+/**
+ * Remove the inner padding and cancel buttons in Chrome and Safari on macOS.
+ */
+
+[type=&quot;search&quot;]::-webkit-search-cancel-button,
+[type=&quot;search&quot;]::-webkit-search-decoration {
+  -webkit-appearance: none;
+}
+
+::-webkit-file-upload-button {
+  -webkit-appearance: button; /* 1 */
+  font: inherit; /* 2 */
+}
+
+/* Interactive
+   ========================================================================== */
+
+/*
+ * Add the correct display in IE 9-.
+ * 1. Add the correct display in Edge, IE, and Firefox.
+ */
+
+details, /* 1 */
+menu {
+  display: block;
+}
+
+/*
+ * Add the correct display in all browsers.
+ */
+
+summary {
+  display: list-item;
+}
+
+/* Scripting
+   ========================================================================== */
+
+/**
+ * Add the correct display in IE 9-.
+ */
+
+canvas {
+  display: inline-block;
+}
+
+/**
+ * Add the correct display in IE.
+ */
+
+template {
+  display: none;
+}
+
+/* Hidden
+   ========================================================================== */
+
+/**
+ * Add the correct display in IE 10-.
+ */
+
+[hidden] {
+  display: none;
+}
+
+
+body {
+margin: 0;
+overflow-x: hidden;
+font-family: merriweather, serif;
+-webkit-font-smoothing: antialiased;
+}
+* {
+box-sizing: border-box;
+ }
+
+/* AddSearch */
+
+#addsearch-results.addsearch-d,
+#addsearch-results.addsearch-t {
+  font-family: Merriweather !important;
+  font-weight: thin !important;
+  max-width: 80vw !important;
+  width: 768px !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  padding: 0.5rem !important;
+  box-sizing: border-box;
+}
+
+#addsearch-results-bottom {
+  display: none;
+}
+
+#addsearch-results-mid {
+  max-width: 100% !important;
+}
+
+#addsearch-results &gt; * {
+  max-width: 100% !important;
+}
+
+#addsearch-results.addsearch-t .addsearch-result-item-sub-active div, #addsearch-results.addsearch-t .addsearch-result-item-sub div {
+  padding: 0 !important;
+  max-width: 100% !important;
+}
+
+#addsearch-results.addsearch-t .addsearch-result-item-sub,
+#addsearch-results .addsearch-result-item-container {
+  background-image: none !important;
+  max-width: 100% !important;
+}
+</style><script>
+              window.strossle=window.strossle||function()
+              {(strossle.q = strossle.q || []).push(arguments)};
+              strossle('b1e4f8fd-d78f-4227-a9b2-ed887442f043', '.strossle-widget');
+            </script><script async="" src="//assets.strossle.com/strossle-widget-sdk/1/strossle-widget-sdk.js"></script><body><noscript><iframe title="Google Tag Manager" src="https://www.googletagmanager.com/ns.html?id=GTM-PFF4PZ3" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript><div id="__next"><main><div class="sc-cDsqlO jPAUbQ"><div class="sc-kdIgRK Haxka"><div class="sc-IqJVf bzBerz"><h1 class="sc-eLtQCx jpBKt">Demokraatti</h1><div class="sc-jhlPcU bBdOgL">päätoimittaja: <strong>Petri Korhonen</strong></div><div class="sc-ffZAAA hJSZiT"><a href="/yhteystiedot">Toimitus →</a><a href="/ilmoitusmyynti">Ilmoitusmyynti →</a><a href="/tilaajapalvelu">Tilaajapalvelu →</a></div><a href="mailto:toimitus@demokraatti.fi" class="sc-fuTSoq gsHzED">Lähetä juttuvinkki →</a><p>Toimitus: PL 338, 00531 Helsinki, puh. 09 701 041</p><div class="sc-gcUDKN gKwZME"><h1 class="sc-eLtQCx jpBKt">Arbetarbladet</h1><div class="sc-jhlPcU bBdOgL">chefredaktör: <b>Topi Lappalainen</b></div><a href="mailto:arbetarbladet@gmail.com" class="sc-fuTSoq gsHzED">Kontakt →</a><p>Redaktion: Broholmsgatan 18-20 C, 00531 Helsingfors</p></div><p><a href="#" class="manageSettings">Tietosuoja-asetukset</a></p></div><div class="sc-eiQriw hjKgdm"><div class="sc-jgyXzG ehHJFT"><img src="https://wp.demokraatti.fi/wp-content/uploads/2026/02/D-kansi-2-2026-1-scaled.jpg" alt="Demokraatti.fi"/></div><div class="sc-la-DkbX ccsjvV"><h1 class="sc-eLtQCx jpBKt">Tilaa Demokraatti</h1><p>Demokraatti on politiikkaan, työelämään ja kulttuuriin erikoistunut aikakauslehti, joka on perustettu Työmies-nimellä vuonna 1895.</p><p><b><i>Kaikki ei ole sitä miltä näyttää.</i></b></p><a style="text-decoration:none;letter-spacing:0.26px;line-height:14px" href="/tilaa-lehti">Tilaa demokraatti →</a></div></div></div><div class="sc-harTkY eIGEyq"><div class="sc-iUwfNp ghgBDy">2018 DEMOKRAATTI</div><a href="https://demokraatti.fi/tietosuoja-ja-rekisteriselosteet/" class="sc-blKGMR fgTohg">TIETOSUOJA- ja REKISTERISELOSTE</a><div class="sc-fHCFno dQRDTM">KIRJAUDU</div></div></div></main></div><script id="__NEXT_DATA__" type="application/json">{"props":{"pageProps":{"dehydratedState":{"mutations":[],"queries":[{"dehydratedAt":1771930298541,"state":{"data":{"mainMenu":{"databaseId":63223,"name":"Demokraatti next","slug":"demokraatti-next","menuItems":{"nodes":[{"databaseId":435880,"url":"https://demokraatti.fi/kategoria/uutiset/","label":"Uutiset","parentDatabaseId":0,"order":1,"connectedNode":{"node":{"databaseId":3}}},{"databaseId":435886,"url":"https://demokraatti.fi/kategoria/uutiset/kotimaa/","label":"Kotimaa","parentDatabaseId":435880,"order":2,"connectedNode":{"node":{"databaseId":8}}},{"databaseId":947570,"url":"https://demokraatti.fi/kategoria/uutiset/kunta-ja-aluevaalit/","label":"Kunta- ja aluevaalit","parentDatabaseId":435880,"order":3,"connectedNode":{"node":{"databaseId":137402}}},{"databaseId":435883,"url":"https://demokraatti.fi/kategoria/uutiset/politiikka/","label":"Politiikka","parentDatabaseId":435880,"order":4,"connectedNode":{"node":{"databaseId":7}}},{"databaseId":435892,"url":"https://demokraatti.fi/kategoria/uutiset/talous/","label":"Talous","parentDatabaseId":435880,"order":5,"connectedNode":{"node":{"databaseId":28}}},{"databaseId":739530,"url":"https://demokraatti.fi/kategoria/uutiset/tiede-teknologia/","label":"Tiede ja teknologia","parentDatabaseId":435880,"order":6,"connectedNode":{"node":{"databaseId":110826}}},{"databaseId":537915,"url":"https://demokraatti.fi/kategoria/uutiset/tyomarkkinat/","label":"Työmarkkinat","parentDatabaseId":435880,"order":7,"connectedNode":{"node":{"databaseId":75953}}},{"databaseId":435889,"url":"https://demokraatti.fi/kategoria/uutiset/ulkomaat/","label":"Ulkomaat","parentDatabaseId":435880,"order":8,"connectedNode":{"node":{"databaseId":9}}},{"databaseId":489180,"url":"https://demokraatti.fi/kategoria/uutiset/urheilu/","label":"Urheilu","parentDatabaseId":435880,"order":9,"connectedNode":{"node":{"databaseId":6560}}},{"databaseId":435913,"url":"https://demokraatti.fi/kategoria/kulttuuri/","label":"Kulttuuri","parentDatabaseId":0,"order":10,"connectedNode":{"node":{"databaseId":4}}},{"databaseId":435916,"url":"https://demokraatti.fi/kategoria/kulttuuri/elokuva/","label":"Elokuva","parentDatabaseId":435913,"order":11,"connectedNode":{"node":{"databaseId":11}}},{"databaseId":435919,"url":"https://demokraatti.fi/kategoria/kulttuuri/kirjallisuus/","label":"Kirjallisuus","parentDatabaseId":435913,"order":12,"connectedNode":{"node":{"databaseId":10}}},{"databaseId":435922,"url":"https://demokraatti.fi/kategoria/kulttuuri/kuvataide/","label":"Kuvataide","parentDatabaseId":435913,"order":13,"connectedNode":{"node":{"databaseId":14}}},{"databaseId":435925,"url":"https://demokraatti.fi/kategoria/kulttuuri/musiikki/","label":"Musiikki","parentDatabaseId":435913,"order":14,"connectedNode":{"node":{"databaseId":13}}},{"databaseId":489182,"url":"https://demokraatti.fi/kategoria/kulttuuri/teatteri-tanssi/","label":"Teatteri ja Tanssi","parentDatabaseId":435913,"order":15,"connectedNode":{"node":{"databaseId":12}}},{"databaseId":700270,"url":"https://demokraatti.fi/kategoria/kulttuuri/televisio/","label":"Televisio","parentDatabaseId":435913,"order":16,"connectedNode":{"node":{"databaseId":95326}}},{"databaseId":435928,"url":"https://demokraatti.fi/kategoria/kulttuuri/muu-kulttuuri/","label":"Muu kulttuuri","parentDatabaseId":435913,"order":17,"connectedNode":{"node":{"databaseId":5358}}},{"databaseId":435895,"url":"https://demokraatti.fi/kategoria/d-analyysit/","label":"D-analyysit","parentDatabaseId":0,"order":18,"connectedNode":{"node":{"databaseId":63211}}},{"databaseId":435898,"url":"https://demokraatti.fi/kategoria/d-analyysit/kolumnit/","label":"Kolumnit","parentDatabaseId":435895,"order":19,"connectedNode":{"node":{"databaseId":14708}}},{"databaseId":570714,"url":"https://demokraatti.fi/kategoria/mielipiteet/","label":"Mielipiteet","parentDatabaseId":435895,"order":20,"connectedNode":{"node":{"databaseId":63214}}},{"databaseId":435901,"url":"https://demokraatti.fi/kategoria/d-analyysit/paakirjoitukset/","label":"Pääkirjoitukset","parentDatabaseId":435895,"order":21,"connectedNode":{"node":{"databaseId":17}}},{"databaseId":435937,"url":"https://demokraatti.fi/kategoria/d-analyysit/paatoimittajalta/","label":"Päätoimittajalta","parentDatabaseId":435895,"order":22,"connectedNode":{"node":{"databaseId":4202}}},{"databaseId":435934,"url":"https://demokraatti.fi/kategoria/d-analyysit/toimituksenkommentit/","label":"Toimituksen kommentit","parentDatabaseId":435895,"order":23,"connectedNode":{"node":{"databaseId":46946}}},{"databaseId":435904,"url":"https://demokraatti.fi/kategoria/extrat/","label":"Extrat","parentDatabaseId":0,"order":24,"connectedNode":{"node":{"databaseId":63217}}},{"databaseId":538897,"url":"https://demokraatti.fi/kategoria/extrat/d-kasvo/","label":"D-kasvo","parentDatabaseId":435904,"order":25,"connectedNode":{"node":{"databaseId":76082}}},{"databaseId":974428,"url":"https://demokraatti.fi/kategoria/extrat/kohti-ruotsin-vaaleja/","label":"Kohti Ruotsin vaaleja","parentDatabaseId":435904,"order":26,"connectedNode":{"node":{"databaseId":138942}}},{"databaseId":489186,"url":"https://demokraatti.fi/kategoria/extrat/videot/","label":"Videot","parentDatabaseId":435904,"order":27,"connectedNode":{"node":{"databaseId":18}}},{"databaseId":586072,"url":"https://demokraatti.fi/kategoria/extrat/viikon-lehti/","label":"Viikon lehti","parentDatabaseId":435904,"order":28,"connectedNode":{"node":{"databaseId":81750}}},{"databaseId":567329,"url":"https://demokraatti.fi/kategoria/extrat/vuoden-valtuutettu/","label":"Vuoden valtuutettu","parentDatabaseId":435904,"order":29,"connectedNode":{"node":{"databaseId":79652}}}]}},"infoMenu":{"databaseId":5359,"name":"ylavalikko","slug":"ylavalikko","menuItems":{"nodes":[{"databaseId":16357,"url":"https://demokraatti.fi/yhteystiedot","label":"Toimitus","parentDatabaseId":0,"order":1,"connectedNode":null},{"databaseId":16358,"url":"https://demokraatti.fi/tilaajapalvelu/","label":"Tilaajapalvelu","parentDatabaseId":0,"order":2,"connectedNode":null},{"databaseId":16359,"url":"https://demokraatti.fi/ilmoitusmyynti","label":"Ilmoitusmyynti","parentDatabaseId":0,"order":3,"connectedNode":null},{"databaseId":24556,"url":"http://www.lehtiluukku.fi/lehti/demokraatti","label":"Näköislehti","parentDatabaseId":0,"order":4,"connectedNode":null},{"databaseId":24557,"url":"https://demokraatti.fi/ilmoitusmyynti/#mediakortti","label":"Mediakortti","parentDatabaseId":0,"order":5,"connectedNode":null}]}},"arbetarbladetMenu":{"databaseId":52490,"name":"Arbetarbladet","slug":"arbetarbladet","menuItems":{"nodes":[{"databaseId":348518,"url":"https://demokraatti.fi/kategoria/alueuutiset/arbetarbladet/nyheter/","label":"Nyheter","parentDatabaseId":0,"order":1,"connectedNode":{"node":{"databaseId":49974}}},{"databaseId":348510,"url":"https://demokraatti.fi/kategoria/alueuutiset/arbetarbladet/internationellt/","label":"Internationellt","parentDatabaseId":0,"order":2,"connectedNode":{"node":{"databaseId":49986}}},{"databaseId":348514,"url":"https://demokraatti.fi/kategoria/alueuutiset/arbetarbladet/kultur/","label":"Kultur","parentDatabaseId":0,"order":3,"connectedNode":{"node":{"databaseId":49982}}},{"databaseId":379636,"url":"https://demokraatti.fi/kategoria/alueuutiset/arbetarbladet/opinion/","label":"Opinion","parentDatabaseId":0,"order":4,"connectedNode":{"node":{"databaseId":49978}}},{"databaseId":947912,"url":"https://demokraatti.fi/kategoria/alueuutiset/arbetarbladet/e-tidning/","label":"E-tidning","parentDatabaseId":0,"order":5,"connectedNode":{"node":{"databaseId":137421}}},{"databaseId":750172,"url":"https://demokraatti.fi/kategoria/alueuutiset/arbetarbladet/proggispodden/","label":"Proggispodden","parentDatabaseId":0,"order":6,"connectedNode":{"node":{"databaseId":97079}}}]}},"contactMenu":{"databaseId":5359,"name":"ylavalikko","slug":"ylavalikko","menuItems":{"nodes":[{"databaseId":16357,"url":"https://demokraatti.fi/yhteystiedot","label":"Toimitus","parentDatabaseId":0,"order":1,"connectedNode":null},{"databaseId":16358,"url":"https://demokraatti.fi/tilaajapalvelu/","label":"Tilaajapalvelu","parentDatabaseId":0,"order":2,"connectedNode":null},{"databaseId":16359,"url":"https://demokraatti.fi/ilmoitusmyynti","label":"Ilmoitusmyynti","parentDatabaseId":0,"order":3,"connectedNode":null},{"databaseId":24556,"url":"http://www.lehtiluukku.fi/lehti/demokraatti","label":"Näköislehti","parentDatabaseId":0,"order":4,"connectedNode":null},{"databaseId":24557,"url":"https://demokraatti.fi/ilmoitusmyynti/#mediakortti","label":"Mediakortti","parentDatabaseId":0,"order":5,"connectedNode":null}]}}},"dataUpdateCount":1,"dataUpdatedAt":1771930298290,"error":null,"errorUpdateCount":0,"errorUpdatedAt":0,"fetchFailureCount":0,"fetchFailureReason":null,"fetchMeta":null,"isInvalidated":false,"status":"success","fetchStatus":"idle"},"queryKey":["menus"],"queryHash":"[\"menus\"]"},{"dehydratedAt":1771930298541,"state":{"data":{"singlePost":null},"dataUpdateCount":1,"dataUpdatedAt":1771930298495,"error":null,"errorUpdateCount":0,"errorUpdatedAt":0,"fetchFailureCount":0,"fetchFailureReason":null,"fetchMeta":null,"isInvalidated":false,"status":"success","fetchStatus":"idle"},"queryKey":["singlePostMain","app-ads.txt"],"queryHash":"[\"singlePostMain\",\"app-ads.txt\"]"},{"dehydratedAt":1771930298541,"state":{"data":{"toimituksenValinnat":{"editorialChoices":{"commentPost":{"nodes":[{"databaseId":980069,"slug":"ukrainalaisten-osuus-maahanmuuttajien-tyottomyydesta-yli-puolet-koko-tyollisyystilanne-ei-silti-talla-selity","title":"Ukrainalaisten osuus maahanmuuttajien työttömyydestä yli puolet – Koko työllisyystilanne ei silti tällä selity","dateGmt":"2026-02-23T15:02:19","modifiedGmt":"2026-02-23T15:08:37","postMainCategory":{"dPostDefaultCategory":["75953"]},"categories":{"nodes":[{"name":"Etusivu 2","databaseId":6,"slug":"etusivu-2","link":"https://demokraatti.fi/kategoria/etusivu-2/"},{"name":"Pääuutiset","databaseId":63040,"slug":"paauutiset","link":"https://demokraatti.fi/kategoria/paauutiset/"},{"name":"Työmarkkinat","databaseId":75953,"slug":"tyomarkkinat","link":"https://demokraatti.fi/kategoria/uutiset/tyomarkkinat/"},{"name":"Uutiset","databaseId":3,"slug":"uutiset","link":"https://demokraatti.fi/kategoria/uutiset/"}]},"author":{"node":{"databaseId":261,"name":"Susanna Luikku","description":null}},"acfPostMetaData":{"alternativeTitle":null,"kirjoittaja":{"nodes":[{"kirjoittaja":{"biographicalInfo":null,"email":"susanna.luikku@demokraatti.fi","facebookUrl":null,"firstname":"Susanna","lastname":"Luikku","twitterUrl":null,"website":"www.demokraatti.fi","role":"Kirjoittaja on Demokraatin toimittaja.","magazineName":"Demokraatti"},"featuredImage":{"node":{"mediaItemUrl":"/wp-content/uploads/2025/03/SusannaLuikku_Demokraatti.jpg"}}}]}}},{"databaseId":980014,"slug":"arvio-karsivallisyytta-tarkkaavaisuutta-ja-pysahtymista-vaativaa-ajattelua-kuolemasta","title":"Arvio: Kärsivällisyyttä, tarkkaavaisuutta ja pysähtymistä vaativaa ajattelua kuolemasta","dateGmt":"2026-02-24T07:30:24","modifiedGmt":"2026-02-23T09:07:35","postMainCategory":{"dPostDefaultCategory":["10"]},"categories":{"nodes":[{"name":"Etusivu 2","databaseId":6,"slug":"etusivu-2","link":"https://demokraatti.fi/kategoria/etusivu-2/"},{"name":"Etusivu-kulttuuri","databaseId":5374,"slug":"etusivu-kulttuuri","link":"https://demokraatti.fi/kategoria/etusivu-kulttuuri/"},{"name":"Kirjallisuus","databaseId":10,"slug":"kirjallisuus","link":"https://demokraatti.fi/kategoria/kulttuuri/kirjallisuus/"},{"name":"Kulttuuri","databaseId":4,"slug":"kulttuuri","link":"https://demokraatti.fi/kategoria/kulttuuri/"}]},"author":{"node":{"databaseId":3,"name":"Rane Aunimo","description":"Toimituspäällikkö"}},"acfPostMetaData":{"alternativeTitle":null,"kirjoittaja":{"nodes":[{"kirjoittaja":{"biographicalInfo":null,"email":"toimitus@demokraatti.fi","facebookUrl":null,"firstname":"Esa","lastname":"Mäkijärvi","twitterUrl":null,"website":null,"role":null,"magazineName":null},"featuredImage":{"node":{"mediaItemUrl":"/wp-content/uploads/2018/04/esa-m.jpg"}}}]}}}]}}}},"dataUpdateCount":1,"dataUpdatedAt":1771930298527,"error":null,"errorUpdateCount":0,"errorUpdatedAt":0,"fetchFailureCount":0,"fetchFailureReason":null,"fetchMeta":null,"isInvalidated":false,"status":"success","fetchStatus":"idle"},"queryKey":["global_comments"],"queryHash":"[\"global_comments\"]"}]},"skipServiceWorkerCache":false,"skipServiceWorkerCacheValue":false,"slug":"app-ads.txt","postID":null,"initialState":{"ads":null,"categories":null,"sections":null,"mainNews":null,"media":null,"menus":{"bottomMenu":{"active":false},"fetchingMenus":{},"data":{}},"options":{"error":false,"fetchingOptions":false,"data":{"acf":{"automatic_related_posts":{"message":"Internal server error"},"categories":[14531,49970,28930,61747,15594,15588,30702,69269,14534,41978,28936,18342,63211,14708,17,4202,46946,63217,18,12147,4,11,10,14,13,5358,12,63214,76,3,8,7,28,9,6560],"comment_post":[980069,980014],"cover":"/wp-content/uploads/2026/02/D-kansi-2-2026-1-scaled.jpg","d_ilmoitusmyynti_mediakortti":{"ID":973911,"id":973911,"title":"DEM-Mediakortti-2026 (1)","filename":"DEM-Mediakortti-2026-1.pdf","filesize":2750296,"url":"/wp-content/uploads/2025/12/DEM-Mediakortti-2026-1.pdf","link":"https://demokraatti.fi/dem-mediakortti-2026-1/","alt":"","author":"3","description":"Mediakortti 2026","caption":"","name":"dem-mediakortti-2026-1","status":"inherit","uploaded_to":0,"date":"2025-12-18 06:59:27","modified":"2025-12-18 06:59:41","menu_order":0,"mime_type":"application/pdf","type":"application","subtype":"pdf","icon":"https://wp.demokraatti.fi/wp-includes/images/media/document.png"},"digital_edition_price":"50€","ilmoitusmyynti":"\u003ch2\u003e\u003cspan class=\"s1\"\u003e\u003cb\u003eIlmoita Demokraatissa\u003c/b\u003e\u003c/span\u003e\u003c/h2\u003e\n\u003cp class=\"p1\"\u003eDemokraatin verkko- ja printtituotteiden ilmoittelulla tavoitat noin 100 000 lukijaa viikoittain. Lukijamme ovat ostovoimaisia ja sitoutuneita.\u003c/p\u003e\n\u003cp\u003eIlmoitusvaraukset ja -aineistot:\u003cbr /\u003e\nmarkkinointipäällikkö \u003cstrong\u003eSari Ojala\u003cbr /\u003e\n\u003c/strong\u003e09 7010 522\u003cstrong\u003e\u003cbr /\u003e\n\u003c/strong\u003e\u003ca href=\"mailto:ilmoitukset@demokraatti.fi\"\u003eilmoitukset@demokraatti.fi\u003c/a\u003e\u003c/p\u003e\n\u003chr /\u003e\n\u003ch2\u003e\u003cspan class=\"s1\"\u003e\u003cb\u003ePalvelumme ilmoittajille\u003c/b\u003e\u003c/span\u003e\u003c/h2\u003e\n\u003cp\u003e\u003ca href=\"https://demokraatti.typeform.com/to/VwIedx\"\u003eTERVEHDYSILMOITUS DEMOKRAATISSA →\u003c/a\u003e\u003c/p\u003e\n\u003cp\u003e\u003ca href=\"https://demokraatti.typeform.com/to/BnDPZq\"\u003eILMOITUS YHDISTYSPALSTALLE →\u003c/a\u003e\u003c/p\u003e\n\u003chr /\u003e\n\u003ch2\u003e\u003cspan class=\"s1\"\u003e\u003cb\u003eIlmestymispäivät\u003c/b\u003e\u003c/span\u003e\u003c/h2\u003e\n\u003cp\u003eLehti ilmestyy vuonna 2026 yksitoista kertaa. Poikkeuksena heinäkuu, jolloin lehti ei ilmesty.\u003c/p\u003e\n\u003chr /\u003e\n\u003ch2\u003e\u003cspan class=\"s1\"\u003e\u003cb\u003eJulkaisija\u003c/b\u003e\u003c/span\u003e\u003c/h2\u003e\n\u003cp\u003eKustannus Oy Demokraatti, Siltasaarenkatu 18-20 C, 6.krs, PL 338, 00531 Helsinki, puh. (09) 701 041, www.demokraatti.fi.\u003c/p\u003e\n\u003cp\u003eToimitusjohtaja \u003cstrong\u003eMiikka Lönnqvist\u003c/strong\u003e\u003cbr /\u003e\nVastaava päätoimittaja \u003cstrong\u003ePetri Korhonen\u003c/strong\u003e\u003c/p\u003e\n\u003cp\u003ePuoluekanta SDP, Aikakausmedia ry:n jäsen\u003c/p\u003e\n","magazine_price_per_4_months":"Katso hinnat!","magazine_price_per_4_months_title":"Palkittu politiikan aikakauslehti.","print_edition_price":"72€","printin_julkaisutiedot":"Demokraatti 2/26","promotion_title_1":"LIIAN KALLISTA - Onko vanhuksilla enää varaa omaan hoivaan?","promotion_title_2":"TYÖELÄMÄ- Raskaus on riski","promotion_title_3":"HERÄÄMINEN - Nyt tunnustetaan väriä","selected_articles":{"main":980069,"side_1":980106,"side_2":980014,"side_3":980111},"tilaajapalvelu":"\u003ch2\u003eMuuta tilaustasi\u003c/h2\u003e\n\u003cp class=\"p1\"\u003eHaluatko kääntää lehden lomaosoitteeseen, tai tehdä muutoksia tilaukseesi.\u003c/p\u003e\n\u003cp\u003e\u003ca href=\"https://demokraatti.fi/tilaa-lehti\"\u003eTILAA LEHTI →\u003c/a\u003e\u003c/p\u003e\n\u003cp\u003e\u003ca href=\"https://demokraatti.typeform.com/to/Xxgv4s\"\u003eTEE OSOITTEENMUUTOS →\u003c/a\u003e\u003c/p\u003e\n\u003cp\u003e\u003ca href=\"https://demokraatti.typeform.com/to/zk8AhL\"\u003eILMOITA JAKELUN KESKEYTYKSESTÄ →\u003c/a\u003e\u003c/p\u003e\n\u003cp\u003e\u003ca href=\"https://demokraatti.typeform.com/to/Bfwqum\"\u003eLEHTIETUILMOITUS\u003c/a\u003e\u003c/p\u003e\n\u003chr /\u003e\n\u003ch2\u003eSiirry e-laskuun\u003c/h2\u003e\n\u003cp\u003eValitset vain e-laskun käyttöön verkkopankissasi ja lasku toimitetaan sähköisesti suoraan verkkopankkiisi.\u003c/p\u003e\n\u003cp\u003eToimi näin:\u003c/p\u003e\n\u003cp\u003e1.Kirjaudu verkkopankkiisi.\u003c/p\u003e\n\u003cp\u003e2.Klikkaa linkkiä e-laskut ja kirjoita laskuttajaksi Kustannus Oy Demokraatti ja tilaa e-lasku.\u003c/p\u003e\n\u003cp\u003e3. Aktivoidaksesi e-laskun, käytä siihen ensimmäisessä laskussasi olevaa viitenumeroa (löytyy laskulomakkeestasi)\u003c/p\u003e\n\u003cp\u003e4. Saat jatkossa laskusi sähköisesti suoraan verkkopankkiisi, jossa sinun tarvitsee vain tarkistaa ja hyväksyä maksu.\u003c/p\u003e\n\u003cp\u003e\u0026nbsp;\u003c/p\u003e\n\u003chr /\u003e\n\u003cheader class=\"article-header\"\u003e\n\u003ch1 class=\"page-title\"\u003eTietosuoja- ja rekisteriselosteet\u003c/h1\u003e\n\u003c/header\u003e\n\u003csection class=\"entry-content clearfix\"\u003eYhteyshenkilö rekisteriä koskevissa asioissa:\u003cbr /\u003e\n\u003cstrong\u003eSari Ojala\u003c/strong\u003e\u003cbr /\u003e\n\u003ca href=\"mailto:nina.linden@demokraatti.fi\"\u003esari.ojala@demokraatti.fi\u003c/a\u003e\u003c/p\u003e\n\u003ch2\u003eTietosuojaseloste – Lehden tilaajarekisteri\u003c/h2\u003e\n\u003cp\u003e\u003cem\u003eHenkilötietolaki (523/1999) 10 ja 24§\u003c/em\u003e\u003cbr /\u003e\n\u003cem\u003eLaatismispäivä 18.7.2013\u003c/em\u003e\u003c/p\u003e\n\u003cp\u003e\u003cstrong\u003eRekisterin pitäjä\u003c/strong\u003e\u003c/p\u003e\n\u003cp\u003eKustannus Oy Demokraatti\u003cbr /\u003e\nPuh: (09) 701 041\u003cbr /\u003e\nPL 338, 00531 Helsinki\u003c/p\u003e\n\u003cp\u003e\u003cstrong\u003eYhteyshenkilö rekisteriä koskevissa asioissa\u003c/strong\u003e\u003c/p\u003e\n\u003cp\u003eToimitusjohtaja\u003cbr /\u003e\nMiikka Lönnqvist\u003ca href=\"mailto:ville.wallin@demokraatti.fi\"\u003e miikka.lonnqvist@demokraatti.fi\u003c/a\u003e\u003cbr /\u003e\n(09) 478 982 12\u003c/p\u003e\n\u003cp\u003e\u003cstrong\u003eRekisterin nimi\u003c/strong\u003e\u003c/p\u003e\n\u003cp\u003eDemokraatti tilaajarekisteri\u003c/p\u003e\n\u003cp\u003e\u003cstrong\u003eHenkilötietojen käsittelyn tarkoitus\u003c/strong\u003e\u003c/p\u003e\n\u003cp\u003eTilauslomakkeilla kerättäviä tietoja käytetään lehden tilaukseen, laskutukseen ja asiakassuhteeseen liittyvään yhteydenpitoon.\u003c/p\u003e\n\u003cp\u003e\u003cstrong\u003eRekisteriin tallennettava tieto\u003c/strong\u003e\u003c/p\u003e\n\u003cp\u003eTilaajan nimi\u003cbr /\u003e\nSähköpostiosoite\u003cbr /\u003e\nPuhelinnumero\u003cbr /\u003e\nTilaajan katuosoite\u003cbr /\u003e\nTilaajan postinumero ja -toimipaikka\u003c/p\u003e\n\u003cp\u003eTietoja säilytetään asiakassuhteen ajan ja poistetaan rekisteristä asiakkaan omasta pyynnöstä asiakassuhteen päättymisen jälkeen.\u003c/p\u003e\n\u003cp\u003e\u003cstrong\u003eSäännönmukaiset tietolähteet\u003c/strong\u003e\u003c/p\u003e\n\u003cp\u003eTilaajan oma ilmoitus\u003c/p\u003e\n\u003cp\u003e\u003cstrong\u003eTietojen säännönmukaiset luovutukset\u003c/strong\u003e\u003c/p\u003e\n\u003cp\u003eTietoja ei luovuteta kolmansille osapuolile\u003c/p\u003e\n\u003cp\u003e\u003cstrong\u003eTietojen siirto EU:n tai ETA:n ulkopuolelle\u003c/strong\u003e\u003c/p\u003e\n\u003cp\u003eTietoja ei luovuteta EU tai ETA alueen ulkopuolelle\u003c/p\u003e\n\u003cp\u003e\u003cstrong\u003eRekisterin suojauksen perusteet\u003c/strong\u003e\u003c/p\u003e\n\u003cp\u003eRekisteritietoja käsitellään hyvien tietosuojakäytäntöjen mukaisesti\u003c/p\u003e\n\u003cp\u003e\u003cstrong\u003eTarkistusoikeus\u003c/strong\u003e\u003c/p\u003e\n\u003cp\u003eTilaajalla on oikeus tarkastaa henkilökohtaiset tietonsa ja vaatia virheellisen tiedon oikaisua. Tilaajalla on myös oikeus kieltää antamiensa tietojen käytön suoramarkkinointi- tms. tarkoitukseen sekä muutoinkin turvautua henkilötietolaissa turvattuihin oikeuksiinsa. Asiaa koskevat tietopyynnöt osoitetaan Rekisterin ylläpidon yhteyshenkilölle.\u003c/p\u003e\n\u003cp\u003e\u003cb\u003eRekisteriseloste\u003c/b\u003e\u003c/p\u003e\n\u003cp\u003eHenkilötietolain 10§ mukainen rekisteriseloste on nähtävissä \u003ca href=\"https://demokraatti.fi/tietosuoja-ja-rekisteriselosteet#rekisteriseloste\"\u003etäällä\u003c/a\u003e.\u003c/p\u003e\n\u003chr /\u003e\n\u003ch2\u003e\u003ca name=\"uutiskirje\"\u003e\u003c/a\u003eTietosuojaseloste – Uutiskirjeen tilaajarekisteri\u003c/h2\u003e\n\u003cp\u003e\u003cem\u003eHenkilötietolaki (523/1999) 10 ja 24§\u003c/em\u003e\u003cbr /\u003e\n\u003cem\u003eLaatismispäivä 18.7.2013\u003c/em\u003e\u003c/p\u003e\n\u003cp\u003e\u003cstrong\u003eRekisterin pitäjä\u003c/strong\u003e\u003c/p\u003e\n\u003cp\u003eKustannus Oy Demokraatti\u003cbr /\u003e\nPuh: (09) 701 041\u003cbr /\u003e\nPL 338, 00531 Helsinki\u003c/p\u003e\n\u003cp\u003e\u003cstrong\u003eYhteyshenkilö rekisteriä koskevissa asioissa\u003c/strong\u003e\u003c/p\u003e\n\u003cp\u003eToimitusjohtaja\u003cbr /\u003e\nMiikka Lönnqvist\u003ca href=\"mailto:ville.wallin@demokraatti.fi\"\u003e miikka.lonnqvist@demokraatti.fi\u003c/a\u003e\u003cbr /\u003e\n(09) 478 982 12\u003c/p\u003e\n\u003cp\u003e\u003cstrong\u003eRekisterin nimi\u003c/strong\u003e\u003c/p\u003e\n\u003cp\u003eUutiskirjeen tilaajarekisteri\u003c/p\u003e\n\u003cp\u003e\u003cstrong\u003eHenkilötietojen käsittelyn tarkoitus\u003c/strong\u003e\u003c/p\u003e\n\u003cp\u003eTilauslomakkeilla kerättäviä tietoja käytetään uutiskirjeen toimitukseen ja siihen liittyvään yhteydenpitoon.\u003c/p\u003e\n\u003cp\u003e\u003cstrong\u003eRekisteriin tallennettava tieto\u003c/strong\u003e\u003c/p\u003e\n\u003cp\u003eSähköpostiosoite\u003c/p\u003e\n\u003cp\u003eTietoja säilytetään asiakassuhteen ajan ja jokaisessa kirjeessä on linkki, jolla omat tiedot voi poistaa rekisteristä.\u003c/p\u003e\n\u003cp\u003e\u003cstrong\u003eSäännönmukaiset tietolähteet\u003c/strong\u003e\u003c/p\u003e\n\u003cp\u003eTilaajan oma ilmoitus\u003c/p\u003e\n\u003cp\u003e\u003cstrong\u003eTietojen säännönmukaiset luovutukset\u003c/strong\u003e\u003c/p\u003e\n\u003cp\u003eTietoja ei luovuteta kolmansille osapuolile\u003c/p\u003e\n\u003cp\u003e\u003cstrong\u003eTietojen siirto EU:n tai ETA:n ulkopuolelle\u003c/strong\u003e\u003c/p\u003e\n\u003cp\u003eTietoja ei luovuteta EU tai ETA alueen ulkopuolelle\u003c/p\u003e\n\u003cp\u003e\u003cstrong\u003eRekisterin suojauksen perusteet\u003c/strong\u003e\u003c/p\u003e\n\u003cp\u003eRekisteritietoja käsitellään hyvien tietosuojakäytäntöjen mukaisesti\u003c/p\u003e\n\u003cp\u003e\u003cstrong\u003eTarkistusoikeus\u003c/strong\u003e\u003c/p\u003e\n\u003cp\u003eTilaajalla on oikeus tarkastaa henkilökohtaiset tietonsa ja vaatia virheellisen tiedon oikaisua. Tilaajalla on myös oikeus kieltää antamiensa tietojen käytön suoramarkkinointi- tms. tarkoitukseen sekä muutoinkin turvautua henkilötietolaissa turvattuihin oikeuksiinsa. Asiaa koskevat tietopyynnöt osoitetaan rekisterin ylläpidon yhteyshenkilölle.\u003c/p\u003e\n\u003cp\u003e\u003cb\u003eRekisteriseloste\u003c/b\u003e\u003c/p\u003e\n\u003cp\u003eHenkilötietolain 10§ mukainen rekisteriseloste on nähtävissä \u003ca href=\"http://www.demari.fi/tietosuoja-ja-rekisteriselosteet#rekisteriseloste\"\u003etäällä.\u003c/a\u003e\u003c/p\u003e\n\u003chr /\u003e\n\u003ch2\u003eRekisteriseloste\u003c/h2\u003e\n\u003cp\u003e\u003cstrong\u003eRekisterinpitäjä\u003c/strong\u003e\u003c/p\u003e\n\u003cp\u003eKustannus Oy Demokraatti\u003cbr /\u003e\nPL 338, 00531 Helsinki\u003cbr /\u003e\n(09) 701 041\u003c/p\u003e\n\u003cp\u003e\u003cstrong\u003eYhteyshenkilö\u003c/strong\u003e\u003c/p\u003e\n\u003cp\u003eToimitusjohtaja\u003cbr /\u003e\nMiikka Lönnqvist\u003ca href=\"mailto:ville.wallin@demokraatti.fi\"\u003e miikka.lonnqvist@demokraatti.fi\u003c/a\u003e\u003cbr /\u003e\n(09) 478 982 12\u003c/p\u003e\n\u003cp\u003e\u003cstrong\u003eRekisterin nimi\u003c/strong\u003e\u003cbr /\u003e\n– Verkon tilaajarekisteri\u003cbr /\u003e\n– Uutiskirjeen tilaajarekisteri\u003c/p\u003e\n\u003cp\u003e\u003cstrong\u003eHenkilötietojen käsittelyntarkoitus\u003c/strong\u003e\u003cbr /\u003e\nAsiakassuhteen hoitoon liittyvä yhteydenpito.\u003c/p\u003e\n\u003cp\u003e\u003cstrong\u003eRekisterin tietosisältö\u003c/strong\u003e\u003cbr /\u003e\nRekisterit sisältävät tietosuojaselosteessa mainitut tietosisällöt.\u003c/p\u003e\n\u003cp\u003e\u003cstrong\u003eSäännönmukaiset tietolähteet\u003c/strong\u003e\u003cbr /\u003e\nAsiakkaiden omat ilmoitukset.\u003c/p\u003e\n\u003cp\u003e\u003cstrong\u003eTietojen luovutus\u003c/strong\u003e\u003cbr /\u003e\nTietoja ei luovuteta EU:n tai ETA:n ulkopuolelle\u003c/p\u003e\n\u003cp\u003e\u003cstrong\u003eRekisterin suojauksen periaatteet\u003c/strong\u003e\u003cbr /\u003e\nRekisterin tietosisältö säilytetään salatussa muodossa palveluntarjoajan palvelimilla, joissa on 24/7 vartiointi ja kulunvalvonta.\u003c/p\u003e\n\u003c/section\u003e\n","yhteystiedot":"\u003cdiv class=\"columns\"\u003e\n\u003cdiv class=\"col\"\u003e\n\u003ch3\u003eToimitus\u003c/h3\u003e\n\u003cp\u003eToimituksen yhteinen sähköposti\u003cbr /\u003e\n\u003ca href=\"mailto:toimitus@demokraatti.fi\"\u003etoimitus@demokraatti.fi\u003c/a\u003e\u003c/p\u003e\n\u003cp\u003eMielipideosaston kirjoitukset\u003cbr /\u003e\n\u003ca href=\"mailto:mielipide@demokraatti.fi\"\u003emielipide@demokraatti.fi\u003c/a\u003e\u003c/p\u003e\n\u003cp\u003ePostiosoite\u003cbr /\u003e\nPL 338\u003cbr /\u003e\n00531 Helsinki\u003c/p\u003e\n\u003cp\u003eKäyntiosoite\u003cbr /\u003e\nSiltasaarenkatu 18-20C, 6.krs\u003cbr /\u003e\n00530 Helsinki\u003c/p\u003e\n\u003c/div\u003e\n\u003cdiv class=\"col\"\u003e\n\u003ch3\u003eTilaajapalvelu\u003c/h3\u003e\n\u003cp\u003eAsiakaspalvelun aukiolo klo 10-14\u003cbr /\u003e\n09 701 0500\u003c/p\u003e\n\u003cp\u003eTilaajapalvelun sähköposti\u003cbr /\u003e\n\u003ca href=\"mailto:tilaajapalvelu@demokraatti.fi\"\u003etilaajapalvelu@demokraatti.fi\u003c/a\u003e\u003c/p\u003e\n\u003cdiv class=\"links\"\u003e\n\u003cp\u003ePikalinkit\u003cbr /\u003e\n\u003ca href=\"https://demokraatti.fi/tilaa-lehti\"\u003eTilaa lehti →\u003c/a\u003e\u003cbr /\u003e\n\u003ca href=\"https://demokraatti.typeform.com/to/Xxgv4s\"\u003eTee osoitteenmuutos →\u003c/a\u003e\u003c/p\u003e\n\u003c/div\u003e\n\u003c/div\u003e\n\u003cdiv class=\"col\"\u003e\n\u003ch3\u003eIlmoitusmyynti\u003c/h3\u003e\n\u003cp\u003eMarkkinointipäällikkö \u003cstrong\u003eSari Ojala\u003c/strong\u003e\u003c/p\u003e\n\u003cp\u003eAineistot ja lisätiedot:\u003cbr /\u003e\n\u003ca href=\"mailto:ilmoitukset@demokraatti.fi\"\u003eilmoitukset@demokraatti.fi\u003c/a\u003e\u003c/p\u003e\n\u003cdiv class=\"links\"\u003e\n\u003cp\u003ePikalinkit\u003cbr /\u003e\n\u003ca href=\"/wp-content/uploads/2025/12/DEM-Mediakortti-2026-1.pdf\"\u003eMediakortti →\u003c/a\u003e\u003cbr /\u003e\n\u003ca href=\"https://demokraatti.fi/ilmoitusmyynti\"\u003eIlmoitukset verkkoon →\u003c/a\u003e\u003cbr /\u003e\n\u003ca href=\"https://demokraatti.fi/ilmoitusmyynti\"\u003eIlmoitukset printtiin →\u003c/a\u003e\u003c/p\u003e\n\u003c/div\u003e\n\u003c/div\u003e\n\u003c/div\u003e\n"}}},"posts":{"error":false,"data":{},"postsFetching":{},"postIdsByCategory":{"popular":{"-666":{"day":{"ids":[980054,980106,980016,980069,980111,979935,980008,980076,980066,979945]},"hour":{"ids":[980106,980162,980054,980111,980132,980143,980014,980150,979945,980167]},"week":{"ids":[979611,979935,979527,979945,979788,979528,980054,979508,979862,979966]}}}},"fetching":false,"currentInfinitePost":false,"nextInfinitePost":false},"search":null,"tags":null,"users":null,"shares":null,"contacts":null,"candidates":null}},"__N_SSP":true},"page":"/post","query":{"slug":"app-ads.txt"},"buildId":"9qEXB9YiMVaY4LYqjG3Cb","isFallback":false,"gssp":true,"scriptLoader":[]}</script></body></html>

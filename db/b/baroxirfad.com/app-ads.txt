@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Page Not Found - Baroxirfad</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <meta name="description" content="Baroxirfad is a Somali platform for digital skills and online learning. Learn tech, business, design, and freelancing in Somali." />
+    <meta name="keywords" content="digital skills, online learning, Somali platform, tech courses, business courses, design courses, freelancing courses" />
+
+    <!-- favicon -->
+    <link rel="icon" type="image/png" href="/favicons/logo-favicon-68355048b3c43.png" />
+
+    
+    <!-- Tailwind CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        // MAIN BRAND COLOR
+        const primaryColor = '#245bff';
+
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: primaryColor,
+                    },
+                    borderRadius: {
+                        '3xl': '1.7rem',
+                    },
+                    keyframes: {
+                        fadeUp: {
+                            '0%': {
+                                opacity: 0,
+                                transform: 'translateY(22px)'
+                            },
+                            '100%': {
+                                opacity: 1,
+                                transform: 'translateY(0)'
+                            },
+                        },
+                        floatSlow: {
+                            '0%,100%': {
+                                transform: 'translateY(0)'
+                            },
+                            '50%': {
+                                transform: 'translateY(-10px)'
+                            },
+                        },
+                        pulseSoft: {
+                            '0%,100%': {
+                                opacity: 0.4
+                            },
+                            '50%': {
+                                opacity: 1
+                            },
+                        },
+                        slideArrow: {
+                            '0%,100%': {
+                                transform: 'translateY(0)'
+                            },
+                            '50%': {
+                                transform: 'translateY(4px)'
+                            },
+                        },
+                    },
+                    animation: {
+                        'fade-up': 'fadeUp 800ms ease-out both',
+                        'fade-up-delay': 'fadeUp 950ms ease-out both',
+                        'float-slow': 'floatSlow 7s ease-in-out infinite',
+                        'pulse-soft': 'pulseSoft 4s ease-in-out infinite',
+                        'arrow-bounce': 'slideArrow 1.3s ease-in-out infinite',
+                    },
+                }
+            }
+        }
+    </script>
+
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+
+    <style>
+        html,
+        body {
+            transition: background-color .4s ease, color .4s ease;
+            max-width: 100%;
+            overflow-x: hidden;
+            /* prevent sideways scroll */
+            overscroll-behavior-x: none;
+            /* stop horizontal rubber-band on mobile */
+        }
+
+        .noise {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            opacity: .10;
+            mix-blend-mode: soft-light;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 160 160' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.3' numOctaves='4' stitchTiles='noStitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.6'/%3E%3C/svg%3E");
+            z-index: -1;
+        }
+
+        /* NEW: Subtle Grid Background */
+        .grid-background {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: -30;
+            background-image:
+                linear-gradient(rgba(36, 91, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(36, 91, 255, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            mask-image: radial-gradient(ellipse at center, black 30%, transparent 70%);
+            -webkit-mask-image: radial-gradient(ellipse at center, black 30%, transparent 70%);
+        }
+
+        .dark .grid-background {
+            background-image:
+                linear-gradient(rgba(148, 163, 255, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(148, 163, 255, 0.05) 1px, transparent 1px);
+        }
+
+        /*.reveal-on-scroll {*/
+        /*    opacity: 0;*/
+        /*    transform: translateY(26px);*/
+        /*    transition: opacity 0.75s ease, transform 0.75s ease;*/
+        /*}*/
+
+        /*.reveal-on-scroll.visible {*/
+        /*    opacity: 1;*/
+        /*    transform: translateY(0);*/
+        /*}*/
+    </style>
+        
+
+    <!-- ===================== -->
+    <!-- ADDED: Silent top loader style -->
+    <!-- This is the thin moving bar at the very top -->
+    <!-- ===================== -->
+    <style>
+        #page-loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 2px;
+            /* very thin */
+            width: 0%;
+            background: linear-gradient(90deg,
+                    rgba(99, 102, 241, 0.3),
+                    rgba(43, 46, 241, 0.9));
+            z-index: 9999;
+            transition: width 0.3s ease, opacity 0.3s ease;
+            opacity: 0;
+        }
+    </style>
+
+    <!-- ===================== -->
+    <!-- ADDED: Loader control functions -->
+    <!-- startSilentLoading()  -> shows the bar -->
+    <!-- stopSilentLoading()   -> hides the bar -->
+    <!-- ===================== -->
+    <script>
+        function startSilentLoading() {
+            const bar = document.getElementById('page-loader');
+            if (!bar) return;
+
+            bar.style.opacity = '1';
+            bar.style.width = '30%';
+
+            setTimeout(() => {
+                bar.style.width = '70%';
+            }, 200);
+        }
+
+        function stopSilentLoading() {
+            const bar = document.getElementById('page-loader');
+            if (!bar) return;
+
+            bar.style.width = '100%';
+
+            setTimeout(() => {
+                bar.style.opacity = '0';
+                bar.style.width = '0%';
+            }, 300);
+        }
+    </script>
+
+    <script type="text/javascript" class="flasher-js" nonce='22cf5b28d60d9c259904e12128d12472'>
+        (function(window, document) {
+            const merge = (first, second) => {
+                if (Array.isArray(first) && Array.isArray(second)) {
+                    return [...first, ...second.filter(item => !first.includes(item))];
+                }
+
+                if (typeof first === 'object' && typeof second === 'object') {
+                    for (const [key, value] of Object.entries(second)) {
+                        first[key] = key in first ? { ...first[key], ...value } : value;
+                    }
+                    return first;
+                }
+
+                return undefined;
+            };
+
+            const mergeOptions = (...options) => {
+                const result = {};
+
+                options.forEach(option => {
+                    Object.entries(option).forEach(([key, value]) => {
+                        result[key] = key in result ? merge(result[key], value) : value;
+                    });
+                });
+
+                return result;
+            };
+
+            const renderCallback = (options) => {
+                if(!window.flasher) {
+                    throw new Error('Flasher is not loaded');
+                }
+
+                window.flasher.render(options);
+            };
+
+            const render = (options) => {
+                if (options instanceof Event) {
+                    options = options.detail;
+                }
+
+                if (['interactive', 'complete'].includes(document.readyState)) {
+                    renderCallback(options);
+                } else {
+                    document.addEventListener('DOMContentLoaded', () => renderCallback(options));
+                }
+            };
+
+            const addScriptAndRender = (options) => {
+                const mainScript = '/vendor/flasher/flasher.min.js?id=9a255a6680873c0d5fc3d394a2ba3195';
+
+                if (window.flasher || !mainScript || document.querySelector('script[src="' + mainScript + '"]')) {
+                    render(options);
+                } else {
+                    const tag = document.createElement('script');
+                    tag.src = mainScript;
+                    tag.type = 'text/javascript';
+                    tag.setAttribute('nonce', '22cf5b28d60d9c259904e12128d12472');
+                    tag.onload = () => render(options);
+
+                    document.head.appendChild(tag);
+                }
+            };
+
+            const addRenderListener = () => {
+                if (1 === document.querySelectorAll('script.flasher-js').length) {
+                    document.addEventListener('flasher:render', render);
+                }
+
+                
+            };
+
+            const options = [];
+            options.push({"envelopes":[],"scripts":[],"styles":[],"options":[],"context":{"envelopes_only":false,"csp_script_nonce":"22cf5b28d60d9c259904e12128d12472","csp_style_nonce":"995d1d855db7bc1a05389943aab88892"}});
+            /** {--FLASHER_REPLACE_ME--} **/
+            addScriptAndRender(mergeOptions(...options));
+            addRenderListener();
+        })(window, document);
+    </script>
+</head>
+
+<body class="min-h-full bg-slate-50 text-slate-900 antialiased dark:bg-slate-950 dark:text-slate-100 font-sans">
+        <!-- ===================== -->
+    <!-- ADDED: Loader element -->
+    <!-- This is what visually moves at the top -->
+    <!-- ===================== -->
+    <!--<div id="page-loader"></div>-->
+
+    
+               <div class="w-full border-b border-emerald-200 bg-emerald-50/90 text-xs text-emerald-800 dark:border-emerald-600/70 dark:bg-emerald-900/40 dark:text-emerald-100">
+            <div class="mx-auto max-w-6xl px-4 py-2">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 sm:gap-0">
+                    <div class="flex items-center gap-2 justify-center sm:justify-start">
+                        <span class="flex h-5 w-5 items-center justify-center rounded-full bg-emerald-500 text-[11px] text-white">🎁</span>
+                        <span class="text-[11px] sm:text-xs text-center sm:text-left">
+                            Qiimo dhimis balaadhan Hada Kafaa,iidayso | Ku baro koorso kasta
+                        </span>
+                        <strong class="ml-1 text-[11px] sm:text-xs">$3.99</strong>
+                    </div>
+                    <span class="rounded-full border border-emerald-200/80 bg-white/70 px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-center dark:border-emerald-700/80 dark:bg-emerald-950/60">
+                        Limited offer
+                    </span>
+                </div>
+            </div>
+        </div>
+    
+    <!-- NEW: Grid Background -->
+    <div class="grid-background"></div>
+
+    <!-- BG blobs -->
+    <div class="pointer-events-none fixed inset-0 -z-20 overflow-hidden">
+        <div
+            class="absolute -top-40 left-1/2 h-80 w-[48rem] -translate-x-1/2 rounded-full bg-primary/30 blur-3xl animate-float-slow">
+        </div>
+        <div class="absolute -bottom-36 -left-10 h-72 w-72 rounded-full bg-emerald-400/20 blur-3xl animate-pulse-soft">
+        </div>
+        <div class="absolute -bottom-40 -right-8 h-80 w-80 rounded-full bg-sky-400/20 blur-3xl animate-pulse-soft">
+        </div>
+    </div>
+    <div class="noise"></div>
+
+    <!-- NAVBAR -->
+    <header class="sticky top-0 z-40">
+        <div class="mx-auto flex max-w-6xl items-center justify-between px-4 pt-4 lg:px-0">
+            <div
+                class="flex w-full items-center justify-between rounded-full border border-slate-200/70 bg-slate-50/70 px-3 py-1.5 shadow-sm backdrop-blur-xl dark:border-slate-800/80 dark:bg-slate-900/70">
+                <!-- Left: logo -->
+                <a href="#hero" class="flex items-center gap-2 group">
+                    
+                    <img src="/logos/logo-favicon-6835510087522.png" alt="Baroxirfad Logo" class="h-12 w-12 object-contain" />
+                </a>
+
+                <!-- Center nav -->
+                <nav class="hidden items-center gap-6 text-xs font-medium text-slate-z600 md:flex dark:text-slate-300">
+                    <a href="/"
+                        class="rounded-full px-3 py-1 hover:bg-slate-100 hover:text-slate-900 dark:hover:bg-slate-800">Home</a>
+                    <a href="/courses"
+                        class="rounded-full px-3 py-1 hover:bg-slate-100 hover:text-slate-900 dark:hover:bg-slate-800">Courses</a>
+                    <a href="/membership"
+                        class="rounded-full px-3 py-1 hover:bg-slate-100 hover:text-slate-900 dark:hover:bg-slate-800">Become
+                        a Member</a>
+                    <a href="/about"
+                        class="rounded-full px-3 py-1 hover:bg-slate-100 hover:text-slate-900 dark:hover:bg-slate-800">About
+                        Us</a>
+                    <a href="/contact"
+                        class="rounded-full px-3 py-1 hover:bg-slate-100 hover:text-slate-900 dark:hover:bg-slate-800">Contact
+                        Us</a>
+                    <a href="/page/sidee-laysku-diwaangeliyaa-baroxirfad-academy"
+                        class="rounded-full px-3 py-1 hover:bg-slate-100 hover:text-slate-900 dark:hover:bg-slate-800">How
+                        to register</a>
+                </nav>
+
+                <!-- Right: theme + auth (desktop) -->
+                <div class="hidden items-center gap-2 md:flex">
+                    <!-- Theme toggle (desktop) -->
+                    <button id="theme-toggle"
+                        class="relative flex h-8 w-8 items-center justify-center rounded-full border border-slate-300 bg-white text-slate-700 shadow-sm transition hover:border-primary hover:text-primary dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200">
+                        <svg id="icon-sun" class="h-4 w-4 opacity-100 transition dark:opacity-0" fill="none"
+                            stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M12 4V2m0 20v-2m8-8h2M2 12h2m14.95 7.07 1.42 1.42M4.64 4.64 3.22 3.22m0 17.56 1.42-1.42M19.36 4.64l1.42-1.42M16 12a4 4 0 1 1-8 0 4 4 0 0 1 8 0Z" />
+                        </svg>
+                        <svg id="icon-moon" class="absolute h-4 w-4 opacity-0 transition dark:opacity-100"
+                            fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M21 12.79A9 9 0 0 1 12.79 3 7 7 0 1 0 21 12.79Z" />
+                        </svg>
+                    </button>
+
+                    <!--Adding cart icon-->
+                    <a href="https://baroxirfad.com/cart"
+                        class="relative rounded-full border border-slate-300 bg-white px-3 py-1 text-[11px] font-semibold text-slate-700 hover:border-primary hover:text-primary dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100">
+                        <svg class="ml-1 inline-block h-4 w-4" fill="none" stroke="currentColor" stroke-width="1.7"
+                            viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 1 0 2 2 2 2 0 0 0         -2-2zm-8 2a2 2 0 1 0 2 2 2 2 0 0 0-2-2z" />
+                        </svg> Cart
+                        <span
+                            class="absolute -top-2 -right-2 inline-flex h-5 w-5 items-center justify-center rounded-full bg-primary text-[10px] font-bold text-white">
+                            0
+                        </span>
+                    </a>
+
+                                            
+                        <a href="https://baroxirfad.com/login"
+                            class="rounded-full bg-primary px-4 py-1.5 text-xs font-semibold text-white shadow-sm hover:brightness-110">
+                            Sign in
+                        </a>
+                                    </div>
+
+                <!-- Mobile theme toggle -->
+                <!-- Right: theme + menu (mobile) -->
+                <div class="flex items-center gap-2 md:hidden">
+                    <!-- Mobile theme toggle -->
+                    <button id="theme-toggle-mobile"
+                        class="inline-flex h-9 w-9 items-center justify-center rounded-full border border-slate-300 bg-white text-slate-700 shadow-sm dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200">
+                        <svg id="icon-sun-mobile" class="h-4 w-4 opacity-100 transition dark:opacity-0"
+                            fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M12 4V2m0 20v-2m8-8h2M2 12h2m14.95 7.07 1.42 1.42M4.64 4.64 3.22 3.22m0 17.56 1.42-1.42M19.36 4.64l1.42-1.42M16 12a4 4 0 1 1-8 0 4 4 0 0 1 8 0Z" />
+                        </svg>
+                        <svg id="icon-moon-mobile" class="absolute h-4 w-4 opacity-0 transition dark:opacity-100"
+                            fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M21 12.79A9 9 0 0 1 12.79 3 7 7 0 1 0 21 12.79Z" />
+                        </svg>
+                    </button>
+
+                    <!-- Mobile menu trigger -->
+                    <button id="mobile-menu-toggle"
+                        class="inline-flex h-9 w-9 items-center justify-center rounded-full border border-slate-300 bg-white text-slate-700 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200">
+                        <svg id="icon-menu" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="1.7"
+                            viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h10" />
+                        </svg>
+                        <svg id="icon-close" class="hidden h-5 w-5" fill="none" stroke="currentColor"
+                            stroke-width="1.7" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile menu -->
+        <div id="mobile-menu"
+            class="mx-auto max-w-6xl px-4 pb-3 pt-2 text-sm text-slate-700 md:hidden hidden dark:text-slate-200">
+            <nav
+                class="space-y-1 rounded-3xl border border-slate-200 bg-slate-50/95 p-3 shadow-sm dark:border-slate-700 dark:bg-slate-950/95">
+
+                
+                <a href="/" class="block rounded-xl px-3 py-2 hover:bg-slate-100 dark:hover:bg-slate-800">
+                    Home
+                </a>
+                <a href="/courses" class="block rounded-xl px-3 py-2 hover:bg-slate-100 dark:hover:bg-slate-800">
+                    Courses
+                </a>
+                <a href="/membership" class="block rounded-xl px-3 py-2 hover:bg-slate-100 dark:hover:bg-slate-800">
+                    Become a Member
+                </a>
+                <a href="/about" class="block rounded-xl px-3 py-2 hover:bg-slate-100 dark:hover:bg-slate-800">
+                    About Us
+                </a>
+                <a href="/contact" class="block rounded-xl px-3 py-2 hover:bg-slate-100 dark:hover:bg-slate-800">
+                    Contact Us
+                </a>
+                <a href="/page/sidee-laysku-diwaangeliyaa-baroxirfad-academy" class="block rounded-xl px-3 py-2 hover:bg-slate-100 dark:hover:bg-slate-800">
+                    How to register
+                </a>
+
+                <div class="my-2 h-px bg-slate-200 dark:bg-slate-700"></div>
+
+                
+                <div class="px-3 pt-1">
+                                            <div class="flex items-center justify-between gap-2">
+                            <a href="https://baroxirfad.com/login"
+                                class="text-xs text-slate-500 underline-offset-2 hover:underline dark:text-slate-400">
+                                Sign in
+                            </a>
+                            <a href="https://baroxirfad.com/register"
+                                class="rounded-full bg-primary px-4 py-1.5 text-xs font-semibold text-white shadow-sm hover:brightness-110">
+                                Start learning
+                            </a>
+                        </div>
+                                    </div>
+            </nav>
+        </div>
+
+    </header>
+
+    <!-- MAIN -->
+    <main class="mx-auto max-w-6xl px-4 pb-24 pt-10 lg:px-0 lg:pt-14" id="app-content" >
+        <section class="pt-8 pb-16">
+    <div class="mx-auto max-w-2xl px-4 text-center">
+        <!-- Animated 404 -->
+        <div class="mb-8 motion-safe:animate-fade-up">
+            <div class="inline-flex items-center gap-2 rounded-full border border-slate-200/80 bg-white/80 px-3 py-1 text-[11px] text-slate-600 shadow-sm dark:border-slate-700 dark:bg-slate-900/80 dark:text-slate-300 mb-6">
+                <span class="inline-flex h-5 w-5 items-center justify-center rounded-full bg-amber-500/10 text-[10px] text-amber-500">
+                    ●
+                </span>
+                <span class="uppercase tracking-[0.16em]">Error • Page Not Found</span>
+            </div>
+
+            <!-- 404 Number with Animation -->
+            <div class="relative mb-6">
+                <h1 class="text-8xl font-black text-slate-900 dark:text-slate-50 mb-4 animate-pulse">
+                    404
+                </h1>
+                <div class="absolute -inset-4 bg-gradient-to-r from-red-500/10 via-amber-500/10 to-orange-500/10 rounded-full blur-2xl animate-pulse-soft"></div>
+            </div>
+
+            <h2 class="text-2xl font-bold text-slate-900 dark:text-slate-50 mb-4">
+                Oops! Page Not Found
+            </h2>
+
+            <p class="text-lg text-slate-600 dark:text-slate-300 mb-8 max-w-md mx-auto">
+                Sorry, the page you're looking for doesn't exist or has been moved.
+                Let's get you back to learning amazing skills!
+            </p>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="flex flex-col sm:flex-row gap-4 justify-center items-center motion-safe:animate-fade-up-delay">
+            <a href="/"
+               class="inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-semibold text-white shadow-md hover:brightness-110 transition">
+                <i class="fas fa-home text-xs"></i>
+                Go to Homepage
+            </a>
+
+            <a href="https://baroxirfad.com/courses"
+               class="inline-flex items-center gap-2 rounded-full border border-slate-300 bg-white px-6 py-3 text-sm font-semibold text-slate-700 hover:border-primary hover:text-primary dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100">
+                <i class="fas fa-book text-xs"></i>
+                Browse Courses
+            </a>
+        </div>
+
+        <!-- Additional Help -->
+        <div class="mt-12 motion-safe:animate-fade-up">
+            <div class="rounded-2xl border border-slate-200 bg-slate-50/80 p-6 dark:border-slate-700 dark:bg-slate-900/60">
+                <h3 class="text-sm font-semibold text-slate-900 dark:text-slate-50 mb-3">
+                    Can't find what you're looking for?
+                </h3>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center text-xs text-slate-600 dark:text-slate-400">
+                    <a href="https://baroxirfad.com/contact" class="inline-flex items-center gap-2 hover:text-primary transition">
+                        <i class="fas fa-headset"></i>
+                        Contact Support
+                    </a>
+                    <a href="/faq"
+                        <i class="fas fa-question-circle"></i>
+                        Visit FAQ
+                    </a>
+                    <a href="https://baroxirfad.com/courses" class="inline-flex items-center gap-2 hover:text-primary transition">
+                        <i class="fas fa-search"></i>
+                        Search Courses
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Floating Elements for Visual Interest -->
+        <div class="fixed -z-10 pointer-events-none">
+            <div class="absolute top-1/4 left-1/4 h-32 w-32 rounded-full bg-red-500/5 blur-3xl animate-float-slow"></div>
+            <div class="absolute top-1/3 right-1/4 h-40 w-40 rounded-full bg-amber-500/5 blur-3xl animate-float-slow" style="animation-delay: 2s"></div>
+            <div class="absolute bottom-1/4 left-1/3 h-36 w-36 rounded-full bg-orange-500/5 blur-3xl animate-float-slow" style="animation-delay: 4s"></div>
+        </div>
+    </div>
+</section>
+
+<style>
+.animate-pulse-soft {
+    animation: pulseSoft 3s ease-in-out infinite;
+}
+
+@keyframes pulseSoft {
+    0%, 100% {
+        opacity: 0.3;
+    }
+    50% {
+        opacity: 0.6;
+    }
+}
+</style>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="border-t border-slate-200 bg-slate-50/95 dark:border-slate-800 dark:bg-slate-950/95">
+        <div
+            class="mx-auto flex max-w-6xl flex-col gap-4 px-4 py-6 text-xs text-slate-500 sm:flex-row sm:items-center sm:justify-between lg:px-0 dark:text-slate-400">
+            <p>© 2026 Baroxirfad. Crafted for modern learning.</p>
+            <div class="flex gap-4">
+                <a href="/page/privacy-policy" class="hover:text-slate-800 dark:hover:text-slate-200">Privacy</a>
+                <a href="/page/terms-and-condition" class="hover:text-slate-800 dark:hover:text-slate-200">Terms</a>
+                <a href="https://baroxirfad.com/contact"
+                    class="hover:text-slate-800 dark:hover:text-slate-200">Support</a>
+                <a href="/page/refund-and-returns" class="hover:text-slate-800 dark:hover:text-slate-200">Refund &
+                    Returns</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JS: theme, mobile, scroll reveal -->
+    <script>
+        const root = document.documentElement;
+
+        function applyTheme(theme) {
+            if (theme === 'dark') {
+                root.classList.add('dark');
+            } else {
+                root.classList.remove('dark');
+            }
+        }
+
+        const storedTheme = localStorage.getItem('theme');
+        if (storedTheme) {
+            applyTheme(storedTheme);
+        } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            applyTheme('dark');
+        } else {
+            applyTheme('light');
+        }
+
+        // Theme toggle (desktop + mobile)
+        const themeToggleDesktop = document.getElementById('theme-toggle');
+        const themeToggleMobile = document.getElementById('theme-toggle-mobile');
+
+        function handleThemeToggle() {
+            const isDark = root.classList.contains('dark');
+            const newTheme = isDark ? 'light' : 'dark';
+            applyTheme(newTheme);
+            localStorage.setItem('theme', newTheme);
+        }
+
+        if (themeToggleDesktop) {
+            themeToggleDesktop.addEventListener('click', handleThemeToggle);
+        }
+
+        if (themeToggleMobile) {
+            themeToggleMobile.addEventListener('click', handleThemeToggle);
+        }
+
+        // Mobile menu
+        const mobileToggle = document.getElementById('mobile-menu-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const iconMenu = document.getElementById('icon-menu');
+        const iconClose = document.getElementById('icon-close');
+
+        if (mobileToggle && mobileMenu) {
+            mobileToggle.addEventListener('click', () => {
+                const isHidden = mobileMenu.classList.contains('hidden');
+                if (isHidden) {
+                    mobileMenu.classList.remove('hidden');
+                    iconMenu.classList.add('hidden');
+                    iconClose.classList.remove('hidden');
+                } else {
+                    mobileMenu.classList.add('hidden');
+                    iconMenu.classList.remove('hidden');
+                    iconClose.classList.add('hidden');
+                }
+            });
+        }
+
+        // Scroll reveal
+        const revealEls = document.querySelectorAll('.reveal-on-scroll');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.15
+        });
+
+        revealEls.forEach((el) => observer.observe(el));
+    </script>
+    
+    
+   
+    <div class="fixed bottom-6 right-6 z-50 flex flex-col gap-3">
+        <!-- WhatsApp Support -->
+        <a href="https://wa.me/252771705966"
+           class="flex h-12 w-12 items-center justify-center rounded-full bg-green-500 text-white shadow-lg hover:scale-110 transition-all duration-300">
+            <i class="fab fa-whatsapp text-lg"></i>
+        </a>
+
+        <!-- Quick Support -->
+        <a href="https://wa.me/252771705966" class="flex h-12 w-12 items-center justify-center rounded-full bg-primary text-white shadow-lg hover:scale-110 transition-all duration-300">
+            <i class="fas fa-headset text-lg"></i>
+        </a>
+
+        <!-- Scroll to Top -->
+        <button id="scroll-top"
+                class="flex h-12 w-12 items-center justify-center rounded-full bg-slate-700 text-white shadow-lg hover:scale-110 transition-all duration-300 opacity-0 transition-opacity">
+            <i class="fas fa-chevron-up text-sm"></i>
+        </button>
+    </div>
+  
+
+</body>
+    <script>
+        window.PJAX_CONFIG = {
+            exclude: [
+                'watch-course',
+                'payment',
+                'dodo',
+                'sifalo',
+                'google',
+                'checkout',
+                'stripe',
+                'paypal',
+                'logout',
+                'membership?',
+                'courses/'
+            ]
+        };
+    </script>
+
+    <script src="https://saedapdi01.github.io/larareact/index.js"></script>
+<script>
+// Mobile Menu Auto-Close for PJAX Navigation
+document.addEventListener('DOMContentLoaded', function() {
+    // Function to close mobile menu
+    function closeMobileMenu() {
+        const mobileMenu = document.getElementById('mobile-menu');
+        const iconMenu = document.getElementById('icon-menu');
+        const iconClose = document.getElementById('icon-close');
+        
+        if (mobileMenu && !mobileMenu.classList.contains('hidden')) {
+            mobileMenu.classList.add('hidden');
+            if (iconMenu) iconMenu.classList.remove('hidden');
+            if (iconClose) iconClose.classList.add('hidden');
+        }
+    }
+    
+    // Close menu when clicking any link
+    document.addEventListener('click', function(e) {
+        const link = e.target.closest('a');
+        if (link && link.href && !link.href.startsWith('javascript:')) {
+            // Small delay to ensure PJAX processes the click first
+            setTimeout(closeMobileMenu, 10);
+        }
+    });
+    
+    // Also close menu when route changes via PJAX
+    // We can listen to DOM changes since PJAX replaces content
+    const observer = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+            if (mutation.type === 'childList' && mutation.target.id === 'app-content') {
+                closeMobileMenu();
+            }
+        });
+    });
+    
+    // Start observing the main content container
+    const appContent = document.getElementById('app-content');
+    if (appContent) {
+        observer.observe(appContent, { childList: true, subtree: true });
+    }
+    
+    // Re-bind mobile menu toggle after PJAX navigation
+    function rebindMobileMenu() {
+        const mobileToggle = document.getElementById('mobile-menu-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const iconMenu = document.getElementById('icon-menu');
+        const iconClose = document.getElementById('icon-close');
+        
+        if (mobileToggle && mobileMenu) {
+            // Remove any existing listeners
+            const newToggle = mobileToggle.cloneNode(true);
+            mobileToggle.parentNode.replaceChild(newToggle, mobileToggle);
+            
+            // Re-attach listener
+            document.getElementById('mobile-menu-toggle').addEventListener('click', function() {
+                const isHidden = mobileMenu.classList.contains('hidden');
+                if (isHidden) {
+                    mobileMenu.classList.remove('hidden');
+                    iconMenu.classList.add('hidden');
+                    iconClose.classList.remove('hidden');
+                } else {
+                    mobileMenu.classList.add('hidden');
+                    iconMenu.classList.remove('hidden');
+                    iconClose.classList.add('hidden');
+                }
+            });
+        }
+    }
+    
+    // Initial bind
+    rebindMobileMenu();
+    
+    // Also rebind after PJAX navigation by checking periodically
+    // (since we can't hook into PJAX events directly)
+    setInterval(rebindMobileMenu, 1000);
+});
+</script>
+</html>

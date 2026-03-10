@@ -1,0 +1,529 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script data-cfasync="false">window.nitroAds=window.nitroAds||{createAd:function(){return new Promise(e=>{window.nitroAds.queue.push(["createAd",arguments,e])})},addUserToken:function(){window.nitroAds.queue.push(["addUserToken",arguments])},queue:[]};</script>
+    <script data-cfasync="false" async src="https://s.nitropay.com/ads-2105.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- <script type="text/javascript">
+      (function(){
+        const config = {
+          logo: "https://www.bgsi.gg/Logo.png",
+          bgColor: "hsl(var(--background))",
+          fgColor: "hsl(var(--foreground))",
+          linkBgColor: "hsl(var(--primary))",
+          linkFgColor: "hsl(var(--primary-foreground))",
+          dismissable: true,
+          interval: 0,
+          delay: 0,
+          title: "Please disable your ad blocker",
+          description: "Ads cover our server fees and let us keep bgsi.gg free for everyone.",
+          manifestUrl: "https://storage.googleapis.com/np-assets/manifest.json?v=b2"
+        };
+
+        let blockers = [], listContainer, header;
+        const defaultHeaderText = "Which ad blocker do you use?";
+        let debugMode = false;
+
+        function log(message) {
+          if (debugMode) console.log(`[AdBlockerUI] ${message}`);
+        }
+
+        function populateList() {
+          if (!listContainer) {
+            log("List container not found");
+            return;
+          }
+          
+          listContainer.innerHTML = "";
+          log(`Populating blockers list with ${blockers.length} items`);
+
+          blockers.forEach(b => {
+            const item = document.createElement("div");
+            Object.assign(item.style, {
+              margin: "8px 0",
+              padding: "12px",
+              borderRadius: "var(--radius, 0.75rem)",
+              background: config.linkBgColor,
+              color: config.linkFgColor,
+              cursor: "pointer",
+              opacity: "0.9",
+              transition: "opacity 0.2s ease-in-out, transform 0.2s ease-in-out",
+              boxShadow: "0 2px 10px rgba(0,0,0,0.1)",
+              fontWeight: "500",
+              textAlign: "center"
+            });
+            item.addEventListener("mouseover", () => {
+              item.style.opacity = "1";
+              item.style.transform = "translateY(-2px)";
+            });
+            item.addEventListener("mouseout", () => {
+              item.style.opacity = "0.9";
+              item.style.transform = "translateY(0)";
+            });
+            item.innerText = b.name;
+            item.addEventListener("click", () => showSteps(b));
+            listContainer.appendChild(item);
+          });
+        }
+
+        function showSteps(b) {
+          if (!header || !listContainer) {
+            log("Header or list container not found");
+            return;
+          }
+          
+          header.innerText = b.name;
+          listContainer.innerHTML = "";
+          log(`Showing steps for ${b.name}`);
+          
+          b.steps.forEach(s => {
+            const p = document.createElement("p");
+            Object.assign(p.style, { 
+              margin: "8px 0", 
+              color: config.fgColor,
+              lineHeight: "1.5",
+              fontSize: "0.95rem"
+            });
+            p.innerText = "• " + s;
+            listContainer.appendChild(p);
+          });
+          
+          const backBtn = document.createElement("button");
+          backBtn.innerText = "Back to list";
+          Object.assign(backBtn.style, {
+            marginTop: "20px",
+            padding: "10px 16px",
+            border: "none",
+            borderRadius: "var(--radius, 0.75rem)",
+            background: config.linkBgColor,
+            color: config.linkFgColor,
+            cursor: "pointer",
+            fontWeight: "500",
+            transition: "transform 0.2s ease, opacity 0.2s ease",
+            boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
+            display: "block",
+            width: "100%",
+            textAlign: "center"
+          });
+          backBtn.addEventListener("mouseover", () => {
+            backBtn.style.opacity = "0.9";
+            backBtn.style.transform = "translateY(-1px)";
+          });
+          backBtn.addEventListener("mouseout", () => {
+            backBtn.style.opacity = "1";
+            backBtn.style.transform = "translateY(0)";
+          });
+          backBtn.addEventListener("click", () => {
+            header.innerText = defaultHeaderText;
+            populateList();
+          });
+          listContainer.appendChild(backBtn);
+        }
+
+        function detect() {
+          let fired = false;
+          const img = new Image();
+          img.crossOrigin = "anonymous";
+          img.src = "https://s.nitropay.com/2.gif?" + Math.random();
+
+          const timer = setTimeout(() => {
+            if (!fired) {
+              fired = true;
+              log("Detection timeout - assuming ad blocker active");
+              fire(true);
+            }
+          }, 3000);
+          img.onerror = () => {
+            if (!fired) {
+              fired = true;
+              clearTimeout(timer);
+              log("Image load error - ad blocker detected");
+              fire(true);
+            }
+          };
+
+          img.onload = () => {
+            if (fired) return;
+            try {
+              const c = document.createElement("canvas");
+              c.width = c.height = 1;
+              const ctx = c.getContext("2d");
+              ctx.drawImage(img, 0, 0);
+              const p = ctx.getImageData(0, 0, 1, 1).data;
+              fired = true;
+              clearTimeout(timer);
+              const blocking = p[0] !== 255;
+              log(`Image load check - ad blocker: ${blocking ? "yes" : "no"}`);
+              fire(blocking);
+            } catch (e) {
+              fired = true;
+              clearTimeout(timer);
+              log(`Error during detection: ${e.message}`);
+              fire(true);
+            }
+          };
+        }
+
+        function fire(blocking) {
+          document.dispatchEvent(new CustomEvent("np.detect", { detail: { blocking } }));
+        }
+
+        setTimeout(detect, 5000);
+
+        let overlay, wrapper, front, back;
+        
+        function buildUI() {
+          try {
+            log("Building UI");
+            const isMobile = window.matchMedia("(max-width:768px)").matches;
+            log(`Device type: ${isMobile ? "mobile" : "desktop"}`);
+            
+            overlay = document.createElement("div");
+            Object.assign(overlay.style, {
+              position: "fixed",
+              top: 0, left: 0, right: 0, bottom: 0,
+              background: "rgba(0,0,0,0.7)",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              zIndex: 2147483647,
+              backdropFilter: "blur(5px)",
+              WebkitBackdropFilter: "blur(5px)",
+              MozBackdropFilter: "blur(5px)",
+              msBackdropFilter: "blur(5px)"
+            });
+            log("Overlay created");
+
+            wrapper = document.createElement("div");
+            Object.assign(wrapper.style, {
+              width: isMobile ? "90%" : "500px",
+              maxWidth: "95vw",
+              maxHeight: "90vh",
+              background: "hsl(var(--card, 220 25% 99%))",
+              color: "hsl(var(--card-foreground, 220 45% 25%))",
+              borderRadius: "var(--radius, 1rem)",
+              boxShadow: "0 10px 25px rgba(0,0,0,0.2)",
+              fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif",
+              position: "relative",
+              overflow: "hidden",
+              border: "1px solid hsl(var(--border, 220 25% 92%))",
+              animation: "fadeIn 0.3s ease-out",
+              transition: "opacity 0.3s, transform 0.3s",
+              opacity: 0,
+              transform: "translateY(20px)",
+              overflowY: "auto"
+            });
+            
+            const style = document.createElement('style');
+            style.textContent = `
+              @keyframes fadeIn {
+                from { opacity: 0; transform: translateY(20px); }
+                to { opacity: 1; transform: translateY(0); }
+              }
+            `;
+            document.head.appendChild(style);
+            
+            setTimeout(() => {
+              if (wrapper) {
+                wrapper.style.opacity = "1";
+                wrapper.style.transform = "translateY(0)";
+              }
+            }, 50);
+            
+            log("Wrapper created");
+
+            front = document.createElement("div");
+            Object.assign(front.style, { 
+              padding: "24px", 
+              textAlign: "center",
+              color: "inherit"
+            });
+            
+            const logoContainer = document.createElement("div");
+            Object.assign(logoContainer.style, {
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              marginBottom: "10px",
+              padding: "0"
+            });
+            
+            const logo = document.createElement("img");
+            logo.src = config.logo;
+            logo.alt = "BGSI Logo";
+            Object.assign(logo.style, {
+              maxHeight: "80px",
+              width: "auto"
+            });
+            logoContainer.appendChild(logo);
+            front.appendChild(logoContainer);
+            
+            const t = document.createElement("h2");
+            t.innerText = config.title;
+            Object.assign(t.style, { 
+              margin: "0 0 16px", 
+              fontSize: isMobile ? "1.3em" : "1.5em",
+              fontWeight: "700",
+              lineHeight: "1.2",
+              color: "inherit"
+            });
+            front.appendChild(t);
+            
+            const d = document.createElement("p");
+            d.innerHTML = `${config.description} We rely on ad revenue to cover our server fees and continue offering all features for free.`;
+            Object.assign(d.style, { 
+              margin: "0 0 28px", 
+              lineHeight: "1.5",
+              fontSize: isMobile ? "0.95em" : "1em",
+              color: "hsl(var(--muted-foreground, 220 35% 45%))",
+              textAlign: "left" 
+            });
+            front.appendChild(d);
+            
+            const helpBtn = document.createElement("button");
+            helpBtn.innerText = "Need help?";
+            Object.assign(helpBtn.style, {
+              background: "hsl(var(--primary, 252 45% 50%))",
+              color: "hsl(var(--primary-foreground, 0 0% 100%))",
+              border: "none",
+              padding: "12px 24px",
+              cursor: "pointer",
+              borderRadius: "var(--radius, 0.75rem)",
+              fontSize: isMobile ? "0.95em" : "1em",
+              fontWeight: "500",
+              transition: "transform 0.2s ease-out, box-shadow 0.2s ease-out",
+              boxShadow: "0 2px 10px rgba(0,0,0,0.1)",
+              width: isMobile ? "100%" : "auto"
+            });
+            helpBtn.addEventListener("mouseover", () => {
+              helpBtn.style.transform = "translateY(-2px)";
+              helpBtn.style.boxShadow = "0 4px 12px rgba(0,0,0,0.15)";
+            });
+            helpBtn.addEventListener("mouseout", () => {
+              helpBtn.style.transform = "translateY(0)";
+              helpBtn.style.boxShadow = "0 2px 10px rgba(0,0,0,0.1)";
+            });
+            helpBtn.addEventListener("click", showBack);
+            front.appendChild(helpBtn);
+            
+            if (config.dismissable) {
+              const dismiss = document.createElement("div");
+              dismiss.innerText = "Continue without supporting";
+              Object.assign(dismiss.style, {
+                fontSize: "0.85em",
+                opacity: "0.5", 
+                cursor: "pointer",
+                marginTop: "16px",
+                padding: "8px",
+                textAlign: "center",
+                color: "#555555", 
+                transition: "opacity 0.2s ease, color 0.2s ease"
+              });
+              dismiss.addEventListener("click", removeOverlay);
+              dismiss.addEventListener("mouseover", () => {
+                dismiss.style.opacity = "0.8";
+                dismiss.style.color = "#333333";
+              });
+              dismiss.addEventListener("mouseout", () => {
+                dismiss.style.opacity = "0.5";
+                dismiss.style.color = "#555555";
+              });
+              front.appendChild(dismiss);
+            }
+            
+            back = document.createElement("div");
+            Object.assign(back.style, { 
+              padding: "24px", 
+              display: "none",
+              color: "inherit"
+            });
+            
+            header = document.createElement("h3");
+            header.innerText = defaultHeaderText;
+            Object.assign(header.style, { 
+              margin: "0 0 16px", 
+              fontSize: isMobile ? "1.2em" : "1.3em",
+              fontWeight: "600",
+              color: "inherit"
+            });
+            back.appendChild(header);
+            
+            listContainer = document.createElement("div");
+            Object.assign(listContainer.style, {
+              color: "inherit",
+              marginBottom: "16px"
+            });
+            back.appendChild(listContainer);
+            
+            const paneBack = document.createElement("button");
+            paneBack.innerText = "Back";
+            Object.assign(paneBack.style, {
+              background: "none", 
+              border: "none",
+              color: "hsl(var(--primary, 252 45% 50%))",
+              cursor: "pointer",
+              fontSize: "1em",
+              fontWeight: "500", 
+              marginBottom: "16px",
+              padding: "8px 16px",
+              borderRadius: "var(--radius, 0.75rem)",
+              transition: "background-color 0.2s",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center"
+            });
+            paneBack.addEventListener("mouseover", () => {
+              paneBack.style.backgroundColor = "rgba(0,0,0,0.05)";
+            });
+            paneBack.addEventListener("mouseout", () => {
+              paneBack.style.backgroundColor = "transparent";
+            });
+            paneBack.addEventListener("click", () => {
+              front.style.display = "block";
+              back.style.display = "none";
+            });
+            
+            const arrow = document.createElement("span");
+            arrow.innerHTML = "&larr;";
+            arrow.style.marginRight = "8px";
+            paneBack.insertBefore(arrow, paneBack.firstChild);
+            
+            back.appendChild(paneBack);
+            
+            if (overlay && wrapper && front && back) {
+              wrapper.appendChild(front);
+              wrapper.appendChild(back);
+              overlay.appendChild(wrapper);
+              document.body.appendChild(overlay);
+              log("UI successfully built and inserted into DOM");
+            } else {
+              log("Error: Some UI elements were not created successfully");
+            }
+          } catch (e) {
+            console.error("Error building ad blocker UI:", e);
+          }
+          
+          fetch(config.manifestUrl)
+            .then(r => r.json())
+            .then(arr => {
+              blockers = arr;
+              log(`Fetched ${blockers.length} blockers from manifest`);
+              populateList();
+            })
+            .catch(err => {
+              console.error("Error fetching ad blocker manifest:", err);
+              if (listContainer) {
+                listContainer.innerHTML = "<p>Sorry, we couldn't load the ad blocker list.</p>";
+              }
+            });
+        }
+
+        function showBack() {
+          if (front && back) {
+            front.style.display = "none";
+            back.style.display = "block";
+            log("Switched to back panel");
+          }
+        }
+
+        function removeOverlay() {
+          if (overlay) {
+            overlay.style.opacity = "0";
+            overlay.style.transform = "scale(0.95)";
+            log("Removing overlay");
+            
+            setTimeout(() => {
+              if (overlay && overlay.parentNode) {
+                overlay.parentNode.removeChild(overlay);
+                log("Overlay removed from DOM");
+                
+                setTimeout(detect, 180000);
+                log("Scheduled re-detection after 3 minutes");
+              }
+            }, 300);
+          }
+        }
+
+        document.addEventListener("np.detect", e => {
+          log(`Detection event received, blocking: ${e.detail.blocking}`);
+          if (e.detail.blocking) {
+            buildUI();
+          } else {
+            removeOverlay();
+          }
+        });
+        
+        window.addEventListener("DOMContentLoaded", () => {
+          try {
+            const computed = getComputedStyle(document.documentElement);
+            if (computed.getPropertyValue('--background')) {
+              config.bgColor = "hsl(var(--background))";
+              config.fgColor = "hsl(var(--foreground))";
+              config.linkBgColor = "hsl(var(--primary))";
+              config.linkFgColor = "hsl(var(--primary-foreground))";
+              log("Theme variables detected and applied");
+            }
+          } catch(e) {
+            console.error("Error detecting CSS variables:", e);
+          }
+        });
+      })();
+    </script> -->
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-1SPQ009VNY"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-1SPQ009VNY');
+    </script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5218456161341335"
+    crossorigin="anonymous"></script>
+    <script defer data-domain="bgsi.gg" src="https://plausible.io/js/script.js"></script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+    <title>BGSI - Values List & More</title>
+    <meta name="description" content="BGSI.GG - The ultimate resource for Bubble Gum Simulator Infinity with real-time pet values, live hatches, value calculator, and comprehensive egg information." />
+    <meta name="author" content="BGSI.GG" />
+    <meta name="keywords" content="BGSI Values, Bubble Gum Simulator Infinity, BGSI, Bubble Gum Simulator Infinity Values, BGS Infinity Values, BGS Infinity, pet values, bubble game, hatches, value calculator, eggs, trading" />
+    
+    <link rel="preconnect" href="https://api.bgsi.gg" />
+    
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://bgsi.gg/" />
+    <meta property="og:title" content="BGSI - Values List & More" />
+    <meta property="og:description" content="BGSI.GG - The ultimate resource for Bubble Gum Simulator Infinity with real-time pet values, live hatches, value calculator, and comprehensive egg information." />
+    <meta property="og:image" content="/bgsi_1200.png" />
+    
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://bgsi.gg/" />
+    <meta property="twitter:title" content="BGSI - Values List & More" />
+    <meta property="twitter:description" content="BGSI.GG - The ultimate resource for Bubble Gum Simulator Infinity with real-time pet values, live hatches, value calculator, and comprehensive egg information." />
+    <meta property="twitter:image" content="/bgsi_1200.png" />
+    
+    <link rel="canonical" href="https://bgsi.gg/" />
+    
+    <link rel="dns-prefetch" href="https://api.bgsi.gg" />
+    
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    
+    <link rel="preload" as="image" href="/Logo.png" />
+    <link rel="preload" as="image" href="/Hero_Logo.png" />
+    
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="BGSI.GG" />
+    
+    <meta name="theme-color" content="#fd52d9" />
+    <script type="module" crossorigin src="/assets/index-Y5h1Ele3.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-DTm4RFhX.css">
+  </head>
+  <body>
+    <div id="root"></div>
+    <span data-ccpa-link="1"></span>  
+  </body>
+  
+</html>

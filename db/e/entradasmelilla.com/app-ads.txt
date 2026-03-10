@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <!-- 🍎 Favicon placeholder hasta generar los definitivos -->
+    <link rel="icon" type="image/svg+xml" href="/default-event.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- 🚀 PRECONNECT: Resolver DNS antes de hacer requests -->
+    <link rel="preconnect" href="https://v2.entradasmelilla.com" />
+    <link rel="dns-prefetch" href="https://v2.entradasmelilla.com" />
+
+    <!-- 🎨 CRITICAL CSS: Inline para evitar FOUC -->
+    <style>
+      /* Reset básico */
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        margin: 0;
+        font-family:
+          -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+          "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+          sans-serif;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        background-color: #fff;
+        color: #333;
+      }
+
+      /* Loading inicial (mientras carga React) */
+      #root:empty::before {
+        content: "";
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 48px;
+        height: 48px;
+        border: 4px solid #f3f3f3;
+        border-top: 4px solid #2196f3;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+      }
+
+      @keyframes spin {
+        0% {
+          transform: translate(-50%, -50%) rotate(0deg);
+        }
+        100% {
+          transform: translate(-50%, -50%) rotate(360deg);
+        }
+      }
+
+      /* Ocultar scroll inicial */
+      html {
+        overflow-y: scroll;
+        scroll-behavior: smooth;
+      }
+    </style>
+
+    <title>EntradasMelilla - Sistema de Gestión de Entradas</title>
+    <meta
+      name="description"
+      content="Plataforma para la gestión de eventos y venta de entradas de Melilla"
+    />
+
+    <script>
+      /**
+       * 🚀 AUTO-RECARGA DESPUÉS DE DEPLOY
+       * Detecta errores de carga de módulos (cuando Vercel despliega nueva versión)
+       * y recarga automáticamente la página UNA vez para obtener los nuevos assets.
+       */
+      (function () {
+        const RELOAD_KEY = "entradasmelilla_reload_attempted";
+        const RELOAD_TIMESTAMP_KEY = "entradasmelilla_reload_timestamp";
+
+        // Limpiar flag de recarga después de 30 segundos (navegación exitosa)
+        setTimeout(function () {
+          sessionStorage.removeItem(RELOAD_KEY);
+          sessionStorage.removeItem(RELOAD_TIMESTAMP_KEY);
+        }, 30000);
+
+        // Detectar errores de carga de módulos
+        window.addEventListener(
+          "error",
+          function (event) {
+            // Verificar si es un error de carga de script/módulo
+            if (
+              event.target &&
+              (event.target.tagName === "SCRIPT" ||
+                event.target.tagName === "LINK")
+            ) {
+              console.warn(
+                "⚠️ Error cargando recurso:",
+                event.target.src || event.target.href,
+              );
+              handleModuleLoadError();
+            }
+          },
+          true,
+        );
+
+        // También detectar errores específicos de módulos ES
+        window.onerror = function (message, source, lineno, colno, error) {
+          if (
+            message &&
+            (message.includes("Failed to fetch dynamically imported module") ||
+              message.includes("Failed to load module script") ||
+              message.includes("Loading module") ||
+              message.includes("ChunkLoadError"))
+          ) {
+            console.warn("⚠️ Error de módulo dinámico:", message);
+            handleModuleLoadError();
+          }
+        };
+
+        function handleModuleLoadError() {
+          var lastAttempt = sessionStorage.getItem(RELOAD_TIMESTAMP_KEY);
+          var now = Date.now();
+
+          // Solo recargar si no hemos intentado en los últimos 10 segundos
+          if (!lastAttempt || now - parseInt(lastAttempt) > 10000) {
+            console.log("🔄 Nueva versión detectada, recargando...");
+            sessionStorage.setItem(RELOAD_KEY, "true");
+            sessionStorage.setItem(RELOAD_TIMESTAMP_KEY, now.toString());
+
+            // Pequeño delay para que el usuario vea el mensaje si está en desarrollo
+            setTimeout(function () {
+              window.location.reload(true);
+            }, 100);
+          } else {
+            console.log(
+              "❌ Ya se intentó recargar recientemente, evitando bucle",
+            );
+          }
+        }
+      })();
+    </script>
+
+    <script>
+      /**
+       * Script para diagnosticar y solucionar problemas con la caché de localStorage
+       * Particularmente para organizadores cuyo estado de aprobación ha cambiado
+       */
+      (function () {
+        // Solo ejecutar esto en páginas que contengan "organizador"
+        if (window.location.pathname.includes("organizador")) {
+          try {
+            const userStr = localStorage.getItem("user");
+
+            if (userStr) {
+              const userData = JSON.parse(userStr);
+
+              // Si es un organizador, verificar la fecha de última actualización
+              if (userData.role === "organizer") {
+                // Obtener timestamp actual
+                const now = new Date().getTime();
+
+                // Obtener última actualización (o establecer a 0 si no existe)
+                const lastUpdate = parseInt(
+                  localStorage.getItem("lastProfileUpdate") || "0",
+                );
+
+                // Si han pasado más de 1 hora (3600000 ms) desde la última actualización
+                if (now - lastUpdate > 3600000) {
+                  console.log(
+                    "Datos de perfil posiblemente obsoletos, marcando para actualización",
+                  );
+
+                  // Marcar que necesitamos actualizar (lo usará la aplicación)
+                  localStorage.setItem("forceProfileRefresh", "true");
+
+                  // Actualizar timestamp
+                  localStorage.setItem("lastProfileUpdate", now.toString());
+                }
+              }
+            }
+          } catch (error) {
+            console.error("Error al verificar caché de perfil:", error);
+          }
+        }
+      })();
+    </script>
+    <script type="module" crossorigin src="/assets/main-986e4f75.js"></script>
+    <link rel="modulepreload" crossorigin href="/assets/react-de456ed6.js">
+    <link rel="modulepreload" crossorigin href="/assets/mui-33daa4b6.js">
+    <link rel="modulepreload" crossorigin href="/assets/router-ab1ed478.js">
+    <link rel="stylesheet" href="/assets/index-fbcbff9a.css">
+  </head>
+  <body>
+    <div id="root"></div>
+    
+  </body>
+</html>

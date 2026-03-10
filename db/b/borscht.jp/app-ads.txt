@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>borscht.jp | Snow, Silence and Warmth for One or Two</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="description" content="borscht.jp is a quiet winter project collecting the world's snow and gentle warmth—fires, soups, hot springs and cabins—for people who enjoy silent nights alone or with one precious person." />
+<style>
+  :root {
+    --bg:#ffffff;
+    --bg-soft:#f5f5f7;
+    --ink:#1f2933;
+    --muted:#6b7280;
+    --border:#e5e7eb;
+    --accent:#b2333a;     /* ボルシチの赤 */
+    --accent-soft:#fef2f2;
+    --green:#2f5d3a;      /* 深いグリーン */
+    --shadow:0 10px 30px rgba(15,23,42,0.06);
+    --radius:18px;
+  }
+
+  *{box-sizing:border-box;}
+
+  body{
+    margin:0;
+    font-family:system-ui,-apple-system,"Segoe UI",sans-serif;
+    background:var(--bg);
+    color:var(--ink);
+    line-height:1.6;
+  }
+
+  a{color:inherit;text-decoration:none;}
+  img,video{max-width:100%;display:block;}
+
+  .page{
+    max-width:1120px;
+    margin:0 auto;
+    padding:24px 16px 48px;
+  }
+
+  /* header */
+  header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:16px;
+    padding:4px 0 20px;
+    flex-wrap:wrap;
+    border-bottom:1px solid var(--border);
+  }
+  .logo{
+    font-size:20px;
+    font-weight:600;
+    letter-spacing:.16em;
+    text-transform:uppercase;
+  }
+  .logo span{
+    display:block;
+    font-size:11px;
+    font-weight:400;
+    letter-spacing:.16em;
+    color:var(--muted);
+    margin-top:4px;
+  }
+  nav{
+    display:flex;
+    flex-wrap:wrap;
+    gap:16px;
+    align-items:center;
+    font-size:13px;
+    color:var(--muted);
+  }
+  nav a:hover{
+    color:var(--ink);
+    text-decoration:underline;
+    text-decoration-style:dotted;
+  }
+  .lang-toggle{
+    font-size:11px;
+    cursor:pointer;
+  }
+  .lang-toggle span{
+    color:var(--muted);
+  }
+  .lang-toggle .active{
+    color:var(--accent);
+    font-weight:600;
+    text-decoration:underline;
+  }
+
+  /* hero */
+  .hero{
+    display:grid;
+    grid-template-columns:minmax(0,1.2fr) minmax(260px,1fr);
+    gap:28px;
+    padding:28px 0 26px;
+    border-bottom:1px solid var(--border);
+  }
+  .kicker{
+    font-size:10px;
+    letter-spacing:.22em;
+    text-transform:uppercase;
+    color:var(--green);
+    margin-bottom:10px;
+  }
+  .title{
+    font-size:30px;
+    font-weight:600;
+    margin:0 0 12px;
+  }
+  .sub{
+    font-size:14px;
+    color:var(--muted);
+    max-width:560px;
+    margin:0 0 18px;
+  }
+  .actions{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+    margin-bottom:8px;
+  }
+  .btn{
+    padding:9px 18px;
+    border-radius:999px;
+    font-size:12px;
+    font-weight:500;
+    border:1px solid #d1d5db;
+    background:#ffffff;
+    cursor:pointer;
+    box-shadow:0 4px 12px rgba(15,23,42,0.03);
+  }
+  .btn.primary{
+    border-color:var(--accent);
+    background:var(--accent);
+    color:#ffffff;
+  }
+  .btn.ghost{
+    background:transparent;
+    border-style:dashed;
+  }
+
+  /* hero card */
+  .card{
+    background:#ffffff;
+    border-radius:var(--radius);
+    border:1px solid var(--border);
+    padding:14px;
+    box-shadow:var(--shadow);
+    font-size:11px;
+    color:var(--muted);
+  }
+  .fake-video{
+    margin-top:10px;
+    border-radius:var(--radius);
+    overflow:hidden;
+    position:relative;
+    background:linear-gradient(135deg,#f9fafb,#e5f0ff);
+    height:200px;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+    padding:10px 12px;
+  }
+  .snow-overlay{
+    position:absolute;
+    inset:0;
+    pointer-events:none;
+    background-image:
+      radial-gradient(circle at 20% 10%,rgba(255,255,255,0.7) 0,transparent 50%),
+      radial-gradient(circle at 80% 20%,rgba(255,255,255,0.5) 0,transparent 55%),
+      radial-gradient(circle at 60% 80%,rgba(255,255,255,0.6) 0,transparent 50%);
+    opacity:.7;
+  }
+  .fake-caption{
+    position:relative;
+    font-size:11px;
+    color:#111827;
+  }
+  .fake-meta{
+    position:relative;
+    font-size:10px;
+    color:var(--muted);
+  }
+  .play-btn{
+    position:absolute;
+    inset:0;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    pointer-events:none;
+  }
+  .play-icon{
+    width:44px;
+    height:44px;
+    border-radius:999px;
+    background:rgba(255,255,255,0.85);
+    border:1px solid rgba(148,163,184,0.6);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    box-shadow:0 8px 20px rgba(15,23,42,0.15);
+  }
+  .play-icon span{
+    margin-left:2px;
+    font-size:16px;
+    color:var(--accent);
+  }
+
+  /* sections */
+  section{
+    padding:26px 0 22px;
+    border-bottom:1px solid var(--border);
+  }
+  section:last-of-type{
+    border-bottom:none;
+    padding-bottom:0;
+  }
+  .label{
+    font-size:10px;
+    text-transform:uppercase;
+    letter-spacing:.22em;
+    color:var(--muted);
+    margin-bottom:6px;
+  }
+  .h2{
+    font-size:22px;
+    font-weight:600;
+    margin:0 0 10px;
+  }
+  .lead{
+    font-size:13px;
+    color:var(--muted);
+    max-width:680px;
+    margin:0 0 18px;
+  }
+
+  .grid-3{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+    gap:16px;
+  }
+  .feature{
+    background:#ffffff;
+    border-radius:var(--radius);
+    border:1px solid var(--border);
+    padding:12px 12px 13px;
+    font-size:12px;
+    box-shadow:0 8px 20px rgba(15,23,42,0.03);
+  }
+  .feature strong{
+    display:block;
+    margin-bottom:6px;
+    font-weight:600;
+  }
+  .pill{
+    display:inline-block;
+    margin-top:7px;
+    margin-right:4px;
+    padding:2px 7px;
+    border-radius:999px;
+    font-size:10px;
+    background:var(--accent-soft);
+    color:var(--accent);
+  }
+
+  footer{
+    padding-top:24px;
+    font-size:11px;
+    color:var(--muted);
+  }
+
+  /* language visibility */
+  [data-lang]{display:none;}
+  [data-lang].show{display:block;}
+  nav a.show{display:inline-block;}
+
+  @media (max-width:780px){
+    .hero{grid-template-columns:1fr;}
+    header{flex-direction:column;align-items:flex-start;}
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+  <header>
+    <div class="logo">
+      BORSCHT.JP
+      <span>WORLD SNOW • QUIET WINTER • WARMTH FOR ONE OR TWO</span>
+    </div>
+    <nav>
+      <a href="#concept" data-lang="en">Concept</a>
+      <a href="#concept" data-lang="ja">コンセプト</a>
+
+      <a href="#world" data-lang="en">World’s Snow</a>
+      <a href="#world" data-lang="ja">世界の雪</a>
+
+      <a href="#warm" data-lang="en">Warmth</a>
+      <a href="#warm" data-lang="ja">温かさ</a>
+
+      <a href="#enjoy" data-lang="en">How to Enjoy</a>
+      <a href="#enjoy" data-lang="ja">楽しみ方</a>
+
+      <span class="lang-toggle">
+        <span data-set-lang="en" class="active">EN</span> /
+        <span data-set-lang="ja">日本語</span>
+      </span>
+    </nav>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div>
+      <div class="kicker" data-lang="en">SNOW • SILENCE • WARMTH</div>
+      <div class="kicker" data-lang="ja">雪 × 静寂 × 温かさ</div>
+
+      <h1 class="title" data-lang="en">
+        The world’s quiet winter.<br>Snow for one — or for two.
+      </h1>
+      <h1 class="title" data-lang="ja">
+        世界の雪、静かで深い冬。<br>ひとりのために、ふたりのために。
+      </h1>
+
+      <p class="sub" data-lang="en">
+        borscht.jp curates the most silent winter scenes around the world—Nordic forests, Russian towns,
+        Japanese hot springs, Alpine nights—and pairs them with gentle warmth: fire, soup, candles, and cabins.
+      </p>
+      <p class="sub" data-lang="ja">
+        北欧の森、ロシアの小さな町、北海道の温泉郷、アルプスの夜。  
+        世界中の「静かな雪景色」と、焚火・スープ・キャンドル・キャビンなどの温もりを組み合わせて紹介する、冬の静寂メディアです。
+      </p>
+
+      <div class="actions">
+        <a href="#world"><button class="btn primary" data-lang="en">Explore World’s Snow</button></a>
+        <a href="#world"><button class="btn primary" data-lang="ja">世界の雪を見る</button></a>
+
+        <a href="#warm"><button class="btn ghost" data-lang="en">Warmth Collection</button></a>
+        <a href="#warm"><button class="btn ghost" data-lang="ja">温かさのコレクション</button></a>
+      </div>
+    </div>
+
+    <div>
+      <div class="card">
+        <span data-lang="en">
+          This area will later become your first AI winter ambience video or key visual.
+        </span>
+        <span data-lang="ja">
+          ここには、のちほどAIで生成した雪と温もりのショート映像やキービジュアルを配置します。
+        </span>
+        <div class="fake-video">
+          <div class="snow-overlay"></div>
+          <div class="fake-caption" data-lang="en">
+            A small cabin window, soft snowfall outside, a red bowl of soup on a wooden table.
+          </div>
+          <div class="fake-caption" data-lang="ja">
+            小さな山小屋の窓。外では静かに雪が降り続き、木のテーブルには赤いスープが一杯。
+          </div>
+          <div class="fake-meta" data-lang="en">
+            AI winter ambience • 3–5 min • No voice-over, only snow and subtle sound.
+          </div>
+          <div class="fake-meta" data-lang="ja">
+            AI冬アンビエンス映像（3〜5分）。語りはなく、雪の音と小さな生活音だけ。
+          </div>
+          <div class="play-btn">
+            <div class="play-icon"><span>▶</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONCEPT -->
+  <section id="concept">
+    <div class="label" data-lang="en">Concept</div>
+    <div class="label" data-lang="ja">コンセプト</div>
+
+    <h2 class="h2" data-lang="en">A winter made of silence and warmth.</h2>
+    <h2 class="h2" data-lang="ja">静寂と温もりでできた、冬の物語。</h2>
+
+    <p class="lead" data-lang="en">
+      borscht.jp is a quiet winter project from Japan, collecting snow from across the world
+      and pairing it with gentle warmth: fireplaces, soups, hot springs, and soft lights.
+      Everything is designed for people who prefer staying in to going out.
+    </p>
+    <p class="lead" data-lang="ja">
+      borscht.jp は、日本から始まる静かな冬のプロジェクトです。  
+      世界中の雪景色と、暖炉・スープ・露天風呂・柔らかな灯りといった温もりを並べ、  
+      「出かけるより、家で静かに過ごす冬」が好きな人のための時間をつくります。
+    </p>
+
+    <div class="grid-3">
+      <div class="feature">
+        <strong data-lang="en">For one, or for two</strong>
+        <strong data-lang="ja">一人か、二人のために</strong>
+        <span data-lang="en">
+          No crowds, no big events. Just one person, or two, inside a warm room while snow keeps falling outside.
+        </span>
+        <span data-lang="ja">
+          大勢のパーティーやイベントではなく、ひとりか、たった二人で過ごす冬のために。  
+          外では雪が降り続け、部屋の中だけが静かに温かい――そんな時間を想定しています。
+        </span>
+        <span class="pill" data-lang="en">Quiet nights</span>
+        <span class="pill" data-lang="ja">静かな夜</span>
+      </div>
+
+      <div class="feature">
+        <strong data-lang="en">World snow, edited by silence</strong>
+        <strong data-lang="ja">静寂で選ぶ、世界の雪</strong>
+        <span data-lang="en">
+          We choose scenes not by popularity but by quietness: forests, lakes, villages, and hot springs where sound is absorbed by snow.
+        </span>
+        <span data-lang="ja">
+          有名スポットかどうかではなく、「どれだけ静かな場所か」で雪景色を選びます。  
+          森、湖、山あいの旅館、小さな村など、雪がすべての音を吸い込む場所だけを集めます。
+        </span>
+        <span class="pill" data-lang="en">Silence first</span>
+        <span class="pill" data-lang="ja">静寂優先</span>
+      </div>
+
+      <div class="feature">
+        <strong data-lang="en">Warmth as the other half</strong>
+        <strong data-lang="ja">温もりは冬のもう半分</strong>
+        <span data-lang="en">
+          Snow is only half of winter. The other half is warmth: firelight, soup steam, bath water, and soft textiles.
+        </span>
+        <span data-lang="ja">
+          雪だけが冬ではありません。  
+          炎のゆらぎ、スープの湯気、お湯の温かさ、毛布の手触り――  
+          そうした温もりこそが、冬のもう半分をつくります。
+        </span>
+        <span class="pill" data-lang="en">Snow & warmth</span>
+        <span class="pill" data-lang="ja">雪と温かさ</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- WORLD SNOW -->
+  <section id="world">
+    <div class="label" data-lang="en">World’s Snow</div>
+    <div class="label" data-lang="ja">世界の雪</div>
+
+    <h2 class="h2" data-lang="en">Snow from the quietest corners of the world.</h2>
+    <h2 class="h2" data-lang="ja">世界の、いちばん静かな雪だけを。</h2>
+
+    <p class="lead" data-lang="en">
+      We don’t try to list every city. Instead, we choose places where snow slows time:
+      Nordic forests, Russian villages, Japanese hot-spring towns, Alpine valleys, and cabins in Canada.
+    </p>
+    <p class="lead" data-lang="ja">
+      すべての街を網羅することは目指しません。  
+      代わりに、時間の流れそのものがゆっくりになるような場所――  
+      北欧の森、ロシアの村、日本の温泉街、アルプスの谷、カナダのキャビンなどを選びます。
+    </p>
+
+    <div class="grid-3">
+      <div class="feature">
+        <strong data-lang="en">Nordic & Arctic</strong>
+        <strong data-lang="ja">北欧・北極圏</strong>
+        <span data-lang="en">
+          Norwegian fjords, Finnish Lapland, Swedish lakes. Long blue hours and slow, steady snowfall.
+        </span>
+        <span data-lang="ja">
+          ノルウェーのフィヨルド、フィンランドのラップランド、スウェーデンの湖畔。  
+          いつまでも終わらないブルーアワーと、静かに降り続く雪。
+        </span>
+        <span class="pill" data-lang="en">Blue hour</span>
+        <span class="pill" data-lang="ja">ブルーアワー</span>
+      </div>
+
+      <div class="feature">
+        <strong data-lang="en">Russia & Eastern Europe</strong>
+        <strong data-lang="ja">ロシア・東欧</strong>
+        <span data-lang="en">
+          Small towns, wooden houses, distant trains, and tables lit by winter soups like borscht.
+        </span>
+        <span data-lang="ja">
+          木造の家々、小さな駅、遠くを走る列車。  
+          そして、ボルシチのような冬のスープが静かに灯る食卓。
+        </span>
+        <span class="pill" data-lang="en">Village silence</span>
+        <span class="pill" data-lang="ja">村の静寂</span>
+      </div>
+
+      <div class="feature">
+        <strong data-lang="en">Japan & the Alps</strong>
+        <strong data-lang="ja">日本・アルプス</strong>
+        <span data-lang="en">
+          Hokkaido hot springs, mountain ryokan, and Alpine valleys buried in white and steam.
+        </span>
+        <span data-lang="ja">
+          北海道の雪見露天、山あいの小さな旅館、白と湯気に包まれたアルプスの谷。  
+          “音の少ない冬”が似合う場所を選んで紹介します。
+        </span>
+        <span class="pill" data-lang="en">Snow & hot springs</span>
+        <span class="pill" data-lang="ja">雪と温泉</span>
+      </div>
+    </div>
+
+    <div class="grid-3" style="margin-top:18px;">
+      <div class="feature">
+        <strong data-lang="en">North America</strong>
+        <strong data-lang="ja">北米の雪</strong>
+        <span data-lang="en">
+          Cabins in Canada, frozen lakes, forest trails under auroras and distant highway hum.
+        </span>
+        <span data-lang="ja">
+          カナダのキャビン、凍った湖、オーロラの下の森の小道。  
+          遠くの道路の音を背に、夜がじわじわと深くなる場所たち。
+        </span>
+        <span class="pill" data-lang="en">Cabin nights</span>
+        <span class="pill" data-lang="ja">キャビンの夜</span>
+      </div>
+
+      <div class="feature">
+        <strong data-lang="en">Southern Hemisphere</strong>
+        <strong data-lang="ja">南半球の冬</strong>
+        <span data-lang="en">
+          Winter on the other side of the world: New Zealand’s lakes and ridgelines in quiet white.
+        </span>
+        <span data-lang="ja">
+          季節が逆さまの、もうひとつの冬。  
+          ニュージーランド南島の湖と稜線が、静かな白で覆われる景色。
+        </span>
+        <span class="pill" data-lang="en">Upside-down winter</span>
+        <span class="pill" data-lang="ja">逆さの冬</span>
+      </div>
+
+      <div class="feature">
+        <strong data-lang="en">Rare quiet cities</strong>
+        <strong data-lang="ja">まれに訪れる都市の静寂</strong>
+        <span data-lang="en">
+          Nights when snow pauses a city: empty crossings, softened neon, and slower trains.
+        </span>
+        <span data-lang="ja">
+          雪が街のテンポを止めた夜。  
+          誰もいない交差点、にじんだネオン、いつもよりゆっくり走る電車。
+        </span>
+        <span class="pill" data-lang="en">Unexpected quiet</span>
+        <span class="pill" data-lang="ja">不意の静けさ</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- WARMTH -->
+  <section id="warm">
+    <div class="label" data-lang="en">Warmth</div>
+    <div class="label" data-lang="ja">温かさ</div>
+
+    <h2 class="h2" data-lang="en">After snow comes warmth.</h2>
+    <h2 class="h2" data-lang="ja">雪のあとには、必ず温もりがある。</h2>
+
+    <p class="lead" data-lang="en">
+      Snow is only half of winter. The other half is warmth: fires, soups, baths, candles, and rooms
+      just big enough for one or two. borscht.jp collects both sides in a single frame.
+    </p>
+    <p class="lead" data-lang="ja">
+      雪は、冬の半分にすぎません。  
+      残りの半分は、焚火やスープ、湯気、キャンドル、一人か二人でちょうどいい小さな部屋。  
+      borscht.jp は、その両方をひとつの画面の中にそっと並べます。
+    </p>
+
+    <div class="grid-3">
+      <div class="feature">
+        <strong data-lang="en">Borscht & winter soups</strong>
+        <strong data-lang="ja">ボルシチと冬のスープ</strong>
+        <span data-lang="en">
+          The quiet red center of winter tables: borscht, pot-au-feu, miso soup after snow, small bowls for two.
+        </span>
+        <span data-lang="ja">
+          冬の食卓の真ん中にある、静かな赤。  
+          ボルシチ、ポトフ、雪の日の味噌汁、ふたり分だけの小さなスープ。
+        </span>
+        <span class="pill" data-lang="en">Table warmth</span>
+        <span class="pill" data-lang="ja">食卓のぬくもり</span>
+      </div>
+
+      <div class="feature">
+        <strong data-lang="en">Fireplaces & stoves</strong>
+        <strong data-lang="ja">暖炉とストーブ</strong>
+        <span data-lang="en">
+          Cracking logs, slow embers, iron stoves in cabins. Fire as a living, breathing winter companion.
+        </span>
+        <span data-lang="ja">
+          はぜる薪、ゆっくりと赤くなる炭。  
+          山小屋のアイアンストーブが、冬じゅう静かに息をしているような時間。
+        </span>
+        <span class="pill" data-lang="en">Fire ambience</span>
+        <span class="pill" data-lang="ja">炎のアンビエンス</span>
+      </div>
+
+      <div class="feature">
+        <strong data-lang="en">Outdoor hot springs & baths</strong>
+        <strong data-lang="ja">露天風呂と温かな湯</strong>
+        <span data-lang="en">
+          Snow on stones, steam rising, dark forests around a pool of light—for soaking late at night, not for daytime crowds.
+        </span>
+        <span data-lang="ja">
+          岩に積もる雪、静かに立ちのぼる湯気。  
+          森に囲まれた、小さな光の水たまりのような露天風呂。  
+          日中の賑わいではなく、深夜にひとりで、あるいはふたりで浸かるための場所。
+        </span>
+        <span class="pill" data-lang="en">Snow & hot water</span>
+        <span class="pill" data-lang="ja">雪とお湯</span>
+      </div>
+    </div>
+
+    <div class="grid-3" style="margin-top:18px;">
+      <div class="feature">
+        <strong data-lang="en">Candles & aroma</strong>
+        <strong data-lang="ja">キャンドルとアロマ</strong>
+        <span data-lang="en">
+          A single flame on a table, a soft scent of herbs, a window slowly filling with snow.
+        </span>
+        <span data-lang="ja">
+          テーブルの上にひとつだけ灯るキャンドル。  
+          かすかなハーブの香り。窓の外は、音もなく雪で埋まっていく。
+        </span>
+        <span class="pill" data-lang="en">Scented nights</span>
+        <span class="pill" data-lang="ja">香りの夜</span>
+      </div>
+
+      <div class="feature">
+        <strong data-lang="en">Cabins & small rooms</strong>
+        <strong data-lang="ja">小さな部屋とキャビン</strong>
+        <span data-lang="en">
+          Rooms where two chairs, one lamp, and a single window are enough for the whole season.
+        </span>
+        <span data-lang="ja">
+          椅子が二つ、灯りがひとつ、窓が一枚あれば、それだけで冬を越せるような小さな部屋。
+        </span>
+        <span class="pill" data-lang="en">For one or two</span>
+        <span class="pill" data-lang="ja">一人か二人で</span>
+      </div>
+
+      <div class="feature">
+        <strong data-lang="en">Winter soundscapes</strong>
+        <strong data-lang="ja">冬のサウンドスケープ</strong>
+        <span data-lang="en">
+          Snowfall, fire, distant trains, cups—sounds for journaling, reading, and quiet conversations.
+        </span>
+        <span data-lang="ja">
+          雪の音、炎の揺らぎ、遠くの列車、カップの小さな音…。  
+          日記を書く夜や、言葉少なめの会話に合う、冬の音のコレクション。
+        </span>
+        <span class="pill" data-lang="en">Quiet listening</span>
+        <span class="pill" data-lang="ja">静かなリスニング</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW TO ENJOY -->
+  <section id="enjoy">
+    <div class="label" data-lang="en">How to Enjoy</div>
+    <div class="label" data-lang="ja">楽しみ方</div>
+
+    <h2 class="h2" data-lang="en">Made for nights when you stay in.</h2>
+    <h2 class="h2" data-lang="ja">出かけない夜のための、冬メディア。</h2>
+
+    <p class="lead" data-lang="en">
+      borscht.jp is not a travel agency. It is a quiet corner of the internet for people who feel at home
+      with a blanket, a hot drink, and the thought that somewhere, snow is still falling.
+    </p>
+    <p class="lead" data-lang="ja">
+      borscht.jp は旅行代理店ではありません。  
+      毛布と温かい飲み物さえあれば満足で、  
+      「世界のどこかでは、いまも雪が降っている」と想像できれば十分な人のための、インターネットの静かな隅っこです。
+    </p>
+
+    <div class="grid-3">
+      <div class="feature">
+        <strong data-lang="en">As background</strong>
+        <strong data-lang="ja">BGMのように</strong>
+        <span data-lang="en">
+          Play snowy ambience while you read, write, work, or simply stare at the window.
+        </span>
+        <span data-lang="ja">
+          読書や執筆、作業のあいだ、あるいはただ窓の外を眺めていたい夜の背景に。
+        </span>
+      </div>
+
+      <div class="feature">
+        <strong data-lang="en">For planning</strong>
+        <strong data-lang="ja">旅の計画に</strong>
+        <span data-lang="en">
+          Use the scenes as inspiration for future winter trips, cabins, hot springs, or cities in snow.
+        </span>
+        <span data-lang="ja">
+          いつか行きたい冬の旅先――キャビン、温泉街、雪の街――を考えるときの、静かなインスピレーションとして。
+        </span>
+      </div>
+
+      <div class="feature">
+        <strong data-lang="en">For doing nothing</strong>
+        <strong data-lang="ja">なにもしない夜に</strong>
+        <span data-lang="en">
+          Some nights are best used simply by letting winter pass slowly, in silence.
+        </span>
+        <span data-lang="ja">
+          ときには、ただ冬がゆっくりと過ぎていくのを、静かに見送るだけでいい夜もあります。
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <!-- FUTURE / LIBRARY -->
+  <section>
+    <div class="label" data-lang="en">Future Library</div>
+    <div class="label" data-lang="ja">これから増えていくもの</div>
+
+    <h2 class="h2" data-lang="en">AI winter films, stills, and soundscapes.</h2>
+    <h2 class="h2" data-lang="ja">AI冬映像・静止画・サウンドスケープ。</h2>
+
+    <p class="lead" data-lang="en">
+      Over time, borscht.jp will grow into a small winter library:
+      AI-generated films, curated still images, and soundscapes for one or two people.
+    </p>
+    <p class="lead" data-lang="ja">
+      少しずつ、静かに。  
+      borscht.jp は、ひとりかふたりのための冬のライブラリ――  
+      AIで生成した映像と写真、音のコレクションへと育っていきます。
+    </p>
+
+    <div class="grid-3">
+      <div class="feature">
+        <strong data-lang="en">AI Winter Films</strong>
+        <strong data-lang="ja">AI冬ショートフィルム</strong>
+        <span data-lang="en">
+          Short films of snow, cabins, and quiet towns. No voice-over, only winter itself.
+        </span>
+        <span data-lang="ja">
+          雪、キャビン、静かな町だけを切り取ったショートフィルム。  
+          語りではなく、冬そのものの気配に耳を澄ませる映像です。
+        </span>
+      </div>
+
+      <div class="feature">
+        <strong data-lang="en">Still Photo Sets</strong>
+        <strong data-lang="ja">静止画フォトセット</strong>
+        <span data-lang="en">
+          Curated stills for wallpapers, inspiration, and slow scrolling on long winter nights.
+        </span>
+        <span data-lang="ja">
+          壁紙や、創作のアイデアの種になる静止画セット。  
+          長い冬の夜に、ゆっくりとスクロールして眺めるための絵たち。
+        </span>
+      </div>
+
+      <div class="feature">
+        <strong data-lang="en">Sound Collections</strong>
+        <strong data-lang="ja">サウンドコレクション</strong>
+        <span data-lang="en">
+          Fire, snow, trains, cups—sounds for journaling, reading, and quiet conversations.
+        </span>
+        <span data-lang="ja">
+          炎、雪、列車、カップの音…。  
+          日記や読書、静かな会話に寄り添う、冬のサウンドコレクション。
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div data-lang="en">
+      © borscht.jp — a quiet winter project by Kuroneko Publishing.  
+      Made for nights meant for one, or for two.
+    </div>
+    <div data-lang="ja">
+      © borscht.jp — 黒猫出版による、静かな冬のプロジェクト。  
+      ひとりか、ふたりの夜のために。
+    </div>
+  </footer>
+</div>
+
+<script>
+(function(){
+  function setLang(lang){
+    var nodes=document.querySelectorAll('[data-lang]');
+    nodes.forEach(function(n){
+      n.classList.remove('show');
+      if(n.getAttribute('data-lang')===lang){n.classList.add('show');}
+    });
+    var toggles=document.querySelectorAll('[data-set-lang]');
+    toggles.forEach(function(t){
+      if(t.getAttribute('data-set-lang')===lang){t.classList.add('active');}
+      else{t.classList.remove('active');}
+    });
+    document.documentElement.lang=(lang==='ja'?'ja':'en');
+  }
+  document.addEventListener('click',function(e){
+    var target=e.target.closest('[data-set-lang]');
+    if(target){setLang(target.getAttribute('data-set-lang'));}
+  });
+  setLang('ja'); // 初期表示：日本語にしてもいいし 'en' に変えてもOK
+})();
+</script>
+
+</body>
+</html>

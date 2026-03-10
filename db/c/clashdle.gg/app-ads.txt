@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- AdInPlay Configuration and Event Listeners (ALWAYS load, but SDK conditional) -->
+  <script>
+    window.aiptag = window.aiptag || { cmd: [] };
+    aiptag.cmd.display = aiptag.cmd.display || [];
+    aiptag.cmd.player = aiptag.cmd.player || [];
+
+    // Event listeners (safe even if SDK doesn't load)
+    document.addEventListener("aip_interstitialadavailable", function (e) {
+      console.log("An interstitial ad is available");
+      window.interstitialAdReady = true;
+    });
+
+    document.addEventListener("aip_interstitialadshown", function (e) {
+      console.log("Interstitial ad shown");
+    });
+    document.addEventListener("aip_interstitialadclosed", function (e) {
+      console.log("Interstitial ad closed");
+    });
+
+    // CMP settings (keep as is)
+    if (window.location.pathname !== '/BrowserSource') {
+      aiptag.cmp = {
+        button: true,
+        buttonText: "Privacy Settings",
+        buttonPosition: "bottom-left"
+      };
+    }
+  </script>
+
+  <!-- Conditionally load AdInPlay SDK -->
+  <script>
+    // Check if the current URL path should have ads
+    const disableAdsPaths = ['/triviastreamer', '/triviastreamer/']; // add more paths if needed
+    const shouldLoadAds = !disableAdsPaths.includes(window.location.pathname);
+
+    if (shouldLoadAds) {
+      const sdkScript = document.createElement('script');
+      sdkScript.async = true;
+      sdkScript.src = 'https://api.adinplay.com/libs/aiptag/pub/CHD/clashdle.gg/tag.min.js';
+      document.head.appendChild(sdkScript);
+      console.log('AdInPlay SDK loaded');
+    } else {
+      console.log('AdInPlay SDK skipped for /triviastreamer');
+    }
+  </script>
+
+  <!-- AdInPlay SDK (load AFTER configuration and listeners) -->
+  <script async src="https://api.adinplay.com/libs/aiptag/pub/CHD/clashdle.gg/tag.min.js"></script>
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-L3N12JQ9R9"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-L3N12JQ9R9');
+  </script>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="shortcut icon" href="/favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <meta name="apple-mobile-web-app-title" content="Clashdle" />
+  <link rel="manifest" href="/site.webmanifest" />
+
+  <meta charset="UTF-8" />
+  <link rel="preload" href="./assets/fonts/font.woff2" as="font" type="font/woff2" crossorigin>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CLASHDLE: Guess the troop!</title>
+
+  <!-- Status Bar and Theme -->
+  <meta name="theme-color" content="#000000">
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+  <!-- HTML Meta Tags -->
+  <meta name="description"
+    content="Guess Clash of Clans troops daily in this Wordle-inspired game! Put your Clash of Clans knowledge and deduction skills to the test as you receive additional clues with each attempt.">
+
+  <!-- Google / Search Engine Tags -->
+  <meta itemprop="name" content="CLASHDLE: Guess the troop!">
+  <meta itemprop="description"
+    content="Guess Clash of Clans troops daily in this Wordle-inspired game! Put your Clash of Clans knowledge and deduction skills to the test as you receive additional clues with each attempt.">
+  <meta itemprop="image" content="https://clashdle.gg/linkIcon.png">
+
+  <!-- Facebook Meta Tags -->
+  <meta property="og:url" content="https://clashdle.gg/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="CLASHDLE: Guess the troop!">
+  <meta property="og:description"
+    content="Guess Clash of Clans troops daily in this Wordle-inspired game! Put your Clash of Clans knowledge and deduction skills to the test as you receive additional clues with each attempt.">
+  <meta property="og:image" content="https://clashdle.gg/linkIcon.png">
+
+  <!-- Twitter Meta Tags -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="CLASHDLE: Guess the troop!">
+  <meta name="twitter:description"
+    content="Guess Clash of Clans troops daily in this Wordle-inspired game! Put your Clash of Clans knowledge and deduction skills to the test as you receive additional clues with each attempt.">
+  <meta name="twitter:image" content="https://clashdle.gg/linkIcon.png">
+
+  <meta name="mobile-web-app-capable" content="yes">
+  <script type="module" crossorigin src="/assets/index-91e0239f.js"></script>
+  <link rel="stylesheet" href="/assets/index-8f966f0b.css">
+</head>
+
+<body>
+  <div id="root"></div>
+  
+<!-- Cloudflare Pages Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "f8cd1a7dfd2c47498296f46db75fbeec"}'></script><!-- Cloudflare Pages Analytics --></body>
+
+</html>

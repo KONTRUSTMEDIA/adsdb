@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Frienlo - Connect & Share</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* --- VARIABLES & RESET --- */
+        :root {
+            /* Sampled from your logo */
+            --primary-color: #5856D6;
+            --primary-dark: #4644aa;
+            --text-dark: #1F1F24;
+            --text-light: #666666;
+            --bg-light: #F9FAFB;
+            --white: #ffffff;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--text-dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        img {
+            max-width: 100%;
+            display: block;
+        }
+
+        /* --- HEADER --- */
+        header {
+            position: sticky;
+            top: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+        }
+
+        .logo img {
+            height: 35px;
+            /* Adjust based on your logo file */
+            width: auto;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            font-weight: 500;
+            color: var(--text-dark);
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+
+        /* Mobile Menu Button (Hidden on Desktop) */
+        .menu-toggle {
+            display: none;
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            cursor: pointer;
+        }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            padding: 100px 0;
+            background: linear-gradient(135deg, #f5f7fa 0%, #eef1f5 100%);
+            overflow: hidden;
+        }
+
+        .hero-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 50px;
+        }
+
+        .hero-text {
+            flex: 1;
+        }
+
+        .hero-text h1 {
+            font-size: 3rem;
+            line-height: 1.2;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+        }
+
+        .hero-text p {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            margin-bottom: 30px;
+        }
+
+        .store-buttons {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .btn-store {
+            background: var(--text-dark);
+            color: var(--white);
+            padding: 12px 24px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: var(--transition);
+            font-size: 0.9rem;
+        }
+
+        .btn-store:hover {
+            background: var(--primary-color);
+            transform: translateY(-2px);
+        }
+
+        .hero-image {
+            flex: 1;
+            position: relative;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .hero-image img {
+            max-height: 550px;
+            filter: drop-shadow(0 20px 40px rgba(88, 86, 214, 0.2));
+            /* Placeholder styling if no image exists */
+            border-radius: 30px;
+        }
+
+        /* --- SCREENSHOTS SECTION --- */
+        .section {
+            padding: 80px 0;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-header h2 {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+
+        .section-header p {
+            color: var(--text-light);
+        }
+
+        .screenshots-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .screenshot-card {
+            position: relative;
+            width: 100%;
+            height: 80vh;
+            /* Fixed height for grid visualization */
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: var(--transition);
+        }
+
+        .screen-img-wrapper {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            background: #000;
+        }
+
+        .screen-img-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: top;
+            border-radius: 0;
+            box-shadow: none;
+            opacity: 0.9;
+            transition: var(--transition);
+        }
+
+        .screenshot-card:hover .screen-img-wrapper img {
+            opacity: 0.7;
+            transform: scale(1.02);
+        }
+
+        .screen-info {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 30px;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
+            color: var(--white);
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+        }
+
+        .screen-info h3 {
+            margin-bottom: 5px;
+            font-size: 1.5rem;
+            color: var(--white);
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            transform: translateY(20px);
+            transition: all 0.4s ease;
+        }
+
+        .screen-info p {
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.9);
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+            transform: translateY(20px);
+            transition: all 0.4s ease;
+        }
+
+        /* Hover Effects */
+        .screenshot-card:hover .screen-info h3 {
+            transform: translateY(0);
+        }
+
+        .screenshot-card:hover .screen-info p {
+            max-height: 200px;
+            opacity: 1;
+            transform: translateY(0);
+            margin-top: 10px;
+        }
+
+        /* Mobile Adjustments */
+        @media (max-width: 1000px) {
+            .screenshots-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .screenshots-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .screenshot-card {
+                height: 500px;
+            }
+        }
+
+
+
+        /* --- PRICING SECTION --- */
+        .bg-light {
+            background-color: var(--bg-light);
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            align-items: center;
+        }
+
+        .pricing-card {
+            background: var(--white);
+            padding: 40px 30px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+            border: 1px solid #eee;
+            transition: var(--transition);
+        }
+
+        .pricing-card.popular {
+            border: 0px solid var(--primary-color);
+            transform: scale(1.05);
+            position: relative;
+            box-shadow: 0 10px 30px rgba(88, 86, 214, 0.15);
+        }
+
+        .badge {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--primary-color);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .price {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin: 10px 0 20px 0;
+        }
+
+        .plan-name {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--text-light);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .price span {
+            font-size: 1rem;
+            color: var(--text-light);
+            font-weight: 400;
+        }
+
+        .features-list {
+            margin-bottom: 30px;
+            text-align: left;
+        }
+
+        .pricing-features-category {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin: 15px 0 10px 0;
+            border-bottom: 2px solid var(--primary-color);
+            display: inline-block;
+        }
+
+        .features-list li {
+            margin-bottom: 8px;
+            font-size: 0.85rem;
+            color: var(--text-light);
+            display: flex;
+            align-items: center;
+        }
+
+        .features-list li i {
+            margin-right: 10px;
+            width: 20px;
+            text-align: center;
+        }
+
+        .features-list li i.fa-circle-check {
+            color: #00d68f;
+            /* Bright Green */
+        }
+
+        .features-list li i.fa-lock {
+            color: #ff4d4d;
+            /* Red */
+        }
+
+        .features-list li.locked-text {
+            color: #ff4d4d;
+        }
+
+        .feature-badge {
+            background: #eef2ff;
+            color: var(--primary-color);
+            font-size: 0.7rem;
+            padding: 2px 6px;
+            border-radius: 4px;
+            margin-left: 8px;
+            font-weight: 600;
+        }
+
+        .btn-price {
+            display: inline-block;
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .pricing-card.popular .btn-price,
+        .btn-price:hover {
+            background: var(--primary-color);
+            color: var(--white);
+        }
+
+        /* --- CONTACT SECTION --- */
+        .contact-content {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .contact-items {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+            margin-top: 40px;
+        }
+
+        .contact-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .contact-icon {
+            width: 60px;
+            height: 60px;
+            background: rgba(88, 86, 214, 0.1);
+            color: var(--primary-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+
+        .contact-text {
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            background: var(--text-dark);
+            color: var(--white);
+            padding: 40px 0;
+            text-align: center;
+        }
+
+        .footer-email {
+            margin-bottom: 20px;
+            font-weight: 500;
+            opacity: 0.9;
+        }
+
+        .copyright {
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                /* Simplification for code snippet */
+            }
+
+            .hero-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .store-buttons {
+                justify-content: center;
+            }
+
+            .hero-text h1 {
+                font-size: 2.2rem;
+            }
+
+            .pricing-card.popular {
+                transform: scale(1);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">
+                    <img src="./logo.png" alt="Frienlo Logo">
+                </div>
+                <div class="nav-links">
+                    <a href="#home">Home</a>
+                    <a href="#features">Features</a>
+                    <a href="#pricing">Pricing</a>
+                </div>
+                <div class="menu-toggle">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1>Connect, Share, and Discover with Frienlo.</h1>
+                    <p>The ultimate networking app. Manage your profile, share your live location, discover new friends,
+                        and control your privacy—all in one place.</p>
+
+                    <div class="store-buttons">
+                        <a href="#" class="btn-store">
+                            <i class="fab fa-apple fa-lg"></i>
+                            <div>
+                                <strong>App Store</strong>
+                            </div>
+                        </a>
+                        <a href="#" class="btn-store">
+                            <i class="fab fa-google-play fa-lg"></i>
+                            <div>
+                                <strong>Google Play</strong>
+                            </div>
+                        </a>
+                        <a target="_blank" href="https://www.instagram.com/frienloapp" class="btn-store"
+                            style="background: #D10669;">
+                            <i class="fab fa-instagram fa-lg"></i>
+                            <div>
+                                <strong>Instagram</strong>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <img src="./img1.png" style="border-radius: 4%; width: 100%; min-height: 300px;"
+                        alt="Frienlo App Mockup">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="features" class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Explore Frienlo</h2>
+                <p>Everything you need to stay connected and secure.</p>
+            </div>
+
+            <div class="screenshots-grid">
+                <div class="screenshot-card">
+                    <div class="screen-img-wrapper">
+                        <img src="./screenshot1.png" alt="Profile & Account">
+                    </div>
+                    <div class="screen-info">
+                        <h3>⁠Create you own profile</h3>
+                        <p>Create your profile, manage your wallet/coins, and control advanced privacy settings</p>
+                    </div>
+                </div>
+
+                <div class="screenshot-card">
+                    <div class="screen-img-wrapper">
+                        <img src="./screenshot2.png" alt="Networking">
+                    </div>
+                    <div class="screen-info">
+                        <h3>⁠⁠Invite & earn coins</h3>
+                        <p>⁠Invite people with one click and earn coins</p>
+                    </div>
+                </div>
+
+                <div class="screenshot-card">
+                    <div class="screen-img-wrapper">
+                        <img src="./screenshot3.png" alt="Sharing">
+                    </div>
+                    <div class="screen-info">
+                        <h3>Find your friends and others</h3>
+                        <p>Search for users, add friends, create your own network</p>
+                    </div>
+                </div>
+
+                <div class="screenshot-card">
+                    <div class="screen-img-wrapper">
+                        <img src="./screenshot4.png" alt="Sharing">
+                    </div>
+                    <div class="screen-info">
+                        <h3>Share your location</h3>
+                        <p>Share your real-time location, build your close friends list, and track your sharing history
+                            securely</p>
+                    </div>
+                </div>
+
+                <div class="screenshot-card">
+                    <div class="screen-img-wrapper">
+                        <img src="./screenshot5.png" alt="Sharing">
+                    </div>
+                    <div class="screen-info">
+                        <h3>See others around</h3>
+                        <p>See and search other sharings with filters, view profiles, and sharing history effortlessly
+                        </p>
+                    </div>
+                </div>
+
+                <div class="screenshot-card">
+                    <div class="screen-img-wrapper">
+                        <img src="./screenshot6.png" alt="Sharing">
+                    </div>
+                    <div class="screen-info">
+                        <h3>Send & receive different requests</h3>
+                        <p>Send requests, view responses, communicate with others, and enjoy your time!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="pricing" class="section bg-light">
+        <div class="container" style="max-width: 1270px;">
+            <div class="section-header">
+                <h2>Simple Pricing</h2>
+                <p>Choose the pack that fits your social life.</p>
+            </div>
+
+            <div class="pricing-grid">
+                <!-- BASIC PLAN -->
+                <div class="pricing-card">
+                    <div class="plan-name">Basic</div>
+                    <div class="price">Free</div>
+
+                    <ul class="features-list">
+                        <div class="pricing-features-category">Profile & Account</div>
+                        <li><i class="fas fa-circle-check"></i> Personal Profile</li>
+                        <li><i class="fas fa-circle-check"></i> Profile Views</li>
+                        <li><i class="fas fa-circle-check"></i> Privacy: Friends can see my phone number</li>
+                        <li><i class="fas fa-circle-check"></i> Privacy: Others can see my phone number</li>
+                        <li><i class="fas fa-circle-check"></i> Wallet and Coins</li>
+                        <li><i class="fas fa-circle-check"></i> Help Center Support</li>
+                        <li><i class="fas fa-circle-check"></i> Delete Account</li>
+
+                        <div class="pricing-features-category">Friends & Networking</div>
+                        <li><i class="fas fa-circle-check"></i> User Search & Discovery</li>
+                        <li><i class="fas fa-circle-check"></i> Invite Friends</li>
+                        <li class="locked-text"><i class="fas fa-lock"></i> Friends: Send & Receive Requests</li>
+                        <li><i class="fas fa-circle-check"></i> Friends: View Profiles</li>
+                        <li class="locked-text"><i class="fas fa-lock"></i> Friends: View Sharing History</li>
+                        <li class="locked-text"><i class="fas fa-lock"></i> Close Friends List</li>
+                        <li><i class="fas fa-circle-check"></i> Block Users</li>
+
+                        <div class="pricing-features-category">Sharing & Communication</div>
+                        <li><i class="fas fa-circle-check"></i> Share Location <span class="feature-badge">1/day</span>
+                        </li>
+                        <li><i class="fas fa-circle-check"></i> Sharings & Filters</li>
+                        <li class="locked-text"><i class="fas fa-lock"></i> Request & Response Feature</li>
+                        <li><i class="fas fa-circle-check"></i> My Sharing History</li>
+                    </ul>
+                </div>
+
+                <!-- PRO PLAN -->
+                <div class="pricing-card popular">
+                    <div class="badge">Most Popular</div>
+                    <div class="plan-name">Pro</div>
+                    <div class="price">$3.99</div>
+
+                    <ul class="features-list">
+                        <div class="pricing-features-category">Profile & Account</div>
+                        <li><i class="fas fa-circle-check"></i> Personal Profile</li>
+                        <li><i class="fas fa-circle-check"></i> Profile Views</li>
+                        <li><i class="fas fa-circle-check"></i> Privacy: Friends can see my phone number</li>
+                        <li><i class="fas fa-circle-check"></i> Privacy: Others can see my phone number</li>
+                        <li><i class="fas fa-circle-check"></i> Wallet and Coins</li>
+                        <li><i class="fas fa-circle-check"></i> Help Center Support</li>
+                        <li><i class="fas fa-circle-check"></i> Delete Account</li>
+
+                        <div class="pricing-features-category">Friends & Networking</div>
+                        <li><i class="fas fa-circle-check"></i> User Search & Discovery</li>
+                        <li><i class="fas fa-circle-check"></i> Invite Friends</li>
+                        <li><i class="fas fa-circle-check"></i> Friends: Send & Receive Requests</li>
+                        <li><i class="fas fa-circle-check"></i> Friends: View Profiles</li>
+                        <li><i class="fas fa-circle-check"></i> Friends: View Sharing History</li>
+                        <li class="locked-text"><i class="fas fa-lock"></i> Close Friends List</li>
+                        <li><i class="fas fa-circle-check"></i> Block Users</li>
+
+                        <div class="pricing-features-category">Sharing & Communication</div>
+                        <li><i class="fas fa-circle-check"></i> Share Location <span class="feature-badge">4/day</span>
+                        </li>
+                        <li><i class="fas fa-circle-check"></i> Sharings & Filters</li>
+                        <li><i class="fas fa-circle-check"></i> Request & Response Feature</li>
+                        <li><i class="fas fa-circle-check"></i> My Sharing History</li>
+                    </ul>
+                </div>
+
+                <!-- ULTRA PLAN -->
+                <div class="pricing-card">
+                    <div class="plan-name">Ultra</div>
+                    <div class="price">$5.99</div>
+
+                    <ul class="features-list">
+                        <div class="pricing-features-category">Profile & Account</div>
+                        <li><i class="fas fa-circle-check"></i> Personal Profile</li>
+                        <li><i class="fas fa-circle-check"></i> Profile Views</li>
+                        <li><i class="fas fa-circle-check"></i> Privacy: Friends can see my phone number</li>
+                        <li><i class="fas fa-circle-check"></i> Privacy: Others can see my phone number</li>
+                        <li><i class="fas fa-circle-check"></i> Wallet and Coins</li>
+                        <li><i class="fas fa-circle-check"></i> Help Center Support</li>
+                        <li><i class="fas fa-circle-check"></i> Delete Account</li>
+
+                        <div class="pricing-features-category">Friends & Networking</div>
+                        <li><i class="fas fa-circle-check"></i> User Search & Discovery</li>
+                        <li><i class="fas fa-circle-check"></i> Invite Friends</li>
+                        <li><i class="fas fa-circle-check"></i> Friends: Send & Receive Requests</li>
+                        <li><i class="fas fa-circle-check"></i> Friends: View Profiles</li>
+                        <li><i class="fas fa-circle-check"></i> Friends: View Sharing History</li>
+                        <li><i class="fas fa-circle-check"></i> Close Friends List</li>
+                        <li><i class="fas fa-circle-check"></i> Block Users</li>
+
+                        <div class="pricing-features-category">Sharing & Communication</div>
+                        <li><i class="fas fa-circle-check"></i> Share Location <span
+                                class="feature-badge">Unlimited</span></li>
+                        <li><i class="fas fa-circle-check"></i> Sharings & Filters</li>
+                        <li><i class="fas fa-circle-check"></i> Request & Response Feature</li>
+                        <li><i class="fas fa-circle-check"></i> My Sharing History</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <footer>
+        <div class="container">
+            <p class="footer-email"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="f5868085859a8781b593879c909b999adb969a98">[email&#160;protected]</a></p>
+            <p class="copyright">&copy; 2026 Frienlo. All rights reserved.</p>
+        </div>
+    </footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script></body>
+
+</html>

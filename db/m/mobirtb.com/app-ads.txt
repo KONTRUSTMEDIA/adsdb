@@ -1,0 +1,964 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="RevTrix is a smart monetization platform built by top iGaming affiliates. Boost your earnings with geo-targeted AI Smart widgets, offer rotation, and real-time optimization with no coding required.">
+    <title>RevTrix - AI Smart iGaming Widgets for Maximum Monetization</title>
+    
+    <meta property="og:title" content="RevTrix - AI Smart iGaming Affiliate Monetization" />
+    <meta property="og:description" content="Built by super affiliates. Instantly boost your iGaming traffic earnings with AI smart iGaming widgets, geo-targeting & real-time optimization." />
+    <meta property="og:image" content="https://www.revtrix.io/og-banner.png" />
+    <meta property="og:url" content="https://revtrix.io" />
+    <meta property="og:type" content="website" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="RevTrix - AI Smart iGaming Affiliate Monetization" />
+    <meta name="twitter:description" content="AI Smart iGaming widgets. Geo-rotation. Built by affiliates for affiliates. Start monetizing 100% of your traffic today." />
+    <meta name="twitter:image" content="https://www.revtrix.io/og-banner.png" />
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        heading: ['Poppins', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            orange: '#f97316', // Orange-500
+                            red: '#dc2626',    // Red-600
+                            dark: '#0f172a',   // Slate-900
+                            light: '#f8fafc',  // Slate-50
+                            accent: '#fff7ed'  // Orange-50
+                        }
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'fadeInUp': 'fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-15px)' },
+                        },
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(40px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Glassmorphism & Utilities */
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(226, 232, 240, 0.6);
+        }
+        .text-gradient {
+            background: linear-gradient(135deg, #f97316 0%, #dc2626 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .bg-gradient-brand {
+            background: linear-gradient(135deg, #f97316 0%, #dc2626 100%);
+        }
+        
+        /* Premium Card Styling with Spotlight Effect */
+        .card-premium {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 1rem;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        .card-premium:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px -15px rgba(249, 115, 22, 0.15);
+            border-color: #fdba74;
+        }
+        /* Mouse Move Spotlight Glow */
+        .card-premium::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: radial-gradient(800px circle at var(--mouse-x) var(--mouse-y), rgba(249, 115, 22, 0.06), transparent 40%);
+            opacity: 0;
+            transition: opacity 0.5s;
+            z-index: -1;
+            pointer-events: none;
+        }
+        .card-premium:hover::before {
+            opacity: 1;
+        }
+
+        /* Scroll Reveal Utility */
+        .reveal-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal-on-scroll.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Hide Scrollbar for Blog */
+        #rtx-blog-track::-webkit-scrollbar { display: none; }
+        #rtx-blog-track { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.css"/>
+    <script src="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.js" defer></script>
+    <script>
+    window.addEventListener("load", function() {
+      window.cookieconsent.initialise({
+        palette: { popup: { background: "#0f172a" }, button: { background: "#f97316" } },
+        theme: "classic",
+        type: "opt-in",
+        revokable: true,
+        content: {
+          header: "🍪 We use cookies",
+          message: "We use cookies to personalize content and ads, to provide social media features and to analyze our traffic.",
+          dismiss: "Accept all",
+          deny: "Reject non-essential",
+          link: "Learn more",
+          href: "https://revtrix.io/privacypolicy.html"
+        },
+        onInitialise: function (status) { handleConsent(status); },
+        onStatusChange: function (status) { handleConsent(status); }
+      });
+      function handleConsent(status) {}
+    });
+    </script>
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-0L8B7244BF"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-0L8B7244BF');
+    </script>
+
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-W66XNTHC');</script>
+
+    <script>
+        (function(h,o,t,j,a,r){
+            h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
+            h._hjSettings={hjid:6469635,hjsv:6};
+            a=o.getElementsByTagName('head')[0];
+            r=o.createElement('script');r.async=1;
+            r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+            a.appendChild(r);
+        })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
+    </script>
+</head>
+<body class="font-sans bg-white text-slate-600 antialiased selection:bg-orange-100 selection:text-orange-600">
+
+
+
+    <nav class="fixed top-0 w-full z-50 glass-nav transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <div class="flex-shrink-0">
+                    <a href="https://revtrix.io">
+                        <img src="logo.png" alt="RevTrix Logo" class="h-9 w-auto hover:opacity-90 transition-opacity" />
+                    </a>
+                </div>
+
+                <div class="hidden md:flex items-center space-x-8 text-sm font-medium text-slate-600">
+                    <a href="#section-features" class="hover:text-brand-orange transition-colors">Features</a>
+                    <a href="#section-how-it-works" class="hover:text-brand-orange transition-colors">How It Works</a>
+                    <a href="#section-aboutus" class="hover:text-brand-orange transition-colors">About</a>
+                    <a href="#section-testimonials" class="hover:text-brand-orange transition-colors">Testimonials</a>
+                    <a href="demo.html" target="_blank" class="hover:text-brand-orange transition-colors">Demo</a>
+                    <a href="/blog" target="_blank" class="hover:text-brand-orange transition-colors">Blog</a>
+                </div>
+
+                <div class="hidden md:flex items-center space-x-4">
+                    <a href="https://partners.revtrix.io/login" target="_blank" rel="noopener noreferrer" class="bg-gradient-brand text-white px-5 py-2.5 rounded-full text-sm font-semibold shadow-lg shadow-orange-500/30 hover:shadow-orange-500/50 hover:scale-105 transition-all duration-300">
+                        Log In</a>
+                    <a href="https://partners.revtrix.io/registration" target="_blank" rel="noopener noreferrer" class="bg-gradient-brand text-white px-5 py-2.5 rounded-full text-sm font-semibold shadow-lg shadow-orange-500/30 hover:shadow-orange-500/50 hover:scale-105 transition-all duration-300">
+                        Sign Up
+                    </a>
+                </div>
+
+                <button class="md:hidden text-slate-700 focus:outline-none" id="menu-toggle">
+                    <i class="fas fa-bars text-2xl"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="md:hidden hidden bg-white border-b border-slate-100 shadow-xl absolute w-full" id="mobile-menu">
+            <div class="px-6 py-6 space-y-4">
+                <a href="#section-features" class="block text-slate-700 font-medium hover:text-brand-orange">Features</a>
+                <a href="#section-how-it-works" class="block text-slate-700 font-medium hover:text-brand-orange">How It Works</a>
+                <a href="#section-testimonials" class="block text-slate-700 font-medium hover:text-brand-orange">Testimonials</a>
+                <a href="#section-aboutus" class="block text-slate-700 font-medium hover:text-brand-orange">About Us</a>
+                <a href="demo.html" class="block text-slate-700 font-medium hover:text-brand-orange">Demo</a>
+                <a href="/blog" class="block text-slate-700 font-medium hover:text-brand-orange">Blog</a>
+                <div class="pt-4 border-t border-slate-100 flex flex-col space-y-3">
+                    <a href="https://partners.revtrix.io/login" class="w-full text-center py-2.5 rounded-lg border border-slate-200 text-slate-700 font-semibold hover:bg-slate-50">Log In</a>
+                    <a href="https://partners.revtrix.io/registration" class="w-full text-center py-2.5 rounded-lg bg-gradient-brand text-white font-semibold shadow-md">Sign Up Now</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <section id="section-hero" class="relative pt-32 pb-24 overflow-hidden bg-brand-light" onmousemove="moveBackground(event)">
+        <div id="blob-1" class="absolute -top-40 -right-40 w-[700px] h-[700px] bg-orange-100/60 rounded-full blur-[100px] mix-blend-multiply transition-transform duration-700 ease-out"></div>
+        <div id="blob-2" class="absolute top-40 -left-20 w-[500px] h-[500px] bg-purple-100/60 rounded-full blur-[100px] mix-blend-multiply transition-transform duration-700 ease-out"></div>
+
+        <div class="container max-w-7xl mx-auto px-6 relative z-10 flex flex-col lg:flex-row items-center gap-16">
+            
+            <div class="lg:w-1/2 text-center lg:text-left reveal-on-scroll">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-50 border border-orange-100 text-orange-600 text-xs font-bold uppercase tracking-wider mb-6 hover:bg-orange-100 transition-colors cursor-default">
+                    <span class="w-2 h-2 rounded-full bg-orange-500 animate-pulse"></span>
+                    Live Optimization
+                </div>
+                <h1 class="font-heading text-5xl sm:text-6xl font-extrabold text-slate-900 leading-[1.15] mb-6">
+                    Monetize <span class="text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-red-600">Every Visitor</span> With AI Smart <span class="text-slate-900">Widgets</span>
+                </h1>
+                <p class="text-lg text-slate-600 mb-10 leading-relaxed max-w-xl mx-auto lg:mx-0">
+                    Stop bleeding revenue. In the iGaming industry, every click counts. Our AI instantly delivers geo-targeted, high-converting offers to 100% of your traffic.
+                </p>
+                
+                <div class="flex flex-col sm:flex-row items-center gap-4 justify-center lg:justify-start">
+                    <a href="https://partners.revtrix.io/registration" target="_blank" class="w-full sm:w-auto px-8 py-4 bg-gradient-brand text-white rounded-xl font-bold shadow-xl shadow-orange-500/20 hover:shadow-orange-500/40 hover:-translate-y-1 transition-all duration-300">
+                        Start Monetizing Now <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                    <a href="#section-math" class="w-full sm:w-auto px-8 py-4 bg-white border border-slate-200 text-slate-700 rounded-xl font-semibold hover:border-orange-200 hover:bg-orange-50 transition-all duration-300">
+                        <i class="fas fa-calculator mr-2 text-brand-orange"></i> Calculate Loss
+                    </a>
+                </div>
+                
+            </div>
+
+            <div class="lg:w-1/2 w-full flex justify-center perspective-1000 reveal-on-scroll" style="transition-delay: 200ms;">
+                <div class="relative w-full max-w-md bg-white/90 backdrop-blur-sm rounded-2xl shadow-2xl border border-slate-100 p-6 animate-float hover:shadow-orange-200/50 transition-shadow duration-500">
+                    <div class="flex items-center gap-2 mb-6 border-b border-slate-50 pb-4">
+                        <div class="w-3 h-3 rounded-full bg-red-400"></div>
+                        <div class="w-3 h-3 rounded-full bg-yellow-400"></div>
+                        <div class="w-3 h-3 rounded-full bg-green-400"></div>
+                        <div class="ml-auto text-xs font-mono text-slate-400 bg-slate-50 px-2 py-1 rounded">widget-preview.js</div>
+                    </div>
+
+                    <div class="space-y-4">
+                        <div class="flex justify-between items-end mb-2">
+                            <div>
+                                <span class="text-xs font-bold text-brand-orange uppercase tracking-wide">Top Picks For You</span>
+                                <h3 class="text-lg font-bold text-slate-900">Exclusive Bonuses</h3>
+                            </div>
+                            <span class="text-xs bg-slate-100 px-2 py-1 rounded text-slate-500 flex items-center gap-1"><img src="https://flagcdn.com/w20/gb.png" class="w-4 h-auto rounded-sm"> UK Detected</span>
+                        </div>
+
+                        <div class="group flex items-center gap-4 p-3 bg-slate-50 rounded-xl border border-slate-100 hover:border-orange-200 hover:bg-white hover:shadow-lg transition-all cursor-pointer">
+                            <img src="https://revtrix.b-cdn.net/web/igamingbrand.png" class="w-12 h-12 rounded-lg object-cover shadow-sm group-hover:scale-105 transition-transform" alt="Casino">
+                            <div class="flex-1">
+                                <h4 class="font-bold text-slate-900 text-sm">$1000 Welcome Bonus</h4>
+                                <p class="text-xs text-slate-500">100% Match + 50 Free Spins</p>
+                            </div>
+                            <div class="h-8 w-8 rounded-full bg-orange-100 text-brand-orange flex items-center justify-center group-hover:bg-brand-orange group-hover:text-white transition-colors">
+                                <i class="fas fa-chevron-right text-xs"></i>
+                            </div>
+                        </div>
+
+                        <div class="group flex items-center gap-4 p-3 bg-slate-50 rounded-xl border border-slate-100 hover:border-orange-200 hover:bg-white hover:shadow-lg transition-all cursor-pointer">
+                            <img src="https://revtrix.b-cdn.net/web/winx.png" class="w-12 h-12 rounded-lg object-cover shadow-sm group-hover:scale-105 transition-transform" alt="Casino">
+                            <div class="flex-1">
+                                <h4 class="font-bold text-slate-900 text-sm">400% Bonus up to $2000</h4>
+                                <p class="text-xs text-slate-500">Instant Deposit Match</p>
+                            </div>
+                            <div class="h-8 w-8 rounded-full bg-orange-100 text-brand-orange flex items-center justify-center group-hover:bg-brand-orange group-hover:text-white transition-colors">
+                                <i class="fas fa-chevron-right text-xs"></i>
+                            </div>
+                        </div>
+
+                        <div class="group flex items-center gap-4 p-3 bg-slate-50 rounded-xl border border-slate-100 hover:border-orange-200 hover:bg-white hover:shadow-lg transition-all cursor-pointer">
+                            <img src="https://revtrix.b-cdn.net/web/megawin.png" class="w-12 h-12 rounded-lg object-cover shadow-sm group-hover:scale-105 transition-transform" alt="Casino">
+                            <div class="flex-1">
+                                <h4 class="font-bold text-slate-900 text-sm">Exclusive $500 Chip</h4>
+                                <p class="text-xs text-slate-500">VIP Cashback Included</p>
+                            </div>
+                            <div class="h-8 w-8 rounded-full bg-orange-100 text-brand-orange flex items-center justify-center group-hover:bg-brand-orange group-hover:text-white transition-colors">
+                                <i class="fas fa-chevron-right text-xs"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="section-problem" class="py-24 bg-white">
+        <div class="container max-w-7xl mx-auto px-6">
+            <div class="text-center max-w-3xl mx-auto mb-16 reveal-on-scroll">
+                <h2 class="font-heading text-3xl md:text-4xl font-bold text-slate-900 mb-4">Without RevTrix, You're <span class="text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-orange-600">Losing Money</span> Daily</h2>
+                <p class="text-slate-600 text-lg">The traditional affiliate model is broken. Are you making these costly mistakes?</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8" id="problem-grid">
+                <div class="card-premium p-8 reveal-on-scroll" style="transition-delay: 100ms;">
+                    <div class="w-14 h-14 rounded-2xl bg-red-50 flex items-center justify-center mb-6">
+                        <i class="fas fa-ban text-red-500 text-2xl"></i>
+                    </div>
+                    <h3 class="font-heading text-xl font-bold text-slate-900 mb-3">Restricted Brand Traffic</h3>
+                    <p class="text-slate-600 leading-relaxed">Visitors landing on offers they can't access due to geo-blocks means 100% wasted traffic.</p>
+                </div>
+                <div class="card-premium p-8 reveal-on-scroll" style="transition-delay: 200ms;">
+                    <div class="w-14 h-14 rounded-2xl bg-orange-50 flex items-center justify-center mb-6">
+                        <i class="fas fa-clock text-brand-orange text-2xl"></i>
+                    </div>
+                    <h3 class="font-heading text-xl font-bold text-slate-900 mb-3">Outdated Offers</h3>
+                    <p class="text-slate-600 leading-relaxed">Expired links destroy trust. Manual updates are slow and prone to human error.</p>
+                </div>
+                <div class="card-premium p-8 reveal-on-scroll" style="transition-delay: 300ms;">
+                    <div class="w-14 h-14 rounded-2xl bg-purple-50 flex items-center justify-center mb-6">
+                        <i class="fas fa-random text-purple-500 text-2xl"></i>
+                    </div>
+                    <h3 class="font-heading text-xl font-bold text-slate-900 mb-3">Traffic Mismatch</h3>
+                    <p class="text-slate-600 leading-relaxed">Sending a sports bettor to a slots page? You're missing easy revenue by not matching intent.</p>
+                </div>
+                <div class="card-premium p-8 reveal-on-scroll" style="transition-delay: 400ms;">
+                    <div class="w-14 h-14 rounded-2xl bg-blue-50 flex items-center justify-center mb-6">
+                        <i class="fas fa-tasks text-blue-500 text-2xl"></i>
+                    </div>
+                    <h3 class="font-heading text-xl font-bold text-slate-900 mb-3">Manual Maintenance</h3>
+                    <p class="text-slate-600 leading-relaxed">Constant link swapping eats up hours that should be spent on scaling traffic.</p>
+                </div>
+                <div class="card-premium p-8 reveal-on-scroll" style="transition-delay: 500ms;">
+                    <div class="w-14 h-14 rounded-2xl bg-green-50 flex items-center justify-center mb-6">
+                        <i class="fas fa-chart-line text-green-500 text-2xl"></i>
+                    </div>
+                    <h3 class="font-heading text-xl font-bold text-slate-900 mb-3">Fragmented Data</h3>
+                    <p class="text-slate-600 leading-relaxed">Logging into 50 different affiliate programs to check stats is inefficient and messy.</p>
+                </div>
+                <div class="card-premium p-8 reveal-on-scroll" style="transition-delay: 600ms;">
+                    <div class="w-14 h-14 rounded-2xl bg-pink-50 flex items-center justify-center mb-6">
+                        <i class="fas fa-envelope text-pink-500 text-2xl"></i>
+                    </div>
+                    <h3 class="font-heading text-xl font-bold text-slate-900 mb-3">Missed Leads</h3>
+                    <p class="text-slate-600 leading-relaxed">Not capturing exiting visitors? You're leaving long-term LTV and passive income on the table.</p>
+                </div>
+            </div>
+
+            <div class="mt-16 bg-gradient-to-r from-orange-500 to-red-600 rounded-2xl p-1 reveal-on-scroll">
+                <div class="bg-white rounded-xl p-8 text-center">
+                    <p class="text-lg font-medium text-slate-800">In short: You're paying for traffic or SEO, but leaving <span class="font-bold text-red-600">30-50% of revenue</span> on the table.</p>
+                    <p class="text-xl font-bold mt-2 text-slate-900">Does this sound familiar?</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-20 bg-brand-dark text-white relative">
+        <div class="container max-w-5xl mx-auto px-6 text-center reveal-on-scroll">
+            <h2 class="font-heading text-3xl md:text-4xl font-bold mb-6">RevTrix: Built to <span class="text-brand-orange">Maximize Monetization</span></h2>
+            <p class="text-xl text-slate-300 leading-relaxed">
+                We didn't "adapt" an old tool from e-commerce. We engineered RevTrix specifically for the iGaming world. 
+                Smart geo-targeting, auto-rotating offers, live tracking, and zero friction.
+            </p>
+        </div>
+    </section>
+
+    <section id="section-features" class="py-24 bg-brand-light">
+        <div class="container max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16 reveal-on-scroll">
+                <span class="text-brand-orange font-bold text-sm uppercase tracking-wider">Core Capabilities</span>
+                <h2 class="font-heading text-3xl md:text-4xl font-bold text-slate-900 mt-2">The Only Toolkit You Need</h2>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8" id="features-grid">
+                <div class="card-premium p-8 group reveal-on-scroll">
+                    <div class="flex gap-6">
+                        <div class="flex-shrink-0 w-16 h-16 bg-purple-50 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-500">
+                            <i class="fas fa-cube text-purple-600 text-2xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-2xl font-bold text-slate-900 mb-3">AI Smart Widgets</h3>
+                            <p class="text-slate-600 leading-relaxed">Dynamic, geo-adaptive offer displays powered by AI. Show only relevant, licensed brands to every visitor. No confusion. No bouncing. Only conversions.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-premium p-8 group reveal-on-scroll" style="transition-delay: 150ms;">
+                    <div class="flex gap-6">
+                        <div class="flex-shrink-0 w-16 h-16 bg-blue-50 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-500">
+                            <i class="fas fa-link text-blue-600 text-2xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-2xl font-bold text-slate-900 mb-3">Global Smartlink</h3>
+                            <p class="text-slate-600 leading-relaxed">One single link. Automatically detects visitor's country and device, routing them to the highest-converting offer without you lifting a finger.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-premium p-8 group reveal-on-scroll" style="transition-delay: 300ms;">
+                    <div class="flex gap-6">
+                        <div class="flex-shrink-0 w-16 h-16 bg-green-50 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-500">
+                            <i class="fas fa-window-restore text-green-600 text-2xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-2xl font-bold text-slate-900 mb-3">Exit Popup Capture</h3>
+                            <p class="text-slate-600 leading-relaxed">Turn quitting visitors into revenue. Our smart exit intent technology captures leads before they leave, monetizing them for life.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-premium p-8 group reveal-on-scroll" style="transition-delay: 450ms;">
+                    <div class="flex gap-6">
+                        <div class="flex-shrink-0 w-16 h-16 bg-pink-50 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-500">
+                            <i class="fas fa-envelope-open-text text-pink-600 text-2xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-2xl font-bold text-slate-900 mb-3">Newsletter Widget</h3>
+                            <p class="text-slate-600 leading-relaxed">Grow a valuable iGaming-focused email list effortlessly. Embed our widget and let us handle the monetization backend.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="section-advanced-features" class="py-24 bg-white">
+        <div class="container max-w-7xl mx-auto px-6">
+            <h2 class="font-heading text-3xl md:text-4xl font-bold text-center text-slate-900 mb-16 reveal-on-scroll">Features That <span class="text-brand-orange">Crush the Competition</span></h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="card-premium p-6 text-center hover:bg-slate-50 reveal-on-scroll">
+                    <i class="fas fa-globe text-4xl text-brand-orange mb-4"></i>
+                    <h3 class="font-bold text-slate-900 mb-2">Worldwide Brands</h3>
+                    <p class="text-sm text-slate-600">600+ iGaming brands across 140+ countries. Always relevant.</p>
+                </div>
+                <div class="card-premium p-6 text-center hover:bg-slate-50 reveal-on-scroll" style="transition-delay: 100ms;">
+                    <i class="fas fa-bullseye text-4xl text-brand-orange mb-4"></i>
+                    <h3 class="font-bold text-slate-900 mb-2">Real-Time Targeting</h3>
+                    <p class="text-sm text-slate-600">Offers matched by location, device, and performance data.</p>
+                </div>
+                <div class="card-premium p-6 text-center hover:bg-slate-50 reveal-on-scroll" style="transition-delay: 200ms;">
+                    <i class="fas fa-chart-pie text-4xl text-brand-orange mb-4"></i>
+                    <h3 class="font-bold text-slate-900 mb-2">Central Reporting</h3>
+                    <p class="text-sm text-slate-600">One dashboard for all your clicks, conversions, and earnings.</p>
+                </div>
+                <div class="card-premium p-6 text-center hover:bg-slate-50 reveal-on-scroll" style="transition-delay: 300ms;">
+                    <i class="fas fa-star text-4xl text-brand-orange mb-4"></i>
+                    <h3 class="font-bold text-slate-900 mb-2">Exclusive Offers</h3>
+                    <p class="text-sm text-slate-600">Unlock private deals and top-tier brands not found elsewhere.</p>
+                </div>
+                <div class="card-premium p-6 text-center hover:bg-slate-50 reveal-on-scroll" style="transition-delay: 400ms;">
+                    <i class="fas fa-money-bill-wave text-4xl text-brand-orange mb-4"></i>
+                    <h3 class="font-bold text-slate-900 mb-2">Bi-Weekly Payments</h3>
+                    <p class="text-sm text-slate-600">Get paid on time, every second week. No chasing payouts.</p>
+                </div>
+                <div class="card-premium p-6 text-center hover:bg-slate-50 reveal-on-scroll" style="transition-delay: 500ms;">
+                    <i class="fas fa-mobile-alt text-4xl text-brand-orange mb-4"></i>
+                    <h3 class="font-bold text-slate-900 mb-2">Mobile Optimized</h3>
+                    <p class="text-sm text-slate-600">Widgets and links adapt to every device for seamless UX.</p>
+                </div>
+                <div class="card-premium p-6 text-center hover:bg-slate-50 reveal-on-scroll" style="transition-delay: 600ms;">
+                    <i class="fas fa-shield-alt text-4xl text-brand-orange mb-4"></i>
+                    <h3 class="font-bold text-slate-900 mb-2">Traffic Filters</h3>
+                    <p class="text-sm text-slate-600">We filter suspicious traffic to keep your stats clean.</p>
+                </div>
+                <div class="card-premium p-6 text-center hover:bg-slate-50 reveal-on-scroll" style="transition-delay: 700ms;">
+                    <i class="fas fa-bolt text-4xl text-brand-orange mb-4"></i>
+                    <h3 class="font-bold text-slate-900 mb-2">Instant Setup</h3>
+                    <p class="text-sm text-slate-600">Copy, paste, earn. Go live in under 5 minutes.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="section-math" class="py-24 bg-brand-dark relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-br from-brand-dark to-slate-800"></div>
+        <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-orange-600 rounded-full blur-[120px] opacity-20 animate-pulse"></div>
+
+        <div class="container max-w-6xl mx-auto px-6 relative z-10">
+            <div class="text-center mb-12 reveal-on-scroll">
+                <h2 class="font-heading text-3xl md:text-4xl font-bold text-white mb-4">How Much Revenue Are You Burning?</h2>
+                <p class="text-slate-400">Calculate your potential losses from irrelevant geo-traffic.</p>
+            </div>
+
+            <div class="bg-slate-800 rounded-2xl shadow-2xl border border-slate-700 overflow-hidden flex flex-col md:flex-row reveal-on-scroll">
+                
+                <div class="md:w-1/2 p-8 border-b md:border-b-0 md:border-r border-slate-700">
+                    <div class="space-y-6">
+                        <div>
+                            <label class="block text-slate-300 text-sm font-medium mb-2">Number of Websites</label>
+                            <input id="websites" type="number" value="1" class="w-full bg-slate-900 border border-slate-600 rounded-lg px-4 py-3 text-white focus:border-brand-orange focus:outline-none transition-colors" oninput="calculateLoss()" />
+                        </div>
+                        <div>
+                            <label class="block text-slate-300 text-sm font-medium mb-2">Monthly Visitors</label>
+                            <input id="visits" type="number" value="10000" class="w-full bg-slate-900 border border-slate-600 rounded-lg px-4 py-3 text-white focus:border-brand-orange focus:outline-none transition-colors" oninput="calculateLoss()" />
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <label class="text-slate-300 text-sm font-medium">Irrelevant Traffic</label>
+                                <output id="irrelevantOutput" class="text-brand-orange font-bold text-sm">30%</output>
+                            </div>
+                            <input id="irrelevant" type="range" min="20" max="60" value="30" oninput="irrelevantOutput.value = this.value + '%'; calculateLoss();" class="w-full h-2 bg-slate-600 rounded-lg appearance-none cursor-pointer accent-orange-500">
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <label class="text-slate-300 text-sm font-medium">Click-Through Rate (CTR)</label>
+                                <output id="ctrOutput" class="text-brand-orange font-bold text-sm">5%</output>
+                            </div>
+                            <input id="ctr" type="range" min="1" max="60" value="5" oninput="ctrOutput.value = this.value + '%'; calculateLoss();" class="w-full h-2 bg-slate-600 rounded-lg appearance-none cursor-pointer accent-orange-500">
+                        </div>
+                        <div>
+                            <label class="block text-slate-300 text-sm font-medium mb-2">Avg. CPA ($)</label>
+                            <input id="cpa" type="number" value="100" class="w-full bg-slate-900 border border-slate-600 rounded-lg px-4 py-3 text-white focus:border-brand-orange focus:outline-none transition-colors" oninput="calculateLoss()" />
+                        </div>
+                        <input id="conversion" type="hidden" value="10">
+                    </div>
+                </div>
+
+                <div class="md:w-1/2 bg-slate-900/50 p-8 flex flex-col justify-center items-center text-center">
+                    <h3 class="text-slate-400 uppercase tracking-widest text-xs font-bold mb-6">Estimated Monthly Loss</h3>
+                    
+                    <div class="mb-8 scale-100 transition-transform duration-300" id="result-container">
+                        <div class="text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-red-400 to-orange-500 mb-2" id="monthlyLoss">$0</div>
+                        <p class="text-slate-400 text-sm">Revenue left on the table</p>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-4 w-full mb-8">
+                        <div class="bg-slate-800 p-4 rounded-lg border border-slate-700">
+                            <p class="text-2xl font-bold text-white" id="missedConversions">0</p>
+                            <p class="text-xs text-slate-500">Missed Conversions</p>
+                        </div>
+                        <div class="bg-slate-800 p-4 rounded-lg border border-slate-700">
+                            <p class="text-2xl font-bold text-white" id="yearlyLoss">$0</p>
+                            <p class="text-xs text-slate-500">Yearly Burn</p>
+                        </div>
+                    </div>
+
+                    <a href="https://partners.revtrix.io/registration" target="_blank" class="w-full bg-brand-orange hover:bg-orange-600 text-white font-bold py-4 rounded-xl shadow-lg shadow-orange-900/50 transition-all transform hover:scale-[1.02]">
+                        Stop Losing Revenue
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="section-how-it-works" class="py-24 bg-white">
+        <div class="container max-w-6xl mx-auto px-6">
+            <div class="text-center mb-16 reveal-on-scroll">
+                <h2 class="font-heading text-3xl font-bold text-slate-900">3 Steps to <span class="text-gradient">Passive Revenue</span></h2>
+            </div>
+            
+            <div class="relative">
+                <div class="hidden md:block absolute top-12 left-0 w-full h-0.5 bg-slate-100 z-0"></div>
+
+                <div class="grid md:grid-cols-3 gap-12 relative z-10">
+                    <div class="text-center group reveal-on-scroll" style="transition-delay: 100ms;">
+                        <div class="w-24 h-24 bg-white border-4 border-slate-50 rounded-full flex items-center justify-center mx-auto mb-6 shadow-sm group-hover:border-orange-100 group-hover:scale-110 transition-all duration-300">
+                            <span class="text-3xl font-bold text-brand-orange">1</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-900 mb-3">Create Account</h3>
+                        <p class="text-slate-600 text-sm leading-relaxed px-4">Instant approval. Get access to our dashboard, smart widgets, and exclusive offers immediately.</p>
+                    </div>
+                    <div class="text-center group reveal-on-scroll" style="transition-delay: 250ms;">
+                        <div class="w-24 h-24 bg-white border-4 border-slate-50 rounded-full flex items-center justify-center mx-auto mb-6 shadow-sm group-hover:border-orange-100 group-hover:scale-110 transition-all duration-300">
+                            <span class="text-3xl font-bold text-brand-orange">2</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-900 mb-3">Copy & Paste</h3>
+                        <p class="text-slate-600 text-sm leading-relaxed px-4">Generate your widget or smartlink code. Paste it into your site header or content area.</p>
+                    </div>
+                    <div class="text-center group reveal-on-scroll" style="transition-delay: 400ms;">
+                        <div class="w-24 h-24 bg-white border-4 border-slate-50 rounded-full flex items-center justify-center mx-auto mb-6 shadow-sm group-hover:border-orange-100 group-hover:scale-110 transition-all duration-300">
+                            <span class="text-3xl font-bold text-brand-orange">3</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-900 mb-3">Auto-Profit</h3>
+                        <p class="text-slate-600 text-sm leading-relaxed px-4">RevTrix handles the rest. Offers auto-rotate and optimize based on performance.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="section-audience" class="py-24 bg-brand-light">
+        <div class="container max-w-7xl mx-auto px-6">
+            <h2 class="font-heading text-3xl font-bold text-center text-slate-900 mb-16 reveal-on-scroll">Who Should Use RevTrix?</h2>
+            <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
+                <div class="card-premium p-6 text-center hover:bg-white reveal-on-scroll">
+                    <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-search text-purple-600 text-xl"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-slate-900">Review Sites</h3>
+                    <p class="text-sm text-slate-600 mt-2">Monetize traffic instantly with geo-targeted, auto-rotating offers.</p>
+                </div>
+                <div class="card-premium p-6 text-center hover:bg-white reveal-on-scroll" style="transition-delay: 100ms;">
+                    <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-link text-blue-600 text-xl"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-slate-900">SEO Affiliates</h3>
+                    <p class="text-sm text-slate-600 mt-2">Maximize organic traffic value by showing relevant offers to each visitor.</p>
+                </div>
+                <div class="card-premium p-6 text-center hover:bg-white reveal-on-scroll" style="transition-delay: 200ms;">
+                    <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-ad text-green-600 text-xl"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-slate-900">Paid Traffic Buyers</h3>
+                    <p class="text-sm text-slate-600 mt-2">Optimize ROI with Smartlinks that auto-route to top performers.</p>
+                </div>
+                <div class="card-premium p-6 text-center hover:bg-white reveal-on-scroll" style="transition-delay: 300ms;">
+                    <div class="w-16 h-16 bg-yellow-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-gem text-yellow-600 text-xl"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-slate-900">Bonus Hunters</h3>
+                    <p class="text-sm text-slate-600 mt-2">Promote high-converting welcome bonuses with global coverage.</p>
+                </div>
+                <div class="card-premium p-6 text-center hover:bg-white reveal-on-scroll" style="transition-delay: 400ms;">
+                    <div class="w-16 h-16 bg-pink-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-blog text-pink-600 text-xl"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-slate-900">iGaming Bloggers</h3>
+                    <p class="text-sm text-slate-600 mt-2">Turn content into conversions with adaptive widgets.</p>
+                </div>
+                <div class="card-premium p-6 text-center hover:bg-white reveal-on-scroll" style="transition-delay: 500ms;">
+                    <div class="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-network-wired text-red-600 text-xl"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-slate-900">Affiliate Networks</h3>
+                    <p class="text-sm text-slate-600 mt-2">Expand inventory and streamline partner monetization.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="section-aboutus" class="py-24 bg-white">
+        <div class="container max-w-4xl mx-auto px-6 text-center reveal-on-scroll">
+            <h2 class="font-heading text-3xl font-bold mb-6">About <span class="text-brand-orange">Us</span></h2>
+            <p class="text-lg text-slate-600 mb-10 leading-relaxed">
+                RevTrix was built by super affiliates - not just developers. With a combined 39 years of hands-on experience in affiliate marketing, performance campaigns, and iGaming traffic optimization, our team knows exactly what affiliates need to maximize their earnings.
+            </p>
+            <div class="bg-gradient-brand p-1 rounded-2xl">
+                <div class="bg-white rounded-xl p-8">
+                    <p class="text-lg text-slate-700 leading-relaxed">
+                        After years of battling with broken links, outdated offers, manual tracking headaches, and wasted traffic, we decided to build the tool we always wished existed. RevTrix is purpose-built to solve real affiliate pain points - smart geo-targeting, offer rotation, live tracking, and zero setup friction.
+                    </p>
+                    <p class="mt-6 font-bold text-brand-orange text-xl">We are not just another SaaS company. We are your peers.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="section-testimonials" class="py-24 bg-brand-light">
+        <div class="container max-w-7xl mx-auto px-6">
+            <h2 class="font-heading text-3xl font-bold text-center text-slate-900 mb-16 reveal-on-scroll">Trusted by Super Affiliates</h2>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-100 relative reveal-on-scroll hover:shadow-xl transition-shadow duration-300">
+                    <div class="text-brand-orange text-4xl absolute top-6 right-6 opacity-20"><i class="fas fa-quote-right"></i></div>
+                    <p class="text-slate-600 mb-6 italic">"RevTrix increased our conversions by 37% in the first month. The AI smart iGaming widgets alone paid for themselves 10x over."</p>
+                    <div class="flex items-center gap-4">
+                        <div class="w-10 h-10 rounded-full bg-purple-100 flex items-center justify-center text-purple-600 font-bold">M</div>
+                        <div>
+                            <h4 class="font-bold text-slate-900 text-sm">Mark Johnson</h4>
+                            <span class="text-xs text-slate-500">SEO Affiliate</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-100 relative reveal-on-scroll hover:shadow-xl transition-shadow duration-300" style="transition-delay: 150ms;">
+                    <div class="text-brand-orange text-4xl absolute top-6 right-6 opacity-20"><i class="fas fa-quote-right"></i></div>
+                    <p class="text-slate-600 mb-6 italic">"The exit popup lead capture added $8,000/month in passive income. I was letting this traffic leave for free before."</p>
+                    <div class="flex items-center gap-4">
+                        <div class="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center text-green-600 font-bold">S</div>
+                        <div>
+                            <h4 class="font-bold text-slate-900 text-sm">Sarah Chen</h4>
+                            <span class="text-xs text-slate-500">Media Buyer</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-100 relative reveal-on-scroll hover:shadow-xl transition-shadow duration-300" style="transition-delay: 300ms;">
+                    <div class="text-brand-orange text-4xl absolute top-6 right-6 opacity-20"><i class="fas fa-quote-right"></i></div>
+                    <p class="text-slate-600 mb-6 italic">"Finally a tool that understands the iGaming business. Our RPMs increased by 65% across all geo-sources."</p>
+                    <div class="flex items-center gap-4">
+                        <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-bold">D</div>
+                        <div>
+                            <h4 class="font-bold text-slate-900 text-sm">David S.</h4>
+                            <span class="text-xs text-slate-500">Review Site Owner</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="section-blog" class="py-24 bg-white border-t border-slate-100">
+        <div class="container max-w-7xl mx-auto px-6">
+            <div class="flex justify-between items-end mb-10 reveal-on-scroll">
+                <div>
+                    <h2 class="font-heading text-3xl font-bold text-slate-900">Latest Insights</h2>
+                    <p class="text-slate-500 mt-2">Tips and strategies from the RevTrix blog.</p>
+                </div>
+                <a href="/blog/" class="text-brand-orange font-semibold hover:text-orange-700 transition-colors group">View All <i class="fas fa-arrow-right ml-1 group-hover:translate-x-1 transition-transform"></i></a>
+            </div>
+
+            <div class="relative group/track reveal-on-scroll">
+                <div id="rtx-blog-track" class="flex gap-6 overflow-x-auto pb-4 snap-x snap-mandatory">
+                    <div class="min-w-[300px] md:min-w-[350px] bg-slate-100 rounded-xl h-64 animate-pulse"></div>
+                    <div class="min-w-[300px] md:min-w-[350px] bg-slate-100 rounded-xl h-64 animate-pulse"></div>
+                    <div class="min-w-[300px] md:min-w-[350px] bg-slate-100 rounded-xl h-64 animate-pulse"></div>
+                </div>
+                
+                <button id="rtx-blog-prev" class="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 bg-white border border-slate-200 shadow-lg w-10 h-10 rounded-full flex items-center justify-center text-slate-600 opacity-0 group-hover/track:opacity-100 transition-opacity hover:text-brand-orange z-10"><i class="fas fa-chevron-left"></i></button>
+                <button id="rtx-blog-next" class="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 bg-white border border-slate-200 shadow-lg w-10 h-10 rounded-full flex items-center justify-center text-slate-600 opacity-0 group-hover/track:opacity-100 transition-opacity hover:text-brand-orange z-10"><i class="fas fa-chevron-right"></i></button>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-24 bg-gradient-brand text-white relative overflow-hidden">
+        <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10"></div>
+        <div class="container max-w-4xl mx-auto px-6 text-center relative z-10 reveal-on-scroll">
+            <h2 class="font-heading text-4xl md:text-5xl font-extrabold mb-6">Maximize Every Visitor Today</h2>
+            <p class="text-xl text-orange-100 mb-10 max-w-2xl mx-auto">Join hundreds of iGaming affiliates who are monetizing 100% of their traffic with RevTrix.</p>
+            
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="https://partners.revtrix.io/registration" target="_blank" class="px-8 py-4 bg-white text-orange-600 rounded-xl font-bold shadow-xl hover:bg-orange-50 transition-all hover:-translate-y-1">
+                    Get Started Free
+                </a>
+                <div id="calendar-btn-container" class="inline-block"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+<footer class="bg-gray-900 text-gray-300 py-12">
+  <div class="container mx-auto px-6">
+<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-8">
+      <div>
+  <img src="logo_bg.png" alt="REVTRIX Logo" class="h-10 mb-4 hover:opacity-80 transition duration-200">
+  <p class="text-sm mb-4">
+    The smart monetization platform built exclusively for iGaming affiliates by Super affiliates.
+    Maximize your earnings with geo-targeted offers, real-time optimization, and instant setup.
+  </p>
+  <div class="flex space-x-4 items-center">
+    <a href="https://www.linkedin.com/company/revtrix-io" target="_blank" rel="noopener noreferrer">
+      <img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" alt="LinkedIn" class="h-6 w-6 hover:opacity-80">
+    </a>
+    <a href="https://t.me/revtrix" target="_blank" rel="noopener noreferrer">
+      <img src="https://cdn-icons-png.flaticon.com/512/2111/2111646.png" alt="Telegram" class="h-6 w-6 hover:opacity-80">
+    </a>
+    <a href="/cdn-cgi/l/email-protection#a9c0c7cfc6e9dbccdfdddbc0d187c0c6" target="_blank" rel="noopener noreferrer">
+    <img src="https://cdn-icons-png.freepik.com/512/10505/10505507.png" alt="Email" class="h-6 w-6 hover:opacity-80">
+  </a>
+  </div>
+</div>
+      <div>
+        <h4 class="text-white font-semibold mb-4">Product</h4>
+        <ul class="space-y-2">
+          <li><a href="#section-features" class="hover:text-white transition-all">Features</a></li>
+          <li><a href="#section-math" class="hover:text-white transition-all">Lost Traffic Calculator</a></li>
+          <li><a href="#" class="hover:text-white transition-all">Roadmap</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="text-white font-semibold mb-4">Resources</h4>
+        <ul class="space-y-2">
+          <li><a href="https://docs.revtrix.io/" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-all">Documentation</a></li>
+          <li><a href="https://revtrix.io/infographic.html" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-all">Why Us</a></li>
+          <li><a href="https://revtrix.io/api.html" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-all">API </a></li>
+          <li><a href="https://t.me/revtrixsupport" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-all">Support</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="text-white font-semibold mb-4">Company</h4>
+        <ul class="space-y-2">
+          <li><a href="#section-aboutus" class="hover:text-white transition-all">About</a></li>
+          <li><a href="#" onclick="document.getElementById('contactModal').classList.remove('hidden')" class="hover:text-white transition-all">Careers</a></li>
+          <li><a href="#" onclick="document.getElementById('contactModal').classList.remove('hidden')" class="hover:text-white transition-all cursor-pointer">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="text-white font-semibold mb-4">Legal</h4>
+        <ul class="space-y-2">
+          <li><a href="https://revtrix.io/cookies.html" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-all">Cookie policy</a></li>
+          <li><a href="https://revtrix.io/privacypolicy.html" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-all">Privacy policy</a></li>
+          <li><a href="https://revtrix.io/terms.html"  target="_blank" rel="noopener noreferrer" class="hover:text-white transition-all">Terms of Use</a></li>
+        </ul>
+    </div>
+  </div>
+
+<!-- Contact Modal -->
+<div id="contactModal" class="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50 hidden">
+  <div class="bg-white rounded-lg shadow-lg w-full max-w-md p-6 relative">
+    <button onclick="document.getElementById('contactModal').classList.add('hidden')" class="absolute top-3 right-4 text-gray-600 text-xl">&times;</button>
+    <h2 class="text-xl font-bold mb-4 text-gray-800">Contact Us</h2>
+    <form action="https://formsubmit.co/contact@revtrix.io" method="POST" class="space-y-4">
+      <input type="text" name="name" required placeholder="Your Name" class="w-full px-3 py-2 border rounded">
+      <input type="email" name="email" required placeholder="Your Email" class="w-full px-3 py-2 border rounded">
+      <input type="text" name="company" placeholder="Company Name" class="w-full px-3 py-2 border rounded">
+      <textarea name="message" required placeholder="Your message..." class="w-full px-3 py-2 border rounded" rows="4"></textarea>
+      <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="_template" value="table">
+      <input type="hidden" name="_next" value="https://revtrix.io/thank-you">
+      <button type="submit" class="w-full bg-gradient-to-r from-orange-600 to-red-500 text-white font-semibold py-2 rounded hover:from-orange-700 hover:to-red-600 transition">Send Message</button>
+    </form>
+  </div>
+            </div>
+            <div class="border-t border-gray-800 mt-8 pt-8 text-center text-sm">
+                <p class="text-sm mb-2">© 2026 RevTrix Ltd. All rights reserved.</p>
+    <p class="text-sm text-gray-400">
+      Agias Fylaxeos, 46A -  1st floor 3025, Limassol, Cyprus
+    </p>
+            </div>
+
+
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+        // 1. Mobile Menu
+        document.getElementById('menu-toggle').addEventListener('click', function() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        });
+
+        // 2. Mouse Move Parallax (Hero Section)
+        function moveBackground(e) {
+            const blob1 = document.getElementById('blob-1');
+            const blob2 = document.getElementById('blob-2');
+            
+            // Calculate mouse position relative to window
+            const x = e.clientX / window.innerWidth;
+            const y = e.clientY / window.innerHeight;
+            
+            // Move blobs slightly opposite to mouse
+            blob1.style.transform = `translate(${x * 30}px, ${y * 30}px)`;
+            blob2.style.transform = `translate(-${x * 30}px, -${y * 30}px)`;
+        }
+
+        // 3. Spotlight Hover Effect (Cards)
+        const cards = document.querySelectorAll('.card-premium');
+        cards.forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                card.style.setProperty('--mouse-x', `${x}px`);
+                card.style.setProperty('--mouse-y', `${y}px`);
+            });
+        });
+
+        // 4. Scroll Reveal Observer
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: "0px 0px -50px 0px"
+        };
+
+        const scrollObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    scrollObserver.unobserve(entry.target); // Only animate once
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal-on-scroll').forEach((el) => {
+            scrollObserver.observe(el);
+        });
+
+        // 5. Calculator Logic (Preserved)
+        function calculateLoss() {
+            const websites = parseInt(document.getElementById('websites').value);
+            const visits = parseInt(document.getElementById('visits').value);
+            const irrelevant = parseFloat(document.getElementById('irrelevant').value) / 100;
+            const ctr = parseFloat(document.getElementById('ctr').value) / 100;
+            const conversion = parseFloat(document.getElementById('conversion').value) / 100;
+            const cpa = parseFloat(document.getElementById('cpa').value);
+
+            if (isNaN(websites) || isNaN(visits) || isNaN(irrelevant) || isNaN(ctr) || isNaN(conversion) || isNaN(cpa)) return;
+
+            const totalVisitors = websites * visits;
+            const irrelevantClicks = totalVisitors * irrelevant * ctr;
+            const missedConversions = Math.round(irrelevantClicks * conversion);
+            const monthlyLoss = missedConversions * cpa;
+            const yearlyLoss = monthlyLoss * 12;
+
+            document.getElementById('missedConversions').textContent = missedConversions.toLocaleString();
+            document.getElementById('monthlyLoss').textContent = '$' + monthlyLoss.toLocaleString();
+            document.getElementById('yearlyLoss').textContent = '$' + yearlyLoss.toLocaleString();
+            
+            // Pulse animation on update
+            const result = document.getElementById('result-container');
+            result.classList.remove('scale-100');
+            result.classList.add('scale-110');
+            setTimeout(() => {
+                result.classList.remove('scale-110');
+                result.classList.add('scale-100');
+            }, 150);
+        }
+        window.onload = calculateLoss;
+
+        // 6. Blog Scroller Logic
+        (function () {
+            const API = '/blog/wp-json/wp/v2/posts?per_page=6&_embed=1&orderby=date&order=desc';
+            const track = document.getElementById('rtx-blog-track');
+            const btnPrev = document.getElementById('rtx-blog-prev');
+            const btnNext = document.getElementById('rtx-blog-next');
+
+            const card = (p) => {
+                const url = p.link || ('/blog/?p=' + p.id);
+                const title = p.title?.rendered || 'Untitled';
+                const date = new Date(p.date).toLocaleDateString(undefined, { year:'numeric', month:'short', day:'numeric' });
+                const img = p._embedded?.['wp:featuredmedia']?.[0]?.source_url || null;
+                
+                return `
+                  <a href="${url}" target="_blank" class="min-w-[300px] md:min-w-[350px] bg-white rounded-xl border border-slate-100 overflow-hidden hover:shadow-lg transition-all flex flex-col group h-full">
+                    <div class="h-48 bg-slate-100 relative overflow-hidden">
+                        ${img ? `<img src="${img}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy">` : `<div class="w-full h-full flex items-center justify-center text-slate-300"><i class="fas fa-image text-3xl"></i></div>`}
+                    </div>
+                    <div class="p-6 flex flex-col flex-1">
+                      <div class="text-xs text-brand-orange font-bold mb-2 uppercase tracking-wide">${date}</div>
+                      <h3 class="font-bold text-slate-900 text-lg mb-3 line-clamp-2 group-hover:text-brand-orange transition-colors">${title}</h3>
+                      <div class="mt-auto text-sm text-slate-500 font-medium">Read Article <i class="fas fa-arrow-right ml-1 text-xs"></i></div>
+                    </div>
+                  </a>
+                `;
+            };
+
+            fetch(API).then(r => r.json()).then(posts => {
+                if(posts.length) {
+                    track.innerHTML = posts.map(card).join('');
+                } else {
+                    track.innerHTML = '<div class="text-slate-500 w-full text-center">No recent posts found.</div>';
+                }
+            }).catch(() => {
+                // Silent fail or fallback
+                track.innerHTML = '<div class="text-slate-500 w-full text-center">Blog content currently unavailable.</div>';
+            });
+
+            btnPrev.addEventListener('click', () => track.scrollBy({ left: -350, behavior: 'smooth' }));
+            btnNext.addEventListener('click', () => track.scrollBy({ left: 350, behavior: 'smooth' }));
+        })();
+    </script>
+
+    <link href="https://calendar.google.com/calendar/scheduling-button-script.css" rel="stylesheet">
+    <script src="https://calendar.google.com/calendar/scheduling-button-script.js" async></script>
+    <script>
+      (function() {
+        var target = document.getElementById('calendar-btn-container');
+        window.addEventListener('load', function() {
+          calendar.schedulingButton.load({
+            url: 'https://calendly.com/abs-revtrix/revtrix---30-mins-meeting',
+            color: '#f97316', 
+            label: 'Book a Demo',
+            target,
+          });
+        });
+      })();
+    </script>
+
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9cf4b1f5fdecea0d',t:'MTc3MTMyNTEyNg=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

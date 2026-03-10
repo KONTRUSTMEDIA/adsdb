@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Checking your webbrowser</title>
+	<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+	<style>
+		body {
+			font-family: Arial, sans-serif;
+			background-color: #f4f7f6;
+			margin: 0;
+			padding: 0;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			height: 100vh;
+			color: #333;
+		}
+
+		.container {
+			text-align: center;
+			background-color: #ffffff;
+			padding: 30px;
+			border-radius: 8px;
+			box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+			width: 100%;
+			max-width: 600px;
+		}
+
+		.header {
+			font-size: 24px;
+			font-weight: bold;
+			margin-top: 30px;
+			margin-bottom: 20px;
+		}
+
+		.message {
+			font-size: 18px;
+			margin-bottom: 20px;
+		}
+
+		.spinner {
+			border: 4px solid #f3f3f3;
+			border-top: 4px solid #3498db;
+			border-radius: 50%;
+			width: 50px;
+			height: 50px;
+			animation: spin 2s linear infinite;
+			margin: 0 auto;
+			margin-bottom: 20px;
+		}
+
+		@keyframes spin {
+			0% {
+				transform: rotate(0deg);
+			}
+			100% {
+				transform: rotate(360deg);
+			}
+		}
+
+		.footer {
+			font-size: 14px;
+			color: #888;
+			margin-top: 20px;
+		}
+	</style>
+</head>
+<body>
+<div class="container">
+	<img src="data:image/png;base64,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"
+		 alt="Atletiek.nu Logo" />
+	<div class="header">Checking your browser before accessing <span id="domain-name"></span></div>
+	<div class="message">This process is automatic. Your browser will redirect to your requested content shortly.<br>
+	</div>
+	<div class="spinner"></div>
+	<form action="" method="POST" class="flex flex-col space-y-1" id="captcha-form">
+		<input type="hidden" name="CAPTCHA_VERIFICATION_FORM" value="1" />
+		<div id="captcha" class="cf-turnstile" data-sitekey="0x4AAAAAABAmVn6d6LYu1--M"
+			 data-callback="captchaCallback"></div>
+	</form>
+	<div class="footer">
+		Please allow up to 5 seconds... Thank you for your patience!
+	</div>
+</div>
+<script>
+	document.getElementById('domain-name').textContent = window.location.hostname;
+	function captchaCallback()
+	{
+		setTimeout( () => {
+			document.querySelector( '#captcha-form' ).submit();
+		}, 500 );
+	}
+</script>
+</body>
+</html>

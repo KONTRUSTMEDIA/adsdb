@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html class="no-js" dir="rtl" lang="ar" prefix="og: https://ogp.me/ns#">
+<head>
+  <meta charset="utf-8">
+  <script>
+  if(navigator.userAgent.match(/MSIE|Internet Explorer/i)||navigator.userAgent.match(/Trident\/7\..*?rv:11/i)){var href=document.location.href;if(!href.match(/[?&]nowprocket/)){if(href.indexOf("?")==-1){if(href.indexOf("#")==-1){document.location.href=href+"?nowprocket=1"}else{document.location.href=href.replace("#","?nowprocket=1#")}}else{if(href.indexOf("#")==-1){document.location.href=href+"&nowprocket=1"}else{document.location.href=href.replace("#","&nowprocket=1#")}}}}
+  </script>
+  <script>
+  class RocketLazyLoadScripts{constructor(e){this.triggerEvents=e,this.eventOptions={passive:!0},this.userEventListener=this.triggerListener.bind(this),this.delayedScripts={normal:[],async:[],defer:[]},this.allJQueries=[]}_addUserInteractionListener(e){this.triggerEvents.forEach((t=>window.addEventListener(t,e.userEventListener,e.eventOptions)))}_removeUserInteractionListener(e){this.triggerEvents.forEach((t=>window.removeEventListener(t,e.userEventListener,e.eventOptions)))}triggerListener(){this._removeUserInteractionListener(this),"loading"===document.readyState?document.addEventListener("DOMContentLoaded",this._loadEverythingNow.bind(this)):this._loadEverythingNow()}async _loadEverythingNow(){this._delayEventListeners(),this._delayJQueryReady(this),this._handleDocumentWrite(),this._registerAllDelayedScripts(),this._preloadAllScripts(),await this._loadScriptsFromList(this.delayedScripts.normal),await this._loadScriptsFromList(this.delayedScripts.defer),await this._loadScriptsFromList(this.delayedScripts.async),await this._triggerDOMContentLoaded(),await this._triggerWindowLoad(),window.dispatchEvent(new Event("rocket-allScriptsLoaded"))}_registerAllDelayedScripts(){document.querySelectorAll("script[type=rocketlazyloadscript]").forEach((e=>{e.hasAttribute("src")?e.hasAttribute("async")&&!1!==e.async?this.delayedScripts.async.push(e):e.hasAttribute("defer")&&!1!==e.defer||"module"===e.getAttribute("data-rocket-type")?this.delayedScripts.defer.push(e):this.delayedScripts.normal.push(e):this.delayedScripts.normal.push(e)}))}async _transformScript(e){return await this._requestAnimFrame(),new Promise((t=>{const n=document.createElement("script");let r;[...e.attributes].forEach((e=>{let t=e.nodeName;"type"!==t&&("data-rocket-type"===t&&(t="type",r=e.nodeValue),n.setAttribute(t,e.nodeValue))})),e.hasAttribute("src")?(n.addEventListener("load",t),n.addEventListener("error",t)):(n.text=e.text,t()),e.parentNode.replaceChild(n,e)}))}async _loadScriptsFromList(e){const t=e.shift();return t?(await this._transformScript(t),this._loadScriptsFromList(e)):Promise.resolve()}_preloadAllScripts(){var e=document.createDocumentFragment();[...this.delayedScripts.normal,...this.delayedScripts.defer,...this.delayedScripts.async].forEach((t=>{const n=t.getAttribute("src");if(n){const t=document.createElement("link");t.href=n,t.rel="preload",t.as="script",e.appendChild(t)}})),document.head.appendChild(e)}_delayEventListeners(){let e={};function t(t,n){!function(t){function n(n){return e[t].eventsToRewrite.indexOf(n)>=0?"rocket-"+n:n}e[t]||(e[t]={originalFunctions:{add:t.addEventListener,remove:t.removeEventListener},eventsToRewrite:[]},t.addEventListener=function(){arguments[0]=n(arguments[0]),e[t].originalFunctions.add.apply(t,arguments)},t.removeEventListener=function(){arguments[0]=n(arguments[0]),e[t].originalFunctions.remove.apply(t,arguments)})}(t),e[t].eventsToRewrite.push(n)}function n(e,t){let n=e[t];Object.defineProperty(e,t,{get:()=>n||function(){},set(r){e["rocket"+t]=n=r}})}t(document,"DOMContentLoaded"),t(window,"DOMContentLoaded"),t(window,"load"),t(window,"pageshow"),t(document,"readystatechange"),n(document,"onreadystatechange"),n(window,"onload"),n(window,"onpageshow")}_delayJQueryReady(e){let t=window.jQuery;Object.defineProperty(window,"jQuery",{get:()=>t,set(n){if(n&&n.fn&&!e.allJQueries.includes(n)){n.fn.ready=n.fn.init.prototype.ready=function(t){e.domReadyFired?t.bind(document)(n):document.addEventListener("rocket-DOMContentLoaded",(()=>t.bind(document)(n)))};const t=n.fn.on;n.fn.on=n.fn.init.prototype.on=function(){if(this[0]===window){function e(e){return e.split(" ").map((e=>"load"===e||0===e.indexOf("load.")?"rocket-jquery-load":e)).join(" ")}"string"==typeof arguments[0]||arguments[0]instanceof String?arguments[0]=e(arguments[0]):"object"==typeof arguments[0]&&Object.keys(arguments[0]).forEach((t=>{delete Object.assign(arguments[0],{[e(t)]:arguments[0][t]})[t]}))}return t.apply(this,arguments),this},e.allJQueries.push(n)}t=n}})}async _triggerDOMContentLoaded(){this.domReadyFired=!0,await this._requestAnimFrame(),document.dispatchEvent(new Event("rocket-DOMContentLoaded")),await this._requestAnimFrame(),window.dispatchEvent(new Event("rocket-DOMContentLoaded")),await this._requestAnimFrame(),document.dispatchEvent(new Event("rocket-readystatechange")),await this._requestAnimFrame(),document.rocketonreadystatechange&&document.rocketonreadystatechange()}async _triggerWindowLoad(){await this._requestAnimFrame(),window.dispatchEvent(new Event("rocket-load")),await this._requestAnimFrame(),window.rocketonload&&window.rocketonload(),await this._requestAnimFrame(),this.allJQueries.forEach((e=>e(window).trigger("rocket-jquery-load"))),window.dispatchEvent(new Event("rocket-pageshow")),await this._requestAnimFrame(),window.rocketonpageshow&&window.rocketonpageshow()}_handleDocumentWrite(){const e=new Map;document.write=document.writeln=function(t){const n=document.currentScript,r=document.createRange(),i=n.parentElement;let o=e.get(n);void 0===o&&(o=n.nextSibling,e.set(n,o));const a=document.createDocumentFragment();r.setStart(a,0),a.appendChild(r.createContextualFragment(t)),i.insertBefore(a,o)}}async _requestAnimFrame(){return new Promise((e=>requestAnimationFrame(e)))}static run(){const e=new RocketLazyLoadScripts(["keydown","mousemove","touchmove","touchstart","touchend","wheel"]);e._addUserInteractionListener(e)}}RocketLazyLoadScripts.run();
+  </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="profile" href="https://gmpg.org/xfn/11">
+  <script type="rocketlazyloadscript">
+  document.documentElement.className = document.documentElement.className.replace("no-js","js");
+  </script>
+  <title>موسوعة تفسير الاحلام - موقع عربي متخصص في تفسير الاحلام</title>
+  <meta name="description" content="موقع عربي متخصص في تفسير الاحلام">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="/">
+  <link rel="next" href="/page/2/">
+  <meta property="og:locale" content="ar_AR">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="موسوعة تفسير الاحلام - موقع عربي متخصص في تفسير الاحلام">
+  <meta property="og:description" content="موقع عربي متخصص في تفسير الاحلام">
+  <meta property="og:url" content="https://a7lamee.com/">
+  <meta property="og:site_name" content="موسوعة تفسير الاحلام">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="موسوعة تفسير الاحلام - موقع عربي متخصص في تفسير الاحلام">
+  <meta name="twitter:description" content="موقع عربي متخصص في تفسير الاحلام">
+  <script type="application/ld+json" class="rank-math-schema">
+  {"@context":"https://schema.org","@graph":[{"@type":"Person","@id":"https://a7lamee.com/#person","name":"\u064a\u0627\u0633\u0631 \u0633\u0646\u0648\u0633\u064a","image":{"@type":"ImageObject","@id":"https://a7lamee.com/#logo","url":"https://yallane7lm.net/wp-content/uploads/2020/07/yalla-ne7lem.png","caption":"\u064a\u0627\u0633\u0631 \u0633\u0646\u0648\u0633\u064a","inLanguage":"ar","width":"500","height":"500"}},{"@type":"WebSite","@id":"https://a7lamee.com/#website","url":"https://a7lamee.com","name":"\u064a\u0627\u0633\u0631 \u0633\u0646\u0648\u0633\u064a","publisher":{"@id":"https://a7lamee.com/#person"},"inLanguage":"ar","potentialAction":{"@type":"SearchAction","target":"https://a7lamee.com/?s={search_term_string}","query-input":"required name=search_term_string"}},{"@type":"CollectionPage","@id":"https://a7lamee.com/#webpage","url":"https://a7lamee.com/","name":"\u0645\u0648\u0633\u0648\u0639\u0629 \u062a\u0641\u0633\u064a\u0631 \u0627\u0644\u0627\u062d\u0644\u0627\u0645 - \u0645\u0648\u0642\u0639 \u0639\u0631\u0628\u064a \u0645\u062a\u062e\u0635\u0635 \u0641\u064a \u062a\u0641\u0633\u064a\u0631 \u0627\u0644\u0627\u062d\u0644\u0627\u0645","about":{"@id":"https://a7lamee.com/#person"},"isPartOf":{"@id":"https://a7lamee.com/#website"},"inLanguage":"ar"}]}
+  </script>
+  <link rel="alternate" type="application/rss+xml" title="موسوعة تفسير الاحلام « الخلاصة" href="/feed/">
+  <link rel="alternate" type="application/rss+xml" title="موسوعة تفسير الاحلام « خلاصة التعليقات" href="/comments/feed/">
+  <script type="rocketlazyloadscript" data-rocket-type="text/javascript">
+  window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/14.0.0\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/14.0.0\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/a7lamee.com\/wp-includes\/js\/wp-emoji-release.min.js"}};
+  /*! This file is auto-generated */
+  !function(e,a,t){var n,r,o,i=a.createElement("canvas"),p=i.getContext&&i.getContext("2d");function s(e,t){p.clearRect(0,0,i.width,i.height),p.fillText(e,0,0);e=i.toDataURL();return p.clearRect(0,0,i.width,i.height),p.fillText(t,0,0),e===i.toDataURL()}function c(e){var t=a.createElement("script");t.src=e,t.defer=t.type="text/javascript",a.getElementsByTagName("head")[0].appendChild(t)}for(o=Array("flag","emoji"),t.supports={everything:!0,everythingExceptFlag:!0},r=0;r<o.length;r++)t.supports[o[r]]=function(e){if(p&&p.fillText)switch(p.textBaseline="top",p.font="600 32px Arial",e){case"flag":return s("\ud83c\udff3\ufe0f\u200d\u26a7\ufe0f","\ud83c\udff3\ufe0f\u200b\u26a7\ufe0f")?!1:!s("\ud83c\uddfa\ud83c\uddf3","\ud83c\uddfa\u200b\ud83c\uddf3")&&!s("\ud83c\udff4\udb40\udc67\udb40\udc62\udb40\udc65\udb40\udc6e\udb40\udc67\udb40\udc7f","\ud83c\udff4\u200b\udb40\udc67\u200b\udb40\udc62\u200b\udb40\udc65\u200b\udb40\udc6e\u200b\udb40\udc67\u200b\udb40\udc7f");case"emoji":return!s("\ud83e\udef1\ud83c\udffb\u200d\ud83e\udef2\ud83c\udfff","\ud83e\udef1\ud83c\udffb\u200b\ud83e\udef2\ud83c\udfff")}return!1}(o[r]),t.supports.everything=t.supports.everything&&t.supports[o[r]],"flag"!==o[r]&&(t.supports.everythingExceptFlag=t.supports.everythingExceptFlag&&t.supports[o[r]]);t.supports.everythingExceptFlag=t.supports.everythingExceptFlag&&!t.supports.flag,t.DOMReady=!1,t.readyCallback=function(){t.DOMReady=!0},t.supports.everything||(n=function(){t.readyCallback()},a.addEventListener?(a.addEventListener("DOMContentLoaded",n,!1),e.addEventListener("load",n,!1)):(e.attachEvent("onload",n),a.attachEvent("onreadystatechange",function(){"complete"===a.readyState&&t.readyCallback()})),(e=t.source||{}).concatemoji?c(e.concatemoji):e.wpemoji&&e.twemoji&&(c(e.twemoji),c(e.wpemoji)))}(window,document,window._wpemojiSettings);
+  </script>
+  <style type="text/css">
+  img.wp-smiley,
+  img.emoji {
+        display: inline !important;
+        border: none !important;
+        box-shadow: none !important;
+        height: 1em !important;
+        width: 1em !important;
+        margin: 0 0.07em !important;
+        vertical-align: -0.1em !important;
+        background: none !important;
+        padding: 0 !important;
+  }
+  </style>
+  <link data-minify="1" rel="stylesheet" id="structured-content-frontend-css" href="/wp-content/cache/min/1/wp-content/plugins/structured-content/dist/blocks.style.build.css?ver=1646020218" type="text/css" media="all">
+  <link rel="stylesheet" id="wp-block-library-rtl-css" href="/wp-includes/css/dist/block-library/style-rtl.min.css" type="text/css" media="all">
+  <link rel="stylesheet" id="classic-theme-styles-css" href="/wp-includes/css/classic-themes.min.css" type="text/css" media="all">
+  <style id="global-styles-inline-css" type="text/css">
+  body{--wp--preset--color--black: #000000;--wp--preset--color--cyan-bluish-gray: #abb8c3;--wp--preset--color--white: #ffffff;--wp--preset--color--pale-pink: #f78da7;--wp--preset--color--vivid-red: #cf2e2e;--wp--preset--color--luminous-vivid-orange: #ff6900;--wp--preset--color--luminous-vivid-amber: #fcb900;--wp--preset--color--light-green-cyan: #7bdcb5;--wp--preset--color--vivid-green-cyan: #00d084;--wp--preset--color--pale-cyan-blue: #8ed1fc;--wp--preset--color--vivid-cyan-blue: #0693e3;--wp--preset--color--vivid-purple: #9b51e0;--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple: linear-gradient(135deg,rgba(6,147,227,1) 0%,rgb(155,81,224) 100%);--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan: linear-gradient(135deg,rgb(122,220,180) 0%,rgb(0,208,130) 100%);--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange: linear-gradient(135deg,rgba(252,185,0,1) 0%,rgba(255,105,0,1) 100%);--wp--preset--gradient--luminous-vivid-orange-to-vivid-red: linear-gradient(135deg,rgba(255,105,0,1) 0%,rgb(207,46,46) 100%);--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray: linear-gradient(135deg,rgb(238,238,238) 0%,rgb(169,184,195) 100%);--wp--preset--gradient--cool-to-warm-spectrum: linear-gradient(135deg,rgb(74,234,220) 0%,rgb(151,120,209) 20%,rgb(207,42,186) 40%,rgb(238,44,130) 60%,rgb(251,105,98) 80%,rgb(254,248,76) 100%);--wp--preset--gradient--blush-light-purple: linear-gradient(135deg,rgb(255,206,236) 0%,rgb(152,150,240) 100%);--wp--preset--gradient--blush-bordeaux: linear-gradient(135deg,rgb(254,205,165) 0%,rgb(254,45,45) 50%,rgb(107,0,62) 100%);--wp--preset--gradient--luminous-dusk: linear-gradient(135deg,rgb(255,203,112) 0%,rgb(199,81,192) 50%,rgb(65,88,208) 100%);--wp--preset--gradient--pale-ocean: linear-gradient(135deg,rgb(255,245,203) 0%,rgb(182,227,212) 50%,rgb(51,167,181) 100%);--wp--preset--gradient--electric-grass: linear-gradient(135deg,rgb(202,248,128) 0%,rgb(113,206,126) 100%);--wp--preset--gradient--midnight: linear-gradient(135deg,rgb(2,3,129) 0%,rgb(40,116,252) 100%);--wp--preset--duotone--dark-grayscale: url('#wp-duotone-dark-grayscale');--wp--preset--duotone--grayscale: url('#wp-duotone-grayscale');--wp--preset--duotone--purple-yellow: url('#wp-duotone-purple-yellow');--wp--preset--duotone--blue-red: url('#wp-duotone-blue-red');--wp--preset--duotone--midnight: url('#wp-duotone-midnight');--wp--preset--duotone--magenta-yellow: url('#wp-duotone-magenta-yellow');--wp--preset--duotone--purple-green: url('#wp-duotone-purple-green');--wp--preset--duotone--blue-orange: url('#wp-duotone-blue-orange');--wp--preset--font-size--small: 13px;--wp--preset--font-size--medium: 20px;--wp--preset--font-size--large: 36px;--wp--preset--font-size--x-large: 42px;--wp--preset--spacing--20: 0.44rem;--wp--preset--spacing--30: 0.67rem;--wp--preset--spacing--40: 1rem;--wp--preset--spacing--50: 1.5rem;--wp--preset--spacing--60: 2.25rem;--wp--preset--spacing--70: 3.38rem;--wp--preset--spacing--80: 5.06rem;--wp--preset--shadow--natural: 6px 6px 9px rgba(0, 0, 0, 0.2);--wp--preset--shadow--deep: 12px 12px 50px rgba(0, 0, 0, 0.4);--wp--preset--shadow--sharp: 6px 6px 0px rgba(0, 0, 0, 0.2);--wp--preset--shadow--outlined: 6px 6px 0px -3px rgba(255, 255, 255, 1), 6px 6px rgba(0, 0, 0, 1);--wp--preset--shadow--crisp: 6px 6px 0px rgba(0, 0, 0, 1);}:where(.is-layout-flex){gap: 0.5em;}body .is-layout-flow > .alignleft{float: left;margin-inline-start: 0;margin-inline-end: 2em;}body .is-layout-flow > .alignright{float: right;margin-inline-start: 2em;margin-inline-end: 0;}body .is-layout-flow > .aligncenter{margin-left: auto !important;margin-right: auto !important;}body .is-layout-constrained > .alignleft{float: left;margin-inline-start: 0;margin-inline-end: 2em;}body .is-layout-constrained > .alignright{float: right;margin-inline-start: 2em;margin-inline-end: 0;}body .is-layout-constrained > .aligncenter{margin-left: auto !important;margin-right: auto !important;}body .is-layout-constrained > :where(:not(.alignleft):not(.alignright):not(.alignfull)){max-width: var(--wp--style--global--content-size);margin-left: auto !important;margin-right: auto !important;}body .is-layout-constrained > .alignwide{max-width: var(--wp--style--global--wide-size);}body .is-layout-flex{display: flex;}body .is-layout-flex{flex-wrap: wrap;align-items: center;}body .is-layout-flex > *{margin: 0;}:where(.wp-block-columns.is-layout-flex){gap: 2em;}.has-black-color{color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-color{color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-color{color: var(--wp--preset--color--white) !important;}.has-pale-pink-color{color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-color{color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-color{color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-color{color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-color{color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-color{color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-color{color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-color{color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-color{color: var(--wp--preset--color--vivid-purple) !important;}.has-black-background-color{background-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-background-color{background-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-background-color{background-color: var(--wp--preset--color--white) !important;}.has-pale-pink-background-color{background-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-background-color{background-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-background-color{background-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-background-color{background-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-background-color{background-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-background-color{background-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-background-color{background-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-background-color{background-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-background-color{background-color: var(--wp--preset--color--vivid-purple) !important;}.has-black-border-color{border-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-border-color{border-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-border-color{border-color: var(--wp--preset--color--white) !important;}.has-pale-pink-border-color{border-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-border-color{border-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-border-color{border-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-border-color{border-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-border-color{border-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-border-color{border-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-border-color{border-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-border-color{border-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-border-color{border-color: var(--wp--preset--color--vivid-purple) !important;}.has-vivid-cyan-blue-to-vivid-purple-gradient-background{background: var(--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple) !important;}.has-light-green-cyan-to-vivid-green-cyan-gradient-background{background: var(--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan) !important;}.has-luminous-vivid-amber-to-luminous-vivid-orange-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange) !important;}.has-luminous-vivid-orange-to-vivid-red-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-orange-to-vivid-red) !important;}.has-very-light-gray-to-cyan-bluish-gray-gradient-background{background: var(--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray) !important;}.has-cool-to-warm-spectrum-gradient-background{background: var(--wp--preset--gradient--cool-to-warm-spectrum) !important;}.has-blush-light-purple-gradient-background{background: var(--wp--preset--gradient--blush-light-purple) !important;}.has-blush-bordeaux-gradient-background{background: var(--wp--preset--gradient--blush-bordeaux) !important;}.has-luminous-dusk-gradient-background{background: var(--wp--preset--gradient--luminous-dusk) !important;}.has-pale-ocean-gradient-background{background: var(--wp--preset--gradient--pale-ocean) !important;}.has-electric-grass-gradient-background{background: var(--wp--preset--gradient--electric-grass) !important;}.has-midnight-gradient-background{background: var(--wp--preset--gradient--midnight) !important;}.has-small-font-size{font-size: var(--wp--preset--font-size--small) !important;}.has-medium-font-size{font-size: var(--wp--preset--font-size--medium) !important;}.has-large-font-size{font-size: var(--wp--preset--font-size--large) !important;}.has-x-large-font-size{font-size: var(--wp--preset--font-size--x-large) !important;}
+  .wp-block-navigation a:where(:not(.wp-element-button)){color: inherit;}
+  :where(.wp-block-columns.is-layout-flex){gap: 2em;}
+  .wp-block-pullquote{font-size: 1.5em;line-height: 1.6;}
+  </style>
+  <link data-minify="1" rel="stylesheet" id="contact-form-7-css" href="/wp-content/cache/min/1/wp-content/plugins/contact-form-7/includes/css/styles.css?ver=1646020218" type="text/css" media="all">
+  <link data-minify="1" rel="stylesheet" id="contact-form-7-rtl-css" href="/wp-content/cache/min/1/wp-content/plugins/contact-form-7/includes/css/styles-rtl.css?ver=1646020218" type="text/css" media="all">
+  <link rel="stylesheet" id="toc-screen-css" href="/wp-content/plugins/table-of-contents-plus/screen.min.css" type="text/css" media="all">
+  <link data-minify="1" rel="stylesheet" id="roaa-style-css" href="/wp-content/cache/min/1/wp-content/themes/roaa/style.css?ver=1646020219" type="text/css" media="all">
+  <link data-minify="1" rel="stylesheet" id="font-awesome-icons-css" href="/wp-content/cache/min/1/wp-content/themes/roaa/css/font-awesome.min.css?ver=1646020219" type="text/css" media="all">
+  <link data-minify="1" rel="stylesheet" id="background-overlay-css-css" href="/wp-content/cache/min/1/wp-content/themes/roaa/css/background-overlay.css?ver=1646020219" type="text/css" media="all">
+  <link rel="stylesheet" id="animate-css-css" href="/wp-content/themes/roaa/css/animate.min.css" type="text/css" media="all">
+  <style id="rocket-lazyload-inline-css" type="text/css">
+  .rll-youtube-player{position:relative;padding-bottom:56.23%;height:0;overflow:hidden;max-width:100%;}.rll-youtube-player:focus-within{outline: 2px solid currentColor;outline-offset: 5px;}.rll-youtube-player iframe{position:absolute;top:0;left:0;width:100%;height:100%;z-index:100;background:0 0}.rll-youtube-player img{bottom:0;display:block;left:0;margin:auto;max-width:100%;width:100%;position:absolute;right:0;top:0;border:none;height:auto;-webkit-transition:.4s all;-moz-transition:.4s all;transition:.4s all}.rll-youtube-player img:hover{-webkit-filter:brightness(75%)}.rll-youtube-player .play{height:100%;width:100%;left:0;top:0;position:absolute;background:url(/wp-content/plugins/wp-rocket/assets/img/youtube.png) no-repeat center;background-color: transparent !important;cursor:pointer;border:none;}
+  </style>
+  <script type="rocketlazyloadscript" data-rocket-type="text/javascript" src="/wp-includes/js/jquery/jquery.min.js" id="jquery-core-js" defer></script>
+  <script type="rocketlazyloadscript" data-rocket-type="text/javascript" src="/wp-includes/js/jquery/jquery-migrate.min.js" id="jquery-migrate-js" defer></script>
+  <link rel="https://api.w.org/" href="/wp-json/">
+  <link rel="EditURI" type="application/rsd+xml" title="RSD" href="/xmlrpc.php?rsd">
+  <link rel="wlwmanifest" type="application/wlwmanifest+xml" href="/wp-includes/wlwmanifest.xml">
+  <link data-minify="1" rel="stylesheet" href="/wp-content/cache/min/1/wp-content/themes/roaa/rtl.css?ver=1646020219" type="text/css" media="screen">
+  <meta name="generator" content="WordPress 6.2.3">
+  <script type="rocketlazyloadscript">
+  document.createElement( "picture" );if(!window.HTMLPictureElement && document.addEventListener) {window.addEventListener("DOMContentLoaded", function() {var s = document.createElement("script");s.src = "https://a7lamee.com/wp-content/plugins/webp-express/js/picturefill.min.js";document.body.appendChild(s);});}
+  </script>
+  <style type="text/css"></style>
+  <style type="text/css">
+  .recentcomments a{display:inline !important;padding:0 !important;margin:0 !important;}
+  </style>
+  <link rel="icon" href="/wp-content/uploads/2020/07/yalla-ne7lem-150x150.png" sizes="32x32">
+  <link rel="icon" href="/wp-content/uploads/2020/07/yalla-ne7lem-300x300.png" sizes="192x192">
+  <link rel="apple-touch-icon" href="/wp-content/uploads/2020/07/yalla-ne7lem-300x300.png">
+  <meta name="msapplication-TileImage" content="https://a7lamee.com/wp-content/uploads/2020/07/yalla-ne7lem-300x300.png">
+<noscript>
+  <style id="rocket-lazyload-nojs-css">
+
+  .rll-youtube-player, [data-lazy-src]{display:none !important;}
+  </style>
+</noscript>
+</head>
+<body class="rtl home blog wp-custom-logo group-blog hfeed">
+  <div class="search-overlay overlay-animation gradient">
+    <div class="search-overlay-content">
+      <div class="search-wrapper">
+        <div class="input-holder">
+          <form role="search" method="get" id="searchform" action="https://a7lamee.com/" name="searchform">
+            <input type="text" class="search-input" value="" placeholder="إبحث في الموقع…" name="s" id="s"> <button type="submit" id="searchsubmit" class="search-icon"><i class="fa fa-search"></i></button>
+          </form>
+        </div>
+<span class="close"></span>
+      </div>
+    </div>
+  </div>
+  <div class="menu-overlay overlay-animation gradient">
+    <div class="menu-overlay-content">
+      <div class="menu-wrapper">
+        <nav id="site-navigation" class="mobile-navigation" role="navigation">
+          <div id="mobile-menu" class="menu">
+            <ul>
+              <li class="page_item page-item-729">
+                <a href="/%d8%aa%d9%81%d8%b3%d9%8a%d8%b1-%d8%a7%d9%84%d8%a7%d8%ad%d9%84%d8%a7%d9%85-%d9%85%d8%ac%d8%a7%d9%86%d8%a7/">تفسير الاحلام مجانا</a>
+              </li>
+              <li class="page_item page-item-724">
+                <a href="/%d8%b3%d9%8a%d8%a7%d8%b3%d8%a9-%d8%a7%d9%84%d8%ae%d8%b5%d9%88%d8%b5%d9%8a%d8%a9/">سياسة الخصوصية</a>
+              </li>
+            </ul>
+          </div>
+        </nav><span class="close"></span>
+      </div>
+    </div>
+  </div>
+  <div id="page" class="site">
+    <a class="skip-link screen-reader-text" href="#content">التجاوز إلى المحتوى</a>
+    <header id="masthead" class="site-header" role="banner">
+      <button class="menu-toggle" title="القائمة"><span class="screen-reader-text">القائمة</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span></button>
+      <div class="site-branding">
+        <a href="/" class="custom-logo-link" rel="home" aria-current="page"><picture><source data-lazy-srcset="/wp-content/webp-express/webp-images/uploads/2020/07/cropped-yalla-ne7lem.png.webp 361w, /wp-content/webp-express/webp-images/uploads/2020/07/cropped-yalla-ne7lem-300x124.png.webp 300w" sizes="(max-width: 361px) 100vw, 361px" type="image/webp"><img width="361" height="149" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20361%20149'%3E%3C/svg%3E" class="custom-logo webpexpress-processed" alt="موسوعة تفسير الاحلام" decoding="async" data-lazy-srcset="/wp-content/uploads/2020/07/cropped-yalla-ne7lem.png 361w, /wp-content/uploads/2020/07/cropped-yalla-ne7lem-300x124.png 300w" data-lazy-sizes="(max-width: 361px) 100vw, 361px" data-lazy-src="/wp-content/uploads/2020/07/cropped-yalla-ne7lem.png"><noscript><img width="361" height="149" src="/wp-content/uploads/2020/07/cropped-yalla-ne7lem.png" class="custom-logo webpexpress-processed" alt="موسوعة تفسير الاحلام" decoding="async" srcset="/wp-content/uploads/2020/07/cropped-yalla-ne7lem.png 361w, /wp-content/uploads/2020/07/cropped-yalla-ne7lem-300x124.png 300w" sizes="(max-width: 361px) 100vw, 361px"></noscript></source></picture></a>
+      </div>
+      <nav id="main-nav" class="main-navigation" role="navigation">
+        <div class="menu-%d8%aa%d9%81%d8%b3%d9%8a%d8%b1-%d8%a7%d9%84%d8%a3%d8%ad%d9%84%d8%a7%d9%85-container">
+          <ul id="menu-%d8%aa%d9%81%d8%b3%d9%8a%d8%b1-%d8%a7%d9%84%d8%a3%d8%ad%d9%84%d8%a7%d9%85" class="menu">
+            <li id="menu-item-exm1727" class="menu-item menu-item-type-post_type menu-item-object-page">
+              <a href="/%d8%b3%d9%8a%d8%a7%d8%b3%d8%a9-%d8%a7%d9%84%d8%ae%d8%b5%d9%88%d8%b5%d9%8a%d8%a9/" title="سياسة الخصوصية" class="menu-link">سياسة الخصوصية</a>
+            </li>
+            <li id="menu-item-exm1734" class="menu-item menu-item-type-post_type menu-item-object-page">
+              <a href="/%d8%aa%d9%81%d8%b3%d9%8a%d8%b1-%d8%a7%d9%84%d8%a7%d8%ad%d9%84%d8%a7%d9%85-%d9%85%d8%ac%d8%a7%d9%86%d8%a7/" title="تفسير الاحلام مجانا" class="menu-link">تفسير الاحلام مجانا</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+      <div class="toggle-search">
+        <i class="search-button fa fa-search"></i>
+      </div>
+      <div class="clear"></div>
+    </header>
+    <div id="content" class="site-content">
+      <div class="home-container">
+        <section id="widget_posts_slider-2" class="widget widget_widget_posts_slider clear">
+          <div id="featured-posts" class="flexslider fadeIn wow" data-wow-duration=".75s" data-wow-delay=".55s">
+            <article class="featured-post featured-post-1 fea-1">
+              <div data-bg="https://a7lamee.com/wp-content/uploads/2021/02/رؤية-الحجر-في-المنام.jpg" class="featured-post-inner rocket-lazyload" style="">
+                <div class="featured-cover">
+                  <a href="/%d8%b1%d8%a4%d9%8a%d8%a9-%d8%a7%d9%84%d8%ad%d8%ac%d8%b1-%d9%81%d9%8a-%d8%a7%d9%84%d9%85%d9%86%d8%a7%d9%85/" title="رؤية الحجر في المنام للمتزوجة وللعزباء لابن سيرين وابن شاهين"><span>رؤية الحجر في المنام للمتزوجة وللعزباء لابن سيرين وابن شاهين</span></a>
+                </div>
+                <div class="featured-title">
+                  <h4 class="post-cat">تفسير الاحلام</h4>
+                  <h2><a href="/%d8%b1%d8%a4%d9%8a%d8%a9-%d8%a7%d9%84%d8%ad%d8%ac%d8%b1-%d9%81%d9%8a-%d8%a7%d9%84%d9%85%d9%86%d8%a7%d9%85/" title="رؤية الحجر في المنام للمتزوجة وللعزباء لابن سيرين وابن شاهين">رؤية الحجر في المنام للمتزوجة وللعزباء لابن سيرين وابن شاهين</a></h2>
+                  <p class="post-meta clear"><span class="post-meta-author">بقلم احمد بن عطية</span> <span class="post-date">11 مايو، 2021</span></p>
+                </div>
+              </div>
+            </article>
+            <article class="featured-post featured-post-2 fea-2">
+              <div data-bg="https://a7lamee.com/wp-content/uploads/2021/02/28.رؤية-الخبز-في-المنام.jpg" class="featured-post-inner rocket-lazyload" style="">
+                <div class="featured-cover">
+                  <a href="/%d8%b1%d8%a4%d9%8a%d8%a9-%d8%a7%d9%84%d8%ae%d8%a8%d8%b2-%d9%81%d9%8a-%d8%a7%d9%84%d9%85%d9%86%d8%a7%d9%85-%d9%84%d8%a7%d8%a8%d9%86-%d8%b3%d9%8a%d8%b1%d9%8a%d9%86-%d8%a8%d8%a7%d9%84%d8%aa%d9%81%d8%b5/" title="رؤية الخبز في المنام لابن سيرين بالتفصيل"><span>رؤية الخبز في المنام لابن سيرين بالتفصيل</span></a>
+                </div>
+                <div class="featured-title">
+                  <h4 class="post-cat">تفسير الاحلام</h4>
+                  <h2><a href="/%d8%b1%d8%a4%d9%8a%d8%a9-%d8%a7%d9%84%d8%ae%d8%a8%d8%b2-%d9%81%d9%8a-%d8%a7%d9%84%d9%85%d9%86%d8%a7%d9%85-%d9%84%d8%a7%d8%a8%d9%86-%d8%b3%d9%8a%d8%b1%d9%8a%d9%86-%d8%a8%d8%a7%d9%84%d8%aa%d9%81%d8%b5/" title="رؤية الخبز في المنام لابن سيرين بالتفصيل">رؤية الخبز في المنام لابن سيرين بالتفصيل</a></h2>
+                  <p class="post-meta clear"><span class="post-meta-author">بقلم احمد بن عطية</span> <span class="post-date">11 مايو، 2021</span></p>
+                </div>
+              </div>
+            </article>
+            <article class="featured-post featured-post-3 fea-3">
+              <div data-bg="https://a7lamee.com/wp-content/uploads/2021/02/تفسير-لدغة-الجراد-في-المنام.jpg.jpg" class="featured-post-inner rocket-lazyload" style="">
+                <div class="featured-cover">
+                  <a href="/%d8%b1%d8%a4%d9%8a%d8%a9-%d8%a7%d9%84%d8%ac%d8%b1%d8%a7%d8%af-%d9%81%d9%8a-%d8%a7%d9%84%d9%85%d9%86%d8%a7%d9%85-%d8%a8%d8%a7%d9%84%d8%aa%d9%81%d8%b5%d9%8a%d9%84-%d9%88%d8%ac%d9%85%d9%8a%d8%b9-%d9%85/" title="رؤية الجراد في المنام بالتفصيل وجميع مدلولاتها"><span>رؤية الجراد في المنام بالتفصيل وجميع مدلولاتها</span></a>
+                </div>
+                <div class="featured-title">
+                  <h4 class="post-cat">تفسير الاحلام</h4>
+                  <h2><a href="/%d8%b1%d8%a4%d9%8a%d8%a9-%d8%a7%d9%84%d8%ac%d8%b1%d8%a7%d8%af-%d9%81%d9%8a-%d8%a7%d9%84%d9%85%d9%86%d8%a7%d9%85-%d8%a8%d8%a7%d9%84%d8%aa%d9%81%d8%b5%d9%8a%d9%84-%d9%88%d8%ac%d9%85%d9%8a%d8%b9-%d9%85/" title="رؤية الجراد في المنام بالتفصيل وجميع مدلولاتها">رؤية الجراد في المنام بالتفصيل وجميع مدلولاتها</a></h2>
+                  <p class="post-meta clear"><span class="post-meta-author">بقلم احمد بن عطية</span> <span class="post-date">10 مايو، 2021</span></p>
+                </div>
+              </div>
+            </article>
+            <article class="featured-post featured-post-1 fea-4">
+              <div data-bg="https://a7lamee.com/wp-content/uploads/2021/02/38.تفسير-الكحل-في-المنام.jpg" class="featured-post-inner rocket-lazyload" style="">
+                <div class="featured-cover">
+                  <a href="/%d8%aa%d9%81%d8%b3%d9%8a%d8%b1-%d8%a7%d9%84%d9%83%d8%ad%d9%84-%d9%81%d9%8a-%d8%a7%d9%84%d9%85%d9%86%d8%a7%d9%85/" title="تفسير الكحل في المنام"><span>تفسير الكحل في المنام</span></a>
+                </div>
+                <div class="featured-title">
+                  <h4 class="post-cat">تفسير الاحلام</h4>
+                  <h2><a href="/%d8%aa%d9%81%d8%b3%d9%8a%d8%b1-%d8%a7%d9%84%d9%83%d8%ad%d9%84-%d9%81%d9%8a-%d8%a7%d9%84%d9%85%d9%86%d8%a7%d9%85/" title="تفسير الكحل في المنام">تفسير الكحل في المنام</a></h2>
+                  <p class="post-meta clear"><span class="post-meta-author">بقلم احمد بن عطية</span> <span class="post-date">10 مايو، 2021</span></p>
+                </div>
+              </div>
+            </article>
+            <article class="featured-post featured-post-2 fea-5">
+              <div data-bg="https://a7lamee.com/wp-content/uploads/2021/02/29.رؤية-المفاتيح-في-المنام.jpg" class="featured-post-inner rocket-lazyload" style="">
+                <div class="featured-cover">
+                  <a href="/%d8%af%d9%84%d8%a7%d9%84%d8%a7%d8%aa-%d8%b1%d8%a4%d9%8a%d8%a9-%d8%a7%d9%84%d9%85%d9%81%d8%a7%d8%aa%d9%8a%d8%ad-%d9%81%d9%8a-%d8%a7%d9%84%d9%85%d9%86%d8%a7%d9%85/" title="دلالات رؤية المفاتيح في المنام"><span>دلالات رؤية المفاتيح في المنام</span></a>
+                </div>
+                <div class="featured-title">
+                  <h4 class="post-cat">تفسير الاحلام</h4>
+                  <h2><a href="/%d8%af%d9%84%d8%a7%d9%84%d8%a7%d8%aa-%d8%b1%d8%a4%d9%8a%d8%a9-%d8%a7%d9%84%d9%85%d9%81%d8%a7%d8%aa%d9%8a%d8%ad-%d9%81%d9%8a-%d8%a7%d9%84%d9%85%d9%86%d8%a7%d9%85/" title="دلالات رؤية المفاتيح في المنام">دلالات رؤية المفاتيح في المنام</a></h2>
+                  <p class="post-meta clear"><span class="post-meta-author">بقلم احمد بن عطية</span> <span class="post-date">16 مارس، 2021</span></p>
+                </div>
+              </div>
+            </article>
+            <article class="featured-post featured-post-3 fea-6">
+              <div data-bg="https://a7lamee.com/wp-content/uploads/2021/02/43.رؤية-الهدهد-في-المنام-1.jpg" class="featured-post-inner rocket-lazyload" style="">
+                <div class="featured-cover">
+                  <a href="/%d8%a7%d9%87%d9%85-%d8%aa%d9%81%d8%b3%d9%8a%d8%b1%d8%a7%d8%aa-%d8%b1%d8%a4%d9%8a%d8%a9-%d8%a7%d9%84%d9%87%d8%af%d9%87%d8%af-%d9%81%d9%8a-%d8%a7%d9%84%d9%85%d9%86%d8%a7%d9%85/" title="اهم تفسيرات رؤية الهدهد في المنام"><span>اهم تفسيرات رؤية الهدهد في المنام</span></a>
+                </div>
+                <div class="featured-title">
+                  <h4 class="post-cat">تفسير الاحلام</h4>
+                  <h2><a href="/%d8%a7%d9%87%d9%85-%d8%aa%d9%81%d8%b3%d9%8a%d8%b1%d8%a7%d8%aa-%d8%b1%d8%a4%d9%8a%d8%a9-%d8%a7%d9%84%d9%87%d8%af%d9%87%d8%af-%d9%81%d9%8a-%d8%a7%d9%84%d9%85%d9%86%d8%a7%d9%85/" title="اهم تفسيرات رؤية الهدهد في المنام">اهم تفسيرات رؤية الهدهد في المنام</a></h2>
+                  <p class="post-meta clear"><span class="post-meta-author">بقلم احمد بن عطية</span> <span class="post-date">16 مارس، 2021</span></p>
+                </div>
+              </div>
+            </article>
+            <article class="featured-post featured-post-1 fea-7">
+              <div data-bg="https://a7lamee.com/wp-content/uploads/2021/02/31.قراءة-سورة-الفلق-في-المنام.jpg" class="featured-post-inner rocket-lazyload" style="">
+                <div class="featured-cover">
+                  <a href="/%d8%aa%d9%81%d8%b3%d9%8a%d8%b1-%d9%82%d8%b1%d8%a7%d8%a1%d8%a9-%d8%b3%d9%88%d8%b1%d8%a9-%d8%a7%d9%84%d9%81%d9%84%d9%82-%d9%81%d9%8a-%d8%a7%d9%84%d9%85%d9%86%d8%a7%d9%85/" title="تفسير قراءة سورة الفلق في المنام"><span>تفسير قراءة سورة الفلق في المنام</span></a>
+                </div>
+                <div class="featured-title">
+                  <h4 class="post-cat">تفسير الاحلام</h4>
+                  <h2><a href="/%d8%aa%d9%81%d8%b3%d9%8a%d8%b1-%d9%82%d8%b1%d8%a7%d8%a1%d8%a9-%d8%b3%d9%88%d8%b1%d8%a9-%d8%a7%d9%84%d9%81%d9%84%d9%82-%d9%81%d9%8a-%d8%a7%d9%84%d9%85%d9%86%d8%a7%d9%85/" title="تفسير قراءة سورة الفلق في المنام">تفسير قراءة سورة الفلق في المنام</a></h2>
+                  <p class="post-meta clear"><span class="post-meta-author">بقلم احمد بن عطية</span> <span class="post-date">16 مارس، 2021</span></p>
+                </div>
+              </div>
+            </article>
+            <article class="featured-post featured-post-2 fea-8">
+              <div data-bg="https://a7lamee.com/wp-content/uploads/2021/02/45.رؤية-الحمام-في-المنام-1.jpg" class="featured-post-inner rocket-lazyload" style="">
+                <div class="featured-cover">
+                  <a href="/%d8%a7%d9%84%d8%ad%d9%85%d8%a7%d9%85-%d9%81%d9%8a-%d8%a7%d9%84%d9%85%d9%86%d8%a7%d9%85/" title="تفسير رؤية الحمام في المنام بالتفصيل"><span>تفسير رؤية الحمام في المنام بالتفصيل</span></a>
+                </div>
+                <div class="featured-title">
+                  <h4 class="post-cat">تفسير الاحلام</h4>
+                  <h2><a href="/%d8%a7%d9%84%d8%ad%d9%85%d8%a7%d9%85-%d9%81%d9%8a-%d8%a7%d9%84%d9%85%d9%86%d8%a7%d9%85/" title="تفسير رؤية الحمام في المنام بالتفصيل">تفسير رؤية الحمام في المنام بالتفصيل</a></h2>
+                  <p class="post-meta clear"><span class="post-meta-author">بقلم احمد بن عطية</span> <span class="post-date">1 مارس، 2021</span></p>
+                </div>
+              </div>
+            </article>
+            <article class="featured-post featured-post-3 fea-9">
+              <div data-bg="https://a7lamee.com/wp-content/uploads/2021/02/22.الشعور-بالخوف-في-المنام.jpg" class="featured-post-inner rocket-lazyload" style="">
+                <div class="featured-cover">
+                  <a href="/%d8%a7%d9%84%d8%ae%d9%88%d9%81-%d9%81%d9%8a-%d8%a7%d9%84%d9%85%d9%86%d8%a7%d9%85/" title="تفسير الشعور بالخوف في المنام "><span>تفسير الشعور بالخوف في المنام </span></a>
+                </div>
+                <div class="featured-title">
+                  <h4 class="post-cat">تفسير الاحلام</h4>
+                  <h2><a href="/%d8%a7%d9%84%d8%ae%d9%88%d9%81-%d9%81%d9%8a-%d8%a7%d9%84%d9%85%d9%86%d8%a7%d9%85/" title="تفسير الشعور بالخوف في المنام ">تفسير الشعور بالخوف في المنام </a></h2>
+                  <p class="post-meta clear"><span class="post-meta-author">بقلم احمد بن عطية</span> <span class="post-date">1 مارس، 2021</span></p>
+                </div>
+              </div>
+            </article>
+            <article class="featured-post featured-post-1 fea-10">
+              <div data-bg="https://a7lamee.com/wp-content/uploads/2021/02/47.المصافحة-في-المنام.jpg" class="featured-post-inner rocket-lazyload" style="">
+                <div class="featured-cover">
+                  <a href="/%d8%aa%d9%81%d8%b3%d9%8a%d8%b1-%d8%a7%d9%84%d9%85%d8%b5%d8%a7%d9%81%d8%ad%d8%a9-%d9%81%d9%8a-%d8%a7%d9%84%d9%85%d9%86%d8%a7%d9%85/" title="تفسير المصافحة في المنام"><span>تفسير المصافحة في المنام</span></a>
+                </div>
+                <div class="featured-title">
+                  <h4 class="post-cat">تفسير الاحلام</h4>
+                  <h2><a href="/%d8%aa%d9%81%d8%b3%d9%8a%d8%b1-%d8%a7%d9%84%d9%85%d8%b5%d8%a7%d9%81%d8%ad%d8%a9-%d9%81%d9%8a-%d8%a7%d9%84%d9%85%d9%86%d8%a7%d9%85/" title="تفسير المصافحة في المنام">تفسير المصافحة في المنام</a></h2>
+                  <p class="post-meta clear"><span class="post-meta-author">بقلم احمد بن عطية</span> <span class="post-date">28 فبراير، 2021</span></p>
+                </div>
+              </div>
+            </article>
+            <article class="featured-post featured-post-2 fea-11">
+              <div data-bg="https://a7lamee.com/wp-content/uploads/2021/02/18.رؤية-العنب-في-المنام.jpg" class="featured-post-inner rocket-lazyload" style="">
+                <div class="featured-cover">
+                  <a href="/%d8%aa%d9%81%d8%b3%d9%8a%d8%b1-%d8%b1%d8%a4%d9%8a%d8%a9-%d8%a7%d9%84%d8%b9%d9%86%d8%a8-%d9%81%d9%8a-%d8%a7%d9%84%d9%85%d9%86%d8%a7%d9%85/" title="تفسير رؤية العنب في المنام"><span>تفسير رؤية العنب في المنام</span></a>
+                </div>
+                <div class="featured-title">
+                  <h4 class="post-cat">تفسير الاحلام</h4>
+                  <h2><a href="/%d8%aa%d9%81%d8%b3%d9%8a%d8%b1-%d8%b1%d8%a4%d9%8a%d8%a9-%d8%a7%d9%84%d8%b9%d9%86%d8%a8-%d9%81%d9%8a-%d8%a7%d9%84%d9%85%d9%86%d8%a7%d9%85/" title="تفسير رؤية العنب في المنام">تفسير رؤية العنب في المنام</a></h2>
+                  <p class="post-meta clear"><span class="post-meta-author">بقلم احمد بن عطية</span> <span class="post-date">28 فبراير، 2021</span></p>
+                </div>
+              </div>
+            </article>
+            <article class="featured-post featured-post-3 fea-12">
+              <div data-bg="https://a7lamee.com/wp-content/uploads/2021/02/30.رؤيا-التمر-في-المنام.jpg" class="featured-post-inner rocket-lazyload" style="">
+                <div class="featured-cover">
+                  <a href="/%d8%aa%d9%81%d8%b3%d9%8a%d8%b1-%d8%b1%d8%a4%d9%8a%d8%a7-%d8%a7%d9%84%d8%aa%d9%85%d8%b1-%d9%81%d9%8a-%d8%a7%d9%84%d9%85%d9%86%d8%a7%d9%85/" title="تفسير رؤيا التمر في المنام"><span>تفسير رؤيا التمر في المنام</span></a>
+                </div>
+                <div class="featured-title">
+                  <h4 class="post-cat">تفسير الاحلام</h4>
+                  <h2><a href="/%d8%aa%d9%81%d8%b3%d9%8a%d8%b1-%d8%b1%d8%a4%d9%8a%d8%a7-%d8%a7%d9%84%d8%aa%d9%85%d8%b1-%d9%81%d9%8a-%d8%a7%d9%84%d9%85%d9%86%d8%a7%d9%85/" title="تفسير رؤيا التمر في المنام">تفسير رؤيا التمر في المنام</a></h2>
+                  <p class="post-meta clear"><span class="post-meta-author">بقلم احمد بن عطية</span> <span class="post-date">26 فبراير، 2021</span></p>
+                </div>
+              </div>
+            </article>
+            <article class="featured-post featured-post-1 fea-13">
+              <div data-bg="https://a7lamee.com/wp-content/uploads/2021/02/20.رؤية-المسجد-في-المنام.jpg" class="featured-post-inner rocket-lazyload" style="">
+                <div class="featured-cover">
+                  <a href="/%d8%b1%d8%a4%d9%8a%d8%a9-%d8%a7%d9%84%d9%85%d8%b3%d8%ac%d8%af-%d9%81%d9%8a-%d8%a7%d9%84%d9%85%d9%86%d8%a7%d9%85/" title="تفسير رؤية المسجد في المنام "><span>تفسير رؤية المسجد في المنام </span></a>
+                </div>
+                <div class="featured-title">
+                  <h4 class="post-cat">تفسير الاحلام</h4>
+                  <h2><a href="/%d8%b1%d8%a4%d9%8a%d8%a9-%d8%a7%d9%84%d9%85%d8%b3%d8%ac%d8%af-%d9%81%d9%8a-%d8%a7%d9%84%d9%85%d9%86%d8%a7%d9%85/" title="تفسير رؤية المسجد في المنام ">تفسير رؤية المسجد في المنام </a></h2>
+                  <p class="post-meta clear"><span class="post-meta-author">بقلم احمد بن عطية</span> <span class="post-date">26 فبراير، 2021</span></p>
+                </div>
+              </div>
+            </article>
+            <article class="featured-post featured-post-2 fea-14">
+              <div data-bg="https://a7lamee.com/wp-content/uploads/2021/02/39.تفسير-حلم-الابرة-في-المنام-1.jpg" class="featured-post-inner rocket-lazyload" style="">
+                <div class="featured-cover">
+                  <a href="/%d8%aa%d9%81%d8%b3%d9%8a%d8%b1-%d8%ad%d9%84%d9%85-%d8%a7%d9%84%d8%a7%d8%a8%d8%b1%d8%a9-%d9%81%d9%8a-%d8%a7%d9%84%d9%85%d9%86%d8%a7%d9%85/" title="تفسير حلم الابرة في المنام"><span>تفسير حلم الابرة في المنام</span></a>
+                </div>
+                <div class="featured-title">
+                  <h4 class="post-cat">تفسير الاحلام</h4>
+                  <h2><a href="/%d8%aa%d9%81%d8%b3%d9%8a%d8%b1-%d8%ad%d9%84%d9%85-%d8%a7%d9%84%d8%a7%d8%a8%d8%b1%d8%a9-%d9%81%d9%8a-%d8%a7%d9%84%d9%85%d9%86%d8%a7%d9%85/" title="تفسير حلم الابرة في المنام">تفسير حلم الابرة في المنام</a></h2>
+                  <p class="post-meta clear"><span class="post-meta-author">بقلم احمد بن عطية</span> <span class="post-date">26 فبراير، 2021</span></p>
+                </div>
+              </div>
+            </article>
+          </div>
+          <div class="clear"></div>
+          <script type="rocketlazyloadscript">
+          window.addEventListener('DOMContentLoaded', function() {
+          jQuery(document).ready(function() {
+                var featuredItems = jQuery("#featured-posts .featured-post");
+                        for(var i = 0; i < featuredItems.length; i+=3) {
+                                featuredItems.slice(i, i+3).wrapAll('<div class="featured-posts-single-slide"></script></section>
+</div>');
+                }
+            jQuery('#featured-posts').flexslider({
+                    animation: "fade",
+                        selector: ".featured-posts-single-slide", 
+                        randomize: false,
+                        pauseOnHover: true,
+                        prevText: "",
+                        nextText: "",
+                        directionNav: true, 
+                        controlNav: true, 
+                        slideshow: false, 
+                        touch: true, 
+                });
+          });
+          });
+          
+        
+        <h1 class="recent-posts-title">الأحدث</h1>
+        <div class="posts-list clear">
+          <article data-wow-duration="1s" data-wow-delay=".5s" class="single-post fadeIn wow post-1541 post type-post status-publish format-standard has-post-thumbnail hentry category-1 tag-1342 tag-1339 tag-1341 tag-1337 tag-1340 tag-1338">
+            <div class="post-inner">
+              <a href="/%d8%b1%d8%a4%d9%8a%d8%a9-%d8%a7%d9%84%d8%ad%d8%ac%d8%b1-%d9%81%d9%8a-%d8%a7%d9%84%d9%85%d9%86%d8%a7%d9%85/" class="link-box">
+              <div data-bg="https://a7lamee.com/wp-content/uploads/2021/02/رؤية-الحجر-في-المنام.jpg" class="post-image rocket-lazyload" style=""></div>
+              <h3 class="post-title">رؤية الحجر في المنام للمتزوجة وللعزباء لابن سيرين وابن شاهين</h3>
+              <p class="post-meta clear"><span class="post-meta-author">بقلم احمد بن عطية</span> <span class="post-date">11 مايو، 2021</span></p>
+              <p class="post-excerpt">يبحث الكثير من الناس بشكل مستمر ومتكرر عن التفسيرات المختلفة التي قيلت من كبار العلماء والمفسرين عن رؤية الحجر في المنام، حيث تتعدد أشكال هذه الرؤية، فيختلف شك وهيئة...</p></a>
+            </div>
+          </article>
+          <article data-wow-duration="1s" data-wow-delay=".5s" class="single-post fadeIn wow post-1543 post type-post status-publish format-standard has-post-thumbnail hentry category-1 tag-1335 tag-1332 tag-1336 tag-1334 tag-1488 tag-1331 tag-1333">
+            <div class="post-inner">
+              <a href="/%d8%b1%d8%a4%d9%8a%d8%a9-%d8%a7%d9%84%d8%ae%d8%a8%d8%b2-%d9%81%d9%8a-%d8%a7%d9%84%d9%85%d9%86%d8%a7%d9%85-%d9%84%d8%a7%d8%a8%d9%86-%d8%b3%d9%8a%d8%b1%d9%8a%d9%86-%d8%a8%d8%a7%d9%84%d8%aa%d9%81%d8%b5/" class="link-box">
+              <div data-bg="https://a7lamee.com/wp-content/uploads/2021/02/28.رؤية-الخبز-في-المنام-400x230.jpg" class="post-image rocket-lazyload" style=""></div>
+              <h3 class="post-title">رؤية الخبز في المنام لابن سيرين بالتفصيل</h3>
+              <p class="post-meta clear"><span class="post-meta-author">بقلم احمد بن عطية</span> <span class="post-date">11 مايو، 2021</span></p>
+              <p class="post-excerpt">الخبز من الأشياء الجميلة الطيبة التي تشير إلى البركة والخير والرزق في جميع الأحوال، سواء كان في المنام أو في الواقع، وبالتالي فإن رؤية الخبز في المنام من الأحلام...</p></a>
+            </div>
+          </article>
+          <article data-wow-duration="1s" data-wow-delay=".5s" class="single-post fadeIn wow post-1545 post type-post status-publish format-standard has-post-thumbnail hentry category-1 tag-1326 tag-1330 tag-1329 tag-1324 tag-1323 tag-1328 tag-1325 tag-1327">
+            <div class="post-inner">
+              <a href="/%d8%b1%d8%a4%d9%8a%d8%a9-%d8%a7%d9%84%d8%ac%d8%b1%d8%a7%d8%af-%d9%81%d9%8a-%d8%a7%d9%84%d9%85%d9%86%d8%a7%d9%85-%d8%a8%d8%a7%d9%84%d8%aa%d9%81%d8%b5%d9%8a%d9%84-%d9%88%d8%ac%d9%85%d9%8a%d8%b9-%d9%85/" class="link-box">
+              <div data-bg="https://a7lamee.com/wp-content/uploads/2021/02/تفسير-لدغة-الجراد-في-المنام.jpg-400x230.jpg" class="post-image rocket-lazyload" style=""></div>
+              <h3 class="post-title">رؤية الجراد في المنام بالتفصيل وجميع مدلولاتها</h3>
+              <p class="post-meta clear"><span class="post-meta-author">بقلم احمد بن عطية</span> <span class="post-date">10 مايو، 2021</span></p>
+              <p class="post-excerpt">وضح الكثير من العلماء والمفسرون أن رؤية الجراد في المنام لها دلالات ومعاني متنوعة، وقد تكون هذه الدلالات خير أو شر، فحسب رؤية الحالم يكون الجراد علامة على الفقر...</p></a>
+            </div>
+          </article>
+          <article data-wow-duration="1s" data-wow-delay=".5s" class="single-post fadeIn wow post-1548 post type-post status-publish format-standard has-post-thumbnail hentry category-1 tag-1316 tag-1318 tag-1320 tag-1319 tag-1321 tag-1322 tag-1317">
+            <div class="post-inner">
+              <a href="/%d8%aa%d9%81%d8%b3%d9%8a%d8%b1-%d8%a7%d9%84%d9%83%d8%ad%d9%84-%d9%81%d9%8a-%d8%a7%d9%84%d9%85%d9%86%d8%a7%d9%85/" class="link-box">
+              <div data-bg="https://a7lamee.com/wp-content/uploads/2021/02/38.تفسير-الكحل-في-المنام-400x230.jpg" class="post-image rocket-lazyload" style=""></div>
+              <h3 class="post-title">تفسير الكحل في المنام</h3>
+              <p class="post-meta clear"><span class="post-meta-author">بقلم احمد بن عطية</span> <span class="post-date">10 مايو، 2021</span></p>
+              <p class="post-excerpt">قد تكون الأحلام هي الوسيلة الوحيدة التي تعطينا الكثير من العلامات عما سيحدث في المستقبل من خير أو شر، وذلك لأن تفسير الأحلام يعطينا الكثير من الإشارات، فمثلًا تفسير...</p></a>
+            </div>
+          </article>
+          <article data-wow-duration="1s" data-wow-delay=".5s" class="single-post fadeIn wow post-1549 post type-post status-publish format-standard has-post-thumbnail hentry category-1 tag-1309 tag-1310 tag-1311 tag-1315 tag-1314 tag-1313 tag-1312">
+            <div class="post-inner">
+              <a href="/%d8%af%d9%84%d8%a7%d9%84%d8%a7%d8%aa-%d8%b1%d8%a4%d9%8a%d8%a9-%d8%a7%d9%84%d9%85%d9%81%d8%a7%d8%aa%d9%8a%d8%ad-%d9%81%d9%8a-%d8%a7%d9%84%d9%85%d9%86%d8%a7%d9%85/" class="link-box">
+              <div data-bg="https://a7lamee.com/wp-content/uploads/2021/02/29.رؤية-المفاتيح-في-المنام-400x230.jpg" class="post-image rocket-lazyload" style=""></div>
+              <h3 class="post-title">دلالات رؤية المفاتيح في المنام</h3>
+              <p class="post-meta clear"><span class="post-meta-author">بقلم احمد بن عطية</span> <span class="post-date">16 مارس، 2021</span></p>
+              <p class="post-excerpt">تفسير رؤية المفاتيح في المنام من الأحلام التي يبحث عنا الجميع من خلال مواقع الإنترنت للحصول على التفسير الصحيح لها، اليوم ومن خلال هذا الموقع المتميز أقدم لحضراتكم تفسير...</p></a>
+            </div>
+          </article>
+          <article data-wow-duration="1s" data-wow-delay=".5s" class="single-post fadeIn wow post-1564 post type-post status-publish format-standard has-post-thumbnail hentry category-1 tag-1280 tag-1279 tag-1278 tag-1275 tag-1276 tag-1277 tag-1281">
+            <div class="post-inner">
+              <a href="/%d8%a7%d9%87%d9%85-%d8%aa%d9%81%d8%b3%d9%8a%d8%b1%d8%a7%d8%aa-%d8%b1%d8%a4%d9%8a%d8%a9-%d8%a7%d9%84%d9%87%d8%af%d9%87%d8%af-%d9%81%d9%8a-%d8%a7%d9%84%d9%85%d9%86%d8%a7%d9%85/" class="link-box">
+              <div data-bg="https://a7lamee.com/wp-content/uploads/2021/02/43.رؤية-الهدهد-في-المنام-1-400x230.jpg" class="post-image rocket-lazyload" style=""></div>
+              <h3 class="post-title">اهم تفسيرات رؤية الهدهد في المنام</h3>
+              <p class="post-meta clear"><span class="post-meta-author">بقلم احمد بن عطية</span> <span class="post-date">16 مارس، 2021</span></p>
+              <p class="post-excerpt">يتساءل الكثير من الأشخاص عن معنى رؤية الهدهد في المنام، بالإضافة غلى تفسير رؤية الهدهد في المنام ، والهدهد من طيور الغابة التي تفضل العيش  بمفردها، وهو أيضاً من...</p></a>
+            </div>
+          </article>
+          <article data-wow-duration="1s" data-wow-delay=".5s" class="single-post fadeIn wow post-1557 post type-post status-publish format-standard has-post-thumbnail hentry category-1 tag-1289 tag-1288 tag-1293 tag-1292 tag-1291 tag-1290">
+            <div class="post-inner">
+              <a href="/%d8%aa%d9%81%d8%b3%d9%8a%d8%b1-%d9%82%d8%b1%d8%a7%d8%a1%d8%a9-%d8%b3%d9%88%d8%b1%d8%a9-%d8%a7%d9%84%d9%81%d9%84%d9%82-%d9%81%d9%8a-%d8%a7%d9%84%d9%85%d9%86%d8%a7%d9%85/" class="link-box">
+              <div data-bg="https://a7lamee.com/wp-content/uploads/2021/02/31.قراءة-سورة-الفلق-في-المنام-400x230.jpg" class="post-image rocket-lazyload" style=""></div>
+              <h3 class="post-title">تفسير قراءة سورة الفلق في المنام</h3>
+              <p class="post-meta clear"><span class="post-meta-author">بقلم احمد بن عطية</span> <span class="post-date">16 مارس، 2021</span></p>
+              <p class="post-excerpt">تفسير حلم قراءة سورة الفلق في المنام تختلف من شخص لأخر وحسب الوقت والمكان، اليوم نقدم تفسير هذه الرؤية لابن شاهين والنابلسي وابن سيرين لكل من الفتاة العزباء والسيدة...</p></a>
+            </div>
+          </article>
+          <article data-wow-duration="1s" data-wow-delay=".5s" class="single-post fadeIn wow post-1567 post type-post status-publish format-standard has-post-thumbnail hentry category-1 tag-1267 tag-1265 tag-1264 tag-1262 tag-1260 tag-1263 tag-1261 tag-1266">
+            <div class="post-inner">
+              <a href="/%d8%a7%d9%84%d8%ad%d9%85%d8%a7%d9%85-%d9%81%d9%8a-%d8%a7%d9%84%d9%85%d9%86%d8%a7%d9%85/" class="link-box">
+              <div data-bg="https://a7lamee.com/wp-content/uploads/2021/02/45.رؤية-الحمام-في-المنام-1-400x230.jpg" class="post-image rocket-lazyload" style=""></div>
+              <h3 class="post-title">تفسير رؤية الحمام في المنام بالتفصيل</h3>
+              <p class="post-meta clear"><span class="post-meta-author">بقلم احمد بن عطية</span> <span class="post-date">1 مارس، 2021</span></p>
+              <p class="post-excerpt">تساورنا الشكوك والقلق من رؤية الطيور في المنام، ويظل التساؤل قائمًا في عقولنا ويأسرنا المنام لفترة من الزمن..هل يعبر المنام عن قدوم الخير أم الشر؟ هل تعد رؤية الحمام...</p></a>
+            </div>
+          </article>
+          <article data-wow-duration="1s" data-wow-delay=".5s" class="single-post fadeIn wow post-1562 post type-post status-publish format-standard has-post-thumbnail hentry category-1 tag-1286 tag-1285 tag-1284 tag-1283 tag-1282 tag-1287">
+            <div class="post-inner">
+              <a href="/%d8%a7%d9%84%d8%ae%d9%88%d9%81-%d9%81%d9%8a-%d8%a7%d9%84%d9%85%d9%86%d8%a7%d9%85/" class="link-box">
+              <div data-bg="https://a7lamee.com/wp-content/uploads/2021/02/22.الشعور-بالخوف-في-المنام-400x230.jpg" class="post-image rocket-lazyload" style=""></div>
+              <h3 class="post-title">تفسير الشعور بالخوف في المنام </h3>
+              <p class="post-meta clear"><span class="post-meta-author">بقلم احمد بن عطية</span> <span class="post-date">1 مارس، 2021</span></p>
+              <p class="post-excerpt">الشعور بالخوف في المنام يحتوي على الكثير من التفسيرات المختلفة ويعتبر ذلك بسبب حالة من القلق والتوتر والوسواس القهري وعند رؤية الشخص أنه يخاف من شئ في المنام يسبب...</p></a>
+            </div>
+          </article>
+          <article data-wow-duration="1s" data-wow-delay=".5s" class="single-post fadeIn wow post-1569 post type-post status-publish format-standard has-post-thumbnail hentry category-1 tag-1485 tag-1481 tag-1486 tag-1254 tag-1256 tag-1487 tag-1484 tag-1257 tag-1483 tag-1255 tag-1482 tag-1259 tag-1258">
+            <div class="post-inner">
+              <a href="/%d8%aa%d9%81%d8%b3%d9%8a%d8%b1-%d8%a7%d9%84%d9%85%d8%b5%d8%a7%d9%81%d8%ad%d8%a9-%d9%81%d9%8a-%d8%a7%d9%84%d9%85%d9%86%d8%a7%d9%85/" class="link-box">
+              <div data-bg="https://a7lamee.com/wp-content/uploads/2021/02/47.المصافحة-في-المنام-400x230.jpg" class="post-image rocket-lazyload" style=""></div>
+              <h3 class="post-title">تفسير المصافحة في المنام</h3>
+              <p class="post-meta clear"><span class="post-meta-author">بقلم احمد بن عطية</span> <span class="post-date">28 فبراير، 2021</span></p>
+              <p class="post-excerpt">المصافحة عبارة شكل من أشكال السلام وفي الغالب تكون باليد ولكن رؤية المصافحة في المنام لها العديد من الدلالات ومعاني مختلفة مثل نهاية المشاكل والخلاف بين الرائي وشخص ما...</p></a>
+            </div>
+          </article>
+        </div>
+        <nav class="navigation pagination" aria-label="مقالات">
+          <h2 class="screen-reader-text">تصفّح المقالات</h2>
+          <div class="nav-links">
+            <span aria-current="page" class="page-numbers current">1</span> <a class="page-numbers" href="/page/2/">2</a> <a class="page-numbers" href="/page/3/">3</a> <span class="page-numbers dots">…</span> <a class="page-numbers" href="/page/15/">15</a> <a class="next page-numbers" href="/page/2/">التالي</a>
+          </div>
+        </nav>
+      </div>
+    </div>
+    <footer id="colophon" class="site-footer" role="contentinfo">
+      <div class="footer-widgets">
+        <div id="footer-navigation" class="clear">
+          <ul id="footer-menu" class="clear">
+            <li id="menu-item-727" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-727">
+              <a href="/%d8%b3%d9%8a%d8%a7%d8%b3%d8%a9-%d8%a7%d9%84%d8%ae%d8%b5%d9%88%d8%b5%d9%8a%d8%a9/">سياسة الخصوصية</a>
+            </li>
+            <li id="menu-item-734" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-734">
+              <a href="/%d8%aa%d9%81%d8%b3%d9%8a%d8%b1-%d8%a7%d9%84%d8%a7%d8%ad%d9%84%d8%a7%d9%85-%d9%85%d8%ac%d8%a7%d9%86%d8%a7/">تفسير الاحلام مجانا</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="site-info">
+        <div id="copyright">
+          © 2023 موسوعة تفسير الاحلام
+        </div>
+        <div id="designed-by">
+          نادي العرب: <picture><source data-lazy-srcset="/wp-content/webp-express/webp-images/themes/roaa/img/arthemelogo.png.webp" type="image/webp"><img src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%200%200'%3E%3C/svg%3E" alt="نادي العرب" class="webpexpress-processed" data-lazy-src="/wp-content/themes/roaa/img/arthemelogo.png"><noscript><img src="/wp-content/themes/roaa/img/arthemelogo.png" alt="نادي العرب" class="webpexpress-processed"></noscript></source></picture>
+        </div>
+      </div>
+      <div hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg">
+        <symbol id="arrow-up" viewbox="0 0 32 32">
+          <title>arrow-up</title>
+          <path d="M26.477,10.274c0.444,0.444,0.444,1.143,0,1.587c-0.429,0.429-1.143,0.429-1.571,0l-8.047-8.047 v26.555c0,0.619-0.492,1.111-1.111,1.111c-0.619,0-1.127-0.492-1.127-1.111V3.813l-8.031,8.047c-0.444,0.429-1.159,0.429-1.587,0c-0.444-0.444-0.444-1.143,0-1.587l9.952-9.952c0.429-0.429,1.143-0.429,1.571,0L26.477,10.274z"></path>
+        </symbol></svg>
+      </div>
+<a href="#top" id="smoothup"><svg class="svg-icon" aria-hidden="true">
+      <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrow-up"></use></svg></a>
+    </footer>
+  
+  <script type="rocketlazyloadscript">
+  window.addEventListener('DOMContentLoaded', function() {
+  /* <![CDATA[ */
+        jQuery(document).ready(function($) {
+
+                                        // Sticky header
+                        $(".site-header").sticky({topSpacing:0,zIndex:9999});
+                
+
+                                        // Sticky Sidebar 
+                        $('.article-content, .widget-area').theiaStickySidebar({
+                        additionalMarginTop: 70
+                    });
+                        $('.home-blog .site-main, .widget-area').theiaStickySidebar({
+                        additionalMarginTop: 70
+                    }); 
+                                
+        });
+
+  /* ]]> */
+  });
+  </script> 
+  <script type="rocketlazyloadscript" data-rocket-type="text/javascript" src="/wp-includes/js/dist/vendor/wp-polyfill-inert.min.js" id="wp-polyfill-inert-js" defer></script> 
+  <script type="rocketlazyloadscript" data-rocket-type="text/javascript" src="/wp-includes/js/dist/vendor/regenerator-runtime.min.js" id="regenerator-runtime-js" defer></script> 
+  <script type="rocketlazyloadscript" data-rocket-type="text/javascript" src="/wp-includes/js/dist/vendor/wp-polyfill.min.js" id="wp-polyfill-js"></script> 
+  <script type="text/javascript" id="contact-form-7-js-extra">
+
+
+  /* <![CDATA[ */
+  var wpcf7 = {"api":{"root":"https:\/\/a7lamee.com\/wp-json\/","namespace":"contact-form-7\/v1"},"cached":"1"};
+  /* ]]> */
+  </script> 
+  <script type="rocketlazyloadscript" data-minify="1" data-rocket-type="text/javascript" src="/wp-content/cache/min/1/wp-content/plugins/contact-form-7/includes/js/index.js?ver=1646002572" id="contact-form-7-js" defer></script> 
+  <script type="text/javascript" id="toc-front-js-extra">
+
+
+  /* <![CDATA[ */
+  var tocplus = {"visibility_show":"show","visibility_hide":"hide","width":"Auto"};
+  /* ]]> */
+  </script> 
+  <script type="rocketlazyloadscript" data-rocket-type="text/javascript" src="/wp-content/plugins/table-of-contents-plus/front.min.js" id="toc-front-js" defer></script> 
+  <script type="rocketlazyloadscript" data-rocket-type="text/javascript" id="rocket-browser-checker-js-after">
+
+
+  "use strict";var _createClass=function(){function defineProperties(target,props){for(var i=0;i<props.length;i++){var descriptor=props[i];descriptor.enumerable=descriptor.enumerable||!1,descriptor.configurable=!0,"value"in descriptor&&(descriptor.writable=!0),Object.defineProperty(target,descriptor.key,descriptor)}}return function(Constructor,protoProps,staticProps){return protoProps&&defineProperties(Constructor.prototype,protoProps),staticProps&&defineProperties(Constructor,staticProps),Constructor}}();function _classCallCheck(instance,Constructor){if(!(instance instanceof Constructor))throw new TypeError("Cannot call a class as a function")}var RocketBrowserCompatibilityChecker=function(){function RocketBrowserCompatibilityChecker(options){_classCallCheck(this,RocketBrowserCompatibilityChecker),this.passiveSupported=!1,this._checkPassiveOption(this),this.options=!!this.passiveSupported&&options}return _createClass(RocketBrowserCompatibilityChecker,[{key:"_checkPassiveOption",value:function(self){try{var options={get passive(){return!(self.passiveSupported=!0)}};window.addEventListener("test",null,options),window.removeEventListener("test",null,options)}catch(err){self.passiveSupported=!1}}},{key:"initRequestIdleCallback",value:function(){!1 in window&&(window.requestIdleCallback=function(cb){var start=Date.now();return setTimeout(function(){cb({didTimeout:!1,timeRemaining:function(){return Math.max(0,50-(Date.now()-start))}})},1)}),!1 in window&&(window.cancelIdleCallback=function(id){return clearTimeout(id)})}},{key:"isDataSaverModeOn",value:function(){return"connection"in navigator&&!0===navigator.connection.saveData}},{key:"supportsLinkPrefetch",value:function(){var elem=document.createElement("link");return elem.relList&&elem.relList.supports&&elem.relList.supports("prefetch")&&window.IntersectionObserver&&"isIntersecting"in IntersectionObserverEntry.prototype}},{key:"isSlowConnection",value:function(){return"connection"in navigator&&"effectiveType"in navigator.connection&&("2g"===navigator.connection.effectiveType||"slow-2g"===navigator.connection.effectiveType)}}]),RocketBrowserCompatibilityChecker}();
+  </script> 
+  <script type="text/javascript" id="rocket-preload-links-js-extra">
+
+
+  /* <![CDATA[ */
+  var RocketPreloadLinksConfig = {"excludeUris":"\/(.+\/)?feed\/?.+\/?|\/(?:.+\/)?embed\/|\/(index\\.php\/)?wp\\-json(\/.*|$)|\/wp-admin\/|\/logout\/|\/wp-login.php","usesTrailingSlash":"1","imageExt":"jpg|jpeg|gif|png|tiff|bmp|webp|avif","fileExt":"jpg|jpeg|gif|png|tiff|bmp|webp|avif|php|pdf|html|htm","siteUrl":"https:\/\/a7lamee.com","onHoverDelay":"100","rateThrottle":"3"};
+  /* ]]> */
+  </script> 
+  <script type="rocketlazyloadscript" data-rocket-type="text/javascript" id="rocket-preload-links-js-after">
+
+
+  (function() {
+  "use strict";var r="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(e){return typeof e}:function(e){return e&&"function"==typeof Symbol&&e.constructor===Symbol&&e!==Symbol.prototype?"symbol":typeof e},e=function(){function i(e,t){for(var n=0;n<t.length;n++){var i=t[n];i.enumerable=i.enumerable||!1,i.configurable=!0,"value"in i&&(i.writable=!0),Object.defineProperty(e,i.key,i)}}return function(e,t,n){return t&&i(e.prototype,t),n&&i(e,n),e}}();function i(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}var t=function(){function n(e,t){i(this,n),this.browser=e,this.config=t,this.options=this.browser.options,this.prefetched=new Set,this.eventTime=null,this.threshold=1111,this.numOnHover=0}return e(n,[{key:"init",value:function(){!this.browser.supportsLinkPrefetch()||this.browser.isDataSaverModeOn()||this.browser.isSlowConnection()||(this.regex={excludeUris:RegExp(this.config.excludeUris,"i"),images:RegExp(".("+this.config.imageExt+")$","i"),fileExt:RegExp(".("+this.config.fileExt+")$","i")},this._initListeners(this))}},{key:"_initListeners",value:function(e){-1<this.config.onHoverDelay&&document.addEventListener("mouseover",e.listener.bind(e),e.listenerOptions),document.addEventListener("mousedown",e.listener.bind(e),e.listenerOptions),document.addEventListener("touchstart",e.listener.bind(e),e.listenerOptions)}},{key:"listener",value:function(e){var t=e.target.closest("a"),n=this._prepareUrl(t);if(null!==n)switch(e.type){case"mousedown":case"touchstart":this._addPrefetchLink(n);break;case"mouseover":this._earlyPrefetch(t,n,"mouseout")}}},{key:"_earlyPrefetch",value:function(t,e,n){var i=this,r=setTimeout(function(){if(r=null,0===i.numOnHover)setTimeout(function(){return i.numOnHover=0},1e3);else if(i.numOnHover>i.config.rateThrottle)return;i.numOnHover++,i._addPrefetchLink(e)},this.config.onHoverDelay);t.addEventListener(n,function e(){t.removeEventListener(n,e,{passive:!0}),null!==r&&(clearTimeout(r),r=null)},{passive:!0})}},{key:"_addPrefetchLink",value:function(i){return this.prefetched.add(i.href),new Promise(function(e,t){var n=document.createElement("link");n.rel="prefetch",n.href=i.href,n.onload=e,n.onerror=t,document.head.appendChild(n)}).catch(function(){})}},{key:"_prepareUrl",value:function(e){if(null===e||"object"!==(void 0===e?"undefined":r(e))||!1 in e||-1===["http:","https:"].indexOf(e.protocol))return null;var t=e.href.substring(0,this.config.siteUrl.length),n=this._getPathname(e.href,t),i={original:e.href,protocol:e.protocol,origin:t,pathname:n,href:t+n};return this._isLinkOk(i)?i:null}},{key:"_getPathname",value:function(e,t){var n=t?e.substring(this.config.siteUrl.length):e;return n.startsWith("/")||(n="/"+n),this._shouldAddTrailingSlash(n)?n+"/":n}},{key:"_shouldAddTrailingSlash",value:function(e){return this.config.usesTrailingSlash&&!e.endsWith("/")&&!this.regex.fileExt.test(e)}},{key:"_isLinkOk",value:function(e){return null!==e&&"object"===(void 0===e?"undefined":r(e))&&(!this.prefetched.has(e.href)&&e.origin===this.config.siteUrl&&-1===e.href.indexOf("?")&&-1===e.href.indexOf("#")&&!this.regex.excludeUris.test(e.href)&&!this.regex.images.test(e.href))}}],[{key:"run",value:function(){"undefined"!=typeof RocketPreloadLinksConfig&&new n(new RocketBrowserCompatibilityChecker({capture:!0,passive:!0}),RocketPreloadLinksConfig).init()}}]),n}();t.run();
+  }());
+  </script> 
+  <script type="rocketlazyloadscript" data-rocket-type="text/javascript" src="/wp-includes/js/hoverIntent.min.js" id="hoverIntent-js" defer></script> 
+  <script type="rocketlazyloadscript" data-rocket-type="text/javascript" src="/wp-content/themes/roaa/js/wow.min.js" id="wow-js" defer></script> 
+  <script type="rocketlazyloadscript" data-minify="1" data-rocket-type="text/javascript" src="/wp-content/cache/min/1/wp-content/themes/roaa/js/skip-link-focus-fix.js?ver=1646002572" id="roaa-skip-link-focus-fix-js" defer></script> 
+  <script type="rocketlazyloadscript" data-minify="1" data-rocket-type="text/javascript" src="/wp-content/cache/min/1/wp-content/themes/roaa/js/jquery.sticky.js?ver=1646002572" id="roaa-sticky-header-js" defer></script> 
+  <script type="rocketlazyloadscript" data-minify="1" data-rocket-type="text/javascript" src="/wp-content/cache/min/1/wp-content/themes/roaa/js/theia-sticky-sidebar.js?ver=1646002572" id="roaa-sticky-sidebar-js" defer></script> 
+  <script type="rocketlazyloadscript" data-minify="1" data-rocket-type="text/javascript" src="/wp-content/cache/min/1/wp-content/themes/roaa/js/scripts.js?ver=1646002572" id="roaa-scripts-js" defer></script> 
+  <script>
+
+  window.lazyLoadOptions={elements_selector:"img[data-lazy-src],.rocket-lazyload,iframe[data-lazy-src]",data_src:"lazy-src",data_srcset:"lazy-srcset",data_sizes:"lazy-sizes",class_loading:"lazyloading",class_loaded:"lazyloaded",threshold:300,callback_loaded:function(element){if(element.tagName==="IFRAME"&&element.dataset.rocketLazyload=="fitvidscompatible"){if(element.classList.contains("lazyloaded")){if(typeof window.jQuery!="undefined"){if(jQuery.fn.fitVids){jQuery(element).parent().fitVids()}}}}}};window.addEventListener('LazyLoad::Initialized',function(e){var lazyLoadInstance=e.detail.instance;if(window.MutationObserver){var observer=new MutationObserver(function(mutations){var image_count=0;var iframe_count=0;var rocketlazy_count=0;mutations.forEach(function(mutation){for(var i=0;i<mutation.addedNodes.length;i++){if(typeof mutation.addedNodes[i].getElementsByTagName!=='function'){continue}
+  if(typeof mutation.addedNodes[i].getElementsByClassName!=='function'){continue}
+  images=mutation.addedNodes[i].getElementsByTagName('img');is_image=mutation.addedNodes[i].tagName=="IMG";iframes=mutation.addedNodes[i].getElementsByTagName('iframe');is_iframe=mutation.addedNodes[i].tagName=="IFRAME";rocket_lazy=mutation.addedNodes[i].getElementsByClassName('rocket-lazyload');image_count+=images.length;iframe_count+=iframes.length;rocketlazy_count+=rocket_lazy.length;if(is_image){image_count+=1}
+  if(is_iframe){iframe_count+=1}}});if(image_count>0||iframe_count>0||rocketlazy_count>0){lazyLoadInstance.update()}});var b=document.getElementsByTagName("body")[0];var config={childList:!0,subtree:!0};observer.observe(b,config)}},!1)
+  </script> 
+  <script data-no-minify="1" async src="/wp-content/plugins/wp-rocket/assets/js/lazyload/17.5/lazyload.min.js"></script> 
+  <script>
+
+  function lazyLoadThumb(e){var t='<img data-lazy-src="https://i.ytimg.com/vi/ID/hqdefault.jpg" alt="" width="480" height="360"><noscript><img src="https://i.ytimg.com/vi/ID/hqdefault.jpg" alt="" width="480" height="360">',a='<button class="play" aria-label="play Youtube video">';return t.replace("ID",e)+a}function lazyLoadYoutubeIframe(){var e=document.createElement("iframe"),t="ID?autoplay=1";t+=0===this.parentNode.dataset.query.length?'':'&'+this.parentNode.dataset.query;e.setAttribute("src",t.replace("ID",this.parentNode.dataset.src)),e.setAttribute("frameborder","0"),e.setAttribute("allowfullscreen","1"),e.setAttribute("allow", "accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"),this.parentNode.parentNode.replaceChild(e,this.parentNode)}document.addEventListener("DOMContentLoaded",function(){var e,t,p,a=document.getElementsByClassName("rll-youtube-player");for(t=0;t<a.length;t++)e=document.createElement("div"),e.setAttribute("data-id",a[t].dataset.id),e.setAttribute("data-query", a[t].dataset.query),e.setAttribute("data-src", a[t].dataset.src),e.innerHTML=lazyLoadThumb(a[t].dataset.id),a[t].appendChild(e),p=e.querySelector('.play'),p.onclick=lazyLoadYoutubeIframe});
+  </script>
+</body>
+</html>

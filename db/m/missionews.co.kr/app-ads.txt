@@ -1,0 +1,1541 @@
+<!doctype html>
+<html>
+ <head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>선교신문</title>
+<meta name="Title" content="선교신문"><meta name="Keywords" content="meta keyword"><meta name="Description" content="Meta description"><meta name="Subject" content="missionews.co.kr">	<meta name="robots" content="index, follow">
+	<!-- meta name="Googlebot-news" content="index, follow" -->
+
+
+<link rel="apple-touch-icon" sizes="180x180" href="/views/images/2020/favicon_io/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/views/images/2020/favicon_io/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/views/images/2020/favicon_io/favicon-16x16.png">
+<link rel="manifest" href="/views/images/2020/favicon_io/site.webmanifest">
+
+
+<link rel="stylesheet" href="/views/css/2023/slick.css?ver=1">
+<link rel="stylesheet" href="/views/css/2023/grid.css?ver=2">
+<link rel="stylesheet" href="/views/css/2023/common.css?ver=1.0">
+<link rel="stylesheet" href="/views/css/2023/homepage.css?ver=1" />
+<link rel="stylesheet" href="/views/css/2023/0711.css?ver=1.0">
+<link rel="stylesheet" href="/views/css/2023/main_slider.css">	
+<!-- scripts begin -->
+<script type="text/javascript" src="/views/js/2020/jquery-3.4.0.min.js"></script>
+<script type="text/javascript" src="/views/js/2020/slick.min.js"></script>
+<script type="text/javascript" src="/views/js/2020/jquery.sticky-kit.js"></script>
+<script type="text/javascript" src="/views/js/2020/scripts.js?ver=1.2"></script>
+<script type="text/javascript" src="/views/js/2023/slideShow.js"></script>
+<!-- HTML5 element support for IE6-8 -->
+<!--[if lt IE 9]>
+<script src="js/html5shiv.js"></script>
+<![endif]-->
+<link rel="stylesheet" media="screen" href="//fonts.googleapis.com/earlyaccess/nanumgothic.css">
+<link rel="stylesheet" media="screen" href="//fonts.googleapis.com/earlyaccess/nanumgothiccoding.css">
+<script type="text/javascript">
+_current_device_type='computer';
+_current_is_ios='0';
+_current_ad_cats='';
+_current_ad_keywords='';
+</script>
+
+<script>
+              var roller = {
+                  rollDiv: new Object(),
+
+                  previousDiv: function(id) {
+                      if (typeof(roller.rollDiv[id]) == 'undefined') roller.newRolling(id);
+                      else if (roller.rollDiv[id].timeId) roller.stopRolling(id);
+
+                      var idx = roller.rollDiv[id].current;
+                      document.getElementById("rollDiv" + id + idx).style.display = 'none';
+                      idx = (idx - 1 < 0) ? roller.rollDiv[id].total : idx - 1;
+                      document.getElementById("rollDiv" + id + idx).style.display = 'block';
+                      roller.rollDiv[id].current = idx;
+                      if (roller.rollDiv[id].term > 0) roller.startRolling(id);
+                  },
+
+                  nextDiv: function(id) {
+                      if (typeof(roller.rollDiv[id]) == 'undefined') roller.newRolling(id);
+                      else if (roller.rollDiv[id].timeId) roller.stopRolling(id);
+
+                      var idx = roller.rollDiv[id].current;
+                      document.getElementById("rollDiv" + id + idx).style.display = 'none';
+                      if (idx + 1 > roller.rollDiv[id].total && roller.rollDiv[id].pa) {
+                          var nidx = parseInt(id.substr(id.length - 1));
+                          nidx = (nidx + 1 > roller.rollDiv[roller.rollDiv[id].pa].total) ? 0 : nidx + 1;
+                          var nid = id.substr(0, id.length - 1) + nidx;
+                          roller.nextDiv(roller.rollDiv[id].pa);
+                          roller.newRolling(nid, roller.rollDiv[id].term, roller.rollDiv[id].pa);
+                          roller.rollDiv[id].term = 0;
+                      }
+                      idx = (idx + 1 > roller.rollDiv[id].total) ? 0 : idx + 1;
+                      document.getElementById("rollDiv" + id + idx).style.display = 'block';
+                      roller.rollDiv[id].current = idx;
+                      if (roller.rollDiv[id].term > 0) roller.startRolling(id);
+                  },
+
+                  gotoDiv: function(id, idx) {
+                      if (typeof(roller.rollDiv[id]) == 'undefined') roller.newRolling(id);
+                      else if (roller.rollDiv[id].timeId) roller.stopRolling(id);
+
+                      document.getElementById("rollDiv" + id + roller.rollDiv[id].current).style.display = 'none';
+                      document.getElementById("rollDiv" + id + idx).style.display = 'block';
+                      roller.rollDiv[id].current = idx;
+                      if (roller.rollDiv[id].term > 0) roller.startRolling(id);
+                  },
+
+                  newRolling: function() {
+                      var id = arguments[0];
+                      var term = (arguments[1]) ? arguments[1] : 0;
+                      var pa = (arguments[2]) ? arguments[2] : '';
+                      for (var i = 0; document.getElementById("rollDiv" + id + i) != null; i++);
+                      roller.rollDiv[id] = new Object();
+                      roller.rollDiv[id].total = i - 1;
+                      roller.rollDiv[id].current = 0;
+                      roller.rollDiv[id].term = term;
+                      roller.rollDiv[id].timeId = 0;
+                      roller.rollDiv[id].pa = pa;
+                      if (term > 0) roller.startRolling(id);
+                      //if(pa) roller.newRolling(pa);
+                  },
+
+                  stopRolling: function(id) {
+                      clearTimeout(roller.rollDiv[id].timeId)
+                  },
+
+                  startRolling: function(id) {
+                      roller.rollDiv[id].timeId = setTimeout("roller.nextDiv('" + id + "')", roller.rollDiv[id].term);
+                  },
+
+                  autoSet: function() {
+                      var imgs = document.getElementsByTagName("img");
+                      var anchors = document.getElementsByTagName("a");
+                      roller.regRolling(imgs);
+                      roller.regRolling(anchors);
+                  },
+
+                  regRolling: function(obj) {
+                      var i = 0;
+                      for (i = 0; i < obj.length; i++) {
+                          if (obj[i].getAttribute("rolling")) {
+                              var oid = obj[i].getAttribute("rolling");
+                              var alt = obj[i].getAttribute("alt");
+                              var timeset = obj[i].getAttribute("timeset");
+                              if (alt.substr(0, 2) == "이전" || alt.substr(0, 2).toUpperCase() == "PR") {
+                                  obj[i].setAttribute("onclick", "roller.previousDiv('" + oid + "');");
+                              } else {
+                                  obj[i].setAttribute("onclick", "roller.nextDiv('" + oid + "');");
+                              }
+                              if (timeset != null) roller.newRolling(oid, timeset);
+                          }
+                      }
+                  }
+
+              }
+              </script>
+
+<!-- gpt head -->
+ </head>
+
+<body><header class="ph">
+  <div class="topbar">
+    <div class="container-fluid flex-sm jc-sb">
+      <div class="f1">
+        <!--세계시각 : <iframe src="/views/world_time.php" frameborder="0" scrolling="no" style="margin-top: -11px;padding: 0px;width:250px;height: 25px;position: relative;"></iframe-->
+        <!-- <div style="padding-top:7px; padding-right:0px; padding-left:60px; color:#ebf1fc; font-size:11px;">
+        <a href="http://search.naver.com/search.naver?sm=tab_hty&where=nexearch&query=%BC%BC%B0%E8%BD%C3%B0%A2">세계시각 : </a><iframe src="/views/world_time.php" frameborder="0"></iframe></div> -->
+      </div>
+      <ul class="links flex-sm jc-c">
+        <li><a href="javascript:;" onclick="bookMark(this,'https://missionews.co.kr');">선교신문을 시작 페이지로</a></li>
+        <li><a href="mailto:missionews777@gmail.com">기사제보</a></li>
+        <li><a href="mailto:missionews777@gmail.com">후원문의</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="middle flex-sm container-fluid jc-sb">
+	  <!--<ul class="jc-c">
+        <li class="tl_l">2023.07.10(월)</li>
+      </ul>-->
+    <div class="f1 ta-c">
+      <a class="logo" href="/"></a>
+    </div>
+<!--<ul class="flex-sm">
+			<li class="tl_l"><a href="#">신문구독</a>|</li>
+			<li class="tl_l"><a href="#">中文</a>|</li>
+			<li class="tl_l"><a href="#">English</a>|</li>
+			<li class="tl_l"><a href="#">日本語</a></li>
+      </ul>-->
+  </div>
+  <nav class="pn">
+    <div class="container flex-sm ai-c jc-sb">
+      <button class="btn-menu"></button>
+      <div class="f1 menu">
+		<button class="btn-close"></button>
+        <button class="btn-search"></button>
+        <form action="/search" method="get" id="searchform">
+          <input type="text" name="q" class="form-text" placeholder="Search...">
+          <input type="submit" class="form-submit" value="Search">
+        </form>
+        <ul class="container-fluid flex-sm">
+          <li><a href="/archives">전체기사</a></li>
+          <li><a href="/sections/news">뉴스</a></li>
+          <li><a href="/sections/missionary">선교단체</a></li>
+          <li><a href="/sections/special">기획</a></li>
+          <li><a href="/sections/column">사설/칼럼</a></li>
+          <li><a href="/sections/book">추천서적</a></li>
+          <li><a href="/sections/resources">자료실</a></li>
+        </ul>        
+      </div>
+    </div>
+  </nav>
+</header>
+
+<script>
+function bookMark(Obj,urlStr){if(document.all && window.external){Obj.style.behavior='url(#default#homepage)';Obj.setHomePage(urlStr);}else{alert('CTRL+D를 누르시면 북마크가 가능합니다.');}}
+</script>   
+<main>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-9 col-l ">
+        <div class="row">
+
+
+          <!-- headline -->
+          <div class="col-sm-12">
+			<div class="feature">
+			<div class="subtitle"><a href="https://missionews.co.kr/news/585877" class="art_created_at" >19일 한국기독교연합회관에서 2월 감사예배와 함께 개최</a></div>
+<div class="title"><a href="https://missionews.co.kr/news/585877" class="art_created_at" >한기원, 3.1절 나라 사랑 특별 기도회</br> “3.1 정신 계승하여 한국교회 제2의 부흥으로”</a></div>
+				<div class="fn col-xs-7">
+					<figure class="m_ban"><a href="https://missionews.co.kr/news/585877"><img src="https://missionews.co.kr/data/images/full/21446/3-1.jpg?w=495&amp;h=237&amp;l=50&amp;t=40" alt=""></a></figure>
+				</div>
+				<div class="col-xs-5">
+                  <summary>한국기독교원로목사회(한기원, 대표회장 김성만 목사)가 제107주년 3.1절을 앞두고 대한민국과 한국교회, 세계 선교와 통일 등을 위해 뜨거운 열망으로 기도하는 자리를 마련했다. 19일 오전 서울 종로구 한국기독교연합회관 3층 그레이스홀에서 열린 ‘제107주년 3.1절 나라 사랑 특별 기도회’는 한기원 2월 정기 감사예배와 함께 풍성한 은혜 가운데 진행됐다. 새해 인사로 개회 선언 및 환영사를 시작한 한기원 대표회장 김성만 목사(누가선교회 대표회…</summary>
+
+				<ul class="related">
+									<li><a href="https://missionews.co.kr/news/585838" class="art_created_at" data-date="2023-06-30 16:32:29">한기원 신년하례예배 드려 “원로 목사들, 한국교회 제2의 부흥 위해 섬기자”</a></li>
+		                </ul>
+			   </div>			</div>
+		 </div>
+
+
+		 <div class="col-sm-12">
+			 <div class="s_news">
+				
+			
+			
+			
+			
+			<div class="subfeature_l col-xs-7">
+
+
+
+				<div class="title"><a href="https://missionews.co.kr/news/585876">김동연 목사 ‘일터 교회 영역 주권’ 출판… “20만 법인에 예배 환경 조성”</a></div>
+				<figure><a href="https://missionews.co.kr/news/585876">
+					<img src="https://missionews.co.kr/data/images/full/21445/2026.jpg?w=260&amp;h=130&amp;l=50&amp;t=40" alt=""></a>
+				</figure>
+				<summary>“교회 밖 주중 5일에도 일터에서 하나님 나라를 선포하고 복음을 전하는 일터 교회가 세워지면 좋겠다는 경험을 나누고 싶었습니다.” 한국교회에 새로운 목회적 돌파구로 목회자가 직접 성도들과 일터 현장에서 ...</summary>
+				<ul class="related1">
+					<li><a href="https://missionews.co.kr/news/585866" class="art_created_at" >한국크리스천기자포럼 “한국교회 미래 밝힐 작은 등불 되겠다”</a></li>
+					<li><a href="https://missionews.co.kr/news/585850" class="art_created_at" >북한, 종교 단속 법제화 및 감시망 고도화… “1~2년간 실종 신자 규모가 세 자릿수”</a></li>
+					<li style="border-bottom: 0px"><a href="https://missionews.co.kr/news/585844" class="art_created_at" >KWMC, 제11차 한인세계선교대회 ‘예수, 열방의 빛’ 주제로 5월 개최</a></li>
+                </ul>
+
+
+
+
+			</div>
+
+
+
+           	<div class="subfeature col-xs-5">
+
+
+
+
+
+
+			   <div class="flex-xs xs_news">
+                <div class="f1">
+                 <div class="title">
+					<a href="https://missionews.co.kr/news/585868" class="art_created_at" >탈북민 목회자들 한 자리… “통일 시대의 주역으로 준비”</a>
+				 </div>
+                </div>
+				<div class="fn">
+      			 <figure><a href="https://missionews.co.kr/news/585868">
+					<img src="https://missionews.co.kr/data/images/full/21434/27.jpg?w=130&h=65&l=50&t=40" alt="" style="width:130px;height:65px;"></a>
+				 </figure>
+    		    </div>
+          	  </div>
+		     <div class="flex-xs xs_news">
+                <div class="f1">
+                 <div class="title">
+					<a href="https://missionews.co.kr/news/585867" class="art_created_at" >“여성 안전 파괴, 자녀 세뇌하는 ‘나쁜 차별금지법’ 즉각 폐기해야”</a>
+				 </div>
+                </div>
+				<div class="fn">
+      			 <figure><a href="https://missionews.co.kr/news/585867">
+					<img src="https://missionews.co.kr/data/images/full/21415/image.jpg?w=130&h=65&l=50&t=40" alt="" style="width:130px;height:65px;"></a>
+				 </figure>
+    		    </div>
+          	  </div>
+			  <div class="flex-xs pd-t">
+                <div class="f1">
+                 <div class="title">
+					<a href="https://missionews.co.kr/news/585858" class="art_created_at" >JB포럼 등 4개 단체 합동 신년인사회… “부강한 나라 넘어 행복한 국민 시…</a>
+				 </div>
+                </div>
+				<div class="fn">
+      			 <figure><a href="https://missionews.co.kr/news/585858">
+					<img src="https://missionews.co.kr/data/images/full/21401/jb-2026.jpg?w=130&h=65&l=50&t=40" alt="" style="width:130px;height:65px;"></a>
+				 </figure>
+    		    </div>
+          	  </div>
+
+
+
+
+
+        	 </div>
+
+
+
+
+
+			 </div>
+		 </div>
+
+
+		<div class="col-sm-12">
+			 	<style>
+	#slider1 .slide1 {
+  /* layout */
+  display: flex;
+  flex-wrap: nowrap;
+  /* 컨테이너의 내용물이 컨테이너 크기(width, height)를 넘어설 때 보이지 않도록 하기 위해 hidden을 준다. */
+  overflow: hidden;
+
+  /* position */
+  /* slide_button의 position absolute가 컨테이너 안쪽에서 top, left, right offset이 적용될 수 있도록 relative를 준다. (기본값이 static인데, static인 경우 그 상위 컨테이너로 나가면서 현재 코드에선 html을 기준으로 offset을 적용시키기 때문) */
+  position: relative;
+
+  /* size */
+  width: 100%;
+
+  /* slide drag를 위해 DOM요소가 드래그로 선택되는것을 방지 */
+  user-select: none;
+}
+#slider1 .slide_item1 {
+  /* layout */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  /* position - 버튼 클릭시 left offset값을 적용시키기 위해 */
+  position: relative;
+  left: 0px;
+
+  /* size */
+  width: 100%;
+  height: ;/*300px;*/
+  /* flex item의 flex-shrink는 기본값이 1이므로 컨테이너 크기에 맞게 줄어드는데, 슬라이드를 구현할 것이므로 줄어들지 않도록 0을 준다. */
+  flex-shrink: 0;
+
+  /* transition */
+  transition: left 0.15s;
+}
+#slider1 .slide_button1 {
+  /* layout */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  /* position */
+  position: absolute;
+  /* 버튼이 중앙에 위치하게 하기위해 계산 */
+  top: calc(50% - 56px);
+
+  /* size */
+  width: 32px;
+  height: 32px;
+
+  /* style */
+  /*
+  border-radius: 100%;
+  background-color: #cccc;
+  */
+  cursor: pointer;
+}
+
+#slider1 .slide_prev_button1 {
+  left: 10px;
+}
+#slider1 .slide_next_button1 {
+  right: 10px;
+}
+
+/* 각 슬라이드가 변경되는 것을 시각적으로 확인하기 쉽도록 각 슬라이드별 색상 적용 */
+#slider1 .slide_item1:nth-child(1) {
+  background-color: ;
+}
+#slider1 .slide_item1:nth-child(2) {
+  background-color: ;
+}
+#slider1 .slide_item1:nth-child(3) {
+  background-color: ;
+}
+#slider1 .slide_item1:nth-child(4) {
+  background-color: burlywood;
+}
+#slider1 .slide_item1:nth-child(5) {
+  background-color: cornflowerblue;
+}
+#slider1 .slide_item1:nth-child(6) {
+  background-color: ;
+}
+#slider1 .slide_item1:nth-child(7) {
+  background-color: burlywood;
+}
+#slider1 .slide_item1:nth-child(8) {
+  background-color: cornflowerblue;
+}
+
+/* 페이지네이션 스타일 */
+#slider1 ul,li {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+#slider1 .slide_pagination1 {
+  /* layout */
+  display: flex;
+  gap: 5px;
+
+  /* position */
+  position: absolute;
+  bottom: 0;
+  /* left:50%, translateX(-50%)를 하면 가로 가운데로 위치시킬 수 있다. */
+  left: 50%;
+  transform: translateX(-50%);
+}
+#slider1 .slide_pagination1 > li {
+  /* 현재 슬라이드가 아닌 것은 투명도 부여 */
+  color: #7fb5ff88;
+  cursor: pointer;
+  font-size: 25px;
+}
+#slider1 .slide_pagination1 > li.active {
+  /* 현재 슬라이드 색상은 투명도 없이 */
+  color: #7fb5ff;
+}
+#slider1 .galleryNews{border-bottom: 0px solid #eaeaea;}
+	</style>
+	
+
+
+
+
+				<div class="block-title">
+					<div><a href="#">포토뉴스</a></div>				</div>
+
+
+
+				
+		
+
+
+	<div id="slider1">
+	<div class="slide1 slide_wrap1">
+		<div class="slide_item1">
+			<div class="galleryNews">
+				<div class="news-item1">
+					<div><a href="https://missionews.co.kr/news/585779"><img src="https://missionews.co.kr/data/images/full/21206/image.jpg?w=255&amp;h=175&amp;l=50&amp;t=40" alt="Photo 1" ></a></div>
+					<div><p class="mt-2 title"><a href="https://missionews.co.kr/news/585779">한국상담개발원, 8일 뇌심…</a></p></div>
+				</div>
+				<div class="news-item1">
+					<div><a href="https://missionews.co.kr/news/585758"><img src="https://missionews.co.kr/data/images/full/21122/image.jpg?w=255&amp;h=175&amp;l=50&amp;t=40" alt="Photo 1" ></a></div>
+					<div><p class="mt-2 title"><a href="https://missionews.co.kr/news/585758">기쁨선교회·북사목·북기…</a></p></div>
+				</div>
+				<div class="news-item1">
+					<div><a href="https://missionews.co.kr/news/585725"><img src="https://missionews.co.kr/data/images/full/21042/23.jpg?w=255&amp;h=175&amp;l=50&amp;t=40" alt="Photo 1" ></a></div>
+					<div><p class="mt-2 title"><a href="https://missionews.co.kr/news/585725">[포토] 제23회 한국선교지…</a></p></div>
+				</div>
+			</div>
+		</div>
+		<div class="slide_item1">
+			<div class="galleryNews">
+				<div class="news-item1">
+					<div><a href="https://missionews.co.kr/news/585653"><img src="https://missionews.co.kr/data/images/full/20827/image.jpg?w=255&amp;h=175&amp;l=50&amp;t=40" alt="Photo 1" ></a></div>
+					<div><p class="mt-2 title"><a href="https://missionews.co.kr/news/585653">한남교회 권사수련회, 풍…</a></p></div>
+				</div>
+				<div class="news-item1">
+					<div><a href="https://missionews.co.kr/news/585657"><img src="https://missionews.co.kr/data/images/full/20831/image.jpg?w=255&amp;h=175&amp;l=50&amp;t=40" alt="Photo 1" ></a></div>
+					<div><p class="mt-2 title"><a href="https://missionews.co.kr/news/585657">뉴욕경제문화포럼, 소프라…</a></p></div>
+				</div>
+				<div class="news-item1">
+					<div><a href="https://missionews.co.kr/news/585614"><img src="https://missionews.co.kr/data/images/full/20681/2025.jpg?w=255&amp;h=175&amp;l=50&amp;t=40" alt="Photo 1" ></a></div>
+					<div><p class="mt-2 title"><a href="https://missionews.co.kr/news/585614">2025 선교한국대회, 20여 개…</a></p></div>
+				</div>
+			</div>
+		</div>
+		<div class="slide_item1">
+			<div class="galleryNews">
+				<div class="news-item1">
+					<div><a href="https://missionews.co.kr/news/585557"><img src="https://missionews.co.kr/data/images/full/20489/7.jpg?w=255&amp;h=175&amp;l=50&amp;t=40" alt="Photo 1" ></a></div>
+					<div><p class="mt-2 title"><a href="https://missionews.co.kr/news/585557">한국기독교원로목사회 7월…</a></p></div>
+				</div>
+				<div class="news-item1">
+					<div><a href="https://missionews.co.kr/news/585537"><img src="https://missionews.co.kr/data/images/full/20428/image.jpg?w=255&amp;h=175&amp;l=50&amp;t=40" alt="Photo 1" ></a></div>
+					<div><p class="mt-2 title"><a href="https://missionews.co.kr/news/585537">국제마약경찰대학교, 신동…</a></p></div>
+				</div>
+				<div class="news-item1">
+					<div><a href="https://missionews.co.kr/news/585516"><img src="https://missionews.co.kr/data/images/full/20392/2025-27.jpg?w=255&amp;h=175&amp;l=50&amp;t=40" alt="Photo 1" ></a></div>
+					<div><p class="mt-2 title"><a href="https://missionews.co.kr/news/585516">누가선교회, 2025년 제27회 …</a></p></div>
+				</div>
+			</div>
+		</div>
+
+      <div class="slide_prev_button1 slide_button1"><img src="/views/images/icon_arrow_left.png" /></div>
+      <div class="slide_next_button1 slide_button1"><img src="/views/images/icon_arrow_right.png" /></div>
+      <ul class="slide_pagination1"></ul>
+    </div>
+
+
+	</div>
+
+
+<script>
+// 슬라이크 전체 크기(width 구하기)
+const slide = document.querySelector(".slide1");
+let slideWidth = slide.clientWidth;
+
+// 버튼 엘리먼트 선택하기
+const prevBtn = document.querySelector(".slide_prev_button1");
+const nextBtn = document.querySelector(".slide_next_button1");
+
+// 슬라이드 전체를 선택해 값을 변경해주기 위해 슬라이드 전체 선택하기
+const slideItems = document.querySelectorAll(".slide_item1");
+// 현재 슬라이드 위치가 슬라이드 개수를 넘기지 않게 하기 위한 변수
+const maxSlide = slideItems.length;
+
+// 버튼 클릭할 때 마다 현재 슬라이드가 어디인지 알려주기 위한 변수
+let currSlide = 1;
+
+// 페이지네이션 생성
+const pagination = document.querySelector(".slide_pagination1");
+
+for (let i = 0; i < maxSlide; i++) {
+  if (i === 0) pagination.innerHTML += `<li class="active">•</li>`;
+  else pagination.innerHTML += `<li>•</li>`;
+}
+
+const paginationItems = document.querySelectorAll(".slide_pagination1 > li");
+
+function nextMove() {
+  currSlide++;
+  // 마지막 슬라이드 이상으로 넘어가지 않게 하기 위해서
+  if (currSlide <= maxSlide) {
+    // 슬라이드를 이동시키기 위한 offset 계산
+    const offset = slideWidth * (currSlide - 1);
+    // 각 슬라이드 아이템의 left에 offset 적용
+    slideItems.forEach((i) => {
+      i.setAttribute("style", `left: ${-offset}px`);
+    });
+    // 슬라이드 이동 시 현재 활성화된 pagination 변경
+    paginationItems.forEach((i) => i.classList.remove("active"));
+    paginationItems[currSlide - 1].classList.add("active");
+  } else {
+    currSlide--;
+  }
+}
+function prevMove() {
+  currSlide--;
+  // 1번째 슬라이드 이하로 넘어가지 않게 하기 위해서
+  if (currSlide > 0) {
+    // 슬라이드를 이동시키기 위한 offset 계산
+    const offset = slideWidth * (currSlide - 1);
+    // 각 슬라이드 아이템의 left에 offset 적용
+    slideItems.forEach((i) => {
+      i.setAttribute("style", `left: ${-offset}px`);
+    });
+    // 슬라이드 이동 시 현재 활성화된 pagination 변경
+    paginationItems.forEach((i) => i.classList.remove("active"));
+    paginationItems[currSlide - 1].classList.add("active");
+  } else {
+    currSlide++;
+  }
+}
+
+// 버튼 엘리먼트에 클릭 이벤트 추가하기
+nextBtn.addEventListener("click", () => {
+  // 이후 버튼 누를 경우 현재 슬라이드를 변경
+  nextMove();
+});
+// 버튼 엘리먼트에 클릭 이벤트 추가하기
+prevBtn.addEventListener("click", () => {
+  // 이전 버튼 누를 경우 현재 슬라이드를 변경
+  prevMove();
+});
+
+// 브라우저 화면이 조정될 때 마다 slideWidth를 변경하기 위해
+window.addEventListener("resize", () => {
+  slideWidth = slide.clientWidth;
+});
+
+// 각 페이지네이션 클릭 시 해당 슬라이드로 이동하기
+for (let i = 0; i < maxSlide; i++) {
+  // 각 페이지네이션마다 클릭 이벤트 추가하기
+  paginationItems[i].addEventListener("click", () => {
+    // 클릭한 페이지네이션에 따라 현재 슬라이드 변경해주기(currSlide는 시작 위치가 1이기 때문에 + 1)
+    currSlide = i + 1;
+    // 슬라이드를 이동시키기 위한 offset 계산
+    const offset = slideWidth * (currSlide - 1);
+    // 각 슬라이드 아이템의 left에 offset 적용
+    slideItems.forEach((i) => {
+      i.setAttribute("style", `left: ${-offset}px`);
+    });
+    // 슬라이드 이동 시 현재 활성화된 pagination 변경
+    paginationItems.forEach((i) => i.classList.remove("active"));
+    paginationItems[currSlide - 1].classList.add("active");
+  });
+}
+
+// 드래그(스와이프) 이벤트를 위한 변수 초기화
+let startPoint = 0;
+let endPoint = 0;
+
+// PC 클릭 이벤트 (드래그)
+slide.addEventListener("mousedown", (e) => {
+  console.log("mousedown", e.pageX);
+  startPoint = e.pageX; // 마우스 드래그 시작 위치 저장
+});
+
+slide.addEventListener("mouseup", (e) => {
+  console.log("mouseup", e.pageX);
+  endPoint = e.pageX; // 마우스 드래그 끝 위치 저장
+  if (startPoint < endPoint) {
+    // 마우스가 오른쪽으로 드래그 된 경우
+    console.log("prev move");
+    prevMove();
+  } else if (startPoint > endPoint) {
+    // 마우스가 왼쪽으로 드래그 된 경우
+    console.log("next move");
+    nextMove();
+  }
+});
+
+// 모바일 터치 이벤트 (스와이프)
+slide.addEventListener("touchstart", (e) => {
+  console.log("touchstart", e.touches[0].pageX);
+  startPoint = e.touches[0].pageX; // 터치가 시작되는 위치 저장
+});
+slide.addEventListener("touchend", (e) => {
+  console.log("touchend", e.changedTouches[0].pageX);
+  endPoint = e.changedTouches[0].pageX; // 터치가 끝나는 위치 저장
+  if (startPoint < endPoint) {
+    // 오른쪽으로 스와이프 된 경우
+    console.log("prev move");
+    prevMove();
+  } else if (startPoint > endPoint) {
+    // 왼쪽으로 스와이프 된 경우
+    console.log("next move");
+    nextMove();
+  }
+});
+</script>		</div>
+
+
+
+
+			<div class="col-sm-12">
+							<div class="subfeature_l col-xs-7">				<div class="title"><a href="https://missionews.co.kr/news/585344" class="art_created_at">이집트 왕국의 쇠퇴 Ⅱ</a></div>
+				<figure><a href="https://missionews.co.kr/news/585344">
+					<img src="https://missionews.co.kr/data/images/full/19850/image.jpg?w=260&amp;h=130&amp;l=50&amp;t=40" alt=""></a>
+				</figure>
+				<summary>새해 들어 대한민국은 지금까지 경험하지 못한 대통령의 구속이라는 상황에 직면했다. 또한 미국에서는 트럼프가 그의 두 번째 대통령직에 취임하며 캐나다와 그린란드 합병 및 파나마 운하 지배권 환수를 ...</summary>
+				<ul class="related1">
+					<li><a href="https://missionews.co.kr/news/585336" class="art_created_at"> “북한의 사상문화통제 법률, 북 기독교인 직접 겨냥”</a></li>
+					<li><a href="https://missionews.co.kr/news/585335" class="art_created_at"> 성경을 선교적 시각으로 보기(15) ‘구원 선포의 찬양’</a></li>
+					<li style="border-bottom:0px"><a href="https://missionews.co.kr/news/585331" class="art_created_at"> “이 땅의 이주민·다문화·난민 차세대를 예수님 사랑으로 보듬어요”</a></li>
+                </ul>
+			</div>
+           	<div class="subfeature col-xs-5">
+			   <div class="flex-xs xs_news">
+                <div class="f1">
+                 <div class="title">
+					<a href="https://missionews.co.kr/news/585345" class="art_created_at">KWMA 제35차 정기총회 개최… 강대흥 사무총장 연임</a>
+				 </div>
+                </div>
+				<div class="fn">
+      			 <figure><a href="https://missionews.co.kr/news/585345">
+					<img src="https://missionews.co.kr/data/images/full/19851/kwma-35.jpg?w=260&amp;h=130&amp;l=50&amp;t=40" alt="" style="width:130px;"></a>
+				 </figure>
+    		    </div>
+          	  </div>
+		     <div class="flex-xs xs_news">
+                <div class="f1">
+                 <div class="title">
+					<a href="https://missionews.co.kr/news/585337" class="art_created_at">한기원 신임 대표회장 김성만 목사, ‘5가지 비전’ 선포</a>
+				 </div>
+                </div>
+				<div class="fn">
+      			 <figure><a href="https://missionews.co.kr/news/585337">
+					<img src="https://missionews.co.kr/data/images/full/19821/27.jpg?w=260&amp;h=130&amp;l=47&amp;t=52" alt="" style="width:130px;"></a>
+				 </figure>
+    		    </div>
+          	  </div>
+			  <div class="flex-xs pd-t">
+                <div class="f1">
+                 <div class="title">
+					<a href="https://missionews.co.kr/news/585340" class="art_created_at">GCR “작년 한 해 220만여 그리스도인 지원”</a>
+				 </div>
+                </div>
+				<div class="fn">
+      			 <figure><a href="https://missionews.co.kr/news/585340">
+					<img src="https://missionews.co.kr/data/images/full/19824/image.jpg?w=260&amp;h=130&amp;l=50&amp;t=40" alt="" style="width:130px;"></a>
+				 </figure>
+    		    </div>
+          	  </div>
+        	 </div>
+							</div>
+</div>
+</div>
+
+
+
+<div class="col-sm-3 col-r"><!-- 미션뉴스_오른쪽 -->
+<div class="side-block opinion">
+	
+  <div class="block-title"><a href="https://missionews.co.kr/sections/column">오피니언</a>
+  <img src="https://missionews.co.kr/images/data/op_arrow.png" />
+  </div>  <!--div class="dot_list">
+	  <ul>
+		<li><a href="#"><span class="dot"></span></a></li>
+		<li><a href="#"><span class="dot"></span></a></li>
+		<li><a href="#"><span class="dot"></span></a></li>
+	</ul>
+	</div-->
+  <div class="op_ph">
+	  <a href="https://missionews.co.kr/news/585842"><img src="https://missionews.co.kr/data/images/full/21368/image.jpg?w=270&amp;h=135&amp;l=50&amp;t=40" alt="말씀 안에 거할 때 역사하시는 하나님"></a>
+	  <br><div>말씀 안에 거할 때 역사하시는 하나님</div>
+  </div>	
+      <article class="flex-xs">
+	 <div class="f1">
+	  <div class="title">
+		  <a href="https://missionews.co.kr/news/585837" class="art_created_at" data-date="2023-06-30 15:44:15">일본의 침략과 한민족의 독립운동(2)</a>
+	  </div>
+	  <summary>1919년 3월 1일 독립만세운동은 평화적인 시위였지만 일제는 ...</summary>
+	 </div>
+  	 <figure class="fn">
+		 <a href="https://missionews.co.kr/news/585837" class="art_created_at">
+			 <img src="https://missionews.co.kr/data/images/full/21354/1919-3-1.jpg?w=87&amp;h=51&amp;l=50&amp;t=40?w=87&amp;h=51&amp;l=50&amp;t=40" >
+		 </a>
+	 </figure>
+  </article>
+    <article class="flex-xs">
+	 <div class="f1">
+	  <div class="title">
+		  <a href="https://missionews.co.kr/news/585829" class="art_created_at" data-date="2023-06-30 15:44:15">신경가소성, 뇌의 놀라운 변화 능력이다</a>
+	  </div>
+	  <summary>약 100년 전에 근대 신경과학의 아버지인 스페인의 산티아고 ...</summary>
+	 </div>
+  	 <figure class="fn">
+		 <a href="https://missionews.co.kr/news/585829" class="art_created_at">
+			 <img src="https://missionews.co.kr/data/images/full/21341/image.jpg?w=87&amp;h=51&amp;l=50&amp;t=40?w=87&amp;h=51&amp;l=50&amp;t=40" >
+		 </a>
+	 </figure>
+  </article>
+    <article class="flex-xs">
+	 <div class="f1">
+	  <div class="title">
+		  <a href="https://missionews.co.kr/news/585841" class="art_created_at" data-date="2023-06-30 15:44:15">하나님이 재물을 자루에 넣어주신 이유는?</a>
+	  </div>
+	  <summary>성경은 하나님의 은혜가 언제나 즉각적인 기쁨과 ...</summary>
+	 </div>
+  	 <figure class="fn">
+		 <a href="https://missionews.co.kr/news/585841" class="art_created_at">
+			 <img src="https://missionews.co.kr/data/images/full/21367/image.jpg?w=87&amp;h=51&amp;l=50&amp;t=40?w=87&amp;h=51&amp;l=50&amp;t=40" >
+		 </a>
+	 </figure>
+  </article>
+    <article class="flex-xs">
+	 <div class="f1">
+	  <div class="title">
+		  <a href="https://missionews.co.kr/news/585835" class="art_created_at" data-date="2023-06-30 15:44:15">[영혼의 오아시스] 태양</a>
+	  </div>
+	  <summary>태양 매일 새벽, 어둠의 막을 가르고 황금 깃털을 휘날리며 ...</summary>
+	 </div>
+  	 <figure class="fn">
+		 <a href="https://missionews.co.kr/news/585835" class="art_created_at">
+			 <img src="https://missionews.co.kr/data/images/full/21353/image.jpg?w=87&amp;h=51&amp;l=50&amp;t=40?w=87&amp;h=51&amp;l=50&amp;t=40" >
+		 </a>
+	 </figure>
+  </article>
+    
+</div>
+
+<div class="event-news">
+	
+				<div class="block-title"><a href="#">행사소식</a></div>                  <ul class="list">
+				                        <li><img src="https://missionews.co.kr/images/data/ic_blue.jpg" /><a href="https://missionews.co.kr/news/585846" class="art_created_at" data-date="2023-06-19 08:57:13">통일소망선교회, ‘제27회 통…</a></li>
+				                        <li><img src="https://missionews.co.kr/images/data/ic_blue.jpg" /><a href="https://missionews.co.kr/news/585834" class="art_created_at" data-date="2023-06-19 08:57:13">한국기독교원로목사회, 1월 2…</a></li>
+				                        <li><img src="https://missionews.co.kr/images/data/ic_blue.jpg" /><a href="https://missionews.co.kr/news/585822" class="art_created_at" data-date="2023-06-19 08:57:13">한국오픈도어, ‘2026 월드와…</a></li>
+				                        <li><img src="https://missionews.co.kr/images/data/ic_blue.jpg" /><a href="https://missionews.co.kr/news/585755" class="art_created_at" data-date="2023-06-19 08:57:13">국제 인도적 위기대응 매뉴…</a></li>
+				                     
+                  </ul>
+</div>
+
+<div class="ban">
+	<ul class="ban_list">
+		<li><a href="javascript:window.open('https://www.ccast.co.kr/webplayer-web/index.html','_blank', 'width=280, height=530');" ><img src="/views/images/main_right_1.jpg"></a>
+
+</li>
+		<li><a href="https://chtv.christiandaily.co.kr" target="_blank"><img src="/views/images/main_right_2.jpg"></a></li>
+		<li><a href="https://kwma.org" target="_blank"><img src="/views/images/main_right_3.jpg"></a></li>
+	</ul>
+	</div>
+</div>
+
+
+
+
+
+
+
+<div class="container-fluid">
+  <div class="row">
+
+
+
+	  <div class="col-sm-12 m_news">
+        <div class="m_img col-xs-6">            <a href="https://missionews.co.kr/news/585848"><img src="https://missionews.co.kr/data/images/full/21377/lm.jpg?w=546&amp;h=346&amp;l=44&amp;t=55" alt=""></a>
+            <div class="title"><a href="https://missionews.co.kr/news/585848" class="art_created_at"><p class="mt-2">“설교 자료 찾는 수고는 끝나… 설교자의 ‘영적 통찰’이 가장 중요”</p></a></div>
+        </div>
+	  	<div class="s_img col-xs-6">
+            <a href="https://missionews.co.kr/news/585804"><img src="https://missionews.co.kr/data/images/full/21266/g.jpg?w=546&amp;h=346&amp;l=50&amp;t=40" alt="" style="width:345px;height:;"></a>
+            <div class="title"><a href="https://missionews.co.kr/news/585804" class="art_created_at">“아펜젤러의 신앙과 인격, 삶을 깨달아 제2, 3의 아펜젤러 나오길”</a></div>
+            <summary>㈔아펜젤러기념사업회가 배재학당 창립 140주년을 맞아 배재학당을 세운 헨리 게하르트 아펜젤러(Henry Gehart Appenzeller, 1858~1902) 선교사가 조선에서 남긴 발자취를 사진과 함께 되돌아보는 책을 펴냈다. 배재고등학교 ... ... ...</summary>
+            <ul class="related1">
+                <li><a href="https://missionews.co.kr/news/585801" class="art_created_at" data-date="2023-06-30 16:32:29">선교통일한국협의회 정기총회 개최… 신임 대표회장에 박정곤 목사</a></li>
+                <li><a href="https://missionews.co.kr/news/585612" class="art_created_at" data-date="2023-06-30 16:32:29">불교권 영혼 선교, 어떻게 할까… ‘붓다를 넘어 복음으로’ 출간</a></li>
+                <li style="border-bottom:0px"><a href="https://missionews.co.kr/news/585592" class="art_created_at" data-date="2023-06-30 16:32:29">AI 시대 설교와 논문 준비에 최적화된 AI 신학도서관 ‘바이블넷(BibleNet)’ 출시</a></li>
+            </ul>
+        </div>	   </div>
+
+
+
+
+
+
+	   <div class="col-sm-12 popular">
+			       <div class="block-title">많이 본 뉴스</div>
+			   <div class="col-sm-6">
+			                   <article class="flex-xs">
+					<div class="f1 title"><a href="https://missionews.co.kr/news/585878" class="art_created_at" data-date="2023-06-30 16:32:29">[영혼의 오아시스] 지구</a></div><figure class="fn"><a href="https://missionews.co.kr/news/585878"><img src="https://missionews.co.kr/data/images/full/21448/image.jpg?w=51&amp;h=51&amp;l=50&amp;t=40?w=51&amp;h=51&amp;l=50&amp;t=40" alt=""></a></figure></article>
+					                <article class="flex-xs">
+					<div class="f1 title"><a href="https://missionews.co.kr/news/585879" class="art_created_at" data-date="2023-06-30 16:32:29">[뇌치유상담/신경신학편(15)] 시냅스가소성, 변화하는 뇌의 기본 성질이다(2)</a></div><figure class="fn"><a href="https://missionews.co.kr/news/585879"><img src="https://missionews.co.kr/data/images/full/21450/nmda.jpg?w=51&amp;h=51&amp;l=50&amp;t=40?w=51&amp;h=51&amp;l=50&amp;t=40" alt=""></a></figure></article>
+					                <article class="flex-xs">
+					<div class="f1 title"><a href="https://missionews.co.kr/news/585880" class="art_created_at" data-date="2023-06-30 16:32:29">민간과 학계 손잡고 난민 지원 단체 ‘제주 ITDA(잇다)’ 공식 출범</a></div><figure class="fn"><a href="https://missionews.co.kr/news/585880"><img src="https://missionews.co.kr/data/images/full/21451/nlcs.jpg?w=51&amp;h=51&amp;l=50&amp;t=40?w=51&amp;h=51&amp;l=50&amp;t=40" alt=""></a></figure></article>
+					
+				
+			  </div>
+
+			  <div class="col-sm-6 pd-l">
+			  			  </div>
+	   </div>
+
+	  <script>
+    $(document).ready(function() {
+      var files = [
+        "https://missionews.co.kr/image/data/pg31.png",
+        "https://missionews.co.kr/views/0711/pl_m2.jpg",
+        "https://missionews.co.kr/views/0711/pl_m3.jpg",
+        "https://missionews.co.kr/views/0711/pl_m4.jpg",
+        "https://missionews.co.kr/views/0711/pl_m5.jpg",
+        "https://missionews.co.kr/views/0711/pl_m6.jpg"
+      ];
+      var currentIndex = 0;
+
+      updateFileLink(files[currentIndex]);
+
+      $('.prev-btn').click(function() {
+        currentIndex--;
+        if (currentIndex < 0) {
+          currentIndex = files.length - 1;
+        }
+        updateFileLink(files[currentIndex]);
+      });
+
+      $('.next-btn').click(function() {
+        currentIndex++;
+        if (currentIndex >= files.length) {
+          currentIndex = 0;
+        }
+        updateFileLink(files[currentIndex]);
+      });
+
+      function updateFileLink(file) {
+        // $('#file-link').attr('href', file);
+        $('#file-link img').attr('src', file);
+      }
+    });
+  </script>
+
+	<div class="col-sm-12">
+	<div class="ad_big" style="text-align:center;">
+	  <!-- <a href="#"><img src="https://missionews.co.kr/images/data/ad_gban.jpg" alt=""></a> -->
+
+
+	<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8772735888168241"
+     crossorigin="anonymous"></script>
+<!-- 선교신문_메인PC광고 -->
+<ins class="adsbygoogle"
+     style="display:inline-block;width:728px;height:90px"
+     data-ad-client="ca-pub-8772735888168241"
+     data-ad-slot="5321441684"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+
+
+
+
+
+
+
+
+
+
+	</div>
+	</div>
+
+   <div class="col-sm-12">
+
+	  	<style>
+	#slider2 .slide2 {
+  /* layout */
+  display: flex;
+  flex-wrap: nowrap;
+  /* 컨테이너의 내용물이 컨테이너 크기(width, height)를 넘어설 때 보이지 않도록 하기 위해 hidden을 준다. */
+  overflow: hidden;
+
+  /* position */
+  /* slide_button의 position absolute가 컨테이너 안쪽에서 top, left, right offset이 적용될 수 있도록 relative를 준다. (기본값이 static인데, static인 경우 그 상위 컨테이너로 나가면서 현재 코드에선 html을 기준으로 offset을 적용시키기 때문) */
+  position: relative;
+
+  /* size */
+  width: 100%;
+
+  /* slide drag를 위해 DOM요소가 드래그로 선택되는것을 방지 */
+  user-select: none;
+}
+#slider2 .slide_item2 {
+  /* layout */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  /* position - 버튼 클릭시 left offset값을 적용시키기 위해 */
+  position: relative;
+  left: 0px;
+
+  /* size */
+  width: 100%;
+  height: ;/*300px;*/
+  /* flex item의 flex-shrink는 기본값이 1이므로 컨테이너 크기에 맞게 줄어드는데, 슬라이드를 구현할 것이므로 줄어들지 않도록 0을 준다. */
+  flex-shrink: 0;
+
+  /* transition */
+  transition: left 0.15s;
+}
+#slider2 .slide_button2 {
+  /* layout */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  /* position */
+  position: absolute;
+  /* 버튼이 중앙에 위치하게 하기위해 계산 */
+  top: calc(50% - 56px);
+
+  /* size */
+  width: 32px;
+  height: 32px;
+
+  /* style */
+  border-radius: 100%;
+  background-color: #cccc;
+  cursor: pointer;
+}
+
+#slider2 .slide_prev_button2 {
+  left: 10px;
+}
+#slider2 .slide_next_button2 {
+  right: 10px;
+}
+
+/* 각 슬라이드가 변경되는 것을 시각적으로 확인하기 쉽도록 각 슬라이드별 색상 적용 */
+#slider2 .slide_item2:nth-child(1) {
+  background-color: ;
+}
+#slider2 .slide_item2:nth-child(2) {
+  background-color: ;
+}
+#slider2 .slide_item2:nth-child(3) {
+  background-color: ;
+}
+#slider2 .slide_item2:nth-child(4) {
+  background-color: burlywood;
+}
+#slider2 .slide_item2:nth-child(5) {
+  background-color: cornflowerblue;
+}
+
+/* 페이지네이션 스타일 */
+#slider2 ul,li {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+#slider2 .slide_pagination2 {
+  /* layout */
+  display: flex;
+  gap: 5px;
+
+  /* position */
+  position: absolute;
+  bottom: 0;
+  /* left:50%, translateX(-50%)를 하면 가로 가운데로 위치시킬 수 있다. */
+  left: 50%;
+  transform: translateX(-50%);
+}
+#slider2 .slide_pagination2 > li {
+  /* 현재 슬라이드가 아닌 것은 투명도 부여 */
+  color: #7fb5ff88;
+  cursor: pointer;
+  font-size: 25px;
+}
+#slider2 .slide_pagination2 > li.active {
+  /* 현재 슬라이드 색상은 투명도 없이 */
+  color: #7fb5ff;
+}
+#slider2 .galleryNews{border-bottom: 0px solid #eaeaea;}
+	</style>
+	
+
+
+
+
+				<div class="block-title">
+					<div><a href="#">박해 지역을 위한 기도</a></div>				</div>
+
+
+
+				
+		
+
+
+
+	<div id="slider2">
+	<div class="slide2 slide_wrap">
+
+
+      <div class="slide_item2">
+	  <div class="galleryNews">
+
+
+                   <div class="news-item2">
+                      <div>
+                        <a href="https://missionews.co.kr/news/585864">
+						<img src="https://missionews.co.kr/data/images/full/16438/image.jpg?w=220&amp;h=120&amp;l=50&amp;t=40" alt="Photo 1" ></a>
+                      </div>
+                      <div>
+                        <p class="title"><a href="https://missionews.co.kr/news/585864">박해받는 교회를 위한 2월 21일~28일 기도 제목</a></p>
+                      </div>
+                  </div>
+					<div class="news-item2">
+                        <div>
+                          <a href="https://missionews.co.kr/news/585863">
+						<img src="https://missionews.co.kr/data/images/full/7764/image.jpg?w=220&amp;h=120&amp;l=50&amp;t=40" alt="Photo 1" ></a>
+                        </div>
+                        <div>
+                          <p class="title"><a href="https://missionews.co.kr/news/585863">박해받는 교회를 위한 2월 11일~20일 기도 제목</a></p>
+                        </div>
+                     </div>
+                     <div class="news-item2">
+                          <div>
+                            <a href="https://missionews.co.kr/news/585862">
+						<img src="https://missionews.co.kr/data/images/full/9143/image.jpg?w=220&amp;h=120&amp;l=50&amp;t=40" alt="Photo 1" ></a>
+                          </div>
+                          <div>
+                            <p class="title"><a href="https://missionews.co.kr/news/585862">박해받는 교회를 위한 2월 1일~10일 기도 제목</a></p>
+                          </div>
+                     </div>
+					 <div class="news-item2">
+                          <div>
+                            <a href="https://missionews.co.kr/news/585861">
+						<img src="https://missionews.co.kr/data/images/full/13676/image.jpg?w=220&amp;h=120&amp;l=50&amp;t=40" alt="Photo 1" ></a>
+                          </div>
+                          <div>
+                            <p class="title"><a href="https://missionews.co.kr/news/585861">박해받는 교회를 위한 1월 21일~31일 기도 제목</a></p>
+                          </div>
+                     </div>
+					 <div class="news-item2">
+                          <div>
+                            <a href="https://missionews.co.kr/news/585860">
+						<img src="https://missionews.co.kr/data/images/full/7210/image.jpg?w=220&amp;h=120&amp;l=50&amp;t=40" alt="Photo 1" ></a>
+                          </div>
+                          <div>
+                            <p class="title"><a href="https://missionews.co.kr/news/585860">박해받는 교회를 위한 1월 11일~20일 기도 제목</a></p>
+                          </div>
+                     </div>
+
+
+
+
+				    </div>
+					</div>
+
+
+
+
+      <div class="slide_item2">
+	  <div class="galleryNews">
+
+
+                   <div class="news-item2">
+                      <div>
+                        <a href="https://missionews.co.kr/news/585859">
+						<img src="https://missionews.co.kr/data/images/full/12134/image.jpg?w=220&amp;h=120&amp;l=50&amp;t=40" alt="Photo 1" ></a>
+                      </div>
+                      <div>
+                        <p class="title"><a href="https://missionews.co.kr/news/585859">박해받는 교회를 위한 1월 1일~10일 기도 제목</a></p>
+                      </div>
+                  </div>
+					<div class="news-item2">
+                        <div>
+                          <a href="https://missionews.co.kr/news/585769">
+						<img src="https://missionews.co.kr/data/images/full/19329/image.jpg?w=220&amp;h=120&amp;l=50&amp;t=47" alt="Photo 1" ></a>
+                        </div>
+                        <div>
+                          <p class="title"><a href="https://missionews.co.kr/news/585769">박해받는 교회를 위한 12월 21일~31일 기도 제목</a></p>
+                        </div>
+                     </div>
+                     <div class="news-item2">
+                          <div>
+                            <a href="https://missionews.co.kr/news/585768">
+						<img src="https://missionews.co.kr/data/images/full/14361/image.jpg?w=220&amp;h=120&amp;l=50&amp;t=40" alt="Photo 1" ></a>
+                          </div>
+                          <div>
+                            <p class="title"><a href="https://missionews.co.kr/news/585768">박해받는 교회를 위한 12월 11일~20일 기도 제목</a></p>
+                          </div>
+                     </div>
+					 <div class="news-item2">
+                          <div>
+                            <a href="https://missionews.co.kr/news/585767">
+						<img src="https://missionews.co.kr/data/images/full/13676/image.jpg?w=220&amp;h=120&amp;l=50&amp;t=40" alt="Photo 1" ></a>
+                          </div>
+                          <div>
+                            <p class="title"><a href="https://missionews.co.kr/news/585767">박해받는 교회를 위한 12월 1일~10일 기도 제목</a></p>
+                          </div>
+                     </div>
+					 <div class="news-item2">
+                          <div>
+                            <a href="">
+						<img src="" alt="Photo 1" ></a>
+                          </div>
+                          <div>
+                            <p class="title"><a href=""></a></p>
+                          </div>
+                     </div>
+
+
+
+
+				    </div>
+					</div>
+
+
+     
+      <div class="slide_prev_button2 slide_button2">◀</div>
+      <div class="slide_next_button2 slide_button2">▶</div>
+      <ul class="slide_pagination2"></ul>
+    </div>
+
+
+	</div>
+
+
+<script>
+// 슬라이크 전체 크기(width 구하기)
+const slide3 = document.querySelector(".slide2");
+let slideWidth3 = slide3.clientWidth;
+
+// 버튼 엘리먼트 선택하기
+const prevBtn3 = document.querySelector(".slide_prev_button2");
+const nextBtn3 = document.querySelector(".slide_next_button2");
+
+// 슬라이드 전체를 선택해 값을 변경해주기 위해 슬라이드 전체 선택하기
+const slideItems3 = document.querySelectorAll(".slide_item2");
+// 현재 슬라이드 위치가 슬라이드 개수를 넘기지 않게 하기 위한 변수
+const maxSlide3 = slideItems3.length;
+
+// 버튼 클릭할 때 마다 현재 슬라이드가 어디인지 알려주기 위한 변수
+let currSlideddd = 1;
+
+// 페이지네이션 생성
+const pagination3 = document.querySelector(".slide_pagination2");
+
+for (let i = 0; i < maxSlide3; i++) {
+  if (i === 0) pagination3.innerHTML += `<li class="active">•</li>`;
+  else pagination3.innerHTML += `<li>•</li>`;
+}
+
+const paginationItems3 = document.querySelectorAll(".slide_pagination2 > li");
+
+function nextMove3() {
+  currSlideddd++;
+  // 마지막 슬라이드 이상으로 넘어가지 않게 하기 위해서
+  if (currSlideddd <= maxSlide3) {
+    // 슬라이드를 이동시키기 위한 offset 계산
+    const offset3 = slideWidth3 * (currSlideddd - 1);
+	
+    // 각 슬라이드 아이템의 left에 offset3 적용
+    slideItems3.forEach((i) => {
+      i.setAttribute("style", `left: ${-offset3}px`);
+    });
+    // 슬라이드 이동 시 현재 활성화된 pagination 변경
+    paginationItems3.forEach((i) => i.classList.remove("active"));
+    paginationItems3[currSlideddd - 1].classList.add("active");
+  } else {
+    currSlideddd--;
+  }
+}
+
+
+
+function prevMove3() {
+  currSlideddd--;
+  // 1번째 슬라이드 이하로 넘어가지 않게 하기 위해서
+  if (currSlideddd > 0) {
+    // 슬라이드를 이동시키기 위한 offset3 계산
+    const offset3 = slideWidth * (currSlideddd - 1);
+    // 각 슬라이드 아이템의 left에 offset3 적용
+    slideItems3.forEach((i) => {
+      i.setAttribute("style", `left: ${-offset3}px`);
+    });
+    // 슬라이드 이동 시 현재 활성화된 pagination 변경
+    paginationItems3.forEach((i) => i.classList.remove("active"));
+    paginationItems3[currSlideddd - 1].classList.add("active");
+  } else {
+    currSlideddd++;
+  }
+}
+
+// 버튼 엘리먼트에 클릭 이벤트 추가하기
+nextBtn3.addEventListener("click", () => {
+  // 이후 버튼 누를 경우 현재 슬라이드를 변경
+  nextMove3();
+});
+// 버튼 엘리먼트에 클릭 이벤트 추가하기
+prevBtn3.addEventListener("click", () => {
+  // 이전 버튼 누를 경우 현재 슬라이드를 변경
+  prevMove3();
+});
+
+// 브라우저 화면이 조정될 때 마다 slideWidth를 변경하기 위해
+window.addEventListener("resize", () => {
+  slideWidth = slide.clientWidth;
+});
+
+// 각 페이지네이션 클릭 시 해당 슬라이드로 이동하기
+for (let i = 0; i < maxSlide3; i++) {
+  // 각 페이지네이션마다 클릭 이벤트 추가하기
+  paginationItems3[i].addEventListener("click", () => {
+    // 클릭한 페이지네이션에 따라 현재 슬라이드 변경해주기(currSlideddd는 시작 위치가 1이기 때문에 + 1)
+    currSlideddd = i + 1;
+    // 슬라이드를 이동시키기 위한 offset3 계산
+    const offset3 = slideWidth * (currSlideddd - 1);
+    // 각 슬라이드 아이템의 left에 offset3 적용
+    slideItems3.forEach((i) => {
+      i.setAttribute("style", `left: ${-offset3}px`);
+    });
+    // 슬라이드 이동 시 현재 활성화된 pagination 변경
+    paginationItems3.forEach((i) => i.classList.remove("active"));
+    paginationItems3[currSlideddd - 1].classList.add("active");
+  });
+}
+
+// 드래그(스와이프) 이벤트를 위한 변수 초기화
+let startPoint3 = 0;
+let endPoint3 = 0;
+
+// PC 클릭 이벤트 (드래그)
+slide3.addEventListener("mousedown", (e) => {
+  console.log("mousedown", e.pageX);
+  startPoint3 = e.pageX; // 마우스 드래그 시작 위치 저장
+});
+
+slide3.addEventListener("mouseup", (e) => {
+  console.log("mouseup", e.pageX);
+  endPoint3 = e.pageX; // 마우스 드래그 끝 위치 저장
+  if (startPoint3 < endPoint3) {
+    // 마우스가 오른쪽으로 드래그 된 경우
+    console.log("prev move");
+    prevMove3();
+  } else if (startPoint3 > endPoint3) {
+    // 마우스가 왼쪽으로 드래그 된 경우
+    console.log("next move");
+    nextMove3();
+  }
+});
+
+// 모바일 터치 이벤트 (스와이프)
+slide3.addEventListener("touchstart", (e) => {
+  console.log("touchstart", e.touches[0].pageX);
+  startPoint3 = e.touches[0].pageX; // 터치가 시작되는 위치 저장
+});
+slide3.addEventListener("touchend", (e) => {
+  console.log("touchend", e.changedTouches[0].pageX);
+  endPoint3 = e.changedTouches[0].pageX; // 터치가 끝나는 위치 저장
+  if (startPoint3 < endPoint3) {
+    // 오른쪽으로 스와이프 된 경우
+    console.log("prev move");
+    prevMove3();
+  } else if (startPoint3 > endPoint3) {
+    // 왼쪽으로 스와이프 된 경우
+    console.log("next move");
+    nextMove3();
+  }
+});
+</script>
+   </div>
+
+
+
+
+
+
+ <div class="col-sm-12" style="display: flex; flex-wrap: wrap;">
+
+
+         <div class="topic col-xs-4">
+            
+	<div class="block-title flex-xs jc-sb">인물<!-- <a href="#" class="more">더보기</a> --></div>  <article>
+		<a href="https://missionews.co.kr/news/585646"><img src="https://missionews.co.kr/data/images/full/20809/image.jpg?w=383&amp;h=217&amp;l=50&amp;t=40" alt=""></a>
+  </article>
+  <ul class="list">
+	  <li><a href="https://missionews.co.kr/news/585646" class="art_created_at">“작지만 강한 교회 되는 비결은? 평신도·소그룹·안수 사역”</a></li>
+	  <li><a href="https://missionews.co.kr/news/584930" class="art_created_at">“19년 전 겨자씨처럼 작았지만, 하나님이 이만큼 자라나게 하셨죠”</a></li>
+	  <li><a href="https://missionews.co.kr/news/584794" class="art_created_at">북민협, 명칭 변경 및 결의문 채택… 곽수광 신임 회장 선출</a></li>
+	  <li><a href="https://missionews.co.kr/news/584774" class="art_created_at">김명혁 목사 소천, “한국복음주의 큰 별 지다”</a></li>
+	</ul>
+          </div>
+
+         <div class="topic col-xs-4">
+            
+	<div class="block-title flex-xs jc-sb">선교단체</div>  <article>
+		<a href="https://missionews.co.kr/news/585068"><img src="https://missionews.co.kr/data/images/full/18897/1.jpg?w=383&amp;h=217&amp;l=50&amp;t=40" alt=""></a>
+  </article>
+  <ul class="list">
+	  <li><a href="https://missionews.co.kr/news/585068" class="art_created_at">“직장선교사들, 예수 십자가 사랑 따라 행함과 진실함으로 사랑하자”</a></li>
+	  <li><a href="https://missionews.co.kr/news/585072" class="art_created_at">제50차 CBMC 한국대회… “우리는 세상에 선한 영향력을 끼치는 일터 사역자”</a></li>
+	  <li><a href="https://missionews.co.kr/news/584997" class="art_created_at">“BAM 기업들, 인신매매 방지하고 에이즈 환자 감소시켜”</a></li>
+	  <li><a href="https://missionews.co.kr/news/584960" class="art_created_at">PAUA, 제11차 교육선교 국제컨퍼런스 개최</a></li>
+	</ul>
+          </div>
+         <div class="topic col-xs-4">
+            
+	<div class="block-title flex-xs jc-sb">세계소식</div>  <article>
+		<a href="https://missionews.co.kr/news/585211"><img src="https://missionews.co.kr/data/images/full/19331/image.jpg?w=383&amp;h=217&amp;l=50&amp;t=40" alt=""></a>
+  </article>
+  <ul class="list">
+	  <li><a href="https://missionews.co.kr/news/585211" class="art_created_at">나이지리아 긴급구호 프로젝트, “지역사회 재건 통해 교회 회복”</a></li>
+	  <li><a href="https://missionews.co.kr/news/585166" class="art_created_at">아프간 동굴서 발견된 가장 오래된 히브리어 서적 공개돼</a></li>
+	  <li><a href="https://missionews.co.kr/news/585169" class="art_created_at">미 대법, 바이든 행정부 ‘응급실 낙태 시술’ 시행 기각</a></li>
+	  <li><a href="https://missionews.co.kr/news/585168" class="art_created_at">美 지방법원, 성전환 케이크 제작 거부한 제빵사 손 들어줘</a></li>
+	</ul>
+          </div>
+         <div class="topic col-xs-4">
+            
+	<div class="block-title flex-xs jc-sb">선교편지</div>  <article>
+		<a href="https://missionews.co.kr/news/585655"><img src="https://missionews.co.kr/data/images/full/20829/6-7.jpg?w=383&amp;h=217&amp;l=50&amp;t=40" alt=""></a>
+  </article>
+  <ul class="list">
+	  <li><a href="https://missionews.co.kr/news/585655" class="art_created_at">우크라이나 전쟁 종식을 위해 기도해 주세요</a></li>
+	  <li><a href="https://missionews.co.kr/news/585658" class="art_created_at">라오스-태국 국경 지역의 소수민족을 위해 기도해 주세요</a></li>
+	  <li><a href="https://missionews.co.kr/news/585633" class="art_created_at">365일 귀츨라프 틈새전도의 역사와 실제</a></li>
+	  <li><a href="https://missionews.co.kr/news/585587" class="art_created_at">[전도편지] 365일 귀츨라프 틈새전도 연구소 발대식 열려</a></li>
+	</ul>
+          </div>
+         <div class="topic col-xs-4">
+
+            
+	<div class="block-title flex-xs jc-sb">기획</div>  <article>
+		<a href="https://missionews.co.kr/news/585102"><img src="https://missionews.co.kr/data/images/full/18967/iii-10.jpg?w=383&amp;h=217&amp;l=50&amp;t=40" alt=""></a>
+  </article>
+  <ul class="list">
+	  <li><a href="https://missionews.co.kr/news/585102" class="art_created_at">출애굽 당시 파라오는 누구인가(下)</a></li>
+	  <li><a href="https://missionews.co.kr/news/585101" class="art_created_at">출애굽 당시 파라오는 누구인가(上)</a></li>
+	  <li><a href="https://missionews.co.kr/news/585059" class="art_created_at">모세, 왕궁을 버리고 미디안으로 도피하다 Ⅲ</a></li>
+	  <li><a href="https://missionews.co.kr/news/585060" class="art_created_at">모세, 왕궁을 버리고 미디안으로 도피하다 Ⅳ</a></li>
+	</ul>
+ 
+         </div>
+         <div class="topic col-xs-4">
+            
+	<div class="block-title flex-xs jc-sb">추천서적</div>  <article>
+		<a href="https://missionews.co.kr/news/585160"><img src="https://missionews.co.kr/data/images/full/19148/image.jpg?w=383&amp;h=217&amp;l=54&amp;t=21" alt=""></a>
+  </article>
+  <ul class="list">
+	  <li><a href="https://missionews.co.kr/news/585160" class="art_created_at">김완수 시인, 한영 이중 언어 시집 ‘대자연의 가르침’ 출간</a></li>
+	  <li><a href="https://missionews.co.kr/news/584850" class="art_created_at">기독교의 핵심 교리와 변증에 대한 성경적 답변은?</a></li>
+	  <li><a href="https://missionews.co.kr/news/584812" class="art_created_at">“신학윤리학, 기독교인의 행위에 신학적 근거 제시”</a></li>
+	  <li><a href="https://missionews.co.kr/news/584742" class="art_created_at">우주 연구하다 창조주 믿은 천문학자, 선교를 말하다</a></li>
+	</ul>
+ 
+         </div>
+ </div>
+</div>
+</div>
+
+    </div>
+  </div>
+</main>
+
+<footer class="pf">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-3">
+        <a href="/" class="logo"><img src="/views/images/2020/logo.jpg" alt="" width="194" height="47"></a>
+        <p><a class="brand" href="/"><strong>missionews</strong>.co.kr</a></p>
+      </div>
+      <div class="col-sm-7">
+        <div class="top">
+          <p><strong>선교신문</strong><br>
+            주소 : [02857] 서울 성북구 안암로 53, 4층 (안암동 5가, 크로스빌딩) | TEL : 070-4352-0759<br>
+            
+			인터넷신문 등록번호: 서울 아01350 | 인터넷신문 등록(발행)일자 : 2010. 09. 16
+						
+			<br>
+            발행인 : (주)씨미디어 소일권 | 편집인 : 이지희 | 청소년보호책임자 : 강은미 | Copyright by missionews.co.kr All rights reserved.
+          </p>
+        </div>
+        <div class="bottom flex-sm ai-c">
+          <div class="f1">        
+            <p>
+              <strong><a href="/company" target="_blank">회사소개</a>&nbsp; l &nbsp;<a href="mailTo:missionews@naver.com">광고안내</a>&nbsp; l &nbsp;<a href="mailTo:missionews@naver.com">사업제휴안내</a>&nbsp; l&nbsp; <a href="/company/personinfo" target="_blank">개인정보취급방침</a>&nbsp; l &nbsp;<a href="/company/emailinfo" target="_blank">이메일주소 무단수집거부</a> &nbsp;l&nbsp; <a href="/company/report">기사제보</a>&nbsp; l &nbsp;<a href="/company/report">편집자에게</a> 
+ 
+              </strong>
+            </p>        
+            <p>선교신문의 모든 콘텐츠는 저작권법의 보호를 받는바, 무단 전재·복사·배포 등은 법적제재를 받을 수 있습니다.</p>
+          </div>
+          <div class="fn">
+            <a href="/rss/articles/topnews/all.rss" target="_new"><img src="/views/images/2020/main_bottom_reeimg.gif"></a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</footer>
+
+
+<!-- weather -->
+<script type="text/javascript" src="https://missionews.co.kr/home/js/jquery.timeago.js"></script>
+<script>
+ jQuery("abbr.timeago").timeago();
+</script>
+<script> 
+var aday=Math.floor(Date.now()/1000);
+	$('.timeago').each(function(index){if($(this).attr('data-timestamp')>aday-86400){$(this).timeago();}});
+
+// 날씨 정보
+var wthr = [{"_a":{"stn_id":"90","icon":"01","desc":"\ub9d1\uc74c","ta":"1.9"},"_v":"\uc18d\ucd08"},{"_a":{"stn_id":"93","icon":"01","desc":"\ub9d1\uc74c","ta":"-0.7"},"_v":"\ubd81\ucd98\ucc9c"},{"_a":{"stn_id":"95","icon":"01","desc":"\ub9d1\uc74c","ta":"-1.2"},"_v":"\ucca0\uc6d0"},{"_a":{"stn_id":"98","icon":"01","desc":"\ub9d1\uc74c","ta":"0.9"},"_v":"\ub3d9\ub450\ucc9c"},{"_a":{"stn_id":"99","icon":"01","desc":"\ub9d1\uc74c","ta":"-0.9"},"_v":"\ud30c\uc8fc"},{"_a":{"stn_id":"100","icon":"04","desc":"\ud750\ub9bc","ta":"-1.8","rn_hr1":"0.5"},"_v":"\ub300\uad00\ub839"},{"_a":{"stn_id":"101","icon":"01","desc":"\ub9d1\uc74c","ta":"-0.2"},"_v":"\ucd98\ucc9c"},{"_a":{"stn_id":"102","icon":"01","desc":"\ub9d1\uc74c","ta":"2.5"},"_v":"\ubc31\ub839\ub3c4"},{"_a":{"stn_id":"104","icon":"03","desc":"\uad6c\ub984\ub9ce\uc74c","ta":"2.8","rn_hr1":"0.0"},"_v":"\ubd81\uac15\ub989"},{"_a":{"stn_id":"105","icon":"04","desc":"\ud750\ub9bc","ta":"4.9"},"_v":"\uac15\ub989"},{"_a":{"stn_id":"106","icon":"04","desc":"\ud750\ub9bc","ta":"4.2","rn_hr1":"0.7"},"_v":"\ub3d9\ud574"},{"_a":{"stn_id":"108","icon":"01","desc":"\ub9d1\uc74c","ta":"3.1"},"_v":"\uc11c\uc6b8"},{"_a":{"stn_id":"112","icon":"01","desc":"\ub9d1\uc74c","ta":"2.7"},"_v":"\uc778\ucc9c"},{"_a":{"stn_id":"114","icon":"01","desc":"\ub9d1\uc74c","ta":"0.6","rn_hr1":"1.2"},"_v":"\uc6d0\uc8fc"},{"_a":{"stn_id":"115","icon":"08","desc":"\ube44","ta":"3.0","rn_hr1":"3.9"},"_v":"\uc6b8\ub989\ub3c4"},{"_a":{"stn_id":"119","icon":"01","desc":"\ub9d1\uc74c","ta":"2.5","rn_hr1":"0.0"},"_v":"\uc218\uc6d0"},{"_a":{"stn_id":"121","icon":"04","desc":"\ud750\ub9bc","ta":"-0.5","rn_hr1":"4.7","sd_tot":"2.7"},"_v":"\uc601\uc6d4"},{"_a":{"stn_id":"127","icon":"04","desc":"\ud750\ub9bc","ta":"-0.2","rn_hr1":"4.4","sd_tot":"2.7"},"_v":"\ucda9\uc8fc"},{"_a":{"stn_id":"129","icon":"01","desc":"\ub9d1\uc74c","ta":"1.3","rn_hr1":"0.5"},"_v":"\uc11c\uc0b0"},{"_a":{"stn_id":"130","icon":"04","desc":"\ud750\ub9bc","ta":"2.4","rn_hr1":"4.3"},"_v":"\uc6b8\uc9c4"},{"_a":{"stn_id":"131","icon":"03","desc":"\uad6c\ub984\ub9ce\uc74c","ta":"1.8","rn_hr1":"4.8","sd_tot":"1.8"},"_v":"\uccad\uc8fc"},{"_a":{"stn_id":"133","icon":"04","desc":"\ud750\ub9bc","ta":"1.1","rn_hr1":"9.3","sd_tot":"5.4"},"_v":"\ub300\uc804"},{"_a":{"stn_id":"135","icon":"04","desc":"\ud750\ub9bc","ta":"-0.7","rn_hr1":"7.5","sd_tot":"8.1"},"_v":"\ucd94\ud48d\ub839"},{"_a":{"stn_id":"136","icon":"04","desc":"\ud750\ub9bc","ta":"0.7","rn_hr1":"5.1","sd_tot":"1.4"},"_v":"\uc548\ub3d9"},{"_a":{"stn_id":"137","icon":"04","desc":"\ud750\ub9bc","ta":"0.2","rn_hr1":"7.1","sd_tot":"4.5"},"_v":"\uc0c1\uc8fc"},{"_a":{"stn_id":"138","icon":"08","desc":"\ube44","ta":"2.9","rn_hr1":"19.1"},"_v":"\ud3ec\ud56d"},{"_a":{"stn_id":"140","icon":"03","desc":"\uad6c\ub984\ub9ce\uc74c","ta":"1.4","rn_hr1":"16.3","sd_tot":"3.0"},"_v":"\uad70\uc0b0"},{"_a":{"stn_id":"143","icon":"11","desc":"\ub208","ta":"0.8","rn_hr1":"15.6","sd_tot":"5.7"},"_v":"\ub300\uad6c"},{"_a":{"stn_id":"146","icon":"03","desc":"\uad6c\ub984\ub9ce\uc74c","ta":"1.8","rn_hr1":"7.6","sd_tot":"0.8"},"_v":"\uc804\uc8fc"},{"_a":{"stn_id":"152","icon":"08","desc":"\ube44","ta":"2.5","rn_hr1":"21.0"},"_v":"\uc6b8\uc0b0"},{"_a":{"stn_id":"155","icon":"08","desc":"\ube44","ta":"3.2","rn_hr1":"25.6"},"_v":"\ucc3d\uc6d0"},{"_a":{"stn_id":"156","icon":"08","desc":"\ube44","ta":"3.4","rn_hr1":"15.9"},"_v":"\uad11\uc8fc"},{"_a":{"stn_id":"159","icon":"08","desc":"\ube44","ta":"3.8","rn_hr1":"27.6"},"_v":"\ubd80\uc0b0"},{"_a":{"stn_id":"162","icon":"04","desc":"\ud750\ub9bc","ta":"3.4","rn_hr1":"30.0"},"_v":"\ud1b5\uc601"},{"_a":{"stn_id":"165","icon":"04","desc":"\ud750\ub9bc","ta":"3.5","rn_hr1":"18.2"},"_v":"\ubaa9\ud3ec"},{"_a":{"stn_id":"168","icon":"08","desc":"\ube44","ta":"3.8","rn_hr1":"30.1"},"_v":"\uc5ec\uc218"},{"_a":{"stn_id":"169","icon":"03","desc":"\uad6c\ub984\ub9ce\uc74c","ta":"3.5","rn_hr1":"12.5"},"_v":"\ud751\uc0b0\ub3c4"},{"_a":{"stn_id":"170","icon":"04","desc":"\ud750\ub9bc","ta":"5.2","rn_hr1":"29.9"},"_v":"\uc644\ub3c4"},{"_a":{"stn_id":"172","icon":"04","desc":"\ud750\ub9bc","ta":"0.9","rn_hr1":"10.9","sd_tot":"0.1"},"_v":"\uace0\ucc3d"},{"_a":{"stn_id":"174","icon":"04","desc":"\ud750\ub9bc","ta":"2.7","rn_hr1":"27.8"},"_v":"\uc21c\ucc9c"},{"_a":{"stn_id":"177","icon":"01","desc":"\ub9d1\uc74c","ta":"1.7","rn_hr1":"2.8"},"_v":"\ud64d\uc131"},{"_a":{"stn_id":"181","icon":"03","desc":"\uad6c\ub984\ub9ce\uc74c","ta":"0.6","rn_hr1":"4.7","sd_tot":"1.5"},"_v":"\uc11c\uccad\uc8fc"},{"_a":{"stn_id":"184","icon":"08","desc":"\ube44","ta":"8.2","rn_hr1":"50.1"},"_v":"\uc81c\uc8fc"},{"_a":{"stn_id":"185","icon":"03","desc":"\uad6c\ub984\ub9ce\uc74c","ta":"7.3","rn_hr1":"31.8"},"_v":"\uace0\uc0b0"},{"_a":{"stn_id":"188","icon":"04","desc":"\ud750\ub9bc","ta":"8.3","rn_hr1":"59.9"},"_v":"\uc131\uc0b0"},{"_a":{"stn_id":"189","icon":"04","desc":"\ud750\ub9bc","ta":"9.5","rn_hr1":"26.6"},"_v":"\uc11c\uadc0\ud3ec"},{"_a":{"stn_id":"192","icon":"04","desc":"\ud750\ub9bc","ta":"2.5","rn_hr1":"31.0"},"_v":"\uc9c4\uc8fc"},{"_a":{"stn_id":"201","icon":"01","desc":"\ub9d1\uc74c","ta":"-1.6"},"_v":"\uac15\ud654"},{"_a":{"stn_id":"202","icon":"01","desc":"\ub9d1\uc74c","ta":"2.2","rn_hr1":"0.0"},"_v":"\uc591\ud3c9"},{"_a":{"stn_id":"203","icon":"01","desc":"\ub9d1\uc74c","ta":"0.5","rn_hr1":"1.0"},"_v":"\uc774\ucc9c"},{"_a":{"stn_id":"211","icon":"01","desc":"\ub9d1\uc74c","ta":"-0.8"},"_v":"\uc778\uc81c"},{"_a":{"stn_id":"212","icon":"01","desc":"\ub9d1\uc74c","ta":"0.8","rn_hr1":"0.0"},"_v":"\ud64d\ucc9c"},{"_a":{"stn_id":"216","icon":"04","desc":"\ud750\ub9bc","ta":"-0.6","rn_hr1":"8.4","sd_tot":"8.7"},"_v":"\ud0dc\ubc31"},{"_a":{"stn_id":"217","icon":"04","desc":"\ud750\ub9bc","ta":"-0.4","rn_hr1":"2.0","sd_tot":"0.8"},"_v":"\uc815\uc120\uad70"},{"_a":{"stn_id":"221","icon":"04","desc":"\ud750\ub9bc","ta":"-1.3","rn_hr1":"2.5","sd_tot":"2.2"},"_v":"\uc81c\ucc9c"},{"_a":{"stn_id":"226","icon":"04","desc":"\ud750\ub9bc","ta":"0.1","rn_hr1":"10.0","sd_tot":"9.0"},"_v":"\ubcf4\uc740"},{"_a":{"stn_id":"232","icon":"01","desc":"\ub9d1\uc74c","ta":"1.6","rn_hr1":"3.7","sd_tot":"1.1"},"_v":"\ucc9c\uc548"},{"_a":{"stn_id":"235","icon":"01","desc":"\ub9d1\uc74c","ta":"2.3","rn_hr1":"6.2","sd_tot":"0.1"},"_v":"\ubcf4\ub839"},{"_a":{"stn_id":"236","icon":"03","desc":"\uad6c\ub984\ub9ce\uc74c","ta":"1.6","rn_hr1":"8.9","sd_tot":"4.6"},"_v":"\ubd80\uc5ec"},{"_a":{"stn_id":"238","icon":"04","desc":"\ud750\ub9bc","ta":"0.6","rn_hr1":"7.8","sd_tot":"8.3"},"_v":"\uae08\uc0b0"},{"_a":{"stn_id":"239","icon":"03","desc":"\uad6c\ub984\ub9ce\uc74c","ta":"1.4","rn_hr1":"7.1","sd_tot":"4.8"},"_v":"\uc138\uc885"},{"_a":{"stn_id":"243","icon":"04","desc":"\ud750\ub9bc","ta":"1.8","rn_hr1":"10.0","sd_tot":"1.7"},"_v":"\ubd80\uc548"},{"_a":{"stn_id":"244","icon":"04","desc":"\ud750\ub9bc","ta":"1.5","rn_hr1":"12.8","sd_tot":"1.1"},"_v":"\uc784\uc2e4"},{"_a":{"stn_id":"245","icon":"04","desc":"\ud750\ub9bc","ta":"1.0","rn_hr1":"8.9","sd_tot":"1.8"},"_v":"\uc815\uc74d"},{"_a":{"stn_id":"247","icon":"04","desc":"\ud750\ub9bc","ta":"3.5","rn_hr1":"12.2"},"_v":"\ub0a8\uc6d0"},{"_a":{"stn_id":"248","icon":"04","desc":"\ud750\ub9bc","ta":"0.2","rn_hr1":"14.9","sd_tot":"4.0"},"_v":"\uc7a5\uc218"},{"_a":{"stn_id":"251","icon":"04","desc":"\ud750\ub9bc","ta":"0.8","rn_hr1":"10.1","sd_tot":"0.4"},"_v":"\uace0\ucc3d\uad70"},{"_a":{"stn_id":"252","icon":"04","desc":"\ud750\ub9bc","ta":"1.1","rn_hr1":"10.7","sd_tot":"0.3"},"_v":"\uc601\uad11\uad70"},{"_a":{"stn_id":"253","icon":"04","desc":"\ud750\ub9bc","ta":"2.8","rn_hr1":"27.4"},"_v":"\uae40\ud574\uc2dc"},{"_a":{"stn_id":"254","icon":"04","desc":"\ud750\ub9bc","ta":"2.5","rn_hr1":"12.8"},"_v":"\uc21c\ucc3d\uad70"},{"_a":{"stn_id":"255","icon":"04","desc":"\ud750\ub9bc","ta":"3.4","rn_hr1":"25.7"},"_v":"\ubd81\ucc3d\uc6d0"},{"_a":{"stn_id":"257","icon":"04","desc":"\ud750\ub9bc","ta":"4.2","rn_hr1":"25.9"},"_v":"\uc591\uc0b0\uc2dc"},{"_a":{"stn_id":"258","icon":"04","desc":"\ud750\ub9bc","ta":"5.2","rn_hr1":"30.8"},"_v":"\ubcf4\uc131\uad70"},{"_a":{"stn_id":"259","icon":"04","desc":"\ud750\ub9bc","ta":"5.3","rn_hr1":"28.4"},"_v":"\uac15\uc9c4\uad70"},{"_a":{"stn_id":"260","icon":"04","desc":"\ud750\ub9bc","ta":"5.2","rn_hr1":"28.2"},"_v":"\uc7a5\ud765"},{"_a":{"stn_id":"261","icon":"04","desc":"\ud750\ub9bc","ta":"5.3","rn_hr1":"28.7"},"_v":"\ud574\ub0a8"},{"_a":{"stn_id":"262","icon":"03","desc":"\uad6c\ub984\ub9ce\uc74c","ta":"4.5","rn_hr1":"35.0"},"_v":"\uace0\ud765"},{"_a":{"stn_id":"263","icon":"04","desc":"\ud750\ub9bc","ta":"1.1","rn_hr1":"27.1"},"_v":"\uc758\ub839\uad70"},{"_a":{"stn_id":"264","icon":"04","desc":"\ud750\ub9bc","ta":"0.8","rn_hr1":"18.7","sd_tot":"2.5"},"_v":"\ud568\uc591\uad70"},{"_a":{"stn_id":"266","icon":"04","desc":"\ud750\ub9bc","ta":"3.8","rn_hr1":"30.8"},"_v":"\uad11\uc591\uc2dc"},{"_a":{"stn_id":"268","icon":"04","desc":"\ud750\ub9bc","ta":"4.3","rn_hr1":"26.0"},"_v":"\uc9c4\ub3c4\uad70"},{"_a":{"stn_id":"271","icon":"04","desc":"\ud750\ub9bc","ta":"-0.6","rn_hr1":"9.6","sd_tot":"9.5"},"_v":"\ubd09\ud654"},{"_a":{"stn_id":"272","icon":"04","desc":"\ud750\ub9bc","ta":"-0.3","rn_hr1":"9.9","sd_tot":"4.8"},"_v":"\uc601\uc8fc"},{"_a":{"stn_id":"273","icon":"04","desc":"\ud750\ub9bc","ta":"-0.2","rn_hr1":"12.5","sd_tot":"9.8"},"_v":"\ubb38\uacbd"},{"_a":{"stn_id":"276","icon":"04","desc":"\ud750\ub9bc","ta":"-0.1","rn_hr1":"7.7","sd_tot":"6.5"},"_v":"\uccad\uc1a1\uad70"},{"_a":{"stn_id":"277","icon":"04","desc":"\ud750\ub9bc","ta":"0.8","rn_hr1":"8.3"},"_v":"\uc601\ub355"},{"_a":{"stn_id":"278","icon":"04","desc":"\ud750\ub9bc","ta":"0.7","rn_hr1":"6.6","sd_tot":"1.6"},"_v":"\uc758\uc131"},{"_a":{"stn_id":"279","icon":"04","desc":"\ud750\ub9bc","ta":"0.3","rn_hr1":"10.0","sd_tot":"6.4"},"_v":"\uad6c\ubbf8"},{"_a":{"stn_id":"281","icon":"04","desc":"\ud750\ub9bc","ta":"0.7","rn_hr1":"17.8","sd_tot":"3.0"},"_v":"\uc601\ucc9c"},{"_a":{"stn_id":"283","icon":"04","desc":"\ud750\ub9bc","ta":"0.3","rn_hr1":"11.1","sd_tot":"1.8"},"_v":"\uacbd\uc8fc\uc2dc"},{"_a":{"stn_id":"284","icon":"04","desc":"\ud750\ub9bc","ta":"0.4","rn_hr1":"17.8","sd_tot":"8.5"},"_v":"\uac70\ucc3d"},{"_a":{"stn_id":"285","icon":"04","desc":"\ud750\ub9bc","ta":"1.3","rn_hr1":"16.3","sd_tot":"0.6"},"_v":"\ud569\ucc9c"},{"_a":{"stn_id":"288","icon":"04","desc":"\ud750\ub9bc","ta":"3.8","rn_hr1":"19.2"},"_v":"\ubc00\uc591"},{"_a":{"stn_id":"289","icon":"04","desc":"\ud750\ub9bc","ta":"0.4","rn_hr1":"21.0","sd_tot":"0.8"},"_v":"\uc0b0\uccad"},{"_a":{"stn_id":"294","icon":"04","desc":"\ud750\ub9bc","ta":"4.4","rn_hr1":"32.1"},"_v":"\uac70\uc81c"},{"_a":{"stn_id":"295","icon":"04","desc":"\ud750\ub9bc","ta":"3.3","rn_hr1":"28.1"},"_v":"\ub0a8\ud574"},{"_a":{"stn_id":"296","icon":"08","desc":"\ube44","ta":"4.5","rn_hr1":"25.7"},"_v":"\ubd81\ubd80\uc0b0"}];
+var regions = wthr.length;
+var wthrbox = $('.weather');
+var wthr_cnt = 0;
+
+UpdateWeatherInfo();
+// setInterval(function(){UpdateWeatherInfo()},7000);
+
+function UpdateWeatherInfo() {
+	weather_str = wthr[wthr_cnt]['_v']+' : '+wthr[wthr_cnt]['_a']['ta'];
+	if(weather_str!='') {
+		wthrbox.html(weather_str);
+		wthr_cnt++;
+	}
+}
+</script>
+<!-- //weather -->
+
+
+
+
+
+<script type="text/javascript">
+function ___setCookie(cname, cvalue, exdays) {
+  var d = new Date();
+  d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+  var expires = "expires="+d.toUTCString();
+  document.cookie = cname + "=" + cvalue + ";" + expires + ";domain=.missionews.co.kr;path=/";
+}
+function ___getCookie(cname) {
+  var name = cname + "=";
+  var ca = document.cookie.split(';');
+  for(var i = 0; i < ca.length; i++) {
+    var c = ca[i];
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return "";
+}
+
+$(document).on("click", '.viewmobile', function() {
+  _rurl = $(this).attr('rurl');
+  if(_rurl!='') {
+    ___setCookie('mobile_cookie','',3);
+		// $.cookie('mobile_cookie', '', { path: '/', domain: '' });		
+    document.location.href = _rurl;  
+  }
+});
+</script>
+<script>
+$(document).on("click", '.viewfullsize', function() {
+  _rurl = $(this).attr('rurl');
+  if(_rurl!='') {
+    ___setCookie('mobile_cookie','1',3);
+    // $.cookie('mobile_cookie', '1', { path: '/', domain: '.missionews.co.kr' });
+    document.location.href = _rurl;  
+  }
+});
+
+</script>
+
+<!-- start getclicky code -->
+<!-- end getclicky code -->
+
+<!-- Start of StatCounter Code for Default Guide -->
+<!-- End of StatCounter Code for Default Guide -->
+
+<!-- Start of Quantcast Code -->
+<!-- End of Quantcast Code -->
+
+<!-- Start of comScore Code -->
+<!-- End of comScore Code -->
+
+<!-- Start of compete Code -->
+<!-- End of compete Code -->
+
+<script>setTimeout(function(){window.location.reload();},600000);</script></body>
+</html>

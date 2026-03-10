@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Bing -->
+    <meta name="msvalidate.01" content="1FE39C40410CB1C1DFEA20DE1BE822B1" />
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-1LKLMVVN06"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-1LKLMVVN06');
+    </script>
+
+    <!-- Microsoft  Clarity -->
+    <script type="text/javascript">
+        (function (c, l, a, r, i, t, y) {
+            c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments) };
+            t = l.createElement(r); t.async = 1; t.src = "https://www.clarity.ms/tag/" + i;
+            y = l.getElementsByTagName(r)[0]; y.parentNode.insertBefore(t, y);
+        })(window, document, "clarity", "script", "mx5mn0bczt");
+    </script>
+
+    <meta name='description' content='Find a place to swim. Open water swim, swim races, swimming pools, swim lessons, lap swimming, you will find it all at Places2Swim.'>
+    <meta http-equiv="Content-Language" content="en">
+
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+
+    <title>Places2Swim - There is a Pool Near You</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+	<link href="https://cdn.kendostatic.com/2022.3.913/styles/kendo.bootstrap-main.min.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="/css/mappins4.css" />
+    <link rel="stylesheet" type="text/css" href="/css/p2s.css" />
+    <link rel="canonical" href="https://www.places2swim.com" />
+
+	<script src="https://cdn.kendostatic.com/2022.3.913/js/jquery.min.js"></script>
+	<script src="https://cdn.kendostatic.com/2022.3.913/js/jszip.min.js"></script>
+	<script src="https://cdn.kendostatic.com/2022.3.913/js/kendo.all.min.js"></script>
+	<script src="https://cdn.kendostatic.com/2022.3.913/js/kendo.aspnetmvc.min.js"></script>
+    <script src="./kendo-ui-license.js"></script>
+    <script src="https://kit.fontawesome.com/1873d3b3ae.js" crossorigin="anonymous"></script>
+    <style>
+        .nav-link {
+            font-weight:500 !important;
+        }
+    </style>
+	<link rel="manifest" href="/manifest.webmanifest" />
+</head>
+<body style="overflow-y:scroll;">
+    <h1 style="display: none;">Places2Swim - Find a pool near you</h1> <!-- This is hidden - for SEO -->
+    <div class="mt-1 mb-1">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container-fluid">
+                <a href="/" class="navbar-brand">
+                    <img style="align-content:center" src="/img/logo.png" height="28" alt="Places2Swim Logo" />
+                    <img style="align-content:center" src="/img/logoletters.png" height="28" alt="Places2Swim Tagline" />
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                    <div class="navbar-nav">
+                        <a class="nav-link" aria-current="page" href="/">HOME</a>
+                        <a class="nav-link" href="/howto" tabindex="-1" aria-disabled="true">HOW TO USE</a>
+                        <a class="nav-link" href="/faq" tabindex="-1" aria-disabled="true">FAQ</a>
+                        <a class="nav-link" href="/aboutus" tabindex="-1" aria-disabled="true">ABOUT US</a>
+                        <a class="nav-link" href="/announcements" tabindex="-1" aria-disabled="true">WHAT&#39;S NEW</a>
+                        <a class="nav-link" href="/createfacility/index" tabindex="-1" aria-disabled="true">ADD A POOL</a>
+                        <div class="nav-item dropdown">
+                            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">STATS</a>
+                            <div class="dropdown-menu">
+                                <a href="/stats/poolstats" class="dropdown-item">POOL STATS</a>
+                                <a href="/stats/teamstats" class="dropdown-item">TEAM AND CLUB STATS</a>
+                                <a href="/stats/countrystats" class="dropdown-item">LISTINGS BY COUNTRY</a>
+                            </div>
+                        </div>
+                        <a class="nav-link" href="/terms" tabindex="-1" aria-disabled="true">TERMS</a>
+                        <a class="nav-link" href="/contact" tabindex="-1" aria-disabled="true">CONTACT US</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD623JOLB7LMU1jk_9nNStZJ3b_X_qStx4&callback=initMap&libraries=places" async></script>
+<script>
+    var latitude = 25.761681;
+    var longitude = -80.191788;
+    var places;
+    var currentlyClickedMarker;
+    var resColTemplate;
+    var locationSearched = false;
+    function initMap() {
+        google.maps.event.addDomListener(window, 'load', function () {
+            //types: ['(regions)']
+            var options = {
+            };
+
+            var input = document.getElementById('txtAutocomplete');
+            places = new google.maps.places.Autocomplete(input, options);
+
+            google.maps.event.addListener(places, 'place_changed', function () {
+                $("#zoomInfo").css('visibility', 'hidden');
+                var place = places.getPlace();
+                latitude = place.geometry.location.lat();
+                longitude = place.geometry.location.lng();
+                var map = $("#map").getKendoMap();
+                if (map.zoom() != 12)
+                    map.zoom(12);
+                //map.center([latitude, longitude]);
+                locationSearched = true;
+
+                changeCenterLocation(map, latitude, longitude);
+                map.layers[1].dataSource.read();
+            });
+        });
+    }
+</script>
+
+<style>
+    .modal-dialog {
+        max-width: 843px;
+        max-height: 462px;
+    }
+
+    .k-input-inner {
+        border-right: rgba(0,0,0,.08) 0.5px solid;
+    }
+
+    .icon {
+        margin: auto;
+        padding-right: 10px;
+        align-self: center;
+    }
+
+    #button {
+        margin-top: 4px;
+        padding-left: 10px;
+        height: 28px !important;
+    }
+
+   #button:hover {
+            background-color: lightblue;
+            cursor: pointer;
+        }
+
+
+    #buttonClose {
+        margin-top: 4px;
+        padding-left: 10px;
+        height: 28px !important;
+    }
+
+    #buttonClose:hover {
+            background-color: lightblue;
+            cursor: pointer;
+        }
+
+    .k-tooltip {
+        background: white;
+        color:black;
+    }
+
+    @media only screen and (max-width: 500px) {
+        .k-window-title.k-dialog-title{
+          flex-basis: 80%;
+          white-space: break-spaces;
+        }
+        .k-window.k-dialog{
+          max-width:500px;
+        }
+      }
+   @media only screen and (min-width: 500px) {
+      .k-window-title.k-dialog-title{
+          flex-basis: 80%;
+          white-space: break-spaces;
+        }
+        .k-window.k-dialog{
+          max-width:80%;
+        }  
+      }
+</style>
+
+<div id="alert" class="alert alert-primary m-3" style="line-height:1;display:none;" role="alert">
+    Turn on location services to view pools. If location services is on,&nbsp;<a href=".">Try again</a>
+</div>
+<div id="alertFirefox" class="alert alert-danger m-3" style="line-height:1;display:none;" role="alert">
+    There is a map <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1898455">issue in Firefox</a> that prevents panning. Please use a different browser until this is fixed by Firefox.
+</div>
+<div class="container-fluid" style="padding-left: 0px;padding-right: 0px;">
+    <div class="text-center" style="padding-left:7%;padding-right:7%; margin-bottom:5px; margin-top:5px;">
+            <button style="width:100%;" id="btnFindPool" name="btnFindPool" type="button">
+                Find a pool near me
+            </button><script>kendo.syncReady(function(){jQuery("#btnFindPool").kendoButton({"click":onClickFindPool,"themeColor":"primary"});});</script>
+        </div>
+    <div class="demo-section" style="padding-left:7%;padding-right:7%;margin-bottom:5px;">
+        <input id="txtAutocomplete" name="txtAutocomplete" style="width: 100%" type="text" value="" /><script>kendo.syncReady(function(){jQuery("#txtAutocomplete").kendoTextBox({"placeholder":"Search location","size":"medium","rounded":"medium","fillMode":"solid"});});</script>
+
+    </div>
+    <div id="mapContainer">
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Map Keys</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <img src="/img/mapkeys.png"
+                             class="img-fluid" alt="Map Keys" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div style="height:70vh;" id="map" name="map">
+            
+            
+        </div><script>kendo.syncReady(function(){jQuery("#map").kendoMap({"markerActivate":markerActivate,"markerClick":onMarkerClick,"panEnd":onPanEnd,"zoomEnd":onZoomEnd,"layers":[{"subdomains":["a","b","c"],"urlTemplate":"https://#= subdomain #.tile.openstreetmap.org/#= zoom #/#= x #/#= y #.png","type":"tile"},{"locationField":"Coordinates","titleField":"MapPinName","type":"marker","dataSource":{"transport":{"read":{"type":"POST","url":"/Home/GetMarkers","data":onDataHandle}}}}],"markers":[{"shape":"pin"}],"minZoom":3,"zoom":12});});</script>
+
+        <div id="dialog" name="dialog"></div><script>kendo.syncReady(function(){jQuery("#dialog").kendoDialog({"show":onShowDlg,"visible":false,"title":"","modal":false});});</script>
+    </div>
+    <div id="gridContainerTop" class="d-flex justify-content-between" style="align-items:center;">
+        <div style="margin-left:1em;">
+                        <input id="txtGridFind" name="txtGridFind" type="text" value="" /><script>kendo.syncReady(function(){jQuery("#txtGridFind").kendoTextBox({"change":onGridFindChange,"placeholder":"Search list"});});</script>
+        </div>
+        <div style="margin-right:1em;"><button class="k-button k-button-solid-primary k-button-solid k-button-md k-rounded-md" onclick="btnMapViewClick()">Map View</button></div>
+     </div> 
+    <div id="grid-wrap">
+        <div id="near50" style="font-weight:600; vertical-align:top; text-align:center; width:100%"><img id="imgCurrentSearched" src="/img/location-small.png" alt="Search" /><span id="spanNear50">NEAREST 50 FACILITIES (FROM MAP CENTER)</span></div>
+        <div id="gridFacilities" name="gridFacilities" style="height:63vh;"></div><script>kendo.syncReady(function(){jQuery("#gridFacilities").kendoGrid({"sortable":true,"columns":[{"title":"Distance","width":"120px","media":"(min-width: 451px)","field":"DistanceString","filterable":{"messages":{"title":"Show items with value that"},"checkAll":false},"encoded":true},{"title":"Name","width":"240px","media":"(min-width: 451px)","template":"\u003ca class=\u0027link-primary\u0027 target=\u0027_blank\u0027 rel=\u0027noopener noreferrer\u0027 href=\u0027/locations/#=GeographyUrl#/#=MapPinID#\u0027\u003e#=MapPinName#\u003c/a\u003e#=AdditionalTile#","field":"MapPinName","filterable":{"messages":{"title":"Show items with value that"},"checkAll":false},"encoded":true},{"title":"City","media":"(min-width: 451px)","field":"City","filterable":{"messages":{"title":"Show items with value that"},"checkAll":false},"encoded":true},{"title":"Length","width":"120px","media":"(min-width: 451px)","field":"Label","filterable":{"messages":{"title":"Show items with value that"},"checkAll":false},"encoded":true},{"title":"Public Access","width":"120px","media":"(min-width: 451px)","field":"PublicAccessType","filterable":{"messages":{"title":"Show items with value that"},"checkAll":false},"encoded":true},{"title":"Hotel Access","width":"120px","media":"(min-width: 451px)","field":"HotelAccess","filterable":{"messages":{"title":"Show items with value that"},"checkAll":false},"encoded":true},{"title":"Teams","media":"(min-width: 451px)","field":"Teams","filterable":{"messages":{"title":"Show items with value that"},"checkAll":false},"encoded":true},{"title":"FACILITIES","media":"(max-width: 450px)","template":"#=resColTemplate(data)#"}],"scrollable":{"height":"400px"},"dataSource":{"type":(function(){if(kendo.data.transports['aspnetmvc-ajax']){return 'aspnetmvc-ajax';} else{throw new Error('The kendo.aspnetmvc.min.js script is not included.');}})(),"transport":{"read":{"url":"/Home/GetUserFacilityList","data":onDataHandleLoc},"prefix":""},"serverPaging":true,"serverSorting":true,"serverFiltering":true,"serverGrouping":true,"serverAggregates":true,"filter":[],"schema":{"data":"Data","total":"Total","errors":"Errors","model":{"fields":{"MapPinID":{"type":"string"},"MapPinName":{"type":"string"},"Address":{"type":"string"},"AlertText":{"type":"string"},"City":{"type":"string"},"Neighbourhood":{"type":"string"},"Label":{"type":"string"},"GeographyUrl":{"type":"string"},"IsActive":{"type":"boolean"},"PublicAccessType":{"type":"string"},"HotelAccess":{"type":"string"},"Teams":{"editable":false,"type":"string"},"TeamTypes":{"type":"object"},"PinName":{"type":"string"},"Latitude":{"type":"number"},"Longitude":{"type":"number"},"Distance":{"type":"number"},"DistanceString":{"editable":false,"type":"string"},"AdditionalTile":{"editable":false,"type":"string"},"Coordinates":{"editable":false,"type":"object"},"IsBusy":{"editable":false,"type":"boolean"},"IsSelfBusy":{"editable":false,"type":"boolean"}}}}}});});</script>
+    </div>
+</div>
+
+<script type="text/x-kendo-template" id="p2sTootlTipTemplate">
+    <div class="address">
+        <div class="text-danger">#= AlertText #</div>
+        <p>#= Address # <br />
+            Public Access: #= PublicAccessType #<br />
+            Length: #= Label #</p>
+    </div>
+    <a href="/locations/#=GeographyUrl#/#=MapPinID#" target="_blank" rel="noopener noreferrer nofollow" class="btn btn-primary" role="button">More</a>
+</script>
+
+<script id="responsive-column-template" type="text/x-kendo-template">
+    <strong><a class="link-primary" style="color:revert" href="/locations/#=data.GeographyUrl#/#=data.MapPinID#" target="_blank" rel="noopener noreferrer">#=data.MapPinName#</a></strong>#=AdditionalTile#
+    <br /><strong>Distance: </strong>#=data.DistanceString#
+    <br /><strong>City: </strong>#=data.City#
+    <br /><strong>Length: </strong>#=data.Label#
+    <br /><strong>Public Access: </strong>#=data.PublicAccessType#
+    <br /><strong>Hotel Access: </strong>#=data.HotelAccess#
+     <br /><strong>Teams: </strong>#=data.Teams#
+</script>
+
+<script>
+
+    function onZoomEnd(e) {
+        e.sender.layers[1].dataSource.read();
+
+        if (e.sender.zoom() <= 11) {
+            $("#zoomInfo").css('visibility', 'visible');
+        }
+        else {
+            $("#zoomInfo").css('visibility', 'hidden');
+        }
+    }
+
+    function onPanEnd(e) {
+        e.sender.layers[1].dataSource.read();
+    }
+
+    function onDataHandle(e) {
+        var map = $("#map").getKendoMap();
+        var extent = map.extent();
+        
+        return {
+            nw: extent.nw.toString(),
+            se: extent.se.toString(),
+            zoom: map.zoom(),
+            lat: map.center().lat,
+            lng: map.center().lng
+        };
+    }
+
+    function onDataHandleLoc(e) {
+        var map = $("#map").getKendoMap();
+        var extent = map.extent();
+
+        if (locationSearched) {
+            return {
+                nw: extent.nw.toString(),
+                se: extent.se.toString(),
+                zoom: map.zoom(),
+                lat: latitude,
+                lng: longitude
+            };
+        }
+
+        return {
+            nw: extent.nw.toString(),
+            se: extent.se.toString(),
+            zoom: map.zoom(),
+            lat: map.center().lat,
+            lng: map.center().lng
+        };
+    }
+
+    function markerActivate(e) {
+        if (e.marker.dataItem == null)
+            return;
+
+        if (e.marker.dataItem.PinName) {
+            $(e.marker.element).removeClass('k-i-marker-pin-target').addClass('k-i-marker-custom-marker_' + e.marker.dataItem.PinName);
+        }
+    }
+
+    function onMarkerClick(e) {
+        console.log(e); 
+
+        let dialog = $("#dialog").data("kendoDialog");
+
+        var template = kendo.template($("#p2sTootlTipTemplate").html()); 
+
+        var dialogContent = template(e.marker.dataItem);
+
+        dialog.content(dialogContent);
+        
+        dialog.title(e.marker.dataItem.MapPinName); 
+
+        dialog.open();
+    }
+
+</script>
+
+<script>
+    $(document).ready(function () {
+        $('#gridContainerTop').hide().toggleClass('d-flex');
+        $('#grid-wrap').hide();
+        $("#alert").hide();
+
+        const isFirefox = navigator.userAgent.toLowerCase().includes('firefox');
+        if (isFirefox) {
+            $("#alertFirefox").show();
+        } else {
+            $("#alertFirefox").hide();
+        } 
+
+        resColTemplate = kendo.template($("#responsive-column-template").html());
+        $("#txtGridFind").after("<span id='button'><span class='k-icon k-i-search icon'></span></span>");
+        $("#button").on("click", onGridFindChange);
+        $("#map").append('<div class="k-map-controls k-pos-bottom d-flex justify-content-between" style="background-color: rgba(255,255,255,.7); font-size: smaller; padding:4px; width:100%;"><div>&nbsp;</div><div>&#xA9; 1996-2026 Places2Swim, Inc.   (v390)</div><div>&copy; <a href="https://osm.org/copyright">OpenStreetMap contributors</a>&nbsp;&nbsp;<a href="https://www.opencyclemap.org/">Tiles</a></div></div><div class="k-map-controls k-pos-top k-pos-right" style="margin-top: 80px; margin-right: 10px;"></div><div class="k-map-controls k-pos-top k-pos-right text-primary" style="background-color: rgba(255,255,255,.7); font-size: smaller; margin-top: 60px;margin-right: 10px;" id="zoomInfo"><b>ⓘ</b>&nbsp;Pins may be hidden</div><div class="k-map-controls k-pos-top k-pos-right" style="margin-right: 10px;margin-top: 10px;"><button type="button" title="Show legend" class="btn bg-transparent shadow-none" data-bs-toggle="modal" data-bs-target="#exampleModal" id="btnLegend"><svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-info-circle-fill" viewBox="0 0 16 16"><path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16m.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2"/></svg></button><button class="k-button k-button-solid-primary k-button-solid k-button-md k-rounded-md" id="btnCopyMap" onclick="btnCopyMapLink()">Share</button>&nbsp;&nbsp;<button class="k-button k-button-solid-primary k-button-solid k-button-md k-rounded-md" id="btnSwitchViewList" onclick="btnToggleClick()">List View</button></div>')
+        $("#grid-wrap").append('<div class="k-map-controls k-pos-bottom d-flex justify-content-between" style="background-color: rgba(249,249,249,.6); font-size: smaller; padding:4px; width:100%;"><div></div><div>&#xA9; 1996-2026 Places2Swim, Inc.   (v390)</div><div></div></div>')
+        if (window.location.href.indexOf("c1=") > -1 && window.location.href.indexOf("c2=") > -1 && window.location.href.indexOf("z1=") > -1) {
+            var urlParams = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+            setSessionLocationFrom(urlParams[0].split('=')[1], urlParams[1].split('=')[1], urlParams[2].split('=')[1]);
+        }
+        else if (''.length === 0 || '' === "0") {
+            if (navigator.geolocation) {
+                $('#btnFindPool').attr('disabled', 'disabled');
+                $('#btnSwitchViewList').attr('disabled', 'disabled');
+                $('#btnCopyMap').attr('disabled', 'disabled');
+                locationSearched = false;
+                navigator.geolocation.getCurrentPosition(locationFindSuccess, showError, { maximumAge: 60000, timeout: 5000, enableHighAccuracy: true });
+            } else {
+                $("#alert").show();
+            }
+        }
+        else{
+            setSessionLocation();
+        }
+
+        $("#txtAutocomplete").after("<span id='buttonClose'><span class='k-icon k-i-close icon'></span></span><span id='button'><span class='k-icon k-i-search icon'></span></span>");
+        $("#button").on("click", searchClick);
+        $("#buttonClose").on("click", closeClick);
+        $("#txtAutocomplete").on("keypress", function (e) {
+            if (event.keyCode == 13) {
+                searchClick();
+            }
+        });
+        $("#txtAutocomplete").on("blur", function () {
+            var inpAuto = $("#txtAutocomplete").val();
+            if (!(inpAuto.length > 0)) {
+                btnMapViewClick();
+                var map = $("#map").getKendoMap();
+                var currentLocationMarker = map.markers.items[0];
+                if (currentLocationMarker != null) {
+                    map.markers.remove(currentLocationMarker);
+                }
+                $('#spanNear50').text('Closest 50 pools to map center');
+                $("#imgCurrentSearched").hide();
+                locationSearched = false;
+            }
+        });
+        $("#zoomInfo").css('visibility', 'hidden');
+        let isMobileDevice = window.matchMedia("only screen and (max-width: 760px)").matches;
+        if (!isMobileDevice) {
+            $("#map").css('height', '83vh');
+            $("#gridFacilities").css('height', '75vh');
+        }
+        $("#map").data("kendoMap").resize();
+    });
+
+    function locationFindSuccess(position) {
+
+        var map = $("#map").getKendoMap();
+        latitude = position.coords.latitude;
+        longitude = position.coords.longitude;
+
+        changeCenterLocation(map, latitude, longitude);
+
+        if (map.zoom() != 12)
+            map.zoom(12);
+        //map.center([latitude, longitude]);
+        map.layers[1].dataSource.read();
+
+        $('#btnFindPool').removeAttr('disabled');
+        $('#btnSwitchViewList').removeAttr('disabled');
+        $('#btnCopyMap').removeAttr('disabled');
+    }
+
+    function showError(error) {
+        $("#alert").show();
+    }
+
+    function setSessionLocation() {
+        var map = $("#map").getKendoMap();
+        latitude = Number('');
+        longitude = Number('');
+        var savedZoom = Number('');
+
+        changeCenterLocation(map, latitude, longitude);
+        map.zoom(savedZoom);
+        
+        map.layers[1].dataSource.read();
+    }
+
+        function setSessionLocationFrom(c1, c2, z1) {
+        var map = $("#map").getKendoMap();
+        latitude = c1;
+        longitude = c2;
+        var savedZoom = Number('');
+
+        changeCenterLocation(map, latitude, longitude);
+        map.zoom(z1);
+        
+        map.layers[1].dataSource.read();
+    }
+
+    function changeCenterLocationOnMap(map, lat1, lon1) {
+
+        var currentLocationMarker = map.markers.items[0];
+        if (currentLocationMarker != null) {
+            map.markers.remove(currentLocationMarker);
+        }
+
+        var currentMarker = {
+            location: [lat1, lon1],
+            shape: "pin"
+        };
+
+        map.markers.add(currentMarker);
+        currentlyClickedMarker = currentMarker;
+
+        updateMarker(map.markers.items[0].element);
+    }
+
+    function changeCenterLocation(map, lat1, lon1){
+ 
+        if (lat1 == map.center().lat && lon1 == map.center().lng)
+            return;
+   
+        btnMapViewClick();
+
+        var currentLocationMarker = map.markers.items[0];
+        if (currentLocationMarker != null) {
+            map.markers.remove(currentLocationMarker);
+        }
+
+        map.center([lat1, lon1]);
+
+        try{
+            if(locationSearched)
+            {
+  
+                var currentMarker = {
+                location: [lat1, lon1],
+                shape: "pin"
+                };
+
+                map.markers.add(currentMarker);
+                currentlyClickedMarker = currentMarker;
+
+                updateMarker(map.markers.items[0].element);
+
+                 var searchTxt = $("#txtAutocomplete").val().split(",",1)[0];
+
+                if (searchTxt.length > 1)
+                {
+                    searchTxt = searchTxt.charAt(0).toUpperCase() + searchTxt.slice(1);
+                }
+
+                $('#spanNear50').text('Closest 50 pools to ' + searchTxt);
+                $("#imgCurrentSearched").show();
+            }
+            else
+            {
+                $('#spanNear50').text('Closest 50 pools to map center');
+                $("#imgCurrentSearched").hide();
+            }
+        }
+        catch (err) {
+            alert(err);
+        }
+
+        $('#btnSwitchViewList').removeAttr('disabled');
+        $('#btnCopyMap').removeAttr('disabled');
+    }
+
+    function updateMarker(currentLocationMarker) {
+        $(currentLocationMarker).removeClass('k-i-marker-pin').addClass('k-i-marker-custom-marker1');
+       }
+
+    function onClickFindPool(e) {
+        $("#zoomInfo").css('visibility', 'hidden');
+        if (navigator.geolocation) {
+            $("#alert").hide();
+            $('#btnFindPool').attr('disabled', 'disabled');
+            locationSearched = false;
+            navigator.geolocation.getCurrentPosition(locationFindSuccess);
+        } else {
+            $("#alert").show();
+        }
+    }
+
+    function btnToggleClick(e) {
+            var map = $("#map").getKendoMap();
+            if(map.center().lat != 0){
+                $("#gridFacilities").data("kendoGrid").dataSource.read();
+                $("#gridFacilities").data("kendoGrid").resize();
+                $('#zoomInfo').hide();
+                $('#mapContainer').hide();
+                $('#gridContainerTop').slideDown(1000).toggleClass('d-flex');
+                $('#grid-wrap').slideDown(1000);
+            }
+    }
+
+    function btnCopyMapLink(e) {
+            var map = $("#map").getKendoMap();
+            if(map.center().lat != 0){
+                navigator.clipboard.writeText(window.location.href.split('?')[0].replace(/\/$/, "") + '?c1=' + map.center().lat + '&c2=' + map.center().lng + '&z1=' + map.zoom());
+                alert('Map location copied to clipboard');
+            }
+    }
+
+    function onShowDlg(e) {
+        var dialog = e.sender;
+        $("img").on("touchstart",
+            function () {
+                dialog.close();
+            });
+        $("input").on("touchstart",
+            function () {
+                dialog.close();
+            });
+        $("button").on("touchstart",
+            function () {
+                dialog.close();
+            });
+        $("img").on("mousedown",
+            function () {
+                dialog.close();
+            });
+        $("input").on("mousedown",
+            function () {
+                dialog.close();
+            });
+        $("button").on("mousedown",
+            function () {
+                dialog.close();
+            });
+    }
+
+    function closeClick() {
+        $("#txtAutocomplete").val("").trigger("input");
+        $("#txtAutocomplete").trigger("blur");
+    }
+
+    function searchClick() {
+        $("#zoomInfo").css('visibility', 'hidden');
+        var geocoder = new google.maps.Geocoder();
+        geocoder.geocode({ 'address': $("#txtAutocomplete").val() }, function (results, status) {
+            if (status == google.maps.GeocoderStatus.OK) {
+                latitude = results[0].geometry.location.lat();
+                longitude = results[0].geometry.location.lng();
+                var map = $("#map").getKendoMap();
+                if (map.zoom() != 12)
+                    map.zoom(12);
+                //map.center([latitude, longitude]);
+                
+                locationSearched = true;
+
+                changeCenterLocation(map, latitude, longitude);
+                map.layers[1].dataSource.read();
+            }
+        });
+    }
+</script>
+
+<script>
+    function onGridFindChange(e) {
+        var grid = $("#gridFacilities").data("kendoGrid");
+        var selectedValue = e.sender.value();
+        var filter1 = { field: "DistanceString", operator: "contains", value: selectedValue }
+        var filter2 = { field: "MapPinName", operator: "contains", value: selectedValue }
+        var filter3 = { field: "City", operator: "contains", value: selectedValue }
+        var filter4 = { field: "Label", operator: "contains", value: selectedValue }
+        var filter5 = { field: "PublicAccessType", operator: "contains", value: selectedValue }
+        var filter6 = { field: "HotelAccess", operator: "contains", value: selectedValue }
+        var filter7 = { field: "Teams", operator: "contains", value: selectedValue }
+        var filter8 = { field: "AdditionalTile", operator: "contains", value: selectedValue }
+        grid.dataSource.filter({ logic: "or", filters: [filter1, filter2, filter3, filter4, filter5, filter6, filter7, filter8] });
+    }
+</script>
+
+<script type="text/javascript">
+    function btnMapViewClick(e) {
+        if (!$('#mapContainer').is(':visible')) {
+            $('#gridContainerTop').hide().toggleClass('d-flex');
+            $('#grid-wrap').hide();
+            $('#zoomInfo').slideDown(1000);
+            $('#mapContainer').slideDown(1000);
+            $("#map").data("kendoMap").resize();
+        }
+    }
+</script>
+<script>
+    $(window).on("resize", function(){
+        $("#map").data("kendoMap").resize();
+        $("#gridFacilities").data("kendoGrid").resize();
+        
+        let isMobileDevice = window.matchMedia("only screen and (max-width: 760px)").matches;
+        if (!isMobileDevice) {
+            $("#map").css('height', '83vh');
+            $("#gridFacilities").css('height', '75vh');
+        }
+    })
+</script>   
+    </div>
+    <footer>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    </footer>
+
+	<script nws-csp-add-nonce='true'>'serviceWorker'in navigator&&navigator.serviceWorker.register('/serviceworker', { scope: '/' })</script></body>
+</html>

@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head><script>if(navigator.userAgent.match(/MSIE|Internet Explorer/i)||navigator.userAgent.match(/Trident\/7\..*?rv:11/i)){var href=document.location.href;if(!href.match(/[?&]nowprocket/)){if(href.indexOf("?")==-1){if(href.indexOf("#")==-1){document.location.href=href+"?nowprocket=1"}else{document.location.href=href.replace("#","?nowprocket=1#")}}else{if(href.indexOf("#")==-1){document.location.href=href+"&nowprocket=1"}else{document.location.href=href.replace("#","&nowprocket=1#")}}}}</script><script>class RocketLazyLoadScripts{constructor(e){this.triggerEvents=e,this.eventOptions={passive:!0},this.userEventListener=this.triggerListener.bind(this),this.delayedScripts={normal:[],async:[],defer:[]},this.allJQueries=[]}_addUserInteractionListener(e){this.triggerEvents.forEach((t=>window.addEventListener(t,e.userEventListener,e.eventOptions)))}_removeUserInteractionListener(e){this.triggerEvents.forEach((t=>window.removeEventListener(t,e.userEventListener,e.eventOptions)))}triggerListener(){this._removeUserInteractionListener(this),"loading"===document.readyState?document.addEventListener("DOMContentLoaded",this._loadEverythingNow.bind(this)):this._loadEverythingNow()}async _loadEverythingNow(){this._delayEventListeners(),this._delayJQueryReady(this),this._handleDocumentWrite(),this._registerAllDelayedScripts(),this._preloadAllScripts(),await this._loadScriptsFromList(this.delayedScripts.normal),await this._loadScriptsFromList(this.delayedScripts.defer),await this._loadScriptsFromList(this.delayedScripts.async),await this._triggerDOMContentLoaded(),await this._triggerWindowLoad(),window.dispatchEvent(new Event("rocket-allScriptsLoaded"))}_registerAllDelayedScripts(){document.querySelectorAll("script[type=rocketlazyloadscript]").forEach((e=>{e.hasAttribute("src")?e.hasAttribute("async")&&!1!==e.async?this.delayedScripts.async.push(e):e.hasAttribute("defer")&&!1!==e.defer||"module"===e.getAttribute("data-rocket-type")?this.delayedScripts.defer.push(e):this.delayedScripts.normal.push(e):this.delayedScripts.normal.push(e)}))}async _transformScript(e){return await this._requestAnimFrame(),new Promise((t=>{const n=document.createElement("script");let r;[...e.attributes].forEach((e=>{let t=e.nodeName;"type"!==t&&("data-rocket-type"===t&&(t="type",r=e.nodeValue),n.setAttribute(t,e.nodeValue))})),e.hasAttribute("src")?(n.addEventListener("load",t),n.addEventListener("error",t)):(n.text=e.text,t()),e.parentNode.replaceChild(n,e)}))}async _loadScriptsFromList(e){const t=e.shift();return t?(await this._transformScript(t),this._loadScriptsFromList(e)):Promise.resolve()}_preloadAllScripts(){var e=document.createDocumentFragment();[...this.delayedScripts.normal,...this.delayedScripts.defer,...this.delayedScripts.async].forEach((t=>{const n=t.getAttribute("src");if(n){const t=document.createElement("link");t.href=n,t.rel="preload",t.as="script",e.appendChild(t)}})),document.head.appendChild(e)}_delayEventListeners(){let e={};function t(t,n){!function(t){function n(n){return e[t].eventsToRewrite.indexOf(n)>=0?"rocket-"+n:n}e[t]||(e[t]={originalFunctions:{add:t.addEventListener,remove:t.removeEventListener},eventsToRewrite:[]},t.addEventListener=function(){arguments[0]=n(arguments[0]),e[t].originalFunctions.add.apply(t,arguments)},t.removeEventListener=function(){arguments[0]=n(arguments[0]),e[t].originalFunctions.remove.apply(t,arguments)})}(t),e[t].eventsToRewrite.push(n)}function n(e,t){let n=e[t];Object.defineProperty(e,t,{get:()=>n||function(){},set(r){e["rocket"+t]=n=r}})}t(document,"DOMContentLoaded"),t(window,"DOMContentLoaded"),t(window,"load"),t(window,"pageshow"),t(document,"readystatechange"),n(document,"onreadystatechange"),n(window,"onload"),n(window,"onpageshow")}_delayJQueryReady(e){let t=window.jQuery;Object.defineProperty(window,"jQuery",{get:()=>t,set(n){if(n&&n.fn&&!e.allJQueries.includes(n)){n.fn.ready=n.fn.init.prototype.ready=function(t){e.domReadyFired?t.bind(document)(n):document.addEventListener("rocket-DOMContentLoaded",(()=>t.bind(document)(n)))};const t=n.fn.on;n.fn.on=n.fn.init.prototype.on=function(){if(this[0]===window){function e(e){return e.split(" ").map((e=>"load"===e||0===e.indexOf("load.")?"rocket-jquery-load":e)).join(" ")}"string"==typeof arguments[0]||arguments[0]instanceof String?arguments[0]=e(arguments[0]):"object"==typeof arguments[0]&&Object.keys(arguments[0]).forEach((t=>{delete Object.assign(arguments[0],{[e(t)]:arguments[0][t]})[t]}))}return t.apply(this,arguments),this},e.allJQueries.push(n)}t=n}})}async _triggerDOMContentLoaded(){this.domReadyFired=!0,await this._requestAnimFrame(),document.dispatchEvent(new Event("rocket-DOMContentLoaded")),await this._requestAnimFrame(),window.dispatchEvent(new Event("rocket-DOMContentLoaded")),await this._requestAnimFrame(),document.dispatchEvent(new Event("rocket-readystatechange")),await this._requestAnimFrame(),document.rocketonreadystatechange&&document.rocketonreadystatechange()}async _triggerWindowLoad(){await this._requestAnimFrame(),window.dispatchEvent(new Event("rocket-load")),await this._requestAnimFrame(),window.rocketonload&&window.rocketonload(),await this._requestAnimFrame(),this.allJQueries.forEach((e=>e(window).trigger("rocket-jquery-load"))),window.dispatchEvent(new Event("rocket-pageshow")),await this._requestAnimFrame(),window.rocketonpageshow&&window.rocketonpageshow()}_handleDocumentWrite(){const e=new Map;document.write=document.writeln=function(t){const n=document.currentScript,r=document.createRange(),i=n.parentElement;let o=e.get(n);void 0===o&&(o=n.nextSibling,e.set(n,o));const a=document.createDocumentFragment();r.setStart(a,0),a.appendChild(r.createContextualFragment(t)),i.insertBefore(a,o)}}async _requestAnimFrame(){return new Promise((e=>requestAnimationFrame(e)))}static run(){const e=new RocketLazyLoadScripts(["keydown","mousemove","touchmove","touchstart","touchend","wheel"]);e._addUserInteractionListener(e)}}RocketLazyLoadScripts.run();
+</script>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="profile" href="https://gmpg.org/xfn/11">
+	    <style>
+        #wpadminbar #wp-admin-bar-p404_free_top_button .ab-icon:before {
+            content: "\f103";
+            color:red;
+            top: 2px;
+        }
+    </style>
+    <meta name='robots' content='index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1' />
+<script type="rocketlazyloadscript" id="wpp-js" src="https://www.15august.in/wp-content/plugins/wordpress-popular-posts/assets/js/wpp.min.js" data-sampling="0" data-sampling-rate="100" data-api-url="https://www.15august.in/wp-json/wordpress-popular-posts" data-post-id="0" data-token="f621dc1570" data-lang="0" data-debug="0"></script>
+
+	<!-- This site is optimized with the Yoast SEO plugin v23.4 - https://yoast.com/wordpress/plugins/seo/ -->
+	<title>15August.in - Infrastructure &amp; Finance Updates!</title>
+	<meta name="description" content="15August.in a new blog that provides all new government announcements, financial tips, investment ideas, Infrastructure Updates &amp; more." />
+	<link rel="canonical" href="https://www.15august.in/" />
+	<link rel="next" href="https://www.15august.in/page/2/" />
+	<meta property="og:locale" content="en_US" />
+	<meta property="og:type" content="website" />
+	<meta property="og:title" content="15August.in" />
+	<meta property="og:description" content="15August.in a new blog that provides all new government announcements, financial tips, investment ideas, Infrastructure Updates &amp; more." />
+	<meta property="og:url" content="https://www.15august.in/" />
+	<meta property="og:site_name" content="15August.in" />
+	<meta name="twitter:card" content="summary_large_image" />
+	<script type="application/ld+json" class="yoast-schema-graph">{"@context":"https://schema.org","@graph":[{"@type":"CollectionPage","@id":"https://www.15august.in/","url":"https://www.15august.in/","name":"15August.in - Infrastructure & Finance Updates!","isPartOf":{"@id":"https://www.15august.in/#website"},"about":{"@id":"https://www.15august.in/#organization"},"description":"15August.in a new blog that provides all new government announcements, financial tips, investment ideas, Infrastructure Updates & more.","breadcrumb":{"@id":"https://www.15august.in/#breadcrumb"},"inLanguage":"en-US"},{"@type":"BreadcrumbList","@id":"https://www.15august.in/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Home"}]},{"@type":"WebSite","@id":"https://www.15august.in/#website","url":"https://www.15august.in/","name":"15August.in","description":"","publisher":{"@id":"https://www.15august.in/#organization"},"potentialAction":[{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://www.15august.in/?s={search_term_string}"},"query-input":{"@type":"PropertyValueSpecification","valueRequired":true,"valueName":"search_term_string"}}],"inLanguage":"en-US"},{"@type":"Organization","@id":"https://www.15august.in/#organization","name":"15August.in","url":"https://www.15august.in/","logo":{"@type":"ImageObject","inLanguage":"en-US","@id":"https://www.15august.in/#/schema/logo/image/","url":"https://www.15august.in/wp-content/uploads/2023/01/cropped-15th-August-02.png","contentUrl":"https://www.15august.in/wp-content/uploads/2023/01/cropped-15th-August-02.png","width":250,"height":80,"caption":"15August.in"},"image":{"@id":"https://www.15august.in/#/schema/logo/image/"}}]}</script>
+	<!-- / Yoast SEO plugin. -->
+
+
+
+<link rel="alternate" type="application/rss+xml" title="15August.in &raquo; Feed" href="https://www.15august.in/feed/" />
+<link rel="alternate" type="application/rss+xml" title="15August.in &raquo; Comments Feed" href="https://www.15august.in/comments/feed/" />
+<style id='wp-img-auto-sizes-contain-inline-css'>
+img:is([sizes=auto i],[sizes^="auto," i]){contain-intrinsic-size:3000px 1500px}
+/*# sourceURL=wp-img-auto-sizes-contain-inline-css */
+</style>
+<link rel='stylesheet' id='structured-content-frontend-css' href='https://www.15august.in/wp-content/plugins/structured-content/dist/blocks.style.build.css?ver=1.6.3' media='all' />
+<style id='wp-emoji-styles-inline-css'>
+
+	img.wp-smiley, img.emoji {
+		display: inline !important;
+		border: none !important;
+		box-shadow: none !important;
+		height: 1em !important;
+		width: 1em !important;
+		margin: 0 0.07em !important;
+		vertical-align: -0.1em !important;
+		background: none !important;
+		padding: 0 !important;
+	}
+/*# sourceURL=wp-emoji-styles-inline-css */
+</style>
+<style id='wp-block-library-inline-css'>
+:root{--wp-block-synced-color:#7a00df;--wp-block-synced-color--rgb:122,0,223;--wp-bound-block-color:var(--wp-block-synced-color);--wp-editor-canvas-background:#ddd;--wp-admin-theme-color:#007cba;--wp-admin-theme-color--rgb:0,124,186;--wp-admin-theme-color-darker-10:#006ba1;--wp-admin-theme-color-darker-10--rgb:0,107,160.5;--wp-admin-theme-color-darker-20:#005a87;--wp-admin-theme-color-darker-20--rgb:0,90,135;--wp-admin-border-width-focus:2px}@media (min-resolution:192dpi){:root{--wp-admin-border-width-focus:1.5px}}.wp-element-button{cursor:pointer}:root .has-very-light-gray-background-color{background-color:#eee}:root .has-very-dark-gray-background-color{background-color:#313131}:root .has-very-light-gray-color{color:#eee}:root .has-very-dark-gray-color{color:#313131}:root .has-vivid-green-cyan-to-vivid-cyan-blue-gradient-background{background:linear-gradient(135deg,#00d084,#0693e3)}:root .has-purple-crush-gradient-background{background:linear-gradient(135deg,#34e2e4,#4721fb 50%,#ab1dfe)}:root .has-hazy-dawn-gradient-background{background:linear-gradient(135deg,#faaca8,#dad0ec)}:root .has-subdued-olive-gradient-background{background:linear-gradient(135deg,#fafae1,#67a671)}:root .has-atomic-cream-gradient-background{background:linear-gradient(135deg,#fdd79a,#004a59)}:root .has-nightshade-gradient-background{background:linear-gradient(135deg,#330968,#31cdcf)}:root .has-midnight-gradient-background{background:linear-gradient(135deg,#020381,#2874fc)}:root{--wp--preset--font-size--normal:16px;--wp--preset--font-size--huge:42px}.has-regular-font-size{font-size:1em}.has-larger-font-size{font-size:2.625em}.has-normal-font-size{font-size:var(--wp--preset--font-size--normal)}.has-huge-font-size{font-size:var(--wp--preset--font-size--huge)}.has-text-align-center{text-align:center}.has-text-align-left{text-align:left}.has-text-align-right{text-align:right}.has-fit-text{white-space:nowrap!important}#end-resizable-editor-section{display:none}.aligncenter{clear:both}.items-justified-left{justify-content:flex-start}.items-justified-center{justify-content:center}.items-justified-right{justify-content:flex-end}.items-justified-space-between{justify-content:space-between}.screen-reader-text{border:0;clip-path:inset(50%);height:1px;margin:-1px;overflow:hidden;padding:0;position:absolute;width:1px;word-wrap:normal!important}.screen-reader-text:focus{background-color:#ddd;clip-path:none;color:#444;display:block;font-size:1em;height:auto;left:5px;line-height:normal;padding:15px 23px 14px;text-decoration:none;top:5px;width:auto;z-index:100000}html :where(.has-border-color){border-style:solid}html :where([style*=border-top-color]){border-top-style:solid}html :where([style*=border-right-color]){border-right-style:solid}html :where([style*=border-bottom-color]){border-bottom-style:solid}html :where([style*=border-left-color]){border-left-style:solid}html :where([style*=border-width]){border-style:solid}html :where([style*=border-top-width]){border-top-style:solid}html :where([style*=border-right-width]){border-right-style:solid}html :where([style*=border-bottom-width]){border-bottom-style:solid}html :where([style*=border-left-width]){border-left-style:solid}html :where(img[class*=wp-image-]){height:auto;max-width:100%}:where(figure){margin:0 0 1em}html :where(.is-position-sticky){--wp-admin--admin-bar--position-offset:var(--wp-admin--admin-bar--height,0px)}@media screen and (max-width:600px){html :where(.is-position-sticky){--wp-admin--admin-bar--position-offset:0px}}
+
+/*# sourceURL=wp-block-library-inline-css */
+</style><style id='wp-block-group-inline-css'>
+.wp-block-group{box-sizing:border-box}:where(.wp-block-group.wp-block-group-is-layout-constrained){position:relative}
+/*# sourceURL=https://www.15august.in/wp-includes/blocks/group/style.min.css */
+</style>
+<style id='wp-block-group-theme-inline-css'>
+:where(.wp-block-group.has-background){padding:1.25em 2.375em}
+/*# sourceURL=https://www.15august.in/wp-includes/blocks/group/theme.min.css */
+</style>
+<style id='global-styles-inline-css'>
+:root{--wp--preset--aspect-ratio--square: 1;--wp--preset--aspect-ratio--4-3: 4/3;--wp--preset--aspect-ratio--3-4: 3/4;--wp--preset--aspect-ratio--3-2: 3/2;--wp--preset--aspect-ratio--2-3: 2/3;--wp--preset--aspect-ratio--16-9: 16/9;--wp--preset--aspect-ratio--9-16: 9/16;--wp--preset--color--black: #000000;--wp--preset--color--cyan-bluish-gray: #abb8c3;--wp--preset--color--white: #ffffff;--wp--preset--color--pale-pink: #f78da7;--wp--preset--color--vivid-red: #cf2e2e;--wp--preset--color--luminous-vivid-orange: #ff6900;--wp--preset--color--luminous-vivid-amber: #fcb900;--wp--preset--color--light-green-cyan: #7bdcb5;--wp--preset--color--vivid-green-cyan: #00d084;--wp--preset--color--pale-cyan-blue: #8ed1fc;--wp--preset--color--vivid-cyan-blue: #0693e3;--wp--preset--color--vivid-purple: #9b51e0;--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple: linear-gradient(135deg,rgb(6,147,227) 0%,rgb(155,81,224) 100%);--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan: linear-gradient(135deg,rgb(122,220,180) 0%,rgb(0,208,130) 100%);--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange: linear-gradient(135deg,rgb(252,185,0) 0%,rgb(255,105,0) 100%);--wp--preset--gradient--luminous-vivid-orange-to-vivid-red: linear-gradient(135deg,rgb(255,105,0) 0%,rgb(207,46,46) 100%);--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray: linear-gradient(135deg,rgb(238,238,238) 0%,rgb(169,184,195) 100%);--wp--preset--gradient--cool-to-warm-spectrum: linear-gradient(135deg,rgb(74,234,220) 0%,rgb(151,120,209) 20%,rgb(207,42,186) 40%,rgb(238,44,130) 60%,rgb(251,105,98) 80%,rgb(254,248,76) 100%);--wp--preset--gradient--blush-light-purple: linear-gradient(135deg,rgb(255,206,236) 0%,rgb(152,150,240) 100%);--wp--preset--gradient--blush-bordeaux: linear-gradient(135deg,rgb(254,205,165) 0%,rgb(254,45,45) 50%,rgb(107,0,62) 100%);--wp--preset--gradient--luminous-dusk: linear-gradient(135deg,rgb(255,203,112) 0%,rgb(199,81,192) 50%,rgb(65,88,208) 100%);--wp--preset--gradient--pale-ocean: linear-gradient(135deg,rgb(255,245,203) 0%,rgb(182,227,212) 50%,rgb(51,167,181) 100%);--wp--preset--gradient--electric-grass: linear-gradient(135deg,rgb(202,248,128) 0%,rgb(113,206,126) 100%);--wp--preset--gradient--midnight: linear-gradient(135deg,rgb(2,3,129) 0%,rgb(40,116,252) 100%);--wp--preset--font-size--small: 13px;--wp--preset--font-size--medium: 20px;--wp--preset--font-size--large: 36px;--wp--preset--font-size--x-large: 42px;--wp--preset--spacing--20: 0.44rem;--wp--preset--spacing--30: 0.67rem;--wp--preset--spacing--40: 1rem;--wp--preset--spacing--50: 1.5rem;--wp--preset--spacing--60: 2.25rem;--wp--preset--spacing--70: 3.38rem;--wp--preset--spacing--80: 5.06rem;--wp--preset--shadow--natural: 6px 6px 9px rgba(0, 0, 0, 0.2);--wp--preset--shadow--deep: 12px 12px 50px rgba(0, 0, 0, 0.4);--wp--preset--shadow--sharp: 6px 6px 0px rgba(0, 0, 0, 0.2);--wp--preset--shadow--outlined: 6px 6px 0px -3px rgb(255, 255, 255), 6px 6px rgb(0, 0, 0);--wp--preset--shadow--crisp: 6px 6px 0px rgb(0, 0, 0);}:where(.is-layout-flex){gap: 0.5em;}:where(.is-layout-grid){gap: 0.5em;}body .is-layout-flex{display: flex;}.is-layout-flex{flex-wrap: wrap;align-items: center;}.is-layout-flex > :is(*, div){margin: 0;}body .is-layout-grid{display: grid;}.is-layout-grid > :is(*, div){margin: 0;}:where(.wp-block-columns.is-layout-flex){gap: 2em;}:where(.wp-block-columns.is-layout-grid){gap: 2em;}:where(.wp-block-post-template.is-layout-flex){gap: 1.25em;}:where(.wp-block-post-template.is-layout-grid){gap: 1.25em;}.has-black-color{color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-color{color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-color{color: var(--wp--preset--color--white) !important;}.has-pale-pink-color{color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-color{color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-color{color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-color{color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-color{color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-color{color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-color{color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-color{color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-color{color: var(--wp--preset--color--vivid-purple) !important;}.has-black-background-color{background-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-background-color{background-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-background-color{background-color: var(--wp--preset--color--white) !important;}.has-pale-pink-background-color{background-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-background-color{background-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-background-color{background-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-background-color{background-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-background-color{background-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-background-color{background-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-background-color{background-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-background-color{background-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-background-color{background-color: var(--wp--preset--color--vivid-purple) !important;}.has-black-border-color{border-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-border-color{border-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-border-color{border-color: var(--wp--preset--color--white) !important;}.has-pale-pink-border-color{border-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-border-color{border-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-border-color{border-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-border-color{border-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-border-color{border-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-border-color{border-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-border-color{border-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-border-color{border-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-border-color{border-color: var(--wp--preset--color--vivid-purple) !important;}.has-vivid-cyan-blue-to-vivid-purple-gradient-background{background: var(--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple) !important;}.has-light-green-cyan-to-vivid-green-cyan-gradient-background{background: var(--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan) !important;}.has-luminous-vivid-amber-to-luminous-vivid-orange-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange) !important;}.has-luminous-vivid-orange-to-vivid-red-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-orange-to-vivid-red) !important;}.has-very-light-gray-to-cyan-bluish-gray-gradient-background{background: var(--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray) !important;}.has-cool-to-warm-spectrum-gradient-background{background: var(--wp--preset--gradient--cool-to-warm-spectrum) !important;}.has-blush-light-purple-gradient-background{background: var(--wp--preset--gradient--blush-light-purple) !important;}.has-blush-bordeaux-gradient-background{background: var(--wp--preset--gradient--blush-bordeaux) !important;}.has-luminous-dusk-gradient-background{background: var(--wp--preset--gradient--luminous-dusk) !important;}.has-pale-ocean-gradient-background{background: var(--wp--preset--gradient--pale-ocean) !important;}.has-electric-grass-gradient-background{background: var(--wp--preset--gradient--electric-grass) !important;}.has-midnight-gradient-background{background: var(--wp--preset--gradient--midnight) !important;}.has-small-font-size{font-size: var(--wp--preset--font-size--small) !important;}.has-medium-font-size{font-size: var(--wp--preset--font-size--medium) !important;}.has-large-font-size{font-size: var(--wp--preset--font-size--large) !important;}.has-x-large-font-size{font-size: var(--wp--preset--font-size--x-large) !important;}
+/*# sourceURL=global-styles-inline-css */
+</style>
+
+<style id='classic-theme-styles-inline-css'>
+/*! This file is auto-generated */
+.wp-block-button__link{color:#fff;background-color:#32373c;border-radius:9999px;box-shadow:none;text-decoration:none;padding:calc(.667em + 2px) calc(1.333em + 2px);font-size:1.125em}.wp-block-file__button{background:#32373c;color:#fff;text-decoration:none}
+/*# sourceURL=/wp-includes/css/classic-themes.min.css */
+</style>
+<link rel='stylesheet' id='contact-form-7-css' href='https://www.15august.in/wp-content/plugins/contact-form-7/includes/css/styles.css?ver=5.9.8' media='all' />
+<link rel='stylesheet' id='wordpress-popular-posts-css-css' href='https://www.15august.in/wp-content/plugins/wordpress-popular-posts/assets/css/wpp.css?ver=7.0.1' media='all' />
+<link rel='stylesheet' id='pressbook-fonts-css' href='https://www.15august.in/wp-content/fonts/a0139261d7cad8076277d1d1c805ebfa.css' media='all' />
+<link rel='stylesheet' id='pressbook-style-css' href='https://www.15august.in/wp-content/themes/pressbook/style.min.css?ver=2.0.7' media='all' />
+<style id='pressbook-style-inline-css'>
+.site-branding{background-position:center center;}.site-branding{background-repeat:repeat;}.site-branding{background-size:contain;}.top-banner-image{max-height:150px;}.top-navbar{background:linear-gradient(0deg, #166dd6 0%, #1257ab 100%);}.social-navigation a:active .svg-icon,.social-navigation a:focus .svg-icon,.social-navigation a:hover .svg-icon{color:#166dd6;}.primary-navbar,.main-navigation ul ul{background:#166dd6;}.main-navigation .main-navigation-arrow-btn:active,.main-navigation .main-navigation-arrow-btn:hover,.main-navigation li.focus>.main-navigation-arrow-btn,.main-navigation:not(.toggled) li:hover>.main-navigation-arrow-btn,.main-navigation a:active,.main-navigation a:focus,.main-navigation a:hover{color:#166dd6;}.site-branding{background-color:#ffffff;}.site-title,.site-title a,.site-title a:active,.site-title a:focus,.site-title a:hover{color:#404040;}.site-tagline{color:#979797;}.more-link,.wp-block-search .wp-block-search__button,button,input[type=button],input[type=reset],input[type=submit]{background-image:linear-gradient(to right, #f3c841 0%, #f69275 51%, #f3c841 100%);}.more-link,.wp-block-search .wp-block-search__button,button,input[type=button],input[type=reset],input[type=submit]{font-weight:600;}h1,h2,h3,h4,h5,h6{font-weight:700;}.site-title{font-weight:700;}.c-sidebar .widget{border-color:#fafafa;}.footer-widgets,.copyright-text{background:#232323;}.copyright-text a{color:#f69275;}
+/*# sourceURL=pressbook-style-inline-css */
+</style>
+<link rel='stylesheet' id='tablepress-default-css' href='https://www.15august.in/wp-content/plugins/tablepress/css/build/default.css?ver=2.4.2' media='all' />
+<link rel='stylesheet' id='scss-css' href='https://www.15august.in/wp-content/cache/busting/1/sccss.css?ver=1712159743' media='all' />
+<script type="rocketlazyloadscript" src="https://www.15august.in/wp-includes/js/jquery/jquery.min.js?ver=3.7.1" id="jquery-core-js"></script>
+<script type="rocketlazyloadscript" src="https://www.15august.in/wp-includes/js/jquery/jquery-migrate.min.js?ver=3.4.1" id="jquery-migrate-js"></script>
+<link rel="https://api.w.org/" href="https://www.15august.in/wp-json/" /><link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://www.15august.in/xmlrpc.php?rsd" />
+<meta name="generator" content="WordPress 6.9" />
+
+		<!-- GA Google Analytics @ https://m0n.co/ga -->
+		<script type="rocketlazyloadscript" async src="https://www.googletagmanager.com/gtag/js?id=G-26SLEN2LVT"></script>
+		<script type="rocketlazyloadscript">
+			window.dataLayer = window.dataLayer || [];
+			function gtag(){dataLayer.push(arguments);}
+			gtag('js', new Date());
+			gtag('config', 'G-26SLEN2LVT');
+		</script>
+
+			<script type="rocketlazyloadscript">
+			var jabvfcr = {
+				selector: "[id=&#039;colophon&#039;] &gt; * &gt; *",
+				manipulation: "html",
+				html: 'Thank you for Visiting, <strong>15August.in</strong>!'
+			};
+		</script>
+		            <style id="wpp-loading-animation-styles">@-webkit-keyframes bgslide{from{background-position-x:0}to{background-position-x:-200%}}@keyframes bgslide{from{background-position-x:0}to{background-position-x:-200%}}.wpp-widget-block-placeholder,.wpp-shortcode-placeholder{margin:0 auto;width:60px;height:3px;background:#dd3737;background:linear-gradient(90deg,#dd3737 0%,#571313 10%,#dd3737 100%);background-size:200% auto;border-radius:3px;-webkit-animation:bgslide 1s infinite linear;animation:bgslide 1s infinite linear}</style>
+            <style id="custom-background-css">
+body.custom-background { background-color: #f4f4f4; }
+</style>
+	<link rel="icon" href="https://www.15august.in/wp-content/uploads/2021/09/cropped-flag-button-round-250-32x32.png" sizes="32x32" />
+<link rel="icon" href="https://www.15august.in/wp-content/uploads/2021/09/cropped-flag-button-round-250-192x192.png" sizes="192x192" />
+<link rel="apple-touch-icon" href="https://www.15august.in/wp-content/uploads/2021/09/cropped-flag-button-round-250-180x180.png" />
+<meta name="msapplication-TileImage" content="https://www.15august.in/wp-content/uploads/2021/09/cropped-flag-button-round-250-270x270.png" />
+<style id="sccss">/* Enter Your Custom CSS Here */
+    body{
+	font-family: Arial, Helvetica, sans-serif;
+
+	font-size: 15px;
+	line-height: 1.5;
+	padding: 0;
+	margin: 0;
+}
+* {
+	box-sizing: border-box;
+}
+.container{
+	width:520px;
+	height: auto;
+	margin: 100px auto;
+	background-color: #eee;
+ 
+	border-radius: 5px;
+}
+.base{
+	width: 100%;
+	 
+	margin: 0;
+	overflow: hidden;
+	display: block;
+	float: none;
+}
+.block{
+	width: 135px;
+	padding: 5px 20px;
+ 
+	margin-left: 20px;
+	display: inline-block;
+	float: left;
+}
+.base h4{
+	font-size: 26px;
+	text-align: center;
+	font-family: sans-serif;
+	font-weight: normal;
+  margin-top: 0px;
+  box-shadow: 0px 2px #bababa;
+  background: white;
+  font-size: 34px;
+	color: navy;
+}
+ 
+.title{
+	font-size: 20px;
+	text-align: left;
+	font-family: sans-serif;
+	font-weight: normal;
+	line-height: 0.5;
+	letter-spacing: 0.5px;
+	word-spacing: 2.7px;
+	color: #1073d0;
+}
+input[type=text] {
+	width: 140px;
+	margin: auto;
+	outline: none;
+  min-height: 50px;
+	border: 2px solid #1073d0;
+	padding: 12px;
+	background-color: #f7f7f7;
+    border-radius: 2px;
+    color: #1073d0;
+    font-size: 17px;
+}
+input[type=text]:focus{
+	background-color: #ffffff;
+	border: 2px solid orange;
+	outline: none;
+}
+input[type=button]{
+	width: 150px;
+	margin-left: 35%;
+  margin-top: 40px;
+	outline: none;
+	border: none;
+	border-radius: 2px;
+	background-color: #0761b6;
+	color: #ffffff;
+	padding: 14px 16px;
+	text-align: center;
+  
+	font-size: 16px;
+}
+input[type=button]:hover{
+	background-color: #003669;
+}
+ 
+#age{
+	display: block;
+	margin: 10px;
+  margin-top: 35px;
+	padding: 10px;
+  padding-bottom: 20px;
+	overflow: hidden;
+	font-family: verdana;
+	font-size: 23px;
+	font-weight: normal;
+	line-height: 1.5;
+	word-spacing: 2.7px;
+	color: navy;
+}</style><noscript><style id="rocket-lazyload-nojs-css">.rll-youtube-player, [data-lazy-src]{display:none !important;}</style></noscript></head>
+<body class="home blog custom-background wp-custom-logo wp-embed-responsive wp-theme-pressbook hfeed double-sidebar left-right-sidebar pb-content-columns pb-content-cover">
+
+<div id="page" class="site">
+	<a class="skip-link screen-reader-text" href="#content">Skip to content</a>
+
+	<header id="masthead" class="site-header">
+		<div class="site-branding">
+		<div class="u-wrapper site-branding-wrap">
+		<div class="site-logo-title logo--lg-size-1 logo--md-size-1 logo--sm-size-1">
+			<a href="https://www.15august.in/" class="custom-logo-link" rel="home" aria-current="page"><img width="250" height="80" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20250%2080'%3E%3C/svg%3E" class="custom-logo" alt="15August.in" decoding="async" data-lazy-src="https://www.15august.in/wp-content/uploads/2023/01/cropped-15th-August-02.png" /><noscript><img width="250" height="80" src="https://www.15august.in/wp-content/uploads/2023/01/cropped-15th-August-02.png" class="custom-logo" alt="15August.in" decoding="async" /></noscript></a>
+			<div class="site-title-tagline">
+							<h1 class="site-title hide-clip site-title--lg-size-2 site-title--md-size-2 site-title--sm-size-2"><a href="https://www.15august.in/" rel="home">15August.in</a></h1>
+								<p class="site-tagline tagline--lg-size-2 tagline--md-size-2 tagline--sm-size-2"></p>
+			</div><!-- .site-title-tagline -->
+		</div><!-- .site-logo-title -->
+
+			</div><!-- .site-branding-wrap -->
+</div><!-- .site-branding -->
+	<div class="primary-navbar">
+		<div class="u-wrapper primary-navbar-wrap">
+			<nav id="site-navigation" class="main-navigation" aria-label="Primary Menu">
+				<button class="primary-menu-toggle" aria-controls="primary-menu" aria-expanded="false" aria-label="Toggle Primary Menu">
+					<svg class="svg-icon" width="24" height="24" aria-hidden="true" role="img" focusable="false" viewBox="0.0 0 1536.0 2048" xmlns="http://www.w3.org/2000/svg"><path d="M1536,1472v128c0,17.333-6.333,32.333-19,45s-27.667,19-45,19H64c-17.333,0-32.333-6.333-45-19s-19-27.667-19-45v-128  c0-17.333,6.333-32.333,19-45s27.667-19,45-19h1408c17.333,0,32.333,6.333,45,19S1536,1454.667,1536,1472z M1536,960v128  c0,17.333-6.333,32.333-19,45s-27.667,19-45,19H64c-17.333,0-32.333-6.333-45-19s-19-27.667-19-45V960c0-17.333,6.333-32.333,19-45  s27.667-19,45-19h1408c17.333,0,32.333,6.333,45,19S1536,942.667,1536,960z M1536,448v128c0,17.333-6.333,32.333-19,45  s-27.667,19-45,19H64c-17.333,0-32.333-6.333-45-19S0,593.333,0,576V448c0-17.333,6.333-32.333,19-45s27.667-19,45-19h1408  c17.333,0,32.333,6.333,45,19S1536,430.667,1536,448z"></path></svg><svg class="svg-icon" width="24" height="24" aria-hidden="true" role="img" focusable="false" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1490 1322q0 40-28 68l-136 136q-28 28-68 28t-68-28l-294-294-294 294q-28 28-68 28t-68-28l-136-136q-28-28-28-68t28-68l294-294-294-294q-28-28-28-68t28-68l136-136q28-28 68-28t68 28l294 294 294-294q28-28 68-28t68 28l136 136q28 28 28 68t-28 68l-294 294 294 294q28 28 28 68z" /></svg>				</button>
+				<div class="menu-header-container"><ul id="primary-menu" class="menu"><li id="menu-item-2342" class="menu-item menu-item-type-custom menu-item-object-custom current-menu-item current_page_item menu-item-home menu-item-2342"><a href="https://www.15august.in/" aria-current="page">Home</a></li>
+<li id="menu-item-2341" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-2341"><a href="https://www.15august.in/help-india/">Trending Content</a><button class="main-navigation-arrow-btn" aria-expanded="false"><span class="screen-reader-text">Toggle sub-menu</span><svg class="svg-icon" width="24" height="24" aria-hidden="true" role="img" focusable="false" viewBox="53.0 0 1558.0 2048" xmlns="http://www.w3.org/2000/svg"><path d="M1611,832c0,35.333-12.333,65.333-37,90l-651,651c-25.333,25.333-55.667,38-91,38c-36,0-66-12.667-90-38L91,922  c-25.333-24-38-54-38-90c0-35.333,12.667-65.667,38-91l74-75c26-24.667,56.333-37,91-37c35.333,0,65.333,12.333,90,37l486,486  l486-486c24.667-24.667,54.667-37,90-37c34.667,0,65,12.333,91,37l75,75C1598.667,767,1611,797.333,1611,832z" /></svg></button>
+<ul class="sub-menu">
+	<li id="menu-item-20753" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-20753"><a href="https://www.15august.in/sports/">Sports Schedule</a><button class="main-navigation-arrow-btn" aria-expanded="false"><span class="screen-reader-text">Toggle sub-menu</span><svg class="svg-icon" width="24" height="24" aria-hidden="true" role="img" focusable="false" viewBox="53.0 0 1558.0 2048" xmlns="http://www.w3.org/2000/svg"><path d="M1611,832c0,35.333-12.333,65.333-37,90l-651,651c-25.333,25.333-55.667,38-91,38c-36,0-66-12.667-90-38L91,922  c-25.333-24-38-54-38-90c0-35.333,12.667-65.667,38-91l74-75c26-24.667,56.333-37,91-37c35.333,0,65.333,12.333,90,37l486,486  l486-486c24.667-24.667,54.667-37,90-37c34.667,0,65,12.333,91,37l75,75C1598.667,767,1611,797.333,1611,832z" /></svg></button>
+	<ul class="sub-menu">
+		<li id="menu-item-20757" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-20757"><a href="https://www.15august.in/sports/schedule/australia-tour-of-india-2023-schedule-fixtures">Australia tour of India 2023 Schedule</a></li>
+		<li id="menu-item-20905" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-20905"><a href="https://www.15august.in/sports/schedule/wpl-2023-schedule-fixtures">WPL 2023 Schedule</a></li>
+	</ul>
+</li>
+	<li id="menu-item-1081" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1081"><a href="https://www.15august.in/pm-narendra-modi-daily-routine/">Narendra Modi Daily Routine</a></li>
+	<li id="menu-item-1082" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1082"><a href="https://www.15august.in/best-sip-mutual-funds-invest/">SIP Mutual Fund</a></li>
+	<li id="menu-item-1085" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1085"><a href="https://www.15august.in/best-mutual-funds-to-invest/">Best Mutual Funds</a></li>
+	<li id="menu-item-20380" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-20380"><a href="https://www.15august.in/mumbai-ahmedabad-bullet-train-route-map-speed-starting-date/">Mumbai Ahmedabad Bullet Train</a></li>
+	<li id="menu-item-20381" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-20381"><a href="https://www.15august.in/delhi-mumbai-expressway-route-map-status-opening-date/">Delhi Mumbai Expressway</a></li>
+	<li id="menu-item-20418" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-20418"><a href="https://www.15august.in/vande-bharat-express-train/">Vande Bharat Express Trains</a></li>
+</ul>
+</li>
+<li id="menu-item-2320" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-2320"><a href="https://www.15august.in/today-gold-rate-india/">Gold Rates</a><button class="main-navigation-arrow-btn" aria-expanded="false"><span class="screen-reader-text">Toggle sub-menu</span><svg class="svg-icon" width="24" height="24" aria-hidden="true" role="img" focusable="false" viewBox="53.0 0 1558.0 2048" xmlns="http://www.w3.org/2000/svg"><path d="M1611,832c0,35.333-12.333,65.333-37,90l-651,651c-25.333,25.333-55.667,38-91,38c-36,0-66-12.667-90-38L91,922  c-25.333-24-38-54-38-90c0-35.333,12.667-65.667,38-91l74-75c26-24.667,56.333-37,91-37c35.333,0,65.333,12.333,90,37l486,486  l486-486c24.667-24.667,54.667-37,90-37c34.667,0,65,12.333,91,37l75,75C1598.667,767,1611,797.333,1611,832z" /></svg></button>
+<ul class="sub-menu">
+	<li id="menu-item-2925" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-2925"><a href="https://www.15august.in/today-gold-rate-india/">18k Gold Rates</a><button class="main-navigation-arrow-btn" aria-expanded="false"><span class="screen-reader-text">Toggle sub-menu</span><svg class="svg-icon" width="24" height="24" aria-hidden="true" role="img" focusable="false" viewBox="53.0 0 1558.0 2048" xmlns="http://www.w3.org/2000/svg"><path d="M1611,832c0,35.333-12.333,65.333-37,90l-651,651c-25.333,25.333-55.667,38-91,38c-36,0-66-12.667-90-38L91,922  c-25.333-24-38-54-38-90c0-35.333,12.667-65.667,38-91l74-75c26-24.667,56.333-37,91-37c35.333,0,65.333,12.333,90,37l486,486  l486-486c24.667-24.667,54.667-37,90-37c34.667,0,65,12.333,91,37l75,75C1598.667,767,1611,797.333,1611,832z" /></svg></button>
+	<ul class="sub-menu">
+		<li id="menu-item-2936" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2936"><a href="https://www.15august.in/18-carat-gold-rate-ahmedabad/">18k Gold Price in Ahmedabad</a></li>
+		<li id="menu-item-2939" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2939"><a href="https://www.15august.in/18-carat-gold-rate-coimbatore/">18k Gold Price in Coimbatore</a></li>
+		<li id="menu-item-2940" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2940"><a href="https://www.15august.in/18-carat-gold-rate-delhi/">18k Gold Price in Delhi</a></li>
+		<li id="menu-item-2941" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2941"><a href="https://www.15august.in/18-carat-gold-rate-hyderabad/">18k Gold Price in Hyderabad</a></li>
+		<li id="menu-item-2942" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2942"><a href="https://www.15august.in/18-carat-gold-rate-jaipur/">18k Gold Price in Jaipur</a></li>
+		<li id="menu-item-2943" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2943"><a href="https://www.15august.in/18-carat-gold-rate-kerala/">18k Gold Price in Kerala</a></li>
+		<li id="menu-item-2944" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2944"><a href="https://www.15august.in/18-carat-gold-rate-kochi/">18k Gold Price in Kochi</a></li>
+		<li id="menu-item-2945" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2945"><a href="https://www.15august.in/18-carat-gold-rate-kolkata/">18k Gold Price in Kolkata</a></li>
+		<li id="menu-item-2946" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2946"><a href="https://www.15august.in/18-carat-gold-rate-mumbai/">18k Gold Price in Mumbai</a></li>
+		<li id="menu-item-2947" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2947"><a href="https://www.15august.in/18-carat-gold-rate-pondicherry/">18k Gold Price in Pondicherry</a></li>
+		<li id="menu-item-6326" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-6326"><a href="https://www.15august.in/18k-gold-rate-chennai/">18k Gold Price in Chennai</a></li>
+		<li id="menu-item-6323" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-6323"><a href="https://www.15august.in/18k-gold-rate-trichy/">18k Gold Price in Trichy</a></li>
+		<li id="menu-item-6325" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-6325"><a href="https://www.15august.in/18k-gold-rate-pune/">18k Gold Price in Pune</a></li>
+		<li id="menu-item-2951" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2951"><a href="https://www.15august.in/18-carat-gold-rate-visakhapatnam/">18k Gold Price in Visakhapatnam</a></li>
+		<li id="menu-item-6327" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-6327"><a href="https://www.15august.in/18k-gold-rate-bangalore/">18k Gold Price in Bangalore</a></li>
+		<li id="menu-item-6324" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-6324"><a href="https://www.15august.in/18k-gold-rate-vijayawada/">18k Gold Price in Vijayawada</a></li>
+		<li id="menu-item-3089" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3089"><a href="https://www.15august.in/18-carat-gold-rate-kolhapur/">18k Gold Price in Kolhapur</a></li>
+	</ul>
+</li>
+	<li id="menu-item-18004" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-18004"><a>Today Gulf Gold Rate</a><button class="main-navigation-arrow-btn" aria-expanded="false"><span class="screen-reader-text">Toggle sub-menu</span><svg class="svg-icon" width="24" height="24" aria-hidden="true" role="img" focusable="false" viewBox="53.0 0 1558.0 2048" xmlns="http://www.w3.org/2000/svg"><path d="M1611,832c0,35.333-12.333,65.333-37,90l-651,651c-25.333,25.333-55.667,38-91,38c-36,0-66-12.667-90-38L91,922  c-25.333-24-38-54-38-90c0-35.333,12.667-65.667,38-91l74-75c26-24.667,56.333-37,91-37c35.333,0,65.333,12.333,90,37l486,486  l486-486c24.667-24.667,54.667-37,90-37c34.667,0,65,12.333,91,37l75,75C1598.667,767,1611,797.333,1611,832z" /></svg></button>
+	<ul class="sub-menu">
+		<li id="menu-item-17993" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-17993"><a href="https://www.15august.in/gold-rate-ajman-today/">Gulf Gold Rate in Ajman</a></li>
+		<li id="menu-item-17994" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-17994"><a href="https://www.15august.in/gold-rate-al-ain-today/">Gulf Gold Rate in Al ain</a></li>
+		<li id="menu-item-17995" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-17995"><a href="https://www.15august.in/gold-rate-al-khobar-today/">Gulf Gold Rate in Al khobar</a></li>
+		<li id="menu-item-17996" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-17996"><a href="https://www.15august.in/gold-rate-buraidah-today/">Gulf Gold Rate in Buraidah</a></li>
+		<li id="menu-item-17997" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-17997"><a href="https://www.15august.in/gold-rate-dammam-today/">Gulf Gold Rate in Dammam</a></li>
+		<li id="menu-item-17998" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-17998"><a href="https://www.15august.in/gold-rate-jubail-today/">Gulf Gold Rate in Jubail</a></li>
+		<li id="menu-item-17999" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-17999"><a href="https://www.15august.in/gold-rate-kuwait-today/">Gulf Gold Rate in Kuwait</a></li>
+		<li id="menu-item-18000" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-18000"><a href="https://www.15august.in/gold-rate-muscat-today/">Gulf Gold Rate in Muscat</a></li>
+		<li id="menu-item-18001" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-18001"><a href="https://www.15august.in/gold-rate-oman-today/">Gulf Gold Rate in Oman</a></li>
+		<li id="menu-item-18002" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-18002"><a href="https://www.15august.in/gold-rate-qatar-today/">Gulf Gold Rate in Qatar</a></li>
+		<li id="menu-item-18003" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-18003"><a href="https://www.15august.in/gold-rate-ras-al-khaimah-today/">Gulf Gold Rate in Ras al khaimah</a></li>
+	</ul>
+</li>
+	<li id="menu-item-17600" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-17600"><a>23k Gold Rates</a><button class="main-navigation-arrow-btn" aria-expanded="false"><span class="screen-reader-text">Toggle sub-menu</span><svg class="svg-icon" width="24" height="24" aria-hidden="true" role="img" focusable="false" viewBox="53.0 0 1558.0 2048" xmlns="http://www.w3.org/2000/svg"><path d="M1611,832c0,35.333-12.333,65.333-37,90l-651,651c-25.333,25.333-55.667,38-91,38c-36,0-66-12.667-90-38L91,922  c-25.333-24-38-54-38-90c0-35.333,12.667-65.667,38-91l74-75c26-24.667,56.333-37,91-37c35.333,0,65.333,12.333,90,37l486,486  l486-486c24.667-24.667,54.667-37,90-37c34.667,0,65,12.333,91,37l75,75C1598.667,767,1611,797.333,1611,832z" /></svg></button>
+	<ul class="sub-menu">
+		<li id="menu-item-17601" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-17601"><a href="https://www.15august.in/23-carat-gold-price-amritsar/">23k Gold Price in Amritsar</a></li>
+		<li id="menu-item-17602" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-17602"><a href="https://www.15august.in/23-carat-gold-price-bareilly/">23k Gold Price in Bareilly</a></li>
+		<li id="menu-item-17603" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-17603"><a href="https://www.15august.in/23-carat-gold-price-bhopal/">23k Gold Price in Bhopal</a></li>
+		<li id="menu-item-17604" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-17604"><a href="https://www.15august.in/23-carat-gold-price-bhubaneswar/">23k Gold Price in Bhubaneswar</a></li>
+		<li id="menu-item-17605" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-17605"><a href="https://www.15august.in/23-carat-gold-price-chhattisgarh/">23k Gold Price in Chhattisgarh</a></li>
+		<li id="menu-item-17606" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-17606"><a href="https://www.15august.in/23-carat-gold-price-in-dehradun/">23k Gold Price in Dehradun</a></li>
+		<li id="menu-item-17607" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-17607"><a href="https://www.15august.in/23-carat-gold-price-delhi/">23k Gold Price in Delhi</a></li>
+		<li id="menu-item-17608" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-17608"><a href="https://www.15august.in/23-carat-gold-price-gorakhpur/">23k Gold Price in Gorakhpur</a></li>
+		<li id="menu-item-17609" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-17609"><a href="https://www.15august.in/23-carat-gold-price-gujarat/">23k Gold Price in Gujarat</a></li>
+		<li id="menu-item-17610" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-17610"><a href="https://www.15august.in/23-carat-gold-price-haryana/">23k Gold Price in Haryana</a></li>
+		<li id="menu-item-17611" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-17611"><a href="https://www.15august.in/23-carat-gold-price-jabalpur/">23k Gold Price in Jabalpur</a></li>
+		<li id="menu-item-17612" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-17612"><a href="https://www.15august.in/23-carat-gold-price-jalandhar/">23k Gold Price in Jalandhar</a></li>
+		<li id="menu-item-17613" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-17613"><a href="https://www.15august.in/23-carat-gold-price-jalgaon/">23k Gold Price in Jalgaon</a></li>
+		<li id="menu-item-17614" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-17614"><a href="https://www.15august.in/23-carat-gold-price-karnal/">23k Gold Price in Karnal</a></li>
+		<li id="menu-item-17615" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-17615"><a href="https://www.15august.in/23-carat-gold-price-lucknow/">23k Gold Price in Lucknow</a></li>
+		<li id="menu-item-17616" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-17616"><a href="https://www.15august.in/23-carat-gold-price-ludhiana/">23k Gold Price in Ludhiana</a></li>
+		<li id="menu-item-17617" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-17617"><a href="https://www.15august.in/23-carat-gold-price-maharashtra/">23k Gold Price in Maharashtra</a></li>
+		<li id="menu-item-17618" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-17618"><a href="https://www.15august.in/23-carat-gold-price-meerut/">23k Gold Price in Meerut</a></li>
+		<li id="menu-item-17619" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-17619"><a href="https://www.15august.in/23-carat-gold-price-mumbai/">23k Gold Price in Mumbai</a></li>
+		<li id="menu-item-17620" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-17620"><a href="https://www.15august.in/23-carat-gold-price-nagpur/">23k Gold Price in Nagpur</a></li>
+		<li id="menu-item-17621" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-17621"><a href="https://www.15august.in/23-carat-gold-price-pune/">23k Gold Price in Pune</a></li>
+		<li id="menu-item-17622" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-17622"><a href="https://www.15august.in/23-carat-gold-price-punjab/">23k Gold Price in Punjab</a></li>
+		<li id="menu-item-17623" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-17623"><a href="https://www.15august.in/23-carat-gold-price-raipur/">23k Gold Price in Raipur</a></li>
+		<li id="menu-item-17624" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-17624"><a href="https://www.15august.in/23-carat-gold-price-satna/">23k Gold Price in Satna</a></li>
+		<li id="menu-item-17625" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-17625"><a href="https://www.15august.in/23-carat-gold-price-uttarakhand/">23k Gold Price in Uttarakhand</a></li>
+	</ul>
+</li>
+	<li id="menu-item-2321" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2321"><a href="https://www.15august.in/gold-rate-today-ahmedabad/">Gold Rate in Ahmadabad</a></li>
+	<li id="menu-item-2322" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2322"><a href="https://www.15august.in/today-gold-rate-bhubaneswar/">Gold Rate in Bhubaneswar</a></li>
+	<li id="menu-item-2324" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2324"><a href="https://www.15august.in/today-gold-rate-coimbatore/">Gold Rate in Coimbatore</a></li>
+	<li id="menu-item-2326" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2326"><a href="https://www.15august.in/today-gold-rate-hyderabad/">Gold Rate in Hyderabad</a></li>
+	<li id="menu-item-2327" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2327"><a href="https://www.15august.in/today-gold-rate-jaipur/">Gold Rate in Jaipur</a></li>
+	<li id="menu-item-2328" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2328"><a href="https://www.15august.in/todays-gold-rate-kerala/">Gold Rate in Kerala</a></li>
+	<li id="menu-item-2329" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2329"><a href="https://www.15august.in/today-gold-rate-kolkata/">Gold Rate in Kolkata</a></li>
+	<li id="menu-item-2330" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2330"><a href="https://www.15august.in/today-gold-rate-lucknow/">Gold Rate in Lucknow</a></li>
+	<li id="menu-item-2331" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2331"><a href="https://www.15august.in/today-gold-rate-mumbai/">Gold Rate in Mumbai</a></li>
+	<li id="menu-item-2333" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2333"><a href="https://www.15august.in/today-gold-rate-nashik/">Gold Rate in Nashik</a></li>
+	<li id="menu-item-2334" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2334"><a href="https://www.15august.in/today-gold-rate-patna/">Gold Rate in Patna</a></li>
+	<li id="menu-item-2336" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2336"><a href="https://www.15august.in/today-gold-rate-surat/">Gold Rate in Surat</a></li>
+	<li id="menu-item-2337" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2337"><a href="https://www.15august.in/gold-rate-today-vadodara/">Gold Rate in Vadodara</a></li>
+	<li id="menu-item-2416" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2416"><a href="https://www.15august.in/today-gold-rate-madurai/">Gold Rate in Madurai</a></li>
+	<li id="menu-item-2417" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2417"><a href="https://www.15august.in/todays-gold-rate-chennai/">Gold Rate in Chennai</a></li>
+	<li id="menu-item-2418" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2418"><a href="https://www.15august.in/todays-gold-rate-mysore/">Gold Rate in Mysore</a></li>
+	<li id="menu-item-6352" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-6352"><a href="https://www.15august.in/gold-rate-mangalore/">Gold Rate in Mangalore</a></li>
+	<li id="menu-item-2420" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2420"><a href="https://www.15august.in/todays-gold-rate-bangalore/">Gold Rate in Bangalore</a></li>
+	<li id="menu-item-6353" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-6353"><a href="https://www.15august.in/gold-rate-chandigarh/">Gold Rate in Chandigarh</a></li>
+	<li id="menu-item-6211" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-6211"><a href="https://www.15august.in/gold-rate-pune/">Gold Rate in Pune</a></li>
+	<li id="menu-item-6213" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-6213"><a href="https://www.15august.in/gold-rate-delhi/">Gold Rate in Delhi</a></li>
+	<li id="menu-item-6212" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-6212"><a href="https://www.15august.in/gold-rate-vijayawada/">Gold Rate in Vijayawada</a></li>
+	<li id="menu-item-6354" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-6354"><a href="https://www.15august.in/gold-rate-nagpur/">Gold Rate in Nagpur</a></li>
+	<li id="menu-item-6351" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-6351"><a href="https://www.15august.in/today-gold-rate-visakhapatnam/">Gold Rate in Vizag</a></li>
+</ul>
+</li>
+<li id="menu-item-2347" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children menu-item-2347"><a href="https://www.15august.in/business-india/">Business India</a><button class="main-navigation-arrow-btn" aria-expanded="false"><span class="screen-reader-text">Toggle sub-menu</span><svg class="svg-icon" width="24" height="24" aria-hidden="true" role="img" focusable="false" viewBox="53.0 0 1558.0 2048" xmlns="http://www.w3.org/2000/svg"><path d="M1611,832c0,35.333-12.333,65.333-37,90l-651,651c-25.333,25.333-55.667,38-91,38c-36,0-66-12.667-90-38L91,922  c-25.333-24-38-54-38-90c0-35.333,12.667-65.667,38-91l74-75c26-24.667,56.333-37,91-37c35.333,0,65.333,12.333,90,37l486,486  l486-486c24.667-24.667,54.667-37,90-37c34.667,0,65,12.333,91,37l75,75C1598.667,767,1611,797.333,1611,832z" /></svg></button>
+<ul class="sub-menu">
+	<li id="menu-item-2348" class="menu-item menu-item-type-post_type menu-item-object-post menu-item-2348"><a href="https://www.15august.in/small-business-ideas-with-low-investment/">33 Small Business Ideas</a></li>
+	<li id="menu-item-2349" class="menu-item menu-item-type-post_type menu-item-object-post menu-item-2349"><a href="https://www.15august.in/small-business-ideas-delhi/">Business Ideas In Delhi</a></li>
+	<li id="menu-item-2350" class="menu-item menu-item-type-post_type menu-item-object-post menu-item-2350"><a href="https://www.15august.in/best-business-ideas-in-bangalore/">Business Ideas In Bangalore</a></li>
+	<li id="menu-item-2351" class="menu-item menu-item-type-post_type menu-item-object-post menu-item-2351"><a href="https://www.15august.in/best-small-business-ideas-hyderabad/">Business Ideas In Hyderabad</a></li>
+	<li id="menu-item-2352" class="menu-item menu-item-type-post_type menu-item-object-post menu-item-2352"><a href="https://www.15august.in/business-ideas-for-women/">Business Ideas for Women</a></li>
+	<li id="menu-item-2353" class="menu-item menu-item-type-post_type menu-item-object-post menu-item-2353"><a href="https://www.15august.in/small-business-starts-with-investment-10000/">Business Starts Rs.10000</a></li>
+	<li id="menu-item-2354" class="menu-item menu-item-type-post_type menu-item-object-post menu-item-2354"><a href="https://www.15august.in/best-online-business-ideas/">Unique Online Business</a></li>
+	<li id="menu-item-2355" class="menu-item menu-item-type-post_type menu-item-object-post menu-item-2355"><a href="https://www.15august.in/passive-income-ideas-extra-income/">Passive Income Ideas</a></li>
+</ul>
+</li>
+<li id="menu-item-3507" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-3507"><a href="https://www.15august.in/platinum-price-india/">Platinum Price in India</a><button class="main-navigation-arrow-btn" aria-expanded="false"><span class="screen-reader-text">Toggle sub-menu</span><svg class="svg-icon" width="24" height="24" aria-hidden="true" role="img" focusable="false" viewBox="53.0 0 1558.0 2048" xmlns="http://www.w3.org/2000/svg"><path d="M1611,832c0,35.333-12.333,65.333-37,90l-651,651c-25.333,25.333-55.667,38-91,38c-36,0-66-12.667-90-38L91,922  c-25.333-24-38-54-38-90c0-35.333,12.667-65.667,38-91l74-75c26-24.667,56.333-37,91-37c35.333,0,65.333,12.333,90,37l486,486  l486-486c24.667-24.667,54.667-37,90-37c34.667,0,65,12.333,91,37l75,75C1598.667,767,1611,797.333,1611,832z" /></svg></button>
+<ul class="sub-menu">
+	<li id="menu-item-3508" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3508"><a href="https://www.15august.in/platinum-price-ahmedabad/">Platinum Price in Ahmedabad</a></li>
+	<li id="menu-item-3510" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3510"><a href="https://www.15august.in/platinum-price-bhubaneswar/">Platinum Price in Bhubaneswar</a></li>
+	<li id="menu-item-3516" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3516"><a href="https://www.15august.in/platinum-price-chandigarh/">Platinum Price in Chandigarh</a></li>
+	<li id="menu-item-3518" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3518"><a href="https://www.15august.in/platinum-price-visakhapatnam/">Platinum Price in Vizag</a></li>
+	<li id="menu-item-3509" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3509"><a href="https://www.15august.in/platinum-price-bengaluru/">Platinum Price in Bangalore</a></li>
+	<li id="menu-item-3514" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3514"><a href="https://www.15august.in/platinum-price-chennai/">Platinum Price in Chennai</a></li>
+	<li id="menu-item-3515" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3515"><a href="https://www.15august.in/platinum-price-delhi/">Platinum Price in Delhi</a></li>
+	<li id="menu-item-3512" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3512"><a href="https://www.15august.in/platinum-price-hyderabad/">Platinum Price in Hyderabad</a></li>
+	<li id="menu-item-3513" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3513"><a href="https://www.15august.in/platinum-price-kerala/">Platinum Price in Kerala</a></li>
+	<li id="menu-item-3511" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3511"><a href="https://www.15august.in/platinum-price-kolkata/">Platinum Price in Kolkata</a></li>
+	<li id="menu-item-3517" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3517"><a href="https://www.15august.in/platinum-price-lucknow/">Platinum Price in Lucknow</a></li>
+	<li id="menu-item-3519" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3519"><a href="https://www.15august.in/platinum-price-mumbai/">Platinum Price in Mumbai</a></li>
+</ul>
+</li>
+<li id="menu-item-15211" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-15211"><a href="https://www.15august.in/petrol-price-in-india/">Petrol Price In India</a><button class="main-navigation-arrow-btn" aria-expanded="false"><span class="screen-reader-text">Toggle sub-menu</span><svg class="svg-icon" width="24" height="24" aria-hidden="true" role="img" focusable="false" viewBox="53.0 0 1558.0 2048" xmlns="http://www.w3.org/2000/svg"><path d="M1611,832c0,35.333-12.333,65.333-37,90l-651,651c-25.333,25.333-55.667,38-91,38c-36,0-66-12.667-90-38L91,922  c-25.333-24-38-54-38-90c0-35.333,12.667-65.667,38-91l74-75c26-24.667,56.333-37,91-37c35.333,0,65.333,12.333,90,37l486,486  l486-486c24.667-24.667,54.667-37,90-37c34.667,0,65,12.333,91,37l75,75C1598.667,767,1611,797.333,1611,832z" /></svg></button>
+<ul class="sub-menu">
+	<li id="menu-item-15214" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-15214"><a href="https://www.15august.in/petrol-price-in-ahmedabad/">Petrol Price in Ahmedabad</a></li>
+	<li id="menu-item-15215" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-15215"><a href="https://www.15august.in/petrol-price-in-jaipur/">Petrol Price in Jaipur</a></li>
+	<li id="menu-item-15220" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-15220"><a href="https://www.15august.in/petrol-price-in-bangalore/">Petrol Price in Bangalore</a></li>
+	<li id="menu-item-15218" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-15218"><a href="https://www.15august.in/petrol-price-in-chennai/">Petrol Price in Chennai</a></li>
+	<li id="menu-item-15221" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-15221"><a href="https://www.15august.in/petrol-price-in-new-delhi/">Petrol Price in New Delhi</a></li>
+	<li id="menu-item-15219" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-15219"><a href="https://www.15august.in/petrol-price-in-hyderabad/">Petrol Price in Hyderabad</a></li>
+	<li id="menu-item-15212" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-15212"><a href="https://www.15august.in/petrol-price-in-kolkata/">Petrol Price in Kolkata</a></li>
+	<li id="menu-item-15217" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-15217"><a href="https://www.15august.in/petrol-price-in-mumbai/">Petrol Price in Mumbai</a></li>
+	<li id="menu-item-15213" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-15213"><a href="https://www.15august.in/petrol-price-in-patna/">Petrol Price in Patna</a></li>
+	<li id="menu-item-15216" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-15216"><a href="https://www.15august.in/petrol-price-in-pune/">Petrol Price in Pune</a></li>
+</ul>
+</li>
+<li id="menu-item-17366" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-17366"><a>Diamond Rate in India</a><button class="main-navigation-arrow-btn" aria-expanded="false"><span class="screen-reader-text">Toggle sub-menu</span><svg class="svg-icon" width="24" height="24" aria-hidden="true" role="img" focusable="false" viewBox="53.0 0 1558.0 2048" xmlns="http://www.w3.org/2000/svg"><path d="M1611,832c0,35.333-12.333,65.333-37,90l-651,651c-25.333,25.333-55.667,38-91,38c-36,0-66-12.667-90-38L91,922  c-25.333-24-38-54-38-90c0-35.333,12.667-65.667,38-91l74-75c26-24.667,56.333-37,91-37c35.333,0,65.333,12.333,90,37l486,486  l486-486c24.667-24.667,54.667-37,90-37c34.667,0,65,12.333,91,37l75,75C1598.667,767,1611,797.333,1611,832z" /></svg></button>
+<ul class="sub-menu">
+	<li id="menu-item-17367" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-17367"><a href="https://www.15august.in/diamond-rate-bangalore/">Diamond Rate in Bangalore</a></li>
+	<li id="menu-item-17368" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-17368"><a href="https://www.15august.in/diamond-rate-chennai/">Diamond Rate in Chennai</a></li>
+	<li id="menu-item-17369" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-17369"><a href="https://www.15august.in/diamond-rate-delhi/">Diamond Rate in Delhi</a></li>
+	<li id="menu-item-17370" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-17370"><a href="https://www.15august.in/diamond-rate-guwahati/">Diamond Rate in Guwahati</a></li>
+	<li id="menu-item-17371" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-17371"><a href="https://www.15august.in/diamond-rate-hyderabad/">Diamond Rate in Hyderabad</a></li>
+	<li id="menu-item-17372" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-17372"><a href="https://www.15august.in/diamond-rate-kanpur/">Diamond Rate in Kanpur</a></li>
+	<li id="menu-item-17373" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-17373"><a href="https://www.15august.in/diamond-rate-karnataka/">Diamond Rate in Karnataka</a></li>
+	<li id="menu-item-17374" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-17374"><a href="https://www.15august.in/diamond-rate-kerala/">Diamond Rate in Kerala</a></li>
+	<li id="menu-item-17375" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-17375"><a href="https://www.15august.in/diamond-rate-kolkata/">Diamond Rate in Kolkata</a></li>
+	<li id="menu-item-17376" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-17376"><a href="https://www.15august.in/diamond-rate-lucknow/">Diamond Rate in Lucknow</a></li>
+	<li id="menu-item-17377" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-17377"><a href="https://www.15august.in/diamond-rate-maharashtra/">Diamond Rate in Maharashtra</a></li>
+	<li id="menu-item-17378" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-17378"><a href="https://www.15august.in/diamond-rate-mumbai/">Diamond Rate in Mumbai</a></li>
+	<li id="menu-item-17379" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-17379"><a href="https://www.15august.in/diamond-rate-patna/">Diamond Rate in Patna</a></li>
+	<li id="menu-item-17380" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-17380"><a href="https://www.15august.in/diamond-rate-pune/">Diamond Rate in Pune</a></li>
+	<li id="menu-item-17381" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-17381"><a href="https://www.15august.in/diamond-rate-tamil-nadu/">Diamond Rate in Tamil nadu</a></li>
+	<li id="menu-item-17382" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-17382"><a href="https://www.15august.in/diamond-rate-uttar-pradesh/">Diamond Rate in Uttar pradesh</a></li>
+</ul>
+</li>
+<li class="primary-menu-search"><a href="#" class="primary-menu-search-toggle" aria-expanded="false"><span class="screen-reader-text">Toggle search form</span><svg class="svg-icon" width="24" height="24" aria-hidden="true" role="img" focusable="false" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1216 832q0-185-131.5-316.5t-316.5-131.5-316.5 131.5-131.5 316.5 131.5 316.5 316.5 131.5 316.5-131.5 131.5-316.5zm512 832q0 52-38 90t-90 38q-54 0-90-38l-343-342q-179 124-399 124-143 0-273.5-55.5t-225-150-150-225-55.5-273.5 55.5-273.5 150-225 225-150 273.5-55.5 273.5 55.5 225 150 150 225 55.5 273.5q0 220-124 399l343 343q37 37 37 90z" /></svg><svg class="svg-icon" width="24" height="24" aria-hidden="true" role="img" focusable="false" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1490 1322q0 40-28 68l-136 136q-28 28-68 28t-68-28l-294-294-294 294q-28 28-68 28t-68-28l-136-136q-28-28-28-68t28-68l294-294-294-294q-28-28-28-68t28-68l136-136q28-28 68-28t68 28l294 294 294-294q28-28 68-28t68 28l136 136q28 28 28 68t-28 68l-294 294 294 294q28 28 28 68z" /></svg></a><div class="search-form-wrap"><form role="search" method="get" class="search-form" action="https://www.15august.in/">
+				<label>
+					<span class="screen-reader-text">Search for:</span>
+					<input type="search" class="search-field" placeholder="Search &hellip;" value="" name="s" />
+				</label>
+				<input type="submit" class="search-submit" value="Search" />
+			</form></div></li></ul></div>			</nav><!-- #site-navigation -->
+		</div><!-- .primary-navbar-wrap -->
+	</div><!-- .primary-navbar -->
+		</header><!-- #masthead -->
+
+	<div id="content" class="site-content">
+
+	<div class="pb-content-sidebar u-wrapper">
+		<main id="primary" class="site-main">
+
+		
+<article id="post-25006" class="pb-article pb-archive post-25006 post type-post status-publish format-standard hentry category-help-india">
+	<header class="entry-header">
+	<h2 class="entry-title"><a href="https://www.15august.in/pro-kabaddi-auction/" rel="bookmark">Most Expensive Player in Pro Kabaddi 10 &#8211; Pro Kabaddi 2023 Auction</a></h2>		<div class="entry-meta">
+					<span class="posted-on">
+			<svg class="svg-icon" width="24" height="24" aria-hidden="true" role="img" focusable="false" viewBox="0.0 0 1664.0 2048" xmlns="http://www.w3.org/2000/svg"><path d="M128,1792h1408V768H128V1792z M512,576V288c0-9.333-3-17-9-23s-13.667-9-23-9h-64c-9.333,0-17,3-23,9s-9,13.667-9,23v288  c0,9.333,3,17,9,23s13.667,9,23,9h64c9.333,0,17-3,23-9S512,585.333,512,576z M1280,576V288c0-9.333-3-17-9-23s-13.667-9-23-9h-64  c-9.333,0-17,3-23,9s-9,13.667-9,23v288c0,9.333,3,17,9,23s13.667,9,23,9h64c9.333,0,17-3,23-9S1280,585.333,1280,576z M1664,512  v1280c0,34.667-12.667,64.667-38,90s-55.333,38-90,38H128c-34.667,0-64.667-12.667-90-38s-38-55.333-38-90V512  c0-34.667,12.667-64.667,38-90s55.333-38,90-38h128v-96c0-44,15.667-81.667,47-113s69-47,113-47h64c44,0,81.667,15.667,113,47  s47,69,47,113v96h384v-96c0-44,15.667-81.667,47-113s69-47,113-47h64c44,0,81.667,15.667,113,47s47,69,47,113v96h128  c34.667,0,64.667,12.667,90,38S1664,477.333,1664,512z" /></svg>			<a href="https://www.15august.in/pro-kabaddi-auction/" rel="bookmark">
+				<span class="screen-reader-text">Posted on </span><time class="entry-date published" datetime="2023-10-10T10:58:15+05:30">October 10, 2023</time><time class="updated" datetime="2023-10-12T11:51:58+05:30">October 12, 2023</time>			</a>
+		</span><!-- .posted-on -->
+				<span class="posted-by byline">
+			<svg class="svg-icon" width="24" height="24" aria-hidden="true" role="img" focusable="false" viewBox="0.0 0 1408.0 2048" xmlns="http://www.w3.org/2000/svg"><path d="M1408,1533c0,80-24.333,143.167-73,189.5s-113.333,69.5-194,69.5H267c-80.667,0-145.333-23.167-194-69.5S0,1613,0,1533  c0-35.333,1.167-69.833,3.5-103.5s7-70,14-109S33.333,1245.333,44,1212s25-65.833,43-97.5s38.667-58.667,62-81  c23.333-22.333,51.833-40.167,85.5-53.5s70.833-20,111.5-20c6,0,20,7.167,42,21.5s46.833,30.333,74.5,48  c27.667,17.667,63.667,33.667,108,48S659.333,1099,704,1099s89.167-7.167,133.5-21.5s80.333-30.333,108-48  c27.667-17.667,52.5-33.667,74.5-48s36-21.5,42-21.5c40.667,0,77.833,6.667,111.5,20s62.167,31.167,85.5,53.5  c23.333,22.333,44,49.333,62,81s32.333,64.167,43,97.5s19.5,69.5,26.5,108.5s11.667,75.333,14,109S1408,1497.667,1408,1533z   M1088,640c0,106-37.5,196.5-112.5,271.5S810,1024,704,1024s-196.5-37.5-271.5-112.5S320,746,320,640s37.5-196.5,112.5-271.5  S598,256,704,256s196.5,37.5,271.5,112.5S1088,534,1088,640z"></path></svg>			<a href="https://www.15august.in/author/indiashine/">
+				<span class="screen-reader-text">By </span>indiashine			</a>
+		</span><!-- .posted-by -->
+				</div><!-- .entry-meta -->
+			</header><!-- .entry-header -->
+
+		<div class="pb-content">
+				<div class="entry-summary">
+			<p>The Pro Kabbadi Season 10 auction is all set to be held on the 9th and 10th of October. At the end of the most awaited auction, PKL 10 will get the name of its most expensive player in Pro Kabaddi 2023.  So far, from the highlights of the first day of the auction, we&#8230;</p>
+<p class="more-link-wrap"><a href="https://www.15august.in/pro-kabaddi-auction/" class="more-link">Read More<span class="screen-reader-text"> &ldquo;Most Expensive Player in Pro Kabaddi 10 &#8211; Pro Kabaddi 2023 Auction&rdquo;</span> &raquo;</a></p>
+		</div><!-- .entry-summary -->
+				</div><!-- .pb-content -->
+					<span class="cat-links">
+				<svg class="svg-icon" width="24" height="24" aria-hidden="true" role="img" focusable="false" viewBox="0.0 0 1879.0 2048" xmlns="http://www.w3.org/2000/svg"><path d="M1879,1080c0,20.667-10.333,42.667-31,66l-336,396c-28.667,34-68.833,62.833-120.5,86.5S1292,1664,1248,1664H160  c-22.667,0-42.833-4.333-60.5-13S73,1628,73,1608c0-20.667,10.333-42.667,31-66l336-396c28.667-34,68.833-62.833,120.5-86.5  S660,1024,704,1024h1088c22.667,0,42.833,4.333,60.5,13S1879,1060,1879,1080z M1536,736v160H704c-62.667,0-128.333,15.833-197,47.5  S383.667,1015,343,1063L6,1459l-5,6c0-2.667-0.167-6.833-0.5-12.5S0,1442.667,0,1440V480c0-61.333,22-114,66-158s96.667-66,158-66  h320c61.333,0,114,22,158,66s66,96.667,66,158v32h544c61.333,0,114,22,158,66S1536,674.667,1536,736z" /></svg><a href="https://www.15august.in/help-india/" rel="category tag">Help India</a>			</span><!-- .cat-links -->
+			</article><!-- #post-25006 -->
+
+<article id="post-24802" class="pb-article pb-archive post-24802 post type-post status-publish format-standard hentry category-business-india">
+	<header class="entry-header">
+	<h2 class="entry-title"><a href="https://www.15august.in/fortune-mart-franchise-cost/" rel="bookmark">Fortune Mart Franchise Cost in India 2023 – How To Apply Guide!</a></h2>		<div class="entry-meta">
+					<span class="posted-on">
+			<svg class="svg-icon" width="24" height="24" aria-hidden="true" role="img" focusable="false" viewBox="0.0 0 1664.0 2048" xmlns="http://www.w3.org/2000/svg"><path d="M128,1792h1408V768H128V1792z M512,576V288c0-9.333-3-17-9-23s-13.667-9-23-9h-64c-9.333,0-17,3-23,9s-9,13.667-9,23v288  c0,9.333,3,17,9,23s13.667,9,23,9h64c9.333,0,17-3,23-9S512,585.333,512,576z M1280,576V288c0-9.333-3-17-9-23s-13.667-9-23-9h-64  c-9.333,0-17,3-23,9s-9,13.667-9,23v288c0,9.333,3,17,9,23s13.667,9,23,9h64c9.333,0,17-3,23-9S1280,585.333,1280,576z M1664,512  v1280c0,34.667-12.667,64.667-38,90s-55.333,38-90,38H128c-34.667,0-64.667-12.667-90-38s-38-55.333-38-90V512  c0-34.667,12.667-64.667,38-90s55.333-38,90-38h128v-96c0-44,15.667-81.667,47-113s69-47,113-47h64c44,0,81.667,15.667,113,47  s47,69,47,113v96h384v-96c0-44,15.667-81.667,47-113s69-47,113-47h64c44,0,81.667,15.667,113,47s47,69,47,113v96h128  c34.667,0,64.667,12.667,90,38S1664,477.333,1664,512z" /></svg>			<a href="https://www.15august.in/fortune-mart-franchise-cost/" rel="bookmark">
+				<span class="screen-reader-text">Posted on </span><time class="entry-date published" datetime="2023-09-30T15:26:06+05:30">September 30, 2023</time><time class="updated" datetime="2023-09-30T15:31:29+05:30">September 30, 2023</time>			</a>
+		</span><!-- .posted-on -->
+				<span class="posted-by byline">
+			<svg class="svg-icon" width="24" height="24" aria-hidden="true" role="img" focusable="false" viewBox="0.0 0 1408.0 2048" xmlns="http://www.w3.org/2000/svg"><path d="M1408,1533c0,80-24.333,143.167-73,189.5s-113.333,69.5-194,69.5H267c-80.667,0-145.333-23.167-194-69.5S0,1613,0,1533  c0-35.333,1.167-69.833,3.5-103.5s7-70,14-109S33.333,1245.333,44,1212s25-65.833,43-97.5s38.667-58.667,62-81  c23.333-22.333,51.833-40.167,85.5-53.5s70.833-20,111.5-20c6,0,20,7.167,42,21.5s46.833,30.333,74.5,48  c27.667,17.667,63.667,33.667,108,48S659.333,1099,704,1099s89.167-7.167,133.5-21.5s80.333-30.333,108-48  c27.667-17.667,52.5-33.667,74.5-48s36-21.5,42-21.5c40.667,0,77.833,6.667,111.5,20s62.167,31.167,85.5,53.5  c23.333,22.333,44,49.333,62,81s32.333,64.167,43,97.5s19.5,69.5,26.5,108.5s11.667,75.333,14,109S1408,1497.667,1408,1533z   M1088,640c0,106-37.5,196.5-112.5,271.5S810,1024,704,1024s-196.5-37.5-271.5-112.5S320,746,320,640s37.5-196.5,112.5-271.5  S598,256,704,256s196.5,37.5,271.5,112.5S1088,534,1088,640z"></path></svg>			<a href="https://www.15august.in/author/indiashine/">
+				<span class="screen-reader-text">By </span>indiashine			</a>
+		</span><!-- .posted-by -->
+				</div><!-- .entry-meta -->
+			</header><!-- .entry-header -->
+
+		<div class="pb-content">
+				<div class="entry-summary">
+			<p>In 2000, the Fortune Mart franchise was established. The core motive of the company was to cater to the customer with premium quality edible oils. This is why when it comes to cooking oil, this one has been able to make some significant noise in the market. The owner of the franchise is Adani Wilmar. It&#8230;</p>
+<p class="more-link-wrap"><a href="https://www.15august.in/fortune-mart-franchise-cost/" class="more-link">Read More<span class="screen-reader-text"> &ldquo;Fortune Mart Franchise Cost in India 2023 – How To Apply Guide!&rdquo;</span> &raquo;</a></p>
+		</div><!-- .entry-summary -->
+				</div><!-- .pb-content -->
+					<span class="cat-links">
+				<svg class="svg-icon" width="24" height="24" aria-hidden="true" role="img" focusable="false" viewBox="0.0 0 1879.0 2048" xmlns="http://www.w3.org/2000/svg"><path d="M1879,1080c0,20.667-10.333,42.667-31,66l-336,396c-28.667,34-68.833,62.833-120.5,86.5S1292,1664,1248,1664H160  c-22.667,0-42.833-4.333-60.5-13S73,1628,73,1608c0-20.667,10.333-42.667,31-66l336-396c28.667-34,68.833-62.833,120.5-86.5  S660,1024,704,1024h1088c22.667,0,42.833,4.333,60.5,13S1879,1060,1879,1080z M1536,736v160H704c-62.667,0-128.333,15.833-197,47.5  S383.667,1015,343,1063L6,1459l-5,6c0-2.667-0.167-6.833-0.5-12.5S0,1442.667,0,1440V480c0-61.333,22-114,66-158s96.667-66,158-66  h320c61.333,0,114,22,158,66s66,96.667,66,158v32h544c61.333,0,114,22,158,66S1536,674.667,1536,736z" /></svg><a href="https://www.15august.in/business-india/" rel="category tag">Business India</a>			</span><!-- .cat-links -->
+			</article><!-- #post-24802 -->
+
+<article id="post-736" class="pb-article pb-archive post-736 post type-post status-publish format-standard hentry category-government-policy category-government-scheme">
+	<header class="entry-header">
+	<h2 class="entry-title"><a href="https://www.15august.in/vibrant-gujarat-summit/" rel="bookmark">Vibrant Gujarat Summit 2024 &#8211; Events, Registration Information</a></h2>		<div class="entry-meta">
+					<span class="posted-on">
+			<svg class="svg-icon" width="24" height="24" aria-hidden="true" role="img" focusable="false" viewBox="0.0 0 1664.0 2048" xmlns="http://www.w3.org/2000/svg"><path d="M128,1792h1408V768H128V1792z M512,576V288c0-9.333-3-17-9-23s-13.667-9-23-9h-64c-9.333,0-17,3-23,9s-9,13.667-9,23v288  c0,9.333,3,17,9,23s13.667,9,23,9h64c9.333,0,17-3,23-9S512,585.333,512,576z M1280,576V288c0-9.333-3-17-9-23s-13.667-9-23-9h-64  c-9.333,0-17,3-23,9s-9,13.667-9,23v288c0,9.333,3,17,9,23s13.667,9,23,9h64c9.333,0,17-3,23-9S1280,585.333,1280,576z M1664,512  v1280c0,34.667-12.667,64.667-38,90s-55.333,38-90,38H128c-34.667,0-64.667-12.667-90-38s-38-55.333-38-90V512  c0-34.667,12.667-64.667,38-90s55.333-38,90-38h128v-96c0-44,15.667-81.667,47-113s69-47,113-47h64c44,0,81.667,15.667,113,47  s47,69,47,113v96h384v-96c0-44,15.667-81.667,47-113s69-47,113-47h64c44,0,81.667,15.667,113,47s47,69,47,113v96h128  c34.667,0,64.667,12.667,90,38S1664,477.333,1664,512z" /></svg>			<a href="https://www.15august.in/vibrant-gujarat-summit/" rel="bookmark">
+				<span class="screen-reader-text">Posted on </span><time class="entry-date published" datetime="2023-09-26T01:01:00+05:30">September 26, 2023</time><time class="updated" datetime="2023-09-26T17:02:41+05:30">September 26, 2023</time>			</a>
+		</span><!-- .posted-on -->
+				<span class="posted-by byline">
+			<svg class="svg-icon" width="24" height="24" aria-hidden="true" role="img" focusable="false" viewBox="0.0 0 1408.0 2048" xmlns="http://www.w3.org/2000/svg"><path d="M1408,1533c0,80-24.333,143.167-73,189.5s-113.333,69.5-194,69.5H267c-80.667,0-145.333-23.167-194-69.5S0,1613,0,1533  c0-35.333,1.167-69.833,3.5-103.5s7-70,14-109S33.333,1245.333,44,1212s25-65.833,43-97.5s38.667-58.667,62-81  c23.333-22.333,51.833-40.167,85.5-53.5s70.833-20,111.5-20c6,0,20,7.167,42,21.5s46.833,30.333,74.5,48  c27.667,17.667,63.667,33.667,108,48S659.333,1099,704,1099s89.167-7.167,133.5-21.5s80.333-30.333,108-48  c27.667-17.667,52.5-33.667,74.5-48s36-21.5,42-21.5c40.667,0,77.833,6.667,111.5,20s62.167,31.167,85.5,53.5  c23.333,22.333,44,49.333,62,81s32.333,64.167,43,97.5s19.5,69.5,26.5,108.5s11.667,75.333,14,109S1408,1497.667,1408,1533z   M1088,640c0,106-37.5,196.5-112.5,271.5S810,1024,704,1024s-196.5-37.5-271.5-112.5S320,746,320,640s37.5-196.5,112.5-271.5  S598,256,704,256s196.5,37.5,271.5,112.5S1088,534,1088,640z"></path></svg>			<a href="https://www.15august.in/author/indiashine/">
+				<span class="screen-reader-text">By </span>indiashine			</a>
+		</span><!-- .posted-by -->
+				</div><!-- .entry-meta -->
+			</header><!-- .entry-header -->
+
+		<div class="pb-content">
+				<div class="entry-summary">
+			<p>www.vibrantgujarat.com &#8211; Do you know what vibrant Gujarat Summit 2024 is? It is the name given to a biennial investor’s summit held by the government of Gujarat in Gujarat state. You must be wondering what the aim of the vibrant summit is. The event is intended to bring together business leaders, investors, corporations, policy, and&#8230;</p>
+<p class="more-link-wrap"><a href="https://www.15august.in/vibrant-gujarat-summit/" class="more-link">Read More<span class="screen-reader-text"> &ldquo;Vibrant Gujarat Summit 2024 &#8211; Events, Registration Information&rdquo;</span> &raquo;</a></p>
+		</div><!-- .entry-summary -->
+				</div><!-- .pb-content -->
+					<span class="cat-links">
+				<svg class="svg-icon" width="24" height="24" aria-hidden="true" role="img" focusable="false" viewBox="0.0 0 1879.0 2048" xmlns="http://www.w3.org/2000/svg"><path d="M1879,1080c0,20.667-10.333,42.667-31,66l-336,396c-28.667,34-68.833,62.833-120.5,86.5S1292,1664,1248,1664H160  c-22.667,0-42.833-4.333-60.5-13S73,1628,73,1608c0-20.667,10.333-42.667,31-66l336-396c28.667-34,68.833-62.833,120.5-86.5  S660,1024,704,1024h1088c22.667,0,42.833,4.333,60.5,13S1879,1060,1879,1080z M1536,736v160H704c-62.667,0-128.333,15.833-197,47.5  S383.667,1015,343,1063L6,1459l-5,6c0-2.667-0.167-6.833-0.5-12.5S0,1442.667,0,1440V480c0-61.333,22-114,66-158s96.667-66,158-66  h320c61.333,0,114,22,158,66s66,96.667,66,158v32h544c61.333,0,114,22,158,66S1536,674.667,1536,736z" /></svg><a href="https://www.15august.in/government-policy/" rel="category tag">Government Policy</a>, <a href="https://www.15august.in/government-scheme/" rel="category tag">Government Scheme</a>			</span><!-- .cat-links -->
+			</article><!-- #post-736 -->
+
+<article id="post-24677" class="pb-article pb-archive post-24677 post type-post status-publish format-standard hentry category-business-india">
+	<header class="entry-header">
+	<h2 class="entry-title"><a href="https://www.15august.in/mio-amore-bar-franchise-cost/" rel="bookmark">Mio Amore Franchise Cost in India 2023 – How To Apply Guide!</a></h2>		<div class="entry-meta">
+					<span class="posted-on">
+			<svg class="svg-icon" width="24" height="24" aria-hidden="true" role="img" focusable="false" viewBox="0.0 0 1664.0 2048" xmlns="http://www.w3.org/2000/svg"><path d="M128,1792h1408V768H128V1792z M512,576V288c0-9.333-3-17-9-23s-13.667-9-23-9h-64c-9.333,0-17,3-23,9s-9,13.667-9,23v288  c0,9.333,3,17,9,23s13.667,9,23,9h64c9.333,0,17-3,23-9S512,585.333,512,576z M1280,576V288c0-9.333-3-17-9-23s-13.667-9-23-9h-64  c-9.333,0-17,3-23,9s-9,13.667-9,23v288c0,9.333,3,17,9,23s13.667,9,23,9h64c9.333,0,17-3,23-9S1280,585.333,1280,576z M1664,512  v1280c0,34.667-12.667,64.667-38,90s-55.333,38-90,38H128c-34.667,0-64.667-12.667-90-38s-38-55.333-38-90V512  c0-34.667,12.667-64.667,38-90s55.333-38,90-38h128v-96c0-44,15.667-81.667,47-113s69-47,113-47h64c44,0,81.667,15.667,113,47  s47,69,47,113v96h384v-96c0-44,15.667-81.667,47-113s69-47,113-47h64c44,0,81.667,15.667,113,47s47,69,47,113v96h128  c34.667,0,64.667,12.667,90,38S1664,477.333,1664,512z" /></svg>			<a href="https://www.15august.in/mio-amore-bar-franchise-cost/" rel="bookmark">
+				<span class="screen-reader-text">Posted on </span><time class="entry-date published" datetime="2023-09-23T12:19:50+05:30">September 23, 2023</time><time class="updated" datetime="2023-09-23T12:20:56+05:30">September 23, 2023</time>			</a>
+		</span><!-- .posted-on -->
+				<span class="posted-by byline">
+			<svg class="svg-icon" width="24" height="24" aria-hidden="true" role="img" focusable="false" viewBox="0.0 0 1408.0 2048" xmlns="http://www.w3.org/2000/svg"><path d="M1408,1533c0,80-24.333,143.167-73,189.5s-113.333,69.5-194,69.5H267c-80.667,0-145.333-23.167-194-69.5S0,1613,0,1533  c0-35.333,1.167-69.833,3.5-103.5s7-70,14-109S33.333,1245.333,44,1212s25-65.833,43-97.5s38.667-58.667,62-81  c23.333-22.333,51.833-40.167,85.5-53.5s70.833-20,111.5-20c6,0,20,7.167,42,21.5s46.833,30.333,74.5,48  c27.667,17.667,63.667,33.667,108,48S659.333,1099,704,1099s89.167-7.167,133.5-21.5s80.333-30.333,108-48  c27.667-17.667,52.5-33.667,74.5-48s36-21.5,42-21.5c40.667,0,77.833,6.667,111.5,20s62.167,31.167,85.5,53.5  c23.333,22.333,44,49.333,62,81s32.333,64.167,43,97.5s19.5,69.5,26.5,108.5s11.667,75.333,14,109S1408,1497.667,1408,1533z   M1088,640c0,106-37.5,196.5-112.5,271.5S810,1024,704,1024s-196.5-37.5-271.5-112.5S320,746,320,640s37.5-196.5,112.5-271.5  S598,256,704,256s196.5,37.5,271.5,112.5S1088,534,1088,640z"></path></svg>			<a href="https://www.15august.in/author/indiashine/">
+				<span class="screen-reader-text">By </span>indiashine			</a>
+		</span><!-- .posted-by -->
+				</div><!-- .entry-meta -->
+			</header><!-- .entry-header -->
+
+		<div class="pb-content">
+				<div class="entry-summary">
+			<p>If you want to open a Mio Amore Franchise but don’t have any idea about the Mio Amore Franchise Cost in India, then this blog is for you! Partnering with Mio Amore, a renowned cake store brand from eastern India, is one of the best franchise business choices you can make if you&#8217;re considering entering&#8230;</p>
+<p class="more-link-wrap"><a href="https://www.15august.in/mio-amore-bar-franchise-cost/" class="more-link">Read More<span class="screen-reader-text"> &ldquo;Mio Amore Franchise Cost in India 2023 – How To Apply Guide!&rdquo;</span> &raquo;</a></p>
+		</div><!-- .entry-summary -->
+				</div><!-- .pb-content -->
+					<span class="cat-links">
+				<svg class="svg-icon" width="24" height="24" aria-hidden="true" role="img" focusable="false" viewBox="0.0 0 1879.0 2048" xmlns="http://www.w3.org/2000/svg"><path d="M1879,1080c0,20.667-10.333,42.667-31,66l-336,396c-28.667,34-68.833,62.833-120.5,86.5S1292,1664,1248,1664H160  c-22.667,0-42.833-4.333-60.5-13S73,1628,73,1608c0-20.667,10.333-42.667,31-66l336-396c28.667-34,68.833-62.833,120.5-86.5  S660,1024,704,1024h1088c22.667,0,42.833,4.333,60.5,13S1879,1060,1879,1080z M1536,736v160H704c-62.667,0-128.333,15.833-197,47.5  S383.667,1015,343,1063L6,1459l-5,6c0-2.667-0.167-6.833-0.5-12.5S0,1442.667,0,1440V480c0-61.333,22-114,66-158s96.667-66,158-66  h320c61.333,0,114,22,158,66s66,96.667,66,158v32h544c61.333,0,114,22,158,66S1536,674.667,1536,736z" /></svg><a href="https://www.15august.in/business-india/" rel="category tag">Business India</a>			</span><!-- .cat-links -->
+			</article><!-- #post-24677 -->
+
+<article id="post-24294" class="pb-article pb-archive post-24294 post type-post status-publish format-standard hentry category-business-india">
+	<header class="entry-header">
+	<h2 class="entry-title"><a href="https://www.15august.in/chai-sutta-bar-franchise-cost/" rel="bookmark">Chai Sutta Bar Franchise Cost in India 2023 – How To Apply Guide</a></h2>		<div class="entry-meta">
+					<span class="posted-on">
+			<svg class="svg-icon" width="24" height="24" aria-hidden="true" role="img" focusable="false" viewBox="0.0 0 1664.0 2048" xmlns="http://www.w3.org/2000/svg"><path d="M128,1792h1408V768H128V1792z M512,576V288c0-9.333-3-17-9-23s-13.667-9-23-9h-64c-9.333,0-17,3-23,9s-9,13.667-9,23v288  c0,9.333,3,17,9,23s13.667,9,23,9h64c9.333,0,17-3,23-9S512,585.333,512,576z M1280,576V288c0-9.333-3-17-9-23s-13.667-9-23-9h-64  c-9.333,0-17,3-23,9s-9,13.667-9,23v288c0,9.333,3,17,9,23s13.667,9,23,9h64c9.333,0,17-3,23-9S1280,585.333,1280,576z M1664,512  v1280c0,34.667-12.667,64.667-38,90s-55.333,38-90,38H128c-34.667,0-64.667-12.667-90-38s-38-55.333-38-90V512  c0-34.667,12.667-64.667,38-90s55.333-38,90-38h128v-96c0-44,15.667-81.667,47-113s69-47,113-47h64c44,0,81.667,15.667,113,47  s47,69,47,113v96h384v-96c0-44,15.667-81.667,47-113s69-47,113-47h64c44,0,81.667,15.667,113,47s47,69,47,113v96h128  c34.667,0,64.667,12.667,90,38S1664,477.333,1664,512z" /></svg>			<a href="https://www.15august.in/chai-sutta-bar-franchise-cost/" rel="bookmark">
+				<span class="screen-reader-text">Posted on </span><time class="entry-date published" datetime="2023-09-02T16:41:04+05:30">September 2, 2023</time><time class="updated" datetime="2023-09-23T12:17:20+05:30">September 23, 2023</time>			</a>
+		</span><!-- .posted-on -->
+				<span class="posted-by byline">
+			<svg class="svg-icon" width="24" height="24" aria-hidden="true" role="img" focusable="false" viewBox="0.0 0 1408.0 2048" xmlns="http://www.w3.org/2000/svg"><path d="M1408,1533c0,80-24.333,143.167-73,189.5s-113.333,69.5-194,69.5H267c-80.667,0-145.333-23.167-194-69.5S0,1613,0,1533  c0-35.333,1.167-69.833,3.5-103.5s7-70,14-109S33.333,1245.333,44,1212s25-65.833,43-97.5s38.667-58.667,62-81  c23.333-22.333,51.833-40.167,85.5-53.5s70.833-20,111.5-20c6,0,20,7.167,42,21.5s46.833,30.333,74.5,48  c27.667,17.667,63.667,33.667,108,48S659.333,1099,704,1099s89.167-7.167,133.5-21.5s80.333-30.333,108-48  c27.667-17.667,52.5-33.667,74.5-48s36-21.5,42-21.5c40.667,0,77.833,6.667,111.5,20s62.167,31.167,85.5,53.5  c23.333,22.333,44,49.333,62,81s32.333,64.167,43,97.5s19.5,69.5,26.5,108.5s11.667,75.333,14,109S1408,1497.667,1408,1533z   M1088,640c0,106-37.5,196.5-112.5,271.5S810,1024,704,1024s-196.5-37.5-271.5-112.5S320,746,320,640s37.5-196.5,112.5-271.5  S598,256,704,256s196.5,37.5,271.5,112.5S1088,534,1088,640z"></path></svg>			<a href="https://www.15august.in/author/indiashine/">
+				<span class="screen-reader-text">By </span>indiashine			</a>
+		</span><!-- .posted-by -->
+				</div><!-- .entry-meta -->
+			</header><!-- .entry-header -->
+
+		<div class="pb-content">
+				<div class="entry-summary">
+			<p>Are you planning to open a Chai Sutta Bar Franchise but are not sure about the Chai Sutta Bar franchise price in India? Don’t worry! We are here to help. We will tell you the Chai Sutta Bar Franchise Cost in this blog! Moreover, we will cover how to get a Chai Sutta Bar Franchise&#8230;</p>
+<p class="more-link-wrap"><a href="https://www.15august.in/chai-sutta-bar-franchise-cost/" class="more-link">Read More<span class="screen-reader-text"> &ldquo;Chai Sutta Bar Franchise Cost in India 2023 – How To Apply Guide&rdquo;</span> &raquo;</a></p>
+		</div><!-- .entry-summary -->
+				</div><!-- .pb-content -->
+					<span class="cat-links">
+				<svg class="svg-icon" width="24" height="24" aria-hidden="true" role="img" focusable="false" viewBox="0.0 0 1879.0 2048" xmlns="http://www.w3.org/2000/svg"><path d="M1879,1080c0,20.667-10.333,42.667-31,66l-336,396c-28.667,34-68.833,62.833-120.5,86.5S1292,1664,1248,1664H160  c-22.667,0-42.833-4.333-60.5-13S73,1628,73,1608c0-20.667,10.333-42.667,31-66l336-396c28.667-34,68.833-62.833,120.5-86.5  S660,1024,704,1024h1088c22.667,0,42.833,4.333,60.5,13S1879,1060,1879,1080z M1536,736v160H704c-62.667,0-128.333,15.833-197,47.5  S383.667,1015,343,1063L6,1459l-5,6c0-2.667-0.167-6.833-0.5-12.5S0,1442.667,0,1440V480c0-61.333,22-114,66-158s96.667-66,158-66  h320c61.333,0,114,22,158,66s66,96.667,66,158v32h544c61.333,0,114,22,158,66S1536,674.667,1536,736z" /></svg><a href="https://www.15august.in/business-india/" rel="category tag">Business India</a>			</span><!-- .cat-links -->
+			</article><!-- #post-24294 -->
+
+<article id="post-24284" class="pb-article pb-archive post-24284 post type-post status-publish format-standard hentry category-government-scheme">
+	<header class="entry-header">
+	<h2 class="entry-title"><a href="https://www.15august.in/gas-cylinder-subsidy-under-ujjwala-yojana/" rel="bookmark">How to Apply For Gas Cylinder Subsidy Under Ujjwala Yojana 2.0?</a></h2>		<div class="entry-meta">
+					<span class="posted-on">
+			<svg class="svg-icon" width="24" height="24" aria-hidden="true" role="img" focusable="false" viewBox="0.0 0 1664.0 2048" xmlns="http://www.w3.org/2000/svg"><path d="M128,1792h1408V768H128V1792z M512,576V288c0-9.333-3-17-9-23s-13.667-9-23-9h-64c-9.333,0-17,3-23,9s-9,13.667-9,23v288  c0,9.333,3,17,9,23s13.667,9,23,9h64c9.333,0,17-3,23-9S512,585.333,512,576z M1280,576V288c0-9.333-3-17-9-23s-13.667-9-23-9h-64  c-9.333,0-17,3-23,9s-9,13.667-9,23v288c0,9.333,3,17,9,23s13.667,9,23,9h64c9.333,0,17-3,23-9S1280,585.333,1280,576z M1664,512  v1280c0,34.667-12.667,64.667-38,90s-55.333,38-90,38H128c-34.667,0-64.667-12.667-90-38s-38-55.333-38-90V512  c0-34.667,12.667-64.667,38-90s55.333-38,90-38h128v-96c0-44,15.667-81.667,47-113s69-47,113-47h64c44,0,81.667,15.667,113,47  s47,69,47,113v96h384v-96c0-44,15.667-81.667,47-113s69-47,113-47h64c44,0,81.667,15.667,113,47s47,69,47,113v96h128  c34.667,0,64.667,12.667,90,38S1664,477.333,1664,512z" /></svg>			<a href="https://www.15august.in/gas-cylinder-subsidy-under-ujjwala-yojana/" rel="bookmark">
+				<span class="screen-reader-text">Posted on </span><time class="entry-date published updated" datetime="2023-09-01T12:47:25+05:30">September 1, 2023</time>			</a>
+		</span><!-- .posted-on -->
+				<span class="posted-by byline">
+			<svg class="svg-icon" width="24" height="24" aria-hidden="true" role="img" focusable="false" viewBox="0.0 0 1408.0 2048" xmlns="http://www.w3.org/2000/svg"><path d="M1408,1533c0,80-24.333,143.167-73,189.5s-113.333,69.5-194,69.5H267c-80.667,0-145.333-23.167-194-69.5S0,1613,0,1533  c0-35.333,1.167-69.833,3.5-103.5s7-70,14-109S33.333,1245.333,44,1212s25-65.833,43-97.5s38.667-58.667,62-81  c23.333-22.333,51.833-40.167,85.5-53.5s70.833-20,111.5-20c6,0,20,7.167,42,21.5s46.833,30.333,74.5,48  c27.667,17.667,63.667,33.667,108,48S659.333,1099,704,1099s89.167-7.167,133.5-21.5s80.333-30.333,108-48  c27.667-17.667,52.5-33.667,74.5-48s36-21.5,42-21.5c40.667,0,77.833,6.667,111.5,20s62.167,31.167,85.5,53.5  c23.333,22.333,44,49.333,62,81s32.333,64.167,43,97.5s19.5,69.5,26.5,108.5s11.667,75.333,14,109S1408,1497.667,1408,1533z   M1088,640c0,106-37.5,196.5-112.5,271.5S810,1024,704,1024s-196.5-37.5-271.5-112.5S320,746,320,640s37.5-196.5,112.5-271.5  S598,256,704,256s196.5,37.5,271.5,112.5S1088,534,1088,640z"></path></svg>			<a href="https://www.15august.in/author/indiashine/">
+				<span class="screen-reader-text">By </span>indiashine			</a>
+		</span><!-- .posted-by -->
+				</div><!-- .entry-meta -->
+			</header><!-- .entry-header -->
+
+		<div class="pb-content">
+				<div class="entry-summary">
+			<p>Pradhan Mantri Ujjwala Yojan 2.0 &#8211; The Ministry of Petroleum and Natural Gas launched the PMUY or Pradhan Mantri Ujjwala Yojana. The whole motive for launching this was that all the households that are under the BPL level enjoy the leverage of LPG connections. Recently under PM Ujjwala Yojana 2.0, the Central Government has increased&#8230;</p>
+<p class="more-link-wrap"><a href="https://www.15august.in/gas-cylinder-subsidy-under-ujjwala-yojana/" class="more-link">Read More<span class="screen-reader-text"> &ldquo;How to Apply For Gas Cylinder Subsidy Under Ujjwala Yojana 2.0?&rdquo;</span> &raquo;</a></p>
+		</div><!-- .entry-summary -->
+				</div><!-- .pb-content -->
+					<span class="cat-links">
+				<svg class="svg-icon" width="24" height="24" aria-hidden="true" role="img" focusable="false" viewBox="0.0 0 1879.0 2048" xmlns="http://www.w3.org/2000/svg"><path d="M1879,1080c0,20.667-10.333,42.667-31,66l-336,396c-28.667,34-68.833,62.833-120.5,86.5S1292,1664,1248,1664H160  c-22.667,0-42.833-4.333-60.5-13S73,1628,73,1608c0-20.667,10.333-42.667,31-66l336-396c28.667-34,68.833-62.833,120.5-86.5  S660,1024,704,1024h1088c22.667,0,42.833,4.333,60.5,13S1879,1060,1879,1080z M1536,736v160H704c-62.667,0-128.333,15.833-197,47.5  S383.667,1015,343,1063L6,1459l-5,6c0-2.667-0.167-6.833-0.5-12.5S0,1442.667,0,1440V480c0-61.333,22-114,66-158s96.667-66,158-66  h320c61.333,0,114,22,158,66s66,96.667,66,158v32h544c61.333,0,114,22,158,66S1536,674.667,1536,736z" /></svg><a href="https://www.15august.in/government-scheme/" rel="category tag">Government Scheme</a>			</span><!-- .cat-links -->
+			</article><!-- #post-24284 -->
+
+<article id="post-24245" class="pb-article pb-archive post-24245 post type-post status-publish format-standard hentry category-government-scheme">
+	<header class="entry-header">
+	<h2 class="entry-title"><a href="https://www.15august.in/mukhyamantri-seekho-kamao-yojana/" rel="bookmark">Mukhyamantri  Seekho Kamao Yojana (SKY) by MP Government &#8211; Earn Stipend</a></h2>		<div class="entry-meta">
+					<span class="posted-on">
+			<svg class="svg-icon" width="24" height="24" aria-hidden="true" role="img" focusable="false" viewBox="0.0 0 1664.0 2048" xmlns="http://www.w3.org/2000/svg"><path d="M128,1792h1408V768H128V1792z M512,576V288c0-9.333-3-17-9-23s-13.667-9-23-9h-64c-9.333,0-17,3-23,9s-9,13.667-9,23v288  c0,9.333,3,17,9,23s13.667,9,23,9h64c9.333,0,17-3,23-9S512,585.333,512,576z M1280,576V288c0-9.333-3-17-9-23s-13.667-9-23-9h-64  c-9.333,0-17,3-23,9s-9,13.667-9,23v288c0,9.333,3,17,9,23s13.667,9,23,9h64c9.333,0,17-3,23-9S1280,585.333,1280,576z M1664,512  v1280c0,34.667-12.667,64.667-38,90s-55.333,38-90,38H128c-34.667,0-64.667-12.667-90-38s-38-55.333-38-90V512  c0-34.667,12.667-64.667,38-90s55.333-38,90-38h128v-96c0-44,15.667-81.667,47-113s69-47,113-47h64c44,0,81.667,15.667,113,47  s47,69,47,113v96h384v-96c0-44,15.667-81.667,47-113s69-47,113-47h64c44,0,81.667,15.667,113,47s47,69,47,113v96h128  c34.667,0,64.667,12.667,90,38S1664,477.333,1664,512z" /></svg>			<a href="https://www.15august.in/mukhyamantri-seekho-kamao-yojana/" rel="bookmark">
+				<span class="screen-reader-text">Posted on </span><time class="entry-date published updated" datetime="2023-08-24T17:38:50+05:30">August 24, 2023</time>			</a>
+		</span><!-- .posted-on -->
+				<span class="posted-by byline">
+			<svg class="svg-icon" width="24" height="24" aria-hidden="true" role="img" focusable="false" viewBox="0.0 0 1408.0 2048" xmlns="http://www.w3.org/2000/svg"><path d="M1408,1533c0,80-24.333,143.167-73,189.5s-113.333,69.5-194,69.5H267c-80.667,0-145.333-23.167-194-69.5S0,1613,0,1533  c0-35.333,1.167-69.833,3.5-103.5s7-70,14-109S33.333,1245.333,44,1212s25-65.833,43-97.5s38.667-58.667,62-81  c23.333-22.333,51.833-40.167,85.5-53.5s70.833-20,111.5-20c6,0,20,7.167,42,21.5s46.833,30.333,74.5,48  c27.667,17.667,63.667,33.667,108,48S659.333,1099,704,1099s89.167-7.167,133.5-21.5s80.333-30.333,108-48  c27.667-17.667,52.5-33.667,74.5-48s36-21.5,42-21.5c40.667,0,77.833,6.667,111.5,20s62.167,31.167,85.5,53.5  c23.333,22.333,44,49.333,62,81s32.333,64.167,43,97.5s19.5,69.5,26.5,108.5s11.667,75.333,14,109S1408,1497.667,1408,1533z   M1088,640c0,106-37.5,196.5-112.5,271.5S810,1024,704,1024s-196.5-37.5-271.5-112.5S320,746,320,640s37.5-196.5,112.5-271.5  S598,256,704,256s196.5,37.5,271.5,112.5S1088,534,1088,640z"></path></svg>			<a href="https://www.15august.in/author/indiashine/">
+				<span class="screen-reader-text">By </span>indiashine			</a>
+		</span><!-- .posted-by -->
+				</div><!-- .entry-meta -->
+			</header><!-- .entry-header -->
+
+		<div class="pb-content">
+				<div class="entry-summary">
+			<p>Seekho Kamao Yojana &#8211; The government of Madhya Pradesh has recently made a remarkable initiative to empower the youth of Madhya Pradesh. The Chief Minister of Madhya Pradesh, Shivraj Singh Chouhan, introduced a new scheme aimed at the youth of MP on 17 May 2023. Through the Mukhyamantri Seekho Kamao Yojana, the government has provided a&#8230;</p>
+<p class="more-link-wrap"><a href="https://www.15august.in/mukhyamantri-seekho-kamao-yojana/" class="more-link">Read More<span class="screen-reader-text"> &ldquo;Mukhyamantri  Seekho Kamao Yojana (SKY) by MP Government &#8211; Earn Stipend&rdquo;</span> &raquo;</a></p>
+		</div><!-- .entry-summary -->
+				</div><!-- .pb-content -->
+					<span class="cat-links">
+				<svg class="svg-icon" width="24" height="24" aria-hidden="true" role="img" focusable="false" viewBox="0.0 0 1879.0 2048" xmlns="http://www.w3.org/2000/svg"><path d="M1879,1080c0,20.667-10.333,42.667-31,66l-336,396c-28.667,34-68.833,62.833-120.5,86.5S1292,1664,1248,1664H160  c-22.667,0-42.833-4.333-60.5-13S73,1628,73,1608c0-20.667,10.333-42.667,31-66l336-396c28.667-34,68.833-62.833,120.5-86.5  S660,1024,704,1024h1088c22.667,0,42.833,4.333,60.5,13S1879,1060,1879,1080z M1536,736v160H704c-62.667,0-128.333,15.833-197,47.5  S383.667,1015,343,1063L6,1459l-5,6c0-2.667-0.167-6.833-0.5-12.5S0,1442.667,0,1440V480c0-61.333,22-114,66-158s96.667-66,158-66  h320c61.333,0,114,22,158,66s66,96.667,66,158v32h544c61.333,0,114,22,158,66S1536,674.667,1536,736z" /></svg><a href="https://www.15august.in/government-scheme/" rel="category tag">Government Scheme</a>			</span><!-- .cat-links -->
+			</article><!-- #post-24245 -->
+
+<article id="post-24236" class="pb-article pb-archive post-24236 post type-post status-publish format-standard hentry category-business-india">
+	<header class="entry-header">
+	<h2 class="entry-title"><a href="https://www.15august.in/mcdonalds-franchise-cost-india/" rel="bookmark">Mcdonalds Franchise Cost in India &#8211; How To Apply Guide</a></h2>		<div class="entry-meta">
+					<span class="posted-on">
+			<svg class="svg-icon" width="24" height="24" aria-hidden="true" role="img" focusable="false" viewBox="0.0 0 1664.0 2048" xmlns="http://www.w3.org/2000/svg"><path d="M128,1792h1408V768H128V1792z M512,576V288c0-9.333-3-17-9-23s-13.667-9-23-9h-64c-9.333,0-17,3-23,9s-9,13.667-9,23v288  c0,9.333,3,17,9,23s13.667,9,23,9h64c9.333,0,17-3,23-9S512,585.333,512,576z M1280,576V288c0-9.333-3-17-9-23s-13.667-9-23-9h-64  c-9.333,0-17,3-23,9s-9,13.667-9,23v288c0,9.333,3,17,9,23s13.667,9,23,9h64c9.333,0,17-3,23-9S1280,585.333,1280,576z M1664,512  v1280c0,34.667-12.667,64.667-38,90s-55.333,38-90,38H128c-34.667,0-64.667-12.667-90-38s-38-55.333-38-90V512  c0-34.667,12.667-64.667,38-90s55.333-38,90-38h128v-96c0-44,15.667-81.667,47-113s69-47,113-47h64c44,0,81.667,15.667,113,47  s47,69,47,113v96h384v-96c0-44,15.667-81.667,47-113s69-47,113-47h64c44,0,81.667,15.667,113,47s47,69,47,113v96h128  c34.667,0,64.667,12.667,90,38S1664,477.333,1664,512z" /></svg>			<a href="https://www.15august.in/mcdonalds-franchise-cost-india/" rel="bookmark">
+				<span class="screen-reader-text">Posted on </span><time class="entry-date published" datetime="2023-08-22T12:11:10+05:30">August 22, 2023</time><time class="updated" datetime="2023-08-24T17:38:12+05:30">August 24, 2023</time>			</a>
+		</span><!-- .posted-on -->
+				<span class="posted-by byline">
+			<svg class="svg-icon" width="24" height="24" aria-hidden="true" role="img" focusable="false" viewBox="0.0 0 1408.0 2048" xmlns="http://www.w3.org/2000/svg"><path d="M1408,1533c0,80-24.333,143.167-73,189.5s-113.333,69.5-194,69.5H267c-80.667,0-145.333-23.167-194-69.5S0,1613,0,1533  c0-35.333,1.167-69.833,3.5-103.5s7-70,14-109S33.333,1245.333,44,1212s25-65.833,43-97.5s38.667-58.667,62-81  c23.333-22.333,51.833-40.167,85.5-53.5s70.833-20,111.5-20c6,0,20,7.167,42,21.5s46.833,30.333,74.5,48  c27.667,17.667,63.667,33.667,108,48S659.333,1099,704,1099s89.167-7.167,133.5-21.5s80.333-30.333,108-48  c27.667-17.667,52.5-33.667,74.5-48s36-21.5,42-21.5c40.667,0,77.833,6.667,111.5,20s62.167,31.167,85.5,53.5  c23.333,22.333,44,49.333,62,81s32.333,64.167,43,97.5s19.5,69.5,26.5,108.5s11.667,75.333,14,109S1408,1497.667,1408,1533z   M1088,640c0,106-37.5,196.5-112.5,271.5S810,1024,704,1024s-196.5-37.5-271.5-112.5S320,746,320,640s37.5-196.5,112.5-271.5  S598,256,704,256s196.5,37.5,271.5,112.5S1088,534,1088,640z"></path></svg>			<a href="https://www.15august.in/author/indiashine/">
+				<span class="screen-reader-text">By </span>indiashine			</a>
+		</span><!-- .posted-by -->
+				</div><!-- .entry-meta -->
+			</header><!-- .entry-header -->
+
+		<div class="pb-content">
+				<div class="entry-summary">
+			<p>McDonald’s ranks among the most popular fast-food restaurants globally. And in the past few years, it has been one of the favorable destinations for fast food cravings in India. Due to this, various entrepreneurs are looking forward to making some investments by owning a McDonald’s franchise here. But how much would it cost? Are you&#8230;</p>
+<p class="more-link-wrap"><a href="https://www.15august.in/mcdonalds-franchise-cost-india/" class="more-link">Read More<span class="screen-reader-text"> &ldquo;Mcdonalds Franchise Cost in India &#8211; How To Apply Guide&rdquo;</span> &raquo;</a></p>
+		</div><!-- .entry-summary -->
+				</div><!-- .pb-content -->
+					<span class="cat-links">
+				<svg class="svg-icon" width="24" height="24" aria-hidden="true" role="img" focusable="false" viewBox="0.0 0 1879.0 2048" xmlns="http://www.w3.org/2000/svg"><path d="M1879,1080c0,20.667-10.333,42.667-31,66l-336,396c-28.667,34-68.833,62.833-120.5,86.5S1292,1664,1248,1664H160  c-22.667,0-42.833-4.333-60.5-13S73,1628,73,1608c0-20.667,10.333-42.667,31-66l336-396c28.667-34,68.833-62.833,120.5-86.5  S660,1024,704,1024h1088c22.667,0,42.833,4.333,60.5,13S1879,1060,1879,1080z M1536,736v160H704c-62.667,0-128.333,15.833-197,47.5  S383.667,1015,343,1063L6,1459l-5,6c0-2.667-0.167-6.833-0.5-12.5S0,1442.667,0,1440V480c0-61.333,22-114,66-158s96.667-66,158-66  h320c61.333,0,114,22,158,66s66,96.667,66,158v32h544c61.333,0,114,22,158,66S1536,674.667,1536,736z" /></svg><a href="https://www.15august.in/business-india/" rel="category tag">Business India</a>			</span><!-- .cat-links -->
+			</article><!-- #post-24236 -->
+
+<article id="post-24217" class="pb-article pb-archive post-24217 post type-post status-publish format-standard hentry category-government-scheme">
+	<header class="entry-header">
+	<h2 class="entry-title"><a href="https://www.15august.in/vishwakarma-yojana-application-form/" rel="bookmark">PM Vishwakarma Yojana 2023 Benefits &#8211; Application Form</a></h2>		<div class="entry-meta">
+					<span class="posted-on">
+			<svg class="svg-icon" width="24" height="24" aria-hidden="true" role="img" focusable="false" viewBox="0.0 0 1664.0 2048" xmlns="http://www.w3.org/2000/svg"><path d="M128,1792h1408V768H128V1792z M512,576V288c0-9.333-3-17-9-23s-13.667-9-23-9h-64c-9.333,0-17,3-23,9s-9,13.667-9,23v288  c0,9.333,3,17,9,23s13.667,9,23,9h64c9.333,0,17-3,23-9S512,585.333,512,576z M1280,576V288c0-9.333-3-17-9-23s-13.667-9-23-9h-64  c-9.333,0-17,3-23,9s-9,13.667-9,23v288c0,9.333,3,17,9,23s13.667,9,23,9h64c9.333,0,17-3,23-9S1280,585.333,1280,576z M1664,512  v1280c0,34.667-12.667,64.667-38,90s-55.333,38-90,38H128c-34.667,0-64.667-12.667-90-38s-38-55.333-38-90V512  c0-34.667,12.667-64.667,38-90s55.333-38,90-38h128v-96c0-44,15.667-81.667,47-113s69-47,113-47h64c44,0,81.667,15.667,113,47  s47,69,47,113v96h384v-96c0-44,15.667-81.667,47-113s69-47,113-47h64c44,0,81.667,15.667,113,47s47,69,47,113v96h128  c34.667,0,64.667,12.667,90,38S1664,477.333,1664,512z" /></svg>			<a href="https://www.15august.in/vishwakarma-yojana-application-form/" rel="bookmark">
+				<span class="screen-reader-text">Posted on </span><time class="entry-date published" datetime="2023-08-18T18:39:10+05:30">August 18, 2023</time><time class="updated" datetime="2023-08-18T18:39:50+05:30">August 18, 2023</time>			</a>
+		</span><!-- .posted-on -->
+				<span class="posted-by byline">
+			<svg class="svg-icon" width="24" height="24" aria-hidden="true" role="img" focusable="false" viewBox="0.0 0 1408.0 2048" xmlns="http://www.w3.org/2000/svg"><path d="M1408,1533c0,80-24.333,143.167-73,189.5s-113.333,69.5-194,69.5H267c-80.667,0-145.333-23.167-194-69.5S0,1613,0,1533  c0-35.333,1.167-69.833,3.5-103.5s7-70,14-109S33.333,1245.333,44,1212s25-65.833,43-97.5s38.667-58.667,62-81  c23.333-22.333,51.833-40.167,85.5-53.5s70.833-20,111.5-20c6,0,20,7.167,42,21.5s46.833,30.333,74.5,48  c27.667,17.667,63.667,33.667,108,48S659.333,1099,704,1099s89.167-7.167,133.5-21.5s80.333-30.333,108-48  c27.667-17.667,52.5-33.667,74.5-48s36-21.5,42-21.5c40.667,0,77.833,6.667,111.5,20s62.167,31.167,85.5,53.5  c23.333,22.333,44,49.333,62,81s32.333,64.167,43,97.5s19.5,69.5,26.5,108.5s11.667,75.333,14,109S1408,1497.667,1408,1533z   M1088,640c0,106-37.5,196.5-112.5,271.5S810,1024,704,1024s-196.5-37.5-271.5-112.5S320,746,320,640s37.5-196.5,112.5-271.5  S598,256,704,256s196.5,37.5,271.5,112.5S1088,534,1088,640z"></path></svg>			<a href="https://www.15august.in/author/indiashine/">
+				<span class="screen-reader-text">By </span>indiashine			</a>
+		</span><!-- .posted-by -->
+				</div><!-- .entry-meta -->
+			</header><!-- .entry-header -->
+
+		<div class="pb-content">
+				<div class="entry-summary">
+			<p>PM Vishwakarma Yojana 2023 Application Form &#8211; Pradhan Mantri Shri Narendra Modi made a big announcement about a new government scheme on the occasion of the 77th Independence Day. The program’s objective is to support the practice of traditional craftsmanship in the country.  Yes, we are talking about the latest Vishwakarma Yojana 2023. The Vishwakarma&#8230;</p>
+<p class="more-link-wrap"><a href="https://www.15august.in/vishwakarma-yojana-application-form/" class="more-link">Read More<span class="screen-reader-text"> &ldquo;PM Vishwakarma Yojana 2023 Benefits &#8211; Application Form&rdquo;</span> &raquo;</a></p>
+		</div><!-- .entry-summary -->
+				</div><!-- .pb-content -->
+					<span class="cat-links">
+				<svg class="svg-icon" width="24" height="24" aria-hidden="true" role="img" focusable="false" viewBox="0.0 0 1879.0 2048" xmlns="http://www.w3.org/2000/svg"><path d="M1879,1080c0,20.667-10.333,42.667-31,66l-336,396c-28.667,34-68.833,62.833-120.5,86.5S1292,1664,1248,1664H160  c-22.667,0-42.833-4.333-60.5-13S73,1628,73,1608c0-20.667,10.333-42.667,31-66l336-396c28.667-34,68.833-62.833,120.5-86.5  S660,1024,704,1024h1088c22.667,0,42.833,4.333,60.5,13S1879,1060,1879,1080z M1536,736v160H704c-62.667,0-128.333,15.833-197,47.5  S383.667,1015,343,1063L6,1459l-5,6c0-2.667-0.167-6.833-0.5-12.5S0,1442.667,0,1440V480c0-61.333,22-114,66-158s96.667-66,158-66  h320c61.333,0,114,22,158,66s66,96.667,66,158v32h544c61.333,0,114,22,158,66S1536,674.667,1536,736z" /></svg><a href="https://www.15august.in/government-scheme/" rel="category tag">Government Scheme</a>			</span><!-- .cat-links -->
+			</article><!-- #post-24217 -->
+
+<article id="post-24111" class="pb-article pb-archive post-24111 post type-post status-publish format-standard hentry category-help-india">
+	<header class="entry-header">
+	<h2 class="entry-title"><a href="https://www.15august.in/cancel-order-on-zomato/" rel="bookmark">How to Cancel Order on Zomato? [ Step By Step Guide]</a></h2>		<div class="entry-meta">
+					<span class="posted-on">
+			<svg class="svg-icon" width="24" height="24" aria-hidden="true" role="img" focusable="false" viewBox="0.0 0 1664.0 2048" xmlns="http://www.w3.org/2000/svg"><path d="M128,1792h1408V768H128V1792z M512,576V288c0-9.333-3-17-9-23s-13.667-9-23-9h-64c-9.333,0-17,3-23,9s-9,13.667-9,23v288  c0,9.333,3,17,9,23s13.667,9,23,9h64c9.333,0,17-3,23-9S512,585.333,512,576z M1280,576V288c0-9.333-3-17-9-23s-13.667-9-23-9h-64  c-9.333,0-17,3-23,9s-9,13.667-9,23v288c0,9.333,3,17,9,23s13.667,9,23,9h64c9.333,0,17-3,23-9S1280,585.333,1280,576z M1664,512  v1280c0,34.667-12.667,64.667-38,90s-55.333,38-90,38H128c-34.667,0-64.667-12.667-90-38s-38-55.333-38-90V512  c0-34.667,12.667-64.667,38-90s55.333-38,90-38h128v-96c0-44,15.667-81.667,47-113s69-47,113-47h64c44,0,81.667,15.667,113,47  s47,69,47,113v96h384v-96c0-44,15.667-81.667,47-113s69-47,113-47h64c44,0,81.667,15.667,113,47s47,69,47,113v96h128  c34.667,0,64.667,12.667,90,38S1664,477.333,1664,512z" /></svg>			<a href="https://www.15august.in/cancel-order-on-zomato/" rel="bookmark">
+				<span class="screen-reader-text">Posted on </span><time class="entry-date published" datetime="2023-08-02T14:42:21+05:30">August 2, 2023</time><time class="updated" datetime="2023-08-02T14:43:11+05:30">August 2, 2023</time>			</a>
+		</span><!-- .posted-on -->
+				<span class="posted-by byline">
+			<svg class="svg-icon" width="24" height="24" aria-hidden="true" role="img" focusable="false" viewBox="0.0 0 1408.0 2048" xmlns="http://www.w3.org/2000/svg"><path d="M1408,1533c0,80-24.333,143.167-73,189.5s-113.333,69.5-194,69.5H267c-80.667,0-145.333-23.167-194-69.5S0,1613,0,1533  c0-35.333,1.167-69.833,3.5-103.5s7-70,14-109S33.333,1245.333,44,1212s25-65.833,43-97.5s38.667-58.667,62-81  c23.333-22.333,51.833-40.167,85.5-53.5s70.833-20,111.5-20c6,0,20,7.167,42,21.5s46.833,30.333,74.5,48  c27.667,17.667,63.667,33.667,108,48S659.333,1099,704,1099s89.167-7.167,133.5-21.5s80.333-30.333,108-48  c27.667-17.667,52.5-33.667,74.5-48s36-21.5,42-21.5c40.667,0,77.833,6.667,111.5,20s62.167,31.167,85.5,53.5  c23.333,22.333,44,49.333,62,81s32.333,64.167,43,97.5s19.5,69.5,26.5,108.5s11.667,75.333,14,109S1408,1497.667,1408,1533z   M1088,640c0,106-37.5,196.5-112.5,271.5S810,1024,704,1024s-196.5-37.5-271.5-112.5S320,746,320,640s37.5-196.5,112.5-271.5  S598,256,704,256s196.5,37.5,271.5,112.5S1088,534,1088,640z"></path></svg>			<a href="https://www.15august.in/author/indiashine/">
+				<span class="screen-reader-text">By </span>indiashine			</a>
+		</span><!-- .posted-by -->
+				</div><!-- .entry-meta -->
+			</header><!-- .entry-header -->
+
+		<div class="pb-content">
+				<div class="entry-summary">
+			<p>The Internet has brought everything to our fingertips. No matter what facility you are looking for, everything can be obtained easily with the help of an internet connection. And this includes ordering food also. Yes, there are many food delivery apps that help you get your favorite dish from your favorite restaurant conveniently by sitting&#8230;</p>
+<p class="more-link-wrap"><a href="https://www.15august.in/cancel-order-on-zomato/" class="more-link">Read More<span class="screen-reader-text"> &ldquo;How to Cancel Order on Zomato? [ Step By Step Guide]&rdquo;</span> &raquo;</a></p>
+		</div><!-- .entry-summary -->
+				</div><!-- .pb-content -->
+					<span class="cat-links">
+				<svg class="svg-icon" width="24" height="24" aria-hidden="true" role="img" focusable="false" viewBox="0.0 0 1879.0 2048" xmlns="http://www.w3.org/2000/svg"><path d="M1879,1080c0,20.667-10.333,42.667-31,66l-336,396c-28.667,34-68.833,62.833-120.5,86.5S1292,1664,1248,1664H160  c-22.667,0-42.833-4.333-60.5-13S73,1628,73,1608c0-20.667,10.333-42.667,31-66l336-396c28.667-34,68.833-62.833,120.5-86.5  S660,1024,704,1024h1088c22.667,0,42.833,4.333,60.5,13S1879,1060,1879,1080z M1536,736v160H704c-62.667,0-128.333,15.833-197,47.5  S383.667,1015,343,1063L6,1459l-5,6c0-2.667-0.167-6.833-0.5-12.5S0,1442.667,0,1440V480c0-61.333,22-114,66-158s96.667-66,158-66  h320c61.333,0,114,22,158,66s66,96.667,66,158v32h544c61.333,0,114,22,158,66S1536,674.667,1536,736z" /></svg><a href="https://www.15august.in/help-india/" rel="category tag">Help India</a>			</span><!-- .cat-links -->
+			</article><!-- #post-24111 -->
+
+	<nav class="navigation pagination" aria-label="Posts pagination">
+		<h2 class="screen-reader-text">Posts pagination</h2>
+		<div class="nav-links"><span aria-current="page" class="page-numbers current">1</span>
+<a class="page-numbers" href="https://www.15august.in/page/2/">2</a>
+<span class="page-numbers dots">&hellip;</span>
+<a class="page-numbers" href="https://www.15august.in/page/29/">29</a>
+<a class="next page-numbers" href="https://www.15august.in/page/2/">Next</a></div>
+	</nav>
+		</main><!-- #primary -->
+
+		
+<aside id="secondary-left" class="widget-area c-sidebar c-sidebar-left">
+	<section id="block-4" class="widget widget_block">
+<div class="wp-block-group"><div class="wp-block-group__inner-container is-layout-flow wp-block-group-is-layout-flow"><div class="widget widget_nav_menu"><h2 class="widgettitle">Jan Suraksha Schemes</h2><nav class="menu-jan-suraksha-schemes-container" aria-label="Jan Suraksha Schemes"><ul id="menu-jan-suraksha-schemes" class="menu"><li id="menu-item-1120" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1120"><a href="https://www.15august.in/benefits-gold-monetization-scheme/">Gold Monetizaton Scheme</a></li>
+<li id="menu-item-1121" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1121"><a href="https://www.15august.in/sovereign-gold-bond-2015-16-govt-india/">Buy Sovereign Gold Bond</a></li>
+<li id="menu-item-1122" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1122"><a href="https://www.15august.in/how-to-apply-for-atal-pension-yojana/">Atal Pension Yojana</a></li>
+<li id="menu-item-1123" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1123"><a href="https://www.15august.in/pradhan-mantri-jeevan-bima-yojana/">PM Suraksha Bima Yojana</a></li>
+<li id="menu-item-1124" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1124"><a href="https://www.15august.in/pradhan-mantri-jeevan-bima-yojana/">PM Jeevan Jyoti Bima Yojana</a></li>
+</ul></nav></div></div></div>
+</section><section id="nav_menu-2" class="widget widget_nav_menu"><h3 class="widget-title">Upcoming Sports Schedules</h3><nav class="menu-sports-container" aria-label="Upcoming Sports Schedules"><ul id="menu-sports" class="menu"><li id="menu-item-20884" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-20884"><a href="https://www.15august.in/sports/schedule/icc-cricket-world-cup-2023-odi-world-cup-schedule-fixtures">ODI World Cup 2023 Schedule</a></li>
+<li id="menu-item-23002" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-23002"><a href="https://www.15august.in/sports/schedule/the-ashes-2023-schedule-fixtures">The Ashes 2023 Schedule</a></li>
+<li id="menu-item-23003" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-23003"><a href="https://www.15august.in/sports/schedule/india-tour-west-indies-2023-schedule">India tour of West Indies 2023</a></li>
+<li id="menu-item-23004" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-23004"><a href="https://www.15august.in/all-asia-cup-winners-list/">Asia Cup Winners List</a></li>
+<li id="menu-item-23041" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-23041"><a href="https://www.15august.in/sports/schedule/tnpl-2023-schedule">TNPL 2023 Schedule</a></li>
+</ul></nav></section><section id="nav_menu-3" class="widget widget_nav_menu"><h3 class="widget-title">Helpful Links</h3><nav class="menu-helpful-links-container" aria-label="Helpful Links"><ul id="menu-helpful-links" class="menu"><li id="menu-item-1128" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1128"><a href="https://www.15august.in/duplicate-voter-id-card/">Duplicate Voter ID Card</a></li>
+<li id="menu-item-1129" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1129"><a href="https://www.15august.in/apply-for-duplicate-pan-card-online/">Apply For Duplicate PAN Card</a></li>
+<li id="menu-item-1130" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1130"><a href="https://www.15august.in/apply-for-provident-fund-account/">How To Apply for PF Account</a></li>
+<li id="menu-item-1131" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1131"><a href="https://www.15august.in/how-to-apply-for-learning-license/">How to Apply for Learning License Online</a></li>
+<li id="menu-item-1132" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1132"><a href="https://www.15august.in/how-to-apply-for-driving-license/">How to Apply for Permanent Driving License</a></li>
+<li id="menu-item-1133" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1133"><a href="https://www.15august.in/apply-for-pan-card-india/">How to Apply for Pan Card India</a></li>
+<li id="menu-item-1134" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1134"><a href="https://www.15august.in/step-by-step-guide-apply-for-passport/">How to Apply for Passport</a></li>
+<li id="menu-item-1135" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1135"><a href="https://www.15august.in/swachh-bharat-initiative-all-about/">How to Join Swachch Bharat</a></li>
+<li id="menu-item-1136" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1136"><a href="https://www.15august.in/complaints-and-give-suggestions-indian-railways/">Register Complain Indian Railways</a></li>
+<li id="menu-item-1137" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1137"><a href="https://www.15august.in/file-complaints-in-consumer-forum/">File Complaints in Consumer Court</a></li>
+<li id="menu-item-1138" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1138"><a href="https://www.15august.in/independence-day-speech-by-pm-narendra/">Independence Day Speech By PM</a></li>
+<li id="menu-item-1139" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1139"><a href="https://www.15august.in/file-rti-right-to-information/">How to File RTI</a></li>
+<li id="menu-item-1140" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1140"><a href="https://www.15august.in/download-sample-will-format-will-template/">Download Sample WILL Format</a></li>
+<li id="menu-item-25374" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-25374"><a href="https://www.15august.in/surat-to-diu-cruise-ferry-timings-ticket-prices-online-booking/">Surat to Diu Cruise Timing</a></li>
+</ul></nav></section><section id="nav_menu-4" class="widget widget_nav_menu"><h3 class="widget-title">Useful Links 15august</h3><nav class="menu-my-links-container" aria-label="Useful Links 15august"><ul id="menu-my-links" class="menu"><li id="menu-item-1141" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1141"><a href="https://www.15august.in/benefits-sukanya-samriddhi/">Benefits of Sukanya Samriddhi</a></li>
+<li id="menu-item-1142" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1142"><a href="https://www.15august.in/lpg-gas-subsidy-scheme-by-indian-govt/">LPG GAS subsidy Scheme</a></li>
+<li id="menu-item-1143" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1143"><a href="https://www.15august.in/kisan-vikas-patra-scheme-how-to-apply/">Kisan Vikas Patra</a></li>
+<li id="menu-item-1144" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1144"><a href="https://www.15august.in/all-about-beti-bachao-beti-padhao/">Beti Bachao Beti Padhao</a></li>
+<li id="menu-item-1145" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1145"><a href="https://www.15august.in/soil-health-card-benefits/">Soil Health Card</a></li>
+<li id="menu-item-1146" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1146"><a href="https://www.15august.in/information-about-statue-of-unity/">Statue of Unity</a></li>
+<li id="menu-item-1147" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1147"><a href="https://www.15august.in/sansad-adarsh-gram-yojana-sagy/">Sansad Adarsh Gram Yojana</a></li>
+<li id="menu-item-6160" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-6160"><a href="https://www.15august.in/gold-price-usa/">Gold Price in USA Today</a></li>
+</ul></nav></section><section id="nav_menu-5" class="widget widget_nav_menu"><h3 class="widget-title">New LIC Plans</h3><nav class="menu-new-lic-plans-container" aria-label="New LIC Plans"><ul id="menu-new-lic-plans" class="menu"><li id="menu-item-1148" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1148"><a href="https://www.15august.in/lic-jeevan-pragati/">LIC Jeevan Pragati</a></li>
+<li id="menu-item-1149" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1149"><a href="https://www.15august.in/benefits-lic-jeevan-labh/">LIC Jeevan Labh</a></li>
+<li id="menu-item-1150" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1150"><a href="https://www.15august.in/lic-jeevan-akshay-6/">LIC Jeevan Akshay</a></li>
+<li id="menu-item-1151" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1151"><a href="https://www.15august.in/lic-credit-cards/">LIC Credit Cards</a></li>
+<li id="menu-item-1152" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1152"><a href="https://www.15august.in/lic-jeevan-tarun-policy-table-832-review/">LIC Jeevan Tarun Policy Table 832</a></li>
+<li id="menu-item-1153" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1153"><a href="https://www.15august.in/benefits-varishtha-pension-bima-yojana/">Varishtha Pension Bima Yojana</a></li>
+<li id="menu-item-1154" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1154"><a href="https://www.15august.in/lic-jeevan-sangam/">LIC Jeevan Sangam</a></li>
+<li id="menu-item-1155" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1155"><a href="https://www.15august.in/lic-childrens-money-back-plan/">LIC Children’s Money Back Plan</a></li>
+<li id="menu-item-1156" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1156"><a href="https://www.15august.in/benefits-lic-jeevan-lakshya/">LIC Jeevan Lakshya</a></li>
+<li id="menu-item-6046" class="menu-item menu-item-type-post_type menu-item-object-post menu-item-6046"><a href="https://www.15august.in/lic-kanyadan-policy-calculator/">LIC Kanyadan Policy</a></li>
+</ul></nav></section><section id="nav_menu-6" class="widget widget_nav_menu"><h3 class="widget-title">Important Days</h3><nav class="menu-important-days-container" aria-label="Important Days"><ul id="menu-important-days" class="menu"><li id="menu-item-1157" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1157"><a href="https://www.15august.in/rashtriya-ekta-diwas-national-marathon/">Rashtriya Ekta Diwas</a></li>
+<li id="menu-item-1158" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1158"><a href="https://www.15august.in/independence-day-celebration/">Independence Day Celebration</a></li>
+<li id="menu-item-1159" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1159"><a href="https://www.15august.in/bal-swachhta-mission-14th-november/">Bal Swachhta Mission &#8211; 14th November</a></li>
+<li id="menu-item-1160" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1160"><a href="https://www.15august.in/pravasi-bhartiya-divas/">Pravasi Bhartiya Divas</a></li>
+<li id="menu-item-1161" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1161"><a href="https://www.15august.in/pm-speech-for-republic-day-26th-january/">Republic day 26th January</a></li>
+<li id="menu-item-1162" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1162"><a href="https://www.15august.in/good-governance-day-on-25th-december/">Good Governance Day &#8211; on 25th December</a></li>
+</ul></nav></section><section id="block-6" class="widget widget_block">
+<div class="wp-block-group"><div class="wp-block-group__inner-container is-layout-flow wp-block-group-is-layout-flow"></div></div>
+</section></aside><!-- #secondary-left -->
+
+
+<aside id="secondary" class="widget-area c-sidebar c-sidebar-right">
+	<section id="nav_menu-15" class="widget widget_nav_menu"><h3 class="widget-title">Wifi Router Settings</h3><nav class="menu-wifi-router-settings-container" aria-label="Wifi Router Settings"><ul id="menu-wifi-router-settings" class="menu"><li id="menu-item-5648" class="menu-item menu-item-type-post_type menu-item-object-post menu-item-5648"><a href="https://www.15august.in/192-168-10-1/">192.168.10.1</a></li>
+<li id="menu-item-5649" class="menu-item menu-item-type-post_type menu-item-object-post menu-item-5649"><a href="https://www.15august.in/192-168-1-1/">192.168.1.1</a></li>
+<li id="menu-item-5650" class="menu-item menu-item-type-post_type menu-item-object-post menu-item-5650"><a href="https://www.15august.in/192-168-0-1/">192.168.0.1</a></li>
+<li id="menu-item-6440" class="menu-item menu-item-type-post_type menu-item-object-post menu-item-6440"><a href="https://www.15august.in/10-0-0-1-login/">10.0.0.0.1</a></li>
+</ul></nav></section><section id="nav_menu-20" class="widget widget_nav_menu"><h3 class="widget-title">Best Investment Ideas</h3><nav class="menu-best-invesstment-container" aria-label="Best Investment Ideas"><ul id="menu-best-invesstment" class="menu"><li id="menu-item-1091" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1091"><a href="https://www.15august.in/best-sip-mutual-funds-invest/">10 Best SIP Mutual Funds</a></li>
+<li id="menu-item-1092" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1092"><a href="https://www.15august.in/top-10-best-stocks-to-buy/">Top 10 Best Stocks to Buy</a></li>
+<li id="menu-item-1093" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1093"><a href="https://www.15august.in/best-mutual-funds-to-invest/">Best Mutual Funds to Invest</a></li>
+<li id="menu-item-1094" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1094"><a href="https://www.15august.in/top-5-best-small-cap-shares-to-invest/">Best Small Cap Shares to Invest</a></li>
+<li id="menu-item-7507" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-7507"><a href="https://www.15august.in/mutual-fund-sip-calculator/">Mutual Fund SIP Return Calculator Online</a></li>
+</ul></nav></section><section id="nav_menu-21" class="widget widget_nav_menu"><h3 class="widget-title">All Business India</h3><nav class="menu-all-business-india-container" aria-label="All Business India"><ul id="menu-all-business-india" class="menu"><li id="menu-item-1109" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1109"><a href="https://www.15august.in/stand-up-india-cheap-business-loan/">Stand Up India-Small Business Loans</a></li>
+<li id="menu-item-1110" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1110"><a href="https://www.15august.in/small-business-ideas-with-low-investment/">Small Business with Investment of Rs.10000</a></li>
+<li id="menu-item-1111" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1111"><a href="https://www.15august.in/business-ideas-for-women/">Business ideas for Women</a></li>
+<li id="menu-item-1112" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1112"><a href="https://www.15august.in/passive-income-ideas-extra-income/">10 Passive Income Ideas (Extra Income)</a></li>
+<li id="menu-item-1113" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1113"><a href="https://www.15august.in/business-lessons-mukesh-ambani/">Business Lessons from Mukesh Ambani</a></li>
+<li id="menu-item-1114" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1114"><a href="https://www.15august.in/benefits-of-mudra-bank-how-to-take-loan/">Take Loan From Mudra Bank</a></li>
+<li id="menu-item-1115" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1115"><a href="https://www.15august.in/step-by-step-online-vat-registration/">Online VAT Registration Process</a></li>
+<li id="menu-item-1116" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1116"><a href="https://www.15august.in/start-selling-online-ecommerce-website-flipkart-amazon/">Start Selling on Flipkart, Amazon</a></li>
+<li id="menu-item-1117" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1117"><a href="https://www.15august.in/websites-earn-money-online/">Websites to Earn Money Online</a></li>
+<li id="menu-item-1118" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1118"><a href="https://www.15august.in/start-restaurant-business-india/">How Start Restaurant Business in India ?</a></li>
+<li id="menu-item-1119" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1119"><a href="https://www.15august.in/small-business-ideas-with-low-investment/">Small Business Ideas</a></li>
+<li id="menu-item-1419" class="menu-item menu-item-type-post_type menu-item-object-post menu-item-1419"><a href="https://www.15august.in/best-business-ideas-in-bangalore/">Top 10 Best Business Ideas In Bangalore</a></li>
+<li id="menu-item-1420" class="menu-item menu-item-type-post_type menu-item-object-post menu-item-1420"><a href="https://www.15august.in/best-small-business-ideas-hyderabad/">Top 10 Best Small Business Ideas In Hyderabad </a></li>
+<li id="menu-item-5653" class="menu-item menu-item-type-post_type menu-item-object-post menu-item-5653"><a href="https://www.15august.in/small-business-ideas-delhi/">Top 10 Small Business Ideas In Delhi</a></li>
+</ul></nav></section><section id="nav_menu-22" class="widget widget_nav_menu"><h3 class="widget-title">Pradhan Mantri Yojana</h3><nav class="menu-pradhan-mantri-yojana-container" aria-label="Pradhan Mantri Yojana"><ul id="menu-pradhan-mantri-yojana" class="menu"><li id="menu-item-1100" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1100"><a href="https://www.15august.in/prime-minster-launches-3-new-urban-era/">3 New Urban Development Schemes</a></li>
+<li id="menu-item-1101" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1101"><a href="https://www.15august.in/prime-minster-jan-suraksha-schemes/">PM Jan Suraksha Schemes</a></li>
+<li id="menu-item-1102" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1102"><a href="https://www.15august.in/how-to-apply-for-atal-pension-yojana/">Atal Pension Yojana</a></li>
+<li id="menu-item-1103" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1103"><a href="https://www.15august.in/how-to-give-up-lpg-subsidy-pahal-2015/">Give Up LPG Subsidy</a></li>
+<li id="menu-item-1104" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1104"><a href="https://www.15august.in/pradhanmantri-jan-dhan-yojana-pmjdy/">Pradhanmantri Jan-Dhan Yojana</a></li>
+<li id="menu-item-1105" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1105"><a href="https://www.15august.in/pradhan-mantri-suraksha-bima-yojana-benefits/">Pradhan Mantri Suraksha Bima Yojana</a></li>
+<li id="menu-item-1106" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1106"><a href="https://www.15august.in/pradhan-mantri-jeevan-bima-yojana/">Pradhan Mantri Jeevan Bima Yojana</a></li>
+<li id="menu-item-1107" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1107"><a href="https://www.15august.in/sansad-adarsh-gram-yojana-sagy/">Sansad Adarsh Gram Yojana</a></li>
+<li id="menu-item-1108" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1108"><a href="https://www.15august.in/all-about-beti-bachao-beti-padhao/">Beti Bachao Beti Padhao</a></li>
+</ul></nav></section></aside><!-- #secondary -->
+
+	</div><!-- .pb-content-sidebar -->
+
+	</div><!-- #content -->
+
+	<footer id="colophon" class="site-footer">
+		
+<div class="copyright-text">
+	<div class="u-wrapper copyright-text-wrap">
+			<p>Copyright © 2022 India Shine.
+
+
+</p>
+				<p class="pressbook-credit">
+		Powered by <a href="https://scriptstown.com/wordpress-themes/pressbook/" itemprop="url">PressBook WordPress theme</a>		</p><!-- .pressbook-credit -->
+	</div><!-- .copyright-text-wrap -->
+</div><!-- .copyright-text -->
+	</footer><!-- #colophon -->
+
+		<a href="#" class="go-to-top" aria-label="Go to top"></a>
+	</div><!-- #page -->
+
+<script type="speculationrules">
+{"prefetch":[{"source":"document","where":{"and":[{"href_matches":"/*"},{"not":{"href_matches":["/wp-*.php","/wp-admin/*","/wp-content/uploads/*","/wp-content/*","/wp-content/plugins/*","/wp-content/themes/pressbook/*","/*\\?(.+)"]}},{"not":{"selector_matches":"a[rel~=\"nofollow\"]"}},{"not":{"selector_matches":".no-prefetch, .no-prefetch a"}}]},"eagerness":"conservative"}]}
+</script>
+<script type="rocketlazyloadscript">window.wpsc_print_css_uri = 'https://www.15august.in/wp-content/plugins/structured-content/dist/print.css';</script><script type="rocketlazyloadscript" src="https://www.15august.in/wp-content/plugins/structured-content/dist/app.build.js?ver=1.6.3" id="structured-content-frontend-js"></script>
+<script type="rocketlazyloadscript" src="https://www.15august.in/wp-includes/js/dist/hooks.min.js?ver=dd5603f07f9220ed27f1" id="wp-hooks-js"></script>
+<script type="rocketlazyloadscript" src="https://www.15august.in/wp-includes/js/dist/i18n.min.js?ver=c26c3dc7bed366793375" id="wp-i18n-js"></script>
+<script type="rocketlazyloadscript" id="wp-i18n-js-after">
+wp.i18n.setLocaleData( { 'text direction\u0004ltr': [ 'ltr' ] } );
+//# sourceURL=wp-i18n-js-after
+</script>
+<script type="rocketlazyloadscript" src="https://www.15august.in/wp-content/plugins/contact-form-7/includes/swv/js/index.js?ver=5.9.8" id="swv-js"></script>
+<script id="contact-form-7-js-extra">
+var wpcf7 = {"api":{"root":"https://www.15august.in/wp-json/","namespace":"contact-form-7/v1"},"cached":"1"};
+//# sourceURL=contact-form-7-js-extra
+</script>
+<script type="rocketlazyloadscript" src="https://www.15august.in/wp-content/plugins/contact-form-7/includes/js/index.js?ver=5.9.8" id="contact-form-7-js"></script>
+<script type="rocketlazyloadscript" id="rocket-browser-checker-js-after">
+"use strict";var _createClass=function(){function defineProperties(target,props){for(var i=0;i<props.length;i++){var descriptor=props[i];descriptor.enumerable=descriptor.enumerable||!1,descriptor.configurable=!0,"value"in descriptor&&(descriptor.writable=!0),Object.defineProperty(target,descriptor.key,descriptor)}}return function(Constructor,protoProps,staticProps){return protoProps&&defineProperties(Constructor.prototype,protoProps),staticProps&&defineProperties(Constructor,staticProps),Constructor}}();function _classCallCheck(instance,Constructor){if(!(instance instanceof Constructor))throw new TypeError("Cannot call a class as a function")}var RocketBrowserCompatibilityChecker=function(){function RocketBrowserCompatibilityChecker(options){_classCallCheck(this,RocketBrowserCompatibilityChecker),this.passiveSupported=!1,this._checkPassiveOption(this),this.options=!!this.passiveSupported&&options}return _createClass(RocketBrowserCompatibilityChecker,[{key:"_checkPassiveOption",value:function(self){try{var options={get passive(){return!(self.passiveSupported=!0)}};window.addEventListener("test",null,options),window.removeEventListener("test",null,options)}catch(err){self.passiveSupported=!1}}},{key:"initRequestIdleCallback",value:function(){!1 in window&&(window.requestIdleCallback=function(cb){var start=Date.now();return setTimeout(function(){cb({didTimeout:!1,timeRemaining:function(){return Math.max(0,50-(Date.now()-start))}})},1)}),!1 in window&&(window.cancelIdleCallback=function(id){return clearTimeout(id)})}},{key:"isDataSaverModeOn",value:function(){return"connection"in navigator&&!0===navigator.connection.saveData}},{key:"supportsLinkPrefetch",value:function(){var elem=document.createElement("link");return elem.relList&&elem.relList.supports&&elem.relList.supports("prefetch")&&window.IntersectionObserver&&"isIntersecting"in IntersectionObserverEntry.prototype}},{key:"isSlowConnection",value:function(){return"connection"in navigator&&"effectiveType"in navigator.connection&&("2g"===navigator.connection.effectiveType||"slow-2g"===navigator.connection.effectiveType)}}]),RocketBrowserCompatibilityChecker}();
+//# sourceURL=rocket-browser-checker-js-after
+</script>
+<script id="rocket-preload-links-js-extra">
+var RocketPreloadLinksConfig = {"excludeUris":"/(.+/)?feed/?.+/?|/(?:.+/)?embed/|/(index\\.php/)?wp\\-json(/.*|$)|/15august/|/wp-admin/|/logout/|/15august/","usesTrailingSlash":"1","imageExt":"jpg|jpeg|gif|png|tiff|bmp|webp|avif","fileExt":"jpg|jpeg|gif|png|tiff|bmp|webp|avif|php|pdf|html|htm","siteUrl":"https://www.15august.in","onHoverDelay":"100","rateThrottle":"3"};
+//# sourceURL=rocket-preload-links-js-extra
+</script>
+<script type="rocketlazyloadscript" id="rocket-preload-links-js-after">
+(function() {
+"use strict";var r="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(e){return typeof e}:function(e){return e&&"function"==typeof Symbol&&e.constructor===Symbol&&e!==Symbol.prototype?"symbol":typeof e},e=function(){function i(e,t){for(var n=0;n<t.length;n++){var i=t[n];i.enumerable=i.enumerable||!1,i.configurable=!0,"value"in i&&(i.writable=!0),Object.defineProperty(e,i.key,i)}}return function(e,t,n){return t&&i(e.prototype,t),n&&i(e,n),e}}();function i(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}var t=function(){function n(e,t){i(this,n),this.browser=e,this.config=t,this.options=this.browser.options,this.prefetched=new Set,this.eventTime=null,this.threshold=1111,this.numOnHover=0}return e(n,[{key:"init",value:function(){!this.browser.supportsLinkPrefetch()||this.browser.isDataSaverModeOn()||this.browser.isSlowConnection()||(this.regex={excludeUris:RegExp(this.config.excludeUris,"i"),images:RegExp(".("+this.config.imageExt+")$","i"),fileExt:RegExp(".("+this.config.fileExt+")$","i")},this._initListeners(this))}},{key:"_initListeners",value:function(e){-1<this.config.onHoverDelay&&document.addEventListener("mouseover",e.listener.bind(e),e.listenerOptions),document.addEventListener("mousedown",e.listener.bind(e),e.listenerOptions),document.addEventListener("touchstart",e.listener.bind(e),e.listenerOptions)}},{key:"listener",value:function(e){var t=e.target.closest("a"),n=this._prepareUrl(t);if(null!==n)switch(e.type){case"mousedown":case"touchstart":this._addPrefetchLink(n);break;case"mouseover":this._earlyPrefetch(t,n,"mouseout")}}},{key:"_earlyPrefetch",value:function(t,e,n){var i=this,r=setTimeout(function(){if(r=null,0===i.numOnHover)setTimeout(function(){return i.numOnHover=0},1e3);else if(i.numOnHover>i.config.rateThrottle)return;i.numOnHover++,i._addPrefetchLink(e)},this.config.onHoverDelay);t.addEventListener(n,function e(){t.removeEventListener(n,e,{passive:!0}),null!==r&&(clearTimeout(r),r=null)},{passive:!0})}},{key:"_addPrefetchLink",value:function(i){return this.prefetched.add(i.href),new Promise(function(e,t){var n=document.createElement("link");n.rel="prefetch",n.href=i.href,n.onload=e,n.onerror=t,document.head.appendChild(n)}).catch(function(){})}},{key:"_prepareUrl",value:function(e){if(null===e||"object"!==(void 0===e?"undefined":r(e))||!1 in e||-1===["http:","https:"].indexOf(e.protocol))return null;var t=e.href.substring(0,this.config.siteUrl.length),n=this._getPathname(e.href,t),i={original:e.href,protocol:e.protocol,origin:t,pathname:n,href:t+n};return this._isLinkOk(i)?i:null}},{key:"_getPathname",value:function(e,t){var n=t?e.substring(this.config.siteUrl.length):e;return n.startsWith("/")||(n="/"+n),this._shouldAddTrailingSlash(n)?n+"/":n}},{key:"_shouldAddTrailingSlash",value:function(e){return this.config.usesTrailingSlash&&!e.endsWith("/")&&!this.regex.fileExt.test(e)}},{key:"_isLinkOk",value:function(e){return null!==e&&"object"===(void 0===e?"undefined":r(e))&&(!this.prefetched.has(e.href)&&e.origin===this.config.siteUrl&&-1===e.href.indexOf("?")&&-1===e.href.indexOf("#")&&!this.regex.excludeUris.test(e.href)&&!this.regex.images.test(e.href))}}],[{key:"run",value:function(){"undefined"!=typeof RocketPreloadLinksConfig&&new n(new RocketBrowserCompatibilityChecker({capture:!0,passive:!0}),RocketPreloadLinksConfig).init()}}]),n}();t.run();
+}());
+
+//# sourceURL=rocket-preload-links-js-after
+</script>
+<script type="rocketlazyloadscript" src="https://www.15august.in/wp-content/themes/pressbook/js/script.min.js?ver=2.0.7" id="pressbook-script-js"></script>
+<script type="rocketlazyloadscript" src="https://www.15august.in/wp-content/themes/pressbook/js/ResizeObserver.min.js?ver=1.5.1" id="resize-observer-polyfill-js"></script>
+<script type="rocketlazyloadscript" src="https://www.15august.in/wp-content/themes/pressbook/js/sticky-sidebar.min.js?ver=1.1.1" id="sticky-sidebar-js"></script>
+<script type="rocketlazyloadscript" id="sticky-sidebar-js-after">
+try{new StickySidebar(".site-content > .pb-content-sidebar > .c-sidebar",{topSpacing:100,bottomSpacing:0,containerSelector:".site-content > .pb-content-sidebar",minWidth:1279});new StickySidebar(".site-content > .pb-content-sidebar > .c-sidebar-right",{topSpacing:100,bottomSpacing:0,containerSelector:".site-content > .pb-content-sidebar",minWidth:1279});}catch(e){}
+//# sourceURL=sticky-sidebar-js-after
+</script>
+<script type="rocketlazyloadscript" src="https://www.15august.in/wp-content/plugins/visual-footer-credit-remover/script.js?ver=6.9" id="jabvfcr_script-js"></script>
+<script>window.lazyLoadOptions={elements_selector:"img[data-lazy-src],.rocket-lazyload,iframe[data-lazy-src]",data_src:"lazy-src",data_srcset:"lazy-srcset",data_sizes:"lazy-sizes",class_loading:"lazyloading",class_loaded:"lazyloaded",threshold:300,callback_loaded:function(element){if(element.tagName==="IFRAME"&&element.dataset.rocketLazyload=="fitvidscompatible"){if(element.classList.contains("lazyloaded")){if(typeof window.jQuery!="undefined"){if(jQuery.fn.fitVids){jQuery(element).parent().fitVids()}}}}}};window.addEventListener('LazyLoad::Initialized',function(e){var lazyLoadInstance=e.detail.instance;if(window.MutationObserver){var observer=new MutationObserver(function(mutations){var image_count=0;var iframe_count=0;var rocketlazy_count=0;mutations.forEach(function(mutation){for(i=0;i<mutation.addedNodes.length;i++){if(typeof mutation.addedNodes[i].getElementsByTagName!=='function'){continue}
+if(typeof mutation.addedNodes[i].getElementsByClassName!=='function'){continue}
+images=mutation.addedNodes[i].getElementsByTagName('img');is_image=mutation.addedNodes[i].tagName=="IMG";iframes=mutation.addedNodes[i].getElementsByTagName('iframe');is_iframe=mutation.addedNodes[i].tagName=="IFRAME";rocket_lazy=mutation.addedNodes[i].getElementsByClassName('rocket-lazyload');image_count+=images.length;iframe_count+=iframes.length;rocketlazy_count+=rocket_lazy.length;if(is_image){image_count+=1}
+if(is_iframe){iframe_count+=1}}});if(image_count>0||iframe_count>0||rocketlazy_count>0){lazyLoadInstance.update()}});var b=document.getElementsByTagName("body")[0];var config={childList:!0,subtree:!0};observer.observe(b,config)}},!1)</script><script data-no-minify="1" async src="https://www.15august.in/wp-content/plugins/wp-rocket/assets/js/lazyload/16.1/lazyload.min.js"></script></body>
+</html>
+
+<!-- This website is like a Rocket, isn't it? Performance optimized by WP Rocket. Learn more: https://wp-rocket.me - Debug: cached@1769883825 -->

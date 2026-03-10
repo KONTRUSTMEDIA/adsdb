@@ -1,0 +1,699 @@
+<!doctype html>
+<html lang="ro-RO">
+<head><meta charset="UTF-8"><script>if(navigator.userAgent.match(/MSIE|Internet Explorer/i)||navigator.userAgent.match(/Trident\/7\..*?rv:11/i)){var href=document.location.href;if(!href.match(/[?&]nowprocket/)){if(href.indexOf("?")==-1){if(href.indexOf("#")==-1){document.location.href=href+"?nowprocket=1"}else{document.location.href=href.replace("#","?nowprocket=1#")}}else{if(href.indexOf("#")==-1){document.location.href=href+"&nowprocket=1"}else{document.location.href=href.replace("#","&nowprocket=1#")}}}}</script><script>class RocketLazyLoadScripts{constructor(){this.v="1.2.3",this.triggerEvents=["keydown","mousedown","mousemove","touchmove","touchstart","touchend","wheel"],this.userEventHandler=this._triggerListener.bind(this),this.touchStartHandler=this._onTouchStart.bind(this),this.touchMoveHandler=this._onTouchMove.bind(this),this.touchEndHandler=this._onTouchEnd.bind(this),this.clickHandler=this._onClick.bind(this),this.interceptedClicks=[],window.addEventListener("pageshow",t=>{this.persisted=t.persisted}),window.addEventListener("DOMContentLoaded",()=>{this._preconnect3rdParties()}),this.delayedScripts={normal:[],async:[],defer:[]},this.trash=[],this.allJQueries=[]}_addUserInteractionListener(t){if(document.hidden){t._triggerListener();return}this.triggerEvents.forEach(e=>window.addEventListener(e,t.userEventHandler,{passive:!0})),window.addEventListener("touchstart",t.touchStartHandler,{passive:!0}),window.addEventListener("mousedown",t.touchStartHandler),document.addEventListener("visibilitychange",t.userEventHandler)}_removeUserInteractionListener(){this.triggerEvents.forEach(t=>window.removeEventListener(t,this.userEventHandler,{passive:!0})),document.removeEventListener("visibilitychange",this.userEventHandler)}_onTouchStart(t){"HTML"!==t.target.tagName&&(window.addEventListener("touchend",this.touchEndHandler),window.addEventListener("mouseup",this.touchEndHandler),window.addEventListener("touchmove",this.touchMoveHandler,{passive:!0}),window.addEventListener("mousemove",this.touchMoveHandler),t.target.addEventListener("click",this.clickHandler),this._renameDOMAttribute(t.target,"onclick","rocket-onclick"),this._pendingClickStarted())}_onTouchMove(t){window.removeEventListener("touchend",this.touchEndHandler),window.removeEventListener("mouseup",this.touchEndHandler),window.removeEventListener("touchmove",this.touchMoveHandler,{passive:!0}),window.removeEventListener("mousemove",this.touchMoveHandler),t.target.removeEventListener("click",this.clickHandler),this._renameDOMAttribute(t.target,"rocket-onclick","onclick"),this._pendingClickFinished()}_onTouchEnd(t){window.removeEventListener("touchend",this.touchEndHandler),window.removeEventListener("mouseup",this.touchEndHandler),window.removeEventListener("touchmove",this.touchMoveHandler,{passive:!0}),window.removeEventListener("mousemove",this.touchMoveHandler)}_onClick(t){t.target.removeEventListener("click",this.clickHandler),this._renameDOMAttribute(t.target,"rocket-onclick","onclick"),this.interceptedClicks.push(t),t.preventDefault(),t.stopPropagation(),t.stopImmediatePropagation(),this._pendingClickFinished()}_replayClicks(){window.removeEventListener("touchstart",this.touchStartHandler,{passive:!0}),window.removeEventListener("mousedown",this.touchStartHandler),this.interceptedClicks.forEach(t=>{t.target.dispatchEvent(new MouseEvent("click",{view:t.view,bubbles:!0,cancelable:!0}))})}_waitForPendingClicks(){return new Promise(t=>{this._isClickPending?this._pendingClickFinished=t:t()})}_pendingClickStarted(){this._isClickPending=!0}_pendingClickFinished(){this._isClickPending=!1}_renameDOMAttribute(t,e,r){t.hasAttribute&&t.hasAttribute(e)&&(event.target.setAttribute(r,event.target.getAttribute(e)),event.target.removeAttribute(e))}_triggerListener(){this._removeUserInteractionListener(this),"loading"===document.readyState?document.addEventListener("DOMContentLoaded",this._loadEverythingNow.bind(this)):this._loadEverythingNow()}_preconnect3rdParties(){let t=[];document.querySelectorAll("script[type=rocketlazyloadscript]").forEach(e=>{if(e.hasAttribute("src")){let r=new URL(e.src).origin;r!==location.origin&&t.push({src:r,crossOrigin:e.crossOrigin||"module"===e.getAttribute("data-rocket-type")})}}),t=[...new Map(t.map(t=>[JSON.stringify(t),t])).values()],this._batchInjectResourceHints(t,"preconnect")}async _loadEverythingNow(){this.lastBreath=Date.now(),this._delayEventListeners(this),this._delayJQueryReady(this),this._handleDocumentWrite(),this._registerAllDelayedScripts(),this._preloadAllScripts(),await this._loadScriptsFromList(this.delayedScripts.normal),await this._loadScriptsFromList(this.delayedScripts.defer),await this._loadScriptsFromList(this.delayedScripts.async);try{await this._triggerDOMContentLoaded(),await this._triggerWindowLoad()}catch(t){console.error(t)}window.dispatchEvent(new Event("rocket-allScriptsLoaded")),this._waitForPendingClicks().then(()=>{this._replayClicks()}),this._emptyTrash()}_registerAllDelayedScripts(){document.querySelectorAll("script[type=rocketlazyloadscript]").forEach(t=>{t.hasAttribute("data-rocket-src")?t.hasAttribute("async")&&!1!==t.async?this.delayedScripts.async.push(t):t.hasAttribute("defer")&&!1!==t.defer||"module"===t.getAttribute("data-rocket-type")?this.delayedScripts.defer.push(t):this.delayedScripts.normal.push(t):this.delayedScripts.normal.push(t)})}async _transformScript(t){return new Promise((await this._littleBreath(),navigator.userAgent.indexOf("Firefox/")>0||""===navigator.vendor)?e=>{let r=document.createElement("script");[...t.attributes].forEach(t=>{let e=t.nodeName;"type"!==e&&("data-rocket-type"===e&&(e="type"),"data-rocket-src"===e&&(e="src"),r.setAttribute(e,t.nodeValue))}),t.text&&(r.text=t.text),r.hasAttribute("src")?(r.addEventListener("load",e),r.addEventListener("error",e)):(r.text=t.text,e());try{t.parentNode.replaceChild(r,t)}catch(i){e()}}:async e=>{function r(){t.setAttribute("data-rocket-status","failed"),e()}try{let i=t.getAttribute("data-rocket-type"),n=t.getAttribute("data-rocket-src");t.text,i?(t.type=i,t.removeAttribute("data-rocket-type")):t.removeAttribute("type"),t.addEventListener("load",function r(){t.setAttribute("data-rocket-status","executed"),e()}),t.addEventListener("error",r),n?(t.removeAttribute("data-rocket-src"),t.src=n):t.src="data:text/javascript;base64,"+window.btoa(unescape(encodeURIComponent(t.text)))}catch(s){r()}})}async _loadScriptsFromList(t){let e=t.shift();return e&&e.isConnected?(await this._transformScript(e),this._loadScriptsFromList(t)):Promise.resolve()}_preloadAllScripts(){this._batchInjectResourceHints([...this.delayedScripts.normal,...this.delayedScripts.defer,...this.delayedScripts.async],"preload")}_batchInjectResourceHints(t,e){var r=document.createDocumentFragment();t.forEach(t=>{let i=t.getAttribute&&t.getAttribute("data-rocket-src")||t.src;if(i){let n=document.createElement("link");n.href=i,n.rel=e,"preconnect"!==e&&(n.as="script"),t.getAttribute&&"module"===t.getAttribute("data-rocket-type")&&(n.crossOrigin=!0),t.crossOrigin&&(n.crossOrigin=t.crossOrigin),t.integrity&&(n.integrity=t.integrity),r.appendChild(n),this.trash.push(n)}}),document.head.appendChild(r)}_delayEventListeners(t){let e={};function r(t,r){!function t(r){!e[r]&&(e[r]={originalFunctions:{add:r.addEventListener,remove:r.removeEventListener},eventsToRewrite:[]},r.addEventListener=function(){arguments[0]=i(arguments[0]),e[r].originalFunctions.add.apply(r,arguments)},r.removeEventListener=function(){arguments[0]=i(arguments[0]),e[r].originalFunctions.remove.apply(r,arguments)});function i(t){return e[r].eventsToRewrite.indexOf(t)>=0?"rocket-"+t:t}}(t),e[t].eventsToRewrite.push(r)}function i(t,e){let r=t[e];Object.defineProperty(t,e,{get:()=>r||function(){},set(i){t["rocket"+e]=r=i}})}r(document,"DOMContentLoaded"),r(window,"DOMContentLoaded"),r(window,"load"),r(window,"pageshow"),r(document,"readystatechange"),i(document,"onreadystatechange"),i(window,"onload"),i(window,"onpageshow")}_delayJQueryReady(t){let e;function r(r){if(r&&r.fn&&!t.allJQueries.includes(r)){r.fn.ready=r.fn.init.prototype.ready=function(e){return t.domReadyFired?e.bind(document)(r):document.addEventListener("rocket-DOMContentLoaded",()=>e.bind(document)(r)),r([])};let i=r.fn.on;r.fn.on=r.fn.init.prototype.on=function(){if(this[0]===window){function t(t){return t.split(" ").map(t=>"load"===t||0===t.indexOf("load.")?"rocket-jquery-load":t).join(" ")}"string"==typeof arguments[0]||arguments[0]instanceof String?arguments[0]=t(arguments[0]):"object"==typeof arguments[0]&&Object.keys(arguments[0]).forEach(e=>{let r=arguments[0][e];delete arguments[0][e],arguments[0][t(e)]=r})}return i.apply(this,arguments),this},t.allJQueries.push(r)}e=r}r(window.jQuery),Object.defineProperty(window,"jQuery",{get:()=>e,set(t){r(t)}})}async _triggerDOMContentLoaded(){this.domReadyFired=!0,await this._littleBreath(),document.dispatchEvent(new Event("rocket-DOMContentLoaded")),await this._littleBreath(),window.dispatchEvent(new Event("rocket-DOMContentLoaded")),await this._littleBreath(),document.dispatchEvent(new Event("rocket-readystatechange")),await this._littleBreath(),document.rocketonreadystatechange&&document.rocketonreadystatechange()}async _triggerWindowLoad(){await this._littleBreath(),window.dispatchEvent(new Event("rocket-load")),await this._littleBreath(),window.rocketonload&&window.rocketonload(),await this._littleBreath(),this.allJQueries.forEach(t=>t(window).trigger("rocket-jquery-load")),await this._littleBreath();let t=new Event("rocket-pageshow");t.persisted=this.persisted,window.dispatchEvent(t),await this._littleBreath(),window.rocketonpageshow&&window.rocketonpageshow({persisted:this.persisted})}_handleDocumentWrite(){let t=new Map;document.write=document.writeln=function(e){let r=document.currentScript;r||console.error("WPRocket unable to document.write this: "+e);let i=document.createRange(),n=r.parentElement,s=t.get(r);void 0===s&&(s=r.nextSibling,t.set(r,s));let a=document.createDocumentFragment();i.setStart(a,0),a.appendChild(i.createContextualFragment(e)),n.insertBefore(a,s)}}async _littleBreath(){Date.now()-this.lastBreath>45&&(await this._requestAnimFrame(),this.lastBreath=Date.now())}async _requestAnimFrame(){return document.hidden?new Promise(t=>setTimeout(t)):new Promise(t=>requestAnimationFrame(t))}_emptyTrash(){this.trash.forEach(t=>t.remove())}static run(){let t=new RocketLazyLoadScripts;t._addUserInteractionListener(t)}}RocketLazyLoadScripts.run();</script>
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="profile" href="https://gmpg.org/xfn/11">
+	<meta name='robots' content='noindex, follow' />
+            <script type="rocketlazyloadscript" data-rocket-type="text/javascript"> var epic_news_ajax_url = 'https://www.naratiunea.ro/?epic-ajax-request=epic-ne'; </script>
+            
+	<!-- This site is optimized with the Yoast SEO plugin v27.0 - https://yoast.com/product/yoast-seo-wordpress/ -->
+	<title>Naratiunea.ro</title>
+	<meta property="og:locale" content="ro_RO" />
+	<meta property="og:type" content="article" />
+	<meta property="og:site_name" content="Naratiunea.ro" />
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta name="twitter:site" content="@naratiunearo" />
+	<script type="application/ld+json" class="yoast-schema-graph">{"@context":"https://schema.org","@graph":[{"@type":"WebSite","@id":"https://www.naratiunea.ro/#website","url":"https://www.naratiunea.ro/","name":"Naratiunea.ro","description":"Naratiunea ratiunii unei natiuni","publisher":{"@id":"https://www.naratiunea.ro/#organization"},"potentialAction":[{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://www.naratiunea.ro/?s={search_term_string}"},"query-input":{"@type":"PropertyValueSpecification","valueRequired":true,"valueName":"search_term_string"}}],"inLanguage":"ro-RO"},{"@type":"Organization","@id":"https://www.naratiunea.ro/#organization","name":"Naratiunea.ro","url":"https://www.naratiunea.ro/","logo":{"@type":"ImageObject","inLanguage":"ro-RO","@id":"https://www.naratiunea.ro/#/schema/logo/image/","url":"https://www.naratiunea.ro/wp-content/uploads/2022/06/logo-1.jpg","contentUrl":"https://www.naratiunea.ro/wp-content/uploads/2022/06/logo-1.jpg","width":1000,"height":1000,"caption":"Naratiunea.ro"},"image":{"@id":"https://www.naratiunea.ro/#/schema/logo/image/"},"sameAs":["https://www.facebook.com/naratiunea.ro/","https://x.com/naratiunearo","https://www.instagram.com/naratiunea.ro/","https://www.linkedin.com/company/naratiunea/"]}]}</script>
+	<!-- / Yoast SEO plugin. -->
+
+
+<link rel='dns-prefetch' href='//www.googletagmanager.com' />
+<link rel='dns-prefetch' href='//pagead2.googlesyndication.com' />
+
+<link rel="alternate" type="application/rss+xml" title="Naratiunea.ro &raquo; Flux" href="https://www.naratiunea.ro/feed/" />
+<link rel="alternate" type="application/rss+xml" title="Naratiunea.ro &raquo; Flux comentarii" href="https://www.naratiunea.ro/comments/feed/" />
+<style id='wp-img-auto-sizes-contain-inline-css'>
+img:is([sizes=auto i],[sizes^="auto," i]){contain-intrinsic-size:3000px 1500px}
+/*# sourceURL=wp-img-auto-sizes-contain-inline-css */
+</style>
+<style id='wp-emoji-styles-inline-css'>
+
+	img.wp-smiley, img.emoji {
+		display: inline !important;
+		border: none !important;
+		box-shadow: none !important;
+		height: 1em !important;
+		width: 1em !important;
+		margin: 0 0.07em !important;
+		vertical-align: -0.1em !important;
+		background: none !important;
+		padding: 0 !important;
+	}
+/*# sourceURL=wp-emoji-styles-inline-css */
+</style>
+<link rel='stylesheet' id='wp-block-library-css' href='https://www.naratiunea.ro/wp-includes/css/dist/block-library/style.min.css?ver=6.9.1' media='all' />
+<style id='global-styles-inline-css'>
+:root{--wp--preset--aspect-ratio--square: 1;--wp--preset--aspect-ratio--4-3: 4/3;--wp--preset--aspect-ratio--3-4: 3/4;--wp--preset--aspect-ratio--3-2: 3/2;--wp--preset--aspect-ratio--2-3: 2/3;--wp--preset--aspect-ratio--16-9: 16/9;--wp--preset--aspect-ratio--9-16: 9/16;--wp--preset--color--black: #000000;--wp--preset--color--cyan-bluish-gray: #abb8c3;--wp--preset--color--white: #ffffff;--wp--preset--color--pale-pink: #f78da7;--wp--preset--color--vivid-red: #cf2e2e;--wp--preset--color--luminous-vivid-orange: #ff6900;--wp--preset--color--luminous-vivid-amber: #fcb900;--wp--preset--color--light-green-cyan: #7bdcb5;--wp--preset--color--vivid-green-cyan: #00d084;--wp--preset--color--pale-cyan-blue: #8ed1fc;--wp--preset--color--vivid-cyan-blue: #0693e3;--wp--preset--color--vivid-purple: #9b51e0;--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple: linear-gradient(135deg,rgb(6,147,227) 0%,rgb(155,81,224) 100%);--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan: linear-gradient(135deg,rgb(122,220,180) 0%,rgb(0,208,130) 100%);--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange: linear-gradient(135deg,rgb(252,185,0) 0%,rgb(255,105,0) 100%);--wp--preset--gradient--luminous-vivid-orange-to-vivid-red: linear-gradient(135deg,rgb(255,105,0) 0%,rgb(207,46,46) 100%);--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray: linear-gradient(135deg,rgb(238,238,238) 0%,rgb(169,184,195) 100%);--wp--preset--gradient--cool-to-warm-spectrum: linear-gradient(135deg,rgb(74,234,220) 0%,rgb(151,120,209) 20%,rgb(207,42,186) 40%,rgb(238,44,130) 60%,rgb(251,105,98) 80%,rgb(254,248,76) 100%);--wp--preset--gradient--blush-light-purple: linear-gradient(135deg,rgb(255,206,236) 0%,rgb(152,150,240) 100%);--wp--preset--gradient--blush-bordeaux: linear-gradient(135deg,rgb(254,205,165) 0%,rgb(254,45,45) 50%,rgb(107,0,62) 100%);--wp--preset--gradient--luminous-dusk: linear-gradient(135deg,rgb(255,203,112) 0%,rgb(199,81,192) 50%,rgb(65,88,208) 100%);--wp--preset--gradient--pale-ocean: linear-gradient(135deg,rgb(255,245,203) 0%,rgb(182,227,212) 50%,rgb(51,167,181) 100%);--wp--preset--gradient--electric-grass: linear-gradient(135deg,rgb(202,248,128) 0%,rgb(113,206,126) 100%);--wp--preset--gradient--midnight: linear-gradient(135deg,rgb(2,3,129) 0%,rgb(40,116,252) 100%);--wp--preset--font-size--small: 13px;--wp--preset--font-size--medium: 20px;--wp--preset--font-size--large: 36px;--wp--preset--font-size--x-large: 42px;--wp--preset--spacing--20: 0.44rem;--wp--preset--spacing--30: 0.67rem;--wp--preset--spacing--40: 1rem;--wp--preset--spacing--50: 1.5rem;--wp--preset--spacing--60: 2.25rem;--wp--preset--spacing--70: 3.38rem;--wp--preset--spacing--80: 5.06rem;--wp--preset--shadow--natural: 6px 6px 9px rgba(0, 0, 0, 0.2);--wp--preset--shadow--deep: 12px 12px 50px rgba(0, 0, 0, 0.4);--wp--preset--shadow--sharp: 6px 6px 0px rgba(0, 0, 0, 0.2);--wp--preset--shadow--outlined: 6px 6px 0px -3px rgb(255, 255, 255), 6px 6px rgb(0, 0, 0);--wp--preset--shadow--crisp: 6px 6px 0px rgb(0, 0, 0);}:root { --wp--style--global--content-size: 800px;--wp--style--global--wide-size: 1200px; }:where(body) { margin: 0; }.wp-site-blocks > .alignleft { float: left; margin-right: 2em; }.wp-site-blocks > .alignright { float: right; margin-left: 2em; }.wp-site-blocks > .aligncenter { justify-content: center; margin-left: auto; margin-right: auto; }:where(.wp-site-blocks) > * { margin-block-start: 24px; margin-block-end: 0; }:where(.wp-site-blocks) > :first-child { margin-block-start: 0; }:where(.wp-site-blocks) > :last-child { margin-block-end: 0; }:root { --wp--style--block-gap: 24px; }:root :where(.is-layout-flow) > :first-child{margin-block-start: 0;}:root :where(.is-layout-flow) > :last-child{margin-block-end: 0;}:root :where(.is-layout-flow) > *{margin-block-start: 24px;margin-block-end: 0;}:root :where(.is-layout-constrained) > :first-child{margin-block-start: 0;}:root :where(.is-layout-constrained) > :last-child{margin-block-end: 0;}:root :where(.is-layout-constrained) > *{margin-block-start: 24px;margin-block-end: 0;}:root :where(.is-layout-flex){gap: 24px;}:root :where(.is-layout-grid){gap: 24px;}.is-layout-flow > .alignleft{float: left;margin-inline-start: 0;margin-inline-end: 2em;}.is-layout-flow > .alignright{float: right;margin-inline-start: 2em;margin-inline-end: 0;}.is-layout-flow > .aligncenter{margin-left: auto !important;margin-right: auto !important;}.is-layout-constrained > .alignleft{float: left;margin-inline-start: 0;margin-inline-end: 2em;}.is-layout-constrained > .alignright{float: right;margin-inline-start: 2em;margin-inline-end: 0;}.is-layout-constrained > .aligncenter{margin-left: auto !important;margin-right: auto !important;}.is-layout-constrained > :where(:not(.alignleft):not(.alignright):not(.alignfull)){max-width: var(--wp--style--global--content-size);margin-left: auto !important;margin-right: auto !important;}.is-layout-constrained > .alignwide{max-width: var(--wp--style--global--wide-size);}body .is-layout-flex{display: flex;}.is-layout-flex{flex-wrap: wrap;align-items: center;}.is-layout-flex > :is(*, div){margin: 0;}body .is-layout-grid{display: grid;}.is-layout-grid > :is(*, div){margin: 0;}body{padding-top: 0px;padding-right: 0px;padding-bottom: 0px;padding-left: 0px;}a:where(:not(.wp-element-button)){text-decoration: underline;}:root :where(.wp-element-button, .wp-block-button__link){background-color: #32373c;border-width: 0;color: #fff;font-family: inherit;font-size: inherit;font-style: inherit;font-weight: inherit;letter-spacing: inherit;line-height: inherit;padding-top: calc(0.667em + 2px);padding-right: calc(1.333em + 2px);padding-bottom: calc(0.667em + 2px);padding-left: calc(1.333em + 2px);text-decoration: none;text-transform: inherit;}.has-black-color{color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-color{color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-color{color: var(--wp--preset--color--white) !important;}.has-pale-pink-color{color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-color{color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-color{color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-color{color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-color{color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-color{color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-color{color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-color{color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-color{color: var(--wp--preset--color--vivid-purple) !important;}.has-black-background-color{background-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-background-color{background-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-background-color{background-color: var(--wp--preset--color--white) !important;}.has-pale-pink-background-color{background-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-background-color{background-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-background-color{background-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-background-color{background-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-background-color{background-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-background-color{background-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-background-color{background-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-background-color{background-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-background-color{background-color: var(--wp--preset--color--vivid-purple) !important;}.has-black-border-color{border-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-border-color{border-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-border-color{border-color: var(--wp--preset--color--white) !important;}.has-pale-pink-border-color{border-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-border-color{border-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-border-color{border-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-border-color{border-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-border-color{border-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-border-color{border-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-border-color{border-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-border-color{border-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-border-color{border-color: var(--wp--preset--color--vivid-purple) !important;}.has-vivid-cyan-blue-to-vivid-purple-gradient-background{background: var(--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple) !important;}.has-light-green-cyan-to-vivid-green-cyan-gradient-background{background: var(--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan) !important;}.has-luminous-vivid-amber-to-luminous-vivid-orange-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange) !important;}.has-luminous-vivid-orange-to-vivid-red-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-orange-to-vivid-red) !important;}.has-very-light-gray-to-cyan-bluish-gray-gradient-background{background: var(--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray) !important;}.has-cool-to-warm-spectrum-gradient-background{background: var(--wp--preset--gradient--cool-to-warm-spectrum) !important;}.has-blush-light-purple-gradient-background{background: var(--wp--preset--gradient--blush-light-purple) !important;}.has-blush-bordeaux-gradient-background{background: var(--wp--preset--gradient--blush-bordeaux) !important;}.has-luminous-dusk-gradient-background{background: var(--wp--preset--gradient--luminous-dusk) !important;}.has-pale-ocean-gradient-background{background: var(--wp--preset--gradient--pale-ocean) !important;}.has-electric-grass-gradient-background{background: var(--wp--preset--gradient--electric-grass) !important;}.has-midnight-gradient-background{background: var(--wp--preset--gradient--midnight) !important;}.has-small-font-size{font-size: var(--wp--preset--font-size--small) !important;}.has-medium-font-size{font-size: var(--wp--preset--font-size--medium) !important;}.has-large-font-size{font-size: var(--wp--preset--font-size--large) !important;}.has-x-large-font-size{font-size: var(--wp--preset--font-size--x-large) !important;}
+:root :where(.wp-block-pullquote){font-size: 1.5em;line-height: 1.6;}
+/*# sourceURL=global-styles-inline-css */
+</style>
+<link data-minify="1" rel='stylesheet' id='hello-elementor-css' href='https://www.naratiunea.ro/wp-content/cache/min/1/wp-content/themes/hello-elementor/assets/css/reset.css?ver=1771896145' media='all' />
+<link data-minify="1" rel='stylesheet' id='hello-elementor-theme-style-css' href='https://www.naratiunea.ro/wp-content/cache/min/1/wp-content/themes/hello-elementor/assets/css/theme.css?ver=1771896145' media='all' />
+<link data-minify="1" rel='stylesheet' id='hello-elementor-header-footer-css' href='https://www.naratiunea.ro/wp-content/cache/min/1/wp-content/themes/hello-elementor/assets/css/header-footer.css?ver=1771896145' media='all' />
+<link rel='stylesheet' id='elementor-frontend-css' href='https://www.naratiunea.ro/wp-content/plugins/elementor/assets/css/frontend.min.css?ver=3.35.5' media='all' />
+<link rel='stylesheet' id='elementor-post-8-css' href='https://www.naratiunea.ro/wp-content/uploads/elementor/css/post-8.css?ver=1771896141' media='all' />
+<link rel='stylesheet' id='widget-social-icons-css' href='https://www.naratiunea.ro/wp-content/plugins/elementor/assets/css/widget-social-icons.min.css?ver=3.35.5' media='all' />
+<link rel='stylesheet' id='e-apple-webkit-css' href='https://www.naratiunea.ro/wp-content/plugins/elementor/assets/css/conditionals/apple-webkit.min.css?ver=3.35.5' media='all' />
+<link rel='stylesheet' id='widget-search-form-css' href='https://www.naratiunea.ro/wp-content/plugins/elementor-pro/assets/css/widget-search-form.min.css?ver=3.35.1' media='all' />
+<link rel='stylesheet' id='elementor-icons-shared-0-css' href='https://www.naratiunea.ro/wp-content/plugins/elementor/assets/lib/font-awesome/css/fontawesome.min.css?ver=5.15.3' media='all' />
+<link data-minify="1" rel='stylesheet' id='elementor-icons-fa-solid-css' href='https://www.naratiunea.ro/wp-content/cache/min/1/wp-content/plugins/elementor/assets/lib/font-awesome/css/solid.min.css?ver=1771896146' media='all' />
+<link rel='stylesheet' id='widget-image-css' href='https://www.naratiunea.ro/wp-content/plugins/elementor/assets/css/widget-image.min.css?ver=3.35.5' media='all' />
+<link rel='stylesheet' id='widget-nav-menu-css' href='https://www.naratiunea.ro/wp-content/plugins/elementor-pro/assets/css/widget-nav-menu.min.css?ver=3.35.1' media='all' />
+<link rel='stylesheet' id='widget-heading-css' href='https://www.naratiunea.ro/wp-content/plugins/elementor/assets/css/widget-heading.min.css?ver=3.35.5' media='all' />
+<link rel='stylesheet' id='widget-form-css' href='https://www.naratiunea.ro/wp-content/plugins/elementor-pro/assets/css/widget-form.min.css?ver=3.35.1' media='all' />
+<link rel='stylesheet' id='widget-breadcrumbs-css' href='https://www.naratiunea.ro/wp-content/plugins/elementor-pro/assets/css/widget-breadcrumbs.min.css?ver=3.35.1' media='all' />
+<link rel='stylesheet' id='widget-posts-css' href='https://www.naratiunea.ro/wp-content/plugins/elementor-pro/assets/css/widget-posts.min.css?ver=3.35.1' media='all' />
+<link data-minify="1" rel='stylesheet' id='elementor-icons-css' href='https://www.naratiunea.ro/wp-content/cache/min/1/wp-content/plugins/elementor/assets/lib/eicons/css/elementor-icons.min.css?ver=1771896146' media='all' />
+<link rel='stylesheet' id='elementor-post-22-css' href='https://www.naratiunea.ro/wp-content/uploads/elementor/css/post-22.css?ver=1771896142' media='all' />
+<link rel='stylesheet' id='elementor-post-23-css' href='https://www.naratiunea.ro/wp-content/uploads/elementor/css/post-23.css?ver=1771896142' media='all' />
+<link rel='stylesheet' id='elementor-post-589-css' href='https://www.naratiunea.ro/wp-content/uploads/elementor/css/post-589.css?ver=1771896172' media='all' />
+<link data-minify="1" rel='stylesheet' id='epic-icon-css' href='https://www.naratiunea.ro/wp-content/cache/min/1/wp-content/plugins/epic-news-element/assets/fonts/jegicon/jegicon.css?ver=1771896146' media='all' />
+<link data-minify="1" rel='stylesheet' id='font-awesome-css' href='https://www.naratiunea.ro/wp-content/cache/min/1/wp-content/plugins/elementor/assets/lib/font-awesome/css/font-awesome.min.css?ver=1771896146' media='all' />
+<link rel='stylesheet' id='epic-style-css' href='https://www.naratiunea.ro/wp-content/plugins/epic-news-element/assets/css/style.min.css?ver=6.9.1' media='all' />
+<link data-minify="1" rel='stylesheet' id='elementor-gf-local-poppins-css' href='https://www.naratiunea.ro/wp-content/cache/min/1/wp-content/uploads/elementor/google-fonts/css/poppins.css?ver=1771896146' media='all' />
+<link data-minify="1" rel='stylesheet' id='elementor-gf-local-aleo-css' href='https://www.naratiunea.ro/wp-content/cache/min/1/wp-content/uploads/elementor/google-fonts/css/aleo.css?ver=1771896146' media='all' />
+<link data-minify="1" rel='stylesheet' id='elementor-gf-local-gelasio-css' href='https://www.naratiunea.ro/wp-content/cache/min/1/wp-content/uploads/elementor/google-fonts/css/gelasio.css?ver=1771896146' media='all' />
+<link data-minify="1" rel='stylesheet' id='elementor-gf-local-jost-css' href='https://www.naratiunea.ro/wp-content/cache/min/1/wp-content/uploads/elementor/google-fonts/css/jost.css?ver=1771896146' media='all' />
+<link data-minify="1" rel='stylesheet' id='elementor-icons-fa-brands-css' href='https://www.naratiunea.ro/wp-content/cache/min/1/wp-content/plugins/elementor/assets/lib/font-awesome/css/brands.min.css?ver=1771896146' media='all' />
+<script src="https://www.naratiunea.ro/wp-includes/js/jquery/jquery.min.js?ver=3.7.1" id="jquery-core-js" defer></script>
+<script src="https://www.naratiunea.ro/wp-includes/js/jquery/jquery-migrate.min.js?ver=3.4.1" id="jquery-migrate-js" defer></script>
+
+<!-- Google tag (gtag.js) snippet added by Site Kit -->
+<!-- Google Analytics snippet added by Site Kit -->
+<script type="rocketlazyloadscript" data-rocket-src="https://www.googletagmanager.com/gtag/js?id=GT-T9K6QJ2" id="google_gtagjs-js" async></script>
+<script type="rocketlazyloadscript" id="google_gtagjs-js-after">
+window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}
+gtag("set","linker",{"domains":["www.naratiunea.ro"]});
+gtag("js", new Date());
+gtag("set", "developer_id.dZTNiMT", true);
+gtag("config", "GT-T9K6QJ2");
+//# sourceURL=google_gtagjs-js-after
+</script>
+<link rel="https://api.w.org/" href="https://www.naratiunea.ro/wp-json/" /><link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://www.naratiunea.ro/xmlrpc.php?rsd" />
+<meta name="generator" content="WordPress 6.9.1" />
+<meta name="generator" content="Site Kit by Google 1.173.0" />
+<!-- Google AdSense meta tags added by Site Kit -->
+<meta name="google-adsense-platform-account" content="ca-host-pub-2644536267352236">
+<meta name="google-adsense-platform-domain" content="sitekit.withgoogle.com">
+<!-- End Google AdSense meta tags added by Site Kit -->
+<meta name="generator" content="Elementor 3.35.5; features: additional_custom_breakpoints; settings: css_print_method-external, google_font-enabled, font_display-auto">
+<link rel="apple-touch-icon" sizes="57x57" href="/apple-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="/apple-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="/apple-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="/apple-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="/apple-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="/apple-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="/apple-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="/apple-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-icon-180x180.png">
+<link rel="icon" type="image/png" sizes="192x192"  href="/android-icon-192x192.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+<meta name="theme-color" content="#ffffff">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2539914286966120"
+     crossorigin="anonymous"></script>
+      <meta name="onesignal" content="wordpress-plugin"/>
+            <script type="rocketlazyloadscript">
+
+      window.OneSignalDeferred = window.OneSignalDeferred || [];
+
+      OneSignalDeferred.push(function(OneSignal) {
+        var oneSignal_options = {};
+        window._oneSignalInitOptions = oneSignal_options;
+
+        oneSignal_options['serviceWorkerParam'] = { scope: '/wp-content/plugins/onesignal-free-web-push-notifications/sdk_files/push/onesignal/' };
+oneSignal_options['serviceWorkerPath'] = 'OneSignalSDKWorker.js';
+
+        OneSignal.Notifications.setDefaultUrl("https://www.naratiunea.ro");
+
+        oneSignal_options['wordpress'] = true;
+oneSignal_options['appId'] = '353ff5b9-bc41-4dde-957b-d9a946a9f3b6';
+oneSignal_options['allowLocalhostAsSecureOrigin'] = true;
+oneSignal_options['welcomeNotification'] = { };
+oneSignal_options['welcomeNotification']['title'] = "";
+oneSignal_options['welcomeNotification']['message'] = "";
+oneSignal_options['path'] = "https://www.naratiunea.ro/wp-content/plugins/onesignal-free-web-push-notifications/sdk_files/";
+oneSignal_options['safari_web_id'] = "web.onesignal.auto.4ed285de-faf5-4c6c-a346-3ff91e5aded6";
+oneSignal_options['promptOptions'] = { };
+oneSignal_options['promptOptions']['acceptButtonText'] = "Accept";
+oneSignal_options['promptOptions']['cancelButtonText'] = "Nu, multumesc!";
+oneSignal_options['notifyButton'] = { };
+oneSignal_options['notifyButton']['enable'] = true;
+oneSignal_options['notifyButton']['position'] = 'bottom-right';
+oneSignal_options['notifyButton']['theme'] = 'inverse';
+oneSignal_options['notifyButton']['size'] = 'medium';
+oneSignal_options['notifyButton']['showCredit'] = true;
+oneSignal_options['notifyButton']['text'] = {};
+oneSignal_options['notifyButton']['text']['tip.state.unsubscribed'] = 'Abonează-te la notificări!';
+oneSignal_options['notifyButton']['text']['tip.state.subscribed'] = 'Ești abonat la notificări!';
+oneSignal_options['notifyButton']['text']['tip.state.blocked'] = 'Ai blocat notificările!';
+oneSignal_options['notifyButton']['text']['message.action.subscribed'] = 'Mulțumim pentru abonare!';
+oneSignal_options['notifyButton']['text']['message.action.unsubscribed'] = 'Nu vei mai primi aceste notificări!';
+oneSignal_options['notifyButton']['text']['dialog.main.button.subscribe'] = 'Abonează-te!';
+oneSignal_options['notifyButton']['text']['dialog.main.button.unsubscribe'] = 'Dezabonează-te!';
+oneSignal_options['notifyButton']['offset'] = {};
+oneSignal_options['notifyButton']['offset']['bottom'] = '70px';
+              OneSignal.init(window._oneSignalInitOptions);
+              OneSignal.Slidedown.promptPush()      });
+
+      function documentInitOneSignal() {
+        var oneSignal_elements = document.getElementsByClassName("OneSignal-prompt");
+
+        var oneSignalLinkClickHandler = function(event) { OneSignal.Notifications.requestPermission(); event.preventDefault(); };        for(var i = 0; i < oneSignal_elements.length; i++)
+          oneSignal_elements[i].addEventListener('click', oneSignalLinkClickHandler, false);
+      }
+
+      if (document.readyState === 'complete') {
+           documentInitOneSignal();
+      }
+      else {
+           window.addEventListener("load", function(event){
+               documentInitOneSignal();
+          });
+      }
+    </script>
+			<style>
+				.e-con.e-parent:nth-of-type(n+4):not(.e-lazyloaded):not(.e-no-lazyload),
+				.e-con.e-parent:nth-of-type(n+4):not(.e-lazyloaded):not(.e-no-lazyload) * {
+					background-image: none !important;
+				}
+				@media screen and (max-height: 1024px) {
+					.e-con.e-parent:nth-of-type(n+3):not(.e-lazyloaded):not(.e-no-lazyload),
+					.e-con.e-parent:nth-of-type(n+3):not(.e-lazyloaded):not(.e-no-lazyload) * {
+						background-image: none !important;
+					}
+				}
+				@media screen and (max-height: 640px) {
+					.e-con.e-parent:nth-of-type(n+2):not(.e-lazyloaded):not(.e-no-lazyload),
+					.e-con.e-parent:nth-of-type(n+2):not(.e-lazyloaded):not(.e-no-lazyload) * {
+						background-image: none !important;
+					}
+				}
+			</style>
+			
+<!-- Google AdSense snippet added by Site Kit -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2539914286966120&amp;host=ca-host-pub-2644536267352236" crossorigin="anonymous"></script>
+
+<!-- End Google AdSense snippet added by Site Kit -->
+<link rel="icon" href="https://www.naratiunea.ro/wp-content/uploads/2022/06/cropped-logo-1-32x32.jpg" sizes="32x32" />
+<link rel="icon" href="https://www.naratiunea.ro/wp-content/uploads/2022/06/cropped-logo-1-192x192.jpg" sizes="192x192" />
+<link rel="apple-touch-icon" href="https://www.naratiunea.ro/wp-content/uploads/2022/06/cropped-logo-1-180x180.jpg" />
+<meta name="msapplication-TileImage" content="https://www.naratiunea.ro/wp-content/uploads/2022/06/cropped-logo-1-270x270.jpg" />
+<style id="jeg_dynamic_css" type="text/css" data-type="jeg_custom-css">.jeg_post_title, .jeg_post_title > a, jeg_archive_title, .jeg_block_title>span, .jeg_block_title>span>strong { font-family: Poppins,Helvetica,Arial,sans-serif;font-weight : 500; font-style : normal; font-size: 15;  } .jeg_post_meta, .jeg_postblock .jeg_subcat_list > li > a:hover, .jeg_pl_md_card .jeg_post_category a, .jeg_postblock .jeg_subcat_list > li > a, .jeg_pl_md_5 .jeg_post_meta, .jeg_post_category a { font-family: Poppins,Helvetica,Arial,sans-serif; } .jeg_post_excerpt,.jeg_readmore { font-family: Poppins,Helvetica,Arial,sans-serif; } </style>		<style id="wp-custom-css">
+			body li.vremea a.elementor-item, body li.horoscop a.elementor-item, body li.ceas a.elementor-item{
+	background: url('/wp-content/uploads/2022/06/vremea.png') no-repeat center center;
+	width:30px;
+	height:30px;
+	float:left;
+	margin:15px 0;
+	padding: 13px 25px;
+}
+
+body li.horoscop a.elementor-item{
+	background: url('/wp-content/uploads/2022/06/horoscop.png') no-repeat center center;
+}
+
+body li.ceas a.elementor-item{
+	background: url('/wp-content/uploads/2022/06/ceas.png') no-repeat center center;
+}
+
+body li.vremea a.elementor-item:hover, body li.horoscop a.elementor-item:hover, body li.ceas a.elementor-item:hover{
+	padding: 13px 25px;
+}
+
+.home.page-template .elementor-post__title{
+display: -webkit-box;
+-webkit-line-clamp: 5;
+-webkit-box-orient: vertical;
+overflow: hidden;
+}
+
+.home.page-template .cele-mai-citite .elementor-post__title {
+display: -webkit-box;
+-webkit-line-clamp: 3;
+-webkit-box-orient: vertical;
+overflow: hidden;
+}
+
+.post-template-default.single.single-post .cele-mai-citite .elementor-post__title {
+display: -webkit-box;
+-webkit-line-clamp: 4;
+-webkit-box-orient: vertical;
+overflow: hidden;
+}
+
+
+.etichete .elementor-icon-list-text.elementor-post-info__item.elementor-post-info__item--type-terms{padding-left:0!important;}
+
+.etichete .elementor-icon-list-text.elementor-post-info__item.elementor-post-info__item--type-terms a{background:#264653;padding:10px 20px;border-radius:20px;color:#ffffff}
+
+.etichete .elementor-post-info__item-prefix{color:red;}		</style>
+		<noscript><style id="rocket-lazyload-nojs-css">.rll-youtube-player, [data-lazy-src]{display:none !important;}</style></noscript></head>
+<body class="archive category wp-custom-logo wp-embed-responsive wp-theme-hello-elementor hello-elementor-default elementor-page-589 elementor-default elementor-template-full-width elementor-kit-8">
+
+
+<a class="skip-link screen-reader-text" href="#content">Sari la conținut</a>
+
+		<header data-elementor-type="header" data-elementor-id="22" class="elementor elementor-22 elementor-location-header" data-elementor-post-type="elementor_library">
+					<section class="elementor-section elementor-top-section elementor-element elementor-element-f75889a elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="f75889a" data-element_type="section" data-e-type="section">
+						<div class="elementor-container elementor-column-gap-default">
+					<div class="elementor-column elementor-col-50 elementor-top-column elementor-element elementor-element-ccaa5a6" data-id="ccaa5a6" data-element_type="column" data-e-type="column">
+			<div class="elementor-widget-wrap elementor-element-populated">
+						<div class="elementor-element elementor-element-6a299e0 e-grid-align-right elementor-shape-square e-grid-align-mobile-left elementor-grid-0 elementor-widget elementor-widget-social-icons" data-id="6a299e0" data-element_type="widget" data-e-type="widget" data-widget_type="social-icons.default">
+				<div class="elementor-widget-container">
+							<div class="elementor-social-icons-wrapper elementor-grid" role="list">
+							<span class="elementor-grid-item" role="listitem">
+					<a class="elementor-icon elementor-social-icon elementor-social-icon-facebook elementor-repeater-item-fa02018" href="https://www.facebook.com/naratiunea.ro/" target="_blank">
+						<span class="elementor-screen-only">Facebook</span>
+						<i aria-hidden="true" class="fab fa-facebook"></i>					</a>
+				</span>
+							<span class="elementor-grid-item" role="listitem">
+					<a class="elementor-icon elementor-social-icon elementor-social-icon-instagram elementor-repeater-item-996c93f" href="https://www.instagram.com/naratiunea.ro/" target="_blank">
+						<span class="elementor-screen-only">Instagram</span>
+						<i aria-hidden="true" class="fab fa-instagram"></i>					</a>
+				</span>
+							<span class="elementor-grid-item" role="listitem">
+					<a class="elementor-icon elementor-social-icon elementor-social-icon-twitter elementor-repeater-item-9c5de21" href="https://twitter.com/naratiunearo" target="_blank">
+						<span class="elementor-screen-only">Twitter</span>
+						<i aria-hidden="true" class="fab fa-twitter"></i>					</a>
+				</span>
+							<span class="elementor-grid-item" role="listitem">
+					<a class="elementor-icon elementor-social-icon elementor-social-icon-linkedin elementor-repeater-item-8b7dd5c" href="https://www.linkedin.com/company/naratiunea/" target="_blank">
+						<span class="elementor-screen-only">Linkedin</span>
+						<i aria-hidden="true" class="fab fa-linkedin"></i>					</a>
+				</span>
+					</div>
+						</div>
+				</div>
+				<div class="elementor-element elementor-element-ea955bd elementor-widget elementor-widget-html" data-id="ea955bd" data-element_type="widget" data-e-type="widget" data-widget_type="html.default">
+				<div class="elementor-widget-container">
+					<div class="clever-core-ads"></div>				</div>
+				</div>
+					</div>
+		</div>
+				<div class="elementor-column elementor-col-50 elementor-top-column elementor-element elementor-element-0e7a0ad" data-id="0e7a0ad" data-element_type="column" data-e-type="column">
+			<div class="elementor-widget-wrap elementor-element-populated">
+						<div class="elementor-element elementor-element-dfbc555 elementor-search-form--skin-full_screen elementor-widget__width-inherit elementor-widget elementor-widget-search-form" data-id="dfbc555" data-element_type="widget" data-e-type="widget" data-settings="{&quot;skin&quot;:&quot;full_screen&quot;}" data-widget_type="search-form.default">
+				<div class="elementor-widget-container">
+							<search role="search">
+			<form class="elementor-search-form" action="https://www.naratiunea.ro" method="get">
+												<div class="elementor-search-form__toggle" role="button" tabindex="0" aria-label="Caută">
+					<i aria-hidden="true" class="fas fa-search"></i>				</div>
+								<div class="elementor-search-form__container">
+					<label class="elementor-screen-only" for="elementor-search-form-dfbc555">Caută</label>
+
+					
+					<input id="elementor-search-form-dfbc555" placeholder="Căutare..." class="elementor-search-form__input" type="search" name="s" value="">
+					
+					
+										<div class="dialog-lightbox-close-button dialog-close-button" role="button" tabindex="0" aria-label="Close this search box.">
+						<i aria-hidden="true" class="eicon-close"></i>					</div>
+									</div>
+			</form>
+		</search>
+						</div>
+				</div>
+					</div>
+		</div>
+					</div>
+		</section>
+				<section class="elementor-section elementor-top-section elementor-element elementor-element-31c6426 elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="31c6426" data-element_type="section" data-e-type="section">
+						<div class="elementor-container elementor-column-gap-default">
+					<div class="elementor-column elementor-col-100 elementor-top-column elementor-element elementor-element-9d96082" data-id="9d96082" data-element_type="column" data-e-type="column">
+			<div class="elementor-widget-wrap elementor-element-populated">
+						<div class="elementor-element elementor-element-d4f1be6 elementor-widget elementor-widget-theme-site-logo elementor-widget-image" data-id="d4f1be6" data-element_type="widget" data-e-type="widget" data-widget_type="theme-site-logo.default">
+				<div class="elementor-widget-container">
+											<a href="https://www.naratiunea.ro">
+			<img width="410" height="120" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20410%20120'%3E%3C/svg%3E" class="attachment-full size-full wp-image-31" alt="naratiunea.ro logo" data-lazy-srcset="https://www.naratiunea.ro/wp-content/uploads/2022/06/logo.png 410w, https://www.naratiunea.ro/wp-content/uploads/2022/06/logo-300x88.png 300w" data-lazy-sizes="(max-width: 410px) 100vw, 410px" data-lazy-src="https://www.naratiunea.ro/wp-content/uploads/2022/06/logo.png" /><noscript><img width="410" height="120" src="https://www.naratiunea.ro/wp-content/uploads/2022/06/logo.png" class="attachment-full size-full wp-image-31" alt="naratiunea.ro logo" srcset="https://www.naratiunea.ro/wp-content/uploads/2022/06/logo.png 410w, https://www.naratiunea.ro/wp-content/uploads/2022/06/logo-300x88.png 300w" sizes="(max-width: 410px) 100vw, 410px" /></noscript>				</a>
+											</div>
+				</div>
+					</div>
+		</div>
+					</div>
+		</section>
+				<section class="elementor-section elementor-top-section elementor-element elementor-element-fa25674 elementor-section-full_width elementor-section-height-default elementor-section-height-default" data-id="fa25674" data-element_type="section" data-e-type="section">
+						<div class="elementor-container elementor-column-gap-no">
+					<div class="elementor-column elementor-col-100 elementor-top-column elementor-element elementor-element-e1e1297" data-id="e1e1297" data-element_type="column" data-e-type="column">
+			<div class="elementor-widget-wrap elementor-element-populated">
+						<div class="elementor-element elementor-element-0cf8691 elementor-nav-menu__align-center elementor-nav-menu--dropdown-mobile elementor-nav-menu--stretch elementor-nav-menu__text-align-aside elementor-nav-menu--toggle elementor-nav-menu--burger elementor-widget elementor-widget-nav-menu" data-id="0cf8691" data-element_type="widget" data-e-type="widget" id="meniu-header" data-settings="{&quot;full_width&quot;:&quot;stretch&quot;,&quot;layout&quot;:&quot;horizontal&quot;,&quot;submenu_icon&quot;:{&quot;value&quot;:&quot;&lt;i class=\&quot;fas fa-caret-down\&quot; aria-hidden=\&quot;true\&quot;&gt;&lt;\/i&gt;&quot;,&quot;library&quot;:&quot;fa-solid&quot;},&quot;toggle&quot;:&quot;burger&quot;}" data-widget_type="nav-menu.default">
+				<div class="elementor-widget-container">
+								<nav aria-label="Meniu" class="elementor-nav-menu--main elementor-nav-menu__container elementor-nav-menu--layout-horizontal e--pointer-none">
+				<ul id="menu-1-0cf8691" class="elementor-nav-menu"><li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children menu-item-64"><a href="https://www.naratiunea.ro/news/" class="elementor-item">News</a>
+<ul class="sub-menu elementor-nav-menu--dropdown">
+	<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-67"><a href="https://www.naratiunea.ro/news/social/" class="elementor-sub-item">Social</a></li>
+	<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-19005"><a href="https://www.naratiunea.ro/news/politica/" class="elementor-sub-item">Politica</a></li>
+	<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-68"><a href="https://www.naratiunea.ro/news/educatie/" class="elementor-sub-item">Educatie</a></li>
+	<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-69"><a href="https://www.naratiunea.ro/news/sanatate/" class="elementor-sub-item">Sanatate</a></li>
+	<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-70"><a href="https://www.naratiunea.ro/news/sport/" class="elementor-sub-item">Sport</a></li>
+	<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-71"><a href="https://www.naratiunea.ro/news/cultura/" class="elementor-sub-item">Cultura</a></li>
+	<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-72"><a href="https://www.naratiunea.ro/news/educatie-financiara/" class="elementor-sub-item">Economie</a></li>
+	<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-182"><a href="https://www.naratiunea.ro/news/tech/" class="elementor-sub-item">Tech</a></li>
+</ul>
+</li>
+<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children menu-item-63"><a href="https://www.naratiunea.ro/lifestyle/" class="elementor-item">Lifestyle</a>
+<ul class="sub-menu elementor-nav-menu--dropdown">
+	<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-183"><a href="https://www.naratiunea.ro/lifestyle/beauty/" class="elementor-sub-item">Beauty</a></li>
+	<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-184"><a href="https://www.naratiunea.ro/lifestyle/divertisment/" class="elementor-sub-item">Divertisment</a></li>
+	<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-185"><a href="https://www.naratiunea.ro/lifestyle/fashion/" class="elementor-sub-item">Fashion</a></li>
+	<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-186"><a href="https://www.naratiunea.ro/lifestyle/inedit/" class="elementor-sub-item">Inedit</a></li>
+	<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-19136"><a href="https://www.naratiunea.ro/lifestyle/travel/" class="elementor-sub-item">Travel</a></li>
+</ul>
+</li>
+<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-66"><a href="https://www.naratiunea.ro/world/" class="elementor-item">World</a></li>
+<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-62"><a href="https://www.naratiunea.ro/exclusiv/" class="elementor-item">Exclusiv</a></li>
+<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-65"><a href="https://www.naratiunea.ro/premium/" class="elementor-item">Premium</a></li>
+<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-24106"><a href="https://www.naratiunea.ro/nara/" class="elementor-item">Nara zice&#8230;</a></li>
+<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-22100"><a href="https://www.naratiunea.ro/news/comunicate/" class="elementor-item">Comunicate</a></li>
+<li class="vremea menu-item menu-item-type-custom menu-item-object-custom menu-item-82"><a href="/news/vremea/" class="elementor-item"> </a></li>
+<li class="horoscop menu-item menu-item-type-custom menu-item-object-custom menu-item-113"><a href="/lifestyle/horoscop/" class="elementor-item"> </a></li>
+<li class="ceas menu-item menu-item-type-custom menu-item-object-custom menu-item-122"><a href="/just-in/" class="elementor-item"> </a></li>
+</ul>			</nav>
+					<div class="elementor-menu-toggle" role="button" tabindex="0" aria-label="Menu Toggle" aria-expanded="false">
+			<i aria-hidden="true" role="presentation" class="elementor-menu-toggle__icon--open fas fa-bars"></i><i aria-hidden="true" role="presentation" class="elementor-menu-toggle__icon--close fas fa-times"></i>		</div>
+					<nav class="elementor-nav-menu--dropdown elementor-nav-menu__container" aria-hidden="true">
+				<ul id="menu-2-0cf8691" class="elementor-nav-menu"><li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children menu-item-64"><a href="https://www.naratiunea.ro/news/" class="elementor-item" tabindex="-1">News</a>
+<ul class="sub-menu elementor-nav-menu--dropdown">
+	<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-67"><a href="https://www.naratiunea.ro/news/social/" class="elementor-sub-item" tabindex="-1">Social</a></li>
+	<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-19005"><a href="https://www.naratiunea.ro/news/politica/" class="elementor-sub-item" tabindex="-1">Politica</a></li>
+	<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-68"><a href="https://www.naratiunea.ro/news/educatie/" class="elementor-sub-item" tabindex="-1">Educatie</a></li>
+	<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-69"><a href="https://www.naratiunea.ro/news/sanatate/" class="elementor-sub-item" tabindex="-1">Sanatate</a></li>
+	<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-70"><a href="https://www.naratiunea.ro/news/sport/" class="elementor-sub-item" tabindex="-1">Sport</a></li>
+	<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-71"><a href="https://www.naratiunea.ro/news/cultura/" class="elementor-sub-item" tabindex="-1">Cultura</a></li>
+	<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-72"><a href="https://www.naratiunea.ro/news/educatie-financiara/" class="elementor-sub-item" tabindex="-1">Economie</a></li>
+	<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-182"><a href="https://www.naratiunea.ro/news/tech/" class="elementor-sub-item" tabindex="-1">Tech</a></li>
+</ul>
+</li>
+<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children menu-item-63"><a href="https://www.naratiunea.ro/lifestyle/" class="elementor-item" tabindex="-1">Lifestyle</a>
+<ul class="sub-menu elementor-nav-menu--dropdown">
+	<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-183"><a href="https://www.naratiunea.ro/lifestyle/beauty/" class="elementor-sub-item" tabindex="-1">Beauty</a></li>
+	<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-184"><a href="https://www.naratiunea.ro/lifestyle/divertisment/" class="elementor-sub-item" tabindex="-1">Divertisment</a></li>
+	<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-185"><a href="https://www.naratiunea.ro/lifestyle/fashion/" class="elementor-sub-item" tabindex="-1">Fashion</a></li>
+	<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-186"><a href="https://www.naratiunea.ro/lifestyle/inedit/" class="elementor-sub-item" tabindex="-1">Inedit</a></li>
+	<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-19136"><a href="https://www.naratiunea.ro/lifestyle/travel/" class="elementor-sub-item" tabindex="-1">Travel</a></li>
+</ul>
+</li>
+<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-66"><a href="https://www.naratiunea.ro/world/" class="elementor-item" tabindex="-1">World</a></li>
+<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-62"><a href="https://www.naratiunea.ro/exclusiv/" class="elementor-item" tabindex="-1">Exclusiv</a></li>
+<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-65"><a href="https://www.naratiunea.ro/premium/" class="elementor-item" tabindex="-1">Premium</a></li>
+<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-24106"><a href="https://www.naratiunea.ro/nara/" class="elementor-item" tabindex="-1">Nara zice&#8230;</a></li>
+<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-22100"><a href="https://www.naratiunea.ro/news/comunicate/" class="elementor-item" tabindex="-1">Comunicate</a></li>
+<li class="vremea menu-item menu-item-type-custom menu-item-object-custom menu-item-82"><a href="/news/vremea/" class="elementor-item" tabindex="-1"> </a></li>
+<li class="horoscop menu-item menu-item-type-custom menu-item-object-custom menu-item-113"><a href="/lifestyle/horoscop/" class="elementor-item" tabindex="-1"> </a></li>
+<li class="ceas menu-item menu-item-type-custom menu-item-object-custom menu-item-122"><a href="/just-in/" class="elementor-item" tabindex="-1"> </a></li>
+</ul>			</nav>
+						</div>
+				</div>
+					</div>
+		</div>
+					</div>
+		</section>
+				<section class="elementor-section elementor-top-section elementor-element elementor-element-342f3d2 elementor-section-full_width elementor-hidden-tablet elementor-hidden-mobile elementor-section-height-default elementor-section-height-default" data-id="342f3d2" data-element_type="section" data-e-type="section" data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
+						<div class="elementor-container elementor-column-gap-default">
+					<div class="elementor-column elementor-col-100 elementor-top-column elementor-element elementor-element-e3e0eac" data-id="e3e0eac" data-element_type="column" data-e-type="column">
+			<div class="elementor-widget-wrap">
+							</div>
+		</div>
+					</div>
+		</section>
+				</header>
+				<div data-elementor-type="archive" data-elementor-id="589" class="elementor elementor-589 elementor-location-archive" data-elementor-post-type="elementor_library">
+					<section class="elementor-section elementor-top-section elementor-element elementor-element-62f47450 elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="62f47450" data-element_type="section" data-e-type="section" data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
+						<div class="elementor-container elementor-column-gap-default">
+					<div class="elementor-column elementor-col-100 elementor-top-column elementor-element elementor-element-345613dd" data-id="345613dd" data-element_type="column" data-e-type="column">
+			<div class="elementor-widget-wrap elementor-element-populated">
+						<div class="elementor-element elementor-element-3c0623a elementor-widget elementor-widget-breadcrumbs" data-id="3c0623a" data-element_type="widget" data-e-type="widget" data-widget_type="breadcrumbs.default">
+				<div class="elementor-widget-container">
+					<p id="breadcrumbs"><span><span><a href="https://www.naratiunea.ro/">Prima pagină</a></span></span></p>				</div>
+				</div>
+				<div class="elementor-element elementor-element-677d74bf elementor-grid-2 elementor-posts--align-left elementor-grid-tablet-2 elementor-grid-mobile-1 elementor-posts--thumbnail-top elementor-card-shadow-yes elementor-posts__hover-gradient elementor-widget elementor-widget-archive-posts" data-id="677d74bf" data-element_type="widget" data-e-type="widget" data-settings="{&quot;archive_cards_columns&quot;:&quot;2&quot;,&quot;pagination_type&quot;:&quot;load_more_infinite_scroll&quot;,&quot;archive_cards_row_gap&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:25,&quot;sizes&quot;:[]},&quot;archive_cards_columns_tablet&quot;:&quot;2&quot;,&quot;archive_cards_columns_mobile&quot;:&quot;1&quot;,&quot;archive_cards_row_gap_tablet&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:&quot;&quot;,&quot;sizes&quot;:[]},&quot;archive_cards_row_gap_mobile&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:&quot;&quot;,&quot;sizes&quot;:[]},&quot;load_more_spinner&quot;:{&quot;value&quot;:&quot;fas fa-spinner&quot;,&quot;library&quot;:&quot;fa-solid&quot;}}" data-widget_type="archive-posts.archive_cards">
+				<div class="elementor-widget-container">
+							<div class="elementor-posts-container elementor-posts elementor-posts--skin-cards elementor-grid" role="list">
+						<div class="elementor-posts-nothing-found">
+					It seems we can&#039;t find what you&#039;re looking for.				</div>
+					</div>
+					<span class="e-load-more-spinner">
+				<i aria-hidden="true" class="fas fa-spinner"></i>			</span>
+		
+						</div>
+				</div>
+					</div>
+		</div>
+					</div>
+		</section>
+				</div>
+				<footer data-elementor-type="footer" data-elementor-id="23" class="elementor elementor-23 elementor-location-footer" data-elementor-post-type="elementor_library">
+					<section class="elementor-section elementor-top-section elementor-element elementor-element-0ffd558 elementor-section-full_width elementor-section-height-default elementor-section-height-default" data-id="0ffd558" data-element_type="section" data-e-type="section">
+						<div class="elementor-container elementor-column-gap-no">
+					<div class="elementor-column elementor-col-25 elementor-top-column elementor-element elementor-element-9ee0424" data-id="9ee0424" data-element_type="column" data-e-type="column" data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
+			<div class="elementor-widget-wrap">
+							</div>
+		</div>
+				<div class="elementor-column elementor-col-25 elementor-top-column elementor-element elementor-element-47c367a" data-id="47c367a" data-element_type="column" data-e-type="column" data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
+			<div class="elementor-widget-wrap elementor-element-populated">
+						<div class="elementor-element elementor-element-223decb elementor-widget elementor-widget-heading" data-id="223decb" data-element_type="widget" data-e-type="widget" data-widget_type="heading.default">
+				<div class="elementor-widget-container">
+					<div class="elementor-heading-title elementor-size-default">Exploreaza Naratiunea</div>				</div>
+				</div>
+				<div class="elementor-element elementor-element-a9bc6ee elementor-nav-menu__align-start elementor-widget__width-inherit elementor-nav-menu--dropdown-none elementor-widget elementor-widget-nav-menu" data-id="a9bc6ee" data-element_type="widget" data-e-type="widget" id="footer-meniu" data-settings="{&quot;layout&quot;:&quot;vertical&quot;,&quot;submenu_icon&quot;:{&quot;value&quot;:&quot;&lt;i class=\&quot;\&quot; aria-hidden=\&quot;true\&quot;&gt;&lt;\/i&gt;&quot;,&quot;library&quot;:&quot;&quot;}}" data-widget_type="nav-menu.default">
+				<div class="elementor-widget-container">
+								<nav aria-label="Meniu" class="elementor-nav-menu--main elementor-nav-menu__container elementor-nav-menu--layout-vertical e--pointer-none">
+				<ul id="menu-1-a9bc6ee" class="elementor-nav-menu sm-vertical"><li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children menu-item-308"><a href="https://www.naratiunea.ro/news/" class="elementor-item">News</a>
+<ul class="sub-menu elementor-nav-menu--dropdown">
+	<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-313"><a href="https://www.naratiunea.ro/news/social/" class="elementor-sub-item">Social</a></li>
+	<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-310"><a href="https://www.naratiunea.ro/news/educatie/" class="elementor-sub-item">Educatie</a></li>
+	<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-312"><a href="https://www.naratiunea.ro/news/sanatate/" class="elementor-sub-item">Sanatate</a></li>
+	<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-314"><a href="https://www.naratiunea.ro/news/sport/" class="elementor-sub-item">Sport</a></li>
+	<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-309"><a href="https://www.naratiunea.ro/news/cultura/" class="elementor-sub-item">Cultura</a></li>
+	<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-311"><a href="https://www.naratiunea.ro/news/educatie-financiara/" class="elementor-sub-item">Economie</a></li>
+	<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-315"><a href="https://www.naratiunea.ro/news/tech/" class="elementor-sub-item">Tech</a></li>
+</ul>
+</li>
+<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children menu-item-302"><a href="https://www.naratiunea.ro/lifestyle/" class="elementor-item">Lifestyle</a>
+<ul class="sub-menu elementor-nav-menu--dropdown">
+	<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-303"><a href="https://www.naratiunea.ro/lifestyle/beauty/" class="elementor-sub-item">Beauty</a></li>
+	<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-304"><a href="https://www.naratiunea.ro/lifestyle/divertisment/" class="elementor-sub-item">Divertisment</a></li>
+	<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-305"><a href="https://www.naratiunea.ro/lifestyle/fashion/" class="elementor-sub-item">Fashion</a></li>
+	<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-307"><a href="https://www.naratiunea.ro/lifestyle/inedit/" class="elementor-sub-item">Inedit</a></li>
+</ul>
+</li>
+<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children menu-item-317"><a href="https://www.naratiunea.ro/world/" class="elementor-item">World</a>
+<ul class="sub-menu elementor-nav-menu--dropdown">
+	<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-301"><a href="https://www.naratiunea.ro/exclusiv/" class="elementor-sub-item">Exclusiv</a></li>
+	<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-316"><a href="https://www.naratiunea.ro/premium/" class="elementor-sub-item">Premium</a></li>
+</ul>
+</li>
+<li class="no-header-bold menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-864"><a href="https://www.naratiunea.ro/prelucrarea-datelor-cu-caracter-personal/" class="elementor-item">GDPR</a>
+<ul class="sub-menu elementor-nav-menu--dropdown">
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-865"><a href="https://www.naratiunea.ro/termeni-si-conditii/" class="elementor-sub-item">Termeni și condiții</a></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-privacy-policy menu-item-863"><a rel="privacy-policy" href="https://www.naratiunea.ro/cookie/" class="elementor-sub-item">Cookies</a></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-862"><a href="https://www.naratiunea.ro/contact/" class="elementor-sub-item">Contact</a></li>
+</ul>
+</li>
+</ul>			</nav>
+						<nav class="elementor-nav-menu--dropdown elementor-nav-menu__container" aria-hidden="true">
+				<ul id="menu-2-a9bc6ee" class="elementor-nav-menu sm-vertical"><li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children menu-item-308"><a href="https://www.naratiunea.ro/news/" class="elementor-item" tabindex="-1">News</a>
+<ul class="sub-menu elementor-nav-menu--dropdown">
+	<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-313"><a href="https://www.naratiunea.ro/news/social/" class="elementor-sub-item" tabindex="-1">Social</a></li>
+	<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-310"><a href="https://www.naratiunea.ro/news/educatie/" class="elementor-sub-item" tabindex="-1">Educatie</a></li>
+	<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-312"><a href="https://www.naratiunea.ro/news/sanatate/" class="elementor-sub-item" tabindex="-1">Sanatate</a></li>
+	<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-314"><a href="https://www.naratiunea.ro/news/sport/" class="elementor-sub-item" tabindex="-1">Sport</a></li>
+	<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-309"><a href="https://www.naratiunea.ro/news/cultura/" class="elementor-sub-item" tabindex="-1">Cultura</a></li>
+	<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-311"><a href="https://www.naratiunea.ro/news/educatie-financiara/" class="elementor-sub-item" tabindex="-1">Economie</a></li>
+	<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-315"><a href="https://www.naratiunea.ro/news/tech/" class="elementor-sub-item" tabindex="-1">Tech</a></li>
+</ul>
+</li>
+<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children menu-item-302"><a href="https://www.naratiunea.ro/lifestyle/" class="elementor-item" tabindex="-1">Lifestyle</a>
+<ul class="sub-menu elementor-nav-menu--dropdown">
+	<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-303"><a href="https://www.naratiunea.ro/lifestyle/beauty/" class="elementor-sub-item" tabindex="-1">Beauty</a></li>
+	<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-304"><a href="https://www.naratiunea.ro/lifestyle/divertisment/" class="elementor-sub-item" tabindex="-1">Divertisment</a></li>
+	<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-305"><a href="https://www.naratiunea.ro/lifestyle/fashion/" class="elementor-sub-item" tabindex="-1">Fashion</a></li>
+	<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-307"><a href="https://www.naratiunea.ro/lifestyle/inedit/" class="elementor-sub-item" tabindex="-1">Inedit</a></li>
+</ul>
+</li>
+<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children menu-item-317"><a href="https://www.naratiunea.ro/world/" class="elementor-item" tabindex="-1">World</a>
+<ul class="sub-menu elementor-nav-menu--dropdown">
+	<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-301"><a href="https://www.naratiunea.ro/exclusiv/" class="elementor-sub-item" tabindex="-1">Exclusiv</a></li>
+	<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-316"><a href="https://www.naratiunea.ro/premium/" class="elementor-sub-item" tabindex="-1">Premium</a></li>
+</ul>
+</li>
+<li class="no-header-bold menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-864"><a href="https://www.naratiunea.ro/prelucrarea-datelor-cu-caracter-personal/" class="elementor-item" tabindex="-1">GDPR</a>
+<ul class="sub-menu elementor-nav-menu--dropdown">
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-865"><a href="https://www.naratiunea.ro/termeni-si-conditii/" class="elementor-sub-item" tabindex="-1">Termeni și condiții</a></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-privacy-policy menu-item-863"><a rel="privacy-policy" href="https://www.naratiunea.ro/cookie/" class="elementor-sub-item" tabindex="-1">Cookies</a></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-862"><a href="https://www.naratiunea.ro/contact/" class="elementor-sub-item" tabindex="-1">Contact</a></li>
+</ul>
+</li>
+</ul>			</nav>
+						</div>
+				</div>
+					</div>
+		</div>
+				<div class="elementor-column elementor-col-25 elementor-top-column elementor-element elementor-element-a9fdfee" data-id="a9fdfee" data-element_type="column" data-e-type="column" data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
+			<div class="elementor-widget-wrap elementor-element-populated">
+						<div class="elementor-element elementor-element-39c69d0 elementor-widget elementor-widget-heading" data-id="39c69d0" data-element_type="widget" data-e-type="widget" data-widget_type="heading.default">
+				<div class="elementor-widget-container">
+					<div class="elementor-heading-title elementor-size-default">Abonare Newsletter</div>				</div>
+				</div>
+				<div class="elementor-element elementor-element-b077624 elementor-button-align-center elementor-widget elementor-widget-form" data-id="b077624" data-element_type="widget" data-e-type="widget" data-settings="{&quot;step_next_label&quot;:&quot;Next&quot;,&quot;step_previous_label&quot;:&quot;Previous&quot;,&quot;button_width&quot;:&quot;100&quot;,&quot;step_type&quot;:&quot;number_text&quot;,&quot;step_icon_shape&quot;:&quot;circle&quot;}" data-widget_type="form.default">
+				<div class="elementor-widget-container">
+							<form class="elementor-form" method="post" name="Abonare Newsletter" aria-label="Abonare Newsletter">
+			<input type="hidden" name="post_id" value="23"/>
+			<input type="hidden" name="form_id" value="b077624"/>
+			<input type="hidden" name="referer_title" value="Naratiunea.ro" />
+
+							<input type="hidden" name="queried_id" value="349"/>
+			
+			<div class="elementor-form-fields-wrapper elementor-labels-">
+								<div class="elementor-field-type-email elementor-field-group elementor-column elementor-field-group-email elementor-col-100 elementor-field-required">
+												<label for="form-field-email" class="elementor-field-label elementor-screen-only">
+								Email							</label>
+														<input size="1" type="email" name="form_fields[email]" id="form-field-email" class="elementor-field elementor-size-xs  elementor-field-textual" placeholder="Email" required="required">
+											</div>
+								<div class="elementor-field-group elementor-column elementor-field-type-submit elementor-col-100 e-form__buttons">
+					<button class="elementor-button elementor-size-sm" type="submit">
+						<span class="elementor-button-content-wrapper">
+																						<span class="elementor-button-text">Abonare</span>
+													</span>
+					</button>
+				</div>
+			</div>
+		</form>
+						</div>
+				</div>
+				<div class="elementor-element elementor-element-09e38c6 elementor-widget elementor-widget-heading" data-id="09e38c6" data-element_type="widget" data-e-type="widget" data-widget_type="heading.default">
+				<div class="elementor-widget-container">
+					<h6 class="elementor-heading-title elementor-size-default">Copyright © 2022 / Naratiunea</h6>				</div>
+				</div>
+					</div>
+		</div>
+				<div class="elementor-column elementor-col-25 elementor-top-column elementor-element elementor-element-bd4ac0a" data-id="bd4ac0a" data-element_type="column" data-e-type="column" data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
+			<div class="elementor-widget-wrap">
+							</div>
+		</div>
+					</div>
+		</section>
+				<section class="elementor-section elementor-top-section elementor-element elementor-element-fcf5db3 elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="fcf5db3" data-element_type="section" data-e-type="section">
+						<div class="elementor-container elementor-column-gap-default">
+					<div class="elementor-column elementor-col-100 elementor-top-column elementor-element elementor-element-6ff4443" data-id="6ff4443" data-element_type="column" data-e-type="column">
+			<div class="elementor-widget-wrap elementor-element-populated">
+						<div class="elementor-element elementor-element-905f4df elementor-widget elementor-widget-html" data-id="905f4df" data-element_type="widget" data-e-type="widget" data-widget_type="html.default">
+				<div class="elementor-widget-container">
+					<p id="matomo_opted_out_intro" style="display:none;">Opt-out complete; your visits to this website will not be recorded by the Web Analytics tool. Note that if you clear your cookies, delete the opt-out cookie, or if you change computers or Web browsers, you will need to perform the opt-out procedure again.</p><p id="matomo_opted_in_intro" >You may choose to prevent this website from aggregating and analyzing the actions you take here. Doing so will protect your privacy, but will also prevent the owner from learning from your actions and creating a better experience for you and other users.</p><form>
+        <input type="checkbox" id="matomo_optout_checkbox" checked="checked"/>
+        <label for="matomo_optout_checkbox"><strong>
+        <span id="matomo_opted_in_label" >You are not opted out. Uncheck this box to opt-out.</span>
+		<span id="matomo_opted_out_label" style="display:none;">You are currently opted out. Check this box to opt-in.</span>
+        </strong></label></form><noscript><p><strong style="color: #ff0000;">This opt out feature requires JavaScript.</strong></p></noscript><p id="matomo_outout_err_cookies" style="display: none;"><strong>The tracking opt-out feature requires cookies to be enabled.</strong></p>				</div>
+				</div>
+					</div>
+		</div>
+					</div>
+		</section>
+				</footer>
+		
+<script type="speculationrules">
+{"prefetch":[{"source":"document","where":{"and":[{"href_matches":"/*"},{"not":{"href_matches":["/wp-*.php","/wp-admin/*","/wp-content/uploads/*","/wp-content/*","/wp-content/plugins/*","/wp-content/themes/hello-elementor/*","/*\\?(.+)"]}},{"not":{"selector_matches":"a[rel~=\"nofollow\"]"}},{"not":{"selector_matches":".no-prefetch, .no-prefetch a"}}]},"eagerness":"conservative"}]}
+</script>
+<!-- Matomo --><script type="rocketlazyloadscript">
+var _paq = window._paq = window._paq || [];
+_paq.push(['trackPageView']);_paq.push(['enableLinkTracking']);_paq.push(['alwaysUseSendBeacon']);_paq.push(['setTrackerUrl', "\/\/www.naratiunea.ro\/wp-content\/plugins\/matomo\/app\/matomo.php"]);_paq.push(['setSiteId', '1']);var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+g.type='text/javascript'; g.async=true; g.src="\/\/www.naratiunea.ro\/wp-content\/uploads\/matomo\/matomo.js"; s.parentNode.insertBefore(g,s);
+</script>
+<!-- End Matomo Code -->			<script type="rocketlazyloadscript">
+				const lazyloadRunObserver = () => {
+					const lazyloadBackgrounds = document.querySelectorAll( `.e-con.e-parent:not(.e-lazyloaded)` );
+					const lazyloadBackgroundObserver = new IntersectionObserver( ( entries ) => {
+						entries.forEach( ( entry ) => {
+							if ( entry.isIntersecting ) {
+								let lazyloadBackground = entry.target;
+								if( lazyloadBackground ) {
+									lazyloadBackground.classList.add( 'e-lazyloaded' );
+								}
+								lazyloadBackgroundObserver.unobserve( entry.target );
+							}
+						});
+					}, { rootMargin: '200px 0px 200px 0px' } );
+					lazyloadBackgrounds.forEach( ( lazyloadBackground ) => {
+						lazyloadBackgroundObserver.observe( lazyloadBackground );
+					} );
+				};
+				const events = [
+					'DOMContentLoaded',
+					'elementor/lazyload/observe',
+				];
+				events.forEach( ( event ) => {
+					document.addEventListener( event, lazyloadRunObserver );
+				} );
+			</script>
+			<script type="rocketlazyloadscript" id="rocket-browser-checker-js-after">
+"use strict";var _createClass=function(){function defineProperties(target,props){for(var i=0;i<props.length;i++){var descriptor=props[i];descriptor.enumerable=descriptor.enumerable||!1,descriptor.configurable=!0,"value"in descriptor&&(descriptor.writable=!0),Object.defineProperty(target,descriptor.key,descriptor)}}return function(Constructor,protoProps,staticProps){return protoProps&&defineProperties(Constructor.prototype,protoProps),staticProps&&defineProperties(Constructor,staticProps),Constructor}}();function _classCallCheck(instance,Constructor){if(!(instance instanceof Constructor))throw new TypeError("Cannot call a class as a function")}var RocketBrowserCompatibilityChecker=function(){function RocketBrowserCompatibilityChecker(options){_classCallCheck(this,RocketBrowserCompatibilityChecker),this.passiveSupported=!1,this._checkPassiveOption(this),this.options=!!this.passiveSupported&&options}return _createClass(RocketBrowserCompatibilityChecker,[{key:"_checkPassiveOption",value:function(self){try{var options={get passive(){return!(self.passiveSupported=!0)}};window.addEventListener("test",null,options),window.removeEventListener("test",null,options)}catch(err){self.passiveSupported=!1}}},{key:"initRequestIdleCallback",value:function(){!1 in window&&(window.requestIdleCallback=function(cb){var start=Date.now();return setTimeout(function(){cb({didTimeout:!1,timeRemaining:function(){return Math.max(0,50-(Date.now()-start))}})},1)}),!1 in window&&(window.cancelIdleCallback=function(id){return clearTimeout(id)})}},{key:"isDataSaverModeOn",value:function(){return"connection"in navigator&&!0===navigator.connection.saveData}},{key:"supportsLinkPrefetch",value:function(){var elem=document.createElement("link");return elem.relList&&elem.relList.supports&&elem.relList.supports("prefetch")&&window.IntersectionObserver&&"isIntersecting"in IntersectionObserverEntry.prototype}},{key:"isSlowConnection",value:function(){return"connection"in navigator&&"effectiveType"in navigator.connection&&("2g"===navigator.connection.effectiveType||"slow-2g"===navigator.connection.effectiveType)}}]),RocketBrowserCompatibilityChecker}();
+//# sourceURL=rocket-browser-checker-js-after
+</script>
+<script id="rocket-preload-links-js-extra">
+var RocketPreloadLinksConfig = {"excludeUris":"/(?:.+/)?feed(?:/(?:.+/?)?)?$|/(?:.+/)?embed/|/(index.php/)?(.*)wp-json(/.*|$)|/refer/|/go/|/recommend/|/recommends/","usesTrailingSlash":"","imageExt":"jpg|jpeg|gif|png|tiff|bmp|webp|avif|pdf|doc|docx|xls|xlsx|php","fileExt":"jpg|jpeg|gif|png|tiff|bmp|webp|avif|pdf|doc|docx|xls|xlsx|php|html|htm","siteUrl":"https://www.naratiunea.ro","onHoverDelay":"100","rateThrottle":"3"};
+//# sourceURL=rocket-preload-links-js-extra
+</script>
+<script type="rocketlazyloadscript" id="rocket-preload-links-js-after">
+(function() {
+"use strict";var r="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(e){return typeof e}:function(e){return e&&"function"==typeof Symbol&&e.constructor===Symbol&&e!==Symbol.prototype?"symbol":typeof e},e=function(){function i(e,t){for(var n=0;n<t.length;n++){var i=t[n];i.enumerable=i.enumerable||!1,i.configurable=!0,"value"in i&&(i.writable=!0),Object.defineProperty(e,i.key,i)}}return function(e,t,n){return t&&i(e.prototype,t),n&&i(e,n),e}}();function i(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}var t=function(){function n(e,t){i(this,n),this.browser=e,this.config=t,this.options=this.browser.options,this.prefetched=new Set,this.eventTime=null,this.threshold=1111,this.numOnHover=0}return e(n,[{key:"init",value:function(){!this.browser.supportsLinkPrefetch()||this.browser.isDataSaverModeOn()||this.browser.isSlowConnection()||(this.regex={excludeUris:RegExp(this.config.excludeUris,"i"),images:RegExp(".("+this.config.imageExt+")$","i"),fileExt:RegExp(".("+this.config.fileExt+")$","i")},this._initListeners(this))}},{key:"_initListeners",value:function(e){-1<this.config.onHoverDelay&&document.addEventListener("mouseover",e.listener.bind(e),e.listenerOptions),document.addEventListener("mousedown",e.listener.bind(e),e.listenerOptions),document.addEventListener("touchstart",e.listener.bind(e),e.listenerOptions)}},{key:"listener",value:function(e){var t=e.target.closest("a"),n=this._prepareUrl(t);if(null!==n)switch(e.type){case"mousedown":case"touchstart":this._addPrefetchLink(n);break;case"mouseover":this._earlyPrefetch(t,n,"mouseout")}}},{key:"_earlyPrefetch",value:function(t,e,n){var i=this,r=setTimeout(function(){if(r=null,0===i.numOnHover)setTimeout(function(){return i.numOnHover=0},1e3);else if(i.numOnHover>i.config.rateThrottle)return;i.numOnHover++,i._addPrefetchLink(e)},this.config.onHoverDelay);t.addEventListener(n,function e(){t.removeEventListener(n,e,{passive:!0}),null!==r&&(clearTimeout(r),r=null)},{passive:!0})}},{key:"_addPrefetchLink",value:function(i){return this.prefetched.add(i.href),new Promise(function(e,t){var n=document.createElement("link");n.rel="prefetch",n.href=i.href,n.onload=e,n.onerror=t,document.head.appendChild(n)}).catch(function(){})}},{key:"_prepareUrl",value:function(e){if(null===e||"object"!==(void 0===e?"undefined":r(e))||!1 in e||-1===["http:","https:"].indexOf(e.protocol))return null;var t=e.href.substring(0,this.config.siteUrl.length),n=this._getPathname(e.href,t),i={original:e.href,protocol:e.protocol,origin:t,pathname:n,href:t+n};return this._isLinkOk(i)?i:null}},{key:"_getPathname",value:function(e,t){var n=t?e.substring(this.config.siteUrl.length):e;return n.startsWith("/")||(n="/"+n),this._shouldAddTrailingSlash(n)?n+"/":n}},{key:"_shouldAddTrailingSlash",value:function(e){return this.config.usesTrailingSlash&&!e.endsWith("/")&&!this.regex.fileExt.test(e)}},{key:"_isLinkOk",value:function(e){return null!==e&&"object"===(void 0===e?"undefined":r(e))&&(!this.prefetched.has(e.href)&&e.origin===this.config.siteUrl&&-1===e.href.indexOf("?")&&-1===e.href.indexOf("#")&&!this.regex.excludeUris.test(e.href)&&!this.regex.images.test(e.href))}}],[{key:"run",value:function(){"undefined"!=typeof RocketPreloadLinksConfig&&new n(new RocketBrowserCompatibilityChecker({capture:!0,passive:!0}),RocketPreloadLinksConfig).init()}}]),n}();t.run();
+}());
+
+//# sourceURL=rocket-preload-links-js-after
+</script>
+<script type="rocketlazyloadscript" data-minify="1" data-rocket-src="https://www.naratiunea.ro/wp-content/cache/min/1/wp-content/themes/hello-elementor/assets/js/hello-frontend.js?ver=1749396588" id="hello-theme-frontend-js" defer></script>
+<script src="https://www.naratiunea.ro/wp-content/plugins/elementor/assets/js/webpack.runtime.min.js?ver=3.35.5" id="elementor-webpack-runtime-js" defer></script>
+<script src="https://www.naratiunea.ro/wp-content/plugins/elementor/assets/js/frontend-modules.min.js?ver=3.35.5" id="elementor-frontend-modules-js" defer></script>
+<script type="rocketlazyloadscript" data-rocket-src="https://www.naratiunea.ro/wp-includes/js/jquery/ui/core.min.js?ver=1.13.3" id="jquery-ui-core-js" defer></script>
+<script id="elementor-frontend-js-before">
+var elementorFrontendConfig = {"environmentMode":{"edit":false,"wpPreview":false,"isScriptDebug":false},"i18n":{"shareOnFacebook":"Partajeaz\u0103 pe Facebook","shareOnTwitter":"Partajeaz\u0103 pe Twitter","pinIt":"Partajeaz\u0103 pe Pinterest","download":"Descarc\u0103","downloadImage":"Descarc\u0103 imaginea","fullscreen":"Ecran \u00eentreg","zoom":"M\u0103re\u0219te","share":"Partajeaz\u0103","playVideo":"Ruleaz\u0103 videoul","previous":"Anterioar\u0103","next":"Urm\u0103toare","close":"\u00cenchide","a11yCarouselPrevSlideMessage":"Diapozitivul anterior","a11yCarouselNextSlideMessage":"Diapozitivul urm\u0103tor","a11yCarouselFirstSlideMessage":"Acesta este primul diapozitiv","a11yCarouselLastSlideMessage":"Acesta este ultimul diapozitiv","a11yCarouselPaginationBulletMessage":"Mergi la diapozitiv"},"is_rtl":false,"breakpoints":{"xs":0,"sm":480,"md":768,"lg":1025,"xl":1440,"xxl":1600},"responsive":{"breakpoints":{"mobile":{"label":"Portret mobil","value":767,"default_value":767,"direction":"max","is_enabled":true},"mobile_extra":{"label":"Peisaj pe mobil","value":880,"default_value":880,"direction":"max","is_enabled":false},"tablet":{"label":"Portret pe tablet\u0103","value":1024,"default_value":1024,"direction":"max","is_enabled":true},"tablet_extra":{"label":"Peisaj pe tablet\u0103","value":1200,"default_value":1200,"direction":"max","is_enabled":false},"laptop":{"label":"Laptop","value":1366,"default_value":1366,"direction":"max","is_enabled":false},"widescreen":{"label":"Ecran lat","value":2400,"default_value":2400,"direction":"min","is_enabled":false}},"hasCustomBreakpoints":false},"version":"3.35.5","is_static":false,"experimentalFeatures":{"additional_custom_breakpoints":true,"theme_builder_v2":true,"hello-theme-header-footer":true,"home_screen":true,"global_classes_should_enforce_capabilities":true,"e_variables":true,"cloud-library":true,"e_opt_in_v4_page":true,"e_components":true,"e_interactions":true,"e_editor_one":true,"import-export-customization":true,"e_pro_variables":true},"urls":{"assets":"https:\/\/www.naratiunea.ro\/wp-content\/plugins\/elementor\/assets\/","ajaxurl":"https:\/\/www.naratiunea.ro\/wp-admin\/admin-ajax.php","uploadUrl":"https:\/\/www.naratiunea.ro\/wp-content\/uploads"},"nonces":{"floatingButtonsClickTracking":"25d03be62c"},"swiperClass":"swiper","settings":{"editorPreferences":[]},"kit":{"active_breakpoints":["viewport_mobile","viewport_tablet"],"global_image_lightbox":"yes","lightbox_enable_counter":"yes","lightbox_enable_fullscreen":"yes","lightbox_enable_zoom":"yes","lightbox_enable_share":"yes","lightbox_title_src":"title","lightbox_description_src":"description","hello_header_logo_type":"logo","hello_header_menu_layout":"horizontal","hello_footer_logo_type":"logo"},"post":{"id":0,"title":"Naratiunea.ro","excerpt":""}};
+//# sourceURL=elementor-frontend-js-before
+</script>
+<script src="https://www.naratiunea.ro/wp-content/plugins/elementor/assets/js/frontend.min.js?ver=3.35.5" id="elementor-frontend-js" defer></script>
+<script src="https://www.naratiunea.ro/wp-content/plugins/elementor-pro/assets/lib/smartmenus/jquery.smartmenus.min.js?ver=1.2.1" id="smartmenus-js" defer></script>
+<script src="https://www.naratiunea.ro/wp-includes/js/imagesloaded.min.js?ver=5.0.0" id="imagesloaded-js" defer></script>
+<script type="rocketlazyloadscript" id="mediaelement-core-js-before">
+var mejsL10n = {"language":"ro","strings":{"mejs.download-file":"Descarc\u0103 fi\u0219ierul","mejs.install-flash":"Folose\u0219ti un navigator care nu are activat sau instalat Flash Player. Te rog porne\u0219te-\u021bi modulul Flash Player sau descarc\u0103 cea mai recent\u0103 versiune de la https://get.adobe.com/flashplayer/","mejs.fullscreen":"Ecran \u00eentreg","mejs.play":"Ruleaz\u0103","mejs.pause":"Pauz\u0103","mejs.time-slider":"Durat\u0103 carusel","mejs.time-help-text":"Folose\u0219te tastele s\u0103geat\u0103 st\u00e2nga/dreapta pentru a \u00eenainta o secund\u0103, s\u0103geat\u0103 sus/jos pentru a \u00eenainta zece secunde.","mejs.live-broadcast":"Transmisie \u00een direct","mejs.volume-help-text":"Folose\u0219te tastele s\u0103geat\u0103 sus/jos pentru a m\u0103ri sau mic\u0219ora volumul.","mejs.unmute":"Cu sonor","mejs.mute":"F\u0103r\u0103 sonor","mejs.volume-slider":"Volum carusel","mejs.video-player":"Player video","mejs.audio-player":"Player audio","mejs.captions-subtitles":"Texte asociate/subtitr\u0103ri","mejs.captions-chapters":"Capitole","mejs.none":"Nespecificat","mejs.afrikaans":"Afrikaans","mejs.albanian":"Albanez\u0103","mejs.arabic":"Arab\u0103","mejs.belarusian":"Bielorus\u0103","mejs.bulgarian":"Bulgar\u0103","mejs.catalan":"Catalan\u0103","mejs.chinese":"Chinez\u0103","mejs.chinese-simplified":"Chinez\u0103 (simplificat\u0103)","mejs.chinese-traditional":"Chinez\u0103 (tradi\u021bional\u0103)","mejs.croatian":"Croat\u0103","mejs.czech":"Ceh\u0103","mejs.danish":"Danez\u0103","mejs.dutch":"Neerlandez\u0103","mejs.english":"Englez\u0103","mejs.estonian":"Eston\u0103","mejs.filipino":"Filipinez\u0103","mejs.finnish":"Finlandez\u0103","mejs.french":"Francez\u0103","mejs.galician":"Galician\u0103","mejs.german":"German\u0103","mejs.greek":"Greac\u0103","mejs.haitian-creole":"Creol\u0103 haitian\u0103","mejs.hebrew":"Ebraic\u0103","mejs.hindi":"Hindi","mejs.hungarian":"Maghiar\u0103","mejs.icelandic":"Islandez\u0103","mejs.indonesian":"Indonezian\u0103","mejs.irish":"Irlandez\u0103","mejs.italian":"Italian\u0103","mejs.japanese":"Japonez\u0103","mejs.korean":"Coreean\u0103","mejs.latvian":"Leton\u0103","mejs.lithuanian":"Lituanian\u0103","mejs.macedonian":"Macedonean\u0103","mejs.malay":"Malaiez\u0103","mejs.maltese":"Maltez\u0103","mejs.norwegian":"Norvegian\u0103","mejs.persian":"Persan\u0103","mejs.polish":"Polonez\u0103","mejs.portuguese":"Portughez\u0103","mejs.romanian":"Rom\u00e2n\u0103","mejs.russian":"Rus\u0103","mejs.serbian":"S\u00e2rb\u0103","mejs.slovak":"Slovac\u0103","mejs.slovenian":"Sloven\u0103","mejs.spanish":"Spaniol\u0103","mejs.swahili":"Swahili","mejs.swedish":"Suedez\u0103","mejs.tagalog":"Tagalog","mejs.thai":"Thailandez\u0103","mejs.turkish":"Turc\u0103","mejs.ukrainian":"Ucrainean\u0103","mejs.vietnamese":"Vietnamez\u0103","mejs.welsh":"Galez\u0103","mejs.yiddish":"Idi\u0219"}};
+//# sourceURL=mediaelement-core-js-before
+</script>
+<script type="rocketlazyloadscript" data-rocket-src="https://www.naratiunea.ro/wp-includes/js/mediaelement/mediaelement-and-player.min.js?ver=4.2.17" id="mediaelement-core-js" defer></script>
+<script type="rocketlazyloadscript" data-rocket-src="https://www.naratiunea.ro/wp-includes/js/mediaelement/mediaelement-migrate.min.js?ver=6.9.1" id="mediaelement-migrate-js" defer></script>
+<script id="mediaelement-js-extra">
+var _wpmejsSettings = {"pluginPath":"/wp-includes/js/mediaelement/","classPrefix":"mejs-","stretching":"responsive","audioShortcodeLibrary":"mediaelement","videoShortcodeLibrary":"mediaelement"};
+//# sourceURL=mediaelement-js-extra
+</script>
+<script type="rocketlazyloadscript" data-rocket-src="https://www.naratiunea.ro/wp-includes/js/mediaelement/wp-mediaelement.min.js?ver=6.9.1" id="wp-mediaelement-js" defer></script>
+<script id="epic-script-js-extra">
+var epicoption = {"prefix":"epic_module_ajax_","rtl":"0","admin_bar":"0"};
+//# sourceURL=epic-script-js-extra
+</script>
+<script type="rocketlazyloadscript" data-rocket-src="https://www.naratiunea.ro/wp-content/plugins/epic-news-element/assets/js/script.min.js" id="epic-script-js" defer></script>
+<script type="rocketlazyloadscript" data-rocket-src="https://www.naratiunea.ro/wp-content/plugins/wp-rocket/assets/js/heartbeat.js?ver=3.14.3" id="heartbeat-js" defer></script>
+<script type="rocketlazyloadscript" data-minify="1" data-rocket-src="https://www.naratiunea.ro/wp-content/cache/min/1/sdks/web/v16/OneSignalSDK.page.js?ver=1735403553" id="remote_sdk-js" defer data-wp-strategy="defer"></script>
+<script type="rocketlazyloadscript" data-minify="1" data-rocket-src="https://www.naratiunea.ro/wp-content/cache/min/1/wp-content/plugins/matomo/assets/js/optout.js?ver=1727795110" id="matomo_opt_out_js-js" defer></script>
+<script src="https://www.naratiunea.ro/wp-content/plugins/elementor-pro/assets/js/webpack-pro.runtime.min.js?ver=3.35.1" id="elementor-pro-webpack-runtime-js" defer></script>
+<script type="rocketlazyloadscript" data-rocket-src="https://www.naratiunea.ro/wp-includes/js/dist/hooks.min.js?ver=dd5603f07f9220ed27f1" id="wp-hooks-js"></script>
+<script type="rocketlazyloadscript" data-rocket-src="https://www.naratiunea.ro/wp-includes/js/dist/i18n.min.js?ver=c26c3dc7bed366793375" id="wp-i18n-js"></script>
+<script type="rocketlazyloadscript" id="wp-i18n-js-after">
+wp.i18n.setLocaleData( { 'text direction\u0004ltr': [ 'ltr' ] } );
+//# sourceURL=wp-i18n-js-after
+</script>
+<script id="elementor-pro-frontend-js-before">
+var ElementorProFrontendConfig = {"ajaxurl":"https:\/\/www.naratiunea.ro\/wp-admin\/admin-ajax.php","nonce":"e31384be98","urls":{"assets":"https:\/\/www.naratiunea.ro\/wp-content\/plugins\/elementor-pro\/assets\/","rest":"https:\/\/www.naratiunea.ro\/wp-json\/"},"settings":{"lazy_load_background_images":true},"popup":{"hasPopUps":false},"shareButtonsNetworks":{"facebook":{"title":"Facebook","has_counter":true},"twitter":{"title":"Twitter"},"linkedin":{"title":"LinkedIn","has_counter":true},"pinterest":{"title":"Pinterest","has_counter":true},"reddit":{"title":"Reddit","has_counter":true},"vk":{"title":"VK","has_counter":true},"odnoklassniki":{"title":"OK","has_counter":true},"tumblr":{"title":"Tumblr"},"digg":{"title":"Digg"},"skype":{"title":"Skype"},"stumbleupon":{"title":"StumbleUpon","has_counter":true},"mix":{"title":"Mix"},"telegram":{"title":"Telegram"},"pocket":{"title":"Pocket","has_counter":true},"xing":{"title":"XING","has_counter":true},"whatsapp":{"title":"WhatsApp"},"email":{"title":"Email"},"print":{"title":"Print"},"x-twitter":{"title":"X"},"threads":{"title":"Threads"}},"facebook_sdk":{"lang":"ro_RO","app_id":""},"lottie":{"defaultAnimationUrl":"https:\/\/www.naratiunea.ro\/wp-content\/plugins\/elementor-pro\/modules\/lottie\/assets\/animations\/default.json"}};
+//# sourceURL=elementor-pro-frontend-js-before
+</script>
+<script src="https://www.naratiunea.ro/wp-content/plugins/elementor-pro/assets/js/frontend.min.js?ver=3.35.1" id="elementor-pro-frontend-js" defer></script>
+<script src="https://www.naratiunea.ro/wp-content/plugins/elementor-pro/assets/js/elements-handlers.min.js?ver=3.35.1" id="pro-elements-handlers-js" defer></script>
+<script type="rocketlazyloadscript" data-minify="1" data-rocket-src="https://www.naratiunea.ro/wp-content/cache/min/1/wp-content/plugins/epic-news-element/assets/js/admin/elementor-frontend.js?ver=1727794628" id="selectize-js" defer></script>
+<script>window.lazyLoadOptions=[{elements_selector:"img[data-lazy-src],.rocket-lazyload,iframe[data-lazy-src]",data_src:"lazy-src",data_srcset:"lazy-srcset",data_sizes:"lazy-sizes",class_loading:"lazyloading",class_loaded:"lazyloaded",threshold:300,callback_loaded:function(element){if(element.tagName==="IFRAME"&&element.dataset.rocketLazyload=="fitvidscompatible"){if(element.classList.contains("lazyloaded")){if(typeof window.jQuery!="undefined"){if(jQuery.fn.fitVids){jQuery(element).parent().fitVids()}}}}}},{elements_selector:".rocket-lazyload",data_src:"lazy-src",data_srcset:"lazy-srcset",data_sizes:"lazy-sizes",class_loading:"lazyloading",class_loaded:"lazyloaded",threshold:300,}];window.addEventListener('LazyLoad::Initialized',function(e){var lazyLoadInstance=e.detail.instance;if(window.MutationObserver){var observer=new MutationObserver(function(mutations){var image_count=0;var iframe_count=0;var rocketlazy_count=0;mutations.forEach(function(mutation){for(var i=0;i<mutation.addedNodes.length;i++){if(typeof mutation.addedNodes[i].getElementsByTagName!=='function'){continue}
+if(typeof mutation.addedNodes[i].getElementsByClassName!=='function'){continue}
+images=mutation.addedNodes[i].getElementsByTagName('img');is_image=mutation.addedNodes[i].tagName=="IMG";iframes=mutation.addedNodes[i].getElementsByTagName('iframe');is_iframe=mutation.addedNodes[i].tagName=="IFRAME";rocket_lazy=mutation.addedNodes[i].getElementsByClassName('rocket-lazyload');image_count+=images.length;iframe_count+=iframes.length;rocketlazy_count+=rocket_lazy.length;if(is_image){image_count+=1}
+if(is_iframe){iframe_count+=1}}});if(image_count>0||iframe_count>0||rocketlazy_count>0){lazyLoadInstance.update()}});var b=document.getElementsByTagName("body")[0];var config={childList:!0,subtree:!0};observer.observe(b,config)}},!1)</script><script data-no-minify="1" async src="https://www.naratiunea.ro/wp-content/plugins/wp-rocket/assets/js/lazyload/17.8.3/lazyload.min.js"></script>
+<script>class RocketElementorAnimation{constructor(){this.deviceMode=document.createElement("span"),this.deviceMode.id="elementor-device-mode-wpr",this.deviceMode.setAttribute("class","elementor-screen-only"),document.body.appendChild(this.deviceMode)}_detectAnimations(){let t=getComputedStyle(this.deviceMode,":after").content.replace(/"/g,"");this.animationSettingKeys=this._listAnimationSettingsKeys(t),document.querySelectorAll(".elementor-invisible[data-settings]").forEach(t=>{const e=t.getBoundingClientRect();if(e.bottom>=0&&e.top<=window.innerHeight)try{this._animateElement(t)}catch(t){}})}_animateElement(t){const e=JSON.parse(t.dataset.settings),i=e._animation_delay||e.animation_delay||0,n=e[this.animationSettingKeys.find(t=>e[t])];if("none"===n)return void t.classList.remove("elementor-invisible");t.classList.remove(n),this.currentAnimation&&t.classList.remove(this.currentAnimation),this.currentAnimation=n;let s=setTimeout(()=>{t.classList.remove("elementor-invisible"),t.classList.add("animated",n),this._removeAnimationSettings(t,e)},i);window.addEventListener("rocket-startLoading",function(){clearTimeout(s)})}_listAnimationSettingsKeys(t="mobile"){const e=[""];switch(t){case"mobile":e.unshift("_mobile");case"tablet":e.unshift("_tablet");case"desktop":e.unshift("_desktop")}const i=[];return["animation","_animation"].forEach(t=>{e.forEach(e=>{i.push(t+e)})}),i}_removeAnimationSettings(t,e){this._listAnimationSettingsKeys().forEach(t=>delete e[t]),t.dataset.settings=JSON.stringify(e)}static run(){const t=new RocketElementorAnimation;requestAnimationFrame(t._detectAnimations.bind(t))}}document.addEventListener("DOMContentLoaded",RocketElementorAnimation.run);</script></body>
+</html>
+
+<!-- This website is like a Rocket, isn't it? Performance optimized by WP Rocket. Learn more: https://wp-rocket.me - Debug: cached@1771908956 -->

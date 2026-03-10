@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport"
+    content="width=device-width, height=device-height, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.5,user-scalable=yes" />
+  <title>PLAY TOZ</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta property="og:title" content="PLAYTOZ | 플레이토즈">
+  <meta property="og:site_name" content="playtoz.com">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:description" content="플레이토즈는 Web3 커뮤니티 메타버스 서비스를 만들어가는 기업입니다.">
+  <meta property="og:image" content="https://cdn.tozuniverse.com/assets/playtoz_website/assets/img/playtoz_ogimage.png">
+  <meta property="og:type" content="website">
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:url" content="https://playtoz.com" />
+  <link rel="icon" type="image/png" href="https://cdn.tozuniverse.com/assets/playtoz_website/assets/img/playtoz_favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700&display=swap"
+    rel="stylesheet">
+  <link rel="favicon" href="#" />
+  <link rel="stylesheet" href="https://cdn.tozuniverse.com/assets/playtoz_website/css/reset.css" />
+  <link rel="stylesheet" href="https://cdn.tozuniverse.com/assets/playtoz_website/css/common.css" />
+  <link rel="stylesheet" href="https://cdn.tozuniverse.com/assets/playtoz_website/css/main.css" />
+  <link rel="stylesheet" href="https://cdn.tozuniverse.com/assets/playtoz_website/css/footer.css" />
+
+  <style>
+    /* Modal styles */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 9999;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      animation: fadeIn 0.3s ease;
+    }
+
+    .modal.active {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal-content {
+      background-color: #fff;
+      padding: 40px;
+      border-radius: 20px;
+      max-width: 500px;
+      width: 90%;
+      max-height: 80vh;
+      overflow-y: auto;
+      position: relative;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      animation: slideUp 0.3s ease;
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      padding-bottom: 15px;
+      border-bottom: 1px solid #eee;
+    }
+
+    .modal-title {
+      font-size: 24px;
+      font-weight: 600;
+      color: #333;
+      margin: 0;
+    }
+
+    .modal-close {
+      background: none;
+      border: none;
+      font-size: 28px;
+      cursor: pointer;
+      color: #999;
+      padding: 0;
+      width: 30px;
+      height: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      transition: all 0.3s ease;
+    }
+
+    .modal-close:hover {
+      background-color: #f5f5f5;
+      color: #333;
+    }
+
+    .modal-body {
+      line-height: 1.6;
+      color: #666;
+      font-size: 16px;
+    }
+
+    .modal-body h3 {
+      color: #333;
+      margin-top: 20px;
+      margin-bottom: 10px;
+    }
+
+    .modal-body p {
+      margin-bottom: 15px;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes slideUp {
+      from { 
+        opacity: 0;
+        transform: translateY(50px);
+      }
+      to { 
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .modal-content {
+        padding: 30px 20px;
+        margin: 20px;
+      }
+      
+      .modal-title {
+        font-size: 20px;
+      }
+      
+      .modal-body {
+        font-size: 14px;
+      }
+    }
+  </style>
+
+</head>
+
+<body>
+  <header class="header">
+    <div class="header__cntr">
+      <a href="/" class="header__logo">
+        <img src="https://cdn.tozuniverse.com/assets/playtoz_website/assets/img/header__logo.png" alt="logo">
+      </a>
+      <div class="header__menu">
+        <a href="https://twitter.com/TozUniverse" target="_blank"><img src="https://cdn.tozuniverse.com/assets/playtoz_website/assets/img/header__twitter.svg"
+            alt="Twitter"></a>
+        <a href="https://discord.com/invite/TozUniverse" target="_blank"><img src="https://cdn.tozuniverse.com/assets/playtoz_website/assets/img/header__discord.svg"
+            alt="Discord"></a>
+        <a href="https://tozuniverse.medium.com/" target="_blank"><img src="https://cdn.tozuniverse.com/assets/playtoz_website/assets/img/header__medium.svg"
+            alt="Medium"></a>
+        <a href="https://linktr.ee/tozuniverse" target="_blank"><img src="https://cdn.tozuniverse.com/assets/playtoz_website/assets/img/header__linktree.svg"
+            alt="Linktree"></a>
+        <!-- <a class ="header__menu-lang" href="/en/index.html" ><img src="https://cdn.tozuniverse.com/assets/playtoz_website/assets/img/header__lang-ko.svg"
+            alt="language-korean"></a> -->
+      </div>
+      <div class="header__menu-mo">
+
+        <button href="" class="header__menu-btn sns">
+          <span>SNS</span>
+          <span class="btn-more"><img src="https://cdn.tozuniverse.com/assets/playtoz_website/assets/img/header__sns-more.svg" alt=""></span>
+          <div class="sns__menu">
+            <a href="https://twitter.com/TozUniverse" target="_blank"><span class="sns__menu-img"><img
+                  src="https://cdn.tozuniverse.com/assets/playtoz_website/assets/img/ico_sns_twitter.svg" alt="Twitter"></span><span
+                class="sns__menu-txt">Twitter</span></a>
+            <a href="https://discord.com/invite/TozUniverse" target="_blank"><span class="sns__menu-img"><img
+                  src="https://cdn.tozuniverse.com/assets/playtoz_website/assets/img/ico_sns_discord.svg" alt="Discord"></span><span
+                class="sns__menu-txt">Discord</span></a>
+
+            <a href="https://tozuniverse.medium.com/" target="_blank"><span class="sns__menu-img"><img
+                  src="https://cdn.tozuniverse.com/assets/playtoz_website/assets/img/ico_sns_medium.svg" alt="Medium"></span><span class="sns__menu-txt">Medium</span></a>
+            <a href="https://linktr.ee/tozuniverse" target="_blank"><span class="sns__menu-img"><img
+                  src="https://cdn.tozuniverse.com/assets/playtoz_website/assets/img/ico_sns_linktree.svg" alt="Linktree"></span><span
+                class="sns__menu-txt">Linktree</span></a>
+          </div>
+        </button>
+        <button class="header__menu-btn lang lang-btn">
+          <span>KO</span>
+        </button>
+      </div>
+  </header>
+
+  <!-- ▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒ -->
+
+  <section class="main-visual">
+    <div class="cntr main-visual">
+      <div class="main-visual__logo pc">
+        <img src="https://cdn.tozuniverse.com/assets/playtoz_website/assets/img/main-visual__title.png" alt="PLAY TOZ">
+      </div>
+      <div class="main-visual__logo mo">
+        <img src="https://cdn.tozuniverse.com/assets/playtoz_website/assets/img/main-visual__title.png" alt="PLAY TOZ">
+      </div>
+      <div class="main-visual__txt pc">
+        PLAY TOZ는 블록체인 기술을 활용한 <br>
+        <b>Web3 차세대 플랫폼 서비스</b>를 제공합니다.
+      </div>
+      <div class="main-visual__txt mo">
+        PLAY TOZ는<br>
+        블록체인 기술을 활용한<br>
+        <b>Web3 차세대 플랫폼 서비스</b>를 제공합니다.
+      </div>
+
+      <div class="main-visual__txt">
+        <div class="">
+          <button class="main-visual__btn-txt" onclick="openModal()" id="modal1-btn" style="display: none;">합병 및 주권제출공고</button>
+        </div>
+        <!-- <div class="">
+          <button class="main-visual__btn" onclick="openModal2()" id="modal2-btn" style="display: none;">해산 및 채권신고 공고 2차</button>
+        </div> -->
+      </div>
+      <div class="scroll-down">
+        <img class="part1" src="https://cdn.tozuniverse.com/assets/playtoz_website/assets/img/scrolldown__img-1.svg" alt="">
+        <img class="part2" src="https://cdn.tozuniverse.com/assets/playtoz_website/assets/img/scrolldown__img-2.svg" alt="">
+      </div>
+    </div>
+  </section>
+
+  <div class="main-visual__bg">
+    <div class="bg__obj patt_01"><img src="https://cdn.tozuniverse.com/assets/playtoz_website/assets/img/main-visual__bg/obj__patt-01.png" alt=""></div>
+    <div class="bg__obj patt_02"><img src="https://cdn.tozuniverse.com/assets/playtoz_website/assets/img/main-visual__bg/obj__patt-02.png" alt=""></div>
+    <div class="bg__obj ring_01"><img src="https://cdn.tozuniverse.com/assets/playtoz_website/assets/img/main-visual__bg/obj__ring-01.png" alt=""></div>
+    <div class="bg__obj ring_02"><img src="https://cdn.tozuniverse.com/assets/playtoz_website/assets/img/main-visual__bg/obj__ring-02.png" alt=""></div>
+    <div class="bg__obj ball_01"><img src="https://cdn.tozuniverse.com/assets/playtoz_website/assets/img/main-visual__bg/obj__ball-01.png" alt=""></div>
+    <div class="bg__obj ball_02 pc"><img src="https://cdn.tozuniverse.com/assets/playtoz_website/assets/img/main-visual__bg/obj__ball-02.png" alt=""></div>
+    <div class="bg__obj ball_02 mo"><img src="https://cdn.tozuniverse.com/assets/playtoz_website/assets/img/main-visual__bg/obj__ball-02-mo.png" alt=""></div>
+    <div class="bg__obj ball_03"><img src="https://cdn.tozuniverse.com/assets/playtoz_website/assets/img/main-visual__bg/obj__ball-03.png" alt=""></div>
+    <div class="bg__obj ball_04"><img src="https://cdn.tozuniverse.com/assets/playtoz_website/assets/img/main-visual__bg/obj__ball-04.png" alt=""></div>
+    <div class="bg__obj ball_05"><img src="https://cdn.tozuniverse.com/assets/playtoz_website/assets/img/main-visual__bg/obj__ball-05.png" alt=""></div>
+    <div class="bg__obj ball_06"><img src="https://cdn.tozuniverse.com/assets/playtoz_website/assets/img/main-visual__bg/obj__ball-06.png" alt=""></div>
+  </div>
+
+  <!-- ▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒ -->
+
+  <section class="about">
+    <div class="cntr about">
+      <h2 class="about__title">
+        About
+      </h2>
+      <div class="about__txt pc">
+        플레이토즈는 2023년에 설립된 <strong>위메이드플레이의 Web3 서비스 전문 자회사</strong>입니다. <br>
+        블록체인이라는 새로운 기술을 활용하여 Web3 서비스의 대중화를 목표로 <br>
+        기존 Web2 시장에서의 다양한 서비스들과 함께하고 있습니다.<br>
+        <br>
+        세상을 바꾸는 것은 기술이지만 인식을 바꾸는 건 서비스와 콘텐츠입니다.<br>
+        우리는 혁신적인 기술을 앞세우기보다 <b>익숙하고 친근하게 다가갈 수 있는</b><br>
+        <b>Web3 서비스를 지향하고 이러한 서비스 자체가 혁신이 되도록</b> 최선을 다하고 있습니다.<br>
+      </div>
+
+      <div class="about__txt mo">
+        플레이토즈는 2023년에 설립된<br><strong>위메이드플레이의 Web3 서비스 전문 자회사</strong>입니다.<br>
+        블록체인이라는 새로운 기술을 활용하여 Web3 서비스의 대중화를 목표로
+        기존 Web2 시장에서의 다양한 서비스들과 함께하고 있습니다.
+        <br>
+        <br>
+        세상을 바꾸는 것은 기술이지만 인식을 바꾸는 건 서비스와 콘텐츠입니다.<br>
+        우리는 혁신적인 기술을 앞세우기보다 <b>익숙하고 친근하게 다가갈 수 있는</b>
+        <b>Web3 서비스를 지향하고 이러한 서비스 자체가 혁신이 되도록</b> 최선을 다하고 있습니다.
+      </div>
+    </div>
+  </section>
+
+  <!-- ▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒ -->
+
+  <section class="vision">
+    <div class="cntr vision">
+      <div class="vision__title">Visions</div>
+      <div class="vision__txt pc">
+        서비스와 게임 그리고 블록체인을 하나의 플랫폼 서비스로 만들어가는 <br>
+        <b>실현 가능한 거버넌스를 만들어가는 실현 집단, 우리는 플레이토즈입니다. </b>
+      </div>
+      <div class="vision__txt mo">
+        서비스와 게임 그리고 블록체인을<br>
+        하나의 플랫폼 서비스로 만들어가는 <br>
+        <b>실현 가능한 거버넌스를
+          만들어가는 실현 집단,<br></b>
+        <div class="point"><b>우리는 플레이토즈입니다. </b></div>
+      </div>
+    </div>
+    <div class="vision__bg">
+      <img src="https://cdn.tozuniverse.com/assets/playtoz_website/assets/img/vision__img.png" alt="">
+    </div>
+  </section>
+
+  <!-- ▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒ -->
+
+  <section class="service">
+    <div class="cntr service">
+      <h2 class="service__title">
+        Projects
+      </h2>
+
+      
+      <div class="service__cont">
+        <div class="service__cntr toz">
+          <div class="service__txt">
+            <div class="service__txt-main">
+              <div class="service__txt-main-1">Web3 Metaverse Community Platform :</div>
+              <div class="service__txt-main-2">TOZ UNIVERSE</div>
+            </div>
+            <div class="service__txt-sub">
+              세계 최초 3D 프로필 아바타 (PFA)가 적용된 Web3 커뮤니티 메타버스
+              토즈 유니버스를 서비스 중입니다.
+            </div>
+          </div>
+          <div class="service__img">
+            <iframe title="TOZ PFA"
+                    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                    height="100%"
+                    src="https://pfp.tozuniverse.com/3/57896044618658097711785492504343953926634992332820282019728792003956564819968"
+                    width="100%"
+                    class="pfp-iframe"
+            ></iframe>
+            <div class="img__txt">
+              <span><b>&lt; 좌 , 우 &gt;</b>로 </span>
+              &nbsp;움직여보세요.
+            </div>
+          </div>
+        </div>
+
+        
+
+        <div class="service__cntr anipangworld">
+          <div class="service__txt">
+            <div class="service__txt-main">
+              <div class="service__txt-main-1">Metaverse :</div>
+              <div class="service__txt-main-2">ANIPANG WORLD</div>
+            </div>
+            <div class="service__txt-sub">
+              애니팡 IP를 활용한 생활형 메타버스
+              애니팡 월드 프로젝트를 준비 중입니다.
+            </div>
+          </div>
+          <div class="service__img">
+
+          </div>
+        </div>
+      </div>
+      
+
+      <div class="bg-obj"><img src="https://cdn.tozuniverse.com/assets/playtoz_website/assets/img/service__bg-1.png" alt=""></div>
+
+    </div>
+    <div class="cntr bg">
+      <div class="bg-obj bg-02"><img src="https://cdn.tozuniverse.com/assets/playtoz_website/assets/img/service__bg-2.png" alt=""></div>
+      <div class="bg-obj bg-03"><img src="https://cdn.tozuniverse.com/assets/playtoz_website/assets/img/service__bg-3.png" alt=""></div>
+      <div class="bg-obj bg-04"><img src="https://cdn.tozuniverse.com/assets/playtoz_website/assets/img/service__bg-4.png" alt=""></div>
+    </div>
+  </section>
+
+  <!-- ▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒ -->
+
+  <section class="mission">
+    <div class="cntr mission">
+      <div class="mission__title">Missions</div>
+      <div class="mission__txt">
+        커뮤니티의 가치를<br>
+        <strong>Web3</strong>로 가장 잘 표현한 서비스의 제공 <br>
+      </div>
+    </div>
+  </section>
+
+  <!-- ▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒ -->
+
+  <section class="value">
+    <div class="cntr value">
+      <div class="value__title">Core Values</div>
+      <ul class="value__list">
+        <li class="value__txt">
+          <span class="value__txt-1">도전</span>
+          <span class="value__txt-2">새로운 영역에 도전하고 부딪치며 성장하기</span>
+        </li>
+        <li class="value__txt">
+          <span class="value__txt-1">속도</span>
+          <span class="value__txt-2">빠르게 판단하고 움직이며 실행의 속도를 높이기</span>
+        </li>
+        <li class="value__txt">
+          <span class="value__txt-1">최고</span>
+          <span class="value__txt-2">완성도 높은 서비스를 만들기 위해 항상 최고를 지향하기</span>
+        </li>
+        <li class="value__txt">
+          <span class="value__txt-1">존중</span>
+          <span class="value__txt-2">존중하는 마음으로 고객과 동료에게 다가가기</span>
+        </li>
+        <li class="value__txt">
+          <span class="value__txt-1">재미</span>
+          <span class="value__txt-2">재미있는 문화 속에서 즐거운 마음으로 서비스 만들기</span>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒ -->
+
+
+
+  <footer class="footer korean activated-en">
+    <!-- activated-ko : 한국어 언어변경 아이콘 표시 -->
+    <!-- activated-en : 영문 언어변경 아이콘 표시 -->
+    <div class="footer__cntr">
+
+      <div class="footer__right">
+        <div class="footer__textbtn-cntr">
+          <div class="footer__textbtn-line01">
+            <a href="/policy/terms/v1_0.html" data-toggle="tab" target="_blank" class="footer__textbtn terms">서비스 이용약관</a>
+            <a href="/policy/privacy/v1_4.html" data-toggle="tab" target="_blank" class="footer__textbtn privacy">개인정보
+              보호정책</a>
+            <a href="/policy/cookie/v1_0.html" data-toggle="tab" target="_blank" class="footer__textbtn privacy">쿠키 정책</a>
+            <!-- <button class="footer__textbtn cookie">Cookie Policy</button> -->
+          </div>
+          <div class="footer__textbtn-line02">
+            <div class="footer__textbtn-line02-1">
+              <span class="footer__textbtn contact">(주)플레이토즈</span>
+              <span class="footer__textbtn contact">대표이사 : 이호대</span>
+              <span class="footer__textbtn contact txt-bisnum2">사업자등록번호 : 222-81-35582</span>
+            </div>
+            <div class="footer__textbtn-line02-2">
+              <span class="footer__textbtn contact">통신판매업 신고번호 : 2012-성남분당C-0624</span>
+              <a href="http://www.ftc.go.kr/bizCommPop.do?wrkr_no=222-81-35582" class="footer__textbtn contact" target="_blank">사업자 정보 확인</a>
+            </div>
+          </div>
+          <div class="footer__textbtn-line03">
+            <div class="footer__textbtn-line03-1">
+              <span class="footer__textbtn contact">경기도 성남시 분당구 황새울로 360번길 42 &nbsp;</span>
+              <span class="footer__textbtn contact">AK플라자 16층(서현동)</span>
+            </div>
+
+            <div class="footer__textbtn-line03-2">
+              <span class="footer__textbtn contact txt-call2">대표전화 : 070-4351-6212</span>
+              <span class="footer__textbtn contact txt-fax2">팩스번호 : 031-706-2636</span>
+            </div>
+          </div>
+          <div class="footer__textbtn-line04">
+            <button id="contact-copy" class="footer__textbtn last">
+              Contact us :
+              <span class="txt-mail"></span>
+              <span id="contact-txt" style="font-size: 0;">help@tozuniverse.com</span>
+              <span class="objectfit-cover">
+                <img src="https://cdn.tozuniverse.com/assets/playtoz_website/assets/img/ico_gnb_copy.svg" alt="" />
+              </span>
+            </button>
+          </div>
+
+        </div>
+        <div class="footer__icobtn-cntr">
+          <a class="btn-sns" href="https://twitter.com/TozUniverse" target="_blank">
+            <div class="objectfit-cover">
+              <img src="https://cdn.tozuniverse.com/assets/playtoz_website/assets/img/ico_sns_twitter.svg" alt="twitter" />
+            </div>
+          </a>
+          <a class="btn-sns" href="https://discord.com/invite/TozUniverse" target="_blank">
+            <div class="objectfit-cover">
+              <img src="https://cdn.tozuniverse.com/assets/playtoz_website/assets/img/ico_sns_discord.svg" alt="discord" />
+            </div>
+          </a>
+          <a class="btn-sns" href="https://tozuniverse.medium.com" target="_blank">
+            <div class="objectfit-cover">
+              <img src="https://cdn.tozuniverse.com/assets/playtoz_website/assets/img/ico_sns_medium.svg" alt="medium" />
+            </div>
+          </a>
+          <a class="btn-sns" href="https://linktr.ee/tozuniverse" target="_blank">
+            <div class="objectfit-cover">
+              <img src="https://cdn.tozuniverse.com/assets/playtoz_website/assets/img/ico_sns_linktree.svg" alt="linktree" />
+            </div>
+          </a>
+        </div>
+        <div class="footer__textbtn-line04">
+          <span class="footer__textbtn last"> @PLAY TOZ corp.</span>
+
+        </div>
+      </div>
+    </div>
+    </div>
+  </footer>
+
+  <button class="btn-top" onclick="window.scrollTo(0,0);">
+    <img src="https://cdn.tozuniverse.com/assets/playtoz_website/assets/img/topbtn__arrow-up.svg" alt="">
+  </button>
+
+  <!-- Modal Popup -->
+  <div id="modal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title">합병 및 주권제출공고</h2>
+        <button class="modal-close" onclick="closeModal()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p>2025년 10월 21일 주식회사 위메이드플레이(갑)와 주식회사 플레이토즈(을)는 각각 이사회와
+          주주총회에서 갑은 을을 흡수합병하여 그 권리 의무를 승계하고 을은 해산하기로 결의하고,
+          합병비율은 갑 : 을 = 1 : 0 입니다. 이 합병결의에 이의가 있는 채권자 및 주주께서는 본
+          공고일 익일부터 2025년 11월 28일까지 이의를 제출하기 바라며, 을회사의 주주 및
+          질권자께서는 위 기간내에 구주권을 갑회사에 제출하여 주시기 바랍니다.</p>
+        <h3>2025년 10월 21일</h3>
+        <p>
+          (&quot;갑&quot;) : 주식회사 위메이드플레이<br>
+          경기도 성남시 분당구 대왕판교로644번길 49,<br>
+          9층, 10층(삼평동, 위믹스타워)<br>
+          대표이사 우상준<br>
+        </p>
+        <p>
+          (&quot;을&quot;) : 주식회사 플레이토즈<br>
+          경기도 성남시 분당구 대왕판교로644번길 49,<br>
+          9층(삼평동, 위믹스타워)<br>
+          사내이사 우상준<br>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Popup 2 -->
+  <!-- <div id="modal2" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title">해산 및 채권신고 공고(2차)</h2>
+        <button class="modal-close" onclick="closeModal2()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p>본 회사는 2025년 7월 23일 임시주주총회에서 해산을 결의하였으므로 본 회사에 대하여
+          채권이 있는 분은 이 공고 게재 다음날부터 2개월 이내에 그 채권액을 신고하여 주시기
+          바라며, 만약 위 기간 내에 신고가 없으면 그 채권은 청산에서 제외됩니다.</p>
+        <h3>2025. 7. 25.</h3>
+        <p>
+          주식회사 플레이토즈<br>
+          경기도 성남시 분당구 황새울로360번길 42, 16층(서현동)<br>
+          청산인 우상준<br>
+        </p>
+      </div>
+    </div>
+  </div> -->
+
+  <script src="https://cdn.tozuniverse.com/assets/playtoz_website/jquery/jquery-1.12.4.js"></script>
+  <script src="https://cdn.tozuniverse.com/assets/playtoz_website/jquery/custom.js"></script>
+
+  <script>
+    function openModal() {
+      document.getElementById('modal').classList.add('active');
+      document.body.style.overflow = 'hidden'; // 배경 스크롤 방지
+    }
+
+    function closeModal() {
+      document.getElementById('modal').classList.remove('active');
+      document.body.style.overflow = 'auto'; // 스크롤 복원
+    }
+
+    function openModal2() {
+      document.getElementById('modal2').classList.add('active');
+      document.body.style.overflow = 'hidden'; // 배경 스크롤 방지
+    }
+
+    function closeModal2() {
+      document.getElementById('modal2').classList.remove('active');
+      document.body.style.overflow = 'auto'; // 스크롤 복원
+    }
+
+    // 날짜에 따른 버튼 표시 제어
+    function checkButtonVisibility() {
+      const today = new Date();
+      const currentYear = today.getFullYear();
+      
+      // 버튼 표시 설정 객체
+      const buttonConfigs = {
+        'modal1-btn': {
+          showDate: new Date(currentYear, 9, 21), // 10월 21일
+          hideDate: new Date(currentYear, 11, 1)  // 12월 1일
+        },
+        // 'modal2-btn': {
+        //   showDate: new Date(currentYear, 9, 21), // 10월 21일
+        //   hideDate: new Date(currentYear, 11, 1)  // 12월 1일
+        // }
+      };
+
+      // 각 버튼에 대해 표시/숨김 처리
+      Object.entries(buttonConfigs).forEach(([buttonId, config]) => {
+        const button = document.getElementById(buttonId);
+        if (!button) return; // 버튼이 존재하지 않으면 건너뛰기
+        
+        const isInDisplayPeriod = today >= config.showDate && today < config.hideDate;
+        button.style.display = isInDisplayPeriod ? 'inline-block' : 'none';
+      });
+    }
+
+    // 페이지 로드 시 버튼 표시 상태 확인
+    document.addEventListener('DOMContentLoaded', function() {
+      checkButtonVisibility();
+    });
+
+    // 매일 자정에 버튼 표시 상태 재확인 (선택사항)
+    setInterval(function() {
+      checkButtonVisibility();
+    }, 60000 * 60 * 24); // 24시간마다 확인
+
+    // 모달 배경 클릭 시 닫기
+    document.getElementById('modal').addEventListener('click', function(e) {
+      if (e.target === this) {
+        closeModal();
+      }
+    });
+
+    // document.getElementById('modal2').addEventListener('click', function(e) {
+    //   if (e.target === this) {
+    //     closeModal2();
+    //   }
+    // });
+
+    // ESC 키로 모달 닫기
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        closeModal();
+        closeModal2();
+      }
+    });
+  </script>
+
+
+</body>
+
+</html>

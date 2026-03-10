@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<title>سمعنا</title>
+	<link rel="canonical" href="https://www.sm3na.com" />
+<meta name="description" content="سمعنا موقع الاغاني العربيه المجاني الاكبر والاقدم حيث يمكنك الاستماع والتحميل مجاناً وايضاً ايصال اغانيك لاكبر عدد من المستمعين العرب">
+<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=2.0, user-scalable=0">
+<meta name="theme-color" content="#000333">
+<link rel="shortcut icon" href="themes/sound/images/favicon.png">
+<link href="themes/sound/style.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="themes/sound/intlTelInput.css">
+<link rel="manifest" href="manifest.json">
+<script type="text/javascript">baseUrl = "https://www.sm3na.com"; token_id = "1919c044cf69dddc4fa27ea3edc0dfb8"; nowPlaying = viewed_id = 0; player_volume = 0.80; search_filter = "https://www.sm3na.com/search/filter/tracks/"; explore_filter = "https://www.sm3na.com/explore/filter/"; lng_just_now = "حالاً"; lng_ta_second = "منذ ثانيه"; lng_ta_seconds = "seconds"; lng_ta_minute = "منذ دقيقه"; lng_ta_minutes = "%d دقائق"; lng_ta_hour = "منذ ساعه"; lng_ta_hours = "منذ %d ساعات"; lng_ta_day = "منذ يوم"; lng_ta_days = "منذ %d ايام"; lng_ta_week = "منذ اسبوع"; lng_ta_weeks = "%d اسابيع"; lng_ta_month = "منذ شهر"; lng_ta_months = "منذ %d شهور"; lng_ta_year = "منذ سنه"; lng_ta_years = "منذ %d سنوات"; lng_ago = "";</script>
+
+<script type="text/javascript">
+$(document).ready(function() {
+	$("#sound-player").jPlayer({
+		cssSelectorAncestor: '#sound-container',
+		play: function() {
+			// Verify if a view has been added already for this track
+			if(viewed_id == nowPlaying) {
+				return false;
+			} else {
+				updateTrackInfo(nowPlaying);
+				prevnext(3);
+			}
+			// Add the play count
+			viewed_id = nowPlaying;
+			$.ajax({
+				type: "POST",
+				url: "/",
+				data: "id="+nowPlaying+"&token_id="+token_id, 
+				cache: false
+			});
+		},
+		ended: function () {
+			// If repeat is not turned on, move to the next song
+			if($('#repeat-song').html() == 0) {
+				$('.current-seek').html($('#sound_ghost_player').html());
+				$('.current-play').show();
+				viewed_id = 0;
+				nextSong(nowPlaying);
+			}
+		},
+		swfPath: "https://www.sm3na.com/themes/sound/js",
+		supplied: "mp3,m4a,wav",
+		wmode: "window",
+		volume: player_volume,
+		smoothPlayBar: true,
+		keyEnabled: true
+	});
+});
+function updateTrackInfo(id) {
+	// If there's a track id
+	if(id > 0) {
+		// Add the current song class
+		$('#track'+id).addClass('current-song');
+		// Add current play class to the Play button and hide it
+		$('#play'+id).addClass('current-play');
+		$('.current-play').hide();
+		$('.jp-audio .jp-time-holder').show();
+		// Add the active player to the current song
+		$("#song-controls"+id).html($("#seek-bar-song").html());
+		// Add the active player class to the current song
+		$("#song-controls"+id).addClass('current-seek');
+		// Set the play/pause button position (this is needed for mobile view in order for the play/pause button to be at the same height with the initial play button)
+		$('#track'+id+' .jp-play , #track'+id+' .jp-pause').css({ 'margin-top' : '-' + $('.song-top', '#track'+id).outerHeight() + 'px' });
+		prevnext();
+		// Bind functionality to the new song selector
+		$("#sound-player").jPlayer("option", "cssSelectorAncestor", '#sound-container');
+	}
+}
+function playSong(song, id, format) {
+	// If the user is on a mobile device, open the track in a new tab rather than playing it on the page
+	/*if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+		window.location = 'https://www.sm3na.com/uploads/tracks/'+song;
+		return false;
+	}*/
+	// Remove the current-song class (if any)
+	$('.current-song').removeClass('current-song');
+	// Show the previously hidden Play button (if any)
+	$('.current-play').show();
+	$('.current-play').removeClass('current-play');
+	// Remove the active player if exists and set the ghost player
+	$('.current-seek').html($('#sound_ghost_player').html());
+	// Remove the active player class
+	$('.current-seek').removeClass('current-seek');
+	// Define the current playing track
+	nowPlaying = id;
+	// Update the track listing
+	updateTrackInfo(nowPlaying);
+	prevnext(3);
+	// Get the current song name, url and author
+	var trackUrl = $('#song-url'+id).attr('href');
+	var artwork = $('#song-art'+id).attr('src');
+	var songName, shortSongName = songName = $('#song-name'+id).html();
+	var songAuthor = $('#song-author'+id).text();
+	var songAuthorUrl = $('#song-author'+id).attr('href');
+	if(songName.length > 30) {
+		var shortSongName = $('#song-name'+id).html();
+	}
+	document.title = songName + " - " + songAuthor + " - سمعنا";
+	$('#sw-song-name').html($('<a>', {html: shortSongName, href: trackUrl, title: songName, rel: 'loadpage'}));
+	$('#sw-author-name').html($('<a>', {html: songAuthor, href: songAuthorUrl, title: songAuthor, rel: 'loadpage'}));
+	$('#topbar-artwork').html($('<a>', {href: trackUrl, rel: 'loadpage', id: 'artwork-container'}));
+	$('#artwork-container').html('<img src="'+artwork+'">');
+	// if the format is mp4, switch it to m4a since mp4 can be audio only
+	if(format == 'mp4') {
+		format = 'm4a';
+	}
+	if(format == 'mp3') {
+		$("#sound-player").jPlayer("setMedia",{mp3:song}).jPlayer("play");
+	} else if(format == 'm4a') {
+		$("#sound-player").jPlayer("setMedia",{m4a:song}).jPlayer("play");
+	} else if(format == 'wav') {
+		$("#sound-player").jPlayer("setMedia",{wav:song}).jPlayer("play");
+	}
+}
+</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8446606647876391" ></script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-MMTBF6VEL8"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-MMTBF6VEL8');
+</script>
+<link rel="manifest" href="manifest.json"/>
+</head>
+<meta property="og:title" content="موقع اغاني سمعنا"/>
+	<meta property="og:type" content="website"/>
+	<meta property="og:url" content="https://www.sm3na.com/"/>
+	<meta property="og:image" content="images/singerspics/no-pic-reigon.gif"/>
+	<meta property="og:site_name" content="Sm3na"/>
+	<meta property="fb:page_id" content="114757815201123"/>
+<body>
+<div id="loading-bar"><dd></dd><dt></dt></div>
+<div class="topbar">
+	<div class="header">
+		<a href="welcome" rel="loadpage"><div class="logo" title="الصفحة الرئيسية"></div></a>
+		<a href="explore" class="menu-button" rel="loadpage" id="explore-button">اكتشف الجديد</a>
+		<a onclick="connect_modal()" class="menu-btn" title="دخول">دخول</a>
+		<div class="search-input">
+		<input type="text" id="search" placeholder="اكتب اسم المطرب او الاغنيه" autocomplete="off">
+		<label for="search" id="search_label">ابحث عن مغني او اغنيه</label></div>
+	</div>
+	<div class="search-container"></div>
+	<div class="notification-container">
+		<div class="notification-content">
+			<div class="notification-inner">
+				<span id="global_page_url"><a href="notifications" rel="loadpage">عرض المزيد من التنبيهات</a></span>
+				<span id="chat_page_url"><a href="notifications/filter/chats" rel="loadpage">عرض المزيد من الرسائل</a></span>
+				<a onclick="showNotification('close')" title="اغلاق التنبيهات"><div class="close_btn"></div></a>
+			</div>
+			<div id="notifications-content"></div>
+			<div class="notification-row"><div class="notification-padding"><a href="settings/notifications" rel="loadpage">اعدادات التنبيهات</a></div></div>
+		</div>
+	</div>
+</div>
+<div class="topbar_margin"></div>
+<div id="content">
+	<div class="row-body">
+<div class="body-content">
+<div class="row-welcome content-welcome" data-type="background" data-speed="10">
+	<div class="row-body">
+		<div class="welcome-inner">
+			<div class="welcome-message">
+				<div class="welcome-title">
+					سمعنا
+				</div>
+				<div class="welcome-desc">
+					استمع لاغانيك المفضله ! تواصل مع الفنانين واستكشف الاغاني الجديدة
+				</div>
+				<div class="welcome-button">
+					<a onclick="connect_modal();$('#tab-register').click();">سجل الآن</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="welcome-cats">
+	<div class="row-body">
+		<div class="welcome-box-section">
+			الاقسام
+		</div>
+		<div class="welcome-categories">
+			<a href="cat/egyptian_songs" rel="loadpage" title="اغاني مصرية">اغاني مصرية</a>
+			<a href="cat/lebanese_songs" rel="loadpage" title="لبنانيه">لبنانيه</a>
+			<a href="cat/saudi_songs" rel="loadpage" title="سعوديه">سعوديه</a>
+			<a href="cat/iraqi_songs" rel="loadpage" title="عراقيه">عراقيه</a>
+			<a href="cat/syrian_songs" rel="loadpage" title="سورية">سورية</a>
+			<a href="cat/sudanese_songs" rel="loadpage" title="سودانية">سودانية</a>
+			<a href="cat/emirati_songs" rel="loadpage" title="إماراتيه">إماراتيه</a>
+			<a href="cat/kuwaiti_songs" rel="loadpage" title="كويتيه">كويتيه</a>
+			<a href="cat/algerian_songs" rel="loadpage" title="جزائرية">جزائرية</a>
+		</div>
+	</div>
+</div>
+<div class="welcome-content wc-lc">
+	<div class="row-body">
+		<div class="welcome-box-section" id="welcome-creators">
+			الفنانين 
+		</div>
+		<div class="welcome-box wcf">
+			<div class="feature-image features-upload"></div>
+			<div class="wcf-content">
+				<div class="welcome-box-title">
+					اضف اغانيك
+				</div>
+				<div class="welcome-box-desc">
+					انشر اغانيك, ملفاتك الصوتيه, وسمّع العالم صوتك
+				</div>
+			</div>
+		</div>
+		<div class="welcome-box wcf">
+			<div class="feature-image features-audience"></div>
+			<div class="wcf-content">
+				<div class="welcome-box-title">
+					الجمهور
+				</div>
+				<div class="welcome-box-desc">
+					تواصل مع المستمعين وقم بايصال اغانيك لكل العالم
+				</div>
+			</div>
+		</div>
+		<div class="welcome-box wcf">
+			<div class="feature-image features-stats"></div>
+			<div class="wcf-content">
+				<div class="welcome-box-title">
+					الاحصائيات
+				</div>
+				<div class="welcome-box-desc">
+					اعرف جمهورك اكثر من خلال الاحصائيات المتطوره
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row-body">
+		<div class="welcome-box-section" id="welcome-listeners">
+			المستمعين
+		</div>
+		<div class="welcome-box wcf">
+			<div class="feature-image features-explore"></div>
+			<div class="wcf-content">
+				<div class="welcome-box-title">
+					اكتشف الجديد
+				</div>
+				<div class="welcome-box-desc">
+					استكشف الاغاني  وتابع جديد الفنانين حول العالم العربي
+				</div>
+			</div>
+		</div>
+		<div class="welcome-box wcf">
+			<div class="feature-image features-share"></div>
+			<div class="wcf-content">
+				<div class="welcome-box-title">
+					شارك
+				</div>
+				<div class="welcome-box-desc">
+					انشر موسيقاك المفضله مع اصدقائك على شبكات التواصل الاجتماعي
+				</div>
+			</div>
+		</div>
+		<div class="welcome-box wcf">
+			<div class="feature-image features-organize"></div>
+			<div class="wcf-content">
+				<div class="welcome-box-title">
+					نظم
+				</div>
+				<div class="welcome-box-desc">
+					قم بتجهيز قوائم الاستماع واضف ورتب اغانيك المفضله بالشكل الذي تحبه
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="ads"></div>
+</div>
+</div>
+</div>
+<div id="connect" style="display: none;">
+	<div class="modal-container">
+		<div class="modal-title" id="share-title">
+			<div class="modal-menu-container">
+				<div class="modal-menu-item modal-menu-item-active" id="tab-login">تسجيل دخول</div>
+				<div class="modal-menu-item" id="tab-register">عضويه جديدة</div>
+				<div class="modal-loading"></div>
+			</div>
+		</div>
+		<div class="divider"></div>
+		<div class="tab-login">
+			<div id="login-message"></div>
+			<div class="modal-inner">
+				<form id="login-form" method="post">
+				<div class="modal-input modal-connect">	
+					<input type="text" name="username" placeholder="اسم المستخدم او البريد الالكتروني">
+					<input type="password" name="password" placeholder="الباسورد">
+				</div>
+				<div class="modal-checkbox"><input type="checkbox" name="remember" value="1" id="remember-me"><label for="remember-me">Remember me</label></div>
+				<input type="submit" style="display: none;"><!-- submit button used to enable the enter key -->
+				</form>
+				<div class="forgot-password"><a href="recover" rel="loadpage">نسيت الباسورد؟</a></div>
+			</div>
+			<div class="divider"></div>
+			<div class="modal-menu">
+				<div class="modal-btn modal-btn-active"><a id="login-button" onclick="connect(1)">تسجيل دخول</a></div>
+			</div>
+		</div>
+		<div class="tab-register">
+			<div id="register-message"></div>
+			<div class="modal-inner">
+				<div class="modal-input modal-connect">
+					نأسف لم يعد التسجيل متاحاً لحسابات جديده على سمعنا 
+					ننصحكم بالتسجيل على موقعنا الجديد اوديابلو
+				</div>
+			</div>
+			<div class="divider"></div>
+			<div class="modal-menu">
+			<div class="modal-btn modal-btn-active"><a href="https://audiablo.com/" id="register-button" class="menu-btn" title="Audiablo">موقع Audiablo</a></div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="modal-background"></div>
+<div class="row-body">
+	<div class="footer">
+		<div class="footer-container">
+			<div class="footer-links">
+				<span><a href="page/terms-of-use" rel="loadpage">Terms of Use</a></span><span><a href="page/privacy" rel="loadpage">Privacy Policy</a></span><span><a href="page/cookies" rel="loadpage">Cookies Policy</a></span><span><a href="page/community-guidelines" rel="loadpage">Community Guidelines</a></span><span><a href="page/copyright" rel="loadpage">Copyright</a></span>
+			</div>
+			<div class="footer-languages">
+				Language: <span><a href="index_lang-english">English</a></span><span><a href="index_lang-arabic">Arabic</a></span>
+			</div>
+			<div class="footer-languages">
+				&copy; 2005-2025 Sm3na.com All rights reserved. 
+			</div>
+		</div>
+	</div>
+</div>
+<div class="bottombar">
+	<div class="bottombar-container">
+		<div id="sound-player" class="jp-jplayer"></div>
+		<div id="sound-container" class="jp-audio top-player">
+			<div class="player-nine">
+				<div class="jp-type-single">
+					<div class="jp-gui jp-interface">
+						<div class="player-container-left">
+							<a onclick="prevnext(1)" id="prev-button" class="prev-button" title="السابق"></a>
+							<a class="jp-play" tabindex="1" title="تشغيل"></a>
+							<a class="jp-pause" tabindex="1" title="ايقاف"></a>
+							<a onclick="prevnext(2)" id="next-button" class="next-button" title="التالي"></a>
+							<a class="jp-repeat" tabindex="1" title="تكرار" onclick="repeatSong(1)"></a>
+							<a class="jp-repeat-off" tabindex="1" title="التكرار معطل" onclick="repeatSong(0)"></a>
+							<div style="display: none;" id="repeat-song">0</div>
+							<div class="jp-current-time" id="current-time"></div>
+						</div>
+						<div class="player-container-middle">
+							<div class="jp-progress">
+								<div class="jp-seek-bar">
+									<div class="jp-play-bar"></div>
+								</div>
+							</div>
+						</div>
+						<div class="player-container-right">
+							<div class="jp-duration" id="duration-time"></div>
+							<a class="jp-mute" tabindex="1" title="صامت"></a>
+							<a class="jp-unmute" tabindex="1" title="غير صامت"></a>
+							<div class="jp-volume-bar" onclick="playerVolume()" title="مستوى الصوت">
+								<div class="jp-volume-bar-value"></div>
+							</div>
+						</div>
+					</div>
+				<div class="jp-no-solution"></div>
+			</div>
+			</div>
+			<div class="player-three">
+				<div id="topbar-track-info">
+					<div id="topbar-artwork"></div>
+					<div id="topbar-track-details">
+						<div class="topbar-song-name" id="sw-song-name"></div>
+						<div class="topbar-author-name" id="sw-author-name"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div id="seek-bar-song" style="display: none;">
+	<div id="sound-container" class="jp-audio">
+		<div class="jp-type-single">
+			<div class="jp-gui jp-interface">
+				<a class="jp-play">&nbsp;</a><a class="jp-pause">&nbsp;</a>
+				<div class="jp-progress">
+					<div class="jp-seek-bar">
+						<div class="jp-play-bar"></div>
+					</div>
+				</div>
+				<div class="jp-time-holder">
+					<div class="jp-current-time"></div>
+					<div class="jp-duration"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div id="sound_ghost_player" style="display: none;"><div class="jp-audio"><div class="jp-type-single"><div class="jp-gui jp-interface"><div class="jp-progress"><div class="jp-seek-bar"><div class="jp-play-bar"></div></div></div></div></div></div></div>
+<script type="text/javascript" src="themes/sound/js/jquery.js"></script>
+<script type="text/javascript" src="themes/sound/js/jquery.timeago.js"></script>
+<script type="text/javascript" src="themes/sound/js/functions.js"></script>
+<script type="text/javascript" src="themes/sound/js/jquery.jplayer.min.js"></script>
+</body>
+</html>

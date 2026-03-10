@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TuSecreto - Comunidad Anónima de Desahogo</title>
+    <meta name='description' content="Una red social anónima para liberar tus secretos, encontrar apoyo y leer historias reales. Sana, suelta y reencuéntrate.">
+    <link rel="canonical" href="https://www.tusecreto.me/" />
+    
+    <!-- Open Graph & Twitter Tags -->
+    <meta property="og:title" content="TuSecreto - Comunidad Anónima de Desahogo"/>
+    <meta property="og:description" content="Una red social anónima para liberar tus secretos, encontrar apoyo y leer historias reales. Sana, suelta y reencuéntrate."/>
+    <meta property="og:image" content="https://www.tusecreto.me/images/tusecreto-social.png" />
+    <meta name="twitter:card" content="summary_large_image">
+    
+    <link rel="icon" href="/favicon.ico" sizes="any">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #f8fafc; } 
+        .header-gradient { background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%); }
+        .brand-logo-header { font-family: Arial, sans-serif; letter-spacing: -1px; text-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .secret-card { background-color: white; border-radius: 1rem; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); transition: all 0.3s; }
+        .secret-card:hover { transform: translateY(-4px); }
+        .modern-input, .modern-select { background-color: #f1f5f9; border: 2px solid transparent; transition: all 0.2s ease; }
+        .modern-input:focus, .modern-select:focus { background-color: #ffffff; border-color: #3b82f6; box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1); }
+        .modal-overlay { background-color: rgba(15, 23, 42, 0.6); backdrop-filter: blur(4px); }
+        .animate-fade-in { animation: fadeInDown 0.2s ease-out forwards; }
+        .animate-slide-up { animation: slideUp 0.4s ease-out; }
+        @keyframes fadeInDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .tab-btn { border-bottom: 2px solid transparent; color: #64748b; }
+        .tab-btn.active { border-bottom-color: #2563eb; color: #2563eb; }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+    </style>
+	<script id="aclib" type="text/javascript" src="//acscdn.com/script/aclib.js"></script>
+</head>
+<body class="flex flex-col min-h-screen text-slate-800">
+
+    <!-- HEADER -->
+    <header class="header-gradient text-white shadow-lg w-full sticky top-0 z-40">
+        <div class="max-w-6xl mx-auto px-4 h-16 flex justify-between items-center">
+            <div class="flex items-center space-x-3">
+                <button id="menu-btn" class="lg:hidden text-white text-2xl hover:text-blue-100 transition"><i class="fas fa-bars"></i></button>
+                <a href="index.php" class="text-2xl font-black brand-logo-header hover:text-blue-100 transition">tusecreto</a>
+            </div>
+            
+            <nav class="hidden lg:flex lg:justify-center lg:flex-1 space-x-2">
+                <a href="dashboard.php" class="text-white font-bold bg-white/10 px-4 py-2 rounded-full backdrop-blur-sm shadow-sm"><i class="fas fa-stream mr-2"></i>Feed</a>
+                <a href="conectados.php" class="text-blue-100 hover:text-white font-medium px-4 py-2 hover:bg-white/10 rounded-full transition flex items-center gap-2">
+                    <i class="fas fa-globe"></i> <span class="hidden xl:inline">Conectados</span>
+                    <span class="bg-green-500 text-white text-[10px] px-2 py-0.5 rounded-full shadow-sm animate-pulse font-bold">13</span>
+                </a>
+                <a href="monetizacion.php" class="text-blue-100 hover:text-white font-medium px-4 py-2 hover:bg-white/10 rounded-full transition"><i class="fas fa-coins mr-2"></i>Monetización</a>
+                <a href="chat.php" class="text-blue-100 hover:text-white font-medium px-4 py-2 hover:bg-white/10 rounded-full transition"><i class="fas fa-comments mr-2"></i>Chat</a>
+            </nav>
+
+            <div class="flex items-center space-x-3 md:space-x-4">
+                <button onclick="openAuthModal('login')" class="text-sm font-bold text-white bg-white/20 px-4 py-2 rounded-full hover:bg-white hover:text-blue-600 transition shadow-lg">Iniciar Sesión</button>
+            </div>
+        </div>
+        
+        <div id="mobile-menu" class="hidden lg:hidden bg-blue-700 text-white p-4 space-y-2 border-t border-blue-600 shadow-inner dropdown-animate absolute top-16 w-full left-0 z-50">
+            <a href="dashboard.php" class="block px-4 py-2 rounded hover:bg-blue-600 transition flex items-center"><i class="fas fa-stream mr-2 w-5"></i>Feed</a>
+            <a href="conectados.php" class="block px-4 py-2 rounded hover:bg-blue-600 transition flex justify-between items-center"><span><i class="fas fa-globe mr-2 w-5"></i>Conectados</span><span class="bg-green-500 text-white text-xs px-2 py-0.5 rounded-full font-bold">13</span></a>
+            <a href="monetizacion.php" class="block px-4 py-2 rounded hover:bg-blue-600 transition"><i class="fas fa-coins mr-2 w-5"></i>Monetización</a>
+            <a href="chat.php" class="block px-4 py-2 rounded hover:bg-blue-600 transition"><i class="fas fa-comments mr-2 w-5"></i>Chat en Vivo</a>
+                            <div class="border-t border-blue-500 pt-3 mt-2 flex gap-2">
+                    <button onclick="openAuthModal('login')" class="block flex-1 text-center px-4 py-2 rounded bg-white text-blue-700 font-bold">Entrar</button>
+                    <button onclick="openAuthModal('register')" class="block flex-1 text-center px-4 py-2 rounded bg-blue-600 text-white border border-blue-400">Registrarte</button>
+                </div>
+                    </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <main class="flex-grow flex items-center justify-center py-12 px-4">
+        <div class="max-w-6xl w-full grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+            
+            <!-- COLUMNA IZQUIERDA -->
+            <div class="space-y-6 text-center lg:text-left order-2 lg:order-1">
+                <div class="mb-8">
+                    <h1 class="text-4xl md:text-5xl font-extrabold text-slate-900 leading-tight mb-4">Lo que pasa en <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">TuSecreto</span>,<br> se queda en TuSecreto.</h1>
+                    <p class="text-xl text-slate-600">Únete a la comunidad donde miles de personas comparten sus historias reales, confiesan sus dudas y encuentran apoyo. 100% Anónimo.</p>
+                </div>
+
+                <!-- SECRET CARD -->
+                                <article class="relative bg-white rounded-3xl shadow-[0_10px_40px_-10px_rgba(0,0,0,0.1)] border border-slate-100 overflow-hidden transform hover:-translate-y-1 transition duration-300 text-left mx-auto lg:mx-0 max-w-md lg:max-w-none">
+                    <div class="bg-blue-50 px-6 py-4 flex justify-between items-center border-b border-slate-100/50">
+                        <div class="flex items-center gap-2 font-bold text-blue-700">
+                            <div class="bg-white p-1.5 rounded-full shadow-sm"><i class="fas fa-male"></i></div>
+                            <span class="text-sm">26 años</span>
+                        </div>
+                        <span class="text-xs font-bold text-slate-400 bg-white/60 px-2 py-1 rounded-full uppercase tracking-wide">MX</span>
+                    </div>
+                    <div class="p-8">
+                        <i class="fas fa-quote-left text-4xl text-slate-100 absolute top-16 left-6 z-0"></i>
+                        <p class="text-xl text-slate-700 font-medium leading-relaxed relative z-10 line-clamp-6">Hoy mi ex pareja me dejó en claro que no quiere nada conmigo, tiene unos meses que no andamos pero en ese tiempo también seguíamos hablando, llamandonos, viéndonos  y he estado intentando hacer lo imposible por qué ella vea que las cosas pueden cambiar y ser diferentes, pero hoy me salió con esto y me dijo que las cosas no van a cambiar y para mí sorpresa la razón que me dió fue porque no quiere cerrarse a conocer otras personas, se me vino el ánimo y el mundo para abajo y no se que hacer o como sentirme.
+Algún consejo o algunas palabras? Me siento solo pues es la única compañía sincera que tenía</p>
+                    </div>
+                    <div class="px-6 py-4 bg-slate-50/50 flex justify-between items-center text-sm font-bold text-slate-500 border-t border-slate-100">
+                        <div class="flex gap-4">
+                            <span class="flex items-center gap-1.5"><i class="fas fa-heart text-red-400"></i> 0</span>
+                            <span class="flex items-center gap-1.5"><i class="fas fa-comment-dots text-blue-400"></i> 1</span>
+                        </div>
+                        <a href="dashboard.php?secret=1068" class="text-blue-600 hover:underline">Leer completo &rarr;</a>
+                    </div>
+                </article>
+                
+                <!-- VIDEO YOUTUBE AUTOPLAY -->
+                <div class="w-full max-w-md lg:max-w-none mx-auto rounded-3xl overflow-hidden shadow-lg border border-slate-100 aspect-video mt-6 bg-black">
+                    <iframe class="w-full h-full" 
+                        src="https://www.youtube.com/embed/OCyMRO_aSVE?autoplay=1&mute=1&loop=1&playlist=OCyMRO_aSVE" 
+                        title="TuSecreto Video" 
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen>
+                    </iframe>
+                </div>
+                
+                <!-- AdCash Banner 468x60 -->
+                <div class="w-full flex justify-center mt-6">
+                    <div>
+                        <script type="text/javascript">
+                            aclib.runBanner({
+                                zoneId: '10994750',
+                            });
+                        </script>
+                    </div>
+                </div>
+
+            </div>
+            
+            <!-- COLUMNA DERECHA -->
+            <div class="w-full max-w-md mx-auto lg:ml-auto order-1 lg:order-2 space-y-6">
+                                     <div class="bg-white p-8 rounded-3xl shadow-2xl border border-gray-100 text-center relative z-10 overflow-hidden">
+                        <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-blue-500 to-indigo-600"></div>
+                        <h2 class="text-2xl font-black text-slate-900 mb-2 mt-2">Únete a la Comunidad</h2>
+                        <p class="text-slate-500 text-sm mb-6">Regístrate para compartir, votar y ganar dinero.</p>
+                        
+                        <form id="hero-register-form" class="space-y-4 text-left">
+                            <div id="hero-reg-feedback" class="hidden p-3 rounded-lg text-sm text-center font-medium"></div>
+                            
+                            <div>
+                                <label class="block text-xs font-bold text-slate-500 uppercase mb-1 ml-1 mt-3">Celular</label>
+                                <div class="flex gap-2">
+                                    <select id="hero-country" class="modern-select w-24 pl-2 pr-0 py-3 rounded-xl text-slate-800 bg-slate-100 font-bold outline-none text-sm">
+                                                                                    <option value="51" data-iso="PE" selected>🇵🇪 +51</option>
+                                                                                    <option value="52" data-iso="MX" >🇲🇽 +52</option>
+                                                                                    <option value="54" data-iso="AR" >🇦🇷 +54</option>
+                                                                                    <option value="57" data-iso="CO" >🇨🇴 +57</option>
+                                                                                    <option value="56" data-iso="CL" >🇨🇱 +56</option>
+                                                                                    <option value="1" data-iso="US" >🇺🇸 +1</option>
+                                                                                    <option value="34" data-iso="ES" >🇪🇸 +34</option>
+                                                                                    <option value="58" data-iso="VE" >🇻🇪 +58</option>
+                                                                                    <option value="593" data-iso="EC" >🇪🇨 +593</option>
+                                                                                    <option value="591" data-iso="BO" >🇧🇴 +591</option>
+                                                                                    <option value="595" data-iso="PY" >🇵🇾 +595</option>
+                                                                                    <option value="598" data-iso="UY" >🇺🇾 +598</option>
+                                                                                    <option value="502" data-iso="GT" >🇬🇹 +502</option>
+                                                                                    <option value="503" data-iso="SV" >🇸🇻 +503</option>
+                                                                                    <option value="504" data-iso="HN" >🇭🇳 +504</option>
+                                                                                    <option value="505" data-iso="NI" >🇳🇮 +505</option>
+                                                                                    <option value="506" data-iso="CR" >🇨🇷 +506</option>
+                                                                                    <option value="507" data-iso="PA" >🇵🇦 +507</option>
+                                                                                    <option value="1" data-iso="DO" >🇩🇴 +1</option>
+                                                                                    <option value="53" data-iso="CU" >🇨🇺 +53</option>
+                                                                            </select>
+                                    <input type="tel" name="phone" placeholder="999 999 999" required class="modern-input flex-1 px-4 py-3 rounded-xl outline-none font-medium text-slate-700">
+                                </div>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-slate-500 uppercase mb-1 ml-1 mt-3">Contraseña</label>
+                                <input type="password" name="password" required minlength="6" autocomplete="new-password" class="modern-input w-full px-4 py-3 rounded-xl outline-none font-medium">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-slate-500 uppercase mb-1 ml-1 mt-3">Repetir Contraseña</label>
+                                <input type="password" name="confirm_password" required minlength="6" autocomplete="new-password" class="modern-input w-full px-4 py-3 rounded-xl outline-none font-medium">
+                            </div>
+                            <button type="submit" class="w-full bg-slate-900 hover:bg-slate-800 text-white font-bold py-3.5 rounded-xl shadow-lg transition transform hover:scale-[1.02] mt-6 flex items-center justify-center gap-2">Registrarme <i class="fas fa-arrow-right"></i></button>
+                        </form>
+                        <div class="mt-6 border-t border-gray-100 pt-4">
+                            <p class="text-xs text-gray-500">¿Ya tienes cuenta? <button onclick="openAuthModal('login')" class="text-blue-600 font-bold hover:underline">Inicia Sesión</button></p>
+                        </div>
+                    </div>
+                
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-200">
+                    <h3 class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-4 text-center">Nuestra Comunidad en Números</h3>
+                    <div class="grid grid-cols-3 gap-2 text-center divide-x divide-gray-100">
+                        <div class="flex flex-col items-center">
+                            <div class="w-10 h-10 rounded-full bg-blue-50 flex items-center justify-center text-blue-600 mb-2"><i class="fas fa-users"></i></div>
+                            <div class="text-blue-600 text-xl font-black leading-none">4,270</div>
+                            <div class="text-[10px] text-gray-400 font-bold uppercase mt-1">Usuarios</div>
+                        </div>
+                        <div class="flex flex-col items-center">
+                            <div class="w-10 h-10 rounded-full bg-pink-50 flex items-center justify-center text-pink-500 mb-2"><i class="fas fa-book-open"></i></div>
+                            <div class="text-pink-500 text-xl font-black leading-none">1,753</div>
+                            <div class="text-[10px] text-gray-400 font-bold uppercase mt-1">Historias</div>
+                        </div>
+                        <div class="flex flex-col items-center">
+                            <div class="w-10 h-10 rounded-full bg-green-50 flex items-center justify-center text-green-500 mb-2"><i class="fas fa-comments"></i></div>
+                            <div class="text-green-500 text-xl font-black leading-none">1,931</div>
+                            <div class="text-[10px] text-gray-400 font-bold uppercase mt-1">Comentarios</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- AdCash Banner 336x280 (Columna Derecha) -->
+                <div class="w-full flex justify-center mt-6">
+                    <div>
+                        <script type="text/javascript">
+                            aclib.runBanner({
+                                zoneId: '10994758',
+                            });
+                        </script>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <div class="bg-blue-50 border-t border-blue-100 text-center py-4 px-4 space-y-2">
+        <p class="text-sm font-medium text-blue-900">Los mejores secretos saldran aqui <a href="https://www.youtube.com/watch?v=ndv_El1rtio" target="_blank" class="text-blue-600 underline font-bold hover:text-blue-800">YouTube</a> 🙈</p>
+        <p class="text-sm font-medium text-blue-900">Descarga nuestra app BETA <a href="tusecreto.apk" download class="text-blue-600 underline font-bold hover:text-blue-800">tusecreto.apk</a> pronto lo pondremos en Play Store 📲</p>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="bg-white border-t border-gray-200 py-12 mt-auto">
+        <div class="max-w-6xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="text-center md:text-left">
+                <a href="index.php" class="text-2xl font-bold text-blue-600 block mb-2 brand-logo-header">tusecreto</a>
+                <p class="text-sm text-gray-500">© 2026 TuSecreto.me.<br>Todos los derechos reservados.</p>
+            </div>
+            <div class="flex flex-wrap justify-center md:justify-end gap-x-6 gap-y-3 text-sm text-gray-600">
+                <button onclick="openAuthModal('login')" class="hover:text-blue-600 hover:underline">Iniciar sesión</button>
+                <a href="privacy.html" class="hover:text-blue-600 hover:underline">Política de privacidad</a>
+                <a href="terms.html" class="hover:text-blue-600 hover:underline">Términos de Servicio</a>
+                <a href="cookies.html" class="hover:text-blue-600 hover:underline">Cookies</a>
+                <a href="info.html" class="hover:text-blue-600 hover:underline">Información</a>
+                <a href="help.html" class="hover:text-blue-600 hover:underline">Ayuda</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- MODAL AUTENTICACIÓN -->
+    <div id="auth-modal" class="hidden fixed inset-0 z-50 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+        <div class="flex items-center justify-center min-h-screen px-4">
+            <div class="fixed inset-0 modal-overlay transition-opacity" onclick="closeAuthModal()"></div>
+            
+            <div class="bg-white rounded-3xl shadow-2xl w-full max-w-md relative z-10 overflow-hidden animate-fade-in p-8">
+                <div class="flex justify-between items-center mb-6">
+                    <h3 class="text-2xl font-bold text-gray-900" id="modal-title">Bienvenido</h3>
+                    <button onclick="closeAuthModal()" class="text-gray-400 hover:text-gray-600 transition"><i class="fas fa-times text-xl"></i></button>
+                </div>
+
+                <!-- Pestañas (Se ocultan en login) -->
+                <div id="auth-tabs" class="flex border-b border-slate-100 mb-6">
+                    <button onclick="switchTab('login')" id="tab-login" class="flex-1 py-3 text-sm font-bold tab-btn active">Iniciar Sesión</button>
+                    <button onclick="switchTab('register')" id="tab-register" class="flex-1 py-3 text-sm font-bold tab-btn">Registrarse</button>
+                </div>
+
+                <!-- LOGIN FORM -->
+                <form id="login-form" class="space-y-5">
+                    <div id="login-feedback" class="hidden p-3 rounded-lg text-sm text-center font-medium"></div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-500 uppercase mb-2">Celular</label>
+                        <div class="flex gap-2">
+                            <select name="country" class="modern-select w-24 pl-2 pr-1 py-3 rounded-xl text-slate-800 bg-slate-100 font-medium outline-none">
+                                                                    <option value="51" selected>🇵🇪 +51</option>
+                                                                    <option value="52" >🇲🇽 +52</option>
+                                                                    <option value="54" >🇦🇷 +54</option>
+                                                                    <option value="57" >🇨🇴 +57</option>
+                                                                    <option value="56" >🇨🇱 +56</option>
+                                                                    <option value="1" >🇺🇸 +1</option>
+                                                                    <option value="34" >🇪🇸 +34</option>
+                                                                    <option value="58" >🇻🇪 +58</option>
+                                                                    <option value="593" >🇪🇨 +593</option>
+                                                                    <option value="591" >🇧🇴 +591</option>
+                                                                    <option value="595" >🇵🇾 +595</option>
+                                                                    <option value="598" >🇺🇾 +598</option>
+                                                                    <option value="502" >🇬🇹 +502</option>
+                                                                    <option value="503" >🇸🇻 +503</option>
+                                                                    <option value="504" >🇭🇳 +504</option>
+                                                                    <option value="505" >🇳🇮 +505</option>
+                                                                    <option value="506" >🇨🇷 +506</option>
+                                                                    <option value="507" >🇵🇦 +507</option>
+                                                                    <option value="1" >🇩🇴 +1</option>
+                                                                    <option value="53" >🇨🇺 +53</option>
+                                                            </select>
+                            <input type="tel" name="phone" placeholder="999 999 999" required autocomplete="username" class="modern-input flex-1 px-4 py-3 rounded-xl outline-none">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-500 uppercase mb-2">Contraseña</label>
+                        <input type="password" name="password" required autocomplete="current-password" class="modern-input w-full px-4 py-3 rounded-xl outline-none">
+                    </div>
+                    <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3.5 rounded-xl shadow-lg transition">Entrar</button>
+                    <p class="text-center text-xs text-slate-400 mt-4"><a href="forgot-password.html" class="hover:text-blue-600">¿Olvidaste tu contraseña?</a></p>
+                    <div class="mt-6 border-t border-gray-100 pt-4">
+                        <p class="text-xs text-gray-500 text-center">¿No tienes cuenta? <button type="button" onclick="switchTab('register')" class="text-blue-600 font-bold hover:underline">Regístrate gratis</button></p>
+                    </div>
+                </form>
+
+                <!-- REGISTER FORM -->
+                <form id="register-form" class="space-y-5 hidden">
+                    <div id="reg-feedback" class="hidden p-3 rounded-lg text-sm text-center font-medium"></div>
+                    
+                    <div>
+                        <label class="block text-xs font-bold text-slate-500 uppercase mb-2">Celular</label>
+                        <div class="flex gap-2">
+                            <select id="reg-country" name="country" class="modern-select w-24 pl-2 pr-1 py-3 rounded-xl text-slate-800 bg-slate-100 font-medium outline-none">
+                                                                    <option value="51" data-iso="PE" selected>🇵🇪 +51</option>
+                                                                    <option value="52" data-iso="MX" >🇲🇽 +52</option>
+                                                                    <option value="54" data-iso="AR" >🇦🇷 +54</option>
+                                                                    <option value="57" data-iso="CO" >🇨🇴 +57</option>
+                                                                    <option value="56" data-iso="CL" >🇨🇱 +56</option>
+                                                                    <option value="1" data-iso="US" >🇺🇸 +1</option>
+                                                                    <option value="34" data-iso="ES" >🇪🇸 +34</option>
+                                                                    <option value="58" data-iso="VE" >🇻🇪 +58</option>
+                                                                    <option value="593" data-iso="EC" >🇪🇨 +593</option>
+                                                                    <option value="591" data-iso="BO" >🇧🇴 +591</option>
+                                                                    <option value="595" data-iso="PY" >🇵🇾 +595</option>
+                                                                    <option value="598" data-iso="UY" >🇺🇾 +598</option>
+                                                                    <option value="502" data-iso="GT" >🇬🇹 +502</option>
+                                                                    <option value="503" data-iso="SV" >🇸🇻 +503</option>
+                                                                    <option value="504" data-iso="HN" >🇭🇳 +504</option>
+                                                                    <option value="505" data-iso="NI" >🇳🇮 +505</option>
+                                                                    <option value="506" data-iso="CR" >🇨🇷 +506</option>
+                                                                    <option value="507" data-iso="PA" >🇵🇦 +507</option>
+                                                                    <option value="1" data-iso="DO" >🇩🇴 +1</option>
+                                                                    <option value="53" data-iso="CU" >🇨🇺 +53</option>
+                                                            </select>
+                            <input type="tel" name="phone" placeholder="999 999 999" required class="modern-input flex-1 px-4 py-3 rounded-xl outline-none">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-500 uppercase mb-2">Crear Contraseña</label>
+                        <input type="password" name="password" required minlength="6" autocomplete="new-password" class="modern-input w-full px-4 py-3 rounded-xl outline-none">
+                    </div>
+                    <button type="submit" class="w-full bg-green-500 hover:bg-green-600 text-white font-bold py-3.5 rounded-xl shadow-lg transition">Registrarme Ahora</button>
+                    <div class="mt-6 border-t border-gray-100 pt-4">
+                        <p class="text-xs text-gray-500 text-center">¿Ya tienes cuenta? <button type="button" onclick="switchTab('login')" class="text-blue-600 font-bold hover:underline">Inicia Sesión</button></p>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openAuthModal(tab) {
+            document.getElementById('auth-modal').classList.remove('hidden');
+            
+            // Ocultar pestañas si es login puro
+            const tabs = document.getElementById('auth-tabs');
+            if (tab === 'login') {
+                tabs.classList.add('hidden');
+            } else {
+                tabs.classList.remove('hidden');
+            }
+            
+            switchTab(tab);
+        }
+        
+        function closeAuthModal() {
+            document.getElementById('auth-modal').classList.add('hidden');
+        }
+        
+        function switchTab(tab) {
+            const l = document.getElementById('login-form'), r = document.getElementById('register-form');
+            const bl = document.getElementById('tab-login'), br = document.getElementById('tab-register');
+            const t = document.getElementById('modal-title');
+            
+            if(tab === 'login') { 
+                l.classList.remove('hidden'); r.classList.add('hidden'); 
+                bl.classList.add('active'); br.classList.remove('active'); 
+                t.textContent='Iniciar Sesión'; 
+            } else { 
+                l.classList.add('hidden'); r.classList.remove('hidden'); 
+                bl.classList.remove('active'); br.classList.add('active'); 
+                t.textContent='Crear Cuenta'; 
+            }
+        }
+        
+        function showFeedback(id, msg, type) {
+            const el = document.getElementById(id); el.textContent = msg; el.classList.remove('hidden');
+            el.className = `p-3 rounded-xl text-sm font-medium text-center mb-4 animate-slide-up block ${type === 'error' ? 'bg-red-50 text-red-600' : 'bg-green-50 text-green-600'}`;
+        }
+
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        if(menuBtn && mobileMenu) {
+            menuBtn.addEventListener('click', (e) => { e.stopPropagation(); mobileMenu.classList.toggle('hidden'); });
+            document.addEventListener('click', (e) => { if(!menuBtn.contains(e.target) && !mobileMenu.contains(e.target)) mobileMenu.classList.add('hidden'); });
+        }
+
+        // LOGIN
+        document.getElementById('login-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const btn = this.querySelector('button');
+            const country = this.querySelector('[name="country"]').value;
+            const phone = this.querySelector('[name="phone"]').value;
+            const password = this.querySelector('[name="password"]').value;
+
+            btn.disabled = true; btn.innerText = 'Verificando...';
+            document.getElementById('login-feedback').classList.add('hidden');
+
+            try {
+                const res = await fetch('auth_action.php', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({
+                    action: 'login', phone: country + phone, password: password
+                })});
+                const text = await res.text();
+                let data; try { data = JSON.parse(text); } catch(e) { throw new Error("Error servidor"); }
+                
+                if(data.status==='success') { showFeedback('login-feedback', '¡Hola!', 'success'); setTimeout(() => window.location.href='dashboard.php', 1000); }
+                else { showFeedback('login-feedback', data.message, 'error'); btn.disabled=false; btn.innerText='Entrar'; }
+            } catch(e) { showFeedback('login-feedback', 'Error conexión', 'error'); btn.disabled=false; btn.innerText='Entrar'; }
+        });
+
+        // REGISTER HERO
+        document.getElementById('hero-register-form').addEventListener('submit', async function(e) {
+            e.preventDefault(); 
+            const btn = this.querySelector('button[type="submit"]');
+            const pass = this.querySelector('[name="password"]').value;
+            const confirm = this.querySelector('[name="confirm_password"]').value;
+            
+            if(pass !== confirm) { showFeedback('hero-reg-feedback', 'Contraseñas no coinciden', 'error'); return; }
+
+            const countrySelect = document.getElementById('hero-country');
+            const countryCode = countrySelect.value;
+            const countryIso = countrySelect.options[countrySelect.selectedIndex].getAttribute('data-iso') || 'OT';
+            const phone = this.querySelector('[name="phone"]').value;
+            
+            btn.disabled = true; btn.innerText = 'Creando...';
+            document.getElementById('hero-reg-feedback').classList.add('hidden');
+
+            try {
+                const res = await fetch('auth_action.php', {
+                    method: 'POST', headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({ action: 'register', phone: countryCode + phone, password: pass, country: countryIso })
+                });
+                const data = await res.json();
+                if (data.status === 'success') {
+                    showFeedback('hero-reg-feedback', '¡Cuenta creada!', 'success');
+                    setTimeout(() => window.location.href='dashboard.php', 1000);
+                } else {
+                    showFeedback('hero-reg-feedback', data.message, 'error');
+                    btn.disabled = false; btn.innerText = 'Registrarme';
+                }
+            } catch(e) { showFeedback('hero-reg-feedback', 'Error conexión', 'error'); btn.disabled = false; btn.innerText = 'Registrarme'; }
+        });
+
+        // REGISTER MODAL
+        document.getElementById('register-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const btn = this.querySelector('button');
+            const countrySelect = document.getElementById('reg-country');
+            const countryCode = countrySelect.value;
+            const countryIso = countrySelect.options[countrySelect.selectedIndex].getAttribute('data-iso') || 'OT';
+            const phone = this.querySelector('[name="phone"]').value;
+            const password = this.querySelector('[name="password"]').value;
+
+            btn.disabled = true; btn.innerText = 'Enviando...';
+            document.getElementById('reg-feedback').classList.add('hidden');
+
+            try {
+                const res = await fetch('auth_action.php', {
+                    method: 'POST', headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({ action: 'register', phone: countryCode + phone, password: password, country: countryIso })
+                });
+                const data = await res.json();
+                if (data.status === 'success') {
+                    showFeedback('reg-feedback', '¡Cuenta creada!', 'success');
+                    setTimeout(() => window.location.href='dashboard.php', 1000);
+                } else {
+                    showFeedback('reg-feedback', data.message, 'error');
+                    btn.disabled = false; btn.innerText = 'Registrarme Ahora';
+                }
+            } catch(e) { showFeedback('reg-feedback', 'Error conexión', 'error'); btn.disabled = false; btn.innerText = 'Registrarme Ahora'; }
+        });
+    </script>
+<script type="text/javascript">
+    aclib.runAutoTag({
+        zoneId: '76weef43he',
+    });
+</script>
+</body>
+</html>

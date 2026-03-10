@@ -1,0 +1,1014 @@
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    
+        <link rel="canonical" href="https://www.apost.com/en/">
+<link rel="alternate" hreflang="en" href="https://www.apost.com/en/">
+    
+
+    <title> apost</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="description" content="apost">
+    <meta name="theme-color" content="#960a0e">
+    <meta name="author" content="apost"/>
+    <meta property="fb:pages" content="1503815046562182" />
+    <meta property="fb:app_id" content="141565146244486"/>
+    <meta property="og:type" content="article"/>
+    <meta name="p:domain_verify" content="0e26fbc3a17e6d4e4e736d64c614b253"/>
+
+    
+    
+
+<script type="text/javascript" data-description="sourcepoint stub code">
+  function _typeof(t){return(_typeof="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(t){return typeof t}:function(t){return t&&"function"==typeof Symbol&&t.constructor===Symbol&&t!==Symbol.prototype?"symbol":typeof t})(t)}!function(){for(var t,e,o=[],n=window,r=n;r;){try{if(r.frames.__tcfapiLocator){t=r;break}}catch(t){}if(r===n.top)break;r=n.parent}t||(function t(){var e=n.document,o=!!n.frames.__tcfapiLocator;if(!o)if(e.body){var r=e.createElement("iframe");r.style.cssText="display:none",r.name="__tcfapiLocator",e.body.appendChild(r)}else setTimeout(t,5);return!o}(),n.__tcfapi=function(){for(var t=arguments.length,n=new Array(t),r=0;r<t;r++)n[r]=arguments[r];if(!n.length)return o;"setGdprApplies"===n[0]?n.length>3&&2===parseInt(n[1],10)&&"boolean"==typeof n[3]&&(e=n[3],"function"==typeof n[2]&&n[2]("set",!0)):"ping"===n[0]?"function"==typeof n[2]&&n[2]({gdprApplies:e,cmpLoaded:!1,cmpStatus:"stub"}):o.push(n)},n.addEventListener("message",(function(t){var e="string"==typeof t.data,o={};if(e)try{o=JSON.parse(t.data)}catch(t){}else o=t.data;var n="object"===_typeof(o)?o.__tcfapiCall:null;n&&window.__tcfapi(n.command,n.version,(function(o,r){var a={__tcfapiReturn:{returnValue:o,success:r,callId:n.callId}};t&&t.source&&t.source.postMessage&&t.source.postMessage(e?JSON.stringify(a):a,"*")}),n.parameter)}),!1))}();
+</script>
+
+<script type="text/javascript" data-description="sourcepoint configuration">
+  window._sp_ = {
+    config: {
+      // Please include your existing accountId as provided by Sourcepoint
+      accountId: 375,
+      propertyId: 37523,
+      // Sourcepoint base endpoint, no change needed – Sourcepoint recommends to only use a single endpoint
+      // https://documentation.sourcepoint.com/implementation/web-implementation/multi-campaign-web-implementation/best-practices-improve-gdpr-tcf-v2-message-loading#leverage-single-server-endpoint
+      baseEndpoint: 'https://cdn.privacy-mgmt.com',
+      // other possible Sourcepoint configurations
+      // ...
+      // New: The isSPA setting is needed to make sure the Sourcepoint scenario starts after executeMessaging() is called below
+      isSPA: true,
+      // New: This "acps" targeting parameter is being used to not display the layer for contentpass users
+      // If you already use targetingParams, please make sure to extend the object accordingly
+      gdpr: {
+        targetingParams: {
+          acps: 'false'
+        },
+      },
+    }
+  };
+</script>
+
+<script type="text/javascript" src="https://cdn.privacy-mgmt.com/unified/wrapperMessagingWithoutDetection.js"></script>
+
+<script type="text/javascript" data-description="contentpass integration">
+  (function() {
+    var cpBaseUrl = 'https://cp.apost.com';
+    var cpController = cpBaseUrl + '/now.js';
+    var cpPropertyId = '0a4352aa';
+
+    !function(C,o,n,t,P,a,s){C.CPObject=n,C[n]||(C[n]=function(){
+    for(var e=arguments.length,i=new Array(e),c=0;c<e;c++)i[c]=arguments[c];const[r,u,l]=i;if(C[n].q||(C[n].q=[]),
+    t=Array.prototype.slice.call(arguments,0),!C[n].patched&&("fatal"===r&&u&&(C[n].le=u,
+    Array.prototype.forEach.call(C[n].q,(function(e){"error"===e[0]&&"function"==typeof e[1]&&e[1](u)}))),
+    "error"===r&&"function"==typeof u&&C[n].le&&u(C[n].le),"extension"===r&&u&&l&&"function"==typeof l.init&&(l.init(),
+    l.initialized=!0),"authenticate"===r&&u)){try{
+    P=-1===(o.cookie||"").indexOf("_cpauthhint=")&&!(C.localStorage||{})._cpuser&&-1===C.location.href.toLowerCase().indexOf("cpauthenticated")
+    }catch(e){P=!1}P&&(a={isLoggedIn:function(){return!1},hasValidSubscription:function(){return!1}},
+    "function"==typeof u&&u(null,a),t=["authenticate",null])}C[n].q.push(t)});try{
+    ((s=(o.cookie.split("_cpauthhint=")[1]||"").split(";")[0])?Number(s[1]):NaN)>0&&(o.body?o.body.classList.add("cpauthenticated"):o.addEventListener("DOMContentLoaded",(function(){
+    o.body.classList.add("cpauthenticated")})))}catch(e){}C[n].l=+new Date,C[n].sv=5}(window,document,"cp");
+
+    // Will activate contentpass and initialize basic interfaces for
+    // communicating with contentpass.
+    cp('create', cpPropertyId, {
+      baseUrl: cpBaseUrl
+    });
+
+    // This function will trigger rendering of the Sourcepoint consent layer. First, it will check
+    // whether the current user is an authenticated contentpass user. If so, the targeting parameter
+    // acps is set to the string value 'true' (important: the value is not a bool, but a string!).
+    // If the user is not an authenticated contentpass user, the targeting parameter is set to
+    // 'false'. Make sure to not show the consent layer when the targeting parameter is set to 'true'
+    // in your Sourcepoint scenario. When login status is determined, Sourcepoint is automatically
+    // triggered by calling window._sp_.executeMessaging().
+    cp('render', {
+      onFullConsent: function() {
+        console.log('[CP] onFullConsent');
+        // Init advertising here
+        //
+        // Attention:
+        // When you update your vendor list without asking for re-consent
+        // then Sourcepoint does not signal full consent for previously
+        // fully consented visitors. Thus this callback is not executed,
+        // and partially consented impressions are not monetized at all!
+        //
+        // We therefore strongly recommend to configure your Sourcepoint
+        // scenario setup to always ask for re-consent on vendor updates.
+        //
+        // Alternatively you can always load vendors specifically based
+        // on their respective consent status according to the TCF API.
+        // You can find a sample integration for this on
+        // https://docs.contentpass.net/docs/3rdparty
+      }
+    })
+  })()
+</script>
+
+<script src="https://cp.apost.com/now.js" async fetchPriority="high" onerror="cp('fatal', arguments)"></script>
+
+<script type="text/javascript" data-description="contentpass sourcepoint authenticate usage">
+(function () {
+  cp('authenticate', function(err, user) {
+    if (err || (!user.isLoggedIn() && !user.hasValidSubscription())) {
+      (function spExecMsg() {
+        if (window._sp_ && window._sp_.executeMessaging) {
+          if (!window._sp_.config.isSPA) {
+            console.warn('[SPCP] Sourcepoint not in SPA mode!');
+          } else if (window._sp_.version) {
+            console.log('[SPCP] Sourcepoint already running');
+          } else {
+            console.log('[SPCP] Starting Sourcepoint');
+            window._sp_.executeMessaging();
+          }
+        } else {
+          console.log('[SPCP] Sourcepoint not loaded yet. Retrying.');
+          setTimeout(spExecMsg, 10);
+        }
+      })();
+    }
+  });
+})();
+</script>
+
+
+
+
+<script type="text/javascript">
+    function loadCustomVendors () {
+        loadFacebookSDK();
+        loadTagManager();
+        
+
+
+window._taboola = window._taboola || [];
+_taboola.push({article:'auto'});
+!function (e, f, u, i) {
+if (!document.getElementById(i)){
+  e.async = 1;
+  e.src = u;
+  e.id = i;
+  f.parentNode.insertBefore(e, f);
+}
+}(document.createElement('script'),
+document.getElementsByTagName('script')[0],
+
+    '//cdn.taboola.com/libtrc/socialsweetheartsgmbh-apost/loader.js',
+
+'tb_loader_script');
+if(window.performance && typeof window.performance.mark == 'function')
+{window.performance.mark('tbl_ic');}
+
+
+        loadSocialEmbeds();
+        correctSrc();
+        showBlock();
+    }
+
+    function loadFacebookSDK() {
+        if (document.getElementById('facebook-jssdk')) return;
+
+        var js = document.createElement('script');
+        js.id = 'facebook-jssdk';
+        js.src = "https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.2&appId=141565146244486&autoLogAppEvents=1";
+        js.async = true;
+        js.defer = true;
+        document.head.appendChild(js);
+    }
+
+    function loadTagManager() {
+        window.dataLayer = window.dataLayer || [];
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+        gtag('config', 'UA-194855085-1', { anonymize_ip: true });
+    }
+
+    function showBlock () {
+        var blocks = document.querySelectorAll('.myyoutubevideo_iframe_div, .giphy-embed');
+
+        blocks.forEach(function(el) {
+            el.classList.remove('is-hidden');
+        });
+    }
+
+    function correctSrc () {
+        var blocks = document.querySelectorAll('.youtubevideo_iframe, .giphy-embed');
+
+        blocks.forEach(function(el) {
+            var src = el.getAttribute('data-gdpr-hidden-src');
+            el.setAttribute('src', src);
+        });
+    }
+
+    function includeCloudflareAnalytics() {
+        const script = document.createElement('script');
+        script.src = 'https://static.cloudflareinsights.com/beacon.min.js';
+        script.defer = true;
+        script.setAttribute('data-cf-beacon', '{"token": "ec13c9077a6749b59ad8747ce093c6e7"}');
+        document.body.appendChild(script);
+    }
+
+    function loadSocialEmbeds () {
+        var elements = document.querySelectorAll('.gdpr-hidden');
+
+        [].forEach.call(elements, function (node) {
+            var data = node.getAttribute('data-embedded');
+
+            if (!data) return false;
+
+            data = data.replace(/&#39;/g, "'");
+
+            node.classList.remove('gdpr-hidden');
+            node.innerHTML = data;
+
+            runScripts(node);
+        });
+
+        if (window.FB) {
+            FB.XFBML.parse();  // re-parse all of the XFBML on a page
+        }
+    }
+
+    function insertScript ($script) {
+        var s = document.createElement('script');
+        var data;
+        s.type = 'text/javascript';
+        s.async = true;
+
+        if ($script.src) {
+            s.src = data = $script.src;
+        } else {
+            s.textContent = data = $script.innerText;
+        }
+
+        if (data && !isScriptExists(data)) {
+            // re-insert the script tag so it executes.
+            document.head.appendChild(s);
+
+            // clean-up
+            $script.parentNode.removeChild($script);
+        }
+    }
+
+    function runScripts ($container) {
+        // get scripts tags from a node
+        var $scripts = $container.querySelectorAll('script');
+
+        [].forEach.call($scripts, function ($script) {
+            insertScript($script);
+        });
+    }
+
+    function isScriptExists (url) {
+        // check if a script already exists in a document
+        var $scripts = document.querySelectorAll('head > script');
+        var result = false;
+
+        [].forEach.call($scripts, function ($script) {
+            if ($script.textContent === url || $script.src === url) result = true;
+        });
+
+        return result;
+    }
+</script>
+
+<script type="text/javascript">
+    //load 3-d party resources
+    function includeTagManager() {
+        (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+           new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+        'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+        })(window,document,'script','dataLayer','GTM-T7G5JN2');
+    }
+
+    function loadAsyncScript(src, id) {
+        if (!document.getElementById(id)) {
+          var e = document.createElement('script');
+          e.async = 1;
+          e.src = src;
+          e.id = id;
+          var f = document.getElementsByTagName('script')[0];
+          f.parentNode.insertBefore(e, f);
+        }
+    }
+
+    function initializeThirdPartyResources(tcData) {
+        if (typeof tcData !== "undefined") {
+            // check consent for vendor 755 (Google Ads)
+            if (tcData.vendor.consents[755]) {
+                includeTagManager();
+                // load gpt
+                loadAsyncScript('https://securepubads.g.doubleclick.net/tag/js/gpt.js', 'gads_loader_script');
+                // load Google Auto ads
+                loadAsyncScript('https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3128632638716868', 'adsbygoogle_loader_script');
+            }
+            // check consent for vendor 251	(Yieldlove GmbH)
+            if (tcData.vendor.consents[251]) {
+                // load Yieldlove
+                loadAsyncScript(
+                    'https://cdn-a.yieldlove.com/v2/yieldlove.js?apost.com',
+                    'yieldlove_loader_script',
+                );
+            }
+            // check consent for vendor 243	(CloudflareAnalytics)
+            if (tcData.vendor.consents[243]) {
+                // load CloudflareAnalytics script
+                includeCloudflareAnalytics();
+            }
+        } else {
+            includeTagManager();
+            // load gpt
+            loadAsyncScript('https://securepubads.g.doubleclick.net/tag/js/gpt.js', 'gads_loader_script');
+            // load Google Auto ads
+            loadAsyncScript('https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3128632638716868', 'adsbygoogle_loader_script');
+            // load Yieldlove
+            loadAsyncScript(
+                'https://cdn-a.yieldlove.com/v2/yieldlove.js?apost.com',
+                'yieldlove_loader_script',
+            );
+            // load CloudflareAnalytics script
+            includeCloudflareAnalytics();
+        }
+
+        loadCustomVendors();
+    }
+
+    __tcfapi('addEventListener', 2, function (tcData, success) {
+        if (!tcData || !success) {
+            return;
+        }
+
+        console.log("CMP: __tcfapi event listener success");
+
+        if (tcData.eventStatus !== 'useractioncomplete' && tcData.eventStatus !== 'tcloaded') {
+            return;
+        }
+
+        // tcData.gdprApplies should be set to true for all logged-in contentpass users (no matter what country)
+        if (window.userIsAuthenticated && !tcData.gdprApplies) {
+            tcData.gdprApplies = true;
+        }
+
+        // if GDPR should not be applied (non EU countries) - load 3-d party resources
+        if (!tcData.gdprApplies) {
+            initializeThirdPartyResources();
+            return;
+        }
+
+        if (!tcData.vendor || !tcData.vendor.consents) {
+          return;
+        }
+
+        if (!window.userIsAuthenticated && Object.keys(tcData.vendor.consents).length > 0) {
+            initializeThirdPartyResources(tcData);
+        }
+
+        if (tcData.listenerId) {
+          __tcfapi('removeEventListener', 2, function () {}, tcData.listenerId);
+        }
+    });
+</script>
+
+    
+    
+    <meta name="p:domain_verify" content="ee1b62a4a2884d4398faacb815d904f8"/>
+
+    
+
+    <link rel="shortcut icon" href="https://image-2.apost.com/static/img/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="https://image-2.apost.com/static/img/favicon.ico"><!-- 192×192px -->
+    <link rel="apple-touch-icon-precomposed" sizes="180x180" href="https://image-2.apost.com/static/img/icon/180.png">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="https://image-2.apost.com/static/img/icon/152.png">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://image-2.apost.com/static/img/icon/144.png">
+    <link rel="apple-touch-icon-precomposed" sizes="120x120" href="https://image-2.apost.com/static/img/icon/120.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="https://image-2.apost.com/static/img/icon/114.png">
+    <link rel="apple-touch-icon-precomposed" sizes="76x76" href="https://image-2.apost.com/static/img/icon/76.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="https://image-2.apost.com/static/img/icon/72.png">
+    <link rel="apple-touch-icon-precomposed" href="https://image-2.apost.com/static/img/icon/57.png">
+
+    
+    <style type="text/css">.header{margin:0 auto;padding-right:10px;padding-left:10px;box-sizing:border-box;background:#960a0e;position:relative;margin-bottom:20px;display:flex;flex-flow:row wrap;align-items:center;padding:10px 0}@media (min-width:760px){.header{max-width:45rem}}@media (min-width:1000px){.header{max-width:1000px}}@media (min-width:760px){.header{background:none;padding:8px 0 26px;margin-bottom:0;justify-content:space-between}}@media (min-width:1000px){.header{padding-left:10px;padding-right:10px}}.header a{color:#ffffff;text-decoration:none}@media (min-width:760px){.header a{color:#373a3c}}.header__nav--toggle{color:#ffffff;background:none;border:2px solid #fff;border-width:2px 0;position:relative;width:15px;height:14px;line-height:1;cursor:pointer;outline:none;padding:0;margin:0 15px}.header__nav--toggle:after{content:'';width:100%;height:2px;background:#fff;position:absolute;top:50%;left:0;margin-top:-1px}.header__nav--toggle:before{position:absolute;content:'';width:45px;height:40px;left:-15px;top:-15px}@media (min-width:760px){.header__nav--toggle{display:none}}.header__logo{width:105px;height:38px;background-repeat:no-repeat;background-size:100% auto;text-indent:-99999px;display:block;align-self:flex-start}@media (min-width:760px){.header__logo{width:120px;height:42px}}.header__fb-like{margin:0 15px 0 auto}.header__fb-like--da{margin-right:5px}.header__fb-like .fb_iframe_widget span:before,.header__fb-like .fb_iframe_widget span:after{position:absolute;content:'';background:rgba(0,0,0,0.2);top:-5px;bottom:-5px;max-width:100%;right:50%;z-index:1;left:-5px}.header__fb-like .fb_iframe_widget span:after{right:-5px;left:50%}.header__fb-like .fb_iframe_widget iframe{z-index:2}@media (min-width:760px){.header__fb-like{margin:0;order:4}.header__fb-like .fb_iframe_widget span:after,.header__fb-like .fb_iframe_widget span:before{content:none}}.header__nav{background:#373a3c;color:#eceeef;height:0;max-height:0;transition:all 0.5s ease-in-out;overflow:hidden;flex-basis:100%;margin-top:10px;margin-bottom:-10px}@media (min-width:760px){.header__nav{height:auto;max-height:none;background:none;color:#373a3c;flex:1;margin:0}}.header__nav.visible{height:auto;max-height:5000px}.header__nav ul{list-style:none;padding:10px 0.75rem;margin:0;border-bottom:8px solid #960a0e}@media (min-width:760px){.header__nav ul{display:flex;flex-flow:row wrap;padding:0;border:none;justify-content:center}}.header__nav ul li{font-size:1rem}@media (min-width:760px){.header__nav ul li{padding:0 2vw;display:flex;align-items:center}}@media (min-width:1000px){.header__nav ul li{font-size:0.95rem}}.header__nav ul li a{padding:5px 0;display:block}.header__nav ul li a:hover{background:#000}@media (min-width:760px){.header__nav ul li a:hover{background:none}}.header__nav ul li .menu__select{margin-top:5px;background:#000000;color:#ffffff;border:1px solid #373a3c;width:40%;font-size:1rem;line-height:1.4;outline:none}@media (min-width:760px){.header__nav ul li .menu__select{width:100%;background:#ffffff;color:#373a3c;font-size:0.6rem;margin:0}}@media (min-width:1000px){.header__nav ul li .menu__select{font-size:0.9rem}}.header__nav ul li.menu__item--has-dropdown a.active{font-weight:bold}.header__nav ul li.menu__item--has-dropdown>a:after{display:inline-block;width:0;height:0;margin-left:.25rem;vertical-align:middle;content:"";border-top:0.3em solid;border-right:0.3em solid transparent;border-left:0.3em solid transparent}@media (min-width:760px){.header__nav ul li.menu__item--mobile{display:none}}.header__nav ul ul{height:0;max-height:0;overflow:hidden;transition:all 0.5s ease-in-out;padding:0 0 0 15px;border:none}@media (min-width:760px){.header__nav ul ul{display:none;max-height:none;height:auto;border:1px solid #dddddd;width:100%;position:absolute;z-index:10;top:calc(100% - 20px);left:10px;background:#ffffff;padding:5px;box-sizing:border-box}}.header__nav ul ul.visible{height:auto;max-height:1500px}@media (min-width:760px){.header__nav ul ul.visible{display:flex}}@media (min-width:760px){.header__nav ul ul li{width:33%;text-align:center;margin-right:0;display:inline}}@media (min-width:760px){.header__nav ul ul li a:hover{background:#f7f7f7}}.footer{text-align:center;padding-bottom:20px;padding-top:26px;margin:0 auto;padding-right:10px;padding-left:10px;box-sizing:border-box}@media (min-width:760px){.footer{max-width:45rem}}@media (min-width:1000px){.footer{max-width:1000px}}.footer a{text-decoration:none}.footer a:hover{text-decoration:underline}.footer__links ul{list-style:none;padding:0 0 20px;margin:0;display:flex;flex-flow:row wrap;justify-content:center}.footer__links ul li{padding:0 5px}.footer__links ul li a{color:#4B5AA6}.footer p{margin:0 0 20px}.footer p:last-of-type{margin:0}.content{margin:0 auto;padding-right:10px;padding-left:10px;box-sizing:border-box}@media (min-width:760px){.content{max-width:45rem}}@media (min-width:1000px){.content{max-width:1000px}}@media (min-width:1000px){.content{display:flex;flex-flow:row wrap;justify-content:space-between}.content__main{max-width:660px;flex:2}}.content__sidebar{display:none}@media (min-width:1000px){.content__sidebar{display:block;max-width:300px;flex:1}}.content__sidebar--index{top:0;position:sticky;align-self:flex-start}.ads,[class*='ads--']{text-align:center}.ads [id*='google_ads_iframe_'],[class*='ads--'] [id*='google_ads_iframe_']{margin-left:auto;margin-right:auto}.ads--top{flex-basis:100%;margin-bottom:20px;margin-right:-10px;margin-left:-10px}@media (min-width:760px){.ads--top{margin-bottom:26px}}@media (min-width:1000px){.ads--top{margin-right:0;margin-left:0}}@media (max-width:760px){.article .ads--top{margin-right:0;margin-left:0}}.ads--anchor{margin-top:20px}.ads--sidebar{margin-bottom:20px}.ads--bottom{clear:both;margin-bottom:26px}.crosspromo .ads--bottom{margin-bottom:0}.content__article .ads--bottom{margin-top:26px;margin-bottom:26px}.ads--middle{clear:both;margin-bottom:26px;margin-top:26px}@media (min-width:760px){.article-list .ads--middle{margin-top:0}}pb-mcd .pb-stream{margin-bottom:15px}.advert{padding:1px 3px;font-size:12px;margin-top:10px;text-align:center;line-height:1.42857}.ads-abp.top{margin:0 0 26px;flex-basis:100%;text-align:center}.ads-abp.invisible{display:none}html{box-sizing:border-box}*,*:before,*:after{box-sizing:inherit}a{color:#0275d8}body{font:12px/1.4 Helvetica,Arial,sans-serif;color:#373a3c;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility;margin:0;background:#efefef}@media (max-width:1000px){body.bottom-extraspace{padding-bottom:45px}}#pgdg-learn-more{text-decoration:underline}.text-center{text-align:center}.google-auto-placed.pedestal_container{margin:0 auto;padding-right:10px;padding-left:10px;box-sizing:border-box;overflow:hidden}@media (min-width:760px){.google-auto-placed.pedestal_container{max-width:45rem}}@media (min-width:1000px){.google-auto-placed.pedestal_container{max-width:1000px}}#fb-recirculation-widget{width:100%}.mobile-hidden{display:none}@media (min-width:1000px){.mobile-hidden{display:block}}@media (min-width:1000px){.desktop-hidden{display:none}}.is-hidden{visibility:hidden;height:0}@media (min-width:1000px){.crosspromo__foot--mobile{display:none}}.crosspromo__foot--desktop{display:none}@media (min-width:1000px){.crosspromo__foot--desktop{display:block}}.crosspromo [class*="cross-promo-"]{display:flex;flex-flow:row wrap}.crosspromo__box{width:100%;margin-bottom:10px;padding:5px;background:#ffffff}.crosspromo__foot .crosspromo__box{padding:0 5px 5px;box-sizing:border-box;border:5px solid #efefef;border-width:0 5px}@media (min-width:760px){.content__main [class*="cross-promo-"] .crosspromo__box{width:33.3333%}}.crosspromo__box a{color:#000000;font-size:15px;font-weight:bold;line-height:20px;text-decoration:none}.crosspromo__box a:hover{text-decoration:underline}.crosspromo__box a .img-container{width:100%;padding-top:52.46%;position:relative;margin-bottom:10px}.crosspromo__foot .crosspromo__box a .img-container{margin-right:-5px;margin-left:-5px;width:auto}.crosspromo__box a .img-container .loader{position:absolute;top:50%;left:0;right:0;text-align:center;transform:translateY(-50%);display:block;color:#373a3c;font-size:20px}.crosspromo__box a .img-container img{position:absolute;top:0;left:0;right:0;bottom:0;max-width:100%;width:100%;display:block}.crosspromo__box a .img-container img.lazyload{opacity:0}.crosspromo__box a .img-container img.lazyloaded{opacity:1;background:#fff}.pagination{padding:5px 10px}.pagination ul{list-style:none;margin:0;padding:0;display:flex;flex-flow:row wrap;justify-content:center}.pagination ul li a,.pagination ul li span{padding:0.3rem 0.5rem;color:#666;font-size:12px;line-height:1.5;border:1px solid #dddddd;margin-left:-1px;text-decoration:none;background:#ffffff}.pagination ul li a:hover{background:#f7f7f7}.pagination ul li a.current{background:#387ab3;color:#ffffff;border-color:#387ab3}.pagination ul li:first-child a{border-bottom-left-radius:0.25rem;border-top-left-radius:0.25rem}.pagination ul li:last-child a{border-bottom-right-radius:0.25rem;border-top-right-radius:0.25rem}@media (min-width:760px){.article-list{display:flex;flex-flow:row wrap;justify-content:space-around}}.article-list .article-blurb{margin-bottom:10px;text-decoration:none;color:#373a3c;display:block;background:#ffffff}@media (min-width:760px){.article-list .article-blurb{width:48%;margin-bottom:20px}}.article-list .article-blurb .img-container{width:100%;padding-top:52.46%;position:relative}.article-list .article-blurb .img-container .loader{position:absolute;top:50%;left:0;right:0;text-align:center;transform:translateY(-50%);display:block;color:#373a3c;font-size:20px}.article-list .article-blurb .img-container img{position:absolute;top:0;left:0;right:0;bottom:0;width:100%;margin-bottom:15px}.article-list .article-blurb .img-container img.lazyload{opacity:0}.article-list .article-blurb .img-container img.lazyloaded{opacity:1;background:#ffffff}.article-list .article-blurb h2{font-size:17px;margin:0;padding:15px 10px}.article-list .article-blurb:hover{text-decoration:underline}</style>
+
+
+    <script>
+        var yieldlove_cmd = yieldlove_cmd || [];
+        var yieldlove_prevent_autostart = true;
+        var googletag = googletag || {};
+            googletag.cmd = googletag.cmd || [];
+            googletag.cmd.push(function() {
+            googletag.pubads().disableInitialLoad();
+            googletag.enableServices();
+        });
+    </script>
+
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        window.ad_boxes = window.ad_boxes || [];
+        function gtag(){dataLayer.push(arguments);}
+    </script>
+
+    
+        <script type="text/javascript">window.abp = false;</script>
+    
+    
+    <script type="text/javascript" src="https://image-2.apost.com/static/px.js?ch=1"></script>
+    <script type="text/javascript" src="https://image-2.apost.com/static/px.js?ch=2"></script>
+    <script type="text/javascript">
+        // disable right-clicking
+        document.addEventListener('contextmenu', event => {
+            event.preventDefault();
+            alert('Sorry, download is not allowed. Right-clicking is disabled!')
+        });
+    </script>
+</head>
+<body >
+
+
+
+
+<header class="header">
+    <button class="header__nav--toggle"></button>
+
+    <a href="/en/" class="header__logo">apost</a>
+    <style>
+        .header__logo {background-image: url("https://image-2.apost.com/static/img/logo/apost-logo-white.svg");}
+        @media (min-width: 760px) {
+            .header__logo {background-image: url(" https://image-2.apost.com/static/img/logo/apost-logo.svg");}
+        }
+    </style>
+
+    <div class="header__fb-like header__fb-like--en">
+        <div class="fb-like" data-href="https://www.facebook.com/apostcom-English-1503815046562182/
+" data-layout="button_count" data-action="like" data-size="small" data-width="" data-show-faces="false" data-share="false"></div>
+    </div>
+
+    
+    
+
+<nav class="header__nav menu">
+    <ul>
+        <li class="menu__item menu__item--mobile">
+            <a href="/en/" class="menu__link">Startpage</a>
+        </li>
+        <li class="menu__item menu__item--has-dropdown">
+            <a href="#" class="menu__link">Quizzes</a>
+            <ul>
+                
+                
+                
+                
+                
+<li class="label"><a href="/en/quiz/" class="nav-link">New</a></li><li class="label"><a href="/en/quiz/best/" class="nav-link">Best</a></li><li class="label"><a href="/en/quiz/cat/can-we-guess/" class="nav-link">Can We Guess?</a></li><li class="label"><a href="/en/quiz/cat/colors/" class="nav-link">Colors</a></li><li class="label"><a href="/en/quiz/cat/fantasy/" class="nav-link">Fantasy</a></li><li class="label"><a href="/en/quiz/cat/geography/" class="nav-link">Geography</a></li><li class="label"><a href="/en/quiz/cat/languages/" class="nav-link">Languages</a></li><li class="label"><a href="/en/quiz/cat/maths/" class="nav-link">Math</a></li><li class="label"><a href="/en/quiz/cat/personality/" class="nav-link">Personality</a></li><li class="label"><a href="/en/quiz/cat/pop-culture/" class="nav-link">Pop Culture</a></li><li class="label"><a href="/en/quiz/cat/psychology/" class="nav-link">Psychology</a></li><li class="label"><a href="/en/quiz/cat/quizzes-for-men/" class="nav-link">Quizzes For Men</a></li><li class="label"><a href="/en/quiz/cat/quizzes-for-women/" class="nav-link">Quizzes for Women</a></li><li class="label"><a href="/en/quiz/cat/spiritual/" class="nav-link">Spiritual</a></li><li class="label"><a href="/en/quiz/cat/trivia/" class="nav-link">Trivia</a></li><li class="label"><a href="/en/quiz/cat/true-you/" class="nav-link">True You</a></li>
+                
+                
+                
+            </ul>
+        </li>
+        <li class="menu__item menu__item--has-dropdown">
+            <a href="#" class="menu__link">News</a>
+            <ul>
+                
+                
+                <li class="menu__item"><a href="/en/blog/cat/animals/" class="menu__link">
+                    Animals
+                </a></li>
+                
+                <li class="menu__item"><a href="/en/blog/cat/brainteasers/" class="menu__link">
+                    Brainteasers
+                </a></li>
+                
+                <li class="menu__item"><a href="/en/blog/cat/diy/" class="menu__link">
+                    DIY
+                </a></li>
+                
+                <li class="menu__item"><a href="/en/blog/cat/health/" class="menu__link">
+                    Health
+                </a></li>
+                
+                <li class="menu__item"><a href="/en/blog/cat/movies/" class="menu__link">
+                    Movies
+                </a></li>
+                
+                <li class="menu__item"><a href="/en/blog/cat/must-reads/" class="menu__link">
+                    Must-Reads
+                </a></li>
+                
+                <li class="menu__item"><a href="/en/blog/cat/video/" class="menu__link">
+                    Video
+                </a></li>
+                
+            </ul>
+        </li>
+        <li class="menu__item">
+            <a href="/about/" class="menu__link">About us</a>
+        </li>
+        <li class="menu__item">
+            <select name="lang-chooser" class="menu__select menu__select--lang">
+                
+
+
+
+
+    
+        <option value="/en/" selected>
+            English
+        </option>
+    
+        <option value="/de/" >
+            Deutsch
+        </option>
+    
+        <option value="/es/" >
+            Español
+        </option>
+    
+        <option value="/pt/" >
+            Português
+        </option>
+    
+        <option value="/it/" >
+            Italiano
+        </option>
+    
+        <option value="/fr/" >
+            Français
+        </option>
+    
+        <option value="/nl/" >
+            Nederlands
+        </option>
+    
+        <option value="/hu/" >
+            Magyar
+        </option>
+    
+        <option value="/el/" >
+            Ελληνικά
+        </option>
+    
+        <option value="/tr/" >
+            Türkçe
+        </option>
+    
+        <option value="/da/" >
+            Dansk
+        </option>
+    
+        <option value="/ru/" >
+            русский
+        </option>
+    
+        <option value="/sv/" >
+            Svenska
+        </option>
+    
+        <option value="/cs/" >
+            čeština
+        </option>
+    
+        <option value="/sk/" >
+            Slovenčina
+        </option>
+    
+        <option value="/no/" >
+            Norsk
+        </option>
+    
+        <option value="/fi/" >
+            Suomi
+        </option>
+    
+        <option value="/ar/" >
+            العربية
+        </option>
+    
+        <option value="/id/" >
+            Indonesia
+        </option>
+    
+        <option value="/pl/" >
+            Polski
+        </option>
+    
+        <option value="/ja/" >
+            日本語
+        </option>
+    
+        <option value="/sl/" >
+            Slovenščina
+        </option>
+    
+        <option value="/bg/" >
+            български
+        </option>
+    
+        <option value="/lt/" >
+            Lietuvos
+        </option>
+    
+        <option value="/lv/" >
+            Latviešu
+        </option>
+    
+        <option value="/bs/" >
+            Bosanski
+        </option>
+    
+        <option value="/hr/" >
+            Hrvatski
+        </option>
+    
+        <option value="/et/" >
+            Eesti
+        </option>
+    
+        <option value="/hi/" >
+            नॉट
+        </option>
+    
+        <option value="/ko/" >
+            한국어
+        </option>
+    
+        <option value="/mk/" >
+            македонски
+        </option>
+    
+        <option value="/ro/" >
+            Român
+        </option>
+    
+        <option value="/sr/" >
+            српски
+        </option>
+    
+        <option value="/tl/" >
+            Tagalog
+        </option>
+    
+        <option value="/th/" >
+            ไทย
+        </option>
+    
+        <option value="/kk/" >
+            Қазақ
+        </option>
+    
+        <option value="/vi/" >
+            tiếng Việt
+        </option>
+    
+        <option value="/ms/" >
+            Malaysiah
+        </option>
+    
+        <option value="/zh/" >
+            中文
+        </option>
+    
+        <option value="/ur/" >
+            اردو
+        </option>
+    
+        <option value="/he/" >
+            עברית
+        </option>
+    
+        <option value="/bn/" >
+            বাংলাভাষী
+        </option>
+    
+        <option value="/sw/" >
+            Kiswahili
+        </option>
+    
+        <option value="/ne/" >
+            नेपाली
+        </option>
+    
+        <option value="/uk/" >
+            українська
+        </option>
+    
+
+
+            </select>
+        </li>
+    </ul>
+</nav><!-- /menu -->
+</header><!-- /header -->
+
+
+<section class="content">
+
+
+
+    
+
+    <main class="content__main main-area">
+        
+    <div class="article-list">
+        
+            <a class="article-blurb" data-content-id="blog_46501" href="/en/blog/backstreet-boys-want-the-2027-super-bowl-halftime-show-saying-britney-spears-2000s-stars-will-join-them/46501/?rd=n" data-category="Must-Reads">
+                
+                    <div class="img-container">
+                        <span class="loader">LOADING...</span>
+                        <img class="lazyload" data-src="//image-2.apost.com/media/bloglist-image/2026/02/26/09/e3ddbf028287ffcc46414be3b2ca44d4_305x160.jpg" alt="Backstreet Boys Want the 2027 Super Bowl Halftime Show, Saying Britney Spears &amp; 2000s Stars Will Join Them" title="Backstreet Boys Want the 2027 Super Bowl Halftime Show, Saying Britney Spears &amp; 2000s Stars Will Join Them">
+                    </div>
+                
+                <h2>Backstreet Boys Want the 2027 Super Bowl Halftime Show, Saying Britney Spears &amp; 2000s Stars Will Join Them</h2>
+            </a>
+        
+            <a class="article-blurb" data-content-id="blog_46497" href="/en/blog/inside-carrie-underwoods-hidden-compartmentalized-world/46497/?rd=n" data-category="Must-Reads">
+                
+                    <div class="img-container">
+                        <span class="loader">LOADING...</span>
+                        <img class="lazyload" data-src="//image-2.apost.com/media/bloglist-image/2026/02/24/22/87b0c8a8710a881fcc51d056410568ca_305x160.jpg" alt="Inside Carrie Underwood’s Hidden &amp; ‘Compartmentalized’ World" title="Inside Carrie Underwood’s Hidden &amp; ‘Compartmentalized’ World">
+                    </div>
+                
+                <h2>Inside Carrie Underwood’s Hidden &amp; ‘Compartmentalized’ World</h2>
+            </a>
+        
+            <a class="article-blurb" data-content-id="blog_46499" href="/en/blog/princess-catherine-makes-a-striking-return-to-baftas-after-three-year-absence/46499/?rd=n" data-category="Video, Must-Reads">
+                
+                    <div class="img-container">
+                        <span class="loader">LOADING...</span>
+                        <img class="lazyload" data-src="//image-2.apost.com/media/bloglist-image/2026/02/25/10/48420b5a979e9898f4aa0f1b837b2be7_305x160.jpg" alt="Princess Catherine Makes a Striking Return to Baftas After Three-Year Absence" title="Princess Catherine Makes a Striking Return to Baftas After Three-Year Absence">
+                    </div>
+                
+                <h2>Princess Catherine Makes a Striking Return to Baftas After Three-Year Absence</h2>
+            </a>
+        
+            <a class="article-blurb" data-content-id="blog_46496" href="/en/blog/jennifer-lopez-honors-her-wonder-twins-with-18th-birthday-tribute-video/46496/?rd=n" data-category="Video, Must-Reads">
+                
+                    <div class="img-container">
+                        <span class="loader">LOADING...</span>
+                        <img class="lazyload" data-src="//image-2.apost.com/media/bloglist-image/2026/02/25/04/ec2fee0b651f3d28fe3fcf857753bada_305x160.jpg" alt="Jennifer Lopez Honors Her ‘Wonder Twins’ With 18th Birthday Tribute Video" title="Jennifer Lopez Honors Her ‘Wonder Twins’ With 18th Birthday Tribute Video">
+                    </div>
+                
+                <h2>Jennifer Lopez Honors Her ‘Wonder Twins’ With 18th Birthday Tribute Video</h2>
+            </a>
+        
+            <a class="article-blurb" data-content-id="blog_46495" href="/en/blog/after-becoming-bruce-willis-caregiver-emma-heming-willis-is-speaking-up-about-how-to-take-care-of-ones-own-health/46495/?rd=n" data-category="Must-Reads">
+                
+                    <div class="img-container">
+                        <span class="loader">LOADING...</span>
+                        <img class="lazyload" data-src="//image-2.apost.com/media/bloglist-image/2026/02/24/09/29207370ab277be9258006267c114593_305x160.jpg" alt="After Becoming Bruce Willis’ Caregiver, Emma Heming Willis Is Speaking Up About How To Take Care Of One’s Own Health" title="After Becoming Bruce Willis’ Caregiver, Emma Heming Willis Is Speaking Up About How To Take Care Of One’s Own Health">
+                    </div>
+                
+                <h2>After Becoming Bruce Willis’ Caregiver, Emma Heming Willis Is Speaking Up About How To Take Care Of One’s Own Health</h2>
+            </a>
+        
+            <a class="article-blurb" data-content-id="blog_46493" href="/en/blog/jennifer-garner-opened-up-about-how-cringe-embarrassing-her-kids-find-her/46493/?rd=n" data-category="Video, Must-Reads">
+                
+                    <div class="img-container">
+                        <span class="loader">LOADING...</span>
+                        <img class="lazyload" data-src="//image-2.apost.com/media/bloglist-image/2026/02/23/10/f4850d76454a5724d718a774da4a0c5e_305x160.jpg" alt="Jennifer Garner Opened Up About How ‘Cringe’ &amp; ‘Embarrassing’ Her Kids Find Her" title="Jennifer Garner Opened Up About How ‘Cringe’ &amp; ‘Embarrassing’ Her Kids Find Her">
+                    </div>
+                
+                <h2>Jennifer Garner Opened Up About How ‘Cringe’ &amp; ‘Embarrassing’ Her Kids Find Her</h2>
+            </a>
+        
+            <a class="article-blurb" data-content-id="blog_46494" href="/en/blog/john-travolta-marked-72nd-birthday-with-impressive-cockpit-achievement/46494/?rd=n" data-category="Must-Reads">
+                
+                    <div class="img-container">
+                        <span class="loader">LOADING...</span>
+                        <img class="lazyload" data-src="//image-2.apost.com/media/bloglist-image/2026/02/23/11/363acd02bccded4b4e933499d87686fc_305x160.jpg" alt="John Travolta Marked 72nd Birthday With Impressive Cockpit Achievement" title="John Travolta Marked 72nd Birthday With Impressive Cockpit Achievement">
+                    </div>
+                
+                <h2>John Travolta Marked 72nd Birthday With Impressive Cockpit Achievement</h2>
+            </a>
+        
+            <a class="article-blurb" data-content-id="blog_46491" href="/en/blog/abandoned-baby-monkey-his-stuffed-animal-melted-hearts-worldwide/46491/?rd=n" data-category="Must-Reads, Animals">
+                
+                    <div class="img-container">
+                        <span class="loader">LOADING...</span>
+                        <img class="lazyload" data-src="//image-2.apost.com/media/bloglist-image/2026/02/20/10/a10925a093c1175000e3e23852d60a13_305x160.jpg" alt="Abandoned Baby Monkey &amp; His Stuffed Animal Melted Hearts Worldwide" title="Abandoned Baby Monkey &amp; His Stuffed Animal Melted Hearts Worldwide">
+                    </div>
+                
+                <h2>Abandoned Baby Monkey &amp; His Stuffed Animal Melted Hearts Worldwide</h2>
+            </a>
+        
+            <a class="article-blurb" data-content-id="blog_46488" href="/en/blog/james-van-der-beek-renewed-wedding-vows-with-his-wife-from-his-bed-before-his-passing/46488/?rd=n" data-category="Must-Reads">
+                
+                    <div class="img-container">
+                        <span class="loader">LOADING...</span>
+                        <img class="lazyload" data-src="//image-2.apost.com/media/bloglist-image/2026/02/19/09/67867af99966d2b2ce0eaf9df48e636a_305x160.jpg" alt="James Van Der Beek Renewed Wedding Vows With His Wife From His Bed Before His Passing" title="James Van Der Beek Renewed Wedding Vows With His Wife From His Bed Before His Passing">
+                    </div>
+                
+                <h2>James Van Der Beek Renewed Wedding Vows With His Wife From His Bed Before His Passing</h2>
+            </a>
+        
+            <a class="article-blurb" data-content-id="blog_46489" href="/en/blog/prince-william-princess-catherine-share-intimate-new-photo-taken-after-a-challenging-year/46489/?rd=n" data-category="Must-Reads">
+                
+                    <div class="img-container">
+                        <span class="loader">LOADING...</span>
+                        <img class="lazyload" data-src="//image-2.apost.com/media/bloglist-image/2026/02/19/11/ed6bfc74fbb9884a763760a9939ddcb9_305x160.jpg" alt="Prince William &amp; Princess Catherine Share Intimate New Photo Taken After a Challenging Year" title="Prince William &amp; Princess Catherine Share Intimate New Photo Taken After a Challenging Year">
+                    </div>
+                
+                <h2>Prince William &amp; Princess Catherine Share Intimate New Photo Taken After a Challenging Year</h2>
+            </a>
+        
+            <a class="article-blurb" data-content-id="blog_46486" href="/en/blog/princess-lilibets-sweet-smile-matching-red-hair-with-prince-harry-shine-in-rare-father-daughter-moment/46486/?rd=n" data-category="Must-Reads">
+                
+                    <div class="img-container">
+                        <span class="loader">LOADING...</span>
+                        <img class="lazyload" data-src="//image-2.apost.com/media/bloglist-image/2026/02/18/08/8ea4b4c6e6e7e02f101041e36fd7ec8f_305x160.jpg" alt="Princess Lilibet’s Sweet Smile &amp; Matching Red Hair With Prince Harry Shine In Rare Father-Daughter Moment" title="Princess Lilibet’s Sweet Smile &amp; Matching Red Hair With Prince Harry Shine In Rare Father-Daughter Moment">
+                    </div>
+                
+                <h2>Princess Lilibet’s Sweet Smile &amp; Matching Red Hair With Prince Harry Shine In Rare Father-Daughter Moment</h2>
+            </a>
+        
+            <a class="article-blurb" data-content-id="blog_46498" href="/en/blog/86-year-old-farmer-turns-down-15-million-offer-from-tech-developers-to-buy-his-farm/46498/?rd=n" data-category="Video, Must-Reads">
+                
+                    <div class="img-container">
+                        <span class="loader">LOADING...</span>
+                        <img class="lazyload" data-src="//image-2.apost.com/media/bloglist-image/2026/02/25/09/7566afbd524f4702c460edeb8db3f74c_305x160.jpg" alt="86-Year-Old Farmer Turns Down $15 Million Offer From Tech Developers to Buy His Farm" title="86-Year-Old Farmer Turns Down $15 Million Offer From Tech Developers to Buy His Farm">
+                    </div>
+                
+                <h2>86-Year-Old Farmer Turns Down $15 Million Offer From Tech Developers to Buy His Farm</h2>
+            </a>
+        
+    </div><!-- /article-list -->
+
+        
+            
+<aside class="crosspromo crosspromo__foot">
+    <div class="crosspromo__foot--mobile">
+        <div class="cross-promo-1-js"></div>
+        <div class="cross-promo-7-js"></div>
+        <div class="cross-promo-3-js"></div>
+        <div class="cross-promo-4-js"></div>
+        <div class="cross-promo-5-js"></div>
+    </div>
+    <div class="crosspromo__foot--desktop">
+        <div class="cross-promo-2-js"></div>
+        <div class="cross-promo-6-js"></div>
+    </div>
+</aside>
+        
+        
+    <nav class="pagination">
+    <ul>
+        <li><a href="/en/1">&laquo;</a></li>
+        
+        
+            <li>
+                <a class="current" href="/en/1">1</a>
+            </li>
+        
+            <li>
+                <a class="" href="/en/2">2</a>
+            </li>
+        
+            <li>
+                <a class="" href="/en/3">3</a>
+            </li>
+        
+            <li>
+                <a class="" href="/en/4">4</a>
+            </li>
+        
+        
+            <li><span>&hellip;</span></li>
+            <li>
+                <a class="" href="/en/3560">3560</a>
+            </li>
+        
+        <li><a href="/en/3560">&raquo;</a></li>
+    </ul>
+</nav><!-- /pagination -->
+
+    </main><!-- /main-area -->
+
+    
+        
+<aside class="content__sidebar sidebar content__sidebar--index">
+
+    
+
+
+    <div class="crosspromo crosspromo__side">
+        <div class="cross-promo-1-js"></div>
+        <div class="cross-promo-7-js"></div>
+        <div class="cross-promo-3-js"></div>
+        <div class="cross-promo-4-js"></div>
+        <div class="cross-promo-5-js"></div>
+    </div>
+</aside>
+
+    <!-- /sidebar -->
+
+</section><!-- /content -->
+
+
+
+
+<footer class="footer">
+    <nav class="footer__links">
+        <ul>
+            <li><a href="//www.socialsweethearts.de/terms.html" target="_blank">Terms</a></li>
+            <li><a href="//www.socialsweethearts.de/privacy_en.html" target="_blank">Privacy</a></li>
+            <li>
+                <a style="cursor: pointer;" href="#" onclick="window._sp_.gdpr.loadPrivacyManagerModal(1323670);return false;">
+                Consent Management
+                </a>
+            </li>
+            <li><a href="//www.socialsweethearts.de/imprint" target="_blank">Imprint / Masthead</a></li>
+            <li><a href="//www.socialsweethearts.de/contact-us" target="_blank">Feedback / Report Content</a></li>
+            <li><a href="/en/sitemap.xml">Sitemap</a></li>
+            <li><a href="/about/">About us / Our staff</a></li>
+        </ul>
+    </nav><!-- /footer-links -->
+
+    <p class="footer__disclaimer">
+        <a href="//www.socialsweethearts.de/terms.html" target="_blank">Disclaimer: All content is provided for fun and entertainment purposes only</a>
+    </p>
+
+    <p>Our content is created to the best of our knowledge, yet it is of general nature and cannot in any way substitute an individual consultation by your doctor. Your health is important to us.</p>
+    <p>Copyright &copy; 2012-2026 Social Sweethearts<sup>&reg;</sup> GmbH. All Rights Reserved.</p>
+</footer><!-- /footer -->
+
+<!-- js -->
+
+
+    
+    
+
+
+<script src="https://image-2.apost.com/static/comp_cache/js/output.21ff18fea6b9.js"></script>
+<script type="text/javascript">
+    window.appConfig.system = {
+        appId: window.location.href.indexOf('//www.')>-1?141565146244486:145634995501895,
+        lang: "en",
+        view_type: "Home",
+        debug:  window.location.href.indexOf('//www.')>-1?false:true,
+        fb_lang: "en_US",
+        fb_xfbml: true,
+        staticUrl: "https://image-2.apost.com/static/",
+        host_url: "www.apost.com",
+        crossPromoTimeout: 5,
+        utc_unix_timestamp: '1772163759',
+        set_page_type: function () {
+            switch(window.appConfig.system.view_type){
+                case 'Home':
+                    window.appConfig.system.page_type = 'index';
+                    break;
+                case 'Detail':
+                   window.appConfig.system.page_type = 'detail';
+                    if(window.appConfig.dynamic.params.p)
+                       window.appConfig.system.page_type = 'share_index';
+                    else if(window.appConfig.dynamic.params.utm_campaign && window.appConfig.dynamic.params.utm_campaign.indexOf('buffer')>-1)
+                       window.appConfig.system.page_type = 'buffer_index';
+                    break;
+                case 'Forwarded':
+                   window.appConfig.system.page_type = 'forwarded_after_share';
+                    break;
+            }
+        }
+    };
+</script>
+
+
+
+
+<script src="https://image-2.apost.com/static/comp_cache/js/output.fa85f2a1720c.js"></script>
+<script src="https://image-2.apost.com/static/comp_cache/js/output.fa5ad59a431f.js" async></script>
+<script src="https://image-2.apost.com/static/comp_cache/js/output.11332d1393ad.js"></script>
+
+
+
+
+<script>$('select[name="lang-chooser"]').on('change',function(){var lang=$(this).val();if(window.appConfig.item)
+Site.redirect_target_lang(lang,true);else
+window.location.href=lang;});if(typeof window.Trackinghandler!=="undefined"){window.Trackinghandler.push_custom_dimensions({item_lang:window.htmlDecode(window.appConfig.system.lang),page_type:window.htmlDecode(window.appConfig.system.page_type),});Site.tracking.data_is_ready();};</script>
+
+
+    <script>if(!abp){(adsbygoogle=window.adsbygoogle||[]).push({google_ad_client:"ca-pub-3128632638716868",google_ad_channel:"9039860547",enable_page_level_ads:true});};</script>
+
+    <script>if(!abp){var googletag=googletag||{};googletag.cmd=googletag.cmd||[];$.each(window.ad_boxes,function(idx,box){googletag.cmd.push(function(){googletag.display(box);});});};</script>
+
+
+<script>
+    if (window.abp) {
+        $(".ads-abp").removeClass("invisible");
+        (adsbygoogle = window.adsbygoogle || []).push({}); // top ad block
+        (adsbygoogle = window.adsbygoogle || []).push({}); // aside ad block
+    }
+</script>
+
+
+    <script type="text/javascript">
+      window._taboola = window._taboola || [];
+      _taboola.push({flush: true});
+    </script>
+
+</body>
+</html>

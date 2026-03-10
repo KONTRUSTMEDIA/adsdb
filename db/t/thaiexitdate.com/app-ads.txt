@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+
+<!-- Ezoic -->
+  <script data-cfasync="false" src="https://cmp.gatekeeperconsent.com/min.js"></script>
+  <script data-cfasync="false" src="https://the.gatekeeperconsent.com/cmp.min.js"></script>
+  <script async src="//www.ezojs.com/ezoic/sa.min.js"></script>
+  <script>
+    window.ezstandalone = window.ezstandalone || {};
+    ezstandalone.cmd = ezstandalone.cmd || [];
+  </script>
+
+  <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-Q9WWT7SKMH"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-Q9WWT7SKMH');
+</script>
+
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <meta name="description" content="Calculate your last legal day in Thailand based on visa exemption or tourist visa. Free tool for tourists visiting Thailand.">
+  <meta name="theme-color" content="#667eea">
+  <title>Thailand Exit Date Calculator - Plan Your Stay</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+
+  <h1>Thailand Exit Date Calculator</h1>
+
+  <div class="nav-scroll-wrapper">
+    <nav class="nav-tabs">
+      <a href="/visa-exemption.html">Visa Exemption Guide</a>
+      <a href="/overstay-penalties.html">Overstay Penalties</a>
+      <a href="/cultural-tips.html">Cultural Tips</a>
+      <a href="/prohibited-items.html">Prohibited Items</a>
+      <a href="/travel-insurance.html">Travel Insurance</a>
+      <a href="/sim-card.html">SIM Card Guide</a>
+      <a href="/money-atm.html">Money & ATMs</a>
+      <a href="/safety-guide.html">Safety Guide</a>
+    </nav>
+  </div>
+
+  <div class="intro-card">
+    <p>
+      This calculator helps <strong>tourists visiting Thailand</strong> determine exactly when they must leave
+      to avoid overstaying — no guesswork, no stress.
+    </p>
+    <p>
+      Simply enter your arrival date and the number of days granted on entry
+      (typically shown on your entry stamp), and we'll calculate your
+      last permitted day using Thai immigration calendar-day counting rules.
+    </p>
+  </div>
+
+  <!-- Calculator Card -->
+  <div class="calculator-card">
+    <h2>Calculate Your Exit Date</h2>
+    
+    <div class="form-group">
+      <label for="arrivalDate">
+        <strong>Arrival Date in Thailand</strong>
+      </label>
+      <input type="date" id="arrivalDate" aria-label="Select your arrival date">
+    </div>
+
+    <div class="form-group">
+      <label for="stayLength">
+        <strong>Allowed Stay (Days)</strong>
+      </label>
+      <select id="stayLength" aria-label="Select allowed stay duration">
+        <option value="15">15 days</option>
+        <option value="30">30 days</option>
+        <option value="60" selected>60 days</option>
+        <option value="90">90 days</option>
+      </select>
+    </div>
+
+    <button class="calculate-btn" onclick="calculateExit()" aria-label="Calculate exit date">
+      Calculate My Exit Date →
+    </button>
+
+    <div id="result" class="result-box" role="alert" aria-live="polite"></div>
+  </div>
+
+  <!-- Info Section -->
+  <div class="info-section">
+    <h2>How the Calculation Works</h2>
+    <p>
+      Thai immigration counts tourist stays by calendar days, starting from your arrival day.
+      This calculator applies the official method to give you a clear, accurate exit date.
+    </p>
+    <p>
+      The number of days granted depends on your nationality, visa type, and current
+      Thai immigration policy. Always verify your allowed stay with the stamp in your passport
+      or official Thai immigration sources.
+    </p>
+    <p>
+      Use this tool to confidently plan return flights, accommodation bookings, and travel
+      within Thailand without worrying about overstaying.
+    </p>
+  </div>
+
+  <div class="info-section">
+    <h2>Important Notes</h2>
+    <div class="notice-box">
+      <p>
+        <strong>Verify with your entry stamp:</strong> Thai immigration rules may change, and individual
+        cases can vary. This calculator provides an estimate based on standard tourist entry rules.
+      </p>
+      <p>
+        <strong>Not legal advice:</strong> Always rely on your actual entry stamp or confirmation from
+        Thai Immigration for final travel decisions.
+      </p>
+      <p>
+        <strong>Privacy first:</strong> All calculations happen in your browser. We don't store or
+        transmit any personal data.
+      </p>
+    </div>
+  </div>
+
+  <div class="about-box">
+    <p>
+      This website provides a free informational tool for tourists. We don't sell visas,
+      offer immigration services, or collect user data.
+    </p>
+  </div>
+
+  <script>
+    function calculateExit() {
+      const arrivalInput = document.getElementById("arrivalDate").value;
+      const stayDays = parseInt(document.getElementById("stayLength").value);
+      const resultDiv = document.getElementById("result");
+
+      if (!arrivalInput) {
+        resultDiv.innerHTML = '<p class="error">⚠ Please select an arrival date.</p>';
+        resultDiv.style.display = 'block';
+        return;
+      }
+
+      const arrivalDate = new Date(arrivalInput);
+      const exitDate = new Date(arrivalDate);
+      exitDate.setDate(exitDate.getDate() + stayDays - 1);
+
+      const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+      const formattedDate = exitDate.toLocaleDateString('en-US', options);
+
+      resultDiv.innerHTML = `
+        <div class="success">
+          <p><strong>✔ Your Last Legal Day in Thailand:</strong></p>
+          <p class="exit-date">${formattedDate}</p>
+          <p class="exit-date-iso">${exitDate.toISOString().split("T")[0]}</p>
+          <p class="tip">Book your departure flight for this date or earlier to avoid overstay penalties.</p>
+        </div>
+      `;
+      resultDiv.style.display = 'block';
+      
+      // Smooth scroll to result on mobile
+      if (window.innerWidth < 768) {
+        resultDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
+    }
+
+    // Set today's date as default
+    document.addEventListener('DOMContentLoaded', function() {
+      const today = new Date().toISOString().split('T')[0];
+      document.getElementById('arrivalDate').value = today;
+    });
+  </script>
+
+     <footer>
+    <p>
+      <a href="/">Home</a> &middot;
+      <a href="/about.html">About</a> &middot;
+      <a href="/contact.html">Contact</a> &middot;
+      <a href="/privacy.html">Privacy Policy</a> &middot;
+      <a href="/disclaimer.html">Disclaimer</a>
+    </p>
+    <p class="copyright">&copy; 2026 ThaiExitDate.com &middot; Free Thailand Visa Calculator</p>
+  </footer>
+
+</div>
+
+</body>
+</html>

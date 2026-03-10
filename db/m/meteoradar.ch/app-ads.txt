@@ -1,0 +1,888 @@
+
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>meteoradar - Radarvorhersage und Blitzschlagrisiko, Version 2020</title>
+  <meta name="description" content="meteoradar - Monitoring, Analyse und Kurzfristprognose mit Wetterradar: Regen, Blitze, Hagel, und im Winter Schneefall und Vereisungsgefahr."/>  
+  <meta name="keywords" content="wetter,wetter zürich,wetter bern,wetter basel,meteo,radar,wetterradar,
+  niederschlagsradar,regenradar schweiz,gewitter, radarvorhersage, blitzschlagrisiko"/>
+  <meta name = "viewport" content = "width = 480px">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="apple-touch-icon" sizes="180x180" href="logo_meteoradar_icon_180x180.png">
+  <link rel="stylesheet" href="https://meteoradar.ch/rcss/leaflet_1-6-0.css" />
+  <link rel="stylesheet" href="leaf.css" />
+  <link rel="stylesheet" href="Control.FullScreen.css" />
+  <style>
+    img { max-width: 100%; height: auto; }
+	canvas { max-width: 100%; height: 45px; }
+    .custom-popup .leaflet-popup-content-wrapper {
+      background:#2c3e50;
+      color:#fff;
+      font-size:16px;
+      line-height:24px;
+    }
+	.my-div-icon {font-size:16px; color:red;background-color: #aaf}
+  </style>
+  <link rel="stylesheet" href="https://meteoradar.ch/rcss/w3_meteoradar.css">
+  <script src="https://meteoradar.ch/rjs/leaflet_1-6-0.js"></script> 
+  <script src="https://meteoradar.ch/rjs/leaflet-tilelayer-colorfilter.min.js"></script>
+  <script src="https://meteoradar.ch/rjs/leafwgs84_ch.js"></script>
+  <script src="https://meteoradar.ch/rjs/leafFullScreen.js"></script>
+  <script type="text/javascript" charset="UTF-8">
+    var language = 'de';
+    var xkoord = 642;
+    var ykoord = 205;
+    var xint = xkoord - 255;
+    var yint = 480 - ykoord;
+	
+        if (top != self)
+        {
+          top.location = self.location;
+        }
+          </script>
+  
+  
+    <script>
+    var eingloggt    = 0;
+    var aboaktuell   = -1;
+    var minzoom      =  6;
+    if (aboaktuell == 1) var maxzoom = 16;
+	else var maxzoom =  8;
+    var nzoomlev     =  maxzoom - minzoom + 1;
+	var jzoomakt     = 6;
+	var jmeinlon     = 7.42376;
+	var jmeinlat     = 46.95345;	
+	var jscharf      = 1;	
+	var jsblrisk     = 0;
+	var jgray        = 100;
+	var jtransp      = 60;
+	var jredline     = 1;	
+	var jrelief      = 1;
+  </script>  
+</head>
+<body id="maxw3d">
+
+<!-- Navbar -->
+<div>
+  <div class="w3-bar w3-theme w3-left-align w3-medium" style="height:92px">
+          <a class="w3-bar-item w3-button w3-right w3-hide-large w3-xlarge w3-theme-l1 menupadding logoback" style="height:92px;width:92px"
+	    href="javascript:void(0)" onclick="w3_open()"><i class="fa fa-bars"></i></a>
+		
+    <a href="https://meteoradar.ch/de" target="_blank" class="w3-bar-item w3-button w3-theme-l1 logoback">
+	  <img src="https://meteoradar.ch/rimg/logo_2008_blau.jpg" alt="Logo"></a>
+	<div class="pmeteor">
+	  <a class="w3-button w3-mrbutton"
+        href="https://www.meteoradar.ch/wetterblog/2021/12/22/fusion-meteoradar-gmbh-mit-meteotest-ag/" target="_blank">
+	    <p class="bmeteor l350 ptransp">Fusion von</p>							    <p class="bmeteor linl ptransp">meteoradar</p>
+		<p class="bmeteor l580 ptransp">mit Meteotest</p>	    					  </a>
+	</div>
+	<div class="fuellertop l450">
+
+    <a id="breit" href="../de/indexfr.php" class="w3-bar-item w3-button w3-kopfbutton">F</a><a id="breit" href="../de/indexit.php" class="w3-bar-item w3-button w3-kopfbutton">I</a><a id="breit" href="../de/indexen.php" class="w3-bar-item w3-button w3-kopfbutton">E</a>	  
+	  <a href="https://meteoradar.ch/de/ueber_uns.php" class="w3-bar-item w3-button w3-kopfbutton">Über uns</a>      	  	  	  
+      <a href="https://meteoradar.ch/de/produkte.php" class="w3-bar-item w3-button w3-kopfbutton">Produkte</a>	  	  	  	  
+      <a href="https://meteoradar.ch/de/kontakt.php" class="w3-bar-item w3-button w3-kopfbutton">Kontakt</a>	  	  	  	</div>
+  </div>
+</div><nav class="w3-sidebar w3-collapse w3-large w3-theme-l5 w3-animate-left" style="z-index:1001;width:250px;margin-top:0px;" id="mySidebar">
+  <a href="javascript:void(0)" onclick="w3_close()" class="w3-right w3-xlarge w3-padding-0 w3-hover-darkblue w3-hide-large" title="Close Menu">
+    <i class="fa fa-remove"></i>
+  </a>
+  <h5 class="w3-bar-item w3-button-narrow pbottom0"><b>Navigation</b></h5>
+  
+  <!-- Hier kommen die Linkblöcke in der Navigationsspalte links -->
+  <details class="w3-button-narrow w3-medium">
+  <summary class="w3-hover-darkblue w3-button-narrow left0 pbottom0 fmeteor">meteoradar</summary>
+
+  <a href="indexfr.php"
+	  class="w3-bar-item w3-button w3-hover-darkblue w3-button-narrow left0 fmeteor">F</a><a href="indexit.php"
+	  class="w3-bar-item w3-button w3-hover-darkblue w3-button-narrow left0 fmeteor">I</a><a href="indexen.php"
+	  class="w3-bar-item w3-button w3-hover-darkblue w3-button-narrow left0 fmeteor">E</a><br>
+  <a href="https://meteoradar.ch/de/ueber_uns.php"
+    class="w3-bar-item w3-button w3-hover-darkblue w3-button-narrow left0 fmeteor">Über uns</a><br>        
+  <a href="https://meteoradar.ch/de/produkte.php"
+    class="w3-bar-item w3-button w3-hover-darkblue w3-button-narrow left0 fmeteor">Produkte</a><br>        
+  <a href="https://meteoradar.ch/de/kontakt.php"
+    class="w3-bar-item w3-button w3-hover-darkblue w3-button-narrow left0 fmeteor">Kontakt</a><br>      
+</details>
+
+    <details class="w3-button-narrow w3-medium">
+  <summary class="w3-hover-darkblue w3-button-narrow left0 pbottom0">Demo-Center</summary>
+  <a class="w3-bar-item w3-button w3-hover-darkblue w3-button-narrow left0"
+    href="https://metradar.ch/2020_demo/index.php" target="_blank">Zoomradar Pro 2020</a><br>  
+  <a class="w3-bar-item w3-button w3-hover-darkblue w3-button-narrow left0"
+    href="https://metradar.ch/demo/donnerradar_demo15.php?x=345&y=280" target="_blank">Donnerradar 2015 Sommer</a><br>
+  <a class="w3-bar-item w3-button w3-hover-darkblue w3-button-narrow left0"
+    href="https://metradar.ch/demo/getloop15_exp.php?x=459&y=203&b=0&par=ta&pro=0&las=0&pos=1" target="_blank">Zoomradar Pro 2015 Sommer</a><br>
+  <a class="w3-bar-item w3-button w3-hover-darkblue w3-button-narrow left0"
+    href="https://metradar.ch/demo/donnerradar_demo15winter.php?x=345&y=280" target="_blank">Winterradar 2015</a><br>  	
+  <a class="w3-bar-item w3-button w3-hover-darkblue w3-button-narrow left0"
+    href="https://metradar.ch/demo/getloop15winter_exp.php?x=345&y=280" target="_blank">Zoomradar Pro 2015 Winter</a><br>
+  <a class="w3-bar-item w3-button w3-hover-darkblue w3-button-narrow left0"
+    href="https://metradar.ch/demo/demo_tagesfilm.php" target="_blank">3D/Archiv Tagesloops</a><br>
+  <a class="w3-bar-item w3-button w3-hover-darkblue w3-button-narrow left0"  
+    href="https://metradar.ch/demo/demo_aktuell_3d.php" target="_blank">3D-Radar</a><br>
+  <a class="w3-bar-item w3-button w3-hover-darkblue w3-button-narrow left0"
+    href="https://www.haildoc.com" target="_blank">haildoc</a><br>
+  <a class="w3-bar-item w3-button w3-hover-darkblue w3-button-narrow left0"  
+    href="https://metradar.ch/demo/radarvorhersage_demo.php" target="_blank">Radarvorhersage gross</a><br>
+  <a class="w3-bar-item w3-button w3-hover-darkblue w3-button-narrow left0"
+    href="https://metradar.ch/demo/radarvorhersage_ch_demo.php" target="_blank">Radarvorhersage CH</a><br>
+  <a class="w3-bar-item w3-button w3-hover-darkblue w3-button-narrow left0"
+    href="https://metradar.ch/demo/lokalprognose/lokalprognose_demo.php" target="_blank">Lokalprognose</a><br>
+  <a class="w3-bar-item w3-button w3-hover-darkblue w3-button-narrow left0"
+    href="https://metradar.ch/demo/risikowetter_demo.php" target="_blank">Risikowetter</a><br>
+  <a class="w3-bar-item w3-button w3-hover-darkblue w3-button-narrow left0"
+    href="https://metradar.ch/demo/schnee-eis-nebel_demo.php" target="_blank">Schnee und Eis</a><br>
+</details>
+
+  <details class="w3-button-narrow w3-medium">
+  <summary class="w3-hover-darkblue w3-button-narrow left0">Dienste</summary>
+  <a class="w3-bar-item w3-button w3-hover-darkblue w3-button-narrow left0"
+    href="https://metradar.ch/archiv/tgn" target="_blank">Archiv TGN</a><br>
+  <!-- deaktiviert WSm, ab 22.5.2025
+  <a class="w3-bar-item w3-button w3-hover-darkblue w3-button-narrow left0"
+    href="https://www.meteoschmid.ch/camwetter.php" target="_blank">Camwetter</a><br>
+  -->
+  <a class="w3-bar-item w3-button w3-hover-darkblue w3-button-narrow left0"
+    href="https://www.galeriewolke.ch" target="_blank">Galerie Wolke</a><br>
+  <a class="w3-bar-item w3-button w3-hover-darkblue w3-button-narrow left0"
+    href="https://metradar.ch/de/ppi_aktuell.php" target="_blank">Metradar alt</a><br>		
+  <a class="w3-bar-item w3-button w3-hover-darkblue w3-button-narrow left0"
+    href="https://www.meteoschmid.ch/raebirain.php" target="_blank">Regenmesser</a><br>
+  <a class="w3-bar-item w3-button w3-hover-darkblue w3-button-narrow left0"
+    href="https://meteoradar.ch/regenkarten" target="_blank">Regensummenkarten</a><br>
+  <a class="w3-bar-item w3-button w3-hover-darkblue w3-button-narrow left0"
+    href="https://www.skywarn.ch" target="_blank">Skywarn</a><br>
+  <a class="w3-bar-item w3-button w3-hover-darkblue w3-button-narrow left0"
+    href="https://www.sturmforum.ch" target="_blank">Sturmforum</a><br>
+  <a class="w3-bar-item w3-button w3-hover-darkblue w3-button-narrow left0"
+    href="https://www.meteoschmid.ch/aktuell.php" target="_blank">Webcams</a><br>
+  <a class="w3-bar-item w3-button w3-hover-darkblue w3-button-narrow left0"
+    href="https://www.meteoradar.ch/wetterblog/" target="_blank">Wetterblog</a><br>
+  <a class="w3-bar-item w3-button w3-hover-darkblue w3-button-narrow left0"
+    href="http://www.wiewirds.ch/" target="_blank">Wiewirds</a><br>	
+  <a class="w3-bar-item w3-button w3-hover-darkblue w3-button-narrow left0"
+    href="https://www.zoomradar.ch" target="_blank">Zoomradar light</a><br>
+</details>
+      <!-- <small>Die Login-Funktion steht momentan nicht zur Verfügung. Wir sind dran und bitten um Verständnis.</small> -->
+	<a href="https://meteoradar.ch/metr/admin/rlogin.php?redir=https://meteoradar.ch/de/index.php">
+	<h5 class="w3-bar-item w3-button-narrow w3-button w3-hover-darkblue pbottom0 pbackgr"><b>Login</b></h5><br>
+    <a style="font-size:15px;margin-left:0px" class="w3-bar-item w3-button w3-hover-darkblue w3-button-narrow left0"
+    href="https://meteoradar.ch/metr/admin/rkundendaten.php" target="_blank">Registrieren</a><br>	
+	<a style="font-size:15px;margin-left:0px" class="w3-bar-item w3-button w3-hover-darkblue w3-button-narrow left0"
+    href="https://meteoradar.ch/metr/admin/rprodukte_kaufen.php" target="_blank">Abo kaufen</a><br>
+	</a></p>
+
+    <h5 class="w3-bar-item w3-button-narrow pbottom0"><b>Wetter extern</b></h5>
+  <details class="w3-button-narrow w3-medium">
+  <summary class="w3-hover-darkblue w3-button-narrow left0 pbottom0">Aktuell</summary>
+  <a class="w3-bar-item w3-button w3-hover-darkblue w3-button-narrow left0"
+    href="https://www.meteoschweiz.admin.ch/service-und-publikationen/applikationen/messwerte-und-messnetze.html#param=messwerte-lufttemperatur-10min&lang=de" target="_blank">Boden Meteoschweiz</a><br>
+  <a class="w3-bar-item w3-button w3-hover-darkblue w3-button-narrow left0"
+    href="https://www.dwd.de/DWD/wetter/wv_spez/hobbymet/wetterkarten/bwk_bodendruck_na_ana.png" target="_blank">
+     Wetterkarte DWD </a><br>
+  <a class="w3-bar-item w3-button w3-hover-darkblue w3-button-narrow left0"
+    href="https://www.bafu.admin.ch/bafu/de/home/themen/luft/zustand/daten/luftbelastung--aktuelle-daten.html" target="_blank">Luftbelastung BAFU</a><br>
+  <a class="w3-bar-item w3-button w3-hover-darkblue w3-button-narrow left0"
+    href="http://www.pollenundallergie.ch" target="_blank">Pollenkarte Meteoschweiz</a><br>
+  <a class="w3-bar-item w3-button w3-hover-darkblue w3-button-narrow left0"
+    href="https://www.naz.ch/aktuell/tagesmittelwerte" target="_blank">Radioaktivität NAZ</a><br>
+  <a class="w3-bar-item w3-button w3-hover-darkblue w3-button-narrow left0"
+    href="https://www.sat24.com/en-gb/region/8000119" target="_blank">Sat24 vis/ir CH
+   <span style="color: red; font-weight: bold">Neu</span></a><br>
+  <a class="w3-bar-item w3-button w3-hover-darkblue w3-button-narrow left0"
+    href="https://www.slf.ch/de/lawinenbulletin-und-schneesituation/schneekarten.html#hsr" target="_blank">Schneehöhe SLF</a><br>
+  <a class="w3-bar-item w3-button w3-hover-darkblue w3-button-narrow left0"
+    href="https://data.meereisportal.de/maps/relaunch/startpage/seaice_extent_annual_cycle_Arktis.png" target="_blank">
+	Meereis Arktis</a><br>	
+  <a class="w3-bar-item w3-button w3-hover-darkblue w3-button-narrow left0"
+    href="https://www.ospo.noaa.gov/Products/ocean/sst/anomaly/" target="_blank">
+	SST Anomalie</a><br>	
+</details>
+
+  <details class="w3-button-narrow w3-medium">
+  <summary class="w3-hover-darkblue w3-button-narrow left0 pbottom0">Vorhersagen</summary>
+  <a class="w3-bar-item w3-button w3-hover-darkblue w3-button-narrow left0"
+    href="https://www.meteoschweiz.admin.ch" target="_blank">Boden Meteoschweiz</a><br>
+  <a class="w3-bar-item w3-button w3-hover-darkblue w3-button-narrow left0"
+    href="https://meteotest.ch/wetter/ortswetter" target="_blank">Niederschlag Meteotest</a><br>
+  <a class="w3-bar-item w3-button w3-hover-darkblue w3-button-narrow left0"
+    href="https://www.zamg.ac.at/cms/de/umwelt/luftqualitaetsvorhersagen/schadstofftransport/?imgtype=0" target="_blank">
+	Saharastaub ZAMG</a><br>	
+  <a class="w3-bar-item w3-button w3-hover-darkblue w3-button-narrow left0"
+    href="http://www.meteoblue.com/de/wetter/karte/niederschlag/switzerland" target="_blank">Karten Meteoblue</a><br>
+  <a class="w3-bar-item w3-button w3-hover-darkblue w3-button-narrow left0"
+    href="https://www.wetter3.de/animation_dt.html" target="_blank">Karten GFS</a><br>
+  <a class="w3-bar-item w3-button w3-hover-darkblue w3-button-narrow left0"
+    href="https://charts.ecmwf.int" target="_blank">Karten ECMWF</a><br>
+</details>
+
+  <details class="w3-button-narrow w3-medium">
+  <summary class="w3-hover-darkblue w3-button-narrow left0">Warnungen</summary>
+  <a class="w3-bar-item w3-button w3-hover-darkblue w3-button-narrow left0"
+    href="https://www.slf.ch/de/lawinenbulletin-und-schneesituation.html" target="_blank">Lawinengefahr SLF</a><br>
+  <a class="w3-bar-item w3-button w3-hover-darkblue w3-button-narrow left0"
+    href="https://www.meteoschweiz.admin.ch/home.html?tab=alarm" target="_blank">Meteoschweiz</a><br>
+  <a class="w3-bar-item w3-button w3-hover-darkblue w3-button-narrow left0"
+    href="https://www.skywarn.ch" target="_blank">Skywarn</a><br>
+  <a class="w3-bar-item w3-button w3-hover-darkblue w3-button-narrow left0"
+    href="http://www.meteocentrale.ch/de/uwz/unwetterzentrale/uwz.html" target="_blank">Unwetterzentrale</a><br>
+</details>
+
+
+   <!-- SiteSearch Google -->
+   <form method="get" action="https://www.google.ch/custom" target="_top">
+
+   <input type="hidden" name="domains" value="meteoradar.ch">
+   <!-- <label for="sbi" style="display: none">Geben Sie Ihre Suchbegriffe ein</label><br> -->
+   <input class="charmet" type="text" name="q" size="28" maxlength="255" value="Suchen" id="sbi">
+   <input type="hidden" name="sitesearch" value="meteoradar.ch" id="ss1">
+   <label for="sbb" style="display: none">Suchformular senden</label>
+   <input type="hidden" name="sa" value="Google-Suche" id="sbb">
+   <input type="hidden" name="client" value="pub-1118042285970357">
+   <input type="hidden" name="forid" value="1">
+   <input type="hidden" name="ie" value="ISO-8859-1">
+   <input type="hidden" name="oe" value="ISO-8859-1">
+   <input type="hidden" name="cof"
+     value="GALT:#008000;GL:1;DIV:#336699;VLC:663399;AH:center;BGC:FFFFFF;LBGC:336699;ALC:0000FF;LC:0000FF;T:000000;GFNT:0000FF;GIMP:0000FF;FORID:1">
+   <input type="hidden" name="hl" value="de">
+   </form>
+   <!-- SiteSearch Google -->
+   
+   <a class="pmeteor w3-bar-item w3-button w3-hover-darkblue w3-button-narrow left0"
+     href="https://meteotest.ch/wetter/ortswetter" target="_blank">
+     <img src="https://meteoradar.ch/rimg/meteotest-banner-radar.jpg" alt="ortswetter Meteotest"></a><br><br>
+  <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- rresp_navigation -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-1118042285970357"
+     data-ad-slot="5514674735"
+     data-ad-format="auto"></ins>
+<script>
+  (adsbygoogle=window.adsbygoogle||[]).requestNonPersonalizedAds=1
+  adsbygoogle.push({});
+</script>  <br>
+</nav>
+<!-- Main content: shift it to the right by 250 pixels when the sidebar is visible -->
+<div class="w3-main w3-padding-0"; style="margin-left:250px">
+  <div class="w3-row w3-padding-0" style="padding:16px!important">
+
+    <!-- Inhalt Mitte oben folgt hier -->
+		<div style="margin-top:16px">
+      <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- rresp_meteoradar_oben -->
+<ins class="adsbygoogle"
+     style="display:block;height:170px;max-height:170px"
+	 data-full-width-responsive="true"
+     data-ad-client="ca-pub-1118042285970357"
+     data-ad-slot="4245539680"
+     data-ad-format="horizontal"></ins>
+<script>
+  (adsbygoogle=window.adsbygoogle||[]).requestNonPersonalizedAds=1
+    adsbygoogle.push({});
+</script>
+	
+	</div>
+	
+	<hr style="color:#ccc">
+	
+	<div>
+	  <div>
+        <div id="navi_ko" style="width:100%;position:relative">
+          <div id="navi_pr_off" style="position:absolute;top:-15px;right:-9px;width:30px;height:30px;
+		    line-height:0.2;font-size:36px;cursor:pointer" onclick="navion()">
+			_<br>_<br>_	
+          </div>
+		  Schnellnavigation Dienste meteoradar
+		</div>	  
+
+        <div id="navi_pr"" style="width:100%;position:relative">
+          <div id="navi_pr_on" style="position:absolute;top:10px;right:-12px;width:30px;height:30px;
+  	        line-height:0.2;font-size:36px;cursor:pointer" onclick="navioff()">
+		    <svg height="30" width="30">
+              <line x1="0" y1="0" x2="15" y2="15" style="stroke:rgb(0,0,0);stroke-width:2" />
+			  <line x1="0" y1="15" x2="15" y2="0" style="stroke:rgb(0,0,0);stroke-width:2" />
+            </svg> 
+  	      </div>
+                <div>Schnellnavigation Dienste meteoradar</div>
+	  <div style="min-width:420px;float:left">
+	  
+	    <!-- Radarvorhersage, rv -->
+	    	      <a class="w3-bar-item w3-button w3-hover-inactive w3-button-narrow hmeteor floating-bodybox"
+            style="color:#777!important;padding-left:2px!important">Radarvorhersage</a>
+        
+	    <!-- Donnerradar/Winterradar, dw -->
+			      <a class="w3-bar-item w3-button w3-hover-darkblue w3-button-narrow nmeteor floating-bodybox db"
+		    href="https://metradar.ch/wetter/index.php">
+		    Zoomradar 2020
+		  </a>
+		
+	    <!-- Komposit D-CH, dc -->
+			      <a class="w3-bar-item w3-button w3-hover-darkblue w3-button-narrow nmeteor floating-bodybox db"
+		  href="https://meteoradar.com/index.php">
+		   Komposit D-CH</a>
+			<!-- href="zoomradar.ch/index.php"> -->
+				
+      </div>		
+		
+	  <div style="min-width:420px;float:left">		
+		
+	    <!-- Metradar alt , ma -->
+			      <a class="w3-bar-item w3-button w3-hover-darkblue w3-button-narrow nmeteor floating-bodybox db"
+            href="https://metradar.ch/de/loop_aktuell.php"
+			>
+		    Metradar alt</a>
+        		
+
+	    <!-- Regensumman-karten, rk -->
+			      <a class="w3-bar-item w3-button w3-hover-darkblue w3-button-narrow nmeteor floating-bodybox db"
+		    href="https://meteoradar.ch/regenkarten/index.php">
+		    Regensummen</a>
+		
+	    <!-- Wie wirds?, ww -->
+			      <a class="w3-bar-item w3-button w3-hover-darkblue w3-button-narrow nmeteor floating-bodybox db"
+		    href="http://www.wiewirds.ch">
+		    Wie wirds?</a>
+        		
+      </div>
+	  <div class="clear-box"></div>          
+	  <div style="width:420px;float:left">
+	  
+			      <a class="w3-bar-item w3-button w3-hover-darkblue w3-button-narrow nmeteor floating-bodybox db"
+            href="https://www.sturmforum.ch">
+		    Sturmforum</a>
+        
+	    <!-- Webcams meteoradar, wm -->
+			      <a class="w3-bar-item w3-button w3-hover-darkblue w3-button-narrow nmeteor floating-bodybox db"
+            href="https://www.meteoschmid.ch/aktuell.php">
+		    Webcams</a>
+        
+	    <!-- Archiv TGN, at -->
+			      <a class="w3-bar-item w3-button w3-hover-darkblue w3-button-narrow nmeteor floating-bodybox db"
+            href="https://metradar.ch/archiv/tgn/index.php">
+		    Archiv TGN</a>
+        		
+      </div>		
+		
+	  <div style="width:420px;float:left">		
+		
+		<!-- Zoomradar 2015, z5 -->
+			      <a class="w3-bar-item w3-button w3-hover-darkblue w3-button-narrow nmeteor floating-bodybox db"
+            href="https://metradar.ch/2015/index.php">
+		    Zoomradar 2015</a>
+        
+		<!-- Zoomradar 2015 light, 5l -->
+			      <a class="w3-bar-item w3-button w3-hover-darkblue w3-button-narrow nmeteor floating-bodybox db"
+            href="https://metradar.ch/light/index.php">
+		    ZR 2015 Light</a>
+        
+		<!-- Zoomradar 2009, z9 -->
+			      <a class="w3-bar-item w3-button w3-hover-darkblue w3-button-narrow nmeteor floating-bodybox db"
+            href="https://metradar.ch/2009/pc/index.php">
+		    Zoomradar 2009</a>
+        		
+      </div>
+	  <div class="clear-box"></div>  	    </div>
+  	
+        <script>	
+          function myFunction(xt) {
+            if (xt.matches) { // If media query matches
+    		  if (navon == 0) {
+                document.getElementById("navi_ko").style.display = "block";
+    		    document.getElementById("navi_pr_off").style.display = "block";
+          	    document.getElementById("navi_pr").style.display = "none";
+    		    document.getElementById("navi_pr_on").style.display = "none";
+    		  }
+    		  else
+    		  {
+                document.getElementById("navi_ko").style.display = "none";
+    		    document.getElementById("navi_pr_off").style.display = "none";
+          	    document.getElementById("navi_pr").style.display = "block";
+    		    document.getElementById("navi_pr_on").style.display = "block";
+              }				
+            } else {
+              document.getElementById("navi_ko").style.display = "none";
+    		  document.getElementById("navi_pr_off").style.display = "none";
+          	  document.getElementById("navi_pr").style.display = "block";
+    		  document.getElementById("navi_pr_on").style.display = "none";
+            }
+          }
+    	  function navion() {
+    		navon = 1;
+            document.getElementById("navi_ko").style.display = "none";
+    		document.getElementById("navi_pr_off").style.display = "none";
+          	document.getElementById("navi_pr").style.display = "block";
+    		document.getElementById("navi_pr_on").style.display = "block";
+    	  }
+    	  function navioff() {
+    		navon = 0;
+            document.getElementById("navi_ko").style.display = "block";
+    		document.getElementById("navi_pr_off").style.display = "block";
+          	document.getElementById("navi_pr").style.display = "none";
+    		document.getElementById("navi_pr_on").style.display = "none";
+    	  }		  
+    	  var navon = 0;
+          var xt = window.matchMedia("(max-width: 768px)")
+          myFunction(xt) // Call listener function at run time
+          xt.addListener(myFunction) // Attach listener function on state changes
+    	</script>
+
+        <!--
+        <p><span style="font-weight:bold"><font style="font-weight:bold;color:red">Neu</font></span>
+          <a class="w3-text-darkblue w3-hover-text-blue" target="_blank"
+		    href="https://www.meteoradar.ch/wetterblog/2021/01/22/newsletter-meteoradar-2021-01/">
+            Newsletter meteoradar 2021-01
+          </a>
+        </p>
+        -->
+		
+
+        <p>
+          <span style="font-weight: bold; font-size: 18px; color: #bb0000">Preisreduktion CHF 20% bei Meteoradar ab dem 4.1.2026!</span><br>
+
+          <a class="w3-text-darkblue w3-hover-text-blue" target="_blank" href="../metr/admin/rpreissenkung_2026.php">
+            <b><big>Mehr...</big></b></a><br>
+        </p>
+
+	    <div style="margin-top:16px">
+		<h1>Radarvorhersage 30 Minuten</h1>
+        </div>
+
+        <!--
+        <div style="background-color: #fee">
+          <p>
+            <span style="font-weight: bold">Wichtige Umfrage zu den Produkten meteoradar</span><br>
+            Bitte nehmen Sie sich 5-10 Minuten Zeit, um an einer der beiden Umfragen teilzunehmen.
+          </p>
+		  
+          <p>
+            <a class="w3-text-darkblue w3-hover-text-blue" target="_blank"
+            href="https://docs.google.com/forms/d/e/1FAIpQLSfw3HXKeCHTyjTbV2XFnAehSNG04ZR_hbTp8tbQMPjoXSSEwA/viewform?usp=sf_link">
+            Umfrage für Abonnenten</a><br>
+            <a class="w3-text-darkblue w3-hover-text-blue" target="_blank"
+            href="https://docs.google.com/forms/d/e/1FAIpQLSeJ8hp_4mEIkgAP-lvfTUhtkevCA4mNTl4WxcOHz9Bqd_9Pdw/viewform?usp=sf_link">
+            Umfrage für Nicht-Abonnenten</a>
+          </p>
+        </div>
+        -->
+
+	    <div style="width:420px;float:left">
+		
+		  <!-- Hole die Farbe des Wetterberichts -->
+		  		
+          <details style="background-color:#eee;cursor:pointer"
+		    class="w3-button-narrow8 w3-medium floating-foldbox flash_io"
+	        onclick="showhidewetterberichtzoomradar()">
+            <summary class="w3-hover-darkblue w3-button-narrow8">Wetterbericht</summary>	
+          </details>
+		  <script>
+		    function showhidewetterberichtzoomradar() {
+		      var shhi = document.getElementById("wetterbericht");
+			  if (shhi.style.display == "block") shhi.style.display = "none";
+			  else shhi.style.display = "block";
+		    }
+		  </script>
+          		  
+          <details style="background-color:#eee;cursor:pointer"
+		    class="w3-button-narrow8 w3-medium floating-foldbox flash_io
+"
+	        onclick="showhidesystemstatuszoomradar()">
+            <summary class="w3-hover-darkblue w3-button-narrow8">Systemstatus</summary>	
+          </details>
+		  <script>
+		    function showhidesystemstatuszoomradar() {
+		      var shhi = document.getElementById("systemstatus");
+			  if (shhi.style.display == "block") shhi.style.display = "none";
+			  else shhi.style.display = "block";
+		    }
+		  </script>			
+          <details class="w3-button-narrow8 w3-medium floating-foldbox"
+	        style="background-color:#eee;cursor:pointer" onclick="showhideinfozoomradar()">
+            <summary class="w3-hover-darkblue w3-button-narrow8">Info</summary>	
+          </details>
+		  <script>
+		    function showhideinfozoomradar() {
+		      var shhi = document.getElementById("Info Zoomradar Pro 2020");
+			  if (shhi.style.display == "block") shhi.style.display = "none";
+			  else shhi.style.display = "block";
+		    }
+		  </script>
+        </div>
+		
+	    <div style="width:420px;float:left">
+
+          <!--
+          <details class="w3-button-narrow8 w3-medium floating-foldbox"
+	        style="background-color:#eee;cursor:pointer" onclick="showhidelegendezoomradar()">
+            <summary class="w3-hover-darkblue w3-button-narrow8">Legende</summary>	
+          </details>
+		  <script>
+		    function showhidelegendezoomradar() {
+		      var shhi = document.getElementById("Legende Zoomradar");
+			  if (shhi.style.display == "block") shhi.style.display = "none";
+			  else shhi.style.display = "block";
+		    }
+		  </script>
+          -->
+          <details class="w3-button-narrow8 w3-medium floating-foldbox"
+	        style="background-color:#eee;cursor:pointer" onclick="showhidewetterblogzoomradar()">
+            <summary class="w3-hover-darkblue w3-button-narrow8">Wetterblog</summary>	
+          </details>
+		  <script>
+		    function showhidewetterblogzoomradar() {
+		      var shhi = document.getElementById("wetterblog");
+			  if (shhi.style.display == "block") shhi.style.display = "none";
+			  else shhi.style.display = "block";
+		    }
+		  </script>	
+          <details class="w3-button-narrow8 w3-medium floating-foldbox"
+	        style="background-color:#eee;cursor:pointer" onclick="showhidehagelmeldenzoomradar()">
+            <summary class="w3-hover-darkblue w3-button-narrow8">Hagel melden</summary>	
+          </details>
+		  <script>
+		    function showhidehagelmeldenzoomradar() {
+		      var shhi = document.getElementById("hagelmeldung");
+			  if (shhi.style.display == "block") shhi.style.display = "none";
+			  else shhi.style.display = "block";
+		    }
+		  </script>
+        </div>		
+        <div class="clear-box"></div>
+      </div>
+
+      <div id="wetterbericht" style="display:none;margin-top:16px;max-width:835px">
+        <div>
+
+<p class="flash_io"><span style="font-weight:bold">Wetterbericht</span>
+     Deutsche Schweiz, Dienstag</p>
+     <p class="flash_io_hell"><strong>Heute Morgen halten sich noch einige Restwolken. Vor allem in Rheintal und Nordbünden fällt auch noch etwas Regen. Ansonsten ist es trocken. Die Sonne setzt sich tagsüber überall zunehmend durch und so ist es am Nachmittag recht sonnig. Zudem ist es mild mit Temperaturen um 15 Grad. Es weht eine schwache Bise.</strong></p>
+     <p class="flash_io_hell">mt 24.02.26 04:33h</p><br></div>
+      </div>
+  	
+      <div id = "systemstatus" style="display:none;margin-top:16px;max-width:835px">
+        <div>
+  </div>
+<div>
+  <p class = "flash_io
+">
+    <strong>Systemstatus</strong>
+    <a class="w3-text-darkblue w3-hover-text-blue"
+      href="https://meteoradar.ch/de/status_extended.php">(Details)
+	</a>
+  </p>
+  <p class = "flash_io_hell
+">
+    <strong>meteoradar</strong>
+    <br>
+    Zur Zeit sind keine St&ouml;rungen bekannt.
+  </p>
+  <p class = "flash_io_hell
+">
+    ws 14.01.26 16:23h
+  </p>
+</div>
+      </div>
+
+	  <div style="max-width:710px">
+		<div id="Info Zoomradar Pro 2020" style="display:none">
+
+		  <p style="width:95%">
+		    				
+		  </p>
+		  
+		  <p style="width:95%">
+            <span style="font-weight:bold;color:red">Neu:</span> Radarvorhersage verlängert bis 30 Minuten<br>
+			<span style="font-weight:bold;color:red">Neu:</span> Zoombare Kartendarstellung
+		    <a class="w3-text-darkblue w3-hover-text-blue" target="_blank"
+			href="https://www.meteoradar.ch/wetterblog/2020/04/19/zoomradar-2020/">Blog</a>
+		    <a class="w3-text-darkblue w3-hover-text-blue" target="_blank"
+			href="https://meteoradar.ch/de/handbuch_zoomradar_2020.php">Info</a>
+		    <a class="w3-text-darkblue w3-hover-text-blue" target="_blank"
+			href="https://www.meteoradar.ch/metradar.ch/2020_demo/">Demo Zoomradar Pro 2020</a><br>
+			<span style="font-weight:bold;color:red">Neue Lokalprognose Wiewirds:</span>
+			Schiebe deinen Standort in die Kartenmitte und klicke dort.
+		  </p>		
+		</div>
+
+		<div id="Legende Zoomradar" style="display:none">
+  	      <p class="ptitelb">Legende</p>
+          <p></p>
+          <table border="0">
+            <tr>
+              <td width="25" bgcolor="#0000FF">&nbsp;</td>
+              <td width="325">Regen leicht</td>
+              <td  bgcolor="#75FFE0" width="25">&nbsp;</td>
+              <td width="240">Schneefall leicht</td>
+            </tr>
+            <tr>
+              <td bgcolor="#009900">&nbsp;</td>
+              <td>Regen mässig</td>
+              <td bgcolor="#00A49F">&nbsp;</td>
+              <td>Schneefall mässig</td>
+            </tr>
+            <tr class="trmaxh">
+              <td><img src="https://meteoradar.ch/rimg/unbestimmt_leicht.gif"
+  	          width="25px" height="25px" border="0"></td>
+              <td>unbestimmter Niederschlag*, leicht</td>
+              <td bgcolor="#FF0000">&nbsp;</td>
+              <td>Positive Blitze (blinkend)</td>
+            </tr>
+            <tr>
+              <td><img src="https://meteoradar.ch/rimg/unbestimmt_maessig.gif"
+  	          alt="" width="25px" height="25px" border="0"></td>
+              <td>unbestimmter Niederschlag*, mässig</td>
+              <td bgcolor="#aa00aa">&nbsp;</td>
+              <td>Negative Blitze (blinkend)</td>
+            </tr>
+            <tr>
+              <td bgcolor="#FFFF00">&nbsp;</td>
+              <td>Niederschlag stark (Regen oder Schnee)</td>
+              <td  bgcolor="#BF9595">&nbsp;</td>
+              <td>Glättegefahr leicht (blinkend)</td>
+            </tr>
+            <tr>
+              <td bgcolor="#FF0000">&nbsp;</td>
+              <td>Niederschlag extrem (meist Hagel)</td>
+              <td  bgcolor="#833838">&nbsp;</td>
+              <td>Glättegefahr mässig (blinkend)</td>
+            </tr>
+          </table>
+		  
+          <p style="margin-top:-4px">* auch wenn die Schneefallgrenze nicht berechnet werden kann</p>
+
+		</div>
+
+    	<div id = "wetterblog" style="display:none;padding-top:16px;padding-bottom:8px">
+    	  	  <div class="blogbeitraege fmeteor">
+        <h2>Neues aus dem <a href="https://www.meteoradar.ch/wetterblog/index.php">Wetterblog</a></h2>
+        <br><strong><font color="red">Aktuell</font></strong>
+        <div style="float:right">29.04.2023 09:56</div><h3><a href="https://www.meteoradar.ch/wetterblog/2023/04/29/gewitter-hagel-und-sturm-am-28-04-2023">Gewitter, Hagel und Sturm am 28.04.2023</a></h3>
+		<p>Gewitter &uuml;ber Sellenb&uuml;ren (Archivbild W. Schmid)
+
+Das gestrige Wettergeschehen gab&nbsp; Anlass, nach l&auml;ngerer Pause wiedermal einen Gewitterr&uuml;ckblick ... <b><a class="w3-text-darkblue w3-hover-text-blue" href="https://www.meteoradar.ch/wetterblog/2023/04/29/gewitter-hagel-und-sturm-am-28-04-2023">weiterlesen</a></b></p><div style="float:right">21.06.2022 10:28</div><h3><a href="https://www.meteoradar.ch/wetterblog/2022/06/21/gewittervorschau-21-26-06-2022">Gewittervorschau 21.-26.06.2022</a></h3>
+		<p>Der ber&uuml;chtigte Hagelzug, der am 20.06.2021 fast durch die ganze Schweiz zog, hier s&uuml;dlich von Bern
+
+Nachdem am Wochenende der bisherige Hitzerekord ... <b><a class="w3-text-darkblue w3-hover-text-blue" href="https://www.meteoradar.ch/wetterblog/2022/06/21/gewittervorschau-21-26-06-2022">weiterlesen</a></b></p><div style="float:right">03.06.2022 11:18</div><h3><a href="https://www.meteoradar.ch/wetterblog/2022/06/03/gewittervorschau-pfingsten-2022">Gewittervorschau Pfingsten 2022</a></h3>
+		<p>Das Potenzial f&uuml;r mittelgrossen Hagel ist an diesem Pfingstwochenende gegeben
+
+Das Wetter an Pfingsten macht seltsamerweise weniger Schlagzeilen als ... <b><a class="w3-text-darkblue w3-hover-text-blue" href="https://www.meteoradar.ch/wetterblog/2022/06/03/gewittervorschau-pfingsten-2022">weiterlesen</a></b></p>      </div>    	</div>
+
+	    <div id = "hagelmeldung" style="display:none;margin-top:16px">
+	      	  <table>
+	    <tr>
+		  <td>
+		    <a href="https://www.skywarn.ch/unwettermeldung.php" target="_blank">
+		    <img class="img150" src="https://meteoradar.ch/rimg/hagel_hand_mini.jpg"
+            alt="Hagel beobachtet"></a><br>
+			<small><br>(c) Gregory Käser</small>
+		  </td>
+		  <td valign="top">
+            <a class="w3-text-darkblue w3-hover-text-blue" href="https://www.skywarn.ch/unwettermeldung.php" target="_blank"><strong>Hagelbeobachtung melden</strong></a><br>
+            Ihre Meldung hilft uns bei der Validierung und Verbesserung unserer Hagelprodukte
+            und der laufenden Aktualisierung des <a href="http://www.sturmarchiv.ch">Sturmarchivs</a>.<br>
+		  </td>
+		</tr>
+	  </table>
+			    </div>		
+	  </div>
+
+      <hr style="color:#ccc">
+
+      	  <div class="custom-popup" id="map" style="height:750px;margin-top:16px;margin-bottom:16px;
+		  image-rendering:crisp-edges;image-rendering:pixelated">
+      		
+	    <div style="position:absolute;border:1px solid #aaa;border-radius:2px;
+		  left:39px;top:10px;width:328px;height:30px;z-index:499;padding-top:5px;
+		  background-color:white;opacity:1.0;text-align:left;
+		  padding-left:4px!important;font-size:15px">
+          <span id="datumzeit" style="font-size:15px"> </span>
+	    </div>
+		  
+	    <div style="position:absolute;
+		  left:366px;top:10px;width:34px;height:30px;z-index:499;padding-top:0px;
+		  background-color:#eee;opacity:1.0;text-align:center;
+		  border:1px solid #aaa;border-radius:2px">
+		  <a class="w3-text-darkblue w3-hover-text-blue" target="_blank" style="font-size:21px"
+		    href="https://meteoradar.ch/de/handbuch_zoomradar_2020.php"><img src="info.jpg" alt="Info"
+		    style="width:32px;height:28px"></center>
+		  </a>
+	    </div>
+		  
+        <!-- Diese Option ist für alle freigegeben -->
+	    <div style="position:absolute;left:330px;top:39px;z-index:499;opacity:1.0;
+		  border:1px solid #aaa;border-radius:2px">
+          <button class="w3-button w3-hover-darkblue w3-text-black w3-button-narrow bb"
+		  	style="width:35px;height:28px;line-height:1.0;padding-left:1px!important" onclick="shrelief()">
+		                <span id="shtrel" style="font-size:12px">Relief<br>aus</span>
+		    	    </div>
+		  
+	    <div style="position:absolute;left:39px;top:39px;width:140px;height:30px;z-index:499;
+	      background-color:#eee;opacity:1.0;font-size:16px;border:1px solid #aaa;border-radius:2px">
+          <label class="mapcheckbox">Blitzrisiko 1h
+            <input type="checkbox" id="blitzrisiko" onclick="blitzrisk()">
+            <span class="checkmark bb"></span>
+          </label>
+	    </div>		  
+		  
+	    <div style="position:absolute;left:178px;top:39px;z-index:499;opacity:1.0;
+		  border:1px solid #aaa;border-radius:2px">
+          <button class="w3-button w3-hover-darkblue w3-text-black w3-button-narrow bb"
+            style="width:30px;height:28px" onclick="previous()">
+          <span id="previmg" style="font-size:15px;margin-left:-4px"></span>	
+	    </div> 
+		  
+	    <div style="position:absolute;left:211px;top:39px;z-index:499;opacity:1.0;
+		  border:1px solid #aaa;border-radius:2px">
+          <button class="w3-button w3-hover-darkblue w3-text-black w3-button-narrow bb"
+            style="width:85px;height:28px" onclick="startstoploop()">
+          <span id="stoploop" style="font-size:15px;margin-left:-10px">Stop Loop</span>	
+	    </div>		
+		  
+	    <div style="position:absolute;left:297px;top:39px;z-index:499;opacity:1.0;
+		  border:1px solid #aaa;border-radius:2px">
+          <button class="w3-button w3-hover-darkblue w3-text-black w3-button-narrow bb"
+            style="width:20px;height:28px" onclick="next()">
+            <span id="nextimg" style="font-size:15px;margin-left:-4px"></span>	
+	    </div>		  
+		  
+	    <div style="position:absolute;
+		  left:39px;top:68px;width:328px;height:18px;z-index:499;
+		  background-color:white;opacity:1.0;text-align:left;padding-left:6px;padding-bottom:5px;border:1px solid #aaa;border-radius:2px">
+          <span style="font-size:10px">&copy; meteoradar | Datenquellen: Meteoschweiz, Météorage, DWD</span></center>
+	    </div>  
+	  </div>	
+    </div>	  
+	<div style="margin-top:-41px">
+      <canvas id="legendl" width="710px" height="45px!important" style="border:0px solid #ffffff;"></canvas>
+	</div>
+
+    <p style="margin-top: -10px">
+      <small>Kartendaten: © 
+  	    <a class="w3-text-darkblue w3-hover-text-blue" target="_blank"
+  	      href="https://openstreetmap.org/copyright">OpenStreetMap</a>-Mitwirkende, SRTM | Kartendarstellung: © 
+  	    <a class="w3-text-darkblue w3-hover-text-blue" target="_blank"
+  	      href="http://opentopomap.org/">OpenTopoMap</a>
+  	      (<a class="w3-text-darkblue w3-hover-text-blue" target="_blank"
+  	      href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)
+	  </small>
+    </p>
+
+    <br>
+      
+        <p>
+      <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- rresp_meteoradar_unten -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-1118042285970357"
+     data-ad-slot="6427057885"
+     data-ad-format="auto"></ins>
+<script>
+  (adsbygoogle=window.adsbygoogle||[]).requestNonPersonalizedAds=1
+    adsbygoogle.push({});
+</script>	
+    </p>
+    	      <div id="closeonaction" style="position:fixed;bottom:0;background-color:#293962;height:auto;opacity:0.9;
+        width:100%;left: 50%;transform: translate(-50%, 0);z-index:1010;display:none">
+		<div id="closeonno" onclick="closeablehnen()"
+		  style="position:absolute;top:0;right:0;width:30px;height:30px;color:#fff;cursor:pointer;
+		  text-align:center;line-height:250%">
+		   <svg height="30" width="30">
+             <line x1="10" y1="10" x2="20" y2="20" style="stroke:rgb(255,255,255);stroke-width:1" />
+			 <line x1="10" y1="20" x2="20" y2="10" style="stroke:rgb(255,255,255);stroke-width:1" />
+           </svg> 
+		</div>
+	    <div style="color:white;margin:16px">
+		  <h2 style="text-align:center">Cookies bei meteoradar</h2>
+		  <div style="margin-left:auto;margin-right:auto;width:420px">
+		    <p>
+		      Unsere Webseiten verwenden Cookies und gestatten Google Adsense
+		      die Anzeige von Werbebannern, welche Sie interessieren könnten.
+			  Hierfür benötigen wir von Gesetzes wegen Ihre Zustimmung.
+			  Ohne solche werden meist nutzlose Banner angezeigt.
+			  Details finden Sie in unserer
+			  <a class="w3-text-yellow w3-hover-text-green" 
+                href="https://meteoradar.ch/metr/admin/rdatenschutz.php" target="_blank">
+			    <b>Datenschutzerklärung</b></a>. Die Bannerwerbung
+			  wird für eingeloggte Abonnenten eines Bezahlproduktes von meteoradar
+			  ausgeblendet.
+			  <a class="w3-text-yellow w3-hover-text-green" 
+                href="https://meteoradar.ch/metr/admin/rprodukte_kaufen.php" target="_blank">
+			  <b>Abo kaufen</b></a>
+		    </p>		
+            <div class="centerhv10" style="width:100%;background-color:#fca;color:#00a;
+		      cursor:pointer" onclick="closezustimmen()">
+              <b>Verstanden, ich stimme zu.</b>
+		    </div>
+	      </div>
+        </div>	
+	  </div>
+	    </div>
+    <footer id="myFooter">
+    <div class="w3-container w3-theme-d1 w3-padding-small w3-margin-left">
+	  <div class="fuellerleftm3">
+	    <div class="flleft" style="width:25%">
+		    <p style="margin-top:0px;margin-bottom:0px">
+			<a href="https://www.meteotest.ch" target="_blank"
+			  class="w3-bar-item w3-button w3-theme-l1 logoback"><span style="margin-left:-16px">Meteotest AG</span></a><br>
+	        Fabrikstrasse 14<br>
+		    CH-3012 Bern<br>
+		    Tel. +41 (0)31 307 26 26
+			</p>
+	    </div>
+		<div class="flleft">
+		    <p style="margin-top:0px;margin-bottom:0px">
+	          <a href="https://www.meteoradar.ch/de/datenschutzerklaerung-1550-28034.pdf" target="_blank"
+			    class="w3-bar-item w3-button w3-theme-l1 logoback"><span style="margin-left:-16px">Datenschutz-Erklärung</span></a>			
+			  <br>
+			  Unsere Webseiten sind auf die Zulassung von Cookies angewiesen, diese werden nur<br>
+			  zur Speicherung von häufig benutzten Voreinstellungen (z.B. Login-Funktion) verwendet.<br>
+			</p>
+	    </div>
+	  </div>
+	</div>
+  </footer></div> <!-- END MAIN -->
+	
+<script>
+
+// Get the Sidebar
+var mySidebar = document.getElementById("mySidebar");
+
+// Get the DIV with overlay effect
+var overlayBg = document.getElementById("myOverlay");
+
+// Toggle between showing and hiding the sidebar, and add overlay effect
+function w3_open() {
+    if (mySidebar.style.display === 'block') {
+        mySidebar.style.display = 'none';
+        overlayBg.style.display = "none";
+    } else {
+        mySidebar.style.display = 'block';
+        overlayBg.style.display = "block";
+    }
+}
+
+// Close the sidebar with the close button
+function w3_close() {
+    mySidebar.style.display = "none";
+    overlayBg.style.display = "none";
+}
+</script>			
+
+</body>
+
+<!-- <script src="leafexp.js"></script> -->
+<script src="daten/gdata.js"></script>
+<script src="daten/gprdata.js"></script>
+<script src="https://meteoradar.ch/rjs/leafrandch.js"></script>
+<script>
+  var timerangeg = timerange; // wegen Doppelnamen nötig
+</script>
+<script src="daten/gmotion.js"></script>
+<script src="daten/wiewirds.js"></script>
+  <script src="https://meteoradar.ch/rjs/leafblitz.js"></script>
+<script src="https://meteoradar.ch/rjs/leafimgpr.js"></script>
+<script src="https://meteoradar.ch/rjs/cookie_management.js"></script>
+</html>

@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Discover and play thousands of free online games. Action, puzzle, racing, sports and more - all instantly playable in your browser." />
+    <link rel="shortcut icon" href="./assets/logo.png" />
+
+    <!-- 关键资源预加载 -->
+    <link rel="preload" href="./assets/logo.png" as="image" fetchpriority="high" />
+    <link rel="preconnect" href="https://img.gamemonetize.com" crossorigin />
+    <link rel="dns-prefetch" href="https://img.gamemonetize.com" />
+
+    <!-- 关键CSS内联 -->
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: "Avenir", Helvetica, Arial, sans-serif;
+        line-height: 1.6;
+        color: var(--font);
+        background: var(--body);
+        min-height: 100vh;
+        background-size: contain;
+      }
+
+      .fx-h {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .fx-r {
+        display: flex;
+        flex-direction: row;
+      }
+
+      .fx-ac {
+        justify-content: center;
+      }
+
+      .fx-bc {
+        align-items: center;
+      }
+
+      [v-cloak] {
+        display: none !important;
+      }
+
+      /* 优化后的骨架屏样式 */
+      .skeleton-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: var(--body);
+        max-width: 60%;
+        margin: 0 auto;
+        z-index: 9999;
+        display: flex;
+        flex-direction: column;
+        transition: opacity 0.4s ease, visibility 0.4s ease;
+      }
+
+      .skeleton-container.hidden {
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+      }
+
+      /* 骨架屏头部 - 更精确匹配实际布局 */
+      .skeleton-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 2rem;
+        background: transparent;
+      }
+
+      .skeleton-logo-wrapper {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .skeleton-logo {
+        width: 48px;
+        height: 48px;
+        background: linear-gradient(90deg, #e0e0e0 25%, #f0f0f0 50%, #e0e0e0 75%);
+        background-size: 200% 100%;
+        border-radius: 8px;
+        animation: shimmer 1.5s infinite linear;
+      }
+
+      .skeleton-title {
+        width: 120px;
+        height: 32px;
+        background: linear-gradient(90deg, #e0e0e0 25%, #f0f0f0 50%, #e0e0e0 75%);
+        background-size: 200% 100%;
+        border-radius: 4px;
+        animation: shimmer 1.5s infinite linear;
+      }
+
+      .skeleton-menu {
+        width: 32px;
+        height: 32px;
+        background: linear-gradient(90deg, #e0e0e0 25%, #f0f0f0 50%, #e0e0e0 75%);
+        background-size: 200% 100%;
+        border-radius: 4px;
+        animation: shimmer 1.5s infinite linear;
+      }
+
+      /* 骨架屏内容区域 - 优化主内容区域布局 */
+      .skeleton-main {
+        flex: 1;
+        padding: 0.5rem;
+        max-width: 80vw;
+        margin: 0 auto;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .skeleton-section {
+        margin-bottom: 0.5rem;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .skeleton-heading {
+        width: 150px;
+        height: 28px;
+        background: linear-gradient(90deg, #e0e0e0 25%, #f0f0f0 50%, #e0e0e0 75%);
+        background-size: 200% 100%;
+        border-radius: 4px;
+        margin-bottom: 1rem;
+        margin-top: 1rem;
+        animation: shimmer 1.5s infinite linear;
+        align-self: flex-start;
+      }
+
+      /* 优化网格布局，更精确匹配实际内容 */
+      .skeleton-grid {
+        display: grid;
+        width: 100%;
+      }
+
+      /* Top Games 骨架屏 - 优化列数和间距 */
+      .skeleton-grid.top-games {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0.5rem;
+        background: white;
+        padding: 0.5rem;
+        border-radius: 20px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      }
+
+      /* New Games 骨架屏 - 与实际布局一致 */
+      .skeleton-grid.new-games {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0.5rem;
+      }
+
+      /* All Games 骨架屏 - 优化列数和间距 */
+      .skeleton-grid.all-games {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0.5rem;
+      }
+
+      /* 骨架卡片样式 - 优化圆角、阴影 */
+      .skeleton-card {
+        background: white;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      }
+
+      /* 骨架图片样式 - 精确匹配不同区域的图片比例 */
+      .skeleton-image {
+        aspect-ratio: 3/4;
+        background: linear-gradient(90deg, #e0e0e0 25%, #f0f0f0 50%, #e0e0e0 75%);
+        background-size: 200% 100%;
+        border-radius: 8px;
+        animation: shimmer 1.5s infinite linear;
+      }
+
+      /* All Games 图片比例特殊处理 */
+      .skeleton-grid.all-games .skeleton-image {
+        aspect-ratio: 1/1;
+        border-radius: 8px;
+      }
+
+      /* 骨架文本样式 - 优化高度和宽度变化 */
+      .skeleton-text {
+        height: 20px;
+        margin: 8px;
+        background: linear-gradient(90deg, #e0e0e0 25%, #f0f0f0 50%, #e0e0e0 75%);
+        background-size: 200% 100%;
+        border-radius: 4px;
+        animation: shimmer 1.5s infinite linear;
+        text-align: center;
+      }
+
+      /* All Games 文本样式特殊处理 */
+      .skeleton-grid.all-games .skeleton-text {
+        height: 16px;
+        margin: 4px 8px;
+      }
+
+      /* 骨架屏按钮样式 */
+      .skeleton-button {
+        width: 150px;
+        height: 40px;
+        background: linear-gradient(90deg, var(--primary) 25%, #f06c78 50%, var(--primary) 75%);
+        background-size: 200% 100%;
+        border-radius: 4px;
+        margin: 1.5rem auto;
+        animation: shimmer 1.5s infinite linear;
+      }
+
+      /* 骨架屏页脚样式 */
+      .skeleton-footer {
+        margin-top: auto;
+        padding: 1.5rem;
+        border-top: 1px solid #e0e0e0;
+        text-align: center;
+        width: 100%;
+      }
+
+      .skeleton-footer-text {
+        width: 200px;
+        height: 16px;
+        background: linear-gradient(90deg, #e0e0e0 25%, #f0f0f0 50%, #e0e0e0 75%);
+        background-size: 200% 100%;
+        border-radius: 4px;
+        margin: 0 auto;
+        animation: shimmer 1.5s infinite linear;
+      }
+
+      /* 闪烁动画效果 */
+      @keyframes shimmer {
+        0% {
+          background-position: -200% 0;
+        }
+        100% {
+          background-position: 200% 0;
+        }
+      }
+
+      /* 响应式调整 - 更精确的断点匹配 */
+      @media (max-width: 1024px) {
+        .skeleton-grid.all-games {
+          grid-template-columns: repeat(4, 1fr);
+        }
+      }
+
+      @media (max-width: 768px) {
+        .skeleton-container {
+          width: 100%;
+          max-width: 100%;
+        }
+        .skeleton-main {
+          max-width: 100vw;
+        }
+        .skeleton-header {
+          height: 80px;
+        }
+
+        .skeleton-grid.top-games,
+        .skeleton-grid.new-games,
+        .skeleton-grid.all-games {
+          grid-template-columns: repeat(3, 1fr) !important;
+        }
+
+        .skeleton-title {
+          width: 100px;
+          height: 24px;
+        }
+      }
+
+      @media (min-width: 768px) {
+        .skeleton-grid.top-games {
+          grid-template-columns: repeat(6, 1fr);
+        }
+
+        .skeleton-grid.new-games {
+          grid-template-columns: repeat(3, 1fr);
+        }
+
+        .skeleton-grid.all-games {
+          grid-template-columns: repeat(4, 1fr);
+        }
+      }
+
+      @media (min-width: 1024px) {
+        .skeleton-grid.all-games {
+          grid-template-columns: repeat(6, 1fr);
+        }
+      }
+
+      @media (max-width: 480px) {
+        .skeleton-grid {
+          grid-template-columns: repeat(2, 1fr) !important;
+        }
+      }
+
+      .navLogo {
+        width: 48px;
+        height: 48px;
+      }
+
+      .navTitle {
+        font-size: 32px;
+        font-weight: 800;
+        color: #002a41;
+      }
+
+      section {
+        padding: 5px;
+      }
+
+      @media (max-width: 768px) {
+        .navTitle {
+          font-size: 24px;
+        }
+      }
+    </style>
+
+    <!-- 延迟加载非关键CSS -->
+    <link rel="preload" href="./styles.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    <noscript><link rel="stylesheet" href="./styles.css" /></noscript>
+
+    <script src="./js/game/indexGameData.js" defer></script>
+    <script src="./js/tailwind.js" defer></script>
+    <script src="./js/vue/vue.js" defer></script>
+    <script>
+      (function () {
+        "use strict";
+
+        // 骨架屏控制函数
+        function hideSkeleton() {
+          const skeleton = document.getElementById("skeleton");
+          if (skeleton) {
+            skeleton.classList.add("hidden");
+            setTimeout(() => {
+              if (skeleton.parentNode) {
+                skeleton.parentNode.removeChild(skeleton);
+              }
+            }, 400);
+          }
+        }
+
+        // 检查数据是否已加载
+        function checkDataLoaded() {
+          return new Promise((resolve) => {
+            const checkInterval = setInterval(() => {
+              if (typeof games !== "undefined" && games && games.list && games.list.length > 0) {
+                clearInterval(checkInterval);
+                resolve(games.list);
+              }
+            }, 50);
+
+            setTimeout(() => {
+              clearInterval(checkInterval);
+              if (typeof games !== "undefined" && games && games.list) {
+                resolve(games.list);
+              } else {
+                console.error("Game data not loaded, using fallback");
+                resolve([]);
+              }
+            }, 3000);
+          });
+        }
+
+        function checkVueLoaded() {
+          return new Promise((resolve) => {
+            const checkInterval = setInterval(() => {
+              if (typeof Vue !== "undefined") {
+                clearInterval(checkInterval);
+                resolve(true);
+              }
+            }, 50);
+
+            setTimeout(() => {
+              clearInterval(checkInterval);
+              resolve(typeof Vue !== "undefined");
+            }, 5000);
+          });
+        }
+        // 图片懒加载和预加载
+        const imageObserver = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                const img = entry.target;
+                const src = img.dataset.src;
+                if (src) {
+                  img.src = src;
+                  img.removeAttribute("data-src");
+                }
+                imageObserver.unobserve(img);
+              }
+            });
+          },
+          {
+            rootMargin: "50px 0px",
+            threshold: 0.01,
+          }
+        );
+
+        // 优化后的Vue初始化
+        async function initVue() {
+          try {
+            const gameList = await checkDataLoaded();
+            await checkVueLoaded();
+
+            new Vue({
+              el: "#app",
+              data: {
+                games: [],
+                currentYear: new Date().getFullYear(),
+                isLoading: false,
+                showMenu: false,
+              },
+              computed: {
+                topGames() {
+                  return this.games.slice(0, 6);
+                },
+                newGames() {
+                  return this.games.slice(6, 12);
+                },
+                allGames() {
+                  return this.games.slice(12, 24);
+                },
+              },
+              async created() {
+                this.games = gameList.sort(() => Math.random() - 0.5);
+              },
+              mounted() {
+                // 等待首屏图片加载完成后隐藏骨架屏
+                this.$nextTick(() => {
+                  const criticalImages = document.querySelectorAll('img[fetchpriority="high"]');
+                  const imagesLoaded = Array.from(criticalImages).map((img) => {
+                    return new Promise((resolve) => {
+                      if (img.complete) resolve();
+                      img.onload = resolve;
+                      img.onerror = resolve;
+                    });
+                  });
+
+                  Promise.all(imagesLoaded).then(() => {
+                    hideSkeleton();
+
+                    // 初始化懒加载
+                    const lazyImages = document.querySelectorAll("img[data-src]");
+                    lazyImages.forEach((img) => imageObserver.observe(img));
+                  });
+                });
+
+                // 添加回到顶部按钮
+                const backToTopBtn = document.createElement("button");
+                backToTopBtn.id = "back-to-top";
+                backToTopBtn.innerHTML = "↑";
+                backToTopBtn.style.cssText = `
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: #002a41;
+            color: white;
+            border: none;
+            cursor: pointer;
+            display: none;
+            z-index: 1000;
+            font-size: 20px;
+          `;
+                document.body.appendChild(backToTopBtn);
+
+                let ticking = false;
+                window.addEventListener("scroll", () => {
+                  if (!ticking) {
+                    requestAnimationFrame(() => {
+                      const shouldShow = window.scrollY > 100;
+                      backToTopBtn.style.display = shouldShow ? "block" : "none";
+                      ticking = false;
+                    });
+                    ticking = true;
+                  }
+                });
+
+                backToTopBtn.addEventListener("click", () => {
+                  window.scrollTo({ top: 0, behavior: "smooth" });
+                });
+              },
+              methods: {
+                preloadImage(item) {
+                  if (!this.preloadedImages) {
+                    this.preloadedImages = new Set();
+                  }
+                  if (item.image && !this.preloadedImages.has(item.image)) {
+                    const img = new Image();
+                    img.src = item.image;
+                    this.preloadedImages.add(item.image);
+                  }
+                },
+                toDetail(item) {
+                  window.location.href = `./detail.html?title=${item.title}`;
+                },
+                toAllList() {
+                  window.location.href = "./allList.html";
+                },
+                toHome() {
+                  window.location.href = "./index.html";
+                },
+                toggleMenu() {
+                  const menu = document.querySelector(".menu-panel");
+                  if (menu) {
+                    menu.classList.toggle("show");
+                  }
+                },
+              },
+            });
+          } catch (error) {
+            console.error("Failed to initialize Vue:", error);
+            hideSkeleton();
+          }
+        }
+
+        // 延迟初始化非关键JavaScript
+        function scheduleInitVue() {
+          if ("requestIdleCallback" in window) {
+            requestIdleCallback(initVue, { timeout: 2000 });
+          } else {
+            setTimeout(initVue, 100);
+          }
+        }
+
+        if (document.readyState === "loading") {
+          document.addEventListener("DOMContentLoaded", scheduleInitVue);
+        } else {
+          scheduleInitVue();
+        }
+      })();
+    </script>
+    <title>Free Online Games - Play Now | Superbet</title>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-79ELJ0DKB3"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "G-79ELJ0DKB3");
+    </script>
+    <script async src="https://securepubads.g.doubleclick.net/tag/js/gpt.js" crossorigin="anonymous"></script>
+    <!-- Interstitial -->
+    <script>
+      window.googletag = window.googletag || { cmd: [] };
+      let interstitialSlot;
+      googletag.cmd.push(() => {
+        interstitialSlot = googletag.defineOutOfPageSlot(
+          "/23269846544/play2.superbetgame.click.interstitial.251031",
+          googletag.enums.OutOfPageFormat.INTERSTITIAL
+        );
+        if (interstitialSlot) {
+          interstitialSlot.addService(googletag.pubads()).setConfig({ interstitial: { triggers: { navBar: true, unhideWindow: true } } });
+        }
+        googletag.pubads().enableSingleRequest();
+        googletag.enableServices();
+        googletag.display(interstitialSlot);
+      });
+    </script>
+    <!-- Anchor -->
+    <script>
+      window.googletag = window.googletag || { cmd: [] };
+      let anchorSlot;
+      googletag.cmd.push(() => {
+        anchorSlot = googletag.defineOutOfPageSlot(
+          "/23269846544/play2.superbetgame.click.anchor.251031",
+          document.body.clientWidth <= 500 ? googletag.enums.OutOfPageFormat.TOP_ANCHOR : googletag.enums.OutOfPageFormat.BOTTOM_ANCHOR
+        );
+        if (anchorSlot) {
+          anchorSlot.addService(googletag.pubads());
+        }
+        googletag.pubads().enableSingleRequest();
+        googletag.enableServices();
+        if (anchorSlot) {
+          googletag.display(anchorSlot);
+        }
+      });
+    </script>
+    <!-- Banner1 -->
+    <script>
+      window.googletag = window.googletag || { cmd: [] };
+      googletag.cmd.push(function () {
+        googletag
+          .defineSlot("/23269846544/play2.superbetgame.click.banner1.251031", [300, 250], "div-gpt-ad-1761899703304-0")
+          .addService(googletag.pubads());
+        googletag.pubads().enableSingleRequest();
+        googletag.enableServices();
+      });
+    </script>
+  </head>
+  <body>
+    <!-- 优化后的骨架屏结构 -->
+    <div class="skeleton-container" id="skeleton">
+      <!-- 骨架屏头部 -->
+      <div class="skeleton-header">
+        <div class="skeleton-logo-wrapper">
+          <div class="skeleton-logo"></div>
+          <div class="skeleton-title"></div>
+        </div>
+        <div class="skeleton-menu"></div>
+      </div>
+
+      <!-- 骨架屏内容 -->
+      <div class="skeleton-main">
+        <!-- Top Games 骨架屏 -->
+        <div class="skeleton-section">
+          <div class="skeleton-heading"></div>
+          <div class="top-games skeleton-grid">
+            <div class="skeleton-card">
+              <div class="skeleton-image"></div>
+              <div class="skeleton-text" style="width: 80%"></div>
+            </div>
+            <div class="skeleton-card">
+              <div class="skeleton-image"></div>
+              <div class="skeleton-text" style="width: 70%"></div>
+            </div>
+            <div class="skeleton-card">
+              <div class="skeleton-image"></div>
+              <div class="skeleton-text" style="width: 90%"></div>
+            </div>
+            <div class="skeleton-card">
+              <div class="skeleton-image"></div>
+              <div class="skeleton-text" style="width: 75%"></div>
+            </div>
+            <div class="skeleton-card">
+              <div class="skeleton-image"></div>
+              <div class="skeleton-text" style="width: 85%"></div>
+            </div>
+            <div class="skeleton-card">
+              <div class="skeleton-image"></div>
+              <div class="skeleton-text" style="width: 65%"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- New Games 骨架屏 -->
+        <div class="skeleton-section">
+          <div class="skeleton-heading"></div>
+          <div class="skeleton-grid new-games">
+            <div class="skeleton-card">
+              <div class="skeleton-image"></div>
+              <div class="skeleton-text" style="width: 80%"></div>
+            </div>
+            <div class="skeleton-card">
+              <div class="skeleton-image"></div>
+              <div class="skeleton-text" style="width: 70%"></div>
+            </div>
+            <div class="skeleton-card">
+              <div class="skeleton-image"></div>
+              <div class="skeleton-text" style="width: 90%"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- All Games 骨架屏 -->
+        <div class="skeleton-section">
+          <div class="skeleton-heading"></div>
+          <div class="skeleton-grid all-games">
+            <div class="skeleton-card">
+              <div class="skeleton-image"></div>
+              <div class="skeleton-text" style="width: 80%"></div>
+            </div>
+            <div class="skeleton-card">
+              <div class="skeleton-image"></div>
+              <div class="skeleton-text" style="width: 70%"></div>
+            </div>
+            <div class="skeleton-card">
+              <div class="skeleton-image"></div>
+              <div class="skeleton-text" style="width: 90%"></div>
+            </div>
+            <div class="skeleton-card">
+              <div class="skeleton-image"></div>
+              <div class="skeleton-text" style="width: 75%"></div>
+            </div>
+            <div class="skeleton-card">
+              <div class="skeleton-image"></div>
+              <div class="skeleton-text" style="width: 85%"></div>
+            </div>
+            <div class="skeleton-card">
+              <div class="skeleton-image"></div>
+              <div class="skeleton-text" style="width: 65%"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 骨架屏加载更多按钮 -->
+        <div class="skeleton-button"></div>
+
+        <!-- 骨架屏页脚 -->
+        <div class="skeleton-footer">
+          <div class="skeleton-footer-text"></div>
+        </div>
+      </div>
+    </div>
+
+    <div id="app" v-cloak>
+      <!-- 原有内容保持不变 -->
+      <div class="mx-auto md:w-[60%] fx-h fx-ac">
+        <!-- 顶部导航 -->
+        <header class="justify-between gap-3 p-4 fx-r fx-bc">
+          <a href="./index.html">
+            <div class="gap-3 cursor-pointer fx-r fx-bc">
+              <img class="navLogo" src="./assets/logo.png" alt="Superbet Logo" loading="eager" fetchpriority="high" />
+              <div class="navTitle">Superbet</div>
+            </div>
+          </a>
+          <button @click="toggleMenu" aria-label="Menu" class="p-2">
+            <img style="width: 32px; height: 32px" src="./assets/menunav.png" alt="Menu" loading="lazy" />
+          </button>
+        </header>
+        <!-- 菜单面板 -->
+        <div class="menu-panel" :class="{ 'show': showMenu }" @click.self="toggleMenu">
+          <div class="menu-content">
+            <div class="menu-header">
+              <h2>Menu</h2>
+              <img
+                class="invert filter"
+                style="width: 24px; aspect-ratio: square; cursor: pointer"
+                src="./assets/close.png"
+                alt=""
+                loading="lazy"
+                @click="toggleMenu" />
+            </div>
+            <ul class="menu-items">
+              <li><a href="index.html">Home</a></li>
+              <li><a href="allList.html">All Games</a></li>
+              <li><a href="allList.html?cate=Arcade">Arcade Games</a></li>
+              <li><a href="allList.html?cate=Puzzle">Puzzle Games</a></li>
+              <li><a href="allList.html?cate=Adventure">Adventure Games</a></li>
+            </ul>
+          </div>
+        </div>
+        <!-- 主要内容 -->
+        <main class="fx-h fx-bc fx-ac game-container">
+          <div>
+            <!-- /23269846544/play2.superbetgame.click.banner1.251031 -->
+            <div id="div-gpt-ad-1761899703304-0" style="min-width: 300px; min-height: 250px">
+              <script>
+                googletag.cmd.push(function () {
+                  googletag.display("div-gpt-ad-1761899703304-0");
+                });
+              </script>
+            </div>
+          </div>
+          <!-- Top Games - 首屏关键内容 -->
+          <section aria-labelledby="top-games" class="fx-h fx-bc fx-ac">
+            <h2 id="top-games" class="my-4 w-full font-bold text-2xl text-start">Top Games</h2>
+            <div class="top-games gap-4 grid grid-cols-3 md:grid-cols-6 bg-white p-4 rounded-lg">
+              <div v-for="item in topGames" :key="item.id" class="cursor-pointer game-card" @mouseenter="preloadImage(item)">
+                <a :href="`./detail.html?title=${item.title}`">
+                  <img
+                    :src="item.thumb"
+                    :alt="item.title"
+                    loading="eager"
+                    :data-src="item.image"
+                    class="rounded-lg w-full h-auto game-img"
+                    style="aspect-ratio: 3/4"
+                    fetchpriority="high" />
+                  <h3 class="mt-2 text-sm text-center truncate">{{item.title}}</h3>
+                </a>
+              </div>
+            </div>
+          </section>
+
+          <!-- New Games -->
+          <section aria-labelledby="new-games" class="fx-h fx-bc fx-ac">
+            <h2 id="new-games" class="my-4 w-full font-bold text-2xl text-start">New Games</h2>
+            <div class="gap-4 grid grid-cols-3">
+              <div v-for="item in newGames" :key="item.id" class="cursor-pointer game-card" @mouseenter="preloadImage(item)">
+                <a :href="`./detail.html?title=${item.title}`">
+                  <img
+                    :src="item.thumb"
+                    :alt="item.title"
+                    loading="lazy"
+                    :data-src="item.image"
+                    class="rounded-lg w-full h-auto game-img"
+                    style="aspect-ratio: 3/4" />
+                  <h3 class="mt-2 text-sm text-center truncate">{{item.title}}</h3>
+                </a>
+              </div>
+            </div>
+          </section>
+
+          <!-- All Games -->
+          <section aria-labelledby="all-games" class="fx-h fx-bc fx-ac">
+            <h2 id="all-games" class="my-4 w-full font-bold text-2xl text-start">All Games</h2>
+            <div class="gap-2 grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
+              <div v-for="item in allGames" :key="item.id" class="cursor-pointer game-card" @mouseenter="preloadImage(item)">
+                <a :href="`./detail.html?title=${item.title}`">
+                  <img
+                    :src="item.thumb"
+                    :alt="item.title"
+                    loading="lazy"
+                    :data-src="item.image"
+                    class="rounded-lg w-full h-auto game-img"
+                    style="aspect-ratio: 1/1" />
+                  <h3 class="mt-1 text-xs text-center truncate">{{item.title}}</h3>
+                </a>
+              </div>
+            </div>
+          </section>
+
+          <button class="mt-8 load-more-btn"><a href="./allList.html"> More Games </a></button>
+        </main>
+
+        <footer class="mt-auto py-6 border-t">
+          <div class="mx-auto px-4 text-center container">
+            <p>&copy; {{currentYear}} Superbet. All rights reserved.</p>
+          </div>
+        </footer>
+      </div>
+    </div>
+  </body>
+</html>

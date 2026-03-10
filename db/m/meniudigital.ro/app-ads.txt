@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<html lang="ro">
+  <head>
+    <meta charset="utf-8" />
+    <title>Meniu QR pentru Restaurantul tău • Creare Meniu Online Gratuit • MeniuDigital.ro</title>
+    <link rel="icon" id="faviconPng" href="img/logo-square-small.png" sizes="any" />
+    <link rel="icon" id="faviconSvg" href="img/logo.svg?v=2" type="image/svg+xml" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="description"
+      content="Creează meniu digital QR pentru restaurantul tău. Meniu online cu traducere automată, comenzi la masă și rezervări. Folosit de 1000+ restaurante din România."
+    />
+    <meta
+      name="keywords"
+      content="meniu digital, meniu QR, cod QR restaurant, meniu digital restaurant, creare meniu digital, meniu online restaurant, aplicatie meniu restaurant, generator meniu QR, meniu digital gratuit, comanda la masa QR"
+    />
+    <link rel="canonical" href="https://www.meniudigital.ro/" />
+
+    <!-- Preconnect to font and CDN providers for faster loading -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
+    <link rel="dns-prefetch" href="https://ka-f.fontawesome.com" />
+
+    <!-- Load Google Fonts with font-display swap to prevent render blocking -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700,800&display=swap" rel="stylesheet" />
+
+    <!-- Resource style -->
+    <link href="css/styles.css?v=80" rel="stylesheet" type="text/css" media="all" />
+
+    <!-- from Rntricks -->
+    <meta name="theme-color" content="#fff" />
+    <meta property="og:url" content="https://www.meniudigital.ro/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Meniu QR pentru Restaurantul tău • Creare Meniu Online Gratuit • MeniuDigital.ro" />
+    <meta
+      property="og:description"
+      content="Creează meniu digital QR pentru restaurantul tău. Meniu online cu traducere automată, comenzi la masă și rezervări. Folosit de 1000+ restaurante din România."
+    />
+    <meta property="og:image" content="https://meniudigital.ro/img/ogimage.png" />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Cum creez meniul QR pentru restaurantul meu?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Crearea meniului QR este simplă: înregistrează-te gratuit pe MeniuDigital.ro, adaugă produsele și categoriile din interfața de administrare, apoi descarcă codul QR generat automat. Orice modificare de preț sau produs se actualizează instant - clienții văd mereu versiunea actuală a meniului."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "De ce să aleg un meniu digital QR în loc de meniu PDF sau tipărit?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Meniul digital QR oferă mai multe avantaje față de PDF sau meniul tipărit: se încarcă instant pe orice telefon, include funcții inteligente precum căutare și filtrare, se traduce automat în 10 limbi pentru turiști, și elimină costurile de tipărire - actualizezi prețurile fără să retipărești meniurile."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Cât costă un meniu digital QR?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "MeniuDigital.ro oferă un plan gratuit cu toate funcționalitățile pentru până la 30 de produse. Pentru meniuri mai mari, abonamentul costă aproximativ 83 lei/lună (facturat anual la 1000 RON pentru 12 luni, sau 600 RON pentru 6 luni)."
+            }
+          }
+        ]
+      }
+    </script>
+
+    <script>
+      setTimeout(() => {
+        const logoPaths = {
+          dev: 'img/logo-green.svg',
+          staging: 'img/logo-orange.svg',
+          prod: 'img/logo.svg',
+        }
+
+        const logoPath = logoPaths['prod']
+        document.querySelector('#faviconSvg').setAttribute('href', logoPath)
+        document.querySelector('.top-left-logo').setAttribute('src', logoPath)
+        document.querySelector('.main-logo').setAttribute('src', logoPath)
+      }, 300)
+    </script>
+  </head>
+
+  <body>
+    <div id="fb-root"></div>
+
+    <div class="wrapper">
+      <!-- Navigation Bar -->
+      <div class="navigation-bar">
+        <div class="navigation-bar-content">
+          <a class="nav-logo js-scroll-trigger" href="#main">
+            <img class="top-left-logo" src="img/logo.svg?v=2" alt="MeniuDigital logo" />
+          </a>
+
+          <!-- Desktop Navigation -->
+          <div class="desktop-nav">
+            <a class="navigation-button js-scroll-trigger" href="#demo">Demo</a>
+            <a class="navigation-button js-scroll-trigger" href="#clients">Clienți</a>
+            <a
+              class="navigation-button js-scroll-trigger"
+              href="#prices"
+              onclick="document.querySelector('.new-bullet')?.remove()"
+            >
+              Prețuri
+              <div class="new-bullet"></div>
+            </a>
+            <a class="navigation-button js-scroll-trigger" href="#register">Creează meniu digital</a>
+            <a class="navigation-button js-scroll-trigger" rel="noopener" id="loginButton" href="https://admin.meniudigital.ro"
+              >Intră în cont</a
+            >
+          </div>
+
+          <!-- Mobile Navigation -->
+          <div class="mobile-nav">
+            <div class="mobile-nav-toggle">
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+            <div class="mobile-menu">
+              <a class="navigation-button js-scroll-trigger" href="#demo">Demo</a>
+              <a class="navigation-button js-scroll-trigger" href="#clients">Clienți</a>
+              <a
+                class="navigation-button js-scroll-trigger"
+                href="#prices"
+                onclick="document.querySelector('.new-bullet')?.remove()"
+                >Prețuri</a
+              >
+              <a class="navigation-button js-scroll-trigger primary-button" href="#register">Creează-ți meniul gratuit</a>
+              <a class="navigation-button js-scroll-trigger" rel="noopener" href="https://admin.meniudigital.ro"
+                >Intră în cont</a
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Navigation Bar End -->
+
+      <!-- Main Section -->
+      <div id="main" class="main">
+        <div class="hero">
+          <img class="main-logo" src="img/logo.svg?v=2" alt="MeniuDigital.ro logo" />
+          <span class="main-brand-name">MeniuDigital.ro</span>
+          <span class="main-brand-subtitle">Creare meniu QR online gratuit - folosit de 1000+ localuri din România</span>
+          <span class="main-brand-slogan"> Meniul tău, digital. </span>
+          <video class="hero-video" src="img/hero-video.mp4?v=2" autoplay loop muted="muted" playsinline="playsinline"></video>
+        </div>
+        <!-- Main Section -->
+
+        <!-- Demo Section -->
+        <div id="demo" class="section">
+          <img class="admin-interface-image" src="img/laptop-admin.png" alt="Creare meniu digital - interfață de administrare" />
+
+          <div class="demo-explainer">
+            <i class="fa fa-info-circle only-desktop"></i>
+            <p>
+              <strong>MeniuDigital.ro</strong> e platforma unde tu îți creezi meniul QR iar clienții tăi îl vizualizează într-o
+              interfață web personalizată și elegantă, accesibilă prin cod QR.
+            </p>
+          </div>
+
+          <div class="demo-content">
+            <video
+              class="demo-phone only-desktop"
+              src="img/demo-video.mp4"
+              autoplay
+              loop
+              muted="muted"
+              playsinline="playsinline"
+            ></video>
+
+            <div class="demo-qr only-desktop">
+              <p class="qr-title">
+                <strong>Încearcă-l!</strong><br />
+                Scanează acest cod QR:
+              </p>
+              <img
+                class="qr-code"
+                src="https://meniudigital.ro/demo/my-qr-code.svg?color=%2333395c"
+                alt="Cod QR meniu restaurant - exemplu demo"
+              />
+              <p class="qr-subtitle">
+                Sau vezi
+                <a class="blue-link" href="https://www.meniudigital.ro/demo" target="_blank" rel="noopener">varianta desktop</a>
+              </p>
+            </div>
+          </div>
+          <a
+            class="primary-button only-mobile-flex"
+            style="margin-top: 32px"
+            href="https://www.meniudigital.ro/demo"
+            target="_blank"
+            rel="noopener"
+          >
+            <i class="fa fa-external-link"></i>
+            Vezi un meniu digital de demo
+          </a>
+        </div>
+        <!-- END Demo Section -->
+
+        <div id="clients" class="collapsible-section collapsed blue">
+          <div class="section-header collapsible-header" onclick="toggleCollapsible('clients')">
+            <span class="section-title">Cine îl folosește?</span>
+            <span class="section-subtitle only-desktop">Vezi meniuri digitale reale de la restaurante din România</span>
+            <span class="section-subtitle only-mobile">Vezi câteva meniuri reale</span>
+            <i class="fas fa-chevron-down collapsible-chevron collapsible-chevron-white"></i>
+          </div>
+          <div class="collapsible-content">
+            <div class="client-list">
+              
+              <a href="https://meniudigital.ro/meatup" target="_blank" class="client">
+                <img
+                  src="https://d2vjhs63o39ox4.cloudfront.net/fit-in/1200x1200/brand-logos/meatup-1661277140619.png"
+                  alt="Meat Up logo"
+                  style="border-radius: 0%"
+                  class=""
+                />
+                <span class="client-name">Meat Up</span>
+                <span class="client-city">
+                  <i class="fas fa-map-marker-alt"></i>
+                  Cluj-Napoca</span
+                >
+              </a>
+              
+              <a href="https://meniudigital.ro/ambercaffe" target="_blank" class="client">
+                <img
+                  src="https://d2vjhs63o39ox4.cloudfront.net/fit-in/1200x1200/brand-logos/ambercaffe-1657581230572.jpeg"
+                  alt="Amber Caffe logo"
+                  style="border-radius: 100%"
+                  class=""
+                />
+                <span class="client-name">Amber Caffe</span>
+                <span class="client-city">
+                  <i class="fas fa-map-marker-alt"></i>
+                  Sibiu</span
+                >
+              </a>
+              
+              <a href="https://meniudigital.ro/cupidonpizza" target="_blank" class="client">
+                <img
+                  src="https://d2vjhs63o39ox4.cloudfront.net/fit-in/1200x1200/brand-logos/cupidonpizza-1758013858058.png"
+                  alt="Cupidon Pizza logo"
+                  style="border-radius: 100%"
+                  class=""
+                />
+                <span class="client-name">Cupidon Pizza</span>
+                <span class="client-city">
+                  <i class="fas fa-map-marker-alt"></i>
+                  Mărăști, Cluj-Napoca</span
+                >
+              </a>
+              
+              <a href="https://meniudigital.ro/agarthaclub" target="_blank" class="client">
+                <img
+                  src="https://d2vjhs63o39ox4.cloudfront.net/fit-in/1200x1200/brand-logos/agarthaclub-1651739576571.jpg"
+                  alt="Agartha Club logo"
+                  style="border-radius: 100%"
+                  class=""
+                />
+                <span class="client-name">Agartha Club</span>
+                <span class="client-city">
+                  <i class="fas fa-map-marker-alt"></i>
+                  Centrul Vechi, București</span
+                >
+              </a>
+              
+              <a href="https://meniudigital.ro/cdamusicgarden" target="_blank" class="client">
+                <img
+                  src="https://d2vjhs63o39ox4.cloudfront.net/fit-in/1200x1200/brand-logos/cdamusicgarden-1654684242777.JPG"
+                  alt="Cocoșul de Aur / Music Garden logo"
+                  style="border-radius: 100%"
+                  class=""
+                />
+                <span class="client-name">Cocoșul de Aur / Music Garden</span>
+                <span class="client-city">
+                  <i class="fas fa-map-marker-alt"></i>
+                  Târgu Mureș</span
+                >
+              </a>
+              
+              <a href="https://meniudigital.ro/flavourofindia" target="_blank" class="client">
+                <img
+                  src="https://d2vjhs63o39ox4.cloudfront.net/fit-in/1200x1200/brand-logos/flavourofindia-1664263047717.jpg"
+                  alt="Flavour of India logo"
+                  style="border-radius: 100%"
+                  class=""
+                />
+                <span class="client-name">Flavour of India</span>
+                <span class="client-city">
+                  <i class="fas fa-map-marker-alt"></i>
+                  Slatina, jud. Olt</span
+                >
+              </a>
+              
+            </div>
+            <h3 class="partners-title">Parteneri:</h3>
+            <a class="partner-link" href="https://www.meniudigital.ro/cupidonpizza" target="_blank">
+              <i class="fa fa-pizza-slice"></i>
+              Cupidon Pizza | Nou în Cluj-Napoca - comandă acum online
+            </a>
+            <a class="partner-link" href="https://csv.ro" target="_blank">
+              <i class="fa fa-bullhorn"></i>
+              csv.ro | Adaugă anunțul tău și vinde oriunde în România
+            </a>
+            <a class="partner-link" href="https://animap.ro" target="_blank">
+              <i class="fa fa-paw"></i>
+              animap.ro | Clinici veterinare, urgențe și non-stop în Cluj-Napoca
+            </a>
+            <img class="logo-huge" src="img/logo-gray.svg?v=2" alt="MeniuDigital.ro logo" loading="lazy" />
+          </div>
+        </div>
+
+        <!-- Prices section -->
+        <div id="prices" class="section gray">
+          <div class="section-content">
+            <div class="section-header">
+              <span class="section-title">Cât costă un meniu digital?</span>
+              <span class="section-subtitle"> Preț simplu și transparent pentru meniul QR-digital.<br /> </span>
+            </div>
+
+            <div class="new-pricing-card">
+              <img src="img/logo.svg" alt="MeniuDigital Logo" class="new-pricing-logo" />
+              <h3 class="new-pricing-title">MeniuDigital</h3>
+
+              <!-- Billing Period Toggle -->
+              <div class="billing-toggle-container">
+                <div class="billing-toggle-slider"></div>
+                <div class="billing-toggle-option" data-period="6">6 luni</div>
+                <div class="billing-toggle-option active" data-period="12">12 luni</div>
+              </div>
+
+              <div class="new-pricing-amount">
+                <span class="price-value">~83</span><span class="new-pricing-small"> lei/lună</span>
+              </div>
+              <p class="new-pricing-billing">
+                Preț per <span class="billing-period">12 luni</span>: <span class="total-price">1000</span> RON
+              </p>
+
+              <a href="#register" style="text-decoration: none; color: inherit; display: block">
+                <div class="new-pricing-trial">
+                  <p class="new-pricing-trial-title"><i class="fa fa-gift"></i>Meniu digital gratuit</p>
+                  <p class="new-pricing-trial-subtitle">Toate funcționalitățile disponibile până în 30 de produse</p>
+                </div>
+              </a>
+            </div>
+
+            <span class="intermediate-section-title"> Ce primești? </span>
+            <div class="features-pills-container">
+              <!-- Top of funnel - WOW features pentru prima impresie -->
+              <div class="feature-pill">
+                <i class="fa fa-star"></i>
+                <span>Interfață modernă și performantă</span>
+                <div class="tooltip">
+                  Interfața MeniuDigital rămâne curată, elegantă și oferă o experiență rapidă clienților tăi.
+                </div>
+              </div>
+              <div class="feature-pill">
+                <i class="fa fa-globe"></i>
+                <span>Traducere în multiple limbi străine</span>
+                <div class="tooltip">
+                  Oferă posibilitatea tuturor clienților tăi să vadă meniul în limba aleasă de ei. 🇷🇴 🇬🇧 🇭🇺 🇩🇪 🇪🇸 🇫🇷 🇮🇹 🇳🇱 🇺🇦 🇷🇺
+                </div>
+              </div>
+              <div class="feature-pill">
+                <i class="fa fa-magic"></i>
+                <span>Generări nutriționale cu AI</span>
+                <div class="tooltip">
+                  Calculează automat valorile nutriționale ale produselor tale, folosind inteligența artificială. Nelimitat! ✨
+                </div>
+              </div>
+              <div class="feature-pill">
+                <i class="fa fa-images"></i>
+                <span>Imagini la calitate superioară</span>
+                <div class="tooltip">
+                  Imaginile produselor tale vor fi salvate și afișate la rezoluție maximă, fără comprimare sau pierdere a
+                  detaliilor. 📸
+                </div>
+              </div>
+              <div class="feature-pill">
+                <i class="fa fa-calendar"></i>
+                <span>Rezervări online</span>
+                <div class="tooltip">După vizualizarea meniului, clienții vor putea să rezerve o masă direct din browser. 📅</div>
+              </div>
+              <div class="feature-pill">
+                <i class="fas fa-paint-brush"></i>
+                <span>Personalizare conform brandului</span>
+                <div class="tooltip">
+                  Adaugă logo-ul, culori personalizate și o copertă care să reflecte identitatea restaurantului tău. 🎨
+                </div>
+              </div>
+              <div class="feature-pill">
+                <i class="fa fa-facebook"></i>
+                <span>Expunere pagini de social media</span>
+                <div class="tooltip">Link-uri către paginile tale de Facebook, Instagram și alte platforme social media. 📱</div>
+              </div>
+              <div class="feature-pill">
+                <i class="fa fa-print"></i>
+                <span>Imprimare/PDF meniu</span>
+                <div class="tooltip">Generează și descarcă meniul tău în format PDF, gata de imprimat oricând ai nevoie. 🖨️</div>
+              </div>
+
+              <div class="feature-pill">
+                <i class="fa fa-bell"></i>
+                <span>"Cheamă ospătarul"</span>
+                <div class="tooltip">Clienții pot apela ospătarul direct din meniul digital cu un singur click. 🔔</div>
+              </div>
+              <div class="feature-pill">
+                <i class="fa fa-cutlery"></i>
+                <span>Comandă la masă</span>
+                <div class="tooltip">
+                  Permite clienților să comande la masă direct din browser, fără a fi nevoie de instalarea aplicației
+                  MeniuDigital. 🍽️
+                </div>
+              </div>
+
+              <!-- Features operaționale -->
+              <div class="feature-pill">
+                <i class="fa fa-comment"></i>
+                <span>Mesaj personalizat pe meniu</span>
+                <div class="tooltip">
+                  Întâmpină-ți clienții cu un mesaj personalizat adăugat de tine, vizibil în momentul deschiderii meniului
+                  digital. 💬
+                </div>
+              </div>
+              <div class="feature-pill">
+                <i class="fa fa-clock"></i>
+                <span>Program de lucru pe meniu</span>
+                <div class="tooltip">Configurează și afișează programul de lucru al restaurantului tău pe meniul digital. 🕐</div>
+              </div>
+
+              <!-- Bottom of funnel - Advanced integration -->
+              <div class="feature-pill">
+                <i class="fa fa-concierge-bell"></i>
+                <span>Widget pentru comenzi online</span>
+                <div class="tooltip">
+                  Adaugă butoane pentru comenzi prin telefon, website sau platforme de delivery direct în meniul tău digital. 🛎️
+                </div>
+              </div>
+            </div>
+
+            <!-- QR Code Holders Section -->
+            <a
+              href="https://homeharmony.ro/discount/MD15?redirect=/collections/standuri-cod-qr-personalizate"
+              target="_blank"
+              rel="noopener"
+              class="qr-holders-pill"
+            >
+              <img src="img/harmony-holders.jpeg" alt="QR Code Holders" class="qr-holders-image" />
+              <div class="qr-holders-content">
+                <h3 class="qr-holders-title">Holdere QR</h3>
+                <p class="qr-holders-description">
+                  Ți-ai creat meniul digital și ai nevoie de holdere pentru codul QR? Folosește codul <strong>MD15</strong> pentru
+                  <strong>10% reducere</strong> la partenerul nostru, HomeHarmony.ro.
+                </p>
+                <div class="qr-holders-link">
+                  Vezi suporturile QR
+                  <i class="fa fa-external-link"></i>
+                </div>
+              </div>
+            </a>
+          </div>
+        </div>
+        <!-- END Price section -->
+
+        <!-- Descriere Section -->
+        <div id="howitworks" class="flex-split collapsible-section collapsed" style="background-color: white">
+          <div class="section-header collapsible-header" onclick="toggleCollapsible('howitworks')">
+            <div class="flex-intro align-center" style="margin-bottom: 0">
+              <span class="section-title">Cum creez meniul QR?</span>
+              <span class="section-subtitle">Creare simplă, actualizări în timp real</span>
+              <a
+                href="/blog/cum-sa-creezi-meniu-digital-qr-restaurant"
+                class="article-link-button"
+                onclick="event.stopPropagation()"
+              >
+                <i class="fas fa-book"></i>
+                Ghid pas cu pas: Cum îmi creez meniul digital?
+              </a>
+            </div>
+            <i class="fas fa-chevron-down collapsible-chevron collapsible-chevron-blue"></i>
+          </div>
+
+          <div class="collapsible-content">
+            <div class="demo-video-section">
+              <iframe
+                src="https://www.youtube.com/embed/c_YJL5y2-AM?start=13"
+                title="YouTube video player"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+              ></iframe>
+            </div>
+
+            <!-- Feature 1: Admin Interface -->
+            <div class="feature-row">
+              <div class="feature-text">
+                <h2>Creare meniu digital - interfață completă</h2>
+                <p>
+                  Ai acces la cel mai <strong>modern și performant</strong> generator de meniu QR. Creează, gestionează și
+                  actualizează meniul restaurantului tău în câteva minute.
+                </p>
+              </div>
+              <div class="feature-image">
+                <i class="fas fa-laptop-code feature-icon"></i>
+                <img loading="lazy" src="img/admin-interface.jpeg" alt="Generator meniu QR - panou administrare" />
+              </div>
+            </div>
+
+            <!-- Feature 2: User Experience -->
+            <div class="feature-row feature-row-reverse">
+              <div class="feature-text">
+                <h2>Meniu online pentru restaurant - elegant și rapid</h2>
+                <p>
+                  Clienții au parte de o <strong>experiență unică</strong>. Căutare, traducere automată în 10 limbi, afișare
+                  intuitivă - totul fără a descărca vreo aplicație.
+                  <a target="_blank" class="blue-link" href="https://www.meniudigital.ro/demo" rel="noopener"
+                    >Încearcă demo-ul!</a
+                  >
+                </p>
+              </div>
+              <div class="feature-image">
+                <i class="fas fa-star feature-icon"></i>
+                <img loading="lazy" src="img/user-experience.jpg" alt="Meniu digital restaurant - experiență client" />
+              </div>
+            </div>
+
+            <!-- Feature 3: Real-time Updates -->
+            <div class="feature-row">
+              <div class="feature-text">
+                <h2>Actualizare meniu online - instant</h2>
+                <p>
+                  Adaugi un produs sau modifici un preț? Meniul digital se actualizează
+                  <strong>instant</strong> - clienții văd mereu versiunea actuală!
+                </p>
+              </div>
+              <div class="feature-image">
+                <i class="fas fa-bolt feature-icon"></i>
+                <img loading="lazy" src="img/edit-product.JPG" alt="Actualizare meniu online - editare produs" />
+              </div>
+            </div>
+
+            <!-- Read More Links -->
+            <div class="feature-links">
+              Citește și:
+              <a href="/blog/calcul-nutritional-inteligenta-artificiala" target="_blank">
+                <span>📎</span> Calcul nutrițional cu AI
+              </a>
+              <a href="/blog/meniu-digital-pe-tableta" target="_blank"> <span>📎</span> Meniu pe tabletă </a>
+            </div>
+          </div>
+        </div>
+        <!-- END Descriere Section -->
+
+        <!-- Beneficii Section -->
+        <div id="benefits" class="flex-split collapsible-section collapsed">
+          <div class="section-header collapsible-header" onclick="toggleCollapsible('benefits')">
+            <div class="flex-intro align-center" style="margin-bottom: 0">
+              <span class="section-title">De ce un meniu digital QR?</span>
+              <span class="section-subtitle">Mai rapid, mai inteligent, mai sustenabil</span>
+            </div>
+            <i class="fas fa-chevron-down collapsible-chevron collapsible-chevron-blue"></i>
+          </div>
+
+          <div class="collapsible-content">
+            <!-- Benefit 1: Performant -->
+            <div class="benefit-row">
+              <div class="benefit-icon">
+                <i class="fas fa-mobile-alt"></i>
+              </div>
+              <div class="benefit-text">
+                <h2>Meniu QR mai performant decât PDF</h2>
+                <p>
+                  Spre deosebire de un meniu PDF, meniul digital în format <strong>web</strong> oferă o experiență
+                  <strong>instantă</strong>, optimizată pentru orice telefon sau tabletă.
+                </p>
+              </div>
+            </div>
+
+            <!-- Benefit 2: Inteligent -->
+            <div class="benefit-row benefit-row-reverse">
+              <div class="benefit-icon benefit-icon-yellow">
+                <i class="fas fa-code-branch"></i>
+              </div>
+              <div class="benefit-text">
+                <h2>Meniu digital cu funcții inteligente</h2>
+                <p>
+                  Căutare produse, răsfoire categorii, traducere automată, conversie în valută - funcționalități
+                  <strong>inteligente</strong> pe care un meniu PDF nu le poate oferi.
+                </p>
+              </div>
+            </div>
+
+            <!-- Benefit 3: Inclusiv -->
+            <div class="benefit-row">
+              <div class="benefit-icon benefit-icon-flags">
+                
+                <img src="img/flags/ro.png" alt="Flag of ro" />
+                
+                <img src="img/flags/en.png" alt="Flag of en" />
+                
+                <img src="img/flags/de.png" alt="Flag of de" />
+                
+                <img src="img/flags/es.png" alt="Flag of es" />
+                
+                <img src="img/flags/it.png" alt="Flag of it" />
+                
+                <img src="img/flags/fr.png" alt="Flag of fr" />
+                
+                <img src="img/flags/nl.png" alt="Flag of nl" />
+                
+                <img src="img/flags/hu.png" alt="Flag of hu" />
+                
+                <img src="img/flags/uk.png" alt="Flag of uk" />
+                
+                <img src="img/flags/ru.png" alt="Flag of ru" />
+                
+              </div>
+              <div class="benefit-text">
+                <h2>Meniu cu traducere automată</h2>
+                <p>
+                  Au venit clienți străini? Meniul digital se traduce automat în 10 limbi și afișează prețurile în moneda dorită.
+                </p>
+              </div>
+            </div>
+
+            <!-- Benefit 4: Sustenabil -->
+            <div class="benefit-row benefit-row-reverse">
+              <div class="benefit-icon benefit-icon-green">
+                <i class="fas fa-leaf"></i>
+              </div>
+              <div class="benefit-text">
+                <h2>Meniu QR fără hârtie</h2>
+                <p>
+                  Elimină costurile cu tipărirea meniurilor. Actualizezi prețurile instant, fără să mai tipărești - economisești
+                  bani și resurse.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- END Beneficii Section -->
+        <!-- Register section -->
+        <div id="register" class="section">
+          <div class="section-header">
+            <div class="foods-swiping-video-wrapper">
+              <video src="img/foods-swiping.mp4" autoplay loop muted="muted" playsinline="playsinline"></video>
+            </div>
+            <span class="section-title">Creează meniul QR gratuit</span>
+            <span class="section-subtitle"
+              >Înregistrează-te și creează-ți meniul QR pentru restaurantul tău în câteva minute!</span
+            >
+          </div>
+
+          <div class="form">
+            <input
+              id="emailInput"
+              maxlength="50"
+              class="mail data-hj-allow"
+              type="email"
+              name="email"
+              autocomplete="email"
+              onfocus="trackEmailInputFocus()"
+              placeholder="Introdu adresa ta de e-mail"
+            />
+            <div class="loader"></div>
+            <div id="error"></div>
+            <div id="submitButton" class="primary-button">
+              <i class="fa fa-arrow-right" style="margin-right: 8px"></i>
+              Continuă
+            </div>
+          </div>
+          <div id="success">
+            <lottie-player
+              src="img/email-sent-animation.json"
+              background="transparent"
+              speed="1"
+              style="width: 200px; height: 200px"
+              loop
+              autoplay
+            ></lottie-player>
+            <div class="success-text"></div>
+          </div>
+        </div>
+        <!-- END Register section -->
+
+        <!-- Contact Section -->
+        <div id="contact" class="flex-split">
+          <div class="container-s">
+            <div class="flex-intro align-center wow fadeIn"><h2>Contact</h2></div>
+            <div class="contact-item">
+              <i class="fas fa-globe fa-1x" aria-hidden="true"></i>
+              <a href="https://www.meniudigital.ro">meniudigital.ro </a>
+            </div>
+            <div class="contact-item">
+              <i class="fas fa-globe fa-1x" aria-hidden="true"></i>
+              <a href="https://www.touchfreemenu.ro">touchfreemenu.ro </a>
+            </div>
+            <div class="contact-item">
+              <i class="fas fa-envelope fa-1x" aria-hidden="true"></i>
+              <a href="/cdn-cgi/l/email-protection#1a7975746e7b796e5a777f74736f7e737d736e7b76346875"><span class="__cf_email__" data-cfemail="cfaca0a1bbaeacbb8fa2aaa1a6baaba6a8a6bbaea3e1bda0">[email&#160;protected]</span></a>
+            </div>
+
+            <div class="social">
+              Ne găsești pe:
+              <div class="brand-logos">
+                <a href="https://www.linkedin.com/company/touchfreemenu" target="_blank" rel="noopener">
+                  <img class="brand-logo" loading="lazy" src="img/linkedin.svg" alt="LinkedIn logo" />
+                </a>
+                <a href="https://www.facebook.com/meniudigital.ro" target="_blank" rel="noopener">
+                  <img class="brand-logo" loading="lazy" src="img/facebook.svg" alt="Facebook logo" />
+                </a>
+                <a href="https://www.instagram.com/meniudigital.ro/" target="_blank" rel="noopener">
+                  <img class="brand-logo" loading="lazy" src="img/instagram.svg" alt="Instagram logo" />
+                </a>
+              </div>
+
+              <div
+                style="margin-top: 24px"
+                class="fb-like"
+                data-href="https://www.facebook.com/meniudigital.ro"
+                data-width="4"
+                data-layout="standard"
+                data-action="like"
+                data-size="large"
+                data-share="true"
+              ></div>
+            </div>
+            <div class="legal">
+              <iframe
+                src="https://mny.ro/npId.html?color=%23ffffff&version=orizontal&secret=158024"
+                style="border: none; height: 80px"
+                title="NETOPIA Payments"
+              ></iframe>
+              <div class="anpc-sal">
+                <a href="https://anpc.ro/ce-este-sal/" target="_blank" rel="nofollow">
+                  <img
+                    loading="lazy"
+                    style="width: 250px; margin: 5px"
+                    src="img/anpc-sal.png"
+                    alt="Soluționarea Alternativă a Litigiilor"
+                  />
+                </a>
+                <br />
+                <a href="https://ec.europa.eu/consumers/odr" target="_blank" rel="nofollow">
+                  <img
+                    loading="lazy"
+                    style="width: 250px; margin: 5px"
+                    src="img/anpc-sol.png"
+                    alt="Soluționarea Online a Litigiilor"
+                  />
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- END Contact Section -->
+
+        <!-- Footer Section -->
+        <div id="footer" class="footer">
+          <div class="footer-links">
+            <a href="https://admin.meniudigital.ro/delivery-terms">Livrare</a>
+            <span>•</span>
+            <a href="https://admin.meniudigital.ro/cancellation-policy">Retur/Anulare</a>
+            <span>•</span>
+            <a href="https://admin.meniudigital.ro/terms-and-conditions">Termeni și Condiții</a>
+            <span>•</span>
+            <a href="https://admin.meniudigital.ro/privacy-policy">Politica de Confidențialitate/GDPR</a>
+          </div>
+
+          <img
+            class="navbar-logo"
+            src="img/logo-gray.svg?v=2"
+            style="width: 24px; margin-bottom: 16px"
+            alt="MeniuDigital logo"
+            loading="lazy"
+          />
+
+          <p style="margin-top: 0; color: #e5e5e5">© 2026 MeniuDigital.ro</p>
+          <div class="company-info">
+            <p>TOUCHFREEMENU S.R.L.</p>
+            <p>CUI 44695880 • J24/1306/05.08.2021</p>
+            <p>str. Șugău 46A, Sighetu Marmației, MM</p>
+          </div>
+        </div>
+      </div>
+      <!-- Main -->
+    </div>
+
+    <a class="js-scroll-trigger primary-button floating" target="_blank" rel="noopener" href="#register">
+      <span>Creează-ți meniul digital <strong>gratuit</strong> </span>
+    </a>
+
+    <input type="hidden" id="adminInterfaceUrl" value="https://admin.meniudigital.ro" />
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v19.0"></script>
+    <script
+      src="https://code.jquery.com/jquery-3.6.0.min.js"
+      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script src="js/smooth-navigation.js?v=2"></script>
+    <script src="js/app.js?v=51"></script>
+
+    <!-- Load Font Awesome asynchronously to avoid render blocking -->
+    <link
+      rel="preload"
+      as="style"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+      onload="this.onload=null;this.rel='stylesheet'"
+    />
+    <noscript>
+      <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+        integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=="
+        crossorigin="anonymous"
+      />
+    </noscript>
+    <link
+      rel="preload"
+      as="style"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/v4-shims.min.css"
+      onload="this.onload=null;this.rel='stylesheet'"
+    />
+    <noscript>
+      <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/v4-shims.min.css"
+        integrity="sha512-fHavkBby/gcFEB2taaBfG0DLdHRGrnvkWQNXVZ5Yb/Fj6LkogecQUd6oyvBVsrWPaHSxs5tNza6LUW/Y6Az9lQ=="
+        crossorigin="anonymous"
+      />
+    </noscript>
+
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+
+    
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-K78EEZT6ZX"></script>
+    <script>
+      window.dataLayer = window.dataLayer || []
+      function gtag() {
+        dataLayer.push(arguments)
+      }
+      gtag('js', new Date())
+      gtag('config', 'G-K78EEZT6ZX')
+      gtag('config', 'AW-10816029167')
+    </script>
+    
+  </body>
+</html>

@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LINK...</title>
+  <!-- Link para a fonte Open Sans e Poppins do Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Poppins:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background-color: #F5F7FA; /* Cor de fundo suave */
+      font-family: 'Poppins', sans-serif; /* Fonte moderna */
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      min-height: 100vh; /* Altura mínima */
+      margin: 0;
+      padding: 20px;
+      box-sizing: border-box;
+      overflow-y: auto; /* Permitir rolagem */
+    }
+
+    #timerContainer {
+      text-align: center;
+      background-color: #ffffff; /* Fundo branco */
+      border-radius: 20px; /* Bordas arredondadas maiores */
+      padding: 50px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1); /* Sombra suave */
+      transition: all 0.3s ease;
+      width: 100%;
+      max-width: 450px; /* Largura fixa */
+    }
+
+    #message {
+      font-size: 22px;
+      font-family: 'Poppins', sans-serif; /* Aplicando a fonte Poppins */
+      font-weight: 700; /* Aplicando negrito */
+      color: #333;
+      margin-bottom: 30px;
+    }
+
+    #timerCircle {
+      display: block;
+      margin: auto;
+      margin-top: 20px;
+    }
+
+    #linkContainer {
+      text-align: center;
+      margin-top: 30px;
+    }
+
+    #adContainer {
+      margin-top: 30px;
+      text-align: center;
+      background-color: #ffffff;
+      border-radius: 15px;
+      padding: 20px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      width: 100%; /* Força a largura máxima */
+      max-width: 1000px; /* Definindo um limite máximo */
+      overflow: hidden;
+    }
+
+    #adContainer > div {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+    }
+
+    #adContainer iframe {
+      max-width: 100%; /* Torna os iframes responsivos */
+      height: auto;
+    }
+
+    #adContainer img {
+      max-width: 100%; /* Torna as imagens dentro do anúncio responsivas */
+      height: auto;
+    }
+
+    /* Estilo para o texto "Anúncio" */
+    #adContainer p {
+      font-size: 18px;
+      color: #666;
+      margin-bottom: 10px;
+      font-weight: bold;
+    }
+
+    #getLinkButton {
+      background-color: #000000; /* Botão preto */
+      color: white;
+      padding: 15px 40px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      border-radius: 50px; /* Bordas bem arredondadas */
+      font-size: 18px;
+      font-family: 'Poppins', sans-serif; /* Aplicando a fonte ao botão */
+      font-weight: 500; /* Peso da fonte no botão */
+      margin-top: 20px;
+      cursor: pointer;
+      border: none;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    #getLinkButton:hover {
+      background-color: #333333; /* Leve tom de cinza escuro ao passar o mouse */
+      transform: translateY(-3px); /* Leve efeito de hover com elevação */
+    }
+
+    canvas {
+      transition: transform 0.2s;
+    }
+
+    canvas:hover {
+      transform: scale(1.05); /* Efeito de leve aumento ao passar o mouse */
+    }
+
+    /* Melhorias para dispositivos móveis */
+    @media (max-width: 600px) {
+      body {
+        padding: 10px;
+      }
+
+      #timerContainer {
+        padding: 30px;
+        width: 100%;
+      }
+
+      #adContainer > div {
+        flex-direction: column; /* Organiza anúncios em coluna em telas pequenas */
+      }
+
+      #adContainer {
+        padding: 15px;
+      }
+
+      #getLinkButton {
+        padding: 12px 30px; /* Ajuste do padding no botão para dispositivos móveis */
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div id="timerContainer">
+  <p id="message"></p>
+  <canvas id="timerCircle" width="200" height="200"></canvas>
+  <div id="linkContainer"></div> <!-- O botão ficará aqui -->
+</div>
+
+<!-- Espaço para o anúncio, dentro do bloco de anúncios -->
+<div id="adContainer">
+  <!-- Texto "Anúncio" dentro do bloco -->
+  <p id="adText"></p>
+
+
+<!-- AdKesef - Código de Exibição do Anúncio -->
+<div id="adm-container-1889"></div><script data-cfasync="false" async type="text/javascript" src="//adkesef.com/display/items.php?1889&5&300&250&4&0&0"></script>
+<!-- AdKesef - Código de Exibição do Anúncio -->
+
+  
+<script>
+  // Função para definir a frase de acordo com o idioma do navegador
+  function setMessage() {
+    var language = navigator.language || navigator.userLanguage;
+    var messageElement = document.getElementById("message");
+    var adTextElement = document.getElementById("adText");
+    var message;
+    var adText;
+    var buttonText;
+
+    switch (language) {
+      case 'en': // Inglês
+      case 'en-US':
+        message = "Your link is being generated!";
+        buttonText = "GET LINK";
+        break;
+      case 'es': // Espanhol
+      case 'es-ES':
+        message = "¡Su enlace se está generando!";
+        buttonText = "OBTENER ENLACE";
+        break;
+      case 'fr': // Francês
+      case 'fr-FR':
+        message = "Votre lien est en cours de génération !";
+        buttonText = "OBTENIR LE LIEN";
+        break;
+      case 'de': // Alemão
+      case 'de-DE':
+        message = "Ihr Link wird generiert!";
+        buttonText = "LINK ERHALTEN";
+        break;
+      case 'it': // Italiano
+      case 'it-IT':
+        message = "Il tuo link è in fase di generazione!";
+        buttonText = "OTTENERE IL LINK";
+        break;
+      case 'pt': // Português
+      case 'pt-BR':
+      default:   // Padrão para português
+        message = "Seu link está sendo gerado!";
+        buttonText = "OBTER LINK";
+        break;
+    }
+
+    messageElement.textContent = message;
+    adTextElement.textContent = adText;
+    return buttonText;
+  }
+
+  // Chama a função para definir a mensagem e o texto do botão
+  var buttonText = setMessage();
+
+  // Código do cronômetro
+  var targetTime = 7; // 10 seconds
+  var currentTime = 0;
+  
+  var canvas = document.getElementById("timerCircle");
+  var context = canvas.getContext("2d");
+  var centerX = canvas.width / 2;
+  var centerY = canvas.height / 2;
+  var radius = 70;
+  var startingAngle = 1.5 * Math.PI;
+  var endingAngle = 1.5 * Math.PI;
+  var counterClockwise = false;
+  
+  var interval = setInterval(function() {
+    currentTime += 0.01; // increment time by 10 milliseconds
+    endingAngle = 1.5 * Math.PI + (2 * Math.PI * currentTime / targetTime);
+    
+    context.clearRect(0, 0, canvas.width, canvas.height);
+    context.beginPath();
+    context.arc(centerX, centerY, radius, startingAngle, endingAngle, counterClockwise);
+    context.lineWidth = 10;
+    context.strokeStyle = "#000000";
+    context.stroke();
+    
+    context.font = "20px 'Poppins'";
+    context.fillStyle = "#000000";
+    context.textAlign = "center";
+    context.textBaseline = "middle";
+    context.fillText(Math.floor(currentTime) + "s", centerX, centerY);
+    
+    if (currentTime >= targetTime) {
+      clearInterval(interval);
+      var button = document.createElement("button");
+      button.id = "getLinkButton";
+      button.innerHTML = buttonText; // Definir o texto do botão traduzido
+      button.onclick = function() {
+        window.location.href = "https://z1.linkmonetizado.com";
+      };
+      document.getElementById("linkContainer").appendChild(button);
+    }
+  }, 10);
+</script>
+
+
+
+<meta http-equiv="refresh" content="180; URL='https://www.effectivegatecpm.com/h2jjpdq5?key=9e3d439cd689a341fff4a954abe5c831">
+
+
+
+<script type="text/javascript" data-cfasync="false">
+/*<![CDATA[/* */
+(function(){var z=window,t="bd909f2f6eff579d3d667db654381240",d=[["siteId",20-25-959+4928181],["minBid",0],["popundersPerIP","0"],["delayBetween",0],["default",false],["defaultPerDay",0],["topmostLayer","auto"]],e=["d3d3LmludGVsbGlnZW5jZWFkeC5jb20vaWFCZi9OVS94dGV4dGlsZS5taW4uanM=","ZDJrbHg4N2Jnem5nY2UuY2xvdWRmcm9udC5uZXQvbHJhY3RpdmUubWluLmpz","d3d3LmdjY3Vwemdha2kuY29tL3NoRnBjL09rL2p0ZXh0aWxlLm1pbi5qcw==","d3d3LmFzc21qeGlxaGthYXguY29tL3lyYWN0aXZlLm1pbi5qcw=="],o=-1,c,l,x=function(){clearTimeout(l);o++;if(e[o]&&!(1796771025000<(new Date).getTime()&&1<o)){c=z.document.createElement("script");c.type="text/javascript";c.async=!0;var f=z.document.getElementsByTagName("script")[0];c.src="https://"+atob(e[o]);c.crossOrigin="anonymous";c.onerror=x;c.onload=function(){clearTimeout(l);z[t.slice(0,16)+t.slice(0,16)]||x()};l=setTimeout(x,5E3);f.parentNode.insertBefore(c,f)}};if(!z[t]){try{Object.freeze(z[t]=d)}catch(e){}x()}})();
+/*]]>/* */
+</script>
+
+
+
+<script>(function(s){s.dataset.zone='8926889',s.src='https://al5sm.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
+
+
+
+<script src="https://pl19431381.effectivegatecpm.com/52/ea/02/52ea029679f481bc8961b57235495d4e.js"></script>
+
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+      history.pushState(null, null, location.href);
+      window.onpopstate = function () {
+        history.go(1);
+        window.location.href = 'https://www.effectivegatecpm.com/h2jjpdq5?key=9e3d439cd689a341fff4a954abe5c831';
+      };
+    });
+</script>
+
+
+</div>
+</body>
+</html>

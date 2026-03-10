@@ -1,0 +1,151 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<title>Cafe24</title>
+<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rel="shortcut icon" type="image/x-icon" href="https://img.cafe24.com/favicon/cafe24.ico" />
+<link rel="stylesheet" href="https://img.cafe24.com/images/akamai_blank/font/notosans.css">
+<link rel="stylesheet" type="text/css" href="https://img.cafe24.com/css/warn_v2.1.css" />
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+<script>
+const TIMEOUT = 0;
+const REDIRECT_PREFIX = "https://gyobokmall.co.kr/.well-known/cc-challenge";
+
+function getQueryParams() {
+    const {search} = window.location;
+    const urlParams = new URLSearchParams(search);
+    let url = urlParams.get('url');
+    const auth = urlParams.get('auth');
+    return { url, auth };
+}
+
+function getErrorHTML() {
+    return `
+        <div id="content">
+            <div class="imgWarn img403"><span></span></div>
+            <div class="mWarn">
+                <div class="inner">
+                    <h2>Access Temporarily Restricted</h2>
+                    <p class="txtDesc">
+                        To ensure a secure and reliable service, your access has been temporarily restricted.<br class="RTB">
+                        If you reached this page unexpectedly, please contact our customer support.<br class="RMB">
+                        We apologize for any inconvenience.
+                    </p>
+                    <div class="mButton">
+                        <a href="javascript:history.back()" class="btnSubmit large"><span>Go Back to Previous Page</span></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
+}
+
+function javascriptCallback(challenge_token) {
+    let url, auth;
+    try {
+        ({ url, auth } = getQueryParams());
+    } catch (e) {
+        document.getElementById('container').innerHTML = getErrorHTML();
+        return;
+    }
+
+    fetch('/validate', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            challenge_token, url, auth
+        })
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Request failed');
+        }
+        return response.json();
+    })
+    .then(data => {
+        if (data.token) {
+            setTimeout(() => {
+                const redirectUrl = new URL(REDIRECT_PREFIX);
+                redirectUrl.searchParams.set('token', data.token);
+                redirectUrl.searchParams.set('url', url);
+                window.location.href = redirectUrl.toString();
+            }, TIMEOUT);
+        } else {
+            document.getElementById('container').innerHTML = getErrorHTML();
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        document.getElementById('container').innerHTML = getErrorHTML();
+    });
+}
+
+function renderCaptcha() {
+    const TURNSTILE_BYPASS_ENABLED = "False"
+    if (TURNSTILE_BYPASS_ENABLED === "True") {
+        javascriptCallback('')
+        return;
+    }
+    const SITE_KEY = "0x4AAAAAABg1Yv76EgOVwBci"
+    const urlParams = new URLSearchParams(window.location.search);
+    const size = urlParams.get('size') || 'normal'; // normal, compact, flexible
+    const appearance = urlParams.get('appearance') || 'always'; // always, execute, interaction-only
+
+    turnstile.render('#myWidget', {
+        sitekey: SITE_KEY,
+        theme: 'light',
+        callback: javascriptCallback,
+        size: size,
+        appearance: appearance
+    });
+}
+
+window.onload = renderCaptcha;
+</script>
+</head>
+
+<body id="warn">
+<div id="skipNavigation">
+    <p><a href="#content">Skip to Content</a></p>
+</div>
+<hr class="layout" />
+
+<div id="wrap">
+    <div id="header">
+        <h1 class="logo">
+            <a href="https://www.cafe24.com"><img src="https://img.cafe24.com/images/common/cafe24.svg" alt="cafe24" class="img_logo"></a>
+        </h1>
+    </div>
+    <hr class="layout" />
+
+    <div id="container">
+        <div id="content">
+            <div class="imgWarn img302"><span></span></div>
+            <div class="mWarn">
+                <div class="inner">
+                    <h2>For a secure experience, <br class="RTB"><br class="RMPB">
+                        please verify your access</h2>
+                    <p class="txtDesc">Once verified,<br>
+                        you will be redirected to the original page.</p>
+                    <div class="cloudFlareWrap">
+                        <div class="cloudFlare">
+                            <div id="myWidget"></div>
+                        </div>
+                        <p>If you are not redirected automatically or<br>
+                            keep receiving verification requests, please try again later.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr class="layout" />
+
+    <div id="footer">
+        Copyright &copy; Cafe24 Corp. All Rights Reserved.
+    </div>
+</div>
+</body>
+</html>

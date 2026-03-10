@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en-US" prefix="og: https://ogp.me/ns#">
+<head><meta charset="UTF-8"><script>if(navigator.userAgent.match(/MSIE|Internet Explorer/i)||navigator.userAgent.match(/Trident\/7\..*?rv:11/i)){var href=document.location.href;if(!href.match(/[?&]nowprocket/)){if(href.indexOf("?")==-1){if(href.indexOf("#")==-1){document.location.href=href+"?nowprocket=1"}else{document.location.href=href.replace("#","?nowprocket=1#")}}else{if(href.indexOf("#")==-1){document.location.href=href+"&nowprocket=1"}else{document.location.href=href.replace("#","&nowprocket=1#")}}}}</script><script>class RocketLazyLoadScripts{constructor(e){this.triggerEvents=e,this.eventOptions={passive:!0},this.userEventListener=this.triggerListener.bind(this),this.delayedScripts={normal:[],async:[],defer:[]},this.allJQueries=[]}_addUserInteractionListener(e){this.triggerEvents.forEach((t=>window.addEventListener(t,e.userEventListener,e.eventOptions)))}_removeUserInteractionListener(e){this.triggerEvents.forEach((t=>window.removeEventListener(t,e.userEventListener,e.eventOptions)))}triggerListener(){this._removeUserInteractionListener(this),"loading"===document.readyState?document.addEventListener("DOMContentLoaded",this._loadEverythingNow.bind(this)):this._loadEverythingNow()}async _loadEverythingNow(){this._delayEventListeners(),this._delayJQueryReady(this),this._handleDocumentWrite(),this._registerAllDelayedScripts(),this._preloadAllScripts(),await this._loadScriptsFromList(this.delayedScripts.normal),await this._loadScriptsFromList(this.delayedScripts.defer),await this._loadScriptsFromList(this.delayedScripts.async),await this._triggerDOMContentLoaded(),await this._triggerWindowLoad(),window.dispatchEvent(new Event("rocket-allScriptsLoaded"))}_registerAllDelayedScripts(){document.querySelectorAll("script[type=rocketlazyloadscript]").forEach((e=>{e.hasAttribute("src")?e.hasAttribute("async")&&!1!==e.async?this.delayedScripts.async.push(e):e.hasAttribute("defer")&&!1!==e.defer||"module"===e.getAttribute("data-rocket-type")?this.delayedScripts.defer.push(e):this.delayedScripts.normal.push(e):this.delayedScripts.normal.push(e)}))}async _transformScript(e){return await this._requestAnimFrame(),new Promise((t=>{const n=document.createElement("script");let r;[...e.attributes].forEach((e=>{let t=e.nodeName;"type"!==t&&("data-rocket-type"===t&&(t="type",r=e.nodeValue),n.setAttribute(t,e.nodeValue))})),e.hasAttribute("src")?(n.addEventListener("load",t),n.addEventListener("error",t)):(n.text=e.text,t()),e.parentNode.replaceChild(n,e)}))}async _loadScriptsFromList(e){const t=e.shift();return t?(await this._transformScript(t),this._loadScriptsFromList(e)):Promise.resolve()}_preloadAllScripts(){var e=document.createDocumentFragment();[...this.delayedScripts.normal,...this.delayedScripts.defer,...this.delayedScripts.async].forEach((t=>{const n=t.getAttribute("src");if(n){const t=document.createElement("link");t.href=n,t.rel="preload",t.as="script",e.appendChild(t)}})),document.head.appendChild(e)}_delayEventListeners(){let e={};function t(t,n){!function(t){function n(n){return e[t].eventsToRewrite.indexOf(n)>=0?"rocket-"+n:n}e[t]||(e[t]={originalFunctions:{add:t.addEventListener,remove:t.removeEventListener},eventsToRewrite:[]},t.addEventListener=function(){arguments[0]=n(arguments[0]),e[t].originalFunctions.add.apply(t,arguments)},t.removeEventListener=function(){arguments[0]=n(arguments[0]),e[t].originalFunctions.remove.apply(t,arguments)})}(t),e[t].eventsToRewrite.push(n)}function n(e,t){let n=e[t];Object.defineProperty(e,t,{get:()=>n||function(){},set(r){e["rocket"+t]=n=r}})}t(document,"DOMContentLoaded"),t(window,"DOMContentLoaded"),t(window,"load"),t(window,"pageshow"),t(document,"readystatechange"),n(document,"onreadystatechange"),n(window,"onload"),n(window,"onpageshow")}_delayJQueryReady(e){let t=window.jQuery;Object.defineProperty(window,"jQuery",{get:()=>t,set(n){if(n&&n.fn&&!e.allJQueries.includes(n)){n.fn.ready=n.fn.init.prototype.ready=function(t){e.domReadyFired?t.bind(document)(n):document.addEventListener("rocket-DOMContentLoaded",(()=>t.bind(document)(n)))};const t=n.fn.on;n.fn.on=n.fn.init.prototype.on=function(){if(this[0]===window){function e(e){return e.split(" ").map((e=>"load"===e||0===e.indexOf("load.")?"rocket-jquery-load":e)).join(" ")}"string"==typeof arguments[0]||arguments[0]instanceof String?arguments[0]=e(arguments[0]):"object"==typeof arguments[0]&&Object.keys(arguments[0]).forEach((t=>{delete Object.assign(arguments[0],{[e(t)]:arguments[0][t]})[t]}))}return t.apply(this,arguments),this},e.allJQueries.push(n)}t=n}})}async _triggerDOMContentLoaded(){this.domReadyFired=!0,await this._requestAnimFrame(),document.dispatchEvent(new Event("rocket-DOMContentLoaded")),await this._requestAnimFrame(),window.dispatchEvent(new Event("rocket-DOMContentLoaded")),await this._requestAnimFrame(),document.dispatchEvent(new Event("rocket-readystatechange")),await this._requestAnimFrame(),document.rocketonreadystatechange&&document.rocketonreadystatechange()}async _triggerWindowLoad(){await this._requestAnimFrame(),window.dispatchEvent(new Event("rocket-load")),await this._requestAnimFrame(),window.rocketonload&&window.rocketonload(),await this._requestAnimFrame(),this.allJQueries.forEach((e=>e(window).trigger("rocket-jquery-load"))),window.dispatchEvent(new Event("rocket-pageshow")),await this._requestAnimFrame(),window.rocketonpageshow&&window.rocketonpageshow()}_handleDocumentWrite(){const e=new Map;document.write=document.writeln=function(t){const n=document.currentScript,r=document.createRange(),i=n.parentElement;let o=e.get(n);void 0===o&&(o=n.nextSibling,e.set(n,o));const a=document.createDocumentFragment();r.setStart(a,0),a.appendChild(r.createContextualFragment(t)),i.insertBefore(a,o)}}async _requestAnimFrame(){return new Promise((e=>requestAnimationFrame(e)))}static run(){const e=new RocketLazyLoadScripts(["keydown","mousemove","touchmove","touchstart","touchend","wheel"]);e._addUserInteractionListener(e)}}RocketLazyLoadScripts.run();</script>
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Search Engine Optimization by Rank Math - https://rankmath.com/ -->
+<title>Gyan baksa - Knowledge Everything Easily</title><link rel="stylesheet" href="https://gyanbaksa.com/wp-content/cache/min/1/92e33a277533f090d7fc563a59d2c79e.css" media="all" data-minify="1" />
+<meta name="description" content="Knowledge Everything Easily"/>
+<meta name="robots" content="follow, index"/>
+<link rel="canonical" href="https://gyanbaksa.com/" />
+<link rel="next" href="https://gyanbaksa.com/page/2/" />
+<meta property="og:locale" content="en_US" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Gyan baksa - Knowledge Everything Easily" />
+<meta property="og:description" content="Knowledge Everything Easily" />
+<meta property="og:url" content="https://gyanbaksa.com/" />
+<meta property="og:site_name" content="Gyan baksa" />
+<meta property="og:image" content="https://gyanbaksa.com/wp-content/uploads/2021/07/gyanbaksa-icon-final.png" />
+<meta property="og:image:secure_url" content="https://gyanbaksa.com/wp-content/uploads/2021/07/gyanbaksa-icon-final.png" />
+<meta property="og:image:width" content="1024" />
+<meta property="og:image:height" content="1024" />
+<meta property="og:image:alt" content="gyanbaksa icon" />
+<meta property="og:image:type" content="image/png" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Gyan baksa - Knowledge Everything Easily" />
+<meta name="twitter:description" content="Knowledge Everything Easily" />
+<meta name="twitter:site" content="@gyanbaksa" />
+<meta name="twitter:image" content="https://gyanbaksa.com/wp-content/uploads/2021/07/gyanbaksa-icon-final.png" />
+<script type="application/ld+json" class="rank-math-schema">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://gyanbaksa.com/#organization","name":"Gyanbaksa Team","sameAs":["http://fb.com/gyanbaksa","https://twitter.com/gyanbaksa"]},{"@type":"WebSite","@id":"https://gyanbaksa.com/#website","url":"https://gyanbaksa.com","name":"Gyan baksa","publisher":{"@id":"https://gyanbaksa.com/#organization"},"inLanguage":"en-US","potentialAction":{"@type":"SearchAction","target":"https://gyanbaksa.com/?s={search_term_string}","query-input":"required name=search_term_string"}},{"@type":"CollectionPage","@id":"https://gyanbaksa.com/#webpage","url":"https://gyanbaksa.com/","name":"Gyan baksa - Knowledge Everything Easily","about":{"@id":"https://gyanbaksa.com/#organization"},"isPartOf":{"@id":"https://gyanbaksa.com/#website"},"inLanguage":"en-US"}]}</script>
+<!-- /Rank Math WordPress SEO plugin -->
+
+<link rel='dns-prefetch' href='//www.googletagmanager.com' />
+<link href='https://fonts.gstatic.com' crossorigin rel='preconnect' />
+<link href='https://fonts.googleapis.com' crossorigin rel='preconnect' />
+<link rel="alternate" type="application/rss+xml" title="Gyan baksa &raquo; Feed" href="https://gyanbaksa.com/feed/" />
+<link rel="alternate" type="application/rss+xml" title="Gyan baksa &raquo; Comments Feed" href="https://gyanbaksa.com/comments/feed/" />
+<style id='wp-img-auto-sizes-contain-inline-css'>
+img:is([sizes=auto i],[sizes^="auto," i]){contain-intrinsic-size:3000px 1500px}
+/*# sourceURL=wp-img-auto-sizes-contain-inline-css */
+</style>
+<link rel='stylesheet' id='generate-fonts-css' href='//fonts.googleapis.com/css?family=Noto+Sans:regular,italic,700,700italic' media='all' />
+<style id='wp-emoji-styles-inline-css'>
+
+	img.wp-smiley, img.emoji {
+		display: inline !important;
+		border: none !important;
+		box-shadow: none !important;
+		height: 1em !important;
+		width: 1em !important;
+		margin: 0 0.07em !important;
+		vertical-align: -0.1em !important;
+		background: none !important;
+		padding: 0 !important;
+	}
+/*# sourceURL=wp-emoji-styles-inline-css */
+</style>
+<style id='wp-block-library-inline-css'>
+:root{--wp-block-synced-color:#7a00df;--wp-block-synced-color--rgb:122,0,223;--wp-bound-block-color:var(--wp-block-synced-color);--wp-editor-canvas-background:#ddd;--wp-admin-theme-color:#007cba;--wp-admin-theme-color--rgb:0,124,186;--wp-admin-theme-color-darker-10:#006ba1;--wp-admin-theme-color-darker-10--rgb:0,107,160.5;--wp-admin-theme-color-darker-20:#005a87;--wp-admin-theme-color-darker-20--rgb:0,90,135;--wp-admin-border-width-focus:2px}@media (min-resolution:192dpi){:root{--wp-admin-border-width-focus:1.5px}}.wp-element-button{cursor:pointer}:root .has-very-light-gray-background-color{background-color:#eee}:root .has-very-dark-gray-background-color{background-color:#313131}:root .has-very-light-gray-color{color:#eee}:root .has-very-dark-gray-color{color:#313131}:root .has-vivid-green-cyan-to-vivid-cyan-blue-gradient-background{background:linear-gradient(135deg,#00d084,#0693e3)}:root .has-purple-crush-gradient-background{background:linear-gradient(135deg,#34e2e4,#4721fb 50%,#ab1dfe)}:root .has-hazy-dawn-gradient-background{background:linear-gradient(135deg,#faaca8,#dad0ec)}:root .has-subdued-olive-gradient-background{background:linear-gradient(135deg,#fafae1,#67a671)}:root .has-atomic-cream-gradient-background{background:linear-gradient(135deg,#fdd79a,#004a59)}:root .has-nightshade-gradient-background{background:linear-gradient(135deg,#330968,#31cdcf)}:root .has-midnight-gradient-background{background:linear-gradient(135deg,#020381,#2874fc)}:root{--wp--preset--font-size--normal:16px;--wp--preset--font-size--huge:42px}.has-regular-font-size{font-size:1em}.has-larger-font-size{font-size:2.625em}.has-normal-font-size{font-size:var(--wp--preset--font-size--normal)}.has-huge-font-size{font-size:var(--wp--preset--font-size--huge)}.has-text-align-center{text-align:center}.has-text-align-left{text-align:left}.has-text-align-right{text-align:right}.has-fit-text{white-space:nowrap!important}#end-resizable-editor-section{display:none}.aligncenter{clear:both}.items-justified-left{justify-content:flex-start}.items-justified-center{justify-content:center}.items-justified-right{justify-content:flex-end}.items-justified-space-between{justify-content:space-between}.screen-reader-text{border:0;clip-path:inset(50%);height:1px;margin:-1px;overflow:hidden;padding:0;position:absolute;width:1px;word-wrap:normal!important}.screen-reader-text:focus{background-color:#ddd;clip-path:none;color:#444;display:block;font-size:1em;height:auto;left:5px;line-height:normal;padding:15px 23px 14px;text-decoration:none;top:5px;width:auto;z-index:100000}html :where(.has-border-color){border-style:solid}html :where([style*=border-top-color]){border-top-style:solid}html :where([style*=border-right-color]){border-right-style:solid}html :where([style*=border-bottom-color]){border-bottom-style:solid}html :where([style*=border-left-color]){border-left-style:solid}html :where([style*=border-width]){border-style:solid}html :where([style*=border-top-width]){border-top-style:solid}html :where([style*=border-right-width]){border-right-style:solid}html :where([style*=border-bottom-width]){border-bottom-style:solid}html :where([style*=border-left-width]){border-left-style:solid}html :where(img[class*=wp-image-]){height:auto;max-width:100%}:where(figure){margin:0 0 1em}html :where(.is-position-sticky){--wp-admin--admin-bar--position-offset:var(--wp-admin--admin-bar--height,0px)}@media screen and (max-width:600px){html :where(.is-position-sticky){--wp-admin--admin-bar--position-offset:0px}}
+
+/*# sourceURL=wp-block-library-inline-css */
+</style><style id='wp-block-latest-posts-inline-css'>
+.wp-block-latest-posts{box-sizing:border-box}.wp-block-latest-posts.alignleft{margin-right:2em}.wp-block-latest-posts.alignright{margin-left:2em}.wp-block-latest-posts.wp-block-latest-posts__list{list-style:none}.wp-block-latest-posts.wp-block-latest-posts__list li{clear:both;overflow-wrap:break-word}.wp-block-latest-posts.is-grid{display:flex;flex-wrap:wrap}.wp-block-latest-posts.is-grid li{margin:0 1.25em 1.25em 0;width:100%}@media (min-width:600px){.wp-block-latest-posts.columns-2 li{width:calc(50% - .625em)}.wp-block-latest-posts.columns-2 li:nth-child(2n){margin-right:0}.wp-block-latest-posts.columns-3 li{width:calc(33.33333% - .83333em)}.wp-block-latest-posts.columns-3 li:nth-child(3n){margin-right:0}.wp-block-latest-posts.columns-4 li{width:calc(25% - .9375em)}.wp-block-latest-posts.columns-4 li:nth-child(4n){margin-right:0}.wp-block-latest-posts.columns-5 li{width:calc(20% - 1em)}.wp-block-latest-posts.columns-5 li:nth-child(5n){margin-right:0}.wp-block-latest-posts.columns-6 li{width:calc(16.66667% - 1.04167em)}.wp-block-latest-posts.columns-6 li:nth-child(6n){margin-right:0}}:root :where(.wp-block-latest-posts.is-grid){padding:0}:root :where(.wp-block-latest-posts.wp-block-latest-posts__list){padding-left:0}.wp-block-latest-posts__post-author,.wp-block-latest-posts__post-date{display:block;font-size:.8125em}.wp-block-latest-posts__post-excerpt,.wp-block-latest-posts__post-full-content{margin-bottom:1em;margin-top:.5em}.wp-block-latest-posts__featured-image a{display:inline-block}.wp-block-latest-posts__featured-image img{height:auto;max-width:100%;width:auto}.wp-block-latest-posts__featured-image.alignleft{float:left;margin-right:1em}.wp-block-latest-posts__featured-image.alignright{float:right;margin-left:1em}.wp-block-latest-posts__featured-image.aligncenter{margin-bottom:1em;text-align:center}
+/*# sourceURL=https://gyanbaksa.com/wp-includes/blocks/latest-posts/style.min.css */
+</style>
+<style id='wp-block-media-text-inline-css'>
+.wp-block-media-text{box-sizing:border-box;
+  /*!rtl:begin:ignore*/direction:ltr;
+  /*!rtl:end:ignore*/display:grid;grid-template-columns:50% 1fr;grid-template-rows:auto}.wp-block-media-text.has-media-on-the-right{grid-template-columns:1fr 50%}.wp-block-media-text.is-vertically-aligned-top>.wp-block-media-text__content,.wp-block-media-text.is-vertically-aligned-top>.wp-block-media-text__media{align-self:start}.wp-block-media-text.is-vertically-aligned-center>.wp-block-media-text__content,.wp-block-media-text.is-vertically-aligned-center>.wp-block-media-text__media,.wp-block-media-text>.wp-block-media-text__content,.wp-block-media-text>.wp-block-media-text__media{align-self:center}.wp-block-media-text.is-vertically-aligned-bottom>.wp-block-media-text__content,.wp-block-media-text.is-vertically-aligned-bottom>.wp-block-media-text__media{align-self:end}.wp-block-media-text>.wp-block-media-text__media{
+  /*!rtl:begin:ignore*/grid-column:1;grid-row:1;
+  /*!rtl:end:ignore*/margin:0}.wp-block-media-text>.wp-block-media-text__content{direction:ltr;
+  /*!rtl:begin:ignore*/grid-column:2;grid-row:1;
+  /*!rtl:end:ignore*/padding:0 8%;word-break:break-word}.wp-block-media-text.has-media-on-the-right>.wp-block-media-text__media{
+  /*!rtl:begin:ignore*/grid-column:2;grid-row:1
+  /*!rtl:end:ignore*/}.wp-block-media-text.has-media-on-the-right>.wp-block-media-text__content{
+  /*!rtl:begin:ignore*/grid-column:1;grid-row:1
+  /*!rtl:end:ignore*/}.wp-block-media-text__media a{display:block}.wp-block-media-text__media img,.wp-block-media-text__media video{height:auto;max-width:unset;vertical-align:middle;width:100%}.wp-block-media-text.is-image-fill>.wp-block-media-text__media{background-size:cover;height:100%;min-height:250px}.wp-block-media-text.is-image-fill>.wp-block-media-text__media>a{display:block;height:100%}.wp-block-media-text.is-image-fill>.wp-block-media-text__media img{height:1px;margin:-1px;overflow:hidden;padding:0;position:absolute;width:1px;clip:rect(0,0,0,0);border:0}.wp-block-media-text.is-image-fill-element>.wp-block-media-text__media{height:100%;min-height:250px}.wp-block-media-text.is-image-fill-element>.wp-block-media-text__media>a{display:block;height:100%}.wp-block-media-text.is-image-fill-element>.wp-block-media-text__media img{height:100%;object-fit:cover;width:100%}@media (max-width:600px){.wp-block-media-text.is-stacked-on-mobile{grid-template-columns:100%!important}.wp-block-media-text.is-stacked-on-mobile>.wp-block-media-text__media{grid-column:1;grid-row:1}.wp-block-media-text.is-stacked-on-mobile>.wp-block-media-text__content{grid-column:1;grid-row:2}}
+/*# sourceURL=https://gyanbaksa.com/wp-includes/blocks/media-text/style.min.css */
+</style>
+<style id='wp-block-paragraph-inline-css'>
+.is-small-text{font-size:.875em}.is-regular-text{font-size:1em}.is-large-text{font-size:2.25em}.is-larger-text{font-size:3em}.has-drop-cap:not(:focus):first-letter{float:left;font-size:8.4em;font-style:normal;font-weight:100;line-height:.68;margin:.05em .1em 0 0;text-transform:uppercase}body.rtl .has-drop-cap:not(:focus):first-letter{float:none;margin-left:.1em}p.has-drop-cap.has-background{overflow:hidden}:root :where(p.has-background){padding:1.25em 2.375em}:where(p.has-text-color:not(.has-link-color)) a{color:inherit}p.has-text-align-left[style*="writing-mode:vertical-lr"],p.has-text-align-right[style*="writing-mode:vertical-rl"]{rotate:180deg}
+/*# sourceURL=https://gyanbaksa.com/wp-includes/blocks/paragraph/style.min.css */
+</style>
+<style id='global-styles-inline-css'>
+:root{--wp--preset--aspect-ratio--square: 1;--wp--preset--aspect-ratio--4-3: 4/3;--wp--preset--aspect-ratio--3-4: 3/4;--wp--preset--aspect-ratio--3-2: 3/2;--wp--preset--aspect-ratio--2-3: 2/3;--wp--preset--aspect-ratio--16-9: 16/9;--wp--preset--aspect-ratio--9-16: 9/16;--wp--preset--color--black: #000000;--wp--preset--color--cyan-bluish-gray: #abb8c3;--wp--preset--color--white: #ffffff;--wp--preset--color--pale-pink: #f78da7;--wp--preset--color--vivid-red: #cf2e2e;--wp--preset--color--luminous-vivid-orange: #ff6900;--wp--preset--color--luminous-vivid-amber: #fcb900;--wp--preset--color--light-green-cyan: #7bdcb5;--wp--preset--color--vivid-green-cyan: #00d084;--wp--preset--color--pale-cyan-blue: #8ed1fc;--wp--preset--color--vivid-cyan-blue: #0693e3;--wp--preset--color--vivid-purple: #9b51e0;--wp--preset--color--contrast: var(--contrast);--wp--preset--color--contrast-2: var(--contrast-2);--wp--preset--color--contrast-3: var(--contrast-3);--wp--preset--color--base: var(--base);--wp--preset--color--base-2: var(--base-2);--wp--preset--color--base-3: var(--base-3);--wp--preset--color--accent: var(--accent);--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple: linear-gradient(135deg,rgb(6,147,227) 0%,rgb(155,81,224) 100%);--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan: linear-gradient(135deg,rgb(122,220,180) 0%,rgb(0,208,130) 100%);--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange: linear-gradient(135deg,rgb(252,185,0) 0%,rgb(255,105,0) 100%);--wp--preset--gradient--luminous-vivid-orange-to-vivid-red: linear-gradient(135deg,rgb(255,105,0) 0%,rgb(207,46,46) 100%);--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray: linear-gradient(135deg,rgb(238,238,238) 0%,rgb(169,184,195) 100%);--wp--preset--gradient--cool-to-warm-spectrum: linear-gradient(135deg,rgb(74,234,220) 0%,rgb(151,120,209) 20%,rgb(207,42,186) 40%,rgb(238,44,130) 60%,rgb(251,105,98) 80%,rgb(254,248,76) 100%);--wp--preset--gradient--blush-light-purple: linear-gradient(135deg,rgb(255,206,236) 0%,rgb(152,150,240) 100%);--wp--preset--gradient--blush-bordeaux: linear-gradient(135deg,rgb(254,205,165) 0%,rgb(254,45,45) 50%,rgb(107,0,62) 100%);--wp--preset--gradient--luminous-dusk: linear-gradient(135deg,rgb(255,203,112) 0%,rgb(199,81,192) 50%,rgb(65,88,208) 100%);--wp--preset--gradient--pale-ocean: linear-gradient(135deg,rgb(255,245,203) 0%,rgb(182,227,212) 50%,rgb(51,167,181) 100%);--wp--preset--gradient--electric-grass: linear-gradient(135deg,rgb(202,248,128) 0%,rgb(113,206,126) 100%);--wp--preset--gradient--midnight: linear-gradient(135deg,rgb(2,3,129) 0%,rgb(40,116,252) 100%);--wp--preset--font-size--small: 13px;--wp--preset--font-size--medium: 20px;--wp--preset--font-size--large: 36px;--wp--preset--font-size--x-large: 42px;--wp--preset--spacing--20: 0.44rem;--wp--preset--spacing--30: 0.67rem;--wp--preset--spacing--40: 1rem;--wp--preset--spacing--50: 1.5rem;--wp--preset--spacing--60: 2.25rem;--wp--preset--spacing--70: 3.38rem;--wp--preset--spacing--80: 5.06rem;--wp--preset--shadow--natural: 6px 6px 9px rgba(0, 0, 0, 0.2);--wp--preset--shadow--deep: 12px 12px 50px rgba(0, 0, 0, 0.4);--wp--preset--shadow--sharp: 6px 6px 0px rgba(0, 0, 0, 0.2);--wp--preset--shadow--outlined: 6px 6px 0px -3px rgb(255, 255, 255), 6px 6px rgb(0, 0, 0);--wp--preset--shadow--crisp: 6px 6px 0px rgb(0, 0, 0);}:where(.is-layout-flex){gap: 0.5em;}:where(.is-layout-grid){gap: 0.5em;}body .is-layout-flex{display: flex;}.is-layout-flex{flex-wrap: wrap;align-items: center;}.is-layout-flex > :is(*, div){margin: 0;}body .is-layout-grid{display: grid;}.is-layout-grid > :is(*, div){margin: 0;}:where(.wp-block-columns.is-layout-flex){gap: 2em;}:where(.wp-block-columns.is-layout-grid){gap: 2em;}:where(.wp-block-post-template.is-layout-flex){gap: 1.25em;}:where(.wp-block-post-template.is-layout-grid){gap: 1.25em;}.has-black-color{color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-color{color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-color{color: var(--wp--preset--color--white) !important;}.has-pale-pink-color{color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-color{color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-color{color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-color{color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-color{color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-color{color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-color{color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-color{color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-color{color: var(--wp--preset--color--vivid-purple) !important;}.has-black-background-color{background-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-background-color{background-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-background-color{background-color: var(--wp--preset--color--white) !important;}.has-pale-pink-background-color{background-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-background-color{background-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-background-color{background-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-background-color{background-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-background-color{background-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-background-color{background-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-background-color{background-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-background-color{background-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-background-color{background-color: var(--wp--preset--color--vivid-purple) !important;}.has-black-border-color{border-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-border-color{border-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-border-color{border-color: var(--wp--preset--color--white) !important;}.has-pale-pink-border-color{border-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-border-color{border-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-border-color{border-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-border-color{border-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-border-color{border-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-border-color{border-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-border-color{border-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-border-color{border-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-border-color{border-color: var(--wp--preset--color--vivid-purple) !important;}.has-vivid-cyan-blue-to-vivid-purple-gradient-background{background: var(--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple) !important;}.has-light-green-cyan-to-vivid-green-cyan-gradient-background{background: var(--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan) !important;}.has-luminous-vivid-amber-to-luminous-vivid-orange-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange) !important;}.has-luminous-vivid-orange-to-vivid-red-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-orange-to-vivid-red) !important;}.has-very-light-gray-to-cyan-bluish-gray-gradient-background{background: var(--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray) !important;}.has-cool-to-warm-spectrum-gradient-background{background: var(--wp--preset--gradient--cool-to-warm-spectrum) !important;}.has-blush-light-purple-gradient-background{background: var(--wp--preset--gradient--blush-light-purple) !important;}.has-blush-bordeaux-gradient-background{background: var(--wp--preset--gradient--blush-bordeaux) !important;}.has-luminous-dusk-gradient-background{background: var(--wp--preset--gradient--luminous-dusk) !important;}.has-pale-ocean-gradient-background{background: var(--wp--preset--gradient--pale-ocean) !important;}.has-electric-grass-gradient-background{background: var(--wp--preset--gradient--electric-grass) !important;}.has-midnight-gradient-background{background: var(--wp--preset--gradient--midnight) !important;}.has-small-font-size{font-size: var(--wp--preset--font-size--small) !important;}.has-medium-font-size{font-size: var(--wp--preset--font-size--medium) !important;}.has-large-font-size{font-size: var(--wp--preset--font-size--large) !important;}.has-x-large-font-size{font-size: var(--wp--preset--font-size--x-large) !important;}
+/*# sourceURL=global-styles-inline-css */
+</style>
+
+<style id='classic-theme-styles-inline-css'>
+/*! This file is auto-generated */
+.wp-block-button__link{color:#fff;background-color:#32373c;border-radius:9999px;box-shadow:none;text-decoration:none;padding:calc(.667em + 2px) calc(1.333em + 2px);font-size:1.125em}.wp-block-file__button{background:#32373c;color:#fff;text-decoration:none}
+/*# sourceURL=/wp-includes/css/classic-themes.min.css */
+</style>
+
+<style id='generate-style-inline-css'>
+body{background-color:#efefef;color:#0a0a0a;}a{color:#143260;}a:hover, a:focus, a:active{color:#dd3333;}body .grid-container{max-width:1100px;}.wp-block-group__inner-container{max-width:1100px;margin-left:auto;margin-right:auto;}.generate-back-to-top{font-size:20px;border-radius:3px;position:fixed;bottom:30px;right:30px;line-height:40px;width:40px;text-align:center;z-index:10;transition:opacity 300ms ease-in-out;opacity:0.1;transform:translateY(1000px);}.generate-back-to-top__show{opacity:1;transform:translateY(0);}.navigation-search{position:absolute;left:-99999px;pointer-events:none;visibility:hidden;z-index:20;width:100%;top:0;transition:opacity 100ms ease-in-out;opacity:0;}.navigation-search.nav-search-active{left:0;right:0;pointer-events:auto;visibility:visible;opacity:1;}.navigation-search input[type="search"]{outline:0;border:0;vertical-align:bottom;line-height:1;opacity:0.9;width:100%;z-index:20;border-radius:0;-webkit-appearance:none;height:60px;}.navigation-search input::-ms-clear{display:none;width:0;height:0;}.navigation-search input::-ms-reveal{display:none;width:0;height:0;}.navigation-search input::-webkit-search-decoration, .navigation-search input::-webkit-search-cancel-button, .navigation-search input::-webkit-search-results-button, .navigation-search input::-webkit-search-results-decoration{display:none;}.main-navigation li.search-item{z-index:21;}li.search-item.active{transition:opacity 100ms ease-in-out;}.nav-left-sidebar .main-navigation li.search-item.active,.nav-right-sidebar .main-navigation li.search-item.active{width:auto;display:inline-block;float:right;}.gen-sidebar-nav .navigation-search{top:auto;bottom:0;}:root{--contrast:#222222;--contrast-2:#575760;--contrast-3:#b2b2be;--base:#f0f0f0;--base-2:#f7f8f9;--base-3:#ffffff;--accent:#1e73be;}:root .has-contrast-color{color:var(--contrast);}:root .has-contrast-background-color{background-color:var(--contrast);}:root .has-contrast-2-color{color:var(--contrast-2);}:root .has-contrast-2-background-color{background-color:var(--contrast-2);}:root .has-contrast-3-color{color:var(--contrast-3);}:root .has-contrast-3-background-color{background-color:var(--contrast-3);}:root .has-base-color{color:var(--base);}:root .has-base-background-color{background-color:var(--base);}:root .has-base-2-color{color:var(--base-2);}:root .has-base-2-background-color{background-color:var(--base-2);}:root .has-base-3-color{color:var(--base-3);}:root .has-base-3-background-color{background-color:var(--base-3);}:root .has-accent-color{color:var(--accent);}:root .has-accent-background-color{background-color:var(--accent);}body, button, input, select, textarea{font-family:"Noto Sans", sans-serif;font-size:18px;}body{line-height:1.5;}.entry-content > [class*="wp-block-"]:not(:last-child):not(.wp-block-heading){margin-bottom:1.5em;}.main-title{font-family:"Noto Sans", sans-serif;text-transform:uppercase;}.main-navigation a, .menu-toggle{font-family:"Noto Sans", sans-serif;font-weight:500;text-transform:uppercase;font-size:17px;}.main-navigation .main-nav ul ul li a{font-size:14px;}.widget-title{font-family:"Noto Sans", sans-serif;font-weight:600;text-transform:uppercase;}.sidebar .widget, .footer-widgets .widget{font-size:17px;}button:not(.menu-toggle),html input[type="button"],input[type="reset"],input[type="submit"],.button,.wp-block-button .wp-block-button__link{font-family:"Noto Sans", sans-serif;font-weight:500;text-transform:uppercase;font-size:17px;}h1{font-family:"Noto Sans", sans-serif;font-weight:600;text-transform:uppercase;font-size:40px;}h2{font-family:"Noto Sans", sans-serif;font-weight:600;text-transform:uppercase;font-size:30px;}h3{font-family:"Noto Sans", sans-serif;font-weight:600;text-transform:uppercase;font-size:20px;}h4{font-family:"Noto Sans", sans-serif;font-weight:600;font-size:inherit;}h5{font-family:"Noto Sans", sans-serif;font-weight:600;font-size:inherit;}h6{font-family:"Noto Sans", sans-serif;font-weight:600;}.site-info{font-family:"Noto Sans", sans-serif;}@media (max-width:768px){.main-title{font-size:30px;}h1{font-size:30px;}h2{font-size:25px;}}.top-bar{background-color:#636363;color:#ffffff;}.top-bar a{color:#ffffff;}.top-bar a:hover{color:#303030;}.site-header{background-color:#ffffff;color:#3a3a3a;}.site-header a{color:#3a3a3a;}.main-title a,.main-title a:hover{color:#ffffff;}.site-description{color:#757575;}.main-navigation,.main-navigation ul ul{background-color:#143260;}.main-navigation .main-nav ul li a, .main-navigation .menu-toggle, .main-navigation .menu-bar-items{color:#ffffff;}.main-navigation .main-nav ul li:not([class*="current-menu-"]):hover > a, .main-navigation .main-nav ul li:not([class*="current-menu-"]):focus > a, .main-navigation .main-nav ul li.sfHover:not([class*="current-menu-"]) > a, .main-navigation .menu-bar-item:hover > a, .main-navigation .menu-bar-item.sfHover > a{color:#222222;background-color:#ffd800;}button.menu-toggle:hover,button.menu-toggle:focus,.main-navigation .mobile-bar-items a,.main-navigation .mobile-bar-items a:hover,.main-navigation .mobile-bar-items a:focus{color:#ffffff;}.main-navigation .main-nav ul li[class*="current-menu-"] > a{color:#222222;background-color:#ffd800;}.navigation-search input[type="search"],.navigation-search input[type="search"]:active, .navigation-search input[type="search"]:focus, .main-navigation .main-nav ul li.search-item.active > a, .main-navigation .menu-bar-items .search-item.active > a{color:#222222;background-color:#ffd800;}.main-navigation ul ul{background-color:#222222;}.main-navigation .main-nav ul ul li a{color:#ffffff;}.main-navigation .main-nav ul ul li:not([class*="current-menu-"]):hover > a,.main-navigation .main-nav ul ul li:not([class*="current-menu-"]):focus > a, .main-navigation .main-nav ul ul li.sfHover:not([class*="current-menu-"]) > a{color:#222222;background-color:#ffd800;}.main-navigation .main-nav ul ul li[class*="current-menu-"] > a{color:#222222;background-color:#ffd800;}.separate-containers .inside-article, .separate-containers .comments-area, .separate-containers .page-header, .one-container .container, .separate-containers .paging-navigation, .inside-page-header{color:#222222;background-color:#ffffff;}.inside-article a,.paging-navigation a,.comments-area a,.page-header a{color:#f20e0e;}.entry-header h1,.page-header h1{color:#0a0a0a;}.entry-title a{color:#0a0a0a;}.entry-title a:hover{color:#143260;}.entry-meta{color:#595959;}.entry-meta a{color:#595959;}.entry-meta a:hover{color:#dd3333;}.sidebar .widget{background-color:#ffffff;}.sidebar .widget .widget-title{color:#000000;}.footer-widgets{color:#222222;background-color:rgba(20,50,96,0.08);}.footer-widgets a{color:#143260;}.footer-widgets a:hover{color:#dd3333;}.footer-widgets .widget-title{color:#143260;}.site-info{color:#222222;background-color:rgba(20,50,96,0.25);}.site-info a{color:#dd3333;}.site-info a:hover{color:#143260;}.footer-bar .widget_nav_menu .current-menu-item a{color:#143260;}input[type="text"],input[type="email"],input[type="url"],input[type="password"],input[type="search"],input[type="tel"],input[type="number"],textarea,select{color:#666666;background-color:#fafafa;border-color:#cccccc;}input[type="text"]:focus,input[type="email"]:focus,input[type="url"]:focus,input[type="password"]:focus,input[type="search"]:focus,input[type="tel"]:focus,input[type="number"]:focus,textarea:focus,select:focus{color:#666666;background-color:#ffffff;border-color:#bfbfbf;}button,html input[type="button"],input[type="reset"],input[type="submit"],a.button,a.wp-block-button__link:not(.has-background){color:#ffffff;background-color:#143260;}button:hover,html input[type="button"]:hover,input[type="reset"]:hover,input[type="submit"]:hover,a.button:hover,button:focus,html input[type="button"]:focus,input[type="reset"]:focus,input[type="submit"]:focus,a.button:focus,a.wp-block-button__link:not(.has-background):active,a.wp-block-button__link:not(.has-background):focus,a.wp-block-button__link:not(.has-background):hover{color:#ffffff;background-color:#dd3333;}a.generate-back-to-top{background-color:#143260;color:#ffffff;}a.generate-back-to-top:hover,a.generate-back-to-top:focus{background-color:#ffd800;color:#0a0a0a;}:root{--gp-search-modal-bg-color:var(--base-3);--gp-search-modal-text-color:var(--contrast);--gp-search-modal-overlay-bg-color:rgba(0,0,0,0.2);}@media (max-width:768px){.main-navigation .menu-bar-item:hover > a, .main-navigation .menu-bar-item.sfHover > a{background:none;color:#ffffff;}}.inside-top-bar{padding:10px;}.inside-header{padding:40px;}.site-main .wp-block-group__inner-container{padding:40px;}.entry-content .alignwide, body:not(.no-sidebar) .entry-content .alignfull{margin-left:-40px;width:calc(100% + 80px);max-width:calc(100% + 80px);}.rtl .menu-item-has-children .dropdown-menu-toggle{padding-left:20px;}.rtl .main-navigation .main-nav ul li.menu-item-has-children > a{padding-right:20px;}.widget-area .widget{padding:25px 20px 25px 20px;}.site-info{padding:40px;}@media (max-width:768px){.separate-containers .inside-article, .separate-containers .comments-area, .separate-containers .page-header, .separate-containers .paging-navigation, .one-container .site-content, .inside-page-header{padding:30px;}.site-main .wp-block-group__inner-container{padding:30px;}.widget-area .widget{padding-top:30px;padding-right:30px;padding-bottom:30px;padding-left:30px;}.footer-widgets{padding-top:30px;padding-right:30px;padding-bottom:30px;padding-left:30px;}.site-info{padding-right:10px;padding-left:10px;}.entry-content .alignwide, body:not(.no-sidebar) .entry-content .alignfull{margin-left:-30px;width:calc(100% + 60px);max-width:calc(100% + 60px);}}/* End cached CSS */@media (max-width:768px){.main-navigation .menu-toggle,.main-navigation .mobile-bar-items,.sidebar-nav-mobile:not(#sticky-placeholder){display:block;}.main-navigation ul,.gen-sidebar-nav{display:none;}[class*="nav-float-"] .site-header .inside-header > *{float:none;clear:both;}}
+/*# sourceURL=generate-style-inline-css */
+</style>
+
+
+<!-- Google tag (gtag.js) snippet added by Site Kit -->
+<!-- Google Analytics snippet added by Site Kit -->
+<script type="rocketlazyloadscript" src="https://www.googletagmanager.com/gtag/js?id=G-SDHEB5Z800" id="google_gtagjs-js" async></script>
+<script type="rocketlazyloadscript" id="google_gtagjs-js-after">
+window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}
+gtag("set","linker",{"domains":["gyanbaksa.com"]});
+gtag("js", new Date());
+gtag("set", "developer_id.dZTNiMT", true);
+gtag("config", "G-SDHEB5Z800");
+//# sourceURL=google_gtagjs-js-after
+</script>
+<link rel="https://api.w.org/" href="https://gyanbaksa.com/wp-json/" /><link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://gyanbaksa.com/xmlrpc.php?rsd" />
+<meta name="generator" content="WordPress 6.9" />
+<meta name="generator" content="Site Kit by Google 1.170.0" />		<style id="wp-custom-css">
+			/* GeneratePress Site CSS */ .inside-article,
+.sidebar .widget,
+.comments-area {
+		border: 1px solid rgba(232, 234, 237, 1);
+	box-shadow: 0 0 10px rgba(232, 234, 237, 0.5);
+}
+
+/* Featured widget */
+.sidebar .widget:first-child {
+	background-color: #ffffff;
+	color: #ffffff;
+	padding-left:40px;
+	padding-right:40px;
+}
+
+.sidebar .widget:first-child .widget-title,
+.sidebar .widget:first-child a:not(.button) {
+	color: #fff;
+}
+
+.sidebar .widget li {
+	margin-bottom: 15px;
+}
+
+.button.light {
+	background: #000000;
+	color: #fff;
+}
+
+.button.light:hover {
+	background: #fafafa;
+	color: #222;
+}
+
+.separate-containers .page-header {
+	background: transparent;
+	padding: 20px 0;
+}
+
+.page-header h1 {
+	font-size: 30px;
+}
+
+@media (min-width: 769px) {
+	.post-image-aligned-left .post-image img {
+		max-width: 300px;
+	}
+} 
+html, body { 
+    overflow-x: hidden;
+} /* End GeneratePress Site CSS */		</style>
+		</head>
+
+<body class="home blog wp-custom-logo wp-embed-responsive wp-theme-generatepress right-sidebar nav-float-right separate-containers fluid-header active-footer-widgets-3 nav-search-enabled header-aligned-left dropdown-hover" itemtype="https://schema.org/Blog" itemscope>
+	<a class="screen-reader-text skip-link" href="#content" title="Skip to content">Skip to content</a>		<header class="site-header" id="masthead" aria-label="Site"  itemtype="https://schema.org/WPHeader" itemscope>
+			<div class="inside-header">
+				<div class="site-logo">
+					<a href="https://gyanbaksa.com/" rel="home">
+						<img  class="header-image is-logo-image" alt="Gyan baksa" src="https://gyanbaksa.com/wp-content/uploads/2022/01/cropped-gyanbaksa.png" srcset="https://gyanbaksa.com/wp-content/uploads/2022/01/cropped-gyanbaksa.png 1x, https://gyanbaksa.com/wp-content/uploads/2020/06/gyan-trans-200-63.png 2x" width="272" height="87" />
+					</a>
+				</div>		<nav class="main-navigation sub-menu-right" id="site-navigation" aria-label="Primary"  itemtype="https://schema.org/SiteNavigationElement" itemscope>
+			<div class="inside-navigation grid-container grid-parent">
+				<form method="get" class="search-form navigation-search" action="https://gyanbaksa.com/">
+					<input type="search" class="search-field" value="" name="s" title="Search" />
+				</form>		<div class="mobile-bar-items">
+						<span class="search-item">
+				<a aria-label="Open Search Bar" href="#">
+									</a>
+			</span>
+		</div>
+						<button class="menu-toggle" aria-controls="primary-menu" aria-expanded="false">
+					<span class="mobile-menu">Menu</span>				</button>
+				<div id="primary-menu" class="main-nav"><ul id="menu-primary-menu" class=" menu sf-menu"><li id="menu-item-4700" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-4700"><a href="https://gyanbaksa.com/technology/">TECHNOLOGY</a></li>
+<li id="menu-item-4695" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-4695"><a href="https://gyanbaksa.com/education/">EDUCATION</a></li>
+<li id="menu-item-4694" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-4694"><a href="https://gyanbaksa.com/business/">BUSINESS</a></li>
+<li id="menu-item-4697" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-4697"><a href="https://gyanbaksa.com/finance/">FINANCE</a></li>
+<li id="menu-item-4698" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-4698"><a href="https://gyanbaksa.com/health/">HEALTH</a></li>
+<li id="menu-item-4696" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-4696"><a href="https://gyanbaksa.com/entertainment/">ENTERTAINMENT</a></li>
+<li id="menu-item-4699" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-4699"><a href="https://gyanbaksa.com/lifestyle/">LIFESTYLE</a></li>
+<li id="menu-item-4701" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-4701"><a href="https://gyanbaksa.com/travel/">TRAVEL</a></li>
+<li id="menu-item-4702" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-4702"><a href="https://gyanbaksa.com/about-us/">About Us</a></li>
+<li id="menu-item-4703" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-4703"><a href="https://gyanbaksa.com/contact-us/">Contact Us</a></li>
+<li class="search-item menu-item-align-right"><a aria-label="Open Search Bar" href="#"></a></li></ul></div>			</div>
+		</nav>
+					</div>
+		</header>
+		
+	<div class="site grid-container container hfeed grid-parent" id="page">
+				<div class="site-content" id="content">
+			
+	<div class="content-area grid-parent mobile-grid-100 grid-75 tablet-grid-75" id="primary">
+		<main class="site-main" id="main">
+			<article id="post-9532" class="post-9532 post type-post status-publish format-standard hentry category-business" itemtype="https://schema.org/CreativeWork" itemscope>
+	<div class="inside-article">
+					<header class="entry-header">
+				<h2 class="entry-title" itemprop="headline"><a href="https://gyanbaksa.com/the-role-of-savings-accounts-in-digital-india/" rel="bookmark">The Role of Savings Accounts in Digital India</a></h2>		<div class="entry-meta">
+			<span class="posted-on"><time class="entry-date published" datetime="2025-12-09T11:56:29+05:30" itemprop="datePublished">December 9, 2025</time></span> <span class="byline">by <span class="author vcard" itemprop="author" itemtype="https://schema.org/Person" itemscope><a class="url fn n" href="https://gyanbaksa.com/author/gyaniadmin/" title="View all posts by Shivansh Shukla" rel="author" itemprop="url"><span class="author-name" itemprop="name">Shivansh Shukla</span></a></span></span> 		</div>
+					</header>
+			
+			<div class="entry-summary" itemprop="text">
+				<p>In today&#8217;s fast-paced digital world, the use of technology has become an integral part of our daily lives. With the government&#8217;s push towards a digital economy, the use of digital savings accounts has become increasingly popular in India. In this article, we will explore the role of savings accounts in the digital landscape of India. &#8230; <a title="The Role of Savings Accounts in Digital India" class="read-more" href="https://gyanbaksa.com/the-role-of-savings-accounts-in-digital-india/" aria-label="Read more about The Role of Savings Accounts in Digital India">Read more</a></p>
+			</div>
+
+				<footer class="entry-meta" aria-label="Entry meta">
+			<span class="cat-links"><span class="screen-reader-text">Categories </span><a href="https://gyanbaksa.com/business/" rel="category tag">BUSINESS</a></span> 		</footer>
+			</div>
+</article>
+<article id="post-9529" class="post-9529 post type-post status-publish format-standard hentry category-health" itemtype="https://schema.org/CreativeWork" itemscope>
+	<div class="inside-article">
+					<header class="entry-header">
+				<h2 class="entry-title" itemprop="headline"><a href="https://gyanbaksa.com/cracking-fmge-mastering-water-soluble-vitamins-showing-a-two-in-one-guide-to-aspiring-doctors/" rel="bookmark">Cracking FMGE &#038; Mastering Water-Soluble Vitamins showing A Two-in-One Guide to Aspiring Doctors</a></h2>		<div class="entry-meta">
+			<span class="posted-on"><time class="entry-date published" datetime="2025-11-19T12:51:07+05:30" itemprop="datePublished">November 19, 2025</time></span> <span class="byline">by <span class="author vcard" itemprop="author" itemtype="https://schema.org/Person" itemscope><a class="url fn n" href="https://gyanbaksa.com/author/gyaniadmin/" title="View all posts by Shivansh Shukla" rel="author" itemprop="url"><span class="author-name" itemprop="name">Shivansh Shukla</span></a></span></span> 		</div>
+					</header>
+			
+			<div class="entry-summary" itemprop="text">
+				<p>For each foreign medical graduate who wants to practice in India, the FMGE exam (Foreign Medical Graduate Examination) is pass-or-fail. Other than memorizing clinical and theoretical premises, one also needs to be strong in fundamentals such as water-soluble vitamins that come up on medical exams regularly. What comes next will deal with giving an overview &#8230; <a title="Cracking FMGE &#038; Mastering Water-Soluble Vitamins showing A Two-in-One Guide to Aspiring Doctors" class="read-more" href="https://gyanbaksa.com/cracking-fmge-mastering-water-soluble-vitamins-showing-a-two-in-one-guide-to-aspiring-doctors/" aria-label="Read more about Cracking FMGE &#038; Mastering Water-Soluble Vitamins showing A Two-in-One Guide to Aspiring Doctors">Read more</a></p>
+			</div>
+
+				<footer class="entry-meta" aria-label="Entry meta">
+			<span class="cat-links"><span class="screen-reader-text">Categories </span><a href="https://gyanbaksa.com/health/" rel="category tag">HEALTH</a></span> 		</footer>
+			</div>
+</article>
+<article id="post-9525" class="post-9525 post type-post status-publish format-standard hentry category-business" itemtype="https://schema.org/CreativeWork" itemscope>
+	<div class="inside-article">
+					<header class="entry-header">
+				<h2 class="entry-title" itemprop="headline"><a href="https://gyanbaksa.com/what-are-the-documents-required-for-gst-registration-for-a-sole-proprietor/" rel="bookmark">What are the Documents Required for GST Registration for a Sole Proprietor?</a></h2>		<div class="entry-meta">
+			<span class="posted-on"><time class="updated" datetime="2025-11-26T01:52:04+05:30" itemprop="dateModified">November 26, 2025</time><time class="entry-date published" datetime="2025-11-06T16:13:06+05:30" itemprop="datePublished">November 6, 2025</time></span> <span class="byline">by <span class="author vcard" itemprop="author" itemtype="https://schema.org/Person" itemscope><a class="url fn n" href="https://gyanbaksa.com/author/gyaniadmin/" title="View all posts by Shivansh Shukla" rel="author" itemprop="url"><span class="author-name" itemprop="name">Shivansh Shukla</span></a></span></span> 		</div>
+					</header>
+			
+			<div class="entry-summary" itemprop="text">
+				<p>That moment arrives for every new entrepreneur. You&#8217;ve finally decided to take your business online, perhaps starting with some big ecommerce platforms.The products are selected, the packaging is ready, and you can almost hear the notification sounds of incoming orders. Then you encounter the gateway: GST registration. It stands there like an official formality, but &#8230; <a title="What are the Documents Required for GST Registration for a Sole Proprietor?" class="read-more" href="https://gyanbaksa.com/what-are-the-documents-required-for-gst-registration-for-a-sole-proprietor/" aria-label="Read more about What are the Documents Required for GST Registration for a Sole Proprietor?">Read more</a></p>
+			</div>
+
+				<footer class="entry-meta" aria-label="Entry meta">
+			<span class="cat-links"><span class="screen-reader-text">Categories </span><a href="https://gyanbaksa.com/business/" rel="category tag">BUSINESS</a></span> 		</footer>
+			</div>
+</article>
+<article id="post-9520" class="post-9520 post type-post status-publish format-standard hentry category-business" itemtype="https://schema.org/CreativeWork" itemscope>
+	<div class="inside-article">
+					<header class="entry-header">
+				<h2 class="entry-title" itemprop="headline"><a href="https://gyanbaksa.com/dhanteras-loan-offers-key-requirements-before-personal-loan/" rel="bookmark">Dhanteras loan offers: Key requirements before personal loan</a></h2>		<div class="entry-meta">
+			<span class="posted-on"><time class="entry-date published" datetime="2025-10-15T19:04:41+05:30" itemprop="datePublished">October 15, 2025</time></span> <span class="byline">by <span class="author vcard" itemprop="author" itemtype="https://schema.org/Person" itemscope><a class="url fn n" href="https://gyanbaksa.com/author/gyaniadmin/" title="View all posts by Shivansh Shukla" rel="author" itemprop="url"><span class="author-name" itemprop="name">Shivansh Shukla</span></a></span></span> 		</div>
+					</header>
+			
+			<div class="entry-summary" itemprop="text">
+				<p>Dhanteras, the festival of wealth and prosperity, is a perfect occasion to make significant purchases—be it gold, electronics, or home renovations. But sometimes, your savings might fall short of your festive plans. That’s where a personal loan can come in handy, giving you the financial boost you need to celebrate Dhanteras in style. Before you &#8230; <a title="Dhanteras loan offers: Key requirements before personal loan" class="read-more" href="https://gyanbaksa.com/dhanteras-loan-offers-key-requirements-before-personal-loan/" aria-label="Read more about Dhanteras loan offers: Key requirements before personal loan">Read more</a></p>
+			</div>
+
+				<footer class="entry-meta" aria-label="Entry meta">
+			<span class="cat-links"><span class="screen-reader-text">Categories </span><a href="https://gyanbaksa.com/business/" rel="category tag">BUSINESS</a></span> 		</footer>
+			</div>
+</article>
+<article id="post-9511" class="post-9511 post type-post status-publish format-standard hentry category-business" itemtype="https://schema.org/CreativeWork" itemscope>
+	<div class="inside-article">
+					<header class="entry-header">
+				<h2 class="entry-title" itemprop="headline"><a href="https://gyanbaksa.com/which-classic-sweet-do-you-prefer-baked-or-stirred/" rel="bookmark">Which Classic Sweet Do You Prefer: Baked or Stirred?</a></h2>		<div class="entry-meta">
+			<span class="posted-on"><time class="entry-date published" datetime="2025-10-12T00:42:13+05:30" itemprop="datePublished">October 12, 2025</time></span> <span class="byline">by <span class="author vcard" itemprop="author" itemtype="https://schema.org/Person" itemscope><a class="url fn n" href="https://gyanbaksa.com/author/gyaniadmin/" title="View all posts by Shivansh Shukla" rel="author" itemprop="url"><span class="author-name" itemprop="name">Shivansh Shukla</span></a></span></span> 		</div>
+					</header>
+			
+			<div class="entry-summary" itemprop="text">
+				<p>&nbsp; When we talk about sweets, everyone&#8217;s got their favourite. Some prefer the tender pull of baked goods. Others prefer rich, hand-stirred originals. Both are delightful in their own fashion, and both transport us to memories of home. Among both kinds, the humble sweet bun and the classic besan ke ladoo are the best picks. &#8230; <a title="Which Classic Sweet Do You Prefer: Baked or Stirred?" class="read-more" href="https://gyanbaksa.com/which-classic-sweet-do-you-prefer-baked-or-stirred/" aria-label="Read more about Which Classic Sweet Do You Prefer: Baked or Stirred?">Read more</a></p>
+			</div>
+
+				<footer class="entry-meta" aria-label="Entry meta">
+			<span class="cat-links"><span class="screen-reader-text">Categories </span><a href="https://gyanbaksa.com/business/" rel="category tag">BUSINESS</a></span> 		</footer>
+			</div>
+</article>
+<article id="post-9505" class="post-9505 post type-post status-publish format-standard hentry category-finance" itemtype="https://schema.org/CreativeWork" itemscope>
+	<div class="inside-article">
+					<header class="entry-header">
+				<h2 class="entry-title" itemprop="headline"><a href="https://gyanbaksa.com/maximum-cover-minimum-price-the-1-crore-term-insurance-strategy/" rel="bookmark">Maximum Cover, Minimum Price: The 1 Crore Term Insurance Strategy</a></h2>		<div class="entry-meta">
+			<span class="posted-on"><time class="updated" datetime="2025-10-21T16:10:44+05:30" itemprop="dateModified">October 21, 2025</time><time class="entry-date published" datetime="2025-09-26T15:58:26+05:30" itemprop="datePublished">September 26, 2025</time></span> <span class="byline">by <span class="author vcard" itemprop="author" itemtype="https://schema.org/Person" itemscope><a class="url fn n" href="https://gyanbaksa.com/author/gyaniadmin/" title="View all posts by Shivansh Shukla" rel="author" itemprop="url"><span class="author-name" itemprop="name">Shivansh Shukla</span></a></span></span> 		</div>
+					</header>
+			
+			<div class="entry-summary" itemprop="text">
+				<p>We don’t usually sit around thinking about “what if something happens to me?”. But if you’ve got family depending on your income, the thought does creep in once in a while. Bills, school fees, EMIs—they don’t stop if you’re not there. That’s exactly why term insurance makes sense. It’s not fancy, it doesn’t promise big &#8230; <a title="Maximum Cover, Minimum Price: The 1 Crore Term Insurance Strategy" class="read-more" href="https://gyanbaksa.com/maximum-cover-minimum-price-the-1-crore-term-insurance-strategy/" aria-label="Read more about Maximum Cover, Minimum Price: The 1 Crore Term Insurance Strategy">Read more</a></p>
+			</div>
+
+				<footer class="entry-meta" aria-label="Entry meta">
+			<span class="cat-links"><span class="screen-reader-text">Categories </span><a href="https://gyanbaksa.com/finance/" rel="category tag">FINANCE</a></span> 		</footer>
+			</div>
+</article>
+<article id="post-9502" class="post-9502 post type-post status-publish format-standard hentry category-education" itemtype="https://schema.org/CreativeWork" itemscope>
+	<div class="inside-article">
+					<header class="entry-header">
+				<h2 class="entry-title" itemprop="headline"><a href="https://gyanbaksa.com/what-strategies-are-proven-to-work-for-gmat-preparation-in-2025/" rel="bookmark">What Strategies Are Proven to Work for GMAT Preparation in 2025</a></h2>		<div class="entry-meta">
+			<span class="posted-on"><time class="entry-date published" datetime="2025-09-24T03:23:22+05:30" itemprop="datePublished">September 24, 2025</time></span> <span class="byline">by <span class="author vcard" itemprop="author" itemtype="https://schema.org/Person" itemscope><a class="url fn n" href="https://gyanbaksa.com/author/gyaniadmin/" title="View all posts by Shivansh Shukla" rel="author" itemprop="url"><span class="author-name" itemprop="name">Shivansh Shukla</span></a></span></span> 		</div>
+					</header>
+			
+			<div class="entry-summary" itemprop="text">
+				<p>India continues to be one of the biggest pools of applicants who want to pursue international MBA and master&#8217;s programs. According to a report by the Economic Times, “There was a 53% increase in Indian students who applied for the management degree in 2023-24.” This creates such stiff competition for maintaining a good profile. Moreover, &#8230; <a title="What Strategies Are Proven to Work for GMAT Preparation in 2025" class="read-more" href="https://gyanbaksa.com/what-strategies-are-proven-to-work-for-gmat-preparation-in-2025/" aria-label="Read more about What Strategies Are Proven to Work for GMAT Preparation in 2025">Read more</a></p>
+			</div>
+
+				<footer class="entry-meta" aria-label="Entry meta">
+			<span class="cat-links"><span class="screen-reader-text">Categories </span><a href="https://gyanbaksa.com/education/" rel="category tag">EDUCATION</a></span> 		</footer>
+			</div>
+</article>
+<article id="post-9500" class="post-9500 post type-post status-publish format-standard hentry category-health" itemtype="https://schema.org/CreativeWork" itemscope>
+	<div class="inside-article">
+					<header class="entry-header">
+				<h2 class="entry-title" itemprop="headline"><a href="https://gyanbaksa.com/professional-health-and-safety-consultancy-to-improve-compliance/" rel="bookmark">Professional Health and Safety Consultancy to Improve Compliance</a></h2>		<div class="entry-meta">
+			<span class="posted-on"><time class="entry-date published" datetime="2025-09-24T03:13:37+05:30" itemprop="datePublished">September 24, 2025</time></span> <span class="byline">by <span class="author vcard" itemprop="author" itemtype="https://schema.org/Person" itemscope><a class="url fn n" href="https://gyanbaksa.com/author/gyaniadmin/" title="View all posts by Shivansh Shukla" rel="author" itemprop="url"><span class="author-name" itemprop="name">Shivansh Shukla</span></a></span></span> 		</div>
+					</header>
+			
+			<div class="entry-summary" itemprop="text">
+				<p>In today&#8217;s complex regulatory landscape, organizations face increasing pressure to ensure compliance with health and safety standards. A professional health and safety consultancy offers a strategic approach to navigate these challenges, providing expert guidance and tailored solutions to enhance workplace safety and regulatory adherence. By leveraging the knowledge and experience of certified professionals, businesses can &#8230; <a title="Professional Health and Safety Consultancy to Improve Compliance" class="read-more" href="https://gyanbaksa.com/professional-health-and-safety-consultancy-to-improve-compliance/" aria-label="Read more about Professional Health and Safety Consultancy to Improve Compliance">Read more</a></p>
+			</div>
+
+				<footer class="entry-meta" aria-label="Entry meta">
+			<span class="cat-links"><span class="screen-reader-text">Categories </span><a href="https://gyanbaksa.com/health/" rel="category tag">HEALTH</a></span> 		</footer>
+			</div>
+</article>
+<article id="post-9497" class="post-9497 post type-post status-publish format-standard hentry category-lifestyle" itemtype="https://schema.org/CreativeWork" itemscope>
+	<div class="inside-article">
+					<header class="entry-header">
+				<h2 class="entry-title" itemprop="headline"><a href="https://gyanbaksa.com/luxury-airport-transfer-services-vs-standard-taxi-services-what-you-need-to-know/" rel="bookmark">Luxury Airport Transfer Services vs. Standard Taxi Services: What You Need to Know</a></h2>		<div class="entry-meta">
+			<span class="posted-on"><time class="entry-date published" datetime="2025-09-18T00:54:07+05:30" itemprop="datePublished">September 18, 2025</time></span> <span class="byline">by <span class="author vcard" itemprop="author" itemtype="https://schema.org/Person" itemscope><a class="url fn n" href="https://gyanbaksa.com/author/gyaniadmin/" title="View all posts by Shivansh Shukla" rel="author" itemprop="url"><span class="author-name" itemprop="name">Shivansh Shukla</span></a></span></span> 		</div>
+					</header>
+			
+			<div class="entry-summary" itemprop="text">
+				<p>When traveling to Switzerland—whether for business, leisure, or a special event—airport transfers play a pivotal role in shaping your overall experience. Many visitors wonder whether they should book a standard taxi or opt for a luxury car hire service in Switzerland. While taxis may seem like the convenient choice, luxury chauffeur-driven transfers offer far more &#8230; <a title="Luxury Airport Transfer Services vs. Standard Taxi Services: What You Need to Know" class="read-more" href="https://gyanbaksa.com/luxury-airport-transfer-services-vs-standard-taxi-services-what-you-need-to-know/" aria-label="Read more about Luxury Airport Transfer Services vs. Standard Taxi Services: What You Need to Know">Read more</a></p>
+			</div>
+
+				<footer class="entry-meta" aria-label="Entry meta">
+			<span class="cat-links"><span class="screen-reader-text">Categories </span><a href="https://gyanbaksa.com/lifestyle/" rel="category tag">LIFESTYLE</a></span> 		</footer>
+			</div>
+</article>
+<article id="post-9495" class="post-9495 post type-post status-publish format-standard hentry category-education" itemtype="https://schema.org/CreativeWork" itemscope>
+	<div class="inside-article">
+					<header class="entry-header">
+				<h2 class="entry-title" itemprop="headline"><a href="https://gyanbaksa.com/from-doubt-to-direction-study-support-that-makes-sense/" rel="bookmark">From Doubt to Direction: Study Support That Makes Sense</a></h2>		<div class="entry-meta">
+			<span class="posted-on"><time class="entry-date published" datetime="2025-09-16T01:11:24+05:30" itemprop="datePublished">September 16, 2025</time></span> <span class="byline">by <span class="author vcard" itemprop="author" itemtype="https://schema.org/Person" itemscope><a class="url fn n" href="https://gyanbaksa.com/author/gyaniadmin/" title="View all posts by Shivansh Shukla" rel="author" itemprop="url"><span class="author-name" itemprop="name">Shivansh Shukla</span></a></span></span> 		</div>
+					</header>
+			
+			<div class="entry-summary" itemprop="text">
+				<p>Introduction: Navigating Academic Uncertainty with the Right Tools Academic life can feel like a maze deadlines, difficult modules, complex referencing styles, and rising pressure to perform. Whether you are enrolled in a university in London, Manchester, or even abroad, one term is likely to pop up in your search bar more often than others: &#8220;Assignment &#8230; <a title="From Doubt to Direction: Study Support That Makes Sense" class="read-more" href="https://gyanbaksa.com/from-doubt-to-direction-study-support-that-makes-sense/" aria-label="Read more about From Doubt to Direction: Study Support That Makes Sense">Read more</a></p>
+			</div>
+
+				<footer class="entry-meta" aria-label="Entry meta">
+			<span class="cat-links"><span class="screen-reader-text">Categories </span><a href="https://gyanbaksa.com/education/" rel="category tag">EDUCATION</a></span> 		</footer>
+			</div>
+</article>
+<article id="post-9493" class="post-9493 post type-post status-publish format-standard hentry category-education" itemtype="https://schema.org/CreativeWork" itemscope>
+	<div class="inside-article">
+					<header class="entry-header">
+				<h2 class="entry-title" itemprop="headline"><a href="https://gyanbaksa.com/learning-beyond-the-rubric-what-real-support-teaches/" rel="bookmark">Learning Beyond the Rubric: What Real Support Teaches</a></h2>		<div class="entry-meta">
+			<span class="posted-on"><time class="entry-date published" datetime="2025-09-16T01:09:30+05:30" itemprop="datePublished">September 16, 2025</time></span> <span class="byline">by <span class="author vcard" itemprop="author" itemtype="https://schema.org/Person" itemscope><a class="url fn n" href="https://gyanbaksa.com/author/gyaniadmin/" title="View all posts by Shivansh Shukla" rel="author" itemprop="url"><span class="author-name" itemprop="name">Shivansh Shukla</span></a></span></span> 		</div>
+					</header>
+			
+			<div class="entry-summary" itemprop="text">
+				<p>Introduction: Beyond the Checkboxes of Education In today’s fast-paced academic world, education is often reduced to ticking boxes on a rubric. For many students in the UK and internationally, especially those navigating university systems, success feels like a series of deadlines, formats, and expectations. But is mastering the rubric the same as mastering learning? This &#8230; <a title="Learning Beyond the Rubric: What Real Support Teaches" class="read-more" href="https://gyanbaksa.com/learning-beyond-the-rubric-what-real-support-teaches/" aria-label="Read more about Learning Beyond the Rubric: What Real Support Teaches">Read more</a></p>
+			</div>
+
+				<footer class="entry-meta" aria-label="Entry meta">
+			<span class="cat-links"><span class="screen-reader-text">Categories </span><a href="https://gyanbaksa.com/education/" rel="category tag">EDUCATION</a></span> 		</footer>
+			</div>
+</article>
+<article id="post-9490" class="post-9490 post type-post status-publish format-standard hentry category-technology" itemtype="https://schema.org/CreativeWork" itemscope>
+	<div class="inside-article">
+					<header class="entry-header">
+				<h2 class="entry-title" itemprop="headline"><a href="https://gyanbaksa.com/how-to-select-the-best-fire-damage-restoration-company-near-me/" rel="bookmark">How to Select the Best Fire Damage Restoration Company Near Me</a></h2>		<div class="entry-meta">
+			<span class="posted-on"><time class="entry-date published" datetime="2025-09-12T04:28:54+05:30" itemprop="datePublished">September 12, 2025</time></span> <span class="byline">by <span class="author vcard" itemprop="author" itemtype="https://schema.org/Person" itemscope><a class="url fn n" href="https://gyanbaksa.com/author/gyaniadmin/" title="View all posts by Shivansh Shukla" rel="author" itemprop="url"><span class="author-name" itemprop="name">Shivansh Shukla</span></a></span></span> 		</div>
+					</header>
+			
+			<div class="entry-summary" itemprop="text">
+				<p>Experiencing fire damage can be a traumatic event, leaving property owners feeling overwhelmed and uncertain about the next steps to take. Selecting the right fire damage restoration company is crucial in ensuring a thorough and efficient recovery process. With numerous options available, it can be challenging to determine which local service provider meets your specific &#8230; <a title="How to Select the Best Fire Damage Restoration Company Near Me" class="read-more" href="https://gyanbaksa.com/how-to-select-the-best-fire-damage-restoration-company-near-me/" aria-label="Read more about How to Select the Best Fire Damage Restoration Company Near Me">Read more</a></p>
+			</div>
+
+				<footer class="entry-meta" aria-label="Entry meta">
+			<span class="cat-links"><span class="screen-reader-text">Categories </span><a href="https://gyanbaksa.com/technology/" rel="category tag">TECHNOLOGY</a></span> 		</footer>
+			</div>
+</article>
+<article id="post-9487" class="post-9487 post type-post status-publish format-standard hentry category-technology" itemtype="https://schema.org/CreativeWork" itemscope>
+	<div class="inside-article">
+					<header class="entry-header">
+				<h2 class="entry-title" itemprop="headline"><a href="https://gyanbaksa.com/why-anglian-compressors-lead-in-performance-and-service/" rel="bookmark">Why Anglian Compressors Lead in Performance and Service&#8221;</a></h2>		<div class="entry-meta">
+			<span class="posted-on"><time class="entry-date published" datetime="2025-09-05T02:26:22+05:30" itemprop="datePublished">September 5, 2025</time></span> <span class="byline">by <span class="author vcard" itemprop="author" itemtype="https://schema.org/Person" itemscope><a class="url fn n" href="https://gyanbaksa.com/author/gyaniadmin/" title="View all posts by Shivansh Shukla" rel="author" itemprop="url"><span class="author-name" itemprop="name">Shivansh Shukla</span></a></span></span> 		</div>
+					</header>
+			
+			<div class="entry-summary" itemprop="text">
+				<p>In today’s competitive industrial landscape, the relentless pursuit of efficiency and reliability is paramount for businesses relying on compressed air solutions. Anglian Compressors has emerged as a frontrunner in this domain, setting a benchmark for performance and service excellence. With a commitment to innovation and customer satisfaction, Anglian has developed a comprehensive portfolio of robust &#8230; <a title="Why Anglian Compressors Lead in Performance and Service&#8221;" class="read-more" href="https://gyanbaksa.com/why-anglian-compressors-lead-in-performance-and-service/" aria-label="Read more about Why Anglian Compressors Lead in Performance and Service&#8221;">Read more</a></p>
+			</div>
+
+				<footer class="entry-meta" aria-label="Entry meta">
+			<span class="cat-links"><span class="screen-reader-text">Categories </span><a href="https://gyanbaksa.com/technology/" rel="category tag">TECHNOLOGY</a></span> 		</footer>
+			</div>
+</article>
+		<nav id="nav-below" class="paging-navigation" aria-label="Archive Page">
+								<div class="nav-previous">
+												<span class="prev" title="Previous"><a href="https://gyanbaksa.com/page/2/" >Older posts</a></span>
+					</div>
+					<div class="nav-links"><span aria-current="page" class="page-numbers current"><span class="screen-reader-text">Page</span>1</span>
+<a class="page-numbers" href="https://gyanbaksa.com/page/2/"><span class="screen-reader-text">Page</span>2</a>
+<span class="page-numbers dots">&hellip;</span>
+<a class="page-numbers" href="https://gyanbaksa.com/page/90/"><span class="screen-reader-text">Page</span>90</a>
+<a class="next page-numbers" href="https://gyanbaksa.com/page/2/">Next <span aria-hidden="true">&rarr;</span></a></div>		</nav>
+				</main>
+	</div>
+
+	<div class="widget-area sidebar is-right-sidebar grid-25 tablet-grid-25 grid-parent" id="right-sidebar">
+	<div class="inside-right-sidebar">
+		<aside id="block-3" class="widget inner-padding widget_block widget_recent_entries"><ul class="wp-block-latest-posts__list wp-block-latest-posts"><li><a class="wp-block-latest-posts__post-title" href="https://gyanbaksa.com/the-role-of-savings-accounts-in-digital-india/">The Role of Savings Accounts in Digital India</a></li>
+<li><a class="wp-block-latest-posts__post-title" href="https://gyanbaksa.com/cracking-fmge-mastering-water-soluble-vitamins-showing-a-two-in-one-guide-to-aspiring-doctors/">Cracking FMGE &#038; Mastering Water-Soluble Vitamins showing A Two-in-One Guide to Aspiring Doctors</a></li>
+<li><a class="wp-block-latest-posts__post-title" href="https://gyanbaksa.com/what-are-the-documents-required-for-gst-registration-for-a-sole-proprietor/">What are the Documents Required for GST Registration for a Sole Proprietor?</a></li>
+<li><a class="wp-block-latest-posts__post-title" href="https://gyanbaksa.com/dhanteras-loan-offers-key-requirements-before-personal-loan/">Dhanteras loan offers: Key requirements before personal loan</a></li>
+<li><a class="wp-block-latest-posts__post-title" href="https://gyanbaksa.com/which-classic-sweet-do-you-prefer-baked-or-stirred/">Which Classic Sweet Do You Prefer: Baked or Stirred?</a></li>
+</ul></aside><aside id="block-4" class="widget inner-padding widget_block">
+<div class="wp-block-media-text alignwide is-stacked-on-mobile" style="grid-template-columns:85% auto"><figure class="wp-block-media-text__media"><a href="https://news.google.com/publications/CAAqBwgKMJGdsgswnrjJAw?hl=en-IN&amp;gl=IN&amp;ceid=IN%3Aen"><img loading="lazy" decoding="async" width="330" height="139" src="https://gyanbaksa.com/wp-content/uploads/2022/02/google-news.png" alt="" class="wp-image-4812 size-full"/></a></figure><div class="wp-block-media-text__content">
+<p class="has-large-font-size"></p>
+</div></div>
+</aside>	</div>
+</div>
+
+	</div>
+</div>
+
+
+<div class="site-footer">
+			<footer class="site-info" aria-label="Site"  itemtype="https://schema.org/WPFooter" itemscope>
+			<div class="inside-site-info grid-container grid-parent">
+								<div class="copyright-bar">
+					<span class="copyright">&copy; 2026 Gyan baksa</span> &bull; Built with <a href="https://generatepress.com" itemprop="url">GeneratePress</a>				</div>
+			</div>
+		</footer>
+		</div>
+
+<a title="Scroll back to top" aria-label="Scroll back to top" rel="nofollow" href="#" class="generate-back-to-top" data-scroll-speed="400" data-start-scroll="300" role="button">
+					
+				</a><script type="speculationrules">
+{"prefetch":[{"source":"document","where":{"and":[{"href_matches":"/*"},{"not":{"href_matches":["/wp-*.php","/wp-admin/*","/wp-content/uploads/*","/wp-content/*","/wp-content/plugins/*","/wp-content/themes/generatepress/*","/*\\?(.+)"]}},{"not":{"selector_matches":"a[rel~=\"nofollow\"]"}},{"not":{"selector_matches":".no-prefetch, .no-prefetch a"}}]},"eagerness":"conservative"}]}
+</script>
+<script type="rocketlazyloadscript" id="generate-a11y">
+!function(){"use strict";if("querySelector"in document&&"addEventListener"in window){var e=document.body;e.addEventListener("pointerdown",(function(){e.classList.add("using-mouse")}),{passive:!0}),e.addEventListener("keydown",(function(){e.classList.remove("using-mouse")}),{passive:!0})}}();
+</script>
+<script type="rocketlazyloadscript" id="generate-menu-js-before">
+var generatepressMenu = {"toggleOpenedSubMenus":true,"openSubMenuLabel":"Open Sub-Menu","closeSubMenuLabel":"Close Sub-Menu"};
+//# sourceURL=generate-menu-js-before
+</script>
+<script type="rocketlazyloadscript" src="https://gyanbaksa.com/wp-content/themes/generatepress/assets/js/menu.min.js?ver=3.6.1" id="generate-menu-js" defer></script>
+<script type="rocketlazyloadscript" id="generate-navigation-search-js-before">
+var generatepressNavSearch = {"open":"Open Search Bar","close":"Close Search Bar"};
+//# sourceURL=generate-navigation-search-js-before
+</script>
+<script type="rocketlazyloadscript" src="https://gyanbaksa.com/wp-content/themes/generatepress/assets/js/navigation-search.min.js?ver=3.6.1" id="generate-navigation-search-js" defer></script>
+<script type="rocketlazyloadscript" id="generate-back-to-top-js-before">
+var generatepressBackToTop = {"smooth":true};
+//# sourceURL=generate-back-to-top-js-before
+</script>
+<script type="rocketlazyloadscript" src="https://gyanbaksa.com/wp-content/themes/generatepress/assets/js/back-to-top.min.js?ver=3.6.1" id="generate-back-to-top-js" defer></script>
+<script id="wp-emoji-settings" type="application/json">
+{"baseUrl":"https://s.w.org/images/core/emoji/17.0.2/72x72/","ext":".png","svgUrl":"https://s.w.org/images/core/emoji/17.0.2/svg/","svgExt":".svg","source":{"concatemoji":"https://gyanbaksa.com/wp-includes/js/wp-emoji-release.min.js?ver=6.9"}}
+</script>
+<script type="rocketlazyloadscript" data-rocket-type="module">
+/*! This file is auto-generated */
+const a=JSON.parse(document.getElementById("wp-emoji-settings").textContent),o=(window._wpemojiSettings=a,"wpEmojiSettingsSupports"),s=["flag","emoji"];function i(e){try{var t={supportTests:e,timestamp:(new Date).valueOf()};sessionStorage.setItem(o,JSON.stringify(t))}catch(e){}}function c(e,t,n){e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(t,0,0);t=new Uint32Array(e.getImageData(0,0,e.canvas.width,e.canvas.height).data);e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(n,0,0);const a=new Uint32Array(e.getImageData(0,0,e.canvas.width,e.canvas.height).data);return t.every((e,t)=>e===a[t])}function p(e,t){e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(t,0,0);var n=e.getImageData(16,16,1,1);for(let e=0;e<n.data.length;e++)if(0!==n.data[e])return!1;return!0}function u(e,t,n,a){switch(t){case"flag":return n(e,"\ud83c\udff3\ufe0f\u200d\u26a7\ufe0f","\ud83c\udff3\ufe0f\u200b\u26a7\ufe0f")?!1:!n(e,"\ud83c\udde8\ud83c\uddf6","\ud83c\udde8\u200b\ud83c\uddf6")&&!n(e,"\ud83c\udff4\udb40\udc67\udb40\udc62\udb40\udc65\udb40\udc6e\udb40\udc67\udb40\udc7f","\ud83c\udff4\u200b\udb40\udc67\u200b\udb40\udc62\u200b\udb40\udc65\u200b\udb40\udc6e\u200b\udb40\udc67\u200b\udb40\udc7f");case"emoji":return!a(e,"\ud83e\u1fac8")}return!1}function f(e,t,n,a){let r;const o=(r="undefined"!=typeof WorkerGlobalScope&&self instanceof WorkerGlobalScope?new OffscreenCanvas(300,150):document.createElement("canvas")).getContext("2d",{willReadFrequently:!0}),s=(o.textBaseline="top",o.font="600 32px Arial",{});return e.forEach(e=>{s[e]=t(o,e,n,a)}),s}function r(e){var t=document.createElement("script");t.src=e,t.defer=!0,document.head.appendChild(t)}a.supports={everything:!0,everythingExceptFlag:!0},new Promise(t=>{let n=function(){try{var e=JSON.parse(sessionStorage.getItem(o));if("object"==typeof e&&"number"==typeof e.timestamp&&(new Date).valueOf()<e.timestamp+604800&&"object"==typeof e.supportTests)return e.supportTests}catch(e){}return null}();if(!n){if("undefined"!=typeof Worker&&"undefined"!=typeof OffscreenCanvas&&"undefined"!=typeof URL&&URL.createObjectURL&&"undefined"!=typeof Blob)try{var e="postMessage("+f.toString()+"("+[JSON.stringify(s),u.toString(),c.toString(),p.toString()].join(",")+"));",a=new Blob([e],{type:"text/javascript"});const r=new Worker(URL.createObjectURL(a),{name:"wpTestEmojiSupports"});return void(r.onmessage=e=>{i(n=e.data),r.terminate(),t(n)})}catch(e){}i(n=f(s,u,c,p))}t(n)}).then(e=>{for(const n in e)a.supports[n]=e[n],a.supports.everything=a.supports.everything&&a.supports[n],"flag"!==n&&(a.supports.everythingExceptFlag=a.supports.everythingExceptFlag&&a.supports[n]);var t;a.supports.everythingExceptFlag=a.supports.everythingExceptFlag&&!a.supports.flag,a.supports.everything||((t=a.source||{}).concatemoji?r(t.concatemoji):t.wpemoji&&t.twemoji&&(r(t.twemoji),r(t.wpemoji)))});
+//# sourceURL=https://gyanbaksa.com/wp-includes/js/wp-emoji-loader.min.js
+</script>
+
+</body>
+</html>
+
+<!-- This website is like a Rocket, isn't it? Performance optimized by WP Rocket. Learn more: https://wp-rocket.me - Debug: cached@1768886121 -->

@@ -1,0 +1,513 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta name="robots" content="noindex, nofollow">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>greedygames.com · Make an Offer</title>
+    <style>
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+      html, body {
+        height: 100%;
+      }
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        background: #1e293b;
+        color: #1a202c;
+        min-height: 100vh;
+      }
+
+      /* Split layout container */
+      .split-layout {
+        display: flex;
+        min-height: 100vh;
+      }
+
+      /* Left side - white background with form */
+      .left-panel {
+        flex: 1;
+        background: #f8fafc;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        padding: 60px 40px 60px 40px;
+      }
+
+      /* Right side - dark background with branding */
+      .right-panel {
+        flex: 1;
+        background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        padding: 60px 40px 60px 60px;
+      }
+
+      /* Form card */
+      .form-card {
+        width: 100%;
+        max-width: 420px;
+      }
+      .form-card h2 {
+        font-size: 28px;
+        font-weight: 700;
+        margin-bottom: 32px;
+        color: #0f172a;
+      }
+      .field {
+        margin-bottom: 20px;
+      }
+      .field label {
+        display: block;
+        font-size: 14px;
+        font-weight: 600;
+        color: #475569;
+        margin-bottom: 6px;
+      }
+      .field input,
+      .field textarea {
+        width: 100%;
+        border: 2px solid #e2e8f0;
+        border-radius: 10px;
+        padding: 12px 14px;
+        font-size: 15px;
+        font-family: inherit;
+        transition: border-color 0.2s, box-shadow 0.2s;
+        background: #fff;
+        color: #1a202c;
+      }
+      .field input:focus,
+      .field textarea:focus {
+        outline: none;
+        border-color: #4F46E5;
+        box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+      }
+      .field textarea {
+        min-height: 80px;
+        resize: vertical;
+      }
+      button[type="submit"] {
+        background: #4F46E5;
+        color: #fff;
+        border: none;
+        border-radius: 10px;
+        padding: 14px;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        width: 100%;
+        transition: background 0.2s, transform 0.1s;
+      }
+      button[type="submit"]:hover {
+        background: #4338CA;
+        transform: translateY(-1px);
+      }
+      .honeypot {
+        position: absolute;
+        left: -9999px;
+      }
+
+      /* Right panel content */
+      .branding-content {
+        max-width: 440px;
+      }
+
+      /* Domain branding */
+      .domain-branding .label {
+        font-size: 14px;
+        font-weight: 500;
+        color: #94a3b8;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        margin-bottom: 12px;
+      }
+      .domain-branding .domain-name {
+        font-size: clamp(28px, 5vw, 52px);
+        font-weight: 800;
+        color: #ffffff;
+        letter-spacing: -0.02em;
+        line-height: 1.1;
+        margin-bottom: 8px;
+        word-break: keep-all;
+        overflow-wrap: normal;
+      }
+      .domain-branding .for-sale {
+        font-size: 20px;
+        font-weight: 500;
+        color: #64748b;
+        margin-bottom: 48px;
+      }
+
+      /* Trust badges - inside right panel */
+      .trust-badges {
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+      }
+      .trust-badge {
+        display: flex;
+        align-items: flex-start;
+        gap: 16px;
+      }
+      .trust-badge svg {
+        width: 28px;
+        height: 28px;
+        stroke: #818cf8;
+        fill: none;
+        stroke-width: 1.5;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        flex-shrink: 0;
+        margin-top: 2px;
+      }
+      .trust-text .trust-label {
+        font-size: 15px;
+        font-weight: 600;
+        color: #ffffff;
+        margin-bottom: 4px;
+      }
+      .trust-text .trust-desc {
+        font-size: 14px;
+        color: #94a3b8;
+        line-height: 1.4;
+      }
+
+      /* Responsive - stack on mobile */
+      @media (max-width: 900px) {
+        .split-layout {
+          flex-direction: column;
+          min-height: auto;
+        }
+        .left-panel {
+          order: 2;
+          flex: none;
+          justify-content: center;
+          padding: 40px 24px 60px;
+        }
+        .right-panel {
+          order: 1;
+          flex: none;
+          justify-content: center;
+          padding: 48px 24px 40px;
+        }
+        .form-card {
+          max-width: 400px;
+          width: 100%;
+        }
+        .form-card h2 {
+          font-size: 24px;
+          margin-bottom: 24px;
+          text-align: center;
+        }
+        .branding-content {
+          max-width: 400px;
+          width: 100%;
+        }
+        .domain-branding {
+          text-align: center;
+        }
+        .domain-branding .label {
+          font-size: 12px;
+        }
+        .domain-branding .domain-name {
+          font-size: 32px;
+          margin-bottom: 6px;
+        }
+        .domain-branding .for-sale {
+          font-size: 16px;
+          margin-bottom: 28px;
+        }
+        .trust-badges {
+          flex-direction: row;
+          justify-content: center;
+          gap: 32px;
+        }
+        .trust-badge {
+          flex-direction: column;
+          align-items: center;
+          gap: 8px;
+          flex: 1;
+          max-width: 100px;
+        }
+        .trust-badge svg {
+          width: 24px;
+          height: 24px;
+          margin-top: 0;
+        }
+        .trust-text {
+          text-align: center;
+        }
+        .trust-text .trust-label {
+          font-size: 12px;
+          font-weight: 600;
+        }
+        .trust-text .trust-desc {
+          display: none;
+        }
+        .field {
+          margin-bottom: 16px;
+        }
+        .field input,
+        .field textarea {
+          padding: 11px 12px;
+          font-size: 16px;
+        }
+        .field textarea {
+          min-height: 70px;
+        }
+        button[type="submit"] {
+          padding: 13px;
+          margin-top: 4px;
+        }
+      }
+
+      @media (max-width: 380px) {
+        .domain-branding .domain-name {
+          font-size: 26px;
+        }
+        .trust-badges {
+          gap: 20px;
+        }
+        .trust-badge {
+          max-width: 80px;
+        }
+        .trust-text .trust-label {
+          font-size: 11px;
+        }
+      }
+    </style>
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+</head>
+  <body>
+    <div class="split-layout">
+      <div class="left-panel">
+        <div class="form-card">
+          <h2>Make an Offer</h2>
+          <form action="/api/offer" method="POST" id="offerForm">
+            <input type="hidden" name="domain" value="greedygames.com" />
+            <input type="hidden" name="template_id" value="tmpl-mo-2" />
+            <input type="hidden" name="template_name" value="Make Offer 2" />
+            <input type="hidden" name="_ts" id="pageLoadTime" value="" />
+            <input type="hidden" name="_fm" id="fieldMapping" value="" />
+            <input type="hidden" id="domainId" value="aacfcba3-cd4b-4373-ae08-7eb34d47a75c" />
+            <input type="hidden" id="templateId" value="tmpl-mo-2" />
+
+            <div class="field">
+              <label>Your Name</label>
+              <input type="text" id="nameField" required />
+            </div>
+
+            <div class="field">
+              <label>Email Address</label>
+              <input type="email" id="emailField" required />
+            </div>
+
+            <div class="field">
+              <label>Your Offer (USD)</label>
+              <input type="number" id="offerField" min="500" max="1000000" required />
+            </div>
+
+            <div class="field">
+              <label>Message (Optional)</label>
+              <textarea id="messageField" placeholder="Tell us about your intended use..."></textarea>
+            </div>
+
+            <label class="honeypot">
+              Website
+              <input type="text" name="website" tabindex="-1" autocomplete="off" />
+            </label>
+
+            <div class="cf-turnstile" data-sitekey="0x4AAAAAACNfloQ_gzGJGSaR" data-theme="light" style="margin: 16px 0;"></div>
+        <button type="submit">Submit Offer</button>
+          </form>
+        </div>
+      </div>
+
+      <div class="right-panel">
+        <div class="branding-content">
+          <div class="domain-branding">
+            <div class="label">The domain name</div>
+            <div class="domain-name">greedygames.com</div>
+            <div class="for-sale">may be available</div>
+          </div>
+
+          <div class="trust-badges">
+            <div class="trust-badge">
+              <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              <div class="trust-text">
+                <div class="trust-label">Escrow Protected</div>
+                <div class="trust-desc">Payment held securely until transfer completes</div>
+              </div>
+            </div>
+            <div class="trust-badge">
+              <svg viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+              <div class="trust-text">
+                <div class="trust-label">Quick Delivery</div>
+                <div class="trust-desc">Most domains transfer within 1-2 business days</div>
+              </div>
+            </div>
+            <div class="trust-badge">
+              <svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="M22 4L12 14.01l-3-3"/></svg>
+              <div class="trust-text">
+                <div class="trust-label">Expert Support</div>
+                <div class="trust-desc">Our team guides you through every step</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      (function() {
+        // Track page impression with enhanced bot detection (client-side)
+        var hasInteraction = false;
+        var trackedImpression = false;
+        var pageLoadTime = Date.now();
+
+        // Detect automation/headless browsers
+        function detectAutomation() {
+          // Check for webdriver flag (Selenium, Puppeteer, Playwright)
+          if (navigator.webdriver) {
+            return true;
+          }
+
+          // Check for headless browser indicators
+          if (window.navigator.userAgent.toLowerCase().indexOf('headless') !== -1) {
+            return true;
+          }
+
+          // Check for missing features that real browsers have
+          if (!window.chrome && !window.safari && navigator.userAgent.indexOf('Chrome') !== -1) {
+            return true; // Chrome without window.chrome is suspicious
+          }
+
+          // Check for phantom/headless specific properties
+          if (window._phantom || window.__nightmare || window.callPhantom) {
+            return true;
+          }
+
+          // Check for missing plugins (most bots don't implement this)
+          if (navigator.plugins && navigator.plugins.length === 0) {
+            return true;
+          }
+
+          // Check for suspicious language settings
+          if (!navigator.language && !navigator.languages) {
+            return true;
+          }
+
+          return false;
+        }
+
+        // Mark interaction on mouse movement
+        function onMouseMove() {
+          hasInteraction = true;
+        }
+
+        // Mark interaction on scroll
+        function onScroll() {
+          hasInteraction = true;
+        }
+
+        // Mark interaction on touch
+        function onTouchStart() {
+          hasInteraction = true;
+        }
+
+        // Mark interaction on keyboard
+        function onKeyDown() {
+          hasInteraction = true;
+        }
+
+        // Attach event listeners for interaction detection
+        document.addEventListener('mousemove', onMouseMove, { once: true, passive: true });
+        document.addEventListener('scroll', onScroll, { once: true, passive: true });
+        document.addEventListener('touchstart', onTouchStart, { once: true, passive: true });
+        document.addEventListener('keydown', onKeyDown, { once: true, passive: true });
+
+        // Attempt to track impression
+        function attemptTracking() {
+          if (trackedImpression) {
+            return; // Already tracked
+          }
+
+          var timeOnPage = (Date.now() - pageLoadTime) / 1000; // in seconds
+
+          // Requirements: 3+ seconds on page AND user interaction AND not automated
+          if (timeOnPage >= 3 && hasInteraction && !detectAutomation()) {
+            trackedImpression = true;
+
+            var domainId = document.getElementById('domainId')?.value;
+            var templateId = document.getElementById('templateId')?.value;
+
+            if (domainId) {
+              var data = JSON.stringify({ domainId: domainId, templateId: templateId || null });
+
+              // Use sendBeacon if available (more reliable, doesn't block page unload)
+              if (navigator.sendBeacon) {
+                var blob = new Blob([data], { type: 'application/json' });
+                navigator.sendBeacon('/api/track-impression', blob);
+              } else {
+                // Fallback to fetch
+                fetch('/api/track-impression', {
+                  method: 'POST',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: data,
+                  keepalive: true
+                }).catch(function() {
+                  // Silently fail - impression tracking shouldn't break the page
+                });
+              }
+
+              // Clean up event listeners after tracking
+              document.removeEventListener('mousemove', onMouseMove);
+              document.removeEventListener('scroll', onScroll);
+              document.removeEventListener('touchstart', onTouchStart);
+              document.removeEventListener('keydown', onKeyDown);
+            }
+          }
+        }
+
+        // Check every second for 10 seconds
+        var checkInterval = setInterval(function() {
+          attemptTracking();
+
+          // Stop checking after 10 seconds or if tracked
+          if (trackedImpression || (Date.now() - pageLoadTime) > 10000) {
+            clearInterval(checkInterval);
+          }
+        }, 1000);
+      })();
+    </script>
+
+    <script>
+      // Field mapping and form submission setup
+      (function() {
+        // Generate random field names for bot protection
+        function randomFieldName(base) {
+          return base + '_' + Math.random().toString(36).substr(2, 9);
+        }
+
+        var fieldMapping = {
+          name: randomFieldName('field'),
+          email: randomFieldName('field'),
+          offer: randomFieldName('field'),
+          message: randomFieldName('field')
+        };
+
+        // Set name attributes on form fields
+        document.getElementById('nameField').setAttribute('name', fieldMapping.name);
+        document.getElementById('emailField').setAttribute('name', fieldMapping.email);
+        document.getElementById('offerField').setAttribute('name', fieldMapping.offer);
+        document.getElementById('messageField').setAttribute('name', fieldMapping.message);
+
+        // Populate hidden field mapping
+        document.getElementById('fieldMapping').value = JSON.stringify(fieldMapping);
+
+        // Set page load timestamp
+        document.getElementById('pageLoadTime').value = Date.now().toString();
+      })();
+    </script>
+  </body>
+</html>

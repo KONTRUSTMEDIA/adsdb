@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Emoji Tarot</title>
+    <meta
+      name="description"
+      content="Generate your own random tarot reading with emoji symbols!"
+    />
+    <meta property="og:url" content="https://emoji-tarot.com" />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:title"
+      content="Emoji Tarot Readings & Interpretations"
+    />
+    <meta
+      property="og:description"
+      content="Generate your own random tarot reading with emoji symbols!"
+    />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="600" />
+    <meta
+      property="og:image"
+      content="https://emoji-tarot.com/hourglass-flow_heart-suit_sun-with-face.png"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:creator" content="@robotson /" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta property="twitter:domain" content="emoji-tarot.com" />
+    <meta property="twitter:url" content="https://emoji-tarot.com" />
+    <meta
+      name="twitter:title"
+      content="Emoji Tarot Readings & Interpretations"
+    />
+    <meta
+      name="twitter:description"
+      content="Generate your own random tarot reading with emoji symbols!"
+    />
+    <meta name="twitter:image"
+    content="https://emoji-tarot.com/hourglass-flow_heart-suit_sun-with-face.png"">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script
+      async
+      src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8048636620407286"
+      crossorigin="anonymous"
+    ></script>
+    <!-- Google tag (gtag.js) -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-LG6VG6736D"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "G-LG6VG6736D");
+    </script>
+    <style>
+      @font-face {
+        font-family: "color-emoji";
+        src: local("Apple Color Emoji"), local("Segoe UI Emoji"),
+          local("Segoe UI Symbol"), local("Noto Color Emoji");
+      }
+      :root {
+        --base-size: min(14.6px, min(1.3vw, 1.3vh));
+        --text-size: min(9px, 1.4vmin);
+        --fall-duration: 600ms;
+        --flip-duration: 300ms;
+      }
+      body {
+        margin: 0 auto;
+        width: calc(66 * var(--base-size));
+        box-sizing: border-box;
+        color: #555555;
+        display: flex;
+        flex-direction: column;
+        gap: calc(var(--base-size) * 1.5);
+        padding: calc(var(--base-size) * 3);
+        scroll-padding: calc(var(--base-size) * 23) 0 0 0;
+      }
+      header {
+        padding-top: calc(3 * var(--base-size));
+        font-size: calc(3 * var(--base-size));
+        width: 100%;
+        text-align: center;
+        font-family: serif;
+        font-style: italic;
+        font-weight: bold;
+        margin-bottom: calc(4.875 * var(--base-size));
+      }
+      main {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: sticky;
+        top: 0;
+        z-index: 2;
+        background-color: #fff;
+        margin: 0 0 calc(var(--base-size) * 2) 0;
+        height: calc(var(--base-size) * 24);
+      }
+      main::after {
+        content: "";
+        position: absolute;
+        bottom: calc(var(--base-size) * -4);
+        left: 0;
+        width: 100%;
+        height: calc(var(--base-size) * 4);
+        background-image: linear-gradient(
+          to top,
+          rgba(255, 255, 255, 0),
+          #ffffff,
+          #ffffff
+        );
+        pointer-events: none;
+      }
+      .card:nth-child(2) {
+        --card-padding: calc(var(--base-size) * 10);
+
+        margin-left: var(--card-padding);
+        margin-right: var(--card-padding);
+      }
+      .card {
+        position: relative;
+        display: inline-block;
+        border-radius: var(--base-size);
+        width: calc(13 * var(--base-size));
+        height: calc(22.75 * var(--base-size));
+        /* margin: calc(4.875 * var(--base-size)); */
+        text-align: center;
+        font-size: calc(var(--base-size) * 10);
+        line-height: calc(22.75 * var(--base-size));
+        opacity: 0;
+        perspective: 1000px;
+        transform-style: preserve-3d;
+        animation: cardfall var(--fall-duration) ease-out both,
+          cardflip var(--flip-duration) ease-in-out forwards;
+        z-index: 1; /* Added z-index value */
+      }
+
+      .card > div {
+        position: absolute;
+        inset: 0;
+        border-radius: var(--base-size);
+        width: 100%;
+        height: 100%;
+        box-shadow: calc(var(--base-size) * 1) calc(var(--base-size) * 1)
+            calc(var(--base-size) * 2) #c9c9c9,
+          calc(var(--base-size) * -1) calc(var(--base-size) * -1)
+            calc(var(--base-size) * 2) #ffffff;
+      }
+
+      .card div.front {
+        visibility: hidden;
+        outline: 1px solid #e2e2e2b7;
+        transform: rotateY(180deg);
+        font-family: color-emoji, serif;
+        width: 100%;
+        background-image: radial-gradient(
+          ellipse at center,
+          #ffffff 0%,
+          #00000008 100%
+        );
+        animation: showfront var(--flip-duration) step-end both;
+      }
+      .card div.back {
+        outline: calc(0.4 * var(--base-size)) ridge #ffffff40;
+        background-color: #fff;
+        background-image: linear-gradient(
+            45deg,
+            #00000040 25%,
+            transparent 25%,
+            transparent 75%,
+            #00000040 75%,
+            #00000040
+          ),
+          linear-gradient(
+            -45deg,
+            #00000040 25%,
+            transparent 25%,
+            transparent 75%,
+            #00000040 75%,
+            #00000040
+          );
+        background-size: calc(var(--base-size) * 3.25)
+          calc(var(--base-size) * 3.25);
+        background-repeat: repeat;
+        animation: hideback var(--flip-duration) step-end both;
+      }
+
+      .card:nth-child(1) {
+        animation-delay: 0s, calc(3 * var(--fall-duration));
+      }
+      .card:nth-child(2) {
+        animation-delay: var(--fall-duration),
+          calc(3 * var(--fall-duration) + var(--flip-duration));
+      }
+      .card:nth-child(3) {
+        animation-delay: calc(2 * var(--fall-duration)),
+          calc(3 * var(--fall-duration) + 2 * var(--flip-duration));
+      }
+      div.card:nth-child(1) > div {
+        animation-delay: calc(3 * var(--fall-duration));
+      }
+      div.card:nth-child(2) > div {
+        animation-delay: calc(3 * var(--fall-duration) + var(--flip-duration));
+      }
+      div.card:nth-child(3) > div {
+        animation-delay: calc(
+          3 * var(--fall-duration) + 2 * var(--flip-duration)
+        );
+      }
+      @keyframes cardfall {
+        0% {
+          transform: scale(10) rotate(15deg);
+        }
+        20% {
+          opacity: 1;
+        }
+        100% {
+          transform: translateZ(0);
+          opacity: 1;
+        }
+      }
+      @keyframes cardflip {
+        0% {
+          transform: rotateY(0deg);
+        }
+        100% {
+          transform: rotateY(-180deg);
+        }
+      }
+      @keyframes hideback {
+        50% {
+          visibility: hidden;
+        }
+        100% {
+          visibility: hidden;
+        }
+      }
+
+      @keyframes showfront {
+        50% {
+          visibility: visible;
+        }
+        100% {
+          visibility: visible;
+        }
+      }
+      section {
+        padding-top: calc(2 * var(--base-size));
+        display: flex;
+        gap: calc(4 * var(--base-size));
+        flex-direction: column;
+      }
+      section .interpretation {
+        font-size: calc(var(--text-size) * 3);
+        /* margin: calc(2 * var(--text-size)) 0; */
+      }
+      section .interpretation span {
+        opacity: 0;
+        display: none;
+        /* scroll-margin-top: calc(24 * var(--base-size)); */
+      }
+      .showing {
+        animation: showtext 16ms step-end both;
+      }
+      .collapse {
+        display: none;
+      }
+
+      @keyframes showtext {
+        0% {
+          opacity: 0;
+        }
+        100% {
+          opacity: 1;
+        }
+      }
+      button {
+        font-size: calc(2 * var(--text-size));
+        height: calc(5 * var(--base-size));
+        border-radius: var(--base-size);
+
+        box-shadow: inset 0px 1px 0px 0px #ffffff;
+        background: linear-gradient(to bottom, #ffffff 5%, #f6f6f6 100%);
+        background-color: #ffffff;
+        text-decoration: none;
+        text-shadow: 0px 1px 0px #ffffff;
+        border: 1px solid #dcdcdc;
+        color: #666666;
+        font-weight: bold;
+        cursor: pointer;
+      }
+
+      button:hover {
+        background: linear-gradient(to bottom, #f6f6f6 5%, #ffffff 100%);
+        background-color: #f6f6f6;
+      }
+      button:active {
+        position: relative;
+        top: 1px;
+      }
+      .game_over {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        gap: calc(var(--base-size) * 1.5);
+      }
+      .game_over button {
+        flex-grow: 1;
+        flex-basis: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <header>~ emoji-tarot ~</header>
+    <main>
+      <div class="card">
+        <div class="front"></div>
+        <div class="back"></div>
+      </div>
+      <div class="card">
+        <div class="front"></div>
+        <div class="back"></div>
+      </div>
+      <div class="card">
+        <div class="front"></div>
+        <div class="back"></div>
+      </div>
+    </main>
+
+    <section class="collapse">
+      <button id="interpret_button_1" style="display: none">
+        Interpret the first card
+      </button>
+      <div class="interpretation collapse"></div>
+
+      <button id="interpret_button_2" style="display: none">
+        Interpret the second card
+      </button>
+      <div class="interpretation collapse"></div>
+      <button id="interpret_button_3" style="display: none">
+        Interpret the third card
+      </button>
+      <div class="interpretation collapse"></div>
+    </section>
+
+    <script>
+      const origin = window.location.origin;
+      const url = new URL(window.location.href);
+      const root_only =
+        window.location.pathname === "/" || window.location.pathname === "";
+
+      // we want to test if there are four path segments and the first one is "cards"
+      const path_fragments = url.pathname.split("/");
+      const valid_api_format =
+        path_fragments[1] === "cards" && path_fragments.length === 5;
+      // if it's not the first path segment or it's not a valid api format then url to root
+      if (!root_only && !valid_api_format) {
+        window.history.pushState(null, null, origin);
+      }
+
+      document.addEventListener("DOMContentLoaded", () => {
+        const card_fronts = document.querySelectorAll(".card div.front");
+        const interpretations = document.querySelectorAll(".interpretation");
+        const body = document.querySelector("body");
+        const main = document.querySelector("main");
+        const section = document.querySelector("section");
+        const header = document.querySelector("header");
+        const interpret_button_1 =
+          document.getElementById("interpret_button_1");
+        const interpret_button_2 =
+          document.getElementById("interpret_button_2");
+        const interpret_button_3 =
+          document.getElementById("interpret_button_3");
+
+        header.scrollIntoView({ behavior: "smooth", block: "end" });
+
+        fetch(`${origin}/map-emoji.json`)
+          .then((response) => response.json())
+          .then((emoji_list_data) => {
+            const emoji_map = new Map(emoji_list_data);
+            const emoji_list = emoji_list_data.map((sub_arr) => sub_arr[0]);
+            // keep an array for the emoji's that we'll pick randomly or get from the url
+            const picks = [];
+            // now that we have the emoji data we can check and see if the url contains a valid set of paths
+            if (!root_only && valid_api_format) {
+              // lets get the path segments following /cards/
+              const segments = path_fragments.slice(-3);
+              // set a flag if each segment is unique
+              const unique_paths = segments.every((segment) => {
+                return (
+                  segments.indexOf(segment) === segments.lastIndexOf(segment)
+                );
+              });
+              // set a flag that is true if each segment is in the emoji list
+              const valid_paths = segments.every((segment) => {
+                return emoji_map.has(segment);
+              });
+
+              if (!unique_paths || !valid_paths) {
+                window.history.pushState(null, null, origin);
+                // bug here from not also doing the random numbers to pick
+                // for now we'll just duplicate the code from the other conditional path
+                const length = emoji_list.length;
+                const random_numbers = new Uint32Array(length);
+                window.crypto.getRandomValues(random_numbers);
+                const picked_numbers = random_numbers.slice(0, 3);
+                for (const num of picked_numbers) {
+                  picks.push(num % length);
+                }
+              } else {
+                // we have a valid set of paths and should put them in the picks
+                for (const segment of segments) {
+                  picks.push(emoji_list.indexOf(segment));
+                }
+              }
+            } else {
+              // we're at the origin url, or we don't have a valid set of paths
+              // so we'll get random numbers to pick from
+              const length = emoji_list.length;
+              const random_numbers = new Uint32Array(length);
+              window.crypto.getRandomValues(random_numbers);
+              const picked_numbers = random_numbers.slice(0, 3);
+              for (const num of picked_numbers) {
+                picks.push(num % length);
+              }
+              // we might want to update the URL for a share link here someday
+            }
+
+            card_fronts.forEach((card_front, index) => {
+              console.log(card_front, index);
+              card_front.textContent = emoji_map.get(emoji_list[picks[index]]);
+              fetch(`${origin}/api/${emoji_list[picks[index]]}.json`)
+                .then((response) => response.json())
+                .then((emoji_data) => {
+                  const order =
+                    index === 0
+                      ? "First card:"
+                      : index === 1
+                      ? "Second card:"
+                      : "Third card:";
+
+                  let inner_text = `${order} ${
+                    emoji_data.emoji
+                  } ${emoji_data.short_name.toUpperCase()} <br> <br> ${emoji_data.interpretation.replace(
+                    /\n/g,
+                    "<br>"
+                  )} <br> <br> Keywords: ${emoji_data.keywords.join(", ")}`;
+
+                  const book_text = inner_text.split(" ");
+                  const wrapped_book_text = book_text.map((word) =>
+                    word === "<br>" ? "<br>" : `<span>${word}</span>`
+                  );
+                  interpretations[index].innerHTML =
+                    wrapped_book_text.join(" ");
+
+                  // we also need to store the url_fragment as a data attribute
+                  card_front.setAttribute(
+                    "data-url_fragment",
+                    emoji_list[picks[index]]
+                  );
+                });
+            });
+          });
+
+        const cards = document.querySelectorAll(".card");
+        let ongoingAnimations = cards.length;
+        Array.from(cards).forEach((card) => {
+          card.addEventListener("animationend", animationCompleteHandler);
+        });
+        function animationCompleteHandler(event) {
+          if (event.animationName === "cardflip") {
+            ongoingAnimations--;
+            if (ongoingAnimations === 0) {
+              section.classList.remove("collapse");
+              interpret_button_1.style.display = "block";
+            }
+          }
+        }
+
+        interpret_button_1.addEventListener("click", () => {
+          interpret_button_1.style.display = "none";
+          fortune_typer(interpretations[0]);
+        });
+
+        interpret_button_2.addEventListener("click", () => {
+          interpret_button_2.style.display = "none";
+          fortune_typer(interpretations[1]);
+        });
+
+        interpret_button_3.addEventListener("click", () => {
+          interpret_button_3.style.display = "none";
+          fortune_typer(interpretations[2]);
+        });
+
+        function isVisible(element) {
+          const rect = element.getBoundingClientRect();
+          return (
+            rect.top >= 0 &&
+            rect.left >= 0 &&
+            rect.bottom <=
+              (window.innerHeight || document.documentElement.clientHeight) &&
+            rect.right <=
+              (window.innerWidth || document.documentElement.clientWidth)
+          );
+        }
+
+        function fortune_typer(interpretation) {
+          interpretation.classList.remove("collapse");
+          const body = document.body;
+          const main = document.querySelector("main");
+          const header = document.querySelector("header");
+
+          body.style.minHeight = `calc(${interpretation.offsetTop}px + (100vh - (var(--base-size) * 23)))`;
+
+          const scrollTop =
+            interpretation.offsetTop - main.offsetHeight - header.offsetHeight;
+
+          window.scrollTo({
+            top: scrollTop,
+            behavior: "smooth",
+          });
+
+          const spans = interpretation.querySelectorAll("span");
+
+          let index = 0;
+
+          const fadeInSpan = () => {
+            if (index >= spans.length) {
+              // insert a dinkus div after interpretation
+
+              const dinkus = document.createElement("div");
+              dinkus.style.textAlign = "center";
+              dinkus.innerHTML = "* * *";
+              dinkus.style.margin = "calc(var(--base-size) * 2) 0 0 0";
+              interpretation.appendChild(dinkus);
+              const nextButton = interpretation.nextElementSibling;
+
+              if (nextButton) {
+                nextButton.style.display = "block";
+                if (!isVisible(nextButton)) {
+                  nextButton.scrollIntoView({ behavior: "smooth" });
+                }
+              } else {
+                // before doing anything else lets set up a container to add after
+                // this final interpretation that we can put some buttons into
+                const end_button_row = document.createElement("div");
+                end_button_row.classList.add("game_over");
+                // make it the next element to come after the interpretation
+                interpretation.after(end_button_row);
+                //there is no more buttons so lets give them a "copy share link" button
+                const copyButton = document.createElement("button");
+                copyButton.textContent = "Copy share link";
+                end_button_row.appendChild(copyButton);
+                // lets make that button actually clickable
+                copyButton.addEventListener("click", () => {
+                  // we need to build a url out of the paths in the cards
+                  // and then copy it
+                  const new_url = new URL(origin);
+                  const urls_in_cards = Array.from(
+                    document.querySelectorAll(".card .front")
+                  ).map((card) => card.dataset.url_fragment);
+                  new_url.pathname = "cards/" + urls_in_cards.join("/");
+
+                  navigator.clipboard.writeText(new_url.href);
+                  copyButton.textContent = "Copied!";
+                  setTimeout(() => {
+                    copyButton.textContent = "Copy share link";
+                  }, 2000);
+                });
+
+                // lets also make a new button that says "Start a new reading" but all it does is refresh the page lol
+                const newButton = document.createElement("button");
+                newButton.textContent = "Start a new reading";
+                end_button_row.appendChild(newButton);
+                // lets make it work
+                newButton.addEventListener("click", () => {
+                  // we need to navigate back to the origin and trigger a reload
+                  header.scrollIntoView({ behavior: "smooth", block: "end" });
+                  window.location.href = origin;
+                });
+              }
+              return;
+            }
+
+            const span = spans[index];
+            span.style.display = "inline";
+            span.classList.add("showing");
+
+            const durations = [5, 6, 10, 17, 16, 22, 33, 100];
+            const span_duration =
+              durations[Math.floor(Math.random() * durations.length)];
+            span.style.animationDelay = span_duration + "ms";
+
+            if (!isVisible(span)) {
+              span.scrollIntoView({ behavior: "smooth" });
+            }
+            span.addEventListener(
+              "animationend",
+              () => {
+                index++;
+                // requestAnimationFrame(() => {
+                fadeInSpan();
+                // });
+              },
+              { once: true }
+            );
+          };
+
+          fadeInSpan();
+        }
+      });
+    </script>
+  <!-- Cloudflare Pages Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "f97ccd42fc7b476990f48c0f1b238e14"}'></script><!-- Cloudflare Pages Analytics --></body>
+</html>

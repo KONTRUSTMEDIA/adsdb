@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="shortcut icon" href="./image/icon.ico">
+    <link rel="canonical" href="https://game-dkl.pages.dev/">
+    <!-- 기본 메타 태그 -->
+    <title>서울의 밤 - 계엄 막기 게임</title>
+    <meta name="name" content="서울의 밤 - 계엄 막기 게임">
+    <meta name="description" content="부당한 계엄 시도에 맞서 국회를 지키세요!">
+    <meta name="keywords" content="서울의 밤, 계엄 막기 게임, 계엄령, 윤석열, 웹게임, 한동훈, 이재명, 정치, 게임, 국회">
+    <meta name="author" content="firstseethesun">
+    <meta name="robots" content="index, follow">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://game-dkl.pages.dev/">
+    <meta property="og:title" content="서울의 밤 - 계엄 막기 게임">
+    <meta property="og:description" content="부당한 계엄 시도에 맞서 국회를 지키세요!">
+    <meta property="og:image" content="./image/thumbnail.png">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://game-dkl.pages.dev/">
+    <meta property="twitter:title" content="서울의 밤 - 계엄 막기 게임">
+    <meta property="twitter:description" content="부당한 계엄 시도에 맞서 국회를 지키세요!">
+    <meta property="twitter:image" content="./image/thumbnail.png">
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZLF35PPZ5G"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-ZLF35PPZ5G');
+</script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2292968081955535"
+        crossorigin="anonymous"></script>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            touch-action: none;
+            font-family: Arial, sans-serif;
+        }
+
+        .sidebar-ad {
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 50;
+            width: calc((100vw - 1004px) / 2);
+            max-height: 90vh;
+            display: flex;
+            justify-content: center;
+        }
+
+        .sidebar-ad a {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            max-width: 90%;
+        }
+
+        .sidebar-ad .ad-image {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+            cursor: pointer;
+        }
+
+        .sidebar-ad .ad-image.active {
+            opacity: 1;
+        }
+
+        .sidebar-ad .play-badge {
+            width: 70%;
+            margin-top: 8px;
+            cursor: pointer;
+        }
+
+        .sidebar-ad-left {
+            left: 0;
+        }
+
+        .sidebar-ad-right {
+            right: 0;
+        }
+
+        .mobile-ad-banner {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 56px;
+            z-index: 50;
+            background: #FAE100;
+        }
+
+        .mobile-ad-banner a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 60px;
+            width: 100%;
+            height: 100%;
+            text-decoration: none;
+            color: #3A1D1D;
+            font-weight: bold;
+            font-size: 18px;
+            line-height: 1.3;
+            text-align: center;
+            letter-spacing: -0.5px;
+        }
+
+        @media (max-width: 1200px) {
+            .sidebar-ad {
+                display: none;
+            }
+
+            .mobile-ad-banner {
+                display: block;
+            }
+
+            #gameTime {
+                top: 76px !important;
+            }
+        }
+
+        #gameCanvas {
+            border: 2px solid white;
+            touch-action: none;
+        }
+
+        #gameInfo {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            color: white;
+            font-size: 20px;
+            z-index: 100;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.95);
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            color: white;
+            min-width: 300px;
+            border: 2px solid #4CAF50;
+            z-index: 1000;
+            max-width: 90%;
+            max-height: 90vh;
+
+            overflow-y: auto;
+            /* 스크롤 가능하도록 */
+            -webkit-overflow-scrolling: touch;
+            /* iOS 스크롤 부드럽게 */
+            /* 모든 모바일 기기에서 작동하는 속성들 */
+            overscroll-behavior: contain;
+            /* iOS 13+, 안드로이드 Chrome */
+            scroll-behavior: smooth;
+            /* 모든 모던 브라우저 */
+        }
+
+        .modal h2 {
+            color: #4CAF50;
+            margin-bottom: 20px;
+        }
+
+        .modal p {
+            margin: 10px 0;
+            line-height: 1.5;
+        }
+
+        .modal .controls {
+            text-align: left;
+            margin: 10px 0;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+        }
+
+        .modal button {
+            background: #4CAF50;
+            border: none;
+            padding: 12px 30px;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-top: 20px;
+            transition: background 0.3s;
+        }
+
+        .modal button:hover {
+            background: #45a049;
+        }
+
+        #mobileControls {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: none;
+            justify-content: center;
+            padding: 0 20px;
+            pointer-events: none;
+        }
+
+        #joystick {
+            width: 120px;
+            height: 120px;
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            position: relative;
+            pointer-events: auto;
+        }
+
+        #stick {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        #toast {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(0, 0, 0, 0.9);
+            color: #ff0000;
+            padding: 20px;
+            border-radius: 10px;
+            font-size: 24px;
+            z-index: 1000;
+            display: none;
+            text-align: center;
+            border: 2px solid #ff0000;
+            font-family: Arial, sans-serif;
+        }
+
+        @media (max-width: 768px) {
+            #mobileControls {
+                display: flex;
+            }
+        }
+
+        .upgrade-option {
+            background: rgba(255, 255, 255, 0.1);
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .upgrade-option:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        #expBar {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 300px;
+            height: 20px;
+            background: rgba(0, 0, 0, 0.5);
+            border: 2px solid #4CAF50;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        #expFill {
+            height: 100%;
+            background: #4CAF50;
+            width: 0%;
+            transition: width 0.3s;
+        }
+
+        #upgradeTimer {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        #eventModal {
+            background: rgba(0, 0, 0, 0.95);
+        }
+
+        #eventDescription {
+            white-space: pre-line;
+        }
+
+        .pause-button {
+            position: absolute;
+            top: 45px;
+            right: 20px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            z-index: 1000;
+            display: none;
+            /* 초기에는 숨김 상태 */
+            padding: 0;
+        }
+
+        .pause-icon {
+            width: 40px;
+            /* 이미지 크기 조절 */
+            height: 40px;
+        }
+
+        /* 호버 효과 (선택사항) */
+        .pause-button:hover .pause-icon {
+            opacity: 0.8;
+        }
+
+        .pause-modal {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(0, 0, 0, 0.9);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            z-index: 1001;
+        }
+
+        .pause-modal h2 {
+            color: white;
+            margin-bottom: 20px;
+        }
+
+        .modal-button {
+            padding: 10px 20px;
+            margin: 5px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            color: white;
+        }
+
+        .modal-button.resume {
+            background-color: #4CAF50;
+        }
+
+        .modal-button.restart {
+            background-color: #f44336;
+        }
+
+        .credit-item {
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .credit-image {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 15px;
+            border-radius: 8px;
+        }
+
+        .credit-text {
+            color: white;
+            font-size: 18px;
+            line-height: 1.5;
+        }
+
+        .character-selection {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .character-card {
+            border: 3px solid transparent;
+            border-radius: 10px;
+            padding: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .character-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .character-card.selected {
+            border-color: #4CAF50;
+            background: rgba(76, 175, 80, 0.2);
+        }
+
+        .character-card img {
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+
+        .character-card h3 {
+            margin: 0;
+            color: white;
+        }
+
+        .character-card p {
+            margin: 5px 0 0;
+            color: #ccc;
+        }
+
+        #startButton:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .modal .share-button {
+            background: rgba(255, 255, 255, 0.8);
+            /* 반투명 회색 배경 */
+            border: none;
+            cursor: pointer;
+            padding: 10px;
+            margin: 10px;
+            border-radius: 5px;
+            /* 모서리 둥글게 */
+            display: inline-flex;
+            /* 이미지 중앙 정렬을 위해 */
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal .share-button:hover {
+            background: rgba(255, 255, 255, 0.6);
+        }
+
+        .share-button {
+            background: rgba(255, 255, 255, 0.8);
+            /* 반투명 회색 배경 */
+            border: none;
+            cursor: pointer;
+            padding: 10px;
+            margin: 10px;
+            border-radius: 5px;
+            /* 모서리 둥글게 */
+            display: inline-flex;
+            /* 이미지 중앙 정렬을 위해 */
+            align-items: center;
+            justify-content: center;
+        }
+
+
+        /* 공유 아이콘 이미지 스타일 */
+        .share-icon {
+            width: 30px;
+            height: 30px;
+            vertical-align: middle;
+        }
+
+        .modal .share-icon {
+            width: 30px;
+            height: 30px;
+            vertical-align: middle;
+        }
+
+        /* 호버 효과 */
+        .share-button:hover {
+            background: rgba(255, 255, 255, 0.3);
+            /* 호버 시 배경 밝기 증가 */
+        }
+
+        .modal .share-button:hover {
+            background: rgba(255, 255, 255, 0.3);
+            /* 호버 시 배경 밝기 증가 */
+        }
+
+        /* SNS 아이콘 스타일 */
+        .sns-icon {
+            width: 60px;
+            height: 60px;
+            vertical-align: middle;
+        }
+
+        .modal .sns-icon {
+            width: 60px;
+            height: 60px;
+            vertical-align: middle;
+        }
+
+        /* SNS 버튼 스타일 */
+        button:has(.sns-icon) {
+            background: none;
+            border: none;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal button:has(.sns-icon) {
+            background: none;
+            border: none;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* 호버 효과 */
+        button:has(.sns-icon):hover {
+            opacity: 0.8;
+        }
+
+        .modal button:has(.sns-icon):hover {
+            opacity: 0.8;
+        }
+
+        /* #startModal {
+            display: flex;
+            flex-direction: column;
+            min-height: 100%;
+            height: 100%;
+        } */
+        .ad-modal {
+            z-index: 1001;
+            /* 다른 모달보다 위에 표시 */
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            width: 100%;
+            /* 화면 전체 너비 */
+            height: 100%;
+            /* 화면 전체 높이 */
+            transform: translate(-50%, -50%);
+            background: white;
+            /* 반투명 배경 */
+            border-radius: 10px;
+        }
+
+        .ad-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 10px;
+            /* 간격 추가 (선택 사항) */
+            width: 100%;
+            height: 100%;
+            box-sizing: border-box;
+        }
+
+        .closeAdButton {
+            background: rgb(170, 170, 170);
+            border: none;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            color: #000;
+            transition: background-color 0.3s ease, opacity 0.3s ease;
+            width: 100%;
+            padding: 5px;
+            border-radius: 10px;
+            margin-top: 10px;
+            /* 배경색과 투명도 모두 부드럽게 변하도록 설정 */
+        }
+
+        .closeAdButton:hover {
+            background-color: rgba(128, 128, 128, 0.5);
+            /* 투명한 회색 배경 (50% 투명도) */
+            opacity: 0.8;
+            /* 전체 div의 투명도를 약간 변경 (필요한 경우 조정) */
+        }
+    </style>
+</head>
+
+<body>
+    <div id="gameInfo">
+        <div><span id="scoreValue" style="display:none;">0</span></div>
+    </div>
+    <div id="gameTime"
+        style="position: fixed; top: 20px; left: 50%; transform: translateX(-50%); color: white; font-size: 36px; font-family: Arial, sans-serif; z-index: 100;">
+    </div>
+    <canvas id="gameCanvas"></canvas>
+    <div id="startModal" class="modal">
+        <h2>서울의 밤</h2>
+        <p>부당한 계엄 시도에 맞서 국회를 지켜내세요!</p>
+        <div class="controls">
+            <p><strong>조작 방법:</strong></p>
+            <p>- 이동: 방향키 or WASD(안되면 한/영 전환) or 조이스틱</p>
+            <p>- 발사: 범위 내 자동 발사</p>
+        </div>
+        <div class="modal-content">
+            <h2>캐릭터 선택</h2>
+            <div class="character-selection">
+                <div class="character-card" data-character="jaemyung">
+                    <img src="./image/jaemyung_turret.png" alt="이재명">
+                    <h3>이재명</h3>
+                    <p>민주당 당대표</p>
+                </div>
+                <div class="character-card" data-character="donghun">
+                    <img src="./image/donghun_turret.png" alt="한동훈">
+                    <h3>한동훈</h3>
+                    <p>국민의힘 당대표</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="gameOverModal" class="modal">
+        <h2>패배!</h2>
+        <p>계엄군에게 밀려 국회가 점령되었습니다</p>
+        <br>
+        <div id="gameOverInitialText">인스타그램 팔로우하고 다시하기</div>
+        <div style="display:flex; flex-direction:row; justify-content:center; align-items:center;">
+            <button style="margin: 0; padding: 0;" onclick="showAllButtonsGameOver()">
+                <img src="./image/instagram.png" alt="인스타그램" class="sns-icon">
+            </button>
+        </div>
+        <div id="gameOverAllButtons" style="display:none;">
+            <div style="display:flex; flex-direction:row; justify-content:center; align-items:center;">
+                <button onclick="shareGame()" class="share-button">
+                    <img src="./image/share.png" alt="공유" class="share-icon">
+                </button>
+                <button style="margin: 0; padding: 0;" onclick="openSNS('https://www.instagram.com/firstseethesun')">
+                    <img src="./image/instagram.png" alt="인스타그램" class="sns-icon">
+                </button>
+                <button style="margin: 0; padding: 0;" onclick="openSNS('https://x.com/firstseethesun')">
+                    <img src="./image/X.png" alt="X" class="sns-icon" style="width: 65px; height: 65px;">
+                </button>
+            </div>
+            <button onclick="restartGame()">다시 시작</button>
+        </div>
+    </div>
+    <div id="gameWinModal" class="modal">
+        <h2>승리!</h2>
+        <p>계엄군이 물러났습니다. 민주주의가 승리했습니다!</p>
+        <br>
+        <div id="gameWinInitialText">인스타그램 팔로우하고 다시하기</div>
+        <div style="display:flex; flex-direction:row; justify-content:center; align-items:center;">
+            <button style="margin: 0; padding: 0;" onclick="showAllButtonsGameWin()">
+                <img src="./image/instagram.png" alt="인스타그램" class="sns-icon">
+            </button>
+        </div>
+        <div id="gameWinAllButtons" style="display:none;">
+            <div style="display:flex; flex-direction:row; justify-content:center; align-items:center;">
+                <button onclick="shareGame()" class="share-button">
+                    <img src="./image/share.png" alt="공유" class="share-icon">
+                </button>
+                <button style="margin: 0; padding: 0;" onclick="openSNS('https://www.instagram.com/firstseethesun')">
+                    <img src="./image/instagram.png" alt="인스타그램" class="sns-icon">
+                </button>
+                <button style="margin: 0; padding: 0;" onclick="openSNS('https://x.com/firstseethesun')">
+                    <img src="./image/X.png" alt="X" class="sns-icon" style="width: 65px; height: 65px;">
+                </button>
+            </div>
+            <button onclick="restartGame()">다시 시작</button>
+        </div>
+    </div>
+    <div id="upgradeModal" class="modal">
+        <h2>업그레이드 선택</h2>
+        <div id="upgradeOptions">
+        </div>
+    </div>
+    </div>
+    <div id="mobileControls">
+        <div id="joystick">
+            <div id="stick"></div>
+        </div>
+    </div>
+    <div id="toast"></div>
+    <div id="expBar">
+        <div id="expFill"></div>
+    </div>
+    <div id="eventModal" class="modal">
+        <img id="eventImage" src="" alt="이벤트 이미지" style="max-width: 100%; height: auto; margin-bottom: 15px;">
+        <p id="eventDescription"></p>
+        <button onclick="closeEventModal()" class="modal-button">닫기</button>
+    </div>
+    <div id="creditsModal" class="modal">
+        <div id="creditsContent">
+            <div class="credit-item" style="display:none;">
+                <img src="./image/credit1.png" alt="크레딧 이미지 1" class="credit-image">
+                <div class="credit-text">1시 11분<br>계엄군, 국회 철수 시작</div>
+            </div>
+            <div class="credit-item" style="display:none;">
+                <img src="./image/credit2.png" alt="크레딧 이미지 2" class="credit-image">
+                <div class="credit-text">2시 3분<br>계엄군, 국회 경내에서 전원 철수</div>
+            </div>
+            <div class="credit-item" style="display:none;">
+                <img src="./image/credit3.png" alt="크레딧 이미지 3" class="credit-image">
+                <div class="credit-text">5시 40분<br>윤석열 대통령, 계엄 해제 공고</div>
+            </div>
+        </div>
+    </div>
+    <button id="pauseButton" class="pause-button">
+        <img src="./image/pause.png" alt="일시정지" class="pause-icon">
+    </button>
+
+    <div id="pauseModal" class="pause-modal">
+        <div style="display:flex; flex-direction:column; justify-content:center; align-items:center;">
+            <h2>게임 일시정지</h2>
+            <button id="resumeButton" class="modal-button resume">게임 재개</button>
+            <button id="restartButton" class="modal-button restart">게임 재시작</button>
+            <br>
+            <div style="color:white;">재밌는 거 더 보러가기</div>
+            <div style="display:flex; flex-direction:row; justify-content:center; align-items:center;">
+                <button onclick="shareGame()" class="share-button">
+                    <img src="./image/share.png" alt="공유" class="share-icon">
+                </button>
+                <button onclick="openSNS('https://www.instagram.com/firstseethesun')">
+                    <img src="./image/instagram.png" alt="인스타그램" class="sns-icon">
+                </button>
+                <button onclick="openSNS('https://x.com/firstseethesun')">
+                    <img src="./image/X.png" alt="X" class="sns-icon" style="width: 65px; height: 65px;">
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="sidebar-ad sidebar-ad-left" id="sidebarAdLeft">
+        <a href="https://play.google.com/store/apps/details?id=com.firstseethesun.rollbackgame" target="_blank" rel="noopener">
+            <img src="./image/ad/ad0.png" class="active ad-image" alt="게임 광고">
+            <img src="./image/ad/google-play-badge.png" class="play-badge" alt="Google Play에서 다운로드">
+        </a>
+    </div>
+    <div class="sidebar-ad sidebar-ad-right" id="sidebarAdRight">
+        <a href="https://play.google.com/store/apps/details?id=com.firstseethesun.rollbackgame" target="_blank" rel="noopener">
+            <img src="./image/ad/ad0.png" class="active ad-image" alt="게임 광고">
+            <img src="./image/ad/google-play-badge.png" class="play-badge" alt="Google Play에서 다운로드">
+        </a>
+    </div>
+    <div class="mobile-ad-banner" id="mobileAdBanner">
+        <a href="https://play.google.com/store/apps/details?id=com.firstseethesun.rollbackgame" target="_blank" rel="noopener">
+            <span>카카오톡 업데이트<br>되돌리기 게임 출시</span>
+            <img src="./image/ad/google-play-badge.png" style="height:36px;width:auto;" alt="Google Play">
+        </a>
+    </div>
+
+    <script>
+    (function() {
+        var adImages = [
+            './image/ad/ad0.png',
+            './image/ad/ad1.png',
+            './image/ad/ad2.png',
+            './image/ad/ad3.png',
+            './image/ad/ad4.png',
+            './image/ad/ad5.png',
+            './image/ad/ad6.png'
+        ];
+        var ROTATION_INTERVAL = 5000;
+        var currentIndex = 0;
+        var targets = [
+            document.querySelector('#sidebarAdLeft .ad-image'),
+            document.querySelector('#sidebarAdRight .ad-image')
+        ].filter(Boolean);
+
+        if (targets.length) {
+            setInterval(function() {
+                targets.forEach(function(img) { img.classList.remove('active'); });
+                setTimeout(function() {
+                    currentIndex = (currentIndex + 1) % adImages.length;
+                    var loaded = 0;
+                    targets.forEach(function(img) {
+                        img.onload = function() { img.classList.add('active'); };
+                        img.src = adImages[currentIndex];
+                    });
+                }, 500);
+            }, ROTATION_INTERVAL);
+        }
+    })();
+    </script>
+
+    <script src="game.js"></script>
+    <script defer src='https://static.cloudflareinsights.com/beacon.min.js'
+        data-cf-beacon='{"token": "ca4fb7682823423fa08db9881c033610"}'></script>
+</body>
+
+</html>

@@ -1,0 +1,1879 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <meta charset="UTF-8">
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-LCRVP7KG6H"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-LCRVP7KG6H');
+    </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <!-- SEO Meta Tags -->
+    <title>Combino - Générateur de Combinés & Pronostics Sportifs IA</title>
+    <meta name="description"
+        content="Le meilleur générateur de combinés paris sportifs. Simulez vos paris, obtenez des prédictions foot, basket, tennis et analysez vos options avec notre IA.">
+    <meta name="keywords"
+        content="generateur paris sportif, generateur combiné paris sportif, simulateur paris sportif, prediction paris sportif, pronostic sportif, IA paris sportifs, logiciel paris sportifs, pari sportif gratuit, combiné foot, algorithme paris sportifs">
+    <meta name="author" content="Combino">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://combino.org/">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://combino.org/">
+    <meta property="og:title" content="Combino - Générateur de Combinés & Pronostics Sportifs IA">
+    <meta property="og:description"
+        content="Simulez vos paris et générez des combinaisons simulées avec notre IA. Foot, Basket, Tennis et plus.">
+    <meta property="og:image" content="https://combino.org/assets/og-image.jpg">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://combino.org/">
+    <meta property="twitter:title" content="Combino - Générateur de Combinés & Pronostics Sportifs IA">
+    <meta property="twitter:description"
+        content="Simulez vos paris et générez des combinaisons simulées avec notre IA.">
+    <meta property="twitter:image" content="https://combino.org/assets/twitter-image.jpg">
+
+    <!-- JSON-LD Structure Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Combino",
+      "applicationCategory": "SportsApplication",
+      "operatingSystem": "Web, Android",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "EUR"
+      },
+      "description": "Application de génération de combinés et de pronostics sportifs assistée par IA.",
+      "featureList": "Générateur de combinés, Comparateur de cotes, Pronostics IA, Gestion de Bankroll",
+      "softwareVersion": "1.0.0",
+      "author": {
+          "@type": "Organization",
+          "name": "Combino"
+      }
+    }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Bangers&family=Poppins:wght@400;500;600;700&display=swap');
+
+        /* ─── Global Reset & Body ─── */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(175deg, #1a0e2e 0%, #16092b 35%, #0f0620 70%, #0a0415 100%);
+            color: #fff;
+            font-family: 'Poppins', sans-serif;
+            position: relative;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* ─── Ambient Bg Blobs ─── */
+        .blob {
+            position: absolute;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .blob-1 {
+            top: -60px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 360px;
+            height: 280px;
+            background: radial-gradient(circle, rgba(124, 58, 237, 0.12) 0%, transparent 70%);
+        }
+
+        .blob-2 {
+            bottom: 20%;
+            right: -80px;
+            width: 260px;
+            height: 260px;
+            background: radial-gradient(circle, rgba(168, 85, 247, 0.07) 0%, transparent 70%);
+        }
+
+        .blob-3 {
+            bottom: 5%;
+            left: -60px;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(88, 28, 135, 0.1) 0%, transparent 70%);
+        }
+
+        /* ─── Layout Container ─── */
+        .container {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            max-width: 400px;
+            padding: 10px 22px 30px;
+            /* Réduit le padding top et bottom */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* ─── 3D Text Title ─── */
+        .title-container {
+            margin-top: -30px;
+            /* Remonte encore plus le titre par rapport à la boule */
+            margin-bottom: 20px;
+            text-align: center;
+            position: relative;
+            height: 50px;
+            width: 200px;
+            perspective: 600px;
+        }
+
+        .text-3d-layer {
+            position: absolute;
+            inset: 0;
+            font-size: 38px;
+            font-family: 'Bangers', cursive;
+            font-weight: 900;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            white-space: nowrap;
+            user-select: none;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Layer colors to mimic the React loop */
+        .layer-0 {
+            color: #1a0a2e;
+            transform: translate(6px, 7px);
+            z-index: 0;
+        }
+
+        .layer-1 {
+            color: #1a0a2e;
+            transform: translate(4.8px, 5.6px);
+            z-index: 1;
+        }
+
+        .layer-2 {
+            color: #2d1b4e;
+            transform: translate(3.6px, 4.2px);
+            z-index: 2;
+        }
+
+        .layer-3 {
+            color: #2d1b4e;
+            transform: translate(2.4px, 2.8px);
+            z-index: 3;
+        }
+
+        .layer-4 {
+            color: #4a2d7a;
+            transform: translate(1.2px, 1.4px);
+            z-index: 4;
+        }
+
+        .layer-5 {
+            background: linear-gradient(135deg, #f0abfc 0%, #67e8f9 30%, #fbbf24 60%, #e879f9 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            color: transparent;
+            transform: translate(0, 0);
+            z-index: 5;
+            filter: drop-shadow(0 0 10px rgba(168, 85, 247, 0.4));
+        }
+
+        /* ─── Warning Banner ─── */
+        .warning-box {
+            width: 100%;
+            background: rgba(30, 18, 55, 0.7);
+            border: 1px solid rgba(168, 85, 247, 0.22);
+            border-radius: 12px;
+            padding: 11px 14px;
+            margin-bottom: 24px;
+            display: flex;
+            gap: 10px;
+            align-items: flex-start;
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+        }
+
+        .warning-icon {
+            font-size: 17px;
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+
+        .warning-text {
+            margin: 0;
+            font-size: 12px;
+            color: #9a8ab8;
+            line-height: 1.5;
+        }
+
+        .warning-text strong {
+            color: #c4a8f0;
+        }
+
+        /* ─── Form Card ─── */
+        .form-card {
+            width: 100%;
+            background: rgba(22, 14, 42, 0.75);
+            border: 1px solid rgba(100, 70, 150, 0.22);
+            border-radius: 20px;
+            padding: 24px 20px 28px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 40px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.04);
+            margin-bottom: 30px;
+            /* Ajout d'une marge sous le formulaire */
+        }
+
+        /* ─── Inputs & Selects ─── */
+        .input-group {
+            margin-bottom: 18px;
+        }
+
+        .input-label {
+            display: block;
+            font-size: 13px;
+            color: #a394c2;
+            margin-bottom: 7px;
+            font-weight: 500;
+            letter-spacing: 0.3px;
+        }
+
+        .app-input {
+            width: 100%;
+            box-sizing: border-box;
+            background: rgba(36, 24, 60, 0.85);
+            border: 1.5px solid rgba(139, 92, 246, 0.3);
+            border-radius: 12px;
+            padding: 12px 16px;
+            color: #e8dff5;
+            font-size: 15px;
+            font-family: 'Poppins', sans-serif;
+            outline: none;
+            transition: all 0.25s ease;
+        }
+
+        .app-input:hover {
+            border-color: rgba(168, 85, 247, 0.6);
+        }
+
+        .app-input:focus {
+            background: rgba(44, 30, 72, 0.95);
+            border-color: rgba(168, 85, 247, 0.8);
+            box-shadow: 0 0 0 3px rgba(168, 85, 247, 0.15);
+        }
+
+        /* Custom date calendar icon filter */
+        input[type="date"]::-webkit-calendar-picker-indicator {
+            filter: invert(0.4) sepia(1) saturate(5) hue-rotate(240deg) brightness(1.2);
+            cursor: pointer;
+            opacity: 0.9;
+        }
+
+        /* ─── Custom Select Styling ─── */
+        select.app-input {
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            /* Force dark theme for native controls */
+            color-scheme: dark;
+
+            /* Solid background to avoid gray default */
+            background-color: #24183c;
+            background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23a855f7%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
+            background-repeat: no-repeat;
+            background-position: right 12px top 50%;
+            background-size: 10px auto;
+            padding-right: 30px;
+        }
+
+        /* Styling the native dropdown options */
+        select.app-input option {
+            background-color: #1a0e2e !important;
+            color: #fff !important;
+            padding: 10px;
+        }
+
+        /* For Webkit/Blink browsers explicitly */
+        select.app-input:focus>option:checked {
+            background: #7c3aed !important;
+            /* Purple selection */
+            color: #fff !important;
+        }
+
+        /* ─── Buttons ─── */
+        .btn-generate {
+            width: 100%;
+            padding: 14px 0;
+            border: none;
+            background: linear-gradient(135deg, #7c3aed 0%, #a855f7 50%, #c026d3 100%);
+            color: #fff;
+            font-size: 16px;
+            font-weight: 700;
+            font-family: 'Poppins', sans-serif;
+            cursor: pointer;
+            letter-spacing: 0.4px;
+            box-shadow: 0 6px 24px rgba(124, 58, 237, 0.45);
+            transition: transform 0.15s, box-shadow 0.15s, filter 0.2s;
+            border-radius: 14px;
+            margin-bottom: 10px;
+        }
+
+        .btn-generate:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 8px 30px rgba(124, 58, 237, 0.55);
+        }
+
+        .btn-generate:active {
+            transform: translateY(1px) scale(0.98);
+        }
+
+        .btn-generate:disabled {
+            background: linear-gradient(135deg, #6d28d9, #7c3aed);
+            filter: brightness(0.75);
+            cursor: not-allowed;
+        }
+
+        .btn-update {
+            width: 100%;
+            padding: 12px 0;
+            border: 1.5px solid rgba(100, 70, 150, 0.3);
+            border-radius: 14px;
+            background: rgba(36, 24, 60, 0.5);
+            color: #9a8ab8;
+            font-size: 14px;
+            font-weight: 500;
+            font-family: 'Poppins', sans-serif;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            letter-spacing: 0.3px;
+        }
+
+        .btn-update:hover {
+            background: rgba(100, 70, 150, 0.18);
+            color: #c4b5fd;
+            border-color: rgba(168, 85, 247, 0.4);
+        }
+
+        /* ─── Results Area ─── */
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(10px)
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0)
+            }
+        }
+
+        .result-card {
+            width: 100%;
+            margin-top: 25px;
+            /* Ajusté à 25px pour un rendu compact */
+            padding: 20px;
+            border-radius: 16px;
+            background: rgba(22, 14, 42, 0.7);
+            border: 1px solid rgba(168, 85, 247, 0.25);
+            animation: fadeUp 0.4s ease forwards;
+            box-shadow: 0 6px 28px rgba(0, 0, 0, 0.35);
+            display: none;
+            /* Hidden by default */
+        }
+
+        .result-title {
+            text-align: center;
+            font-size: 13px;
+            color: #a855f7;
+            font-weight: 600;
+            margin-bottom: 14px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .stats-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            margin-bottom: 8px;
+        }
+
+        .stat-box {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(36, 24, 60, 0.7);
+            border-radius: 6px;
+            padding: 4px 12px;
+            border: 1px solid rgba(100, 70, 150, 0.18);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03);
+        }
+
+        .stat-label {
+            font-size: 10px;
+            color: #9a8ab8;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 0;
+        }
+
+        .stat-val {
+            font-size: 14px;
+            font-weight: 700;
+            color: #c4b5fd;
+            text-shadow: 0 0 10px rgba(196, 181, 253, 0.2);
+        }
+
+        /* ─── Match Cards (Premium Design) ─── */
+        .match-card {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(36, 24, 60, 0.6);
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            border-radius: 12px;
+            padding: 10px 12px;
+            margin-bottom: 8px;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.2s, background 0.2s;
+            animation: fadeUp 0.4s ease forwards;
+        }
+
+        .match-card:hover {
+            background: rgba(45, 30, 75, 0.8);
+            border-color: rgba(168, 85, 247, 0.4);
+            transform: translateY(-2px);
+        }
+
+        /* Petit trait décoratif à gauche */
+        .match-card::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: linear-gradient(to bottom, #7c3aed, #c026d3);
+            opacity: 0.8;
+        }
+
+        .match-number {
+            font-size: 12px;
+            font-weight: 700;
+            color: #6b5cff;
+            background: rgba(107, 92, 255, 0.1);
+            width: 26px;
+            height: 26px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .match-details {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            min-width: 0;
+            /* Pour le text-overflow */
+        }
+
+        .match-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .competition-badge {
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding: 3px 8px;
+            border-radius: 6px;
+            font-weight: 700;
+            background: linear-gradient(90deg, #ec4899 0%, #8b5cf6 100%);
+            color: white;
+            box-shadow: 0 2px 8px rgba(236, 72, 153, 0.25);
+            white-space: nowrap;
+        }
+
+        .match-date {
+            font-size: 11px;
+            color: #9ca3af;
+        }
+
+        .match-name {
+            font-size: 13px;
+            font-weight: 600;
+            color: #f3f4f6;
+            line-height: 1.2;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .bet-type {
+            font-size: 11px;
+            color: #a78bfa;
+            font-style: italic;
+        }
+
+        .match-odds {
+            font-size: 14px;
+            font-weight: 800;
+            padding: 6px 10px;
+            background: rgba(16, 185, 129, 0.1);
+            color: #34d399;
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            border-radius: 10px;
+            min-width: 54px;
+            text-align: center;
+            box-shadow: 0 0 15px rgba(52, 211, 153, 0.1);
+        }
+
+        /* ─── Loading Spinner ─── */
+        @keyframes spin {
+            from {
+                transform: rotate(0deg)
+            }
+
+            to {
+                transform: rotate(360deg)
+            }
+        }
+
+        .spinner {
+            width: 18px;
+            height: 18px;
+            border: 2.5px solid rgba(255, 255, 255, 0.25);
+            border-top: 2.5px solid #fff;
+            border-radius: 50%;
+            display: inline-block;
+            animation: spin 0.55s linear infinite;
+        }
+
+        .btn-content {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Error Box */
+        .error-box {
+            background: rgba(255, 80, 100, 0.15);
+            border: 1px solid rgba(255, 100, 120, 0.3);
+            border-radius: 12px;
+            padding: 12px;
+            margin-bottom: 20px;
+            color: #ffccdd;
+            font-size: 13px;
+            display: none;
+        }
+
+        /* ─── Custom Dropdowns (Replacement for Select) ─── */
+        .custom-select-wrapper {
+            position: relative;
+            user-select: none;
+            width: 100%;
+        }
+
+        .custom-select {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .custom-select-trigger {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(36, 24, 60, 0.85);
+            /* Correspond à .app-input */
+            border: 1.5px solid rgba(139, 92, 246, 0.3);
+            border-radius: 12px;
+            padding: 12px 16px;
+            font-size: 15px;
+            font-weight: 500;
+            color: #e8dff5;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .custom-select-trigger:hover {
+            border-color: rgba(168, 85, 247, 0.6);
+        }
+
+        .custom-select-trigger::after {
+            content: '▼';
+            font-size: 10px;
+            color: #a855f7;
+            transition: transform 0.3s ease;
+        }
+
+        .custom-select.open .custom-select-trigger {
+            border-color: #a855f7;
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+            background: rgba(45, 30, 75, 0.95);
+        }
+
+        .custom-select.open .custom-select-trigger::after {
+            transform: rotate(180deg);
+        }
+
+        .custom-options {
+            position: absolute;
+            display: block;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: rgba(30, 20, 50, 0.95);
+            border: 1px solid #a855f7;
+            border-top: none;
+            border-bottom-left-radius: 12px;
+            border-bottom-right-radius: 12px;
+            z-index: 100;
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            max-height: 250px;
+            overflow-y: auto;
+        }
+
+        .custom-select.open .custom-options {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: all;
+            transform: translateY(0);
+        }
+
+        .custom-option {
+            position: relative;
+            display: block;
+            padding: 12px 16px;
+            font-size: 14px;
+            color: #d4c8ee;
+            cursor: pointer;
+            transition: all 0.2s;
+            border-bottom: 1px solid rgba(168, 85, 247, 0.1);
+        }
+
+        .custom-option:last-child {
+            border-bottom: none;
+            border-bottom-left-radius: 12px;
+            border-bottom-right-radius: 12px;
+        }
+
+        .custom-option:hover {
+            background: rgba(168, 85, 247, 0.2);
+            color: white;
+            padding-left: 20px;
+            /* Petit effet de décalage */
+        }
+
+        .custom-option.selected {
+            background: rgba(168, 85, 247, 0.3);
+            color: #fff;
+            font-weight: 600;
+        }
+
+        /* ─── Hamburger Menu ─── */
+        .hamburger-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            width: 44px;
+            height: 44px;
+            background: rgba(36, 24, 60, 0.9);
+            border: 1.5px solid rgba(168, 85, 247, 0.4);
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 5px;
+            cursor: pointer;
+            z-index: 1001;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .hamburger-btn:hover {
+            background: rgba(45, 30, 75, 0.95);
+            border-color: rgba(168, 85, 247, 0.7);
+            transform: scale(1.05);
+        }
+
+        .hamburger-btn:active {
+            transform: scale(0.95);
+        }
+
+        .hamburger-line {
+            width: 22px;
+            height: 2.5px;
+            background: linear-gradient(90deg, #a855f7, #c026d3);
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+
+        .hamburger-btn.active .hamburger-line:nth-child(1) {
+            transform: translateY(7.5px) rotate(45deg);
+        }
+
+        .hamburger-btn.active .hamburger-line:nth-child(2) {
+            opacity: 0;
+            transform: translateX(-10px);
+        }
+
+        .hamburger-btn.active .hamburger-line:nth-child(3) {
+            transform: translateY(-7.5px) rotate(-45deg);
+        }
+
+        /* ─── Language Selector (Top Right) ─── */
+        .lang-selector-top {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1001;
+        }
+
+        .lang-current {
+            width: 44px;
+            height: 44px;
+            background: rgba(36, 24, 60, 0.9);
+            border: 1.5px solid rgba(168, 85, 247, 0.4);
+            border-radius: 12px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            font-size: 24px;
+        }
+
+        .lang-current:hover {
+            background: rgba(45, 30, 75, 0.95);
+            border-color: rgba(168, 85, 247, 0.7);
+            transform: scale(1.05);
+        }
+
+        .lang-dropdown {
+            position: absolute;
+            top: 55px;
+            right: 0;
+            background: rgba(22, 14, 42, 0.95);
+            border: 1px solid rgba(168, 85, 247, 0.3);
+            border-radius: 12px;
+            padding: 8px;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            width: 140px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+        }
+
+        .lang-selector-top.active .lang-dropdown {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .lang-option {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 12px;
+            border-radius: 8px;
+            color: #d4c8ee;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .lang-option span {
+            font-size: 20px;
+        }
+
+        .lang-option:hover {
+            background: rgba(168, 85, 247, 0.2);
+            color: #fff;
+            padding-left: 16px;
+        }
+
+        /* Menu Overlay */
+        .menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(4px);
+            z-index: 998;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .menu-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Side Menu Panel */
+        .side-menu {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 280px;
+            height: 100%;
+            background: rgba(22, 14, 42, 0.98);
+            border-right: 1px solid rgba(168, 85, 247, 0.3);
+            z-index: 1002;
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+            overflow-y: auto;
+            box-shadow: 4px 0 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .side-menu.active {
+            transform: translateX(0);
+        }
+
+        .menu-header {
+            padding: 25px 20px;
+            border-bottom: 1px solid rgba(168, 85, 247, 0.2);
+            background: rgba(36, 24, 60, 0.5);
+        }
+
+        .menu-title {
+            font-size: 22px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #f0abfc 0%, #67e8f9 50%, #fbbf24 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-family: 'Bangers', cursive;
+            letter-spacing: 1px;
+        }
+
+        .menu-items {
+            padding: 15px 0;
+        }
+
+        .menu-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 20px;
+            color: #c4b5fd;
+            font-size: 15px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border-left: 3px solid transparent;
+        }
+
+        .menu-item:hover {
+            background: rgba(168, 85, 247, 0.15);
+            border-left-color: #a855f7;
+            color: #fff;
+            padding-left: 25px;
+        }
+
+        .menu-item.active {
+            background: rgba(168, 85, 247, 0.25);
+            border-left-color: #c026d3;
+            color: #fff;
+        }
+
+        .menu-item-icon {
+            font-size: 18px;
+            width: 24px;
+            text-align: center;
+        }
+
+        .menu-divider {
+            height: 1px;
+            background: rgba(168, 85, 247, 0.15);
+            margin: 10px 20px;
+        }
+
+        /* Page Container */
+        .page-container {
+            display: none;
+            width: 100%;
+            min-height: 100vh;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .page-container.active {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .page-container .container {
+            width: 100%;
+            max-width: 450px;
+            padding: 0 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Page Header */
+        .page-header {
+            width: 100%;
+            text-align: center;
+            max-width: 400px;
+            padding: 20px 22px 15px;
+            margin-top: 70px;
+        }
+
+        .page-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 8px;
+        }
+
+        .page-subtitle {
+            font-size: 13px;
+            color: #9a8ab8;
+            line-height: 1.5;
+        }
+
+        /* Stats Table */
+        .stats-table {
+            width: 100%;
+            max-width: 100%;
+            background: rgba(22, 14, 42, 0.4);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(168, 85, 247, 0.2);
+            border-radius: 20px;
+            overflow: hidden;
+            margin-bottom: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .stats-table-header {
+            display: grid;
+            grid-template-columns: 2fr 1.2fr 1fr;
+            gap: 12px;
+            padding: 15px 20px;
+            background: linear-gradient(90deg, rgba(124, 58, 237, 0.2), rgba(168, 85, 247, 0.2));
+            border-bottom: 1px solid rgba(168, 85, 247, 0.3);
+            font-size: 11px;
+            font-weight: 700;
+            color: #c4b5fd;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .stats-table-row {
+            display: grid;
+            grid-template-columns: 2fr 1.2fr 1fr;
+            gap: 12px;
+            padding: 15px 20px;
+            border-bottom: 1px solid rgba(168, 85, 247, 0.1);
+            font-size: 13px;
+            transition: all 0.2s ease;
+        }
+
+        .stats-table-row:hover {
+            background: rgba(168, 85, 247, 0.12);
+            transform: scale(1.01);
+        }
+
+        .stats-table-row:last-child {
+            border-bottom: none;
+        }
+
+        .match-info {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .match-teams {
+            color: #fff;
+            font-weight: 600;
+            font-size: 14px;
+            letter-spacing: 0.2px;
+        }
+
+        .match-comp {
+            color: #9a8ab8;
+            font-size: 11px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .match-odds-cell {
+            color: #34d399;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+        }
+
+        .match-date-cell {
+            color: #9ca3af;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+        }
+
+        /* Daily Bets Cards */
+        .daily-bet-card {
+            width: 100%;
+            max-width: 100%;
+            background: linear-gradient(135deg, rgba(30, 20, 50, 0.6), rgba(20, 10, 40, 0.6));
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(168, 85, 247, 0.25);
+            border-radius: 24px;
+            padding: 22px;
+            margin-bottom: 20px;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .daily-bet-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #7c3aed, #ec4899);
+            opacity: 0.8;
+        }
+
+        .daily-bet-card:hover {
+            border-color: rgba(168, 85, 247, 0.5);
+            transform: translateY(-5px);
+            box-shadow: 0 20px 45px rgba(124, 58, 237, 0.25);
+        }
+
+        .bet-risk-badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 8px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 10px;
+        }
+
+        .bet-risk-safe {
+            background: rgba(16, 185, 129, 0.2);
+            color: #34d399;
+            border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+
+        .bet-risk-moderate {
+            background: rgba(251, 191, 36, 0.2);
+            color: #fbbf24;
+            border: 1px solid rgba(251, 191, 36, 0.3);
+        }
+
+        .bet-risk-risky {
+            background: rgba(239, 68, 68, 0.2);
+            color: #f87171;
+            border: 1px solid rgba(239, 68, 68, 0.3);
+        }
+
+        /* Legal Pages */
+        .legal-content {
+            width: 100%;
+            max-width: 100%;
+            background: rgba(22, 14, 42, 0.75);
+            border: 1px solid rgba(100, 70, 150, 0.22);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 20px;
+            line-height: 1.7;
+        }
+
+        .legal-content h2 {
+            font-size: 18px;
+            color: #a855f7;
+            margin-bottom: 12px;
+            margin-top: 20px;
+        }
+
+        .legal-content h2:first-child {
+            margin-top: 0;
+        }
+
+        .legal-content p {
+            color: #c4b5fd;
+            font-size: 13px;
+            margin-bottom: 12px;
+        }
+
+        .legal-content ul {
+            margin-left: 20px;
+            margin-bottom: 12px;
+        }
+
+        .legal-content li {
+            color: #c4b5fd;
+            font-size: 13px;
+            margin-bottom: 8px;
+        }
+
+        .legal-content strong {
+            color: #e8dff5;
+        }
+
+        .legal-content a {
+            color: #a855f7;
+            text-decoration: none;
+        }
+
+        .legal-content a:hover {
+            text-decoration: underline;
+        }
+    </style>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3353055545836832"
+        crossorigin="anonymous"></script>
+
+
+    <style>
+        /* ─── Age Disclaimer Modal ─── */
+        .age-disclaimer-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(10, 4, 21, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.5s ease;
+        }
+
+        .age-disclaimer-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .age-disclaimer-modal {
+            background: rgba(22, 14, 42, 0.95);
+            border: 1px solid rgba(168, 85, 247, 0.4);
+            border-radius: 24px;
+            padding: 30px;
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 0 0 30px rgba(124, 58, 237, 0.2);
+            transform: scale(0.9);
+            transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .age-disclaimer-overlay.active .age-disclaimer-modal {
+            transform: scale(1);
+        }
+
+        .age-icon {
+            font-size: 50px;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .age-title {
+            font-family: 'Bangers', cursive;
+            font-size: 28px;
+            background: linear-gradient(135deg, #f0abfc 0%, #67e8f9 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+        }
+
+        .age-text {
+            color: #9a8ab8;
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+
+        .age-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .btn-age-accept {
+            padding: 14px;
+            border-radius: 12px;
+            border: none;
+            background: linear-gradient(135deg, #7c3aed 0%, #a855f7 100%);
+            color: white;
+            font-weight: 700;
+            font-size: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(124, 58, 237, 0.3);
+        }
+
+        .btn-age-accept:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(124, 58, 237, 0.4);
+        }
+
+        .btn-age-decline {
+            padding: 12px;
+            border-radius: 12px;
+            border: 1px solid rgba(168, 85, 247, 0.3);
+            background: transparent;
+            color: #9a8ab8;
+            font-weight: 500;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-age-decline:hover {
+            background: rgba(168, 85, 247, 0.1);
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Background Blobs -->
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+
+    <!-- Hamburger Menu Button -->
+    <div class="hamburger-btn" id="hamburgerBtn">
+        <div class="hamburger-line"></div>
+        <div class="hamburger-line"></div>
+        <div class="hamburger-line"></div>
+    </div>
+
+    <!-- Menu Overlay -->
+    <div class="menu-overlay" id="menuOverlay"></div>
+
+    <!-- Language Selector Top Right -->
+    <div class="lang-selector-top" id="langSelector">
+        <div class="lang-current" onclick="toggleLangMenu()">
+            <span id="currentLangFlag">🇫🇷</span>
+        </div>
+        <div class="lang-dropdown">
+            <div class="lang-option" onclick="changeLanguage('fr')"><span>🇫🇷</span> FR</div>
+            <div class="lang-option" onclick="changeLanguage('en')"><span>🇬🇧</span> EN</div>
+            <div class="lang-option" onclick="changeLanguage('es')"><span>🇪🇸</span> ES</div>
+            <div class="lang-option" onclick="changeLanguage('de')"><span>🇩🇪</span> DE</div>
+            <div class="lang-option" onclick="changeLanguage('it')"><span>🇮🇹</span> IT</div>
+            <div class="lang-option" onclick="changeLanguage('pt')"><span>🇵🇹</span> PT</div>
+            <div class="lang-option" onclick="changeLanguage('ru')"><span>🇷🇺</span> RU</div>
+            <div class="lang-option" onclick="changeLanguage('tr')"><span>🇹🇷</span> TR</div>
+        </div>
+    </div>
+
+    <!-- Side Menu -->
+    <nav class="side-menu" id="sideMenu">
+        <div class="menu-header">
+            <a href="index.html" class="menu-title" style="text-decoration: none; color: inherit;">COMBINO</a>
+        </div>
+
+        <div class="menu-items">
+            <a href="index.html" data-page="matchs" class="menu-item active">
+                <span class="menu-item-icon">🔮</span>
+                <span data-i18n="menu_generator">Generateur</span>
+            </a>
+            <a href="stats.html" class="menu-item" data-page="stats">
+                <span class="menu-item-icon">📊</span>
+                <span data-i18n="menu_stats">Stats des Matchs</span>
+            </a>
+            <a href="paris-du-jour.html" class="menu-item" data-page="daily-bets">
+                <span class="menu-item-icon">🎯</span>
+                <span data-i18n="menu_daily">Paris du Jour</span>
+            </a>
+            <div class="menu-divider"></div>
+            <a href="cgu.html" class="menu-item" data-page="terms">
+                <span class="menu-item-icon">📄</span>
+                <span data-i18n="menu_terms">Conditions Generales</span>
+            </a>
+            <a href="mentions-legales.html" class="menu-item" data-page="legal">
+                <span class="menu-item-icon">⚖️</span>
+                <span data-i18n="menu_legal">Mentions Legales</span>
+            </a>
+
+            <a href="contact.html" class="menu-item" data-page="contact">
+                <span class="menu-item-icon">📧</span>
+                <span data-i18n="menu_contact">Contact</span>
+            </a>
+            <a href="a-propos.html" class="menu-item" data-page="about">
+                <span class="menu-item-icon">ℹ️</span>
+                <span data-i18n="menu_about">A Propos</span>
+            </a>
+        </div>
+    </nav>
+
+    <!-- PAGE: MATCHS (Générateur de Combinés) -->
+    <main class="page-container active" id="page-matchs">
+        <div class="container">
+
+
+            <!-- Crystal Ball Wrapper -->
+            <div class="crystal-ball-wrapper"
+                style="position: relative; width: 180px; height: 180px; margin: 0 auto; overflow: visible;">
+                <!-- Utilisation de transform: scale pour réduire la taille tout en gardant les coordonnées -->
+                <svg width="180" height="180" viewBox="0 0 260 260" xmlns="http://www.w3.org/2000/svg"
+                    style="overflow: visible; transform: scale(0.7); transform-origin: center center;">
+                    <defs>
+                        <!-- Main sphere gradient -->
+                        <radialGradient id="sphereGradient" cx="35%" cy="30%" r="70%">
+                            <stop offset="0%" stop-color="#ffffff" stop-opacity="0.95" />
+                            <stop offset="35%" stop-color="#6ee7ff" stop-opacity="0.9" />
+                            <stop offset="65%" stop-color="#6b5cff" stop-opacity="0.95" />
+                            <stop offset="100%" stop-color="#2a145f" />
+                        </radialGradient>
+
+                        <!-- Inner glow -->
+                        <radialGradient id="innerGlow" cx="50%" cy="55%" r="45%">
+                            <stop offset="0%" stop-color="#caa9ff" stop-opacity="0.85" />
+                            <stop offset="100%" stop-color="#caa9ff" stop-opacity="0" />
+                        </radialGradient>
+
+                        <!-- Specular highlight -->
+                        <radialGradient id="highlight" cx="30%" cy="25%" r="30%">
+                            <stop offset="0%" stop-color="#ffffff" stop-opacity="0.95" />
+                            <stop offset="100%" stop-color="#ffffff" stop-opacity="0" />
+                        </radialGradient>
+
+                        <!-- Glow filter -->
+                        <filter id="outerGlow" x="-50%" y="-50%" width="200%" height="200%">
+                            <feGaussianBlur stdDeviation="15" result="blur" />
+                            <feMerge>
+                                <feMergeNode in="blur" />
+                                <feMergeNode in="SourceGraphic" />
+                            </feMerge>
+                        </filter>
+
+                        <!-- Icon glow -->
+                        <filter id="iconEffect">
+                            <feGaussianBlur stdDeviation="1.5" result="blur" />
+                            <feMerge>
+                                <feMergeNode in="blur" />
+                                <feMergeNode in="SourceGraphic" />
+                            </feMerge>
+                        </filter>
+
+                        <clipPath id="ballClip">
+                            <circle cx="130" cy="115" r="85" />
+                        </clipPath>
+                    </defs>
+
+                    <!-- Ambient outer glow -->
+                    <circle cx="130" cy="115" r="95" fill="#7c3aed" opacity="0.15" filter="url(#outerGlow)" />
+
+                    <!-- Main Sphere -->
+                    <circle cx="130" cy="115" r="85" fill="url(#sphereGradient)" />
+
+                    <!-- Inner soft lighting -->
+                    <circle cx="130" cy="115" r="85" fill="url(#innerGlow)" />
+
+                    <!-- Internal Content (Etched Ghostly Look) -->
+                    <g clipPath="url(#ballClip)" opacity="0.6" filter="url(#iconEffect)">
+                        <style>
+                            .ghost-icon {
+                                fill: rgba(255, 255, 255, 0.4);
+                                stroke: rgba(255, 255, 255, 0.6);
+                                stroke-width: 1px;
+                            }
+
+                            .ghost-ball {
+                                fill: rgba(255, 255, 255, 0.2);
+                                stroke: rgba(255, 255, 255, 0.5);
+                            }
+                        </style>
+
+                        <!-- ⚽ FOOTBALL -->
+                        <g transform="translate(65, 85)">
+                            <circle cx="0" cy="0" r="15" class="ghost-ball" />
+                            <path d="M0,-15 L4,-10 L10,-10 L5,-5 L8,0 L0,-5 L-8,0 L-5,-5 L-10,-10 L-4,-10 Z"
+                                fill="rgba(255,255,255,0.2)" />
+                        </g>
+
+                        <!-- 🏀 BASKETBALL -->
+                        <g transform="translate(130, 75)">
+                            <circle cx="0" cy="0" r="18" class="ghost-ball" />
+                            <path d="M-18,0 Q0,-18 18,0 M-18,0 Q0,18 18,0 M0,-18 L0,18" stroke="rgba(255,255,255,0.3)"
+                                fill="none" />
+                        </g>
+
+                        <!--  HOCKEY -->
+                        <g transform="translate(135, 125)">
+                            <line x1="-12" y1="-30" x2="5" y2="10" stroke="white" stroke-width="3"
+                                stroke-linecap="round" opacity="0.4" />
+                            <path d="M5,10 Q12,14 18,8" stroke="white" stroke-width="3.5" fill="none"
+                                stroke-linecap="round" opacity="0.4" />
+                            <ellipse cx="25" cy="14" rx="8" ry="4" class="ghost-ball" />
+                        </g>
+
+                        <!-- 🏉 RUGBY -->
+                        <g transform="translate(70, 140) rotate(-20)">
+                            <ellipse cx="0" cy="0" rx="16" ry="10" class="ghost-ball" />
+                            <line x1="-6" y1="0" x2="6" y2="0" stroke="white" opacity="0.4" />
+                        </g>
+
+                        <!-- 🤜 HANDBALL / VOLLEY -->
+                        <g transform="translate(190, 150)">
+                            <circle cx="0" cy="0" r="12" class="ghost-ball" />
+                        </g>
+
+                        <!-- 🎾 TENNIS -->
+                        <g transform="translate(185, 95) rotate(-30)">
+                            <ellipse cx="0" cy="0" rx="10" ry="14" fill="none" stroke="rgba(255,255,255,0.4)"
+                                stroke-width="2" />
+                            <line x1="0" y1="14" x2="0" y2="35" stroke="white" stroke-width="3" opacity="0.4" />
+                        </g>
+                    </g>
+
+                    <!-- Specular Shine -->
+                    <circle cx="130" cy="115" r="85" fill="url(#highlight)" />
+
+                    <!-- Surface Reflection Accents -->
+                    <ellipse cx="100" cy="85" rx="20" ry="10" fill="white" opacity="0.2"
+                        transform="rotate(-30 100 85)" />
+
+                    <!-- Pedestal Base (Disc style from image) -->
+                    <ellipse cx="130" cy="205" rx="55" ry="12" fill="rgba(110, 80, 200, 0.45)" />
+                    <ellipse cx="130" cy="212" rx="55" ry="12" fill="rgba(70, 40, 150, 0.6)" />
+
+                    <!-- Stars (Positioned roughly like the image) -->
+                    <polygon points="135,22 137,28 143,28 138,32 140,38 135,34 130,38 132,32 127,28 133,28"
+                        fill="#e879f9" opacity="0.7" /> <!-- Purple center -->
+                    <polygon points="85,35 87,40 92,40 88,43 89,48 85,45 81,48 82,43 78,40 83,40" fill="#67e8f9"
+                        opacity="0.8" /> <!-- Cyan top left -->
+                    <polygon points="70,75 72,78 76,78 73,81 74,85 71,83 68,85 69,81 66,78 70,78" fill="#67e8f9"
+                        opacity="0.6" /> <!-- Small Cyan left -->
+                    <polygon points="195,50 198,60 210,60 200,68 205,80 195,72 185,80 190,68 180,60 192,60"
+                        fill="#f0abfc" opacity="0.8" /> <!-- Big Pink right -->
+                    <polygon points="200,105 202,110 207,110 203,113 204,118 200,115 196,118 197,113 193,110 198,110"
+                        fill="#fbbf24" opacity="0.9" /> <!-- Gold right -->
+                </svg>
+            </div>
+
+            <!-- 2.5D Title -->
+            <div class="title-container">
+                <h1 class="text-3d-layer layer-0" style="margin:0; font-size:inherit;">Combino</h1>
+                <span class="text-3d-layer layer-1">Combino</span>
+                <span class="text-3d-layer layer-2">Combino</span>
+                <span class="text-3d-layer layer-3">Combino</span>
+                <span class="text-3d-layer layer-4">Combino</span>
+                <span class="text-3d-layer layer-5">Combino</span>
+            </div>
+
+            <!-- Warning Banner -->
+            <div class="warning-box">
+                <span class="warning-icon">⚠️</span>
+                <p class="warning-text" data-i18n="warning_text">
+                    <strong>Avertissement :</strong> Les paris sportifs comportent des risques. Ne misez jamais plus que
+                    ce
+                    que vous pouvez permettre de perdre.
+                </p>
+            </div>
+
+            <!-- Form Card -->
+            <div class="form-card">
+
+                <div class="input-group">
+                    <label class="input-label" data-i18n="label_stake">Mise (€)</label>
+                    <input type="number" id="stake" class="app-input" placeholder="10">
+                </div>
+
+                <div class="input-group">
+                    <label class="input-label" data-i18n="label_target">Gain souhaité (€)</label>
+                    <input type="number" id="target" class="app-input" placeholder="100">
+                </div>
+
+                <div class="input-group">
+                    <label class="input-label" data-i18n="label_match_range">Fourchette de matchs</label>
+                    <!-- Select caché pour la logique JS -->
+                    <select id="matchRange" class="app-input" style="display: none;">
+                        <option value="3-5">🛡️ 3-5 matchs (Prudent)</option>
+                        <option value="5-10" selected>⚖️ 5-10 matchs (Équilibré)</option>
+                        <option value="10-20">⚔️ 10-20 matchs (Audacieux)</option>
+                    </select>
+
+                    <!-- Custom Dropdown UI -->
+                    <div class="custom-select-wrapper" id="matchRange-wrapper">
+                        <div class="custom-select">
+                            <div class="custom-select-trigger" data-for="matchRange">
+                                <span>⚖️ 5-10 matchs (Équilibré)</span>
+                            </div>
+                            <div class="custom-options">
+                                <span class="custom-option" data-value="3-5" data-i18n="range_safe">🛡️ 3-5 matchs
+                                    (Prudent)</span>
+                                <span class="custom-option selected" data-value="5-10" data-i18n="range_balanced">⚖️
+                                    5-10 matchs (Équilibré)</span>
+                                <span class="custom-option" data-value="10-20" data-i18n="range_risky">⚔️ 10-20 matchs
+                                    (Audacieux)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label class="input-label" data-i18n="label_sport">Sport</label>
+                    <!-- Select caché pour la logique JS -->
+                    <select id="sportFilter" class="app-input" style="display: none;">
+                        <option value="all">🌍 Tous les sports (Multisport)</option>
+                        <option value="soccer">⚽ Football</option>
+                        <option value="basketball">🏀 Basketball</option>
+                        <option value="tennis">🎾 Tennis</option>
+                        <option value="american_football">🏈 Rugby / Football Am.</option>
+                        <option value="baseball">⚾ Baseball</option>
+                        <option value="ice_hockey">🏒 Hockey sur glace</option>
+                        <option value="handball">🤾 Handball</option>
+                    </select>
+
+                    <!-- Custom Dropdown UI -->
+                    <div class="custom-select-wrapper" id="sportFilter-wrapper">
+                        <div class="custom-select">
+                            <div class="custom-select-trigger" data-for="sportFilter">
+                                <span>🌍 Tous les sports (Multisport)</span>
+                            </div>
+                            <div class="custom-options">
+                                <span class="custom-option selected" data-value="all" data-i18n="sport_all">🌍 Tous les
+                                    sports
+                                    (Multisport)</span>
+                                <span class="custom-option" data-value="soccer" data-i18n="sport_soccer">⚽
+                                    Football</span>
+                                <span class="custom-option" data-value="basketball" data-i18n="sport_basketball">🏀
+                                    Basketball</span>
+                                <span class="custom-option" data-value="tennis" data-i18n="sport_tennis">🎾
+                                    Tennis</span>
+                                <span class="custom-option" data-value="american_football"
+                                    data-i18n="sport_american_football">🏈 Rugby / Football
+                                    Am.</span>
+                                <span class="custom-option" data-value="baseball" data-i18n="sport_baseball">⚾
+                                    Baseball</span>
+                                <span class="custom-option" data-value="ice_hockey" data-i18n="sport_ice_hockey">🏒
+                                    Hockey sur glace</span>
+                                <span class="custom-option" data-value="handball" data-i18n="sport_handball">🤾
+                                    Handball</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label class="input-label" data-i18n="label_date_limit">Matchs jusqu'au</label>
+                    <input type="date" id="endDate" class="app-input">
+                </div>
+
+                <button id="generateBtn" class="btn-generate">
+                    <span class="btn-content" data-i18n="btn_generate">Générer un combiné</span>
+                </button>
+
+            </div>
+
+            <!-- Error Box -->
+            <div id="error" class="error-box"></div>
+
+            <!-- Results Card -->
+            <div id="results" class="result-card">
+                <div class="result-title" data-i18n="res_title">✨ Combiné Généré</div>
+
+                <div class="stats-grid">
+                    <div class="stat-box">
+                        <div class="stat-label" data-i18n="res_stake">Mise</div>
+                        <div class="stat-val" id="resStake">10 €</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-label" data-i18n="res_odds">Cote Totale</div>
+                        <div class="stat-val" id="resOdds">12.50</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-label" data-i18n="res_gain">Gain Cible</div>
+                        <div class="stat-val" id="resGain">125 €</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-label" data-i18n="res_count">Matchs</div>
+                        <div class="stat-val" id="resCount">0</div>
+                    </div>
+                </div>
+
+                <div id="matchList">
+                    <!-- Matches injected here -->
+                </div>
+            </div>
+
+            <!-- SEO Footer Text (Visible for Indexation) -->
+            <div class="seo-footer" data-i18n-html="true" data-i18n="seo_footer_content"
+                style="margin-top: 40px; padding: 20px; background: rgba(255,255,255,0.03); border-radius: 12px; font-size: 0.9em; color: #a49ebf;">
+
+                <p style="margin-bottom: 15px;">
+                    Bienvenue sur <strong>Combino</strong>, l'outil ultime pour vos <strong>paris sportifs</strong>.
+                    Notre algorithme intelligent agit comme un
+                    <strong>simulateur de paris sportifs</strong> avancé, analysant des milliers de matchs pour vous
+                    proposer les meilleures opportunités.
+                </p>
+                <p style="margin-bottom: 15px;">
+                    Que vous cherchiez un <strong>générateur de combiné</strong> fiable pour le football, le basketball
+                    ou le tennis, ou des
+                    <strong>prédictions paris sportifs</strong> précises, Combino est la solution. Notre IA scanne les
+                    cotes en temps réel pour dénicher de la value.
+                </p>
+                <ul style="margin-left: 20px; margin-bottom: 15px;">
+                    <li>🚀 <strong>Générateur combiné foot</strong> : Simulez vos combinaisons en un clic.</li>
+                    <li>📊 <strong>Analyseur de cotes</strong> : Comparez et trouvez les meilleures cotes du marché.
+                    </li>
+                    <li>🤖 <strong>Pronostic Sportif IA</strong> : Profitez de la puissance de l'intelligence
+                        artificielle.</li>
+                    <li>🛡️ <strong>Gestion de Bankroll</strong> : Suivez vos statistiques avec nos modes (Prudent,
+                        Équilibré, Audacieux).</li>
+                </ul>
+                <p>
+                    Analysez vos options dès maintenant avec le meilleur <strong>logiciel paris sportifs</strong>
+                    gratuit.
+                    Rejoignez les milliers de parieurs qui utilisent Combino pour leurs <strong>pronostics foot</strong>
+                    et autres sports.
+                </p>
+            </div>
+        </div>
+        </div>
+    </main><!-- END PAGE: MATCHS -->
+
+    <!-- PAGE: STATS DES MATCHS -->
+    <main class="page-container" id="page-stats">
+        <div class="container">
+            <div class="page-header">
+                <div class="page-title" data-i18n="title_stats">📊 Stats des Matchs</div>
+                <div class="page-subtitle" data-i18n="subtitle_stats">Tous les matchs disponibles avec leurs cotes en
+                    temps réel</div>
+
+                <div class="page-filters" style="margin-top: 15px; display: flex; gap: 10px; width: 100%;">
+                    <input type="date" id="statsDateFilter" class="app-input" style="flex: 1; min-width: 0;">
+                    <select id="statsSportFilter" class="app-input" style="flex: 1; min-width: 0;">
+                        <option value="all" data-i18n="filter_all">🌍 Tous</option>
+                        <option value="soccer" data-i18n="filter_soccer">⚽ Foot</option>
+                        <option value="basketball" data-i18n="filter_basketball">🏀 Basket</option>
+                        <option value="tennis" data-i18n="filter_tennis">🎾 Tennis</option>
+                        <option value="american_football" data-i18n="filter_american_football">🏈 Foot Am.</option>
+                        <option value="baseball" data-i18n="filter_baseball">⚾ Baseball</option>
+                        <option value="ice_hockey" data-i18n="filter_ice_hockey">🏒 Hockey</option>
+                        <option value="handball" data-i18n="filter_handball">🤾 Hand</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="stats-table" id="statsTableContainer">
+                <div class="stats-table-header">
+                    <div data-i18n="th_match">Match / Ligue</div>
+                    <div data-i18n="th_probs">Probabilités (1 | N | 2)</div>
+                    <div style="text-align: right;" data-i18n="th_time">Heure</div>
+                </div>
+                <div id="statsTableBody">
+                    <!-- Rows will be injected by JavaScript -->
+                </div>
+            </div>
+        </div>
+        </div>
+    </main><!-- END PAGE: STATS -->
+
+
+
+
+
+
+
+
+
+    <!-- Logic -->
+    <!-- i18n -->
+    <script src="translations.js?v=20"></script>
+
+    </div>
+
+    <script src="app_api.js?v=20"></script>
+
+    <!-- UI Logic for Custom Dropdowns -->
+    <script>
+
+        document.addEventListener('DOMContentLoaded', function () {
+
+            // Gérer l'ouverture/fermeture des dropdowns
+            const wrappers = document.querySelectorAll('.custom-select-wrapper');
+
+            wrappers.forEach(wrapper => {
+                const selectBox = wrapper.querySelector('.custom-select');
+                const trigger = wrapper.querySelector('.custom-select-trigger');
+                const options = wrapper.querySelectorAll('.custom-option');
+                const hiddenSelectId = trigger.dataset.for;
+                const hiddenSelect = document.getElementById(hiddenSelectId);
+
+                trigger.addEventListener('click', function (e) {
+                    // Fermer les autres ouverts
+                    document.querySelectorAll('.custom-select').forEach(s => {
+                        if (s !== selectBox) s.classList.remove('open');
+                    });
+                    selectBox.classList.toggle('open');
+                    e.stopPropagation();
+                });
+
+                options.forEach(option => {
+                    option.addEventListener('click', function () {
+                        // Mettre à jour la sélection visuelle
+                        wrapper.querySelector('.custom-option.selected').classList.remove('selected');
+                        this.classList.add('selected');
+
+                        // Mettre à jour le trigger text
+                        trigger.querySelector('span').textContent = this.textContent;
+
+                        // Mettre à jour le select caché et déclencher l'événement change
+                        const value = this.dataset.value;
+                        hiddenSelect.value = value;
+                        hiddenSelect.dispatchEvent(new Event('change'));
+
+                        // Fermer
+                        selectBox.classList.remove('open');
+                    });
+                });
+            });
+
+            // Fermer si on clique ailleurs
+            document.addEventListener('click', function () {
+                document.querySelectorAll('.custom-select').forEach(s => s.classList.remove('open'));
+            });
+        });
+    </script>
+
+
+    <!-- Age Disclaimer Modal with SEO Protection -->
+    <div id="ageDisclaimer" class="age-disclaimer-overlay" data-nosnippet aria-hidden="true">
+        <div class="age-disclaimer-modal">
+            <span class="age-icon">🔞</span>
+            <h2 class="age-title" data-i18n="age_disclaimer_title">Vérification de l'âge</h2>
+            <p class="age-text" data-i18n="age_disclaimer_text">
+                Ce site contient des contenus liés aux paris sportifs. Vous devez avoir au moins 18 ans pour accéder à
+                Combino.
+                En continuant, vous certifiez avoir l'âge légal pour parier dans votre pays.
+            </p>
+            <div class="age-buttons">
+                <button class="btn-age-accept" onclick="verifyAge()" data-i18n="age_disclaimer_accept">J'ai 18 ans ou
+                    plus</button>
+                <button class="btn-age-decline" onclick="declineAge()"
+                    data-i18n="age_disclaimer_decline">Quitter</button>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Age Disclaimer Logic -->
+    <script>
+                function verifyAge() {
+            localStorage.setItem('combino_age_verified', 'true');
+            const disclaimer = document.getElementById('ageDisclaimer');
+            if (disclaimer) disclaimer.classList.remove('active');
+            if (typeof onAgeVerified === 'function') onAgeVerified();
+            document.body.style.overflow = '';
+        }
+
+        function declineAge() {
+            window.location.href = 'https://www.google.com';
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            if (!localStorage.getItem('combino_age_verified')) {
+                const disclaimer = document.getElementById('ageDisclaimer');
+                if (disclaimer) {
+                    disclaimer.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                }
+            }
+        });
+    </script>
+    <footer class="seo-link-cloud" style="margin-top: 50px; padding: 30px 20px; background: rgba(22, 14, 42, 0.6); border-top: 1px solid rgba(168, 85, 247, 0.2); width: 100%;">
+        <div style="max-width: 800px; margin: 0 auto; text-align: center;">
+            <h3 style="color: #fff; margin-bottom: 20px; font-size: 1.1em;" data-i18n="footer_popular_pages">Nos Pages Populaires</h3>
+            <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 10px;">
+                <a href="index.html" style="color: #9a8ab8; text-decoration: none; padding: 5px 12px; background: rgba(168, 85, 247, 0.1); border-radius: 20px; font-size: 0.9em; transition: all 0.3s; border: 1px solid rgba(168, 85, 247, 0.1);" onmouseover="this.style.background='rgba(168, 85, 247, 0.2)'; this.style.color='#fff'" onmouseout="this.style.background='rgba(168, 85, 247, 0.1)'; this.style.color='#9a8ab8'">Générateur de Combinés</a>
+                <a href="pronostic-sportif-ia.html" style="color: #9a8ab8; text-decoration: none; padding: 5px 12px; background: rgba(168, 85, 247, 0.1); border-radius: 20px; font-size: 0.9em; transition: all 0.3s; border: 1px solid rgba(168, 85, 247, 0.1);" onmouseover="this.style.background='rgba(168, 85, 247, 0.2)'; this.style.color='#fff'" onmouseout="this.style.background='rgba(168, 85, 247, 0.1)'; this.style.color='#9a8ab8'">Pronostic Sportif IA</a>
+                <a href="simulateur-paris-sportif.html" style="color: #9a8ab8; text-decoration: none; padding: 5px 12px; background: rgba(168, 85, 247, 0.1); border-radius: 20px; font-size: 0.9em; transition: all 0.3s; border: 1px solid rgba(168, 85, 247, 0.1);" onmouseover="this.style.background='rgba(168, 85, 247, 0.2)'; this.style.color='#fff'" onmouseout="this.style.background='rgba(168, 85, 247, 0.1)'; this.style.color='#9a8ab8'">Simulateur Paris Sportif</a>
+                <a href="pronostics-football.html" style="color: #9a8ab8; text-decoration: none; padding: 5px 12px; background: rgba(168, 85, 247, 0.1); border-radius: 20px; font-size: 0.9em; transition: all 0.3s; border: 1px solid rgba(168, 85, 247, 0.1);" onmouseover="this.style.background='rgba(168, 85, 247, 0.2)'; this.style.color='#fff'" onmouseout="this.style.background='rgba(168, 85, 247, 0.1)'; this.style.color='#9a8ab8'">Pronostics Football</a>
+                <a href="combines-paris-sportifs-gagnants.html" style="color: #9a8ab8; text-decoration: none; padding: 5px 12px; background: rgba(168, 85, 247, 0.1); border-radius: 20px; font-size: 0.9em; transition: all 0.3s; border: 1px solid rgba(168, 85, 247, 0.1);" onmouseover="this.style.background='rgba(168, 85, 247, 0.2)'; this.style.color='#fff'" onmouseout="this.style.background='rgba(168, 85, 247, 0.1)'; this.style.color='#9a8ab8'">Combinés Paris Sportifs Gagnants</a>
+                <a href="meilleurs-paris-combines.html" style="color: #9a8ab8; text-decoration: none; padding: 5px 12px; background: rgba(168, 85, 247, 0.1); border-radius: 20px; font-size: 0.9em; transition: all 0.3s; border: 1px solid rgba(168, 85, 247, 0.1);" onmouseover="this.style.background='rgba(168, 85, 247, 0.2)'; this.style.color='#fff'" onmouseout="this.style.background='rgba(168, 85, 247, 0.1)'; this.style.color='#9a8ab8'">Meilleurs Paris Combinés</a>
+                <a href="paris-sportifs-conseilles-aujourdhui.html" style="color: #9a8ab8; text-decoration: none; padding: 5px 12px; background: rgba(168, 85, 247, 0.1); border-radius: 20px; font-size: 0.9em; transition: all 0.3s; border: 1px solid rgba(168, 85, 247, 0.1);" onmouseover="this.style.background='rgba(168, 85, 247, 0.2)'; this.style.color='#fff'" onmouseout="this.style.background='rgba(168, 85, 247, 0.1)'; this.style.color='#9a8ab8'">Paris Sportifs Conseillés</a>
+                <a href="pronostic-football-du-jour.html" style="color: #9a8ab8; text-decoration: none; padding: 5px 12px; background: rgba(168, 85, 247, 0.1); border-radius: 20px; font-size: 0.9em; transition: all 0.3s; border: 1px solid rgba(168, 85, 247, 0.1);" onmouseover="this.style.background='rgba(168, 85, 247, 0.2)'; this.style.color='#fff'" onmouseout="this.style.background='rgba(168, 85, 247, 0.1)'; this.style.color='#9a8ab8'">Pronostics Foot du Jour</a>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

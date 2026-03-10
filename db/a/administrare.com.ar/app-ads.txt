@@ -1,0 +1,835 @@
+<!DOCTYPE html >
+<html lang="es">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="csrf-token" content="HgYQv0jGeIGlSUtZXz5vMsSX3GP83Lizkd0oXbF6">
+
+        <title>administrãre  | Inicio </title>
+        
+
+        <!-- Fonts -->
+        <link rel="preconnect" href="https://fonts.bunny.net">
+        <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+
+        
+        <!-- Scripts -->
+        <link rel="preload" as="style" href="https://administrare.com.ar/build/assets/app-DB5ZDBaC.css" /><link rel="modulepreload" as="script" href="https://administrare.com.ar/build/assets/app-l0sNRNKZ.js" /><link rel="stylesheet" href="https://administrare.com.ar/build/assets/app-DB5ZDBaC.css" data-navigate-track="reload" /><script type="module" src="https://administrare.com.ar/build/assets/app-l0sNRNKZ.js" data-navigate-track="reload"></script>
+        <!-- Styles -->
+        <!-- Livewire Styles --><style >[wire\:loading][wire\:loading], [wire\:loading\.delay][wire\:loading\.delay], [wire\:loading\.list-item][wire\:loading\.list-item], [wire\:loading\.inline-block][wire\:loading\.inline-block], [wire\:loading\.inline][wire\:loading\.inline], [wire\:loading\.block][wire\:loading\.block], [wire\:loading\.flex][wire\:loading\.flex], [wire\:loading\.table][wire\:loading\.table], [wire\:loading\.grid][wire\:loading\.grid], [wire\:loading\.inline-flex][wire\:loading\.inline-flex] {display: none;}[wire\:loading\.delay\.none][wire\:loading\.delay\.none], [wire\:loading\.delay\.shortest][wire\:loading\.delay\.shortest], [wire\:loading\.delay\.shorter][wire\:loading\.delay\.shorter], [wire\:loading\.delay\.short][wire\:loading\.delay\.short], [wire\:loading\.delay\.default][wire\:loading\.delay\.default], [wire\:loading\.delay\.long][wire\:loading\.delay\.long], [wire\:loading\.delay\.longer][wire\:loading\.delay\.longer], [wire\:loading\.delay\.longest][wire\:loading\.delay\.longest] {display: none;}[wire\:offline][wire\:offline] {display: none;}[wire\:dirty]:not(textarea):not(input):not(select) {display: none;}:root {--livewire-progress-bar-color: #2299dd;}[x-cloak] {display: none !important;}[wire\:cloak] {display: none !important;}dialog#livewire-error::backdrop {background-color: rgba(0, 0, 0, .6);}</style>
+        
+    <script id="browser-logger-active">
+(function() {
+    const ENDPOINT = 'https://administrare.com.ar/_boost/browser-logs';
+    const logQueue = [];
+    let flushTimeout = null;
+
+    console.log('🔍 Browser logger active (MCP server detected). Posting to: ' + ENDPOINT);
+
+    // Store original console methods
+    const originalConsole = {
+        log: console.log,
+        info: console.info,
+        error: console.error,
+        warn: console.warn,
+        table: console.table
+    };
+
+    // Helper to safely stringify values
+    function safeStringify(obj) {
+        const seen = new WeakSet();
+        return JSON.stringify(obj, (key, value) => {
+            if (typeof value === 'object' && value !== null) {
+                if (seen.has(value)) return '[Circular]';
+                seen.add(value);
+            }
+            if (value instanceof Error) {
+                return {
+                    name: value.name,
+                    message: value.message,
+                    stack: value.stack
+                };
+            }
+            return value;
+        });
+    }
+
+    // Batch and send logs
+    function flushLogs() {
+        if (logQueue.length === 0) return;
+
+        const batch = logQueue.splice(0, logQueue.length);
+
+        fetch(ENDPOINT, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-Requested-With': 'XMLHttpRequest'
+            },
+            body: JSON.stringify({ logs: batch })
+        }).catch(err => {
+            // Silently fail to avoid infinite loops
+            originalConsole.error('Failed to send logs:', err);
+        });
+    }
+
+    // Debounced flush (100ms)
+    function scheduleFlush() {
+        if (flushTimeout) clearTimeout(flushTimeout);
+        flushTimeout = setTimeout(flushLogs, 100);
+    }
+
+    // Intercept console methods
+    ['log', 'info', 'error', 'warn', 'table'].forEach(method => {
+        console[method] = function(...args) {
+            // Call original method
+            originalConsole[method].apply(console, args);
+
+            // Capture log data
+            try {
+                logQueue.push({
+                    type: method,
+                    timestamp: new Date().toISOString(),
+                    data: args.map(arg => {
+                        try {
+                            return typeof arg === 'object' ? JSON.parse(safeStringify(arg)) : arg;
+                        } catch (e) {
+                            return String(arg);
+                        }
+                    }),
+                    url: window.location.href,
+                    userAgent: navigator.userAgent
+                });
+
+                scheduleFlush();
+            } catch (e) {
+                // Fail silently
+            }
+        };
+    });
+
+    // Global error handlers for uncaught errors
+    const originalOnError = window.onerror;
+    window.onerror = function boostErrorHandler(errorMsg, url, lineNumber, colNumber, error) {
+        try {
+            logQueue.push({
+                type: 'uncaught_error',
+                timestamp: new Date().toISOString(),
+                data: [{
+                    message: errorMsg,
+                    filename: url,
+                    lineno: lineNumber,
+                    colno: colNumber,
+                    error: error ? {
+                        name: error.name,
+                        message: error.message,
+                        stack: error.stack
+                    } : null
+                }],
+                url: window.location.href,
+                userAgent: navigator.userAgent
+            });
+
+            scheduleFlush();
+        } catch (e) {
+            // Fail silently
+        }
+
+        // Call original handler if it exists
+        if (originalOnError && typeof originalOnError === 'function') {
+            return originalOnError(errorMsg, url, lineNumber, colNumber, error);
+        }
+
+        // Let the error continue to propagate
+        return false;
+    }
+    window.addEventListener('error', (event) => {
+        try {
+            logQueue.push({
+                type: 'window_error',
+                timestamp: new Date().toISOString(),
+                data: [{
+                    message: event.message,
+                    filename: event.filename,
+                    lineno: event.lineno,
+                    colno: event.colno,
+                    error: event.error ? {
+                        name: event.error.name,
+                        message: event.error.message,
+                        stack: event.error.stack
+                    } : null
+                }],
+                url: window.location.href,
+                userAgent: navigator.userAgent
+            });
+
+            scheduleFlush();
+        } catch (e) {
+            // Fail silently
+        }
+
+        // Let the error continue to propagate
+        return false;
+    });
+    window.addEventListener('unhandledrejection', (event) => {
+        try {
+            logQueue.push({
+                type: 'error',
+                timestamp: new Date().toISOString(),
+                data: [{
+                    message: 'Unhandled Promise Rejection',
+                    reason: event.reason instanceof Error ? {
+                        name: event.reason.name,
+                        message: event.reason.message,
+                        stack: event.reason.stack
+                    } : event.reason
+                }],
+                url: window.location.href,
+                userAgent: navigator.userAgent
+            });
+
+            scheduleFlush();
+        } catch (e) {
+            // Fail silently
+        }
+
+        // Let the rejection continue to propagate
+        return false;
+    });
+
+    // Flush on page unload
+    window.addEventListener('beforeunload', () => {
+        if (logQueue.length > 0) {
+            navigator.sendBeacon(ENDPOINT, JSON.stringify({ logs: logQueue }));
+        }
+    });
+})();
+</script>
+</head>
+    <body class="dark bg-slate-50 dark:bg-gray-800">
+
+    <div class="dark:bg-gray-800 bg-slate-50">
+    <div class="pt-14">
+        <a href="https://administrare.com.ar" target="_self" class="text-center block">
+
+            <img src="https://administrare.com.ar/storage/logos/administrare-logo-blanco.png" 
+            alt="administrãre Consorcios" 
+            class="w-48 sm:w-72 lg:w-88 mx-auto hover:scale-125 transition-transform duration-1000 ease-in-out">
+            </a>
+    </div>
+
+    <div class="pt-6">
+        <div class="dark border-b-2 shadow-md pb-5">
+<nav class="flex items-center gap-1 py-3  flex justify-center" data-flux-navbar>
+    <a href="https://administrare.com.ar" data-current="data-current" class="px-3 h-8 flex items-center rounded-lg relative px-2.5! text-zinc-500 dark:text-white/80  data-current:after:absolute data-current:after:-bottom-3 data-current:after:inset-x-0 data-current:after:h-[2px] [--hover-fill:color-mix(in_oklab,_var(--color-accent-content),_transparent_90%)] hover:text-zinc-800 dark:hover:text-white data-current:text-(--color-accent-content) hover:data-current:text-(--color-accent-content) hover:bg-zinc-800/5 dark:hover:bg-white/10 hover:data-current:bg-(--hover-fill) data-current:after:bg-(--color-accent-content)" data-flux-navbar-items="data-flux-navbar-items">
+        <div class=" flex-1 text-sm font-medium leading-none whitespace-nowrap [[data-nav-footer]_&]:hidden [[data-nav-sidebar]_[data-nav-footer]_&]:block" data-content>Inicio</div>
+    </a>
+    <a href="https://administrare.com.ar/servicios" class="px-3 h-8 flex items-center rounded-lg relative px-2.5! text-zinc-500 dark:text-white/80  data-current:after:absolute data-current:after:-bottom-3 data-current:after:inset-x-0 data-current:after:h-[2px] [--hover-fill:color-mix(in_oklab,_var(--color-accent-content),_transparent_90%)] hover:text-zinc-800 dark:hover:text-white data-current:text-(--color-accent-content) hover:data-current:text-(--color-accent-content) hover:bg-zinc-800/5 dark:hover:bg-white/10 hover:data-current:bg-(--hover-fill) data-current:after:bg-(--color-accent-content)" data-flux-navbar-items="data-flux-navbar-items">
+        <div class=" flex-1 text-sm font-medium leading-none whitespace-nowrap [[data-nav-footer]_&]:hidden [[data-nav-sidebar]_[data-nav-footer]_&]:block" data-content>Servicios</div>
+    </a>
+    <a href="https://administrare.com.ar/nosotros" class="px-3 h-8 flex items-center rounded-lg relative px-2.5! text-zinc-500 dark:text-white/80  data-current:after:absolute data-current:after:-bottom-3 data-current:after:inset-x-0 data-current:after:h-[2px] [--hover-fill:color-mix(in_oklab,_var(--color-accent-content),_transparent_90%)] hover:text-zinc-800 dark:hover:text-white data-current:text-(--color-accent-content) hover:data-current:text-(--color-accent-content) hover:bg-zinc-800/5 dark:hover:bg-white/10 hover:data-current:bg-(--hover-fill) data-current:after:bg-(--color-accent-content)" data-flux-navbar-items="data-flux-navbar-items">
+        <div class=" flex-1 text-sm font-medium leading-none whitespace-nowrap [[data-nav-footer]_&]:hidden [[data-nav-sidebar]_[data-nav-footer]_&]:block" data-content>Sobre nosotros</div>
+    </a>
+    <a href="https://administrare.com.ar/pago-de-expensas" class="px-3 h-8 flex items-center rounded-lg relative px-2.5! text-zinc-500 dark:text-white/80  data-current:after:absolute data-current:after:-bottom-3 data-current:after:inset-x-0 data-current:after:h-[2px] [--hover-fill:color-mix(in_oklab,_var(--color-accent-content),_transparent_90%)] hover:text-zinc-800 dark:hover:text-white data-current:text-(--color-accent-content) hover:data-current:text-(--color-accent-content) hover:bg-zinc-800/5 dark:hover:bg-white/10 hover:data-current:bg-(--hover-fill) data-current:after:bg-(--color-accent-content)" data-flux-navbar-items="data-flux-navbar-items">
+        <div class=" flex-1 text-sm font-medium leading-none whitespace-nowrap [[data-nav-footer]_&]:hidden [[data-nav-sidebar]_[data-nav-footer]_&]:block" data-content>Pago de Expensas</div>
+    </a>
+    <a href="https://administrare.com.ar/contacto/envianos-tu-mensaje" class="px-3 h-8 flex items-center rounded-lg relative px-2.5! text-zinc-500 dark:text-white/80  data-current:after:absolute data-current:after:-bottom-3 data-current:after:inset-x-0 data-current:after:h-[2px] [--hover-fill:color-mix(in_oklab,_var(--color-accent-content),_transparent_90%)] hover:text-zinc-800 dark:hover:text-white data-current:text-(--color-accent-content) hover:data-current:text-(--color-accent-content) hover:bg-zinc-800/5 dark:hover:bg-white/10 hover:data-current:bg-(--hover-fill) data-current:after:bg-(--color-accent-content)" data-flux-navbar-items="data-flux-navbar-items">
+        <div class=" flex-1 text-sm font-medium leading-none whitespace-nowrap [[data-nav-footer]_&]:hidden [[data-nav-sidebar]_[data-nav-footer]_&]:block" data-content>Contacto</div>
+    </a>
+    <!--
+    <a href="https://administrare.com.ar/consorcios" class="px-3 h-8 flex items-center rounded-lg relative px-2.5! text-zinc-500 dark:text-white/80  data-current:after:absolute data-current:after:-bottom-3 data-current:after:inset-x-0 data-current:after:h-[2px] [--hover-fill:color-mix(in_oklab,_var(--color-accent-content),_transparent_90%)] hover:text-zinc-800 dark:hover:text-white data-current:text-(--color-accent-content) hover:data-current:text-(--color-accent-content) hover:bg-zinc-800/5 dark:hover:bg-white/10 hover:data-current:bg-(--hover-fill) data-current:after:bg-(--color-accent-content)" data-flux-navbar-items="data-flux-navbar-items">
+        <div class=" flex-1 text-sm font-medium leading-none whitespace-nowrap [[data-nav-footer]_&]:hidden [[data-nav-sidebar]_[data-nav-footer]_&]:block" data-content>Consorcios</div>
+    </a>
+    -->
+</nav>
+</div>
+<!--
+<div class="dark border-b-2 shadow-md pb-5">
+	<nav id="bar" class="flex justify-center ">
+		<div class=" flex flex-col md:flex-row justify-center md:space-y-0 my-4 space-y-4 text-center dark:text-gray-300">
+            <a href="https://administrare.com.ar" class="mx-5 p-3 hover:text-sky-500 hover:scale-125 transition-transform duration-1000 ease-in-out">Inicio</a>
+            <a href="https://administrare.com.ar/servicios" class="mx-5 p-3 hover:text-sky-500 hover:scale-125 transition-transform duration-1000 ease-in-out">Servicios</a>
+            <a href="https://administrare.com.ar/nosotros" class="mx-5 p-3 hover:text-sky-500 hover:scale-125 transition-transform duration-1000 ease-in-out">Nosotros</a>
+            <a href="https://administrare.com.ar/pago-de-expensas" class="mx-5 p-3 hover:text-sky-500 hover:scale-125 transition-transform duration-1000 ease-in-out">Pago de Expensas</a>
+            <a href="https://administrare.com.ar/contacto/envianos-tu-mensaje" class="mx-5 p-3 hover:text-sky-500 hover:scale-125 transition-transform duration-1000 ease-in-out">Contacto</a>
+    
+            <a href="https://administrare.com.ar/consorcios" class="mx-5 p-3 hover:text-sky-500 hover:scale-125 transition-transform duration-1000 ease-in-out">Consorcios</a>
+    
+        </div>
+	</nav>
+</div>
+-->
+    </div>
+</div>
+
+
+        <div class="font-sans antialiased">
+            <div >
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="relative isolate pt-10 lg:px-16">
+                <div class="py-10">
+    <section class="bg-amber-300 dark:bg-gray-700 rounded-md shadow-lg mb-6">
+        <a href="https://buenosaires.gob.ar/gcaba_historico/noticias/como-es-el-plan-de-reciclado-de-la-ciudad" 
+            class="flex items-center justify-center h-full py-6"
+            target="_blank">
+            <img src="https://administrare.com.ar/storage/logos/ba-recicla.png" alt="BA Recicla" class="object-contain">
+        </a>
+    </section>
+</div>            </div>
+            <div class="relative isolate pt-10 lg:px-16">
+                <div wire:key="lw-2097307899-0" wire:snapshot="{&quot;data&quot;:{&quot;escalas&quot;:[null,{&quot;keys&quot;:[47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,46,45,42,43,44,41,40,39,38,37,36,35,34,33,32,31,30,29,28,27,26,25,24,23,22,21,20,19,18,17,16,15,14,13,12,11,10,9,8,7,6,5,4,3,2,1],&quot;class&quot;:&quot;Illuminate\\Database\\Eloquent\\Collection&quot;,&quot;modelClass&quot;:&quot;App\\Models\\SuterhSalary&quot;,&quot;s&quot;:&quot;elcln&quot;}],&quot;anio&quot;:0},&quot;memo&quot;:{&quot;id&quot;:&quot;zbumAJqbqzXwEIpuykC2&quot;,&quot;name&quot;:&quot;livewire.show-suterh-salary&quot;,&quot;path&quot;:&quot;\/&quot;,&quot;method&quot;:&quot;GET&quot;,&quot;release&quot;:&quot;a-a-a&quot;,&quot;children&quot;:[],&quot;scripts&quot;:[],&quot;assets&quot;:[],&quot;errors&quot;:[],&quot;locale&quot;:&quot;es&quot;,&quot;islands&quot;:[]},&quot;checksum&quot;:&quot;76cd0e25e2c5a9228a4b0867c90a355db77f51ccf767b6e24e08b5e43e72a0c9&quot;}" wire:effects="[]" wire:id="zbumAJqbqzXwEIpuykC2" wire:name="livewire.show-suterh-salary" class="text-slate-800 dark:text-gray-300">
+    <section class="bg-blue-200 dark:bg-gray-700 text-center py-8 mb-10 rounded-lg">
+
+        <h1>
+            <img src="https://administrare.com.ar/storage/logos/suterh.png" alt="SUTERH" 
+            class="w-36 sm:w-64 lg:w-80 h-auto mx-auto">
+        </h1>
+        <h2 class="text-lg sm:text-2xl lg:text-3xl mt-5 mb-5">Planillas Salariales Suterh</h2>
+
+
+        <!--[if BLOCK]><![endif]-->
+            <table class="table-auto mt-5 full-w dark:bg-gray-800 shadow-xl rounded-xl mx-auto ">
+                <tbody>
+                    <!--[if BLOCK]><![endif]-->                        <!--[if BLOCK]><![endif]-->                            <th>
+                                <br>
+                                    2023
+                                                                    <tr>
+                                        <td class="text-center w-2/4 hover:rounded-xl py-1">
+                                        <a href="https://suterh.org.ar/planilla-salarial-noviembre-2023/" target="_blank" class="hover:text-blue-500">
+                                        Escala Salarial de Noviembre 2023
+                                        </a>
+                                    </td>
+                                    </tr>
+                                <!--[if ENDBLOCK]><![endif]-->                        </th>
+                                            <!--[if BLOCK]><![endif]-->                                <tr>
+                                    <td class="text-center w-2/4 py-1">
+                                        <a href="https://suterh.org.ar/planilla-salarial-diciembre-2023/" target="_blank" class="hover:text-blue-500">Escala Salarial de Diciembre 2023</a>
+                                    </td>
+                                </tr>
+                            <!--[if ENDBLOCK]><![endif]-->                        </th>
+                                            <!--[if BLOCK]><![endif]-->                            <th>
+                                <br>
+                                    2024
+                                                                    <tr>
+                                        <td class="text-center w-2/4 hover:rounded-xl py-1">
+                                        <a href="https://suterh.org.ar/planilla-salarial-enero-2024/" target="_blank" class="hover:text-blue-500">
+                                        Escala Salarial de Enero 2024
+                                        </a>
+                                    </td>
+                                    </tr>
+                                <!--[if ENDBLOCK]><![endif]-->                        </th>
+                                            <!--[if BLOCK]><![endif]-->                                <tr>
+                                    <td class="text-center w-2/4 py-1">
+                                        <a href="https://suterh.org.ar/planilla-salarial-febrero-2024/" target="_blank" class="hover:text-blue-500">Escala Salarial de Febrero 2024</a>
+                                    </td>
+                                </tr>
+                            <!--[if ENDBLOCK]><![endif]-->                        </th>
+                                            <!--[if BLOCK]><![endif]-->                                <tr>
+                                    <td class="text-center w-2/4 py-1">
+                                        <a href="https://suterh.org.ar/planilla-salarial-marzo-2024/" target="_blank" class="hover:text-blue-500">Escala Salarial de Marzo 2024</a>
+                                    </td>
+                                </tr>
+                            <!--[if ENDBLOCK]><![endif]-->                        </th>
+                                            <!--[if BLOCK]><![endif]-->                                <tr>
+                                    <td class="text-center w-2/4 py-1">
+                                        <a href="https://suterh.org.ar/planilla-salarial-abril-2024/" target="_blank" class="hover:text-blue-500">Escala Salarial de Abril 2024</a>
+                                    </td>
+                                </tr>
+                            <!--[if ENDBLOCK]><![endif]-->                        </th>
+                                            <!--[if BLOCK]><![endif]-->                                <tr>
+                                    <td class="text-center w-2/4 py-1">
+                                        <a href="https://suterh.org.ar/planilla-salarial-junio-2024/" target="_blank" class="hover:text-blue-500">Escala Salarial de Junio 2024</a>
+                                    </td>
+                                </tr>
+                            <!--[if ENDBLOCK]><![endif]-->                        </th>
+                                            <!--[if BLOCK]><![endif]-->                                <tr>
+                                    <td class="text-center w-2/4 py-1">
+                                        <a href="https://suterh.org.ar/planilla-salarial-julio-2024/" target="_blank" class="hover:text-blue-500">Escala Salarial de Julio 2024</a>
+                                    </td>
+                                </tr>
+                            <!--[if ENDBLOCK]><![endif]-->                        </th>
+                                            <!--[if BLOCK]><![endif]-->                                <tr>
+                                    <td class="text-center w-2/4 py-1">
+                                        <a href="https://suterh.org.ar/planilla-salarial-agosto-2024/" target="_blank" class="hover:text-blue-500">Escala Salarial de Agosto 2024</a>
+                                    </td>
+                                </tr>
+                            <!--[if ENDBLOCK]><![endif]-->                        </th>
+                                            <!--[if BLOCK]><![endif]-->                                <tr>
+                                    <td class="text-center w-2/4 py-1">
+                                        <a href="https://suterh.org.ar/planilla-salarial-septiembre-2024/" target="_blank" class="hover:text-blue-500">Escala Salarial de Septiembre 2024</a>
+                                    </td>
+                                </tr>
+                            <!--[if ENDBLOCK]><![endif]-->                        </th>
+                                            <!--[if BLOCK]><![endif]-->                                <tr>
+                                    <td class="text-center w-2/4 py-1">
+                                        <a href="https://suterh.org.ar/planilla-salarial-octubre-2024/" target="_blank" class="hover:text-blue-500">Escala Salarial de Octubre 2024</a>
+                                    </td>
+                                </tr>
+                            <!--[if ENDBLOCK]><![endif]-->                        </th>
+                                            <!--[if BLOCK]><![endif]-->                                <tr>
+                                    <td class="text-center w-2/4 py-1">
+                                        <a href="https://suterh.org.ar/planilla-salarial-noviembre-2024/" target="_blank" class="hover:text-blue-500">Escala Salarial de Noviembre 2024</a>
+                                    </td>
+                                </tr>
+                            <!--[if ENDBLOCK]><![endif]-->                        </th>
+                                            <!--[if BLOCK]><![endif]-->                            <th>
+                                <br>
+                                    2025
+                                                                    <tr>
+                                        <td class="text-center w-2/4 hover:rounded-xl py-1">
+                                        <a href="https://suterh.org.ar/planilla-salarial-enero-2025/" target="_blank" class="hover:text-blue-500">
+                                        Escala Salarial de Enero 2025
+                                        </a>
+                                    </td>
+                                    </tr>
+                                <!--[if ENDBLOCK]><![endif]-->                        </th>
+                                            <!--[if BLOCK]><![endif]-->                                <tr>
+                                    <td class="text-center w-2/4 py-1">
+                                        <a href="https://suterh.org.ar/planilla-salarial-febrero-2025/" target="_blank" class="hover:text-blue-500">Escala Salarial de Febrero 2025</a>
+                                    </td>
+                                </tr>
+                            <!--[if ENDBLOCK]><![endif]-->                        </th>
+                                            <!--[if BLOCK]><![endif]-->                                <tr>
+                                    <td class="text-center w-2/4 py-1">
+                                        <a href="https://suterh.org.ar/planilla-salarial-marzo-2025/" target="_blank" class="hover:text-blue-500">Escala Salarial de Marzo 2025</a>
+                                    </td>
+                                </tr>
+                            <!--[if ENDBLOCK]><![endif]-->                        </th>
+                                            <!--[if BLOCK]><![endif]-->                                <tr>
+                                    <td class="text-center w-2/4 py-1">
+                                        <a href="https://suterh.org.ar/planilla-salarial-mayo-2025/" target="_blank" class="hover:text-blue-500">Escala Salarial de Mayo 2025</a>
+                                    </td>
+                                </tr>
+                            <!--[if ENDBLOCK]><![endif]-->                        </th>
+                                            <!--[if BLOCK]><![endif]-->                                <tr>
+                                    <td class="text-center w-2/4 py-1">
+                                        <a href="https://suterh.org.ar/planilla-salarial-junio-2025/" target="_blank" class="hover:text-blue-500">Escala Salarial de Junio 2025</a>
+                                    </td>
+                                </tr>
+                            <!--[if ENDBLOCK]><![endif]-->                        </th>
+                                            <!--[if BLOCK]><![endif]-->                                <tr>
+                                    <td class="text-center w-2/4 py-1">
+                                        <a href="https://suterh.org.ar/planilla-salarial-julio-2025/" target="_blank" class="hover:text-blue-500">Escala Salarial de Julio 2025</a>
+                                    </td>
+                                </tr>
+                            <!--[if ENDBLOCK]><![endif]-->                        </th>
+                                            <!--[if BLOCK]><![endif]-->                                <tr>
+                                    <td class="text-center w-2/4 py-1">
+                                        <a href="https://suterh.org.ar/planilla-salarial-agosto-2025/" target="_blank" class="hover:text-blue-500">Escala Salarial de Agosto 2025</a>
+                                    </td>
+                                </tr>
+                            <!--[if ENDBLOCK]><![endif]-->                        </th>
+                                            <!--[if BLOCK]><![endif]-->                                <tr>
+                                    <td class="text-center w-2/4 py-1">
+                                        <a href="https://suterh.org.ar/planilla-salarial-septiembre-2025/" target="_blank" class="hover:text-blue-500">Escala Salarial de Septiembre 2025</a>
+                                    </td>
+                                </tr>
+                            <!--[if ENDBLOCK]><![endif]-->                        </th>
+                                            <!--[if BLOCK]><![endif]-->                                <tr>
+                                    <td class="text-center w-2/4 py-1">
+                                        <a href="https://suterh.org.ar/planilla-salarial-octubre-2025/" target="_blank" class="hover:text-blue-500">Escala Salarial de Octubre 2025</a>
+                                    </td>
+                                </tr>
+                            <!--[if ENDBLOCK]><![endif]-->                        </th>
+                                            <!--[if BLOCK]><![endif]-->                                <tr>
+                                    <td class="text-center w-2/4 py-1">
+                                        <a href="https://suterh.org.ar/planilla-salarial-noviembre-2025/" target="_blank" class="hover:text-blue-500">Escala Salarial de Noviembre 2025</a>
+                                    </td>
+                                </tr>
+                            <!--[if ENDBLOCK]><![endif]-->                        </th>
+                                            <!--[if BLOCK]><![endif]-->                                <tr>
+                                    <td class="text-center w-2/4 py-1">
+                                        <a href="https://suterh.org.ar/planilla-salarial-diciembre-2025/" target="_blank" class="hover:text-blue-500">Escala Salarial de Diciembre 2025</a>
+                                    </td>
+                                </tr>
+                            <!--[if ENDBLOCK]><![endif]-->                        </th>
+                                            <!--[if BLOCK]><![endif]-->                            <th>
+                                <br>
+                                    2026
+                                                                    <tr>
+                                        <td class="text-center w-2/4 hover:rounded-xl py-1">
+                                        <a href="https://suterh.org.ar/planilla-salarial-enero-2026/" target="_blank" class="hover:text-blue-500">
+                                        Escala Salarial de Enero 2026
+                                        </a>
+                                    </td>
+                                    </tr>
+                                <!--[if ENDBLOCK]><![endif]-->                        </th>
+                                            <!--[if BLOCK]><![endif]-->                                <tr>
+                                    <td class="text-center w-2/4 py-1">
+                                        <a href="https://suterh.org.ar/planilla-salarial-febrero-2026/" target="_blank" class="hover:text-blue-500">Escala Salarial de Febrero 2026</a>
+                                    </td>
+                                </tr>
+                            <!--[if ENDBLOCK]><![endif]-->                        </th>
+                                            <!--[if BLOCK]><![endif]-->                            <th>
+                                <br>
+                                    2023
+                                                                    <tr>
+                                        <td class="text-center w-2/4 hover:rounded-xl py-1">
+                                        <a href="https://suterh.org.ar/planilla-salarial-octubre-2023/" target="_blank" class="hover:text-blue-500">
+                                        Escala Salarial de Octubre 2023
+                                        </a>
+                                    </td>
+                                    </tr>
+                                <!--[if ENDBLOCK]><![endif]-->                        </th>
+                                            <!--[if BLOCK]><![endif]-->                                <tr>
+                                    <td class="text-center w-2/4 py-1">
+                                        <a href="https://suterh.org.ar/planilla-salarial-septiembre-2023/" target="_blank" class="hover:text-blue-500">Escala Salarial de Septiembre 2023</a>
+                                    </td>
+                                </tr>
+                            <!--[if ENDBLOCK]><![endif]-->                        </th>
+                                            <!--[if BLOCK]><![endif]-->                                <tr>
+                                    <td class="text-center w-2/4 py-1">
+                                        <a href="https://suterh.org.ar/planilla-salarial-mayo-2023//" target="_blank" class="hover:text-blue-500">Escala Salarial de Mayo 2023</a>
+                                    </td>
+                                </tr>
+                            <!--[if ENDBLOCK]><![endif]-->                        </th>
+                                            <!--[if BLOCK]><![endif]-->                                <tr>
+                                    <td class="text-center w-2/4 py-1">
+                                        <a href="https://suterh.org.ar/planilla-salarial-julio-2023/" target="_blank" class="hover:text-blue-500">Escala Salarial de Julio 2023</a>
+                                    </td>
+                                </tr>
+                            <!--[if ENDBLOCK]><![endif]-->                        </th>
+                                            <!--[if BLOCK]><![endif]-->                                <tr>
+                                    <td class="text-center w-2/4 py-1">
+                                        <a href="https://suterh.org.ar/planilla-salarial-agosto-2023/" target="_blank" class="hover:text-blue-500">Escala Salarial de Agosto 2023</a>
+                                    </td>
+                                </tr>
+                            <!--[if ENDBLOCK]><![endif]-->                        </th>
+                                            <!--[if BLOCK]><![endif]-->                                <tr>
+                                    <td class="text-center w-2/4 py-1">
+                                        <a href="https://suterh.org.ar/planilla-salarial-abril-2023/" target="_blank" class="hover:text-blue-500">Escala Salarial de Abril 2023</a>
+                                    </td>
+                                </tr>
+                            <!--[if ENDBLOCK]><![endif]-->                        </th>
+                                            <!--[if BLOCK]><![endif]-->                                <tr>
+                                    <td class="text-center w-2/4 py-1">
+                                        <a href="https://suterh.org.ar/planilla-salarial-enero-2023/" target="_blank" class="hover:text-blue-500">Escala Salarial de Enero 2023</a>
+                                    </td>
+                                </tr>
+                            <!--[if ENDBLOCK]><![endif]-->                        </th>
+                                            <!--[if BLOCK]><![endif]-->                            <th>
+                                <br>
+                                    2022
+                                                                    <tr>
+                                        <td class="text-center w-2/4 hover:rounded-xl py-1">
+                                        <a href="https://suterh.org.ar/planilla-salarial-noviembre-2022/" target="_blank" class="hover:text-blue-500">
+                                        Escala Salarial de Noviembre 2022
+                                        </a>
+                                    </td>
+                                    </tr>
+                                <!--[if ENDBLOCK]><![endif]-->                        </th>
+                                            <!--[if BLOCK]><![endif]-->                                <tr>
+                                    <td class="text-center w-2/4 py-1">
+                                        <a href="https://suterh.org.ar/planilla-salarial-octubre-2022/" target="_blank" class="hover:text-blue-500">Escala Salarial de Octubre 2022</a>
+                                    </td>
+                                </tr>
+                            <!--[if ENDBLOCK]><![endif]-->                        </th>
+                                            <!--[if BLOCK]><![endif]-->                                <tr>
+                                    <td class="text-center w-2/4 py-1">
+                                        <a href="https://suterh.org.ar/planilla-salarial-junio-2022/" target="_blank" class="hover:text-blue-500">Escala Salarial de Junio 2022</a>
+                                    </td>
+                                </tr>
+                            <!--[if ENDBLOCK]><![endif]-->                        </th>
+                                            <!--[if BLOCK]><![endif]-->                                <tr>
+                                    <td class="text-center w-2/4 py-1">
+                                        <a href="https://suterh.org.ar/planilla-salarial-abril-2022/" target="_blank" class="hover:text-blue-500">Escala Salarial de Abril 2022</a>
+                                    </td>
+                                </tr>
+                            <!--[if ENDBLOCK]><![endif]-->                        </th>
+                                            <!--[if BLOCK]><![endif]-->                                <tr>
+                                    <td class="text-center w-2/4 py-1">
+                                        <a href="https://suterh.org.ar/planilla-salarial-marzo-2022/" target="_blank" class="hover:text-blue-500">Escala Salarial de Marzo 2022</a>
+                                    </td>
+                                </tr>
+                            <!--[if ENDBLOCK]><![endif]-->                        </th>
+                                            <!--[if BLOCK]><![endif]-->                                <tr>
+                                    <td class="text-center w-2/4 py-1">
+                                        <a href="https://suterh.org.ar/planilla-salarial-febrero-2022/" target="_blank" class="hover:text-blue-500">Escala Salarial de Febrero 2022</a>
+                                    </td>
+                                </tr>
+                            <!--[if ENDBLOCK]><![endif]-->                        </th>
+                                            <!--[if BLOCK]><![endif]-->                            <th>
+                                <br>
+                                    2021
+                                                                    <tr>
+                                        <td class="text-center w-2/4 hover:rounded-xl py-1">
+                                        <a href="https://suterh.org.ar/planilla-salarial-octubre-2021/" target="_blank" class="hover:text-blue-500">
+                                        Escala Salarial de Octubre 2021
+                                        </a>
+                                    </td>
+                                    </tr>
+                                <!--[if ENDBLOCK]><![endif]-->                        </th>
+                                            <!--[if BLOCK]><![endif]-->                                <tr>
+                                    <td class="text-center w-2/4 py-1">
+                                        <a href="https://suterh.org.ar/planilla-salarial-julio-2021/" target="_blank" class="hover:text-blue-500">Escala Salarial de Julio 2021</a>
+                                    </td>
+                                </tr>
+                            <!--[if ENDBLOCK]><![endif]-->                        </th>
+                                            <!--[if BLOCK]><![endif]-->                                <tr>
+                                    <td class="text-center w-2/4 py-1">
+                                        <a href="https://suterh.org.ar/planilla-salarial-abril-2021/" target="_blank" class="hover:text-blue-500">Escala Salarial de Abril 2021</a>
+                                    </td>
+                                </tr>
+                            <!--[if ENDBLOCK]><![endif]-->                        </th>
+                                            <!--[if BLOCK]><![endif]-->                                <tr>
+                                    <td class="text-center w-2/4 py-1">
+                                        <a href="https://suterh.org.ar/planilla-salarial-febrero-2021/" target="_blank" class="hover:text-blue-500">Escala Salarial de Febrero 2021</a>
+                                    </td>
+                                </tr>
+                            <!--[if ENDBLOCK]><![endif]-->                        </th>
+                                            <!--[if BLOCK]><![endif]-->                            <th>
+                                <br>
+                                    2020
+                                                                    <tr>
+                                        <td class="text-center w-2/4 hover:rounded-xl py-1">
+                                        <a href="https://suterh.org.ar/planilla-salarial-julio-2020/" target="_blank" class="hover:text-blue-500">
+                                        Escala Salarial de Julio 2020
+                                        </a>
+                                    </td>
+                                    </tr>
+                                <!--[if ENDBLOCK]><![endif]-->                        </th>
+                                            <!--[if BLOCK]><![endif]-->                                <tr>
+                                    <td class="text-center w-2/4 py-1">
+                                        <a href="https://suterh.org.ar/planilla-salarial-marzo-2020/" target="_blank" class="hover:text-blue-500">Escala Salarial de Marzo 2020</a>
+                                    </td>
+                                </tr>
+                            <!--[if ENDBLOCK]><![endif]-->                        </th>
+                                            <!--[if BLOCK]><![endif]-->                            <th>
+                                <br>
+                                    2019
+                                                                    <tr>
+                                        <td class="text-center w-2/4 hover:rounded-xl py-1">
+                                        <a href="https://suterh.org.ar/planilla-salarial-noviembre-2019/" target="_blank" class="hover:text-blue-500">
+                                        Escala Salarial de Noviembre 2019
+                                        </a>
+                                    </td>
+                                    </tr>
+                                <!--[if ENDBLOCK]><![endif]-->                        </th>
+                                            <!--[if BLOCK]><![endif]-->                                <tr>
+                                    <td class="text-center w-2/4 py-1">
+                                        <a href="https://suterh.org.ar/planilla-salarial-julio-2019/" target="_blank" class="hover:text-blue-500">Escala Salarial de Julio 2019</a>
+                                    </td>
+                                </tr>
+                            <!--[if ENDBLOCK]><![endif]-->                        </th>
+                                            <!--[if BLOCK]><![endif]-->                                <tr>
+                                    <td class="text-center w-2/4 py-1">
+                                        <a href="https://suterh.org.ar/planilla-salarial-mayo-2019/" target="_blank" class="hover:text-blue-500">Escala Salarial de Mayo 2019</a>
+                                    </td>
+                                </tr>
+                            <!--[if ENDBLOCK]><![endif]-->                        </th>
+                                            <!--[if BLOCK]><![endif]-->                                <tr>
+                                    <td class="text-center w-2/4 py-1">
+                                        <a href="https://suterh.org.ar/planilla-salarial-marzo-2019/" target="_blank" class="hover:text-blue-500">Escala Salarial de Marzo 2019</a>
+                                    </td>
+                                </tr>
+                            <!--[if ENDBLOCK]><![endif]-->                        </th>
+                                            <!--[if BLOCK]><![endif]-->                                <tr>
+                                    <td class="text-center w-2/4 py-1">
+                                        <a href="https://www.suterh.org.ar/planilla-salarial-febrero-2019/" target="_blank" class="hover:text-blue-500">Escala Salarial de Febrero 2019</a>
+                                    </td>
+                                </tr>
+                            <!--[if ENDBLOCK]><![endif]-->                        </th>
+                                            <!--[if BLOCK]><![endif]-->                                <tr>
+                                    <td class="text-center w-2/4 py-1">
+                                        <a href="https://www.suterh.org.ar/planilla-salarial-enero-2019/" target="_blank" class="hover:text-blue-500">Escala Salarial de Enero 2019</a>
+                                    </td>
+                                </tr>
+                            <!--[if ENDBLOCK]><![endif]-->                        </th>
+                                            <!--[if BLOCK]><![endif]-->                            <th>
+                                <br>
+                                    2018
+                                                                    <tr>
+                                        <td class="text-center w-2/4 hover:rounded-xl py-1">
+                                        <a href="https://www.suterh.org.ar/planilla-salarial-diciembre-2018/" target="_blank" class="hover:text-blue-500">
+                                        Escala Salarial de Diciembre 2018
+                                        </a>
+                                    </td>
+                                    </tr>
+                                <!--[if ENDBLOCK]><![endif]-->                        </th>
+                                            <!--[if BLOCK]><![endif]-->                                <tr>
+                                    <td class="text-center w-2/4 py-1">
+                                        <a href="https://www.suterh.org.ar/planilla-salarial-noviembre-2018/" target="_blank" class="hover:text-blue-500">Escala Salarial de Noviembre 2018</a>
+                                    </td>
+                                </tr>
+                            <!--[if ENDBLOCK]><![endif]-->                        </th>
+                                            <!--[if BLOCK]><![endif]-->                                <tr>
+                                    <td class="text-center w-2/4 py-1">
+                                        <a href="https://www.suterh.org.ar/planilla-salarial-agosto-2018/" target="_blank" class="hover:text-blue-500">Escala Salarial de Agosto 2018</a>
+                                    </td>
+                                </tr>
+                            <!--[if ENDBLOCK]><![endif]-->                        </th>
+                                            <!--[if BLOCK]><![endif]-->                                <tr>
+                                    <td class="text-center w-2/4 py-1">
+                                        <a href="https://www.suterh.org.ar/planilla-salarial-abril-2018/" target="_blank" class="hover:text-blue-500">Escala Salarial de Abril 2018</a>
+                                    </td>
+                                </tr>
+                            <!--[if ENDBLOCK]><![endif]-->                        </th>
+                                            <!--[if BLOCK]><![endif]-->                                <tr>
+                                    <td class="text-center w-2/4 py-1">
+                                        <a href="https://www.suterh.org.ar/planilla-salarial-enero-2018/" target="_blank" class="hover:text-blue-500">Escala Salarial de Enero 2018</a>
+                                    </td>
+                                </tr>
+                            <!--[if ENDBLOCK]><![endif]-->                        </th>
+                                            <!--[if BLOCK]><![endif]-->                            <th>
+                                <br>
+                                    2017
+                                                                    <tr>
+                                        <td class="text-center w-2/4 hover:rounded-xl py-1">
+                                        <a href="https://www.suterh.org.ar/planilla-salarial-agosto-2017/" target="_blank" class="hover:text-blue-500">
+                                        Escala Salarial de Agosto 2017
+                                        </a>
+                                    </td>
+                                    </tr>
+                                <!--[if ENDBLOCK]><![endif]-->                        </th>
+                                            <!--[if BLOCK]><![endif]-->                                <tr>
+                                    <td class="text-center w-2/4 py-1">
+                                        <a href="https://www.suterh.org.ar/planilla-salarial-junio-2017/" target="_blank" class="hover:text-blue-500">Escala Salarial de Junio 2017</a>
+                                    </td>
+                                </tr>
+                            <!--[if ENDBLOCK]><![endif]-->                        </th>
+                                            <!--[if BLOCK]><![endif]-->                            <th>
+                                <br>
+                                    2016
+                                                                    <tr>
+                                        <td class="text-center w-2/4 hover:rounded-xl py-1">
+                                        <a href="https://www.suterh.org.ar/planilla-salarial-diciembre-2016/" target="_blank" class="hover:text-blue-500">
+                                        Escala Salarial de Diciembre 2016
+                                        </a>
+                                    </td>
+                                    </tr>
+                                <!--[if ENDBLOCK]><![endif]-->                        </th>
+                                            <!--[if BLOCK]><![endif]-->                                <tr>
+                                    <td class="text-center w-2/4 py-1">
+                                        <a href="https://www.suterh.org.ar/planilla-salarial-junio-2016/" target="_blank" class="hover:text-blue-500">Escala Salarial de Junio 2016</a>
+                                    </td>
+                                </tr>
+                            <!--[if ENDBLOCK]><![endif]-->                        </th>
+                                            <!--[if BLOCK]><![endif]-->                            <th>
+                                <br>
+                                    2015
+                                                                    <tr>
+                                        <td class="text-center w-2/4 hover:rounded-xl py-1">
+                                        <a href="https://www.suterh.org.ar/planilla-salarial-septiembre-2015/" target="_blank" class="hover:text-blue-500">
+                                        Escala Salarial de Septiembre 2015
+                                        </a>
+                                    </td>
+                                    </tr>
+                                <!--[if ENDBLOCK]><![endif]-->                        </th>
+                                            <!--[if BLOCK]><![endif]-->                                <tr>
+                                    <td class="text-center w-2/4 py-1">
+                                        <a href="https://www.suterh.org.ar/planilla-salarial-junio-2015/" target="_blank" class="hover:text-blue-500">Escala Salarial de Junio 2015</a>
+                                    </td>
+                                </tr>
+                            <!--[if ENDBLOCK]><![endif]-->                        </th>
+                                            <!--[if BLOCK]><![endif]-->                            <th>
+                                <br>
+                                    2014
+                                                                    <tr>
+                                        <td class="text-center w-2/4 hover:rounded-xl py-1">
+                                        <a href="https://www.suterh.org.ar/planilla-salarial-octubre-2014/" target="_blank" class="hover:text-blue-500">
+                                        Escala Salarial de Octubre 2014
+                                        </a>
+                                    </td>
+                                    </tr>
+                                <!--[if ENDBLOCK]><![endif]-->                        </th>
+                                            <!--[if BLOCK]><![endif]-->                                <tr>
+                                    <td class="text-center w-2/4 py-1">
+                                        <a href="https://www.suterh.org.ar/planilla-salarial-setiembre-2014/" target="_blank" class="hover:text-blue-500">Escala Salarial de Septiembre 2014</a>
+                                    </td>
+                                </tr>
+                            <!--[if ENDBLOCK]><![endif]-->                        </th>
+                                            <!--[if BLOCK]><![endif]-->                                <tr>
+                                    <td class="text-center w-2/4 py-1">
+                                        <a href="https://www.suterh.org.ar/planilla-salarial-marzo-2014/" target="_blank" class="hover:text-blue-500">Escala Salarial de Marzo 2014</a>
+                                    </td>
+                                </tr>
+                            <!--[if ENDBLOCK]><![endif]-->                        </th>
+                                            <!--[if BLOCK]><![endif]-->                            <th>
+                                <br>
+                                    2013
+                                                                    <tr>
+                                        <td class="text-center w-2/4 hover:rounded-xl py-1">
+                                        <a href="https://www.suterh.org.ar/planilla-salarial-diciembre-2013/" target="_blank" class="hover:text-blue-500">
+                                        Escala Salarial de Diciembre 2013
+                                        </a>
+                                    </td>
+                                    </tr>
+                                <!--[if ENDBLOCK]><![endif]-->                        </th>
+                                            <!--[if BLOCK]><![endif]-->                                <tr>
+                                    <td class="text-center w-2/4 py-1">
+                                        <a href="https://www.suterh.org.ar/planilla-salarial-octubre-2013/" target="_blank" class="hover:text-blue-500">Escala Salarial de Octubre 2013</a>
+                                    </td>
+                                </tr>
+                            <!--[if ENDBLOCK]><![endif]-->                        </th>
+                                            <!--[if BLOCK]><![endif]-->                                <tr>
+                                    <td class="text-center w-2/4 py-1">
+                                        <a href="https://www.suterh.org.ar/planilla-salarial-marzo-2013/" target="_blank" class="hover:text-blue-500">Escala Salarial de Marzo 2013</a>
+                                    </td>
+                                </tr>
+                            <!--[if ENDBLOCK]><![endif]-->                        </th>
+                                            <!--[if BLOCK]><![endif]-->                            <th>
+                                <br>
+                                    2012
+                                                                    <tr>
+                                        <td class="text-center w-2/4 hover:rounded-xl py-1">
+                                        <a href="https://www.suterh.org.ar/planilla-salarial-junio-2012/" target="_blank" class="hover:text-blue-500">
+                                        Escala Salarial de Junio 2012
+                                        </a>
+                                    </td>
+                                    </tr>
+                                <!--[if ENDBLOCK]><![endif]-->                        </th>
+                                            <!--[if BLOCK]><![endif]-->                                <tr>
+                                    <td class="text-center w-2/4 py-1">
+                                        <a href="https://www.suterh.org.ar/planilla-salarial-abril-mayo-2012/" target="_blank" class="hover:text-blue-500">Escala Salarial de Abril-Mayo 2012</a>
+                                    </td>
+                                </tr>
+                            <!--[if ENDBLOCK]><![endif]-->                        </th>
+                                            <!--[if BLOCK]><![endif]-->                            <th>
+                                <br>
+                                    2011
+                                                                    <tr>
+                                        <td class="text-center w-2/4 hover:rounded-xl py-1">
+                                        <a href="https://www.suterh.org.ar/planilla-salarial-octubre-2011/" target="_blank" class="hover:text-blue-500">
+                                        Escala Salarial de Octubre 2011
+                                        </a>
+                                    </td>
+                                    </tr>
+                                <!--[if ENDBLOCK]><![endif]-->                        </th>
+                                            <!--[if BLOCK]><![endif]-->                                <tr>
+                                    <td class="text-center w-2/4 py-1">
+                                        <a href="https://www.suterh.org.ar/planilla-salarial-agosto-2011/" target="_blank" class="hover:text-blue-500">Escala Salarial de Agosto 2011</a>
+                                    </td>
+                                </tr>
+                            <!--[if ENDBLOCK]><![endif]-->                        </th>
+                    <!--[if ENDBLOCK]><![endif]-->                </tbody>
+            </table>
+        <!--[if ENDBLOCK]><![endif]-->    </section>
+</div>            </div>
+        </div>
+    </div>
+        </div>
+
+
+    <footer class="bg-slate-50 dark:bg-gray-800 text-sm">
+    <hr>
+    <div class="pt-10 pb-5">
+        <address class="mb-5 text-gray-700 dark:text-gray-300 text-center">
+            <span>2026  administr&atilde;re&#174</span>
+            <br>
+            <span><a href="https://administrare.com.ar/nosotros" class="hover:text-sky-500">av. paseo colón 1219, piso 5to "21"
+            <br>
+            c1063acm - c.a.b.a.</a></span>
+            <br>
+            <span><u>Horario</u>: Lunes a Viernes de 8 a 13 hs.</span>
+            <br>
+            <span class="text-center">teléfono (11) 5353-9855&nbsp;&nbsp;&nbsp;/&nbsp;&nbsp;&nbsp;<span class="text-green-500"><a href="https://api.whatsapp.com/send?phone=5491151612171" target="_blank">WA. 11-5161-2171</a></span></span>
+            <br>
+            <span><i><u>emergencias</u>: tel. 11-6612-7277</i></span>
+        </address>
+    </div>
+</footer>
+
+    <!-- Livewire Scripts -->
+<script src="https://administrare.com.ar/livewire-acb9bf5e/livewire.js?id=8f29b734"   data-csrf="HgYQv0jGeIGlSUtZXz5vMsSX3GP83Lizkd0oXbF6" data-module-url="https://administrare.com.ar/livewire-acb9bf5e" data-update-uri="https://administrare.com.ar/livewire-acb9bf5e/update" data-navigate-once="true"></script>
+    </body>
+</html>

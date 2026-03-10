@@ -1,0 +1,1792 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+
+    <title>Isabella EA</title>
+    <meta content="¡Desarrollo Web a Medida!" name="description" />
+    <meta content="Isabella" name="keywords" />
+
+    <!-- Identificación del Sitio -->
+    <meta property="og:title" content="Isabella EA" />
+    <meta property="og:image" content="assets/img/logo.png" />
+    <meta property="og:url" content="https://www.isabellaea.com/" />
+    <meta property="og:site_name" content="Isabella EA" />
+    <meta property="og:description" content="¡Desarrollo Web a Medida!" />
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=UA-120840432-1"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "UA-120840432-1");
+    </script>
+
+    <!-- Google Adsense -->
+    <script
+      async
+      src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2008623107964699"
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- Favicons -->
+    <link href="assets/img/logo.png" rel="icon" />
+    <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon" />
+
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Jost:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+      rel="stylesheet"
+    />
+
+    <!-- Vendor CSS Files -->
+    <link
+      href="assets/vendor/bootstrap/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link href="assets/vendor/icofont/icofont.min.css" rel="stylesheet" />
+    <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet" />
+    <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet" />
+    <link href="assets/vendor/venobox/venobox.css" rel="stylesheet" />
+    <link
+      href="assets/vendor/owl.carousel/assets/owl.carousel.min.css"
+      rel="stylesheet"
+    />
+    <link href="assets/vendor/aos/aos.css" rel="stylesheet" />
+
+    <!-- Template Main CSS File -->
+    <link href="assets/css/style.css" rel="stylesheet" />
+
+    <!-- Vendor JS Files - Movidos al principio para evitar errores de jQuery -->
+    <script src="assets/vendor/jquery/jquery.min.js"></script>
+    <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Notificaciones Web Push -->
+    <script src="assets/js/push.min.js"></script>
+
+    <script>
+      $(document).ready(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+      });
+    </script>
+
+    <script>
+      //Autoclose
+      window.setTimeout(function () {
+        $(".alert")
+          .fadeTo(1500, 0)
+          .slideDown(1000, function () {
+            $(this).remove();
+          });
+      }, 3000); //2 segundos y desaparece.
+    </script>
+
+    <link href="https://cdn.jsdelivr.net/npm/@n8n/chat/dist/style.css" rel="stylesheet" />
+    <style>
+        :root {
+            --chat--color-primary: #5846f9;
+            --chat--color-primary-shade-50: #4e3fe0;
+            --chat--color-primary-shade-100: #4538c7;
+            --chat--color-secondary: #00c1cf;
+            --chat--color-secondary-shade-50: #00adb9;
+            --chat--color-dark: #2d405f;
+            --chat--toggle--background: var(--chat--color-primary);
+            --chat--toggle--hover--background: var(--chat--color-primary-shade-50);
+            --chat--toggle--active--background: var(--chat--color-primary-shade-100);
+            --chat--toggle--size: 60px;
+        }
+
+        /* Estilos para los botones flotantes */
+        .btn-whatsapp {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 999;
+            cursor: pointer;
+        }
+
+        /* Ajuste para el botón de chat de N8N */
+        .chat--toggle {
+            bottom: 100px !important; /* Posiciona el botón de chat por encima del botón de WhatsApp */
+        }
+    </style>
+    <div id="isabella-chat"></div>
+    <script type="module">
+        import { createChat } from 'https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js';
+
+        // No intentamos verificar el servidor N8N directamente para evitar problemas de CORS
+        // En su lugar, manejaremos los errores que puedan ocurrir durante la inicialización del chat
+
+        // Inicializar el chat directamente sin verificar primero la disponibilidad del servidor
+        // para evitar problemas de CORS
+        async function initChat() {
+            try {
+                // Configuración del chat
+                const chatConfig = {
+                    // Intentar sin el puerto explícito para ver si funciona mejor
+                    webhookUrl: 'https://n8n.alexanderoviedofadul.dev/webhook/429c7c2c-c27c-45bc-ae4d-b2e74c8f7362/chat',
+                    target: '#isabella-chat',
+                    mode: 'window',
+                    chatInputKey: 'chatInput',
+                    chatSessionKey: 'sessionId',
+                    defaultLanguage: 'es',
+                    initialMessages: [
+                        '¡Hola! 👋',
+                        'Soy el asistente virtual de Isabella EA. ¿En qué puedo ayudarte hoy?'
+                    ],
+                    i18n: {
+                        es: {
+                            title: 'Asistente Virtual',
+                            subtitle: "Estamos aquí para ayudarte con tus consultas sobre nuestros servicios y soluciones.",
+                            footer: 'Isabella EA - Soluciones tecnológicas a medida',
+                            getStarted: 'Nueva Conversación',
+                            inputPlaceholder: 'Escribe tu pregunta...',
+                            errorMessage: 'Lo sentimos, el servicio de chat no está disponible en este momento. Por favor, contáctanos por WhatsApp.'
+                        }
+                    },
+                    webhookConfig: {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Accept': 'application/json'
+                        },
+                        timeout: 30000, // 30 segundos de timeout
+                        mode: 'cors', // Especificar el modo de la solicitud
+                        credentials: 'omit', // No enviar cookies para evitar problemas de CORS
+                        cache: 'no-cache' // No usar caché para evitar problemas con respuestas antiguas
+                    },
+                    // Manejar errores de conexión
+                    onError: (error) => {
+                        console.error('Error en el chat:', error);
+
+                        // Determinar el tipo de error
+                        let errorMessage = 'Lo sentimos, nuestro servicio de chat está experimentando problemas técnicos.';
+                        let errorTitle = 'Servicio de chat no disponible';
+
+                        // Si es un error 500, mostrar un mensaje específico
+                        if (error && (
+                            (error.message && error.message.includes('500')) ||
+                            (error.status === 500) ||
+                            (error.statusCode === 500) ||
+                            (error.stack && error.stack.includes('500'))
+                        )) {
+                            errorMessage = 'El servidor de chat ha encontrado un error interno (Error 500). Esto indica que el servidor N8N está funcionando pero hay un problema con la configuración del webhook o con el flujo de trabajo.';
+                            errorTitle = 'Error interno en el servidor de chat';
+                            console.log('Error 500 detectado en el servidor N8N: https://n8n.alexanderoviedofadul.dev/webhook/429c7c2c-c27c-45bc-ae4d-b2e74c8f7362/chat');
+
+                            // Mostrar un mensaje adicional con instrucciones para el usuario
+                            const chatElement = document.getElementById('isabella-chat');
+                            if (chatElement) {
+                                chatElement.innerHTML = `
+                                    <div style="padding: 20px; background-color: #f8f9fa; border-radius: 10px; text-align: center; margin-top: 20px;">
+                                        <h4>${errorTitle}</h4>
+                                        <p>${errorMessage}</p>
+                                        <p>Posibles causas:</p>
+                                        <ol style="text-align: left; display: inline-block;">
+                                            <li>El flujo de trabajo en N8N puede estar mal configurado</li>
+                                            <li>El webhook puede no tener los permisos necesarios</li>
+                                            <li>Puede haber un error en el código del flujo de trabajo</li>
+                                            <li>El servidor N8N puede estar sobrecargado</li>
+                                        </ol>
+                                        <p style="margin-top: 15px;">Por favor, contacta al administrador del sistema para revisar la configuración del servidor N8N.</p>
+                                    </div>
+                                `;
+                                // Evitar que se siga ejecutando el resto del código
+                                return;
+                            }
+                        }
+
+                        // Si es un error de CORS, mostrar un mensaje específico
+                        if (error && error.message && error.message.includes('CORS')) {
+                            errorMessage = 'Hay un problema de configuración en el servidor. Estamos trabajando para solucionarlo.';
+                            errorTitle = 'Error de configuración';
+                            console.log('Error CORS detectado');
+                        }
+
+                        // Si es un error de conexión (Failed to fetch, Network Error, etc.)
+                        if (error && error.message && (
+                            error.message.includes('Failed to fetch') ||
+                            error.message.includes('Network Error') ||
+                            error.message.includes('Mixed Content') ||
+                            error.message.includes('blocked:mixed') ||
+                            error.message.includes('ERR_CONNECTION_TIMED_OUT')
+                        )) {
+                            // Verificar si es un error de timeout específicamente
+                            if (error.message.includes('ERR_CONNECTION_TIMED_OUT') ||
+                                (error.stack && error.stack.includes('ERR_CONNECTION_TIMED_OUT'))) {
+                                errorMessage = 'La conexión con el servidor de chat ha excedido el tiempo de espera. El servidor n8n.alexanderoviedofadul.dev no está respondiendo.';
+                                errorTitle = 'Error de tiempo de espera en la conexión';
+                                console.log('Error de timeout detectado: El servidor N8N en https://n8n.alexanderoviedofadul.dev no responde');
+                            } else {
+                                errorMessage = 'No se puede conectar con el servidor de chat en este momento. Estamos intentando conectar con https://n8n.alexanderoviedofadul.dev pero parece que hay un problema de conexión.';
+                                errorTitle = 'Error de conexión con el servidor';
+                                console.log('Error de conexión detectado: No se puede conectar con el servidor N8N en https://n8n.alexanderoviedofadul.dev');
+                            }
+
+                            // Mostrar un mensaje adicional con instrucciones para el usuario
+                            const chatElement = document.getElementById('isabella-chat');
+                            if (chatElement) {
+                                chatElement.innerHTML = `
+                                    <div style="padding: 20px; background-color: #f8f9fa; border-radius: 10px; text-align: center; margin-top: 20px;">
+                                        <h4>${errorTitle}</h4>
+                                        <p>${errorMessage}</p>
+                                        <p>Posibles causas:</p>
+                                        <ol style="text-align: left; display: inline-block;">
+                                            <li>El servidor de chat no está en funcionamiento o está reiniciándose</li>
+                                            <li>La URL del servidor es incorrecta o ha cambiado</li>
+                                            <li>Hay problemas de red entre tu navegador y el servidor</li>
+                                            <li>El servidor puede estar bloqueado por un firewall</li>
+                                        </ol>
+                                        <p style="margin-top: 15px;">Por favor, contáctanos por WhatsApp para asistencia o inténtalo más tarde</p>
+                                    </div>
+                                `;
+                                // Evitar que se siga ejecutando el resto del código
+                                return;
+                            }
+                        }
+
+                        // Mostrar un mensaje al usuario
+                        const chatElement = document.getElementById('isabella-chat');
+                        if (chatElement) {
+                            chatElement.innerHTML = `
+                                <div style="padding: 20px; background-color: #f8f9fa; border-radius: 10px; text-align: center; margin-top: 20px;">
+                                    <h4>${errorTitle}</h4>
+                                    <p>${errorMessage}</p>
+                                    <p>Por favor, contáctanos por WhatsApp o envíanos un correo a <a href="mailto:info@isabellaea.com">info@isabellaea.com</a></p>
+                                </div>
+                            `;
+                        }
+                    }
+                };
+
+                // Intentar inicializar el chat directamente
+                console.log('Inicializando chat...');
+
+                // Primero verificar si el servidor está respondiendo
+                try {
+                    // Hacer una solicitud de prueba al webhook para verificar su estado
+                    console.log('Verificando estado del servidor N8N...');
+
+                    // Crear una función para asegurarse de que los datos tengan la estructura correcta
+                    const transformRequest = function(data) {
+                        // Asegurarse de que siempre haya un sessionId
+                        if (!data.sessionId) {
+                            data.sessionId = "session-" + Date.now();
+                        }
+                        // Asegurarse de que siempre haya un chatInput
+                        if (!data.chatInput && !data.message) {
+                            data.chatInput = "Hola";
+                        } else if (data.message && !data.chatInput) {
+                            data.chatInput = data.message;
+                        }
+                        return data;
+                    };
+
+                    // Agregar la función de transformación al objeto chatConfig
+                    chatConfig.transformRequest = transformRequest;
+
+                    // Preparar los datos para la solicitud de prueba
+                    const testData = transformRequest({
+                        chatInput: "Hola",
+                        sessionId: "test-session-" + Date.now()
+                    });
+
+                    const response = await fetch(chatConfig.webhookUrl, {
+                        method: 'POST', // Usar POST en lugar de HEAD para obtener más información
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Accept': 'application/json'
+                        },
+                        // Enviar un payload con la estructura correcta que espera el flujo de trabajo
+                        body: JSON.stringify(testData),
+                        mode: 'cors',
+                        credentials: 'omit'
+                    });
+
+                    console.log('Respuesta del servidor N8N:', response.status, response.statusText);
+
+                    if (response.status === 500) {
+                        // Intentar obtener más información sobre el error 500
+                        let errorDetails = '';
+                        try {
+                            const errorBody = await response.text();
+                            console.log('Detalles del error 500:', errorBody);
+                            errorDetails = errorBody;
+
+                            // Si el error es "Error in workflow", podría ser porque el flujo de trabajo espera campos específicos
+                            if (errorBody.includes('Error in workflow')) {
+                                console.log('El error parece estar relacionado con el formato de datos que espera el flujo de trabajo.');
+                            }
+                        } catch (e) {
+                            console.error('No se pudo obtener el cuerpo de la respuesta del error:', e);
+                        }
+
+                        throw new Error(`El servidor respondió con un error 500 (Error interno del servidor). Detalles: ${errorDetails}`);
+                    } else if (response.status !== 200 && response.status !== 204) {
+                        // Intentar obtener más información sobre el error
+                        let errorDetails = '';
+                        try {
+                            const errorBody = await response.text();
+                            console.log(`Detalles del error ${response.status}:`, errorBody);
+                            errorDetails = errorBody;
+                        } catch (e) {
+                            console.error('No se pudo obtener el cuerpo de la respuesta del error:', e);
+                        }
+
+                        throw new Error(`El servidor respondió con un código de estado ${response.status} (${response.statusText}). Detalles: ${errorDetails}`);
+                    }
+
+                    // Si llegamos aquí, el servidor está respondiendo correctamente
+                    console.log('Servidor N8N respondiendo correctamente. Inicializando chat...');
+
+                    // Crear una versión personalizada de createChat que aplique la transformación
+                    const originalCreateChat = createChat;
+                    const customCreateChat = (config) => {
+                        // Guardar la configuración original
+                        const originalConfig = {...config};
+
+                        // Modificar la configuración para interceptar las solicitudes
+                        const originalFetch = window.fetch;
+                        window.fetch = function(url, options) {
+                            // Solo interceptar solicitudes al webhook
+                            if (url === config.webhookUrl && options && options.body) {
+                                try {
+                                    // Parsear el cuerpo de la solicitud
+                                    const body = JSON.parse(options.body);
+
+                                    // Aplicar la transformación
+                                    const transformedBody = config.transformRequest ? config.transformRequest(body) : body;
+                                    console.log('Interceptando solicitud al webhook. Datos originales:', body);
+                                    console.log('Datos transformados:', transformedBody);
+
+                                    // Reemplazar el cuerpo de la solicitud
+                                    options.body = JSON.stringify(transformedBody);
+                                } catch (e) {
+                                    console.error('Error al transformar la solicitud:', e);
+                                }
+                            }
+
+                            // Llamar a la función original de fetch
+                            return originalFetch.apply(this, arguments);
+                        };
+
+                        // Llamar a la función original de createChat con la configuración modificada
+                        const chatInstance = originalCreateChat(originalConfig);
+
+                        // Restaurar la función original de fetch después de un breve retraso
+                        // para asegurar que el chat se haya inicializado completamente
+                        setTimeout(() => {
+                            window.fetch = originalFetch;
+                            console.log('Restaurada la función original de fetch');
+                        }, 5000);
+
+                        return chatInstance;
+                    };
+
+                    // Usar la versión personalizada de createChat
+                    customCreateChat(chatConfig);
+                } catch (error) {
+                    console.error('Error al verificar el estado del servidor N8N:', error);
+                    // Intentar inicializar el chat de todos modos, el manejador de errores se encargará de mostrar el mensaje adecuado
+                    // Usar la versión personalizada de createChat si está definida, o la original si no
+                    if (typeof customCreateChat === 'function') {
+                        customCreateChat(chatConfig);
+                    } else {
+                        // Crear una versión personalizada de createChat que aplique la transformación
+                        const originalCreateChat = createChat;
+                        const customCreateChat = (config) => {
+                            // Guardar la configuración original
+                            const originalConfig = {...config};
+
+                            // Modificar la configuración para interceptar las solicitudes
+                            const originalFetch = window.fetch;
+                            window.fetch = function(url, options) {
+                                // Solo interceptar solicitudes al webhook
+                                if (url === config.webhookUrl && options && options.body) {
+                                    try {
+                                        // Parsear el cuerpo de la solicitud
+                                        const body = JSON.parse(options.body);
+
+                                        // Aplicar la transformación
+                                        const transformedBody = config.transformRequest ? config.transformRequest(body) : body;
+                                        console.log('Interceptando solicitud al webhook. Datos originales:', body);
+                                        console.log('Datos transformados:', transformedBody);
+
+                                        // Reemplazar el cuerpo de la solicitud
+                                        options.body = JSON.stringify(transformedBody);
+                                    } catch (e) {
+                                        console.error('Error al transformar la solicitud:', e);
+                                    }
+                                }
+
+                                // Llamar a la función original de fetch
+                                return originalFetch.apply(this, arguments);
+                            };
+
+                            // Llamar a la función original de createChat con la configuración modificada
+                            const chatInstance = originalCreateChat(originalConfig);
+
+                            // Restaurar la función original de fetch después de un breve retraso
+                            // para asegurar que el chat se haya inicializado completamente
+                            setTimeout(() => {
+                                window.fetch = originalFetch;
+                                console.log('Restaurada la función original de fetch');
+                            }, 5000);
+
+                            return chatInstance;
+                        };
+
+                        // Usar la versión personalizada de createChat
+                        customCreateChat(chatConfig);
+                    }
+                }
+
+            } catch (error) {
+                console.error('Error al inicializar el chat:', error);
+                // Mostrar un mensaje genérico de error
+                const chatElement = document.getElementById('isabella-chat');
+                if (chatElement) {
+                    chatElement.innerHTML = `
+                        <div style="padding: 20px; background-color: #f8f9fa; border-radius: 10px; text-align: center; margin-top: 20px;">
+                            <h4>Error en el servicio de chat</h4>
+                            <p>Ha ocurrido un error inesperado al cargar el chat.</p>
+                            <p>Por favor, contáctanos por WhatsApp o envíanos un correo a <a href="mailto:info@isabellaea.com">info@isabellaea.com</a></p>
+                        </div>
+                    `;
+                }
+            }
+        }
+
+        // Iniciar el chat cuando la página esté completamente cargada
+        // Usamos un pequeño retraso para asegurarnos de que todos los recursos se han cargado
+        window.addEventListener('load', function() {
+            // Esperar 2 segundos antes de inicializar el chat para asegurar que la página esté completamente cargada
+            // y evitar problemas de conexión
+            setTimeout(initChat, 2000);
+        });
+    </script>
+
+  </head>
+
+  <body>
+    <!-- ======= Header ======= -->
+    <header id="header" class="fixed-top">
+      <div class="container d-flex align-items-center">
+        <h1 class="logo mr-auto"><a href="index.html">Isabella EA</a></h1>
+        <!-- Uncomment below if you prefer to use an image logo -->
+        <!-- <a href="index.html" class="logo mr-auto"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+
+        <nav class="nav-menu d-none d-lg-block">
+          <ul>
+            <li class="active"><a href="index.html">Inicio</a></li>
+            <li><a href="#about">Acerca de</a></li>
+            <li><a href="#services">Servicios</a></li>
+            <li><a href="#portfolio">Proyectos</a></li>
+            <li><a href="#pricing">Planes</a></li>
+            <li><a href="#contact">Contactanos</a></li>
+          </ul>
+        </nav>
+        <!-- .nav-menu -->
+
+        <a href="#about" class="get-started-btn scrollto">Inicia</a>
+      </div>
+    </header>
+    <!-- End Header -->
+
+    <!-- ======= Hero Section ======= -->
+    <section id="hero" class="d-flex align-items-center">
+      <div class="container">
+        <div class="row">
+          <div
+            class="col-lg-6 d-flex flex-column justify-content-center pt-4 pt-lg-0 order-2 order-lg-1"
+            data-aos="fade-up"
+            data-aos-delay="200"
+          >
+            <h1>Las Mejores soluciones para su negocio</h1>
+            <h2>
+              Somos un equipo de desarrolladores talentosos que hacen soluciones
+              web a tu medida
+            </h2>
+            <div class="d-lg-flex">
+              <a href="#portfolio" class="btn-get-started scrollto"
+                >¡Conoce nuestros proyectos!</a
+              >
+              <a
+                href="https://www.youtube.com/watch?v=KUDOwpNpfO8&list=PLOoTay1LK1pdqeXo-HuCU1_4gGwEjWDOX"
+                class="venobox btn-watch-video"
+                data-vbtype="video"
+                data-autoplay="true"
+              >
+                Ver Videos <i class="icofont-play-alt-2"></i
+              ></a>
+            </div>
+          </div>
+          <div
+            class="col-lg-6 order-1 order-lg-2 hero-img"
+            data-aos="zoom-in"
+            data-aos-delay="200"
+          >
+            <img
+              src="assets/img/hero-img.png"
+              class="img-fluid animated"
+              alt=""
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- End Hero -->
+
+    <main id="main">
+      <!-- ======= Cliens Section ======= -->
+      <section id="cliens" class="cliens section-bg">
+        <div class="container">
+          <div class="row" data-aos="zoom-in">
+            <div
+              class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center"
+            >
+              <img
+                src="assets/img/clients/cliente-1.png"
+                class="img-fluid"
+                alt=""
+              />
+            </div>
+
+            <div
+              class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center"
+            >
+              <img
+                src="assets/img/clients/cliente-2.png"
+                class="img-fluid"
+                alt=""
+              />
+            </div>
+
+            <div
+              class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center"
+            >
+              <img
+                src="assets/img/clients/cliente-3.png"
+                class="img-fluid"
+                alt=""
+              />
+            </div>
+
+            <div
+              class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center"
+            >
+              <img
+                src="assets/img/clients/cliente-4.png"
+                class="img-fluid"
+                alt=""
+              />
+            </div>
+
+            <div
+              class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center"
+            >
+              <img
+                src="assets/img/clients/cliente-5.png"
+                class="img-fluid"
+                alt=""
+              />
+            </div>
+
+            <div
+              class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center"
+            >
+              <img
+                src="assets/img/clients/cliente-6.png"
+                class="img-fluid"
+                alt=""
+              />
+            </div>
+
+            <div
+              class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center"
+            >
+              <img
+                src="assets/img/clients/cliente-7.png"
+                class="img-fluid"
+                alt=""
+              />
+            </div>
+
+            <div
+              class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center"
+            >
+              <img
+                src="assets/img/clients/cliente-8.png"
+                class="img-fluid"
+                alt=""
+              />
+            </div>
+
+            <div
+              class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center"
+            >
+              <img
+                src="assets/img/clients/cliente-9.png"
+                class="img-fluid"
+                alt=""
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- End Cliens Section -->
+
+      <!-- ======= About Us Section ======= -->
+      <section id="about" class="about">
+        <div class="container" data-aos="fade-up">
+          <div class="section-title">
+            <h2>¿Que es Isabella EA?</h2>
+          </div>
+
+          <div class="row content">
+            <div class="col-lg-6">
+              <p style="text-align: justify">
+                Iniciativa tecnológica con gran capacidad de cambio, que
+                desarrolla productos y servicios, de gran innovación, altamente
+                deseados o requeridos por el mercado, donde su diseño y
+                comercialización están orientados completamente al cliente.
+              </p>
+            </div>
+            <div class="col-lg-6 pt-4 pt-lg-0">
+              <p>
+                La solución de gestión para pequeñas, medianas y grandes
+                empresas.
+              </p>
+              <a href="#contact" class="btn-learn-more">Más información</a>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- End About Us Section -->
+
+      <!-- ======= Why Us Section ======= -->
+      <section id="why-us" class="why-us section-bg">
+        <div class="container-fluid" data-aos="fade-up">
+          <div class="row">
+            <div
+              class="col-lg-7 d-flex flex-column justify-content-center align-items-stretch order-2 order-lg-1"
+            >
+              <div class="content">
+                <h3>Modelo <strong>de trabajo</strong></h3>
+                <p style="text-align: justify">
+                  Déjanos ayudarte a crecer con el desarrollo de una solución a
+                  medida adaptada a tus necesidades. Conoce las ventajas de los
+                  entornos multidispositivo.
+                </p>
+              </div>
+
+              <div class="accordion-list">
+                <ul>
+                  <li>
+                    <a
+                      data-toggle="collapse"
+                      class="collapse"
+                      href="#accordion-list-1"
+                      ><span>01</span> Transmitenos tu necesidad
+                      <i class="bx bx-chevron-down icon-show"></i
+                      ><i class="bx bx-chevron-up icon-close"></i
+                    ></a>
+                    <div
+                      id="accordion-list-1"
+                      class="collapse show"
+                      data-parent=".accordion-list"
+                    >
+                      <p style="text-align: justify">
+                        El primer paso es conocer el proyecto con el que vamos a
+                        trabajar, la empresa o startup, qué objetivos y
+                        necesidades debe cumplir la web. En resumen, necesitamos
+                        listar las funcionalidades que el cliente espera que
+                        tenga su nuevo sistema de información web.
+                      </p>
+                    </div>
+                  </li>
+
+                  <li>
+                    <a
+                      data-toggle="collapse"
+                      href="#accordion-list-2"
+                      class="collapsed"
+                      ><span>02</span> Desarrollamos o implementamos un sistema
+                      de información a la medida
+                      <i class="bx bx-chevron-down icon-show"></i
+                      ><i class="bx bx-chevron-up icon-close"></i
+                    ></a>
+                    <div
+                      id="accordion-list-2"
+                      class="collapse"
+                      data-parent=".accordion-list"
+                    >
+                      <p style="text-align: justify">
+                        Es el momento de desarrollar el sistema de información
+                        web con las funcionalidades acordadas. Es un proceso que
+                        dependiendo de la complejidad de la plataforma puede
+                        llevar desde unas semanas hasta varios meses donde se
+                        van validando partes en base a sprines.
+                      </p>
+                    </div>
+                  </li>
+
+                  <li>
+                    <a
+                      data-toggle="collapse"
+                      href="#accordion-list-3"
+                      class="collapsed"
+                      ><span>03</span> Disfruta de tu nuevo sistema informático
+                      en la nube con ninguna inversión inicial y cómodos pagos
+                      mensuales por el servicio
+                      <i class="bx bx-chevron-down icon-show"></i
+                      ><i class="bx bx-chevron-up icon-close"></i
+                    ></a>
+                    <div
+                      id="accordion-list-3"
+                      class="collapse"
+                      data-parent=".accordion-list"
+                    >
+                      <p style="text-align: justify">
+                        Una vez la plataforma está operativa y reúne los
+                        requisitos del cliente es hora de establecer a un
+                        vinculo contractual de pagos mensuales segun sea el uso
+                        del sistema de información web.
+                      </p>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <div
+              class="col-lg-5 align-items-stretch order-1 order-lg-2 img"
+              style="background-image: url('assets/img/why-us.png')"
+              data-aos="zoom-in"
+              data-aos-delay="150"
+            >
+              &nbsp;
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- End Why Us Section -->
+
+      <!-- ======= Skills Section ======= -->
+      <section id="skills" class="skills">
+        <div class="container" data-aos="fade-up">
+          <div class="row">
+            <div
+              class="col-lg-6 d-flex align-items-center"
+              data-aos="fade-right"
+              data-aos-delay="100"
+            >
+              <img src="assets/img/skills.png" class="img-fluid" alt="" />
+            </div>
+            <div
+              class="col-lg-6 pt-4 pt-lg-0 content"
+              data-aos="fade-left"
+              data-aos-delay="100"
+            >
+              <h3>Tecnología Utilizada</h3>
+              <p class="font-italic" style="text-align: justify">
+                En Isabella EA utilizando altos estándares de programación,
+                basado en software libre (PHP, Bootstrap, HTML, CSS, JS).
+              </p>
+
+              <div class="skills-content">
+                <div class="progress">
+                  <span class="skill">PHP <i class="val">100%</i></span>
+                  <div class="progress-bar-wrap">
+                    <div
+                      class="progress-bar"
+                      role="progressbar"
+                      aria-valuenow="100"
+                      aria-valuemin="0"
+                      aria-valuemax="100"
+                    ></div>
+                  </div>
+                </div>
+
+                <div class="progress">
+                  <span class="skill">HTML <i class="val">90%</i></span>
+                  <div class="progress-bar-wrap">
+                    <div
+                      class="progress-bar"
+                      role="progressbar"
+                      aria-valuenow="90"
+                      aria-valuemin="0"
+                      aria-valuemax="100"
+                    ></div>
+                  </div>
+                </div>
+
+                <div class="progress">
+                  <span class="skill">JavaScript <i class="val">75%</i></span>
+                  <div class="progress-bar-wrap">
+                    <div
+                      class="progress-bar"
+                      role="progressbar"
+                      aria-valuenow="75"
+                      aria-valuemin="0"
+                      aria-valuemax="100"
+                    ></div>
+                  </div>
+                </div>
+
+                <div class="progress">
+                  <span class="skill">CSS <i class="val">55%</i></span>
+                  <div class="progress-bar-wrap">
+                    <div
+                      class="progress-bar"
+                      role="progressbar"
+                      aria-valuenow="55"
+                      aria-valuemin="0"
+                      aria-valuemax="100"
+                    ></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- End Skills Section -->
+
+      <!-- ======= Services Section ======= -->
+      <section id="services" class="services section-bg">
+        <div class="container" data-aos="fade-up">
+          <div class="section-title">
+            <h2>TODO LO QUE TU EMPRESA NECESITA, EN UN SOLO LUGAR</h2>
+            <p style="text-align: justify">
+              Con más de 15 años de experiencia, el equipo de Isabella EA es la
+              opción preferida por cada vez más empresas para depositar su
+              confianza. Somos expertos en desarrollos a medida y nos apasiona
+              lo que hacemos.
+            </p>
+          </div>
+
+          <div class="row">
+            <div
+              class="col-xl-3 col-md-6 d-flex align-items-stretch"
+              data-aos="zoom-in"
+              data-aos-delay="100"
+            >
+              <div class="icon-box">
+                <div class="icon"><i class="bx bx-edit"></i></div>
+                <h4><a href="">Sin Contratos</a></h4>
+                <p style="text-align: justify">
+                  No pedimos un período mínimo de permanencia, puedes cancelar
+                  el servicio cuando quieras.
+                </p>
+              </div>
+            </div>
+
+            <div
+              class="col-xl-3 col-md-6 d-flex align-items-stretch mt-4 mt-md-0"
+              data-aos="zoom-in"
+              data-aos-delay="200"
+            >
+              <div class="icon-box">
+                <div class="icon"><i class="bx bxs-dashboard"></i></div>
+                <h4><a href="">Todo incluido</a></h4>
+                <p style="text-align: justify">
+                  Los pagos mensuales incluyen todos nuestros servicios. No
+                  cobramos costos de licencias, actualizaciones ni
+                  mantenimiento.
+                </p>
+              </div>
+            </div>
+
+            <div
+              class="col-xl-3 col-md-6 d-flex align-items-stretch mt-4 mt-xl-0"
+              data-aos="zoom-in"
+              data-aos-delay="300"
+            >
+              <div class="icon-box">
+                <div class="icon"><i class="bx bx-timer"></i></div>
+                <h4><a href="">Ahorras Tiempo</a></h4>
+                <p style="text-align: justify">
+                  Una gestión más eficiente permitirá que tú y tu equipo ahorren
+                  tiempo que podrán dedicar a lo más importante: hacer crecer tu
+                  negocio.
+                </p>
+              </div>
+            </div>
+
+            <div
+              class="col-xl-3 col-md-6 d-flex align-items-stretch mt-4 mt-xl-0"
+              data-aos="zoom-in"
+              data-aos-delay="400"
+            >
+              <div class="icon-box">
+                <div class="icon"><i class="bx bx-hotel"></i></div>
+                <h4><a href="">Sin Complicaciones</a></h4>
+                <p style="text-align: justify">
+                  No tienes que descargar ni instalar ningún software y siempre
+                  vas a trabajar con la versión más actualizada.
+                </p>
+              </div>
+            </div>
+
+            <div
+              class="col-xl-3 col-md-6 d-flex align-items-stretch mt-4 mt-xl-0"
+              data-aos="zoom-in"
+              data-aos-delay="500"
+            >
+              <div class="icon-box">
+                <div class="icon"><i class="bx bxs-check-shield"></i></div>
+                <h4><a href="">Seguridad</a></h4>
+                <p style="text-align: justify">
+                  Nos tomamos muy en serio la seguridad de tus datos: usamos la
+                  misma tecnología utilizada por los bancos para cuidar tu
+                  información.
+                </p>
+              </div>
+            </div>
+
+            <div
+              class="col-xl-3 col-md-6 d-flex align-items-stretch mt-4 mt-xl-0"
+              data-aos="zoom-in"
+              data-aos-delay="600"
+            >
+              <div class="icon-box">
+                <div class="icon"><i class="bx bx-data"></i></div>
+                <h4><a href="">Backup Automaticos</a></h4>
+                <p style="text-align: justify">
+                  Hacemos backups automáticos de tu información, y cuando
+                  quieras puedes descargar backups adicionales en tu PC.
+                </p>
+              </div>
+            </div>
+
+            <div
+              class="col-xl-3 col-md-6 d-flex align-items-stretch mt-4 mt-xl-0"
+              data-aos="zoom-in"
+              data-aos-delay="700"
+            >
+              <div class="icon-box">
+                <div class="icon"><i class="bx bxs-briefcase-alt"></i></div>
+                <h4><a href="">Planes</a></h4>
+                <p style="text-align: justify">
+                  A un precio que tu empresa puede pagar. Antes de decidirte
+                  puedes probar nuestro servicio 14 días gratis.
+                </p>
+              </div>
+            </div>
+
+            <div
+              class="col-xl-3 col-md-6 d-flex align-items-stretch mt-4 mt-xl-0"
+              data-aos="zoom-in"
+              data-aos-delay="800"
+            >
+              <div class="icon-box">
+                <div class="icon"><i class="bx bxs-cloud"></i></div>
+                <h4><a href="">Muy Fácil de Usar</a></h4>
+                <p style="text-align: justify">
+                  Nuestras soluciones son simples e intuitivas, y están
+                  diseñadas para simplificar la gestión de las empresas como la
+                  tuya.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- End Services Section -->
+
+      <!-- ======= Cta Section ======= -->
+      <section id="cta" class="cta">
+        <div class="container" data-aos="zoom-in">
+          <div class="row">
+            <div class="col-lg-9 text-center text-lg-left">
+              <h3>Dale vida a tus sueños</h3>
+              <p style="text-align: justify">
+                Somos flexibles, nos gusta escuchar, analizar y ofrecer las
+                mejores soluciones para tu proyecto. Aprendemos, mejoramos y
+                crecemos con nuestros clientes.
+              </p>
+            </div>
+            <div class="col-lg-3 cta-btn-container text-center">
+              <a class="cta-btn align-middle" href="#contact">Contactanos</a>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- End Cta Section -->
+
+      <!-- ======= Portfolio Section ======= -->
+      <section id="portfolio" class="portfolio">
+        <div class="container" data-aos="fade-up">
+          <div class="section-title">
+            <h2>Proyectos</h2>
+            <p style="text-align: center">
+              Como expertos en desarrollos a medida, entendemos que no hay dos
+              proyectos iguales.
+            </p>
+          </div>
+
+          <ul
+            id="portfolio-flters"
+            class="d-flex justify-content-center"
+            data-aos="fade-up"
+            data-aos-delay="100"
+          >
+            <li data-filter="*" class="filter-active">Todos</li>
+            <li data-filter=".filter-finanzas">Finanzas</li>
+            <li data-filter=".filter-gestion">Gestión</li>
+            <li data-filter=".filter-ia">I.A.</li>
+            <li data-filter=".filter-nft">NFT</li>
+          </ul>
+
+          <div
+            class="row portfolio-container"
+            data-aos="fade-up"
+            data-aos-delay="200"
+          >
+            <div class="col-lg-4 col-md-6 portfolio-item filter-finanzas">
+              <div class="portfolio-img">
+                <img
+                  src="assets/img/portfolio/Isabella_Invoice_Dashboard.jpg"
+                  class="img-fluid"
+                  alt=""
+                />
+              </div>
+              <div class="portfolio-info">
+                <h4>Isabella Invoice</h4>
+                <p>Finanzas</p>
+                <a
+                  href="assets/img/portfolio/Isabella_Invoice_Dashboard.jpg"
+                  data-gall="portfolioGallery"
+                  class="venobox preview-link"
+                  title="Isabella Invoice"
+                  ><i class="bx bx-plus"></i
+                ></a>
+                <a
+                  href="Isabella_Invoice.html"
+                  class="details-link"
+                  title="Más Detalles"
+                  ><i class="bx bx-link"></i
+                ></a>
+              </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6 portfolio-item filter-finanzas">
+              <div class="portfolio-img">
+                <img
+                  src="assets/img/portfolio/Isabella_Stock_Dashboard.jpg"
+                  class="img-fluid"
+                  alt=""
+                />
+              </div>
+              <div class="portfolio-info">
+                <h4>Isabella Stock</h4>
+                <p>Finanzas</p>
+                <a
+                  href="assets/img/portfolio/Isabella_Stock_Dashboard.jpg"
+                  data-gall="portfolioGallery"
+                  class="venobox preview-link"
+                  title="Isabella Stock"
+                  ><i class="bx bx-plus"></i
+                ></a>
+                <a
+                  href="Isabella_Stock.html"
+                  class="details-link"
+                  title="Más Detalles"
+                  ><i class="bx bx-link"></i
+                ></a>
+              </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6 portfolio-item filter-finanzas">
+              <div class="portfolio-img">
+                <img
+                  src="assets/img/portfolio/Isabella_Provider_Dashboard.jpg"
+                  class="img-fluid"
+                  alt=""
+                />
+              </div>
+              <div class="portfolio-info">
+                <h4>Isabella Provider</h4>
+                <p>Finanzas</p>
+                <a
+                  href="assets/img/portfolio/Isabella_Provider_Dashboard.jpg"
+                  data-gall="portfolioGallery"
+                  class="venobox preview-link"
+                  title="Isabella Provider"
+                  ><i class="bx bx-plus"></i
+                ></a>
+                <a
+                  href="Isabella_Provider.html"
+                  class="details-link"
+                  title="Más Detalles"
+                  ><i class="bx bx-link"></i
+                ></a>
+              </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6 portfolio-item filter-finanzas">
+              <div class="portfolio-img">
+                <img
+                  src="assets/img/portfolio/Isabella_Wallet_Dashboard.jpg"
+                  class="img-fluid"
+                  alt=""
+                />
+              </div>
+              <div class="portfolio-info">
+                <h4>Isabella Wallet</h4>
+                <p>Finanzas</p>
+                <a
+                  href="assets/img/portfolio/Isabella_Wallet_Dashboard.jpg"
+                  data-gall="portfolioGallery"
+                  class="venobox preview-link"
+                  title="Isabella Wallet"
+                  ><i class="bx bx-plus"></i
+                ></a>
+                <a
+                  href="Isabella_Wallet.html"
+                  class="details-link"
+                  title="Más Detalles"
+                  ><i class="bx bx-link"></i
+                ></a>
+              </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6 portfolio-item filter-finanzas">
+              <div class="portfolio-img">
+                <img
+                  src="assets/img/portfolio/Isabella_Cookie_PDV.jpg"
+                  class="img-fluid"
+                  alt=""
+                />
+              </div>
+              <div class="portfolio-info">
+                <h4>Isabella Cookie</h4>
+                <p>Finanzas</p>
+                <a
+                  href="assets/img/portfolio/Isabella_Cookie_PDV.jpg"
+                  data-gall="portfolioGallery"
+                  class="venobox preview-link"
+                  title="Isabella Cookie"
+                  ><i class="bx bx-plus"></i
+                ></a>
+                <a
+                  href="Isabella_Cookie.html"
+                  class="details-link"
+                  title="Más Detalles"
+                  ><i class="bx bx-link"></i
+                ></a>
+              </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6 portfolio-item filter-gestion">
+              <div class="portfolio-img">
+                <img
+                  src="assets/img/portfolio/Isabella_Task_Manager_Dashboard.jpg"
+                  class="img-fluid"
+                  alt=""
+                />
+              </div>
+              <div class="portfolio-info">
+                <h4>Isabella Task Manager</h4>
+                <p>Gestión</p>
+                <a
+                  href="assets/img/portfolio/Isabella_Task_Manager_Dashboard.jpg"
+                  data-gall="portfolioGallery"
+                  class="venobox preview-link"
+                  title="Isabella Task Manager"
+                  ><i class="bx bx-plus"></i
+                ></a>
+                <a
+                  href="Isabella_Task_Manager.html"
+                  class="details-link"
+                  title="Más Detalles"
+                  ><i class="bx bx-link"></i
+                ></a>
+              </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6 portfolio-item filter-gestion">
+              <div class="portfolio-img">
+                <img
+                  src="assets/img/portfolio/Enki_Escritorio.jpg"
+                  class="img-fluid"
+                  alt=""
+                />
+              </div>
+              <div class="portfolio-info">
+                <h4>Isabella Access</h4>
+                <p>Gestión</p>
+                <a
+                  href="assets/img/portfolio/Enki_Escritorio.jpg"
+                  data-gall="portfolioGallery"
+                  class="venobox preview-link"
+                  title="Isabella Access"
+                  ><i class="bx bx-plus"></i
+                ></a>
+                <a
+                  href="Isabella_Access.html"
+                  class="details-link"
+                  title="Más Detalles"
+                  ><i class="bx bx-link"></i
+                ></a>
+              </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6 portfolio-item filter-gestion">
+              <div class="portfolio-img">
+                <img
+                  src="assets/img/portfolio/Legal_Management_Menu.jpg"
+                  class="img-fluid"
+                  alt=""
+                />
+              </div>
+              <div class="portfolio-info">
+                <h4>GP Legal Management</h4>
+                <p>Gestión</p>
+                <a
+                  href="assets/img/portfolio/Legal_Management_Menu.jpg"
+                  data-gall="portfolioGallery"
+                  class="venobox preview-link"
+                  title="GP Legal Management"
+                  ><i class="bx bx-plus"></i
+                ></a>
+                <a
+                  href="Isabella_Legal_Management.html"
+                  class="details-link"
+                  title="Más Detalles"
+                  ><i class="bx bx-link"></i
+                ></a>
+              </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6 portfolio-item filter-ia">
+              <div class="portfolio-img">
+                <img
+                  src="assets/img/portfolio/Isabella_EA.jpg"
+                  class="img-fluid"
+                  alt=""
+                />
+              </div>
+              <div class="portfolio-info">
+                <h4>Isabella Expert Advisor</h4>
+                <p>Inteligencia Artificial</p>
+                <a
+                  href="assets/img/portfolio/Isabella_EA.jpg"
+                  data-gall="portfolioGallery"
+                  class="venobox preview-link"
+                  title="Isabella Expert Advisor"
+                  ><i class="bx bx-plus"></i
+                ></a>
+                <a
+                  href="Isabella_Expert_Advisor.html"
+                  class="details-link"
+                  title="Más Detalles"
+                  ><i class="bx bx-link"></i
+                ></a>
+              </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6 portfolio-item filter-gestion">
+              <div class="portfolio-img">
+                <img
+                  src="assets/img/portfolio/Enki_Escritorio.jpg"
+                  class="img-fluid"
+                  alt=""
+                />
+              </div>
+              <div class="portfolio-info">
+                <h4>Oficina Virtual</h4>
+                <p>Gestión</p>
+                <a
+                  href="assets/img/portfolio/Enki_Escritorio.jpg"
+                  data-gall="portfolioGallery"
+                  class="venobox preview-link"
+                  title="Isabella Access"
+                  ><i class="bx bx-plus"></i
+                ></a>
+                <a
+                  href="Isabella_Access.html"
+                  class="details-link"
+                  title="Más Detalles"
+                  ><i class="bx bx-link"></i
+                ></a>
+              </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6 portfolio-item filter-nft">
+              <div class="portfolio-img">
+                <img
+                  src="assets/img/portfolio/Enki_Escritorio.jpg"
+                  class="img-fluid"
+                  alt=""
+                />
+              </div>
+              <div class="portfolio-info">
+                <h4>PVU Land Tracker</h4>
+                <p>NFT</p>
+                <a
+                  href="assets/img/portfolio/Enki_Escritorio.jpg"
+                  data-gall="portfolioGallery"
+                  class="venobox preview-link"
+                  title="PVU Land Tracker"
+                  ><i class="bx bx-plus"></i
+                ></a>
+                <a
+                  href="pvu_land_tracker.html"
+                  class="details-link"
+                  title="Más Detalles"
+                  ><i class="bx bx-link"></i
+                ></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- End Portfolio Section -->
+
+      <!-- ======= Team Section =======
+    <section id="team" class="team section-bg">
+      <div class="container" data-aos="fade-up">
+
+        <div class="section-title">
+          <h2>Team</h2>
+          <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p>
+        </div>
+
+        <div class="row">
+
+          <div class="col-lg-6">
+            <div class="member d-flex align-items-start" data-aos="zoom-in" data-aos-delay="100">
+              <div class="pic"><img src="assets/img/team/team-1.jpg" class="img-fluid" alt=""></div>
+              <div class="member-info">
+                <h4>Walter White</h4>
+                <span>Chief Executive Officer</span>
+                <p>Explicabo voluptatem mollitia et repellat qui dolorum quasi</p>
+                <div class="social">
+                  <a href=""><i class="ri-twitter-fill"></i></a>
+                  <a href=""><i class="ri-facebook-fill"></i></a>
+                  <a href=""><i class="ri-instagram-fill"></i></a>
+                  <a href=""> <i class="ri-linkedin-box-fill"></i> </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-6 mt-4 mt-lg-0">
+            <div class="member d-flex align-items-start" data-aos="zoom-in" data-aos-delay="200">
+              <div class="pic"><img src="assets/img/team/team-2.jpg" class="img-fluid" alt=""></div>
+              <div class="member-info">
+                <h4>Sarah Jhonson</h4>
+                <span>Product Manager</span>
+                <p>Aut maiores voluptates amet et quis praesentium qui senda para</p>
+                <div class="social">
+                  <a href=""><i class="ri-twitter-fill"></i></a>
+                  <a href=""><i class="ri-facebook-fill"></i></a>
+                  <a href=""><i class="ri-instagram-fill"></i></a>
+                  <a href=""> <i class="ri-linkedin-box-fill"></i> </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-6 mt-4">
+            <div class="member d-flex align-items-start" data-aos="zoom-in" data-aos-delay="300">
+              <div class="pic"><img src="assets/img/team/team-3.jpg" class="img-fluid" alt=""></div>
+              <div class="member-info">
+                <h4>William Anderson</h4>
+                <span>CTO</span>
+                <p>Quisquam facilis cum velit laborum corrupti fuga rerum quia</p>
+                <div class="social">
+                  <a href=""><i class="ri-twitter-fill"></i></a>
+                  <a href=""><i class="ri-facebook-fill"></i></a>
+                  <a href=""><i class="ri-instagram-fill"></i></a>
+                  <a href=""> <i class="ri-linkedin-box-fill"></i> </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-6 mt-4">
+            <div class="member d-flex align-items-start" data-aos="zoom-in" data-aos-delay="400">
+              <div class="pic"><img src="assets/img/team/team-4.jpg" class="img-fluid" alt=""></div>
+              <div class="member-info">
+                <h4>Amanda Jepson</h4>
+                <span>Accountant</span>
+                <p>Dolorum tempora officiis odit laborum officiis et et accusamus</p>
+                <div class="social">
+                  <a href=""><i class="ri-twitter-fill"></i></a>
+                  <a href=""><i class="ri-facebook-fill"></i></a>
+                  <a href=""><i class="ri-instagram-fill"></i></a>
+                  <a href=""> <i class="ri-linkedin-box-fill"></i> </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section><!-- End Team Section -->
+
+      <!-- ======= Pricing Section ======= -->
+      <section id="pricing" class="pricing">
+        <div class="container" data-aos="fade-up">
+          <div class="section-title">
+            <h1 style="text-align: center">PLANES MENSUALES PARA COLOMBIA</h1>
+            <h2 style="text-align: center">SIN COSTOS ADICIONALES</h2>
+            <p style="text-align: center">
+              No cobramos licencias, actualizaciones ni mantenimiento.
+            </p>
+          </div>
+
+          <div class="row">
+            <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
+              <div class="box">
+                <h3>SOLUCIÓN PLUS</h3>
+                <h4><sup>$</sup>71.000<span>por mes</span></h4>
+                <ul>
+                  <li><i class="bx bx-check"></i> Cantidad de usuarios (3)</li>
+                  <li>
+                    <i class="bx bx-check"></i> Reportes según las actividades y
+                    las necesidades de la empresa
+                  </li>
+                  <li>
+                    <i class="bx bx-check"></i> Importación inicial de todos tus
+                    clientes, productos o servicios desde un Excel
+                  </li>
+                  <li>
+                    <i class="bx bx-check"></i> Atención al Cliente via email
+                  </li>
+                </ul>
+                <a href="#contact" class="buy-btn">Solicita tu plan</a>
+              </div>
+            </div>
+
+            <div
+              class="col-lg-4 mt-4 mt-lg-0"
+              data-aos="fade-up"
+              data-aos-delay="200"
+            >
+              <div class="box featured">
+                <h3>SOLUCIÓN PREMIUM</h3>
+                <h4><sup>$</sup>105.000<span>por mes</span></h4>
+                <ul>
+                  <li><i class="bx bx-check"></i> Cantidad de usuarios (5)</li>
+                  <li>
+                    <i class="bx bx-check"></i> Reportes según las actividades y
+                    las necesidades de la empresa
+                  </li>
+                  <li>
+                    <i class="bx bx-check"></i> Importación inicial de todos tus
+                    clientes, productos o servicios desde un Excel
+                  </li>
+                  <li>
+                    <i class="bx bx-check"></i> Atención al Cliente via email y
+                    telefónica
+                  </li>
+                </ul>
+                <a href="#contact" class="buy-btn">Solicita tu plan</a>
+              </div>
+            </div>
+
+            <div
+              class="col-lg-4 mt-4 mt-lg-0"
+              data-aos="fade-up"
+              data-aos-delay="300"
+            >
+              <div class="box">
+                <h3>SOLUCIÓN A LA MEDIDA</h3>
+                <h4><sup>$</sup>440.000<span>por mes</span></h4>
+                <ul>
+                  <li><i class="bx bx-check"></i> Cantidad de usuarios (+5)</li>
+                  <li>
+                    <i class="bx bx-check"></i> Reportes según las actividades y
+                    las necesidades de la empresa
+                  </li>
+                  <li>
+                    <i class="bx bx-check"></i> Importación inicial de todos tus
+                    clientes, productos o servicios desde un Excel
+                  </li>
+                  <li>
+                    <i class="bx bx-check"></i> Atención al Cliente via email,
+                    telefónica y presencial
+                  </li>
+                </ul>
+                <a href="#contact" class="buy-btn">Solicita tu plan</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- End Pricing Section -->
+
+      <!-- ======= Frequently Asked Questions Section =======
+    <section id="faq" class="faq section-bg">
+      <div class="container" data-aos="fade-up">
+
+        <div class="section-title">
+          <h2>Frequently Asked Questions</h2>
+          <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p>
+        </div>
+
+        <div class="faq-list">
+          <ul>
+            <li data-aos="fade-up" data-aos-delay="100">
+              <i class="bx bx-help-circle icon-help"></i> <a data-toggle="collapse" class="collapse" href="#faq-list-1">Non consectetur a erat nam at lectus urna duis? <i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
+              <div id="faq-list-1" class="collapse show" data-parent=".faq-list">
+                <p>
+                  Feugiat pretium nibh ipsum consequat. Tempus iaculis urna id volutpat lacus laoreet non curabitur gravida. Venenatis lectus magna fringilla urna porttitor rhoncus dolor purus non.
+                </p>
+              </div>
+            </li>
+
+            <li data-aos="fade-up" data-aos-delay="200">
+              <i class="bx bx-help-circle icon-help"></i> <a data-toggle="collapse" href="#faq-list-2" class="collapsed">Feugiat scelerisque varius morbi enim nunc? <i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
+              <div id="faq-list-2" class="collapse" data-parent=".faq-list">
+                <p>
+                  Dolor sit amet consectetur adipiscing elit pellentesque habitant morbi. Id interdum velit laoreet id donec ultrices. Fringilla phasellus faucibus scelerisque eleifend donec pretium. Est pellentesque elit ullamcorper dignissim. Mauris ultrices eros in cursus turpis massa tincidunt dui.
+                </p>
+              </div>
+            </li>
+
+            <li data-aos="fade-up" data-aos-delay="300">
+              <i class="bx bx-help-circle icon-help"></i> <a data-toggle="collapse" href="#faq-list-3" class="collapsed">Dolor sit amet consectetur adipiscing elit? <i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
+              <div id="faq-list-3" class="collapse" data-parent=".faq-list">
+                <p>
+                  Eleifend mi in nulla posuere sollicitudin aliquam ultrices sagittis orci. Faucibus pulvinar elementum integer enim. Sem nulla pharetra diam sit amet nisl suscipit. Rutrum tellus pellentesque eu tincidunt. Lectus urna duis convallis convallis tellus. Urna molestie at elementum eu facilisis sed odio morbi quis
+                </p>
+              </div>
+            </li>
+
+            <li data-aos="fade-up" data-aos-delay="400">
+              <i class="bx bx-help-circle icon-help"></i> <a data-toggle="collapse" href="#faq-list-4" class="collapsed">Tempus quam pellentesque nec nam aliquam sem et tortor consequat? <i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
+              <div id="faq-list-4" class="collapse" data-parent=".faq-list">
+                <p>
+                  Molestie a iaculis at erat pellentesque adipiscing commodo. Dignissim suspendisse in est ante in. Nunc vel risus commodo viverra maecenas accumsan. Sit amet nisl suscipit adipiscing bibendum est. Purus gravida quis blandit turpis cursus in.
+                </p>
+              </div>
+            </li>
+
+            <li data-aos="fade-up" data-aos-delay="500">
+              <i class="bx bx-help-circle icon-help"></i> <a data-toggle="collapse" href="#faq-list-5" class="collapsed">Tortor vitae purus faucibus ornare. Varius vel pharetra vel turpis nunc eget lorem dolor? <i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
+              <div id="faq-list-5" class="collapse" data-parent=".faq-list">
+                <p>
+                  Laoreet sit amet cursus sit amet dictum sit amet justo. Mauris vitae ultricies leo integer malesuada nunc vel. Tincidunt eget nullam non nisi est sit amet. Turpis nunc eget lorem dolor sed. Ut venenatis tellus in metus vulputate eu scelerisque.
+                </p>
+              </div>
+            </li>
+
+          </ul>
+        </div>
+
+      </div>
+    </section><!-- End Frequently Asked Questions Section -->
+
+      <!-- ======= Contact Us Section ======= -->
+      <section id="contact" class="contact">
+        <div class="container">
+          <div class="section-title">
+            <h2>Contactanos</h2>
+          </div>
+
+          <div class="row">
+            <div class="col-lg-12 d-flex align-items-stretch">
+              <div class="info">
+                <div class="address">
+                  <i class="icofont-google-map"></i>
+                  <h4>Dirección:</h4>
+                  <p>
+                    <a
+                      href="https://goo.gl/maps/ZWFD6CCkRxMyiGy67"
+                      target="_blank"
+                      >Calle 32 No. 6 - 390, Sincelejo, Sucre, Colombia</a
+                    >
+                  </p>
+                </div>
+
+                <div class="email">
+                  <i class="icofont-envelope"></i>
+                  <h4>Email:</h4>
+                  <p>
+                    <a href="mailto:admin@isabellaea.com" target="_blank"
+                      >admin@isabellaea.com</a
+                    >
+                  </p>
+                </div>
+
+                <div class="phone">
+                  <i class="icofont-phone"></i>
+                  <h4>Teléfono:</h4>
+                  <p>
+                    <a href="tel:3192326591" target="_blank"
+                      >(+57) 3192326591</a
+                    >
+                  </p>
+                </div>
+
+                <div class="social-link">
+                  <i class="icofont-ui-social-link"></i>
+                  <h4>Siguenos:</h4>
+                  <div class="social-links mt-3">
+                    <a
+                      href="https://www.facebook.com/isabellaExpertAdvisor"
+                      target="_blank"
+                      class="facebook"
+                      ><i class="bx bxl-facebook"></i
+                    ></a>
+                    <a
+                      href="https://www.instagram.com/isabellaexpertadvisor/"
+                      target="_blank"
+                      class="instagram"
+                      ><i class="bx bxl-instagram"></i
+                    ></a>
+                    <a
+                      href="https://t.me/IsabellaEA"
+                      target="_blank"
+                      class="telegram"
+                      ><i class="bx bxl-telegram"></i
+                    ></a>
+                    <a
+                      href="https://api.whatsapp.com/send?phone=573192326591&text=Hola%20!Quiero%20mejorar%20la%20gesti%C3%B3n%20de%20%20mi%20%20empresa!%20"
+                      target="_blank"
+                      class="whatsapp"
+                      ><i class="bx bxl-whatsapp"></i
+                    ></a>
+                    <a
+                      href="https://www.youtube.com/user/bladealex1844"
+                      target="_blank"
+                      class="youtube"
+                      ><i class="bx bxl-youtube"></i
+                    ></a>
+                  </div>
+                  <p></p>
+                </div>
+
+                <iframe
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3937.5662642096!2d-75.40573318528529!3d9.282989887515255!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e5914f6f62486bf%3A0xf092ec6e2e7cff38!2sEntrada%20Altos%20de%20Argelia%2C%20Sincelejo%2C%20Sucre!5e0!3m2!1ses!2sco!4v1617451634100!5m2!1ses!2sco"
+                  frameborder="0"
+                  style="border: 0; width: 100%; height: 290px"
+                  allowfullscreen
+                ></iframe>
+              </div>
+            </div>
+
+            <script
+              async
+              src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2008623107964699"
+              crossorigin="anonymous"
+            ></script>
+            <!-- Contactos - Isabella EA -->
+            <div class="col-lg-7 mt-5 mt-lg-0 d-flex align-items-stretch">
+              <div style="width:100%; min-height:300px;">
+                <ins
+                  class="adsbygoogle"
+                  style="display:block; width:100%; min-height:300px;"
+                  data-ad-client="ca-pub-2008623107964699"
+                  data-ad-slot="1790012599"
+                  data-ad-format="auto"
+                  data-full-width-responsive="true"
+                ></ins>
+                <script>
+                  (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+              </div>
+            </div>
+            <!--
+          <div class="col-lg-7 mt-5 mt-lg-0 d-flex align-items-stretch">
+            <form action="forms/mail.php" method="post" role="form" class="php-email-form">
+              <div class="form-row">
+                <div class="form-group col-md-6">
+                  <label for="name">Nombre</label>
+                  <input type="text" name="name" class="form-control" id="name" data-rule="minlen:4" data-msg="Por favor ingrese al menos 4 caracteres" />
+                  <div class="validate"></div>
+                </div>
+                <div class="form-group col-md-6">
+                  <label for="name">Email</label>
+                  <input type="email" class="form-control" name="email" id="email" data-rule="email" data-msg="Por favor introduzca una dirección de correo electrónico válida" />
+                  <div class="validate"></div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="name">Asunto</label>
+                <input type="text" class="form-control" name="subject" id="subject" data-rule="minlen:4" data-msg="Por favor ingrese al menos 8 caracteres de asunto" />
+                <div class="validate"></div>
+              </div>
+              <div class="form-group">
+                <label for="name">Mensaje</label>
+                <textarea class="form-control" name="message" rows="10" data-rule="required" data-msg="Por favor escribe algo para nosotros"></textarea>
+                <div class="validate"></div>
+              </div>
+              <div class="mb-3">
+                <div class="loading">Cargando</div>
+                <div class="error-message">Tu mensaje no ha sido enviado. ¡Revisa la información ingresada!</div>
+                <div class="sent-message">Tu mensaje ha sido enviado. ¡Gracias!</div>
+              </div>
+              <div class="text-center"><button type="submit">Enviar mensaje</button></div>
+            </form>
+          </div>
+-->
+          </div>
+        </div>
+      </section>
+      <!-- End Contact Us Section -->
+    </main>
+    <!-- End #main -->
+
+    <!-- ======= Footer ======= -->
+    <footer id="footer">
+      <div class="container footer-bottom clearfix">
+        <div class="copyright">
+          &copy; Copyright <strong><span>Isabella EA</span></strong
+          >. Todos los derechos reservados
+        </div>
+        <div class="credits">
+          <!-- All the links in the footer should remain intact. -->
+          <!-- You can delete the links only if you purchased the pro version. -->
+          <!-- Licensing information: https://bootstrapmade.com/license/ -->
+          <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/arsha-free-bootstrap-html-template-corporate/ -->
+          Diseñado por <a href="#about">Isabella EA</a>
+        </div>
+      </div>
+
+      <img
+        class="btn-whatsapp"
+        src="assets/img/whatsapp.png"
+        width="64"
+        height="64"
+        alt="Whatsapp"
+        onclick="window.location.href='https://wa.me/573192326591?text=Hola!%20Estoy%20interesado%20en%20tu%20servicio'"
+      />
+    </footer>
+    <!-- End Footer
+
+  <a href="#" class="back-to-top"><i class="ri-arrow-up-line"></i></a>
+  <div id="preloader"></div>
+
+  <!-- Vendor JS Files -->
+    <script src="assets/vendor/jquery/jquery.min.js"></script>
+    <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/vendor/jquery.easing/jquery.easing.min.js"></script>
+    <script src="assets/vendor/php-email-form/validate.js"></script>
+    <script src="assets/vendor/waypoints/jquery.waypoints.min.js"></script>
+    <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+    <script src="assets/vendor/venobox/venobox.min.js"></script>
+    <script src="assets/vendor/owl.carousel/owl.carousel.min.js"></script>
+    <script src="assets/vendor/aos/aos.js"></script>
+
+    <!-- Template Main JS File -->
+    <script src="assets/js/main.js"></script>
+
+    <!-- Alertas -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+  </body>
+</html>

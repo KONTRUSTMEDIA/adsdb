@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="./styles.css" rel="stylesheet" />
+    <link rel="shortcut icon" href="./assets/logo.png" />
+    <script src="./js/tailwind.js"></script>
+    <title>Lockerhub</title>
+    <style>
+      [v-cloak] {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app" v-cloak>
+      <!-- 容器 -->
+      <div class="fx-h fx-ac">
+        <!-- 顶部 -->
+        <div class="justify-between gap-3 p-4 fx-r fx-bc">
+          <div class="gap-3 cursor-pointer fx-r fx-bc" @click="toHome">
+            <img class="navLogo" src="./assets/logo.png" alt="Lockerhub Logo" />
+            <div class="text-[#002a41] navTitle">Lockerhub</div>
+          </div>
+          <div>
+            <img style="width: 32px; aspect-ratio: square; cursor: pointer" src="./assets/menunav.png" alt="" loading="lazy" @click="toggleMenu" />
+          </div>
+        </div>
+        <!-- 菜单面板 -->
+        <div class="menu-panel" :class="{ 'show': showMenu }" @click.self="toggleMenu">
+          <div class="menu-content">
+            <div class="menu-header">
+              <h2>Menu</h2>
+              <img
+                class="invert filter"
+                style="width: 24px; aspect-ratio: square; cursor: pointer"
+                src="./assets/close.png"
+                alt=""
+                loading="lazy"
+                @click="toggleMenu" />
+            </div>
+            <ul class="menu-items">
+              <li><a href="index.html">Home</a></li>
+              <li><a href="allList.html">All Games</a></li>
+              <li><a href="allList.html?cate=Racing">Racing Games</a></li>
+              <li><a href="allList.html?cate=Sports">Sports Games</a></li>
+              <li><a href="allList.html?cate=Shooting">Shooting Games</a></li>
+              <li><a href="allList.html?cate=Action">Action Games</a></li>
+              <li><a href="allList.html?cate=Adventure">Adventure Games</a></li>
+            </ul>
+          </div>
+        </div>
+        <!-- 内容 -->
+        <div class="mx-auto md:w-[80%] fx-h fx-bc fx-ac game-container">
+          <h2 class="my-4 w-full font-bold text-2xl text-start section-title">Top Games</h2>
+          <!-- 区域1 -->
+          <div class="top-games flex-wrap gap-5 grid grid-cols-3 md:grid-cols-6 bg-[#fff] p-5 rounded-lg fx-r">
+            <div v-for="item in list.slice(0,6)" :key="item.id" class="top-card game-card" @click="toDetail(item)">
+              <img :src="item.image" :alt="item.title" loading="lazy" class="game-img" />
+              <h3 class="text-center truncate game-title">{{item.title}}</h3>
+            </div>
+          </div>
+
+          <!-- 区域2 -->
+          <h2 class="my-4 w-full font-bold text-2xl text-start section-title">New Games</h2>
+          <div class="flex-wrap gap-4 grid grid-cols-3 fx-r all-games">
+            <div v-for="item in list.slice(6,12)" :key="item.id" class="grid grid-flow-row game-card" @click="toDetail(item)">
+              <div class="game-img-container">
+                <img :src="item.image" :alt="item.title" loading="lazy" class="game-img" />
+                <h3 class="text-center truncate game-title">{{item.title}}</h3>
+              </div>
+            </div>
+          </div>
+
+          <!-- 区域3 -->
+          <h2 class="my-4 w-full font-bold text-2xl text-start section-title">All Games</h2>
+          <div class="flex-wrap gap-2 fx-r fx-ac fx-bc third-section">
+            <div v-for="item in list.slice(13,25)" :key="item.id" class="game-card" @click="toDetail(item)">
+              <div class="game-img-container">
+                <img :src="item.image" :alt="item.title" loading="lazy" class="game-img" style="aspect-ratio: 1/1" />
+                <h3 class="text-center truncate game-title">{{item.title}}</h3>
+              </div>
+            </div>
+          </div>
+          <div class="load-more-btn" @click="toAllList">More</div>
+          <!-- 页脚 -->
+          <footer class="bg-[var(--footer)] md:mx-auto mt-4 py-6 border-[#e82e2f] border-t w-full">
+            <div class="mx-auto px-4 container">
+              <div class="flex md:flex-row flex-col justify-between items-center space-y-4 md:space-y-0">
+                <ul class="flex md:flex-row flex-col md:space-x-6 space-y-2 md:space-y-0">
+                  <li>
+                    <a href="./PrivacyPolicy/index.html" class="hover:text-[var(--font)] transition-colors duration-300">Privacy Policy</a>
+                  </li>
+                  <li><a href="./TermsOfUse/index.html" class="hover:text-[var(--font)] transition-colors duration-300">Terms of Use</a></li>
+                </ul>
+                <p class="opacity-75 mt-2 font-medium">Copyright © {{date}} Lockerhub .</p>
+              </div>
+            </div>
+          </footer>
+        </div>
+      </div>
+      <!-- 回到顶部按钮 -->
+      <button id="back-to-top" @click="scrollToTop">↑</button>
+    </div>
+
+    <script src="./js/vue/vue.js"></script>
+    <script src="./js/game/gamedata.js"></script>
+    <script>
+      new Vue({
+        el: "#app",
+        data: {
+          list: [],
+          date: "",
+          showMenu: false,
+        },
+        mounted() {
+          // 监听滚动事件，控制按钮显示与隐藏
+          window.addEventListener("scroll", this.handleScroll);
+          this.getData();
+          this.date = new Date().getFullYear();
+        },
+        beforeDestroy() {
+          // 组件销毁前移除滚动事件监听
+          window.removeEventListener("scroll", this.handleScroll);
+        },
+        methods: {
+          toggleMenu() {
+            this.showMenu = !this.showMenu;
+          },
+          toHome() {
+            window.location.href = "./index.html";
+          },
+          toDetail(item) {
+            window.location.href = "./detail.html?id=" + item.id;
+          },
+          toAllList() {
+            window.location.href = "./allList.html";
+          },
+          // 处理滚动事件
+          handleScroll() {
+            const backToTopButton = document.getElementById("back-to-top");
+            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+              backToTopButton.style.display = "flex";
+            } else {
+              backToTopButton.style.display = "none";
+            }
+          },
+          // 回到顶部
+          scrollToTop() {
+            window.scrollTo({
+              top: 0,
+              behavior: "smooth",
+            });
+          },
+          getData() {
+            this.list = games.list.sort(() => {
+              return Math.random() - 0.5;
+            });
+          },
+        },
+      });
+    </script>
+  </body>
+</html>

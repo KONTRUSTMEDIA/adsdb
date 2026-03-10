@@ -1,0 +1,1017 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>BGPTrace Monitoring System</title>
+
+  <!-- Bootstrap CSS (v5.3 CDN) -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+
+<style>
+    body {
+      padding-top: 70px; /* for fixed navbar */
+      max-width: 1200px;
+      margin: auto;
+      font-family: Arial, sans-serif;
+      color: #333;
+    }
+
+    /* Chart containers */
+    .chart-container {
+      position: relative;
+      height: 300px;
+      width: 100%;
+      margin-bottom: 40px;
+    }
+
+    /* AS Route Diff container */
+    #as-route-diff-container {
+      border: 1px solid #ccc;
+      height: 400px;
+      margin-bottom: 40px;
+      overflow: auto;
+      padding: 10px;
+      background: #fafafa;
+      border-radius: 6px;
+      box-shadow: inset 0 0 8px rgb(0 0 0 / 0.05);
+    }
+  </style>
+
+
+  <!-- Chart.js + moment.js + adapter for time scale -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js" type="e422e872163bc7933c4a6063-text/javascript"></script> 
+  <script src="https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js" type="e422e872163bc7933c4a6063-text/javascript"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-moment" type="e422e872163bc7933c4a6063-text/javascript"></script>
+</head>
+
+<body><a href="https://www.bgptrace.com/cdn-cgi/content?id=MGRQSCe8FbcoZN8uOy10UaSxt2LVQ2LYCh.bR2acIsk-1772164407.0199645-1.0.1.1-acLEQo3YbCnwxVtcGKIvqbRRvExpPq4AYc7QKmsKZUI" aria-hidden="true" rel="nofollow noopener" style="display: none !important; visibility: hidden !important"></a>
+
+  <!-- Bootstrap navbar -->
+  <nav class="navbar navbar-expand-lg fixed-top bg-light border-bottom">
+    <div class="container-fluid">
+      <a class="navbar-brand d-flex align-items-center" href="#">
+        <img src="./images/logo.png" alt="Logo" style="height: 40px; margin-right: 8px;" />
+        BGPTrace
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+          <li class="nav-item"><a class="nav-link" href="#main-section">Main</a></li>
+
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Functions 
+            </a>
+            <ul class="dropdown-menu">
+	      <li><a class="dropdown-item" href="#bgptrace-section">BGPTrace</a></li>
+	      <li><a class="dropdown-item" href="astocompany.php" target="_blank">AS / Company Search</a></li>
+              <li><a class="dropdown-item" href="prefix_ana.php" target="_blank">AS Prefix Analysis</a></li>
+              <li><a class="dropdown-item" href="prefix_detail.php" target="_blank">Prefix detail</a></li>
+              <li><a class="dropdown-item" href="suspicious_prefix.php" target="_blank">Suspicious Prefix Check by AS</a></li>
+              <li><a class="dropdown-item" href="aspath_graph.php" target="_blank">LOKI - AS Path Graph</a></li>
+              <li><a class="dropdown-item" href="aspeer_graph.php" target="_blank">LOKI - AS Peer Graph</a></li>
+              <li><a class="dropdown-item" href="asbetween_graph.php" target="_blank">LOKI - AS Between Graph</a></li>
+              <li><a class="dropdown-item" href="top_prefix.php" target="_blank">Prefixes Advertise per Peer</a></li>
+              <li><a class="dropdown-item" href="./atlas/ping_map.html" target="_blank">Global Latency</a></li>
+              <li><a class="dropdown-item" href="./atlas/starlink/" target="_blank">Starlink Measurement</a></li>
+              <li><a class="dropdown-item" href="./atlas/PING/" target="_blank">Cloudflare Measurement</a></li>
+              <li><a class="dropdown-item" href="./atlas/PING/?source=Amazon" target="_blank">Amazon Measurement</a></li>
+              <li><a class="dropdown-item" href="./atlas/PING/?source=Akamai" target="_blank">Akamai Measurement</a></li>
+            </ul>
+          </li>
+
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Network Topic 
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="/blog" target="_blank">Tech Blog</a></li>
+              <li><a class="dropdown-item" href="https://www.bgptrace.com/DNS/" target="_blank">DNS Service</a></li>
+              <li><a class="dropdown-item" href="dns_status.php" target="_blank">DNS Forwarding</a></li>
+              <li><a class="dropdown-item" href="https://www.bgptrace.com/DNS/running_result.html" target="_blank">Low Latency DNS Forward</a></li>
+	      <li><a class="dropdown-item" href="proxy.php" target="_blank">Proxy</a></li>
+              <li><a class="dropdown-item" href="proxy_scan_as.php" target="_blank">Live Proxy</a></li>
+
+              <li><a class="dropdown-item" href="whois.php" target="_blank">Whois</a></li>
+            </ul>
+          </li>
+
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Other Projects 
+            </a>
+            <ul class="dropdown-menu">
+	      <li><a class="dropdown-item" href="https://www.locoseek.com" target="_blank">LocoSeek</a></li>
+              <li><a class="dropdown-item" href="https://www.pingnetbox.com" target="_blank">PINGNETBOX</a></li>
+              <li><a class="dropdown-item" href="https://www.cryptogeemu.com" target="_blank">CRYPTOGEEMU</a></li>
+            </ul>
+          </li>
+
+          <li class="nav-item"><a class="nav-link" href="aboutus.php" target="_blank">About Us</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <main id="main-section" class="container mt-4">
+
+    <h2>BGPTrace Internet Analysis</h2>
+
+    <br>
+
+    <p>
+      This (BGP)Trace Monitoring System developed for Internet Operator, researcher to have the visible BGP Route statistic
+      report with historical BGP update for traceable route change record for performance analysis.
+    </p>
+
+    <p>All analysis data downloaded from
+      <a href="http://archive.routeviews.org/" target="_blank" rel="noopener noreferrer">RouteViews</a>,
+      <a href="https://www.ripe.net" target="_blank" rel="noopener noreferrer">RIPE NCC</a> and
+      <a href="https://bgp.potaroo.net/index-bgp.html" target="_blank" rel="noopener noreferrer">APNIC R&D</a>
+    </p>
+
+    <p>
+      Technical discussion on our <a href="./blog/">Tech Blog</a> and <a href="https://x.com/KRDevelop">X</a>.
+    </P>
+
+    <hr>
+
+<script type="e422e872163bc7933c4a6063-text/javascript">
+  async function loadUpdates() {
+    try {
+      const response = await fetch('/tail'); // call the Python endpoint
+      const updates = await response.json();
+
+      const container = document.getElementById('updates');
+      container.innerHTML = ''; // Clear existing
+
+      updates.forEach(update => {
+        const div = document.createElement('div');
+        div.className = 'entry';
+        div.innerHTML = `<br><strong>${update.update[0]}</strong><br>` +
+                        update.update.slice(1).join('<br>');
+        container.appendChild(div);
+      });
+    } catch (err) {
+      document.getElementById('updates').innerText = 'Loading...';
+      console.error(err);
+    }
+  }
+
+  loadUpdates();
+  setInterval(loadUpdates, 5000);
+</script>
+
+
+<style>
+  .entry {
+    margin-bottom: 10px;
+  }
+
+ .sessions-row {
+    display: flex;
+    gap: 20px;
+    margin-top: 10px;
+  }
+
+  .session-box {
+    padding: 10px;
+    border: 1px solid #ccc;
+    #background-color: #f4f4f4;
+    font-size: 13px;
+  }
+
+  .session-left {
+    flex: 7;
+  }
+
+  .session-right {
+    flex: 3;
+  }
+
+  #updates {
+    width: 100%;
+    height: 300px;
+    overflow-y: auto;
+    font-size: 12px;
+    font-family: monospace;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    margin-top: 5px;
+    padding: 5px;
+  }
+
+
+
+</style>
+
+<div class="sessions-row">
+  <div class="session-box session-left">
+    <!-- Active Internet Prefix - @APNIC (before 20250906) @RIPE RRC18 (after 20250906 01:00):
+    -->
+    Active Internet Prefix:
+    <b>
+	02/27/2026 02:00:01 1081147    </b>
+    <br>
+    Historical Record of Prefix Announced on the Internet - RouteViews <br>IPv4:
+    <b>
+        02/27/2026 03:02:04 1184852    </b>
+    <!--
+    <br>IPv6: 
+     <b>
+            </b>
+    -->
+	    <div class="chart-container">
+      <canvas id="internetPrefixChart"></canvas>
+    </div>
+
+  </div>
+
+  <div class="session-box session-right">
+    <b>Active BGP Update refresh every 5sec - RouteView</b>
+    <br><br>
+    <div id="updates">Loading...</div>
+  </div>
+</div>
+
+<hr>
+
+<h2>Suspicious BGP Update Detection</h2>
+<br>
+<h9>Origin_AS: Historical Origin AS Count by BGP Updates pre-perfix</h9>
+<br>
+<h9>Detected_AS: A new AS number detected pre-prefix</h9>
+<br>
+<h9>IRR Check: Prefix exists at the Detected_AS route filter list by IRR Record</h9>
+<br>
+<h9>RPKI Check: Prefix exists at the Detected_AS by RPKI Database</h9>
+<br>
+<br>
+<div id="suspiciousBGPUpdates" 
+     style="height: 500px; overflow-y: auto; border: 1px solid #ccc; padding: 10px; font-family: Arial, sans-serif; font-size: 12px;">
+  Loading suspicious BGP updates...
+</div>
+
+<script type="e422e872163bc7933c4a6063-text/javascript">
+  async function fetchSuspiciousUpdates() {
+    try {
+      const response = await fetch('/data/prefix/suspicious_bgp_update_v2.html', { cache: "no-store" });
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      const data = await response.text();
+      document.getElementById('suspiciousBGPUpdates').innerHTML = data;
+    } catch (error) {
+      document.getElementById('suspiciousBGPUpdates').innerText = 'Failed to load data.';
+      console.error('Error fetching suspicious BGP updates:', error);
+    }
+  }
+
+  // Initial load
+  fetchSuspiciousUpdates();
+
+  // Refresh every 30 seconds (30000 ms)
+  setInterval(fetchSuspiciousUpdates, 60000);
+</script>
+
+
+<!--
+    <hr>
+
+    <h2>AS Route Diff Chart</h2>
+    <div id="as-route-diff-container">
+-->
+      <!-- AS Route Diff content will be loaded here via JS fetch -->
+<!--
+      <p>Loading AS Route Diff content...</p>
+    </div>
+-->
+
+<hr>
+
+<style>
+.bgpupdate_chart-container {
+      display: flex;
+      flex-direction: row;
+      align-items: stretch;
+      height: 300px;
+    }
+
+    .bgpupdate_left-panel {
+      width: 15%;
+      padding-right: 10px;
+      overflow-y: auto;
+      height: 100%;
+      box-sizing: border-box;
+      flex-direction: column;
+    }
+
+    .bgpupdate_right-panel {
+      width: 85%;
+      height: 100%;
+      display: flex;
+    }
+
+    .bgpupdate_right-panel canvas {
+      flex-grow: 1;
+      width: 100% !important;
+      height: 100% !important;
+    }
+
+    @media (max-width: 768px) {
+      .bgpupdate_chart-container {
+        flex-direction: column;
+        height: 150px;
+      }
+      .bgpupdate_left-panel,
+      .bgpupdate_right-panel {
+        width: 100%;
+        height: 50%;
+        padding-right: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<h2>BGP Update Message (Announce / Withdraw)</h2>
+<br>
+<div class="bgpupdate_chart-container">
+  <div class="bgpupdate_left-panel">
+    <label for="asSelect">Select AS Number(s):</label><br />
+    <select id="asSelect" multiple size="8" style="width: 100%;"></select><br />
+    <button onclick="if (!window.__cfRLUnblockHandlers) return false; updateChart()" data-cf-modified-e422e872163bc7933c4a6063-="">Update Chart</button>
+  </div>
+  <div class="bgpupdate_right-panel">
+    <canvas id="updatemessagechart"></canvas>
+  </div>
+</div>
+
+<script type="e422e872163bc7933c4a6063-text/javascript">
+  let withdrawData = [];
+  let announceData = [];
+  let chartInstance = null;
+
+  async function fetchData() {
+    const [withdrawResp, announceResp] = await Promise.all([
+      fetch('/data/withdraw_summary.json'),
+      fetch('/data/announce_summary.json')
+    ]);
+    withdrawData = await withdrawResp.json();
+    announceData = await announceResp.json();
+  }
+
+  function getUniqueASNs() {
+    const asnSet = new Set();
+    withdrawData.forEach(d => asnSet.add(d.primary_as));
+    announceData.forEach(d => asnSet.add(d.primary_as));
+    return Array.from(asnSet).sort((a, b) => a - b);
+  }
+
+  function buildASDropdown() {
+  const select = document.getElementById('asSelect');
+  select.innerHTML = ''; // Clear existing options
+
+  const asRowCounts = {};
+
+  // Combine announce and withdraw data
+  const combined = [...announceData, ...withdrawData];
+
+  // Count how many times each AS appears
+  for (const entry of combined) {
+    const asn = entry.primary_as;
+    if (!asRowCounts[asn]) {
+      asRowCounts[asn] = 0;
+    }
+    asRowCounts[asn]++;
+  }
+
+  // Sort AS numbers by their appearance count (row count)
+  const sortedASNs = Object.entries(asRowCounts)
+    .sort((a, b) => b[1] - a[1]) // sort by row count descending
+    .map(entry => entry[0]);     // extract just the AS numbers
+
+  // Build dropdown options
+  for (const asn of sortedASNs) {
+    const option = document.createElement('option');
+    option.value = asn;
+    option.textContent = `${asn}`;
+    select.appendChild(option);
+  }
+}
+
+
+
+  function getRandomColor(seed) {
+    let hash = 0;
+    for (let i = 0; i < seed.length; i++) {
+      hash = seed.charCodeAt(i) + ((hash << 5) - hash);
+    }
+    const c = (hash & 0x00FFFFFF).toString(16).toUpperCase();
+    return "#" + "00000".substring(0, 6 - c.length) + c;
+  }
+
+  function prepareDatasets(selectedASNs) {
+    const datasets = [];
+
+    selectedASNs.forEach(asn => {
+      //const withdrawcolor = getRandomColor(asn.toString()+ '_withdraw');
+      //const announcecolor = getRandomColor(asn.toString()+ '_announce');
+      const withdrawcolor = 'rgba(192, 75, 192, 0.8)'; // Purple
+      const announcecolor = 'rgba(75, 192, 192, 0.8)'; // Teal
+
+      const withdrawPoints = withdrawData
+        .filter(d => d.primary_as == asn)
+        .map(d => ({ x: d.minute, y: d.updates }));
+
+      const announcePoints = announceData
+        .filter(d => d.primary_as == asn)
+        .map(d => ({ x: d.minute, y: d.updates }));
+
+      datasets.push({
+        label: `Withdraw AS${asn}`,
+        data: withdrawPoints,
+        borderColor: withdrawcolor,
+        backgroundColor: withdrawcolor,
+        borderDash: [5, 5],
+        tension: 0.3,
+        fill: false
+      });
+
+      datasets.push({
+        label: `Announce AS${asn}`,
+        data: announcePoints,
+        borderColor: announcecolor,
+        backgroundColor: announcecolor,
+        borderDash: [],
+        tension: 0.3,
+        fill: false
+      });
+    });
+
+    return datasets;
+  }
+
+  function updateChart() {
+  const select = document.getElementById('asSelect');
+  let selectedASNs = Array.from(select.selectedOptions).map(opt => parseInt(opt.value));
+
+  // Default to AS14593 if nothing is selected
+  if (selectedASNs.length === 0) {
+    selectedASNs = [16509];
+  }
+
+  const ctx = document.getElementById('updatemessagechart').getContext('2d');
+  const datasets = prepareDatasets(selectedASNs);
+
+  if (chartInstance) {
+    chartInstance.destroy();
+  }
+
+  chartInstance = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      datasets: datasets
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      scales: {
+        x: {
+          type: 'time',
+      time: {
+        unit: 'minute',
+        tooltipFormat: 'yyyy-MM-dd HH:mm',
+        displayFormats: {
+          minute: 'yyyy-MM-dd HH:mm'  // <-- Force readable labels
+        }
+      },
+      ticks: {
+        callback: function(value, index, ticks) {
+          const date = new Date(value);
+          return date.toISOString().replace('T', ' ').substring(0, 16);
+        }
+      },
+      title: {
+        display: true,
+        text: 'Time (GMT)'
+      }
+        },
+        y: {
+          beginAtZero: true,
+          title: {
+            display: true,
+            text: 'Updates Count'
+          }
+        }
+      },
+      plugins: {
+        legend: {
+          position: 'top'
+        },
+        tooltip: {
+          mode: 'index',
+          intersect: false,
+          callbacks: {
+            // 👇 Fix the tooltip title formatting
+            title: function(tooltipItems) {
+              const date = new Date(tooltipItems[0].parsed.x);
+              // Format: "2025-07-25 18:49"
+              return date.toISOString().replace('T', ' ').substring(0, 16);
+            },
+            // Optional: Clean up label
+            label: function(tooltipItem) {
+              return `${tooltipItem.dataset.label}: ${tooltipItem.formattedValue}`;
+            }
+          }
+        }
+      }
+    }
+  });
+}
+
+
+
+  document.addEventListener('DOMContentLoaded', async () => {
+    await fetchData();
+    const asList = getUniqueASNs();
+    buildASDropdown(asList);
+  });
+
+</script>
+
+
+
+
+
+<section id="main-project" class="mb-4">
+
+  <hr>
+  <h2>Main Project: BGPTrace App</h2>
+  <p>
+    BGPtrace Android Application for network AS path check for Internet routing summary.<br />
+    Please download our App Here: <a href="https://play.google.com/store/apps/details?id=com.krdevelop.bgptracev2" target="_blank" rel="noopener noreferrer">Click</a><br />
+    Twitter / X: <a href="https://x.com/KRDevelop" target="_blank" rel="noopener noreferrer">Click</a>
+  </p>
+</section>
+
+
+<section id="bgptrace-section" class="mb-4">
+
+  <hr>
+
+  <h2>Top 10 #Peer AS Origin:</h2>
+  <br>
+  <center><div id="chart4"></div></center>
+
+  <br><br>
+
+
+  <hr>
+
+  <h2>Top 10 #Prefix AS Origin:</h2>
+  <br> 
+  <center><div id="chart1"></div></center>
+
+  <br><br>
+
+  <hr>
+
+  <h2>Top 20 Complex AS Path Network:</h2>
+  <br>
+  <div id="chart3"></div>
+
+  <br><br>
+
+  <hr>
+
+  <h2>BGPTrace Mobile Network Path Analysis</h2>
+  <p>
+    This function will analyze all network paths related to specific AS by BGPTrace Mobile traceroute.<br>
+    We want to build a complete view by Mobile traceroute to plot out all BGP AS Paths for analysis.<br>
+    Please download the Android Mobile APP - 
+    <a href="https://play.google.com/store/apps/details?id=com.krdevelop.bgptracev2" target="_blank" rel="external">BGPTrace</a>
+  </p>
+
+  <p>
+    Please Enter the AS number: 
+    <input type="text" id="input" /> 
+    <input type="button" id="button" value="Submit" onclick="if (!window.__cfRLUnblockHandlers) return false; Path()" data-cf-modified-e422e872163bc7933c4a6063-="" />
+  </p>
+
+  <br><br>
+
+  <hr>
+
+  <h2>Latest 10 BGPTrace App Result:</h2>
+  <center><div id="chart2"></div></center>
+
+  <br><br>
+
+
+
+  <div id="path"></div>
+</section>
+
+
+
+
+
+<section id="main-project" class="mb-4">
+  <hr>
+
+  <h2>Project</h2>
+  <ol start="1">
+    <li>
+      Content Delivery with Shortened Path Server Measurement (Currently Suspended) 
+      <br />
+      Proxy Server: <strong>proxy.bgptrace.com</strong> Port:<strong>3128</strong> 
+      <br /><br />
+      Our server will perform two functions:
+      <ol type="1">
+        <li>Content caching for cacheable objects.</li>
+        <li>Measuring the lowest latency server by comparing different network paths and several public DNS response results, which are then mapped to our own DNS server for forwarding.</li>
+      </ol>
+      <p><em>P.S. No client information is recorded; all domain requests are used for measurement purposes only.</em></p>
+    </li>
+
+  <li><p>
+      Research Analysis Report <a href="./Latency%20and%20Performance%20Analysis%20of%20different%20Public%20DNS%20server’s%20resolution%20result.pdf"
+        target="_blank" rel="noopener noreferrer">Latency and Performance Analysis of different Public DNS server’s resolution
+        result</a> - <a href="/cdn-cgi/l/email-protection#097b6670656c7c676e3938496e64686065276a6664">Roy Leung</a>, 2020
+    </p>
+  </li>	
+<!--
+  <li>
+    <p>
+      Localization Study <a href="./Localization Technologies.pdf" target="_blank" rel="noopener noreferrer">paper</a> -
+      <a href="mailto:royleung01@gmail.com">Roy Leung</a>, 2022
+    </p>
+  </li>
+
+  <li>
+    <p>
+      Localization Study Application <a href="./WIFI Walker.pdf" target="_blank" rel="noopener noreferrer">WIFI Walker </a> -
+      <a href="mailto:royleung01@gmail.com">Roy Leung</a>, 2022
+    </p>
+  </li>
+-->
+</ol>
+
+</section>
+
+<!--
+    <hr>
+
+    <h2>Proxy Server Traffic Usage</h2>
+    <div class="chart-container">
+      <canvas id="proxyTrafficChart"></canvas>
+    </div>
+-->
+<section id="main-project" class="mb-4">
+  <p>
+    Our whole system powered by RaspberryPi. <a href="https://www.raspberrypi.org" target="_blank" rel="noopener noreferrer">https://www.raspberrypi.org</a>
+  </p>
+  <p>Backend developed by PERL, PYTHON, SHELL.</p>
+</section>
+
+
+<!-- Google Adsense placeholder -->
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6243716741985645" crossorigin="anonymous" type="e422e872163bc7933c4a6063-text/javascript"></script>
+<!--
+    <ins class="adsbygoogle" style="display:block; text-align:center;" data-ad-layout="in-article" data-ad-format="fluid"
+      data-ad-client="ca-pub-6243716741985645" data-ad-slot="3483994688"></ins>
+-->
+    <script type="e422e872163bc7933c4a6063-text/javascript">
+      (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+
+
+  <script src="/cdn-cgi/scripts/7d0fa10a/cloudflare-static/rocket-loader.min.js" data-cf-settings="e422e872163bc7933c4a6063-|49" defer></script><script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9d44bc37dacfd32a',t:'MTc3MjE2NDQwNw=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></main>
+
+  <!-- Bootstrap JS Bundle (includes Popper) -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" type="e422e872163bc7933c4a6063-text/javascript"></script>
+
+  <script type="e422e872163bc7933c4a6063-text/javascript">
+
+	let internetPrefixChart;
+
+  async function fetchInternetPrefixData() {
+    try {
+      const response = await fetch('prefix_data.php', { cache: 'no-store' });
+      const data = await response.json();
+
+      if (!internetPrefixChart) {
+        // Initial chart creation
+        const ctx = document.getElementById('internetPrefixChart').getContext('2d');
+        internetPrefixChart = new Chart(ctx, {
+          type: 'line',
+          data: {
+            labels: data.labels,
+            datasets: [
+              {
+                label: 'Active Internet Prefix',
+                data: data.raw,
+                fill: false,
+                borderColor: 'rgba(75, 192, 192, 0.8)',
+                tension: 0.3,
+                pointRadius: 1,
+              },
+              {
+                label: '7-day Moving Average',
+                data: data.smooth,
+                fill: false,
+                borderColor: 'rgba(192, 75, 192, 0.8)',
+                tension: 0.3,
+                pointRadius: 1,
+              //},
+              //{
+              //  label: 'Historical Record - Routeview',
+              //  data: data.rawrouteview,
+              //  fill: false,
+              //  borderColor: 'rgba(175, 120, 192, 0.8)',
+              //  tension: 0.3,
+              //  pointRadius: 1,
+              }
+            ]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            interaction: {
+              mode: 'nearest',
+              intersect: false,
+            },
+            plugins: {
+              title: {
+                display: true,
+                text: 'Internet Prefix Count Over Time',
+                font: { size: 18 }
+              },
+              tooltip: {
+                mode: 'index',
+                intersect: false
+              },
+              legend: { position: 'top' }
+            },
+            scales: {
+              x: {
+                type: 'time',
+                time: {
+                  tooltipFormat: 'MMM D, YYYY HH:mm',
+                  unit: 'day',
+                  displayFormats: {
+                    day: 'MMM D'
+                  }
+                },
+                title: {
+                  display: true,
+                  text: 'Date'
+                }
+              },
+              y: {
+                beginAtZero: false,
+                title: {
+                  display: true,
+                  text: 'Prefix Count'
+                }
+              }
+            }
+          }
+        });
+      } else {
+        // Just update chart data
+        internetPrefixChart.data.labels = data.labels;
+        internetPrefixChart.data.datasets[0].data = data.raw;
+        internetPrefixChart.data.datasets[1].data = data.smooth;
+        //internetPrefixChart.data.datasets[2].data = data.rawrouteview;
+        internetPrefixChart.update();
+      }
+    } catch (err) {
+      console.error('Failed to update Internet Prefix Chart:', err);
+    }
+  }
+
+  // Initial load
+  fetchInternetPrefixData();
+
+  // Refresh every 30 seconds
+  setInterval(fetchInternetPrefixData, 30000);
+
+
+
+    // Proxy Traffic Chart Data
+    const proxyRawData = ``.trim().split('\n');
+    const labelsProxy = [];
+    const receiveData = [];
+    const sendData = [];
+
+    proxyRawData.forEach(line => {
+      if (!line) return;
+      const parts = line.split(/\s+/);
+      // Assuming format: "YYYY-MM-DD HH:MM:SS receive_kbps send_kbps"
+      if (parts.length < 4) return;
+      labelsProxy.push(parts[0] + 'T' + parts[1]);
+      receiveData.push(parseFloat(parts[2]));
+      sendData.push(parseFloat(parts[3]));
+    });
+
+    const ctxProxy = document.getElementById('proxyTrafficChart').getContext('2d');
+    const proxyTrafficChart = new Chart(ctxProxy, {
+      type: 'line',
+      data: {
+        labels: labelsProxy,
+        datasets: [{
+            label: 'Receive (Kbit/s)',
+            data: receiveData,
+            borderColor: 'rgb(75, 192, 100)',
+            fill: false,
+            tension: 0.1,
+            pointRadius: 1,
+          },
+          {
+            label: 'Send (Kbit/s)',
+            data: sendData,
+            borderColor: 'rgb(75, 192, 192)',
+            fill: false,
+            tension: 0.1,
+            pointRadius: 1,
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        interaction: {
+          mode: 'nearest',
+          intersect: false
+        },
+        plugins: {
+          title: {
+            display: true,
+            text: 'Proxy Server Traffic Usage (Total)'
+          },
+          tooltip: {
+            mode: 'index',
+            intersect: false
+          }
+        },
+        scales: {
+          x: {
+            type: 'time',
+            time: {
+              tooltipFormat: 'MMM D, YYYY HH:mm:ss',
+              unit: 'hour',
+              displayFormats: {
+                hour: 'MMM D, HH:mm'
+              }
+            },
+            title: {
+              display: true,
+              text: 'Time'
+            }
+          },
+          y: {
+            title: {
+              display: true,
+              text: 'Kbit per second'
+            },
+            beginAtZero: true
+          }
+        }
+      }
+    });
+
+<!--
+    // Load AS Route Diff content dynamically via fetch instead of iframe
+    fetch('./scripts/as_route_diff.html')
+      .then(response => {
+        if (!response.ok) throw new Error('Network response was not ok');
+        return response.text();
+      })
+      .then(html => {
+        document.getElementById('as-route-diff-container').innerHTML = html;
+      })
+      .catch(error => {
+        document.getElementById('as-route-diff-container').innerHTML =
+          '<p class="text-danger">Failed to load AS Route Diff content.</p>';
+        console.error('Error loading as_route_diff.html:', error);
+      });
+-->
+  </script>
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" type="e422e872163bc7933c4a6063-text/javascript"></script> <!-- Load jQuery once -->
+
+<script type="e422e872163bc7933c4a6063-text/javascript">
+  // Load Top 20 Complex AS Path AS Network into #chart3
+  $(function() {
+    $("#chart3").load("./scripts/most_as_path.html");
+  });
+
+  // Load Top Ten #Prefix AS Origin data into #chart1
+  function load_prefix() {
+    $.getJSON("./scripts/prefix.php", function(data) {
+      let text = '<table width="100%"><tr><td width=10%><u>Rank</u></td><td width=10%><u>#Prefix</u></td><td width=10%><u>AS Path</u></td><td><u>Peer</u></td><td><u>ISP</u></td></tr>';
+      for(let i = 0; i < data.length; i++) {
+        text += `<tr><td>${i+1}</td><td>${data[i]['prefix']}</td><td>${data[i]['origin']}</td><td>${data[i]['peer']}</td><td>${data[i]['ISP']}</td></tr>`;
+      }
+      text += '</table>';
+      $('#chart1').html(text);
+    });
+  }
+
+
+  // Load Top #Peer AS Origin data into #chart4
+  function load_top_peer() {
+    $.getJSON("./scripts/top_peer.php", function(data) {
+      let text = '<table width="100%"><tr><td width=10%>Rank</td><td width=10%>#Peer</td><td>AS</td><td>ISP</td></tr>';
+      for(let i = 0; i < data.length; i++) {
+        text += `<tr><td>${i+1}</td><td>${data[i]['origin']}</td><td>${data[i]['prefix']}</td><td>${data[i]['peer']}</td></tr>`;
+      }
+      text += '</table>';
+      $('#chart4').html(text);
+    });
+  }
+
+
+
+
+  // Load Latest 10 BGPTrace App Results into #chart2
+  function load_app() {
+    $.getJSON("./scripts/app_update.php", function(data) {
+      let text = '<table width="100%"><tr><td width=30%><u>Datetime</u></td><td width=70%><u>AS Path</u></td></tr>';
+      for(let i = 0; i < data.length; i++) {
+        text += `<tr><td>${data[i]['date']}</td><td>${data[i]['result']}</td></tr>`;
+      }
+      text += '</table>';
+      $('#chart2').html(text);
+    });
+  }
+
+  $(document).ready(function() {
+    load_prefix();
+    load_top_peer();
+    load_app();
+  });
+
+  // AS number path lookup function
+  function Path() {
+    var as = document.getElementById("input").value;
+    var path = document.getElementById("path");
+    path.innerHTML = "";
+    var req = new XMLHttpRequest();
+    req.open('GET', "./dot/" + as + ".jpg", false);
+    req.send();
+    if(req.status == 200) {
+      location.href = "./app_result.php?AS=" + as;
+    } else {
+      path.innerHTML = "Currently no data for this AS. Please download BGPTrace Mobile App for BGPTrace route!";
+    }
+  }
+</script>
+
+<script type="e422e872163bc7933c4a6063-text/javascript">
+  // Google Analytics (if still needed)
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-50843761-1', 'bgptrace.com');
+  ga('send', 'pageview');
+</script>
+
+
+
+<footer class="bg-light border-top mt-5 py-3">
+  <div class="container text-center">
+    <small class="text-muted">
+      &copy; 2026 BGPTrace Monitoring System. All rights reserved. |
+      Developed by <a href="/cdn-cgi/l/email-protection#1e6c7167727b6b70792e2f5e79737f7772307d7173">Roy Leung</a> |
+      <a href="aboutus.php" target="_blank" rel="noopener noreferrer">About Us</a>
+    </small>
+  </div>
+</footer>
+
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script type="e422e872163bc7933c4a6063-text/javascript">
+window.onload = function() {
+    updateChart();
+};
+
+</script>
+
+
+</body>
+
+</html>
+

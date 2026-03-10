@@ -1,0 +1,508 @@
+ <!-- Partytown: ejecuta scripts de terceros en web workers -->
+<script>
+  partytown = {
+    lib: '/~partytown/',
+    forward: ['dataLayer.push'] // si usas Google Analytics
+  };
+</script>
+<script src="/~partytown/partytown.js" async></script>
+
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="DreaminMedia - Desarrollo web, diseño web, optimización SEO, webapps y apps en México.">
+    <meta name="keywords" content="desarrollo web, diseño web, SEO, webapps, apps, México">
+    <meta name="author" content="DreaminMedia">
+    <meta property="og:title" content="DreaminMedia - Diseño y Desarrollo Web">
+    <meta property="og:description" content="DreaminMedia - Desarrollo web, diseño web, optimización SEO, webapps y apps en México.">
+    <meta property="og:image" content="https://dreaminmedia.com/img/og-image.jpg">
+    <meta property="og:url" content="https://dreaminmedia.com">
+    <meta name="robots" content="index, follow">
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="https://www.dreaminmedia.com/css/style.css?v=1.169">
+    <title>⚡ DreaminMedia - Diseño y Desarrollo Web</title>
+
+    <link rel="apple-touch-icon" sizes="57x57" href="/favicons/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/favicons/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/favicons/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/favicons/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/favicons/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/favicons/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/favicons/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/favicons/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192"  href="/favicons/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicons/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
+    <link rel="manifest" href="/favicons/manifest.json">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="/favicons/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ProfessionalService",
+      "name": "DreaminMedia - Servicios Profesionales de Desarrollo Web y Apps",
+      "url": "https://dreaminmedia.com",
+      "description": "DreaminMedia ofrece servicios de desarrollo de aplicaciones móviles, web, diseño UX/UI, integración de IA y optimización SEO a medida.",
+      "logo": "https://dreaminmedia.com/assets/logo-blue-v4-300.png",
+      "areaServed": {
+        "@type": "Place",
+        "name": "México y Latinoamérica"
+      },
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Servicios Profesionales DreaminMedia",
+        "itemListElement": [
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Desarrollo de sitios web",
+              "description": "Sitios web corporativos y tiendas online optimizados para SEO y dispositivos móviles."
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Desarrollo de aplicaciones web",
+              "description": "Aplicaciones progresivas (PWA), SaaS y plataformas de gestión para empresas."
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Desarrollo de apps móviles",
+              "description": "Apps nativas y multiplataforma para iOS y Android usando tecnologías como Flutter y React Native."
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Optimización SEO",
+              "description": "Auditoría técnica, optimización on-page, link building y estrategias para mejorar posicionamiento."
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Integración de IA",
+              "description": "Automatización, chatbots y procesamiento de datos con soluciones de inteligencia artificial."
+            }
+          }
+        ]
+      }
+    }
+    </script>
+
+
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "LocalBusiness",
+      "name": "DreaminMedia",
+      "image": "https://dreaminmedia.com/assets/logo-blue-v4-300.png",
+      "@id": "https://dreaminmedia.com",
+      "url": "https://dreaminmedia.com",
+      "telephone": "+52-442-3708984",
+      "description": "DreaminMedia es una agencia creativa de desarrollo web, desarrollo de apps, optimización SEO y soluciones digitales innovadoras en Querétaro",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Insurgentes Queretanos 88 int 8",
+        "addressLocality": "Querétaro",
+        "addressRegion": "QRO",
+        "postalCode": "76000",
+        "addressCountry": "MX"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 20.5888,
+        "longitude": -100.3899
+      },
+      "openingHoursSpecification": {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": [
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday"
+        ],
+        "opens": "09:00",
+        "closes": "18:00"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "5.0",
+        "reviewCount": "20"
+      },
+      "priceRange": "$$$",
+      "foundingDate": "2010",
+      "additionalType": "https://schema.org/ProfessionalService",
+      "areaServed": [
+        {
+          "@type": "Country",
+          "name": "México"
+        },
+        {
+          "@type": "Place",
+          "name": "Latinoamérica"
+        }
+      ],
+      "logo": "https://dreaminmedia.com/assets/logo-blue-v4-300.png",
+      "brand": {
+        "@type": "Brand",
+        "name": "DreaminMedia"
+      },
+      "makesOffer": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Desarrollo de sitios web",
+            "description": "Creación de sitios web profesionales, responsivos y optimizados para SEO."
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Desarrollo de aplicaciones web",
+            "description": "Programación y desarrollo de web apps personalizadas para negocios."
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Optimización SEO",
+            "description": "Servicios de optimización SEO técnico y de contenidos para mejorar el posicionamiento en Google."
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Desarrollo de aplicaciones móviles",
+            "description": "Desarrollo de apps para iOS y Android adaptadas a las necesidades de tu empresa."
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Desarrollo de sistemas web",
+            "description": "Programación y desarrollo de sistemas personalizados para negocios."
+          }
+        }
+      ],
+      "sameAs": [
+        "https://www.facebook.com/dreaminmedia",
+        "https://x.com/dreaminmedia",
+        "https://www.youtube.com/c/DreaminmediaDise%C3%B1oWeb"
+      ]
+    }
+    </script>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "DreaminMedia",
+      "url": "https://dreaminmedia.com",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://dreaminmedia.com/index.php?page=index/blog/-1/{search_term_string}",
+        "query-input": "required search=search_term_string"
+      }
+    }
+    </script>
+
+
+
+    <!-- Google tag (gtag.js) - Optimizado 
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-J1DS7PVYXF', { 'transport_type': 'beacon' });
+    </script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-J1DS7PVYXF" onload="gtag('js', new Date());"></script>-->
+
+    <script type="text/partytown" src="https://www.googletagmanager.com/gtag/js?id=G-J1DS7PVYXF"></script>
+<script type="text/partytown">
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){ dataLayer.push(arguments); }
+  gtag('js', new Date());
+  gtag('config', 'G-J1DS7PVYXF', { 'transport_type': 'beacon' });
+</script>
+
+
+
+</head>
+<body>
+    <header  class="gradientmenu">
+        <div class="logo">
+            <a href="https://www.dreaminmedia.com/">
+                <img src="/assets/logo-white-v4-300.svg" alt="DreaminMedia Logo" >
+            </a>
+        </div>
+
+        <!-- Menú hamburguesa -->
+        <button class="hamburguesa menu-toggle" id="menu-toggle">
+            ☰
+        </button>
+
+        <nav id="menu" class="menu">
+            <ul>
+                <li><a href="/">Inicio</a></li>
+                <li><a href="#servicios">Servicios</a>
+                    <ul class="submenu">
+                        <li><a href="/paginas-web">Páginas web</a></li>
+                        <li><a href="/desarrollo-web-apps">Desarrollo de Web Apps</a></li>
+                        <li><a href="/optimizacion-seo">Optimización SEO & Posicionamiento web</a></li>
+                        <li><a href="/desarrollo-apps">Desarrollo de Apps</a>
+                           <!-- <ul class="submenu">
+                                <li><a href="#android">Android</a></li>
+                                <li><a href="#ios">iOS</a></li>
+                            </ul>-->
+                        </li>
+                        <li><a href="/desarrollo-e-commerce">E-commerce</a></li>
+                    </ul>
+                </li>
+                <li><a href="#herramientas">Herramientas</a>
+                    <ul class="submenu">
+                        <li><a href="/analisis-seo">Análisis SEO</a></li>
+                    </ul>
+                </li>
+                <li><a href="/portafolio">Portafolio</a></li>
+                <li><a href="/blog">Blog</a></li>
+                <li><a href="/contacto">Contacto</a></li>
+            </ul>
+        </nav>
+        <div class="social-icons">
+            <a href="https://www.facebook.com/dreaminmedia" target="_blank" aria-label="Facebook">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 12.07C22 6.48 17.52 2 12 2S2 6.48 2 12.07C2 17.1 5.66 21.21 10.44 22v-7.02h-3.1v-2.91h3.1V9.5c0-3.07 1.83-4.76 4.64-4.76 1.34 0 2.75.24 2.75.24v3.04h-1.55c-1.53 0-2 .95-2 1.92v2.31h3.4l-.54 2.91h-2.86V22C18.34 21.21 22 17.1 22 12.07z"/></svg>
+            </a>
+            <a href="https://x.com/dreaminmedia" target="_blank" aria-label="Twitter">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M22.46 6c-.77.35-1.6.58-2.46.69a4.24 4.24 0 001.88-2.34 8.28 8.28 0 01-2.68 1.02 4.19 4.19 0 00-7.13 3.81 11.9 11.9 0 01-8.63-4.37 4.17 4.17 0 001.3 5.58A4.15 4.15 0 012.8 9.7v.05a4.19 4.19 0 003.36 4.1 4.2 4.2 0 01-1.89.07 4.18 4.18 0 003.91 2.9A8.41 8.41 0 012 19.54a11.86 11.86 0 006.29 1.84c7.55 0 11.68-6.26 11.68-11.68 0-.18 0-.36-.01-.54A8.36 8.36 0 0022.46 6z"/></svg>
+            </a>
+            <a href="https://www.youtube.com/c/DreaminmediaDise%C3%B1oWeb" target="_blank" aria-label="YouTube">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4C3.1 3 2 4.1 2 5.4v13.2C2 19.9 3.1 21 4.4 21h15.2c1.3 0 2.4-1.1 2.4-2.4V5.4C22 4.1 20.9 3 19.6 3zM10 16V8l6 4-6 4z"/></svg>
+            </a>
+            <a href="#" onclick="abrirFormularioWhatsApp()" aria-label="WhatsApp">
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12.001 2.002c-5.51 0-9.998 4.49-9.998 10.004 0 1.767.469 3.497 1.359 5.03L2 22l5.196-1.362a9.936 9.936 0 004.805 1.222c5.509 0 10-4.491 10-9.999S17.51 2.002 12.001 2.002zm0 17.997a7.934 7.934 0 01-4.07-1.115l-.291-.174-3.031.795.81-2.933-.198-.29a7.948 7.948 0 01-1.233-4.26c0-4.418 3.58-8 7.999-8s8 3.582 8 8c0 4.419-3.581 7.998-8 7.998zm3.998-6.238c-.226-.112-1.334-.66-1.541-.733-.206-.075-.356-.113-.506.113-.149.225-.616.734-.756.882-.14.149-.28.169-.52.056-.24-.112-1.014-.374-1.931-1.193-.713-.636-1.194-1.423-1.333-1.663-.14-.24-.015-.369.098-.49.101-.102.226-.265.339-.397.113-.131.169-.226.254-.377.084-.15.042-.281-.021-.393-.063-.112-.567-1.216-.777-1.665-.205-.442-.415-.383-.567-.39l-.483-.009c-.169 0-.444.063-.678.312s-.889.852-.889 2.082c0 1.23.91 2.418 1.037 2.585.127.168 1.793 2.684 4.347 3.763.608.258 1.082.412 1.452.528.61.191 1.162.164 1.597.1.488-.072 1.493-.611 1.702-1.199.21-.588.21-1.089.146-1.198-.062-.108-.231-.17-.483-.298z"/>
+              </svg>
+            </a>
+
+        </div>
+
+    </header>
+
+    <!-- Menú móvil fuera del header -->
+    <nav id="menu-mobile" class="menu-mobile">
+        <ul>
+                <li><a href="https://www.dreaminmedia.com/index.php?page=index/index">Inicio</a></li>
+                <li><a href="#servicios">Servicios</a>
+                    <ul class="submenu">
+                        <li><a href="https://www.dreaminmedia.com/index.php?page=index/paginas-web">Páginas web</a></li>
+                        <li><a href="https://www.dreaminmedia.com/index.php?page=index/desarrollo-web-apps">Desarrollo de Web Apps</a></li>
+                        <li><a href="https://www.dreaminmedia.com/index.php?page=index/optimizacion-seo">Optimización SEO & Posicionamiento web</a></li>
+                        <li><a href="https://www.dreaminmedia.com/index.php?page=index/desarrollo-apps">Desarrollo de Apps</a>
+                           <!-- <ul class="submenu">
+                                <li><a href="#android">Android</a></li>
+                                <li><a href="#ios">iOS</a></li>
+                            </ul>-->
+                        </li>
+                        <li><a href="https://www.dreaminmedia.com/index.php?page=index/desarrollo-e-commerce">E-commerce</a></li>
+                    </ul>
+                </li>
+                <li><a href="#herramientas">Herramientas</a>
+                    <ul class="submenu">
+                        <li><a href="https://www.dreaminmedia.com/index.php?page=herramientas/analisis-seo">Análisis SEO</a></li>
+                    </ul>
+                </li>
+                <li><a href="https://www.dreaminmedia.com/index.php?page=index/portafolio">Portafolio</a></li>
+                <li><a href="https://www.dreaminmedia.com/index.php?page=index/blog">Blog</a></li>
+                <li><a href="https://www.dreaminmedia.com/index.php?page=index/contacto">Contacto</a></li>
+            </ul>
+    </nav>
+<section class="pagina-404">
+  <div class="contenedor">
+    <h1>😕 Página no encontrada</h1>
+    <p>Lo sentimos, no pudimos encontrar la página que buscabas.</p>
+    <a href="/" class="btn-volver">Volver al inicio</a>
+  </div>
+</section>
+
+
+<footer class="footer">
+    <div class="footer-container">
+        
+        <!-- 🏢 Columna 1: Logo, Contacto y Redes -->
+        <div class="footer-column">
+            <img src="/assets/logo-white-v4-300.svg" alt="DreaminMedia" class="footer-logo">
+            
+            <div class="contact-info-footer">
+                <p>
+                   <svg fill="#ffffff" class="icon18 white" viewBox="0 -5 32 32" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid">
+                        <path d="M29.000,22.000 L3.000,22.000 C1.346,22.000 -0.000,20.654 -0.000,19.000 L-0.000,3.000 C-0.000,1.346 1.346,-0.000 3.000,-0.000 L29.000,-0.000 C30.654,-0.000 32.000,1.346 32.000,3.000 L32.000,19.000 C32.000,20.654 30.654,22.000 29.000,22.000 ZM3.000,20.000 L29.000,20.000 C29.551,20.000 30.000,19.552 30.000,19.000 L30.000,3.317 L16.651,14.759 C16.463,14.920 16.232,15.000 16.000,15.000 C15.768,15.000 15.537,14.920 15.349,14.759 L2.000,3.317 L2.000,19.000 C2.000,19.552 2.449,20.000 3.000,20.000 ZM28.464,2.000 L3.536,2.000 L16.000,12.683 L28.464,2.000 Z"/>
+                    </svg>
+                    <a href="mailto:contacto@dreaminmedia.com">contacto@dreaminmedia.com</a>
+                </p>
+                <p>
+                    <svg class="icon18 white" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                        <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                            <g id="Dribbble-Light-Preview" transform="translate(-300.000000, -7599.000000)" fill="#25d366">
+                                <g id="icons" transform="translate(56.000000, 160.000000)">
+                                    <path d="M259.821,7453.12124 C259.58,7453.80344 258.622,7454.36761 257.858,7454.53266 C257.335,7454.64369 256.653,7454.73172 254.355,7453.77943 C251.774,7452.71011 248.19,7448.90097 248.19,7446.36621 C248.19,7445.07582 248.934,7443.57337 250.235,7443.57337 C250.861,7443.57337 250.999,7443.58538 251.205,7444.07952 C251.446,7444.6617 252.034,7446.09613 252.104,7446.24317 C252.393,7446.84635 251.81,7447.19946 251.387,7447.72462 C251.252,7447.88266 251.099,7448.05372 251.27,7448.3478 C251.44,7448.63589 252.028,7449.59418 252.892,7450.36341 C254.008,7451.35771 254.913,7451.6748 255.237,7451.80984 C255.478,7451.90987 255.766,7451.88687 255.942,7451.69881 C256.165,7451.45774 256.442,7451.05762 256.724,7450.6635 C256.923,7450.38141 257.176,7450.3464 257.441,7450.44643 C257.62,7450.50845 259.895,7451.56477 259.991,7451.73382 C260.062,7451.85686 260.062,7452.43903 259.821,7453.12124 M254.002,7439 L253.997,7439 L253.997,7439 C248.484,7439 244,7443.48535 244,7449 C244,7451.18666 244.705,7453.21526 245.904,7454.86076 L244.658,7458.57687 L248.501,7457.3485 C250.082,7458.39482 251.969,7459 254.002,7459 C259.515,7459 264,7454.51465 264,7449 C264,7443.48535 259.515,7439 254.002,7439" id="whatsapp-[#128]">
+
+                                </path>
+                                </g>
+                            </g>
+                        </g>
+                    </svg>
+                    <a href="https://wa.me/524423708984" target="_blank">442 370 8984</a>
+                </p>
+            </div>
+        </div>
+
+        <!-- 🔹 Columna 2: Servicios -->
+        <div class="footer-column">
+            <h4>Servicios</h4>
+            <ul>
+                <li><a href="https://www.dreaminmedia.com/index.php?page=index/desarrollo-web-apps">Desarrollo de Web Apps</a></li>
+                <li><a href="https://www.dreaminmedia.com/index.php?page=index/desarrollo-apps">Desarrollo de Apps</a></li>
+                <li><a href="https://www.dreaminmedia.com/index.php?page=index/desarrollo-apps">Desarrollo de PWA</a></li>
+                <li><a href="https://www.dreaminmedia.com/index.php?page=index/optimizacion-seo">Optimización de Sitios</a></li>
+                <li><a href="https://www.dreaminmedia.com/index.php?page=index/optimizacion-seo">SEO y Posicionamiento</a></li>
+                <!--<li><a href="#">Diseño UX/UI</a></li>-->
+                <li><a href="https://www.dreaminmedia.com/index.php?page=index/contacto">Consultoría Digital</a></li>
+            </ul>
+        </div>
+
+        <!-- 🔗 Columna 3: Enlaces Útiles -->
+        <div class="footer-column">
+            <h4>Enlaces</h4>
+            <ul>
+                <li><a href="https://www.dreaminmedia.com/index.php?page=user/login">Área de Clientes</a></li>
+                <li><a href="/portafolio">Portafolio</a></li>
+                <li><a href="/blog">Blog</a></li>
+                <li><a href="https://www.dreaminmedia.com/index.php?page=user/login">Ayuda</a></li>
+                <li><a href="/contacto">Contacto</a></li>
+            </ul>
+        </div>
+
+        <!-- 📌 Columna 4: Otro Menú -->
+        <div class="footer-column">
+            <h4>Más Información</h4>
+            <ul>
+                <li><a href="#">Nuestra Historia</a></li>
+                <li><a href="https://www.dreaminmedia.com/index.php?page=index/terminos-condiciones">Términos y Condiciones</a></li>
+                <li><a href="https://www.dreaminmedia.com/index.php?page=index/politica-privacidad">Política de Privacidad</a></li>
+                <li><a href="https://www.dreaminmedia.com/index.php?page=index/politica-cookies">Política de Cookies</a></li>
+                <li><a href="https://www.dreaminmedia.com/index.php?page=index/aviso-legal">Aviso Legal</a></li>
+                <!--<li><a href="https://www.dreaminmedia.com/index.php?page=index/bolsa-trabajo">Trabaja con Nosotros</a></li>-->
+            </ul>
+        </div>
+
+    </div>
+
+    <!-- 🔹 Derechos reservados -->
+    <div class="footer-bottom">
+        <p>&copy; 2025 DreaminMedia. Todos los derechos reservados.</p>
+    </div>
+</footer>
+
+    <div id="whatsapp-modal" class="modal hidden">
+      <div class="modal-content">
+        <span class="close" onclick="cerrarFormularioWhatsApp()">&times;</span>
+        <h3>Contáctanos por WhatsApp</h3>
+        <form id="whatsapp-form">
+          <input type="text" id="nombre" name="nombre" placeholder="Tu nombre" required>
+          <input type="text" id="telefono" name="telefono" placeholder="Teléfono" required>
+          <textarea id="mensaje" name="mensaje" placeholder="Tu mensaje" required></textarea>
+          <button type="submit">Enviar por WhatsApp</button>
+        </form>
+      </div>
+    </div>
+
+
+    <script src="https://www.google.com/recaptcha/api.js?render=6LfnR9IZAAAAADQrqtZ-w_nrgtHO5IIqrMqvJvn5"></script>
+
+    
+    <script src="/js/script.js"></script>
+
+    <script>
+        document.getElementById("menu-toggle").addEventListener("click", function() {
+            document.getElementById("menu").classList.toggle("activo");
+        });
+    </script>
+
+   <script>
+    document.addEventListener("scroll", () => {
+          const header = document.querySelector("header");
+          if (window.scrollY > 20) {
+            header.classList.add("scrolled");
+          } else {
+            header.classList.remove("scrolled");
+          }
+        });
+        </script>
+        
+        <script>
+            function abrirFormularioWhatsApp() {
+              document.getElementById("whatsapp-modal").classList.remove("hidden");
+            }
+
+            function cerrarFormularioWhatsApp() {
+              document.getElementById("whatsapp-modal").classList.add("hidden");
+            }
+
+            document.getElementById("whatsapp-form").addEventListener("submit", function(e) {
+              e.preventDefault();
+
+              grecaptcha.ready(function() {
+                grecaptcha.execute('6LfnR9IZAAAAADQrqtZ-w_nrgtHO5IIqrMqvJvn5', {action: 'submit'}).then(async function(token) {
+                  const nombre = document.getElementById("nombre").value;
+                  const telefono = document.getElementById("telefono").value;
+                  const mensaje = document.getElementById("mensaje").value;
+
+                  // Enviar al backend junto con el token
+                  await fetch("https://www.dreaminmedia.com/index.php?page=index/guardar-contacto", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ nombre, telefono, mensaje, token })
+                  });
+
+                  const texto = encodeURIComponent(`Mi nombre es ${nombre} - ${mensaje}`);
+                  window.open(`https://api.whatsapp.com/send?phone=4423708984&text=${texto}`, "_blank");
+
+                  cerrarFormularioWhatsApp();
+                });
+              });
+            });
+        </script>
+
+
+
+
+</body>
+</html>
+<script type="text/javascript">
+  gtag("event", "error_404", {
+    page_path: window.location.pathname,
+  });
+</script>

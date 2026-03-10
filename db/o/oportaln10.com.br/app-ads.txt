@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jarvis N10 | SEO AI Console</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+    <div class="background-glow"></div>
+
+    <div class="app-container">
+        <aside class="sidebar glass">
+            <div class="brand-section">
+                <div class="logo-icon"><i class="fa-solid fa-atom fa-spin-pulse" style="--fa-animation-duration: 3s;"></i></div>
+                <div class="logo-text">JARVIS <span>N10</span></div>
+            </div>
+
+            <div class="sidebar-content">
+                <div class="site-selector">
+                    <label>PROPRIEDADE ATIVA</label>
+                    <div class="custom-select">
+                        <select id="site-select">
+                            <option disabled selected>Carregando propriedades...</option>
+                        </select>
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </div>
+                </div>
+
+                <div id="google-status-card" class="status-card glass-panel disconnected">
+                    <div class="status-icon"><i class="fa-brands fa-google"></i></div>
+                    <div class="status-info">
+                        <span class="label">Conexão Google API</span>
+                        <span id="g-status-text" class="value">Verificando...</span>
+                    </div>
+                    <div class="status-indicator"></div>
+                </div>
+
+                <nav class="main-nav">
+                    <div class="nav-group">
+                        <label>INTELIGÊNCIA</label>
+                        <a href="#" class="nav-item active" data-view="overview">
+                            <i class="fa-solid fa-chart-pie"></i> <span>Visão Geral</span>
+                        </a>
+                        <a href="#" class="nav-item" data-view="audit">
+                            <i class="fa-solid fa-microscope"></i> <span>Auditoria Técnica</span>
+                        </a>
+                        <a href="#" class="nav-item highlight-item" data-view="missions">
+                            <i class="fa-solid fa-wand-magic-sparkles"></i> <span>Agente de IA</span>
+                            <span class="nav-badge pulse-badge" id="missions-count">0</span>
+                        </a>
+                        <a href="#" class="nav-item" data-view="anomalies">
+                            <i class="fa-solid fa-wave-square"></i> <span>Anomalias</span>
+                            <span class="nav-badge" id="anomalies-count" style="display:none">0</span>
+                        </a>
+                    </div>
+
+                    <div class="nav-group">
+                        <label>ESTRATÉGIA</label>
+                        <a href="#" class="nav-item" data-view="content-gaps">
+                            <i class="fa-solid fa-bullseye"></i> <span>Lacunas & Oportunidades</span>
+                        </a>
+                        <a href="#" class="nav-item" data-view="backlinks">
+                            <i class="fa-solid fa-link"></i> <span>Autoridade & Links</span>
+                        </a>
+                        <a href="#" class="nav-item" data-view="structure">
+                            <i class="fa-solid fa-sitemap"></i> <span>Clusters Semânticos</span>
+                        </a>
+                    </div>
+                </nav>
+            </div>
+
+            <div class="sidebar-footer">
+                <button id="trigger-audit-btn" class="btn-primary full-width glow-effect">
+                    <i class="fa-solid fa-rocket"></i> <span>Rodar Análise Profunda</span>
+                </button>
+                <div class="system-status">
+                    <span class="status-dot online"></span>
+                    <span class="status-text">Sistema Operacional • v5.0</span>
+                </div>
+            </div>
+        </aside>
+
+        <main class="main-area">
+            <header class="top-header glass">
+                <div class="header-left">
+                    <h1 id="page-title">Dashboard</h1>
+                    <div class="breadcrumbs">
+                        <span id="current-site-name">Selecione um site</span>
+                        <i class="fa-solid fa-angle-right"></i>
+                        <span id="current-view-name">Visão Geral</span>
+                    </div>
+                </div>
+                <div class="header-right">
+                    <div class="last-update glass-panel">
+                        <i class="fa-regular fa-clock"></i>
+                        <span>Atualizado:</span>
+                        <strong id="last-updated">--:--</strong>
+                    </div>
+                    <button id="refresh-btn" class="btn-icon glass-btn" title="Atualizar Dados">
+                        <i class="fa-solid fa-rotate-right"></i>
+                    </button>
+                </div>
+            </header>
+
+            <div class="content-scroll">
+                <div id="loader" class="loader-overlay">
+                    <div class="loader-content glass-panel">
+                        <div class="spinner"></div>
+                        <p>Processando dados neurais...</p>
+                    </div>
+                </div>
+
+                <div id="view-container" class="dashboard-grid fade-in">
+                    </div>
+            </div>
+        </main>
+    </div>
+
+    <div id="ai-modal" class="modal-overlay">
+        <div class="modal-window glass-panel">
+            <header class="modal-header">
+                <div class="modal-title">
+                    <i class="fa-solid fa-robot"></i>
+                    <span>Editor Assistido por IA</span>
+                </div>
+                <button class="close-modal"><i class="fa-solid fa-xmark"></i></button>
+            </header>
+            <div class="modal-body" id="modal-content">
+                </div>
+            <footer class="modal-footer">
+                <button class="btn-secondary close-modal">Cancelar</button>
+                <button id="btn-apply-fix" class="btn-primary">Autorizar Correção</button>
+            </footer>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="assets/js/app.js"></script>
+</body>
+</html>

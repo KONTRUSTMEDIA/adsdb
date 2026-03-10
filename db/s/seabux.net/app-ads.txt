@@ -1,0 +1,392 @@
+
+
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    
+
+    
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>multi faucets</title>
+            <link rel="canonical" href="https://seabux.net/" />
+        <link rel="stylesheet" href="//cdn.jsdelivr.net/bootstrap/3.3.4/css/bootstrap.min.css" />
+    <script src="//cdn.jsdelivr.net/jquery/2.1.4/jquery.min.js"></script>
+    <script src="//cdn.jsdelivr.net/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+                <link rel="stylesheet" href="templates/default/palettes/yeti.css" />
+        <style type="text/css">
+        html {
+            position: relative;
+            min-height: 100%;
+        }
+
+        body .footer {
+            position: absolute;
+            bottom: 0px;
+            padding: 5px 0;
+        }
+
+        .row>div {
+            padding: 30px;
+        }
+
+        .bg-black {
+            background: #000;
+        }
+
+        .bg-white {
+            background: #fff;
+        }
+
+        .text-black {
+            color: #000;
+        }
+
+        .text-white {
+            color: #fff;
+        }
+
+        .admin_link {
+            position: fixed;
+            bottom: 0px;
+            right: 0px;
+            z-index: 2;
+            text-shadow: 0px -1px 0px rgba(0, 0, 0, .5), 0px 1px 0px rgba(255, 255, 255, .5);
+        }
+
+        #recaptcha_area {
+            margin: 0 auto;
+        }
+
+        #captchme_widget_div {
+            margin: 0 auto;
+            width: 315px;
+        }
+
+        #adcopy-outer {
+            margin: 0 auto !important;
+        }
+
+        .g-recaptcha {
+            width: 304px;
+            margin: 0 auto;
+        }
+
+        .ablinksgroup {
+            text-align: center;
+        }
+
+        .ablinksgroup div {
+            display: inline-block;
+        }
+
+        .shortlink {
+            margin-left: auto;
+            margin-right: auto;
+            background-image: url(templates/default/shortlink.png);
+            background-position: right center;
+            background-repeat: no-repeat;
+        }
+
+        .step1,
+        .step2 {
+            padding: 5px;
+            margin-bottom: 20px;
+        }
+
+        .step_head {
+            font-weight: bold;
+            font-size: 20px;
+        }
+
+        .step2_in,
+        .step1_in {
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            width: 100%;
+            min-height: 100%;
+            text-align: center;
+            border: 2px solid #000000;
+            border-radius: 10px;
+            background: repeating-linear-gradient(45deg, rgba(222, 222, 222, 0.6), rgba(222, 222, 222, 0.6) 20px, rgba(111, 111, 111, 0.9) 20px, rgba(111, 111, 111, 0.9) 40px);
+            font-size: 30px;
+            padding-top: 1px;
+            text-shadow: 1px 1px 5px #FFFFFF;
+        }
+
+        .step1_in {
+            text-shadow: 1px 1px 10px #FFFFFF;
+            background: rgba(255, 128, 128, 0.9);
+            font-size: 18px;
+        }
+
+        #recent-payouts,
+        #referred-users {
+            margin-bottom: 10px;
+        }
+
+        #recent-payouts h3,
+        #referred-users h3 {
+            color: #999999;
+            font-weight: bold;
+        }
+
+        .recent-payouts,
+        .referred-users {
+            width: 100%;
+            border: 1px solid #AAAAAA;
+        }
+
+        .recent-payouts th,
+        .referred-users th {
+            padding: 3px;
+            background-color: rgba(160, 160, 160, 0.2);
+        }
+
+        .list-odd td {
+            background-color: rgba(240, 240, 240, 0.2);
+            padding: 3px;
+            border-top: 1px solid #AAAAAA;
+        }
+
+        .list-even td {
+            background-color: rgba(180, 180, 180, 0.2);
+            padding: 3px;
+            border-top: 1px solid #AAAAAA;
+        }
+
+        .list-left {
+            width: 28%;
+            text-align: left;
+        }
+
+        .list-center {
+            width: 50%;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .list-right {
+            width: 22%;
+            text-align: right;
+        }
+
+        span.line {
+            display: inline-block;
+        }
+
+        /* custom_css */
+/* center everything! */
+.row {
+    text-align: center;
+}
+#recaptcha_widget_div, #recaptcha_area {
+    margin: 0 auto;
+}
+/* do not center lists */
+ul, ol {
+    text-align: left;
+}    </style>
+    <script>
+        $(function() {
+            $('form[method="POST"]').submit(function() {
+                var el = $('form[method="POST"] input[type=text][name!=address]:first');
+                var addr = el.val();
+                if (((addr.length < 1) || (addr.length > 110)) && (addr.indexOf('EC-UserId-') != 0)) {
+                    el.focus();
+                    return false;
+                }
+            });
+            setTimeout(function() {
+                $('input[type=text]').keypress(function(e) {
+                    if (e.which == 13) {
+                        return false;
+                    }
+                });
+            }, 1000);
+        });
+    </script>
+    </head>
+
+<body class=" bg-black text-black">
+            <nav class="navbar navbar-fixed navbar-default" role="navigation">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="./">
+                        multi faucets                    </a>
+                </div>
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                                                    <li><a href="?p=topcryptogainersandlosers">top crypto gainers and losers</a></li>
+                                                    <li><a href="?p=cryptofaucets">crypto faucets</a></li>
+                                                    <li><a href="?p=cryptoexchanges">crypto exchanges</a></li>
+                                                    <li><a href="?p=cryptocalculator">crypto calculator</a></li>
+                                                    <li><a href="?p=crypto-livechart">crypto-live chart</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </nav>
+        <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-12  "></div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-md-6 col-md-push-3 bg-black text-success">
+                                    <h1>multi faucets</h1>
+                    <h2>earn money by claiming different faucets...there are multifaucets available with 0 to 180 minutes timer....claim by your convience....instant payment to your faucet pay account</h2>
+                    <p class="alert alert-info">[BTC] Balance: N/A satoshi</p>
+                    <p class="alert alert-success">10 (90%), 50 (10%) satoshi every 0 minutes.<br />100 daily claims left.</p>
+                                                                        <p class="alert alert-danger"> <a href="admin.php"></a> </p>
+                                  
+            </div>
+            <div class="col-xs-6 col-md-3 col-md-pull-6  "></div>
+            <div class="col-xs-6 col-md-3  "></div>
+        </div>
+       
+    <div class="footer text-center col-xs-12  ">
+            </div>
+            
+    
+   
+        
+    
+</body>
+
+</html>
+    
+
+                    
+
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Crypto Faucets — Verified List</title>
+  <style>
+    body { font-family: system-ui, Arial; background: #0b0e1a; margin: 0; padding: 24px; color: #fff; }
+    .wrap { max-width: 1100px; margin: 0 auto; background: #14182b; padding: 22px; border-radius: 16px; box-shadow:0 10px 40px rgba(0,0,0,0.45);}
+    h1 { text-align: center; margin: 0 0 20px; font-size: 30px; font-weight: 700; color: #49d9ff; text-shadow:0 0 10px #1aa4ff;}
+    table { width: 100%; border-collapse: collapse; margin-top: 12px; }
+    th, td { padding: 12px; border-bottom: 1px solid #262b45; text-align: left; font-size: 16px; }
+    th { text-transform: uppercase; letter-spacing: 1px; background: #1f2440; color: #79e2ff; font-weight: 700; }
+    tr:hover { background: #1e2342; }
+    .name { font-weight: 700; color: #4dffcf; }
+    .coin { font-weight: 700; color: #ffd86d; }
+    .interval { color: #9bc5ff; }
+    .reward { color: #ff9ecd; font-weight: 700; }
+    a { color: #80a8ff; text-decoration: none; font-weight: 600; }
+    a:hover { text-decoration: underline; }
+    .tag { display: inline-block; padding: 3px 8px; border-radius: 6px; font-size: 12px; margin-left: 6px; }
+    .multi { background: #4d4dff; color: #fff; }
+    .fast { background: #00c16e; color: #fff; }
+    .premium { background: #ff5e5e; color: #fff; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Crypto Faucets (Verified / Working)</h1>
+    <table>
+      <thead>
+        <tr><th>#</th><th>Faucet</th><th>Coin</th><th>Interval</th><th>Payout Type</th><th>Visit</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td class="name">FireFaucet <span class="tag multi">Multi</span></td>
+          <td class="coin">Multi</td>
+          <td class="interval">Auto-claim / Tasks</td>
+          <td class="reward">Multiple Crypto</td>
+          <td><a href="https://firefaucet.win" target="_blank">firefaucet.win</a></td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td class="name">FreeBitco.in</td>
+          <td class="coin">BTC</td>
+          <td class="interval">60 Min</td>
+          <td class="reward">Satoshis / Roll</td>
+          <td><a href="https://freebitco.in" target="_blank">freebitco.in</a></td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td class="name">Cointiply</td>
+          <td class="coin">Multi</td>
+          <td class="interval">Hourly / Tasks</td>
+          <td class="reward">Offers + Faucet</td>
+          <td><a href="https://cointiply.com" target="_blank">cointiply.com</a></td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td class="name">FaucetPay</td>
+          <td class="coin">Multi</td>
+          <td class="interval">Varies</td>
+          <td class="reward">Micro-wallet / Many Faucets</td>
+          <td><a href="https://faucetpay.io" target="_blank">faucetpay.io</a></td>
+        </tr>
+        <tr>
+          <td>5</td>
+          <td class="name">CoinPayU <span class="tag fast">Fast</span></td>
+          <td class="coin">BTC / ETH</td>
+          <td class="interval">PTC / Shortlinks</td>
+          <td class="reward">Ad-Clicks</td>
+          <td><a href="https://coinpayu.com" target="_blank">coinpayu.com</a></td>
+        </tr>
+        <tr>
+          <td>6</td>
+          <td class="name">AllCoins.pw</td>
+          <td class="coin">Many Altcoins</td>
+          <td class="interval">Auto / Manual</td>
+          <td class="reward">Rotating Coins</td>
+          <td><a href="https://allcoins.pw" target="_blank">allcoins.pw</a></td>
+        </tr>
+        <tr>
+          <td>7</td>
+          <td class="name">SatoshiHero</td>
+          <td class="coin">BTC</td>
+          <td class="interval">Quests / Mini Games</td>
+          <td class="reward">Satoshis + Bonus</td>
+          <td><a href="https://satoshihero.com" target="_blank">satoshihero.com</a></td>
+        </tr>
+        <tr>
+          <td>8</td>
+          <td class="name">RollerCoin</td>
+          <td class="coin">BTC / ETH / DOGE</td>
+          <td class="interval">Games</td>
+          <td class="reward">Mining-Game Payout</td>
+          <td><a href="https://rollercoin.com" target="_blank">rollercoin.com</a></td>
+        </tr>
+        <tr>
+          <td>9</td>
+          <td class="name">VoltFaucet</td>
+          <td class="coin">Multi</td>
+          <td class="interval">Claims / Wheel / Tasks</td>
+          <td class="reward">Multiple Coins</td>
+          <td><a href="https://voltfaucet.com" target="_blank">voltfaucet.com</a></td>
+        </tr>
+        <tr>
+          <td>10</td>
+          <td class="name">ClaimFreeCoins</td>
+          <td class="coin">Multi</td>
+          <td class="interval">Hourly</td>
+          <td class="reward">Varied</td>
+          <td><a href="https://claimfreecoins.io" target="_blank">claimfreecoins.io</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</body>
+</html>
+
+
+
+

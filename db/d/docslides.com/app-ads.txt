@@ -1,0 +1,933 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+<link rel="canonical" href="https://www.docslides.com">
+<meta property="og:title" content="DocSlides - Upload and Share PowerPoint Presentations (PPT) and PDF Documents">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://www.docslides.com">
+<meta property="og:description" content="DocSlides allows people to upload and share PowerPoint presentations and PDF documents. Easily share or embed uploaded documents with the world.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DocSlides - Upload and Share PowerPoint Presentations (PPT) and PDF Documents</title>
+    <meta name="robots" content="index, follow">
+    <meta name="description" content="DocSlides allows people to upload and share PowerPoint presentations and PDF documents. Easily share or embed uploaded documents with the world.">
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/assets/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+
+        /* Header */
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: linear-gradient(90deg, #004d40, #447068);
+            padding: 12px 15px;
+            color: white;
+            width: 100%;
+        }
+
+        .logo img {
+            height: 35px;
+        }
+        .fa-search{    font-size: 25px;
+            margin-top: 2px;
+        }
+
+        /* Center Navigation + Search in Desktop */
+        .center-container {
+            display: flex;
+            flex: 1;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Navigation */
+        .nav-links {
+            list-style: none;
+            display: flex;
+            margin-left: 20px;
+        }
+
+        .nav-links li {
+            margin: 0 10px;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        /* Search Box (Desktop) */
+        .search-box {
+            display: flex;
+            align-items: center;
+            margin-left: 15px;
+        }
+
+        .search-box input {
+            width: 250px;
+            padding: 6px;
+            border: none;
+            border-radius: 5px;
+        }
+
+        .search-box button {
+            border: none;
+            background: none;
+            cursor: pointer;
+            color: white;
+            margin-left: 5px;
+        }
+
+        /* Right-side Icons */
+        .right-icons {
+            display: flex;
+            align-items: center;
+        }
+
+        /* Auth Links */
+        .auth-links {
+            display: flex;
+            align-items: center;
+            margin-right: 10px;
+        }
+
+        .auth-links a {
+            color: white;
+            text-decoration: none;
+            margin-left: 10px;
+            padding: 6px 10px;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        .login {
+            background-color: #555;
+        }
+
+        .upload {
+            background-color: #f39c12;
+        }
+
+        /* Mobile Design */
+        .hamburger, .mobile-search-icon {
+            font-size: 22px;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+
+        /* Hide Hamburger and Mobile Search on Desktop */
+        .hamburger, .mobile-search-icon {
+            display: none;
+        }
+
+        /* Mobile Search Box */
+        .mobile-search-box {
+            display: none;
+            width: 100%;
+            text-align: center;
+            padding: 10px;
+            background-color: #004d40;
+        }
+
+        .mobile-search-box input {
+            width: 85%;
+            padding: 6px;
+            border-radius: 5px;
+        }
+
+        @media (max-width: 768px) {
+            /* Hide Desktop Search, Show Mobile Search Icon */
+            .search-box {
+                display: none;
+            }
+
+            .mobile-search-icon {
+                display: block;
+            }
+
+            /* Mobile Menu */
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 55px;
+                right: 0;
+                background-color: #175b51;
+                width: 40%;
+                text-align: center;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-links li {
+                padding: 8px;
+            }
+
+            /* Move hamburger and search to right */
+            .right-icons {
+                display: flex;
+            }
+
+            .hamburger {
+                display: block;
+            }
+
+            .header {
+                flex-wrap: wrap;
+                justify-content: space-between;
+            }
+        }
+
+        @media (max-width: 470px) {
+            .header {
+                padding: 10px;
+            }
+
+            .logo img {
+                height: 30px;
+            }
+
+            .auth-links a {
+                font-size: 12px;
+                padding: 5px 8px;
+            }
+
+            .hamburger, .mobile-search-icon {
+                font-size: 20px;
+            }
+        }
+
+
+
+        /* Main Layout */
+        .content {
+            display: flex;
+            width: 90%;
+            margin: 20px auto;
+            gap: 20px;
+            align-items: flex-start;
+
+        }
+
+/* Footer Styling */
+    .footer {
+        background: linear-gradient(90deg, #004d40, #447068);
+        color: white;
+        text-align: center;
+        padding: 15px 20px;
+        width: 100%;
+    }
+
+    .footer a {
+        color: #ffeb3b;
+        text-decoration: none;
+        transition: color 0.3s ease;
+    }
+
+    .footer a:hover {
+        color: #ffffff;
+    }
+
+    .footer-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .footer-links {
+        list-style: none;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 15px;
+        padding: 0;
+        margin: 0;
+    }
+
+    @media (min-width: 768px) {
+        .footer-content {
+            flex-direction: row;
+            justify-content: space-between;
+        }
+    }
+
+.thumbnail-item {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Ensure text aligns left */
+    background: white;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    text-align: left;
+    height: 300px;
+    margin-bottom: 20px;
+    gap: 10px; /* Add spacing between elements */
+}
+
+.thumbnail-item img {
+    width: 100%;
+    border-radius: 10px;
+    height: auto;
+}
+
+.rbt-meta {
+    list-style: none;
+    padding: 0;
+    margin: 10px 0;
+    display: flex;
+    gap: 10px;
+    font-size: 14px;
+    color: #555;
+}
+
+.rbt-meta li {
+    display: flex;
+    align-items: center;
+}
+
+.rbt-meta i {
+    margin-right: 5px;
+    color: #007bff; /* Adjust icon color */
+}
+
+.thumbnail-item h3 {
+    font-size: 18px;
+    font-weight: bold;
+    color: #222;
+    margin: 5px 0;
+}
+
+.thumbnail-item p {
+    font-size: 14px;
+    color: #666;
+    margin: 0;
+}
+
+        @media (max-width: 768px) {
+            .content {
+                flex-direction: column;
+                align-items: center;
+            }
+            .thumbnail-item {
+                width: 90%;
+            }
+        }
+ .content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            padding: 20px;
+            justify-content: center;
+        }
+/* General Banner Styles */
+.rbt-banner-5 {
+    background-color: #216558;
+    background-image: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23ffffff" fill-opacity="0.2" d="M0,288L48,266.7C96,245,192,203,288,165.3C384,128,480,96,576,117.3C672,139,768,213,864,218.7C960,224,1056,160,1152,149.3C1248,139,1344,181,1392,202.7L1440,224L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: bottom;
+    height: 370px;
+    display: flex;
+    align-items: center;
+    color: white;
+    padding: 40px 70px;
+}
+
+/* Container and Text Alignment */
+.rbt-banner-5 .inner {
+    max-width: 800px;
+}
+
+.rbt-banner-5 .title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.rbt-banner-5 .title span {
+    text-decoration: underline;
+}
+
+.rbt-banner-5 .description {
+    font-size: 1.2rem;
+    line-height: 1.6;
+    margin-bottom: 25px;
+}
+
+/* Buttons */
+.rbt-btn {
+    display: inline-flex;
+    align-items: center;
+    font-size: 1rem;
+    font-weight: 600;
+    padding: 12px 20px;
+    border: 2px solid white;
+    border-radius: 50px;
+    color: white;
+    text-decoration: none;
+    transition: all 0.3s ease-in-out;
+}
+
+.rbt-btn .btn-icon {
+    margin-left: 10px;
+}
+
+.rbt-btn:hover {
+    background: white;
+    color: #216558;
+}
+
+.rbt-btn-link {
+    font-size: 1rem;
+    margin-left: 15px;
+    text-decoration: none;
+    color: white;
+    transition: color 0.3s ease-in-out;
+}
+
+.rbt-btn-link:hover {
+    color: #ddd;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .rbt-banner-5 {
+        height: auto;
+        padding: 60px 20px;
+        text-align: center;
+    }
+
+    .rbt-banner-5 .title {
+        font-size: 2rem;
+    }
+
+    .rbt-btn-group {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .rbt-btn {
+        margin-bottom: 10px;
+    }
+}
+.thumb{height:208px;overflow: hidden;}
+/* Testimonial Section */
+.rbt-testimonial-area {
+    background-color: #f8f9fa;
+    padding: 60px 0;
+    width:100%;
+    border-radius: 10px;
+}
+
+.rbt-testimonial-area .section-title {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.rbt-testimonial-area .section-title .title {
+    font-size: 28px;
+    font-weight: bold;
+    color: #333;
+}
+
+.rbt-testimonial-area .section-title .description {
+    font-size: 16px;
+    color: #666;
+}
+
+/* Testimonial Tiles Layout */
+.testimonial-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    justify-content: center;
+}
+
+/* Testimonial Card */
+.rbt-testimonial-box {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
+}
+
+.rbt-testimonial-box:hover {
+    transform: translateY(-5px);
+}
+
+/* Client Info */
+.clint-info-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.rbt-testimonial-area img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.client-info {
+    flex: 1;
+}
+
+.client-info .title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #222;
+    margin-bottom: 5px;
+}
+
+.client-info span {
+    font-size: 14px;
+    color: #555;
+}
+
+/* Description */
+.description p {
+    font-size: 16px;
+    color: #555;
+    margin-bottom: 15px;
+}
+
+/* Rating Stars */
+.rating i {
+    color: #FFD700;
+    font-size: 18px;
+}
+/* Section Styling */
+.signup-section {
+    text-align: center;
+    padding: 60px 20px;
+    background: linear-gradient(135deg, #007bff, #34685e);
+    color: white;
+    border-radius: 12px;
+    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.15);
+    width:100%;
+}
+
+.signup-section .title {
+    font-size: 28px;
+    font-weight: bold;
+    line-height: 1.4;
+    margin-bottom: 20px;
+}
+
+.signup-section .rbt-btn {
+    display: inline-flex;
+    align-items: center;
+    background: white;
+    color: #007bff;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 12px 25px;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: all 0.3s ease-in-out;
+}
+
+.signup-section .rbt-btn:hover {
+    background: #0056b3;
+    color: white;
+    transform: translateY(-3px);
+}
+
+.signup-section .btn-icon {
+    margin-left: 8px;
+    font-size: 18px;
+    transition: transform 0.3s ease-in-out;
+}
+
+.signup-section .rbt-btn:hover .btn-icon {
+    transform: translateX(5px);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .signup-section {
+        padding: 40px 15px;
+    }
+    .signup-section .title {
+        font-size: 22px;
+    }
+    .signup-section .rbt-btn {
+        font-size: 16px;
+        padding: 10px 20px;
+    }
+}
+
+
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="logo">
+            <a href="/"><img src="/images/logo-white.png" alt="DocSlides"></a>
+        </div>
+        <div class="center-container">
+            <!-- Desktop Search -->
+            <div class="search-box">
+                <input type="text" placeholder="Search Contents">
+                <button><i class="fa fa-search"></i></button>
+            </div>
+            <!-- Navigation -->
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="/featured">Featured</a></li>
+                    <li><a href="/browse">Recent</a></li>
+                    <li><a href="/articles">Articles</a></li>
+                    <li><a href="/search/topics">Topics</a></li>
+                </ul>
+            </nav>
+        </div>
+        <!-- Right-side icons -->
+        <div class="right-icons">
+            <!-- Auth Links -->
+            <div class="auth-links">
+                <a href="/login" class="login">Login</a>
+                <a href="/upload" class="upload">Upload</a>
+            </div>
+
+            <!-- Mobile Icons -->
+            <div class="hamburger" onclick="toggleMenu()"><i class="fa fa-bars"></i></div>
+            <div class="mobile-search-icon" onclick="toggleMobileSearch()"><i class="fa fa-search"></i></div>
+        </div>
+    </header>
+
+    <!-- Mobile Search Box (Hidden by default) -->
+    <div class="mobile-search-box" id="mobileSearchBox">
+        <input type="text" placeholder="Search Contents">
+        <button><i class="fa fa-search"></i></button>
+    </div>
+<div class="rbt-banner-5 height-650" style="background-color: #216558;">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="inner text-start">
+                        <h2 class="title"><span class="text-decoration-underline">DocSlides</span> Smart Way to Share Contents Online</h2>
+                        <p class="description">Upload and share your PowerPoint presentations and documents online. It’s free and simple!</p>
+                        <div class="slider-btn rbt-button-group justify-content-start">
+                            <a class="rbt-btn btn-border icon-hover color-white radius-round" href="/upload">
+                                <span class="btn-text">Upload Now</span>
+                                <span class="btn-icon"><i class="feather-arrow-right"></i></span>
+                            </a>
+                            <a class="rbt-btn-link color-white" href="/browse">Explore Contents<i class="feather-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  <div class="content">
+
+
+<div class="section-title text-start" style="width: 100%;">
+        <h2 class="title">Featured Contents</h2>
+        <p class="description mt--20">Explore our curated selection of top presentations and documents.</p>
+    </div>
+    
+        <div class="thumbnail-item">
+          <div class="thumb">
+          <a href="/view/introduction-and-preparation-of-trading-account-1083295" title="Introduction and Preparation of Trading Account">
+            <img src="https://thumbs.docslides.com/1083295/introduction-and-preparation-of-trading-account-1083295.jpg" alt="Introduction and Preparation of Trading Account">
+<ul class="rbt-meta"  ></a></div>
+  <ul class="rbt-meta">
+                                <li><i class="feather-book"></i>lois-ondreau</li>
+                                <li><i class="feather-users"></i>10 Slides </li>
+                            </ul>
+            <h3>Introduction and Preparation of Trading Account</h3>
+         </div>
+       
+        <div class="thumbnail-item">
+          <div class="thumb">
+          <a href="/view/basic-of-electronics-current-resistance-recap-2" title="Basic of Electronics Current & Resistance Recap 2">
+            <img src="https://thumbs.docslides.com/1083234/basic-of-electronics-current-resistance-recap-2.jpg" alt="Basic of Electronics Current & Resistance Recap 2">
+<ul class="rbt-meta"  ></a></div>
+  <ul class="rbt-meta">
+                                <li><i class="feather-book"></i>mitsue-stanley</li>
+                                <li><i class="feather-users"></i>10 Slides </li>
+                            </ul>
+            <h3>Basic of Electronics Current & Resistance Recap 2</h3>
+         </div>
+       
+        <div class="thumbnail-item">
+          <div class="thumb">
+          <a href="/view/mass-customization-through-devops-presented-by" title="Mass Customization through DevOps  ">
+            <img src="https://thumbs.docslides.com/1083212/mass-customization-through-devops-presented-by.jpg" alt="Mass Customization through DevOps  ">
+<ul class="rbt-meta"  ></a></div>
+  <ul class="rbt-meta">
+                                <li><i class="feather-book"></i>kittie-lecroy</li>
+                                <li><i class="feather-users"></i>10 Slides </li>
+                            </ul>
+            <h3>Mass Customization through DevOps  </h3>
+         </div>
+       
+        <div class="thumbnail-item">
+          <div class="thumb">
+          <a href="/view/towards-trusted-cloud-computing-nuno-santos" title="Towards trusted cloud computing">
+            <img src="https://thumbs.docslides.com/1083187/towards-trusted-cloud-computing-nuno-santos.jpg" alt="Towards trusted cloud computing">
+<ul class="rbt-meta"  ></a></div>
+  <ul class="rbt-meta">
+                                <li><i class="feather-book"></i>test</li>
+                                <li><i class="feather-users"></i>10 Slides </li>
+                            </ul>
+            <h3>Towards trusted cloud computing</h3>
+         </div>
+       
+        <div class="thumbnail-item">
+          <div class="thumb">
+          <a href="/dstech/robotaxi-concept-tesla-s-latest-self-driving-dream" title="robotaxi concept - Tesla’s latest self-driving dream">
+            <img src="https://thumbs.docslides.com/1068803/robotaxi-concept-tesla-s-latest-self-driving-dream.jpg" alt="robotaxi concept - Tesla’s latest self-driving dream">
+<ul class="rbt-meta"  ></a></div>
+  <ul class="rbt-meta">
+                                <li><i class="feather-book"></i>dstech</li>
+                                <li><i class="feather-users"></i>9 Slides </li>
+                            </ul>
+            <h3>robotaxi concept - Tesla’s latest self-driving dream</h3>
+         </div>
+       
+        <div class="thumbnail-item">
+          <div class="thumb">
+          <a href="/dshistory/historical-photos-by-rebekah-raiche" title="Historical Photos by Rebekah Raiche">
+            <img src="https://thumbs.docslides.com/1068778/historical-photos-by-rebekah-raiche.jpg" alt="Historical Photos by Rebekah Raiche">
+<ul class="rbt-meta"  ></a></div>
+  <ul class="rbt-meta">
+                                <li><i class="feather-book"></i>dshistory</li>
+                                <li><i class="feather-users"></i>11 Slides </li>
+                            </ul>
+            <h3>Historical Photos by Rebekah Raiche</h3>
+         </div>
+       
+        <div class="thumbnail-item">
+          <div class="thumb">
+          <a href="/dstech/a-still-photographer-steps-into-video-slide-shows-and-virtual-choirs" title="A still photographer steps into video: Slide shows and virtual choirs">
+            <img src="https://thumbs.docslides.com/1068776/a-still-photographer-steps-into-video-slide-shows-and-virtual-choirs.jpg" alt="A still photographer steps into video: Slide shows and virtual choirs">
+<ul class="rbt-meta"  ></a></div>
+  <ul class="rbt-meta">
+                                <li><i class="feather-book"></i>dstech</li>
+                                <li><i class="feather-users"></i>32 Slides </li>
+                            </ul>
+            <h3>A still photographer steps into video: Slide shows and virtual choirs</h3>
+         </div>
+       
+        <div class="thumbnail-item">
+          <div class="thumb">
+          <a href="/eliza/100-years-of-wonder-amp-returning-for-2023" title="100  Years  of  Wonder   &amp; returning for 2023">
+            <img src="https://thumbs.docslides.com/1053642/100-years-of-wonder-amp-returning-for-2023.jpg" alt="100  Years  of  Wonder   &amp; returning for 2023">
+<ul class="rbt-meta"  ></a></div>
+  <ul class="rbt-meta">
+                                <li><i class="feather-book"></i>eliza</li>
+                                <li><i class="feather-users"></i>1 Slides </li>
+                            </ul>
+            <h3>100  Years  of  Wonder   &amp; returning for 2023</h3>
+         </div>
+       
+        <div class="thumbnail-item">
+          <div class="thumb">
+          <a href="/valerie/ants-anesthesiology-neuromuscular" title="ANTS Anesthesiology  Neuromuscular">
+            <img src="https://thumbs.docslides.com/1053298/ants-anesthesiology-neuromuscular.jpg" alt="ANTS Anesthesiology  Neuromuscular">
+<ul class="rbt-meta"  ></a></div>
+  <ul class="rbt-meta">
+                                <li><i class="feather-book"></i>valerie</li>
+                                <li><i class="feather-users"></i>51 Slides </li>
+                            </ul>
+            <h3>ANTS Anesthesiology  Neuromuscular</h3>
+         </div>
+       
+        <div class="thumbnail-item">
+          <div class="thumb">
+          <a href="/trinity/colorado-opioid-safety-collaborative" title="Colorado Opioid Safety Collaborative">
+            <img src="https://thumbs.docslides.com/1053282/colorado-opioid-safety-collaborative.jpg" alt="Colorado Opioid Safety Collaborative">
+<ul class="rbt-meta"  ></a></div>
+  <ul class="rbt-meta">
+                                <li><i class="feather-book"></i>trinity</li>
+                                <li><i class="feather-users"></i>31 Slides </li>
+                            </ul>
+            <h3>Colorado Opioid Safety Collaborative</h3>
+         </div>
+       
+        <div class="thumbnail-item">
+          <div class="thumb">
+          <a href="/helene/executive-briefing-healthcare-business-continuity" title="Executive Briefing Healthcare Business Continuity">
+            <img src="https://thumbs.docslides.com/1053250/executive-briefing-healthcare-business-continuity.jpg" alt="Executive Briefing Healthcare Business Continuity">
+<ul class="rbt-meta"  ></a></div>
+  <ul class="rbt-meta">
+                                <li><i class="feather-book"></i>helene</li>
+                                <li><i class="feather-users"></i>17 Slides </li>
+                            </ul>
+            <h3>Executive Briefing Healthcare Business Continuity</h3>
+         </div>
+       
+        <div class="thumbnail-item">
+          <div class="thumb">
+          <a href="/summer/preventing-and-treating-advanced-hiv-disease" title="Preventing and Treating Advanced HIV Disease">
+            <img src="https://thumbs.docslides.com/1033811/preventing-and-treating-advanced-hiv-disease.jpg" alt="Preventing and Treating Advanced HIV Disease">
+<ul class="rbt-meta"  ></a></div>
+  <ul class="rbt-meta">
+                                <li><i class="feather-book"></i>summer</li>
+                                <li><i class="feather-users"></i>18 Slides </li>
+                            </ul>
+            <h3>Preventing and Treating Advanced HIV Disease</h3>
+         </div>
+       
+        <div class="thumbnail-item">
+          <div class="thumb">
+          <a href="/ava/management-of-suicide-among-persons-with-addictive-disorders" title="Management of Suicide among Persons with Addictive Disorders">
+            <img src="https://thumbs.docslides.com/1000541/management-of-suicide-among-persons-with-addictive-disorders.jpg" alt="Management of Suicide among Persons with Addictive Disorders">
+<ul class="rbt-meta"  ></a></div>
+  <ul class="rbt-meta">
+                                <li><i class="feather-book"></i>ava</li>
+                                <li><i class="feather-users"></i>61 Slides </li>
+                            </ul>
+            <h3>Management of Suicide among Persons with Addictive Disorders</h3>
+         </div>
+       
+        <div class="thumbnail-item">
+          <div class="thumb">
+          <a href="/eliza/tunisia-egypt-across-europe" title="Tunisia Egypt Across Europe">
+            <img src="https://thumbs.docslides.com/1000531/tunisia-egypt-across-europe.jpg" alt="Tunisia Egypt Across Europe">
+<ul class="rbt-meta"  ></a></div>
+  <ul class="rbt-meta">
+                                <li><i class="feather-book"></i>eliza</li>
+                                <li><i class="feather-users"></i>51 Slides </li>
+                            </ul>
+            <h3>Tunisia Egypt Across Europe</h3>
+         </div>
+       
+        <div class="thumbnail-item">
+          <div class="thumb">
+          <a href="/daniella/how-to-de-risk-a-pension" title="How to De-Risk A Pension">
+            <img src="https://thumbs.docslides.com/1000527/how-to-de-risk-a-pension.jpg" alt="How to De-Risk A Pension">
+<ul class="rbt-meta"  ></a></div>
+  <ul class="rbt-meta">
+                                <li><i class="feather-book"></i>daniella</li>
+                                <li><i class="feather-users"></i>21 Slides </li>
+                            </ul>
+            <h3>How to De-Risk A Pension</h3>
+         </div>
+       
+        <div class="thumbnail-item">
+          <div class="thumb">
+          <a href="/dsnews/artificial-intelligence-academic-integrity-and-the-role-of-the-library" title="Artificial Intelligence, Academic Integrity, and the Role of the Library">
+            <img src="https://thumbs.docslides.com/980915/artificial-intelligence-academic-integrity-and-the-role-of-the-library.jpg" alt="Artificial Intelligence, Academic Integrity, and the Role of the Library">
+<ul class="rbt-meta"  ></a></div>
+  <ul class="rbt-meta">
+                                <li><i class="feather-book"></i>dsnews</li>
+                                <li><i class="feather-users"></i>30 Slides </li>
+                            </ul>
+            <h3>Artificial Intelligence, Academic Integrity, and the Role of the Library</h3>
+         </div>
+       
+
+
+    <div class="rbt-testimonial-area">
+      <div class="container">
+          <div class="section-title text-center">
+              <h2 class="title">See why people love DocSlides</h2>
+              <p class="description mt--20">DocSlides is the preferred platform for creators and businesses worldwide.</p>
+          </div>
+
+          <div class="testimonial-grid">
+
+              <!-- Single Testimonial Tile -->
+              <div class="rbt-testimonial-box">
+                  <div class="clint-info-wrapper">
+                      <div class="thumb">
+                          <img src="./assets/img/avatar-02.jpg" alt="Client Image">
+                      </div>
+                      <div class="client-info">
+                          <h5 class="title">Martha Maldonado</h5>
+                          <span>Executive Chairman <i>@ Google</i></span>
+                      </div>
+                  </div>
+                  <div class="description">
+                      <p>I recently discovered DocSlides.com, and it has completely transformed how I share and present my documents.</p>
+                      <div class="rating">
+                          <i class="fa fa-star"></i>
+                          <i class="fa fa-star"></i>
+                          <i class="fa fa-star"></i>
+                          <i class="fa fa-star"></i>
+                          <i class="fa fa-star"></i>
+                      </div>
+                  </div>
+              </div>
+
+              <!-- Another Testimonial Tile -->
+              <div class="rbt-testimonial-box">
+                  <div class="clint-info-wrapper">
+                      <div class="thumb">
+                          <img src="./assets/img/avatar-03.jpg" alt="Client Image">
+                      </div>
+                      <div class="client-info">
+                          <h5 class="title">Michael D. Lovelady</h5>
+                          <span>CEO <i>@ Google</i></span>
+                      </div>
+                  </div>
+                  <div class="description">
+                      <p>What I love most is the ability to share my content with a broader audience. The embedding options and sharing links are super convenient.</p>
+                      <div class="rating">
+                          <i class="fa fa-star"></i>
+                          <i class="fa fa-star"></i>
+                          <i class="fa fa-star"></i>
+                          <i class="fa fa-star"></i>
+                          <i class="fa fa-star"></i>
+                      </div>
+                  </div>
+              </div>
+
+              <!-- Add More Testimonial Tiles Here -->
+
+          </div>
+      </div>
+  </div>
+  <div class="signup-section">
+      <h2 class="title">Want to share your documents for Free<br>with a worldwide audience?</h2>
+      <a class="rbt-btn" href="/login">
+          Signup now for free! <span class="btn-icon"><i class="feather-arrow-right"></i></span>
+      </a>
+  </div>
+  </div>
+  <footer class="footer">
+    <div class="container">
+        <div class="footer-content">
+            <p>Copyright © 2025 <a href="#">DocSlides</a>. All Rights Reserved.</p>
+            <ul class="footer-links">
+                <li><a href="/terms">Terms of Service</a></li>
+                <li><a href="/privacy">Privacy Policy</a></li>
+                <li><a href="/contact">Contact Us</a></li>
+            </ul>
+        </div>
+    </div>
+</footer>
+</body>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-54S1K6SPFF"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-54S1K6SPFF');
+  </script>
+
+</html>

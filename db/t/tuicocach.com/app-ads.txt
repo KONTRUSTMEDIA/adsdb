@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TUICOCACH.COM - MMO, Hướng dẫn lập trình, Thủ thuật Internet</title>
+    <link rel="icon" href="https://tuicocach.com/wp-content/uploads/2023/09/cropped-favicon_tuicocach-1-192x192.png"/>
+    <meta name="description" content="TUI CÓ cÁCH - Blog tự học lập trình, chia sẻ kinh nghiệm kiếm tiền online(MMO), chia sẻ kiển thức và thủ thuật Công nghệ hữu ích...."/>
+    <meta name="author" content="TUI CÓ CÁCH">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="TUICOCACH.COM - MMO, Hướng dẫn lập trình, Thủ thuật Internet">
+    <meta property="og:description" content="TUI CÓ cÁCH - Blog tự học lập trình, chia sẻ kinh nghiệm kiếm tiền online(MMO), chia sẻ kiển thức và thủ thuật Công nghệ hữu ích....">
+    <meta property="og:image" content="https://tuicocach.com/wp-content/uploads/2023/09/icon-blog-tuicocach-cham-com.png">
+    <meta property="og:url" content="https://tuicocach.com/app-ads.txt/">
+    <link rel="stylesheet" href="https://tuicocach.com/vender/css/c8dc21d00d50a6e303757360f9a17d872.css">
+    <link rel="stylesheet" href="https://tuicocach.com/vender/css/3c53c32eb1836b353143ac74870d0ee51.css">
+    <meta name="google-site-verification" content="xLUOn724lCZRGN0Msu9ptVI1Ga9AjMhd2B_f6wVKcmY" />
+        
+    <style>
+.margin-right-10{
+    margin-right: 10px;
+}
+</style>    <style>
+    * {
+        box-sizing: border-box;
+    }
+    .comment-box {
+        margin: 40px auto;
+    }
+
+    .comment-item {
+        display: flex;
+        gap: 12px;
+        padding: 12px 0;
+        border-bottom: 1px solid #eee;
+    }
+
+    .comment-item:last-child {
+        border-bottom: none;
+    }
+
+    .avatar {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: #4f46e5;
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        flex-shrink: 0;
+    }
+
+    /*.comment-content {*/
+    /*    flex: 1;*/
+    /*}*/
+
+    .comment-content .name {
+        font-weight: 600;
+        margin-bottom: 4px;
+    }
+
+    .comment-content .text {
+        font-size: 16px;
+        color: #444;
+        line-height: 1.5;
+    }
+
+    .comment-form {
+        margin-top: 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .comment-form textarea,
+    .comment-form input {
+        resize: none;
+        border-radius: 8px;
+        border: 1px solid #ddd;
+        padding: 10px;
+        font-size: 16px;
+        width: 100%;
+    }
+
+    .comment-form textarea {
+        font-family: 'Times New Roman', Times, serif;
+        min-height: 80px;
+    }
+
+    .form-row {
+        display: flex;
+        gap: 10px;
+    }
+
+    .form-row input {
+        flex: 1;
+    }
+
+    .comment-form button {
+        align-self: flex-end;
+        border: none;
+        background: #4f46e5;
+        color: #fff;
+        padding: 10px 18px;
+        border-radius: 8px;
+        cursor: pointer;
+    }
+
+    .comment-form button:hover {
+        background: #4338ca;
+    }
+</style>    <script>
+    let BASE_URL = "https://tuicocach.com/";
+    let BASE_API_URL = BASE_URL + "api/";
+
+    function onClick(elementId, callBack = null){
+        const button = document.getElementById(elementId);
+
+        if (button){
+            button.removeEventListener('click', function (){});
+            button.addEventListener('click', function() {
+                if (callBack){
+                    callBack();
+                }
+            });
+        }
+    }
+
+    function onEnterInput(inputId, callback) {
+        const inputElement = document.getElementById(inputId);
+        if (inputElement) {
+            inputElement.addEventListener('keydown', function(event) {
+                if (event.key === 'Enter') {
+                    callback(event); // Gọi callback khi nhấn Enter
+                }
+            });
+        }
+    }
+
+
+    function htmlOnClick(selector, callback = null){
+        const element = document.querySelector(selector);
+        if (element) {
+            element.addEventListener('click', function(event) {
+                if (callback) {
+                    callback(event); // Gọi callback với tham số sự kiện
+                }
+            });
+        } else {
+            console.warn(`Element with selector "${selector}" not found.`);
+        }
+    }
+
+    function htmlToggleClass(selector, className){
+        document.querySelector(selector).classList.toggle(className);
+    }
+
+    function htmlRemoveClass(selector, className) {
+        const element = document.querySelector(selector);
+        if (element && className) {
+            const classes = className.split(" ");
+            classes.forEach(cls => {
+                element.classList.remove(cls.trim());
+            });
+        }
+    }
+
+    function htmlAddClass(selector, className) {
+        const element = document.querySelector(selector);
+        if (element && className) {
+            const classes = className.split(" ");
+            classes.forEach(cls => {
+                element.classList.add(cls.trim());
+            });
+        }
+    }
+
+    function htmlHasClass(selector, className) {
+        const element = document.querySelector(selector);
+        return element ? element.classList.contains(className) : false;
+    }
+
+    function htmlValue(inputId, value = null) {
+        const inputElement = document.getElementById(inputId);
+
+        if (!inputElement) {
+            return null;
+        }
+
+        if (value !== null) {
+            inputElement.value = value;
+        } else {
+            return inputElement.value;
+        }
+    }
+
+    function htmlInnerHTML(selector, html, selector_is_id = false) {
+        let element;
+        if (!selector_is_id){
+            element = document.querySelector(selector);
+        }else{
+            element = document.getElementById(selector);
+        }
+
+        if (element) {
+            element.innerHTML = html;
+        }
+    }
+
+
+
+    function reloadPage() {
+        window.location.reload();
+    }
+
+    function redirect(url) {
+        if (!url || typeof url !== 'string') {
+            return;
+        }
+        location.replace(url);
+    }
+
+    const getApi = async (url,  successCallback = null, errorCallback = null, alert_error = true, alert_success = false) => {
+        return await fetch(url, {
+            method: 'GET'
+        }).then(async function(res){
+            let rs = await res.json()
+            if ((!rs.status && alert_error) || (rs.status && alert_success)){
+                alert(rs.message);
+                if (errorCallback && !rs.status){
+                    errorCallback(rs['error_code'] ?? 0);
+                }
+            }
+            if (successCallback){
+                successCallback(rs.data ?? []);
+            }
+
+            return rs;
+        });
+    }
+
+    postApi = async (url, data, successCallback = null, errorCallback = null, alert_error = true, alert_success = false) => {
+        if (!isFormData(data)){
+            data = objectToFormData(data);
+        }
+
+        return await fetch(url, {
+            method: 'POST', body: data,
+        }).then(async function(res){
+            let rs = await res.json()
+            if ((!rs.status && alert_error) || (rs.status && alert_success)){
+                alert(rs.message);
+                if (errorCallback && !rs.status){
+                    errorCallback(rs['error_code'] ?? 0);
+                }
+            }
+            if (successCallback){
+                successCallback(rs.data ?? []);
+            }
+
+            return rs;
+        });
+    }
+
+    function isFormData(data) {
+        return Object.prototype.toString.call(data) === '[object FormData]';
+    }
+
+    function objectToFormData(jsonObject) {
+        // Tạo một đối tượng FormData mới
+        let formData = new FormData();
+
+        // Lặp qua các cặp khóa-giá trị trong object JSON và thêm chúng vào FormData
+        for (let key in jsonObject) {
+            formData.append(key, jsonObject[key]);
+        }
+
+        // Trả về đối tượng FormData đã được tạo
+        return formData;
+    }
+
+    function isValidLink(link) {
+        // Biểu thức chính quy kiểm tra định dạng link
+        var linkPattern = /^(http|https):\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,}(\/\S*)?$/;
+
+        // Kiểm tra xem link có khớp với định dạng hay không
+        return linkPattern.test(link);
+    }
+
+    function getCookie(name, return_default = null) {
+        var cookies = document.cookie.split(';');
+        for(var i = 0; i < cookies.length; i++) {
+            var cookie = cookies[i];
+            cookie = cookie.trim();
+            if (cookie.indexOf(name) === 0) {
+                return decodeURIComponent(cookie.substring(name.length + 1, cookie.length));
+            }
+        }
+        return return_default;
+    }
+
+    function setCookie(name, value, days = 3) {
+        var expires = '';
+        if (days) {
+            var date = new Date();
+            date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+            expires = '; expires=' + date.toUTCString();
+        }
+        document.cookie = name + '=' + (value || '') + expires + '; path=/';
+    }
+
+    function truncateString(inputString, max_length = 20, ellipsis = true) {
+        if (inputString.length > max_length) {
+            let outString =  inputString.substring(0, max_length);
+            if (ellipsis){
+                outString += '...';
+            }
+            return outString;
+        } else {
+            return inputString;
+        }
+    }
+
+    function formatToPlainText(string) {
+        return string.normalize('NFD')
+            .replace(/[\u0300-\u036f]/g, '')
+            .replace(/đ/g, 'd').replace(/Đ/g, 'D');
+    }
+
+    function onInputTyping(inputID, callback, delay = 300) {
+        document.addEventListener("DOMContentLoaded", function () {
+            if (inputID[0] !== "#" && inputID[0] !== ".") {
+                inputID = "#" + inputID;
+            }
+
+            const element = document.querySelector(inputID);
+            if (!element) {
+                return;
+            }
+
+            let typingTimerGlobal;
+
+            element.removeEventListener('keyup', element._onKeyUp); // Clear previous event listener if exists
+            element._onKeyUp = function (event) {
+                if (event.key !== 'Enter') { // No need to check keyCode in modern JS
+                    clearTimeout(typingTimerGlobal);
+                    typingTimerGlobal = setTimeout(function () {
+                        const value = element.value;
+                        callback(value);
+                    }, delay);
+                }
+            };
+
+            element.addEventListener('keyup', element._onKeyUp);
+        });
+    }
+
+</script>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-PC5FDHFVNH"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-PC5FDHFVNH');
+    </script>
+</head>
+<body>
+<header>
+<nav class="navbar container-fluid flex">
+    <div>
+        <a href="https://tuicocach.com/" class="sparkle-wrapper">
+            <img loading="lazy" class="td-retina-data td-retina-version tuicocach-nav-logo"
+                 data-retina="https://tuicocach.com/wp-content/uploads/2023/09/tuicocach-cham-com-icon-moblie.png"
+                 src="https://tuicocach.com/wp-content/uploads/2023/09/tuicocach-cham-com-icon-moblie.png" alt="Đừng bó tay - Đừng bó tay bởi tui có cách" width="300" height="101">
+        </a>
+    </div>
+    
+    <div class="flex-1 text-right flex b-menu-toggle">
+        <div class="flex-1"></div>
+        <div class="flex-grow-1 text-right menu-toggle" id="navbar-icon-search" ><i class="icon-search"></i></div>
+        <div class="menu-toggle" id="navbar-menu-toggle">
+            ☰
+        </div>
+    </div>
+    <ul class="menu">
+        <li style="color: #0a9e01; margin-left: -10px; margin-right: 10px"><span style="border-right: solid 2px #e55544;"></span></li>
+        <li class="dropdown">
+            <a href="#">Lập trình</a>
+            <ul class="submenu">
+                <li><a href="https://tuicocach.com/category/khoa-hoc/khoa-hoc-lap-trinh/">Lập trình</a></li>
+                <li><a href="https://tuicocach.com/category/khoa-hoc/khoa-hoc-lap-trinh/">Khóa học lập trình</a></li>
+                <li><a href="https://tuicocach.com/category/lap-trinh/kien-thuc-chung/">Kiến thức chung</a></li>
+                <li class="dropdown-right">
+                    <a href="#">Lập trình web</a>
+                    <ul class="submenu">
+                        <li class="dropdown-right" style="position: relative">
+                            <a href="#">PHP & MySQL</a>
+                            <ul class="submenu">
+                                <li><a href="https://tuicocach.com/category/lap-trinh/lap-trinh-web/php-mysql/">PHP & MySQL</a></li>
+                                <li><a href="https://tuicocach.com/category/lap-trinh/lap-trinh-web/php-mysql/">PHP</a></li>
+                                <li><a href="https://tuicocach.com/category/lap-trinh/lap-trinh-web/php-mysql/mysql/">MYSQL</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="dropdown-right" style="position: relative">
+                            <a href="#">HTML & CSS</a>
+                            <ul class="submenu">
+                                <li><a href="https://tuicocach.com/category/lap-trinh/lap-trinh-web/html-css/">HTML & CSS</a></li>
+                                <li><a href="https://tuicocach.com/category/lap-trinh/lap-trinh-web/html-css/html/">HTML</a></li>
+                                <li><a href="https://tuicocach.com/category/lap-trinh/lap-trinh-web/php-mysql/css/">CSS</a></li>
+                                <li><a href="https://tuicocach.com/category/lap-trinh/lap-trinh-web/html-css/thu-vien-bootstrap/">Thu viện Bootstrap</a></li>
+                            </ul>
+                        </li>
+                        
+                        <li><a href="https://tuicocach.com/category/lap-trinh/lap-trinh-web/javascript/">JavaScript</a></li>
+                        <li><a href="https://tuicocach.com/category/lap-trinh/lap-trinh-web/framework-codeigniter/">Framework Codeigniter</a></li>
+                    </ul>
+                </li>
+                <li><a href="https://tuicocach.com/category/lap-trinh/ctdl-va-giai-thuat/">CTDL & Thuật toán</a></li>
+                <li><a href="https://tuicocach.com/category/lap-trinh/lap-trinh-c-c/">Lập trình C/C++</a></li>
+                <li><a href="https://tuicocach.com/category/lap-trinh/lap-trinh-java/">Lập trình Java</a></li>
+                <li><a href="https://tuicocach.com/category/lap-trinh/phan-mem-lap-trinh/">Phần mềm lập trình</a></li>
+                <li><a href="https://tuicocach.com/category/lap-trinh/source-code/">Source Code</a></li>
+                
+            </ul>
+        </li>
+        <li class="dropdown">
+            <a href="#">MMO</a>
+            <ul class="submenu">
+                <li><a href="https://tuicocach.com/category/kiem-tien-online/">MMO</a></li>
+                <li class="dropdown-right" style="position: relative">
+                    <a href="#">Tiền điện tử</a>
+                    <ul class="submenu">
+                        <li><a href="https://tuicocach.com/category/tien-dien-tu/tien-coin/">Các đồng coin</a></li>
+                        <li><a href="https://tuicocach.com/category/tien-dien-tu/san-giao-dich/">Sàn giao dịch</a></li>
+                        <li><a href="https://tuicocach.com/category/tien-dien-tu/tin-tuc-coin/">Tin tức coin</a></li>
+                        <li><a href="https://tuicocach.com/bang-gia-1000-dong-tien-dien-tu-hang-dau/">Bảng tỷ giá tiền điện tử</a></li>
+                    </ul>
+                </li>
+                <li><a href="https://tuicocach.com/category/kiem-tien-online/kiem-tien-blog/">Kiếm tiền từ Blog</a></li>
+                <li><a href="https://tuicocach.com/category/kiem-tien-online/app-kiem-tien/">App kiếm tiền</a></li>
+                <li><a href="https://tuicocach.com/category/kiem-tien-online/tiep-thi-lien-ket/">Tiếp thị liên kết</a></li>
+                <li><a href="https://tuicocach.com/category/kiem-tien-online/khao-sat-kiem-tien/">Khảo sát kiếm tiền</a></li>
+                <li><a href="https://tuicocach.com/category/kiem-tien-online/rut-gon-link/">Rút gọn link</a></li>
+                <li><a href="https://tuicocach.com/category/kiem-tien-online/upload-flie-kiem-tien/">Upload file kiếm tiền</a></li>
+                <li><a href="https://tuicocach.com/category/kiem-tien-online/viec-freelance-online/">Việc Freelance online</a></li>
+            </ul>
+        </li>
+        <li class="dropdown">
+            <a href="#">Kiến thức</a>
+            <ul class="submenu">
+                <li><a href="https://tuicocach.com/category/kien-thuc/">Kiến thức</a></li>
+                <li class="dropdown-right" style="position: relative">
+                    <a href="#">Blog & Website</a>
+                    <ul class="submenu">
+                        <li><a href="https://tuicocach.com/category/blog-website/">Blog & Website</a></li>
+                        <li><a href="https://tuicocach.com/category/blog-website/wordpress/">WordPress</a></li>
+                        <li><a href="https://tuicocach.com/category/blog-website/hotting-doamin/">Hotting & Domain</a></li>
+                        <li><a href="https://tuicocach.com/category/blog-website/seo/">SEO</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown-right" style="position: relative">
+                    <a href="#">Máy tính</a>
+                    <ul class="submenu">
+                        <li><a href="https://tuicocach.com/category/may-tinh/">Máy tính</a></li>
+                        <li><a href="https://tuicocach.com/category/may-tinh/thu-thuat-may-tinh/">Thủ thuật máy tính</a></li>
+                        <li><a href="https://tuicocach.com/category/may-tinh/phan-mem-may-tinh/">Phần mềm máy tính</a></li>
+                        <li><a href="https://tuicocach.com/category/may-tinh/office-365/">Office 365</a></li>
+                        <li><a href="https://tuicocach.com/category/may-tinh/photoshop/">Photoshop</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown-right" style="position: relative">
+                    <a href="#">Điện thoại</a>
+                    <ul class="submenu">
+                        <li><a href="https://tuicocach.com/category/dien-thoai/">Điện thoại</a></li>
+                        <li><a href="https://tuicocach.com/category/dien-thoai/thu-thuat-dien-thoai/">Thủ thuật điện thoại</a></li>
+                        <li><a href="https://tuicocach.com/category/dien-thoai/ung-dung-dien-thoai/">Ứng dụng điện thoại</a></li>
+                        <li><a href="https://tuicocach.com/category/kiem-tien-online/app-kiem-tien/">App kiếm tiền</a></li>
+                    </ul>
+                </li>
+                <li><a href="https://tuicocach.com/category/khoa-hoc/">Khóa học</a></li>
+                <li><a href="https://tuicocach.com/category/kien-thuc/google/">Google</a></li>
+                <li><a href="https://tuicocach.com/category/kien-thuc/hieu-biet/">Hiểu biết</a></li>
+                <li><a href="https://tuicocach.com/category/kien-thuc/internet/">Internet</a></li>
+                <li><a href="https://tuicocach.com/category/vov-vach/">Vọc vạch</a></li>
+                <li><a href="https://tuicocach.com/category/facebook/">Facebook</a></li>
+                <li><a href="https://tuicocach.com/category/kien-thuc-youtube/">Youtube</a></li>
+            </ul>
+        </li>
+        <li class="dropdown">
+            <a href="#">Tiện ích</a>
+            <ul class="submenu">
+                <li><a href="https://tuicocach.com/tienichnhanh/">Tiện ích nhanh</a></li>
+                <li><a href="https://tuicocach.com/ma-hoa-md5/">Mã hoá Md5</a></li>
+                <li><a href="https://tuicocach.com/ma-hoa-sha1-online/">Mã hóa SHA1</a></li>
+                <li><a href="https://tuicocach.com/chuan-hoa-van-ban/">Chuẩn hóa văn bản</a></li>
+                <li><a href="https://tuicocach.com/bang-gia-1000-dong-tien-dien-tu-hang-dau/">Bảng tỷ giá tiền điện tử</a></li>
+            </ul>
+        </li>
+        <li class="dropdown">
+            <a href="#">Dịch vụ</a>
+            <ul class="submenu">
+                <li><a href="https://tuicocach.com/dich-vu-code-thue-tuicocach-com/">Dịch vụ code thuê</a></li>
+                <li><a href="https://tuicocach.com/code-thue-do-an/">Nhận làm đồ án IT</a></li>
+                <li><a href="https://tuicocach.com/ma-hoa-sha1-online/">Nhận Bài tập lớn IT</a></li>
+                <li><a href="https://tuicocach.com/nhan-lam-du-an/">Xây dựng Website & Ứng dụng di động</a></li>
+                <li><a href="https://tuicocach.com/dich-vu-cai-dat-website-chon-goi-page/">Cài đặt Website chọn gói</a></li>
+            </ul>
+        </li>
+        <li class="dropdown">
+            <a href="#">Ngoài lề</a>
+            <ul class="submenu">
+                <li class="dropdown-right" style="position: relative">
+                    <a href="#">Translate</a>
+                    <ul class="submenu">
+                        <li><a href="https://tuicocach.com/category/translated-content/">Translate</a></li>
+                        <li><a href="https://tuicocach.com/category/translated-content/c-c-tutorials/">C/C++ Tutorials</a></li>
+                    </ul>
+                </li>
+                <li><a href="https://tuicocach.com/category/phan-mem/">Phần mềm</a></li>
+                <li><a href="https://tuicocach.com/category/game-may-tinh/">Game máy tính</a></li>
+                <li><a href="https://tuicocach.com/category/game-dien-thoai/">Game điện thoại</a></li>
+                <li><a href="https://tuicocach.com/category/ngoai-le/lien-minh-huyen-thoai/">Liên minh huyền thoại</a></li>
+            </ul>
+        </li>
+    </ul>
+    <style>
+        /* Container cho ô tìm kiếm */
+        .search-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 20px;
+        }
+
+        /* Ô nhập liệu */
+        .search-input {
+            padding: 0 10px;
+            font-size: 16px;
+            /*border: solid 1px #eef0fc;*/
+            border: none;
+            border-radius: 2px;
+            min-width: 120px;
+            outline: none;
+            transition: all 0.3s ease;
+            height: 30px;
+        }
+
+        .search-input:focus {
+            /*border: solid 1px #4CAF50;*/
+        }
+
+        /* Nút tìm kiếm */
+        .search-btn {
+            padding: 0 20px;
+            background-color: #146EB4; /* Màu xanh cho nút */
+            border: none;
+            border-radius: 2px;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            margin-left: 3px;
+            transition: background-color 0.3s ease;
+            height: 30px;
+        }
+
+        .search-btn:hover, .search-btn:active{
+            background-color: #1a84d7; /* Màu khi hover */
+        }
+    </style>
+    <div class="b-search-navbar text-right flex hidden">
+        <input type="text" class="search-input flex-1" id="input-search-nav" placeholder="Tìm kiếm...">
+        <button class="search-btn" id="btn-search-nav">
+            <i class="icon-search"></i>
+        </button>
+    </div>
+</nav>
+</header>
+<div class="main-panel"><div class="flex">
+    <main class="content block block-wrap flex-1">
+        <article>
+        <style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Arial, sans-serif;
+    }
+
+    .text-404 {
+        font-size: 6rem;
+        font-weight: bold;
+        letter-spacing: 5px;
+        animation: glitch 1.5s infinite;
+    }
+
+    @keyframes glitch {
+        0% {
+            text-shadow: 2px 2px red;
+        }
+        50% {
+            text-shadow: -2px -2px cyan;
+        }
+        100% {
+            text-shadow: 2px 2px red;
+        }
+    }
+
+    .b-search-container input {
+        border: solid 1px #ccc;
+        height: 37px;
+    }
+    #btn-search-404 {
+         height: 37px;
+     }
+</style>
+
+<section>
+    <div class="text-center">
+        <header>
+            <h1 class="text-404">404</h1>
+        </header>
+        <p>Oops! Trang bạn đang tìm không tồn tại🥲.</p>
+        <div style="margin-top: 50px">
+            <a href="/">⏎ Quay về trang chủ</a>
+        </div>
+    </div>
+</section>
+
+<div style="height: 1px; background: #e3e3e3; margin-top: 45px; margin-bottom: 25px"></div>
+
+<section>
+    <h3 style="margin-bottom: 10px">Tìm kiếm thêm nội dung!</h3>
+    <div class="b-search-container text-right flex">
+        <input type="text" class="search-input flex-1" id="input-search-404"
+               placeholder="Tìm kiếm..." value="">
+        <button class="search-btn" id="btn-search-404">
+            <i class="icon-search"></i> Tìm kiếm
+        </button>
+    </div>
+</section>
+
+
+
+<section style="margin-top: 100px">
+    <a href="https://tuicocach.com/top-nhung-app-kiem-tien-online-tot-nhat-khong-nen-bo-qua-trong-nam-2022/">
+        <img style="width: 100%;" src="https://tuicocach.com/wp-content/uploads/2021/11/Top-nhung-app-kiem-tien-onine-tot-nhat-2021.jpg">
+    </a>
+</section>
+
+<script>
+    onClick("btn-search-404", function () {
+        redirect("https://tuicocach.com/?s=" + htmlValue("input-search-404"));
+    })
+</script>        </article>
+    </main>
+          <aside class="block sidebar">
+   <div class="sidebar-content">
+       <div class="flex b-search-sidebar">
+           <input type="text" class="search-input flex-1" id="input-search-sidebar" placeholder="Nhập tìm kiếm...">
+           <button class="search-btn" id="btn-search-sidebar">
+               <i class="icon-search"></i>
+           </button>
+       </div>
+
+       <div>
+           <a href="https://tuicocach.com/dich-vu-code-thue-tuicocach-com/">
+               <img loading="lazy" class="border-radius-5" src="https://tuicocach.com/wp-content/uploads/2023/08/Blog-tui-co-cach-nhan-code-thue-450x450-1.jpg" alt="LaptopVang">
+           </a>
+       </div>
+       <div>
+           <a href="https://tuicocach.com/dich-vu-thiep-cuoi-online/">
+               <img loading="lazy" class="border-radius-5" src="https://tuicocach.com/vender/images/banner-dich-vu-website-thiep-cuoi-online.webp" alt="LaptopVang">
+           </a>
+       </div>
+   </div>
+</aside>    </div><!------- END main-panel---------->
+</div>
+
+<footer class="footer">
+    <button id="backToTop">⌵</button>
+
+    <script>
+        const backToTopButton = document.getElementById("backToTop");
+
+        window.onscroll = function () {
+            if (document.documentElement.scrollTop > 100) {
+                backToTopButton.style.display = "block";
+            } else {
+                backToTopButton.style.display = "none";
+            }
+        };
+
+        backToTopButton.onclick = function () {
+            window.scrollTo({ top: 0, behavior: "smooth" });
+        };
+    </script>
+    <div class="footer-main container-fluid">
+        <div class="flex-wrap">
+            <div class="md-col-4">
+                <div>
+                    <h3>CÁC TRANG</h3>
+                    <ul class="footer-links no-list-style">
+                        <li><a href="https://tuicocach.com/tienichnhanh/">Tiện ích nhanh</a></li>
+                        <li><a href="https://tuicocach.com//php-mysql/">Học PHP & MySQL</a></li>
+                        <li><a href="https://tuicocach.com/lap-trinh-c-c/">Lập trình C/C++ cơ bản</a></li>
+                        <li><a href="https://tuicocach.com/lap-trinh-java/">Lập trình java cơ bản</a>
+                        </li>
+                        <li><a href="https://tuicocach.com/bang-gia-1000-dong-tien-dien-tu-hang-dau/">Bảng tỷ giá tiền điện tử</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="md-col-4">
+                <div class="footer-tag-popular">
+                    <h3>THẺ NỔI BẬT</h3>
+                    <a href='https://tuicocach.com/tag/lap-trinh-c'>Lập trình c/c++</a>
+                    <a href='https://tuicocach.com/tag/lap-trinh-co-ban'>Lập trình cơ bản</a>
+                    <a href='https://tuicocach.com/tag/php-co-ban'>php cơ bản</a>
+                    <a href='https://tuicocach.com/tag/phpmysql'>PHP&amp;Mysql</a>
+                    <a href='https://tuicocach.com/tag/ham-php'>Hàm PHP</a>
+                    <a href='https://tuicocach.com/tag/bai-toan-co-ban'>Bài tập C cơ bản</a>
+                    <a href='https://tuicocach.com/tag/mysql'>Mysql</a>
+                    <a href='https://tuicocach.com/tag/hoc-mysql-co-ban'>Học MySQL cơ bản</a>
+                    <a href='https://tuicocach.com/tag/hoc-web'>Học Web</a>
+                    <a href='https://tuicocach.com/tag/wordpress'>Wordpress</a>
+                    <a href='https://tuicocach.com/tag/hoc-php'>học php</a>
+                    <a href='https://tuicocach.com/tag/ham-xu-mang-trong-php'>hàm xử mảng trong php</a>
+                    <a href='https://tuicocach.com/tag/thuat-toan'>Thuật toán</a>
+                    <a href='https://tuicocach.com/tag/lap-trinh-web'>Lập trình web</a>
+                    <a href='https://tuicocach.com/tag/thu-thuat-may-tinh'>Thủ thuật máy tính</a>
+                </div>
+            </div>
+            <div class="md-col-4">
+                <div>
+                    <h3>LIÊN KẾT</h3>
+                    <div class="flex-wrap footer-social">
+                        <a href= "https://sonzim.com/">Sơn Zim</a>
+                        <a href= "https://www.binance.com/referral/earn-together/refertoearn2000usdc/claim?hl=vi&ref=GRO_14352_FEP5P&utm_source=referralmode">Binace</a>
+                        <a href= "https://tuicocach.com/tienichnhanh/">Tiện ích nhanh</a>
+                    </div>
+                </div>
+            </div>
+            <div class="md-col-4">
+                <div>
+                    <h3>NHẬN CODE THUÊ</h3>
+                    <p class="footer-p-freelancer">
+                        Chúng tôi nhận code thuê, nhận làm đồ án, nhận làm bài tập lớn và cả các bài tập nhỏ cơ bản cho sinh viên, nhận làm landing page giới thiệu cho công ty & cửa hàng,
+                        ứng dụng cho điện thoại, web bán hàng, web blog cá nhân, web quản lý, thiệp cưới online... Nếu bạn có nhu cầu hãy liên hệ với chúng tôi qua các thông tin liên hệ bên dưới!
+                        <a class="footer-link-freelancer" href="https://tuicocach.com/dich-vu-code-thue-tuicocach-com/">XEM CHI TIẾT</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="text-center margin-top-15">
+            <span class="b-tuicocach-code">
+                Mã code: <span class="tuicocach-code">00</span>
+            </span>
+        </div>
+        <div class="text-center">
+            <div class="footer-main-line"></div>
+        </div>
+        <div class="flex-wrap">
+            <div class="md-col-4">
+                <div class="footer-main-logo">
+                    <a href="https://tuicocach.com/">
+                        <img data-retina="https://tuicocach.com/wp-content/uploads/2023/09/tuicocach-cham-com-icon-moblie.png"
+                             src="https://tuicocach.com/wp-content/uploads/2023/09/tuicocach-cham-com-icon-moblie.png"
+                             alt="Đừng bó tay - Đừng bó tay bởi tui có cách">
+                    </a>
+                </div>
+            </div>
+            <div class="md-col-4">
+                <div>
+                    <h3>VỀ BLOG TUI CÓ CÁCH</h3>
+                    <p>
+                        <a href="https://tuicocach.com/" class="footer-blog-about-link">
+                            "︎TUI CÓ CÁCH"
+                        </a>
+                        là blog cá nhân xây dựng nhằm chia sẻ các kỹ năng lập trình, thủ thuật máy tính, thủ thuật điện thoại, kiến thức kiếm tiền online mà tôi biết đến với cộng đồng.
+                    </p>
+                </div>
+            </div>
+            <div class="md-col-4">
+                <div class="footer-contact">
+                    <h3>LIÊN HỆ</h3>
+                   
+                    <label>Email:</label>
+                    <a href="mailto:tanchan679@gmail.com">
+                        tanchan679@gmail.com
+                    </a>
+                    <div></div>
+                    <label>Facebook:</label>
+                    <a href="  https://fb.com/tuicocachchamcom">
+                        https://fb.com/tuicocach
+                    </a>
+                </div>
+            </div>
+            <div class="md-col-4">
+                <div>
+                    <h3>KẾT NỐI VỚI TÔI</h3>
+                    <div class="flex-wrap footer-social">
+                        <a href= "https://github.com/tanchan679">Github</a>
+                        <a href="https://www.binance.com/activity/referral-entry/CPA/together-v4?hl=vi&ref=CPA_006TPXKC6Q&utm_source=Lite_web_account">Binance</a>
+                        <a href="https://www.facebook.com/tuicocachchamcom/" class="tdm-social-text">Fb Fanpage</a>
+                        <a href="mailto:tanchan679@gmail.com" title="Mail" class="tdm-social-item">Mail</a>
+                        <a href="https://twitter.com/TanChannsl" class="tdm-social-text">Twitter</a>
+                        <a href="https://www.youtube.com/c/679Channel" title="Youtube">Youtube</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="footer-footer flex container-fluid">
+        <div class="footer-copyright">
+            <p style="line-height: 25px">
+                <a href="https://tuicocach.com/" style="padding-right: 5px !important;">©2021-2026 Tuicocach.com</a>· Bảo vệ nội dung bởi
+                <a href="https://www.dmca.com/Protection/Status.aspx?ID=2be5e2e0-2354-4327-a9d7-91cb567793e8&amp;refurl=https://tuicocach.com/"
+                   title="DMCA.com Protection Status" style="padding-left: 0!important;"> <img loading="lazy" src="https://images.dmca.com/Badges/dmca_protected_sml_120m.png?ID=2be5e2e0-2354-4327-a9d7-91cb567793e8"
+                            alt="DMCA.com Protection Status"
+                            style="width:70px;margin-left:5px;margin-bottom: -1px ">
+                </a>
+            </p>
+        </div>
+        
+        <div class="flex-1 text-right">
+            <ul>
+                <li>
+                    <a href="https://me.tuicocach.com/">Về tôi</a>
+                </li>
+                <li>
+                    <a href="https://tuicocach.com/tienichnhanh/">Tiện ích nhanh</a></li>
+                <li>
+                    <a href="https://tuicocach.com/shortlink/?c=trang-mau">Link rút gọn</a></li>
+                <li><a href="https://tuicocach.com/gioi-thieu/">Giới
+                        thiệu</a>
+                </li>
+                <li>
+                    <a href="https://tuicocach.com/chinh-sach-dieu-khoan/">Chính sách & Điều khoản</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</footer>
+<!--[----END BODY TAG----]-->
+</body>
+<script type="text/javascript" src="https://tuicocach.com/vender/js/footer_js1.js"></script>
+<script>
+    countdownCode("<span style='color: #ff4343'>Không tìm thấy mã 😢</span>");
+</script>
+
+
+
+    <script type="text/javascript" src="https://tuicocach.com/vender/js/sidebar.js"></script>
+<!--[----END HTML TAG----]-->
+</html>
+

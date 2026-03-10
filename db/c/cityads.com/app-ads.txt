@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+        <title>Auth</title>
+
+        <style>
+            @font-face {
+                font-family: DINWebPro;
+                src: url("//cityads.com/src/fonts/dinpro/DINWebPro-Regular.eot");
+                src: url("//cityads.com/src/fonts/dinpro/DINWebPro-Regular.eot?#iefix") format("embedded-opentype"),
+                     url("//cityads.com/src/fonts/dinpro/DINWebPro-Regular.woff") format("woff");
+                font-weight: 400;
+                font-style: normal;
+            }
+
+            html,
+            body
+            {
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+
+            body
+            {
+                font-family: 'DINProNormal', DINWebPro, sans-serif;
+                font-size: .9em;
+
+                color: #666;
+                background-color: #fff;
+            }
+
+            body,
+            body *
+            {
+                -webkit-box-sizing: border-box;
+                   -moz-box-sizing: border-box;
+                        box-sizing: border-box;
+            }
+
+            a
+            {
+                color: #00a2c2;
+            }
+
+            main
+            {
+                display: block;
+
+                width: 100%;
+                height: 100%;
+
+                -webkit-user-select: none;
+                   -moz-user-select: none;
+                    -ms-user-select: none;
+                        user-select: none;
+                text-align: center;
+            }
+
+            main:before
+            {
+                display: inline-block;
+
+                height: 100%;
+                margin-right: -.25em;
+
+                content: '';
+                vertical-align: middle;
+            }
+
+            #message
+            {
+                position: relative;
+
+                display: inline-block;
+                visibility: visible;
+
+                max-width: 540px;
+                padding: 40px;
+                padding-bottom: 120px;
+
+                transition: .2s ease transform, .3s ease-in opacity;
+                transform: translateY(0px);
+                text-align: center;
+                vertical-align: middle;
+
+                opacity: 1;
+                background-color: #fff;
+            }
+
+            #message.hide
+            {
+                visibility: hidden;
+
+                transform: translateY(30px);
+
+                opacity: 0;
+            }
+
+            #message:after
+            {
+                position: absolute;
+                bottom: 49px;
+                left: 50%;
+
+                display: inline-block;
+
+                width: 22px;
+                height: 22px;
+                margin-top: 22px;
+                margin-bottom: 3px;
+                margin-left: -11px;
+
+                content: '';
+                -webkit-animation: spin .5s infinite linear;
+                   -moz-animation: spin .5s infinite linear;
+                    -ms-animation: spin .5s infinite linear;
+                     -o-animation: spin .5s infinite linear;
+                        animation: spin .5s infinite linear;
+                vertical-align: middle;
+
+                border: 2px solid rgba(0,0,0,.4);
+                border-top-color: transparent;
+                border-left-color: transparent;
+                border-radius: 150px;
+                background-color: transparent;
+            }
+
+            #image
+            {
+                width: 156px;
+                height: 32px;
+                margin: 0 auto;
+
+                background-image: url('https://auth2.cityads.com/assets/main/img/logo.svg');
+                background-repeat: no-repeat;
+                background-position: center;
+            }
+
+            #text
+            {
+                margin-top: 2em;
+
+                -webkit-user-select: text;
+                   -moz-user-select: text;
+                    -ms-user-select: text;
+                        user-select: text;
+            }
+
+            @-webkit-keyframes spin
+            {
+                /* Safari and Chrome */
+                0%
+                {
+                    -webkit-transform: rotate(0deg);
+                }
+                100%
+                {
+                    -webkit-transform: rotate(360deg);
+                }
+            }
+            @-moz-keyframes spin
+            {
+                /* Firefox */
+                0%
+                {
+                    -moz-transform: rotate(0deg);
+                }
+                100%
+                {
+                    -moz-transform: rotate(360deg);
+                }
+            }
+            @-ms-keyframes spin
+            {
+                /* IE */
+                0%
+                {
+                    -ms-transform: rotate(0deg);
+                }
+                100%
+                {
+                    -ms-transform: rotate(360deg);
+                }
+            }
+            @-o-keyframes spin
+            {
+                /* Opera */
+                0%
+                {
+                    -o-transform: rotate(0deg);
+                }
+                100%
+                {
+                    -o-transform: rotate(360deg);
+                }
+            }
+            @keyframes spin
+            {
+                0%
+                {
+                    transform: rotate(0deg);
+                }
+                100%
+                {
+                    transform: rotate(360deg);
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <noscript>
+            This page needs JavaScript activated to work.
+            <style>div { display:none; }</style>
+        </noscript>
+        <main>
+            <div id="message" class="hide">
+                <div id="image"></div>
+                <div id="text"></div>
+            </div>
+        </main>
+
+        <script>
+            // Application data object
+            var data = {"response_type":"code","client_id":"cityads","state":"2004fe1199eca08aa38309b93dedecf0","redirect_uri":"https:\/\/cityads.com\/app-ads.txt"};
+
+            // Messages
+            var slowMessage  = "Application is loading... Please wait a second.",
+                serverUnavailableMessage  = "The authorization server is not available.<br><br>The next attempt after :seconds seconds.",
+                cookieFailMessage = "<b>Cookies Required</b><br><br>Cookies are not enabled on your browser.<br>Please enable cookies in your browser preferences to continue.";
+
+            var authURL = "https://auth2.cityads.com/oauth/authorize?" + serialize(data);
+
+
+            var cookieCheckTimeout;
+            var countdownInterval;
+
+            var getCookie = function (cname) {
+                var name = cname + "=";
+                var ca = document.cookie.split(';');
+                for(var i = 0; i <ca.length; i++) {
+                    var c = ca[i];
+                    while (c.charAt(0)==' ') {
+                        c = c.substring(1);
+                    }
+                    if (c.indexOf(name) == 0) {
+                        return c.substring(name.length,c.length);
+                    }
+                }
+                return "";
+            }
+
+            var failedAttemptsCount = getCookie('auth_client_failed_attempts') || 0;
+
+            // Serialize object to query string
+            function serialize(obj) {
+                var str = [];
+
+                for (var p in obj) {
+                    if (obj.hasOwnProperty(p)) {
+                        str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+                    }
+                }
+
+                return str.join("&");
+            }
+
+
+            var showMessage = function (message) {
+                document.getElementById('text').innerHTML = message;
+                document.getElementById('message').removeAttribute('class');
+            };
+            var requestAuthCode = function () {
+                showMessage(slowMessage);
+                document.location.href = authURL;
+            };
+
+            var serverUnavailableError = function (seconds) {
+                showMessage(serverUnavailableMessage.replace(':seconds', seconds));
+                var countdown = function () {
+                    seconds--;
+                    showMessage(serverUnavailableMessage.replace(':seconds', seconds));
+                };
+
+                countdownInterval = setInterval(countdown, 1000);
+
+                setTimeout(function () {
+                    clearInterval(countdownInterval);
+                    requestAuthCode();
+                }, seconds * 1000);
+            };
+
+            var makeCookieCheck = function () {
+                clearTimeout(cookieCheckTimeout);
+
+                if (navigator.cookieEnabled) {
+                    if (failedAttemptsCount > 1) {
+                        var seconds = 5 * failedAttemptsCount;
+                        if (seconds > 20) {
+                            seconds = 20;
+                        }
+                        serverUnavailableError(seconds);
+                    } else {
+                        requestAuthCode();
+                    }
+                } else {
+                    showMessage(cookieFailMessage);
+                    cookieCheckTimeout = setTimeout(makeCookieCheck, 3000);
+                }
+            };
+
+            makeCookieCheck();
+        </script>
+    </body>
+</html>

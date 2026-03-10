@@ -1,0 +1,783 @@
+
+
+    
+
+    
+
+    
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+
+
+    
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- ----------------------------------- -->
+    <title>Guzelix.com - Güzellik Merkezi, Kuaför Müşteri Takip Yazılımı</title>
+
+    <meta name="description" content="Güzellik salonu randevu yönetimi, müşteri takibi, kasa raporu. Türkiye'nin en yeni, en gelişmiş güzellik salonu müşteri takip ve randevu yönetimi programı." />
+    <meta name="keywords" content="Güzellik salonu,kuaför,cilt bakım uzmanı,güzellik salonu yazılımı,ön muhasebe programı,kuaför yazılımı,güzellik merkezi,guzellik saloon,">
+    <meta name="author" content="Ngedia.com - Ngedia Yazılım ve Tasarım Çözümleri, Sosyal Medya Yönetimi">
+
+    <link rel="icon" href="assets/img/favicon.png" type="image/x-icon" />
+    <!-- ----------------------------------- -->
+
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+
+    <!-- Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/navbars/">
+
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+
+    <!-- Select2 CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+
+
+
+        <style>
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            /* padding-bottom: 20px; */
+        }
+
+        .container {
+            max-width: 1180px !important;
+              }        
+
+        #map {
+            width: 100%;
+            height: 500px; /* Height boyutunu iki katına çıkardım */
+        }
+
+        .navbar {
+            padding: 0.7rem 1.2rem;
+            box-shadow: 0 0 12px 0 rgba(0, 0, 0, .16);
+        }
+
+        .navbar-nav {
+            margin-left: 20px; /* Menü butonlarıyla marka arasında boşluk */
+        }
+
+        .navbar .user-actions {
+            margin-left: auto; /* Giriş Yap butonunu en sağa taşır */
+        }
+
+
+
+/* ---------------- BOOTSTRAP RENK KODLAMASI -------------------- */
+
+          /* Hem .primary hem de .btn-primary için aynı renk uygulanır */
+          .primary, .btn-primary {
+            background-color: #7367f0 !important; /* Arka plan rengi */
+            color: #ffffff !important;           /* Yazı rengi */
+            border: 1px solid #7367f0 !important; /* Kenarlık rengi */
+          }
+
+          .primary:hover, .btn-primary:hover {
+            background-color: #685dd8  !important; /* Hover rengi */
+            border-color: #685dd8  !important;
+          }
+
+          /* Hem .danger hem de .btn-danger için aynı renk uygulanır */
+          .danger, .btn-danger {
+            background-color: #f91942 !important; /* Arka plan rengi */
+            color: #ffffff !important;           /* Yazı rengi */
+            border: 1px solid #f91942 !important; /* Kenarlık rengi */
+          }
+
+          .danger:hover, .btn-danger:hover {
+            background-color: #dd1439  !important; /* Hover rengi */
+            border-color: #dd1439  !important;
+          }
+
+          .btn-outline-primary {
+            background-color: #ffffff  !important; /* Hover rengi */
+            border-color: #7367f0  !important;
+            color: #7367f0;
+          }
+
+          .btn-outline-primary:hover {
+            background-color: #7367f0  !important; /* Hover rengi */
+            border-color: #7367f0  !important;
+            color: #ffffff  !important;
+          }
+
+/* ---------------- BOOTSTRAP RENK KODLAMASI -------------------- */
+
+
+
+        .card img {
+            height: 150px;
+            object-fit: cover;
+        }
+
+
+        .discount {
+            position: absolute;
+            top: 58px;
+            left: 10px;
+            background-color: #ff4757;
+            color: #fff;
+            font-weight: bold;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 0.9rem;
+        }
+
+
+
+
+    /* -------- HARİTA STYLE ----------- */ 
+        .marker-icon {
+            background-color: #7367f0;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-weight: bold;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 30px !important;
+            height: 30px !important;
+            position: relative;
+        }
+
+        .marker-icon::after {
+            content: '';
+            width: 0;
+            height: 0;
+            border-left: 7.5px solid transparent;
+            border-right: 7.5px solid transparent;
+            border-top: 7px solid #7367f0;
+            position: absolute;
+            bottom: -7.5px;
+        }
+    /* -------- HARİTA STYLE ----------- */ 
+
+
+
+
+
+        .leaflet-container.leaflet-touch-drag.leaflet-touch-zoom {
+            -ms-touch-action: none;
+            touch-action: none;
+            margin-top: 70px;
+        }
+
+        .leaflet-container {
+            background: #f0f0f0; /* Arka plan rengini ayarlayın */
+        }
+        .arabutton {
+            border: none;
+        }
+
+
+
+
+    /* --------------- SELECT2 BAŞLANGIÇ ----------------- */
+
+        .select2-container .select2-selection--single {
+            box-sizing: border-box;
+            cursor: pointer;
+            display: block;
+            height: 39px;
+            user-select: none;
+            -webkit-user-select: none
+        }
+
+        .select2-container--default .select2-selection--single .select2-selection__rendered {
+            color: #444;
+            line-height: 38px;
+        }
+
+        .select2-results {
+            display: block;
+            cursor: pointer;            
+        }
+
+        .select2-results__option {
+            margin: 0px 10px;
+            border-radius: 5px;
+            padding: 8px 10px;
+        }
+
+        .select2-results__option:hover {
+            background-color: #7367f0 !important;
+            color: white !important; /* Yazı rengini beyaz yapabilirsiniz */
+        }
+
+
+        .select2-container--default .select2-selection--single {
+            background-color: #fff;
+            border: none;
+            border-radius: 4px
+        }        
+
+        .select2-container--default .select2-selection--single .select2-selection__arrow {
+            height: 38px;
+            position: absolute;
+            top: 1px;
+            right: 1px;
+            width: 20px
+        }        
+
+        .select2-container--open .select2-dropdown--above {
+            border-bottom: none;
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+            border: none !important;
+            box-shadow: 0 -0.2rem 1.25rem rgba(151, 149, 158, 0.4) !important;
+            width: 220px !important;
+        }
+
+
+        .select2-container--open .select2-dropdown--below {
+            border-bottom: none;
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+            border: none !important;
+            box-shadow: 0 -0.2rem 1.25rem rgba(151, 149, 158, 0.4) !important;
+            width: 220px !important;
+        }
+
+        .select2-container--default.select2-container--disabled .select2-selection--single{
+            background-color: #f6f6f6;
+        }
+
+    /* ------------- SELECT2 SON ----------------------------------- */
+
+
+
+
+        /* Mobile görünümde iken offcanvas menüyü görünür yap */
+        @media (max-width: 992px) {
+            .desktop-navbar {
+                display: none;
+            }
+        }
+
+        /* Masaüstü görünümde iken offcanvas menüyü gizle */
+        @media (min-width: 992px) {
+            .mobile-navbar {
+                display: none;
+            }
+        }
+
+
+
+        .card {
+            border: none;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: transform 0.3s ease;
+            position: relative;
+            border-radius: 10px;
+            box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+            cursor: pointer;
+            }
+
+        .card:hover {
+            transform: translateY(-10px);
+        }
+
+        .card .position-relative {
+            overflow: hidden;
+        }
+
+        .card .card-img-top {
+            transition: transform 0.3s ease;
+            border-radius: 0;
+        }
+
+        .card:hover .card-img-top {
+            transform: scale(1.1);
+        }
+
+        .card-body {
+            padding: 15px;
+        }
+
+        .card-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .card-text {
+            color: #6c757d;
+        }
+
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #fff;
+            background: #8a81e8;
+            padding: 3px 10px 2px 10px;
+            margin-bottom: 0;
+            display: inline-block; /* Genişlik, içerik uzunluğuna göre ayarlanacak */
+        }
+
+        .section-line {
+           /* width: 25%; /* Çizginin genişliği: 4'te 1 */
+            height: 2px; /* Çizginin kalınlığı */
+            background-color: #b8b8b8; /* Çizgi rengi */
+            margin-left: 25%; /* Sola yaslanmış */
+        }
+
+
+        .section-baslik {
+            margin-bottom: 0.5rem;
+            color: #4f4b8b;
+            font-size: 34px;
+            font-weight: 700 !important;
+        }        
+
+        .h5-yazi {
+            text-align: center;
+            background: #8a81e8;
+            margin-bottom: 0;
+            color: #fff;
+            padding: 10px 0 12px 0;
+            font-size: 1.2rem;
+        }        
+
+
+        /* Profil resmini yuvarlak hale getirmek ve uygun boyutlandırma */
+        .profile-img {
+            width: 50px !important;
+            height: 50px !important;
+            border-radius: 50%;
+            object-fit: cover;
+            box-shadow: 0px 4px 7px 0px rgba(0, 0, 0, 0.15);
+            border: 2px solid #fff;
+        }
+
+        /* Firma adı ve şehir bilgisinin stilini ayarlama */
+        .firm-name {
+            font-size: 1rem;
+            /*font-weight: bold;*/
+        }
+
+        .city-name {
+            font-size: 0.875rem;
+            color: #777;
+        }
+
+        /* Eski fiyat için üstü çizili stil */
+        .old-price {
+            text-decoration: line-through;
+            color: #ff4757;
+            font-size: 1.4rem;
+        }
+
+        /* Yeni fiyat daha küçük puntoyla */
+        .new-price {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #76758c;
+        }
+
+        /* Görüntüleme sayısı */
+        .view-count {
+            font-size: 0.875rem;
+            color: #555;
+        }
+
+        /* Kartın içeriği arasındaki boşlukları düzenleme */
+        .card-body {
+            padding: 15px;
+        }
+
+        /* Fiyatların arasındaki boşluk */
+        .prices {
+            margin-bottom: 10px;
+        }
+
+        /* Profil ve firma bilgileri arasındaki boşluk */
+        .d-flex {
+            display: flex;
+            align-items: center;
+        }
+
+        /* Sağdaki içerik için margin */
+        .ml-3 {
+            margin-left: 15px;
+        }
+
+
+        .inceleBtn {
+            color: #fff;
+            background-color: #7367f0;
+        }
+
+        .inceleBtn:hover {
+            color: #fff;
+            background-color: #4539bd;
+        }
+
+        .randevuBtn {
+            color: #fff;
+            background-color: #23ba66;
+        }
+
+        .randevuBtn:hover {
+            color: #fff;
+            background-color: #27ad62;
+        }
+
+
+
+        .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            user-select: none;
+        }
+
+        @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+              font-size: 3.5rem;
+            }
+        }
+
+
+
+
+        .search-bar {
+            position: absolute;
+            /*bottom: 210px; /* Alta yapışık olmasın */
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+            width: 40%;
+            background-color: #fff;
+            padding: 8px 12px;
+            border-radius: 50px;
+            /*box-shadow: 0 0 8px 0 rgba(0, 0, 0, .40);*/
+            box-shadow: 0 0 8px 0 rgb(0 0 0 / 26%), 0 0 0 11px rgb(0 0 0 / 17%) !important;
+        }
+
+
+        .search-bar-mobil {
+            position: absolute;
+            top: 38vh; /* Ekranın üstünden 20% aşağıda konumlandır */
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80%;
+            border-radius: 10px;
+        }
+
+
+
+    </style>
+
+
+
+<style type="text/css">
+    
+
+    .container {
+        text-align: center;
+    }
+
+
+    .error-code {
+        font-size: 150px;
+        font-weight: bold;
+    }
+
+    .error-message {
+        font-size: 20px;
+        margin: 20px 0;
+    }
+
+    .back-home {
+        font-size: 18px;
+        text-decoration: none;
+        color: #fff;
+        padding: 10px 20px;
+        background-color: #333;
+        border-radius: 5px;
+        transition: background-color 0.3s;
+    }
+
+    .back-home:hover {
+        background-color: #555;
+    }
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+
+
+
+        <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg fixed-top navbar-light bg-white" aria-label="Ninth navbar example">
+        <div class="container-xl">
+            <a class="navbar-brand" href="index">
+                <img src="assets/img/guzelix-logo-koyu.svg" style="width: 165px;">
+            </a>
+            <button class="navbar-toggler mobile-navbar" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+
+            <!-- MOBİL GÖRÜNÜM MENÜ --------------- -->
+            <div class="offcanvas offcanvas-start mobile-navbar" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+                <div class="offcanvas-header">
+                    <a class="navbar-brand" href="index">
+                        <img src="assets/img/guzelix-logo-koyu.svg" style="width: 180px;">
+                    </a>
+                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+                <hr style="margin: 0.5rem 0;">
+                <div class="offcanvas-body">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0" style="margin-left: 10px;">
+                        <li class="nav-item">
+                            <a class="nav-link" aria-current="page" href="index">Anasayfa</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="kampanyalar">Kampanyalar</a>
+                        </li>                        
+                        <li class="nav-item">
+                            <a class="nav-link" href="ozellikler">Özellikler</a>
+                        </li>                        
+                        <li class="nav-item">
+                            <a class="nav-link" href="fiyatlandirma">Fiyatlandırma</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="destek">Yardım</a>
+                        </li>
+
+                    <!--
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="dropdown07XL" data-bs-toggle="dropdown" aria-expanded="false">Kategoriler</a>
+                            <ul class="dropdown-menu" aria-labelledby="dropdown07XL">
+                                <li><a class="dropdown-item" href="#">Kuaför Hizmetleri</a></li>
+                                <li><a class="dropdown-item" href="#">Güzellik Ve Cilt Bakım</a></li>
+                            </ul>
+                        </li>
+                    -->
+                    </ul>
+                    
+                        <a href='kaydol'><button type='button' class='btn btn-outline-primary px-4 mx-2'>Kaydol</button></a><a href='giris/' target='_blank'><button type='button' class='btn btn-primary px-4'>Giriş Yap</button></a>
+                </div>
+            </div>
+            <!-- ------------------------------------ -->
+
+
+            <!-- MASAÜSTÜ GÖRÜNÜM MENÜ --------------- -->
+            <div class="collapse navbar-collapse desktop-navbar" id="navbarsExample07XL">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="index">Anasayfa</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="kampanyalar">Kampanyalar</a>
+                    </li>                        
+                    <li class="nav-item">
+                        <a class="nav-link" href="ozellikler">Özellikler</a>
+                    </li>                        
+                    <li class="nav-item">
+                        <a class="nav-link" href="fiyatlandirma">Fiyatlandırma</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="destek">Yardım</a>
+                    </li>
+                    
+                </ul>
+
+                    <a href='kaydol'><button type='button' class='btn btn-outline-primary px-4 mx-2'>Kaydol</button></a><a href='giris/' target='_blank'><button type='button' class='btn btn-primary px-4'>Giriş Yap</button></a>
+            </div>
+            <!-- ------------------------------------ -->
+
+        </div>
+    </nav>
+
+
+
+
+
+
+
+
+
+<!-- Cards Section -->
+<section class="py-5" style="margin-top: 80px;">
+
+    <div class="container">
+        <div class="row justify-content-center">
+
+            <div class="col-12 col-md-12">
+
+
+                <div class="error-box">
+                    <img src="assets/img/404-gorsel.jpg">
+                    <p class="error-message">Üzgünüz, aradığınız sayfa bulunamadı.</p>
+                    <a href="https://guzelix.com" class="back-home btn btn-primary btn-sm">Ana Sayfaya Dön</a>
+                </div>
+
+
+            </div>
+
+        </div>
+    </div>
+
+</section>
+
+
+
+
+
+
+
+    
+
+    <!-- ------------------ FOOTER BAŞLANGIÇ ------------------ -->
+    <section class="footer-ozel pt-5" style="background-color: #f7f7fc; margin-top: 75px;">
+        <div class="container">
+          <footer class="py-3">
+            <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+              <li class="nav-item"><a href="index" class="nav-link px-2 text-body-secondary">Anasayfa</a></li>
+              <li class="nav-item"><a href="kampanyalar" class="nav-link px-2 text-body-secondary">Kampanyalar</a></li>
+              <li class="nav-item"><a href="fiyatlandirma" class="nav-link px-2 text-body-secondary">Fiyatlandırma</a></li>
+              <li class="nav-item"><a href="gizlilik-ve-kullanici-sozlesmesi" class="nav-link px-2 text-body-secondary">Gizlilik Ve Kullanıcı Sözleşme</a></li>
+              <li class="nav-item"><a href="blog/" class="nav-link px-2 text-body-secondary">Blog</a></li>
+              <li class="nav-item"><a href="destek" class="nav-link px-2 text-body-secondary">Yardım</a></li>
+            </ul>
+            <p class="text-center text-body-secondary">© Copyright 2026 Guzelix.com &nbsp; | &nbsp; 
+                Bir <font style="font-family:'sansation';font-weight: bold; font-size:14px;"><a class="text-color-dark text-color-hover-primary" href="http://www.ngedia.com" target="_blank" style="font-size: 18px; text-decoration: none; color: #8a81e8;" title="Ngedia Bilişim Tasarım ve Prodüksiyon Hizmetleri">ngedia</a>
+                </font> Projesidir.</a>
+            </p>
+          </footer>
+        </div>
+    </section>
+    <!-- ------------------ FOOTER SON ------------------ -->
+
+
+
+
+
+
+
+    
+<!-- ------------------ COOKIE KULLANIMI BAŞLANGIÇ ------------------ -->
+
+    <!-- GDPR Çerez Uyarısı -->
+    <div id="cookieConsent" style="position: fixed; bottom: 0; width: 100%; background-color: rgb(115 103 240 / 91%); color: #333; padding: 20px; text-align: center; z-index: 1000; display: none;">
+      <p style="margin: 0; font-size: 14px; color: #fff;">
+        Web sitemiz çerezleri kullanır. Daha fazla bilgi için 
+        <a href="gizlilik-ve-kullanici-sozlesmesi" style="color: #fff; text-decoration: underline;">Gizlilik Politikamızı</a> okuyun.
+              <button class="btn btn-danger btn-sm" id="acceptCookies">Anladım</button>
+      </p>
+    </div>
+
+
+
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const consentDiv = document.getElementById('cookieConsent');
+            const acceptBtn = document.getElementById('acceptCookies');
+            const declineBtn = document.getElementById('declineCookies');
+
+            // Çerez kontrolü
+            if (!localStorage.getItem('cookieConsent')) {
+                consentDiv.style.display = 'block';
+            }
+
+            // Kabul Et butonu
+            acceptBtn.addEventListener('click', function () {
+                localStorage.setItem('cookieConsent', 'accepted');
+                consentDiv.style.display = 'none';
+            });
+
+            // Reddet butonu
+            declineBtn.addEventListener('click', function () {
+                localStorage.setItem('cookieConsent', 'declined');
+                consentDiv.style.display = 'none';
+                // İstenirse çerezler burada temizlenebilir
+            });
+        });
+    </script>
+
+<!-- ------------------ COOKIE KULLANIMI SON --------------------- -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Select2 CSS ve JS dosyalarını ekleyin -->
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+
+
+    <script src="assets/vendor/libs/select2/select2.js"></script>
+
+
+
+
+
+
+
+</body>
+</html>

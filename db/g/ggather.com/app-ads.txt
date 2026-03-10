@@ -1,0 +1,133 @@
+<!doctype html><html lang="en" class="mod-build-webapp"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,height=device-height,initial-scale=1"><meta http-equiv="X-UA-Compatible" content="IE=edge"><title>GGather</title><meta name="description" content="Effortless and organized way to store your bookmarks with the right mix of features. Sharing is optional. Private bookmarking is just as good."><link rel="chrome-webstore-item" href="https://chrome.google.com/webstore/detail/gafpjkhbdpfnmlhddohonnainilaoehb"><link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png"><link rel="manifest" href="/favicon/manifest.json"><link rel="shortcut icon" href="/favicon/favicon.ico"><link rel="mask-icon" href="/favicon/safari-pinned-tab.svg" color="#4889f5"><meta name="theme-color" content="#ffffff"><script>// dark theme (prevents white load screen flash)
+    try {
+      var appTheme = window.localStorage.getItem('appTheme');
+      if (appTheme==='"dark"') window.document.documentElement.classList.add('mod-app-theme-dark');
+    } catch(error) { /* noop */ }
+
+    // get cookie helper
+    function getCookie(name) {
+      var v = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
+      return v ? v[2] : null;
+    }
+
+    // set cookie helper
+    /*
+    function setCookie(name, value, days, domain) {
+      var d = new Date; d.setTime(d.getTime() + 24*60*60*1000*days);
+      var domainLine = domain ? (';domain=' + domain) : '';
+      document.cookie = name + "=" + value + ";expires=" + d.toGMTString() + domainLine + ';path=/';
+    }
+    */
+
+    // xhr send request helper
+    function sendRequest(config){
+      var xhr = new XMLHttpRequest();
+      xhr.open(config.method, config.url, true);
+      xhr.timeout = 1000 * 30;
+      xhr.setRequestHeader('Accept', 'application/json, text/plain, */*');
+      xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+      xhr.setRequestHeader('GGather-Build', 'webapp');
+      xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+      xhr.send(config.data);
+      xhr.onload = function(progressEvent) {
+        if (xhr.readyState===4 && (xhr.status===200 || xhr.status===201)) config.success(progressEvent, xhr);
+        else if (xhr.readyState===4) config.error(progressEvent, xhr);
+      }
+      xhr.onerror = function(progressEvent) {
+        config.error(progressEvent, xhr);
+      }
+      xhr.ontimeout = function(progressEvent) {
+        config.error(progressEvent, xhr);
+      }
+      return xhr;
+    }
+
+    // refresh request
+    var token = getCookie('jwttoken');
+    var aer = window._appEagerRefresh = {
+      xhr: null,
+      loading: true,
+      success: null,
+      error: null,
+      finishCallback: null,
+      responseJSON: null,
+    };
+    if (token) aer.xhr = sendRequest({
+      method: 'POST',
+      url: 'https://core.ggather.com/api/token/refresh/',
+      data: 'token='+token,
+      success: function(progressEvent, xhr){
+        aer.loading = false;
+        aer.success = true;
+        aer.responseJSON = JSON.parse(xhr.responseText);
+        if (aer.finishCallback) aer.finishCallback();
+      },
+      error: function(progressEvent, xhr){
+        aer.loading = false;
+        aer.error = true;
+        if (aer.finishCallback) aer.finishCallback();
+      },
+    });</script></head><body><div id="app"><style>:root:root {
+        background-color: #f5f5f5;
+        margin: 0;
+        padding: 0;
+        font-size: 0;
+      }
+      :root:root body {
+        margin: 0;
+        padding: 0;
+        font-size: 0;
+      }
+      :root:root.mod-app-theme-dark {
+        background-color: #1a1a1a;
+      }
+      :root:root.mod-app-theme-dark body {
+        color-scheme: dark;
+        color: black;
+      }
+      .app-load-screen {
+        position: relative;
+        display: block;
+        width: 100%;
+        min-height: 100%;
+        height: calc(100vh);
+        margin: auto;
+      }
+      .app-load-screen-topbar {
+        position: fixed;
+        z-index: 10;
+        top: 0;
+        left: 0;
+        right: 0;
+        width: 100%;
+        height: 55px;
+        box-sizing: border-box;
+        background: white;
+        border-bottom: 1px solid #ededed;
+      }
+      .app-load-screen-inner {
+        font-size: 18px;
+        position: absolute;
+        top: 50%;
+        top: calc( 50% + 3px );
+        left: 50%;
+        -webkit-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+        text-align: center;
+      }
+      .app-load-screen-logo {
+        display: block;
+      }
+      .app-load-screen-logo > svg {
+        width: 32px;
+        display: inline-block;
+        position: relative;
+        z-index: 5;
+        -webkit-transform-origin: 50% 50%;
+            transform-origin: 50% 50%;
+        -webkit-transform: scale(1.00);
+            transform: scale(1.00);
+      }
+      .app-load-screen-logo > svg > path {
+        fill: #aaa;
+      }</style><div class="app-load-screen"><div class="app-load-screen-inner"><div class="app-load-screen-logo"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 438 668"><path fill="#000000" class="cls-1" d="M376.29,0h-33a60.31,60.31,0,0,0-54.49,34.46l-35,73.69a14.65,14.65,0,0,0,13.23,20.92h71.62c19.15,0,29.42,22.53,16.85,37-69.92,80.39-190.26,216-251.8,287-5.68,6.56-16.18-.2-12.36-8C120.5,385.68,180.81,268,209.8,208.45a7.42,7.42,0,0,0-6.68-10.67H115c-17.16,0-26.44-20.1-15.32-33.16l99-116.32C214.94,29.28,201.42,0,176.42,0H61.71A61.31,61.31,0,0,0,.4,61.31V636.42c0,29.36,36.28,43.16,55.79,21.23L173.86,525.41a60.42,60.42,0,0,1,90.28,0L381.81,657.65c19.52,21.93,55.79,8.13,55.79-21.23V61.31A61.31,61.31,0,0,0,376.29,0Z"></path></svg></div></div></div></div><script src="/main.9550badca9f6f1853652.js"></script></body></html>

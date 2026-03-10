@@ -1,0 +1,2649 @@
+<!DOCTYPE html>
+<html lang="en-US" prefix="og: http://ogp.me/ns#">
+<head></script><!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-PHV745P7V6"></script><script async data-cfasync="false">
+  (function() {
+      const url = new URL(window.location.href);
+      const clickID = url.searchParams.get("click_id");
+      const sourceID = url.searchParams.get("source_id");
+
+      const s = document.createElement("script");
+      s.dataset.cfasync = "false";
+      s.src = "https://push-sdk.com/f/sdk.js?z=1373908";
+      s.onload = (opts) => {
+          opts.zoneID = 1373908;
+          opts.extClickID = clickID;
+          opts.subID1 = sourceID;
+          opts.actions.onPermissionGranted = () => {};
+          opts.actions.onPermissionDenied = () => {};
+          opts.actions.onAlreadySubscribed = () => {};
+          opts.actions.onError = () => {};
+      };
+      document.head.appendChild(s);
+  })()
+</script>
+<!-- InMobi Choice. Consent Manager Tag v3.0 (for TCF 2.2) -->
+<script type="text/javascript" async=true>
+(function() {
+var host = window.location.hostname;
+var element = document.createElement('script');
+var firstScript = document.getElementsByTagName('script')[0];
+var url = 'https://cmp.inmobi.com'
+.concat('/choice/', 'r7NWcJKAkrYRn', '/', host, '/choice.js?tag_version=V3');
+var uspTries = 0;
+var uspTriesLimit = 3;
+element.async = true;
+element.type = 'text/javascript';
+element.src = url;
+
+firstScript.parentNode.insertBefore(element, firstScript);
+
+function makeStub() {
+var TCF_LOCATOR_NAME = '__tcfapiLocator';
+var queue = [];
+var win = window;
+var cmpFrame;
+
+function addFrame() {
+var doc = win.document;
+var otherCMP = !!(win.frames[TCF_LOCATOR_NAME]);
+
+if (!otherCMP) {
+if (doc.body) {
+var iframe = doc.createElement('iframe');
+
+iframe.style.cssText = 'display:none';
+iframe.name = TCF_LOCATOR_NAME;
+doc.body.appendChild(iframe);
+} else {
+setTimeout(addFrame, 5);
+}
+}
+return !otherCMP;
+}
+
+function tcfAPIHandler() {
+var gdprApplies;
+var args = arguments;
+
+if (!args.length) {
+return queue;
+} else if (args[0] === 'setGdprApplies') {
+if (
+args.length > 3 &&
+args[2] === 2 &&
+typeof args[3] === 'boolean'
+) {
+gdprApplies = args[3];
+if (typeof args[2] === 'function') {
+args[2]('set', true);
+}
+}
+} else if (args[0] === 'ping') {
+var retr = {
+gdprApplies: gdprApplies,
+cmpLoaded: false,
+cmpStatus: 'stub'
+};
+
+if (typeof args[2] === 'function') {
+args[2](retr);
+}
+} else {
+if(args[0] === 'init' && typeof args[3] === 'object') {
+args[3] = Object.assign(args[3], { tag_version: 'V3' });
+}
+queue.push(args);
+}
+}
+
+function postMessageEventHandler(event) {
+var msgIsString = typeof event.data === 'string';
+var json = {};
+
+try {
+if (msgIsString) {
+json = JSON.parse(event.data);
+} else {
+json = event.data;
+}
+} catch (ignore) {}
+
+var payload = json.__tcfapiCall;
+
+if (payload) {
+window.__tcfapi(
+payload.command,
+payload.version,
+function(retValue, success) {
+var returnMsg = {
+  __tcfapiReturn: {
+    returnValue: retValue,
+    success: success,
+    callId: payload.callId
+  }
+};
+if (msgIsString) {
+  returnMsg = JSON.stringify(returnMsg);
+}
+if (event && event.source && event.source.postMessage) {
+  event.source.postMessage(returnMsg, '*');
+}
+},
+payload.parameter
+);
+}
+}
+
+while (win) {
+try {
+if (win.frames[TCF_LOCATOR_NAME]) {
+cmpFrame = win;
+break;
+}
+} catch (ignore) {}
+
+if (win === window.top) {
+break;
+}
+win = win.parent;
+}
+if (!cmpFrame) {
+addFrame();
+win.__tcfapi = tcfAPIHandler;
+win.addEventListener('message', postMessageEventHandler, false);
+}
+};
+
+makeStub();
+
+function makeGppStub() {
+const CMP_ID = 10;
+const SUPPORTED_APIS = [
+'2:tcfeuv2',
+'6:uspv1',
+'7:usnatv1',
+'8:usca',
+'9:usvav1',
+'10:uscov1',
+'11:usutv1',
+'12:usctv1'
+];
+
+window.__gpp_addFrame = function (n) {
+if (!window.frames[n]) {
+if (document.body) {
+var i = document.createElement("iframe");
+i.style.cssText = "display:none";
+i.name = n;
+document.body.appendChild(i);
+} else {
+window.setTimeout(window.__gpp_addFrame, 10, n);
+}
+}
+};
+window.__gpp_stub = function () {
+var b = arguments;
+__gpp.queue = __gpp.queue || [];
+__gpp.events = __gpp.events || [];
+
+if (!b.length || (b.length == 1 && b[0] == "queue")) {
+return __gpp.queue;
+}
+
+if (b.length == 1 && b[0] == "events") {
+return __gpp.events;
+}
+
+var cmd = b[0];
+var clb = b.length > 1 ? b[1] : null;
+var par = b.length > 2 ? b[2] : null;
+if (cmd === "ping") {
+clb(
+{
+gppVersion: "1.1", // must be “Version.Subversion”, current: “1.1”
+cmpStatus: "stub", // possible values: stub, loading, loaded, error
+cmpDisplayStatus: "hidden", // possible values: hidden, visible, disabled
+signalStatus: "not ready", // possible values: not ready, ready
+supportedAPIs: SUPPORTED_APIS, // list of supported APIs
+cmpId: CMP_ID, // IAB assigned CMP ID, may be 0 during stub/loading
+sectionList: [],
+applicableSections: [-1],
+gppString: "",
+parsedSections: {},
+},
+true
+);
+} else if (cmd === "addEventListener") {
+if (!("lastId" in __gpp)) {
+__gpp.lastId = 0;
+}
+__gpp.lastId++;
+var lnr = __gpp.lastId;
+__gpp.events.push({
+id: lnr,
+callback: clb,
+parameter: par,
+});
+clb(
+{
+eventName: "listenerRegistered",
+listenerId: lnr, // Registered ID of the listener
+data: true, // positive signal
+pingData: {
+  gppVersion: "1.1", // must be “Version.Subversion”, current: “1.1”
+  cmpStatus: "stub", // possible values: stub, loading, loaded, error
+  cmpDisplayStatus: "hidden", // possible values: hidden, visible, disabled
+  signalStatus: "not ready", // possible values: not ready, ready
+  supportedAPIs: SUPPORTED_APIS, // list of supported APIs
+  cmpId: CMP_ID, // list of supported APIs
+  sectionList: [],
+  applicableSections: [-1],
+  gppString: "",
+  parsedSections: {},
+},
+},
+true
+);
+} else if (cmd === "removeEventListener") {
+var success = false;
+for (var i = 0; i < __gpp.events.length; i++) {
+if (__gpp.events[i].id == par) {
+__gpp.events.splice(i, 1);
+success = true;
+break;
+}
+}
+clb(
+{
+eventName: "listenerRemoved",
+listenerId: par, // Registered ID of the listener
+data: success, // status info
+pingData: {
+  gppVersion: "1.1", // must be “Version.Subversion”, current: “1.1”
+  cmpStatus: "stub", // possible values: stub, loading, loaded, error
+  cmpDisplayStatus: "hidden", // possible values: hidden, visible, disabled
+  signalStatus: "not ready", // possible values: not ready, ready
+  supportedAPIs: SUPPORTED_APIS, // list of supported APIs
+  cmpId: CMP_ID, // CMP ID
+  sectionList: [],
+  applicableSections: [-1],
+  gppString: "",
+  parsedSections: {},
+},
+},
+true
+);
+} else if (cmd === "hasSection") {
+clb(false, true);
+} else if (cmd === "getSection" || cmd === "getField") {
+clb(null, true);
+}
+//queue all other commands
+else {
+__gpp.queue.push([].slice.apply(b));
+}
+};
+window.__gpp_msghandler = function (event) {
+var msgIsString = typeof event.data === "string";
+try {
+var json = msgIsString ? JSON.parse(event.data) : event.data;
+} catch (e) {
+var json = null;
+}
+if (typeof json === "object" && json !== null && "__gppCall" in json) {
+var i = json.__gppCall;
+window.__gpp(
+i.command,
+function (retValue, success) {
+var returnMsg = {
+  __gppReturn: {
+    returnValue: retValue,
+    success: success,
+    callId: i.callId,
+  },
+};
+event.source.postMessage(msgIsString ? JSON.stringify(returnMsg) : returnMsg, "*");
+},
+"parameter" in i ? i.parameter : null,
+"version" in i ? i.version : "1.1"
+);
+}
+};
+if (!("__gpp" in window) || typeof window.__gpp !== "function") {
+window.__gpp = window.__gpp_stub;
+window.addEventListener("message", window.__gpp_msghandler, false);
+window.__gpp_addFrame("__gppLocator");
+}
+};
+
+makeGppStub();
+
+var uspStubFunction = function() {
+var arg = arguments;
+if (typeof window.__uspapi !== uspStubFunction) {
+setTimeout(function() {
+if (typeof window.__uspapi !== 'undefined') {
+window.__uspapi.apply(window.__uspapi, arg);
+}
+}, 500);
+}
+};
+
+var checkIfUspIsReady = function() {
+uspTries++;
+if (window.__uspapi === uspStubFunction && uspTries < uspTriesLimit) {
+console.warn('USP is not accessible');
+} else {
+clearInterval(uspInterval);
+}
+};
+
+if (typeof window.__uspapi === 'undefined') {
+window.__uspapi = uspStubFunction;
+var uspInterval = setInterval(checkIfUspIsReady, 6000);
+}
+})();
+</script>
+<!-- End InMobi Choice. Consent Manager Tag v3.0 (for TCF 2.2) -->
+	<meta charset="UTF-8" />
+	<link rel="profile" href="http://gmpg.org/xfn/11" />
+	<link rel="pingback" href="https://aro4x4.ro/xmlrpc.php" />
+	<title>ARO 4&#215;4 &#8211; Autovehicul de teren romanesc</title>
+<link rel='dns-prefetch' href='//s.w.org' />
+<link rel="alternate" type="application/rss+xml" title="ARO 4x4 &raquo; Feed" href="https://aro4x4.ro/feed/" />
+<link rel="alternate" type="application/rss+xml" title="ARO 4x4 &raquo; Comments Feed" href="https://aro4x4.ro/comments/feed/" />
+
+				<meta property="og:title" content="ARO 4x4" />
+				<meta property="og:type" content="website" />
+				<meta property="og:description" content="Autovehicul de teren romanesc" />
+				<meta property="og:url" content="https://aro4x4.ro/" />
+				<meta property="og:site_name" content="ARO 4x4" />
+					<script type="text/javascript">
+			window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/2.3\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/2.3\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/aro4x4.ro\/wp-includes\/js\/wp-emoji-release.min.js"}};
+			!function(t,a,e){var r,i,n,o=a.createElement("canvas"),l=o.getContext&&o.getContext("2d");function c(t){var e=a.createElement("script");e.src=t,e.defer=e.type="text/javascript",a.getElementsByTagName("head")[0].appendChild(e)}for(n=Array("flag","emoji4"),e.supports={everything:!0,everythingExceptFlag:!0},i=0;i<n.length;i++)e.supports[n[i]]=function(t){var e,a=String.fromCharCode;if(!l||!l.fillText)return!1;switch(l.clearRect(0,0,o.width,o.height),l.textBaseline="top",l.font="600 32px Arial",t){case"flag":return(l.fillText(a(55356,56826,55356,56819),0,0),e=o.toDataURL(),l.clearRect(0,0,o.width,o.height),l.fillText(a(55356,56826,8203,55356,56819),0,0),e===o.toDataURL())?!1:(l.clearRect(0,0,o.width,o.height),l.fillText(a(55356,57332,56128,56423,56128,56418,56128,56421,56128,56430,56128,56423,56128,56447),0,0),e=o.toDataURL(),l.clearRect(0,0,o.width,o.height),l.fillText(a(55356,57332,8203,56128,56423,8203,56128,56418,8203,56128,56421,8203,56128,56430,8203,56128,56423,8203,56128,56447),0,0),e!==o.toDataURL());case"emoji4":return l.fillText(a(55358,56794,8205,9794,65039),0,0),e=o.toDataURL(),l.clearRect(0,0,o.width,o.height),l.fillText(a(55358,56794,8203,9794,65039),0,0),e!==o.toDataURL()}return!1}(n[i]),e.supports.everything=e.supports.everything&&e.supports[n[i]],"flag"!==n[i]&&(e.supports.everythingExceptFlag=e.supports.everythingExceptFlag&&e.supports[n[i]]);e.supports.everythingExceptFlag=e.supports.everythingExceptFlag&&!e.supports.flag,e.DOMReady=!1,e.readyCallback=function(){e.DOMReady=!0},e.supports.everything||(r=function(){e.readyCallback()},a.addEventListener?(a.addEventListener("DOMContentLoaded",r,!1),t.addEventListener("load",r,!1)):(t.attachEvent("onload",r),a.attachEvent("onreadystatechange",function(){"complete"===a.readyState&&e.readyCallback()})),(r=e.source||{}).concatemoji?c(r.concatemoji):r.wpemoji&&r.twemoji&&(c(r.twemoji),c(r.wpemoji)))}(window,document,window._wpemojiSettings);
+		</script>
+		<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+<link rel='stylesheet' id='tie-css-styles-css'  href='https://aro4x4.ro/wp-content/themes/jannah/assets/css/style.css' type='text/css' media='all' />
+<link rel='stylesheet' id='tie-css-ilightbox-css'  href='https://aro4x4.ro/wp-content/themes/jannah/assets/css/ilightbox/light-skin/skin.css' type='text/css' media='all' />
+<style id='tie-css-ilightbox-inline-css' type='text/css'>
+.wf-active .logo-text,.wf-active h1,.wf-active h2,.wf-active h3,.wf-active h4,.wf-active h5,.wf-active h6{font-family: 'Play';}#main-nav .main-menu > ul > li > a{font-size: 14px;}.brand-title,a:hover,#tie-popup-search-submit,#logo.text-logo a,.theme-header nav .components #search-submit:hover,.theme-header .header-nav .components > li:hover > a,.theme-header .header-nav .components li a:hover,.main-menu ul.cats-vertical li a.is-active,.main-menu ul.cats-vertical li a:hover,.main-nav li.mega-menu .post-meta a:hover,.main-nav li.mega-menu .post-box-title a:hover,.main-nav-light .main-nav .menu ul li:hover > a,.main-nav-light .main-nav .menu ul li.current-menu-item:not(.mega-link-column) > a,.search-in-main-nav.autocomplete-suggestions a:hover,.top-nav .menu li:hover > a,.top-nav .menu > .tie-current-menu > a,.search-in-top-nav.autocomplete-suggestions .post-title a:hover,div.mag-box .mag-box-options .mag-box-filter-links a.active,.mag-box-filter-links .flexMenu-viewMore:hover > a,.stars-rating-active,body .tabs.tabs .active > a,.video-play-icon,.spinner-circle:after,#go-to-content:hover,.comment-list .comment-author .fn,.commentlist .comment-author .fn,blockquote::before,blockquote cite,blockquote.quote-simple p,.multiple-post-pages a:hover,#story-index li .is-current,.latest-tweets-widget .twitter-icon-wrap span,.wide-slider-nav-wrapper .slide,.wide-next-prev-slider-wrapper .tie-slider-nav li:hover span,#instagram-link:hover,.review-final-score h3,#mobile-menu-icon:hover .menu-text,.entry a,.entry .post-bottom-meta a[href]:hover,.widget.tie-weather-widget .icon-basecloud-bg:after,q a,blockquote a,.site-footer a:hover,.site-footer .stars-rating-active,.site-footer .twitter-icon-wrap span,.site-info a:hover{color: #3b5998;}#theme-header #main-nav .spinner-circle:after{color: #3b5998;}[type='submit'],.button,.generic-button a,.generic-button button,.theme-header .header-nav .comp-sub-menu a.button.guest-btn:hover,.theme-header .header-nav .comp-sub-menu a.checkout-button,nav.main-nav .menu > li.tie-current-menu > a,nav.main-nav .menu > li:hover > a,.main-menu .mega-links-head:after,.main-nav .mega-menu.mega-cat .cats-horizontal li a.is-active,.main-nav .mega-menu.mega-cat .cats-horizontal li a:hover,#mobile-menu-icon:hover .nav-icon,#mobile-menu-icon:hover .nav-icon:before,#mobile-menu-icon:hover .nav-icon:after,.search-in-main-nav.autocomplete-suggestions a.button,.search-in-top-nav.autocomplete-suggestions a.button,.spinner > div,.post-cat,.pages-numbers li.current span,.multiple-post-pages > span,#tie-wrapper .mejs-container .mejs-controls,.mag-box-filter-links a:hover,.slider-arrow-nav a:not(.pagination-disabled):hover,.comment-list .reply a:hover,.commentlist .reply a:hover,#reading-position-indicator,#story-index-icon,.videos-block .playlist-title,.review-percentage .review-item span span,.tie-slick-dots li.slick-active button,.tie-slick-dots li button:hover,.digital-rating-static strong,.timeline-widget li a:hover .date:before,#wp-calendar #today,.posts-list-counter li:before,.cat-counter a + span,.tie-slider-nav li span:hover,.fullwidth-area .widget_tag_cloud .tagcloud a:hover,.magazine2:not(.block-head-4) .dark-widgetized-area ul.tabs a:hover,.magazine2:not(.block-head-4) .dark-widgetized-area ul.tabs .active a,.magazine1 .dark-widgetized-area ul.tabs a:hover,.magazine1 .dark-widgetized-area ul.tabs .active a,.block-head-4.magazine2 .dark-widgetized-area .tabs.tabs .active a,.block-head-4.magazine2 .dark-widgetized-area .tabs > .active a:before,.block-head-4.magazine2 .dark-widgetized-area .tabs > .active a:after,.demo_store,.demo #logo:after,.widget.tie-weather-widget,span.video-close-btn:hover,#go-to-top,.latest-tweets-widget .slider-links .button:not(:hover){background-color: #3b5998;color: #FFFFFF;}.tie-weather-widget .widget-title h4,.block-head-4.magazine2 #footer .tabs .active a:hover{color: #FFFFFF;}pre,code,.pages-numbers li.current span,.theme-header .header-nav .comp-sub-menu a.button.guest-btn:hover,.multiple-post-pages > span,.post-content-slideshow .tie-slider-nav li span:hover,#tie-body .tie-slider-nav li > span:hover,#instagram-link:before,#instagram-link:after,.slider-arrow-nav a:not(.pagination-disabled):hover,.main-nav .mega-menu.mega-cat .cats-horizontal li a.is-active,.main-nav .mega-menu.mega-cat .cats-horizontal li a:hover,.main-menu .menu > li > .menu-sub-content{border-color: #3b5998;}.main-menu .menu > li.tie-current-menu{border-bottom-color: #3b5998;}.top-nav .menu li.menu-item-has-children:hover > a:before{border-top-color: #3b5998;}.main-nav .main-menu .menu > li.tie-current-menu > a:before,.main-nav .main-menu .menu > li:hover > a:before{border-top-color: #FFFFFF;}header.main-nav-light .main-nav .menu-item-has-children li:hover > a:before,header.main-nav-light .main-nav .mega-menu li:hover > a:before{border-left-color: #3b5998;}.rtl header.main-nav-light .main-nav .menu-item-has-children li:hover > a:before,.rtl header.main-nav-light .main-nav .mega-menu li:hover > a:before{border-right-color: #3b5998;border-left-color: transparent;}.top-nav ul.menu li .menu-item-has-children:hover > a:before{border-top-color: transparent;border-left-color: #3b5998;}.rtl .top-nav ul.menu li .menu-item-has-children:hover > a:before{border-left-color: transparent;border-right-color: #3b5998;}#footer-widgets-container{border-top: 8px solid #3b5998;-webkit-box-shadow: 0 -5px 0 rgba(0,0,0,0.07); -moz-box-shadow: 0 -8px 0 rgba(0,0,0,0.07); box-shadow: 0 -8px 0 rgba(0,0,0,0.07);}::-moz-selection{background-color: #3b5998;color: #FFFFFF;}::selection{background-color: #3b5998;color: #FFFFFF;}circle.circle_bar{stroke: #3b5998;}#reading-position-indicator{box-shadow: 0 0 10px rgba( 59,89,152,0.7);}#tie-popup-search-submit:hover,#logo.text-logo a:hover,.entry a:hover,.block-head-4.magazine2 .site-footer .tabs li a:hover,q a:hover,blockquote a:hover{color: #092766;}.button:hover,input[type='submit']:hover,.generic-button a:hover,.generic-button button:hover,a.post-cat:hover,.site-footer .button:hover,.site-footer [type='submit']:hover,.search-in-main-nav.autocomplete-suggestions a.button:hover,.search-in-top-nav.autocomplete-suggestions a.button:hover,.theme-header .header-nav .comp-sub-menu a.checkout-button:hover{background-color: #092766;color: #FFFFFF;}.theme-header .header-nav .comp-sub-menu a.checkout-button:not(:hover),.entry a.button{color: #FFFFFF;}@media (max-width: 1600px){#story-index ul{background-color: #3b5998;}#story-index ul li a,#story-index ul li .is-current{color: #FFFFFF;}}#tie-body .has-block-head-4,#tie-body .mag-box-title h3,#tie-body .comment-reply-title,#tie-body .related.products > h2,#tie-body .up-sells > h2,#tie-body .cross-sells > h2,#tie-body .cart_totals > h2,#tie-body .bbp-form legend,#tie-body .mag-box-title h3 a,#tie-body .section-title-default a,#tie-body #cancel-comment-reply-link {color: #FFFFFF;}#tie-body .has-block-head-4:before,#tie-body .mag-box-title h3:before,#tie-body .comment-reply-title:before,#tie-body .related.products > h2:before,#tie-body .up-sells > h2:before,#tie-body .cross-sells > h2:before,#tie-body .cart_totals > h2:before,#tie-body .bbp-form legend:before {background-color: #3b5998;}#tie-body .block-more-button{color: #3b5998;}#tie-body .block-more-button:hover{color: #092766;}#tie-body .has-block-head-4:after,#tie-body .mag-box-title h3:after,#tie-body .comment-reply-title:after,#tie-body .related.products > h2:after,#tie-body .up-sells > h2:after,#tie-body .cross-sells > h2:after,#tie-body .cart_totals > h2:after,#tie-body .bbp-form legend:after{background-color: #3b5998;}#top-nav,#top-nav .sub-menu,#top-nav .comp-sub-menu,#top-nav .ticker-content,#top-nav .ticker-swipe,.top-nav-boxed #top-nav .topbar-wrapper,.search-in-top-nav.autocomplete-suggestions,#top-nav .guest-btn{background-color : #8e9199;}#top-nav *,.search-in-top-nav.autocomplete-suggestions{border-color: rgba( 255,255,255,0.08);}#top-nav .icon-basecloud-bg:after{color: #8e9199;}#top-nav a,#top-nav input,#top-nav #search-submit,#top-nav .fa-spinner,#top-nav .dropdown-social-icons li a span,#top-nav .components > li .social-link:not(:hover) span,.search-in-top-nav.autocomplete-suggestions a{color: #f6f7f9;}#top-nav .menu-item-has-children > a:before{border-top-color: #f6f7f9;}#top-nav li .menu-item-has-children > a:before{border-top-color: transparent;border-left-color: #f6f7f9;}.rtl #top-nav .menu li .menu-item-has-children > a:before{border-left-color: transparent;border-right-color: #f6f7f9;}#top-nav input::-moz-placeholder{color: #f6f7f9;}#top-nav input:-moz-placeholder{color: #f6f7f9;}#top-nav input:-ms-input-placeholder{color: #f6f7f9;}#top-nav input::-webkit-input-placeholder{color: #f6f7f9;}#top-nav .comp-sub-menu .button:hover,#top-nav .checkout-button,.search-in-top-nav.autocomplete-suggestions .button{background-color: #ffffff;}#top-nav a:hover,#top-nav .menu li:hover > a,#top-nav .menu > .tie-current-menu > a,#top-nav .components > li:hover > a,#top-nav .components #search-submit:hover,.search-in-top-nav.autocomplete-suggestions .post-title a:hover{color: #ffffff;}#top-nav .comp-sub-menu .button:hover{border-color: #ffffff;}#top-nav .tie-current-menu > a:before,#top-nav .menu .menu-item-has-children:hover > a:before{border-top-color: #ffffff;}#top-nav .menu li .menu-item-has-children:hover > a:before{border-top-color: transparent;border-left-color: #ffffff;}.rtl #top-nav .menu li .menu-item-has-children:hover > a:before{border-left-color: transparent;border-right-color: #ffffff;}#top-nav .comp-sub-menu .button:hover,#top-nav .comp-sub-menu .checkout-button,.search-in-top-nav.autocomplete-suggestions .button{color: #000000;}#top-nav .comp-sub-menu .checkout-button:hover,.search-in-top-nav.autocomplete-suggestions .button:hover{background-color: #e1e1e1;}#top-nav,#top-nav .comp-sub-menu,#top-nav .tie-weather-widget{color: #ffffff;}.search-in-top-nav.autocomplete-suggestions .post-meta,.search-in-top-nav.autocomplete-suggestions .post-meta a:not(:hover){color: rgba( 255,255,255,0.7 );}#main-nav{background-color : #f6f7f9;border-width: 0;}#theme-header #main-nav:not(.fixed-nav){bottom: 0;}#main-nav.fixed-nav{background-color : rgba( 246,247,249 ,0.95);}#main-nav .main-menu-wrapper,#main-nav .menu-sub-content,#main-nav .comp-sub-menu,#main-nav .guest-btn,.search-in-main-nav.autocomplete-suggestions{background-color: #f6f7f9;}#main-nav .icon-basecloud-bg:after{color: #f6f7f9;}#main-nav *,.search-in-main-nav.autocomplete-suggestions{border-color: rgba(0,0,0,0.07);}.main-nav-boxed #main-nav .main-menu-wrapper{border-width: 0;}#main-nav .menu li.menu-item-has-children > a:before,#main-nav .main-menu .mega-menu > a:before{border-top-color: #365899;}#main-nav .menu li .menu-item-has-children > a:before,#main-nav .mega-menu .menu-item-has-children > a:before{border-top-color: transparent;border-left-color: #365899;}.rtl #main-nav .menu li .menu-item-has-children > a:before,.rtl #main-nav .mega-menu .menu-item-has-children > a:before{border-left-color: transparent;border-right-color: #365899;}#main-nav a,#main-nav .dropdown-social-icons li a span,.search-in-main-nav.autocomplete-suggestions a{color: #365899;}#main-nav .comp-sub-menu .button:hover,#main-nav .menu > li.tie-current-menu,#main-nav .menu > li > .menu-sub-content,#main-nav .cats-horizontal a.is-active,#main-nav .cats-horizontal a:hover{border-color: #3b5998;}#main-nav .menu > li.tie-current-menu > a,#main-nav .menu > li:hover > a,#main-nav .mega-links-head:after,#main-nav .comp-sub-menu .button:hover,#main-nav .comp-sub-menu .checkout-button,#main-nav .cats-horizontal a.is-active,#main-nav .cats-horizontal a:hover,.search-in-main-nav.autocomplete-suggestions .button,#main-nav .spinner > div{background-color: #3b5998;}.main-nav-light #main-nav .menu ul li:hover > a,.main-nav-light #main-nav .menu ul li.current-menu-item:not(.mega-link-column) > a,#main-nav .components a:hover,#main-nav .components > li:hover > a,#main-nav #search-submit:hover,#main-nav .cats-vertical a.is-active,#main-nav .cats-vertical a:hover,#main-nav .mega-menu .post-meta a:hover,#main-nav .mega-menu .post-box-title a:hover,.search-in-main-nav.autocomplete-suggestions a:hover,#main-nav .spinner-circle:after{color: #3b5998;}#main-nav .menu > li.tie-current-menu > a,#main-nav .menu > li:hover > a,#main-nav .components .button:hover,#main-nav .comp-sub-menu .checkout-button,.theme-header #main-nav .mega-menu .cats-horizontal a.is-active,.theme-header #main-nav .mega-menu .cats-horizontal a:hover,.search-in-main-nav.autocomplete-suggestions a.button{color: #FFFFFF;}#main-nav .menu > li.tie-current-menu > a:before,#main-nav .menu > li:hover > a:before{border-top-color: #FFFFFF;}.main-nav-light #main-nav .menu-item-has-children li:hover > a:before,.main-nav-light #main-nav .mega-menu li:hover > a:before{border-left-color: #3b5998;}.rtl .main-nav-light #main-nav .menu-item-has-children li:hover > a:before,.rtl .main-nav-light #main-nav .mega-menu li:hover > a:before{border-right-color: #3b5998;border-left-color: transparent;}.search-in-main-nav.autocomplete-suggestions .button:hover,#main-nav .comp-sub-menu .checkout-button:hover{background-color: #1d3b7a;}#main-nav,#main-nav input,#main-nav #search-submit,#main-nav .fa-spinner,#main-nav .comp-sub-menu,#main-nav .tie-weather-widget{color: #4b4f56;}#main-nav input::-moz-placeholder{color: #4b4f56;}#main-nav input:-moz-placeholder{color: #4b4f56;}#main-nav input:-ms-input-placeholder{color: #4b4f56;}#main-nav input::-webkit-input-placeholder{color: #4b4f56;}#main-nav .mega-menu .post-meta,#main-nav .mega-menu .post-meta a,.search-in-main-nav.autocomplete-suggestions .post-meta{color: rgba(75,79,86,0.6);}#footer{background-color: #f6f7f9;}#site-info{background-color: #ffffff;}#footer .posts-list-counter .posts-list-items li:before{border-color: #f6f7f9;}#footer .timeline-widget a .date:before{border-color: rgba(246,247,249,0.8);}#footer .footer-boxed-widget-area,#footer textarea,#footer input:not([type=submit]),#footer select,#footer code,#footer kbd,#footer pre,#footer samp,#footer .show-more-button,#footer .slider-links .tie-slider-nav span,#footer #wp-calendar,#footer #wp-calendar tbody td,#footer #wp-calendar thead th,#footer .widget.buddypress .item-options a{border-color: rgba(0,0,0,0.1);}#footer .social-statistics-widget .white-bg li.social-icons-item a,#footer .widget_tag_cloud .tagcloud a,#footer .latest-tweets-widget .slider-links .tie-slider-nav span,#footer .widget_layered_nav_filters a{border-color: rgba(0,0,0,0.1);}#footer .social-statistics-widget .white-bg li:before{background: rgba(0,0,0,0.1);}.site-footer #wp-calendar tbody td{background: rgba(0,0,0,0.02);}#footer .white-bg .social-icons-item a span.followers span,#footer .circle-three-cols .social-icons-item a .followers-num,#footer .circle-three-cols .social-icons-item a .followers-name{color: rgba(0,0,0,0.8);}#footer .timeline-widget ul:before,#footer .timeline-widget a:not(:hover) .date:before{background-color: #d8d9db;}#footer .widget-title,#footer .widget-title a:not(:hover){color: #3b5998;}#footer,#footer textarea,#footer input:not([type='submit']),#footer select,#footer #wp-calendar tbody,#footer .tie-slider-nav li span:not(:hover),#footer .widget_categories li a:before,#footer .widget_product_categories li a:before,#footer .widget_layered_nav li a:before,#footer .widget_archive li a:before,#footer .widget_nav_menu li a:before,#footer .widget_meta li a:before,#footer .widget_pages li a:before,#footer .widget_recent_entries li a:before,#footer .widget_display_forums li a:before,#footer .widget_display_views li a:before,#footer .widget_rss li a:before,#footer .widget_display_stats dt:before,#footer .subscribe-widget-content h3,#footer .about-author .social-icons a:not(:hover) span{color: #1d2129;}#footer post-widget-body .meta-item,#footer .post-meta,#footer .stream-title,#footer.dark-skin .timeline-widget .date,#footer .wp-caption .wp-caption-text,#footer .rss-date{color: rgba(29,33,41,0.7);}#footer input::-moz-placeholder{color: #1d2129;}#footer input:-moz-placeholder{color: #1d2129;}#footer input:-ms-input-placeholder{color: #1d2129;}#footer input::-webkit-input-placeholder{color: #1d2129;}.site-footer.dark-skin a:not(:hover){color: #4b6dad;}.site-footer.dark-skin a:hover,#footer .stars-rating-active,#footer .twitter-icon-wrap span,.block-head-4.magazine2 #footer .tabs li a{color: #3b5998;}#footer .circle_bar{stroke: #3b5998;}#footer #instagram-link:before,#footer #instagram-link:after,#footer .widget.buddypress .item-options a.selected,#footer .widget.buddypress .item-options a.loading,#footer .tie-slider-nav span:hover,.block-head-4.magazine2 #footer .tabs{border-color: #3b5998;}.magazine2:not(.block-head-4) #footer .tabs a:hover,.magazine2:not(.block-head-4) #footer .tabs .active a,.magazine1 #footer .tabs a:hover,.magazine1 #footer .tabs .active a,.block-head-4.magazine2 #footer .tabs.tabs .active a,.block-head-4.magazine2 #footer .tabs > .active a:before,.block-head-4.magazine2 #footer .tabs > li.active:nth-child(n) a:after,#footer .digital-rating-static strong,#footer .timeline-widget li a:hover .date:before,#footer #wp-calendar #today,#footer .posts-list-counter .posts-list-items li:before,#footer .cat-counter span,#footer.dark-skin .the-global-title:after,#footer .button,#footer [type='submit'],#footer .spinner > div,#footer .widget.buddypress .item-options a.selected,#footer .widget.buddypress .item-options a.loading,#footer .tie-slider-nav span:hover,#footer .fullwidth-area .tagcloud a:hover{background-color: #3b5998;color: #FFFFFF;}.block-head-4.magazine2 #footer .tabs li a:hover{color: #1d3b7a;}.block-head-4.magazine2 #footer .tabs.tabs .active a:hover,#footer .widget.buddypress .item-options a.selected,#footer .widget.buddypress .item-options a.loading,#footer .tie-slider-nav span:hover{color: #FFFFFF !important;}#footer .button:hover,#footer [type='submit']:hover{background-color: #1d3b7a;color: #FFFFFF;}#site-info,#site-info ul.social-icons li a:not(:hover) span{color: #1d2129;}#footer .site-info a:not(:hover){color: #1d2129;}.tie-cat-402,.tie-cat-item-402 > span{background-color:#e67e22 !important;color:#FFFFFF !important;}.tie-cat-402:after{border-top-color:#e67e22 !important;}.tie-cat-402:hover{background-color:#c86004 !important;}.tie-cat-402:hover:after{border-top-color:#c86004 !important;}.tie-cat-403,.tie-cat-item-403 > span{background-color:#2ecc71 !important;color:#FFFFFF !important;}.tie-cat-403:after{border-top-color:#2ecc71 !important;}.tie-cat-403:hover{background-color:#10ae53 !important;}.tie-cat-403:hover:after{border-top-color:#10ae53 !important;}.tie-cat-404,.tie-cat-item-404 > span{background-color:#9b59b6 !important;color:#FFFFFF !important;}.tie-cat-404:after{border-top-color:#9b59b6 !important;}.tie-cat-404:hover{background-color:#7d3b98 !important;}.tie-cat-404:hover:after{border-top-color:#7d3b98 !important;}.tie-cat-405,.tie-cat-item-405 > span{background-color:#34495e !important;color:#FFFFFF !important;}.tie-cat-405:after{border-top-color:#34495e !important;}.tie-cat-405:hover{background-color:#162b40 !important;}.tie-cat-405:hover:after{border-top-color:#162b40 !important;}.tie-cat-406,.tie-cat-item-406 > span{background-color:#795548 !important;color:#FFFFFF !important;}.tie-cat-406:after{border-top-color:#795548 !important;}.tie-cat-406:hover{background-color:#5b372a !important;}.tie-cat-406:hover:after{border-top-color:#5b372a !important;}.tie-cat-407,.tie-cat-item-407 > span{background-color:#4CAF50 !important;color:#FFFFFF !important;}.tie-cat-407:after{border-top-color:#4CAF50 !important;}.tie-cat-407:hover{background-color:#2e9132 !important;}.tie-cat-407:hover:after{border-top-color:#2e9132 !important;}@media (min-width: 1200px){.container{width: auto;}}.boxed-layout #tie-wrapper,.boxed-layout .fixed-nav{max-width: 1180px;}@media (min-width: 1150px){.container,.wide-next-prev-slider-wrapper .slider-main-container{max-width: 1150px;}}
+</style>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var tie = {"is_rtl":"","ajaxurl":"https:\/\/aro4x4.ro\/wp-admin\/admin-ajax.php","mobile_menu_active":"true","mobile_menu_top":"","mobile_menu_parent":"","lightbox_all":"true","lightbox_gallery":"true","lightbox_skin":"light","lightbox_thumb":"horizontal","lightbox_arrows":"true","is_singular":"1","is_sticky_video":"","reading_indicator":"true","lazyload":"","select_share":"true","select_share_twitter":"true","select_share_facebook":"true","select_share_linkedin":"","select_share_email":"true","facebook_app_id":"","twitter_username":"","responsive_tables":"true","ad_blocker_detector":"","sticky_behavior":"default","sticky_desktop":"true","sticky_mobile":"true","sticky_mobile_behavior":"default","ajax_loader":"<div class=\"loader-overlay\"><div class=\"spinner-circle\"><\/div><\/div>","type_to_search":"1","lang_no_results":"Nothing Found"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='https://aro4x4.ro/wp-includes/js/jquery/jquery.js'></script>
+<script type='text/javascript' src='https://aro4x4.ro/wp-includes/js/jquery/jquery-migrate.min.js'></script>
+<link rel='https://api.w.org/' href='https://aro4x4.ro/wp-json/' />
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://aro4x4.ro/xmlrpc.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="https://aro4x4.ro/wp-includes/wlwmanifest.xml" /> 
+<meta name="generator" content="WordPress 4.8.25" />
+<link rel="canonical" href="https://aro4x4.ro/" />
+<link rel='shortlink' href='https://aro4x4.ro/' />
+<link rel="alternate" type="application/json+oembed" href="https://aro4x4.ro/wp-json/oembed/1.0/embed?url=https%3A%2F%2Faro4x4.ro%2F" />
+<link rel="alternate" type="text/xml+oembed" href="https://aro4x4.ro/wp-json/oembed/1.0/embed?url=https%3A%2F%2Faro4x4.ro%2F&#038;format=xml" />
+<meta name="clickaine-site-verification" content="1d233035455fab7febe071f8e71fd5c5de521c11415a2cb18a438cf31cd9ffb61fa94681b37f12b059f42c139c6eb216027adf429eda2a2335aaefcfcf87a940">
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-PHV745P7V6"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-PHV745P7V6');
+</script>
+
+<link rel="preload" as="script" href="https://live.demand.supply/up.js"><script async data-cfasync="false" type="text/javascript" src="https://live.demand.supply/up.js"></script>
+
+<div data-ad="aro4x4.ro_728x90_sticky_display_bottom_1" data-devices="m:0,t:1,d:1" class="demand-supply"></div>
+
+<style type="text/css">body { padding-top: 100px; }</style> <div data-ad="aro4x4.ro_sticky_mobile_top" data-devices="m:1,t:0,d:0" class="demand-supply"></div>
+
+
+<meta name="generator" content="Jannah 3.0.1" />
+<meta name="theme-color" content="#3b5998" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+					<script>
+						WebFontConfig ={
+							google:{
+								families: ['Play:regular,500,600,700:latin']
+							}
+						};
+						(function(){
+							var wf   = document.createElement('script');
+							wf.src   = '//ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+							wf.type  = 'text/javascript';
+							wf.async = 'true';
+							var s = document.getElementsByTagName('script')[0];
+							s.parentNode.insertBefore(wf, s);
+						})();
+					</script>
+				<link rel="icon" href="https://aro4x4.ro/wp-content/uploads/2019/04/Aro-Logo-150x150.png" sizes="32x32" />
+<link rel="icon" href="https://aro4x4.ro/wp-content/uploads/2019/04/Aro-Logo.png" sizes="192x192" />
+<link rel="apple-touch-icon-precomposed" href="https://aro4x4.ro/wp-content/uploads/2019/04/Aro-Logo.png" />
+<meta name="msapplication-TileImage" content="https://aro4x4.ro/wp-content/uploads/2019/04/Aro-Logo.png" />
+</head>
+
+<body id="tie-body" class="home page-template-default page page-id-2181 boxed-layout wrapper-has-shadow block-head-4 block-head-6 magazine1 is-thumb-overlay-disabled is-desktop is-header-layout-3 has-header-ad has-builder">
+
+
+<div class="background-overlay">
+
+	<div id="tie-container" class="site tie-container">
+
+		
+		<div id="tie-wrapper">
+
+			
+<header id="theme-header" class="theme-header header-layout-3 main-nav-light main-nav-below main-nav-boxed mobile-header-default">
+	
+<div class="container">
+	<div class="tie-row logo-row">
+
+		
+		<div class="logo-wrapper">
+			<div class="tie-col-md-4 logo-container">
+				<a href="#" id="mobile-menu-icon"><span class="nav-icon"></span></a>
+		<div id="logo" class="text-logo" >
+
+			
+			<a title="ARO 4x4" href="https://aro4x4.ro/">
+				<div class="logo-text">ARO 4x4</div><h1 class="h1-off">ARO 4x4</h1>			</a>
+
+			
+		</div><!-- #logo /-->
+
+					</div><!-- .tie-col /-->
+		</div><!-- .logo-wrapper /-->
+
+		<div class="tie-col-md-8 stream-item stream-item-top-wrapper"><div class="stream-item-top"><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8617089982567903"
+     crossorigin="anonymous"></script>
+<!-- 728 ARO -->
+<ins class="adsbygoogle" data-full-width-responsive="false"
+     style="display:block"
+     data-ad-client="ca-pub-8617089982567903"
+     data-ad-slot="2018185604"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+<script async custom-element="amp-ad" src="https://cdn.ampproject.org/v0/amp-ad-0.1.js"></script>
+<amp-ad width="100vw" height="320"
+     type="adsense"
+     data-ad-client="ca-pub-8617089982567903"
+     data-ad-slot="2018185604"
+     data-auto-format="rspv"
+     data-full-width="">
+  <div overflow=""></div>
+</amp-ad></div></div><!-- .tie-col /-->
+	</div><!-- .tie-row /-->
+</div><!-- .container /-->
+
+<div class="main-nav-wrapper">
+	<nav id="main-nav" data-skin="search-in-main-nav live-search-light" class="main-nav header-nav live-search-parent"  aria-label="Primary Navigation">
+		<div class="container">
+
+			<div class="main-menu-wrapper">
+
+				
+				<div id="menu-components-wrap">
+
+					
+					<div class="main-menu main-menu-wrap tie-alignleft">
+						<div id="main-nav-menu" class="main-menu header-menu"><ul id="menu-menu-1" class="menu" role="menubar"><li id="menu-item-2242" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home current-menu-item page_item page-item-2181 current_page_item menu-item-2242 tie-current-menu menu-item-has-icon"><a href="https://aro4x4.ro/"> <span aria-hidden="true" class="fa fa-home"></span> Home</a></li>
+<li id="menu-item-4160" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-4160"><a href="https://aro4x4.ro/stiri-si-informatii/">Stiri</a></li>
+<li id="menu-item-3404" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3404 menu-item-has-icon"><a href="https://aro4x4.ro/magazin-online/"> <span aria-hidden="true" class="fa fa-desktop"></span> MAGAZIN ONLINE</a></li>
+<li id="menu-item-1798" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1798"><a href="https://aro4x4.ro/aro-240/">ARO 240</a></li>
+<li id="menu-item-1803" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1803"><a href="https://aro4x4.ro/aro-241/">ARO 241</a></li>
+<li id="menu-item-1796" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1796"><a href="https://aro4x4.ro/aro-242/">Aro 242</a></li>
+<li id="menu-item-1801" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1801"><a href="https://aro4x4.ro/aro-243/">Aro 243</a></li>
+<li id="menu-item-1804" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1804"><a href="https://aro4x4.ro/aro-244/">Aro 244</a></li>
+<li id="menu-item-6037" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-6037"><a href="https://aro4x4.ro/aro-246/">Aro 246</a></li>
+<li id="menu-item-3216" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3216"><a href="https://aro4x4.ro/aro-324/">Aro 324</a></li>
+<li id="menu-item-1802" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1802"><a href="https://aro4x4.ro/aro-m461/">Aro M461</a></li>
+</ul></div>					</div><!-- .main-menu.tie-alignleft /-->
+
+					<ul class="components">		<li class="search-compact-icon menu-item custom-menu-link">
+			<a href="#" data-type="modal-trigger" class="tie-search-trigger">
+				<span class="fa fa-search" aria-hidden="true"></span>
+				<span class="screen-reader-text">Cautare</span>
+			</a>
+			<span class="cd-modal-bg"></span>
+		</li>
+				<li class="list-social-icons menu-item custom-menu-link">
+			<a href="#" class="follow-btn">
+				<span class="fa fa-plus" aria-hidden="true"></span>
+				<span class="follow-text">Follow</span>
+			</a>
+			<ul class="dropdown-social-icons comp-sub-menu"><li class="social-icons-item"><a class="social-link  facebook-social-icon" title="Facebook" rel="nofollow" target="_blank" href="https://www.facebook.com/aro4x4romania"><span class="fa fa-facebook"></span><span class="social-text">Facebook</span></a></li></ul><!-- #dropdown-social-icons /-->		</li><!-- #list-social-icons /-->
+		</ul><!-- Components -->
+				</div><!-- #menu-components-wrap /-->
+			</div><!-- .main-menu-wrapper /-->
+		</div><!-- .container /-->
+	</nav><!-- #main-nav /-->
+</div><!-- .main-nav-wrapper /-->
+
+</header>
+
+
+
+<div id="tiepost-2181-section-1247" class="section-wrapper container-full without-background">
+	<div class="section-item is-first-section full-width" style="" >
+
+		
+				<div class="container">
+					<div class="tie-row main-content-row">
+						<div class="main-content tie-col-md-12">
+			<section id="tie-block_3340" class="slider-area mag-box">
+
+				
+					<div id="tie-main-slider-12-block_3340" class="tie-main-slider main-slider grid-5-in-rows boxed-slider grid-slider-wrapper tie-slick-slider-wrapper" data-slider-id="12"  data-speed="3000">
+
+						
+						<div class="main-slider-inner">
+
+							
+								<div class="containerblock_3340">
+									<div class="tie-slick-slider">
+
+										<ul class="tie-slider-nav"></ul><div class="slide"><div style="background-image: url(https://aro4x4.ro/wp-content/uploads/2026/02/Screenshot_62-713x500.png)" class="grid-item slide-id-6058 tie-slide-1 tie-standard">
+					<a href="https://aro4x4.ro/aro-244-motor-bv/" class="all-over-thumb-link"></a>
+					<div class="thumb-overlay"><div class="thumb-content">
+				<h2 class="thumb-title"><a href="https://aro4x4.ro/aro-244-motor-bv/" title="Aro 244 MOTOR BV">Aro 244 MOTOR BV</a></h2>
+			</div> <!-- .thumb-content /-->
+					</div><!-- .thumb-overlay /-->
+				</div><!-- .slide || .grid-item /-->
+			<div style="background-image: url(https://aro4x4.ro/wp-content/uploads/2026/02/Uzina-Aro-780x500.jpg)" class="grid-item slide-id-6053 tie-slide-2 tie-standard">
+					<a href="https://aro4x4.ro/zimbru-carpatilor-povestea-perioadei-in-care-aro-domina-exporturile-si-se-batea-de-la-egal-la-egal-cu-gigantii-4x4/" class="all-over-thumb-link"></a>
+					<div class="thumb-overlay"><div class="thumb-content">
+				<h2 class="thumb-title"><a href="https://aro4x4.ro/zimbru-carpatilor-povestea-perioadei-in-care-aro-domina-exporturile-si-se-batea-de-la-egal-la-egal-cu-gigantii-4x4/" title="„Zimbru Carpaților: Povestea perioadei în care ARO domina exporturile și se bătea de la egal la egal cu giganții 4&#215;4.”">„Zimbru Carpaților: Povestea perioadei în care ARO domina exporturile și se bătea de la egal la egal cu giganții 4&#215;4.”</a></h2>
+			</div> <!-- .thumb-content /-->
+					</div><!-- .thumb-overlay /-->
+				</div><!-- .slide || .grid-item /-->
+			<div style="background-image: url(https://aro4x4.ro/wp-content/uploads/2026/02/Screenshot_53-780x500.png)" class="grid-item slide-id-6048 tie-slide-3 tie-standard">
+					<a href="https://aro4x4.ro/m-461-transformat-intr-un-monstru-al-soselelor-in-sua-avand-un-motor-de-470-de-cai-putere/" class="all-over-thumb-link"></a>
+					<div class="thumb-overlay"><div class="thumb-content">
+				<h2 class="thumb-title"><a href="https://aro4x4.ro/m-461-transformat-intr-un-monstru-al-soselelor-in-sua-avand-un-motor-de-470-de-cai-putere/" title="M 461 transformat într-un „monstru” al șoselelor în SUA, având un motor de 470 de cai-putere">M 461 transformat într-un „monstru” al șoselelor în SUA, având un motor de 470 de cai-putere</a></h2>
+			</div> <!-- .thumb-content /-->
+					</div><!-- .thumb-overlay /-->
+				</div><!-- .slide || .grid-item /-->
+			<div style="background-image: url(https://aro4x4.ro/wp-content/uploads/2026/02/e-aro.jpg)" class="grid-item slide-id-6045 tie-slide-4 tie-standard">
+					<a href="https://aro4x4.ro/proiectul-noului-aro-4x4-romanesc-este-gata-in-doi-ani-poate-fi-pe-piata-si-in-dotarea-armatei/" class="all-over-thumb-link"></a>
+					<div class="thumb-overlay"><div class="thumb-content">
+				<h2 class="thumb-title"><a href="https://aro4x4.ro/proiectul-noului-aro-4x4-romanesc-este-gata-in-doi-ani-poate-fi-pe-piata-si-in-dotarea-armatei/" title="Proiectul noului ARO 4X4 românesc este gata: În doi ani poate fi pe piață și în dotarea Armatei">Proiectul noului ARO 4X4 românesc este gata: În doi ani poate fi pe piață și în dotarea Armatei</a></h2>
+			</div> <!-- .thumb-content /-->
+					</div><!-- .thumb-overlay /-->
+				</div><!-- .slide || .grid-item /-->
+			<div style="background-image: url(https://aro4x4.ro/wp-content/uploads/2026/02/Screenshot_47.png)" class="grid-item slide-id-6041 tie-slide-5 tie-standard">
+					<a href="https://aro4x4.ro/aro-ims-vehicul-istoric/" class="all-over-thumb-link"></a>
+					<div class="thumb-overlay"><div class="thumb-content">
+				<h2 class="thumb-title"><a href="https://aro4x4.ro/aro-ims-vehicul-istoric/" title="ARO IMS Vehicul istoric">ARO IMS Vehicul istoric</a></h2>
+			</div> <!-- .thumb-content /-->
+					</div><!-- .thumb-overlay /-->
+				</div><!-- .slide || .grid-item /-->
+			</div> <!-- .slide -->
+									</div><!-- .tie-slick-slider /-->
+								</div><!-- container /-->
+
+							
+						</div><!-- .main-slider-inner  /-->
+					</div><!-- .main-slider /-->
+
+					
+		</section><!-- .slider-area -->
+
+			
+		
+			
+			
+			
+						</div><!-- .main-content /-->
+					</div><!-- .main-content-row /-->
+				</div><!-- .container /-->	</div><!-- .section-item /-->
+</div><!-- .tiepost-2181-section-1247 /-->
+
+	
+<div id="tiepost-2181-section-701" class="section-wrapper container normal-width without-background">
+	<div class="section-item sidebar-right has-sidebar" style="" >
+
+		
+				<div class="container-normal">
+					<div class="tie-row main-content-row">
+						<div class="main-content tie-col-md-8 tie-col-xs-12" role="main">
+
+				<div id="tie-block_1281" class="mag-box stream-item-mag stream-item">
+				
+					<div class="container-wrapper">
+
+						<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8617089982567903"
+     crossorigin="anonymous"></script>
+<!-- Pub 2 ARO Orizontal Receptiv -->
+<ins class="adsbygoogle" data-full-width-responsive="false"
+     style="display:block"
+     data-ad-client="ca-pub-8617089982567903"
+     data-ad-slot="2165872769"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+<script async custom-element="amp-ad" src="https://cdn.ampproject.org/v0/amp-ad-0.1.js"></script>
+<amp-ad width="100vw" height="320"
+     type="adsense"
+     data-ad-client="ca-pub-8617089982567903"
+     data-ad-slot="2165872769"
+     data-auto-format="rspv"
+     data-full-width="">
+  <div overflow=""></div>
+</amp-ad>
+					</div><!-- .container-wrapper /-->
+				
+			</div><!-- .mag-box /-->
+
+			
+
+				<div id="tie-recent_1118" class="mag-box big-posts-box" data-current="1">
+				
+					<div class="container-wrapper">
+
+						
+		<div class="mag-box-title the-global-title">
+			<h3>
+				Postari recente			</h3>
+
+			</div><!-- .mag-box-title /-->
+						<div class="mag-box-container clearfix">
+
+							<ul class="posts-items posts-list-container">
+<li class="post-item  post-6058 post type-post status-publish format-standard has-post-thumbnail category-aro-244 tag-aro tag-aro-244 tag-aro-brasov tie-standard">
+
+	
+			<a href="https://aro4x4.ro/aro-244-motor-bv/" title="Aro 244 MOTOR BV" class="post-thumb"><h5 class="post-cat-wrap"><span class="post-cat tie-cat-44">Aro 244</span></h5>
+				<div class="post-thumb-overlay-wrap">
+					<div class="post-thumb-overlay">
+						<span class="icon"></span>
+					</div>
+				</div>
+			<img width="390" height="220" src="https://aro4x4.ro/wp-content/uploads/2026/02/Screenshot_62-390x220.png" class="attachment-jannah-image-large size-jannah-image-large wp-post-image" alt="" /></a>
+	<div class="post-details">
+
+		<div class="post-meta">
+				<span class="meta-author meta-item"><a href="https://aro4x4.ro/author/admin/" class="author-name" title="Aro News"><span class="fa fa-user" aria-hidden="true"></span> Aro News</a>
+				</span>
+			<span class="date meta-item"><span class="fa fa-clock-o" aria-hidden="true"></span> <span>February 12, 2026</span></span><div class="tie-alignright"><span class="meta-comment meta-item"><a href="https://aro4x4.ro/aro-244-motor-bv/#respond"><span class="fa fa-comments" aria-hidden="true"></span> 0</a></span><span class="meta-views meta-item warm"><span class="tie-icon-fire" aria-hidden="true"></span> 1,646 </span></div><div class="clearfix"></div></div><!-- .post-meta -->
+		<h3 class="post-title"><a href="https://aro4x4.ro/aro-244-motor-bv/" title="Aro 244 MOTOR BV">Aro 244 MOTOR BV</a></h3>
+
+						<p class="post-excerpt">Aro 244 , motor Brașov, funcțional 4&#215;4/4&#215;4 , cutie viteze 4 trepte. Fără rugina la sașiu. Frana discuri față. ITP&hellip;</p>
+								<a class="more-link button" href="https://aro4x4.ro/aro-244-motor-bv/">Citeste mai mult:</a>
+				
+	</div>
+</li>
+
+<li class="post-item  post-6053 post type-post status-publish format-standard has-post-thumbnail category-stiri-si-informatii tag-aro tag-informatii-aro tag-uzina-aro tie-standard">
+
+	
+			<a href="https://aro4x4.ro/zimbru-carpatilor-povestea-perioadei-in-care-aro-domina-exporturile-si-se-batea-de-la-egal-la-egal-cu-gigantii-4x4/" title="„Zimbru Carpaților: Povestea perioadei în care ARO domina exporturile și se bătea de la egal la egal cu giganții 4&#215;4.”" class="post-thumb"><h5 class="post-cat-wrap"><span class="post-cat tie-cat-59">Stiri si informatii</span></h5>
+				<div class="post-thumb-overlay-wrap">
+					<div class="post-thumb-overlay">
+						<span class="icon"></span>
+					</div>
+				</div>
+			<img width="390" height="220" src="https://aro4x4.ro/wp-content/uploads/2026/02/Uzina-Aro-390x220.jpg" class="attachment-jannah-image-large size-jannah-image-large wp-post-image" alt="" srcset="https://aro4x4.ro/wp-content/uploads/2026/02/Uzina-Aro-390x220.jpg 390w, https://aro4x4.ro/wp-content/uploads/2026/02/Uzina-Aro-300x169.jpg 300w, https://aro4x4.ro/wp-content/uploads/2026/02/Uzina-Aro-768x432.jpg 768w, https://aro4x4.ro/wp-content/uploads/2026/02/Uzina-Aro-1024x576.jpg 1024w, https://aro4x4.ro/wp-content/uploads/2026/02/Uzina-Aro.jpg 1200w" sizes="(max-width: 390px) 100vw, 390px" /></a>
+	<div class="post-details">
+
+		<div class="post-meta">
+				<span class="meta-author meta-item"><a href="https://aro4x4.ro/author/admin/" class="author-name" title="Aro News"><span class="fa fa-user" aria-hidden="true"></span> Aro News</a>
+				</span>
+			<span class="date meta-item"><span class="fa fa-clock-o" aria-hidden="true"></span> <span>February 10, 2026</span></span><div class="tie-alignright"><span class="meta-comment meta-item"><a href="https://aro4x4.ro/zimbru-carpatilor-povestea-perioadei-in-care-aro-domina-exporturile-si-se-batea-de-la-egal-la-egal-cu-gigantii-4x4/#respond"><span class="fa fa-comments" aria-hidden="true"></span> 0</a></span><span class="meta-views meta-item warm"><span class="tie-icon-fire" aria-hidden="true"></span> 618 </span></div><div class="clearfix"></div></div><!-- .post-meta -->
+		<h3 class="post-title"><a href="https://aro4x4.ro/zimbru-carpatilor-povestea-perioadei-in-care-aro-domina-exporturile-si-se-batea-de-la-egal-la-egal-cu-gigantii-4x4/" title="„Zimbru Carpaților: Povestea perioadei în care ARO domina exporturile și se bătea de la egal la egal cu giganții 4&#215;4.”">„Zimbru Carpaților: Povestea perioadei în care ARO domina exporturile și se bătea de la egal la egal cu giganții 4&#215;4.”</a></h3>
+
+						<p class="post-excerpt">ARO nu a fost doar o mașină românească, ci un vehicul care a ajuns legendă în multe țări. Modelele produse&hellip;</p>
+								<a class="more-link button" href="https://aro4x4.ro/zimbru-carpatilor-povestea-perioadei-in-care-aro-domina-exporturile-si-se-batea-de-la-egal-la-egal-cu-gigantii-4x4/">Citeste mai mult:</a>
+				
+	</div>
+</li>
+
+<li class="post-item  post-6048 post type-post status-publish format-standard has-post-thumbnail category-stiri-si-informatii tag-aro-sua tag-ims tag-m461 tag-sua tie-standard">
+
+	
+			<a href="https://aro4x4.ro/m-461-transformat-intr-un-monstru-al-soselelor-in-sua-avand-un-motor-de-470-de-cai-putere/" title="M 461 transformat într-un „monstru” al șoselelor în SUA, având un motor de 470 de cai-putere" class="post-thumb"><h5 class="post-cat-wrap"><span class="post-cat tie-cat-59">Stiri si informatii</span></h5>
+				<div class="post-thumb-overlay-wrap">
+					<div class="post-thumb-overlay">
+						<span class="icon"></span>
+					</div>
+				</div>
+			<img width="390" height="220" src="https://aro4x4.ro/wp-content/uploads/2026/02/Screenshot_53-390x220.png" class="attachment-jannah-image-large size-jannah-image-large wp-post-image" alt="" /></a>
+	<div class="post-details">
+
+		<div class="post-meta">
+				<span class="meta-author meta-item"><a href="https://aro4x4.ro/author/admin/" class="author-name" title="Aro News"><span class="fa fa-user" aria-hidden="true"></span> Aro News</a>
+				</span>
+			<span class="date meta-item"><span class="fa fa-clock-o" aria-hidden="true"></span> <span>February 6, 2026</span></span><div class="tie-alignright"><span class="meta-comment meta-item"><a href="https://aro4x4.ro/m-461-transformat-intr-un-monstru-al-soselelor-in-sua-avand-un-motor-de-470-de-cai-putere/#respond"><span class="fa fa-comments" aria-hidden="true"></span> 0</a></span><span class="meta-views meta-item warm"><span class="tie-icon-fire" aria-hidden="true"></span> 750 </span></div><div class="clearfix"></div></div><!-- .post-meta -->
+		<h3 class="post-title"><a href="https://aro4x4.ro/m-461-transformat-intr-un-monstru-al-soselelor-in-sua-avand-un-motor-de-470-de-cai-putere/" title="M 461 transformat într-un „monstru” al șoselelor în SUA, având un motor de 470 de cai-putere">M 461 transformat într-un „monstru” al șoselelor în SUA, având un motor de 470 de cai-putere</a></h3>
+
+						<p class="post-excerpt">Laurențiu Vlad, un român stabilit în statul american Florida, a achiziționat un ARO IMS 461 produs în 1974 la Câmpulung&hellip;</p>
+								<a class="more-link button" href="https://aro4x4.ro/m-461-transformat-intr-un-monstru-al-soselelor-in-sua-avand-un-motor-de-470-de-cai-putere/">Citeste mai mult:</a>
+				
+	</div>
+</li>
+
+<li class="post-item  post-6045 post type-post status-publish format-standard has-post-thumbnail category-stiri-si-informatii tag-e-aro tag-e-aro-25-next-generation tie-standard">
+
+	
+			<a href="https://aro4x4.ro/proiectul-noului-aro-4x4-romanesc-este-gata-in-doi-ani-poate-fi-pe-piata-si-in-dotarea-armatei/" title="Proiectul noului ARO 4X4 românesc este gata: În doi ani poate fi pe piață și în dotarea Armatei" class="post-thumb"><h5 class="post-cat-wrap"><span class="post-cat tie-cat-59">Stiri si informatii</span></h5>
+				<div class="post-thumb-overlay-wrap">
+					<div class="post-thumb-overlay">
+						<span class="icon"></span>
+					</div>
+				</div>
+			<img width="390" height="220" src="https://aro4x4.ro/wp-content/uploads/2026/02/e-aro-390x220.jpg" class="attachment-jannah-image-large size-jannah-image-large wp-post-image" alt="" /></a>
+	<div class="post-details">
+
+		<div class="post-meta">
+				<span class="meta-author meta-item"><a href="https://aro4x4.ro/author/admin/" class="author-name" title="Aro News"><span class="fa fa-user" aria-hidden="true"></span> Aro News</a>
+				</span>
+			<span class="date meta-item"><span class="fa fa-clock-o" aria-hidden="true"></span> <span>February 5, 2026</span></span><div class="tie-alignright"><span class="meta-comment meta-item"><a href="https://aro4x4.ro/proiectul-noului-aro-4x4-romanesc-este-gata-in-doi-ani-poate-fi-pe-piata-si-in-dotarea-armatei/#respond"><span class="fa fa-comments" aria-hidden="true"></span> 0</a></span><span class="meta-views meta-item warm"><span class="tie-icon-fire" aria-hidden="true"></span> 1,507 </span></div><div class="clearfix"></div></div><!-- .post-meta -->
+		<h3 class="post-title"><a href="https://aro4x4.ro/proiectul-noului-aro-4x4-romanesc-este-gata-in-doi-ani-poate-fi-pe-piata-si-in-dotarea-armatei/" title="Proiectul noului ARO 4X4 românesc este gata: În doi ani poate fi pe piață și în dotarea Armatei">Proiectul noului ARO 4X4 românesc este gata: În doi ani poate fi pe piață și în dotarea Armatei</a></h3>
+
+						<p class="post-excerpt">Asociația Română pentru Cercetări Strategice Avansate, Nanotehnologii și Tehnologii Quantice (ARCSANTQ) a relansat programul ARO, prin care își propune să&hellip;</p>
+								<a class="more-link button" href="https://aro4x4.ro/proiectul-noului-aro-4x4-romanesc-este-gata-in-doi-ani-poate-fi-pe-piata-si-in-dotarea-armatei/">Citeste mai mult:</a>
+				
+	</div>
+</li>
+
+<li class="post-item  post-6041 post type-post status-publish format-standard has-post-thumbnail category-uncategorized tag-aro-m461-ims tag-ims tie-standard">
+
+	
+			<a href="https://aro4x4.ro/aro-ims-vehicul-istoric/" title="ARO IMS Vehicul istoric" class="post-thumb"><h5 class="post-cat-wrap"><span class="post-cat tie-cat-1">Aro M461</span></h5>
+				<div class="post-thumb-overlay-wrap">
+					<div class="post-thumb-overlay">
+						<span class="icon"></span>
+					</div>
+				</div>
+			<img width="390" height="220" src="https://aro4x4.ro/wp-content/uploads/2026/02/Screenshot_47-390x220.png" class="attachment-jannah-image-large size-jannah-image-large wp-post-image" alt="" /></a>
+	<div class="post-details">
+
+		<div class="post-meta">
+				<span class="meta-author meta-item"><a href="https://aro4x4.ro/author/admin/" class="author-name" title="Aro News"><span class="fa fa-user" aria-hidden="true"></span> Aro News</a>
+				</span>
+			<span class="date meta-item"><span class="fa fa-clock-o" aria-hidden="true"></span> <span>February 3, 2026</span></span><div class="tie-alignright"><span class="meta-comment meta-item"><a href="https://aro4x4.ro/aro-ims-vehicul-istoric/#respond"><span class="fa fa-comments" aria-hidden="true"></span> 0</a></span><span class="meta-views meta-item warm"><span class="tie-icon-fire" aria-hidden="true"></span> 657 </span></div><div class="clearfix"></div></div><!-- .post-meta -->
+		<h3 class="post-title"><a href="https://aro4x4.ro/aro-ims-vehicul-istoric/" title="ARO IMS Vehicul istoric">ARO IMS Vehicul istoric</a></h3>
+
+						<p class="post-excerpt">ARO model M 461, IMS cu atestat de Vehicul istoric, înmatriculat, funcțional in stare foarte bună. Autovehiculul este de colecție.&hellip;</p>
+								<a class="more-link button" href="https://aro4x4.ro/aro-ims-vehicul-istoric/">Citeste mai mult:</a>
+				
+	</div>
+</li>
+
+<li class="post-item  post-6038 post type-post status-publish format-standard has-post-thumbnail category-aro-324 tag-aro-324 tie-standard">
+
+	
+			<a href="https://aro4x4.ro/aro-324-an-fabricatie-2002/" title="Aro 324 an fabricatie 2002" class="post-thumb"><h5 class="post-cat-wrap"><span class="post-cat tie-cat-69">Aro 324</span></h5>
+				<div class="post-thumb-overlay-wrap">
+					<div class="post-thumb-overlay">
+						<span class="icon"></span>
+					</div>
+				</div>
+			<img width="390" height="220" src="https://aro4x4.ro/wp-content/uploads/2026/02/Screenshot_45-390x220.png" class="attachment-jannah-image-large size-jannah-image-large wp-post-image" alt="" /></a>
+	<div class="post-details">
+
+		<div class="post-meta">
+				<span class="meta-author meta-item"><a href="https://aro4x4.ro/author/admin/" class="author-name" title="Aro News"><span class="fa fa-user" aria-hidden="true"></span> Aro News</a>
+				</span>
+			<span class="date meta-item"><span class="fa fa-clock-o" aria-hidden="true"></span> <span>February 1, 2026</span></span><div class="tie-alignright"><span class="meta-comment meta-item"><a href="https://aro4x4.ro/aro-324-an-fabricatie-2002/#respond"><span class="fa fa-comments" aria-hidden="true"></span> 0</a></span><span class="meta-views meta-item warm"><span class="tie-icon-fire" aria-hidden="true"></span> 954 </span></div><div class="clearfix"></div></div><!-- .post-meta -->
+		<h3 class="post-title"><a href="https://aro4x4.ro/aro-324-an-fabricatie-2002/" title="Aro 324 an fabricatie 2002">Aro 324 an fabricatie 2002</a></h3>
+
+						<p class="post-excerpt">Este pentru cei care stiu ce inseamna masina. Multiple imbunatatiri ,scaune piele fata spate ,cele din fata electrice. Jante 31&hellip;</p>
+								<a class="more-link button" href="https://aro4x4.ro/aro-324-an-fabricatie-2002/">Citeste mai mult:</a>
+				
+	</div>
+</li>
+</ul><div class="clearfix"></div>
+						</div><!-- .mag-box-container /-->
+
+
+						<div class="pages-nav"><ul class="pages-numbers">
+<li class="current"><span class="pages-nav-item">1</span></li><li><a class="pages-nav-item" href="https://aro4x4.ro/page/2/" title="2">2</a></li><li><a class="pages-nav-item" href="https://aro4x4.ro/page/3/" title="3">3</a></li><li class="the-next-page"><a href="https://aro4x4.ro/page/2/" >&raquo;</a></li><li><a class="pages-nav-item" href="https://aro4x4.ro/page/10/" title="10">10</a></li><li><a class="pages-nav-item" href="https://aro4x4.ro/page/20/" title="20">20</a></li><li class="extend"><span class="pages-nav-item">...</span></li><li class="last-page first-last-pages"><a class="pages-nav-item" href="https://aro4x4.ro/page/149/" title="Last">Last<span class="fa" aria-hidden="true"></span></a></li></ul></div>
+
+					</div><!-- .container-wrapper /-->
+
+				
+			</div><!-- .mag-box /-->
+
+			
+
+				<div id="tie-block_1951" class="mag-box stream-item-mag stream-item">
+				
+					<div class="container-wrapper">
+
+						<div id="22386-1"><script src="//ads.themoneytizer.com/s/gen.js?type=1"></script><script src="//ads.themoneytizer.com/s/requestform.js?siteId=22386&formatId=1" ></script></div>
+					</div><!-- .container-wrapper /-->
+				
+			</div><!-- .mag-box /-->
+
+			
+
+				<div id="tie-block_1234" class="mag-box big-post-left-box has-first-big-post">
+				
+					<div class="container-wrapper">
+
+						
+						<div class="mag-box-container clearfix">
+
+							<ul class="posts-items posts-list-container">	<li class="post-item ">
+
+		
+			<a href="https://aro4x4.ro/aro-cu-interior-de-mercedes-benz/" title="ARO cu interior de Mercedes-Benz." class="post-thumb"><h5 class="post-cat-wrap"><span class="post-cat tie-cat-100">Aro 10</span></h5>
+				<div class="post-thumb-overlay-wrap">
+					<div class="post-thumb-overlay">
+						<span class="icon"></span>
+					</div>
+				</div>
+			<img width="390" height="214" src="https://aro4x4.ro/wp-content/uploads/2024/03/Screenshot_87.png" class="attachment-jannah-image-large size-jannah-image-large wp-post-image" alt="" srcset="https://aro4x4.ro/wp-content/uploads/2024/03/Screenshot_87.png 646w, https://aro4x4.ro/wp-content/uploads/2024/03/Screenshot_87-300x165.png 300w" sizes="(max-width: 390px) 100vw, 390px" /></a>
+		<div class="post-details">
+
+			<div class="post-meta">
+				<span class="meta-author meta-item"><a href="https://aro4x4.ro/author/admin/" class="author-name" title="Aro News"><span class="fa fa-user" aria-hidden="true"></span> Aro News</a>
+				</span>
+			<span class="date meta-item"><span class="fa fa-clock-o" aria-hidden="true"></span> <span>March 8, 2024</span></span><div class="tie-alignright"><span class="meta-comment meta-item"><a href="https://aro4x4.ro/aro-cu-interior-de-mercedes-benz/#respond"><span class="fa fa-comments" aria-hidden="true"></span> 0</a></span><span class="meta-views meta-item very-hot"><span class="tie-icon-fire" aria-hidden="true"></span> 7,838 </span></div><div class="clearfix"></div></div><!-- .post-meta -->
+			<h3 class="post-title"><a href="https://aro4x4.ro/aro-cu-interior-de-mercedes-benz/" title="ARO cu interior de Mercedes-Benz.">ARO cu interior de Mercedes-Benz.</a></h3>
+
+								<p class="post-excerpt">Un proiect din Portugalia ne-a atras atenția: un ARO 10 modificat, cu un interior special. Mașina a primit inclusiv scaune de pe un Mercedes-Benz. ARO a rămas doar în amintirile românilor, deoarece producătorul din Câmpulung Muscel nu&hellip;</p>
+										<a class="more-link button" href="https://aro4x4.ro/aro-cu-interior-de-mercedes-benz/">Citeste mai mult:</a>
+					
+		</div><!-- .post-details /-->
+
+	</li><!-- .first-post -->
+
+
+	<li class="post-item  tie-standard">
+		
+			<a href="https://aro4x4.ro/aro-10-motor-1-6-diesel/" title="Aro 10-motor 1.6 diesel" class="post-thumb">
+				<div class="post-thumb-overlay-wrap">
+					<div class="post-thumb-overlay">
+						<span class="icon"></span>
+					</div>
+				</div>
+			<img width="220" height="150" src="https://aro4x4.ro/wp-content/uploads/2021/03/Screenshot_27-220x150.png" class="attachment-jannah-image-small size-jannah-image-small tie-small-image wp-post-image" alt="" /></a>
+		<div class="post-details">
+
+			<div class="post-meta"><span class="date meta-item"><span class="fa fa-clock-o" aria-hidden="true"></span> <span>March 2, 2021</span></span><div class="clearfix"></div></div><!-- .post-meta -->
+			<h3 class="post-title"><a href="https://aro4x4.ro/aro-10-motor-1-6-diesel/" title="Aro 10-motor 1.6 diesel">Aro 10-motor 1.6 diesel</a></h3>
+		</div><!-- .post-details /-->
+	</li>
+
+
+	<li class="post-item  tie-standard">
+		
+			<a href="https://aro4x4.ro/aro-10-spartana/" title="Aro 10 Spartana" class="post-thumb">
+				<div class="post-thumb-overlay-wrap">
+					<div class="post-thumb-overlay">
+						<span class="icon"></span>
+					</div>
+				</div>
+			<img width="220" height="150" src="https://aro4x4.ro/wp-content/uploads/2020/11/Screenshot_3-2-220x150.png" class="attachment-jannah-image-small size-jannah-image-small tie-small-image wp-post-image" alt="" /></a>
+		<div class="post-details">
+
+			<div class="post-meta"><span class="date meta-item"><span class="fa fa-clock-o" aria-hidden="true"></span> <span>November 10, 2020</span></span><div class="clearfix"></div></div><!-- .post-meta -->
+			<h3 class="post-title"><a href="https://aro4x4.ro/aro-10-spartana/" title="Aro 10 Spartana">Aro 10 Spartana</a></h3>
+		</div><!-- .post-details /-->
+	</li>
+
+
+	<li class="post-item  tie-standard">
+		
+			<a href="https://aro4x4.ro/aro-10x4-1-9-diesel/" title="ARO 10&#215;4 1.9 Diesel" class="post-thumb">
+				<div class="post-thumb-overlay-wrap">
+					<div class="post-thumb-overlay">
+						<span class="icon"></span>
+					</div>
+				</div>
+			<img width="220" height="150" src="https://aro4x4.ro/wp-content/uploads/2020/11/Screenshot_19-220x150.png" class="attachment-jannah-image-small size-jannah-image-small tie-small-image wp-post-image" alt="" /></a>
+		<div class="post-details">
+
+			<div class="post-meta"><span class="date meta-item"><span class="fa fa-clock-o" aria-hidden="true"></span> <span>November 6, 2020</span></span><div class="clearfix"></div></div><!-- .post-meta -->
+			<h3 class="post-title"><a href="https://aro4x4.ro/aro-10x4-1-9-diesel/" title="ARO 10&#215;4 1.9 Diesel">ARO 10&#215;4 1.9 Diesel</a></h3>
+		</div><!-- .post-details /-->
+	</li>
+
+
+	<li class="post-item  tie-standard">
+		
+			<a href="https://aro4x4.ro/aro-10-1995/" title="Aro 10, 1995" class="post-thumb">
+				<div class="post-thumb-overlay-wrap">
+					<div class="post-thumb-overlay">
+						<span class="icon"></span>
+					</div>
+				</div>
+			<img width="220" height="150" src="https://aro4x4.ro/wp-content/uploads/2020/10/Screenshot_5-220x150.png" class="attachment-jannah-image-small size-jannah-image-small tie-small-image wp-post-image" alt="" /></a>
+		<div class="post-details">
+
+			<div class="post-meta"><span class="date meta-item"><span class="fa fa-clock-o" aria-hidden="true"></span> <span>October 18, 2020</span></span><div class="clearfix"></div></div><!-- .post-meta -->
+			<h3 class="post-title"><a href="https://aro4x4.ro/aro-10-1995/" title="Aro 10, 1995">Aro 10, 1995</a></h3>
+		</div><!-- .post-details /-->
+	</li>
+
+</ul><div class="clearfix"></div>
+						</div><!-- .mag-box-container /-->
+
+
+						
+					</div><!-- .container-wrapper /-->
+
+				
+			</div><!-- .mag-box /-->
+
+			
+
+				<div id="tie-block_1339" class="mag-box big-post-top-box has-first-big-post">
+				
+					<div class="container-wrapper">
+
+						
+						<div class="mag-box-container clearfix">
+
+							<ul class="posts-items posts-list-container">	<li class="post-item  tie-standard">
+
+		
+			<a href="https://aro4x4.ro/aro-ims-vehicul-istoric/" title="ARO IMS Vehicul istoric" class="post-thumb"><h5 class="post-cat-wrap"><span class="post-cat tie-cat-1">Aro M461</span></h5>
+				<div class="post-thumb-overlay-wrap">
+					<div class="post-thumb-overlay">
+						<span class="icon"></span>
+					</div>
+				</div>
+			<img width="390" height="220" src="https://aro4x4.ro/wp-content/uploads/2026/02/Screenshot_47-390x220.png" class="attachment-jannah-image-large size-jannah-image-large wp-post-image" alt="" /></a>
+		<div class="post-details">
+
+			<div class="post-meta">
+				<span class="meta-author meta-item"><a href="https://aro4x4.ro/author/admin/" class="author-name" title="Aro News"><span class="fa fa-user" aria-hidden="true"></span> Aro News</a>
+				</span>
+			<span class="date meta-item"><span class="fa fa-clock-o" aria-hidden="true"></span> <span>February 3, 2026</span></span><div class="tie-alignright"><span class="meta-comment meta-item"><a href="https://aro4x4.ro/aro-ims-vehicul-istoric/#respond"><span class="fa fa-comments" aria-hidden="true"></span> 0</a></span><span class="meta-views meta-item warm"><span class="tie-icon-fire" aria-hidden="true"></span> 657 </span></div><div class="clearfix"></div></div><!-- .post-meta -->
+			<h3 class="post-title"><a href="https://aro4x4.ro/aro-ims-vehicul-istoric/" title="ARO IMS Vehicul istoric">ARO IMS Vehicul istoric</a></h3>
+
+								<p class="post-excerpt">ARO model M 461, IMS cu atestat de Vehicul istoric, înmatriculat, funcțional in stare foarte&hellip;</p>
+										<a class="more-link button" href="https://aro4x4.ro/aro-ims-vehicul-istoric/">Citeste mai mult:</a>
+					
+		</div><!-- .post-details /-->
+
+	</li><!-- .first-post -->
+
+
+	<li class="post-item  tie-standard">
+		
+			<a href="https://aro4x4.ro/aro-ims-m461-11/" title="ARO IMS M461" class="post-thumb">
+				<div class="post-thumb-overlay-wrap">
+					<div class="post-thumb-overlay">
+						<span class="icon"></span>
+					</div>
+				</div>
+			<img width="220" height="150" src="https://aro4x4.ro/wp-content/uploads/2026/01/Screenshot_43-220x150.png" class="attachment-jannah-image-small size-jannah-image-small tie-small-image wp-post-image" alt="" /></a>
+		<div class="post-details">
+
+			<div class="post-meta"><span class="date meta-item"><span class="fa fa-clock-o" aria-hidden="true"></span> <span>January 31, 2026</span></span><div class="clearfix"></div></div><!-- .post-meta -->
+			<h3 class="post-title"><a href="https://aro4x4.ro/aro-ims-m461-11/" title="ARO IMS M461">ARO IMS M461</a></h3>
+		</div><!-- .post-details /-->
+	</li>
+
+
+	<li class="post-item  tie-standard">
+		
+			<a href="https://aro4x4.ro/m461-motor-benzina/" title="M461 MOTOR benzina" class="post-thumb">
+				<div class="post-thumb-overlay-wrap">
+					<div class="post-thumb-overlay">
+						<span class="icon"></span>
+					</div>
+				</div>
+			<img width="220" height="150" src="https://aro4x4.ro/wp-content/uploads/2026/01/Screenshot_18-220x150.png" class="attachment-jannah-image-small size-jannah-image-small tie-small-image wp-post-image" alt="" srcset="https://aro4x4.ro/wp-content/uploads/2026/01/Screenshot_18-220x150.png 220w, https://aro4x4.ro/wp-content/uploads/2026/01/Screenshot_18.png 953w" sizes="(max-width: 220px) 100vw, 220px" /></a>
+		<div class="post-details">
+
+			<div class="post-meta"><span class="date meta-item"><span class="fa fa-clock-o" aria-hidden="true"></span> <span>January 7, 2026</span></span><div class="clearfix"></div></div><!-- .post-meta -->
+			<h3 class="post-title"><a href="https://aro4x4.ro/m461-motor-benzina/" title="M461 MOTOR benzina">M461 MOTOR benzina</a></h3>
+		</div><!-- .post-details /-->
+	</li>
+
+
+	<li class="post-item  tie-standard">
+		
+			<a href="https://aro4x4.ro/aro-m461-ims-1971/" title="ARO M461 IMS 1971" class="post-thumb">
+				<div class="post-thumb-overlay-wrap">
+					<div class="post-thumb-overlay">
+						<span class="icon"></span>
+					</div>
+				</div>
+			<img width="220" height="150" src="https://aro4x4.ro/wp-content/uploads/2025/12/Screenshot_63-220x150.png" class="attachment-jannah-image-small size-jannah-image-small tie-small-image wp-post-image" alt="" /></a>
+		<div class="post-details">
+
+			<div class="post-meta"><span class="date meta-item"><span class="fa fa-clock-o" aria-hidden="true"></span> <span>December 19, 2025</span></span><div class="clearfix"></div></div><!-- .post-meta -->
+			<h3 class="post-title"><a href="https://aro4x4.ro/aro-m461-ims-1971/" title="ARO M461 IMS 1971">ARO M461 IMS 1971</a></h3>
+		</div><!-- .post-details /-->
+	</li>
+
+
+	<li class="post-item  tie-standard">
+		
+			<a href="https://aro4x4.ro/aro-m-461-armata/" title="ARO M 461 armată" class="post-thumb">
+				<div class="post-thumb-overlay-wrap">
+					<div class="post-thumb-overlay">
+						<span class="icon"></span>
+					</div>
+				</div>
+			<img width="220" height="150" src="https://aro4x4.ro/wp-content/uploads/2025/12/Screenshot_53-220x150.png" class="attachment-jannah-image-small size-jannah-image-small tie-small-image wp-post-image" alt="" /></a>
+		<div class="post-details">
+
+			<div class="post-meta"><span class="date meta-item"><span class="fa fa-clock-o" aria-hidden="true"></span> <span>December 7, 2025</span></span><div class="clearfix"></div></div><!-- .post-meta -->
+			<h3 class="post-title"><a href="https://aro4x4.ro/aro-m-461-armata/" title="ARO M 461 armată">ARO M 461 armată</a></h3>
+		</div><!-- .post-details /-->
+	</li>
+
+</ul><div class="clearfix"></div>
+						</div><!-- .mag-box-container /-->
+
+
+						
+					</div><!-- .container-wrapper /-->
+
+				
+			</div><!-- .mag-box /-->
+
+			
+
+				<div id="tie-tabs_1165" class="mag-box tabs-container-wrapper tabs-box has-first-big-post flex-tabs container-wrapper">
+				
+					<div class="tabs-widget">
+						<div class="tabs-wrapper">
+
+							<ul class="tabs"><li><a href="#cat-tab-tabs_1165-44">Aro 244</a></li><li><a href="#cat-tab-tabs_1165-45">Aro 243</a></li><li><a href="#cat-tab-tabs_1165-46">Aro 241</a></li><li><a href="#cat-tab-tabs_1165-76">Aro 240</a></li><li><a href="#cat-tab-tabs_1165-84">Aro 246</a></li><li><a href="#cat-tab-tabs_1165-99">Aro 242</a></li></ul>
+								<div id="cat-tab-tabs_1165-44" class="tab-content tab-wrap-1">
+									<div class="tab-content-wrap">
+										<div class="mag-box big-post-left-box">
+											<div class="container-wrapper">
+												<div class="mag-box-container clearfix">
+
+												<ul class="posts-items posts-list-container">	<li class="post-item  tie-standard">
+
+		
+			<a href="https://aro4x4.ro/aro-244-motor-bv/" title="Aro 244 MOTOR BV" class="post-thumb"><h5 class="post-cat-wrap"><span class="post-cat tie-cat-44">Aro 244</span></h5>
+				<div class="post-thumb-overlay-wrap">
+					<div class="post-thumb-overlay">
+						<span class="icon"></span>
+					</div>
+				</div>
+			<img width="390" height="220" src="https://aro4x4.ro/wp-content/uploads/2026/02/Screenshot_62-390x220.png" class="attachment-jannah-image-large size-jannah-image-large wp-post-image" alt="" /></a>
+		<div class="post-details">
+
+			<div class="post-meta">
+				<span class="meta-author meta-item"><a href="https://aro4x4.ro/author/admin/" class="author-name" title="Aro News"><span class="fa fa-user" aria-hidden="true"></span> Aro News</a>
+				</span>
+			<span class="date meta-item"><span class="fa fa-clock-o" aria-hidden="true"></span> <span>February 12, 2026</span></span><div class="tie-alignright"><span class="meta-comment meta-item"><a href="https://aro4x4.ro/aro-244-motor-bv/#respond"><span class="fa fa-comments" aria-hidden="true"></span> 0</a></span><span class="meta-views meta-item warm"><span class="tie-icon-fire" aria-hidden="true"></span> 1,646 </span></div><div class="clearfix"></div></div><!-- .post-meta -->
+			<h3 class="post-title"><a href="https://aro4x4.ro/aro-244-motor-bv/" title="Aro 244 MOTOR BV">Aro 244 MOTOR BV</a></h3>
+
+								<p class="post-excerpt">Aro 244 , motor Brașov, funcțional 4&#215;4/4&#215;4 , cutie viteze 4 trepte. Fără rugina la sașiu. Frana discuri față. ITP&hellip;</p>
+										<a class="more-link button" href="https://aro4x4.ro/aro-244-motor-bv/">Citeste mai mult:</a>
+					
+		</div><!-- .post-details /-->
+
+	</li><!-- .first-post -->
+
+
+	<li class="post-item  tie-standard">
+		
+			<a href="https://aro4x4.ro/aro-244-andoria-2005/" title="Aro 244 ANDORIA 2005" class="post-thumb">
+				<div class="post-thumb-overlay-wrap">
+					<div class="post-thumb-overlay">
+						<span class="icon"></span>
+					</div>
+				</div>
+			<img width="220" height="150" src="https://aro4x4.ro/wp-content/uploads/2025/12/595764774_2262295847575125_8410308635679752675_n-220x150.jpg" class="attachment-jannah-image-small size-jannah-image-small tie-small-image wp-post-image" alt="" /></a>
+		<div class="post-details">
+
+			<div class="post-meta"><span class="date meta-item"><span class="fa fa-clock-o" aria-hidden="true"></span> <span>December 14, 2025</span></span><div class="clearfix"></div></div><!-- .post-meta -->
+			<h3 class="post-title"><a href="https://aro4x4.ro/aro-244-andoria-2005/" title="Aro 244 ANDORIA 2005">Aro 244 ANDORIA 2005</a></h3>
+		</div><!-- .post-details /-->
+	</li>
+
+
+	<li class="post-item  tie-standard">
+		
+			<a href="https://aro4x4.ro/aro-244-an-2003/" title="Aro 244 an 2003" class="post-thumb">
+				<div class="post-thumb-overlay-wrap">
+					<div class="post-thumb-overlay">
+						<span class="icon"></span>
+					</div>
+				</div>
+			<img width="220" height="150" src="https://aro4x4.ro/wp-content/uploads/2025/11/Screenshot_42-220x150.png" class="attachment-jannah-image-small size-jannah-image-small tie-small-image wp-post-image" alt="" /></a>
+		<div class="post-details">
+
+			<div class="post-meta"><span class="date meta-item"><span class="fa fa-clock-o" aria-hidden="true"></span> <span>November 18, 2025</span></span><div class="clearfix"></div></div><!-- .post-meta -->
+			<h3 class="post-title"><a href="https://aro4x4.ro/aro-244-an-2003/" title="Aro 244 an 2003">Aro 244 an 2003</a></h3>
+		</div><!-- .post-details /-->
+	</li>
+
+
+	<li class="post-item  tie-standard">
+		
+			<a href="https://aro4x4.ro/aro-244-d-motor-brasov/" title="Aro 244 D Motor Brasov" class="post-thumb">
+				<div class="post-thumb-overlay-wrap">
+					<div class="post-thumb-overlay">
+						<span class="icon"></span>
+					</div>
+				</div>
+			<img width="220" height="150" src="https://aro4x4.ro/wp-content/uploads/2025/11/Screenshot_35-220x150.png" class="attachment-jannah-image-small size-jannah-image-small tie-small-image wp-post-image" alt="" /></a>
+		<div class="post-details">
+
+			<div class="post-meta"><span class="date meta-item"><span class="fa fa-clock-o" aria-hidden="true"></span> <span>November 11, 2025</span></span><div class="clearfix"></div></div><!-- .post-meta -->
+			<h3 class="post-title"><a href="https://aro4x4.ro/aro-244-d-motor-brasov/" title="Aro 244 D Motor Brasov">Aro 244 D Motor Brasov</a></h3>
+		</div><!-- .post-details /-->
+	</li>
+
+
+	<li class="post-item  tie-standard">
+		
+			<a href="https://aro4x4.ro/aro-244-an-1997-motor-2-5/" title="Aro 244, an 1997 motor 2.5" class="post-thumb">
+				<div class="post-thumb-overlay-wrap">
+					<div class="post-thumb-overlay">
+						<span class="icon"></span>
+					</div>
+				</div>
+			<img width="220" height="150" src="https://aro4x4.ro/wp-content/uploads/2025/10/Screenshot_34-220x150.png" class="attachment-jannah-image-small size-jannah-image-small tie-small-image wp-post-image" alt="" /></a>
+		<div class="post-details">
+
+			<div class="post-meta"><span class="date meta-item"><span class="fa fa-clock-o" aria-hidden="true"></span> <span>October 13, 2025</span></span><div class="clearfix"></div></div><!-- .post-meta -->
+			<h3 class="post-title"><a href="https://aro4x4.ro/aro-244-an-1997-motor-2-5/" title="Aro 244, an 1997 motor 2.5">Aro 244, an 1997 motor 2.5</a></h3>
+		</div><!-- .post-details /-->
+	</li>
+
+</ul><div class="clearfix"></div>
+												</div><!-- .mag-box-container /-->
+											</div><!-- .container-wrapper /-->
+										</div><!-- .mag-box /-->
+									</div><!-- .tab-content-wrap /-->
+								</div><!-- .tab-content /-->
+							
+								<div id="cat-tab-tabs_1165-45" class="tab-content tab-wrap-2">
+									<div class="tab-content-wrap">
+										<div class="mag-box big-post-left-box">
+											<div class="container-wrapper">
+												<div class="mag-box-container clearfix">
+
+												<ul class="posts-items posts-list-container">	<li class="post-item  tie-standard">
+
+		
+			<a href="https://aro4x4.ro/aro-243-motor-de-brasov/" title="Aro 243 motor de brasov" class="post-thumb"><h5 class="post-cat-wrap"><span class="post-cat tie-cat-45">Aro 243</span></h5>
+				<div class="post-thumb-overlay-wrap">
+					<div class="post-thumb-overlay">
+						<span class="icon"></span>
+					</div>
+				</div>
+			<img width="390" height="220" src="https://aro4x4.ro/wp-content/uploads/2026/01/Screenshot_27-390x220.png" class="attachment-jannah-image-large size-jannah-image-large wp-post-image" alt="" /></a>
+		<div class="post-details">
+
+			<div class="post-meta">
+				<span class="meta-author meta-item"><a href="https://aro4x4.ro/author/admin/" class="author-name" title="Aro News"><span class="fa fa-user" aria-hidden="true"></span> Aro News</a>
+				</span>
+			<span class="date meta-item"><span class="fa fa-clock-o" aria-hidden="true"></span> <span>January 12, 2026</span></span><div class="tie-alignright"><span class="meta-comment meta-item"><a href="https://aro4x4.ro/aro-243-motor-de-brasov/#respond"><span class="fa fa-comments" aria-hidden="true"></span> 0</a></span><span class="meta-views meta-item warm"><span class="tie-icon-fire" aria-hidden="true"></span> 634 </span></div><div class="clearfix"></div></div><!-- .post-meta -->
+			<h3 class="post-title"><a href="https://aro4x4.ro/aro-243-motor-de-brasov/" title="Aro 243 motor de brasov">Aro 243 motor de brasov</a></h3>
+
+								<p class="post-excerpt">Aro 243 autoutilitara, radiat la cerere Masina se afla in stare de functionare O vând din lipsa de timp pentru&hellip;</p>
+										<a class="more-link button" href="https://aro4x4.ro/aro-243-motor-de-brasov/">Citeste mai mult:</a>
+					
+		</div><!-- .post-details /-->
+
+	</li><!-- .first-post -->
+
+
+	<li class="post-item  tie-standard">
+		
+			<a href="https://aro4x4.ro/aro-motor-2-5-benzina/" title="ARO Motor 2.5 benzina" class="post-thumb">
+				<div class="post-thumb-overlay-wrap">
+					<div class="post-thumb-overlay">
+						<span class="icon"></span>
+					</div>
+				</div>
+			<img width="220" height="150" src="https://aro4x4.ro/wp-content/uploads/2025/10/Screenshot_28-220x150.png" class="attachment-jannah-image-small size-jannah-image-small tie-small-image wp-post-image" alt="" /></a>
+		<div class="post-details">
+
+			<div class="post-meta"><span class="date meta-item"><span class="fa fa-clock-o" aria-hidden="true"></span> <span>October 8, 2025</span></span><div class="clearfix"></div></div><!-- .post-meta -->
+			<h3 class="post-title"><a href="https://aro4x4.ro/aro-motor-2-5-benzina/" title="ARO Motor 2.5 benzina">ARO Motor 2.5 benzina</a></h3>
+		</div><!-- .post-details /-->
+	</li>
+
+
+	<li class="post-item  tie-standard">
+		
+			<a href="https://aro4x4.ro/aro-243-1988/" title="ARO 243 &#8211; 1988" class="post-thumb">
+				<div class="post-thumb-overlay-wrap">
+					<div class="post-thumb-overlay">
+						<span class="icon"></span>
+					</div>
+				</div>
+			<img width="220" height="150" src="https://aro4x4.ro/wp-content/uploads/2025/09/Screenshot_80-220x150.png" class="attachment-jannah-image-small size-jannah-image-small tie-small-image wp-post-image" alt="" /></a>
+		<div class="post-details">
+
+			<div class="post-meta"><span class="date meta-item"><span class="fa fa-clock-o" aria-hidden="true"></span> <span>September 8, 2025</span></span><div class="clearfix"></div></div><!-- .post-meta -->
+			<h3 class="post-title"><a href="https://aro4x4.ro/aro-243-1988/" title="ARO 243 &#8211; 1988">ARO 243 &#8211; 1988</a></h3>
+		</div><!-- .post-details /-->
+	</li>
+
+
+	<li class="post-item  tie-standard">
+		
+			<a href="https://aro4x4.ro/aro-243-benzina-2/" title="ARO 243 benzina" class="post-thumb">
+				<div class="post-thumb-overlay-wrap">
+					<div class="post-thumb-overlay">
+						<span class="icon"></span>
+					</div>
+				</div>
+			<img width="220" height="150" src="https://aro4x4.ro/wp-content/uploads/2025/07/Screenshot_65-220x150.png" class="attachment-jannah-image-small size-jannah-image-small tie-small-image wp-post-image" alt="" /></a>
+		<div class="post-details">
+
+			<div class="post-meta"><span class="date meta-item"><span class="fa fa-clock-o" aria-hidden="true"></span> <span>July 21, 2025</span></span><div class="clearfix"></div></div><!-- .post-meta -->
+			<h3 class="post-title"><a href="https://aro4x4.ro/aro-243-benzina-2/" title="ARO 243 benzina">ARO 243 benzina</a></h3>
+		</div><!-- .post-details /-->
+	</li>
+
+
+	<li class="post-item  tie-standard">
+		
+			<a href="https://aro4x4.ro/aro-243-din-1984/" title="ARO 243 din 1984" class="post-thumb">
+				<div class="post-thumb-overlay-wrap">
+					<div class="post-thumb-overlay">
+						<span class="icon"></span>
+					</div>
+				</div>
+			<img width="220" height="150" src="https://aro4x4.ro/wp-content/uploads/2025/07/Screenshot_60-220x150.png" class="attachment-jannah-image-small size-jannah-image-small tie-small-image wp-post-image" alt="" /></a>
+		<div class="post-details">
+
+			<div class="post-meta"><span class="date meta-item"><span class="fa fa-clock-o" aria-hidden="true"></span> <span>July 1, 2025</span></span><div class="clearfix"></div></div><!-- .post-meta -->
+			<h3 class="post-title"><a href="https://aro4x4.ro/aro-243-din-1984/" title="ARO 243 din 1984">ARO 243 din 1984</a></h3>
+		</div><!-- .post-details /-->
+	</li>
+
+</ul><div class="clearfix"></div>
+												</div><!-- .mag-box-container /-->
+											</div><!-- .container-wrapper /-->
+										</div><!-- .mag-box /-->
+									</div><!-- .tab-content-wrap /-->
+								</div><!-- .tab-content /-->
+							
+								<div id="cat-tab-tabs_1165-46" class="tab-content tab-wrap-3">
+									<div class="tab-content-wrap">
+										<div class="mag-box big-post-left-box">
+											<div class="container-wrapper">
+												<div class="mag-box-container clearfix">
+
+												<ul class="posts-items posts-list-container">	<li class="post-item  tie-standard">
+
+		
+			<a href="https://aro4x4.ro/aro-241-vehicul-istoric/" title="Aro 241 vehicul istoric" class="post-thumb"><h5 class="post-cat-wrap"><span class="post-cat tie-cat-46">Aro 241</span></h5>
+				<div class="post-thumb-overlay-wrap">
+					<div class="post-thumb-overlay">
+						<span class="icon"></span>
+					</div>
+				</div>
+			<img width="390" height="220" src="https://aro4x4.ro/wp-content/uploads/2025/07/Screenshot_63-390x220.png" class="attachment-jannah-image-large size-jannah-image-large wp-post-image" alt="" /></a>
+		<div class="post-details">
+
+			<div class="post-meta">
+				<span class="meta-author meta-item"><a href="https://aro4x4.ro/author/admin/" class="author-name" title="Aro News"><span class="fa fa-user" aria-hidden="true"></span> Aro News</a>
+				</span>
+			<span class="date meta-item"><span class="fa fa-clock-o" aria-hidden="true"></span> <span>July 6, 2025</span></span><div class="tie-alignright"><span class="meta-comment meta-item"><a href="https://aro4x4.ro/aro-241-vehicul-istoric/#respond"><span class="fa fa-comments" aria-hidden="true"></span> 0</a></span><span class="meta-views meta-item warm"><span class="tie-icon-fire" aria-hidden="true"></span> 1,774 </span></div><div class="clearfix"></div></div><!-- .post-meta -->
+			<h3 class="post-title"><a href="https://aro4x4.ro/aro-241-vehicul-istoric/" title="Aro 241 vehicul istoric">Aro 241 vehicul istoric</a></h3>
+
+								<p class="post-excerpt">Aro 241 An fabricație 1978 Motor L25 Benzina Vehicul istoric (taxe zero lei) Mașina a fost o bază foarte bună,&hellip;</p>
+										<a class="more-link button" href="https://aro4x4.ro/aro-241-vehicul-istoric/">Citeste mai mult:</a>
+					
+		</div><!-- .post-details /-->
+
+	</li><!-- .first-post -->
+
+
+	<li class="post-item  tie-standard">
+		
+			<a href="https://aro4x4.ro/aro-241-dambovita/" title="ARO 241" class="post-thumb">
+				<div class="post-thumb-overlay-wrap">
+					<div class="post-thumb-overlay">
+						<span class="icon"></span>
+					</div>
+				</div>
+			<img width="220" height="150" src="https://aro4x4.ro/wp-content/uploads/2020/08/Screenshot_2-1-220x150.png" class="attachment-jannah-image-small size-jannah-image-small tie-small-image wp-post-image" alt="" /></a>
+		<div class="post-details">
+
+			<div class="post-meta"><span class="date meta-item"><span class="fa fa-clock-o" aria-hidden="true"></span> <span>August 11, 2020</span></span><div class="clearfix"></div></div><!-- .post-meta -->
+			<h3 class="post-title"><a href="https://aro4x4.ro/aro-241-dambovita/" title="ARO 241">ARO 241</a></h3>
+		</div><!-- .post-details /-->
+	</li>
+
+
+	<li class="post-item  tie-standard">
+		
+			<a href="https://aro4x4.ro/aro-241-buzau/" title="Aro 241" class="post-thumb">
+				<div class="post-thumb-overlay-wrap">
+					<div class="post-thumb-overlay">
+						<span class="icon"></span>
+					</div>
+				</div>
+			<img width="220" height="150" src="https://aro4x4.ro/wp-content/uploads/2019/09/sss-220x150.jpg" class="attachment-jannah-image-small size-jannah-image-small tie-small-image wp-post-image" alt="" /></a>
+		<div class="post-details">
+
+			<div class="post-meta"><span class="date meta-item"><span class="fa fa-clock-o" aria-hidden="true"></span> <span>September 24, 2019</span></span><div class="clearfix"></div></div><!-- .post-meta -->
+			<h3 class="post-title"><a href="https://aro4x4.ro/aro-241-buzau/" title="Aro 241">Aro 241</a></h3>
+		</div><!-- .post-details /-->
+	</li>
+
+
+	<li class="post-item ">
+		
+			<a href="https://aro4x4.ro/aro-241-dd/" title="ARO 241" class="post-thumb">
+				<div class="post-thumb-overlay-wrap">
+					<div class="post-thumb-overlay">
+						<span class="icon"></span>
+					</div>
+				</div>
+			<img width="220" height="140" src="https://aro4x4.ro/wp-content/uploads/2019/06/241.jpg" class="attachment-jannah-image-small size-jannah-image-small tie-small-image wp-post-image" alt="" srcset="https://aro4x4.ro/wp-content/uploads/2019/06/241.jpg 748w, https://aro4x4.ro/wp-content/uploads/2019/06/241-300x191.jpg 300w" sizes="(max-width: 220px) 100vw, 220px" /></a>
+		<div class="post-details">
+
+			<div class="post-meta"><span class="date meta-item"><span class="fa fa-clock-o" aria-hidden="true"></span> <span>June 26, 2019</span></span><div class="clearfix"></div></div><!-- .post-meta -->
+			<h3 class="post-title"><a href="https://aro4x4.ro/aro-241-dd/" title="ARO 241">ARO 241</a></h3>
+		</div><!-- .post-details /-->
+	</li>
+
+
+	<li class="post-item ">
+		
+			<a href="https://aro4x4.ro/aro-241-vehicul-istoric-epoca/" title="ARO 241 (vehicul istoric epoca)" class="post-thumb">
+				<div class="post-thumb-overlay-wrap">
+					<div class="post-thumb-overlay">
+						<span class="icon"></span>
+					</div>
+				</div>
+			<img width="220" height="142" src="https://aro4x4.ro/wp-content/uploads/2019/05/Aro-241.jpg" class="attachment-jannah-image-small size-jannah-image-small tie-small-image wp-post-image" alt="" srcset="https://aro4x4.ro/wp-content/uploads/2019/05/Aro-241.jpg 652w, https://aro4x4.ro/wp-content/uploads/2019/05/Aro-241-300x193.jpg 300w" sizes="(max-width: 220px) 100vw, 220px" /></a>
+		<div class="post-details">
+
+			<div class="post-meta"><span class="date meta-item"><span class="fa fa-clock-o" aria-hidden="true"></span> <span>May 12, 2019</span></span><div class="clearfix"></div></div><!-- .post-meta -->
+			<h3 class="post-title"><a href="https://aro4x4.ro/aro-241-vehicul-istoric-epoca/" title="ARO 241 (vehicul istoric epoca)">ARO 241 (vehicul istoric epoca)</a></h3>
+		</div><!-- .post-details /-->
+	</li>
+
+</ul><div class="clearfix"></div>
+												</div><!-- .mag-box-container /-->
+											</div><!-- .container-wrapper /-->
+										</div><!-- .mag-box /-->
+									</div><!-- .tab-content-wrap /-->
+								</div><!-- .tab-content /-->
+							
+								<div id="cat-tab-tabs_1165-76" class="tab-content tab-wrap-4">
+									<div class="tab-content-wrap">
+										<div class="mag-box big-post-left-box">
+											<div class="container-wrapper">
+												<div class="mag-box-container clearfix">
+
+												<ul class="posts-items posts-list-container">	<li class="post-item  tie-standard">
+
+		
+			<a href="https://aro4x4.ro/aro-240-auoutilitara-n1-remorca-originala/" title="ARO 240 (auoutilitara N1) + Remorcă originală" class="post-thumb"><h5 class="post-cat-wrap"><span class="post-cat tie-cat-76">Aro 240</span></h5>
+				<div class="post-thumb-overlay-wrap">
+					<div class="post-thumb-overlay">
+						<span class="icon"></span>
+					</div>
+				</div>
+			<img width="390" height="220" src="https://aro4x4.ro/wp-content/uploads/2025/09/Screenshot_81-390x220.png" class="attachment-jannah-image-large size-jannah-image-large wp-post-image" alt="" /></a>
+		<div class="post-details">
+
+			<div class="post-meta">
+				<span class="meta-author meta-item"><a href="https://aro4x4.ro/author/admin/" class="author-name" title="Aro News"><span class="fa fa-user" aria-hidden="true"></span> Aro News</a>
+				</span>
+			<span class="date meta-item"><span class="fa fa-clock-o" aria-hidden="true"></span> <span>September 15, 2025</span></span><div class="tie-alignright"><span class="meta-comment meta-item"><a href="https://aro4x4.ro/aro-240-auoutilitara-n1-remorca-originala/#respond"><span class="fa fa-comments" aria-hidden="true"></span> 0</a></span><span class="meta-views meta-item warm"><span class="tie-icon-fire" aria-hidden="true"></span> 1,078 </span></div><div class="clearfix"></div></div><!-- .post-meta -->
+			<h3 class="post-title"><a href="https://aro4x4.ro/aro-240-auoutilitara-n1-remorca-originala/" title="ARO 240 (auoutilitara N1) + Remorcă originală">ARO 240 (auoutilitara N1) + Remorcă originală</a></h3>
+
+								<p class="post-excerpt">Vând pachet complet pentru pasionați ARO: ARO 240 Cabrio Autoutilitara N1 din primele generații, motor Brașov 3.1 litri (2 chiuloase,&hellip;</p>
+										<a class="more-link button" href="https://aro4x4.ro/aro-240-auoutilitara-n1-remorca-originala/">Citeste mai mult:</a>
+					
+		</div><!-- .post-details /-->
+
+	</li><!-- .first-post -->
+
+
+	<li class="post-item  tie-standard">
+		
+			<a href="https://aro4x4.ro/aro-240-andoria/" title="Aro 240 ANDORIA" class="post-thumb">
+				<div class="post-thumb-overlay-wrap">
+					<div class="post-thumb-overlay">
+						<span class="icon"></span>
+					</div>
+				</div>
+			<img width="220" height="150" src="https://aro4x4.ro/wp-content/uploads/2025/09/Screenshot_78-220x150.png" class="attachment-jannah-image-small size-jannah-image-small tie-small-image wp-post-image" alt="" /></a>
+		<div class="post-details">
+
+			<div class="post-meta"><span class="date meta-item"><span class="fa fa-clock-o" aria-hidden="true"></span> <span>September 5, 2025</span></span><div class="clearfix"></div></div><!-- .post-meta -->
+			<h3 class="post-title"><a href="https://aro4x4.ro/aro-240-andoria/" title="Aro 240 ANDORIA">Aro 240 ANDORIA</a></h3>
+		</div><!-- .post-details /-->
+	</li>
+
+
+	<li class="post-item  tie-standard">
+		
+			<a href="https://aro4x4.ro/aro-240-4x4-motor-benzina-l25/" title="Aro 240 4&#215;4 motor Benzina L25" class="post-thumb">
+				<div class="post-thumb-overlay-wrap">
+					<div class="post-thumb-overlay">
+						<span class="icon"></span>
+					</div>
+				</div>
+			<img width="220" height="150" src="https://aro4x4.ro/wp-content/uploads/2025/06/Screenshot_51-220x150.png" class="attachment-jannah-image-small size-jannah-image-small tie-small-image wp-post-image" alt="" /></a>
+		<div class="post-details">
+
+			<div class="post-meta"><span class="date meta-item"><span class="fa fa-clock-o" aria-hidden="true"></span> <span>June 10, 2025</span></span><div class="clearfix"></div></div><!-- .post-meta -->
+			<h3 class="post-title"><a href="https://aro4x4.ro/aro-240-4x4-motor-benzina-l25/" title="Aro 240 4&#215;4 motor Benzina L25">Aro 240 4&#215;4 motor Benzina L25</a></h3>
+		</div><!-- .post-details /-->
+	</li>
+
+
+	<li class="post-item  tie-standard">
+		
+			<a href="https://aro4x4.ro/aro-240-benzina/" title="ARO 240 Benzina" class="post-thumb">
+				<div class="post-thumb-overlay-wrap">
+					<div class="post-thumb-overlay">
+						<span class="icon"></span>
+					</div>
+				</div>
+			<img width="220" height="150" src="https://aro4x4.ro/wp-content/uploads/2025/04/Screenshot_87-220x150.png" class="attachment-jannah-image-small size-jannah-image-small tie-small-image wp-post-image" alt="" /></a>
+		<div class="post-details">
+
+			<div class="post-meta"><span class="date meta-item"><span class="fa fa-clock-o" aria-hidden="true"></span> <span>April 23, 2025</span></span><div class="clearfix"></div></div><!-- .post-meta -->
+			<h3 class="post-title"><a href="https://aro4x4.ro/aro-240-benzina/" title="ARO 240 Benzina">ARO 240 Benzina</a></h3>
+		</div><!-- .post-details /-->
+	</li>
+
+
+	<li class="post-item  tie-standard">
+		
+			<a href="https://aro4x4.ro/aro-240-vehicul-istoric-2/" title="Aro 240 vehicul istoric" class="post-thumb">
+				<div class="post-thumb-overlay-wrap">
+					<div class="post-thumb-overlay">
+						<span class="icon"></span>
+					</div>
+				</div>
+			<img width="220" height="150" src="https://aro4x4.ro/wp-content/uploads/2025/03/Screenshot_19-220x150.png" class="attachment-jannah-image-small size-jannah-image-small tie-small-image wp-post-image" alt="" /></a>
+		<div class="post-details">
+
+			<div class="post-meta"><span class="date meta-item"><span class="fa fa-clock-o" aria-hidden="true"></span> <span>March 11, 2025</span></span><div class="clearfix"></div></div><!-- .post-meta -->
+			<h3 class="post-title"><a href="https://aro4x4.ro/aro-240-vehicul-istoric-2/" title="Aro 240 vehicul istoric">Aro 240 vehicul istoric</a></h3>
+		</div><!-- .post-details /-->
+	</li>
+
+</ul><div class="clearfix"></div>
+												</div><!-- .mag-box-container /-->
+											</div><!-- .container-wrapper /-->
+										</div><!-- .mag-box /-->
+									</div><!-- .tab-content-wrap /-->
+								</div><!-- .tab-content /-->
+							
+								<div id="cat-tab-tabs_1165-84" class="tab-content tab-wrap-5">
+									<div class="tab-content-wrap">
+										<div class="mag-box big-post-left-box">
+											<div class="container-wrapper">
+												<div class="mag-box-container clearfix">
+
+												<ul class="posts-items posts-list-container">	<li class="post-item  tie-standard">
+
+		
+			<a href="https://aro4x4.ro/aro-246-motorizare-toyota/" title="Aro 246 motorizare TOYOTA" class="post-thumb"><h5 class="post-cat-wrap"><span class="post-cat tie-cat-84">Aro 246</span></h5>
+				<div class="post-thumb-overlay-wrap">
+					<div class="post-thumb-overlay">
+						<span class="icon"></span>
+					</div>
+				</div>
+			<img width="390" height="220" src="https://aro4x4.ro/wp-content/uploads/2025/02/Screenshot_84-390x220.png" class="attachment-jannah-image-large size-jannah-image-large wp-post-image" alt="" /></a>
+		<div class="post-details">
+
+			<div class="post-meta">
+				<span class="meta-author meta-item"><a href="https://aro4x4.ro/author/admin/" class="author-name" title="Aro News"><span class="fa fa-user" aria-hidden="true"></span> Aro News</a>
+				</span>
+			<span class="date meta-item"><span class="fa fa-clock-o" aria-hidden="true"></span> <span>February 2, 2025</span></span><div class="tie-alignright"><span class="meta-comment meta-item"><a href="https://aro4x4.ro/aro-246-motorizare-toyota/#respond"><span class="fa fa-comments" aria-hidden="true"></span> 0</a></span><span class="meta-views meta-item very-hot"><span class="tie-icon-fire" aria-hidden="true"></span> 6,439 </span></div><div class="clearfix"></div></div><!-- .post-meta -->
+			<h3 class="post-title"><a href="https://aro4x4.ro/aro-246-motorizare-toyota/" title="Aro 246 motorizare TOYOTA">Aro 246 motorizare TOYOTA</a></h3>
+
+								<p class="post-excerpt">Aro 246 motorizare Toyota 2LT Dotări, frânare pe discuri, bări față stabilizatoare, aer condiționat, etc. Mașina este foarte bine întreținută&hellip;</p>
+										<a class="more-link button" href="https://aro4x4.ro/aro-246-motorizare-toyota/">Citeste mai mult:</a>
+					
+		</div><!-- .post-details /-->
+
+	</li><!-- .first-post -->
+
+
+	<li class="post-item  tie-standard">
+		
+			<a href="https://aro4x4.ro/aro-246-modificat/" title="Aro 246" class="post-thumb">
+				<div class="post-thumb-overlay-wrap">
+					<div class="post-thumb-overlay">
+						<span class="icon"></span>
+					</div>
+				</div>
+			<img width="220" height="150" src="https://aro4x4.ro/wp-content/uploads/2024/12/Screenshot_130-220x150.png" class="attachment-jannah-image-small size-jannah-image-small tie-small-image wp-post-image" alt="" /></a>
+		<div class="post-details">
+
+			<div class="post-meta"><span class="date meta-item"><span class="fa fa-clock-o" aria-hidden="true"></span> <span>December 28, 2024</span></span><div class="clearfix"></div></div><!-- .post-meta -->
+			<h3 class="post-title"><a href="https://aro4x4.ro/aro-246-modificat/" title="Aro 246">Aro 246</a></h3>
+		</div><!-- .post-details /-->
+	</li>
+
+
+	<li class="post-item ">
+		
+			<a href="https://aro4x4.ro/aro-model-246-2/" title="Aro Model 246" class="post-thumb">
+				<div class="post-thumb-overlay-wrap">
+					<div class="post-thumb-overlay">
+						<span class="icon"></span>
+					</div>
+				</div>
+			<img width="220" height="131" src="https://aro4x4.ro/wp-content/uploads/2024/08/Screenshot_12.png" class="attachment-jannah-image-small size-jannah-image-small tie-small-image wp-post-image" alt="" srcset="https://aro4x4.ro/wp-content/uploads/2024/08/Screenshot_12.png 783w, https://aro4x4.ro/wp-content/uploads/2024/08/Screenshot_12-300x179.png 300w, https://aro4x4.ro/wp-content/uploads/2024/08/Screenshot_12-768x458.png 768w" sizes="(max-width: 220px) 100vw, 220px" /></a>
+		<div class="post-details">
+
+			<div class="post-meta"><span class="date meta-item"><span class="fa fa-clock-o" aria-hidden="true"></span> <span>August 12, 2024</span></span><div class="clearfix"></div></div><!-- .post-meta -->
+			<h3 class="post-title"><a href="https://aro4x4.ro/aro-model-246-2/" title="Aro Model 246">Aro Model 246</a></h3>
+		</div><!-- .post-details /-->
+	</li>
+
+
+	<li class="post-item ">
+		
+			<a href="https://aro4x4.ro/aro-246-autoutilitara/" title="Aro 246 Autoutilitară " class="post-thumb">
+				<div class="post-thumb-overlay-wrap">
+					<div class="post-thumb-overlay">
+						<span class="icon"></span>
+					</div>
+				</div>
+			<img width="220" height="109" src="https://aro4x4.ro/wp-content/uploads/2024/08/Screenshot_1.png" class="attachment-jannah-image-small size-jannah-image-small tie-small-image wp-post-image" alt="" srcset="https://aro4x4.ro/wp-content/uploads/2024/08/Screenshot_1.png 720w, https://aro4x4.ro/wp-content/uploads/2024/08/Screenshot_1-300x149.png 300w, https://aro4x4.ro/wp-content/uploads/2024/08/Screenshot_1-660x330.png 660w" sizes="(max-width: 220px) 100vw, 220px" /></a>
+		<div class="post-details">
+
+			<div class="post-meta"><span class="date meta-item"><span class="fa fa-clock-o" aria-hidden="true"></span> <span>August 6, 2024</span></span><div class="clearfix"></div></div><!-- .post-meta -->
+			<h3 class="post-title"><a href="https://aro4x4.ro/aro-246-autoutilitara/" title="Aro 246 Autoutilitară ">Aro 246 Autoutilitară </a></h3>
+		</div><!-- .post-details /-->
+	</li>
+
+
+	<li class="post-item ">
+		
+			<a href="https://aro4x4.ro/aro-246-andoria-euro-3-2/" title="Aro 246 Andoria euro 3" class="post-thumb">
+				<div class="post-thumb-overlay-wrap">
+					<div class="post-thumb-overlay">
+						<span class="icon"></span>
+					</div>
+				</div>
+			<img width="220" height="136" src="https://aro4x4.ro/wp-content/uploads/2024/04/Screenshot_42.png" class="attachment-jannah-image-small size-jannah-image-small tie-small-image wp-post-image" alt="" srcset="https://aro4x4.ro/wp-content/uploads/2024/04/Screenshot_42.png 803w, https://aro4x4.ro/wp-content/uploads/2024/04/Screenshot_42-300x186.png 300w, https://aro4x4.ro/wp-content/uploads/2024/04/Screenshot_42-768x476.png 768w" sizes="(max-width: 220px) 100vw, 220px" /></a>
+		<div class="post-details">
+
+			<div class="post-meta"><span class="date meta-item"><span class="fa fa-clock-o" aria-hidden="true"></span> <span>April 22, 2024</span></span><div class="clearfix"></div></div><!-- .post-meta -->
+			<h3 class="post-title"><a href="https://aro4x4.ro/aro-246-andoria-euro-3-2/" title="Aro 246 Andoria euro 3">Aro 246 Andoria euro 3</a></h3>
+		</div><!-- .post-details /-->
+	</li>
+
+</ul><div class="clearfix"></div>
+												</div><!-- .mag-box-container /-->
+											</div><!-- .container-wrapper /-->
+										</div><!-- .mag-box /-->
+									</div><!-- .tab-content-wrap /-->
+								</div><!-- .tab-content /-->
+							
+								<div id="cat-tab-tabs_1165-99" class="tab-content tab-wrap-6">
+									<div class="tab-content-wrap">
+										<div class="mag-box big-post-left-box">
+											<div class="container-wrapper">
+												<div class="mag-box-container clearfix">
+
+												<ul class="posts-items posts-list-container">	<li class="post-item  tie-standard">
+
+		
+			<a href="https://aro4x4.ro/aro-242-autoutilitara/" title="Aro 242 autoutilitara" class="post-thumb"><h5 class="post-cat-wrap"><span class="post-cat tie-cat-99">Aro 242</span></h5>
+				<div class="post-thumb-overlay-wrap">
+					<div class="post-thumb-overlay">
+						<span class="icon"></span>
+					</div>
+				</div>
+			<img width="390" height="220" src="https://aro4x4.ro/wp-content/uploads/2024/11/Screenshot_99-390x220.png" class="attachment-jannah-image-large size-jannah-image-large wp-post-image" alt="" /></a>
+		<div class="post-details">
+
+			<div class="post-meta">
+				<span class="meta-author meta-item"><a href="https://aro4x4.ro/author/admin/" class="author-name" title="Aro News"><span class="fa fa-user" aria-hidden="true"></span> Aro News</a>
+				</span>
+			<span class="date meta-item"><span class="fa fa-clock-o" aria-hidden="true"></span> <span>November 30, 2024</span></span><div class="tie-alignright"><span class="meta-comment meta-item"><a href="https://aro4x4.ro/aro-242-autoutilitara/#respond"><span class="fa fa-comments" aria-hidden="true"></span> 0</a></span><span class="meta-views meta-item warm"><span class="tie-icon-fire" aria-hidden="true"></span> 1,323 </span></div><div class="clearfix"></div></div><!-- .post-meta -->
+			<h3 class="post-title"><a href="https://aro4x4.ro/aro-242-autoutilitara/" title="Aro 242 autoutilitara">Aro 242 autoutilitara</a></h3>
+
+								<p class="post-excerpt">Aro 242 autoutilitara motor brasov cutie 4 trepte in stare bună de funcționare itp valabil si fiscal pe loc Tel:&hellip;</p>
+										<a class="more-link button" href="https://aro4x4.ro/aro-242-autoutilitara/">Citeste mai mult:</a>
+					
+		</div><!-- .post-details /-->
+
+	</li><!-- .first-post -->
+
+
+	<li class="post-item ">
+		
+			<a href="https://aro4x4.ro/aro-242-motor-toyota/" title="ARO 242 motor Toyota" class="post-thumb">
+				<div class="post-thumb-overlay-wrap">
+					<div class="post-thumb-overlay">
+						<span class="icon"></span>
+					</div>
+				</div>
+			<img width="220" height="128" src="https://aro4x4.ro/wp-content/uploads/2023/12/Screenshot_36.png" class="attachment-jannah-image-small size-jannah-image-small tie-small-image wp-post-image" alt="" srcset="https://aro4x4.ro/wp-content/uploads/2023/12/Screenshot_36.png 729w, https://aro4x4.ro/wp-content/uploads/2023/12/Screenshot_36-300x174.png 300w" sizes="(max-width: 220px) 100vw, 220px" /></a>
+		<div class="post-details">
+
+			<div class="post-meta"><span class="date meta-item"><span class="fa fa-clock-o" aria-hidden="true"></span> <span>December 13, 2023</span></span><div class="clearfix"></div></div><!-- .post-meta -->
+			<h3 class="post-title"><a href="https://aro4x4.ro/aro-242-motor-toyota/" title="ARO 242 motor Toyota">ARO 242 motor Toyota</a></h3>
+		</div><!-- .post-details /-->
+	</li>
+
+
+	<li class="post-item  tie-standard">
+		
+			<a href="https://aro4x4.ro/aro-242-autoutilitar/" title="Aro 242  AUTOUTILITAR" class="post-thumb">
+				<div class="post-thumb-overlay-wrap">
+					<div class="post-thumb-overlay">
+						<span class="icon"></span>
+					</div>
+				</div>
+			<img width="220" height="150" src="https://aro4x4.ro/wp-content/uploads/2021/02/Screenshot_29-220x150.png" class="attachment-jannah-image-small size-jannah-image-small tie-small-image wp-post-image" alt="" /></a>
+		<div class="post-details">
+
+			<div class="post-meta"><span class="date meta-item"><span class="fa fa-clock-o" aria-hidden="true"></span> <span>February 26, 2021</span></span><div class="clearfix"></div></div><!-- .post-meta -->
+			<h3 class="post-title"><a href="https://aro4x4.ro/aro-242-autoutilitar/" title="Aro 242  AUTOUTILITAR">Aro 242  AUTOUTILITAR</a></h3>
+		</div><!-- .post-details /-->
+	</li>
+
+
+	<li class="post-item ">
+		
+			<a href="https://aro4x4.ro/vand-aro-242/" title="Vand ARO 242" class="post-thumb">
+				<div class="post-thumb-overlay-wrap">
+					<div class="post-thumb-overlay">
+						<span class="icon"></span>
+					</div>
+				</div>
+			<img width="220" height="121" src="https://aro4x4.ro/wp-content/uploads/2018/12/rfef.png" class="attachment-jannah-image-small size-jannah-image-small tie-small-image wp-post-image" alt="" srcset="https://aro4x4.ro/wp-content/uploads/2018/12/rfef.png 784w, https://aro4x4.ro/wp-content/uploads/2018/12/rfef-300x165.png 300w, https://aro4x4.ro/wp-content/uploads/2018/12/rfef-768x423.png 768w" sizes="(max-width: 220px) 100vw, 220px" /></a>
+		<div class="post-details">
+
+			<div class="post-meta"><span class="date meta-item"><span class="fa fa-clock-o" aria-hidden="true"></span> <span>December 19, 2018</span></span><div class="clearfix"></div></div><!-- .post-meta -->
+			<h3 class="post-title"><a href="https://aro4x4.ro/vand-aro-242/" title="Vand ARO 242">Vand ARO 242</a></h3>
+		</div><!-- .post-details /-->
+	</li>
+
+</ul><div class="clearfix"></div>
+												</div><!-- .mag-box-container /-->
+											</div><!-- .container-wrapper /-->
+										</div><!-- .mag-box /-->
+									</div><!-- .tab-content-wrap /-->
+								</div><!-- .tab-content /-->
+													</div><!-- .tabs-wrapper-animated /-->
+					</div><!-- .tabs-widget /-->
+			    
+			</div><!-- .mag-box /-->
+
+			
+
+				<div id="tie-block_1950" class="mag-box miscellaneous-box first-post-gradient has-first-big-post" data-current="1">
+				
+					<div class="container-wrapper">
+
+						
+		<div class="mag-box-title the-global-title">
+			<h3>
+				Stiri si informatii			</h3>
+
+			</div><!-- .mag-box-title /-->
+						<div class="mag-box-container clearfix">
+
+							<ul class="posts-items posts-list-container">
+
+<li class="post-item tie-standard">
+
+	
+			<a href="https://aro4x4.ro/zimbru-carpatilor-povestea-perioadei-in-care-aro-domina-exporturile-si-se-batea-de-la-egal-la-egal-cu-gigantii-4x4/" title="„Zimbru Carpaților: Povestea perioadei în care ARO domina exporturile și se bătea de la egal la egal cu giganții 4&#215;4.”" class="post-thumb">
+				<div class="post-thumb-overlay-wrap">
+					<div class="post-thumb-overlay">
+						<span class="icon"></span>
+					</div>
+				</div>
+			<img width="780" height="405" src="https://aro4x4.ro/wp-content/uploads/2026/02/Uzina-Aro-780x405.jpg" class="attachment-jannah-image-post size-jannah-image-post wp-post-image" alt="" /></a>
+		<div class="clearfix"></div>
+
+		<div class="post-overlay">
+			<div class="post-content">
+
+				<h5 class="post-cat-wrap"><a class="post-cat tie-cat-59" href="https://aro4x4.ro/category/stiri-si-informatii/">Stiri si informatii</a></h5>
+				<h3 class="post-title"><a href="https://aro4x4.ro/zimbru-carpatilor-povestea-perioadei-in-care-aro-domina-exporturile-si-se-batea-de-la-egal-la-egal-cu-gigantii-4x4/" title="„Zimbru Carpaților: Povestea perioadei în care ARO domina exporturile și se bătea de la egal la egal cu giganții 4&#215;4.”">„Zimbru Carpaților: Povestea perioadei în care ARO domina exporturile și se bătea de la egal la egal cu giganții 4&#215;4.”</a></h3>
+
+				<div class="thumb-meta"><div class="post-meta">
+				<span class="meta-author meta-item"><a href="https://aro4x4.ro/author/admin/" class="author-name" title="Aro News"><span class="fa fa-user" aria-hidden="true"></span> Aro News</a>
+				</span>
+			<span class="date meta-item"><span class="fa fa-clock-o" aria-hidden="true"></span> <span>February 10, 2026</span></span><div class="tie-alignright"><span class="meta-comment meta-item"><a href="https://aro4x4.ro/zimbru-carpatilor-povestea-perioadei-in-care-aro-domina-exporturile-si-se-batea-de-la-egal-la-egal-cu-gigantii-4x4/#respond"><span class="fa fa-comments" aria-hidden="true"></span> 0</a></span><span class="meta-views meta-item warm"><span class="tie-icon-fire" aria-hidden="true"></span> 618 </span></div><div class="clearfix"></div></div><!-- .post-meta --></div><!-- .thumb-meta -->
+			</div><!-- .post-content -->
+		</div><!-- .post-overlay -->
+
+		
+</li>
+
+
+<li class="post-item tie-standard">
+
+	
+			<a href="https://aro4x4.ro/m-461-transformat-intr-un-monstru-al-soselelor-in-sua-avand-un-motor-de-470-de-cai-putere/" title="M 461 transformat într-un „monstru” al șoselelor în SUA, având un motor de 470 de cai-putere" class="post-thumb">
+				<div class="post-thumb-overlay-wrap">
+					<div class="post-thumb-overlay">
+						<span class="icon"></span>
+					</div>
+				</div>
+			<img width="390" height="220" src="https://aro4x4.ro/wp-content/uploads/2026/02/Screenshot_53-390x220.png" class="attachment-jannah-image-large size-jannah-image-large wp-post-image" alt="" /></a>
+		<div class="clearfix"></div>
+
+		<div class="post-overlay">
+			<div class="post-content">
+
+				<div class="post-meta"><span class="date meta-item"><span class="fa fa-clock-o" aria-hidden="true"></span> <span>February 6, 2026</span></span><div class="tie-alignright"><span class="meta-comment meta-item"><a href="https://aro4x4.ro/m-461-transformat-intr-un-monstru-al-soselelor-in-sua-avand-un-motor-de-470-de-cai-putere/#respond"><span class="fa fa-comments" aria-hidden="true"></span> 0</a></span></div><div class="clearfix"></div></div><!-- .post-meta -->
+				<h3 class="post-title"><a href="https://aro4x4.ro/m-461-transformat-intr-un-monstru-al-soselelor-in-sua-avand-un-motor-de-470-de-cai-putere/" title="M 461 transformat într-un „monstru” al șoselelor în SUA, având un motor de 470 de cai-putere">M 461 transformat într-un „monstru” al șoselelor în SUA, având un motor de 470 de cai-putere</a></h3>
+
+				<div class="post-meta"></div>
+			</div><!-- .post-content -->
+		</div><!-- .post-overlay -->
+
+	
+</li>
+
+
+<li class="post-item tie-standard">
+
+	
+			<a href="https://aro4x4.ro/proiectul-noului-aro-4x4-romanesc-este-gata-in-doi-ani-poate-fi-pe-piata-si-in-dotarea-armatei/" title="Proiectul noului ARO 4X4 românesc este gata: În doi ani poate fi pe piață și în dotarea Armatei" class="post-thumb">
+				<div class="post-thumb-overlay-wrap">
+					<div class="post-thumb-overlay">
+						<span class="icon"></span>
+					</div>
+				</div>
+			<img width="390" height="220" src="https://aro4x4.ro/wp-content/uploads/2026/02/e-aro-390x220.jpg" class="attachment-jannah-image-large size-jannah-image-large wp-post-image" alt="" /></a>
+		<div class="clearfix"></div>
+
+		<div class="post-overlay">
+			<div class="post-content">
+
+				<div class="post-meta"><span class="date meta-item"><span class="fa fa-clock-o" aria-hidden="true"></span> <span>February 5, 2026</span></span><div class="tie-alignright"><span class="meta-comment meta-item"><a href="https://aro4x4.ro/proiectul-noului-aro-4x4-romanesc-este-gata-in-doi-ani-poate-fi-pe-piata-si-in-dotarea-armatei/#respond"><span class="fa fa-comments" aria-hidden="true"></span> 0</a></span></div><div class="clearfix"></div></div><!-- .post-meta -->
+				<h3 class="post-title"><a href="https://aro4x4.ro/proiectul-noului-aro-4x4-romanesc-este-gata-in-doi-ani-poate-fi-pe-piata-si-in-dotarea-armatei/" title="Proiectul noului ARO 4X4 românesc este gata: În doi ani poate fi pe piață și în dotarea Armatei">Proiectul noului ARO 4X4 românesc este gata: În doi ani poate fi pe piață și în dotarea Armatei</a></h3>
+
+				<div class="post-meta"></div>
+			</div><!-- .post-content -->
+		</div><!-- .post-overlay -->
+
+	
+</li>
+
+
+<li class="post-item tie-standard">
+
+	
+			<a href="https://aro4x4.ro/aventura-vehiculului-de-teren-romanesc/" title="Aventura vehiculului de teren românesc" class="post-thumb">
+				<div class="post-thumb-overlay-wrap">
+					<div class="post-thumb-overlay">
+						<span class="icon"></span>
+					</div>
+				</div>
+			<img width="390" height="220" src="https://aro4x4.ro/wp-content/uploads/2025/12/Screenshot_1-390x220.png" class="attachment-jannah-image-large size-jannah-image-large wp-post-image" alt="" /></a>
+		<div class="clearfix"></div>
+
+		<div class="post-overlay">
+			<div class="post-content">
+
+				<div class="post-meta"><span class="date meta-item"><span class="fa fa-clock-o" aria-hidden="true"></span> <span>December 26, 2025</span></span><div class="tie-alignright"><span class="meta-comment meta-item"><a href="https://aro4x4.ro/aventura-vehiculului-de-teren-romanesc/#respond"><span class="fa fa-comments" aria-hidden="true"></span> 0</a></span></div><div class="clearfix"></div></div><!-- .post-meta -->
+				<h3 class="post-title"><a href="https://aro4x4.ro/aventura-vehiculului-de-teren-romanesc/" title="Aventura vehiculului de teren românesc">Aventura vehiculului de teren românesc</a></h3>
+
+				<div class="post-meta"></div>
+			</div><!-- .post-content -->
+		</div><!-- .post-overlay -->
+
+	
+</li>
+
+
+<li class="post-item tie-standard">
+
+	
+			<a href="https://aro4x4.ro/gloria-si-decaderea-unei-legendare-marci-romanesti-aro/" title="Gloria şi decăderea unei legendare marci  românești  &#8211; ARO" class="post-thumb">
+				<div class="post-thumb-overlay-wrap">
+					<div class="post-thumb-overlay">
+						<span class="icon"></span>
+					</div>
+				</div>
+			<img width="390" height="220" src="https://aro4x4.ro/wp-content/uploads/2025/12/Screenshot_64-390x220.png" class="attachment-jannah-image-large size-jannah-image-large wp-post-image" alt="" /></a>
+		<div class="clearfix"></div>
+
+		<div class="post-overlay">
+			<div class="post-content">
+
+				<div class="post-meta"><span class="date meta-item"><span class="fa fa-clock-o" aria-hidden="true"></span> <span>December 22, 2025</span></span><div class="tie-alignright"><span class="meta-comment meta-item"><a href="https://aro4x4.ro/gloria-si-decaderea-unei-legendare-marci-romanesti-aro/#respond"><span class="fa fa-comments" aria-hidden="true"></span> 0</a></span></div><div class="clearfix"></div></div><!-- .post-meta -->
+				<h3 class="post-title"><a href="https://aro4x4.ro/gloria-si-decaderea-unei-legendare-marci-romanesti-aro/" title="Gloria şi decăderea unei legendare marci  românești  &#8211; ARO">Gloria şi decăderea unei legendare marci  românești  &#8211; ARO</a></h3>
+
+				<div class="post-meta"></div>
+			</div><!-- .post-content -->
+		</div><!-- .post-overlay -->
+
+	
+</li>
+
+
+<li class="post-item tie-standard">
+
+	
+			<a href="https://aro4x4.ro/statul-roman-a-ratat-o-sansa-unica-de-a-readuce-aro-la-viata-celebrul-suv-autohton-a-murit-din-cauza-motivului-populist-ca-nu-ne-vindem-tara/" title="Statul român a ratat o şansă unică de a readuce ARO la viaţă. Celebrul SUV autohton a murit din cauza motivului populist că &#8220;nu ne vindem țara&#8221;" class="post-thumb">
+				<div class="post-thumb-overlay-wrap">
+					<div class="post-thumb-overlay">
+						<span class="icon"></span>
+					</div>
+				</div>
+			<img width="390" height="220" src="https://aro4x4.ro/wp-content/uploads/2025/06/1969-EREN-Prototip-ARO-244-390x220.jpg" class="attachment-jannah-image-large size-jannah-image-large wp-post-image" alt="" /></a>
+		<div class="clearfix"></div>
+
+		<div class="post-overlay">
+			<div class="post-content">
+
+				<div class="post-meta"><span class="date meta-item"><span class="fa fa-clock-o" aria-hidden="true"></span> <span>June 22, 2025</span></span><div class="tie-alignright"><span class="meta-comment meta-item"><a href="https://aro4x4.ro/statul-roman-a-ratat-o-sansa-unica-de-a-readuce-aro-la-viata-celebrul-suv-autohton-a-murit-din-cauza-motivului-populist-ca-nu-ne-vindem-tara/#respond"><span class="fa fa-comments" aria-hidden="true"></span> 0</a></span></div><div class="clearfix"></div></div><!-- .post-meta -->
+				<h3 class="post-title"><a href="https://aro4x4.ro/statul-roman-a-ratat-o-sansa-unica-de-a-readuce-aro-la-viata-celebrul-suv-autohton-a-murit-din-cauza-motivului-populist-ca-nu-ne-vindem-tara/" title="Statul român a ratat o şansă unică de a readuce ARO la viaţă. Celebrul SUV autohton a murit din cauza motivului populist că &#8220;nu ne vindem țara&#8221;">Statul român a ratat o şansă unică de a readuce ARO la viaţă. Celebrul SUV autohton a murit din cauza motivului populist că &#8220;nu ne vindem țara&#8221;</a></h3>
+
+				<div class="post-meta"></div>
+			</div><!-- .post-content -->
+		</div><!-- .post-overlay -->
+
+	
+</li>
+
+
+<li class="post-item tie-standard">
+
+	
+			<a href="https://aro4x4.ro/cum-a-ajuns-o-ruina-aro-cu-celebrele-4x4-produse-si-pentru-armata-romania-a-ratat-sansa-salvarii-refuzand-sa-vanda-aro-catre-o-tara-straina/" title="Cum a ajuns o ruină ARO cu celebrele 4&#215;4 produse și pentru Armată: România a ratat șansa salvării refuzând să vândă ARO către o țară străină" class="post-thumb">
+				<div class="post-thumb-overlay-wrap">
+					<div class="post-thumb-overlay">
+						<span class="icon"></span>
+					</div>
+				</div>
+			<img width="390" height="220" src="https://aro4x4.ro/wp-content/uploads/2025/06/aro-automobil-militar-retro-vechi-6-390x220.jpeg" class="attachment-jannah-image-large size-jannah-image-large wp-post-image" alt="" srcset="https://aro4x4.ro/wp-content/uploads/2025/06/aro-automobil-militar-retro-vechi-6-390x220.jpeg 390w, https://aro4x4.ro/wp-content/uploads/2025/06/aro-automobil-militar-retro-vechi-6-300x169.jpeg 300w, https://aro4x4.ro/wp-content/uploads/2025/06/aro-automobil-militar-retro-vechi-6-768x432.jpeg 768w, https://aro4x4.ro/wp-content/uploads/2025/06/aro-automobil-militar-retro-vechi-6-1024x576.jpeg 1024w, https://aro4x4.ro/wp-content/uploads/2025/06/aro-automobil-militar-retro-vechi-6.jpeg 1600w" sizes="(max-width: 390px) 100vw, 390px" /></a>
+		<div class="clearfix"></div>
+
+		<div class="post-overlay">
+			<div class="post-content">
+
+				<div class="post-meta"><span class="date meta-item"><span class="fa fa-clock-o" aria-hidden="true"></span> <span>June 6, 2025</span></span><div class="tie-alignright"><span class="meta-comment meta-item"><a href="https://aro4x4.ro/cum-a-ajuns-o-ruina-aro-cu-celebrele-4x4-produse-si-pentru-armata-romania-a-ratat-sansa-salvarii-refuzand-sa-vanda-aro-catre-o-tara-straina/#respond"><span class="fa fa-comments" aria-hidden="true"></span> 0</a></span></div><div class="clearfix"></div></div><!-- .post-meta -->
+				<h3 class="post-title"><a href="https://aro4x4.ro/cum-a-ajuns-o-ruina-aro-cu-celebrele-4x4-produse-si-pentru-armata-romania-a-ratat-sansa-salvarii-refuzand-sa-vanda-aro-catre-o-tara-straina/" title="Cum a ajuns o ruină ARO cu celebrele 4&#215;4 produse și pentru Armată: România a ratat șansa salvării refuzând să vândă ARO către o țară străină">Cum a ajuns o ruină ARO cu celebrele 4&#215;4 produse și pentru Armată: România a ratat șansa salvării refuzând să vândă ARO către o țară străină</a></h3>
+
+				<div class="post-meta"></div>
+			</div><!-- .post-content -->
+		</div><!-- .post-overlay -->
+
+	
+</li>
+
+
+<li class="post-item tie-standard">
+
+	
+			<a href="https://aro4x4.ro/jurnalist-de-la-o-cunoscuta-publicatie-auto-din-sua-surprins-de-vederea-unui-aro-244/" title="Jurnalist de la o cunoscută publicație auto din SUA, surprins de vederea unui ARO 244" class="post-thumb">
+				<div class="post-thumb-overlay-wrap">
+					<div class="post-thumb-overlay">
+						<span class="icon"></span>
+					</div>
+				</div>
+			<img width="390" height="220" src="https://aro4x4.ro/wp-content/uploads/2025/04/Screenshot_33-390x220.png" class="attachment-jannah-image-large size-jannah-image-large wp-post-image" alt="" /></a>
+		<div class="clearfix"></div>
+
+		<div class="post-overlay">
+			<div class="post-content">
+
+				<div class="post-meta"><span class="date meta-item"><span class="fa fa-clock-o" aria-hidden="true"></span> <span>April 27, 2025</span></span><div class="tie-alignright"><span class="meta-comment meta-item"><a href="https://aro4x4.ro/jurnalist-de-la-o-cunoscuta-publicatie-auto-din-sua-surprins-de-vederea-unui-aro-244/#respond"><span class="fa fa-comments" aria-hidden="true"></span> 0</a></span></div><div class="clearfix"></div></div><!-- .post-meta -->
+				<h3 class="post-title"><a href="https://aro4x4.ro/jurnalist-de-la-o-cunoscuta-publicatie-auto-din-sua-surprins-de-vederea-unui-aro-244/" title="Jurnalist de la o cunoscută publicație auto din SUA, surprins de vederea unui ARO 244">Jurnalist de la o cunoscută publicație auto din SUA, surprins de vederea unui ARO 244</a></h3>
+
+				<div class="post-meta"></div>
+			</div><!-- .post-content -->
+		</div><!-- .post-overlay -->
+
+	
+</li>
+
+
+<li class="post-item tie-standard">
+
+	
+			<a href="https://aro4x4.ro/pretul-unui-aro-de-armata-fara-gram-de-rugina-in-2025/" title="Prețul unui  ARO de ARMATĂ fără gram de rugină în 2025" class="post-thumb">
+				<div class="post-thumb-overlay-wrap">
+					<div class="post-thumb-overlay">
+						<span class="icon"></span>
+					</div>
+				</div>
+			<img width="390" height="220" src="https://aro4x4.ro/wp-content/uploads/2025/03/Screenshot_15-390x220.png" class="attachment-jannah-image-large size-jannah-image-large wp-post-image" alt="" srcset="https://aro4x4.ro/wp-content/uploads/2025/03/Screenshot_15-390x220.png 390w, https://aro4x4.ro/wp-content/uploads/2025/03/Screenshot_15-300x170.png 300w, https://aro4x4.ro/wp-content/uploads/2025/03/Screenshot_15-768x434.png 768w, https://aro4x4.ro/wp-content/uploads/2025/03/Screenshot_15.png 784w" sizes="(max-width: 390px) 100vw, 390px" /></a>
+		<div class="clearfix"></div>
+
+		<div class="post-overlay">
+			<div class="post-content">
+
+				<div class="post-meta"><span class="date meta-item"><span class="fa fa-clock-o" aria-hidden="true"></span> <span>March 26, 2025</span></span><div class="tie-alignright"><span class="meta-comment meta-item"><a href="https://aro4x4.ro/pretul-unui-aro-de-armata-fara-gram-de-rugina-in-2025/#respond"><span class="fa fa-comments" aria-hidden="true"></span> 0</a></span></div><div class="clearfix"></div></div><!-- .post-meta -->
+				<h3 class="post-title"><a href="https://aro4x4.ro/pretul-unui-aro-de-armata-fara-gram-de-rugina-in-2025/" title="Prețul unui  ARO de ARMATĂ fără gram de rugină în 2025">Prețul unui  ARO de ARMATĂ fără gram de rugină în 2025</a></h3>
+
+				<div class="post-meta"></div>
+			</div><!-- .post-content -->
+		</div><!-- .post-overlay -->
+
+	
+</li>
+
+
+<li class="post-item tie-standard">
+
+	
+			<a href="https://aro4x4.ro/aro-304-cabrio-limuzina-tip-papamobil-in-care-lui-ceausescu-i-a-fost-frica-sa-se-urce/" title="Aro 304 Cabrio, limuzina tip „Papamobil” în care lui Ceaușescu i-a fost frică să se urce" class="post-thumb">
+				<div class="post-thumb-overlay-wrap">
+					<div class="post-thumb-overlay">
+						<span class="icon"></span>
+					</div>
+				</div>
+			<img width="390" height="220" src="https://aro4x4.ro/wp-content/uploads/2025/03/Screenshot_12-390x220.png" class="attachment-jannah-image-large size-jannah-image-large wp-post-image" alt="" /></a>
+		<div class="clearfix"></div>
+
+		<div class="post-overlay">
+			<div class="post-content">
+
+				<div class="post-meta"><span class="date meta-item"><span class="fa fa-clock-o" aria-hidden="true"></span> <span>March 7, 2025</span></span><div class="tie-alignright"><span class="meta-comment meta-item"><a href="https://aro4x4.ro/aro-304-cabrio-limuzina-tip-papamobil-in-care-lui-ceausescu-i-a-fost-frica-sa-se-urce/#respond"><span class="fa fa-comments" aria-hidden="true"></span> 0</a></span></div><div class="clearfix"></div></div><!-- .post-meta -->
+				<h3 class="post-title"><a href="https://aro4x4.ro/aro-304-cabrio-limuzina-tip-papamobil-in-care-lui-ceausescu-i-a-fost-frica-sa-se-urce/" title="Aro 304 Cabrio, limuzina tip „Papamobil” în care lui Ceaușescu i-a fost frică să se urce">Aro 304 Cabrio, limuzina tip „Papamobil” în care lui Ceaușescu i-a fost frică să se urce</a></h3>
+
+				<div class="post-meta"></div>
+			</div><!-- .post-content -->
+		</div><!-- .post-overlay -->
+
+	
+</li>
+</ul><div class="clearfix"></div>
+						</div><!-- .mag-box-container /-->
+
+
+						<div class="pages-nav"><ul class="pages-numbers">
+<li class="current"><span class="pages-nav-item">1</span></li><li><a class="pages-nav-item" href="https://aro4x4.ro/page/2/" title="2">2</a></li><li><a class="pages-nav-item" href="https://aro4x4.ro/page/3/" title="3">3</a></li><li><a class="pages-nav-item" href="https://aro4x4.ro/page/4/" title="4">4</a></li><li><a class="pages-nav-item" href="https://aro4x4.ro/page/5/" title="5">5</a></li><li class="the-next-page"><a href="https://aro4x4.ro/page/2/" >&raquo;</a></li><li><a class="pages-nav-item" href="https://aro4x4.ro/page/10/" title="10">10</a></li><li><a class="pages-nav-item" href="https://aro4x4.ro/page/20/" title="20">20</a></li><li class="extend"><span class="pages-nav-item">...</span></li><li class="last-page first-last-pages"><a class="pages-nav-item" href="https://aro4x4.ro/page/20/" title="Last">Last<span class="fa" aria-hidden="true"></span></a></li></ul></div>
+
+					</div><!-- .container-wrapper /-->
+
+				
+			</div><!-- .mag-box /-->
+
+			
+		</div><!-- .main-content /-->
+			
+					<aside class="sidebar tie-col-md-4 tie-col-xs-12 normal-side" aria-label="Primary Sidebar">
+						<div class="theiaStickySidebar">
+							<div id="custom_html-66" class="widget_text container-wrapper widget widget_custom_html"><div class="textwidget custom-html-widget"><link rel="preload" as="script" href="https://live.demand.supply/up.js"><script async data-cfasync="false" type="text/javascript" src="https://live.demand.supply/up.js"></script>
+<div data-ad="aro4x4.ro_fluid_sq_probaaro" data-devices="m:1,t:1,d:1" style="min-height: 296px;" class="demand-supply"></div></div><div class="clearfix"></div></div><!-- .widget /--><div id="custom_html-67" class="widget_text container-wrapper widget widget_custom_html"><div class="textwidget custom-html-widget"><div id="22386-2"><script src="//ads.themoneytizer.com/s/gen.js?type=2"></script><script src="//ads.themoneytizer.com/s/requestform.js?siteId=22386&formatId=2" ></script></div></div><div class="clearfix"></div></div><!-- .widget /--><div id="facebook-widget-2" class="container-wrapper widget facebook-widget"><div class="widget-title the-global-title has-block-head-4"><h4>Ne gasiti si pe Facebook</h4></div>					<div id="fb-root"></div>
+					<script data-cfasync="false">(function(d, s, id){
+					  var js, fjs = d.getElementsByTagName(s)[0];
+					  if (d.getElementById(id)) return;
+					  js = d.createElement(s); js.id = id;
+					  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.8";
+					  fjs.parentNode.insertBefore(js, fjs);
+					}(document, 'script', 'facebook-jssdk'));</script>
+					<div class="fb-page" data-href="http://www.facebook.com/aro4x4romania" data-hide-cover="false" data-show-facepile="false" data-show-posts="false" data-adapt-container-width="true">
+						<div class="fb-xfbml-parse-ignore"><a href="http://www.facebook.com/aro4x4romania">Find us on Facebook</a></div>
+					</div>
+
+				<div class="clearfix"></div></div><!-- .widget /--><div id="facebook-widget-3" class="container-wrapper widget facebook-widget"><div class="widget-title the-global-title has-block-head-4"><h4>Aro Armata</h4></div>					<div id="fb-root"></div>
+					<script data-cfasync="false">(function(d, s, id){
+					  var js, fjs = d.getElementsByTagName(s)[0];
+					  if (d.getElementById(id)) return;
+					  js = d.createElement(s); js.id = id;
+					  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.8";
+					  fjs.parentNode.insertBefore(js, fjs);
+					}(document, 'script', 'facebook-jssdk'));</script>
+					<div class="fb-page" data-href="http://www.facebook.com/aromilitar" data-hide-cover="false" data-show-facepile="false" data-show-posts="false" data-adapt-container-width="true">
+						<div class="fb-xfbml-parse-ignore"><a href="http://www.facebook.com/aromilitar">Find us on Facebook</a></div>
+					</div>
+
+				<div class="clearfix"></div></div><!-- .widget /--><div id="text-5" class="container-wrapper widget widget_text">			<div class="textwidget"><p><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8617089982567903" crossorigin="anonymous"></script><br />
+<!-- Pub 1 Aro Receptiv vertical --><br />
+<ins class="adsbygoogle" style="display: block;" data-ad-client="ca-pub-8617089982567903" data-ad-slot="6855092664" data-ad-format="auto" data-full-width-responsive="true"></ins><br />
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script><br />
+<script async custom-element="amp-ad" src="https://cdn.ampproject.org/v0/amp-ad-0.1.js"></script></p>
+<div></div>
+<p>&nbsp;</p>
+</div>
+		<div class="clearfix"></div></div><!-- .widget /-->
+			<div class="container-wrapper tabs-container-wrapper tabs-container-3">
+				<div class="widget tabs-widget">
+					<div class="widget-container">
+						<div class="tabs-widget">
+							<div class="tabs-wrapper">
+
+								<ul class="tabs">
+									<li><a href="#widget_tabs-2-recent">Recent</a></li><li><a href="#widget_tabs-2-popular">Popular</a></li><li><a href="#widget_tabs-2-comments">Comments</a></li>								</ul><!-- ul.tabs-menu /-->
+
+								
+											<div id="widget_tabs-2-recent" class="tab-content tab-content-recent">
+												<ul class="tab-content-elements">
+													
+<li class="widget-post-list tie-standard">
+
+			<div class="post-widget-thumbnail">
+
+			
+			<a href="https://aro4x4.ro/aro-244-motor-bv/" title="Aro 244 MOTOR BV" class="post-thumb">
+				<div class="post-thumb-overlay-wrap">
+					<div class="post-thumb-overlay">
+						<span class="icon"></span>
+					</div>
+				</div>
+			<img width="220" height="150" src="https://aro4x4.ro/wp-content/uploads/2026/02/Screenshot_62-220x150.png" class="attachment-jannah-image-small size-jannah-image-small tie-small-image wp-post-image" alt="" /></a>		</div><!-- post-alignleft /-->
+	
+	<div class="post-widget-body ">
+		<h3 class="post-title"><a href="https://aro4x4.ro/aro-244-motor-bv/" title="Aro 244 MOTOR BV">Aro 244 MOTOR BV</a></h3>
+
+		<div class="post-meta">
+			<span class="date meta-item"><span class="fa fa-clock-o" aria-hidden="true"></span> <span>February 12, 2026</span></span>		</div>
+	</div>
+</li>
+
+<li class="widget-post-list tie-standard">
+
+			<div class="post-widget-thumbnail">
+
+			
+			<a href="https://aro4x4.ro/zimbru-carpatilor-povestea-perioadei-in-care-aro-domina-exporturile-si-se-batea-de-la-egal-la-egal-cu-gigantii-4x4/" title="„Zimbru Carpaților: Povestea perioadei în care ARO domina exporturile și se bătea de la egal la egal cu giganții 4&#215;4.”" class="post-thumb">
+				<div class="post-thumb-overlay-wrap">
+					<div class="post-thumb-overlay">
+						<span class="icon"></span>
+					</div>
+				</div>
+			<img width="220" height="150" src="https://aro4x4.ro/wp-content/uploads/2026/02/Uzina-Aro-220x150.jpg" class="attachment-jannah-image-small size-jannah-image-small tie-small-image wp-post-image" alt="" /></a>		</div><!-- post-alignleft /-->
+	
+	<div class="post-widget-body ">
+		<h3 class="post-title"><a href="https://aro4x4.ro/zimbru-carpatilor-povestea-perioadei-in-care-aro-domina-exporturile-si-se-batea-de-la-egal-la-egal-cu-gigantii-4x4/" title="„Zimbru Carpaților: Povestea perioadei în care ARO domina exporturile și se bătea de la egal la egal cu giganții 4&#215;4.”">„Zimbru Carpaților: Povestea perioadei în care ARO domina exporturile și se bătea de la egal la egal cu giganții 4&#215;4.”</a></h3>
+
+		<div class="post-meta">
+			<span class="date meta-item"><span class="fa fa-clock-o" aria-hidden="true"></span> <span>February 10, 2026</span></span>		</div>
+	</div>
+</li>
+
+<li class="widget-post-list tie-standard">
+
+			<div class="post-widget-thumbnail">
+
+			
+			<a href="https://aro4x4.ro/m-461-transformat-intr-un-monstru-al-soselelor-in-sua-avand-un-motor-de-470-de-cai-putere/" title="M 461 transformat într-un „monstru” al șoselelor în SUA, având un motor de 470 de cai-putere" class="post-thumb">
+				<div class="post-thumb-overlay-wrap">
+					<div class="post-thumb-overlay">
+						<span class="icon"></span>
+					</div>
+				</div>
+			<img width="220" height="150" src="https://aro4x4.ro/wp-content/uploads/2026/02/Screenshot_53-220x150.png" class="attachment-jannah-image-small size-jannah-image-small tie-small-image wp-post-image" alt="" /></a>		</div><!-- post-alignleft /-->
+	
+	<div class="post-widget-body ">
+		<h3 class="post-title"><a href="https://aro4x4.ro/m-461-transformat-intr-un-monstru-al-soselelor-in-sua-avand-un-motor-de-470-de-cai-putere/" title="M 461 transformat într-un „monstru” al șoselelor în SUA, având un motor de 470 de cai-putere">M 461 transformat într-un „monstru” al șoselelor în SUA, având un motor de 470 de cai-putere</a></h3>
+
+		<div class="post-meta">
+			<span class="date meta-item"><span class="fa fa-clock-o" aria-hidden="true"></span> <span>February 6, 2026</span></span>		</div>
+	</div>
+</li>
+
+<li class="widget-post-list tie-standard">
+
+			<div class="post-widget-thumbnail">
+
+			
+			<a href="https://aro4x4.ro/proiectul-noului-aro-4x4-romanesc-este-gata-in-doi-ani-poate-fi-pe-piata-si-in-dotarea-armatei/" title="Proiectul noului ARO 4X4 românesc este gata: În doi ani poate fi pe piață și în dotarea Armatei" class="post-thumb">
+				<div class="post-thumb-overlay-wrap">
+					<div class="post-thumb-overlay">
+						<span class="icon"></span>
+					</div>
+				</div>
+			<img width="220" height="150" src="https://aro4x4.ro/wp-content/uploads/2026/02/e-aro-220x150.jpg" class="attachment-jannah-image-small size-jannah-image-small tie-small-image wp-post-image" alt="" /></a>		</div><!-- post-alignleft /-->
+	
+	<div class="post-widget-body ">
+		<h3 class="post-title"><a href="https://aro4x4.ro/proiectul-noului-aro-4x4-romanesc-este-gata-in-doi-ani-poate-fi-pe-piata-si-in-dotarea-armatei/" title="Proiectul noului ARO 4X4 românesc este gata: În doi ani poate fi pe piață și în dotarea Armatei">Proiectul noului ARO 4X4 românesc este gata: În doi ani poate fi pe piață și în dotarea Armatei</a></h3>
+
+		<div class="post-meta">
+			<span class="date meta-item"><span class="fa fa-clock-o" aria-hidden="true"></span> <span>February 5, 2026</span></span>		</div>
+	</div>
+</li>
+
+<li class="widget-post-list tie-standard">
+
+			<div class="post-widget-thumbnail">
+
+			
+			<a href="https://aro4x4.ro/aro-ims-vehicul-istoric/" title="ARO IMS Vehicul istoric" class="post-thumb">
+				<div class="post-thumb-overlay-wrap">
+					<div class="post-thumb-overlay">
+						<span class="icon"></span>
+					</div>
+				</div>
+			<img width="220" height="150" src="https://aro4x4.ro/wp-content/uploads/2026/02/Screenshot_47-220x150.png" class="attachment-jannah-image-small size-jannah-image-small tie-small-image wp-post-image" alt="" /></a>		</div><!-- post-alignleft /-->
+	
+	<div class="post-widget-body ">
+		<h3 class="post-title"><a href="https://aro4x4.ro/aro-ims-vehicul-istoric/" title="ARO IMS Vehicul istoric">ARO IMS Vehicul istoric</a></h3>
+
+		<div class="post-meta">
+			<span class="date meta-item"><span class="fa fa-clock-o" aria-hidden="true"></span> <span>February 3, 2026</span></span>		</div>
+	</div>
+</li>
+												</ul>
+											</div><!-- .tab-content#recent-posts-tab /-->
+
+										
+											<div id="widget_tabs-2-popular" class="tab-content tab-content-popular">
+												<ul class="tab-content-elements">
+													
+<li class="widget-post-list">
+
+			<div class="post-widget-thumbnail">
+
+			
+			<a href="https://aro4x4.ro/inscrie-te-in-concurs-si-castiga-o-masina-autentica-un-ims-aro-m-461/" title="Înscrie-te în concurs și câștigă o mașină autentică: un IMS ARO M-461." class="post-thumb">
+				<div class="post-thumb-overlay-wrap">
+					<div class="post-thumb-overlay">
+						<span class="icon"></span>
+					</div>
+				</div>
+			<img width="220" height="147" src="https://aro4x4.ro/wp-content/uploads/2018/11/1542359745_image;s=644x461" class="attachment-jannah-image-small size-jannah-image-small tie-small-image wp-post-image" alt="" srcset="https://aro4x4.ro/wp-content/uploads/2018/11/1542359745_image;s=644x461 644w, https://aro4x4.ro/wp-content/uploads/2018/11/1542359745_image;s=644x461-300x200. 300w" sizes="(max-width: 220px) 100vw, 220px" /></a>		</div><!-- post-alignleft /-->
+	
+	<div class="post-widget-body ">
+		<h3 class="post-title"><a href="https://aro4x4.ro/inscrie-te-in-concurs-si-castiga-o-masina-autentica-un-ims-aro-m-461/" title="Înscrie-te în concurs și câștigă o mașină autentică: un IMS ARO M-461.">Înscrie-te în concurs și câștigă o mașină autentică: un IMS ARO M-461.</a></h3>
+
+		<div class="post-meta">
+			<span class="date meta-item"><span class="fa fa-clock-o" aria-hidden="true"></span> <span>November 16, 2018</span></span>		</div>
+	</div>
+</li>
+
+<li class="widget-post-list">
+
+			<div class="post-widget-thumbnail">
+
+			
+			<a href="https://aro4x4.ro/aro-241-armata/" title="Aro 241" class="post-thumb">
+				<div class="post-thumb-overlay-wrap">
+					<div class="post-thumb-overlay">
+						<span class="icon"></span>
+					</div>
+				</div>
+			<img width="182" height="150" src="https://aro4x4.ro/wp-content/uploads/2018/09/rrrr.jpg" class="attachment-jannah-image-small size-jannah-image-small tie-small-image wp-post-image" alt="" srcset="https://aro4x4.ro/wp-content/uploads/2018/09/rrrr.jpg 518w, https://aro4x4.ro/wp-content/uploads/2018/09/rrrr-300x247.jpg 300w" sizes="(max-width: 182px) 100vw, 182px" /></a>		</div><!-- post-alignleft /-->
+	
+	<div class="post-widget-body ">
+		<h3 class="post-title"><a href="https://aro4x4.ro/aro-241-armata/" title="Aro 241">Aro 241</a></h3>
+
+		<div class="post-meta">
+			<span class="date meta-item"><span class="fa fa-clock-o" aria-hidden="true"></span> <span>September 26, 2018</span></span>		</div>
+	</div>
+</li>
+
+<li class="widget-post-list">
+
+			<div class="post-widget-thumbnail">
+
+			
+			<a href="https://aro4x4.ro/aro-ims-m-461-2/" title="Aro IMS M 461" class="post-thumb">
+				<div class="post-thumb-overlay-wrap">
+					<div class="post-thumb-overlay">
+						<span class="icon"></span>
+					</div>
+				</div>
+			<img width="220" height="135" src="https://aro4x4.ro/wp-content/uploads/2018/12/SSS.png" class="attachment-jannah-image-small size-jannah-image-small tie-small-image wp-post-image" alt="" srcset="https://aro4x4.ro/wp-content/uploads/2018/12/SSS.png 688w, https://aro4x4.ro/wp-content/uploads/2018/12/SSS-300x184.png 300w" sizes="(max-width: 220px) 100vw, 220px" /></a>		</div><!-- post-alignleft /-->
+	
+	<div class="post-widget-body ">
+		<h3 class="post-title"><a href="https://aro4x4.ro/aro-ims-m-461-2/" title="Aro IMS M 461">Aro IMS M 461</a></h3>
+
+		<div class="post-meta">
+			<span class="date meta-item"><span class="fa fa-clock-o" aria-hidden="true"></span> <span>December 11, 2018</span></span>		</div>
+	</div>
+</li>
+
+<li class="widget-post-list tie-standard">
+
+			<div class="post-widget-thumbnail">
+
+			
+			<a href="https://aro4x4.ro/aro-244-br/" title="Aro 244" class="post-thumb">
+				<div class="post-thumb-overlay-wrap">
+					<div class="post-thumb-overlay">
+						<span class="icon"></span>
+					</div>
+				</div>
+			<img width="220" height="150" src="https://aro4x4.ro/wp-content/uploads/2021/01/Screenshot_2-1-220x150.png" class="attachment-jannah-image-small size-jannah-image-small tie-small-image wp-post-image" alt="" /></a>		</div><!-- post-alignleft /-->
+	
+	<div class="post-widget-body ">
+		<h3 class="post-title"><a href="https://aro4x4.ro/aro-244-br/" title="Aro 244">Aro 244</a></h3>
+
+		<div class="post-meta">
+			<span class="date meta-item"><span class="fa fa-clock-o" aria-hidden="true"></span> <span>January 26, 2021</span></span>		</div>
+	</div>
+</li>
+
+<li class="widget-post-list tie-standard">
+
+			<div class="post-widget-thumbnail">
+
+			
+			<a href="https://aro4x4.ro/aro-244-calarasi-2/" title="ARO 244" class="post-thumb">
+				<div class="post-thumb-overlay-wrap">
+					<div class="post-thumb-overlay">
+						<span class="icon"></span>
+					</div>
+				</div>
+			<img width="220" height="150" src="https://aro4x4.ro/wp-content/uploads/2021/02/Screenshot_19-220x150.png" class="attachment-jannah-image-small size-jannah-image-small tie-small-image wp-post-image" alt="" /></a>		</div><!-- post-alignleft /-->
+	
+	<div class="post-widget-body ">
+		<h3 class="post-title"><a href="https://aro4x4.ro/aro-244-calarasi-2/" title="ARO 244">ARO 244</a></h3>
+
+		<div class="post-meta">
+			<span class="date meta-item"><span class="fa fa-clock-o" aria-hidden="true"></span> <span>February 18, 2021</span></span>		</div>
+	</div>
+</li>
+												</ul>
+											</div><!-- .tab-content#popular-posts-tab /-->
+
+										
+											<div id="widget_tabs-2-comments" class="tab-content tab-content-comments">
+												<ul class="tab-content-elements">
+																<li>
+									<div class="post-widget-thumbnail" style="width:70px">
+						<a class="author-avatar" href="https://aro4x4.ro/m461-vehicul-istoric/#comment-1193">
+							<img alt='' src='https://secure.gravatar.com/avatar/5aafc7a62a9f2353808dab6f0dd1556a?s=70&#038;d=mm&#038;r=g' srcset='https://secure.gravatar.com/avatar/5aafc7a62a9f2353808dab6f0dd1556a?s=140&amp;d=mm&amp;r=g 2x' class='avatar avatar-70 photo' height='70' width='70' />						</a>
+					</div>
+					
+				<div class="comment-body ">
+					<a class="comment-author" href="https://aro4x4.ro/m461-vehicul-istoric/#comment-1193">
+						Ioan					</a>
+					<p>Numărul de telefon incomplet...</p>
+				</div>
+
+			</li>
+						<li>
+									<div class="post-widget-thumbnail" style="width:70px">
+						<a class="author-avatar" href="https://aro4x4.ro/aro-330-andoria/#comment-1083">
+							<img alt='' src='https://secure.gravatar.com/avatar/282baab140e085efdf1c0fc86ceed45f?s=70&#038;d=mm&#038;r=g' srcset='https://secure.gravatar.com/avatar/282baab140e085efdf1c0fc86ceed45f?s=140&amp;d=mm&amp;r=g 2x' class='avatar avatar-70 photo' height='70' width='70' />						</a>
+					</div>
+					
+				<div class="comment-body ">
+					<a class="comment-author" href="https://aro4x4.ro/aro-330-andoria/#comment-1083">
+						Freddy Jacobs					</a>
+					<p>Bună, trebuie să scriu cu Google Translator. Vin din Germani...</p>
+				</div>
+
+			</li>
+						<li>
+									<div class="post-widget-thumbnail" style="width:70px">
+						<a class="author-avatar" href="https://aro4x4.ro/in-anii-70-aro-era-al-patrulea-vehicul-de-teren-din-lume-ca-performanta-masina-era-ravnita-de-sua-germania-polonia-china/#comment-1012">
+							<img alt='' src='https://secure.gravatar.com/avatar/9e017b05e81ba48e7b2aa3cb7b36abee?s=70&#038;d=mm&#038;r=g' srcset='https://secure.gravatar.com/avatar/9e017b05e81ba48e7b2aa3cb7b36abee?s=140&amp;d=mm&amp;r=g 2x' class='avatar avatar-70 photo' height='70' width='70' />						</a>
+					</div>
+					
+				<div class="comment-body ">
+					<a class="comment-author" href="https://aro4x4.ro/in-anii-70-aro-era-al-patrulea-vehicul-de-teren-din-lume-ca-performanta-masina-era-ravnita-de-sua-germania-polonia-china/#comment-1012">
+						Gogu					</a>
+					<p>Sa ne amintim cine a vândut uzina unui investitor strategic...</p>
+				</div>
+
+			</li>
+						<li>
+									<div class="post-widget-thumbnail" style="width:70px">
+						<a class="author-avatar" href="https://aro4x4.ro/aro-244-3-2-diesel/#comment-915">
+							<img alt='' src='https://secure.gravatar.com/avatar/4c461904dc04fcead21b526dab939346?s=70&#038;d=mm&#038;r=g' srcset='https://secure.gravatar.com/avatar/4c461904dc04fcead21b526dab939346?s=140&amp;d=mm&amp;r=g 2x' class='avatar avatar-70 photo' height='70' width='70' />						</a>
+					</div>
+					
+				<div class="comment-body ">
+					<a class="comment-author" href="https://aro4x4.ro/aro-244-3-2-diesel/#comment-915">
+						Aro News					</a>
+					<p>Sunati la numarul de telefon...</p>
+				</div>
+
+			</li>
+						<li>
+									<div class="post-widget-thumbnail" style="width:70px">
+						<a class="author-avatar" href="https://aro4x4.ro/aro-244-3-2-diesel/#comment-914">
+							<img alt='' src='https://secure.gravatar.com/avatar/f042fcbe7c6020755af5162598505f58?s=70&#038;d=mm&#038;r=g' srcset='https://secure.gravatar.com/avatar/f042fcbe7c6020755af5162598505f58?s=140&amp;d=mm&amp;r=g 2x' class='avatar avatar-70 photo' height='70' width='70' />						</a>
+					</div>
+					
+				<div class="comment-body ">
+					<a class="comment-author" href="https://aro4x4.ro/aro-244-3-2-diesel/#comment-914">
+						Dorin Mihoc					</a>
+					<p>Buna ziua! As vrea sa stiu daca masina mai este disponibila...</p>
+				</div>
+
+			</li>
+															</ul>
+											</div><!-- .tab-content#comments-tab /-->
+
+										
+							</div><!-- .tabs-wrapper-animated /-->
+						</div><!-- .tabs-widget /-->
+					</div><!-- .widget-container /-->
+				</div><!-- .tabs-widget /-->
+			</div><!-- .container-wrapper /-->
+			<div id="posts-list-widget-5" class="container-wrapper widget posts-list"><div class="widget-title the-global-title has-block-head-4"><h4>Cele mai vizualizate</h4></div><div class="posts-list-counter"><ul class="posts-list-items">
+<li class="widget-post-list tie-standard">
+
+			<div class="post-widget-thumbnail">
+
+			
+			<a href="https://aro4x4.ro/aro-244-motor-bv/" title="Aro 244 MOTOR BV" class="post-thumb">
+				<div class="post-thumb-overlay-wrap">
+					<div class="post-thumb-overlay">
+						<span class="icon"></span>
+					</div>
+				</div>
+			<img width="220" height="150" src="https://aro4x4.ro/wp-content/uploads/2026/02/Screenshot_62-220x150.png" class="attachment-jannah-image-small size-jannah-image-small tie-small-image wp-post-image" alt="" /></a>		</div><!-- post-alignleft /-->
+	
+	<div class="post-widget-body ">
+		<h3 class="post-title"><a href="https://aro4x4.ro/aro-244-motor-bv/" title="Aro 244 MOTOR BV">Aro 244 MOTOR BV</a></h3>
+
+		<div class="post-meta">
+			<span class="date meta-item"><span class="fa fa-clock-o" aria-hidden="true"></span> <span>February 12, 2026</span></span>		</div>
+	</div>
+</li>
+
+<li class="widget-post-list tie-standard">
+
+			<div class="post-widget-thumbnail">
+
+			
+			<a href="https://aro4x4.ro/zimbru-carpatilor-povestea-perioadei-in-care-aro-domina-exporturile-si-se-batea-de-la-egal-la-egal-cu-gigantii-4x4/" title="„Zimbru Carpaților: Povestea perioadei în care ARO domina exporturile și se bătea de la egal la egal cu giganții 4&#215;4.”" class="post-thumb">
+				<div class="post-thumb-overlay-wrap">
+					<div class="post-thumb-overlay">
+						<span class="icon"></span>
+					</div>
+				</div>
+			<img width="220" height="150" src="https://aro4x4.ro/wp-content/uploads/2026/02/Uzina-Aro-220x150.jpg" class="attachment-jannah-image-small size-jannah-image-small tie-small-image wp-post-image" alt="" /></a>		</div><!-- post-alignleft /-->
+	
+	<div class="post-widget-body ">
+		<h3 class="post-title"><a href="https://aro4x4.ro/zimbru-carpatilor-povestea-perioadei-in-care-aro-domina-exporturile-si-se-batea-de-la-egal-la-egal-cu-gigantii-4x4/" title="„Zimbru Carpaților: Povestea perioadei în care ARO domina exporturile și se bătea de la egal la egal cu giganții 4&#215;4.”">„Zimbru Carpaților: Povestea perioadei în care ARO domina exporturile și se bătea de la egal la egal cu giganții 4&#215;4.”</a></h3>
+
+		<div class="post-meta">
+			<span class="date meta-item"><span class="fa fa-clock-o" aria-hidden="true"></span> <span>February 10, 2026</span></span>		</div>
+	</div>
+</li>
+
+<li class="widget-post-list tie-standard">
+
+			<div class="post-widget-thumbnail">
+
+			
+			<a href="https://aro4x4.ro/m-461-transformat-intr-un-monstru-al-soselelor-in-sua-avand-un-motor-de-470-de-cai-putere/" title="M 461 transformat într-un „monstru” al șoselelor în SUA, având un motor de 470 de cai-putere" class="post-thumb">
+				<div class="post-thumb-overlay-wrap">
+					<div class="post-thumb-overlay">
+						<span class="icon"></span>
+					</div>
+				</div>
+			<img width="220" height="150" src="https://aro4x4.ro/wp-content/uploads/2026/02/Screenshot_53-220x150.png" class="attachment-jannah-image-small size-jannah-image-small tie-small-image wp-post-image" alt="" /></a>		</div><!-- post-alignleft /-->
+	
+	<div class="post-widget-body ">
+		<h3 class="post-title"><a href="https://aro4x4.ro/m-461-transformat-intr-un-monstru-al-soselelor-in-sua-avand-un-motor-de-470-de-cai-putere/" title="M 461 transformat într-un „monstru” al șoselelor în SUA, având un motor de 470 de cai-putere">M 461 transformat într-un „monstru” al șoselelor în SUA, având un motor de 470 de cai-putere</a></h3>
+
+		<div class="post-meta">
+			<span class="date meta-item"><span class="fa fa-clock-o" aria-hidden="true"></span> <span>February 6, 2026</span></span>		</div>
+	</div>
+</li>
+
+<li class="widget-post-list tie-standard">
+
+			<div class="post-widget-thumbnail">
+
+			
+			<a href="https://aro4x4.ro/proiectul-noului-aro-4x4-romanesc-este-gata-in-doi-ani-poate-fi-pe-piata-si-in-dotarea-armatei/" title="Proiectul noului ARO 4X4 românesc este gata: În doi ani poate fi pe piață și în dotarea Armatei" class="post-thumb">
+				<div class="post-thumb-overlay-wrap">
+					<div class="post-thumb-overlay">
+						<span class="icon"></span>
+					</div>
+				</div>
+			<img width="220" height="150" src="https://aro4x4.ro/wp-content/uploads/2026/02/e-aro-220x150.jpg" class="attachment-jannah-image-small size-jannah-image-small tie-small-image wp-post-image" alt="" /></a>		</div><!-- post-alignleft /-->
+	
+	<div class="post-widget-body ">
+		<h3 class="post-title"><a href="https://aro4x4.ro/proiectul-noului-aro-4x4-romanesc-este-gata-in-doi-ani-poate-fi-pe-piata-si-in-dotarea-armatei/" title="Proiectul noului ARO 4X4 românesc este gata: În doi ani poate fi pe piață și în dotarea Armatei">Proiectul noului ARO 4X4 românesc este gata: În doi ani poate fi pe piață și în dotarea Armatei</a></h3>
+
+		<div class="post-meta">
+			<span class="date meta-item"><span class="fa fa-clock-o" aria-hidden="true"></span> <span>February 5, 2026</span></span>		</div>
+	</div>
+</li>
+
+<li class="widget-post-list tie-standard">
+
+			<div class="post-widget-thumbnail">
+
+			
+			<a href="https://aro4x4.ro/aro-ims-vehicul-istoric/" title="ARO IMS Vehicul istoric" class="post-thumb">
+				<div class="post-thumb-overlay-wrap">
+					<div class="post-thumb-overlay">
+						<span class="icon"></span>
+					</div>
+				</div>
+			<img width="220" height="150" src="https://aro4x4.ro/wp-content/uploads/2026/02/Screenshot_47-220x150.png" class="attachment-jannah-image-small size-jannah-image-small tie-small-image wp-post-image" alt="" /></a>		</div><!-- post-alignleft /-->
+	
+	<div class="post-widget-body ">
+		<h3 class="post-title"><a href="https://aro4x4.ro/aro-ims-vehicul-istoric/" title="ARO IMS Vehicul istoric">ARO IMS Vehicul istoric</a></h3>
+
+		<div class="post-meta">
+			<span class="date meta-item"><span class="fa fa-clock-o" aria-hidden="true"></span> <span>February 3, 2026</span></span>		</div>
+	</div>
+</li>
+</ul></div><div class="clearfix"></div></div><!-- .widget /--><div id="custom_html-55" class="widget_text container-wrapper widget widget_custom_html"><div class="textwidget custom-html-widget"><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8617089982567903"
+     crossorigin="anonymous"></script>
+<!-- Pub bara laterala ARO patrat -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-8617089982567903"
+     data-ad-slot="5630873734"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+<script async custom-element="amp-ad" src="https://cdn.ampproject.org/v0/amp-ad-0.1.js"></script>
+<amp-ad width="100vw" height="320"
+     type="adsense"
+     data-ad-client="ca-pub-8617089982567903"
+     data-ad-slot="5630873734"
+     data-auto-format="rspv"
+     data-full-width="">
+  <div overflow=""></div>
+</amp-ad></div><div class="clearfix"></div></div><!-- .widget /--><div id="custom_html-68" class="widget_text container-wrapper widget widget_custom_html"><div class="textwidget custom-html-widget"><div id="22386-3"><script src="//ads.themoneytizer.com/s/gen.js?type=3"></script><script src="//ads.themoneytizer.com/s/requestform.js?siteId=22386&formatId=3" ></script></div></div><div class="clearfix"></div></div><!-- .widget /--><div id="tie-widget-categories-3" class="container-wrapper widget widget_categories tie-widget-categories"><div class="widget-title the-global-title has-block-head-4"><h4>Categorii</h4></div><ul>	<li class="cat-item cat-counter tie-cat-item-1"><a href="https://aro4x4.ro/category/uncategorized/" >Aro M461</a> <span>216</span>
+</li>
+	<li class="cat-item cat-counter tie-cat-item-45"><a href="https://aro4x4.ro/category/aro-243/" >Aro 243</a> <span>201</span>
+</li>
+	<li class="cat-item cat-counter tie-cat-item-59"><a href="https://aro4x4.ro/category/stiri-si-informatii/" >Stiri si informatii</a> <span>198</span>
+</li>
+	<li class="cat-item cat-counter tie-cat-item-44"><a href="https://aro4x4.ro/category/aro-244/" >Aro 244</a> <span>120</span>
+</li>
+	<li class="cat-item cat-counter tie-cat-item-89"><a href="https://aro4x4.ro/category/aro-320/" >Aro 320</a> <span>41</span>
+</li>
+	<li class="cat-item cat-counter tie-cat-item-76"><a href="https://aro4x4.ro/category/aro-240/" >Aro 240</a> <span>37</span>
+</li>
+	<li class="cat-item cat-counter tie-cat-item-69"><a href="https://aro4x4.ro/category/aro-324/" >Aro 324</a> <span>25</span>
+</li>
+	<li class="cat-item cat-counter tie-cat-item-84"><a href="https://aro4x4.ro/category/aro-246/" >Aro 246</a> <span>18</span>
+</li>
+	<li class="cat-item cat-counter tie-cat-item-67"><a href="https://aro4x4.ro/category/aro-330/" >Aro 330</a> <span>14</span>
+</li>
+	<li class="cat-item cat-counter tie-cat-item-46"><a href="https://aro4x4.ro/category/aro-241/" >Aro 241</a> <span>6</span>
+</li>
+	<li class="cat-item cat-counter tie-cat-item-100"><a href="https://aro4x4.ro/category/aro-10/" >Aro 10</a> <span>6</span>
+</li>
+	<li class="cat-item cat-counter tie-cat-item-99"><a href="https://aro4x4.ro/category/aro-242/" >Aro 242</a> <span>4</span>
+</li>
+	<li class="cat-item cat-counter tie-cat-item-231"><a href="https://aro4x4.ro/category/articol-sponsorizat/" >Articol sponsorizat</a> <span>4</span>
+</li>
+	<li class="cat-item cat-counter tie-cat-item-176"><a href="https://aro4x4.ro/category/aro-dragon/" >Aro Dragon</a> <span>3</span>
+</li>
+	<li class="cat-item cat-counter tie-cat-item-195"><a href="https://aro4x4.ro/category/aro-328/" >Aro 328</a> <span>1</span>
+</li>
+	<li class="cat-item cat-counter tie-cat-item-297"><a href="https://aro4x4.ro/category/aro-323/" >Aro 323</a> <span>1</span>
+</li>
+	<li class="cat-item cat-counter tie-cat-item-394"><a href="https://aro4x4.ro/category/aro-429/" >Aro 429</a> <span>1</span>
+</li>
+	<li class="cat-item cat-counter tie-cat-item-419"><a href="https://aro4x4.ro/category/aro-264/" >Aro 264</a> <span>1</span>
+</li>
+</ul><div class="clearfix"></div></div><!-- .widget /--><div id="text-6" class="container-wrapper widget widget_text"><div class="widget-title the-global-title has-block-head-4"><h4>Parteneri</h4></div>			<div class="textwidget"><p><a href="https://filmecrestine.ro/"><strong>Filme </strong></a></p>
+<p><a href="https://www.infocrestin.ro/" target="_blank" rel="noopener"><strong>Info Crestin</strong></a></p>
+<p><a href="https://pescarbanatean.ro/" target="_blank" rel="noopener"><strong>Pescar Banatean</strong></a></p>
+<p><a href="https://filmecrestineonline.ro/" target="_blank" rel="noopener"><strong>Filme Online</strong></a></p>
+</div>
+		<div class="clearfix"></div></div><!-- .widget /-->						</div><!-- .theiaStickySidebar /-->
+					</aside><!-- .sidebar /-->
+				
+			
+					</div><!-- .main-content-row -->
+				</div><!-- .container /-->
+				</div><!-- .section-item /-->
+</div><!-- .tiepost-2181-section-701 /-->
+
+	
+<footer id="footer" class="site-footer dark-skin dark-widgetized-area">
+
+	
+			<div id="footer-widgets-container">
+				<div class="container">
+					
+
+				</div><!-- .container /-->
+			</div><!-- #Footer-widgets-container /-->
+			
+			<div id="site-info" class="site-info">
+				<div class="container">
+					<div class="tie-row">
+						<div class="tie-col-md-12">
+
+							<div class="copyright-text copyright-text-first">&copy; Copyright 2026, All Rights Reserved &nbsp;|&nbsp; <span style="color:red;" class="fa fa-heart"></span> <a href="https://www.facebook.com/aro4x4romania" target="_blank">Aro 4x4</a></div><div class="copyright-text copyright-text-second"><!--Statistika trafic web -->
+<script src='https://statistika.ro/counter.php?u=aro' type='text/javascript'></script>
+<!-- end of Statistika trafic web -->
+
+<script id="_wau7ak">var _wau = _wau || []; _wau.push(["colored", "31z7r4sef6", "7ak", "3d85c6000000"]);</script><script async src="//waust.at/co.js"></script>
+</div><ul class="social-icons"><li class="social-icons-item"><a class="social-link  facebook-social-icon" title="Facebook" rel="nofollow" target="_blank" href="https://www.facebook.com/aro4x4romania"><span class="fa fa-facebook"></span></a></li></ul> 
+
+						</div><!-- .tie-col /-->
+					</div><!-- .tie-row /-->
+				</div><!-- .container /-->
+			</div><!-- #site-info /-->
+			
+</footer><!-- #footer /-->
+
+
+<a id="go-to-top" class="go-to-top-button" href="#go-to-tie-body"><span class="fa fa-angle-up"></span></a><div class="clear"></div>
+		</div><!-- #tie-wrapper /-->
+
+		
+
+	<aside class="side-aside normal-side tie-aside-effect dark-skin dark-widgetized-area is-fullwidth" aria-label="Secondary Sidebar">
+		<div data-height="100%" class="side-aside-wrapper has-custom-scroll">
+
+			<a href="#" class="close-side-aside remove big-btn light-btn">
+				<span class="screen-reader-text">Close</span>
+			</a><!-- .close-side-aside /-->
+
+			<div id="mobile-container">
+
+				
+				<div id="mobile-menu" class="hide-menu-icons">
+
+					
+				</div><!-- #mobile-menu /-->
+
+				<div class="mobile-social-search">
+											<div id="mobile-social-icons" class="social-icons-widget solid-social-icons">
+							<ul><li class="social-icons-item"><a class="social-link  facebook-social-icon" title="Facebook" rel="nofollow" target="_blank" href="https://www.facebook.com/aro4x4romania"><span class="fa fa-facebook"></span></a></li></ul> 
+						</div><!-- #mobile-social-icons /-->
+												<div id="mobile-search">
+							<form role="search" method="get" class="search-form" action="https://aro4x4.ro/">
+				<label>
+					<span class="screen-reader-text">Search for:</span>
+					<input type="search" class="search-field" placeholder="Search &hellip;" value="" name="s" />
+				</label>
+				<input type="submit" class="search-submit" value="Search" />
+			</form>						</div><!-- #mobile-search /-->
+										</div><!-- #mobile-social-search /-->
+
+			</div><!-- #mobile-container /-->
+
+
+			
+		</div><!-- .side-aside-wrapper /-->
+	</aside><!-- .side-aside /-->
+
+	
+	</div><!-- #tie-container /-->
+</div><!-- .background-overlay /-->
+
+<div id="fb-root"></div>	<div id="tie-popup-search-wrap" class="tie-popup">
+
+		<a href="#" class="tie-btn-close remove big-btn light-btn">
+			<span class="screen-reader-text">Close</span>
+		</a>
+		<div class="container">
+			<div class="popup-search-wrap-inner">
+				<div class="tie-row">
+					<div id="pop-up-live-search" class="tie-col-md-12 live-search-parent" data-skin="live-search-popup" aria-label="Search">
+						<form method="get" id="tie-popup-search-form" action="https://aro4x4.ro//">
+							<input id="tie-popup-search-input" class="is-ajax-search" type="text" name="s" title="Cautare" autocomplete="off" placeholder="Scrieti cuvantul si apasati ENTER" />
+							<button id="tie-popup-search-submit" type="submit"><span class="fa fa-search" aria-hidden="true"></span></button>
+						</form>
+					</div><!-- .tie-col-md-12 /-->
+				</div><!-- .tie-row /-->
+			</div><!-- .popup-search-wrap-inner /-->
+		</div><!-- .container /-->
+	</div><!-- .tie-popup-search-wrap /-->
+		<div id="tie-popup-login" class="tie-popup">
+		<a href="#" class="tie-btn-close remove big-btn light-btn">
+			<span class="screen-reader-text">Close</span>
+		</a>
+		<div class="tie-popup-container">
+			<div class="container-wrapper">
+				<div class="widget login-widget">
+
+					
+					<div class="widget-title the-global-title has-block-head-4">
+						<h4>Log In <span class="widget-title-icon fa "></span>
+						</h4>
+					</div>
+
+					<div class="widget-container">
+						
+			<div class="login-form">
+
+				<form name="registerform" action="https://aro4x4.ro/wp-login.php" method="post">
+					<input type="text" name="log" title="Username" placeholder="Username">
+					<div class="pass-container">
+						<input type="password" name="pwd" title="Password" placeholder="Password">
+						<a class="forget-text" href="https://aro4x4.ro/wp-login.php?action=lostpassword&redirect_to=https://aro4x4.ro">Forget?</a>
+					</div>
+
+					<input type="hidden" name="redirect_to" value="/"/>
+					<label for="rememberme" class="rememberme">
+						<input id="rememberme" name="rememberme" type="checkbox" checked="checked" value="forever" /> Remember me					</label>
+
+					
+					
+					<button type="submit" class="button fullwidth login-submit">Log In</button>
+
+									</form>
+
+				
+			</div>
+								</div><!-- .widget-container  /-->
+				</div><!-- .login-widget  /-->
+			</div><!-- .container-wrapper  /-->
+		</div><!-- .tie-popup-container /-->
+	</div><!-- .tie-popup /-->
+	<script type='text/javascript' src='https://aro4x4.ro/wp-content/themes/jannah/assets/js/scripts.js'></script>
+<script type='text/javascript' src='https://aro4x4.ro/wp-includes/js/imagesloaded.min.js'></script>
+<script type='text/javascript' src='https://aro4x4.ro/wp-includes/js/wp-embed.min.js'></script>
+<script type='text/javascript' src='https://aro4x4.ro/wp-content/themes/jannah/assets/js/sliders.js'></script>
+</body>
+</html>

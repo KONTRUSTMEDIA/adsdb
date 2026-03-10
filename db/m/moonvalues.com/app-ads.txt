@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- NitroPay Ads -->
+<script data-cfasync="false">window.nitroAds=window.nitroAds||{createAd:function(){return new Promise(e=>{window.nitroAds.queue.push(["createAd",arguments,e])})},addUserToken:function(){window.nitroAds.queue.push(["addUserToken",arguments])},queue:[]};</script>
+<script data-cfasync="false" async src="https://s.nitropay.com/ads-2304.js"></script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-T68Y6P2N4T"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-T68Y6P2N4T');
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Roblox Value List | MoonValues</title>
+<meta name="description" content="MoonValues - The #1 Roblox value list for Steal a Brainrot, Bee Swarm Simulator, and Tap Simulator. Free trade calculator, updated pet values, and trading guides."> 
+<meta name="keywords" content="roblox value list, roblox trading, steal a brainrot values, bee swarm simulator values, tap simulator values, roblox pet values, trade calculator, sab value list, bss value list, moonvalues, roblox trading guide, pet trading">
+<link rel="icon" type="image/png" href="/moonvalues/images/favicon.png">
+
+<link rel="stylesheet" href="/moonvalues/background/background.css">
+<link rel="stylesheet" href="/moonvalues/footer/footer.css">
+<link rel="stylesheet" href="/moonvalues/indexstyle.css">
+<link rel="stylesheet" href="/moonvalues/topbar/topbar.css">
+
+</head>
+<body>
+
+<div class="mv-background"></div>
+
+<div class="topBar">
+    <div class="leftTop">MoonValues</div>
+    <div class="rightTop">
+
+        <!-- Desktop buttons -->
+        <div class="buttonsTop">
+            <a href="/index.html"><button>Home</button></a>
+            <button class="games">Games</button>
+            <button class="about">About</button>
+            <div class="userCounterBox">
+                <span class="neon-dot"></span>
+                Online: <span id="userCounterValue">0</span>
+            </div>
+            <a href="https://discord.gg/BAGfQFAdNz" target="_blank"><button class="discord">Discord</button></a>
+        </div>
+
+        <!-- Hamburger for mobile -->
+        <div class="hamburger" id="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+</div>
+
+<!-- Mobile dropdown -->
+<div class="mobileMenu" id="mobileMenu">
+    <a href="/index.html">Home</a>
+    <button class="games">Games</button>
+    <button class="about">About</button>
+    <a href="https://discord.gg/BAGfQFAdNz" target="_blank">Discord</a>
+    <div class="userCounterBox">
+        <span class="neon-dot"></span>
+        Online: <span id="userCounterValueMobile">0</span>
+    </div>
+</div>
+
+
+<div class="main-content">
+    <h1>Welcome to MoonValues</h1>
+    <p>Created by traders, for traders. Your trusted platform to trade smarter.</p>
+    <div class="button-container">
+        <button class="mainGames">Our Games →</button>
+        <button class="aboutUs">About Us</button>
+        <a href="/moonvalues/guides" class="guidesLink"><button class="guidesBtn">Guides</button></a>
+    </div>
+</div>
+
+<div class="gap"></div>
+
+
+<section id="games" class="games-section">
+    <h2 class="section-title">Our Games</h2>
+    <p class="section-subtitle">Backed by experienced traders and real data.</p>
+
+    <div class="games-container" id="gamesContainer">
+        <!-- Games loaded dynamically from database -->
+        <div class="loading-games">Loading games...</div>
+    </div>
+</section>
+
+<script>
+// Load games dynamically from API
+(async function loadGames() {
+    const container = document.getElementById('gamesContainer');
+    try {
+        const res = await fetch('/api/games');
+        const games = await res.json();
+        
+        if (!games || games.length === 0) {
+            container.innerHTML = '<p style="color:#888;">No games available yet.</p>';
+            return;
+        }
+        
+        // Default images for existing games (fallback)
+        const defaultImages = {
+            'steal-a-brainrot': '/moonvalues/images/sab1.png',
+            'tap-simulator': '/moonvalues/images/tap2.png',
+            'bee-swarm-simulator': '/moonvalues/images/beeswarm.jpg'
+        };
+        
+        container.innerHTML = games.map(game => {
+            const imageUrl = game.image_url || defaultImages[game.slug] || '/moonvalues/images/coming.webp';
+            return `
+                <a href="/games/${game.slug}/chooser" class="game-card-link">
+                    <div class="game-card">
+                        <div class="game-image" style="background-image: url('${imageUrl}');"></div>
+                        <div class="game-body">
+                            <h3 class="game-title">${game.name}</h3>
+                            <p class="game-desc">${game.description || 'Track the latest values and trade smarter.'}</p>
+                        </div>
+                    </div>
+                </a>
+            `;
+        }).join('');
+    } catch (err) {
+        console.error('Failed to load games:', err);
+        // Fallback to hardcoded games if API fails
+        container.innerHTML = `
+            <a href="/games/steal-a-brainrot/chooser" class="game-card-link">
+                <div class="game-card">
+                    <div class="game-image" style="background-image: url('/moonvalues/images/sab1.png');"></div>
+                    <div class="game-body">
+                        <h3 class="game-title">Steal a Brainrot</h3>
+                        <p class="game-desc">Track the latest values for all kinds of brainrots.</p>
+                    </div>
+                </div>
+            </a>
+            <a href="/games/tap-simulator/chooser" class="game-card-link">
+                <div class="game-card">
+                    <div class="game-image" style="background-image: url('/moonvalues/images/tap2.png');"></div>
+                    <div class="game-body">
+                        <h3 class="game-title">Tap Simulator</h3>
+                        <p class="game-desc">Track the latest values for all kinds of pets.</p>
+                    </div>
+                </div>
+            </a>
+            <a href="/games/bee-swarm-simulator/chooser" class="game-card-link">
+                <div class="game-card">
+                    <div class="game-image" style="background-image: url('/moonvalues/images/beeswarm.jpg');"></div>
+                    <div class="game-body">
+                        <h3 class="game-title">Bee Swarm Simulator</h3>
+                        <p class="game-desc">Track the latest values for all hive skins and items.</p>
+                    </div>
+                </div>
+            </a>
+        `;
+    }
+})();
+</script>
+
+<div class="gap"></div>
+<div class="gap"></div>
+
+<div class="aboutus-section" id="aboutus-section">
+    <h4>About Moon Values?</h4>
+    <p class="aboutus">A simple Roblox value list trusted by thousands of players, with up to date values for Steal a Brainrot and other games. Built to make trading simpler.</p>
+</div>
+<div class="info-boxes"> <div class="info-box"> <h5>Accurate & Real-Time Values</h5> <p>Get up-to-date values for all your favorite games. We track trends and in-game changes so you always know the right numbers.</p> </div> <div class="info-box"> <h5>24/7 Live Updates</h5> <p>Our team keeps an eye on the market 24/7. You’ll always have the latest values to make smart trades.</p> </div> </div>
+<div class="gap"></div>
+<div class="gap"></div>
+
+
+
+
+<!-- ================= FOOTER ================= -->
+<footer>
+    <div class="footer-wrapper">
+
+        <div class="footer-column">
+            <h3>MoonValues</h3>
+            <p>Created by traders, for traders. Your trusted platform to trade smarter.</p>
+            <p class="copyright">© 2025 MoonValues. All rights reserved.</p>
+        </div>
+
+        <div class="footer-column">
+            <h3>Disclaimer</h3>
+            <p>MoonValues.online is a third-party platform and is not affiliated with or endorsed by Roblox.</p>
+        </div>
+
+        <!-- Privacy Policy & Support Links -->
+        <div class="footer-links">
+            <a style="color: white; text-decoration: none;" href="/privacy-policy.html" target="_blank">Privacy Policy</a>
+            <a style="color: white; text-decoration: none;" href="/terms-of-service.html" target="_blank">Terms of Service</a>
+            <a style="color: white; text-decoration: none;" href="https://discord.gg/BAGfQFAdNz" target="_blank">Support</a>
+            <a style="color: white; text-decoration: none; cursor: pointer;" onclick="showCCPAConsent(); return false;">Do Not Sell My Info</a>
+            <a style="color: white; text-decoration: none; cursor: pointer;" onclick="showGDPRConsent(); return false;">Privacy Settings</a>
+        </div>
+
+    </div>
+</footer>
+
+<script src="/moonvalues/js/nitro-consent.js"></script>
+<script src="/moonvalues/topbar/topbarscript.js"></script>
+<script src="/moonvalues/background/background.js"></script>
+
+<!-- NitroPay Sticky Bottom Anchor -->
+<script>
+window['nitroAds'].createAd('adsite100', {
+  "format": "anchor-v2",
+  "anchor": "bottom",
+  "anchorBgColor": "rgb(0 0 0 / 80%)",
+  "anchorClose": true,
+  "anchorPersistClose": false,
+  "anchorStickyOffset": 0,
+  "mediaQuery": "(min-width: 0px)",
+  "report": {
+    "enabled": true,
+    "icon": true,
+    "wording": "Report Ad",
+    "position": "top-right"
+  },
+  "refreshTime": 30
+});
+</script>
+
+<!-- NitroPay Sticky Side Rail (Left) -->
+<script>
+window['nitroAds'].createAd('adsite101', {
+  "format": "rail",
+  "rail": "left",
+  "railOffsetTop": 0,
+  "railOffsetBottom": 0,
+  "railCollisionWhitelist": ["*"],
+  "railCloseColor": "#666666",
+  "railSpacing": 10,
+  "railStack": false,
+  "railStickyTop": 0,
+  "railVerticalAlign": "center",
+  "sizes": [
+    [
+      "160",
+      "600"
+    ],
+    [
+      "300",
+      "600"
+    ]
+  ],
+  "report": {
+    "enabled": true,
+    "icon": true,
+    "wording": "Report Ad",
+    "position": "top-right"
+  },
+  "refreshTime": 30
+});
+</script>
+
+</body>
+</html>
+
+
+
+

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-8TP7MBL6FZ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-8TP7MBL6FZ');
+  </script>
+  <meta charset="UTF-8">
+  <link rel="icon" href="/favicon.ico" type="image/x-icon">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link rel="preload" as="image" href="/logo.webp" fetchpriority="high" importance="high">
+  <title>Royaledle</title>
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebSite", 
+        "name": "Royaledle",
+        "description": "Daily Clash Royale card guessing games with clues, random emojis, pixel images and descriptions. Similar to the popular Wordle game, but instead of guessing a daily word, you guess a Clash Royale card.",
+        "url": "https://royaledle.com"
+      }
+    </script>
+
+  <script>
+    const waitFor = (f, t = 100, m = 5000) =>
+      new Promise((r, j) => { let e = Date.now() + m; (function c() { let v = f(); v ? r(v) : Date.now() > e ? j("Variable timeout") : setTimeout(c, t); })(); });
+
+    function probeScript(
+      url,
+      { async = true, onSuccess, onFailure, vmCheck } = {}
+    ) {
+      const script = document.createElement("script");
+      let finished = false;
+
+      const fail = (err) => {
+        if (finished) return;
+        finished = true;
+        onFailure?.(err);
+        script.remove();
+      };
+
+      const succeed = () => {
+        if (finished) return;
+        finished = true;
+        onSuccess?.();
+      };
+
+      script.src = url;
+      script.async = async;
+
+      script.onload = async () => {
+        try {
+
+          if (vmCheck) { await waitFor(vmCheck, 200, 4000); }
+
+          try {
+            await waitFor(() => sessionStorage.getItem("site_blocked_sb"), 100, 2000);
+            return fail(new Error("Site blocked (SB detected)"));
+          } catch { }
+
+          succeed();
+        } catch (err) { fail(err); }
+      };
+
+      script.onerror = () => {
+        fail(new Error("Script failed to load"));
+      };
+
+      document.head.appendChild(script);
+    }
+
+    const hbUrl = `https://hb.vntsm.com/v4/live/vms/sites/royaledle.com/index.js`;
+
+    probeScript(hbUrl, {
+      vmCheck: () => window.__VM?.loaded,
+      onSuccess: () => {
+        window.__adManagerReady = true;
+        sessionStorage.setItem('adblockDetected', 'false');
+        window.dispatchEvent(new CustomEvent('adblockStatusChanged', { detail: { blocked: false } }));
+        console.log("Venatus loaded successfully");
+      },
+      onFailure: (err) => {
+        window.__adManagerReady = false;
+        sessionStorage.setItem('adblockDetected', 'true');
+        window.dispatchEvent(new CustomEvent('adblockStatusChanged', { detail: { blocked: true } }));
+        console.warn("Venatus unavailable:", err);
+      }
+    });
+  </script>
+
+  <link rel="manifest" href="/manifest.json">
+  <meta property="og:site_name" content="Royaledle">
+  <meta name="description"
+    content="Daily Clash Royale card guessing games with clues, random emojis, pixel images and descriptions. Similar to the popular Wordle game, but instead of guessing a daily word, you guess a Clash Royale card.">
+  <meta name="theme-color" content="#1d5473">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Royaledle">
+  <link rel="apple-touch-icon" href="/logo192.webp">
+  <meta name="keywords"
+    content="Clash Royale Wordle, Clash Royale card guessing game, Royaledle, daily clash royale puzzle, Clash Royale Higher or Lower, CR daily challenge, card guessing, cr wordle, guess the card, Clash Royale cards quiz, clash royale Royale deck puzzle, clash royale wordle style game, card quiz, card deck guessing">
+  <script type="module" crossorigin src="/assets/index.C3iwIjqR.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/index.CGHJ8cZ4.css">
+  <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
+</head>
+
+<body>
+  <div id="app"></div>
+  <script data-collect-dnt="true" async src="https://scripts.simpleanalyticscdn.com/latest.js"></script>
+<!-- Cloudflare Pages Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "0fae0c725bfc464cb824a5a4dab60838"}'></script><!-- Cloudflare Pages Analytics --></body>
+
+</html>

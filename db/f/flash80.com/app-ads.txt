@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <title>FLASH80'RADIO : REVIVEZ VOS PLUS BEAUX SOUVENIRS</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="canonical" href="https://www.flash80.com/index.php">
+  <link rel="shortcut icon" type="image/png" href="https://www.flash80.com/images/logo/2024/favicon.png">
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+  />
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      overflow: hidden;
+    }
+
+    /* Iframe principale */
+    #pageWeb {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      border: none;
+      z-index: 5;
+      background-color: white;
+    }
+
+    /* Variables CSS */
+    :root {
+      --w: 400px;
+      --collapsed: 42px;
+      --primary: #006699;
+
+      --bottom-height: 250px; /* hauteur volet en bas sur mobile */
+      --handle-height: 42px;  /* hauteur du handle quand volet fermé */
+    }
+
+    /* Volet à gauche (desktop & tablette >= 600px) */
+    #popup {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: var(--w);
+      height: 100%;
+      background: var(--primary);
+      box-shadow: 4px 0 16px rgba(0,0,0,0.25);
+      transition: transform 0.4s ease-in-out;
+      transform: translateX(calc(-1 * (var(--w) - var(--collapsed))));
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    #popup.visible {
+      transform: translateX(0);
+    }
+
+    /* Masquer l'iframe quand volet fermé */
+    #popup iframe {
+      transition: opacity 0.3s ease;
+    }
+    #popup:not(.visible) iframe {
+      opacity: 0;
+      pointer-events: none;
+      visibility: hidden;
+    }
+    #popup.visible iframe {
+      opacity: 1;
+      pointer-events: auto;
+      visibility: visible;
+    }
+
+    .popup-bar {
+      height: 48px;
+      display: flex;
+      align-items: center;
+      padding: 0 12px;
+      background: var(--primary);
+      color: white;
+    }
+    .title {
+      flex: 1;
+      font-weight: bold;
+    }
+    .close-btn {
+      background: #323D3D;
+      color: #fff;
+      border: none;
+      width: 36px;
+      height: 36px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      transition: background 0.3s ease;
+    }
+    .close-btn:hover {
+      background: #1d2727;
+    }
+    /* Bouton fermer invisible quand volet fermé */
+    #popup:not(.visible) .close-btn {
+      display: none;
+    }
+
+    #popupFrame {
+      flex: 1;
+      border: none;
+      width: 100%;
+      height: 100%;
+    }
+
+    /* Handle vertical à gauche */
+    #reopenTab {
+      position: fixed;
+      top: 50%;
+      left: 0;
+      width: var(--collapsed);
+      height: 250px;
+      background: var(--primary);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transform: translateY(-50%);
+      writing-mode: vertical-rl;
+      text-orientation: mixed;
+      font-weight: bold;
+      font-size: 18px;
+      box-shadow: 0px 0 0px rgba(0,0,0,0.2);
+      user-select: none;
+      z-index: 10000;
+      transition: background 0.3s ease;
+    }
+    #reopenTab:hover {
+      background: #323D3D;
+    }
+    #reopenTab span {
+      display: block;
+      transform: rotate(180deg);
+    }
+
+    /* Responsive: 601px à 1023px (volet toujours à gauche) */
+    @media (max-width: 1023px) and (min-width: 601px) {
+      #popup,
+      #reopenTab {
+        display: flex !important;
+      }
+    }
+
+    /* Responsive mobile : Volet en bas */
+    @media (max-width: 600px) {
+      #popup {
+		top: auto;
+		bottom: 0;
+		left: 0;
+		width: 100vw;
+		height: var(--bottom-height);
+		box-shadow: 0 -4px 16px rgba(0,0,0,0.25);
+		transform: translateY(calc(var(--bottom-height) - var(--handle-height)));
+		flex-direction: column;
+		border-radius: 8px 8px 0 0;
+	  }
+	  #popup.visible {
+		height: 100vh; /* prend toute la hauteur visible */
+		top: 0;        /* aligné en haut */
+		bottom: auto;  /* désactive bottom */
+		transform: translateY(0);
+		border-radius: 0;
+	  }
+      .popup-bar {
+        height: var(--handle-height);
+        padding: 0 12px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      #popupFrame {
+        flex: 1;
+        width: 100%;
+        height: auto;
+      }
+      #reopenTab {
+        top: auto;
+        bottom: 0;
+        left: 0;
+        width: 100vw;
+        height: var(--handle-height);
+        background: var(--primary);
+        writing-mode: horizontal-tb;
+        text-orientation: initial;
+        font-weight: bold;
+        font-size: 18px;
+        border-radius: 8px 8px 0 0;
+        box-shadow: 0 -4px 8px rgba(0,0,0,0.2);
+        transform: none;
+        display: flex !important;
+        align-items: center;
+        justify-content: center;
+      }
+      #reopenTab span {
+        display: inline-block;
+        transform: none;
+      }
+    }
+  </style>
+
+</head>
+<body>
+
+  <!-- Volet webRadio -->
+  <div id="popup" role="region" aria-label="Volet Web Radio">
+    <div class="popup-bar">
+      <div class="title">FLASH80' RADIO</div>
+      <button class="close-btn" aria-label="Fermer le volet" title="Fermer">&times;</button>
+    </div>
+    <iframe
+      id="popupFrame"
+      src="https://streamapps.fr/flash80radio"
+      title="Web Radio"
+      scrolling="no"
+    ></iframe>
+  </div>
+
+  <!-- Bouton pour ré-ouvrir le volet -->
+  <div id="reopenTab" role="button" tabindex="0" aria-label="Ouvrir le volet Web Radio">
+    <span>Ecoutez Flash80' Radio</span>
+  </div>
+
+  <!-- Iframe page principale -->
+  <iframe
+    id="pageWeb"
+    src="https://www.flash80.com/index.php"
+    title="Page Web"
+  ></iframe>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+  $(function () {
+      const $popup = $('#popup');
+      const $closeBtn = $popup.find('.close-btn');
+      const $reopenTab = $('#reopenTab');
+
+      function closePopup() {
+        $popup.removeClass('visible');
+        $reopenTab.show();
+      }
+
+      function openPopup() {
+        $popup.addClass('visible');
+        $reopenTab.hide();
+      }
+
+      $closeBtn.on('click', closePopup);
+      $reopenTab.on('click keypress', function(e) {
+        if (e.type === 'click' || e.key === 'Enter' || e.key === ' ') {
+          openPopup();
+        }
+      });
+
+      $reopenTab.on('keydown', function(e) {
+        if(e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          openPopup();
+        }
+      });
+
+      // Démarrer avec volet fermé
+      closePopup();
+
+	  $(window).on('message', function(event) {
+			const originalEvent = event.originalEvent;
+
+			if(originalEvent.data && originalEvent.data.action === 'openRadio') {
+				// Affiche la popup (webradio)
+				$('#popup').addClass('visible');
+				$('#reopenTab').hide();
+
+				// Si un URL à charger est précisé, on charge dans la 2ème iframe
+				if(originalEvent.data.pageToLoad) {
+					// Assuming your 2nd iframe has id 'pageWeb'
+					$('#pageWeb').attr('src', originalEvent.data.pageToLoad);
+				}
+			}
+		});
+
+	  // Si paramètre openRadio=1 dans l'URL du frameset, on ouvre aussi la webradio
+	  // Et en plus on charge la page dans pageWeb si fourni dans pageToLoad param
+	  const params = new URLSearchParams(window.location.search);
+	  if(params.get('openRadio') === '1') {
+  		  $('#popup').addClass('visible');
+		  $('#reopenTab').hide();
+
+		  // On regarde si pageToLoad est dans l'URL et charge la 2ème iframe
+		  const pageToLoad = params.get('pageToLoad');
+		  if(pageToLoad) {
+  			  $('#pageWeb').attr('src', pageToLoad);
+		  }
+	}
+  });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,57 @@
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>Security Check - EarnMoreCashToday.com</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <style>
+            body { font-family: Arial, sans-serif; background: #f0f0f0; display: flex; align-items: center; justify-content: center; height: 100vh; margin: 0; }
+            .box { background: #ffffff; padding: 30px; border-radius: 5px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); text-align: center; max-width: 400px; border-top: 5px solid #10b981; }
+            h2 { margin-top: 0; color: #10b981; }
+            p { color: #666666; }
+            .loader { border: 4px solid #f3f3f3; border-top: 4px solid #10b981; border-radius: 50%; width: 30px; height: 30px; animation: spin 1s linear infinite; margin: 20px auto; }
+            @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        </style>
+        <script>
+            window.onload = function() {
+                var isBot = false;
+
+                if (navigator.webdriver) {
+                    isBot = true;
+                }
+                
+                if (navigator.userAgent.indexOf('HeadlessChrome') !== -1) {
+                    isBot = true;
+                }
+
+                if (isBot) {
+                    document.body.innerHTML = '<div style="text-align:center; padding:50px; font-family:sans-serif;">' +
+                        '<h2 style="color:#d32f2f;">Automated Traffic Detected</h2>' +
+                        '<p>Your browser flags indicate automated software.</p>' +
+                        '</div>';
+                    return; 
+                }
+
+                var d = new Date();
+                d.setTime(d.getTime() + (24*60*60*1000));
+                var expires = "expires="+ d.toUTCString();
+                document.cookie = "sbb_human_verified=true;" + expires + ";path=/";
+                
+                setTimeout(function(){ 
+                    window.location.reload(); 
+                }, 1500); 
+            };
+        </script>
+    </head>
+    <body>
+        <div class="box">
+            <h2>Checking your browser...</h2>
+            <p>Please wait a moment while we verify you are human.</p>
+            <div class="loader"></div>
+            <noscript>
+                <p style="color:red;"><strong>Please enable JavaScript to continue.</strong></p>
+            </noscript>
+            <p style="font-size:12px; color:#ccc; margin-top:20px;">Security Check ID: 699d83e278e63</p>
+        </div>
+    </body>
+    </html>
+    

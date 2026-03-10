@@ -1,0 +1,1792 @@
+<!doctype html>
+<html lang="it-IT">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link rel="preload" as="image" fetchpriority="high" href="https://www.gaeta.it/wp-content/uploads/2026/02/ONE-Header-768x450.jpg" imagesrcset="" imagesizes="100vw">
+<style>
+/* ====== RESET & CRITICAL CSS ====== */
+/* Nota: Le variabili (:root) sono ora gestite da functions.php */
+
+*{margin:0;padding:0;box-sizing:border-box}
+
+body{
+  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+  color:#111;
+  background:var(--header-bg, #fff); /* Fallback */
+  line-height:1.6;
+  overflow-x:hidden;
+}
+
+a{text-decoration:none;color:inherit}
+img{max-width:100%;height:auto;display:block}
+.container{width:min(var(--maxw, 1080px), 92vw);margin:0 auto}
+
+/* HIDE WP MOBILE MENU */
+.mobile-navigation,.mobile-nav,.menu-toggle,.mobile-menu-toggle,
+#site-navigation-mobile,#mobile-menu,.offcanvas-menu,
+.js-toggle-mobile-menu,.hamburger-menu{display:none!important}
+
+/* ===== HEADER ===== */
+.site-header{
+  position:sticky;top:0;z-index:9999;
+  background:var(--header-bg);
+  color:var(--header-text);
+  border-bottom:1px solid #e6e6e6;
+  box-shadow:0 2px 6px rgba(0,0,0,.05);
+  min-height:60px;
+}
+
+.h-wrap{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:10px 0;gap:14px
+}
+
+.brand img.custom-logo{
+  width:var(--logo-width);height:auto;max-width:none;
+}
+
+/* ===== DESKTOP MENU ===== */
+.nav-desktop ul{list-style:none;display:flex;gap:16px}
+.nav-desktop ul li a{
+  background:var(--menu-capsule-bg);
+  border:1px solid var(--menu-capsule-border);
+  border-radius:999px;
+  padding:7px 15px;font-weight:700;font-size:15px;
+  transition:.15s;
+}
+.nav-desktop ul li a:hover{
+  background:var(--menu-capsule-active);
+  border-color:var(--menu-capsule-active);
+  color:#fff;
+}
+
+/* ===== HAMBURGER ===== */
+.hamb-btn{
+  display:none;
+  width:42px;height:42px;
+  border:1px solid #ddd;border-radius:12px;
+  background:#fff;
+  cursor:pointer;
+  align-items:center;justify-content:center;
+  transition:box-shadow .15s;
+  padding:8px;
+}
+.hamb-btn:hover{box-shadow:0 4px 10px rgba(0,0,0,.08)}
+
+.hamb-lines{
+  width:26px;height:20px;
+  display:flex;flex-direction:column;justify-content:space-between;
+}
+
+/* MODIFICA QUI SOTTO: background usa la variabile attiva */
+.hamb-line{
+  width:100%;height:3px;
+  background:var(--menu-capsule-active); /* <--- COLORE PRESO DAL MENU */
+  border-radius:6px;
+  transition:transform .18s ease, opacity .18s ease;
+}
+
+body.menu-open .hamb-line:nth-child(1){transform:translateY(8px) rotate(45deg)}
+body.menu-open .hamb-line:nth-child(2){opacity:0}
+body.menu-open .hamb-line:nth-child(3){transform:translateY(-8px) rotate(-45deg)}
+
+@media(max-width:900px){
+  .nav-desktop{display:none}
+  .hamb-btn{display:flex}
+}
+
+/* ===== MOBILE PANEL ===== */
+.mobile-panel{
+  position:fixed;inset:0;z-index:200000!important;background:#fff;
+  display:none;flex-direction:column;padding:18px 20px 40px;gap:24px;
+  overflow-y:auto;transform:translateY(30px);opacity:0;
+  transition:opacity .25s ease,transform .25s ease;
+}
+body.menu-open .mobile-panel{display:flex;transform:translateY(0);opacity:1}
+
+.mobile-panel-top{
+  display:flex;align-items:center;justify-content:space-between;
+}
+.mobile-title{font-weight:700;font-size:1rem}
+.mobile-close{
+  width:32px;height:32px;border:1px solid #ddd;border-radius:10px;
+  background:#fff;display:flex;align-items:center;justify-content:center;
+  font-size:20px;cursor:pointer;
+}
+
+.mobile-menu{
+  list-style:none;display:flex;flex-direction:column;gap:38px;
+}
+
+.mobile-menu li a{
+  background:var(--menu-capsule-bg);
+  border:1px solid var(--menu-capsule-border);
+  border-radius:999px;
+  padding:10px 15px;font-weight:700;font-size:16px;
+}
+.mobile-menu li a:hover{
+  background:var(--menu-capsule-active);
+  border-color:var(--menu-capsule-active);
+  color:#fff;
+}
+
+/* ===== DECORATIVE FRAME ===== */
+.page-frame-lines{
+  position:fixed;top:70px;bottom:0;width:5px;pointer-events:none;
+  z-index:3;opacity:.40;
+  background:linear-gradient(to bottom,rgba(0,0,0,.25),rgba(0,0,0,.15) 40%,transparent);
+}
+.page-frame-lines.left{left:calc((100vw - var(--maxw, 1080px)) / 2 - 24px)}
+.page-frame-lines.right{right:calc((100vw - var(--maxw, 1080px)) / 2 - 24px)}
+@media(max-width:900px){.page-frame-lines{display:none}}
+
+/* ===== BACK TO TOP (Re-inserito) ===== */
+#backToTop {
+    transition: opacity 0.3s ease, transform 0.3s ease !important;
+    will-change: opacity, transform;
+}
+</style>
+
+<link rel="preconnect" href="https://secure.gravatar.com" crossorigin>
+<link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
+<link rel="preconnect" href="https://www.google-analytics.com" crossorigin>
+<title>Gaeta.it &#8211; Notizie &#8211; Eventi &#8211; Turismo</title>
+<meta name='robots' content='max-image-preview:large' />
+<link rel="canonical" href="https://www.gaeta.it/">
+<meta name="description" content="Notizie - Eventi - Turismo">
+<meta name="robots" content="index, follow, max-image-preview:large">
+
+<meta property="og:locale" content="it_IT" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Gaeta.it &#8211; Notizie &#8211; Eventi &#8211; Turismo" />
+<meta property="og:description" content="Notizie - Eventi - Turismo" />
+<meta property="og:url" content="https://www.gaeta.it/" />
+<meta property="og:site_name" content="Gaeta.it" />
+<meta property="og:image" content="https://www.gaeta.it/wp-content/uploads/2025/08/cropped-gaeta.it_-1-72x72-1.png" />
+<meta property="og:image:secure_url" content="https://www.gaeta.it/wp-content/uploads/2025/08/cropped-gaeta.it_-1-72x72-1.png" />
+<meta property="og:image:width" content="512" />
+<meta property="og:image:height" content="512" />
+<meta property="og:image:type" content="image/jpeg" />
+<meta property="og:image:alt" content="Gaeta.it &#8211; Notizie &#8211; Eventi &#8211; Turismo" />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Gaeta.it &#8211; Notizie &#8211; Eventi &#8211; Turismo" />
+<meta name="twitter:description" content="Notizie - Eventi - Turismo" />
+<meta name="twitter:image" content="https://www.gaeta.it/wp-content/uploads/2025/08/cropped-gaeta.it_-1-72x72-1.png" />
+<meta name="twitter:label1" content="Scritto da" />
+<meta name="twitter:data1" content="Marco Linati" />
+<meta name="twitter:label2" content="Tempo di lettura" />
+<meta name="twitter:data2" content="5 min" />
+<script type="application/ld+json">{"@context":"https:\/\/schema.org","@graph":[{"@type":"WebSite","@id":"https:\/\/www.gaeta.it\/#website","url":"https:\/\/www.gaeta.it\/","name":"Gaeta.it","publisher":{"@id":"https:\/\/www.gaeta.it\/#org"},"potentialAction":{"@type":"SearchAction","target":"https:\/\/www.gaeta.it\/?s={search_term_string}","query-input":"required name=search_term_string"}},{"@type":"Organization","@id":"https:\/\/www.gaeta.it\/#org","name":"Gaeta.it","url":"https:\/\/www.gaeta.it\/","logo":{"@type":"ImageObject","url":"https:\/\/www.gaeta.it\/wp-content\/uploads\/2025\/10\/Site-logo-gaeta.png","width":271,"height":76},"sameAs":["https:\/\/www.facebook.com\/CittadiGaeta\/","https:\/\/it.wikipedia.org\/wiki\/Gaeta"]},{"@type":"WebPage","@id":"https:\/\/www.gaeta.it\/#webpage","url":"https:\/\/www.gaeta.it\/","name":"Gaeta.it &#8211; Notizie &#8211; Eventi &#8211; Turismo","isPartOf":{"@id":"https:\/\/www.gaeta.it\/#website"},"description":"Notizie - Eventi - Turismo"}]}</script><link rel="alternate" type="application/rss+xml" title="Gaeta.it &raquo; Feed" href="https://www.gaeta.it/feed" />
+<style id='wp-img-auto-sizes-contain-inline-css'>
+img:is([sizes=auto i],[sizes^="auto," i]){contain-intrinsic-size:3000px 1500px}
+/*# sourceURL=wp-img-auto-sizes-contain-inline-css */
+</style>
+<link rel="https://api.w.org/" href="https://www.gaeta.it/wp-json/" /><link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://www.gaeta.it/xmlrpc.php?rsd" />
+<meta name="generator" content="WordPress 6.9.1" />
+<link rel="manifest" href="https://www.gaeta.it/pushhub-manifest.json">
+<style id="dpm-critical-css">/* Theme Name: FaradayTheme
+Theme URI: https://faraday.it/
+Author: Francesco Giuliani
+Author URI: https://faraday.it/
+Description: Tema superfast - War Machine Edition
+Version: 3.0.1
+Text Domain: faradaytheme
+*/
+
+/* =====================================
+   ROOT VARS & FALLBACKS
+===================================== */
+:root{
+  --container:max(92vw,280px);
+  --maxw:1080px;
+  --gap:22px;
+
+  /* Variabili base (Fallback se il PHP ritarda) */
+  --header-bg:#fafafa;
+  --header-text:#111111;
+  --footer-bg:#f6f6f6;
+  --footer-text:#333333;
+  --footer-btn-bg:#ffffff;
+  --footer-btn-text:#111111;
+  --accent:#d72626;
+  --back-to-top-bg:#d72626;
+  
+  /* UI Elementi */
+  --soft-radius:16px;
+  --soft-radius-lg:18px;
+  --soft-shadow:0 6px 20px rgba(0,0,0,0.06);
+  --soft-shadow-lg:0 10px 32px rgba(0,0,0,0.10);
+  --transition:all .25s cubic-bezier(.25,.46,.45,.94);
+}
+
+/* =====================================
+   RESET
+===================================== */
+*{margin:0;padding:0;box-sizing:border-box}
+
+body{
+  background:#fff;
+  color:#111;
+  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+  line-height:1.65;
+  text-rendering:optimizeLegibility;
+  overflow-x:hidden;
+}
+
+img{max-width:100%;height:auto;display:block}
+a{text-decoration:none;color:inherit}
+.container{width:min(var(--maxw),var(--container));margin:0 auto}
+
+/* =====================================
+   HEADER
+===================================== */
+.site-header{
+  position:sticky;top:0;z-index:10000;
+  background:var(--header-bg);
+  border-bottom:1px solid #e9e9e9;
+  box-shadow:0 2px 6px rgba(0,0,0,0.06);
+  backdrop-filter:blur(6px);
+}
+.site-header a{color:var(--header-text);}
+
+.h-wrap{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:12px 0;
+}
+
+.brand img.custom-logo{
+  width:var(--logo-width);height:auto;transition:var(--transition);
+}
+
+/* =====================================
+   MENU CAPSULE (Desktop)
+===================================== */
+.nav ul.menu-capsule{display:flex;gap:16px;list-style:none}
+
+.nav ul.menu-capsule li a{
+  background:var(--menu-capsule-bg);
+  padding:7px 15px;
+  border-radius:999px;
+  border:1px solid var(--menu-capsule-border);
+  font-weight:700;font-size:15px;
+  transition:var(--transition);
+}
+
+.nav ul.menu-capsule li a:hover{
+  border-color:var(--menu-capsule-active);
+  background:var(--menu-capsule-active);
+  color:#fff;
+  transform:translateY(-2px);
+}
+
+/* =====================================
+   HERO HOMEPAGE (STILE EDITORIALE)
+===================================== */
+.frontpage{margin-top:26px}
+
+.fp-hero{
+  margin-bottom:50px;
+  border-radius:var(--soft-radius-lg);
+  overflow:hidden;
+  box-shadow:var(--soft-shadow-lg);
+  background:#000;
+  transition:var(--transition);
+}
+.fp-hero:hover{transform:scale(1.005)}
+
+.fp-hero-thumb{aspect-ratio:16/10;overflow:hidden}
+.fp-hero-thumb img{
+  width:100%;height:100%;object-fit:cover;
+  border-radius:var(--soft-radius-lg) var(--soft-radius-lg) 0 0;
+}
+
+/* Box nero contenitore testi */
+.fp-hero-blackbox{
+  background:var(--hero-overlay);
+  backdrop-filter:blur(3px);
+  padding: 40px 40px 32px; /* Più aria laterale */
+  border-radius:0 0 var(--soft-radius-lg) var(--soft-radius-lg);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+/* Label Categoria Hero */
+/* CORREZIONE: Ora usa var(--catColor) se disponibile, altrimenti --accent */
+.fp-kicker, .single-kicker{
+  align-self: flex-start;
+  display:inline-block;
+  padding: 0 0 2px 0;
+  background: transparent; 
+  color: var(--catColor, var(--accent)); /* <--- CORRETTO QUI */
+  border-radius: 0;
+  font-size: 14px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 12px;
+  border-bottom: 2px solid var(--catColor, var(--accent)); /* <--- E QUI */
+}
+
+/* Titolo Hero (Stile Swiss) */
+.fp-hero-title{
+  color:#fff!important;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size:clamp(32px, 5vw, 48px); 
+  font-weight: 800;
+  line-height: 1.05; 
+  letter-spacing: -0.03em; 
+  margin: 0 0 14px 0;
+  text-transform: none;
+}
+
+/* Contenitore info/Excerpt */
+.fp-hero-infos{display:flex;flex-wrap:wrap;gap:14px}
+
+/* Sommario Hero (Stile Serif) */
+.fp-hero-infos .info-box{
+  background: transparent; 
+  color: #dcdcdc;          
+  padding: 0;              
+  border-radius: 0;
+  font-family: 'Georgia', 'Times New Roman', serif; 
+  font-size: 20px;         
+  line-height: 1.4;
+  font-weight: 400;
+  max-width: 95%;
+}
+
+/* Media Query Mobile Specifiche per Hero */
+@media(max-width:767px){
+  .fp-hero-thumb{aspect-ratio:auto!important;height:auto!important}
+  .fp-hero-thumb img{width:100%!important;height:auto!important;object-fit:contain!important}
+  .fp-hero-blackbox{padding: 25px 20px 25px!important} 
+  .fp-hero-title { font-size: 30px; margin-bottom: 10px; }
+  .fp-hero-infos .info-box { font-size: 17px; line-height: 1.45; }
+}
+
+
+/* Mini Hero (2 Articoli Sotto) */
+.fp-hero-subwrap{margin-top:30px;display:flex;gap:22px}
+
+.fp-hero-subcard{
+  background:rgba(0,0,0,0.28);
+  border-radius:14px;overflow:hidden;
+  flex:1;transition:var(--transition);
+}
+.fp-hero-subcard:hover{
+  transform:translateY(-4px);
+  background:rgba(0,0,0,0.40);
+}
+
+.fp-hero-subthumb{width:100%;aspect-ratio:16/9;overflow:hidden}
+.fp-hero-subthumb img{
+  width:100%;height:100%;object-fit:cover;
+  border-radius:14px 14px 0 0;
+}
+
+.fp-hero-subcontent{padding:16px}
+
+/* MODIFICA APPLICATA: FONT HELVETICA ANCHE QUI */
+.fp-hero-subtitle {
+  color: #fff;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 17px;
+  font-weight: 800;
+  margin: 0;
+  line-height: 1.3;
+}
+
+@media(max-width:760px){.fp-hero-subwrap{flex-direction:column}}
+
+/* =====================================
+   BOX GENERICI (Archivio, Categorie Secondarie)
+===================================== */
+.fp-line-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
+  gap:26px;
+}
+
+.fp-line-card{
+  background:#fff;
+  border-radius:var(--soft-radius);
+  overflow:hidden;
+  box-shadow:var(--soft-shadow);
+  transition:var(--transition);
+}
+.fp-line-card:hover{
+  transform:translateY(-3px);
+  box-shadow:var(--soft-shadow-lg);
+}
+
+.fp-line-thumb{aspect-ratio:3/2;overflow:hidden}
+.fp-line-thumb img{width:100%;height:100%;object-fit:cover}
+
+.fp-line-title{
+  font-size:19px;font-weight:900;
+  padding:14px;padding-bottom:8px;
+  line-height:1.28;
+}
+.fp-line-meta{font-size:13px;color:#777;padding:0 14px 16px}
+
+
+/* =====================================
+   PAGINA ARTICOLO
+===================================== */
+.single-wrapper{display:flex;gap:40px;margin-top:25px}
+.single-main{width:75%}
+.single-sidebar{width:25%}
+
+@media(max-width:900px){
+  .single-wrapper{flex-direction:column}
+  .single-main,.single-sidebar{width:100%}
+}
+
+.single-title{
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; /* Aggiunto */
+  font-size:38px;font-weight:900;
+  line-height:1.14;margin:12px 0 10px;
+}
+@media(max-width:700px){.single-title{font-size:30px}}
+
+.single-meta{font-size:14px;color:#666;margin-bottom:14px}
+
+/* --- HERO: BOX 16:9 EDITORIALE --- */
+.single-hero{
+  margin:16px 0 34px;
+  border-radius:var(--soft-radius-lg);
+  overflow:hidden;
+  box-shadow:var(--soft-shadow-lg);
+}
+/* Mantiene il box fisso 16:9 */
+.single-hero img{width:100%;aspect-ratio:16/9;object-fit:cover}
+
+.single-content{font-size:18px;line-height:1.58}
+.single-content p{margin-bottom:14px}
+.single-content h2{font-size:26px;font-weight:900;margin:30px 0 12px}
+
+/* ========================================================
+   FIX TOTALE FOTO E DIDASCALIE NEL TESTO
+======================================================== */
+
+/* 1. Immagini nel testo: larghezza 100% su mobile, niente taglio */
+.single-content img {
+    max-width: 100% !important;
+    height: auto !important;
+    width: auto !important;
+    display: block !important;
+    object-fit: contain !important; /* Mostra tutta la foto */
+    border-radius: 8px !important;
+    margin-bottom: 5px !important; /* Avvicina alla didascalia */
+    margin-top: 25px !important;
+}
+
+/* 2. Reset dei contenitori di WordPress */
+.single-content figure, 
+.single-content .wp-block-image,
+.single-content .wp-caption {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 auto 30px !important; /* Spazio dopo il blocco */
+    display: block !important;
+}
+
+/* 3. Didascalie: Piccole, Grigie, Vicine alla foto */
+.single-content figcaption,
+.single-content .wp-caption-text,
+.single-content .wp-block-image figcaption {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+    font-size: 13px !important;       /* Testo piccolo */
+    line-height: 1.3 !important;
+    color: #777 !important;           /* Grigio */
+    text-align: center !important;
+    font-style: italic !important;
+    padding: 0 10px !important;
+    margin-top: 0 !important;         /* Rimuove spazio sopra */
+    display: block !important;
+}
+
+/* ================================
+   SIDEBAR
+=============================== */
+.sidebar-title{
+  font-size:20px;font-weight:900;
+  margin-bottom:16px;padding-left:10px;
+  border-left:4px solid var(--accent);
+}
+.sidebar-list{display:flex;flex-direction:column;gap:18px}
+.sidebar-item{
+  display:flex;gap:12px;align-items:flex-start;
+  padding:12px 0;border-bottom:1px solid #eee;
+  transition:var(--transition);
+}
+.sidebar-item:hover{transform:translateX(3px)}
+.sidebar-item:hover .side-title{color:var(--accent)}
+
+.side-num{
+  flex-shrink:0;display:flex;align-items:center;justify-content:center;
+  width:26px;height:26px;border-radius:50%;
+  background:var(--accent);color:#fff;
+  font-weight:800;font-size:13px;
+}
+.side-title{font-size:15px;font-weight:700;line-height:1.38}
+
+/* ================================
+   FOOTER (MODIFICATO PER CUSTOMIZER)
+=============================== */
+.site-footer{
+  background: var(--footer-bg, #f6f6f6); /* Sfondo Custom */
+  border-top: 1px solid rgba(0,0,0,0.05);
+  margin-top: 60px;
+  color: var(--footer-text, #333); /* Testo Custom */
+  padding-top: 40px;
+  padding-bottom: 40px;
+}
+
+.footer-top{
+  display:flex;justify-content:space-between;align-items:center;
+  gap:24px;flex-wrap:wrap;padding:0 0 20px;
+}
+
+.footer-brand{display:flex;flex-direction:column;gap:6px;min-width:200px}
+
+/* Il testo eredita il colore definito in .site-footer, quindi funziona col customizer */
+.footer-text{font-size:14px; color: inherit; opacity: 0.9;}
+
+.footer-menu{display:flex;gap:10px;list-style:none;flex-wrap:wrap}
+
+.footer-menu li a{
+  background: var(--footer-btn-bg, #fff); /* Bottone Sfondo Custom */
+  color: var(--footer-btn-text, #111);    /* Bottone Testo Custom */
+  border: 1px solid rgba(0,0,0,0.08);
+  padding: 6px 13px;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 13px;
+  transition: var(--transition);
+}
+
+.footer-menu li a:hover{
+  background: var(--accent); /* Accent su Hover */
+  border-color: var(--accent);
+  color: #fff;
+  transform: translateY(-2px);
+}
+
+/* Back To Top Custom */
+#backToTop {
+    background: var(--back-to-top-bg, #d72626) !important; /* Freccia Custom */
+    position:fixed;bottom:20px;right:20px;
+    color:#fff;
+    width:40px;height:40px;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    text-decoration:none;
+    opacity:0;pointer-events:none;
+    transition:0.3s;
+    box-shadow:0 4px 10px rgba(0,0,0,0.2);
+    z-index:9999;font-weight:bold;
+}
+
+/* ================================
+   AUTHOR AVATAR
+=============================== */
+.author-inline-box img.author-avatar,
+.author-photo img.author-avatar{
+  width:64px!important;height:64px!important;
+  border-radius:50%!important;object-fit:cover!important;
+}
+
+.author-avatar-xl{
+  width:160px!important;height:160px!important;
+  border-radius:50%;object-fit:cover!important;
+}
+
+/* ============================================================
+   CAT5 — STYLE EDITORIALE (NEWSPAPER LOOK)
+============================================================ */
+.cat5-wrap{
+    margin:55px 0;padding:36px 26px;
+    background:#fafafa;border-radius:20px;
+    box-shadow:0 8px 22px rgba(0,0,0,0.05);
+    transition:var(--transition);
+}
+.cat5-wrap:nth-child(even){background:#f4f4f4}
+.cat5-wrap:hover{box-shadow:0 12px 30px rgba(0,0,0,0.08);transform:translateY(-2px)}
+.cat5-wrap + .cat5-wrap{border-top:8px solid #f2f2f2;padding-top:44px}
+
+/* Header della sezione (Es: "Cronaca") */
+.cat5-header {display:flex;justify-content:space-between;align-items:center;margin-bottom:24px}
+.cat5-header h2 {margin:0; }
+
+.cat5-header h2 a {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: -1px;
+    font-size: 24px;
+    color:#000;
+    transition:var(--transition);
+}
+.cat5-header h2 a:hover{color:var(--catColor)}
+
+.cat5-more{
+    font-size:15px;font-weight:700;padding:6px 12px;
+    border-radius:8px;background:#efefef;color:#333;
+    transition:var(--transition);
+}
+.cat5-more:hover{background:#ddd;transform:translateY(-2px)}
+
+.cat5-grid{display:grid;grid-template-columns:2fr 1fr;gap:34px}
+@media(max-width:1020px){.cat5-grid{grid-template-columns:1fr;gap:28px}}
+
+/* CAT5 - Main Post */
+.cat5-main-img{
+    width:100%;aspect-ratio:16/9;border-radius:14px;
+    overflow:hidden;display:block;margin-bottom:14px;
+    transition:var(--transition);
+}
+.cat5-main-img img{width:100%;height:100%;object-fit:cover;border-radius:14px}
+.cat5-main-img:hover{transform:scale(1.02)}
+
+/* Etichetta (Kicker) - EDITORIALE (No Pillola) */
+/* Usa var(--catColor) che è generata dinamicamente dal PHP */
+.cat5-label{
+    background: transparent !important; 
+    color: var(--catColor) !important;  
+    padding: 0 !important;              
+    border-radius: 0 !important;        
+    display: inline-block;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 13px !important;
+    font-weight: 800 !important;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-bottom: 2px solid var(--catColor); 
+    margin-bottom: 10px !important;
+    line-height: 1;
+}
+
+/* Titolo Main (Swiss Style) */
+.cat5-main-title a{
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
+    font-size: 28px !important;     
+    font-weight: 800 !important;    
+    letter-spacing: -0.04em !important; 
+    line-height: 1.1 !important;    
+    color: #111 !important;
+    margin-bottom: 8px !important;
+    display: block;
+    transition:var(--transition);
+}
+.cat5-main-title a:hover{
+    color: var(--catColor) !important;
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+}
+
+/* Excerpt (Serif Style) */
+.cat5-main-excerpt{
+    font-family: 'Georgia', 'Times New Roman', serif !important; 
+    font-size: 17px !important;     
+    line-height: 1.5 !important;
+    color: #444 !important;         
+    margin-top: 10px !important;
+    font-weight: 400;
+}
+
+/* CAT5 - Side Posts */
+.cat5-side{display:flex;flex-direction:column;gap:20px}
+.cat5-side-item{
+    display:flex;align-items:flex-start;gap:16px;
+    padding-bottom:15px;border-bottom:1px solid #e4e4e4;
+    transition:var(--transition);
+}
+.cat5-side-item:hover{transform:translateX(4px)}.cat5-side-item:last-child{border-bottom:none;padding-bottom:0}
+
+.cat5-side-img{
+    width:150px;aspect-ratio:16/10;border-radius:12px;
+    overflow:hidden;flex-shrink:0;transition:var(--transition);
+}
+.cat5-side-img img{width:100%;height:100%;object-fit:cover;border-radius:12px}.cat5-side-img:hover{transform:scale(1.04)}
+
+/* Side Titles (Compact Swiss) */
+.cat5-side-title a{
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
+    font-size: 17px !important;
+    font-weight: 700 !important;
+    line-height: 1.25 !important;
+    letter-spacing: -0.02em;
+    color: #111;
+    display: block;
+    transition:var(--transition);
+}
+.cat5-side-title a:hover{color:var(--catColor)}
+
+/* Responsive Cat5 */
+@media(max-width:768px){
+    .cat5-header h2 a{font-size:22px}
+    .cat5-main-title a{font-size:24px}
+    .cat5-side-img{width:130px;aspect-ratio:4/3}
+    .cat5-side-title a{font-size:15px}
+}
+@media(max-width:480px){
+    .cat5-side-img{width:110px;border-radius:10px}
+    .cat5-side-title a{font-size:14px}
+    .cat5-main-title a{font-size:22px}
+}
+
+/* ============================
+   PAGINAZIONE
+============================ */
+.dpm-pagination, .author-pagination {
+    width: 100%;display: flex;justify-content: center;margin: 40px 0;
+}
+.dpm-pagination .page-numbers, .author-pagination .page-numbers {
+    display: inline-block;margin: 0 5px;padding: 8px 14px;
+    min-width: 38px;text-align: center;font-size: 15px;font-weight: 600;
+    background: #fff;border: 1px solid #ddd;border-radius: 12px;
+    color: #111;transition: 0.2s ease;
+}
+.dpm-pagination .page-numbers:hover, .author-pagination .page-numbers:hover {
+    border-color: var(--accent);color: var(--accent);
+}
+.dpm-pagination .page-numbers.current, .author-pagination .page-numbers.current {
+    background: var(--accent);border-color: var(--accent);color: #fff!important;
+}
+@media (max-width: 650px) {
+    .dpm-pagination, .author-pagination {
+        overflow-x: auto;white-space: nowrap;padding-bottom: 6px;
+        scrollbar-width: none;
+    }
+    .dpm-pagination::-webkit-scrollbar, .author-pagination::-webkit-scrollbar {display: none}
+}
+
+/* ============================================
+   SWISS STYLE EDITORIAL - MENU MOBILE FIX
+============================================ */
+
+/* 1. PANNELLO (Foglio Bianco) */
+.mobile-panel {
+    background-color: #ffffff !important;
+    padding: 80px 20px 0px !important; /* Spazio per header */
+    position: fixed !important; inset: 0 !important; z-index: 99999 !important;
+    display: flex !important; flex-direction: column !important;
+    opacity: 0 !important; pointer-events: none !important; visibility: hidden !important;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+body.menu-open .mobile-panel {
+    opacity: 1 !important; pointer-events: auto !important; visibility: visible !important;
+}
+
+/* 2. HEADER DEL MENU (Titolo e Chiudi) */
+.mobile-panel-top {
+    position: absolute; top: 0; left: 0; right: 0; height: 80px;
+    padding: 0 20px;
+    display: flex; align-items: center; justify-content: space-between;
+    border-bottom: 4px solid #000; /* Linea spessa intestazione */
+    background: #fff; z-index: 10;
+}
+
+/* Scritta "MENU" piccola e tecnica */
+.mobile-title {
+    display: block !important;
+    font-family: monospace !important;
+    font-size: 14px !important;
+    letter-spacing: 3px !important;
+    text-transform: uppercase !important;
+    font-weight: 700 !important;
+    color: #000 !important;
+}
+
+/* Tasto Chiudi (Quadrato Nero Perfetto) */
+.mobile-close {
+    width: 44px !important; height: 44px !important;
+    background: #000 !important; color: #fff !important;
+    border: none !important; border-radius: 0 !important; /* Quadrato */
+    display: flex !important; align-items: center; justify-content: center;
+    font-size: 28px !important; cursor: pointer;
+}
+
+/* 3. LISTA (Griglia) */
+.mobile-menu {
+    counter-reset: nav-count;
+    display: flex !important; flex-direction: column !important;
+    gap: 0 !important; margin: 0 !important; padding: 0 !important;
+    width: 100% !important;
+    overflow-y: auto !important; /* Scroll se troppe voci */
+}
+
+/* 4. ELEMENTI LISTA (Righe) */
+.mobile-menu li {
+    border-bottom: 1px solid #e0e0e0 !important; /* Linea grigia sottile tra le voci */
+    margin: 0 !important; padding: 0 !important;
+    width: 100% !important;
+    display: block !important;
+    opacity: 0; transform: translateY(20px); /* Setup animazione */
+}
+
+/* 5. IL LINK - IL FIX CRUCIALE (Rimuove le pillole) */
+.mobile-menu li a {
+    /* RESET TOTALE DELLE FORME */
+    border-radius: 0px !important; /* Uccide la pillola */
+    border: none !important;       /* Via il bordo vecchio */
+    background: transparent !important;
+    box-shadow: none !important;
+    margin: 0 !important;
+    
+    /* LAYOUT NUOVO */
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    width: 100% !important;
+    padding: 25px 10px !important; /* Spazio cliccabile ampio */
+    
+    /* TIPOGRAFIA */
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
+    font-size: 22px !important;
+    font-weight: 800 !important;
+    text-transform: uppercase !important;
+    color: #000 !important;
+    line-height: 1 !important;
+    letter-spacing: -0.5px !important;
+    
+    transition: background 0.2s ease, color 0.2s ease !important;
+}
+
+/* 6. NUMERAZIONE (01, 02...) */
+.mobile-menu li a::before {
+    counter-increment: nav-count;
+    content: "0" counter(nav-count);
+    
+    font-family: monospace !important;
+    font-size: 14px !important;
+    color: var(--accent, #d72626) !important; /* Colore Rosso */
+    font-weight: 600 !important;
+    
+    margin-right: 24px !important; /* Spazio tra numero e testo */
+    opacity: 0.8;
+}
+
+/* 7. HOVER STATE (Effetto "Evidenziatore") */
+.mobile-menu li a:hover,
+.mobile-menu li.current-menu-item > a {
+    background-color: #000 !important; /* Sfondo Nero */
+    color: #fff !important; /* Testo Bianco */
+    padding-left: 20px !important; /* Scivola a destra */
+}
+
+/* In hover anche il numero diventa bianco */
+.mobile-menu li a:hover::before,
+.mobile-menu li.current-menu-item > a::before {
+    color: #fff !important;
+}
+
+/* 8. ANIMAZIONE */
+body.menu-open .mobile-menu li {
+    animation: slideUpSimple 0.5s forwards;
+}
+
+@keyframes slideUpSimple {
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Ritardi cascata */
+body.menu-open .mobile-menu li:nth-child(1) { animation-delay: 0.1s; }
+body.menu-open .mobile-menu li:nth-child(2) { animation-delay: 0.15s; }
+body.menu-open .mobile-menu li:nth-child(3) { animation-delay: 0.2s; }
+body.menu-open .mobile-menu li:nth-child(4) { animation-delay: 0.25s; }
+body.menu-open .mobile-menu li:nth-child(5) { animation-delay: 0.3s; }
+body.menu-open .mobile-menu li:nth-child(6) { animation-delay: 0.35s; }
+
+/* ============================================================
+   MAGIC GRID (REPLICA LAYOUT IMMAGINE UPLOADATA)
+============================================================ */
+
+.magic-wrapper {
+    margin: 50px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 30px; /* Spazio tra la riga alta e quella bassa */
+}
+
+/* --- RIGA SUPERIORE (3 CARD FOCUS) --- */
+.magic-top-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 22px;
+}
+
+.magic-card-focus {
+    position: relative;
+    aspect-ratio: 16/10; /* Proporzione rettangolare leggermente alta */
+    border-radius: 18px; /* Arrotondamento forte come nell'immagine */
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    transition: transform 0.25s ease;
+    background: #000;
+}
+.magic-card-focus:hover { transform: translateY(-4px); }
+
+.magic-focus-bg {
+    width: 100%; height: 100%; object-fit: cover;
+    transition: opacity 0.3s;
+    opacity: 0.85; /* Scurisce leggermente l'immagine base */
+}
+.magic-card-focus:hover .magic-focus-bg { opacity: 0.6; }
+
+/* Sfumatura scura per leggere il testo (Overlay) */
+.magic-focus-content {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    padding: 24px;
+    background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.6) 60%, transparent 100%);
+    display: flex; flex-direction: column; justify-content: flex-end;
+    pointer-events: none; /* Clicca sulla card, non sul div */
+    height: 100%;
+}
+
+.magic-cat-label {
+    align-self: flex-start;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: rgba(255,255,255,0.8);
+    margin-bottom: 8px;
+    position: relative;
+    z-index: 2;
+}
+
+.magic-focus-title {
+    color: #fff;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 1.3;
+    margin: 0;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+}
+
+/* --- GRIGLIA INFERIORE (CARD ORIZZONTALI) --- */
+.magic-bottom-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 Colonne come nell'immagine */
+    gap: 24px;
+}
+
+.magic-card-small {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    background: #fff;
+    border-radius: 12px;
+    transition: transform 0.2s ease;
+    /* Opzionale: se vuoi il box come nell'immagine "offerte" metti sfondo bianco o grigio chiaro */
+}
+.magic-card-small:hover { transform: translateX(4px); }
+
+.magic-small-thumb {
+    width: 100px;
+    height: 100px; /* Quadrata/Rounded come nell'immagine */
+    flex-shrink: 0;
+    border-radius: 12px;
+    overflow: hidden;
+    background: #eee;
+}
+.magic-small-thumb img {
+    width: 100%; height: 100%; object-fit: cover;
+}
+
+.magic-small-content {
+    display: flex; flex-direction: column;
+    justify-content: center;
+}
+
+.magic-small-cat {
+    font-size: 11px;
+    font-weight: 800;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+    /* Il colore viene iniettato via PHP inline style */
+}
+
+.magic-small-title {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 1.35;
+    color: #111;
+}
+
+/* --- RESPONSIVE --- */
+@media(max-width: 900px) {
+    .magic-top-grid, .magic-bottom-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media(max-width: 600px) {
+    .magic-top-grid, .magic-bottom-grid { grid-template-columns: 1fr; }
+    .magic-card-focus { aspect-ratio: 16/9; }
+}
+
+/* ============================================================
+   FIX RENDERING FONT & ANTI-ALIASING (Make it Crisp!)
+============================================================ */
+
+/* 1. Forza la pulizia del font su tutto il sito */
+body, h1, h2, h3, h4, h5, h6, a, p, span, div {
+    -webkit-font-smoothing: antialiased !important; /* Essenziale per Chrome/Safari su Mac/PC */
+    -moz-osx-font-smoothing: grayscale !important;  /* Essenziale per Firefox */
+    text-rendering: optimizeLegibility !important;  /* Migliora la spaziatura tra le lettere */
+}
+
+/* 2. Fix Hardware Acceleration per le Card */
+/* Questo impedisce che i bordi sgranino ("seghettati") durante le animazioni hover */
+.fp-hero, 
+.fp-hero-subcard,
+.magic-card-focus, 
+.magic-card-small,
+.cat5-wrap,
+.fp-line-card {
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    transform: translateZ(0); /* Forza la GPU a renderizzare il blocco come una texture solida */
+    perspective: 1000px;
+}
+
+/* 3. Piccola correzione per i titoli bianchi su sfondo nero (Hero & Magic Grid) */
+/* A volte il bianco puro "spara" troppo e sembra sgranato. Lo ammorbidiamo impercettibilmente. */
+.fp-hero-title, 
+.magic-focus-title {
+    text-shadow: 0 0 1px rgba(0,0,0,0.1); /* Trucco per dare "corpo" al font */
+}:root{--dp-logo-size:160px;--logo-width:180px;--footer-logo-width:180px;--header-bg:#fcfcfc;--header-text:#ffffff;--menu-capsule-bg:#ff8047;--menu-capsule-border:#ffffff;--menu-capsule-active:#ff8047;--accent:#ff8047;--back-to-top-bg:#ff8047;--hero-overlay:#020000;--footer-bg:#f6f6f6;--footer-text:#333333;--footer-btn-bg:#e5e5e5;--footer-btn-text:#111111;--cat-comunicati-label:#ff8047;--cat-curiosita-label:#ff8047;--cat-fiumicino-label:#ff8047;--cat-fondi-label:#ff8047;--cat-food-creative-label:#ff8047;--cat-formia-label:#ff8047;--cat-gaeta-label:#ff8047;--cat-intrattenimento-label:#ff8047;--cat-itri-label:#ff8047;--cat-latina-label:#ff8047;--cat-lifestyle-label:#ff8047;--cat-litorale-label:#ff8047;--cat-moda-label:#ff8047;--cat-news-label:#ff8047;--cat-ostia-label:#ff8047;--cat-sanremo-2025-label:#ff8047;--cat-scauri-label:#ff8047;--cat-sperlonga-label:#ff8047;--cat-terracina-label:#ff8047;--cat-trump-label:#ff8047;--cat-turismo-label:#ff8047;--cat-uncategorized-label:#ff8047;}</style><link rel="icon" href="https://www.gaeta.it/wp-content/uploads/2025/08/cropped-gaeta.it_-1-72x72-1.png" sizes="32x32" />
+<link rel="icon" href="https://www.gaeta.it/wp-content/uploads/2025/08/cropped-gaeta.it_-1-72x72-1.png" sizes="192x192" />
+<link rel="apple-touch-icon" href="https://www.gaeta.it/wp-content/uploads/2025/08/cropped-gaeta.it_-1-72x72-1.png" />
+<meta name="msapplication-TileImage" content="https://www.gaeta.it/wp-content/uploads/2025/08/cropped-gaeta.it_-1-72x72-1.png" />
+		<style id="wp-custom-css">
+			/* =================================================
+   TITOLI BOX CATEGORIE - PIÙ FINI & ELEGANTI
+================================================= */
+
+/* Titolo Grande (Main Article) */
+.cat5-main-title a {
+    font-weight: 600 !important; /* Meno pesante del bold standard */
+    letter-spacing: -0.5px;      /* Più compatto */
+    line-height: 1.3;            /* Migliore leggibilità */
+    color: #111;
+}
+
+/* Titoli Piccoli (Sidebar list) */
+.cat5-side-title a {
+    font-weight: 500 !important; /* Medium (ancora più fine) */
+    font-size: 15px;             /* Dimensione ideale */
+    line-height: 1.35;
+    color: #222;                 /* Nero morbido */
+}
+
+/* Nome Categoria (Header in alto a sx) */
+.cat5-header h2 a {
+    font-weight: 700 !important; /* Questo resta un po' più forte */
+    text-transform: none;        /* Rimuove il tutto maiuscolo */
+}		</style>
+		<style id='global-styles-inline-css'>
+:root{--wp--preset--aspect-ratio--square: 1;--wp--preset--aspect-ratio--4-3: 4/3;--wp--preset--aspect-ratio--3-4: 3/4;--wp--preset--aspect-ratio--3-2: 3/2;--wp--preset--aspect-ratio--2-3: 2/3;--wp--preset--aspect-ratio--16-9: 16/9;--wp--preset--aspect-ratio--9-16: 9/16;--wp--preset--color--black: #000000;--wp--preset--color--cyan-bluish-gray: #abb8c3;--wp--preset--color--white: #ffffff;--wp--preset--color--pale-pink: #f78da7;--wp--preset--color--vivid-red: #cf2e2e;--wp--preset--color--luminous-vivid-orange: #ff6900;--wp--preset--color--luminous-vivid-amber: #fcb900;--wp--preset--color--light-green-cyan: #7bdcb5;--wp--preset--color--vivid-green-cyan: #00d084;--wp--preset--color--pale-cyan-blue: #8ed1fc;--wp--preset--color--vivid-cyan-blue: #0693e3;--wp--preset--color--vivid-purple: #9b51e0;--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple: linear-gradient(135deg,rgb(6,147,227) 0%,rgb(155,81,224) 100%);--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan: linear-gradient(135deg,rgb(122,220,180) 0%,rgb(0,208,130) 100%);--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange: linear-gradient(135deg,rgb(252,185,0) 0%,rgb(255,105,0) 100%);--wp--preset--gradient--luminous-vivid-orange-to-vivid-red: linear-gradient(135deg,rgb(255,105,0) 0%,rgb(207,46,46) 100%);--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray: linear-gradient(135deg,rgb(238,238,238) 0%,rgb(169,184,195) 100%);--wp--preset--gradient--cool-to-warm-spectrum: linear-gradient(135deg,rgb(74,234,220) 0%,rgb(151,120,209) 20%,rgb(207,42,186) 40%,rgb(238,44,130) 60%,rgb(251,105,98) 80%,rgb(254,248,76) 100%);--wp--preset--gradient--blush-light-purple: linear-gradient(135deg,rgb(255,206,236) 0%,rgb(152,150,240) 100%);--wp--preset--gradient--blush-bordeaux: linear-gradient(135deg,rgb(254,205,165) 0%,rgb(254,45,45) 50%,rgb(107,0,62) 100%);--wp--preset--gradient--luminous-dusk: linear-gradient(135deg,rgb(255,203,112) 0%,rgb(199,81,192) 50%,rgb(65,88,208) 100%);--wp--preset--gradient--pale-ocean: linear-gradient(135deg,rgb(255,245,203) 0%,rgb(182,227,212) 50%,rgb(51,167,181) 100%);--wp--preset--gradient--electric-grass: linear-gradient(135deg,rgb(202,248,128) 0%,rgb(113,206,126) 100%);--wp--preset--gradient--midnight: linear-gradient(135deg,rgb(2,3,129) 0%,rgb(40,116,252) 100%);--wp--preset--font-size--small: 13px;--wp--preset--font-size--medium: 20px;--wp--preset--font-size--large: 36px;--wp--preset--font-size--x-large: 42px;--wp--preset--spacing--20: 0.44rem;--wp--preset--spacing--30: 0.67rem;--wp--preset--spacing--40: 1rem;--wp--preset--spacing--50: 1.5rem;--wp--preset--spacing--60: 2.25rem;--wp--preset--spacing--70: 3.38rem;--wp--preset--spacing--80: 5.06rem;--wp--preset--shadow--natural: 6px 6px 9px rgba(0, 0, 0, 0.2);--wp--preset--shadow--deep: 12px 12px 50px rgba(0, 0, 0, 0.4);--wp--preset--shadow--sharp: 6px 6px 0px rgba(0, 0, 0, 0.2);--wp--preset--shadow--outlined: 6px 6px 0px -3px rgb(255, 255, 255), 6px 6px rgb(0, 0, 0);--wp--preset--shadow--crisp: 6px 6px 0px rgb(0, 0, 0);}:where(.is-layout-flex){gap: 0.5em;}:where(.is-layout-grid){gap: 0.5em;}body .is-layout-flex{display: flex;}.is-layout-flex{flex-wrap: wrap;align-items: center;}.is-layout-flex > :is(*, div){margin: 0;}body .is-layout-grid{display: grid;}.is-layout-grid > :is(*, div){margin: 0;}:where(.wp-block-columns.is-layout-flex){gap: 2em;}:where(.wp-block-columns.is-layout-grid){gap: 2em;}:where(.wp-block-post-template.is-layout-flex){gap: 1.25em;}:where(.wp-block-post-template.is-layout-grid){gap: 1.25em;}.has-black-color{color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-color{color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-color{color: var(--wp--preset--color--white) !important;}.has-pale-pink-color{color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-color{color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-color{color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-color{color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-color{color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-color{color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-color{color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-color{color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-color{color: var(--wp--preset--color--vivid-purple) !important;}.has-black-background-color{background-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-background-color{background-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-background-color{background-color: var(--wp--preset--color--white) !important;}.has-pale-pink-background-color{background-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-background-color{background-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-background-color{background-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-background-color{background-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-background-color{background-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-background-color{background-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-background-color{background-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-background-color{background-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-background-color{background-color: var(--wp--preset--color--vivid-purple) !important;}.has-black-border-color{border-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-border-color{border-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-border-color{border-color: var(--wp--preset--color--white) !important;}.has-pale-pink-border-color{border-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-border-color{border-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-border-color{border-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-border-color{border-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-border-color{border-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-border-color{border-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-border-color{border-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-border-color{border-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-border-color{border-color: var(--wp--preset--color--vivid-purple) !important;}.has-vivid-cyan-blue-to-vivid-purple-gradient-background{background: var(--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple) !important;}.has-light-green-cyan-to-vivid-green-cyan-gradient-background{background: var(--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan) !important;}.has-luminous-vivid-amber-to-luminous-vivid-orange-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange) !important;}.has-luminous-vivid-orange-to-vivid-red-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-orange-to-vivid-red) !important;}.has-very-light-gray-to-cyan-bluish-gray-gradient-background{background: var(--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray) !important;}.has-cool-to-warm-spectrum-gradient-background{background: var(--wp--preset--gradient--cool-to-warm-spectrum) !important;}.has-blush-light-purple-gradient-background{background: var(--wp--preset--gradient--blush-light-purple) !important;}.has-blush-bordeaux-gradient-background{background: var(--wp--preset--gradient--blush-bordeaux) !important;}.has-luminous-dusk-gradient-background{background: var(--wp--preset--gradient--luminous-dusk) !important;}.has-pale-ocean-gradient-background{background: var(--wp--preset--gradient--pale-ocean) !important;}.has-electric-grass-gradient-background{background: var(--wp--preset--gradient--electric-grass) !important;}.has-midnight-gradient-background{background: var(--wp--preset--gradient--midnight) !important;}.has-small-font-size{font-size: var(--wp--preset--font-size--small) !important;}.has-medium-font-size{font-size: var(--wp--preset--font-size--medium) !important;}.has-large-font-size{font-size: var(--wp--preset--font-size--large) !important;}.has-x-large-font-size{font-size: var(--wp--preset--font-size--x-large) !important;}
+/*# sourceURL=global-styles-inline-css */
+</style>
+
+</head>
+<body class="home blog wp-custom-logo wp-theme-discoverpress-pro-mobile100">
+
+<header class="site-header">
+  <div class="container h-wrap">
+
+    <div class="brand">
+      <a href="https://www.gaeta.it/" class="logo custom-logo-link">
+        <a href="https://www.gaeta.it/" class="custom-logo-link" rel="home" aria-current="page"><img width="271" height="76" src="https://www.gaeta.it/wp-content/uploads/2025/10/Site-logo-gaeta.png" class="custom-logo" alt="Gaeta.it" decoding="async" /></a>      </a>
+    </div>
+
+    <nav class="nav-desktop">
+      <ul class="menu-capsule"><li id="menu-item-13376" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-13376 dp-capsule"><a href="https://www.gaeta.it/news">Ultime Notizie</a></li>
+<li id="menu-item-8461" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-8461 dp-capsule"><a href="https://www.gaeta.it/news/turismo">Turismo</a></li>
+<li id="menu-item-538271" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-538271 dp-capsule"><a href="https://www.gaeta.it/food-creative">Food</a></li>
+<li id="menu-item-8464" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-8464 dp-capsule"><a href="https://www.gaeta.it/lifestyle">Lifestyle</a></li>
+<li id="menu-item-8465" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-8465 dp-capsule"><a href="https://www.gaeta.it/news/gaeta">Gaeta</a></li>
+</ul>    </nav>
+
+    <button class="hamb-btn" id="hambBtn" aria-label="Apri menu mobile">
+      <span class="hamb-lines">
+        <span class="hamb-line"></span>
+        <span class="hamb-line"></span>
+        <span class="hamb-line"></span>
+      </span>
+    </button>
+
+  </div>
+</header>
+
+<nav class="mobile-panel" id="mobilePanel" aria-label="Menu mobile">
+  <div class="mobile-panel-top">
+    <span class="mobile-title">Menu</span>
+    <button class="mobile-close" id="mobileClose" aria-label="Chiudi menu">×</button>
+  </div>
+
+  <ul class="mobile-menu"><li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-13376 dp-capsule"><a href="https://www.gaeta.it/news">Ultime Notizie</a></li>
+<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-8461 dp-capsule"><a href="https://www.gaeta.it/news/turismo">Turismo</a></li>
+<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-538271 dp-capsule"><a href="https://www.gaeta.it/food-creative">Food</a></li>
+<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-8464 dp-capsule"><a href="https://www.gaeta.it/lifestyle">Lifestyle</a></li>
+<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-8465 dp-capsule"><a href="https://www.gaeta.it/news/gaeta">Gaeta</a></li>
+</ul></nav>
+
+<div class="page-frame-lines left"></div>
+<div class="page-frame-lines right"></div>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const body  = document.body;
+  const btn   = document.getElementById("hambBtn");
+  const panel = document.getElementById("mobilePanel");
+  const close = document.getElementById("mobileClose");
+
+  const closeMenu = () => body.classList.remove("menu-open");
+
+  if(btn) btn.addEventListener("click", () => body.classList.toggle("menu-open"));
+  if(close) close.addEventListener("click", closeMenu);
+
+  if(panel) {
+      panel.querySelectorAll("a").forEach(a =>
+        a.addEventListener("click", closeMenu)
+      );
+  }
+});
+</script>
+
+<main id="main-content" role="main" tabindex="-1">
+<div class="container frontpage" style="content-visibility:auto;contain-intrinsic-size:1400px 2000px;">
+
+
+<section class="fp-hero"
+         style="--catColor:#ff8047;
+                content-visibility:auto;contain-intrinsic-size:750px 520px;">
+
+  <div class="fp-hero-thumb" style="aspect-ratio:2;overflow:hidden;">
+    <a href="https://www.gaeta.it/biogena-one-il-green-drink-innovativo-che-sta-migliorando-la-salute-quotidiana">
+      <img width="768" height="450" src="https://www.gaeta.it/wp-content/uploads/2026/02/ONE-Header-768x450.jpg" class="attachment-hero_mobile size-hero_mobile" alt="BIOGENA ONE" sizes="100vw" decoding="async" loading="eager" fetchpriority="high" style="width:100%;height:100%;object-fit:cover;" />    </a>
+  </div>
+
+  <div class="fp-hero-blackbox">
+
+          <a href="https://www.gaeta.it/news"
+         class="fp-kicker fp-kicker-link">
+        Notizie      </a>
+    
+    <h1 class="fp-hero-title">
+      <a href="https://www.gaeta.it/biogena-one-il-green-drink-innovativo-che-sta-migliorando-la-salute-quotidiana">BIOGENA ONE il green drink innovativo che sta migliorando la salute quotidiana</a>
+    </h1>
+
+    <div class="fp-hero-infos">
+      <div class="info-box">
+        BIOGENA è un’azienda specializzata in micronutrizione avanzata. Da 20 anni sviluppa integratori premium basati su ricerca scientifica, purezza delle materie prime e formule ad alta...      </div>
+    </div>
+
+    
+          <div class="fp-hero-subwrap">
+                <article class="fp-hero-subcard">
+          <a href="https://www.gaeta.it/a-san-valentino-nemi-si-illumina-di-fiabe-concerto-gratuito-a-lume-di-candela-il-13-febbraio">
+            <div class="fp-hero-subthumb">
+              <img width="600" height="400" src="https://www.gaeta.it/wp-content/uploads/2026/02/Screenshot-2026-02-04-113454-600x400.png" class="attachment-discover_card size-discover_card wp-post-image" alt="" loading="lazy" sizes="auto, (max-width: 600px) 50vw, 300px" decoding="async" srcset="https://www.gaeta.it/wp-content/uploads/2026/02/Screenshot-2026-02-04-113454-600x400.png 600w, https://www.gaeta.it/wp-content/uploads/2026/02/Screenshot-2026-02-04-113454-300x200.png 300w, https://www.gaeta.it/wp-content/uploads/2026/02/Screenshot-2026-02-04-113454-810x540.png 810w" />            </div>
+            <div class="fp-hero-subcontent">
+              <h2 class="fp-hero-subtitle" style="font-size:1.1rem; margin:0;">
+                A San Valentino Nemi si illumina di fiabe: concerto gratuito a lume…              </h2>
+            </div>
+          </a>
+        </article>
+                <article class="fp-hero-subcard">
+          <a href="https://www.gaeta.it/melanoma-e-tatuaggi-marco-manzo-chiede-un-confronto-tra-medici-e-tatuatori-sulla-nuova-legge">
+            <div class="fp-hero-subthumb">
+              <img width="600" height="400" src="https://www.gaeta.it/wp-content/uploads/2026/01/170451023-ec4b634a-f714-4dc2-be74-f0ddba4cb4b2-600x400.jpg" class="attachment-discover_card size-discover_card wp-post-image" alt="" loading="lazy" sizes="auto, (max-width: 600px) 50vw, 300px" decoding="async" srcset="https://www.gaeta.it/wp-content/uploads/2026/01/170451023-ec4b634a-f714-4dc2-be74-f0ddba4cb4b2-600x400.jpg 600w, https://www.gaeta.it/wp-content/uploads/2026/01/170451023-ec4b634a-f714-4dc2-be74-f0ddba4cb4b2-300x200.jpg 300w, https://www.gaeta.it/wp-content/uploads/2026/01/170451023-ec4b634a-f714-4dc2-be74-f0ddba4cb4b2-810x540.jpg 810w" />            </div>
+            <div class="fp-hero-subcontent">
+              <h2 class="fp-hero-subtitle" style="font-size:1.1rem; margin:0;">
+                Melanoma e tatuaggi: Marco Manzo chiede un confronto tra medici e tatuatori…              </h2>
+            </div>
+          </a>
+        </article>
+              </div>
+    
+  </div>
+</section>
+
+
+<div class="magic-wrapper">
+
+
+    <div class="magic-top-grid">
+                <article class="magic-card-focus">
+            <a href="https://www.gaeta.it/nasce-food-for-future-festival-il-nuovo-magazine-che-racconta-il-cibo-come-cultura-territorio-e-futuro" style="display:block;height:100%;">
+                <img width="1024" height="692" src="https://www.gaeta.it/wp-content/uploads/2026/02/1200x800-1024x692.jpg" class="magic-focus-bg wp-post-image" alt="" loading="lazy" decoding="async" srcset="https://www.gaeta.it/wp-content/uploads/2026/02/1200x800-1024x692.jpg 1024w, https://www.gaeta.it/wp-content/uploads/2026/02/1200x800-300x203.jpg 300w, https://www.gaeta.it/wp-content/uploads/2026/02/1200x800-768x519.jpg 768w, https://www.gaeta.it/wp-content/uploads/2026/02/1200x800.jpg 1245w" sizes="auto, (max-width: 1024px) 100vw, 1024px" />                <div class="magic-focus-content">
+                    <span class="magic-cat-label">Notizie</span>
+                    <h3 class="magic-focus-title">Nasce Food for Future Festival: il nuovo magazine che racconta il cibo come cultura, territorio e futuro</h3>
+                </div>
+            </a>
+        </article>
+                <article class="magic-card-focus">
+            <a href="https://www.gaeta.it/ostia-un-murales-che-celebra-eglantyne-jebb-il-tributo-a-una-pioniera-dei-diritti-dei-bambini" style="display:block;height:100%;">
+                <img width="1024" height="683" src="https://www.gaeta.it/wp-content/uploads/2026/01/save-the-children-inaugurazione-murale-eglandyne-alla-scuola-sangallo-021-1024x683.jpg" class="magic-focus-bg wp-post-image" alt="" loading="lazy" decoding="async" srcset="https://www.gaeta.it/wp-content/uploads/2026/01/save-the-children-inaugurazione-murale-eglandyne-alla-scuola-sangallo-021-1024x683.jpg 1024w, https://www.gaeta.it/wp-content/uploads/2026/01/save-the-children-inaugurazione-murale-eglandyne-alla-scuola-sangallo-021-300x200.jpg 300w, https://www.gaeta.it/wp-content/uploads/2026/01/save-the-children-inaugurazione-murale-eglandyne-alla-scuola-sangallo-021-768x512.jpg 768w, https://www.gaeta.it/wp-content/uploads/2026/01/save-the-children-inaugurazione-murale-eglandyne-alla-scuola-sangallo-021-600x400.jpg 600w, https://www.gaeta.it/wp-content/uploads/2026/01/save-the-children-inaugurazione-murale-eglandyne-alla-scuola-sangallo-021-810x540.jpg 810w, https://www.gaeta.it/wp-content/uploads/2026/01/save-the-children-inaugurazione-murale-eglandyne-alla-scuola-sangallo-021.jpg 1200w" sizes="auto, (max-width: 1024px) 100vw, 1024px" />                <div class="magic-focus-content">
+                    <span class="magic-cat-label">Notizie</span>
+                    <h3 class="magic-focus-title">Ostia &#8211; Un murales che celebra Eglantyne Jebb: il tributo a una pioniera dei diritti dei bambini</h3>
+                </div>
+            </a>
+        </article>
+                <article class="magic-card-focus">
+            <a href="https://www.gaeta.it/mandarini-10-ricette-dolci-e-salate-che-rivoluzioneranno-le-tue-cene-in-un-battibaleno" style="display:block;height:100%;">
+                <img width="1024" height="683" src="https://www.gaeta.it/wp-content/uploads/2026/01/mandarini-10-ricette-dolci-e-salate-che-rivoluzioneranno-le-tue-cene-in-un-battibaleno-copertina-gaeta-it-1024x683.jpg" class="magic-focus-bg wp-post-image" alt="" loading="lazy" decoding="async" srcset="https://www.gaeta.it/wp-content/uploads/2026/01/mandarini-10-ricette-dolci-e-salate-che-rivoluzioneranno-le-tue-cene-in-un-battibaleno-copertina-gaeta-it-1024x683.jpg 1024w, https://www.gaeta.it/wp-content/uploads/2026/01/mandarini-10-ricette-dolci-e-salate-che-rivoluzioneranno-le-tue-cene-in-un-battibaleno-copertina-gaeta-it-300x200.jpg 300w, https://www.gaeta.it/wp-content/uploads/2026/01/mandarini-10-ricette-dolci-e-salate-che-rivoluzioneranno-le-tue-cene-in-un-battibaleno-copertina-gaeta-it-768x512.jpg 768w, https://www.gaeta.it/wp-content/uploads/2026/01/mandarini-10-ricette-dolci-e-salate-che-rivoluzioneranno-le-tue-cene-in-un-battibaleno-copertina-gaeta-it-600x400.jpg 600w, https://www.gaeta.it/wp-content/uploads/2026/01/mandarini-10-ricette-dolci-e-salate-che-rivoluzioneranno-le-tue-cene-in-un-battibaleno-copertina-gaeta-it-810x540.jpg 810w, https://www.gaeta.it/wp-content/uploads/2026/01/mandarini-10-ricette-dolci-e-salate-che-rivoluzioneranno-le-tue-cene-in-un-battibaleno-copertina-gaeta-it.jpg 1200w" sizes="auto, (max-width: 1024px) 100vw, 1024px" />                <div class="magic-focus-content">
+                    <span class="magic-cat-label">Food</span>
+                    <h3 class="magic-focus-title">Mandarini: 10 ricette dolci e salate che rivoluzioneranno le tue cene in un battibaleno</h3>
+                </div>
+            </a>
+        </article>
+            </div>
+
+        <div class="magic-bottom-grid">
+                <article class="magic-card-small">
+            <a href="https://www.gaeta.it/operazione-vimibe-il-made-in-italy-torna-protagonista-nel-mercato-turistico-venezuelano" class="magic-small-thumb">
+                <img width="150" height="150" src="https://www.gaeta.it/wp-content/uploads/2026/01/Senza-titolo-150x150.jpeg" class="attachment-thumbnail size-thumbnail wp-post-image" alt="" loading="lazy" decoding="async" />            </a>
+            <div class="magic-small-content">
+                <span class="magic-small-cat" style="color:#ff8047">
+                    Notizie                </span>
+                <a href="https://www.gaeta.it/operazione-vimibe-il-made-in-italy-torna-protagonista-nel-mercato-turistico-venezuelano">
+                    <h3 class="magic-small-title">Operazione Vimibe: il Made in Italy torna protagonista nel mercato...</h3>
+                </a>
+            </div>
+        </article>
+                <article class="magic-card-small">
+            <a href="https://www.gaeta.it/timothee-chalamet-ottiene-il-primo-golden-globe-per-marty-supreme-e-dedica-il-successo-a-kylie-jenner" class="magic-small-thumb">
+                <img width="150" height="150" src="https://www.gaeta.it/wp-content/uploads/2026/01/timothee-chalamet-ottiene-primo-golden-globe-marty-supreme-gaeta-150x150.jpg" class="attachment-thumbnail size-thumbnail wp-post-image" alt="Timothée Chalamet ottiene il primo Golden Globe per Marty Supreme e dedica il successo a Kylie Jenner" loading="lazy" decoding="async" />            </a>
+            <div class="magic-small-content">
+                <span class="magic-small-cat" style="color:#ff8047">
+                    Intrattenimento                </span>
+                <a href="https://www.gaeta.it/timothee-chalamet-ottiene-il-primo-golden-globe-per-marty-supreme-e-dedica-il-successo-a-kylie-jenner">
+                    <h3 class="magic-small-title">Timothée Chalamet ottiene il primo Golden Globe per Marty Supreme...</h3>
+                </a>
+            </div>
+        </article>
+                <article class="magic-card-small">
+            <a href="https://www.gaeta.it/tra-trento-e-lindiana-il-viaggio-di-matteo-conci-il-portiere-che-ha-reinventato-il-ruolo-dagli-undici-metri" class="magic-small-thumb">
+                <img width="150" height="150" src="https://www.gaeta.it/wp-content/uploads/2025/12/Immagine-WhatsApp-2025-12-08-ore-10.18.48_620914fa-150x150.jpg" class="attachment-thumbnail size-thumbnail wp-post-image" alt="" loading="lazy" decoding="async" />            </a>
+            <div class="magic-small-content">
+                <span class="magic-small-cat" style="color:#ff8047">
+                    Notizie                </span>
+                <a href="https://www.gaeta.it/tra-trento-e-lindiana-il-viaggio-di-matteo-conci-il-portiere-che-ha-reinventato-il-ruolo-dagli-undici-metri">
+                    <h3 class="magic-small-title">Tra Trento e l’Indiana: il viaggio di Matteo Conci, il...</h3>
+                </a>
+            </div>
+        </article>
+                <article class="magic-card-small">
+            <a href="https://www.gaeta.it/natale-di-solidarieta-2025-oltre-1-800-persone-allauditorium-della-conciliazione-per-sostenere-il-terzo-settore" class="magic-small-thumb">
+                <img width="150" height="150" src="https://www.gaeta.it/wp-content/uploads/2025/12/20251215_NATALE_DI_SOLIDARIETA_0447-150x150.jpg" class="attachment-thumbnail size-thumbnail wp-post-image" alt="" loading="lazy" decoding="async" />            </a>
+            <div class="magic-small-content">
+                <span class="magic-small-cat" style="color:#ff8047">
+                    Notizie                </span>
+                <a href="https://www.gaeta.it/natale-di-solidarieta-2025-oltre-1-800-persone-allauditorium-della-conciliazione-per-sostenere-il-terzo-settore">
+                    <h3 class="magic-small-title">Natale di Solidarietà 2025: oltre 1.800 persone all’Auditorium della Conciliazione...</h3>
+                </a>
+            </div>
+        </article>
+                <article class="magic-card-small">
+            <a href="https://www.gaeta.it/punto-comune-ariccia-nasce-il-nuovo-punto-unico-di-accesso-ai-servizi-comunali" class="magic-small-thumb">
+                <img width="150" height="150" src="https://www.gaeta.it/wp-content/uploads/2025/12/Screenshot-2025-12-16-111017-150x150.png" class="attachment-thumbnail size-thumbnail wp-post-image" alt="" loading="lazy" decoding="async" />            </a>
+            <div class="magic-small-content">
+                <span class="magic-small-cat" style="color:#ff8047">
+                    Notizie                </span>
+                <a href="https://www.gaeta.it/punto-comune-ariccia-nasce-il-nuovo-punto-unico-di-accesso-ai-servizi-comunali">
+                    <h3 class="magic-small-title">Punto Comune Ariccia: nasce il nuovo Punto unico di accesso...</h3>
+                </a>
+            </div>
+        </article>
+                <article class="magic-card-small">
+            <a href="https://www.gaeta.it/benessere-accessibile-e-inclusione-sociale-nasce-la-sinergia-tra-fondazione-i-s-c-roma-litorale-e-v-spa-roma" class="magic-small-thumb">
+                <img width="150" height="150" src="https://www.gaeta.it/wp-content/uploads/2025/12/ritratto-monocromatico-di-un-atleta-che-gareggia-nel-campionato-dei-giochi-paralimpici-1-150x150.jpg" class="attachment-thumbnail size-thumbnail wp-post-image" alt="" loading="lazy" decoding="async" />            </a>
+            <div class="magic-small-content">
+                <span class="magic-small-cat" style="color:#ff8047">
+                    Lifestyle                </span>
+                <a href="https://www.gaeta.it/benessere-accessibile-e-inclusione-sociale-nasce-la-sinergia-tra-fondazione-i-s-c-roma-litorale-e-v-spa-roma">
+                    <h3 class="magic-small-title">Benessere accessibile e inclusione sociale: nasce la sinergia tra Fondazione...</h3>
+                </a>
+            </div>
+        </article>
+            </div>
+    
+
+</div>
+
+<section class="cat5-wrap" style="--catColor:#ff8047;">
+    <div class="cat5-header">
+        <h2><a href="https://www.gaeta.it/news">
+            Notizie        </a></h2>
+        <a class="cat5-more" href="https://www.gaeta.it/news">Vedi tutte →</a>
+    </div>
+
+    <div class="cat5-grid">
+
+        
+        <article class="cat5-main">
+            <a href="https://www.gaeta.it/biogena-one-il-green-drink-innovativo-che-sta-migliorando-la-salute-quotidiana" class="cat5-main-img">
+               <img width="1024" height="572" src="https://www.gaeta.it/wp-content/uploads/2026/02/ONE-Header-1024x572.jpg" class="attachment-large size-large wp-post-image" alt="BIOGENA ONE" loading="lazy" decoding="async" sizes="auto, (max-width: 768px) 100vw, 600px" srcset="https://www.gaeta.it/wp-content/uploads/2026/02/ONE-Header-1024x572.jpg 1024w, https://www.gaeta.it/wp-content/uploads/2026/02/ONE-Header-300x168.jpg 300w, https://www.gaeta.it/wp-content/uploads/2026/02/ONE-Header-768x429.jpg 768w, https://www.gaeta.it/wp-content/uploads/2026/02/ONE-Header.jpg 1200w" />            </a>
+
+            <div class="cat5-main-body">
+                <span class="cat5-label">Notizie</span>
+                <h3 class="cat5-main-title">
+                    <a href="https://www.gaeta.it/biogena-one-il-green-drink-innovativo-che-sta-migliorando-la-salute-quotidiana">
+                        BIOGENA ONE il green drink innovativo che sta migliorando la salute quotidiana                    </a>
+                </h3>
+                <p class="cat5-main-excerpt">
+                    BIOGENA è un’azienda specializzata in micronutrizione avanzata. Da 20 anni sviluppa integratori premium basati su ricerca scientifica, purezza delle materie prime e…                </p>
+            </div>
+        </article>
+
+        <div class="cat5-side">
+
+                    <article class="cat5-side-item">
+                <a href="https://www.gaeta.it/nasce-food-for-future-festival-il-nuovo-magazine-che-racconta-il-cibo-come-cultura-territorio-e-futuro" class="cat5-side-img">
+                    <img width="300" height="200" src="https://www.gaeta.it/wp-content/uploads/2026/02/1200x800-300x200.jpg" class="attachment-discover_thumb size-discover_thumb wp-post-image" alt="" loading="lazy" decoding="async" srcset="https://www.gaeta.it/wp-content/uploads/2026/02/1200x800-300x200.jpg 300w, https://www.gaeta.it/wp-content/uploads/2026/02/1200x800-600x400.jpg 600w, https://www.gaeta.it/wp-content/uploads/2026/02/1200x800-810x540.jpg 810w, https://www.gaeta.it/wp-content/uploads/2026/02/1200x800-1200x800.jpg 1200w" sizes="auto, (max-width: 300px) 100vw, 300px" />                </a>
+
+                <div class="cat5-side-body">
+                    <h4 class="cat5-side-title">
+                        <a href="https://www.gaeta.it/nasce-food-for-future-festival-il-nuovo-magazine-che-racconta-il-cibo-come-cultura-territorio-e-futuro">
+                            Nasce Food for Future Festival: il nuovo magazine che racconta il cibo come cultura, territorio e futuro                        </a>
+                    </h4>
+                </div>
+            </article>
+                    <article class="cat5-side-item">
+                <a href="https://www.gaeta.it/a-san-valentino-nemi-si-illumina-di-fiabe-concerto-gratuito-a-lume-di-candela-il-13-febbraio" class="cat5-side-img">
+                    <img width="300" height="200" src="https://www.gaeta.it/wp-content/uploads/2026/02/Screenshot-2026-02-04-113454-300x200.png" class="attachment-discover_thumb size-discover_thumb wp-post-image" alt="" loading="lazy" decoding="async" srcset="https://www.gaeta.it/wp-content/uploads/2026/02/Screenshot-2026-02-04-113454-300x200.png 300w, https://www.gaeta.it/wp-content/uploads/2026/02/Screenshot-2026-02-04-113454-600x400.png 600w, https://www.gaeta.it/wp-content/uploads/2026/02/Screenshot-2026-02-04-113454-810x540.png 810w" sizes="auto, (max-width: 300px) 100vw, 300px" />                </a>
+
+                <div class="cat5-side-body">
+                    <h4 class="cat5-side-title">
+                        <a href="https://www.gaeta.it/a-san-valentino-nemi-si-illumina-di-fiabe-concerto-gratuito-a-lume-di-candela-il-13-febbraio">
+                            A San Valentino Nemi si illumina di fiabe: concerto gratuito a lume di candela il 13 febbraio                        </a>
+                    </h4>
+                </div>
+            </article>
+                    <article class="cat5-side-item">
+                <a href="https://www.gaeta.it/ostia-un-murales-che-celebra-eglantyne-jebb-il-tributo-a-una-pioniera-dei-diritti-dei-bambini" class="cat5-side-img">
+                    <img width="300" height="200" src="https://www.gaeta.it/wp-content/uploads/2026/01/save-the-children-inaugurazione-murale-eglandyne-alla-scuola-sangallo-021-300x200.jpg" class="attachment-discover_thumb size-discover_thumb wp-post-image" alt="" loading="lazy" decoding="async" srcset="https://www.gaeta.it/wp-content/uploads/2026/01/save-the-children-inaugurazione-murale-eglandyne-alla-scuola-sangallo-021-300x200.jpg 300w, https://www.gaeta.it/wp-content/uploads/2026/01/save-the-children-inaugurazione-murale-eglandyne-alla-scuola-sangallo-021-1024x683.jpg 1024w, https://www.gaeta.it/wp-content/uploads/2026/01/save-the-children-inaugurazione-murale-eglandyne-alla-scuola-sangallo-021-768x512.jpg 768w, https://www.gaeta.it/wp-content/uploads/2026/01/save-the-children-inaugurazione-murale-eglandyne-alla-scuola-sangallo-021-600x400.jpg 600w, https://www.gaeta.it/wp-content/uploads/2026/01/save-the-children-inaugurazione-murale-eglandyne-alla-scuola-sangallo-021-810x540.jpg 810w, https://www.gaeta.it/wp-content/uploads/2026/01/save-the-children-inaugurazione-murale-eglandyne-alla-scuola-sangallo-021.jpg 1200w" sizes="auto, (max-width: 300px) 100vw, 300px" />                </a>
+
+                <div class="cat5-side-body">
+                    <h4 class="cat5-side-title">
+                        <a href="https://www.gaeta.it/ostia-un-murales-che-celebra-eglantyne-jebb-il-tributo-a-una-pioniera-dei-diritti-dei-bambini">
+                            Ostia &#8211; Un murales che celebra Eglantyne Jebb: il tributo a una pioniera dei diritti dei bambini                        </a>
+                    </h4>
+                </div>
+            </article>
+                    <article class="cat5-side-item">
+                <a href="https://www.gaeta.it/operazione-vimibe-il-made-in-italy-torna-protagonista-nel-mercato-turistico-venezuelano" class="cat5-side-img">
+                    <img width="300" height="200" src="https://www.gaeta.it/wp-content/uploads/2026/01/Senza-titolo-300x200.jpeg" class="attachment-discover_thumb size-discover_thumb wp-post-image" alt="" loading="lazy" decoding="async" srcset="https://www.gaeta.it/wp-content/uploads/2026/01/Senza-titolo-300x200.jpeg 300w, https://www.gaeta.it/wp-content/uploads/2026/01/Senza-titolo-600x400.jpeg 600w, https://www.gaeta.it/wp-content/uploads/2026/01/Senza-titolo-810x540.jpeg 810w" sizes="auto, (max-width: 300px) 100vw, 300px" />                </a>
+
+                <div class="cat5-side-body">
+                    <h4 class="cat5-side-title">
+                        <a href="https://www.gaeta.it/operazione-vimibe-il-made-in-italy-torna-protagonista-nel-mercato-turistico-venezuelano">
+                            Operazione Vimibe: il Made in Italy torna protagonista nel mercato turistico venezuelano                        </a>
+                    </h4>
+                </div>
+            </article>
+        
+        </div>
+
+    </div>
+</section>
+
+
+<section class="cat5-wrap" style="--catColor:#ff8047;">
+    <div class="cat5-header">
+        <h2><a href="https://www.gaeta.it/news/turismo">
+            Turismo        </a></h2>
+        <a class="cat5-more" href="https://www.gaeta.it/news/turismo">Vedi tutte →</a>
+    </div>
+
+    <div class="cat5-grid">
+
+        
+        <article class="cat5-main">
+            <a href="https://www.gaeta.it/impianti-sciistici-in-italia-ecco-quelli-aperti-mete-perfette-per-chi-non-vede-lora-di-mettere-gli-sci-ai-piedi" class="cat5-main-img">
+               <img width="1024" height="683" src="https://www.gaeta.it/wp-content/uploads/2025/12/impianti-sciistici-italia-ecco-quelli-aperti-mete-perfette-gaeta-1024x683.jpg" class="attachment-large size-large wp-post-image" alt="Impianti sciistici in Italia, ecco quelli aperti: mete perfette per chi non vede l’ora di mettere gli sci ai piedi" loading="lazy" decoding="async" sizes="auto, (max-width: 768px) 100vw, 600px" srcset="https://www.gaeta.it/wp-content/uploads/2025/12/impianti-sciistici-italia-ecco-quelli-aperti-mete-perfette-gaeta-1024x683.jpg 1024w, https://www.gaeta.it/wp-content/uploads/2025/12/impianti-sciistici-italia-ecco-quelli-aperti-mete-perfette-gaeta-300x200.jpg 300w, https://www.gaeta.it/wp-content/uploads/2025/12/impianti-sciistici-italia-ecco-quelli-aperti-mete-perfette-gaeta-768x512.jpg 768w, https://www.gaeta.it/wp-content/uploads/2025/12/impianti-sciistici-italia-ecco-quelli-aperti-mete-perfette-gaeta-600x400.jpg 600w, https://www.gaeta.it/wp-content/uploads/2025/12/impianti-sciistici-italia-ecco-quelli-aperti-mete-perfette-gaeta-810x540.jpg 810w, https://www.gaeta.it/wp-content/uploads/2025/12/impianti-sciistici-italia-ecco-quelli-aperti-mete-perfette-gaeta.jpg 1200w" />            </a>
+
+            <div class="cat5-main-body">
+                <span class="cat5-label">Turismo</span>
+                <h3 class="cat5-main-title">
+                    <a href="https://www.gaeta.it/impianti-sciistici-in-italia-ecco-quelli-aperti-mete-perfette-per-chi-non-vede-lora-di-mettere-gli-sci-ai-piedi">
+                        Impianti sciistici in Italia, ecco quelli aperti: mete perfette per chi non vede l’ora di mettere gli sci ai piedi                    </a>
+                </h3>
+                <p class="cat5-main-excerpt">
+                    Una coltre di neve fresca accoglie i primi sciatori già all’alba, mentre il profumo di pino bruciato sale dai camini delle baite.…                </p>
+            </div>
+        </article>
+
+        <div class="cat5-side">
+
+                    <article class="cat5-side-item">
+                <a href="https://www.gaeta.it/il-luogo-magico-che-a-natale-ospita-piu-di-300-mercatini-e-sembra-uscito-da-un-film" class="cat5-side-img">
+                    <img width="300" height="200" src="https://www.gaeta.it/wp-content/uploads/2025/10/Fibi-29.jpg" class="attachment-discover_thumb size-discover_thumb wp-post-image" alt="" loading="lazy" decoding="async" srcset="https://www.gaeta.it/wp-content/uploads/2025/10/Fibi-29.jpg 1200w, https://www.gaeta.it/wp-content/uploads/2025/10/Fibi-29-300x200.jpg 300w, https://www.gaeta.it/wp-content/uploads/2025/10/Fibi-29-1024x683.jpg 1024w, https://www.gaeta.it/wp-content/uploads/2025/10/Fibi-29-768x512.jpg 768w" sizes="auto, (max-width: 300px) 100vw, 300px" />                </a>
+
+                <div class="cat5-side-body">
+                    <h4 class="cat5-side-title">
+                        <a href="https://www.gaeta.it/il-luogo-magico-che-a-natale-ospita-piu-di-300-mercatini-e-sembra-uscito-da-un-film">
+                            Il luogo magico che a Natale ospita più di 300 mercatini (e sembra uscito da un film)                        </a>
+                    </h4>
+                </div>
+            </article>
+                    <article class="cat5-side-item">
+                <a href="https://www.gaeta.it/le-10-citta-europee-con-gli-affitti-piu-alti-nel-2025-secondo-il-property-index-di-deloitte" class="cat5-side-img">
+                    <img width="300" height="171" src="https://www.gaeta.it/wp-content/uploads/2025/09/Le_10_cittC3A0_europee_con_gli_af.jpg" class="attachment-discover_thumb size-discover_thumb wp-post-image" alt="" loading="lazy" decoding="async" srcset="https://www.gaeta.it/wp-content/uploads/2025/09/Le_10_cittC3A0_europee_con_gli_af.jpg 1217w, https://www.gaeta.it/wp-content/uploads/2025/09/Le_10_cittC3A0_europee_con_gli_af-300x171.jpg 300w, https://www.gaeta.it/wp-content/uploads/2025/09/Le_10_cittC3A0_europee_con_gli_af-1024x584.jpg 1024w, https://www.gaeta.it/wp-content/uploads/2025/09/Le_10_cittC3A0_europee_con_gli_af-768x438.jpg 768w" sizes="auto, (max-width: 300px) 100vw, 300px" />                </a>
+
+                <div class="cat5-side-body">
+                    <h4 class="cat5-side-title">
+                        <a href="https://www.gaeta.it/le-10-citta-europee-con-gli-affitti-piu-alti-nel-2025-secondo-il-property-index-di-deloitte">
+                            Le 10 città europee con gli affitti più alti nel 2025 secondo il Property Index Di Deloitte                        </a>
+                    </h4>
+                </div>
+            </article>
+                    <article class="cat5-side-item">
+                <a href="https://www.gaeta.it/voucher-turismo-bari-2025-bando-e-requisiti-per-contributi-fino-a-6mila-euro-alle-imprese-turistiche" class="cat5-side-img">
+                    <img width="300" height="169" src="https://www.gaeta.it/wp-content/uploads/2025/09/Voucher_turismo_bari_20253A_ban.jpg" class="attachment-discover_thumb size-discover_thumb wp-post-image" alt="" loading="lazy" decoding="async" srcset="https://www.gaeta.it/wp-content/uploads/2025/09/Voucher_turismo_bari_20253A_ban.jpg 1280w, https://www.gaeta.it/wp-content/uploads/2025/09/Voucher_turismo_bari_20253A_ban-300x169.jpg 300w, https://www.gaeta.it/wp-content/uploads/2025/09/Voucher_turismo_bari_20253A_ban-1024x576.jpg 1024w, https://www.gaeta.it/wp-content/uploads/2025/09/Voucher_turismo_bari_20253A_ban-768x432.jpg 768w" sizes="auto, (max-width: 300px) 100vw, 300px" />                </a>
+
+                <div class="cat5-side-body">
+                    <h4 class="cat5-side-title">
+                        <a href="https://www.gaeta.it/voucher-turismo-bari-2025-bando-e-requisiti-per-contributi-fino-a-6mila-euro-alle-imprese-turistiche">
+                            Voucher turismo bari 2025: bando e requisiti per contributi fino a 6mila euro alle imprese turistiche                        </a>
+                    </h4>
+                </div>
+            </article>
+                    <article class="cat5-side-item">
+                <a href="https://www.gaeta.it/agrigento-capitale-della-cultura-due-sculture-simbolo-fatte-con-tetrapak-riciclato" class="cat5-side-img">
+                    <img width="300" height="169" src="https://www.gaeta.it/wp-content/uploads/2025/09/Agrigento_capitale_della_cultu.jpg" class="attachment-discover_thumb size-discover_thumb wp-post-image" alt="" loading="lazy" decoding="async" srcset="https://www.gaeta.it/wp-content/uploads/2025/09/Agrigento_capitale_della_cultu.jpg 1129w, https://www.gaeta.it/wp-content/uploads/2025/09/Agrigento_capitale_della_cultu-300x169.jpg 300w, https://www.gaeta.it/wp-content/uploads/2025/09/Agrigento_capitale_della_cultu-1024x576.jpg 1024w, https://www.gaeta.it/wp-content/uploads/2025/09/Agrigento_capitale_della_cultu-768x432.jpg 768w" sizes="auto, (max-width: 300px) 100vw, 300px" />                </a>
+
+                <div class="cat5-side-body">
+                    <h4 class="cat5-side-title">
+                        <a href="https://www.gaeta.it/agrigento-capitale-della-cultura-due-sculture-simbolo-fatte-con-tetrapak-riciclato">
+                            Agrigento capitale della cultura: due sculture simbolo fatte con tetrapak riciclato                        </a>
+                    </h4>
+                </div>
+            </article>
+        
+        </div>
+
+    </div>
+</section>
+
+
+<section class="cat5-wrap" style="--catColor:#ff8047;">
+    <div class="cat5-header">
+        <h2><a href="https://www.gaeta.it/food-creative">
+            Food        </a></h2>
+        <a class="cat5-more" href="https://www.gaeta.it/food-creative">Vedi tutte →</a>
+    </div>
+
+    <div class="cat5-grid">
+
+        
+        <article class="cat5-main">
+            <a href="https://www.gaeta.it/mandarini-10-ricette-dolci-e-salate-che-rivoluzioneranno-le-tue-cene-in-un-battibaleno" class="cat5-main-img">
+               <img width="1024" height="683" src="https://www.gaeta.it/wp-content/uploads/2026/01/mandarini-10-ricette-dolci-e-salate-che-rivoluzioneranno-le-tue-cene-in-un-battibaleno-copertina-gaeta-it-1024x683.jpg" class="attachment-large size-large wp-post-image" alt="" loading="lazy" decoding="async" sizes="auto, (max-width: 768px) 100vw, 600px" srcset="https://www.gaeta.it/wp-content/uploads/2026/01/mandarini-10-ricette-dolci-e-salate-che-rivoluzioneranno-le-tue-cene-in-un-battibaleno-copertina-gaeta-it-1024x683.jpg 1024w, https://www.gaeta.it/wp-content/uploads/2026/01/mandarini-10-ricette-dolci-e-salate-che-rivoluzioneranno-le-tue-cene-in-un-battibaleno-copertina-gaeta-it-300x200.jpg 300w, https://www.gaeta.it/wp-content/uploads/2026/01/mandarini-10-ricette-dolci-e-salate-che-rivoluzioneranno-le-tue-cene-in-un-battibaleno-copertina-gaeta-it-768x512.jpg 768w, https://www.gaeta.it/wp-content/uploads/2026/01/mandarini-10-ricette-dolci-e-salate-che-rivoluzioneranno-le-tue-cene-in-un-battibaleno-copertina-gaeta-it-600x400.jpg 600w, https://www.gaeta.it/wp-content/uploads/2026/01/mandarini-10-ricette-dolci-e-salate-che-rivoluzioneranno-le-tue-cene-in-un-battibaleno-copertina-gaeta-it-810x540.jpg 810w, https://www.gaeta.it/wp-content/uploads/2026/01/mandarini-10-ricette-dolci-e-salate-che-rivoluzioneranno-le-tue-cene-in-un-battibaleno-copertina-gaeta-it.jpg 1200w" />            </a>
+
+            <div class="cat5-main-body">
+                <span class="cat5-label">Food</span>
+                <h3 class="cat5-main-title">
+                    <a href="https://www.gaeta.it/mandarini-10-ricette-dolci-e-salate-che-rivoluzioneranno-le-tue-cene-in-un-battibaleno">
+                        Mandarini: 10 ricette dolci e salate che rivoluzioneranno le tue cene in un battibaleno                    </a>
+                </h3>
+                <p class="cat5-main-excerpt">
+                    Il mandarino è più di un semplice agrume: è un ingrediente versatile che può arricchire i piatti, sia dolci che salati, portando…                </p>
+            </div>
+        </article>
+
+        <div class="cat5-side">
+
+                    <article class="cat5-side-item">
+                <a href="https://www.gaeta.it/degustazione-birra-a-roma-lesperienza-artigianale-del-podere-676-tra-natura-e-passione" class="cat5-side-img">
+                    <img width="300" height="197" src="https://www.gaeta.it/wp-content/uploads/2025/10/Screenshot-2025-10-29-151055.png" class="attachment-discover_thumb size-discover_thumb wp-post-image" alt="" loading="lazy" decoding="async" srcset="https://www.gaeta.it/wp-content/uploads/2025/10/Screenshot-2025-10-29-151055.png 911w, https://www.gaeta.it/wp-content/uploads/2025/10/Screenshot-2025-10-29-151055-300x197.png 300w, https://www.gaeta.it/wp-content/uploads/2025/10/Screenshot-2025-10-29-151055-768x505.png 768w" sizes="auto, (max-width: 300px) 100vw, 300px" />                </a>
+
+                <div class="cat5-side-body">
+                    <h4 class="cat5-side-title">
+                        <a href="https://www.gaeta.it/degustazione-birra-a-roma-lesperienza-artigianale-del-podere-676-tra-natura-e-passione">
+                            Degustazione birra a Roma: l’esperienza artigianale del Podere 676 tra natura e passione                        </a>
+                    </h4>
+                </div>
+            </article>
+                    <article class="cat5-side-item">
+                <a href="https://www.gaeta.it/il-segreto-nascosto-degli-spaghetti-cacio-e-pepe-perche-non-vengono-mai-come-al-ristorante" class="cat5-side-img">
+                    <img width="300" height="200" src="https://www.gaeta.it/wp-content/uploads/2025/10/Fibi-26.jpg" class="attachment-discover_thumb size-discover_thumb wp-post-image" alt="" loading="lazy" decoding="async" srcset="https://www.gaeta.it/wp-content/uploads/2025/10/Fibi-26.jpg 1200w, https://www.gaeta.it/wp-content/uploads/2025/10/Fibi-26-300x200.jpg 300w, https://www.gaeta.it/wp-content/uploads/2025/10/Fibi-26-1024x683.jpg 1024w, https://www.gaeta.it/wp-content/uploads/2025/10/Fibi-26-768x512.jpg 768w" sizes="auto, (max-width: 300px) 100vw, 300px" />                </a>
+
+                <div class="cat5-side-body">
+                    <h4 class="cat5-side-title">
+                        <a href="https://www.gaeta.it/il-segreto-nascosto-degli-spaghetti-cacio-e-pepe-perche-non-vengono-mai-come-al-ristorante">
+                            Il segreto nascosto degli spaghetti cacio e pepe: perché non vengono mai come al ristorante                        </a>
+                    </h4>
+                </div>
+            </article>
+                    <article class="cat5-side-item">
+                <a href="https://www.gaeta.it/fette-biscottate-quello-che-non-ti-dicono-cosa-scoprono-gli-esperti-e-cosa-cambia-a-colazione" class="cat5-side-img">
+                    <img width="300" height="200" src="https://www.gaeta.it/wp-content/uploads/2025/10/Fibi-24.jpg" class="attachment-discover_thumb size-discover_thumb wp-post-image" alt="" loading="lazy" decoding="async" srcset="https://www.gaeta.it/wp-content/uploads/2025/10/Fibi-24.jpg 1200w, https://www.gaeta.it/wp-content/uploads/2025/10/Fibi-24-300x200.jpg 300w, https://www.gaeta.it/wp-content/uploads/2025/10/Fibi-24-1024x683.jpg 1024w, https://www.gaeta.it/wp-content/uploads/2025/10/Fibi-24-768x512.jpg 768w" sizes="auto, (max-width: 300px) 100vw, 300px" />                </a>
+
+                <div class="cat5-side-body">
+                    <h4 class="cat5-side-title">
+                        <a href="https://www.gaeta.it/fette-biscottate-quello-che-non-ti-dicono-cosa-scoprono-gli-esperti-e-cosa-cambia-a-colazione">
+                            Fette biscottate, quello che non ti dicono: cosa scoprono gli esperti (e cosa cambia a colazione)                        </a>
+                    </h4>
+                </div>
+            </article>
+                    <article class="cat5-side-item">
+                <a href="https://www.gaeta.it/il-consorzio-asiago-dop-lancia-la-piu-grande-campagna-di-comunicazione-tra-tv-cinema-e-digitale" class="cat5-side-img">
+                    <img width="300" height="200" src="https://www.gaeta.it/wp-content/uploads/2025/09/Il_Consorzio_Asiago_DOP_lancia.jpg" class="attachment-discover_thumb size-discover_thumb wp-post-image" alt="" loading="lazy" decoding="async" srcset="https://www.gaeta.it/wp-content/uploads/2025/09/Il_Consorzio_Asiago_DOP_lancia.jpg 900w, https://www.gaeta.it/wp-content/uploads/2025/09/Il_Consorzio_Asiago_DOP_lancia-300x200.jpg 300w, https://www.gaeta.it/wp-content/uploads/2025/09/Il_Consorzio_Asiago_DOP_lancia-768x512.jpg 768w" sizes="auto, (max-width: 300px) 100vw, 300px" />                </a>
+
+                <div class="cat5-side-body">
+                    <h4 class="cat5-side-title">
+                        <a href="https://www.gaeta.it/il-consorzio-asiago-dop-lancia-la-piu-grande-campagna-di-comunicazione-tra-tv-cinema-e-digitale">
+                            Il Consorzio Asiago DOP lancia la più grande campagna di comunicazione tra tv, cinema e digitale                        </a>
+                    </h4>
+                </div>
+            </article>
+        
+        </div>
+
+    </div>
+</section>
+
+
+<section class="cat5-wrap" style="--catColor:#ff8047;">
+    <div class="cat5-header">
+        <h2><a href="https://www.gaeta.it/lifestyle">
+            Lifestyle        </a></h2>
+        <a class="cat5-more" href="https://www.gaeta.it/lifestyle">Vedi tutte →</a>
+    </div>
+
+    <div class="cat5-grid">
+
+        
+        <article class="cat5-main">
+            <a href="https://www.gaeta.it/melanoma-e-tatuaggi-marco-manzo-chiede-un-confronto-tra-medici-e-tatuatori-sulla-nuova-legge" class="cat5-main-img">
+               <img width="1024" height="576" src="https://www.gaeta.it/wp-content/uploads/2026/01/170451023-ec4b634a-f714-4dc2-be74-f0ddba4cb4b2-1024x576.jpg" class="attachment-large size-large wp-post-image" alt="" loading="lazy" decoding="async" sizes="auto, (max-width: 768px) 100vw, 600px" srcset="https://www.gaeta.it/wp-content/uploads/2026/01/170451023-ec4b634a-f714-4dc2-be74-f0ddba4cb4b2-1024x576.jpg 1024w, https://www.gaeta.it/wp-content/uploads/2026/01/170451023-ec4b634a-f714-4dc2-be74-f0ddba4cb4b2-300x169.jpg 300w, https://www.gaeta.it/wp-content/uploads/2026/01/170451023-ec4b634a-f714-4dc2-be74-f0ddba4cb4b2-768x432.jpg 768w, https://www.gaeta.it/wp-content/uploads/2026/01/170451023-ec4b634a-f714-4dc2-be74-f0ddba4cb4b2.jpg 1280w" />            </a>
+
+            <div class="cat5-main-body">
+                <span class="cat5-label">Lifestyle</span>
+                <h3 class="cat5-main-title">
+                    <a href="https://www.gaeta.it/melanoma-e-tatuaggi-marco-manzo-chiede-un-confronto-tra-medici-e-tatuatori-sulla-nuova-legge">
+                        Melanoma e tatuaggi: Marco Manzo chiede un confronto tra medici e tatuatori sulla nuova legge                    </a>
+                </h3>
+                <p class="cat5-main-excerpt">
+                    Marco Manzo, primo docente nei corsi professionali obbligatori italiani di igiene sul lavoro e tecnica e nei primi corsi sperimentali europei, interviene…                </p>
+            </div>
+        </article>
+
+        <div class="cat5-side">
+
+                    <article class="cat5-side-item">
+                <a href="https://www.gaeta.it/benessere-accessibile-e-inclusione-sociale-nasce-la-sinergia-tra-fondazione-i-s-c-roma-litorale-e-v-spa-roma" class="cat5-side-img">
+                    <img width="300" height="200" src="https://www.gaeta.it/wp-content/uploads/2025/12/ritratto-monocromatico-di-un-atleta-che-gareggia-nel-campionato-dei-giochi-paralimpici-1-300x200.jpg" class="attachment-discover_thumb size-discover_thumb wp-post-image" alt="" loading="lazy" decoding="async" srcset="https://www.gaeta.it/wp-content/uploads/2025/12/ritratto-monocromatico-di-un-atleta-che-gareggia-nel-campionato-dei-giochi-paralimpici-1-300x200.jpg 300w, https://www.gaeta.it/wp-content/uploads/2025/12/ritratto-monocromatico-di-un-atleta-che-gareggia-nel-campionato-dei-giochi-paralimpici-1-600x400.jpg 600w" sizes="auto, (max-width: 300px) 100vw, 300px" />                </a>
+
+                <div class="cat5-side-body">
+                    <h4 class="cat5-side-title">
+                        <a href="https://www.gaeta.it/benessere-accessibile-e-inclusione-sociale-nasce-la-sinergia-tra-fondazione-i-s-c-roma-litorale-e-v-spa-roma">
+                            Benessere accessibile e inclusione sociale: nasce la sinergia tra Fondazione I.S.C. Roma Litorale e V SPA Roma                        </a>
+                    </h4>
+                </div>
+            </article>
+                    <article class="cat5-side-item">
+                <a href="https://www.gaeta.it/oroscopo-di-maga-gaeta-le-sorprese-del-periodo-un-segno-ritrova-fortuna-e-uno-deve-fare-attenzione" class="cat5-side-img">
+                    <img width="300" height="200" src="https://www.gaeta.it/wp-content/uploads/2025/11/ChatGPT-Image-27-nov-2025-05_06_391.png" class="attachment-discover_thumb size-discover_thumb wp-post-image" alt="" loading="lazy" decoding="async" srcset="https://www.gaeta.it/wp-content/uploads/2025/11/ChatGPT-Image-27-nov-2025-05_06_391.png 1200w, https://www.gaeta.it/wp-content/uploads/2025/11/ChatGPT-Image-27-nov-2025-05_06_391-300x200.png 300w, https://www.gaeta.it/wp-content/uploads/2025/11/ChatGPT-Image-27-nov-2025-05_06_391-1024x683.png 1024w" sizes="auto, (max-width: 300px) 100vw, 300px" />                </a>
+
+                <div class="cat5-side-body">
+                    <h4 class="cat5-side-title">
+                        <a href="https://www.gaeta.it/oroscopo-di-maga-gaeta-le-sorprese-del-periodo-un-segno-ritrova-fortuna-e-uno-deve-fare-attenzione">
+                            Oroscopo di Maga Gaeta, le sorprese del periodo: un segno ritrova fortuna e uno deve fare attenzione                        </a>
+                    </h4>
+                </div>
+            </article>
+                    <article class="cat5-side-item">
+                <a href="https://www.gaeta.it/tutti-pazzi-per-il-neon-a-roma-si-inaugura-con-un-mare-di-vip-il-negozio-neonflow-di-nannuzzi-paglia-gentilezza-e-hassan" class="cat5-side-img">
+                    <img width="300" height="200" src="https://www.gaeta.it/wp-content/uploads/2025/11/Screenshot-2025-11-25-110613-300x200.png" class="attachment-discover_thumb size-discover_thumb wp-post-image" alt="" loading="lazy" decoding="async" srcset="https://www.gaeta.it/wp-content/uploads/2025/11/Screenshot-2025-11-25-110613-300x200.png 300w, https://www.gaeta.it/wp-content/uploads/2025/11/Screenshot-2025-11-25-110613-600x400.png 600w" sizes="auto, (max-width: 300px) 100vw, 300px" />                </a>
+
+                <div class="cat5-side-body">
+                    <h4 class="cat5-side-title">
+                        <a href="https://www.gaeta.it/tutti-pazzi-per-il-neon-a-roma-si-inaugura-con-un-mare-di-vip-il-negozio-neonflow-di-nannuzzi-paglia-gentilezza-e-hassan">
+                            Tutti pazzi per il neon: a Roma si inaugura con un mare di vip il negozio NeonFlow di Nannuzzi, Paglia, Gentilezza e Hassan                        </a>
+                    </h4>
+                </div>
+            </article>
+                    <article class="cat5-side-item">
+                <a href="https://www.gaeta.it/artisti-contemporanei-da-conoscere-oggi-cinque-nomi-che-stanno-cambiando-larte" class="cat5-side-img">
+                    <img width="300" height="169" src="https://www.gaeta.it/wp-content/uploads/2025/11/170435686-a430de28-823e-4be0-ba94-1b8d057666d6-1024x576-1.jpg" class="attachment-discover_thumb size-discover_thumb wp-post-image" alt="" loading="lazy" decoding="async" srcset="https://www.gaeta.it/wp-content/uploads/2025/11/170435686-a430de28-823e-4be0-ba94-1b8d057666d6-1024x576-1.jpg 1024w, https://www.gaeta.it/wp-content/uploads/2025/11/170435686-a430de28-823e-4be0-ba94-1b8d057666d6-1024x576-1-300x169.jpg 300w, https://www.gaeta.it/wp-content/uploads/2025/11/170435686-a430de28-823e-4be0-ba94-1b8d057666d6-1024x576-1-768x432.jpg 768w" sizes="auto, (max-width: 300px) 100vw, 300px" />                </a>
+
+                <div class="cat5-side-body">
+                    <h4 class="cat5-side-title">
+                        <a href="https://www.gaeta.it/artisti-contemporanei-da-conoscere-oggi-cinque-nomi-che-stanno-cambiando-larte">
+                            Artisti contemporanei da conoscere oggi: cinque nomi che stanno cambiando l’arte                        </a>
+                    </h4>
+                </div>
+            </article>
+        
+        </div>
+
+    </div>
+</section>
+
+
+<section class="cat5-wrap" style="--catColor:#ff8047;">
+    <div class="cat5-header">
+        <h2><a href="https://www.gaeta.it/news/gaeta">
+            Gaeta        </a></h2>
+        <a class="cat5-more" href="https://www.gaeta.it/news/gaeta">Vedi tutte →</a>
+    </div>
+
+    <div class="cat5-grid">
+
+        
+        <article class="cat5-main">
+            <a href="https://www.gaeta.it/gaeta-si-afferma-come-punto-di-incontro-degli-itinerari-culturali-nei-porti-del-mediterraneo" class="cat5-main-img">
+               <img width="1024" height="683" src="https://www.gaeta.it/wp-content/uploads/2025/12/gaeta-si-afferma-come-punto-incontro-itinerari-culturali-gaeta-1024x683.jpg" class="attachment-large size-large wp-post-image" alt="Gaeta si afferma come punto di incontro degli itinerari culturali nei porti del Mediterraneo" loading="lazy" decoding="async" sizes="auto, (max-width: 768px) 100vw, 600px" srcset="https://www.gaeta.it/wp-content/uploads/2025/12/gaeta-si-afferma-come-punto-incontro-itinerari-culturali-gaeta-1024x683.jpg 1024w, https://www.gaeta.it/wp-content/uploads/2025/12/gaeta-si-afferma-come-punto-incontro-itinerari-culturali-gaeta-300x200.jpg 300w, https://www.gaeta.it/wp-content/uploads/2025/12/gaeta-si-afferma-come-punto-incontro-itinerari-culturali-gaeta-768x512.jpg 768w, https://www.gaeta.it/wp-content/uploads/2025/12/gaeta-si-afferma-come-punto-incontro-itinerari-culturali-gaeta-600x400.jpg 600w, https://www.gaeta.it/wp-content/uploads/2025/12/gaeta-si-afferma-come-punto-incontro-itinerari-culturali-gaeta-810x540.jpg 810w, https://www.gaeta.it/wp-content/uploads/2025/12/gaeta-si-afferma-come-punto-incontro-itinerari-culturali-gaeta.jpg 1200w" />            </a>
+
+            <div class="cat5-main-body">
+                <span class="cat5-label">Gaeta</span>
+                <h3 class="cat5-main-title">
+                    <a href="https://www.gaeta.it/gaeta-si-afferma-come-punto-di-incontro-degli-itinerari-culturali-nei-porti-del-mediterraneo">
+                        Gaeta si afferma come punto di incontro degli itinerari culturali nei porti del Mediterraneo                    </a>
+                </h3>
+                <p class="cat5-main-excerpt">
+                    Nei centri urbani e lungo le coste del Mediterraneo, molti territori stanno cercando di affermarsi come nodi principali degli itinerari culturali europei,…                </p>
+            </div>
+        </article>
+
+        <div class="cat5-side">
+
+                    <article class="cat5-side-item">
+                <a href="https://www.gaeta.it/il-castello-di-gaeta-si-rinnova-e-accoglie-tutti-con-un-percorso-di-visita-inclusivo-e-innovativo" class="cat5-side-img">
+                    <img width="300" height="200" src="https://www.gaeta.it/wp-content/uploads/2025/12/castello-gaeta-si-rinnova-e-accoglie-tutti-percorso-gaeta-300x200.jpg" class="attachment-discover_thumb size-discover_thumb wp-post-image" alt="Il Castello di Gaeta si rinnova e accoglie tutti con un percorso di visita inclusivo e innovativo" loading="lazy" decoding="async" srcset="https://www.gaeta.it/wp-content/uploads/2025/12/castello-gaeta-si-rinnova-e-accoglie-tutti-percorso-gaeta-300x200.jpg 300w, https://www.gaeta.it/wp-content/uploads/2025/12/castello-gaeta-si-rinnova-e-accoglie-tutti-percorso-gaeta-1024x683.jpg 1024w, https://www.gaeta.it/wp-content/uploads/2025/12/castello-gaeta-si-rinnova-e-accoglie-tutti-percorso-gaeta-768x512.jpg 768w, https://www.gaeta.it/wp-content/uploads/2025/12/castello-gaeta-si-rinnova-e-accoglie-tutti-percorso-gaeta-600x400.jpg 600w, https://www.gaeta.it/wp-content/uploads/2025/12/castello-gaeta-si-rinnova-e-accoglie-tutti-percorso-gaeta-810x540.jpg 810w, https://www.gaeta.it/wp-content/uploads/2025/12/castello-gaeta-si-rinnova-e-accoglie-tutti-percorso-gaeta.jpg 1200w" sizes="auto, (max-width: 300px) 100vw, 300px" />                </a>
+
+                <div class="cat5-side-body">
+                    <h4 class="cat5-side-title">
+                        <a href="https://www.gaeta.it/il-castello-di-gaeta-si-rinnova-e-accoglie-tutti-con-un-percorso-di-visita-inclusivo-e-innovativo">
+                            Il Castello di Gaeta si rinnova e accoglie tutti con un percorso di visita inclusivo e innovativo                        </a>
+                    </h4>
+                </div>
+            </article>
+                    <article class="cat5-side-item">
+                <a href="https://www.gaeta.it/cosa-fare-a-dicembre-a-gaeta-tra-luminarie-eventi-e-tradizioni-locali" class="cat5-side-img">
+                    <img width="300" height="200" src="https://www.gaeta.it/wp-content/uploads/2025/12/gaeta-luminarie-gaeta.it_-300x200.jpeg" class="attachment-discover_thumb size-discover_thumb wp-post-image" alt="" loading="lazy" decoding="async" srcset="https://www.gaeta.it/wp-content/uploads/2025/12/gaeta-luminarie-gaeta.it_-300x200.jpeg 300w, https://www.gaeta.it/wp-content/uploads/2025/12/gaeta-luminarie-gaeta.it_-1024x683.jpeg 1024w, https://www.gaeta.it/wp-content/uploads/2025/12/gaeta-luminarie-gaeta.it_-768x512.jpeg 768w, https://www.gaeta.it/wp-content/uploads/2025/12/gaeta-luminarie-gaeta.it_-600x400.jpeg 600w, https://www.gaeta.it/wp-content/uploads/2025/12/gaeta-luminarie-gaeta.it_-810x540.jpeg 810w, https://www.gaeta.it/wp-content/uploads/2025/12/gaeta-luminarie-gaeta.it_.jpeg 1200w" sizes="auto, (max-width: 300px) 100vw, 300px" />                </a>
+
+                <div class="cat5-side-body">
+                    <h4 class="cat5-side-title">
+                        <a href="https://www.gaeta.it/cosa-fare-a-dicembre-a-gaeta-tra-luminarie-eventi-e-tradizioni-locali">
+                            Cosa fare a Dicembre a Gaeta tra luminarie, eventi e tradizioni locali                        </a>
+                    </h4>
+                </div>
+            </article>
+                    <article class="cat5-side-item">
+                <a href="https://www.gaeta.it/a-gaeta-polemica-per-la-colata-di-cemento-attorno-al-mausoleo-di-lucio-munazio-planco" class="cat5-side-img">
+                    <img width="300" height="200" src="https://www.gaeta.it/wp-content/uploads/2025/12/gaeta-polemica-colata-cemento-attorno-mausoleo-lucio-munazio-gaeta-300x200.jpg" class="attachment-discover_thumb size-discover_thumb wp-post-image" alt="A Gaeta polemica per la colata di cemento attorno al Mausoleo di Lucio Munazio Planco" loading="lazy" decoding="async" srcset="https://www.gaeta.it/wp-content/uploads/2025/12/gaeta-polemica-colata-cemento-attorno-mausoleo-lucio-munazio-gaeta-300x200.jpg 300w, https://www.gaeta.it/wp-content/uploads/2025/12/gaeta-polemica-colata-cemento-attorno-mausoleo-lucio-munazio-gaeta-1024x683.jpg 1024w, https://www.gaeta.it/wp-content/uploads/2025/12/gaeta-polemica-colata-cemento-attorno-mausoleo-lucio-munazio-gaeta-768x512.jpg 768w, https://www.gaeta.it/wp-content/uploads/2025/12/gaeta-polemica-colata-cemento-attorno-mausoleo-lucio-munazio-gaeta-600x400.jpg 600w, https://www.gaeta.it/wp-content/uploads/2025/12/gaeta-polemica-colata-cemento-attorno-mausoleo-lucio-munazio-gaeta-810x540.jpg 810w, https://www.gaeta.it/wp-content/uploads/2025/12/gaeta-polemica-colata-cemento-attorno-mausoleo-lucio-munazio-gaeta.jpg 1200w" sizes="auto, (max-width: 300px) 100vw, 300px" />                </a>
+
+                <div class="cat5-side-body">
+                    <h4 class="cat5-side-title">
+                        <a href="https://www.gaeta.it/a-gaeta-polemica-per-la-colata-di-cemento-attorno-al-mausoleo-di-lucio-munazio-planco">
+                            A Gaeta polemica per la colata di cemento attorno al Mausoleo di Lucio Munazio Planco                        </a>
+                    </h4>
+                </div>
+            </article>
+                    <article class="cat5-side-item">
+                <a href="https://www.gaeta.it/guardia-costiera-ferma-nave-mercantile-a-gaeta-ispettori-rilevano-gravi-carenze-di-sicurezza" class="cat5-side-img">
+                    <img width="300" height="200" src="https://www.gaeta.it/wp-content/uploads/2025/12/gettyimages-1165731864-1.1200x800-300x200.jpg" class="attachment-discover_thumb size-discover_thumb wp-post-image" alt="" loading="lazy" decoding="async" srcset="https://www.gaeta.it/wp-content/uploads/2025/12/gettyimages-1165731864-1.1200x800-300x200.jpg 300w, https://www.gaeta.it/wp-content/uploads/2025/12/gettyimages-1165731864-1.1200x800-1024x683.jpg 1024w, https://www.gaeta.it/wp-content/uploads/2025/12/gettyimages-1165731864-1.1200x800-768x512.jpg 768w, https://www.gaeta.it/wp-content/uploads/2025/12/gettyimages-1165731864-1.1200x800-600x400.jpg 600w, https://www.gaeta.it/wp-content/uploads/2025/12/gettyimages-1165731864-1.1200x800-810x540.jpg 810w, https://www.gaeta.it/wp-content/uploads/2025/12/gettyimages-1165731864-1.1200x800.jpg 1200w" sizes="auto, (max-width: 300px) 100vw, 300px" />                </a>
+
+                <div class="cat5-side-body">
+                    <h4 class="cat5-side-title">
+                        <a href="https://www.gaeta.it/guardia-costiera-ferma-nave-mercantile-a-gaeta-ispettori-rilevano-gravi-carenze-di-sicurezza">
+                            Guardia Costiera ferma nave mercantile a Gaeta: ispettori rilevano gravi carenze di sicurezza                        </a>
+                    </h4>
+                </div>
+            </article>
+        
+        </div>
+
+    </div>
+</section>
+
+
+</div>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container footer-top">
+
+    <div class="footer-brand">
+      <a href="https://www.gaeta.it/" class="footer-logo">
+        <img src="https://www.gaeta.it/wp-content/uploads/2025/10/Site-logo-gaeta.png" 
+                       alt="Gaeta.it"
+                       width="271" height="76"
+                       style="width:var(--footer-logo-width);height:auto;display:block;">      </a>
+
+      <div class="footer-text" style="margin-top:12px;font-size:14px;">
+         © 2025 proprietà Influencer Srls - Via Luca Bati 57 - Roma - P.iva 14920521003 - Questo blog non è una testata giornalistica, in quanto viene aggiornato senza alcuna periodicità. Non può pertanto considerarsi un prodotto editoriale ai sensi della legge n. 62 del 07.03.2001.       </div>
+    </div>
+
+    <nav class="footer-nav" aria-label="Footer menu">
+      <ul class="footer-menu"><li id="menu-item-538750" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-538750"><a href="https://www.gaeta.it/chi-siamo">Chi siamo</a></li>
+<li id="menu-item-538773" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-538773"><a href="https://www.gaeta.it/redazione">Redazione</a></li>
+<li id="menu-item-538751" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-538751"><a href="https://www.gaeta.it/contatti">Contatti</a></li>
+<li id="menu-item-538752" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-538752"><a href="https://www.gaeta.it/disclaimer">Disclaimer</a></li>
+<li id="menu-item-538753" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-538753"><a href="https://www.gaeta.it/privacy-policy">Privacy Policy</a></li>
+</ul>    </nav>
+
+  </div>
+</footer>
+
+<a href="#" id="backToTop" aria-label="Torna su">↑</a>
+
+<script type="speculationrules">
+{"prefetch":[{"source":"document","where":{"and":[{"href_matches":"/*"},{"not":{"href_matches":["/wp-*.php","/wp-admin/*","/wp-content/uploads/*","/wp-content/*","/wp-content/plugins/*","/wp-content/themes/discoverpress-pro-mobile100/*","/*\\?(.+)"]}},{"not":{"selector_matches":"a[rel~=\"nofollow\"]"}},{"not":{"selector_matches":".no-prefetch, .no-prefetch a"}}]},"eagerness":"conservative"}]}
+</script>
+<script id="pushhub-sdk-js-extra">
+var pushhubConfig = {"vapidPublicKey":"BB5yrHIC29eaWYKAgunrB8qwNVcdIqX6qRP_vIo0uvI3_3QmIOSVgYX-Ct3CqJlv54SAjOIIrrlxddq_rwXJwKo","apiEndpoint":"https://www.gaeta.it/wp-json/pushhub/v1/subscribe","nonce":"22b2e15f67","softAsk":{"enabled":false,"delay":1,"pageviews":1,"title":"Resta Aggiornato!","message":"Ricevi notifiche istantanee per notizie e aggiornamenti importanti.","buttonAllow":"\ud83d\udd14 Attiva","buttonDismiss":"Non ora","iconColorStart":"#3b82f6","iconColorEnd":"#8b5cf6","buttonColorStart":"#3b82f6","buttonColorEnd":"#2563eb"},"defaultIcon":"https://www.gaeta.it/wp-content/uploads/2025/08/cropped-gaeta.it_-1-72x72-1.png"};
+//# sourceURL=pushhub-sdk-js-extra
+</script>
+<script src="https://www.gaeta.it/wp-content/plugins/pushhub/assets/pushhub-sdk.js?ver=3.0.1" id="pushhub-sdk-js"></script>
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        let loaded = false;
+        const loadGA = () => {
+            if(loaded) return;
+            loaded = true;
+            const s = document.createElement('script');
+            s.src = 'https://www.googletagmanager.com/gtag/js?id=G-3SMR6GNPYZ';
+            s.async = true;
+            document.head.appendChild(s);
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-3SMR6GNPYZ');
+        };
+        window.addEventListener('mousemove', loadGA, {once:true, passive:true});
+        window.addEventListener('touchstart', loadGA, {once:true, passive:true});
+        window.addEventListener('scroll', loadGA, {once:true, passive:true});
+        setTimeout(loadGA, 4000);
+    });
+    </script>
+    
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    const btn = document.getElementById('backToTop');
+    if(btn) {
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                btn.style.opacity = '1';
+                btn.style.pointerEvents = 'all';
+            } else {
+                btn.style.opacity = '0';
+                btn.style.pointerEvents = 'none';
+            }
+        }, {passive: true});
+    }
+});
+</script>
+
+</body>
+</html>

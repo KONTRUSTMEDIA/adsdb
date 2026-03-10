@@ -1,0 +1,77 @@
+<html><body><script src="//c.adsco.re" type="text/javascript"></script>
+  <script type="text/javascript">
+    function sendData(url, data, callback) {
+      var xhr;
+      if (window.XMLHttpRequest)
+        xhr = new XMLHttpRequest();
+      else
+        xhr = new ActiveXObject("Microsoft.XMLHTTP");
+        xhr.open('POST', url, true);
+        xhr.withCredentials = true;
+        var xhrol = function(e) {
+          if (callback)
+            if (xhr.readyState != 4)
+                callback(null, 2);
+            else if (xhr.status != 200)  
+              callback(xhr.responseText, 1, xhr.status);
+            else
+              callback(xhr.responseText, 0);
+        }
+        if ('onerror' in xhr)
+            xhr.onerror = function() {
+              if (callback) callback(null, 1)
+            }
+        if ('onload' in xhr)
+            xhr.onload = xhrol;
+        else if ('onreadystatechange' in xhr)
+            xhr.onreadystatechange = xhrol;
+        xhr.send(data);
+    }
+  
+    function setCookie(cname, cvalue) {
+      var d = new Date();
+      d.setTime(d.getTime() + (6*60*60*1000));
+      var expires = "expires="+ d.toUTCString();
+      document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+    }
+  
+    if (typeof AdscoreInit !== "function") 
+      alert('Please disable Adblock to access this page.'); 
+    else if (!navigator.cookieEnabled) 
+      alert('This website require cookies.'); 
+    else
+      AdscoreInit("QqsmBQAAAAAAETLQ4mVDf3vJoNGAK0vzWrgceP0", {
+          request_signature: "KL1gzifYSBeE5YerxTdSHNsRzTJl/rFyTWP/XPYk44U=",
+          callback: function(result) {
+          if (result.signature == '') {
+            if(result.status === "error"){
+              alert('Error from Adscore: ' + result.message);
+            } else {
+              alert('Please disable Adblock to access this page.'); 
+            }
+          }
+          else
+            sendData(document.location.href, result.signature, function(data, status, httpCode) {
+              if (status == 2)
+                return true;
+              /* TODO: Handling 403 errors caused by immediate signature validation */
+              if ((status == 1) || (data == '')) {
+                alert('Cannot connect to Adscore service. Status: ' + status + ", HTTP Code: " + httpCode + ", Data: " + data);
+                return false;
+              } 
+              setCookie('VerifiedByAdscore_QqsmBQAAAAAAETLQ4mVDf3vJoNGAK0vzWrgceP0', data);
+              if ((document.cookie.indexOf('VerifiedByAdscore_QqsmBQAAAAAAETLQ4mVDf3vJoNGAK0vzWrgceP0=') > -1)) {
+                sendData("?AdscoreCookieCheck", Date.now(), function(d, s, hc) {
+                  if ((s == 0) && (d.localeCompare("OK") == 0))
+                    document.location.replace(document.location.href);  
+                  else {
+                    /* TODO: Handle errors caused by not keeping the cookie */
+  //                  alert('Your browser has dodgy cookie support (2).');
+                  }   
+                });
+              } //else
+                //alert('Your browser has dodgy cookie support (1).');
+            });
+        }
+      });
+  </script></body></html>

@@ -1,0 +1,959 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <script async src="//www.ezojs.com/ezoic/sa.min.js"></script>
+  <script>
+    window.ezstandalone = window.ezstandalone || {};
+    ezstandalone.cmd = ezstandalone.cmd || [];
+  </script>
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="site-verification" content="f2f28f965b39a1a127800b33c639166c"/>
+  <meta name="ppck-ver" content="47e45ec35fcd8617b1ddc7eae5630650" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="c360aab71af5c4896664903f99d18ff27321dc89" content="c360aab71af5c4896664903f99d18ff27321dc89" />
+  <meta name="referrer" content="no-referrer-when-downgrade" />
+  <meta name="google-adsense-account" content="ca-pub-3539363562189833">
+  <meta name="ppck-ver" content="80242278b27a21f17c6fa3fd38b70354" />
+  <meta name="mnd-ver" content="sgw9rozuxtcrpuafzqbqq" />
+  <meta name="clckd" content="f409c5182645ff90c7f814c825ed585f" />
+  <title>Acortador de URL | URLy</title>
+  <script src="https://cmp.gatekeeperconsent.com/min.js" data-cfasync="false"></script>
+  <script src="https://the.gatekeeperconsent.com/cmp.min.js" data-cfasync="false"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #4f46e5;
+      --primary-dark: #4338ca;
+      --secondary: #e0e7ff;
+      --dark: #1e293b;
+      --light: #f8fafc;
+      --gray: #64748b;
+      --success: #10b981;
+      --error: #ef4444;
+      --premium: #FF512F;
+      --premium-gradient: linear-gradient(135deg, #FF512F 0%, #DD2476 100%);
+      --warning: #f59e0b;
+    }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: var(--light);
+      color: var(--dark);
+      line-height: 1.6;
+      background-image: radial-gradient(circle at 10% 20%, rgba(224, 231, 255, 0.5) 0%, rgba(248, 250, 252, 0.5) 90%);
+    }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+      width: 100%;
+    }
+    header {
+      background-color: white;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      padding: 20px 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .header-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+    .logo-icon {
+      color: var(--primary);
+      font-size: 28px;
+    }
+    .logo-text {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--dark);
+      background: linear-gradient(to right, var(--primary), var(--premium));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .user-menu {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+    .user-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid var(--secondary);
+    }
+    .auth-button {
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.3s;
+      box-shadow: 0 4px 6px rgba(79, 70, 229, 0.2);
+    }
+    .auth-button:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 12px rgba(79, 70, 229, 0.3);
+    }
+    .auth-button i {
+      font-size: 18px;
+    }
+    .main {
+      padding: 40px 0;
+    }
+    .welcome-banner {
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: white;
+      padding: 30px;
+      border-radius: 12px;
+      margin-bottom: 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .welcome-banner::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 5px;
+      background: var(--premium-gradient);
+    }
+    .welcome-text h1 {
+      font-size: 1.8rem;
+      margin-bottom: 10px;
+    }
+    .welcome-text p {
+      opacity: 0.9;
+    }
+    .welcome-icon {
+      font-size: 60px;
+      opacity: 0.2;
+    }
+    .action-buttons {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 30px;
+    }
+    .action-button {
+      background: white;
+      border: none;
+      padding: 15px 25px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      transition: all 0.3s;
+    }
+    .action-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+    }
+    .action-button.primary {
+      background: var(--primary);
+      color: white;
+    }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+    .stat-card {
+      background: white;
+      border-radius: 12px;
+      padding: 25px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+      position: relative;
+      overflow: hidden;
+    }
+    .stat-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 5px;
+      background: var(--premium-gradient);
+    }
+    .stat-title {
+      font-size: 1rem;
+      color: var(--gray);
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .stat-value {
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: var(--dark);
+    }
+    .stat-change {
+      font-size: 0.9rem;
+      margin-top: 5px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .stat-change.up {
+      color: var(--success);
+    }
+    .stat-change.down {
+      color: var(--error);
+    }
+    .stat-change.down i {
+      transform: rotate(180deg);
+    }
+    .url-form {
+      background: white;
+      border-radius: 12px;
+      padding: 30px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+      margin-bottom: 30px;
+      position: relative;
+      overflow: hidden;
+    }
+    .url-form::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 5px;
+      background: var(--premium-gradient);
+    }
+    .section-title {
+      font-size: 1.5rem;
+      margin-bottom: 20px;
+      color: var(--dark);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .form-row {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+    .form-group {
+      flex: 1;
+    }
+    .form-label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 500;
+      color: var(--dark);
+    }
+    .form-control {
+      width: 100%;
+      padding: 14px 16px;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      font-size: 16px;
+      transition: all 0.3s;
+    }
+    .form-control:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.2);
+    }
+    .btn {
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 14px 25px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: 500;
+      transition: all 0.3s;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 4px 6px rgba(79, 70, 229, 0.2);
+    }
+    .btn:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 12px rgba(79, 70, 229, 0.3);
+    }
+    .btn i {
+      font-size: 18px;
+    }
+    .btn:disabled {
+      background: var(--gray);
+      cursor: not-allowed;
+      opacity: 0.6;
+      transform: none;
+      box-shadow: none;
+    }
+    .result-container {
+      display: none;
+      margin-top: 20px;
+      background: var(--secondary);
+      padding: 20px;
+      border-radius: 8px;
+      animation: fadeIn 0.5s ease-out forwards;
+    }
+    .result-row {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 15px;
+      align-items: center;
+    }
+    .result-label {
+      font-weight: 500;
+      min-width: 120px;
+    }
+    .result-value {
+      flex: 1;
+      word-break: break-all;
+    }
+    .btn-copy {
+      background: var(--success);
+      padding: 10px 15px;
+      margin-left: 10px;
+    }
+    .btn-copy:hover {
+      background: #0d9f6e;
+    }
+    .faq-container {
+      background: white;
+      border-radius: 12px;
+      padding: 30px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+      margin-bottom: 30px;
+      position: relative;
+      overflow: hidden;
+    }
+    .faq-container::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 5px;
+      background: var(--premium-gradient);
+    }
+    .faq-container h2 {
+      font-size: 1.5rem;
+      margin-bottom: 20px;
+      color: var(--dark);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .faq-container p {
+      margin-bottom: 15px;
+    }
+    footer {
+      background: var(--dark);
+      color: white;
+      padding: 30px 0;
+      text-align: center;
+    }
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-bottom: 20px;
+    }
+    .footer-link {
+      color: #94a3b8;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    .footer-link:hover {
+      color: white;
+    }
+    .footer-bottom {
+      margin-top: 20px;
+      color: #94a3b8;
+    }
+    .cookie-banner {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: var(--dark);
+      color: white;
+      padding: 20px;
+      z-index: 1000;
+      display: none;
+      animation: fadeIn 0.5s ease-out forwards;
+    }
+    .cookie-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+    }
+    .cookie-text {
+      flex: 1;
+      min-width: 300px;
+      color: #94a3b8;
+    }
+    .cookie-text a {
+      color: var(--primary);
+      text-decoration: none;
+    }
+    .cookie-buttons {
+      display: flex;
+      gap: 10px;
+    }
+    .cookie-btn {
+      padding: 8px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 500;
+      transition: all 0.3s;
+    }
+    .cookie-accept {
+      background: var(--primary);
+      color: white;
+      border: none;
+    }
+    .cookie-accept:hover {
+      background: var(--primary-dark);
+    }
+    .cookie-decline {
+      background: transparent;
+      color: white;
+      border: 1px solid #94a3b8;
+    }
+    .cookie-decline:hover {
+      background: rgba(255,255,255,0.1);
+    }
+    .error-message {
+      color: var(--error);
+      margin-top: 20px;
+      display: none;
+      text-align: center;
+      padding: 15px;
+      background-color: rgba(239, 68, 68, 0.1);
+      border-radius: 8px;
+      border-left: 4px solid var(--error);
+    }
+    .stats-tabs {
+      display: flex;
+      margin-bottom: 20px;
+      border-bottom: 1px solid #e2e8f0;
+    }
+    .stats-tab {
+      padding: 10px 20px;
+      cursor: pointer;
+      border-bottom: 3px solid transparent;
+      transition: all 0.3s;
+    }
+    .stats-tab.active {
+      border-bottom-color: var(--primary);
+      color: var(--primary);
+      font-weight: 500;
+    }
+    .stats-tab:hover {
+      color: var(--primary);
+    }
+    .stats-content {
+      display: none;
+    }
+    .stats-content.active {
+      display: block;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+    @media (max-width: 768px) {
+      .header-content {
+        flex-direction: column;
+        gap: 15px;
+      }
+      .form-row {
+        flex-direction: column;
+      }
+      .action-buttons {
+        flex-direction: column;
+      }
+      .btn {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container header-content">
+      <a class='logo' href='/'>
+        <i class="fas fa-link logo-icon"></i>
+        <span class="logo-text">URLy</span>
+      </a>
+      <div class="user-menu">
+        <img id="userAvatar" src="https://via.placeholder.com/40" alt="Avatar" class="user-avatar">
+        <button id="signOutBtn" class="auth-button">
+          <i class="fas fa-sign-out-alt"></i>
+          <span>Cerrar sesión</span>
+        </button>
+      </div>
+    </div>
+  </header>
+  <main class="main">
+    <div class="container">
+      <div class="welcome-banner">
+        <div class="welcome-text">
+          <h1 id="welcomeName">Bienvenido a URLy</h1>
+          <p>Acorta tus enlaces de forma rápida, gratuita y segura</p>
+        </div>
+        <i class="fas fa-link welcome-icon"></i>
+      </div>
+      <div class="action-buttons">
+        <a class='action-button primary' href='/urls'>
+          <i class="fas fa-list"></i>
+          Ver todas las URLs
+        </a>
+      </div>
+
+      <div class="stats-tabs">
+        <div class="stats-tab active" data-tab="general">General</div>
+        <div class="stats-tab" data-tab="today">Hoy</div>
+        <div class="stats-tab" data-tab="week">Esta semana</div>
+        <div class="stats-tab" data-tab="month">Este mes</div>
+      </div>
+
+      <div class="stats-content active" id="general-stats">
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-title">
+              <i class="fas fa-link"></i>
+              Enlaces totales
+            </div>
+            <div class="stat-value" id="totalLinks">0</div>
+            <div class="stat-change" id="monthlyChange">
+              <i class="fas fa-arrow-up"></i>
+              <span id="monthlyPercent">0%</span> este mes
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-title">
+              <i class="fas fa-eye"></i>
+              Visitas totales
+            </div>
+            <div class="stat-value" id="totalVisits">0</div>
+            <div class="stat-change" id="weeklyChange">
+              <i class="fas fa-arrow-up"></i>
+              <span id="weeklyPercent">0%</span> esta semana
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="stats-content" id="today-stats">
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-title">
+              <i class="fas fa-link"></i>
+              Enlaces creados hoy
+            </div>
+            <div class="stat-value" id="todayLinks">0</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-title">
+              <i class="fas fa-eye"></i>
+              Visitas hoy
+            </div>
+            <div class="stat-value" id="todayVisits">0</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="stats-content" id="week-stats">
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-title">
+              <i class="fas fa-link"></i>
+              Enlaces esta semana
+            </div>
+            <div class="stat-value" id="weekLinks">0</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-title">
+              <i class="fas fa-eye"></i>
+              Visitas esta semana
+            </div>
+            <div class="stat-value" id="weekVisits">0</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="stats-content" id="month-stats">
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-title">
+              <i class="fas fa-link"></i>
+              Enlaces este mes
+            </div>
+            <div class="stat-value" id="monthLinks">0</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-title">
+              <i class="fas fa-eye"></i>
+              Visitas este mes
+            </div>
+            <div class="stat-value" id="monthVisits">0</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="url-form">
+        <h2 class="section-title">
+          <i class="fas fa-plus-circle"></i>
+          Acortar nuevo enlace
+        </h2>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="longUrl" class="form-label">URL original</label>
+            <input type="text" id="longUrl" class="form-control" placeholder="https://ejemplo.com/pagina-larga">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="alias" class="form-label">Alias personalizado (opcional)</label>
+            <input type="text" id="alias" class="form-control" placeholder="mialias">
+          </div>
+        </div>
+        <button id="shortenBtn" class="btn">
+          <i class="fas fa-link"></i>
+          Acortar URL
+        </button>
+        <div id="errorMessage" class="error-message"></div>
+        <div id="resultContainer" class="result-container">
+          <div class="result-row">
+            <div class="result-label">URL acortada:</div>
+            <div class="result-value" id="shortUrl"></div>
+            <button id="copyBtn" class="btn btn-copy">
+              <i class="fas fa-copy"></i>
+              Copiar
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="faq-container">
+        <h2 class="section-title">
+          <i class="fas fa-question-circle"></i>
+          Preguntas Frecuentes
+        </h2>
+        <p><strong>¿Es gratis?</strong> Sí, nuestro servicio es 100% gratuito.</p>
+        <p><strong>¿Se guardan mis URLs?</strong> Sí, puedes consultarlas cuando quieras.</p>
+        <div id='wortise:BANNER_ID' style='min-width: WIDTHpx; min-height: HEIGHTpx;'></div>
+      </div>
+    </div>
+  </main>
+  <footer>
+    <div class="container">
+      <div class="footer-links">
+        <a class='footer-link' href='/terminos'>Términos</a>
+        <a class='footer-link' href='/privacidad'>Privacidad</a>
+      </div>
+      <div class="footer-bottom">
+        © 2025 URLy. Todos los derechos reservados.
+      </div>
+    </div>
+  </footer>
+  <div id="cookie-banner" class="cookie-banner">
+    <div class="container cookie-content">
+      <div class="cookie-text">
+        Usamos cookies para mejorar tu experiencia. 
+        <a href='/privacidad#cookies'>Más información</a>.
+      </div>
+      <div class="cookie-buttons">
+        <button id="declineCookies" class="cookie-btn cookie-decline">Rechazar</button>
+        <button id="acceptCookies" class="cookie-btn cookie-accept">Aceptar</button>
+      </div>
+    </div>
+  </div>
+  <script type="module">
+    import { auth, db } from './js/firebase.js';
+    import { signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.7.0/firebase-auth.js";
+    import { doc, getDoc, setDoc, collection, query, where, getDocs, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.7.0/firebase-firestore.js";
+
+    let isRedirecting = false;
+    let isShortening = false;
+
+    const userAvatar = document.getElementById('userAvatar');
+    const welcomeName = document.getElementById('welcomeName');
+    const signOutBtn = document.getElementById('signOutBtn');
+    const shortenBtn = document.getElementById('shortenBtn');
+    const longUrlInput = document.getElementById('longUrl');
+    const aliasInput = document.getElementById('alias');
+    const resultContainer = document.getElementById('resultContainer');
+    const shortUrlElement = document.getElementById('shortUrl');
+    const copyBtn = document.getElementById('copyBtn');
+    const errorMessage = document.getElementById('errorMessage');
+    const statsTabs = document.querySelectorAll('.stats-tab');
+
+    // Manejar pestañas de estadísticas
+    statsTabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        statsTabs.forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        
+        document.querySelectorAll('.stats-content').forEach(content => {
+          content.classList.remove('active');
+        });
+        
+        document.getElementById(`${tab.dataset.tab}-stats`).classList.add('active');
+      });
+    });
+
+    onAuthStateChanged(auth, (user) => {
+      if (isRedirecting) return;
+      if (user) {
+        if (user.photoURL) userAvatar.src = user.photoURL;
+        welcomeName.textContent = `Hola, ${user.displayName || user.email.split('@')[0]}`;
+        loadStats(user.uid);
+      } else {
+        isRedirecting = true;
+        window.location.href = '/login.html';
+      }
+    });
+
+    signOutBtn.addEventListener('click', async () => {
+      if (isRedirecting) return;
+      isRedirecting = true;
+      try {
+        await signOut(auth);
+        window.location.href = '/login.html';
+      } catch (error) {
+        console.error("Error al cerrar sesión:", error);
+        errorMessage.textContent = `Error al cerrar sesión: ${error.message}`;
+        errorMessage.style.display = 'block';
+        isRedirecting = false;
+      }
+    });
+
+    if (!localStorage.getItem('cookies-accepted')) {
+      document.getElementById('cookie-banner').style.display = 'block';
+    }
+    document.getElementById('acceptCookies').addEventListener('click', () => {
+      localStorage.setItem('cookies-accepted', 'true');
+      document.getElementById('cookie-banner').style.display = 'none';
+    });
+    document.getElementById('declineCookies').addEventListener('click', () => {
+      localStorage.setItem('cookies-accepted', 'false');
+      document.getElementById('cookie-banner').style.display = 'none';
+    });
+
+    async function loadStats(userId) {
+      try {
+        const now = new Date();
+        
+        // Fechas para filtros
+        const startOfDay = new Date(now.setHours(0, 0, 0, 0));
+        const startOfWeek = new Date(now.setDate(now.getDate() - now.getDay()));
+        const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
+        
+        const q = query(collection(db, 'urls'), where('userId', '==', userId));
+        const querySnapshot = await getDocs(q);
+        
+        let stats = {
+          total: { links: 0, clicks: 0 },
+          today: { links: 0, clicks: 0 },
+          week: { links: 0, clicks: 0 },
+          month: { links: 0, clicks: 0 }
+        };
+
+        querySnapshot.forEach(doc => {
+          const data = doc.data();
+          const createdAt = data.createdAt?.toDate() || new Date();
+          const clicks = data.clicks || 0;
+          
+          // Estadísticas generales
+          stats.total.links++;
+          stats.total.clicks += clicks;
+          
+          // Hoy
+          if (createdAt >= startOfDay) {
+            stats.today.links++;
+            stats.today.clicks += clicks;
+          }
+          
+          // Esta semana
+          if (createdAt >= startOfWeek) {
+            stats.week.links++;
+            stats.week.clicks += clicks;
+          }
+          
+          // Este mes
+          if (createdAt >= startOfMonth) {
+            stats.month.links++;
+            stats.month.clicks += clicks;
+          }
+        });
+>
+        // Actualizar UI
+        document.getElementById('totalLinks').textContent = stats.total.links;
+        document.getElementById('totalVisits').textContent = stats.total.clicks;
+        
+        document.getElementById('todayLinks').textContent = stats.today.links;
+        document.getElementById('todayVisits').textContent = stats.today.clicks;
+        
+        document.getElementById('weekLinks').textContent = stats.week.links;
+        document.getElementById('weekVisits').textContent = stats.week.clicks;
+        
+        document.getElementById('monthLinks').textContent = stats.month.links;
+        document.getElementById('monthVisits').textContent = stats.month.clicks;
+
+        // Calcular porcentajes (simplificado para el ejemplo)
+        const monthlyPercent = Math.round(Math.random() * 100);
+        const weeklyPercent = Math.round(Math.random() * 100);
+        
+        document.getElementById('monthlyPercent').textContent = `${monthlyPercent}%`;
+        document.getElementById('weeklyPercent').textContent = `${weeklyPercent}%`;
+        
+        document.getElementById('monthlyChange').className = monthlyPercent >= 0 ? 'stat-change up' : 'stat-change down';
+        document.getElementById('weeklyChange').className = weeklyPercent >= 0 ? 'stat-change up' : 'stat-change down';
+
+      } catch (error) {
+        console.error("Error al cargar estadísticas:", error);
+        errorMessage.textContent = `Error al cargar estadísticas: ${error.message}`;
+        errorMessage.style.display = 'block';
+      }
+    }
+
+    shortenBtn.addEventListener('click', async () => {
+      if (isShortening) return;
+      isShortening = true;
+      shortenBtn.disabled = true;
+      shortenBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Acortando...';
+      errorMessage.style.display = 'none';
+
+      const longUrl = longUrlInput.value.trim();
+      const alias = aliasInput.value.trim();
+
+      if (!longUrl || !/^https?:\/\/[^\s$.?#].[^\s]*$/i.test(longUrl)) {
+        errorMessage.textContent = "Por favor ingresa una URL válida (por ejemplo, https://ejemplo.com)";
+        errorMessage.style.display = 'block';
+        resetShortenButton();
+        return;
+      }
+
+      if (alias && !/^[a-zA-Z0-9_-]{3,20}$/.test(alias)) {
+        errorMessage.textContent = "El alias debe tener 3-20 caracteres y solo puede contener letras, números, guiones y guiones bajos";
+        errorMessage.style.display = 'block';
+        resetShortenButton();
+        return;
+      }
+
+      const shortId = alias || Math.random().toString(36).substring(2, 8);
+      const ref = doc(db, "urls", shortId);
+      try {
+        if ((await getDoc(ref)).exists()) {
+          errorMessage.textContent = "¡Este alias ya está en uso!";
+          errorMessage.style.display = 'block';
+          resetShortenButton();
+          return;
+        }
+
+        if (!auth.currentUser) {
+          errorMessage.textContent = "Error: Debes estar autenticado";
+          errorMessage.style.display = 'block';
+          isRedirecting = true;
+          window.location.href = '/login.html';
+          resetShortenButton();
+          return;
+        }
+
+        await setDoc(ref, {
+          longUrl,
+          clicks: 0,
+          clicksThisWeek: 0,
+          createdAt: serverTimestamp(),
+          lastClicked: null,
+          userId: auth.currentUser.uid
+        });
+
+        const shortUrl = `https://urly.lat/r/${shortId}`;
+        shortUrlElement.innerHTML = `<a href="${shortUrl}" target="_blank">${shortUrl}</a>`;
+        resultContainer.style.display = 'block';
+        longUrlInput.value = '';
+        aliasInput.value = '';
+
+        copyBtn.onclick = async () => {
+          try {
+            await navigator.clipboard.writeText(shortUrl);
+            copyBtn.innerHTML = '<i class="fas fa-check"></i> Copiado!';
+            setTimeout(() => {
+              copyBtn.innerHTML = '<i class="fas fa-copy"></i> Copiar';
+            }, 2000);
+          } catch (err) {
+            errorMessage.textContent = 'Error al copiar la URL';
+            errorMessage.style.display = 'block';
+          }
+        };
+
+        loadStats(auth.currentUser.uid);
+      } catch (error) {
+        console.error("Error al acortar URL:", error);
+        errorMessage.textContent = `Error al acortar URL: ${error.message}`;
+        errorMessage.style.display = 'block';
+      } finally {
+        resetShortenButton();
+      }
+    });
+
+    function resetShortenButton() {
+      isShortening = false;
+      shortenBtn.disabled = false;
+      shortenBtn.innerHTML = '<i class="fas fa-link"></i> Acortar URL';
+    }
+
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js')
+          .then(reg => console.log('Service Worker registrado'))
+          .catch(err => console.error('Error al registrar Service Worker:', err));
+      });
+    }
+  </script>
+
+  <script type="text/javascript"> adroll_adv_id = "A5GR3RA6KVFKNIQVLWA6J2"; adroll_pix_id = "TIM2DDZKSZB6VAD3BIHAZN"; adroll_version = "2.0";  (function(w, d, e, o, a) { w.__adroll_loaded = true; w.adroll = w.adroll || []; w.adroll.f = [ 'setProperties', 'identify', 'track', 'identify_email', 'get_cookie' ]; var roundtripUrl = "https://s.adroll.com/j/" + adroll_adv_id + "/roundtrip.js"; for (a = 0; a < w.adroll.f.length; a++) { w.adroll[w.adroll.f[a]] = w.adroll[w.adroll.f[a]] || (function(n) { return function() { w.adroll.push([ n, arguments ]) } })(w.adroll.f[a]) }  e = d.createElement('script'); o = d.getElementsByTagName('script')[0]; e.async = 1; e.src = roundtripUrl; o.parentNode.insertBefore(e, o); })(window, document); adroll.track("pageView"); </script> 
+</body>
+</html>

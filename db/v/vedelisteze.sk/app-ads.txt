@@ -1,0 +1,1396 @@
+<!doctype html>
+<html lang="sk-SK">
+<head><meta charset="UTF-8"><script>if(navigator.userAgent.match(/MSIE|Internet Explorer/i)||navigator.userAgent.match(/Trident\/7\..*?rv:11/i)){var href=document.location.href;if(!href.match(/[?&]nowprocket/)){if(href.indexOf("?")==-1){if(href.indexOf("#")==-1){document.location.href=href+"?nowprocket=1"}else{document.location.href=href.replace("#","?nowprocket=1#")}}else{if(href.indexOf("#")==-1){document.location.href=href+"&nowprocket=1"}else{document.location.href=href.replace("#","&nowprocket=1#")}}}}</script><script>class RocketLazyLoadScripts{constructor(e){this.triggerEvents=e,this.eventOptions={passive:!0},this.userEventListener=this.triggerListener.bind(this),this.delayedScripts={normal:[],async:[],defer:[]},this.allJQueries=[]}_addUserInteractionListener(e){this.triggerEvents.forEach((t=>window.addEventListener(t,e.userEventListener,e.eventOptions)))}_removeUserInteractionListener(e){this.triggerEvents.forEach((t=>window.removeEventListener(t,e.userEventListener,e.eventOptions)))}triggerListener(){this._removeUserInteractionListener(this),"loading"===document.readyState?document.addEventListener("DOMContentLoaded",this._loadEverythingNow.bind(this)):this._loadEverythingNow()}async _loadEverythingNow(){this._delayEventListeners(),this._delayJQueryReady(this),this._handleDocumentWrite(),this._registerAllDelayedScripts(),this._preloadAllScripts(),await this._loadScriptsFromList(this.delayedScripts.normal),await this._loadScriptsFromList(this.delayedScripts.defer),await this._loadScriptsFromList(this.delayedScripts.async),await this._triggerDOMContentLoaded(),await this._triggerWindowLoad(),window.dispatchEvent(new Event("rocket-allScriptsLoaded"))}_registerAllDelayedScripts(){document.querySelectorAll("script[type=rocketlazyloadscript]").forEach((e=>{e.hasAttribute("src")?e.hasAttribute("async")&&!1!==e.async?this.delayedScripts.async.push(e):e.hasAttribute("defer")&&!1!==e.defer||"module"===e.getAttribute("data-rocket-type")?this.delayedScripts.defer.push(e):this.delayedScripts.normal.push(e):this.delayedScripts.normal.push(e)}))}async _transformScript(e){return await this._requestAnimFrame(),new Promise((t=>{const n=document.createElement("script");let r;[...e.attributes].forEach((e=>{let t=e.nodeName;"type"!==t&&("data-rocket-type"===t&&(t="type",r=e.nodeValue),n.setAttribute(t,e.nodeValue))})),e.hasAttribute("src")?(n.addEventListener("load",t),n.addEventListener("error",t)):(n.text=e.text,t()),e.parentNode.replaceChild(n,e)}))}async _loadScriptsFromList(e){const t=e.shift();return t?(await this._transformScript(t),this._loadScriptsFromList(e)):Promise.resolve()}_preloadAllScripts(){var e=document.createDocumentFragment();[...this.delayedScripts.normal,...this.delayedScripts.defer,...this.delayedScripts.async].forEach((t=>{const n=t.getAttribute("src");if(n){const t=document.createElement("link");t.href=n,t.rel="preload",t.as="script",e.appendChild(t)}})),document.head.appendChild(e)}_delayEventListeners(){let e={};function t(t,n){!function(t){function n(n){return e[t].eventsToRewrite.indexOf(n)>=0?"rocket-"+n:n}e[t]||(e[t]={originalFunctions:{add:t.addEventListener,remove:t.removeEventListener},eventsToRewrite:[]},t.addEventListener=function(){arguments[0]=n(arguments[0]),e[t].originalFunctions.add.apply(t,arguments)},t.removeEventListener=function(){arguments[0]=n(arguments[0]),e[t].originalFunctions.remove.apply(t,arguments)})}(t),e[t].eventsToRewrite.push(n)}function n(e,t){let n=e[t];Object.defineProperty(e,t,{get:()=>n||function(){},set(r){e["rocket"+t]=n=r}})}t(document,"DOMContentLoaded"),t(window,"DOMContentLoaded"),t(window,"load"),t(window,"pageshow"),t(document,"readystatechange"),n(document,"onreadystatechange"),n(window,"onload"),n(window,"onpageshow")}_delayJQueryReady(e){let t=window.jQuery;Object.defineProperty(window,"jQuery",{get:()=>t,set(n){if(n&&n.fn&&!e.allJQueries.includes(n)){n.fn.ready=n.fn.init.prototype.ready=function(t){e.domReadyFired?t.bind(document)(n):document.addEventListener("rocket-DOMContentLoaded",(()=>t.bind(document)(n)))};const t=n.fn.on;n.fn.on=n.fn.init.prototype.on=function(){if(this[0]===window){function e(e){return e.split(" ").map((e=>"load"===e||0===e.indexOf("load.")?"rocket-jquery-load":e)).join(" ")}"string"==typeof arguments[0]||arguments[0]instanceof String?arguments[0]=e(arguments[0]):"object"==typeof arguments[0]&&Object.keys(arguments[0]).forEach((t=>{delete Object.assign(arguments[0],{[e(t)]:arguments[0][t]})[t]}))}return t.apply(this,arguments),this},e.allJQueries.push(n)}t=n}})}async _triggerDOMContentLoaded(){this.domReadyFired=!0,await this._requestAnimFrame(),document.dispatchEvent(new Event("rocket-DOMContentLoaded")),await this._requestAnimFrame(),window.dispatchEvent(new Event("rocket-DOMContentLoaded")),await this._requestAnimFrame(),document.dispatchEvent(new Event("rocket-readystatechange")),await this._requestAnimFrame(),document.rocketonreadystatechange&&document.rocketonreadystatechange()}async _triggerWindowLoad(){await this._requestAnimFrame(),window.dispatchEvent(new Event("rocket-load")),await this._requestAnimFrame(),window.rocketonload&&window.rocketonload(),await this._requestAnimFrame(),this.allJQueries.forEach((e=>e(window).trigger("rocket-jquery-load"))),window.dispatchEvent(new Event("rocket-pageshow")),await this._requestAnimFrame(),window.rocketonpageshow&&window.rocketonpageshow()}_handleDocumentWrite(){const e=new Map;document.write=document.writeln=function(t){const n=document.currentScript,r=document.createRange(),i=n.parentElement;let o=e.get(n);void 0===o&&(o=n.nextSibling,e.set(n,o));const a=document.createDocumentFragment();r.setStart(a,0),a.appendChild(r.createContextualFragment(t)),i.insertBefore(a,o)}}async _requestAnimFrame(){return new Promise((e=>requestAnimationFrame(e)))}static run(){const e=new RocketLazyLoadScripts(["keydown","mousemove","touchmove","touchstart","touchend","wheel"]);e._addUserInteractionListener(e)}}RocketLazyLoadScripts.run();</script>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Theme variables -->
+    <meta name='robots' content='index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1' />
+	<style>img:is([sizes="auto" i], [sizes^="auto," i]) { contain-intrinsic-size: 3000px 1500px }</style>
+	<style>:root { --theme_primary_color: #ffcc00; }</style><style>:root { --theme_border_color: #eaeaea; }</style><style>:root { --theme_text_color: #272626; }</style>
+	<!-- This site is optimized with the Yoast SEO Premium plugin v21.3 (Yoast SEO v27.0) - https://yoast.com/product/yoast-seo-premium-wordpress/ -->
+	<title>Vedelisteze.sk - Web o rôznych lifehackoch, zaujímavostiach a vede s denne aktualizovaným obsahom.</title>
+	<meta name="description" content="Web o rôznych lifehackoch, zaujímavostiach a vede s denne aktualizovaným obsahom." />
+	<link rel="canonical" href="https://vedelisteze.sk/" />
+	<link rel="next" href="https://vedelisteze.sk/page/2/" />
+	<meta property="og:locale" content="sk_SK" />
+	<meta property="og:type" content="website" />
+	<meta property="og:title" content="Vedelisteze.sk" />
+	<meta property="og:description" content="Web o rôznych lifehackoch, zaujímavostiach a vede s denne aktualizovaným obsahom." />
+	<meta property="og:url" content="https://vedelisteze.sk/" />
+	<meta property="og:site_name" content="Vedelisteze.sk" />
+	<meta name="twitter:card" content="summary_large_image" />
+	<script type="application/ld+json" class="yoast-schema-graph">{"@context":"https://schema.org","@graph":[{"@type":"CollectionPage","@id":"https://vedelisteze.sk/","url":"https://vedelisteze.sk/","name":"Vedelisteze.sk - Web o rôznych lifehackoch, zaujímavostiach a vede s denne aktualizovaným obsahom.","isPartOf":{"@id":"https://vedelisteze.sk/#website"},"about":{"@id":"https://vedelisteze.sk/#organization"},"description":"Web o rôznych lifehackoch, zaujímavostiach a vede s denne aktualizovaným obsahom.","breadcrumb":{"@id":"https://vedelisteze.sk/#breadcrumb"},"inLanguage":"sk-SK"},{"@type":"BreadcrumbList","@id":"https://vedelisteze.sk/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Domovská stránka"}]},{"@type":"WebSite","@id":"https://vedelisteze.sk/#website","url":"https://vedelisteze.sk/","name":"Vedelisteze.sk","description":"Web o rôznych lifehackoch, zaujímavostiach a vede s denne aktualizovaným obsahom.","publisher":{"@id":"https://vedelisteze.sk/#organization"},"potentialAction":[{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://vedelisteze.sk/?s={search_term_string}"},"query-input":{"@type":"PropertyValueSpecification","valueRequired":true,"valueName":"search_term_string"}}],"inLanguage":"sk-SK"},{"@type":"Organization","@id":"https://vedelisteze.sk/#organization","name":"Vedelisteze.sk","url":"https://vedelisteze.sk/","logo":{"@type":"ImageObject","inLanguage":"sk-SK","@id":"https://vedelisteze.sk/#/schema/logo/image/","url":"https://vedelisteze.sk/wp-content/uploads//2023/11/site-logo.webp","contentUrl":"https://vedelisteze.sk/wp-content/uploads//2023/11/site-logo.webp","width":523,"height":169,"caption":"Vedelisteze.sk"},"image":{"@id":"https://vedelisteze.sk/#/schema/logo/image/"},"sameAs":["https://www.facebook.com/vedelisteze.sk"]}]}</script>
+	<!-- / Yoast SEO Premium plugin. -->
+
+
+<link rel='dns-prefetch' href='//www.tvojespravy.sk' />
+<link rel='dns-prefetch' href='//cdnjs.cloudflare.com' />
+
+<link rel="alternate" type="application/rss+xml" title="RSS kanál: Vedelisteze.sk &raquo;" href="https://vedelisteze.sk/feed/" />
+<link rel="alternate" type="application/rss+xml" title="RSS kanál komentárov webu Vedelisteze.sk &raquo;" href="https://vedelisteze.sk/comments/feed/" />
+<style id='wp-emoji-styles-inline-css' type='text/css'>
+
+	img.wp-smiley, img.emoji {
+		display: inline !important;
+		border: none !important;
+		box-shadow: none !important;
+		height: 1em !important;
+		width: 1em !important;
+		margin: 0 0.07em !important;
+		vertical-align: -0.1em !important;
+		background: none !important;
+		padding: 0 !important;
+	}
+</style>
+<style id='classic-theme-styles-inline-css' type='text/css'>
+/*! This file is auto-generated */
+.wp-block-button__link{color:#fff;background-color:#32373c;border-radius:9999px;box-shadow:none;text-decoration:none;padding:calc(.667em + 2px) calc(1.333em + 2px);font-size:1.125em}.wp-block-file__button{background:#32373c;color:#fff;text-decoration:none}
+</style>
+<style id='global-styles-inline-css' type='text/css'>
+:root{--wp--preset--aspect-ratio--square: 1;--wp--preset--aspect-ratio--4-3: 4/3;--wp--preset--aspect-ratio--3-4: 3/4;--wp--preset--aspect-ratio--3-2: 3/2;--wp--preset--aspect-ratio--2-3: 2/3;--wp--preset--aspect-ratio--16-9: 16/9;--wp--preset--aspect-ratio--9-16: 9/16;--wp--preset--color--black: #000000;--wp--preset--color--cyan-bluish-gray: #abb8c3;--wp--preset--color--white: #ffffff;--wp--preset--color--pale-pink: #f78da7;--wp--preset--color--vivid-red: #cf2e2e;--wp--preset--color--luminous-vivid-orange: #ff6900;--wp--preset--color--luminous-vivid-amber: #fcb900;--wp--preset--color--light-green-cyan: #7bdcb5;--wp--preset--color--vivid-green-cyan: #00d084;--wp--preset--color--pale-cyan-blue: #8ed1fc;--wp--preset--color--vivid-cyan-blue: #0693e3;--wp--preset--color--vivid-purple: #9b51e0;--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple: linear-gradient(135deg,rgba(6,147,227,1) 0%,rgb(155,81,224) 100%);--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan: linear-gradient(135deg,rgb(122,220,180) 0%,rgb(0,208,130) 100%);--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange: linear-gradient(135deg,rgba(252,185,0,1) 0%,rgba(255,105,0,1) 100%);--wp--preset--gradient--luminous-vivid-orange-to-vivid-red: linear-gradient(135deg,rgba(255,105,0,1) 0%,rgb(207,46,46) 100%);--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray: linear-gradient(135deg,rgb(238,238,238) 0%,rgb(169,184,195) 100%);--wp--preset--gradient--cool-to-warm-spectrum: linear-gradient(135deg,rgb(74,234,220) 0%,rgb(151,120,209) 20%,rgb(207,42,186) 40%,rgb(238,44,130) 60%,rgb(251,105,98) 80%,rgb(254,248,76) 100%);--wp--preset--gradient--blush-light-purple: linear-gradient(135deg,rgb(255,206,236) 0%,rgb(152,150,240) 100%);--wp--preset--gradient--blush-bordeaux: linear-gradient(135deg,rgb(254,205,165) 0%,rgb(254,45,45) 50%,rgb(107,0,62) 100%);--wp--preset--gradient--luminous-dusk: linear-gradient(135deg,rgb(255,203,112) 0%,rgb(199,81,192) 50%,rgb(65,88,208) 100%);--wp--preset--gradient--pale-ocean: linear-gradient(135deg,rgb(255,245,203) 0%,rgb(182,227,212) 50%,rgb(51,167,181) 100%);--wp--preset--gradient--electric-grass: linear-gradient(135deg,rgb(202,248,128) 0%,rgb(113,206,126) 100%);--wp--preset--gradient--midnight: linear-gradient(135deg,rgb(2,3,129) 0%,rgb(40,116,252) 100%);--wp--preset--font-size--small: 13px;--wp--preset--font-size--medium: 20px;--wp--preset--font-size--large: 36px;--wp--preset--font-size--x-large: 42px;--wp--preset--spacing--20: 0.44rem;--wp--preset--spacing--30: 0.67rem;--wp--preset--spacing--40: 1rem;--wp--preset--spacing--50: 1.5rem;--wp--preset--spacing--60: 2.25rem;--wp--preset--spacing--70: 3.38rem;--wp--preset--spacing--80: 5.06rem;--wp--preset--shadow--natural: 6px 6px 9px rgba(0, 0, 0, 0.2);--wp--preset--shadow--deep: 12px 12px 50px rgba(0, 0, 0, 0.4);--wp--preset--shadow--sharp: 6px 6px 0px rgba(0, 0, 0, 0.2);--wp--preset--shadow--outlined: 6px 6px 0px -3px rgba(255, 255, 255, 1), 6px 6px rgba(0, 0, 0, 1);--wp--preset--shadow--crisp: 6px 6px 0px rgba(0, 0, 0, 1);}:where(.is-layout-flex){gap: 0.5em;}:where(.is-layout-grid){gap: 0.5em;}body .is-layout-flex{display: flex;}.is-layout-flex{flex-wrap: wrap;align-items: center;}.is-layout-flex > :is(*, div){margin: 0;}body .is-layout-grid{display: grid;}.is-layout-grid > :is(*, div){margin: 0;}:where(.wp-block-columns.is-layout-flex){gap: 2em;}:where(.wp-block-columns.is-layout-grid){gap: 2em;}:where(.wp-block-post-template.is-layout-flex){gap: 1.25em;}:where(.wp-block-post-template.is-layout-grid){gap: 1.25em;}.has-black-color{color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-color{color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-color{color: var(--wp--preset--color--white) !important;}.has-pale-pink-color{color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-color{color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-color{color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-color{color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-color{color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-color{color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-color{color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-color{color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-color{color: var(--wp--preset--color--vivid-purple) !important;}.has-black-background-color{background-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-background-color{background-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-background-color{background-color: var(--wp--preset--color--white) !important;}.has-pale-pink-background-color{background-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-background-color{background-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-background-color{background-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-background-color{background-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-background-color{background-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-background-color{background-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-background-color{background-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-background-color{background-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-background-color{background-color: var(--wp--preset--color--vivid-purple) !important;}.has-black-border-color{border-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-border-color{border-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-border-color{border-color: var(--wp--preset--color--white) !important;}.has-pale-pink-border-color{border-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-border-color{border-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-border-color{border-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-border-color{border-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-border-color{border-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-border-color{border-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-border-color{border-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-border-color{border-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-border-color{border-color: var(--wp--preset--color--vivid-purple) !important;}.has-vivid-cyan-blue-to-vivid-purple-gradient-background{background: var(--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple) !important;}.has-light-green-cyan-to-vivid-green-cyan-gradient-background{background: var(--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan) !important;}.has-luminous-vivid-amber-to-luminous-vivid-orange-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange) !important;}.has-luminous-vivid-orange-to-vivid-red-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-orange-to-vivid-red) !important;}.has-very-light-gray-to-cyan-bluish-gray-gradient-background{background: var(--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray) !important;}.has-cool-to-warm-spectrum-gradient-background{background: var(--wp--preset--gradient--cool-to-warm-spectrum) !important;}.has-blush-light-purple-gradient-background{background: var(--wp--preset--gradient--blush-light-purple) !important;}.has-blush-bordeaux-gradient-background{background: var(--wp--preset--gradient--blush-bordeaux) !important;}.has-luminous-dusk-gradient-background{background: var(--wp--preset--gradient--luminous-dusk) !important;}.has-pale-ocean-gradient-background{background: var(--wp--preset--gradient--pale-ocean) !important;}.has-electric-grass-gradient-background{background: var(--wp--preset--gradient--electric-grass) !important;}.has-midnight-gradient-background{background: var(--wp--preset--gradient--midnight) !important;}.has-small-font-size{font-size: var(--wp--preset--font-size--small) !important;}.has-medium-font-size{font-size: var(--wp--preset--font-size--medium) !important;}.has-large-font-size{font-size: var(--wp--preset--font-size--large) !important;}.has-x-large-font-size{font-size: var(--wp--preset--font-size--x-large) !important;}
+:where(.wp-block-post-template.is-layout-flex){gap: 1.25em;}:where(.wp-block-post-template.is-layout-grid){gap: 1.25em;}
+:where(.wp-block-columns.is-layout-flex){gap: 2em;}:where(.wp-block-columns.is-layout-grid){gap: 2em;}
+:root :where(.wp-block-pullquote){font-size: 1.5em;line-height: 1.6;}
+</style>
+<link data-minify="1" rel='stylesheet' id='dashicons-css' href='https://vedelisteze.sk/wp-content/cache/min/1/wp-includes/css/dashicons.min.css?ver=1770896268' type='text/css' media='all' />
+<link rel='stylesheet' id='admin-bar-css' href='https://vedelisteze.sk/wp-includes/css/admin-bar.min.css?ver=6.8.3' type='text/css' media='all' />
+<style id='admin-bar-inline-css' type='text/css'>
+
+    /* Hide CanvasJS credits for P404 charts specifically */
+    #p404RedirectChart .canvasjs-chart-credit {
+        display: none !important;
+    }
+    
+    #p404RedirectChart canvas {
+        border-radius: 6px;
+    }
+
+    .p404-redirect-adminbar-weekly-title {
+        font-weight: bold;
+        font-size: 14px;
+        color: #fff;
+        margin-bottom: 6px;
+    }
+
+    #wpadminbar #wp-admin-bar-p404_free_top_button .ab-icon:before {
+        content: "\f103";
+        color: #dc3545;
+        top: 3px;
+    }
+    
+    #wp-admin-bar-p404_free_top_button .ab-item {
+        min-width: 80px !important;
+        padding: 0px !important;
+    }
+    
+    /* Ensure proper positioning and z-index for P404 dropdown */
+    .p404-redirect-adminbar-dropdown-wrap { 
+        min-width: 0; 
+        padding: 0;
+        position: static !important;
+    }
+    
+    #wpadminbar #wp-admin-bar-p404_free_top_button_dropdown {
+        position: static !important;
+    }
+    
+    #wpadminbar #wp-admin-bar-p404_free_top_button_dropdown .ab-item {
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+    
+    .p404-redirect-dropdown-container {
+        min-width: 340px;
+        padding: 18px 18px 12px 18px;
+        background: #23282d !important;
+        color: #fff;
+        border-radius: 12px;
+        box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+        margin-top: 10px;
+        position: relative !important;
+        z-index: 999999 !important;
+        display: block !important;
+        border: 1px solid #444;
+    }
+    
+    /* Ensure P404 dropdown appears on hover */
+    #wpadminbar #wp-admin-bar-p404_free_top_button .p404-redirect-dropdown-container { 
+        display: none !important;
+    }
+    
+    #wpadminbar #wp-admin-bar-p404_free_top_button:hover .p404-redirect-dropdown-container { 
+        display: block !important;
+    }
+    
+    #wpadminbar #wp-admin-bar-p404_free_top_button:hover #wp-admin-bar-p404_free_top_button_dropdown .p404-redirect-dropdown-container {
+        display: block !important;
+    }
+    
+    .p404-redirect-card {
+        background: #2c3338;
+        border-radius: 8px;
+        padding: 18px 18px 12px 18px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        border: 1px solid #444;
+    }
+    
+    .p404-redirect-btn {
+        display: inline-block;
+        background: #dc3545;
+        color: #fff !important;
+        font-weight: bold;
+        padding: 5px 22px;
+        border-radius: 8px;
+        text-decoration: none;
+        font-size: 17px;
+        transition: background 0.2s, box-shadow 0.2s;
+        margin-top: 8px;
+        box-shadow: 0 2px 8px rgba(220,53,69,0.15);
+        text-align: center;
+        line-height: 1.6;
+    }
+    
+    .p404-redirect-btn:hover {
+        background: #c82333;
+        color: #fff !important;
+        box-shadow: 0 4px 16px rgba(220,53,69,0.25);
+    }
+    
+    /* Prevent conflicts with other admin bar dropdowns */
+    #wpadminbar .ab-top-menu > li:hover > .ab-item,
+    #wpadminbar .ab-top-menu > li.hover > .ab-item {
+        z-index: auto;
+    }
+    
+    #wpadminbar #wp-admin-bar-p404_free_top_button:hover > .ab-item {
+        z-index: 999998 !important;
+    }
+    
+</style>
+<link data-minify="1" rel='stylesheet' id='vit-loop-post-css' href='https://vedelisteze.sk/wp-content/cache/min/1/wp-content/plugins/vit-loop-posts/assets/css/main.css?ver=1770896268' type='text/css' media='all' />
+<link data-minify="1" rel='stylesheet' id='vit-slider-rss-feed-slick-css' href='https://vedelisteze.sk/wp-content/cache/min/1/ajax/libs/slick-carousel/1.8.1/slick.min.css?ver=1770896268' type='text/css' media='all' />
+<link rel='stylesheet' id='ye_dynamic-css' href='https://vedelisteze.sk/wp-content/plugins/youtube-embed/css/main.min.css?ver=5.4' type='text/css' media='all' />
+<link rel='stylesheet' id='autorady-main-style-css' href='https://vedelisteze.sk/wp-content/themes/autorady/dist/css/main.min.css?ver=20260120' type='text/css' media='all' />
+<link data-minify="1" rel='stylesheet' id='slb_core-css' href='https://vedelisteze.sk/wp-content/cache/min/1/wp-content/plugins/simple-lightbox/client/css/app.css?ver=1770896268' type='text/css' media='all' />
+<style id='rocket-lazyload-inline-css' type='text/css'>
+.rll-youtube-player{position:relative;padding-bottom:56.23%;height:0;overflow:hidden;max-width:100%;}.rll-youtube-player:focus-within{outline: 2px solid currentColor;outline-offset: 5px;}.rll-youtube-player iframe{position:absolute;top:0;left:0;width:100%;height:100%;z-index:100;background:0 0}.rll-youtube-player img{bottom:0;display:block;left:0;margin:auto;max-width:100%;width:100%;position:absolute;right:0;top:0;border:none;height:auto;-webkit-transition:.4s all;-moz-transition:.4s all;transition:.4s all}.rll-youtube-player img:hover{-webkit-filter:brightness(75%)}.rll-youtube-player .play{height:100%;width:100%;left:0;top:0;position:absolute;background:url(https://vedelisteze.sk/wp-content/plugins/wp-rocket/assets/img/youtube.png) no-repeat center;background-color: transparent !important;cursor:pointer;border:none;}
+</style>
+<script type="text/javascript" src="https://www.tvojespravy.sk/assets/web-sdk.min.js?v=202601281" id="tvojespravy-external-js" defer></script>
+<script type="text/javascript" id="wp-tvojespravy-main-js-extra">
+/* <![CDATA[ */
+var wpTvojeSpravy = {"adsToken":"RSUski3XVOtchZ0ps3yaimk1xIx5IVVM"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="https://vedelisteze.sk/wp-content/plugins/wp-tvojespravy/assets/main.js?ver=1.0.0" id="wp-tvojespravy-main-js"></script>
+<script type="rocketlazyloadscript" data-rocket-type="text/javascript" src="https://vedelisteze.sk/wp-includes/js/jquery/jquery.min.js?ver=3.7.1" id="jquery-core-js" defer></script>
+<script type="rocketlazyloadscript" data-rocket-type="text/javascript" src="https://vedelisteze.sk/wp-includes/js/jquery/jquery-migrate.min.js?ver=3.4.1" id="jquery-migrate-js" defer></script>
+<link rel="https://api.w.org/" href="https://vedelisteze.sk/wp-json/" /><link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://vedelisteze.sk/xmlrpc.php?rsd" />
+<meta name="generator" content="WordPress 6.8.3" />
+<meta name="generator" content="Redux 4.5.10" /><!-- start Simple Custom CSS and JS -->
+<style type="text/css">
+.hide-ads .adsbygoogle-noablate,
+.hide-ads .ad-block,
+.hide-ads #block-9,
+.hide-ads .adsbygoogle,
+.hide-ads ins,
+.hide-ads .code-block-7,
+.hide-ads .code-block-4,
+.hide-ads #block-1,
+.hide-ads .ad-block-recommended
+{
+	display: none !important;
+}</style>
+<!-- end Simple Custom CSS and JS -->
+<!-- start Simple Custom CSS and JS -->
+<style type="text/css">
+.custom-html-widget iframe {
+	height: 150px !important;
+}
+
+.widget-small-posts .widget-small-posts__item {
+	width: 100%;
+} 
+
+/* Reklamy */
+
+#block-1 {
+	min-height: 340px;
+}
+
+.code-block-2 ins,
+.code-block-3 ins,
+.code-block-10 ins,
+.code-block-12 ins,
+.code-block-16 ins,
+.code-block-35 ins {
+	min-height: 440px;
+}
+
+.code-block-13,
+.code-block-35 {
+	text-align: center;
+}
+
+body .fc-consent-root .fc-close {
+	display: none !important;
+}
+
+.code-block-7 {
+	min-height: 345px;
+}
+
+.code-block-4 {
+	min-height: 295px;
+}
+
+.code-block-4 iframe {
+	margin: 0 auto !important;
+}
+
+.ad-bar-mobile .ad-bar {
+	margin-bottom: 0 !important;
+}
+
+.home .ad-bar-mobile .ad-bar {
+   margin-bottom: -0.5rem !important;
+}
+
+.code-block-6 {
+	margin-bottom: 25px !important;
+}</style>
+<!-- end Simple Custom CSS and JS -->
+<!-- start Simple Custom CSS and JS -->
+<style type="text/css">
+.google-auto-placed {
+	overflow: hidden;
+}
+
+.container {
+	overflow: hidden;
+}
+
+#top-bar .container {
+	overflow: visible;
+}</style>
+<!-- end Simple Custom CSS and JS -->
+<!-- start Simple Custom CSS and JS -->
+<style type="text/css">
+/*
+body .fc-consent-root .fc-choice-dialog-header .fc-close:after {
+	content: "Pokračovať s nevyhnutelnými cookies";
+	display: block !important;
+}
+
+body .fc-consent-root .fc-choice-dialog-header .fc-close {
+	height: auto !important;
+	width: auto !important;
+	font-size: 12px !important;
+	padding: 1rem !important;
+	padding-right: 2rem !important;
+}
+
+body .fc-consent-root .fc-choice-dialog-header .fc-close .notranslate {
+	display: none !important;
+}
+*/
+
+.before-footer {
+	overflow-x: hidden;
+	padding: 0 10px;
+}
+
+@media only screen and (max-width: 767.99px) {
+	body .fc-consent-root .fc-dialog {
+		height: calc(100vh - 50px ) !important;
+		max-height: unset !important;
+	}
+	
+	body .fc-consent-root .fc-footer-buttons-container {
+		max-height: 85px !important;
+    	overflow: scroll !important;
+    	display: block !important;
+	}
+	
+	body .fc-consent-root .fc-dialog .fc-footer p {
+		font-size: 2.15vh !important;
+    	line-height: 2.6vh !important;
+	}
+	
+	body .fc-consent-root .fc-stacks .fc-stack-name {
+		font-size: 1.8vh !important;
+    	line-height: 2.25vh !important;
+	}
+	
+	body .fc-consent-root .fc-faq-header .fc-faq-label {
+		font-size: 1.7vh !important;
+	}
+	
+	body .fc-consent-root .fc-dialog .fc-header h2 {
+		font-size: 2vh !important;
+	}
+	
+	body .fc-consent-root .fc-dialog .fc-header h1 {
+		font-size: 1.8vh !important;
+	}
+	
+	body .fc-consent-root .fc-button-label {
+		font-size: 2vh !important;
+    	line-height: 2.55vh !important;
+	}
+}
+
+
+#logo img {
+	max-height: 65px !important;
+}
+</style>
+<!-- end Simple Custom CSS and JS -->
+<!-- start Simple Custom CSS and JS -->
+<style type="text/css">
+@media (min-width: 768px) {
+	#text-16 {
+		position: sticky;
+		left: 0;
+		top: 0;
+	}
+}</style>
+<!-- end Simple Custom CSS and JS -->
+<!-- start Simple Custom CSS and JS -->
+<script type="rocketlazyloadscript" data-rocket-type="text/javascript">
+document.addEventListener('DOMContentLoaded', () => {
+    const body = document.body;
+    const observer = new MutationObserver(() => {
+        body.style.padding = '';
+    });
+    observer.observe(body, {
+        attributes: true,
+        attributeFilter: ['style']
+    });
+});
+</script>
+<!-- end Simple Custom CSS and JS -->
+<!-- start Simple Custom CSS and JS -->
+<script type="rocketlazyloadscript" data-rocket-type="text/javascript">window.addEventListener('DOMContentLoaded', function() {
+$('#top-search a').on('click', function ( e ) {
+	e.preventDefault();
+	$('.show-search').slideToggle('fast');
+});});</script>
+<!-- end Simple Custom CSS and JS -->
+
+        <script type="rocketlazyloadscript">
+            var vitSliderRssFeed = {
+                "shortcodeCache": "https://vedelisteze.sk/wp-content/plugins/vit-slider-rss-feed/cache/shortcode/"
+            };
+        </script>
+        <link rel="apple-touch-icon" sizes="120x120" href="/wp-content/uploads/fbrfg/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/wp-content/uploads/fbrfg/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/wp-content/uploads/fbrfg/favicon-16x16.png">
+<link rel="manifest" href="/wp-content/uploads/fbrfg/site.webmanifest">
+<link rel="shortcut icon" href="/wp-content/uploads/fbrfg/favicon.ico">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="msapplication-config" content="/wp-content/uploads/fbrfg/browserconfig.xml">
+<meta name="theme-color" content="#ffffff"><link rel="icon" href="https://vedelisteze.sk/wp-content/uploads//2023/11/cropped-cropped-site-logo-32x32.webp" sizes="32x32" />
+<link rel="icon" href="https://vedelisteze.sk/wp-content/uploads//2023/11/cropped-cropped-site-logo-192x192.webp" sizes="192x192" />
+<link rel="apple-touch-icon" href="https://vedelisteze.sk/wp-content/uploads//2023/11/cropped-cropped-site-logo-180x180.webp" />
+<meta name="msapplication-TileImage" content="https://vedelisteze.sk/wp-content/uploads//2023/11/cropped-cropped-site-logo-270x270.webp" />
+
+<!--Plugin WP Missed Schedule Active - Secured with Genuine Authenticity KeyTag-->
+
+<!-- This site is patched against a big problem not solved since WordPress 2.5 -->
+
+<meta name="google-site-verification" content="-HKmBzkdNliEPv53QguoScI16L3LthH5InguowbTPs4" />
+<!-- Google tag (gtag.js) -->
+<script type="rocketlazyloadscript" defer async data-rocket-type='text/javascript' src="https://www.googletagmanager.com/gtag/js?id=G-7TLVJEFZ4M"></script>
+<script type="rocketlazyloadscript">
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7TLVJEFZ4M');
+</script> 
+
+<script type="rocketlazyloadscript" defer async data-rocket-type='text/javascript'  
+src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3741012940403281" 
+crossorigin="anonymous" 
+data-overlays="bottom"></script> 
+
+
+<meta name="google-adsense-account" content="ca-pub-3741012940403281">
+
+<!--Google GPT/ADM code -->
+<script type="rocketlazyloadscript" defer async data-rocket-type='text/javascript' src="https://securepubads.g.doubleclick.net/tag/js/gpt.js"></script>
+<script type="rocketlazyloadscript" data-rocket-type='text/javascript' defer>
+    window.googletag = window.googletag || { cmd: [] };
+    window.googletag.cmd.push(function () {
+        window.googletag.pubads().enableSingleRequest();
+    });
+</script>
+
+<!--Site config -->
+<!-- Vypnute kvoli INP -->
+<!-- 
+<script type="rocketlazyloadscript" data-rocket-type="text/javascript" async="async" src="https://protagcdn.com/s/vedelisteze.sk/site.js"></script>
+<script type="rocketlazyloadscript" data-rocket-type="text/javascript">
+    window.protag = window.protag || { cmd: [] };
+    window.protag.config = { s:'vedelisteze.sk', childADM: '22868843847', l: 'FbM3ys2m' };
+    window.protag.cmd.push(function () {
+        window.protag.pageInit();
+    });
+</script>
+-->
+
+<!-- Show ads for non premium users -->
+<script type="rocketlazyloadscript">
+    document.addEventListener('DOMContentLoaded', function () {
+        // Tu už TvojeSpravy bude definované, ak je skript v HTML vyššie
+        if (window.TvojeSpravy) {
+        
+            TvojeSpravy.onPremium(function() {
+                console.log("Používateľ má Premium.");
+                // Add body class
+                document.getElementsByTagName('body')[0].classList.add('hide-ads');
+            });
+
+            TvojeSpravy.onFree(function() {
+                console.log("Používateľ má Free.");
+                // Show google ads
+                TvojeSpravy.showGoogleAds('adsbygoogle');
+            });
+        }
+    });
+</script>
+
+
+
+
+<noscript><style id="rocket-lazyload-nojs-css">.rll-youtube-player, [data-lazy-src]{display:none !important;}</style></noscript></head>
+<body data-rsssl=1 class="home blog wp-custom-logo wp-theme-autorady">
+
+
+<!-- Header -->
+
+<header class="header js-header has-custom-logo">
+    <div class="container">
+        <!-- Search -->
+        <div class="row">
+            <div class="header__search">
+                <!-- Share -->
+                
+<div class="share__list">
+                <a href="https://www.facebook.com/people/Vedeli-ste-%C5%BEe-20/61563582886507/?ref=embed_page" class="button">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+    <path d="M10.2683 14V9.35627H11.8231L12.0559 7.551H10.2683V6.39843C10.2683 5.87576 10.4133 5.51956 11.1629 5.51956L12.1189 5.51911V3.90451C11.9535 3.88255 11.3861 3.83337 10.7259 3.83337C9.34753 3.83337 8.404 4.67465 8.404 6.21968V7.551H6.84513V9.35627H8.404V14H2.66667C2.29848 14 2 13.7015 2 13.3333V2.66667C2 2.29848 2.29848 2 2.66667 2H13.3333C13.7015 2 14 2.29848 14 2.66667V13.3333C14 13.7015 13.7015 14 13.3333 14H10.2683Z" fill="#3D3D3D"/>
+</svg>        </a>
+                    <a href="https://t.me/vedelisteze" class="button">
+            <svg xmlns="http://www.w3.org/2000/svg" width="800px" height="800px" viewBox="0 0 32 32" fill="none">
+    <path fill="#3D3D3D" d="M22.122 10.040c0.006-0 0.014-0 0.022-0 0.209 0 0.403 0.065 0.562 0.177l-0.003-0.002c0.116 0.101 0.194 0.243 0.213 0.403l0 0.003c0.020 0.122 0.031 0.262 0.031 0.405 0 0.065-0.002 0.129-0.007 0.193l0-0.009c-0.225 2.369-1.201 8.114-1.697 10.766-0.21 1.123-0.623 1.499-1.023 1.535-0.869 0.081-1.529-0.574-2.371-1.126-1.318-0.865-2.063-1.403-3.342-2.246-1.479-0.973-0.52-1.51 0.322-2.384 0.221-0.23 4.052-3.715 4.127-4.031 0.004-0.019 0.006-0.040 0.006-0.062 0-0.078-0.029-0.149-0.076-0.203l0 0c-0.052-0.034-0.117-0.053-0.185-0.053-0.045 0-0.088 0.009-0.128 0.024l0.002-0.001q-0.198 0.045-6.316 4.174c-0.445 0.351-1.007 0.573-1.619 0.599l-0.006 0c-0.867-0.105-1.654-0.298-2.401-0.573l0.074 0.024c-0.938-0.306-1.683-0.467-1.619-0.985q0.051-0.404 1.114-0.827 6.548-2.853 8.733-3.761c1.607-0.853 3.47-1.555 5.429-2.010l0.157-0.031zM15.93 1.025c-8.302 0.020-15.025 6.755-15.025 15.060 0 8.317 6.742 15.060 15.060 15.060s15.060-6.742 15.060-15.060c0-8.305-6.723-15.040-15.023-15.060h-0.002q-0.035-0-0.070 0z"></path>
+</svg>        </a>
+                <a href="https://vedelisteze.sk/feed/" class="button">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+    <path d="M2 2C8.6274 2 14 7.3726 14 14H12C12 8.47713 7.52287 4 2 4V2ZM2 6.66667C6.05009 6.66667 9.33333 9.94993 9.33333 14H7.33333C7.33333 11.0545 4.94552 8.66667 2 8.66667V6.66667ZM2 11.3333C3.47276 11.3333 4.66667 12.5273 4.66667 14H2V11.3333Z" fill="#3D3D3D"/>
+</svg>        </a>
+    </div>
+                <!-- Search -->
+                <button class="js-search-btn header__search-btn" aria-label="Hľadať">
+                    <svg width="15" height="15" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg">
+    <path d="M1216 832q0-185-131.5-316.5t-316.5-131.5-316.5 131.5-131.5 316.5 131.5 316.5 316.5 131.5 316.5-131.5 131.5-316.5zm512 832q0 52-38 90t-90 38q-54 0-90-38l-343-342q-179 124-399 124-143 0-273.5-55.5t-225-150-150-225-55.5-273.5 55.5-273.5 150-225 225-150 273.5-55.5 273.5 55.5 225 150 150 225 55.5 273.5q0 220-124 399l343 343q37 37 37 90z"></path>
+</svg>                </button>
+            </div>
+            <section class="search-form-overlay js-search-form-overlay" aria-label="search">
+    <div class="container">
+        <div class="search-form-wrapper">
+            <!-- Close -->
+            <button class="search-form__close js-search-form-close"
+                    aria-label="Zatvoriť">
+                <svg width="50" height="50" viewBox="0 0 20 20" fill="currentColor">
+    <path d="M14.95 6.46L11.41 10l3.54 3.54l-1.41 1.41L10 11.42l-3.53 3.53l-1.42-1.42L8.58 10L5.05 6.47l1.42-1.42L10 8.58l3.54-3.53z"></path>
+</svg>            </button>
+            <!-- Form -->
+            <div class="search-form">
+                <form role="search" method="get" class="search-form" action="https://vedelisteze.sk/?s=">
+                    <input type="search" class="form-input-search" aria-label="Hľadať"
+                           placeholder="Hľadať..." value="" name="s">
+                    <button type="submit" class="search-form__submit"
+                            aria-label="Hľadať">
+                        <svg width="15" height="15" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg">
+    <path d="M1216 832q0-185-131.5-316.5t-316.5-131.5-316.5 131.5-131.5 316.5 131.5 316.5 316.5 131.5 316.5-131.5 131.5-316.5zm512 832q0 52-38 90t-90 38q-54 0-90-38l-343-342q-179 124-399 124-143 0-273.5-55.5t-225-150-150-225-55.5-273.5 55.5-273.5 150-225 225-150 273.5-55.5 273.5 55.5 225 150 150 225 55.5 273.5q0 220-124 399l343 343q37 37 37 90z"></path>
+</svg>                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>        </div>
+        <!-- Header -->
+        <div class="row">
+            <div class="header__inner">
+                <div class="header__left">
+                                            <div class="header__logo">
+                            <a href="https://vedelisteze.sk/" class="custom-logo-link" rel="home" itemprop="url"><img width="523" height="150" src="https://vedelisteze.sk/wp-content/uploads//2023/11/cropped-site-logo.webp" class="custom-logo" alt="cropped-site-logo.webp" decoding="async" srcset="https://vedelisteze.sk/wp-content/uploads/2023/11/cropped-site-logo.webp 523w, https://vedelisteze.sk/wp-content/uploads/2023/11/cropped-site-logo-300x86.webp 300w" sizes="(max-width: 523px) 100vw, 523px" /></a>                        </div>
+                                    </div>
+
+                <div class="header__right">
+                    <!-- Hamburger Menu Button -->
+                    <button class="js-mobile-menu header__hamburger" aria-label="Otvoriť menu" aria-expanded="false">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <rect x="3" y="6" width="18" height="1" fill="currentColor"/>
+    <rect x="3" y="11" width="18" height="1" fill="currentColor"/>
+    <rect x="3" y="16" width="18" height="1" fill="currentColor"/>
+</svg>
+
+
+
+                    </button>
+
+                    <!-- Desktop Menu -->
+                    <section class="header__desktop-menu">
+                                                    <nav class="header__nav" role="navigation" aria-label="Header menu">
+                                <ul id="menu-menu-1" class="header__menu"><li id="menu-item-5928" class="menu-item menu-item-type-custom menu-item-object-custom current-menu-item current_page_item menu-item-home menu-item-5928"><a href="https://vedelisteze.sk" aria-current="page">Domov</a></li>
+<li id="menu-item-69937" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-69937"><a href="https://vedelisteze.sk/category/domacnost/">Domácnosť</a></li>
+<li id="menu-item-69939" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-69939"><a href="https://vedelisteze.sk/category/lajfhacky/">Lajfhek</a></li>
+<li id="menu-item-69936" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-69936"><a href="https://vedelisteze.sk/category/ludske-telo/">Ľudské telo</a></li>
+<li id="menu-item-77325" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-77325"><a href="https://vedelisteze.sk/category/zvierata/">Zvieratá</a></li>
+<li id="menu-item-69940" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-69940"><a href="https://vedelisteze.sk/category/jednohubky/">Jednohubky</a></li>
+<li id="menu-item-58218" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-58218"><a href="https://vedelisteze.sk/category/fakty/">Fakty</a></li>
+<li id="menu-item-69933" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-69933"><a href="https://vedelisteze.sk/category/veda/">Veda</a></li>
+<li id="menu-item-69938" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-69938"><a href="https://vedelisteze.sk/category/myty/">Mýty</a></li>
+</ul>                            </nav>
+                                            </section>
+                </div>
+
+                <!-- Mobile Menu -->
+                                    <div class="header__mobile-menu">
+                        <button class="header__mobile-menu-close js-mobile-menu-close" aria-label="Zatvoriť menu">
+                            <svg width="50" height="50" viewBox="0 0 20 20" fill="currentColor">
+    <path d="M14.95 6.46L11.41 10l3.54 3.54l-1.41 1.41L10 11.42l-3.53 3.53l-1.42-1.42L8.58 10L5.05 6.47l1.42-1.42L10 8.58l3.54-3.53z"></path>
+</svg>                        </button>
+                        <nav class="header__nav" role="navigation" aria-label="Mobilné menu">
+                            <ul id="menu-menu-2" class="header__menu"><li class="menu-item menu-item-type-custom menu-item-object-custom current-menu-item current_page_item menu-item-home menu-item-5928"><a href="https://vedelisteze.sk" aria-current="page">Domov</a></li>
+<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-69937"><a href="https://vedelisteze.sk/category/domacnost/">Domácnosť</a></li>
+<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-69939"><a href="https://vedelisteze.sk/category/lajfhacky/">Lajfhek</a></li>
+<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-69936"><a href="https://vedelisteze.sk/category/ludske-telo/">Ľudské telo</a></li>
+<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-77325"><a href="https://vedelisteze.sk/category/zvierata/">Zvieratá</a></li>
+<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-69940"><a href="https://vedelisteze.sk/category/jednohubky/">Jednohubky</a></li>
+<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-58218"><a href="https://vedelisteze.sk/category/fakty/">Fakty</a></li>
+<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-69933"><a href="https://vedelisteze.sk/category/veda/">Veda</a></li>
+<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-69938"><a href="https://vedelisteze.sk/category/myty/">Mýty</a></li>
+</ul>                        </nav>
+                    </div>
+                            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Content -->
+<main class="content-main">
+<div class="container">
+    <section class="posts-wrapper">
+        <div class="row">
+                            <div class="col col-sm-6 col-md-4">
+                    
+<article class="post-box">
+            <div class="post-box__image">
+            <a href="https://vedelisteze.sk/tieto-navyky-ti-brania-schudnut-z-brucha-toto-by-si-mal-prestat-robit/">
+                <img src="https://vedelisteze.sk/wp-content/uploads//2025/01/obezita-tuk-nadvaha-1024x576.jpg" alt="obezita a tucnota">
+            </a>
+        </div>
+    
+    <div class="post-box__content">
+        <h2 class="post-box__title">
+            <a href="https://vedelisteze.sk/tieto-navyky-ti-brania-schudnut-z-brucha-toto-by-si-mal-prestat-robit/">
+                Tieto návyky ti bránia schudnúť z brucha. Toto by si mal prestať robiť!            </a>
+        </h2>
+
+        <div class="post-box__meta">
+        <span class="post-box__meta-author">
+            <a href="https://vedelisteze.sk/author/petra-fecikova/">
+                Petra Fečiková            </a>
+        </span>
+            <span class="post-box__meta-separator"></span>
+            <span class="post-box__meta-date">
+            24. februára 2026        </span>
+        </div>
+
+                    <div class="post-box__excerpt">
+                Mnoho ľudí túži po plochejšom a pevnejšom bruchu, no cesta k nemu je často komplikovanejšia, než sa na prvý pohľad zdá. Niektorí hneď radikálne siahajú po rýchlych diétach či šialených fitness trendoch, ktoré sú z ...            </div>
+            </div>
+</article>
+                </div>
+                                            <div class="col col-sm-6 col-md-4">
+                    
+<article class="post-box">
+            <div class="post-box__image">
+            <a href="https://vedelisteze.sk/tieto-cisla-na-rure-vacsina-ludi-ignoruje-pritom-rozhoduju-o-tom-ci-bude-kolac-alebo-pizza-dokonala-alebo-spalena/">
+                <img src="https://vedelisteze.sk/wp-content/uploads//2026/02/rura-jedlo-poradie-2-1024x614.jpg" alt="rúra jedlo poradie 2">
+            </a>
+        </div>
+    
+    <div class="post-box__content">
+        <h2 class="post-box__title">
+            <a href="https://vedelisteze.sk/tieto-cisla-na-rure-vacsina-ludi-ignoruje-pritom-rozhoduju-o-tom-ci-bude-kolac-alebo-pizza-dokonala-alebo-spalena/">
+                Tieto čísla na rúre väčšina ľudí ignoruje. Pritom rozhodujú o tom, či bude koláč alebo pizza dokonalá, alebo spálená            </a>
+        </h2>
+
+        <div class="post-box__meta">
+        <span class="post-box__meta-author">
+            <a href="https://vedelisteze.sk/author/petra-fecikova/">
+                Petra Fečiková            </a>
+        </span>
+            <span class="post-box__meta-separator"></span>
+            <span class="post-box__meta-date">
+            23. februára 2026        </span>
+        </div>
+
+                    <div class="post-box__excerpt">
+                Stalo sa ti už, že koláč bol zvrchu spálený a vnútri ešte surový? Alebo že pizza mala bledý vrch a tvrdý spodok alebo naopak? Problém často nebýva v recepte ani v ingredienciách, ale v tom, ...            </div>
+            </div>
+</article>
+                </div>
+                                            <div class="col col-sm-6 col-md-4">
+                    
+<article class="post-box">
+            <div class="post-box__image">
+            <a href="https://vedelisteze.sk/tento-jednoduchy-trik-moze-tvoje-kuchynske-struhadlo-vratit-spat-do-formy-struhat-bude-ako-nove/">
+                <img src="https://vedelisteze.sk/wp-content/uploads//2026/02/tupe-struhadlo-1024x614.jpg" alt="Tento jednoduchý trik môže tvoje kuchynské strúhadlo vrátiť späť do formy. Strúhať bude ako nové!">
+            </a>
+        </div>
+    
+    <div class="post-box__content">
+        <h2 class="post-box__title">
+            <a href="https://vedelisteze.sk/tento-jednoduchy-trik-moze-tvoje-kuchynske-struhadlo-vratit-spat-do-formy-struhat-bude-ako-nove/">
+                Tento jednoduchý trik môže tvoje kuchynské strúhadlo vrátiť späť do formy. Strúhať bude ako nové!            </a>
+        </h2>
+
+        <div class="post-box__meta">
+        <span class="post-box__meta-author">
+            <a href="https://vedelisteze.sk/author/petra-fecikova/">
+                Petra Fečiková            </a>
+        </span>
+            <span class="post-box__meta-separator"></span>
+            <span class="post-box__meta-date">
+            23. februára 2026        </span>
+        </div>
+
+                    <div class="post-box__excerpt">
+                Kuchynské strúhadlo je pomôcka, ktorú používaš takmer každý deň. Či už potrebuješ nastrúhať syr na cestoviny, mrkvu do šalátu alebo zemiaky na placky, je to jeden z najpraktickejších nástrojov v kuchyni. Lenže občas sa stane, ...            </div>
+            </div>
+</article>
+                </div>
+                                            <div class="col col-sm-6 col-md-4">
+                    
+<article class="post-box">
+            <div class="post-box__image">
+            <a href="https://vedelisteze.sk/ako-zistis-ci-mas-lupiny-alebo-psoriazu-tieto-znaky-si-nepomyl/">
+                <img src="https://vedelisteze.sk/wp-content/uploads//2025/01/vlasy-1024x578.jpg" alt="vlasy">
+            </a>
+        </div>
+    
+    <div class="post-box__content">
+        <h2 class="post-box__title">
+            <a href="https://vedelisteze.sk/ako-zistis-ci-mas-lupiny-alebo-psoriazu-tieto-znaky-si-nepomyl/">
+                Ako zistíš, či máš lupiny alebo psoriázu? Tieto znaky si nepomýľ            </a>
+        </h2>
+
+        <div class="post-box__meta">
+        <span class="post-box__meta-author">
+            <a href="https://vedelisteze.sk/author/petra-fecikova/">
+                Petra Fečiková            </a>
+        </span>
+            <span class="post-box__meta-separator"></span>
+            <span class="post-box__meta-date">
+            22. februára 2026        </span>
+        </div>
+
+                    <div class="post-box__excerpt">
+                Ak si si niekedy všimol suché šupinky vo vlasoch, padajúce snehové čiastočky na pleciach alebo ťa dlhodobo trápilo svrbenie pokožky hlavy, pravdepodobne si sa zamyslel nad tým, že niečo nie je v poriadku. Zatiaľ čo ...            </div>
+            </div>
+</article>
+                </div>
+                                            <div class="col col-sm-6 col-md-4">
+                    
+<article class="post-box">
+            <div class="post-box__image">
+            <a href="https://vedelisteze.sk/ako-casto-treba-prat-podprsenky-mozno-ich-peries-castokrat-uplne-zbytocne/">
+                <img src="https://vedelisteze.sk/wp-content/uploads//2026/02/podpsenkaaaa-1024x614.jpg" alt="Ako často treba prať podprsenky? Možno ich perieš častokrát úplne zbytočne">
+            </a>
+        </div>
+    
+    <div class="post-box__content">
+        <h2 class="post-box__title">
+            <a href="https://vedelisteze.sk/ako-casto-treba-prat-podprsenky-mozno-ich-peries-castokrat-uplne-zbytocne/">
+                Ako často treba prať podprsenky? Možno ich perieš častokrát úplne zbytočne            </a>
+        </h2>
+
+        <div class="post-box__meta">
+        <span class="post-box__meta-author">
+            <a href="https://vedelisteze.sk/author/petra-fecikova/">
+                Petra Fečiková            </a>
+        </span>
+            <span class="post-box__meta-separator"></span>
+            <span class="post-box__meta-date">
+            21. februára 2026        </span>
+        </div>
+
+                    <div class="post-box__excerpt">
+                Podprsenka je kus oblečenia, ktorý nosíš takmer každý deň. Je v priamom kontakte s pokožkou, telovým olejom, potom aj deodorantom. Mnohé ženy si myslia, že keďže ide o spodnú bielizeň, mala by sa prať po ...            </div>
+            </div>
+</article>
+                </div>
+                                            <div class="col col-sm-6 col-md-4">
+                    
+<article class="post-box">
+            <div class="post-box__image">
+            <a href="https://vedelisteze.sk/draha-chyba-ktoru-robime-po-kazdom-vareni-vylievas-aj-ty-vriacu-vodu-do-drezu/">
+                <img src="https://vedelisteze.sk/wp-content/uploads//2026/02/horuca-voda-do-odtoku-1024x614.jpg" alt="horuca voda do odtoku">
+            </a>
+        </div>
+    
+    <div class="post-box__content">
+        <h2 class="post-box__title">
+            <a href="https://vedelisteze.sk/draha-chyba-ktoru-robime-po-kazdom-vareni-vylievas-aj-ty-vriacu-vodu-do-drezu/">
+                Drahá chyba, ktorú robíme po každom varení: Vylievaš aj ty vriacu vodu do drezu?            </a>
+        </h2>
+
+        <div class="post-box__meta">
+        <span class="post-box__meta-author">
+            <a href="https://vedelisteze.sk/author/petra-fecikova/">
+                Petra Fečiková            </a>
+        </span>
+            <span class="post-box__meta-separator"></span>
+            <span class="post-box__meta-date">
+            20. februára 2026        </span>
+        </div>
+
+                    <div class="post-box__excerpt">
+                Či už varíš cestoviny, zeleninu alebo ti jednoducho ostane vriaca voda v hrnci, je úplne intuitívne vyliať ju do drezu. Veď čo iné by sme s ňou robili? Väčšina ľudí to spraví automaticky, bez rozmýšľania. ...            </div>
+            </div>
+</article>
+                </div>
+                                            <div class="col col-sm-6 col-md-4">
+                    
+<article class="post-box">
+            <div class="post-box__image">
+            <a href="https://vedelisteze.sk/ako-naucit-psa-chodit-na-voditku-aby-netahal-a-pocuval-tieto-triky-ti-vyrazne-ulahcia-trening/">
+                <img src="https://vedelisteze.sk/wp-content/uploads//2024/11/pes-pohlad-1-1024x576.jpg" alt="pes pohlad_1.jpg">
+            </a>
+        </div>
+    
+    <div class="post-box__content">
+        <h2 class="post-box__title">
+            <a href="https://vedelisteze.sk/ako-naucit-psa-chodit-na-voditku-aby-netahal-a-pocuval-tieto-triky-ti-vyrazne-ulahcia-trening/">
+                Ako naučiť psa chodiť na vodítku, aby neťahal a počúval? Tieto triky ti výrazne uľahčia tréning            </a>
+        </h2>
+
+        <div class="post-box__meta">
+        <span class="post-box__meta-author">
+            <a href="https://vedelisteze.sk/author/petra-fecikova/">
+                Petra Fečiková            </a>
+        </span>
+            <span class="post-box__meta-separator"></span>
+            <span class="post-box__meta-date">
+            19. februára 2026        </span>
+        </div>
+
+                    <div class="post-box__excerpt">
+                Aj keď je chôdza na vodítku absolútny základ pri výcviku psa, mnohí psi a ich majitelia s týmto bojujú niekedy aj celé roky. Avšak toto musí zvládnuť každý pes, ak chceš s ním bezpečne a ...            </div>
+            </div>
+</article>
+                </div>
+                                            <div class="col col-sm-6 col-md-4">
+                    
+<article class="post-box">
+            <div class="post-box__image">
+            <a href="https://vedelisteze.sk/vies-ako-spravne-skladovat-kavu-aby-nestratila-chut-a-aromu-tieto-chyby-ju-robia-mdlou/">
+                <img src="https://vedelisteze.sk/wp-content/uploads//2026/02/nadoba-na-kavu-1024x614.jpg" alt="Vieš, ako správne skladovať kávu, aby nestratila chuť a arómu? Tieto chyby ju robia mdlou">
+            </a>
+        </div>
+    
+    <div class="post-box__content">
+        <h2 class="post-box__title">
+            <a href="https://vedelisteze.sk/vies-ako-spravne-skladovat-kavu-aby-nestratila-chut-a-aromu-tieto-chyby-ju-robia-mdlou/">
+                Vieš, ako správne skladovať kávu, aby nestratila chuť a arómu? Tieto chyby ju robia mdlou            </a>
+        </h2>
+
+        <div class="post-box__meta">
+        <span class="post-box__meta-author">
+            <a href="https://vedelisteze.sk/author/petra-fecikova/">
+                Petra Fečiková            </a>
+        </span>
+            <span class="post-box__meta-separator"></span>
+            <span class="post-box__meta-date">
+            19. februára 2026        </span>
+        </div>
+
+                    <div class="post-box__excerpt">
+                Káva patrí medzi najobľúbenejšie nápoje a mnohí z nás si bez nej nevedia predstaviť začiatok dňa. Ak si ju pripravuješ doma, možno si si už všimol, že jej chuť nie je vždy rovnaká. A to ...            </div>
+            </div>
+</article>
+                </div>
+                                            <div class="col col-sm-6 col-md-4">
+                    
+<article class="post-box">
+            <div class="post-box__image">
+            <a href="https://vedelisteze.sk/orchidea-ti-chradne-pred-ocami-skus-vodu-z-uvarenych-vajec-ale-pozor-na-jednu-chybu/">
+                <img src="https://vedelisteze.sk/wp-content/uploads//2025/07/orchideaa-1024x578.jpg" alt="orchidea">
+            </a>
+        </div>
+    
+    <div class="post-box__content">
+        <h2 class="post-box__title">
+            <a href="https://vedelisteze.sk/orchidea-ti-chradne-pred-ocami-skus-vodu-z-uvarenych-vajec-ale-pozor-na-jednu-chybu/">
+                Orchidea ti chradne pred očami? Skús vodu z uvarených vajec, ale pozor na jednu chybu            </a>
+        </h2>
+
+        <div class="post-box__meta">
+        <span class="post-box__meta-author">
+            <a href="https://vedelisteze.sk/author/petra-fecikova/">
+                Petra Fečiková            </a>
+        </span>
+            <span class="post-box__meta-separator"></span>
+            <span class="post-box__meta-date">
+            18. februára 2026        </span>
+        </div>
+
+                    <div class="post-box__excerpt">
+                Ak máš doma orchideu, určite vieš, aké náročné môže byť udržať ju krásnu a zdravú. Listy hnednú, korene sa kazia, kvety miznú a ty nevieš, čo robíš zle. Nižšie ti prinášame tip, ako jej dopriať ...            </div>
+            </div>
+</article>
+                </div>
+                                            <div class="col col-sm-6 col-md-4">
+                    
+<article class="post-box">
+            <div class="post-box__image">
+            <a href="https://vedelisteze.sk/tieto-chyby-pri-piti-kavy-robime-takmer-vsetci-ich-vplyv-na-telo-ta-moze-prekvapit/">
+                <img src="https://vedelisteze.sk/wp-content/uploads//2024/12/zalievana-kava-1024x576.jpg" alt="zalievana kava">
+            </a>
+        </div>
+    
+    <div class="post-box__content">
+        <h2 class="post-box__title">
+            <a href="https://vedelisteze.sk/tieto-chyby-pri-piti-kavy-robime-takmer-vsetci-ich-vplyv-na-telo-ta-moze-prekvapit/">
+                Tieto chyby pri pití kávy robíme takmer všetci! Ich vplyv na telo ťa môže prekvapiť            </a>
+        </h2>
+
+        <div class="post-box__meta">
+        <span class="post-box__meta-author">
+            <a href="https://vedelisteze.sk/author/petra-fecikova/">
+                Petra Fečiková            </a>
+        </span>
+            <span class="post-box__meta-separator"></span>
+            <span class="post-box__meta-date">
+            18. februára 2026        </span>
+        </div>
+
+                    <div class="post-box__excerpt">
+                Káva je pre mnohých ľudí neodmysliteľnou súčasťou každého dňa. Jedna šálka dokáže dodať energiu, zlepšiť koncentráciu a príjemne naštartovať ráno. Lenže spôsob, akým ju pijeme, často rozhoduje o tom, či nám skutočne pomáha, alebo si ...            </div>
+            </div>
+</article>
+                </div>
+                                            <div class="col col-sm-6 col-md-4">
+                    
+<article class="post-box">
+            <div class="post-box__image">
+            <a href="https://vedelisteze.sk/moze-striekanie-parfumu-priamo-na-krk-ovplyvnit-funkciu-stitnej-zlazy/">
+                <img src="https://vedelisteze.sk/wp-content/uploads//2026/02/vonavka-na-krk-1024x640.jpg" alt="vonavka na krk">
+            </a>
+        </div>
+    
+    <div class="post-box__content">
+        <h2 class="post-box__title">
+            <a href="https://vedelisteze.sk/moze-striekanie-parfumu-priamo-na-krk-ovplyvnit-funkciu-stitnej-zlazy/">
+                Môže striekanie parfumu priamo na krk ovplyvniť funkciu štítnej žľazy?            </a>
+        </h2>
+
+        <div class="post-box__meta">
+        <span class="post-box__meta-author">
+            <a href="https://vedelisteze.sk/author/petra-fecikova/">
+                Petra Fečiková            </a>
+        </span>
+            <span class="post-box__meta-separator"></span>
+            <span class="post-box__meta-date">
+            17. februára 2026        </span>
+        </div>
+
+                    <div class="post-box__excerpt">
+                Tento zvyk máme všetci. Ráno vstaneme, umyjeme sa, oblečieme a pred odchodom z domu na seba ešte rýchlo striekneme parfum. Ten dotvára celý náš vzhľad, dodáva nám sebavedomie aj pocit sviežosti. Na tom by nebolo ...            </div>
+            </div>
+</article>
+                </div>
+                
+<div class="col col-sm-6 col-md-4">
+    <article class="post-box">
+        <div class="post-box__image">
+            <a href="https://vsetkopremamu.sk/ocot-a-soda-bikarbona-na-vodny-kamen-overeny-trik-ktory-naozaj-funguje/" class="post-box__img">
+                <img width="1280" height="720"
+                     src="https://vsetkopremamu.sk/wp-content/uploads/2026/02/ChatGPTImage23.2.202623_15_09-ezgif.com-png-to-jpg-converter-440x440.jpg?v=20220519"
+                     class="attachment-post-thumbnail size-post-thumbnail wp-post-image"
+                     alt="Ocot a sóda bikarbóna na vodný kameň: overený trik, ktorý naozaj funguje"
+                     decoding="async"
+                     loading="lazy"
+                >
+            </a>
+        </div>
+        <div class="post-box__content">
+            <h2 class="post-box__title">
+                <a href="https://vsetkopremamu.sk/ocot-a-soda-bikarbona-na-vodny-kamen-overeny-trik-ktory-naozaj-funguje/">
+                    Ocot a sóda bikarbóna na vodný kameň: overený trik, ktorý naozaj funguje                </a>
+            </h2>
+            <div class="post-box__meta">
+            <span class="post-box__meta-author">
+                 <a href="https://vsetkopremamu.sk/ocot-a-soda-bikarbona-na-vodny-kamen-overeny-trik-ktory-naozaj-funguje/">
+                    <span>Všetkopremamu.sk</span>
+                </a>
+            </span>
+                <span class="post-box__meta-separator"></span>
+                <span class="post-box__meta-date">23 februára, 2026</span>
+            </div>
+            <div class="post-box__excerpt">
+                Vodný kameň je tichý nepriateľ každej domácnosti. Nenápadne sa usádza na batériách, v sprche, v rýchlovarnej kanvici aj &#8230;            </div>
+        </div>
+    </article>
+</div>
+
+
+<div class="col col-sm-6 col-md-4">
+    <article class="post-box">
+        <div class="post-box__image">
+            <a href="https://vsetkopremamu.sk/pecene-fasirky-v-rure-bez-vyprazania-a-s-chrumkavou-korkou/" class="post-box__img">
+                <img width="1280" height="720"
+                     src="https://vsetkopremamu.sk/wp-content/uploads/2026/02/fasirky-ezgif.com-png-to-jpg-converter-752x438.jpg?v=20220519"
+                     class="attachment-post-thumbnail size-post-thumbnail wp-post-image"
+                     alt="Pečené fašírky v rúre: bez vyprážania a s chrumkavou kôrkou"
+                     decoding="async"
+                     loading="lazy"
+                >
+            </a>
+        </div>
+        <div class="post-box__content">
+            <h2 class="post-box__title">
+                <a href="https://vsetkopremamu.sk/pecene-fasirky-v-rure-bez-vyprazania-a-s-chrumkavou-korkou/">
+                    Pečené fašírky v rúre: bez vyprážania a s chrumkavou kôrkou                </a>
+            </h2>
+            <div class="post-box__meta">
+            <span class="post-box__meta-author">
+                 <a href="https://vsetkopremamu.sk/pecene-fasirky-v-rure-bez-vyprazania-a-s-chrumkavou-korkou/">
+                    <span>Všetkopremamu.sk</span>
+                </a>
+            </span>
+                <span class="post-box__meta-separator"></span>
+                <span class="post-box__meta-date">23 februára, 2026</span>
+            </div>
+            <div class="post-box__excerpt">
+                Fašírky patria medzi tie jedlá, ktoré pozná každá rodina. Vôňa mäsa, cesnaku a majoránky, ktorá sa šíri kuchyňou, dokáže&#8230;            </div>
+        </div>
+    </article>
+</div>
+
+                            <div class="col col-sm-6 col-md-4">
+                    
+<article class="post-box">
+            <div class="post-box__image">
+            <a href="https://vedelisteze.sk/vodka-nemusi-ist-len-do-pohara-v-domacnosti-dokaze-male-zazraky-o-ktorych-si-mozno-netusil/">
+                <img src="https://vedelisteze.sk/wp-content/uploads//2026/02/vodka-2-1024x640.jpg" alt="vodka 2">
+            </a>
+        </div>
+    
+    <div class="post-box__content">
+        <h2 class="post-box__title">
+            <a href="https://vedelisteze.sk/vodka-nemusi-ist-len-do-pohara-v-domacnosti-dokaze-male-zazraky-o-ktorych-si-mozno-netusil/">
+                Vodka nemusí ísť len do pohára. V domácnosti dokáže malé zázraky, o ktorých si možno netušil            </a>
+        </h2>
+
+        <div class="post-box__meta">
+        <span class="post-box__meta-author">
+            <a href="https://vedelisteze.sk/author/petra-fecikova/">
+                Petra Fečiková            </a>
+        </span>
+            <span class="post-box__meta-separator"></span>
+            <span class="post-box__meta-date">
+            17. februára 2026        </span>
+        </div>
+
+                    <div class="post-box__excerpt">
+                Vodka v domácnosti pre mnohých automaticky znamená večer v znamení poriadnej párty. Tento stereotyp však pokojne môžeš zahodiť. Možno ťa to prekvapí, ale táto číra tekutina vie byť prekvapivo šikovným pomocníkom pri upratovaní. A nejde ...            </div>
+            </div>
+</article>
+                </div>
+                                            <div class="col col-sm-6 col-md-4">
+                    
+<article class="post-box">
+            <div class="post-box__image">
+            <a href="https://vedelisteze.sk/staci-45-minut-a-tvoj-mozog-sa-zmeni-vedci-ukazali-ako-kratky-spanok-ovplyvnuje-schopnost-ucit-sa/">
+                <img src="https://vedelisteze.sk/wp-content/uploads//2026/01/ludsky-mozog-impulzy-1024x585.jpg" alt="ludsky mozog impulzy">
+            </a>
+        </div>
+    
+    <div class="post-box__content">
+        <h2 class="post-box__title">
+            <a href="https://vedelisteze.sk/staci-45-minut-a-tvoj-mozog-sa-zmeni-vedci-ukazali-ako-kratky-spanok-ovplyvnuje-schopnost-ucit-sa/">
+                Stačí 45 minút a tvoj mozog sa zmení. Vedci ukázali, ako krátky spánok ovplyvňuje schopnosť učiť sa            </a>
+        </h2>
+
+        <div class="post-box__meta">
+        <span class="post-box__meta-author">
+            <a href="https://vedelisteze.sk/author/infopledge-sk/">
+                Martin Borko            </a>
+        </span>
+            <span class="post-box__meta-separator"></span>
+            <span class="post-box__meta-date">
+            16. februára 2026        </span>
+        </div>
+
+                    <div class="post-box__excerpt">
+                Theta vlny súvisia s tým, ako veľmi je mozog „unavený“. Keď sa počas dňa hromadí potreba spať, ich aktivita býva vyššia. Ak po zdriemnutí klesli, znamená to, že sa znížil aj samotný tlak na spánok. ...            </div>
+            </div>
+</article>
+                </div>
+                
+<div class="col col-sm-6 col-md-4">
+    <article class="post-box">
+        <div class="post-box__image">
+            <a href="https://autorady.sk/halogen-vs-led-v-aute-aky-je-medzi-nimi-rozdiel-a-kolko-ta-moze-stat-oprava-pokazeneho-svetla/" class="post-box__img">
+                <img width="1280" height="720"
+                     src="https://autorady.sk/wp-content/uploads/2025/11/svetla-auto_2-1024x576.jpg?v=20220519"
+                     class="attachment-post-thumbnail size-post-thumbnail wp-post-image"
+                     alt="Halogén vs LED v aute: Aký je medzi nimi rozdiel a koľko ťa môže stáť oprava pokazeného svetla"
+                     decoding="async"
+                     loading="lazy"
+                >
+            </a>
+        </div>
+        <div class="post-box__content">
+            <h2 class="post-box__title">
+                <a href="https://autorady.sk/halogen-vs-led-v-aute-aky-je-medzi-nimi-rozdiel-a-kolko-ta-moze-stat-oprava-pokazeneho-svetla/">
+                    Halogén vs LED v aute: Aký je medzi nimi rozdiel a koľko ťa môže stáť oprava pokazeného svetla                </a>
+            </h2>
+            <div class="post-box__meta">
+            <span class="post-box__meta-author">
+                 <a href="https://autorady.sk/halogen-vs-led-v-aute-aky-je-medzi-nimi-rozdiel-a-kolko-ta-moze-stat-oprava-pokazeneho-svetla/">
+                    <span>Autorady.sk</span>
+                </a>
+            </span>
+                <span class="post-box__meta-separator"></span>
+                <span class="post-box__meta-date">24 februára, 2026</span>
+            </div>
+            <div class="post-box__excerpt">
+                Halogén zhasne, kúpiš novú žiarovku a ideš ďalej. LED svetlo, keď odíde, často neznamená výmenu žiarovky, ale celého sve&#8230;            </div>
+        </div>
+    </article>
+</div>
+
+
+<div class="col col-sm-6 col-md-4">
+    <article class="post-box">
+        <div class="post-box__image">
+            <a href="https://autorady.sk/auto-ti-zerie-viac-paliva-tato-lacna-suciastka-ktoru-vymenis-aj-sam-doma-byva-casto-dovodom/" class="post-box__img">
+                <img width="1280" height="720"
+                     src="https://autorady.sk/wp-content/uploads/2026/02/tankovaci-automat-palivo-benzin-nafta-1024x768.jpg?v=20220519"
+                     class="attachment-post-thumbnail size-post-thumbnail wp-post-image"
+                     alt="Auto ti žerie viac paliva? Táto lacná súčiastka, ktorú vymeníš aj sám doma, býva často dôvodom"
+                     decoding="async"
+                     loading="lazy"
+                >
+            </a>
+        </div>
+        <div class="post-box__content">
+            <h2 class="post-box__title">
+                <a href="https://autorady.sk/auto-ti-zerie-viac-paliva-tato-lacna-suciastka-ktoru-vymenis-aj-sam-doma-byva-casto-dovodom/">
+                    Auto ti žerie viac paliva? Táto lacná súčiastka, ktorú vymeníš aj sám doma, býva často dôvodom                </a>
+            </h2>
+            <div class="post-box__meta">
+            <span class="post-box__meta-author">
+                 <a href="https://autorady.sk/auto-ti-zerie-viac-paliva-tato-lacna-suciastka-ktoru-vymenis-aj-sam-doma-byva-casto-dovodom/">
+                    <span>Autorady.sk</span>
+                </a>
+            </span>
+                <span class="post-box__meta-separator"></span>
+                <span class="post-box__meta-date">23 februára, 2026</span>
+            </div>
+            <div class="post-box__excerpt">
+                Vzduchový filter patrí medzi najlacnejšie diely v aute. A pritom priamo rozhoduje o tom, koľko vzduchu sa dostane do val&#8230;            </div>
+        </div>
+    </article>
+</div>
+
+                            <div class="col col-sm-6 col-md-4">
+                    
+<article class="post-box">
+            <div class="post-box__image">
+            <a href="https://vedelisteze.sk/trener-psov-ukazal-ako-naucit-psa-nereagovat-impulzivne-takto-ho-naucis-zvladat-rozptylenie/">
+                <img src="https://vedelisteze.sk/wp-content/uploads//2024/12/pes-pohlad-1-1024x576.jpg" alt="Pes_pohlad_1.jpg">
+            </a>
+        </div>
+    
+    <div class="post-box__content">
+        <h2 class="post-box__title">
+            <a href="https://vedelisteze.sk/trener-psov-ukazal-ako-naucit-psa-nereagovat-impulzivne-takto-ho-naucis-zvladat-rozptylenie/">
+                Tréner psov ukázal, ako naučiť psa nereagovať impulzívne. Takto ho naučíš zvládať rozptýlenie            </a>
+        </h2>
+
+        <div class="post-box__meta">
+        <span class="post-box__meta-author">
+            <a href="https://vedelisteze.sk/author/infopledge-sk/">
+                Martin Borko            </a>
+        </span>
+            <span class="post-box__meta-separator"></span>
+            <span class="post-box__meta-date">
+            16. februára 2026        </span>
+        </div>
+
+                    <div class="post-box__excerpt">
+                Väčšina ľudí robí pri výcviku jednu zásadnú chybu. Dajú psovi misku, prikážu „čakaj“, chvíľu ho napínajú a potom ho pustia. Myslia si, že trénujú disciplínu. V skutočnosti trénujú len to, ako veľmi sa má pes ...            </div>
+            </div>
+</article>
+                </div>
+                                            <div class="col col-sm-6 col-md-4">
+                    
+<article class="post-box">
+            <div class="post-box__image">
+            <a href="https://vedelisteze.sk/vystartuje-tvoj-pes-po-cloveku-na-chodniku-nemusi-byt-hned-agresivny-trener-psov-vysvetlil-ako-toto-spravanie-odnaucit/">
+                <img src="https://vedelisteze.sk/wp-content/uploads//2025/09/agresivny-pes-1024x737.jpg" alt="agresivny pes">
+            </a>
+        </div>
+    
+    <div class="post-box__content">
+        <h2 class="post-box__title">
+            <a href="https://vedelisteze.sk/vystartuje-tvoj-pes-po-cloveku-na-chodniku-nemusi-byt-hned-agresivny-trener-psov-vysvetlil-ako-toto-spravanie-odnaucit/">
+                Vyštartuje tvoj pes po človeku na chodníku? Nemusí byť hneď agresívny. Tréner psov vysvetlil, ako toto správanie odnaučiť            </a>
+        </h2>
+
+        <div class="post-box__meta">
+        <span class="post-box__meta-author">
+            <a href="https://vedelisteze.sk/author/infopledge-sk/">
+                Martin Borko            </a>
+        </span>
+            <span class="post-box__meta-separator"></span>
+            <span class="post-box__meta-date">
+            16. februára 2026        </span>
+        </div>
+
+                    <div class="post-box__excerpt">
+                Keď pes vyštartuje po človeku na chodníku, je jednoduché nalepiť mu nálepku „agresívny“. Lenže v mnohých prípadoch to nemusí byť agresivite či o snahe dominovať. Môže to byť len obyčajný strach. Tréner psov Brian Ferguson ...            </div>
+            </div>
+</article>
+                </div>
+                                            <div class="col col-sm-6 col-md-4">
+                    
+<article class="post-box">
+            <div class="post-box__image">
+            <a href="https://vedelisteze.sk/upchaty-odtok-nemusis-hned-riesit-chemiou-tato-jednoducha-kombinacia-z-kuchyne-uvolni-tuk-aj-nanosy/">
+                <img src="https://vedelisteze.sk/wp-content/uploads//2026/02/zlab-odtok-sprcha-zapach-1024x768.jpg" alt="zlab odtok sprcha zapach">
+            </a>
+        </div>
+    
+    <div class="post-box__content">
+        <h2 class="post-box__title">
+            <a href="https://vedelisteze.sk/upchaty-odtok-nemusis-hned-riesit-chemiou-tato-jednoducha-kombinacia-z-kuchyne-uvolni-tuk-aj-nanosy/">
+                Upchatý odtok nemusíš hneď riešiť chémiou. Táto jednoduchá kombinácia z kuchyne uvoľní tuk aj nánosy            </a>
+        </h2>
+
+        <div class="post-box__meta">
+        <span class="post-box__meta-author">
+            <a href="https://vedelisteze.sk/author/infopledge-sk/">
+                Martin Borko            </a>
+        </span>
+            <span class="post-box__meta-separator"></span>
+            <span class="post-box__meta-date">
+            15. februára 2026        </span>
+        </div>
+
+                    <div class="post-box__excerpt">
+                Upchatý odtok nevznikne zo dňa na deň, ako si mnohí myslia. Je to pomalý proces, ktorý si väčšina ľudí ani nevšimne. Vlasy sa zachytia o mierne drsný povrch potrubia alebo o mriežku. Na ne sa ...            </div>
+            </div>
+</article>
+                </div>
+                                    </div>
+    </section>
+    <!-- Pagination -->
+    
+<nav class="pagination" aria-label="Stránkovanie">
+    
+    
+            <a href="https://vedelisteze.sk/" class="pagination__link pagination__link--active">
+            1        </a>
+            <a href="https://vedelisteze.sk/page/2/" class="pagination__link ">
+            2        </a>
+            <a href="https://vedelisteze.sk/page/3/" class="pagination__link ">
+            3        </a>
+            <a href="https://vedelisteze.sk/page/4/" class="pagination__link ">
+            4        </a>
+            <a href="https://vedelisteze.sk/page/5/" class="pagination__link ">
+            5        </a>
+    
+                        <span class="pagination__dots">...</span>
+                <a href="https://vedelisteze.sk/page/450/" class="pagination__link ">
+            450        </a>
+    
+            <a href="https://vedelisteze.sk/page/2/" class="pagination__link pagination__link--next">
+            Ďalej »
+        </a>
+    </nav>
+
+</div>
+</main>
+
+<!-- Widget -->
+
+<!-- Footer -->
+
+<footer class="footer">
+    <div class="container">
+        <!-- Copyright -->
+        <div class="row">
+            <div class="col-12">
+                <div class="footer__copyright"><p style="text-align: center;">© 2023-2026 (EV 146/25/SWP) Česť pirátom, ktorí uvádzajú zdroje.</p>
+<p style="text-align: center;">Obsah zo stránky Vedelisteze.sk je možné voľne parafrázovať a šíriť (okrem obrázkov) za podmienky uvedenia autora a dofollow odkazu na pôvodný článok.</p>
+<p style="text-align: center;"><strong>❤️<a>Pledge media s.r.o.</a></strong></p>
+</div>
+            </div>
+        </div>
+        <!-- Menu -->
+        <div class="row">
+            <div class="col-12">
+                <section class="footer__info">
+                    <!-- Menu -->
+                    <div id="footer-nav" class="menu-spodne-container"><ul id="footer-nav" class="menu"><li id="menu-item-70071" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-70071"><a href="https://vedelisteze.sk/kontakt/">Kontakt</a></li>
+<li id="menu-item-70074" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-70074"><a href="https://vedelisteze.sk/redakcia/">Redakcia</a></li>
+<li id="menu-item-77040" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-77040"><a href="https://vedelisteze.sk/redakcne-zasady/">Redakčné zásady</a></li>
+<li id="menu-item-70072" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-70072"><a href="https://vedelisteze.sk/cennik-reklamy/">Cenník reklamy</a></li>
+<li id="menu-item-70073" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-70073"><a href="https://vedelisteze.sk/podmienky-pouzivania-a-gdpr/">Podmienky používania a GDPR</a></li>
+</ul></div>                    <!-- Share -->
+                    
+<div class="share__list">
+                <a href="https://www.facebook.com/people/Vedeli-ste-%C5%BEe-20/61563582886507/?ref=embed_page" class="button">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+    <path d="M10.2683 14V9.35627H11.8231L12.0559 7.551H10.2683V6.39843C10.2683 5.87576 10.4133 5.51956 11.1629 5.51956L12.1189 5.51911V3.90451C11.9535 3.88255 11.3861 3.83337 10.7259 3.83337C9.34753 3.83337 8.404 4.67465 8.404 6.21968V7.551H6.84513V9.35627H8.404V14H2.66667C2.29848 14 2 13.7015 2 13.3333V2.66667C2 2.29848 2.29848 2 2.66667 2H13.3333C13.7015 2 14 2.29848 14 2.66667V13.3333C14 13.7015 13.7015 14 13.3333 14H10.2683Z" fill="#3D3D3D"/>
+</svg>        </a>
+                    <a href="https://t.me/vedelisteze" class="button">
+            <svg xmlns="http://www.w3.org/2000/svg" width="800px" height="800px" viewBox="0 0 32 32" fill="none">
+    <path fill="#3D3D3D" d="M22.122 10.040c0.006-0 0.014-0 0.022-0 0.209 0 0.403 0.065 0.562 0.177l-0.003-0.002c0.116 0.101 0.194 0.243 0.213 0.403l0 0.003c0.020 0.122 0.031 0.262 0.031 0.405 0 0.065-0.002 0.129-0.007 0.193l0-0.009c-0.225 2.369-1.201 8.114-1.697 10.766-0.21 1.123-0.623 1.499-1.023 1.535-0.869 0.081-1.529-0.574-2.371-1.126-1.318-0.865-2.063-1.403-3.342-2.246-1.479-0.973-0.52-1.51 0.322-2.384 0.221-0.23 4.052-3.715 4.127-4.031 0.004-0.019 0.006-0.040 0.006-0.062 0-0.078-0.029-0.149-0.076-0.203l0 0c-0.052-0.034-0.117-0.053-0.185-0.053-0.045 0-0.088 0.009-0.128 0.024l0.002-0.001q-0.198 0.045-6.316 4.174c-0.445 0.351-1.007 0.573-1.619 0.599l-0.006 0c-0.867-0.105-1.654-0.298-2.401-0.573l0.074 0.024c-0.938-0.306-1.683-0.467-1.619-0.985q0.051-0.404 1.114-0.827 6.548-2.853 8.733-3.761c1.607-0.853 3.47-1.555 5.429-2.010l0.157-0.031zM15.93 1.025c-8.302 0.020-15.025 6.755-15.025 15.060 0 8.317 6.742 15.060 15.060 15.060s15.060-6.742 15.060-15.060c0-8.305-6.723-15.040-15.023-15.060h-0.002q-0.035-0-0.070 0z"></path>
+</svg>        </a>
+                <a href="https://vedelisteze.sk/feed/" class="button">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+    <path d="M2 2C8.6274 2 14 7.3726 14 14H12C12 8.47713 7.52287 4 2 4V2ZM2 6.66667C6.05009 6.66667 9.33333 9.94993 9.33333 14H7.33333C7.33333 11.0545 4.94552 8.66667 2 8.66667V6.66667ZM2 11.3333C3.47276 11.3333 4.66667 12.5273 4.66667 14H2V11.3333Z" fill="#3D3D3D"/>
+</svg>        </a>
+    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- Page container end -->
+<script type="speculationrules">
+{"prefetch":[{"source":"document","where":{"and":[{"href_matches":"\/*"},{"not":{"href_matches":["\/wp-*.php","\/wp-admin\/*","\/wp-content\/uploads\/*","\/wp-content\/*","\/wp-content\/plugins\/*","\/wp-content\/themes\/autorady\/*","\/*\\?(.+)"]}},{"not":{"selector_matches":"a[rel~=\"nofollow\"]"}},{"not":{"selector_matches":".no-prefetch, .no-prefetch a"}}]},"eagerness":"conservative"}]}
+</script>
+<script type="rocketlazyloadscript" data-rocket-type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js?ver=1.0.22" id="vit-slider-rss-feed-slick-js" defer></script>
+<script type="text/javascript" id="vit-slider-rss-feed-js-extra">
+/* <![CDATA[ */
+var vit_slider = {"ajax_url":"https:\/\/vedelisteze.sk\/wp-admin\/admin-ajax.php"};
+/* ]]> */
+</script>
+<script type="rocketlazyloadscript" data-rocket-type="text/javascript" src="https://vedelisteze.sk/wp-content/plugins/vit-slider-rss-feed/assets/js/main.js?ver=1.0.22" id="vit-slider-rss-feed-js" defer></script>
+<script type="rocketlazyloadscript" data-rocket-type="text/javascript" id="rocket-browser-checker-js-after">
+/* <![CDATA[ */
+"use strict";var _createClass=function(){function defineProperties(target,props){for(var i=0;i<props.length;i++){var descriptor=props[i];descriptor.enumerable=descriptor.enumerable||!1,descriptor.configurable=!0,"value"in descriptor&&(descriptor.writable=!0),Object.defineProperty(target,descriptor.key,descriptor)}}return function(Constructor,protoProps,staticProps){return protoProps&&defineProperties(Constructor.prototype,protoProps),staticProps&&defineProperties(Constructor,staticProps),Constructor}}();function _classCallCheck(instance,Constructor){if(!(instance instanceof Constructor))throw new TypeError("Cannot call a class as a function")}var RocketBrowserCompatibilityChecker=function(){function RocketBrowserCompatibilityChecker(options){_classCallCheck(this,RocketBrowserCompatibilityChecker),this.passiveSupported=!1,this._checkPassiveOption(this),this.options=!!this.passiveSupported&&options}return _createClass(RocketBrowserCompatibilityChecker,[{key:"_checkPassiveOption",value:function(self){try{var options={get passive(){return!(self.passiveSupported=!0)}};window.addEventListener("test",null,options),window.removeEventListener("test",null,options)}catch(err){self.passiveSupported=!1}}},{key:"initRequestIdleCallback",value:function(){!1 in window&&(window.requestIdleCallback=function(cb){var start=Date.now();return setTimeout(function(){cb({didTimeout:!1,timeRemaining:function(){return Math.max(0,50-(Date.now()-start))}})},1)}),!1 in window&&(window.cancelIdleCallback=function(id){return clearTimeout(id)})}},{key:"isDataSaverModeOn",value:function(){return"connection"in navigator&&!0===navigator.connection.saveData}},{key:"supportsLinkPrefetch",value:function(){var elem=document.createElement("link");return elem.relList&&elem.relList.supports&&elem.relList.supports("prefetch")&&window.IntersectionObserver&&"isIntersecting"in IntersectionObserverEntry.prototype}},{key:"isSlowConnection",value:function(){return"connection"in navigator&&"effectiveType"in navigator.connection&&("2g"===navigator.connection.effectiveType||"slow-2g"===navigator.connection.effectiveType)}}]),RocketBrowserCompatibilityChecker}();
+/* ]]> */
+</script>
+<script type="text/javascript" id="rocket-preload-links-js-extra">
+/* <![CDATA[ */
+var RocketPreloadLinksConfig = {"excludeUris":"\/testova-strana\/|\/(.+\/)?feed\/?.+\/?|\/(?:.+\/)?embed\/|\/(index\\.php\/)?wp\\-json(\/.*|$)|\/admin-prihlasenie\/|\/wp-admin\/|\/logout\/|\/admin-prihlasenie\/","usesTrailingSlash":"1","imageExt":"jpg|jpeg|gif|png|tiff|bmp|webp|avif","fileExt":"jpg|jpeg|gif|png|tiff|bmp|webp|avif|php|pdf|html|htm","siteUrl":"https:\/\/vedelisteze.sk","onHoverDelay":"100","rateThrottle":"3"};
+/* ]]> */
+</script>
+<script type="rocketlazyloadscript" data-rocket-type="text/javascript" id="rocket-preload-links-js-after">
+/* <![CDATA[ */
+(function() {
+"use strict";var r="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(e){return typeof e}:function(e){return e&&"function"==typeof Symbol&&e.constructor===Symbol&&e!==Symbol.prototype?"symbol":typeof e},e=function(){function i(e,t){for(var n=0;n<t.length;n++){var i=t[n];i.enumerable=i.enumerable||!1,i.configurable=!0,"value"in i&&(i.writable=!0),Object.defineProperty(e,i.key,i)}}return function(e,t,n){return t&&i(e.prototype,t),n&&i(e,n),e}}();function i(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}var t=function(){function n(e,t){i(this,n),this.browser=e,this.config=t,this.options=this.browser.options,this.prefetched=new Set,this.eventTime=null,this.threshold=1111,this.numOnHover=0}return e(n,[{key:"init",value:function(){!this.browser.supportsLinkPrefetch()||this.browser.isDataSaverModeOn()||this.browser.isSlowConnection()||(this.regex={excludeUris:RegExp(this.config.excludeUris,"i"),images:RegExp(".("+this.config.imageExt+")$","i"),fileExt:RegExp(".("+this.config.fileExt+")$","i")},this._initListeners(this))}},{key:"_initListeners",value:function(e){-1<this.config.onHoverDelay&&document.addEventListener("mouseover",e.listener.bind(e),e.listenerOptions),document.addEventListener("mousedown",e.listener.bind(e),e.listenerOptions),document.addEventListener("touchstart",e.listener.bind(e),e.listenerOptions)}},{key:"listener",value:function(e){var t=e.target.closest("a"),n=this._prepareUrl(t);if(null!==n)switch(e.type){case"mousedown":case"touchstart":this._addPrefetchLink(n);break;case"mouseover":this._earlyPrefetch(t,n,"mouseout")}}},{key:"_earlyPrefetch",value:function(t,e,n){var i=this,r=setTimeout(function(){if(r=null,0===i.numOnHover)setTimeout(function(){return i.numOnHover=0},1e3);else if(i.numOnHover>i.config.rateThrottle)return;i.numOnHover++,i._addPrefetchLink(e)},this.config.onHoverDelay);t.addEventListener(n,function e(){t.removeEventListener(n,e,{passive:!0}),null!==r&&(clearTimeout(r),r=null)},{passive:!0})}},{key:"_addPrefetchLink",value:function(i){return this.prefetched.add(i.href),new Promise(function(e,t){var n=document.createElement("link");n.rel="prefetch",n.href=i.href,n.onload=e,n.onerror=t,document.head.appendChild(n)}).catch(function(){})}},{key:"_prepareUrl",value:function(e){if(null===e||"object"!==(void 0===e?"undefined":r(e))||!1 in e||-1===["http:","https:"].indexOf(e.protocol))return null;var t=e.href.substring(0,this.config.siteUrl.length),n=this._getPathname(e.href,t),i={original:e.href,protocol:e.protocol,origin:t,pathname:n,href:t+n};return this._isLinkOk(i)?i:null}},{key:"_getPathname",value:function(e,t){var n=t?e.substring(this.config.siteUrl.length):e;return n.startsWith("/")||(n="/"+n),this._shouldAddTrailingSlash(n)?n+"/":n}},{key:"_shouldAddTrailingSlash",value:function(e){return this.config.usesTrailingSlash&&!e.endsWith("/")&&!this.regex.fileExt.test(e)}},{key:"_isLinkOk",value:function(e){return null!==e&&"object"===(void 0===e?"undefined":r(e))&&(!this.prefetched.has(e.href)&&e.origin===this.config.siteUrl&&-1===e.href.indexOf("?")&&-1===e.href.indexOf("#")&&!this.regex.excludeUris.test(e.href)&&!this.regex.images.test(e.href))}}],[{key:"run",value:function(){"undefined"!=typeof RocketPreloadLinksConfig&&new n(new RocketBrowserCompatibilityChecker({capture:!0,passive:!0}),RocketPreloadLinksConfig).init()}}]),n}();t.run();
+}());
+/* ]]> */
+</script>
+<script type="text/javascript" id="autorady-main-js-extra">
+/* <![CDATA[ */
+var autorady = {"ajaxurl":"https:\/\/vedelisteze.sk\/wp-admin\/admin-ajax.php","ajax_url":"https:\/\/vedelisteze.sk\/wp-admin\/admin-ajax.php","subscription_notification_cookie_name":"subscription_notification"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="https://vedelisteze.sk/wp-content/themes/autorady/dist/js/main.min.js?ver=20260120" id="autorady-main-js" defer></script>
+<script type="rocketlazyloadscript" data-rocket-type="text/javascript" id="slb_context">window.addEventListener('DOMContentLoaded', function() {/* <![CDATA[ */if ( !!window.jQuery ) {(function($){$(document).ready(function(){if ( !!window.SLB ) { {$.extend(SLB, {"context":["public","user_guest"]});} }})})(jQuery);}/* ]]> */});</script>
+<!-- start Simple Custom CSS and JS -->
+<script type="rocketlazyloadscript" data-rocket-type="text/javascript">window.addEventListener('DOMContentLoaded', function() {
+function refreshSite() {
+    window.location.reload();
+}
+
+// Delegovanie udalostí pre všetky potrebné akcie
+$(document).on('click', '.qc-cmp2-summary-buttons [mode="primary"]', function () {
+	console.log("Primary click");
+    refreshSite();
+});
+
+$(document).on('click', '.qc-cmp2-summary-buttons [mode="secondary"]:nth-child(2)', function () {
+	console.log("Secondary click");
+    refreshSite();
+});
+
+$(document).on('click', '.qc-cmp2-buttons-desktop [mode="primary"]', function () {
+	console.log("Primary click 2");
+    refreshSite();
+});
+
+document.addEventListener('click', function (e) {
+	var target = e.target;
+	var parent = target ? target.parentElement : null;
+	var can = false;
+	
+	if(parent) {
+		//
+		if(parent.classList.contains('fc-cta-do-not-consent')) {
+			can = true;
+		}
+		//
+		if(parent.classList.contains('fc-cta-consent')) {
+			can = true;
+		}
+		//
+		if(parent.classList.contains('fc-confirm-choices')) {
+			can = true;
+		}
+		//
+		if(parent.classList.contains('fc-data-preferences-accept-all')) {
+			can = true;
+		}
+		// Reload
+		if(can) {
+			window.location.reload();
+		}
+	}
+});
+
+});</script>
+<!-- end Simple Custom CSS and JS -->
+
+<!--Plugin WP Missed Schedule Active - Secured with Genuine Authenticity KeyTag-->
+
+<!-- This site is patched against a big problem not solved since WordPress 2.5 -->
+
+<!-- Toplist -->
+<a href="https://www.toplist.sk" id="toplistsk1275672" title="TOPlist"><noscript><img src="https://toplist.sk/dot.asp?id=1275672&njs=1" border="0"
+alt="TOPlist" width="1" height="1"/></noscript><script type="rocketlazyloadscript" language="JavaScript">
+(function(d,e,s) {d.getElementById('toplistsk1275672').innerHTML='<img src="https://toplist.sk/dot.asp?id=1275672&http='+
+e(d.referrer)+'&t='+e(d.title)+'&l='+e(d.URL)+'&wi='+e(s.width)+'&he='+e(s.height)+'&cd='+
+e(s.colorDepth)+'" width="1" height="1" border="0" alt="TOPlist" />';
+}(document,encodeURIComponent,window.screen))
+</script></a>
+<!-- Vypnute kvôli INP -->
+<!--
+<script type="rocketlazyloadscript" data-rocket-type="text/javascript" defer src="https://cdn.engerio.sk/js/widget.js"></script>
+-->
+
+<script>window.lazyLoadOptions={elements_selector:"iframe[data-lazy-src]",data_src:"lazy-src",data_srcset:"lazy-srcset",data_sizes:"lazy-sizes",class_loading:"lazyloading",class_loaded:"lazyloaded",threshold:300,callback_loaded:function(element){if(element.tagName==="IFRAME"&&element.dataset.rocketLazyload=="fitvidscompatible"){if(element.classList.contains("lazyloaded")){if(typeof window.jQuery!="undefined"){if(jQuery.fn.fitVids){jQuery(element).parent().fitVids()}}}}}};window.addEventListener('LazyLoad::Initialized',function(e){var lazyLoadInstance=e.detail.instance;if(window.MutationObserver){var observer=new MutationObserver(function(mutations){var image_count=0;var iframe_count=0;var rocketlazy_count=0;mutations.forEach(function(mutation){for(var i=0;i<mutation.addedNodes.length;i++){if(typeof mutation.addedNodes[i].getElementsByTagName!=='function'){continue}
+if(typeof mutation.addedNodes[i].getElementsByClassName!=='function'){continue}
+images=mutation.addedNodes[i].getElementsByTagName('img');is_image=mutation.addedNodes[i].tagName=="IMG";iframes=mutation.addedNodes[i].getElementsByTagName('iframe');is_iframe=mutation.addedNodes[i].tagName=="IFRAME";rocket_lazy=mutation.addedNodes[i].getElementsByClassName('rocket-lazyload');image_count+=images.length;iframe_count+=iframes.length;rocketlazy_count+=rocket_lazy.length;if(is_image){image_count+=1}
+if(is_iframe){iframe_count+=1}}});if(image_count>0||iframe_count>0||rocketlazy_count>0){lazyLoadInstance.update()}});var b=document.getElementsByTagName("body")[0];var config={childList:!0,subtree:!0};observer.observe(b,config)}},!1)</script><script data-no-minify="1" async src="https://vedelisteze.sk/wp-content/plugins/wp-rocket/assets/js/lazyload/17.5/lazyload.min.js"></script><script>function lazyLoadThumb(e){var t='<img src="https://i.ytimg.com/vi/ID/hqdefault.jpg" alt="" width="480" height="360">',a='<button class="play" aria-label="play Youtube video"></button>';return t.replace("ID",e)+a}function lazyLoadYoutubeIframe(){var e=document.createElement("iframe"),t="ID?autoplay=1";t+=0===this.parentNode.dataset.query.length?'':'&'+this.parentNode.dataset.query;e.setAttribute("src",t.replace("ID",this.parentNode.dataset.src)),e.setAttribute("frameborder","0"),e.setAttribute("allowfullscreen","1"),e.setAttribute("allow", "accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"),this.parentNode.parentNode.replaceChild(e,this.parentNode)}document.addEventListener("DOMContentLoaded",function(){var e,t,p,a=document.getElementsByClassName("rll-youtube-player");for(t=0;t<a.length;t++)e=document.createElement("div"),e.setAttribute("data-id",a[t].dataset.id),e.setAttribute("data-query", a[t].dataset.query),e.setAttribute("data-src", a[t].dataset.src),e.innerHTML=lazyLoadThumb(a[t].dataset.id),a[t].appendChild(e),p=e.querySelector('.play'),p.onclick=lazyLoadYoutubeIframe});</script>
+</body>
+</html>
+
+<!-- This website is like a Rocket, isn't it? Performance optimized by WP Rocket. Learn more: https://wp-rocket.me - Debug: cached@1771920847 -->

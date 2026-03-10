@@ -1,0 +1,1043 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+<!-- InMobi Choice. Consent Manager Tag v3.0 (for TCF 2.2) -->
+<script type="text/javascript" async=true>
+(function() {
+  var host = window.location.hostname;
+  var element = document.createElement('script');
+  var firstScript = document.getElementsByTagName('script')[0];
+  var url = 'https://cmp.inmobi.com'
+    .concat('/choice/', 'qyaLderJMyUxq', '/', host, '/choice.js?tag_version=V3');
+  var uspTries = 0;
+  var uspTriesLimit = 3;
+  element.async = true;
+  element.type = 'text/javascript';
+  element.src = url;
+
+  firstScript.parentNode.insertBefore(element, firstScript);
+
+  function makeStub() {
+    var TCF_LOCATOR_NAME = '__tcfapiLocator';
+    var queue = [];
+    var win = window;
+    var cmpFrame;
+
+    function addFrame() {
+      var doc = win.document;
+      var otherCMP = !!(win.frames[TCF_LOCATOR_NAME]);
+
+      if (!otherCMP) {
+        if (doc.body) {
+          var iframe = doc.createElement('iframe');
+
+          iframe.style.cssText = 'display:none';
+          iframe.name = TCF_LOCATOR_NAME;
+          doc.body.appendChild(iframe);
+        } else {
+          setTimeout(addFrame, 5);
+        }
+      }
+      return !otherCMP;
+    }
+
+    function tcfAPIHandler() {
+      var gdprApplies;
+      var args = arguments;
+
+      if (!args.length) {
+        return queue;
+      } else if (args[0] === 'setGdprApplies') {
+        if (
+          args.length > 3 &&
+          args[2] === 2 &&
+          typeof args[3] === 'boolean'
+        ) {
+          gdprApplies = args[3];
+          if (typeof args[2] === 'function') {
+            args[2]('set', true);
+          }
+        }
+      } else if (args[0] === 'ping') {
+        var retr = {
+          gdprApplies: gdprApplies,
+          cmpLoaded: false,
+          cmpStatus: 'stub'
+        };
+
+        if (typeof args[2] === 'function') {
+          args[2](retr);
+        }
+      } else {
+        if(args[0] === 'init' && typeof args[3] === 'object') {
+          args[3] = Object.assign(args[3], { tag_version: 'V3' });
+        }
+        queue.push(args);
+      }
+    }
+
+    function postMessageEventHandler(event) {
+      var msgIsString = typeof event.data === 'string';
+      var json = {};
+
+      try {
+        if (msgIsString) {
+          json = JSON.parse(event.data);
+        } else {
+          json = event.data;
+        }
+      } catch (ignore) {}
+
+      var payload = json.__tcfapiCall;
+
+      if (payload) {
+        window.__tcfapi(
+          payload.command,
+          payload.version,
+          function(retValue, success) {
+            var returnMsg = {
+              __tcfapiReturn: {
+                returnValue: retValue,
+                success: success,
+                callId: payload.callId
+              }
+            };
+            if (msgIsString) {
+              returnMsg = JSON.stringify(returnMsg);
+            }
+            if (event && event.source && event.source.postMessage) {
+              event.source.postMessage(returnMsg, '*');
+            }
+          },
+          payload.parameter
+        );
+      }
+    }
+
+    while (win) {
+      try {
+        if (win.frames[TCF_LOCATOR_NAME]) {
+          cmpFrame = win;
+          break;
+        }
+      } catch (ignore) {}
+
+      if (win === window.top) {
+        break;
+      }
+      win = win.parent;
+    }
+    if (!cmpFrame) {
+      addFrame();
+      win.__tcfapi = tcfAPIHandler;
+      win.addEventListener('message', postMessageEventHandler, false);
+    }
+  };
+
+  makeStub();
+
+  function makeGppStub() {
+    const CMP_ID = 10;
+    const SUPPORTED_APIS = [
+      '2:tcfeuv2',
+      '6:uspv1',
+      '7:usnatv1',
+      '8:usca',
+      '9:usvav1',
+      '10:uscov1',
+      '11:usutv1',
+      '12:usctv1'
+    ];
+
+    window.__gpp_addFrame = function (n) {
+      if (!window.frames[n]) {
+        if (document.body) {
+          var i = document.createElement("iframe");
+          i.style.cssText = "display:none";
+          i.name = n;
+          document.body.appendChild(i);
+        } else {
+          window.setTimeout(window.__gpp_addFrame, 10, n);
+        }
+      }
+    };
+    window.__gpp_stub = function () {
+      var b = arguments;
+      __gpp.queue = __gpp.queue || [];
+      __gpp.events = __gpp.events || [];
+
+      if (!b.length || (b.length == 1 && b[0] == "queue")) {
+        return __gpp.queue;
+      }
+
+      if (b.length == 1 && b[0] == "events") {
+        return __gpp.events;
+      }
+
+      var cmd = b[0];
+      var clb = b.length > 1 ? b[1] : null;
+      var par = b.length > 2 ? b[2] : null;
+      if (cmd === "ping") {
+        clb(
+          {
+            gppVersion: "1.1", // must be “Version.Subversion”, current: “1.1”
+            cmpStatus: "stub", // possible values: stub, loading, loaded, error
+            cmpDisplayStatus: "hidden", // possible values: hidden, visible, disabled
+            signalStatus: "not ready", // possible values: not ready, ready
+            supportedAPIs: SUPPORTED_APIS, // list of supported APIs
+            cmpId: CMP_ID, // IAB assigned CMP ID, may be 0 during stub/loading
+            sectionList: [],
+            applicableSections: [-1],
+            gppString: "",
+            parsedSections: {},
+          },
+          true
+        );
+      } else if (cmd === "addEventListener") {
+        if (!("lastId" in __gpp)) {
+          __gpp.lastId = 0;
+        }
+        __gpp.lastId++;
+        var lnr = __gpp.lastId;
+        __gpp.events.push({
+          id: lnr,
+          callback: clb,
+          parameter: par,
+        });
+        clb(
+          {
+            eventName: "listenerRegistered",
+            listenerId: lnr, // Registered ID of the listener
+            data: true, // positive signal
+            pingData: {
+              gppVersion: "1.1", // must be “Version.Subversion”, current: “1.1”
+              cmpStatus: "stub", // possible values: stub, loading, loaded, error
+              cmpDisplayStatus: "hidden", // possible values: hidden, visible, disabled
+              signalStatus: "not ready", // possible values: not ready, ready
+              supportedAPIs: SUPPORTED_APIS, // list of supported APIs
+              cmpId: CMP_ID, // list of supported APIs
+              sectionList: [],
+              applicableSections: [-1],
+              gppString: "",
+              parsedSections: {},
+            },
+          },
+          true
+        );
+      } else if (cmd === "removeEventListener") {
+        var success = false;
+        for (var i = 0; i < __gpp.events.length; i++) {
+          if (__gpp.events[i].id == par) {
+            __gpp.events.splice(i, 1);
+            success = true;
+            break;
+          }
+        }
+        clb(
+          {
+            eventName: "listenerRemoved",
+            listenerId: par, // Registered ID of the listener
+            data: success, // status info
+            pingData: {
+              gppVersion: "1.1", // must be “Version.Subversion”, current: “1.1”
+              cmpStatus: "stub", // possible values: stub, loading, loaded, error
+              cmpDisplayStatus: "hidden", // possible values: hidden, visible, disabled
+              signalStatus: "not ready", // possible values: not ready, ready
+              supportedAPIs: SUPPORTED_APIS, // list of supported APIs
+              cmpId: CMP_ID, // CMP ID
+              sectionList: [],
+              applicableSections: [-1],
+              gppString: "",
+              parsedSections: {},
+            },
+          },
+          true
+        );
+      } else if (cmd === "hasSection") {
+        clb(false, true);
+      } else if (cmd === "getSection" || cmd === "getField") {
+        clb(null, true);
+      }
+      //queue all other commands
+      else {
+        __gpp.queue.push([].slice.apply(b));
+      }
+    };
+    window.__gpp_msghandler = function (event) {
+      var msgIsString = typeof event.data === "string";
+      try {
+        var json = msgIsString ? JSON.parse(event.data) : event.data;
+      } catch (e) {
+        var json = null;
+      }
+      if (typeof json === "object" && json !== null && "__gppCall" in json) {
+        var i = json.__gppCall;
+        window.__gpp(
+          i.command,
+          function (retValue, success) {
+            var returnMsg = {
+              __gppReturn: {
+                returnValue: retValue,
+                success: success,
+                callId: i.callId,
+              },
+            };
+            event.source.postMessage(msgIsString ? JSON.stringify(returnMsg) : returnMsg, "*");
+          },
+          "parameter" in i ? i.parameter : null,
+          "version" in i ? i.version : "1.1"
+        );
+      }
+    };
+    if (!("__gpp" in window) || typeof window.__gpp !== "function") {
+      window.__gpp = window.__gpp_stub;
+      window.addEventListener("message", window.__gpp_msghandler, false);
+      window.__gpp_addFrame("__gppLocator");
+    }
+  };
+
+  makeGppStub();
+
+  var uspStubFunction = function() {
+    var arg = arguments;
+    if (typeof window.__uspapi !== uspStubFunction) {
+      setTimeout(function() {
+        if (typeof window.__uspapi !== 'undefined') {
+          window.__uspapi.apply(window.__uspapi, arg);
+        }
+      }, 500);
+    }
+  };
+
+  var checkIfUspIsReady = function() {
+    uspTries++;
+    if (window.__uspapi === uspStubFunction && uspTries < uspTriesLimit) {
+      console.warn('USP is not accessible');
+    } else {
+      clearInterval(uspInterval);
+    }
+  };
+
+  if (typeof window.__uspapi === 'undefined') {
+    window.__uspapi = uspStubFunction;
+    var uspInterval = setInterval(checkIfUspIsReady, 6000);
+  }
+})();
+</script>
+<!-- End InMobi Choice. Consent Manager Tag v3.0 (for TCF 2.2) -->
+
+        <title>Fokhagyma és fűszerpaprika Webshop</title>
+                        <base href="https://fokhagymaa.hu/" />
+                           <meta name="robots" content="index,follow"><meta name="revisit-after" content="5 days">
+                <link rel="stylesheet" href="templates/vonalkod/css/autocomplete_styles.css" type="text/css" >
+                        <link href="https://fokhagymaa.hu/modules/blog/templates/vonalkod/css/style.css" rel="stylesheet" type="text/css" >
+                <link href="https://fokhagymaa.hu/modules/exitpopup/templates/vonalkod/css/style.css" rel="stylesheet" type="text/css" >
+                <link rel="shortcut icon"  href="templates/vonalkod/images/favicon.ico" >
+                			<meta property="og:title" content="" >
+			<meta property="og:image" content="" >
+			<meta property="og:description" content=" Fokhagymaa.hu: Prémium Minőségű Magyar Fokhagyma és Fűszerpaprika Közvetlenül a termelőtől" >
+			<meta property="og:url" content="https://fokhagymaa.hu" >
+		        <meta name="revisit-after" content="5 days" >
+        <meta name="author" content="Coding: Mezofi" >
+        <meta name="language" content="hu" >
+        <meta name="description" content="Fokhagymaa.hu: Prémium Minőségű Magyar Fokhagyma és Fűszerpaprika Közvetlenül a termelőtől" >
+        <meta name="copyright" content="webshophun.hu" >
+                <meta name="google-site-verification" content="zR2b31SGmi1Y00KFDRKV4ZoAmHA6rdMJcUa3uwGrsRI" />
+                <meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+                <link rel="alternate" type="application/rss+xml" title="RSS"  href="rss.xml">
+                
+        <!<script type="text/javascript" charset="UTF-8" src="//cdn.cookie-script.com/s/510830a235fe5f2faa4c32bbf4fc28df.js"></script>->
+        
+        
+        <script type="text/javascript">
+        	var baseOrigin = 'https://fokhagymaa.hu';
+            var baseDir = 'https://fokhagymaa.hu/';
+            var baseUri = 'https://fokhagymaa.hu/index.php';
+            var centerPage = '';
+            var muveletFolyamatban = 'A művelet folyamatban...';
+        </script>
+        <script src="templates/vonalkod/js/jquery-1.11.3.min.js" type="text/javascript"></script>  
+        <script type="text/javascript" src="scriptek/reg_script.js?v=1"></script>
+
+        <link rel="icon" href="templates/vonalkod/images/favicon.ico" type="image/x-icon"/>
+        <link rel="shortcut icon" href="templates/vonalkod/images/favicon.ico" type="image/x-icon"/>
+
+        <!-- css -->
+        <link href='//fonts.googleapis.com/css?family=Roboto:400,500,700' rel='stylesheet' type='text/css'>
+
+        <link href="templates/vonalkod/css/bootstrap.css" rel="stylesheet" type="text/css"  media="all"  /> 
+        <link href="templates/vonalkod/css/assets.css" rel="stylesheet" type="text/css"  media="all"  /> 
+        
+                <link href="templates/vonalkod/css/style.css?v=1.0" rel="stylesheet" type="text/css"  media="all"  />
+        <link href="templates/vonalkod/css/responsive.css" rel="stylesheet" type="text/css"  media="all"  />
+        <link href="templates/vonalkod/css/font-awesome.css" rel="stylesheet" type="text/css"  media="all"  />
+
+                
+        
+        <!-- js -->
+        <script src="templates/vonalkod/js/bootstrap.min.js" type="text/javascript"></script>
+        <script src="templates/vonalkod/js/jquery-migrate-1.2.1.min.js" type="text/javascript"></script>
+        <script src="templates/vonalkod/js/jquery.mobile.customized.min.js" type="text/javascript"></script>
+        <script src="templates/vonalkod/js/shop.js" type="text/javascript"></script>
+        <script src="templates/vonalkod/js/jquery.easing.1.3.js" type="text/javascript"></script>
+        <script src="templates/vonalkod/js/api.jquery.js" type="text/javascript"></script>
+        <script src="templates/vonalkod/js/ajaxify-shop.js" type="text/javascript"></script>
+        <script src="templates/vonalkod/js/hoverIntent.js" type="text/javascript"></script>
+        <script src="templates/vonalkod/js/superfish.js" type="text/javascript"></script>
+        <script src="templates/vonalkod/js/supersubs.js" type="text/javascript"></script>
+        <script src="templates/vonalkod/js/sftouchscreen.js" type="text/javascript"></script>
+        <script src="templates/vonalkod/js/jquery.bxslider.min.js" type="text/javascript"></script>
+        <script src="templates/vonalkod/js/tm-stick-up.js" type="text/javascript"></script>
+        <script src="templates/vonalkod/js/jquery.formstyler.min.js" type="text/javascript"></script>
+       <!--   <script src="templates/vonalkod/js/jquery.yPhoto.js" type="text/javascript"></script> -->
+
+        <link href="templates/vonalkod/css/animate.css" rel="stylesheet" type="text/css"  media="all"  />
+
+                
+        <script src="templates/vonalkod/js/wow.min.js" type="text/javascript"></script>
+        <script src="templates/vonalkod/js/script.js" type="text/javascript"></script>
+                
+        		
+        
+        <script type="text/javascript">
+        var j = jQuery.noConflict();
+        </script>
+        
+        
+        
+                
+
+        
+        
+
+                        <script src="modules/product_attributum/script/product_attributum.js?v=1.1"  type="text/javascript"></script>
+        			 <script src="modules/blog/script/blog.js?v=1.1"  type="text/javascript"></script>
+        			 <script src="modules/facebook_analytics/script/facebook_analytics.js?v=1.1"  type="text/javascript"></script>
+        			 <script src="modules/mpl/script/mpl.js?v=1.1"  type="text/javascript"></script>
+        			 <script src="modules/exitpopup/script/exitpopup.js?v=1.1"  type="text/javascript"></script>
+        			 <script src="modules/kupon/script/kupon.js?v=1.1"  type="text/javascript"></script>
+        			 
+                
+                
+        <!-- Hotjar Tracking Code for fokhagymaa.hu -->
+      <script>
+    (function(h,o,t,j,a,r){
+        h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
+        h._hjSettings={hjid:1524316,hjsv:6};
+        a=o.getElementsByTagName('head')[0];
+        r=o.createElement('script');r.async=1;
+        r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+        a.appendChild(r);
+    })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
+</script>
+        
+        
+https://cdn-cookieyes.com/client_data/*/script.js
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-G1NFKW82MB"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-G1NFKW82MB');
+</script>
+
+
+
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-PV7GQC');</script>
+<!-- End Google Tag Manager -->
+</script>
+
+
+    </head>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PV7GQC"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+        <body class="template-index">
+            
+        <!--[if IE 6]>
+        <script type="text/javascript" language="javascript"> 
+        /*Load jQuery if not already loaded*/ if(typeof jQuery == 'undefined'){ document.write("<script type=\"text/javascript\"   src=\"http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js\"></"+"script>"); var __noconflict = true; } 
+        var IE6UPDATE_OPTIONS = {
+        icons_path: "ie6frissits/ie6update/images/"
+        }
+        </script>
+        <script type="text/javascript" src="ie6frissits/ie6update/ie6update.js" language="javascript"></script>
+        <![endif]-->
+        
+
+        <noscript>
+        <div class="global-site-notice noscript">
+            <div class="notice-inner">
+                <p>
+                    <strong>Úgy néz ki a JavaScript ki lett kapcsolva a böngésződben.</strong><br />
+                    Ahhoz, hogy webáruházunk összes funkcióját elérhesd, kérlek kapcsold be a JavaScriptet - ha segítségre lenne szükséged, <a title="kattints ide" target="_blank" href="http://enable-javascript.com/hu/">kattints ide!</a> 
+                </p>
+            </div>
+        </div>
+        </noscript>
+
+        <!--[if lt IE 7]>
+        <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+        <![endif]-->
+        <div class="body_gradient"></div>
+        <div class="textMessage kerekites text-center" style="display:none;" id="fejlecMessage"></div><!-- üzenetek megjelenítésére -->
+                <div id="wrapper">
+                                    <div id="wrapper2">
+
+                <header id="header">
+    <div class="header_row__1">
+
+        <!-- LANGUAGES -->
+                                        
+        <!-- CURRENCIES -->
+                        
+        <!-- USER MENU -->
+        <ul class="header_user">
+                                    <li><a href="bejelentkezes" id="customer_login_link">Bejelentkezés</a></li>
+            <li><a href="regisztracio" id="customer_register_link">Regisztráció</a></li>
+                    	<li class="checkout lastItem"><a href="megrendeles">Megrendelés</a></li>
+       											<li class="checkout lastItem"><a href="blog">Blog</a></li>
+							        </ul>
+        
+
+        <div class="clearfix"></div>
+    </div><!-- div.header_row__1 end -->
+
+    <div class="header_row__2">
+    <div class="container">
+    <div class="row">
+        <div class="col-sm-6 col-md-9">
+            <!-- LOGO -->
+            <div id="logo" class="col-md-6">
+	            	            <a id="header_logo" href="https://fokhagymaa.hu">
+	            <img class="logo" src="templates/vonalkod/images/logo/logo.png" width="368" alt="Fokhagymaa.hu">
+	            </a>
+	                        </div>
+            
+            <div class="col-md-6">
+	            
+	            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+				<!-- Fokhagymaa.hu fejléc -->
+				<ins class="adsbygoogle"
+				     style="display:inline-block;width:300px;height:90px"
+				     data-ad-client="ca-pub-5801436075472052"
+				     data-ad-slot="4368191476"></ins>
+				<script>
+				     (adsbygoogle = window.adsbygoogle || []).push({});
+				</script>
+	             
+            </div>
+        </div>
+
+        <div class="col-sm-6 col-md-3">
+            <!-- HEADER CART -->
+            <div class="header_cart">
+                <a title="Kosaram megtekintése" href="kosar"><i class="fa fa-shopping-cart"></i><b>Kosaram:</b><span class="cart-total-items"><span class="count">0</span></span><span>termék</span></a>
+            </div>
+
+            <!-- HEADER SEARCH -->
+            <div class="header_search">
+
+                <form class="searchbox search-form" id="search_mini_form" name="form_keres" method="post" action="reszletes_kereso_al.php" onSubmit="return form_ellenor(new Array('keresett'),'form_keres','Üres a kereső mező.','','','');">
+                    <div class="form-search">
+                             <div class="form-search">
+                                 <input class="hint search-field" type="text" id="gyorkeresoMezo" name="keresett" placeholder="Keresés..." value="">
+                                 <input type="hidden"  name="mire" value="teljes" />
+                                 <input type="hidden"  name="termeknevCb" value="" />
+                                 <input type="hidden"  name="reszletesBtn" value="" />
+                                 <input type="hidden"  name="cikkszamCb" value="" />
+                                 <button id="search-submit" type="submit"><i class="fa fa-search"></i></button>
+                                 <div id="search_autocomplete" class="search-autocomplete" style="display: none;"></div>
+                             </div>
+                    </div>
+                </form>
+                            </div>
+        </div>
+    </div>
+    </div>
+    </div>
+</header>
+
+<div id="navigation" class="" style="position: relative; top:0px;">
+    <div class="container">
+        <nav role="navigation">
+        <ul id="nav" class="sf-menu visible-md visible-lg">
+        	<li><a  class="active"  href="https://fokhagymaa.hu/index.php">Főoldal</a></li><li><a href="https://fokhagymaa.hu/fuszerpaprika" title="FŰSZERPAPRIKA">FŰSZERPAPRIKA</a></li><li><a href="https://fokhagymaa.hu/fokhagyma" title="FOKHAGYMA">FOKHAGYMA</a></li><li><a href="https://fokhagymaa.hu/blog" title="BLOG">BLOG</a></li><li><a style="color: #fff;" href="https://fokhagymaa.hu/kapcsolat" title="Kapcsolat">Kapcsolat</a></li> 
+       </ul>
+        	<div id='menu_small_screen'><div id="mobile_menu-styler" class="jq-selectbox jqselect visible-xs visible-sm" style="display: inline-block; position: relative; z-index: 100;">
+                    <div class="jq-selectbox__select" style="position: relative">
+                        <div class="jq-selectbox__select-text" style="width: 0px;">Kategóriák</div>
+                        <div class="jq-selectbox__trigger">
+                            <div class="jq-selectbox__trigger-arrow"></div>
+                            <i class="fa fa-angle-down"></i>
+                        </div><!-- div.q-selectbox__trigger end -->
+                    </div><!-- div.jq-selectbox__select end  -->
+                    <div class="jq-selectbox__dropdown" style="position: absolute; left: 0px; top: 0px; display: none;">
+                     <ul style="position: relative; list-style: none; overflow: auto; overflow-x: hidden">
+                    	<li style="display: block; white-space: nowrap;"><a href="fuszerpaprika">Fűszerpaprika</a></li><li style="display: block; white-space: nowrap;"><a href="fokhagyma">Fokhagyma</a></li>
+                       <li><a style="color: #fff;" href="https://fokhagymaa.hu/kapcsolat" title="Kapcsolat">Kapcsolat</a></li>
+                   </ul>
+                 </div><!-- div.jq-selectbox__dropdown end -->
+               </div><!-- div#mobile_menu-styler end -->
+           </div><!-- div#menu_small_screen end -->
+        </nav>
+    </div>
+</div>
+<div class="pseudoStickyBlock" style="position: relative; display: block; height: 0px;"></div>
+                <div id="main" role="main"
+                                class="sidebar_left "
+                                >
+                    <div class="main_shadow"></div>
+                        
+                        <div class="container">
+                            <div class="row">
+                                
+	    	                	                               		            
+            <div class="column_center">
+    <div id="main_content" class="col-sm-9">
+<!-- SHOWCASE CUSTOM BLOCKS -->
+        
+        
+          <div class="slider_wrap">
+       <div class="nivoSlider"><a href="https//fokhagymaa.hu/fuszerpaprika" class="nivo-imageLink">
+           <img style="max-width: 870px; visibility: hidden;" src="https://fokhagymaa.hu/sliderek/slider_own_5.jpeg" alt="Fűszerpaprika">
+           </a><a href="https://fokhagymaa.hu/fokhagyma" class="nivo-imageLink">
+           <img style="max-width: 870px; visibility: hidden;" src="https://fokhagymaa.hu/sliderek/slider_own_4.jpeg" alt="Fokhagyma">
+           </a></div>
+            </div>
+
+<script src="templates/vonalkod/js/jquery.nivoslider.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+
+    jQuery(document).ready(function() {
+        jQuery('.nivoSlider').nivoSlider({
+            effect:'fade',
+            animSpeed:500,
+            pauseTime:7000,
+            startSlide:0,
+            pauseOnHover:true,
+            directionNav:false,
+            directionNavHide:false,
+            controlNav:true
+        });
+    });
+
+</script>
+
+        <div id="showcase">
+        <div class="row">
+                        <div class="wow col-xs-6 col-lg-4 custom_showcase custom_showcase__1 animated">
+                <a href="fuszerpaprika">
+                <img src="kategoria_kepek/kategkep_132.jpg" alt="">
+                <h3>Fűszerpaprika</h3>
+                </a>
+            </div>
+                        <div class="wow col-xs-6 col-lg-4 custom_showcase custom_showcase__2 animated">
+                <a href="fokhagyma">
+                <img src="kategoria_kepek/kategkep_128.jpg" alt="">
+                <h3>Fokhagyma</h3>
+                </a>
+            </div>
+                    </div>
+        </div>
+
+                            
+<h1 style="text-align: center;"><span style="font-size: 24px;">Fokhagymaa.hu: Prémium Minőségű Magyar Fokhagyma és Fűszerpaprika Közvetlenül az Őstermelőtől</span></h1>
+<p style="text-align: center;"><span style="font-size: 16px;"><strong>Őstermelőként</strong> az a küldetésem, hogy az Ön asztalára kizárólag prémium minőségű és egészséges termékek kerüljenek, a lehető legkedvezőbb áron. A Fokhagymaa.hu garantálja, hogy minden termékünket <strong>környezettudatos módszerekkel</strong> termeljük, biztosítva ezzel a hazai áru első osztályú és egészséges jellegét. Az <strong>MPL munkatársainak</strong> köszönhetően naponta kézbesítjük a friss termékeket az Ön által megadott címre.</span>
+<h2><span style="font-size: 18px;">Fő Termékeink:</span></h2>
+<ul>
+<li><span style="font-size: 16px;"><strong>Fokhagyma</strong></span></li>
+<li><span style="font-size: 16px;"><strong>Elefánt fokhagyma</strong></span></li>
+<li><span style="font-size: 16px;"><strong>Őrölt fűszerpaprika</strong></span></li>
+</ul>
+<div style="text-align: center;"><span style="font-size: 16px;">A Fokhagymaa.hu-val Ön közvetlen kapcsolatban állhat az <strong>őstermelővel</strong>, és garantáltan magas minőségű termékeket vásárolhat. Válassza a <strong>magyar minőséget</strong> és a frissességet!</span></div>
+<div style="text-align: center;"><span style="font-size: 16px;"><strong><br /><br />Tomka Pál - Őstermelő</strong></span></div>
+         
+    
+    </div>
+    </div>    		                                                                    <div class="column_left column col-sm-3">
+    <div class="wow widget widget__collections animated" id="bal-oldali-kategoria">
+    <h3 class="widget_header">Kategóriák</h3>
+    <div class="widget_content">
+        <ul class="list"><li><a href="fuszerpaprika" title="Fűszerpaprika" >Fűszerpaprika</a></li><li><a href="fokhagyma" title="Fokhagyma" >Fokhagyma</a></li></ul><!-- ul end -->
+    </div>
+</div>
+
+    
+    <div class="wow widget widget__types animated">
+        <h3 class="widget_header">Információk</h3>
+        <div class="widget_content">
+            <ul class="list">
+
+                                                <li><a href="cms/uzletszabalyzat" title="Üzletszabályzat">Üzletszabályzat</a></li>
+                                                                <li><a href="cms/szallitas-es-garancia" title="Szállítás és garancia">Szállítás és garancia</a></li>
+                                                                <li><a href="cms/az-adatkezelesrol" title="Az adatkezelésről">Az adatkezelésről</a></li>
+                                                                <li><a href="cms/az-aruhaz-kezelese" title="Az áruház kezelése">Az áruház kezelése</a></li>
+                                                                <li><a href="cms/szerzoi-jogok" title="Szerzői jogok">Szerzői jogok</a></li>
+                                                                <li><a href="cms/cookie-k-(sutik)-kezelese" title="Cookie-k (sütik) kezelése">Cookie-k (sütik) kezelése</a></li>
+                                                                <li><a href="cms/recept-bekuldes" title="Recept beküldés">Recept beküldés</a></li>
+                                                                <li><a href="cms/posta-csomagautomata" title="Posta Csomagautomata">Posta Csomagautomata</a></li>
+                                                                                             
+            </ul>
+        </div>
+</div>
+                 <!-- ÚJDONSÁGOK BOX -->
+<div class="wow widget widget__types animated" style="visibility: visible;" id="toplista">
+    <a title="Újdonságok" href="uj_termekek"><h3 class="widget_header">Újdonságok</h3></a>
+    
+    <div class="widget_content">
+            <div class="product_listing_sidebar">
+                    <div class="product">
+                        <div class="product_img">
+                        <a href="befott/zold-dio-szirupban-420g" title="Zöld Dió szirupban, 420g" class="product-image">          
+                                                        <img src="kepek/symbol/zolddio1.jpg" class="img-responsive" alt="Zöld Dió szirupban, 420g" title="Zöld Dió szirupban, 420g" width="80" height="56"  />
+                                                    </a>
+                       </div><!-- div.product_img end -->
+                        <div class="product_info">
+                            <div class="product_name"><a style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;width: 150px;" href="befott/zold-dio-szirupban-420g">Zöld Dió szirupban, 420g</a></div>
+                            <div class="product_price">
+                                <span class="regular-price" id="product-price-3-related">
+                                    <a href="befott/zold-dio-szirupban-420g"><span class="price">Megtekintés</span></a>
+                                </span>
+                            </div>
+                        </div><!-- div.product_info end -->
+                    </div><!-- div.product end -->
+            </div><!-- div.product_listing_sidebar end -->
+            <div class="clr"></div>
+        <br>
+        <a href="uj_termekek" title="Tovább" class="btn">Tovább</a>
+    </div>
+</div>    
+                <!-- MODULE Block new products -->
+<div class="wow widget widget__types animated" style="visibility: visible;">
+    <a title="Termék toplista" href="toplista"><h3 class="widget_header">Termék toplista</h3></a>
+    
+    <div class="widget_content">
+      <div class="product_listing_sidebar">            
+                         <div class="product" itemscope="" itemtype="https://schema.org/product">
+                <meta itemprop="sku" content="EFH-1000" />
+                <meta itemprop="mpn" content="4426" />
+                <meta itemprop="brand" content="fokhagymaa.hu" />
+                        <div class="product_img">
+                        	<a href="fokhagyma/elefant-fokhagyma-gerezdek" title="Elefánt fokhagyma gerezdek" ><img itemprop="image" class="img-responsive" src="kepek/fokhagyma/elefant-kicsi.jpg"  alt="Elefánt fokhagyma gerezdek"></a></div>
+                        <div class="product_info">
+                            <div class="product_name"><a href="fokhagyma/elefant-fokhagyma-gerezdek"><span itemprop="name">Elefánt fokhagyma gerezdek</span></a></div>
+
+                                                          
+                            <div class="product_price" itemprop="offers" itemscope="" itemtype="https://schema.org/Offer">
+                              <link itemprop="availability" href="https://schema.org/InStock" />
+	                          <link itemprop="url" href="fokhagyma/elefant-fokhagyma-gerezdek" />
+	                          <meta itemprop="priceValidUntil" content="2026-03-26" />
+                                
+                                 
+                                Bruttó: <span class="money"><span itemprop='price' content='2800'>2.800</span> <span itemprop='priceCurrency' content='HUF'>Ft</span></span> 
+                                                            </div>
+                                                            
+
+                            </div>
+             </div>
+            <div class="clr"></div>
+                         <div class="product" itemscope="" itemtype="https://schema.org/product">
+                <meta itemprop="sku" content="EFH-1" />
+                <meta itemprop="mpn" content="4380" />
+                <meta itemprop="brand" content="fokhagymaa.hu" />
+                        <div class="product_img">
+                        	<a href="fokhagyma/elefant-fokhagyma-xxxl-gerezd-oszi-fokhagyma-vetomag" title="Elefánt Fokhagyma XXXL&hellip;" ><img itemprop="image" class="img-responsive" src="kepek/befott/eloefant-fokhagymaa-xxxl.jpg"  alt="Elefánt Fokhagyma XXXL&hellip;"></a></div>
+                        <div class="product_info">
+                            <div class="product_name"><a href="fokhagyma/elefant-fokhagyma-xxxl-gerezd-oszi-fokhagyma-vetomag"><span itemprop="name">Elefánt Fokhagyma XXXL&hellip;</span></a></div>
+
+                                                          
+                            <div class="product_price" itemprop="offers" itemscope="" itemtype="https://schema.org/Offer">
+                              <link itemprop="availability" href="https://schema.org/InStock" />
+	                          <link itemprop="url" href="fokhagyma/elefant-fokhagyma-xxxl-gerezd-oszi-fokhagyma-vetomag" />
+	                          <meta itemprop="priceValidUntil" content="2026-03-26" />
+                                
+                                 
+                                Bruttó: <span class="money"><span itemprop='price' content='290'>290</span> <span itemprop='priceCurrency' content='HUF'>Ft</span></span> 
+                                                            </div>
+                                                            
+
+                            </div>
+             </div>
+            <div class="clr"></div>
+                         <div class="product" itemscope="" itemtype="https://schema.org/product">
+                <meta itemprop="sku" content="ZD-385" />
+                <meta itemprop="mpn" content="4382" />
+                <meta itemprop="brand" content="fokhagymaa.hu" />
+                        <div class="product_img">
+                        	<a href="befott/zold-dio-szirupban-420g" title="Zöld Dió szirupban, 420g" ><img itemprop="image" class="img-responsive" src="kepek/symbol/zolddio1.jpg"  alt="Zöld Dió szirupban, 420g"></a></div>
+                        <div class="product_info">
+                            <div class="product_name"><a href="befott/zold-dio-szirupban-420g"><span itemprop="name">Zöld Dió szirupban, 420g</span></a></div>
+
+                                                          
+                            <div class="product_price" itemprop="offers" itemscope="" itemtype="https://schema.org/Offer">
+                              <link itemprop="availability" href="https://schema.org/InStock" />
+	                          <link itemprop="url" href="befott/zold-dio-szirupban-420g" />
+	                          <meta itemprop="priceValidUntil" content="2026-03-26" />
+                                
+                                 
+                                Bruttó: <span class="money"><span itemprop='price' content='1000'>1.000</span> <span itemprop='priceCurrency' content='HUF'>Ft</span></span> 
+                                                            </div>
+                                                            
+
+                            </div>
+             </div>
+            <div class="clr"></div>
+                        </div>
+        <br>
+        <a href="toplista" title="Tovább" class="btn">Tovább</a>
+
+    </div>
+</div>    
+                <br>
+    <div class="wow widget widget__collections animated" style="visibility: visible;">
+    <h3 class="widget_header">Hírlevél</h3>
+    <div class="widget_content">
+        <br>
+        <form action="hirlevel_feliratkozas" method="post" onSubmit="return form_ellenor(new Array('hirl_email'),'hirlevel_form','Kérem adja meg az e-mail címét','','','');">
+
+                            <div class="input-box">
+                               <input style="padding: 5px;" type="email" name="hirl_email" id="hirl_email" value="E-mail cím" class="input-text required-entry validate-email form-control" onclick="this.value='';" />
+                            </div>
+                            <br>
+                            <div>
+                                <button type="submit" title="OK!" class="sima-btn"><span><span>OK!</span></span></button>
+                            </div>
+                </form>
+    </div>     
+            
+         
+        
+        
+    
+    
+</div>                                                            
+                            </div><!-- div.row end -->
+									                                                    </div><!-- div.container end  -->
+                </div> <!--  div#main end  -->
+
+                    
+
+                    <footer class="col-xs-12 col-sm-12 col-md-12 col-lg-12 pull-left">
+<div class="container">
+    <div class="container">
+    		<div class="blog-bg">
+		<div class="container">
+			<div class="row">
+				<ul class="blog-index" >
+				 				 <div class="col-xs-12 col-sm-6">
+					<li class="blog-index-li">
+						<ul class="row">
+							<li class="col-xs-6 col-sm-12 col-md-6">
+								<div class="postContent">
+									<img class="post-img img-responsive" alt="post-img" src="https://fokhagymaa.hu/modules/blog/images/" >
+								</div>
+							</li>
+							<li class="col-xs-6 col-sm-12 col-md-6">
+								<div class="widget-latest-title">
+								<a href="https://fokhagymaa.hu/valasztott_blog/elefant-fokhagyma-a-termeszet-ajandeka-a-jobb-egeszsegert">
+									<i class="icon-time"></i> 2023 / 06 / 02
+								<br>
+									Elefánt Fokhagyma - A természet ajándéka a jobb egészségért</a>
+								</div>
+							</li>
+						</ul>
+					</li>
+					</div>
+									 <div class="col-xs-12 col-sm-6">
+					<li class="blog-index-li">
+						<ul class="row">
+							<li class="col-xs-6 col-sm-12 col-md-6">
+								<div class="postContent">
+									<img class="post-img img-responsive" alt="post-img" src="https://fokhagymaa.hu/modules/blog/images/eloefant-fokhagymaa-xxxl.jpg" >
+								</div>
+							</li>
+							<li class="col-xs-6 col-sm-12 col-md-6">
+								<div class="widget-latest-title">
+								<a href="https://fokhagymaa.hu/valasztott_blog/miert-vasaroljunk-elefant-fokhagymato">
+									<i class="icon-time"></i> 2023 / 05 / 30
+								<br>
+									Miért vásároljunk elefánt fokhagymát?</a>
+								</div>
+							</li>
+						</ul>
+					</li>
+					</div>
+									</ul>
+			</div>	
+		</div>
+	</div>
+			
+    <div class="footer_block wow animated" style="visibility: visible;">
+        <ul>
+            <li><a href="https://fokhagymaa.hu" title="">Vásárlás</a></li>
+
+<li><a href="kosar">Kosár</a></li>
+
+ <li><a href="regisztracio">Regisztráció</a></li>
+        <li><a href="bejelentkezes">Bejelentkezés</a></li>
+<li>                    <a href="#" class="protect_mailto"><span class="__cf_email__" data-cfemail="94e0fbf9fff5e4f5f8d4f2fbfffcf5f3edf9f5f5bafce1">[email&#160;protected]</span><script data-cfhash='f9e31' type="text/javascript">/* <![CDATA[ */
+!function() {
+    try {
+        t = document.currentScript || function() {
+            for (t = document.getElementsByTagName('script'), e = t.length; e--;)
+                if (t[e].getAttribute('data-cfhash')) return t[e]
+        }();
+        if (t && (c = t.previousSibling)) {
+            p = t.parentNode;
+            if (a = c.getAttribute('data-cfemail')) {
+              	e = '';
+              	r = '0x' + a.substr(0, 2) | 0; // 148
+                for ( n = 2; a.length - n; n = n+ 2){
+                     e = e + '%' + ('0' + ('0x' + a.substr(n, 2) ^ r).toString(16)).slice(-2);
+                }
+                jQuery(".protect_mailto").attr("href" ,"mailto:"+decodeURIComponent(e));
+				 if(jQuery(".protect_mail").length > 0){
+					 jQuery(".protect_mail").parent().html(decodeURIComponent(e));
+				 }	
+                p.replaceChild(document.createTextNode(decodeURIComponent(e)), c);
+            }
+           p.removeChild(t)
+        }
+    } catch (u) {}
+}()/* ]]> */</script></a></li>
+
+            
+        </ul>
+    </div>
+
+     <div class="row">
+        <div class="copyright col-xs-12 col-md-6 col-lg-4 text-left">
+            <p role="contentinfo">©<script type="text/javascript">var mdate = new Date(); document.write(mdate.getFullYear());</script> Built by <a href="https://www.webshophun.hu" target="_blank">WebshopHun</a></p>
+        </div>
+             </div>
+
+    <!-- Banner start-->
+    <div style="margin: 20px auto 0px; max-width: 468px;">
+    	<a href="https://shop.mezofi.hu" target="_blank"><img src="bannerek/mezofi_banner.gif" class="img-responsive"  alt="Szilveszteri cikkek" title="Szilveszteri cikkek" /></a>
+   	</div>
+    <!-- Banner end-->
+</div>
+  
+
+ 
+  
+ 
+ 
+ 
+ 
+
+   <div style="margin: 20px auto; width: 150px;">Látogatók száma: 2374828</div></footer>                    
+                                        <div id="szofelho" style="color: #000;text-align: center;"><span style="font-size: 12px;">Leggyakrabb szavaink:</span> 
+                                         <span style="font-size: px;  "></span>
+                                         <span style="font-size: 12px; font-weight:bold; ">fokhagyma</span>
+                                         <span style="font-size: 12px; font-weight:bold; ">Arno</span>
+                                         <span style="font-size: 12px;  ">Zöld dió lekvár</span>
+                                         <span style="font-size: 12px;  ">Fokhagymakrém</span>
+                                         <span style="font-size: 12px;  ">online rendelés</span>
+                                         <span style="font-size: 20px;  ">fűszerpaprika</span>
+                                         <span style="font-size: 12px;  ">Zöld  dió szirupban</span>
+                                         <span style="font-size: 12px; font-weight:bold; ">olcsó ár</span>
+                                         <span style="font-size: 12px; font-weight:bold; ">országos kiszállítás</span>
+                                         <span style="font-size: 12px;  ">aulxito</span>
+                                         <span style="font-size: 12px; font-weight:bold; ">Elefánt  fokhagyma</span>
+                                         <span style="font-size: 12px;  ">Pure white</span>
+                                         <span style="font-size: 12px; font-weight:bold; ">webshop</span>
+                                         <span style="font-size: 12px; font-weight:bold; ">elkészítés</span>
+                                         <span style="font-size: 12px; font-weight:bold; ">webáruház</span>
+                                         <span style="font-size: 12px; font-weight:bold; ">felhasználás</span>
+                                         <span style="font-size: 12px; font-weight:bold; ">alapanyag</span>
+                                         <span style="font-size: 12px;  ">MPL</span>
+                                         <span style="font-size: 12px; font-weight:bold; ">recept</span>
+                                         <span style="font-size: 12px; font-weight:bold; ">hozzávalók</span>
+                                         <span style="font-size: 12px;  ">zöldség</span>
+                                         <span style="font-size: 12px; font-weight:bold; ">futárszolgálat</span>
+                                         <span style="font-size: 12px;  ">paprika</span>
+                                         <span style="font-size: 12px;  ">aszalt</span>
+                                         <span style="font-size: 12px; font-weight:bold; ">PostaPontok</span>
+                                         <span style="font-size: 12px;  ">hagyma</span>
+                                         <span style="font-size: 12px; font-weight:bold; ">Csomagautomata</span>
+                                         <span style="font-size: 12px;  ">gyümölcs</span>
+                                         <span style="font-size: 12px; font-weight:bold; ">őrölt</span>
+                                         <span style="font-size: 12px;  ">paradicsom</span>
+                                        </div>
+                                                   
+        <div class="cart_popup">A termék kosárba került</div>
+
+        
+                
+        
+<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1/jquery-ui.min.js"></script>
+
+<script type="text/javascript">
+// <![CDATA[
+var textProdSearch="Termékkereső";
+  jQuery(function() {
+    jQuery('#gyorkeresoMezo').keyup( function(){
+    jQuery('#gyorkeresoMezo').autocomplete({
+     select: function(event, ui) { location.href = ui.item.url; },
+       source: "include/ajax/kereso.php?keresett="+jQuery("#gyorkeresoMezo").val(),
+       position: { my : "right top", at: "right bottom" },
+                minLength: 2,
+                maxLength:3
+                    }).data("ui-autocomplete")._renderItem = function(ul, item) {
+            return jQuery("<li class='autocomplete_talalat'></li>")
+               .data("ui-autocomplete-item", item)
+                 .append( "<a href='"+item.url+"'>" + item.img +"<div style='height: 110px; text-align: left;'><span class='ac_nev'>" + item.label+"</span><br /><span class='ac_ar'>"+item.ar+"</span></div></a>")
+                 .appendTo( ul );
+        }  
+        
+    });
+  });
+
+//]]>
+</script>
+
+
+        
+    
+            
+            
+    
+                 <script type='text/javascript'>
+            fbq('init', '600722387389027');
+                       fbq('track', 'ViewContent');
+		</script>
+                <noscript>
+                    <img height='1' width='1' alt='' src='https://www.facebook.com/tr?id=600722387389027&ev=PageView&noscript=1'/>
+                </noscript>
+                
+                
+                
+           
+        
+         	
+	<!-- custom selects -->
+	
+	<script type="text/javascript">
+	(function($) {  
+	$(function() {  
+	  $('.header_currency select, #navigation select').styler();
+	  $('.jq-selectbox__trigger').append('<i class="fa fa-angle-down"></i>');
+	})
+	})(jQuery)
+	</script>
+	
+	
+			 </div> <!-- div#wrapper2 -->
+        </div> <!-- div#wrapper -->
+    </body>
+</html>

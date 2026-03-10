@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIReader - Smart Reading Plugin</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        :root {
+            --primary-gradient: linear-gradient(135deg, #4F46E5, #7C3AED);
+            --secondary-gradient: linear-gradient(135deg, #3B82F6, #2DD4BF);
+            --surface-gradient: linear-gradient(135deg, rgba(255,255,255,0.8), rgba(255,255,255,0.5));
+            --glow: 0 0 20px rgba(125, 58, 237, 0.3);
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f9fafb;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(79, 70, 229, 0.05) 0%, transparent 20%),
+                radial-gradient(circle at 80% 60%, rgba(124, 58, 237, 0.05) 0%, transparent 20%);
+            background-attachment: fixed;
+        }
+        
+        .ai-card {
+            background: var(--surface-gradient);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .ai-card:hover {
+            box-shadow: var(--glow);
+            transform: translateY(-5px);
+        }
+        
+        .primary-btn {
+            background: var(--primary-gradient);
+            transition: all 0.3s ease;
+        }
+        
+        .primary-btn:hover {
+            box-shadow: var(--glow);
+            transform: translateY(-2px);
+        }
+        
+        .secondary-btn {
+            background: var(--secondary-gradient);
+            transition: all 0.3s ease;
+        }
+        
+        .secondary-btn:hover {
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+            transform: translateY(-2px);
+        }
+        
+        .feature-icon {
+            background: var(--primary-gradient);
+        }
+        
+        .ai-glow {
+            position: relative;
+        }
+        
+        .ai-glow::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: inherit;
+            box-shadow: var(--glow);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: -1;
+        }
+        
+        .ai-glow:hover::after {
+            opacity: 1;
+        }
+        
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+    </style>
+</head>
+<body>
+    <nav class="glass-effect fixed w-full z-50 px-4 sm:px-6 lg:px-8 py-3">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <div class="w-10 h-10 rounded-lg flex items-center justify-center" style="background: var(--primary-gradient)">
+                    <i class="ri-book-read-line text-white text-xl"></i>
+                </div>
+                <span class="text-xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">AIReader</span>
+            </div>
+            
+            <div class="hidden md:flex items-center space-x-8">
+                <a href="#features" class="font-medium text-gray-700 hover:text-indigo-600 transition-colors">Features</a>
+                <a href="#pricing" class="font-medium text-gray-700 hover:text-indigo-600 transition-colors">Pricing</a>
+                <a href="#testimonials" class="font-medium text-gray-700 hover:text-indigo-600 transition-colors">Testimonials</a>
+                <a href="#faq" class="font-medium text-gray-700 hover:text-indigo-600 transition-colors">FAQ</a>
+            </div>
+            
+            <div class="flex items-center space-x-4">
+                <a href="#" class="hidden sm:block px-4 py-2 rounded-lg font-medium text-indigo-600 hover:text-indigo-700 transition-colors">Login</a>
+                <a href="#" class="primary-btn px-4 py-2 rounded-lg font-medium text-white">Try Now</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="pt-32 pb-20 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto">
+            <div class="flex flex-col lg:flex-row items-center gap-12">
+                <div class="lg:w-1/2 space-y-8">
+                    <h1 class="text-4xl md:text-5xl font-bold leading-tight">
+                        <span class="bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">AI-Powered</span> Reading Experience
+                        <br>Boost Your Knowledge Efficiency
+                    </h1>
+                    <p class="text-lg text-gray-600 leading-relaxed">
+                        AIReader is an intelligent reading plugin that uses advanced AI technology to help you quickly understand and digest content, providing summaries, key point extraction, explanation of complex concepts, making reading more efficient and deeper.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <a href="#pricing" class="primary-btn px-8 py-3 rounded-lg font-medium text-white text-center">
+                            Get Started <i class="ri-arrow-right-line ml-1"></i>
+                        </a>
+                        <a href="#demo" class="glass-effect ai-glow px-8 py-3 rounded-lg font-medium text-gray-700 flex items-center justify-center">
+                            <i class="ri-play-circle-line mr-2 text-indigo-600"></i> Watch Demo
+                        </a>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <div class="flex -space-x-2">
+                            <img src="https://randomuser.me/api/portraits/women/32.jpg" class="w-8 h-8 rounded-full border-2 border-white" alt="User avatar">
+                            <img src="https://randomuser.me/api/portraits/men/44.jpg" class="w-8 h-8 rounded-full border-2 border-white" alt="User avatar">
+                            <img src="https://randomuser.me/api/portraits/women/56.jpg" class="w-8 h-8 rounded-full border-2 border-white" alt="User avatar">
+                        </div>
+                        <div class="text-sm text-gray-600">
+                            <span class="font-medium text-indigo-600">1,000+</span> users already joined
+                        </div>
+                    </div>
+                </div>
+                <div class="lg:w-1/2 relative">
+                    <div class="absolute -z-10 w-72 h-72 bg-indigo-100 rounded-full blur-3xl opacity-70 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"></div>
+                    <div class="ai-card rounded-2xl overflow-hidden p-1 relative z-10">
+                        <img src="https://images.unsplash.com/photo-1563986768609-322da13575f3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="AIReader demo" class="rounded-xl w-full shadow-lg">
+                        <div class="absolute bottom-4 left-4 right-4 glass-effect rounded-xl p-4">
+                            <div class="flex items-start">
+                                <div class="w-8 h-8 rounded-lg flex items-center justify-center mr-3" style="background: var(--primary-gradient)">
+                                    <i class="ri-ai-generate text-white"></i>
+                                </div>
+                                <div>
+                                    <div class="text-xs text-indigo-600 font-medium mb-1">AI Summary</div>
+                                    <p class="text-sm text-gray-700">This article explores how artificial intelligence is changing the way we acquire and process information, highlighting the potential of AI tools in improving reading efficiency and depth of understanding...</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="features" class="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-white to-indigo-50">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold mb-4">Enhance Your Reading Experience</h2>
+                <p class="text-lg text-gray-600 max-w-3xl mx-auto">
+                    AIReader provides multiple intelligent features to help you understand content faster, extract key information, and explore complex concepts in depth.
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="ai-card rounded-xl p-6 h-full">
+                    <div class="w-12 h-12 rounded-lg feature-icon flex items-center justify-center mb-4">
+                        <i class="ri-file-text-line text-white text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Intelligent Summaries</h3>
+                    <p class="text-gray-600 mb-4">
+                        Automatically generate accurate summaries of articles, reports, or web pages, helping you quickly grasp core content and save reading time.
+                    </p>
+                    <a href="#" class="text-indigo-600 font-medium flex items-center hover:text-indigo-800 transition-colors">
+                        Learn more <i class="ri-arrow-right-line ml-1"></i>
+                    </a>
+                </div>
+                
+                <div class="ai-card rounded-xl p-6 h-full">
+                    <div class="w-12 h-12 rounded-lg feature-icon flex items-center justify-center mb-4">
+                        <i class="ri-question-answer-line text-white text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Smart Q&A</h3>
+                    <p class="text-gray-600 mb-4">
+                        Ask questions about the content you're reading, and AI will provide accurate answers based on context, helping you understand content more deeply.
+                    </p>
+                    <a href="#" class="text-indigo-600 font-medium flex items-center hover:text-indigo-800 transition-colors">
+                        Learn more <i class="ri-arrow-right-line ml-1"></i>
+                    </a>
+                </div>
+                
+                <div class="ai-card rounded-xl p-6 h-full">
+                    <div class="w-12 h-12 rounded-lg feature-icon flex items-center justify-center mb-4">
+                        <i class="ri-translate-2 text-white text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Technical Term Explanations</h3>
+                    <p class="text-gray-600 mb-4">
+                        Automatically identify and explain technical terms and complex concepts, enabling you to understand specialized content across various fields.
+                    </p>
+                    <a href="#" class="text-indigo-600 font-medium flex items-center hover:text-indigo-800 transition-colors">
+                        Learn more <i class="ri-arrow-right-line ml-1"></i>
+                    </a>
+                </div>
+                <div class="ai-card rounded-xl p-6 h-full">
+                    <div class="w-12 h-12 rounded-lg feature-icon flex items-center justify-center mb-4">
+                        <i class="ri-bookmark-line text-white text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Smart Notes</h3>
+                    <p class="text-gray-600 mb-4">
+                        Automatically organize reading notes, extract key points, and generate structured knowledge points for subsequent review and reference.
+                    </p>
+                    <a href="#" class="text-indigo-600 font-medium flex items-center hover:text-indigo-800 transition-colors">
+                        Learn more <i class="ri-arrow-right-line ml-1"></i>
+                    </a>
+                </div>
+                
+                <div class="ai-card rounded-xl p-6 h-full">
+                    <div class="w-12 h-12 rounded-lg feature-icon flex items-center justify-center mb-4">
+                        <i class="ri-search-line text-white text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Intelligent Search</h3>
+                    <p class="text-gray-600 mb-4">
+                        Perform semantic searches on content to precisely locate the information you need without browsing through entire documents.
+                    </p>
+                    <a href="#" class="text-indigo-600 font-medium flex items-center hover:text-indigo-800 transition-colors">
+                        Learn more <i class="ri-arrow-right-line ml-1"></i>
+                    </a>
+                </div>
+                
+                <div class="ai-card rounded-xl p-6 h-full">
+                    <div class="w-12 h-12 rounded-lg feature-icon flex items-center justify-center mb-4">
+                        <i class="ri-device-line text-white text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Multi-platform Support</h3>
+                    <p class="text-gray-600 mb-4">
+                        Supports various browsers, PDF readers, and e-book platforms, allowing you to enjoy intelligent reading experiences on any device.
+                    </p>
+                    <a href="#" class="text-indigo-600 font-medium flex items-center hover:text-indigo-800 transition-colors">
+                        Learn more <i class="ri-arrow-right-line ml-1"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="demo" class="py-20 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold mb-4">Experience AIReader's Powerful Features</h2>
+                <p class="text-lg text-gray-600 max-w-3xl mx-auto">
+                    Watch our demo video to see how AIReader helps you improve reading efficiency and comprehension depth.
+                </p>
+            </div>
+            
+            <div class="relative rounded-2xl overflow-hidden ai-card">
+                <div class="aspect-w-16 aspect-h-9">
+                    <img src="https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="AIReader demo video" class="object-cover">
+                    
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <button class="w-20 h-20 rounded-full bg-white bg-opacity-80 flex items-center justify-center transition-transform hover:scale-110 focus:outline-none ai-glow">
+                            <div class="w-16 h-16 rounded-full primary-btn flex items-center justify-center">
+                                <i class="ri-play-fill text-white text-3xl"></i>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-16 grid md:grid-cols-3 gap-8">
+                <div class="flex items-start">
+                    <div class="w-10 h-10 rounded-lg flex items-center justify-center mr-4" style="background: var(--primary-gradient)">
+                        <i class="ri-timer-line text-white"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold mb-2">Save 80% Reading Time</h3>
+                        <p class="text-gray-600">Quickly access core information without reading the entire text, significantly improving your information acquisition efficiency.</p>
+                    </div>
+                </div>
+                
+                <div class="flex items-start">
+                    <div class="w-10 h-10 rounded-lg flex items-center justify-center mr-4" style="background: var(--primary-gradient)">
+                        <i class="ri-brain-line text-white"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold mb-2">Deeper Understanding</h3>
+                        <p class="text-gray-600">AI helps you understand complex concepts and technical terms, grasping the essence of content more deeply.</p>
+                    </div>
+                </div>
+                
+                <div class="flex items-start">
+                    <div class="w-10 h-10 rounded-lg flex items-center justify-center mr-4" style="background: var(--primary-gradient)">
+                        <i class="ri-user-smile-line text-white"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold mb-2">Easy to Use</h3>
+                        <p class="text-gray-600">One-click installation, seamless integration with your browser, intuitive to use with no learning curve.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="pricing" class="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-indigo-50 to-white">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold mb-4">Choose Your Plan</h2>
+                <p class="text-lg text-gray-600 max-w-3xl mx-auto">
+                    We offer flexible subscription plans to meet the needs of different users and enhance your reading experience.
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="ai-card rounded-xl p-8 flex flex-col h-full">
+                    <div class="mb-8">
+                        <h3 class="text-xl font-bold mb-2">Free</h3>
+                        <div class="flex items-end mb-4">
+                            <span class="text-4xl font-bold">$0</span>
+                            <span class="text-gray-500 ml-1">/forever</span>
+                        </div>
+                        <p class="text-gray-600">Perfect for first-time users</p>
+                    </div>
+                    
+                    <ul class="space-y-3 mb-8 flex-grow">
+                        <li class="flex items-center">
+                            <i class="ri-checkbox-circle-fill text-green-500 mr-2"></i>
+                            <span>10 AI summaries daily</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="ri-checkbox-circle-fill text-green-500 mr-2"></i>
+                            <span>Basic term explanations</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="ri-checkbox-circle-fill text-green-500 mr-2"></i>
+                            <span>Single browser support</span>
+                        </li>
+                        <li class="flex items-center text-gray-400">
+                            <i class="ri-close-circle-line mr-2"></i>
+                            <span>Advanced AI Q&A features</span>
+                        </li>
+                        <li class="flex items-center text-gray-400">
+                            <i class="ri-close-circle-line mr-2"></i>
+                            <span>Smart notes functionality</span>
+                        </li>
+                        <li class="flex items-center text-gray-400">
+                            <i class="ri-close-circle-line mr-2"></i>
+                            <span>Multi-platform sync</span>
+                        </li>
+                    </ul>
+                    
+                    <a href="#" class="glass-effect ai-glow py-3 px-6 rounded-lg font-medium text-center text-gray-700">
+                        Start Free
+                    </a>
+                </div>
+                
+                <div class="ai-card rounded-xl p-8 flex flex-col h-full relative overflow-hidden">
+                    <div class="absolute -right-12 top-8 bg-indigo-600 text-white px-12 py-1 transform rotate-45 text-sm font-medium">
+                        Most Popular
+                    </div>
+                    
+                    <div class="mb-8">
+                        <h3 class="text-xl font-bold mb-2">Professional</h3>
+                        <div class="flex items-end mb-4">
+                            <span class="text-4xl font-bold">$9</span>
+                            <span class="text-gray-500 ml-1">/month</span>
+                        </div>
+                        <p class="text-gray-600">For individual professionals</p>
+                    </div>
+                    
+                    <ul class="space-y-3 mb-8 flex-grow">
+                        <li class="flex items-center">
+                            <i class="ri-checkbox-circle-fill text-green-500 mr-2"></i>
+                            <span>Unlimited AI summaries</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="ri-checkbox-circle-fill text-green-500 mr-2"></i>
+                            <span>Advanced term explanations</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="ri-checkbox-circle-fill text-green-500 mr-2"></i>
+                            <span>Multi-browser support</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="ri-checkbox-circle-fill text-green-500 mr-2"></i>
+                            <span>Advanced AI Q&A features</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="ri-checkbox-circle-fill text-green-500 mr-2"></i>
+                            <span>Smart notes functionality</span>
+                        </li>
+                        <li class="flex items-center text-gray-400">
+                            <i class="ri-close-circle-line mr-2"></i>
+                            <span>Multi-platform sync</span>
+                        </li>
+                    </ul>
+                    
+                    <a href="#" class="primary-btn py-3 px-6 rounded-lg font-medium text-center text-white">
+                        Subscribe Now
+                    </a>
+                </div>
+                
+                <div class="ai-card rounded-xl p-8 flex flex-col h-full">
+                    <div class="mb-8">
+                        <h3 class="text-xl font-bold mb-2">Enterprise</h3>
+                        <div class="flex items-end mb-4">
+                            <span class="text-4xl font-bold">$29</span>
+                            <span class="text-gray-500 ml-1">/month</span>
+                        </div>
+                        <p class="text-gray-600">For teams and organizations</p>
+                    </div>
+                    
+                    <ul class="space-y-3 mb-8 flex-grow">
+                        <li class="flex items-center">
+                            <i class="ri-checkbox-circle-fill text-green-500 mr-2"></i>
+                            <span>Unlimited AI summaries</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="ri-checkbox-circle-fill text-green-500 mr-2"></i>
+                            <span>Custom terminology database</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="ri-checkbox-circle-fill text-green-500 mr-2"></i>
+                            <span>All platform support</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="ri-checkbox-circle-fill text-green-500 mr-2"></i>
+                            <span>Advanced AI Q&A features</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="ri-checkbox-circle-fill text-green-500 mr-2"></i>
+                            <span>Smart notes with team sharing</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="ri-checkbox-circle-fill text-green-500 mr-2"></i>
+                            <span>Multi-platform sync & management</span>
+                        </li>
+                    </ul>
+                    
+                    <a href="#" class="secondary-btn py-3 px-6 rounded-lg font-medium text-center text-white">
+                        Contact Sales
+                    </a>
+                </div>
+            </div>
+            
+            <div class="text-center mt-12">
+                <p class="text-gray-600">
+                    Have questions? Check our <a href="#faq" class="text-indigo-600 font-medium hover:text-indigo-800 transition-colors">FAQ</a> or <a href="#" class="text-indigo-600 font-medium hover:text-indigo-800 transition-colors">contact us</a>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section id="testimonials" class="py-20 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold mb-4">What Our Users Say</h2>
+                <p class="text-lg text-gray-600 max-w-3xl mx-auto">
+                    Users from various industries have experienced the efficiency boost provided by AIReader.
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="ai-card rounded-xl p-6">
+                    <div class="flex items-center mb-4">
+                        <img src="https://randomuser.me/api/portraits/women/33.jpg" alt="User avatar" class="w-12 h-12 rounded-full mr-4">
+                        <div>
+                            <h4 class="font-semibold">Emma Thompson</h4>
+                            <p class="text-gray-600 text-sm">Graduate Student · Computer Science</p>
+                        </div>
+                    </div>
+                    <div class="flex mb-4">
+                        <i class="ri-star-fill text-yellow-400"></i>
+                        <i class="ri-star-fill text-yellow-400"></i>
+                        <i class="ri-star-fill text-yellow-400"></i>
+                        <i class="ri-star-fill text-yellow-400"></i>
+                        <i class="ri-star-fill text-yellow-400"></i>
+                    </div>
+                    <p class="text-gray-700">
+                        "AIReader has greatly improved my study efficiency. Every time I read research papers, it quickly extracts core points and explains complex terminology, allowing me to understand key content in a short time. Highly recommend to all students!"
+                    </p>
+                </div>
+                
+                <div class="ai-card rounded-xl p-6">
+                    <div class="flex items-center mb-4">
+                        <img src="https://randomuser.me/api/portraits/men/42.jpg" alt="User avatar" class="w-12 h-12 rounded-full mr-4">
+                        <div>
+                            <h4 class="font-semibold">Michael Wilson</h4>
+                            <p class="text-gray-600 text-sm">Product Manager · Tech Company</p>
+                        </div>
+                    </div>
+                    <div class="flex mb-4">
+                        <i class="ri-star-fill text-yellow-400"></i>
+                        <i class="ri-star-fill text-yellow-400"></i>
+                        <i class="ri-star-fill text-yellow-400"></i>
+                        <i class="ri-star-fill text-yellow-400"></i>
+                        <i class="ri-star-fill text-yellow-400"></i>
+                    </div>
+                    <p class="text-gray-700">
+                        "As a product manager, I need to read a lot of market reports and user feedback daily. AIReader helps me save at least 60% of reading time, allowing me to focus more on product decisions. This tool is worth every penny!"
+                    </p>
+                </div>
+                
+                <div class="ai-card rounded-xl p-6">
+                    <div class="flex items-center mb-4">
+                        <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="User avatar" class="w-12 h-12 rounded-full mr-4">
+                        <div>
+                            <h4 class="font-semibold">Sarah Johnson</h4>
+                            <p class="text-gray-600 text-sm">Legal Advisor · Law Firm</p>
+                        </div>
+                    </div>
+                    <div class="flex mb-4">
+                        <i class="ri-star-fill text-yellow-400"></i>
+                        <i class="ri-star-fill text-yellow-400"></i>
+                        <i class="ri-star-fill text-yellow-400"></i>
+                        <i class="ri-star-fill text-yellow-400"></i>
+                        <i class="ri-star-half-fill text-yellow-400"></i>
+                    </div>
+                    <p class="text-gray-700">
+                        "Legal documents are often lengthy and complex. After using AIReader, I can quickly grasp key points of contracts and cases, improving my work efficiency. Its explanation of legal terminology is also very accurate, which is impressive."
+                    </p>
+                </div>
+            </div>
+            
+            <div class="text-center mt-12">
+                <a href="#" class="glass-effect ai-glow py-3 px-6 rounded-lg inline-block font-medium text-gray-700">
+                    View More Testimonials <i class="ri-arrow-right-line ml-1"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section id="faq" class="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-white to-indigo-50">
+        <div class="max-w-4xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold mb-4">Frequently Asked Questions</h2>
+                <p class="text-lg text-gray-600">
+                    Here are some common questions from our users. If you have other questions, please feel free to contact us.
+                </p>
+            </div>
+            
+            <div class="space-y-6">
+                <div class="ai-card rounded-xl p-6">
+                    <h3 class="text-xl font-semibold mb-3">Which platforms does AIReader support?</h3>
+                    <p class="text-gray-700">
+                        AIReader currently supports Chrome, Firefox, Safari, and Edge browsers, as well as PDF reader plugins and standalone applications. We're working on developing support for more platforms, including mobile device applications.
+                    </p>
+                </div>
+                
+                <div class="ai-card rounded-xl p-6">
+                    <h3 class="text-xl font-semibold mb-3">How does AIReader protect my data privacy?</h3>
+                    <p class="text-gray-700">
+                        We highly value user privacy. AIReader doesn't permanently store the content you read, and all processing is done through encrypted channels. Our privacy policy ensures that your data will not be used to train AI models or shared with third parties.
+                    </p>
+                </div>
+                
+                <div class="ai-card rounded-xl p-6">
+                    <h3 class="text-xl font-semibold mb-3">What's the difference between free and paid versions?</h3>
+                    <p class="text-gray-700">
+                        The free version provides basic features and limited usage, suitable for first-time users. Paid versions unlock unlimited usage, advanced AI features, multi-device synchronization, and provide more precise content analysis and comprehensive terminology explanations.
+                    </p>
+                </div>
+                
+                <div class="ai-card rounded-xl p-6">
+                    <h3 class="text-xl font-semibold mb-3">Does AIReader support multiple languages?</h3>
+                    <p class="text-gray-700">
+                        Yes, AIReader currently supports over 20 languages, including English, Chinese, Japanese, French, German, and Spanish. We continue to add support for more languages to serve users globally.
+                    </p>
+                </div>
+                
+                <div class="ai-card rounded-xl p-6">
+                    <h3 class="text-xl font-semibold mb-3">How do I cancel my subscription?</h3>
+                    <p class="text-gray-700">
+                        You can cancel your subscription at any time in your account settings. After cancellation, you can continue to use paid features until the end of the current billing cycle. We do not offer partial refunds, but you can resubscribe at any time.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-20 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-5xl mx-auto text-center">
+            <div class="ai-card rounded-2xl p-12 relative overflow-hidden">
+                <!-- 背景装饰 -->
+                <div class="absolute -z-10 w-96 h-96 bg-indigo-100 rounded-full blur-3xl opacity-70 top-1/2 left-1/4 transform -translate-x-1/2 -translate-y-1/2"></div>
+                <div class="absolute -z-10 w-72 h-72 bg-blue-100 rounded-full blur-3xl opacity-70 top-1/2 right-1/4 transform translate-x-1/2 -translate-y-1/2"></div>
+                
+                <h2 class="text-3xl md:text-4xl font-bold mb-6">Ready to Enhance Your Reading Experience?</h2>
+                <p class="text-lg text-gray-600 max-w-3xl mx-auto mb-8">
+                    Join over 10,000 users worldwide and experience AI-powered reading that boosts your knowledge acquisition efficiency.
+                </p>
+                
+                <div class="flex flex-col sm:flex-row justify-center gap-4">
+                    <a href="#pricing" class="primary-btn px-8 py-3 rounded-lg font-medium text-white text-center">
+                        Start Using Now
+                    </a>
+                    <a href="#demo" class="glass-effect ai-glow px-8 py-3 rounded-lg font-medium text-gray-700 flex items-center justify-center">
+                        Learn More
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-gray-900 text-white py-12 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <div class="flex items-center space-x-2 mb-4">
+                        <div class="w-10 h-10 rounded-lg flex items-center justify-center bg-white bg-opacity-10">
+                            <i class="ri-book-read-line text-white text-xl"></i>
+                        </div>
+                        <span class="text-xl font-bold text-white">AIReader</span>
+                    </div>
+                    <p class="text-gray-400 mb-4">
+                        Intelligent reading plugin that enhances your reading efficiency and depth, making knowledge acquisition easier and more effective.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                            <i class="ri-twitter-x-line text-lg"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                            <i class="ri-facebook-fill text-lg"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                            <i class="ri-instagram-line text-lg"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                            <i class="ri-linkedin-fill text-lg"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#features" class="text-gray-400 hover:text-white transition-colors">Features</a></li>
+                        <li><a href="#pricing" class="text-gray-400 hover:text-white transition-colors">Pricing</a></li>
+                        <li><a href="#testimonials" class="text-gray-400 hover:text-white transition-colors">Testimonials</a></li>
+                        <li><a href="#faq" class="text-gray-400 hover:text-white transition-colors">FAQ</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Blog</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Legal</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Privacy Policy</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Terms of Service</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Refund Policy</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Cookie Policy</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">GDPR Compliance</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Contact Us</h3>
+                    <ul class="space-y-2 text-gray-400">
+                        <li class="flex items-start">
+                            <i class="ri-map-pin-line mt-1 mr-2"></i>
+                            <span>123 Innovation Drive, San Francisco, CA 94103</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="ri-mail-line mt-1 mr-2"></i>
+                            <span><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="ef8c80819b8e8c9baf869d8a8e8bc19b808b8e96">[email&#160;protected]</a></span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="pt-8 border-t border-gray-800 flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <p class="text-gray-400 text-sm">
+                        &copy; 2025 AIReader - Smart Reading Plugin. All rights reserved.
+                    </p>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <span class="text-gray-400 text-sm">Payment methods:</span>
+                    <img src="https://cdn.jsdelivr.net/gh/stripe-samples/checkout-one-time-payments/client/favicon/apple-touch-icon.png" alt="Apple Pay" class="h-8">
+                    <img src="https://assets.stripeassets.com/fzn2n1nzq965/01hMKr6nEEGVfOuhsaMIXQ/c424849423b5f036a8892afa09ac38c7/favicon.ico" alt="Stripe" class="h-8">
+                    <img src="https://www.paypalobjects.com/webstatic/icon/pp258.png" alt="PayPal" class="h-8">
+                    <img src="https://www.mastercard.com.cn/content/dam/public/mastercardcom/sg/en/consumers/find-a-card/images/platinum-mastercard-card_1280x720.png" alt="Credit Card" class="h-8">
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Stripe支付集成 -->
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="https://js.stripe.com/v3/"></script>
+    <script>
+        // Stripe configuration
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add click event for subscription buttons
+            const subscribeButtons = document.querySelectorAll('.primary-btn');
+            
+            subscribeButtons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    if (this.closest('#pricing')) {
+                        e.preventDefault();
+                        // In a real application, this would redirect to Stripe Checkout
+                        alert('Redirecting to Stripe payment page...');
+                        // Actual code would be similar to:
+                        // 
+                        // const stripe = Stripe('pk_test_your_publishable_key');
+                        // stripe.redirectToCheckout({
+                        //     lineItems: [{price: 'price_123', quantity: 1}],
+                        //     mode: 'subscription',
+                        //     successUrl: window.location.origin + '/success',
+                        //     cancelUrl: window.location.origin + '/cancel',
+                        // });
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,1760 @@
+<!doctype html>
+<html lang="it-IT">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link rel="preload" as="image" fetchpriority="high" href="https://www.quotidianoarte.it/wp-content/uploads/2026/02/28872270_10210799526936686_402073492264058880_o-1-768x450.jpg" imagesrcset="" imagesizes="100vw">
+<style>
+/* ====== RESET & CRITICAL CSS ====== */
+/* Nota: Le variabili (:root) sono ora gestite da functions.php */
+
+*{margin:0;padding:0;box-sizing:border-box}
+
+body{
+  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+  color:#111;
+  background:var(--header-bg, #fff); /* Fallback */
+  line-height:1.6;
+  overflow-x:hidden;
+}
+
+a{text-decoration:none;color:inherit}
+img{max-width:100%;height:auto;display:block}
+.container{width:min(var(--maxw, 1080px), 92vw);margin:0 auto}
+
+/* HIDE WP MOBILE MENU */
+.mobile-navigation,.mobile-nav,.menu-toggle,.mobile-menu-toggle,
+#site-navigation-mobile,#mobile-menu,.offcanvas-menu,
+.js-toggle-mobile-menu,.hamburger-menu{display:none!important}
+
+/* ===== HEADER ===== */
+.site-header{
+  position:sticky;top:0;z-index:9999;
+  background:var(--header-bg);
+  color:var(--header-text);
+  border-bottom:1px solid #e6e6e6;
+  box-shadow:0 2px 6px rgba(0,0,0,.05);
+  min-height:60px;
+}
+
+.h-wrap{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:10px 0;gap:14px
+}
+
+.brand img.custom-logo{
+  width:var(--logo-width);height:auto;max-width:none;
+}
+
+/* ===== DESKTOP MENU ===== */
+.nav-desktop ul{list-style:none;display:flex;gap:16px}
+.nav-desktop ul li a{
+  background:var(--menu-capsule-bg);
+  border:1px solid var(--menu-capsule-border);
+  border-radius:999px;
+  padding:7px 15px;font-weight:700;font-size:15px;
+  transition:.15s;
+}
+.nav-desktop ul li a:hover{
+  background:var(--menu-capsule-active);
+  border-color:var(--menu-capsule-active);
+  color:#fff;
+}
+
+/* ===== HAMBURGER ===== */
+.hamb-btn{
+  display:none;
+  width:42px;height:42px;
+  border:1px solid #ddd;border-radius:12px;
+  background:#fff;
+  cursor:pointer;
+  align-items:center;justify-content:center;
+  transition:box-shadow .15s;
+  padding:8px;
+}
+.hamb-btn:hover{box-shadow:0 4px 10px rgba(0,0,0,.08)}
+
+.hamb-lines{
+  width:26px;height:20px;
+  display:flex;flex-direction:column;justify-content:space-between;
+}
+
+/* MODIFICA QUI SOTTO: background usa la variabile attiva */
+.hamb-line{
+  width:100%;height:3px;
+  background:var(--menu-capsule-active); /* <--- COLORE PRESO DAL MENU */
+  border-radius:6px;
+  transition:transform .18s ease, opacity .18s ease;
+}
+
+body.menu-open .hamb-line:nth-child(1){transform:translateY(8px) rotate(45deg)}
+body.menu-open .hamb-line:nth-child(2){opacity:0}
+body.menu-open .hamb-line:nth-child(3){transform:translateY(-8px) rotate(-45deg)}
+
+@media(max-width:900px){
+  .nav-desktop{display:none}
+  .hamb-btn{display:flex}
+}
+
+/* ===== MOBILE PANEL ===== */
+.mobile-panel{
+  position:fixed;inset:0;z-index:200000!important;background:#fff;
+  display:none;flex-direction:column;padding:18px 20px 40px;gap:24px;
+  overflow-y:auto;transform:translateY(30px);opacity:0;
+  transition:opacity .25s ease,transform .25s ease;
+}
+body.menu-open .mobile-panel{display:flex;transform:translateY(0);opacity:1}
+
+.mobile-panel-top{
+  display:flex;align-items:center;justify-content:space-between;
+}
+.mobile-title{font-weight:700;font-size:1rem}
+.mobile-close{
+  width:32px;height:32px;border:1px solid #ddd;border-radius:10px;
+  background:#fff;display:flex;align-items:center;justify-content:center;
+  font-size:20px;cursor:pointer;
+}
+
+.mobile-menu{
+  list-style:none;display:flex;flex-direction:column;gap:38px;
+}
+
+.mobile-menu li a{
+  background:var(--menu-capsule-bg);
+  border:1px solid var(--menu-capsule-border);
+  border-radius:999px;
+  padding:10px 15px;font-weight:700;font-size:16px;
+}
+.mobile-menu li a:hover{
+  background:var(--menu-capsule-active);
+  border-color:var(--menu-capsule-active);
+  color:#fff;
+}
+
+/* ===== DECORATIVE FRAME ===== */
+.page-frame-lines{
+  position:fixed;top:70px;bottom:0;width:5px;pointer-events:none;
+  z-index:3;opacity:.40;
+  background:linear-gradient(to bottom,rgba(0,0,0,.25),rgba(0,0,0,.15) 40%,transparent);
+}
+.page-frame-lines.left{left:calc((100vw - var(--maxw, 1080px)) / 2 - 24px)}
+.page-frame-lines.right{right:calc((100vw - var(--maxw, 1080px)) / 2 - 24px)}
+@media(max-width:900px){.page-frame-lines{display:none}}
+
+/* ===== BACK TO TOP (Re-inserito) ===== */
+#backToTop {
+    transition: opacity 0.3s ease, transform 0.3s ease !important;
+    will-change: opacity, transform;
+}
+</style>
+
+<link rel="preconnect" href="https://secure.gravatar.com" crossorigin>
+<link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
+<link rel="preconnect" href="https://www.google-analytics.com" crossorigin>
+<title>Quotidianoarte.it &#8211; Esplora il mondo dell&#039;arte, un post alla volta</title>
+<meta name='robots' content='max-image-preview:large' />
+<link rel="canonical" href="https://www.quotidianoarte.it/">
+<meta name="description" content="Esplora il mondo dell&#039;arte, un post alla volta">
+<meta name="robots" content="index, follow, max-image-preview:large">
+
+<meta property="og:locale" content="it_IT" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Quotidianoarte.it &#8211; Esplora il mondo dell&#039;arte, un post alla volta" />
+<meta property="og:description" content="Esplora il mondo dell&#039;arte, un post alla volta" />
+<meta property="og:url" content="https://www.quotidianoarte.it/" />
+<meta property="og:site_name" content="Quotidianoarte.it" />
+<meta property="og:image" content="https://www.quotidianoarte.it/wp-content/uploads/2024/10/favvvv.png" />
+<meta property="og:image:secure_url" content="https://www.quotidianoarte.it/wp-content/uploads/2024/10/favvvv.png" />
+<meta property="og:image:width" content="512" />
+<meta property="og:image:height" content="512" />
+<meta property="og:image:type" content="image/jpeg" />
+<meta property="og:image:alt" content="Quotidianoarte.it &#8211; Esplora il mondo dell&#039;arte, un post alla volta" />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Quotidianoarte.it &#8211; Esplora il mondo dell&#039;arte, un post alla volta" />
+<meta name="twitter:description" content="Esplora il mondo dell&#039;arte, un post alla volta" />
+<meta name="twitter:image" content="https://www.quotidianoarte.it/wp-content/uploads/2024/10/favvvv.png" />
+<meta name="twitter:label1" content="Scritto da" />
+<meta name="twitter:data1" content="Valeria Fossatelli" />
+<meta name="twitter:label2" content="Tempo di lettura" />
+<meta name="twitter:data2" content="3 min" />
+<script type="application/ld+json">{"@context":"https:\/\/schema.org","@graph":[{"@type":"WebSite","@id":"https:\/\/www.quotidianoarte.it\/#website","url":"https:\/\/www.quotidianoarte.it\/","name":"Quotidianoarte.it","publisher":{"@id":"https:\/\/www.quotidianoarte.it\/#org"},"potentialAction":{"@type":"SearchAction","target":"https:\/\/www.quotidianoarte.it\/?s={search_term_string}","query-input":"required name=search_term_string"}},{"@type":"Organization","@id":"https:\/\/www.quotidianoarte.it\/#org","name":"Quotidianoarte.it","url":"https:\/\/www.quotidianoarte.it\/","logo":{"@type":"ImageObject","url":"https:\/\/www.quotidianoarte.it\/wp-content\/uploads\/2025\/08\/cropped-logo-quotidiano-arte.png","width":233,"height":64}},{"@type":"WebPage","@id":"https:\/\/www.quotidianoarte.it\/#webpage","url":"https:\/\/www.quotidianoarte.it\/","name":"Quotidianoarte.it &#8211; Esplora il mondo dell&#039;arte, un post alla volta","isPartOf":{"@id":"https:\/\/www.quotidianoarte.it\/#website"},"description":"Esplora il mondo dell&#039;arte, un post alla volta"}]}</script><link rel="alternate" type="application/rss+xml" title="Quotidianoarte.it &raquo; Feed" href="https://www.quotidianoarte.it/feed/" />
+<style id='wp-img-auto-sizes-contain-inline-css'>
+img:is([sizes=auto i],[sizes^="auto," i]){contain-intrinsic-size:3000px 1500px}
+/*# sourceURL=wp-img-auto-sizes-contain-inline-css */
+</style>
+<link rel="https://api.w.org/" href="https://www.quotidianoarte.it/wp-json/" /><link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://www.quotidianoarte.it/xmlrpc.php?rsd" />
+<meta name="generator" content="WordPress 6.9.1" />
+<style id="dpm-critical-css">/* Theme Name: FaradayTheme
+Theme URI: https://faraday.it/
+Author: Francesco Giuliani
+Author URI: https://faraday.it/
+Description: Tema superfast - War Machine Edition
+Version: 3.0.1
+Text Domain: faradaytheme
+*/
+
+/* =====================================
+   ROOT VARS & FALLBACKS
+===================================== */
+:root{
+  --container:max(92vw,280px);
+  --maxw:1080px;
+  --gap:22px;
+
+  /* Variabili base (Fallback se il PHP ritarda) */
+  --header-bg:#fafafa;
+  --header-text:#111111;
+  --footer-bg:#f6f6f6;
+  --footer-text:#333333;
+  --footer-btn-bg:#ffffff;
+  --footer-btn-text:#111111;
+  --accent:#d72626;
+  --back-to-top-bg:#d72626;
+  
+  /* UI Elementi */
+  --soft-radius:16px;
+  --soft-radius-lg:18px;
+  --soft-shadow:0 6px 20px rgba(0,0,0,0.06);
+  --soft-shadow-lg:0 10px 32px rgba(0,0,0,0.10);
+  --transition:all .25s cubic-bezier(.25,.46,.45,.94);
+}
+
+/* =====================================
+   RESET
+===================================== */
+*{margin:0;padding:0;box-sizing:border-box}
+
+body{
+  background:#fff;
+  color:#111;
+  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+  line-height:1.65;
+  text-rendering:optimizeLegibility;
+  overflow-x:hidden;
+}
+
+img{max-width:100%;height:auto;display:block}
+a{text-decoration:none;color:inherit}
+.container{width:min(var(--maxw),var(--container));margin:0 auto}
+
+/* =====================================
+   HEADER
+===================================== */
+.site-header{
+  position:sticky;top:0;z-index:10000;
+  background:var(--header-bg);
+  border-bottom:1px solid #e9e9e9;
+  box-shadow:0 2px 6px rgba(0,0,0,0.06);
+  backdrop-filter:blur(6px);
+}
+.site-header a{color:var(--header-text);}
+
+.h-wrap{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:12px 0;
+}
+
+.brand img.custom-logo{
+  width:var(--logo-width);height:auto;transition:var(--transition);
+}
+
+/* =====================================
+   MENU CAPSULE (Desktop)
+===================================== */
+.nav ul.menu-capsule{display:flex;gap:16px;list-style:none}
+
+.nav ul.menu-capsule li a{
+  background:var(--menu-capsule-bg);
+  padding:7px 15px;
+  border-radius:999px;
+  border:1px solid var(--menu-capsule-border);
+  font-weight:700;font-size:15px;
+  transition:var(--transition);
+}
+
+.nav ul.menu-capsule li a:hover{
+  border-color:var(--menu-capsule-active);
+  background:var(--menu-capsule-active);
+  color:#fff;
+  transform:translateY(-2px);
+}
+
+/* =====================================
+   HERO HOMEPAGE (STILE EDITORIALE)
+===================================== */
+.frontpage{margin-top:26px}
+
+.fp-hero{
+  margin-bottom:50px;
+  border-radius:var(--soft-radius-lg);
+  overflow:hidden;
+  box-shadow:var(--soft-shadow-lg);
+  background:#000;
+  transition:var(--transition);
+}
+.fp-hero:hover{transform:scale(1.005)}
+
+.fp-hero-thumb{aspect-ratio:16/10;overflow:hidden}
+.fp-hero-thumb img{
+  width:100%;height:100%;object-fit:cover;
+  border-radius:var(--soft-radius-lg) var(--soft-radius-lg) 0 0;
+}
+
+/* Box nero contenitore testi */
+.fp-hero-blackbox{
+  background:var(--hero-overlay);
+  backdrop-filter:blur(3px);
+  padding: 40px 40px 32px; /* Più aria laterale */
+  border-radius:0 0 var(--soft-radius-lg) var(--soft-radius-lg);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+/* Label Categoria Hero */
+/* CORREZIONE: Ora usa var(--catColor) se disponibile, altrimenti --accent */
+.fp-kicker, .single-kicker{
+  align-self: flex-start;
+  display:inline-block;
+  padding: 0 0 2px 0;
+  background: transparent; 
+  color: var(--catColor, var(--accent)); /* <--- CORRETTO QUI */
+  border-radius: 0;
+  font-size: 14px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 12px;
+  border-bottom: 2px solid var(--catColor, var(--accent)); /* <--- E QUI */
+}
+
+/* Titolo Hero (Stile Swiss) */
+.fp-hero-title{
+  color:#fff!important;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size:clamp(32px, 5vw, 48px); 
+  font-weight: 800;
+  line-height: 1.05; 
+  letter-spacing: -0.03em; 
+  margin: 0 0 14px 0;
+  text-transform: none;
+}
+
+/* Contenitore info/Excerpt */
+.fp-hero-infos{display:flex;flex-wrap:wrap;gap:14px}
+
+/* Sommario Hero (Stile Serif) */
+.fp-hero-infos .info-box{
+  background: transparent; 
+  color: #dcdcdc;          
+  padding: 0;              
+  border-radius: 0;
+  font-family: 'Georgia', 'Times New Roman', serif; 
+  font-size: 20px;         
+  line-height: 1.4;
+  font-weight: 400;
+  max-width: 95%;
+}
+
+/* Media Query Mobile Specifiche per Hero */
+@media(max-width:767px){
+  .fp-hero-thumb{aspect-ratio:auto!important;height:auto!important}
+  .fp-hero-thumb img{width:100%!important;height:auto!important;object-fit:contain!important}
+  .fp-hero-blackbox{padding: 25px 20px 25px!important} 
+  .fp-hero-title { font-size: 30px; margin-bottom: 10px; }
+  .fp-hero-infos .info-box { font-size: 17px; line-height: 1.45; }
+}
+
+
+/* Mini Hero (2 Articoli Sotto) */
+.fp-hero-subwrap{margin-top:30px;display:flex;gap:22px}
+
+.fp-hero-subcard{
+  background:rgba(0,0,0,0.28);
+  border-radius:14px;overflow:hidden;
+  flex:1;transition:var(--transition);
+}
+.fp-hero-subcard:hover{
+  transform:translateY(-4px);
+  background:rgba(0,0,0,0.40);
+}
+
+.fp-hero-subthumb{width:100%;aspect-ratio:16/9;overflow:hidden}
+.fp-hero-subthumb img{
+  width:100%;height:100%;object-fit:cover;
+  border-radius:14px 14px 0 0;
+}
+
+.fp-hero-subcontent{padding:16px}
+
+/* MODIFICA APPLICATA: FONT HELVETICA ANCHE QUI */
+.fp-hero-subtitle {
+  color: #fff;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 17px;
+  font-weight: 800;
+  margin: 0;
+  line-height: 1.3;
+}
+
+@media(max-width:760px){.fp-hero-subwrap{flex-direction:column}}
+
+/* =====================================
+   BOX GENERICI (Archivio, Categorie Secondarie)
+===================================== */
+.fp-line-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
+  gap:26px;
+}
+
+.fp-line-card{
+  background:#fff;
+  border-radius:var(--soft-radius);
+  overflow:hidden;
+  box-shadow:var(--soft-shadow);
+  transition:var(--transition);
+}
+.fp-line-card:hover{
+  transform:translateY(-3px);
+  box-shadow:var(--soft-shadow-lg);
+}
+
+.fp-line-thumb{aspect-ratio:3/2;overflow:hidden}
+.fp-line-thumb img{width:100%;height:100%;object-fit:cover}
+
+.fp-line-title{
+  font-size:19px;font-weight:900;
+  padding:14px;padding-bottom:8px;
+  line-height:1.28;
+}
+.fp-line-meta{font-size:13px;color:#777;padding:0 14px 16px}
+
+
+/* =====================================
+   PAGINA ARTICOLO
+===================================== */
+.single-wrapper{display:flex;gap:40px;margin-top:25px}
+.single-main{width:75%}
+.single-sidebar{width:25%}
+
+@media(max-width:900px){
+  .single-wrapper{flex-direction:column}
+  .single-main,.single-sidebar{width:100%}
+}
+
+.single-title{
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; /* Aggiunto */
+  font-size:38px;font-weight:900;
+  line-height:1.14;margin:12px 0 10px;
+}
+@media(max-width:700px){.single-title{font-size:30px}}
+
+.single-meta{font-size:14px;color:#666;margin-bottom:14px}
+
+/* --- HERO: BOX 16:9 EDITORIALE --- */
+.single-hero{
+  margin:16px 0 34px;
+  border-radius:var(--soft-radius-lg);
+  overflow:hidden;
+  box-shadow:var(--soft-shadow-lg);
+}
+/* Mantiene il box fisso 16:9 */
+.single-hero img{width:100%;aspect-ratio:16/9;object-fit:cover}
+
+.single-content{font-size:18px;line-height:1.58}
+.single-content p{margin-bottom:14px}
+.single-content h2{font-size:26px;font-weight:900;margin:30px 0 12px}
+
+/* ========================================================
+   FIX TOTALE FOTO E DIDASCALIE NEL TESTO
+======================================================== */
+
+/* 1. Immagini nel testo: larghezza 100% su mobile, niente taglio */
+.single-content img {
+    max-width: 100% !important;
+    height: auto !important;
+    width: auto !important;
+    display: block !important;
+    object-fit: contain !important; /* Mostra tutta la foto */
+    border-radius: 8px !important;
+    margin-bottom: 5px !important; /* Avvicina alla didascalia */
+    margin-top: 25px !important;
+}
+
+/* 2. Reset dei contenitori di WordPress */
+.single-content figure, 
+.single-content .wp-block-image,
+.single-content .wp-caption {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 auto 30px !important; /* Spazio dopo il blocco */
+    display: block !important;
+}
+
+/* 3. Didascalie: Piccole, Grigie, Vicine alla foto */
+.single-content figcaption,
+.single-content .wp-caption-text,
+.single-content .wp-block-image figcaption {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+    font-size: 13px !important;       /* Testo piccolo */
+    line-height: 1.3 !important;
+    color: #777 !important;           /* Grigio */
+    text-align: center !important;
+    font-style: italic !important;
+    padding: 0 10px !important;
+    margin-top: 0 !important;         /* Rimuove spazio sopra */
+    display: block !important;
+}
+
+/* ================================
+   SIDEBAR
+=============================== */
+.sidebar-title{
+  font-size:20px;font-weight:900;
+  margin-bottom:16px;padding-left:10px;
+  border-left:4px solid var(--accent);
+}
+.sidebar-list{display:flex;flex-direction:column;gap:18px}
+.sidebar-item{
+  display:flex;gap:12px;align-items:flex-start;
+  padding:12px 0;border-bottom:1px solid #eee;
+  transition:var(--transition);
+}
+.sidebar-item:hover{transform:translateX(3px)}
+.sidebar-item:hover .side-title{color:var(--accent)}
+
+.side-num{
+  flex-shrink:0;display:flex;align-items:center;justify-content:center;
+  width:26px;height:26px;border-radius:50%;
+  background:var(--accent);color:#fff;
+  font-weight:800;font-size:13px;
+}
+.side-title{font-size:15px;font-weight:700;line-height:1.38}
+
+/* ================================
+   FOOTER (MODIFICATO PER CUSTOMIZER)
+=============================== */
+.site-footer{
+  background: var(--footer-bg, #f6f6f6); /* Sfondo Custom */
+  border-top: 1px solid rgba(0,0,0,0.05);
+  margin-top: 60px;
+  color: var(--footer-text, #333); /* Testo Custom */
+  padding-top: 40px;
+  padding-bottom: 40px;
+}
+
+.footer-top{
+  display:flex;justify-content:space-between;align-items:center;
+  gap:24px;flex-wrap:wrap;padding:0 0 20px;
+}
+
+.footer-brand{display:flex;flex-direction:column;gap:6px;min-width:200px}
+
+/* Il testo eredita il colore definito in .site-footer, quindi funziona col customizer */
+.footer-text{font-size:14px; color: inherit; opacity: 0.9;}
+
+.footer-menu{display:flex;gap:10px;list-style:none;flex-wrap:wrap}
+
+.footer-menu li a{
+  background: var(--footer-btn-bg, #fff); /* Bottone Sfondo Custom */
+  color: var(--footer-btn-text, #111);    /* Bottone Testo Custom */
+  border: 1px solid rgba(0,0,0,0.08);
+  padding: 6px 13px;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 13px;
+  transition: var(--transition);
+}
+
+.footer-menu li a:hover{
+  background: var(--accent); /* Accent su Hover */
+  border-color: var(--accent);
+  color: #fff;
+  transform: translateY(-2px);
+}
+
+/* Back To Top Custom */
+#backToTop {
+    background: var(--back-to-top-bg, #d72626) !important; /* Freccia Custom */
+    position:fixed;bottom:20px;right:20px;
+    color:#fff;
+    width:40px;height:40px;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    text-decoration:none;
+    opacity:0;pointer-events:none;
+    transition:0.3s;
+    box-shadow:0 4px 10px rgba(0,0,0,0.2);
+    z-index:9999;font-weight:bold;
+}
+
+/* ================================
+   AUTHOR AVATAR
+=============================== */
+.author-inline-box img.author-avatar,
+.author-photo img.author-avatar{
+  width:64px!important;height:64px!important;
+  border-radius:50%!important;object-fit:cover!important;
+}
+
+.author-avatar-xl{
+  width:160px!important;height:160px!important;
+  border-radius:50%;object-fit:cover!important;
+}
+
+/* ============================================================
+   CAT5 — STYLE EDITORIALE (NEWSPAPER LOOK)
+============================================================ */
+.cat5-wrap{
+    margin:55px 0;padding:36px 26px;
+    background:#fafafa;border-radius:20px;
+    box-shadow:0 8px 22px rgba(0,0,0,0.05);
+    transition:var(--transition);
+}
+.cat5-wrap:nth-child(even){background:#f4f4f4}
+.cat5-wrap:hover{box-shadow:0 12px 30px rgba(0,0,0,0.08);transform:translateY(-2px)}
+.cat5-wrap + .cat5-wrap{border-top:8px solid #f2f2f2;padding-top:44px}
+
+/* Header della sezione (Es: "Cronaca") */
+.cat5-header {display:flex;justify-content:space-between;align-items:center;margin-bottom:24px}
+.cat5-header h2 {margin:0; }
+
+.cat5-header h2 a {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: -1px;
+    font-size: 24px;
+    color:#000;
+    transition:var(--transition);
+}
+.cat5-header h2 a:hover{color:var(--catColor)}
+
+.cat5-more{
+    font-size:15px;font-weight:700;padding:6px 12px;
+    border-radius:8px;background:#efefef;color:#333;
+    transition:var(--transition);
+}
+.cat5-more:hover{background:#ddd;transform:translateY(-2px)}
+
+.cat5-grid{display:grid;grid-template-columns:2fr 1fr;gap:34px}
+@media(max-width:1020px){.cat5-grid{grid-template-columns:1fr;gap:28px}}
+
+/* CAT5 - Main Post */
+.cat5-main-img{
+    width:100%;aspect-ratio:16/9;border-radius:14px;
+    overflow:hidden;display:block;margin-bottom:14px;
+    transition:var(--transition);
+}
+.cat5-main-img img{width:100%;height:100%;object-fit:cover;border-radius:14px}
+.cat5-main-img:hover{transform:scale(1.02)}
+
+/* Etichetta (Kicker) - EDITORIALE (No Pillola) */
+/* Usa var(--catColor) che è generata dinamicamente dal PHP */
+.cat5-label{
+    background: transparent !important; 
+    color: var(--catColor) !important;  
+    padding: 0 !important;              
+    border-radius: 0 !important;        
+    display: inline-block;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 13px !important;
+    font-weight: 800 !important;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-bottom: 2px solid var(--catColor); 
+    margin-bottom: 10px !important;
+    line-height: 1;
+}
+
+/* Titolo Main (Swiss Style) */
+.cat5-main-title a{
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
+    font-size: 28px !important;     
+    font-weight: 800 !important;    
+    letter-spacing: -0.04em !important; 
+    line-height: 1.1 !important;    
+    color: #111 !important;
+    margin-bottom: 8px !important;
+    display: block;
+    transition:var(--transition);
+}
+.cat5-main-title a:hover{
+    color: var(--catColor) !important;
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+}
+
+/* Excerpt (Serif Style) */
+.cat5-main-excerpt{
+    font-family: 'Georgia', 'Times New Roman', serif !important; 
+    font-size: 17px !important;     
+    line-height: 1.5 !important;
+    color: #444 !important;         
+    margin-top: 10px !important;
+    font-weight: 400;
+}
+
+/* CAT5 - Side Posts */
+.cat5-side{display:flex;flex-direction:column;gap:20px}
+.cat5-side-item{
+    display:flex;align-items:flex-start;gap:16px;
+    padding-bottom:15px;border-bottom:1px solid #e4e4e4;
+    transition:var(--transition);
+}
+.cat5-side-item:hover{transform:translateX(4px)}.cat5-side-item:last-child{border-bottom:none;padding-bottom:0}
+
+.cat5-side-img{
+    width:150px;aspect-ratio:16/10;border-radius:12px;
+    overflow:hidden;flex-shrink:0;transition:var(--transition);
+}
+.cat5-side-img img{width:100%;height:100%;object-fit:cover;border-radius:12px}.cat5-side-img:hover{transform:scale(1.04)}
+
+/* Side Titles (Compact Swiss) */
+.cat5-side-title a{
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
+    font-size: 17px !important;
+    font-weight: 700 !important;
+    line-height: 1.25 !important;
+    letter-spacing: -0.02em;
+    color: #111;
+    display: block;
+    transition:var(--transition);
+}
+.cat5-side-title a:hover{color:var(--catColor)}
+
+/* Responsive Cat5 */
+@media(max-width:768px){
+    .cat5-header h2 a{font-size:22px}
+    .cat5-main-title a{font-size:24px}
+    .cat5-side-img{width:130px;aspect-ratio:4/3}
+    .cat5-side-title a{font-size:15px}
+}
+@media(max-width:480px){
+    .cat5-side-img{width:110px;border-radius:10px}
+    .cat5-side-title a{font-size:14px}
+    .cat5-main-title a{font-size:22px}
+}
+
+/* ============================
+   PAGINAZIONE
+============================ */
+.dpm-pagination, .author-pagination {
+    width: 100%;display: flex;justify-content: center;margin: 40px 0;
+}
+.dpm-pagination .page-numbers, .author-pagination .page-numbers {
+    display: inline-block;margin: 0 5px;padding: 8px 14px;
+    min-width: 38px;text-align: center;font-size: 15px;font-weight: 600;
+    background: #fff;border: 1px solid #ddd;border-radius: 12px;
+    color: #111;transition: 0.2s ease;
+}
+.dpm-pagination .page-numbers:hover, .author-pagination .page-numbers:hover {
+    border-color: var(--accent);color: var(--accent);
+}
+.dpm-pagination .page-numbers.current, .author-pagination .page-numbers.current {
+    background: var(--accent);border-color: var(--accent);color: #fff!important;
+}
+@media (max-width: 650px) {
+    .dpm-pagination, .author-pagination {
+        overflow-x: auto;white-space: nowrap;padding-bottom: 6px;
+        scrollbar-width: none;
+    }
+    .dpm-pagination::-webkit-scrollbar, .author-pagination::-webkit-scrollbar {display: none}
+}
+
+/* ============================================
+   SWISS STYLE EDITORIAL - MENU MOBILE FIX
+============================================ */
+
+/* 1. PANNELLO (Foglio Bianco) */
+.mobile-panel {
+    background-color: #ffffff !important;
+    padding: 80px 20px 0px !important; /* Spazio per header */
+    position: fixed !important; inset: 0 !important; z-index: 99999 !important;
+    display: flex !important; flex-direction: column !important;
+    opacity: 0 !important; pointer-events: none !important; visibility: hidden !important;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+body.menu-open .mobile-panel {
+    opacity: 1 !important; pointer-events: auto !important; visibility: visible !important;
+}
+
+/* 2. HEADER DEL MENU (Titolo e Chiudi) */
+.mobile-panel-top {
+    position: absolute; top: 0; left: 0; right: 0; height: 80px;
+    padding: 0 20px;
+    display: flex; align-items: center; justify-content: space-between;
+    border-bottom: 4px solid #000; /* Linea spessa intestazione */
+    background: #fff; z-index: 10;
+}
+
+/* Scritta "MENU" piccola e tecnica */
+.mobile-title {
+    display: block !important;
+    font-family: monospace !important;
+    font-size: 14px !important;
+    letter-spacing: 3px !important;
+    text-transform: uppercase !important;
+    font-weight: 700 !important;
+    color: #000 !important;
+}
+
+/* Tasto Chiudi (Quadrato Nero Perfetto) */
+.mobile-close {
+    width: 44px !important; height: 44px !important;
+    background: #000 !important; color: #fff !important;
+    border: none !important; border-radius: 0 !important; /* Quadrato */
+    display: flex !important; align-items: center; justify-content: center;
+    font-size: 28px !important; cursor: pointer;
+}
+
+/* 3. LISTA (Griglia) */
+.mobile-menu {
+    counter-reset: nav-count;
+    display: flex !important; flex-direction: column !important;
+    gap: 0 !important; margin: 0 !important; padding: 0 !important;
+    width: 100% !important;
+    overflow-y: auto !important; /* Scroll se troppe voci */
+}
+
+/* 4. ELEMENTI LISTA (Righe) */
+.mobile-menu li {
+    border-bottom: 1px solid #e0e0e0 !important; /* Linea grigia sottile tra le voci */
+    margin: 0 !important; padding: 0 !important;
+    width: 100% !important;
+    display: block !important;
+    opacity: 0; transform: translateY(20px); /* Setup animazione */
+}
+
+/* 5. IL LINK - IL FIX CRUCIALE (Rimuove le pillole) */
+.mobile-menu li a {
+    /* RESET TOTALE DELLE FORME */
+    border-radius: 0px !important; /* Uccide la pillola */
+    border: none !important;       /* Via il bordo vecchio */
+    background: transparent !important;
+    box-shadow: none !important;
+    margin: 0 !important;
+    
+    /* LAYOUT NUOVO */
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    width: 100% !important;
+    padding: 25px 10px !important; /* Spazio cliccabile ampio */
+    
+    /* TIPOGRAFIA */
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
+    font-size: 22px !important;
+    font-weight: 800 !important;
+    text-transform: uppercase !important;
+    color: #000 !important;
+    line-height: 1 !important;
+    letter-spacing: -0.5px !important;
+    
+    transition: background 0.2s ease, color 0.2s ease !important;
+}
+
+/* 6. NUMERAZIONE (01, 02...) */
+.mobile-menu li a::before {
+    counter-increment: nav-count;
+    content: "0" counter(nav-count);
+    
+    font-family: monospace !important;
+    font-size: 14px !important;
+    color: var(--accent, #d72626) !important; /* Colore Rosso */
+    font-weight: 600 !important;
+    
+    margin-right: 24px !important; /* Spazio tra numero e testo */
+    opacity: 0.8;
+}
+
+/* 7. HOVER STATE (Effetto "Evidenziatore") */
+.mobile-menu li a:hover,
+.mobile-menu li.current-menu-item > a {
+    background-color: #000 !important; /* Sfondo Nero */
+    color: #fff !important; /* Testo Bianco */
+    padding-left: 20px !important; /* Scivola a destra */
+}
+
+/* In hover anche il numero diventa bianco */
+.mobile-menu li a:hover::before,
+.mobile-menu li.current-menu-item > a::before {
+    color: #fff !important;
+}
+
+/* 8. ANIMAZIONE */
+body.menu-open .mobile-menu li {
+    animation: slideUpSimple 0.5s forwards;
+}
+
+@keyframes slideUpSimple {
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Ritardi cascata */
+body.menu-open .mobile-menu li:nth-child(1) { animation-delay: 0.1s; }
+body.menu-open .mobile-menu li:nth-child(2) { animation-delay: 0.15s; }
+body.menu-open .mobile-menu li:nth-child(3) { animation-delay: 0.2s; }
+body.menu-open .mobile-menu li:nth-child(4) { animation-delay: 0.25s; }
+body.menu-open .mobile-menu li:nth-child(5) { animation-delay: 0.3s; }
+body.menu-open .mobile-menu li:nth-child(6) { animation-delay: 0.35s; }
+
+/* ============================================================
+   MAGIC GRID (REPLICA LAYOUT IMMAGINE UPLOADATA)
+============================================================ */
+
+.magic-wrapper {
+    margin: 50px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 30px; /* Spazio tra la riga alta e quella bassa */
+}
+
+/* --- RIGA SUPERIORE (3 CARD FOCUS) --- */
+.magic-top-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 22px;
+}
+
+.magic-card-focus {
+    position: relative;
+    aspect-ratio: 16/10; /* Proporzione rettangolare leggermente alta */
+    border-radius: 18px; /* Arrotondamento forte come nell'immagine */
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    transition: transform 0.25s ease;
+    background: #000;
+}
+.magic-card-focus:hover { transform: translateY(-4px); }
+
+.magic-focus-bg {
+    width: 100%; height: 100%; object-fit: cover;
+    transition: opacity 0.3s;
+    opacity: 0.85; /* Scurisce leggermente l'immagine base */
+}
+.magic-card-focus:hover .magic-focus-bg { opacity: 0.6; }
+
+/* Sfumatura scura per leggere il testo (Overlay) */
+.magic-focus-content {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    padding: 24px;
+    background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.6) 60%, transparent 100%);
+    display: flex; flex-direction: column; justify-content: flex-end;
+    pointer-events: none; /* Clicca sulla card, non sul div */
+    height: 100%;
+}
+
+.magic-cat-label {
+    align-self: flex-start;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: rgba(255,255,255,0.8);
+    margin-bottom: 8px;
+    position: relative;
+    z-index: 2;
+}
+
+.magic-focus-title {
+    color: #fff;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 1.3;
+    margin: 0;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+}
+
+/* --- GRIGLIA INFERIORE (CARD ORIZZONTALI) --- */
+.magic-bottom-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 Colonne come nell'immagine */
+    gap: 24px;
+}
+
+.magic-card-small {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    background: #fff;
+    border-radius: 12px;
+    transition: transform 0.2s ease;
+    /* Opzionale: se vuoi il box come nell'immagine "offerte" metti sfondo bianco o grigio chiaro */
+}
+.magic-card-small:hover { transform: translateX(4px); }
+
+.magic-small-thumb {
+    width: 100px;
+    height: 100px; /* Quadrata/Rounded come nell'immagine */
+    flex-shrink: 0;
+    border-radius: 12px;
+    overflow: hidden;
+    background: #eee;
+}
+.magic-small-thumb img {
+    width: 100%; height: 100%; object-fit: cover;
+}
+
+.magic-small-content {
+    display: flex; flex-direction: column;
+    justify-content: center;
+}
+
+.magic-small-cat {
+    font-size: 11px;
+    font-weight: 800;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+    /* Il colore viene iniettato via PHP inline style */
+}
+
+.magic-small-title {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 1.35;
+    color: #111;
+}
+
+/* --- RESPONSIVE --- */
+@media(max-width: 900px) {
+    .magic-top-grid, .magic-bottom-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media(max-width: 600px) {
+    .magic-top-grid, .magic-bottom-grid { grid-template-columns: 1fr; }
+    .magic-card-focus { aspect-ratio: 16/9; }
+}
+
+/* ============================================================
+   FIX RENDERING FONT & ANTI-ALIASING (Make it Crisp!)
+============================================================ */
+
+/* 1. Forza la pulizia del font su tutto il sito */
+body, h1, h2, h3, h4, h5, h6, a, p, span, div {
+    -webkit-font-smoothing: antialiased !important; /* Essenziale per Chrome/Safari su Mac/PC */
+    -moz-osx-font-smoothing: grayscale !important;  /* Essenziale per Firefox */
+    text-rendering: optimizeLegibility !important;  /* Migliora la spaziatura tra le lettere */
+}
+
+/* 2. Fix Hardware Acceleration per le Card */
+/* Questo impedisce che i bordi sgranino ("seghettati") durante le animazioni hover */
+.fp-hero, 
+.fp-hero-subcard,
+.magic-card-focus, 
+.magic-card-small,
+.cat5-wrap,
+.fp-line-card {
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    transform: translateZ(0); /* Forza la GPU a renderizzare il blocco come una texture solida */
+    perspective: 1000px;
+}
+
+/* 3. Piccola correzione per i titoli bianchi su sfondo nero (Hero & Magic Grid) */
+/* A volte il bianco puro "spara" troppo e sembra sgranato. Lo ammorbidiamo impercettibilmente. */
+.fp-hero-title, 
+.magic-focus-title {
+    text-shadow: 0 0 1px rgba(0,0,0,0.1); /* Trucco per dare "corpo" al font */
+}:root{--dp-logo-size:160px;--logo-width:180px;--footer-logo-width:180px;--header-bg:#dae3f2;--header-text:#111111;--menu-capsule-bg:#ffffff;--menu-capsule-border:#eeeeee;--menu-capsule-active:#df2075;--accent:#df2075;--back-to-top-bg:#df2075;--hero-overlay:#E02176;--footer-bg:#dae3f2;--footer-text:#333333;--footer-btn-bg:#ffffff;--footer-btn-text:#111111;--cat-arte-e-cultura-label:#000000;--cat-curiosita-label:#000000;--cat-eventi-label:#000000;--cat-lifestyle-label:#000000;--cat-mercato-dellarte-label:#000000;--cat-notizie-label:#000000;--cat-uncategorized-label:#000000;}</style><link rel="icon" href="https://www.quotidianoarte.it/wp-content/uploads/2024/10/favvvv.png" sizes="32x32" />
+<link rel="icon" href="https://www.quotidianoarte.it/wp-content/uploads/2024/10/favvvv.png" sizes="192x192" />
+<link rel="apple-touch-icon" href="https://www.quotidianoarte.it/wp-content/uploads/2024/10/favvvv.png" />
+<meta name="msapplication-TileImage" content="https://www.quotidianoarte.it/wp-content/uploads/2024/10/favvvv.png" />
+<style id='global-styles-inline-css'>
+:root{--wp--preset--aspect-ratio--square: 1;--wp--preset--aspect-ratio--4-3: 4/3;--wp--preset--aspect-ratio--3-4: 3/4;--wp--preset--aspect-ratio--3-2: 3/2;--wp--preset--aspect-ratio--2-3: 2/3;--wp--preset--aspect-ratio--16-9: 16/9;--wp--preset--aspect-ratio--9-16: 9/16;--wp--preset--color--black: #000000;--wp--preset--color--cyan-bluish-gray: #abb8c3;--wp--preset--color--white: #ffffff;--wp--preset--color--pale-pink: #f78da7;--wp--preset--color--vivid-red: #cf2e2e;--wp--preset--color--luminous-vivid-orange: #ff6900;--wp--preset--color--luminous-vivid-amber: #fcb900;--wp--preset--color--light-green-cyan: #7bdcb5;--wp--preset--color--vivid-green-cyan: #00d084;--wp--preset--color--pale-cyan-blue: #8ed1fc;--wp--preset--color--vivid-cyan-blue: #0693e3;--wp--preset--color--vivid-purple: #9b51e0;--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple: linear-gradient(135deg,rgb(6,147,227) 0%,rgb(155,81,224) 100%);--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan: linear-gradient(135deg,rgb(122,220,180) 0%,rgb(0,208,130) 100%);--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange: linear-gradient(135deg,rgb(252,185,0) 0%,rgb(255,105,0) 100%);--wp--preset--gradient--luminous-vivid-orange-to-vivid-red: linear-gradient(135deg,rgb(255,105,0) 0%,rgb(207,46,46) 100%);--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray: linear-gradient(135deg,rgb(238,238,238) 0%,rgb(169,184,195) 100%);--wp--preset--gradient--cool-to-warm-spectrum: linear-gradient(135deg,rgb(74,234,220) 0%,rgb(151,120,209) 20%,rgb(207,42,186) 40%,rgb(238,44,130) 60%,rgb(251,105,98) 80%,rgb(254,248,76) 100%);--wp--preset--gradient--blush-light-purple: linear-gradient(135deg,rgb(255,206,236) 0%,rgb(152,150,240) 100%);--wp--preset--gradient--blush-bordeaux: linear-gradient(135deg,rgb(254,205,165) 0%,rgb(254,45,45) 50%,rgb(107,0,62) 100%);--wp--preset--gradient--luminous-dusk: linear-gradient(135deg,rgb(255,203,112) 0%,rgb(199,81,192) 50%,rgb(65,88,208) 100%);--wp--preset--gradient--pale-ocean: linear-gradient(135deg,rgb(255,245,203) 0%,rgb(182,227,212) 50%,rgb(51,167,181) 100%);--wp--preset--gradient--electric-grass: linear-gradient(135deg,rgb(202,248,128) 0%,rgb(113,206,126) 100%);--wp--preset--gradient--midnight: linear-gradient(135deg,rgb(2,3,129) 0%,rgb(40,116,252) 100%);--wp--preset--font-size--small: 13px;--wp--preset--font-size--medium: 20px;--wp--preset--font-size--large: 36px;--wp--preset--font-size--x-large: 42px;--wp--preset--spacing--20: 0.44rem;--wp--preset--spacing--30: 0.67rem;--wp--preset--spacing--40: 1rem;--wp--preset--spacing--50: 1.5rem;--wp--preset--spacing--60: 2.25rem;--wp--preset--spacing--70: 3.38rem;--wp--preset--spacing--80: 5.06rem;--wp--preset--shadow--natural: 6px 6px 9px rgba(0, 0, 0, 0.2);--wp--preset--shadow--deep: 12px 12px 50px rgba(0, 0, 0, 0.4);--wp--preset--shadow--sharp: 6px 6px 0px rgba(0, 0, 0, 0.2);--wp--preset--shadow--outlined: 6px 6px 0px -3px rgb(255, 255, 255), 6px 6px rgb(0, 0, 0);--wp--preset--shadow--crisp: 6px 6px 0px rgb(0, 0, 0);}:where(.is-layout-flex){gap: 0.5em;}:where(.is-layout-grid){gap: 0.5em;}body .is-layout-flex{display: flex;}.is-layout-flex{flex-wrap: wrap;align-items: center;}.is-layout-flex > :is(*, div){margin: 0;}body .is-layout-grid{display: grid;}.is-layout-grid > :is(*, div){margin: 0;}:where(.wp-block-columns.is-layout-flex){gap: 2em;}:where(.wp-block-columns.is-layout-grid){gap: 2em;}:where(.wp-block-post-template.is-layout-flex){gap: 1.25em;}:where(.wp-block-post-template.is-layout-grid){gap: 1.25em;}.has-black-color{color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-color{color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-color{color: var(--wp--preset--color--white) !important;}.has-pale-pink-color{color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-color{color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-color{color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-color{color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-color{color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-color{color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-color{color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-color{color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-color{color: var(--wp--preset--color--vivid-purple) !important;}.has-black-background-color{background-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-background-color{background-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-background-color{background-color: var(--wp--preset--color--white) !important;}.has-pale-pink-background-color{background-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-background-color{background-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-background-color{background-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-background-color{background-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-background-color{background-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-background-color{background-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-background-color{background-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-background-color{background-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-background-color{background-color: var(--wp--preset--color--vivid-purple) !important;}.has-black-border-color{border-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-border-color{border-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-border-color{border-color: var(--wp--preset--color--white) !important;}.has-pale-pink-border-color{border-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-border-color{border-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-border-color{border-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-border-color{border-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-border-color{border-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-border-color{border-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-border-color{border-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-border-color{border-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-border-color{border-color: var(--wp--preset--color--vivid-purple) !important;}.has-vivid-cyan-blue-to-vivid-purple-gradient-background{background: var(--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple) !important;}.has-light-green-cyan-to-vivid-green-cyan-gradient-background{background: var(--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan) !important;}.has-luminous-vivid-amber-to-luminous-vivid-orange-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange) !important;}.has-luminous-vivid-orange-to-vivid-red-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-orange-to-vivid-red) !important;}.has-very-light-gray-to-cyan-bluish-gray-gradient-background{background: var(--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray) !important;}.has-cool-to-warm-spectrum-gradient-background{background: var(--wp--preset--gradient--cool-to-warm-spectrum) !important;}.has-blush-light-purple-gradient-background{background: var(--wp--preset--gradient--blush-light-purple) !important;}.has-blush-bordeaux-gradient-background{background: var(--wp--preset--gradient--blush-bordeaux) !important;}.has-luminous-dusk-gradient-background{background: var(--wp--preset--gradient--luminous-dusk) !important;}.has-pale-ocean-gradient-background{background: var(--wp--preset--gradient--pale-ocean) !important;}.has-electric-grass-gradient-background{background: var(--wp--preset--gradient--electric-grass) !important;}.has-midnight-gradient-background{background: var(--wp--preset--gradient--midnight) !important;}.has-small-font-size{font-size: var(--wp--preset--font-size--small) !important;}.has-medium-font-size{font-size: var(--wp--preset--font-size--medium) !important;}.has-large-font-size{font-size: var(--wp--preset--font-size--large) !important;}.has-x-large-font-size{font-size: var(--wp--preset--font-size--x-large) !important;}
+/*# sourceURL=global-styles-inline-css */
+</style>
+
+</head>
+<body class="home blog wp-custom-logo wp-theme-discoverpress-pro-mobile100">
+
+<header class="site-header">
+  <div class="container h-wrap">
+
+    <div class="brand">
+      <a href="https://www.quotidianoarte.it/" class="logo custom-logo-link">
+        <a href="https://www.quotidianoarte.it/" class="custom-logo-link" rel="home" aria-current="page"><img width="233" height="64" src="https://www.quotidianoarte.it/wp-content/uploads/2025/08/cropped-logo-quotidiano-arte.png" class="custom-logo" alt="Quotidianoarte.it" decoding="async" /></a>      </a>
+    </div>
+
+    <nav class="nav-desktop">
+      <ul class="menu-capsule"><li id="menu-item-38" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-38 dp-capsule"><a href="https://www.quotidianoarte.it/notizie/">Notizie</a></li>
+<li id="menu-item-39" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-39 dp-capsule"><a href="https://www.quotidianoarte.it/eventi/">Eventi</a></li>
+<li id="menu-item-19608" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-19608 dp-capsule"><a href="https://www.quotidianoarte.it/arte-e-cultura/">Arte e Cultura</a></li>
+<li id="menu-item-88" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-88 dp-capsule"><a href="https://www.quotidianoarte.it/lifestyle/">LifeStyle</a></li>
+</ul>    </nav>
+
+    <button class="hamb-btn" id="hambBtn" aria-label="Apri menu mobile">
+      <span class="hamb-lines">
+        <span class="hamb-line"></span>
+        <span class="hamb-line"></span>
+        <span class="hamb-line"></span>
+      </span>
+    </button>
+
+  </div>
+</header>
+
+<nav class="mobile-panel" id="mobilePanel" aria-label="Menu mobile">
+  <div class="mobile-panel-top">
+    <span class="mobile-title">Menu</span>
+    <button class="mobile-close" id="mobileClose" aria-label="Chiudi menu">×</button>
+  </div>
+
+  <ul class="mobile-menu"><li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-38 dp-capsule"><a href="https://www.quotidianoarte.it/notizie/">Notizie</a></li>
+<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-39 dp-capsule"><a href="https://www.quotidianoarte.it/eventi/">Eventi</a></li>
+<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-19608 dp-capsule"><a href="https://www.quotidianoarte.it/arte-e-cultura/">Arte e Cultura</a></li>
+<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-88 dp-capsule"><a href="https://www.quotidianoarte.it/lifestyle/">LifeStyle</a></li>
+</ul></nav>
+
+<div class="page-frame-lines left"></div>
+<div class="page-frame-lines right"></div>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const body  = document.body;
+  const btn   = document.getElementById("hambBtn");
+  const panel = document.getElementById("mobilePanel");
+  const close = document.getElementById("mobileClose");
+
+  const closeMenu = () => body.classList.remove("menu-open");
+
+  if(btn) btn.addEventListener("click", () => body.classList.toggle("menu-open"));
+  if(close) close.addEventListener("click", closeMenu);
+
+  if(panel) {
+      panel.querySelectorAll("a").forEach(a =>
+        a.addEventListener("click", closeMenu)
+      );
+  }
+});
+</script>
+
+<main id="main-content" role="main" tabindex="-1">
+<div class="container frontpage" style="content-visibility:auto;contain-intrinsic-size:1400px 2000px;">
+
+
+<section class="fp-hero"
+         style="--catColor:#000000;
+                content-visibility:auto;contain-intrinsic-size:750px 520px;">
+
+  <div class="fp-hero-thumb" style="aspect-ratio:2;overflow:hidden;">
+    <a href="https://www.quotidianoarte.it/armonica-bellezza-malena-mazza-in-mostra-a-milano-verso-le-olimpiadi-milano-cortina-2026/">
+      <img width="768" height="450" src="https://www.quotidianoarte.it/wp-content/uploads/2026/02/28872270_10210799526936686_402073492264058880_o-1-768x450.jpg" class="attachment-hero_mobile size-hero_mobile" alt="" sizes="100vw" decoding="async" loading="eager" fetchpriority="high" style="width:100%;height:100%;object-fit:cover;" />    </a>
+  </div>
+
+  <div class="fp-hero-blackbox">
+
+          <a href="https://www.quotidianoarte.it/eventi/"
+         class="fp-kicker fp-kicker-link">
+        Eventi      </a>
+    
+    <h1 class="fp-hero-title">
+      <a href="https://www.quotidianoarte.it/armonica-bellezza-malena-mazza-in-mostra-a-milano-verso-le-olimpiadi-milano-cortina-2026/">Armonica Bellezza: Malena Mazza in mostra a Milano verso le Olimpiadi Milano Cortina 2026</a>
+    </h1>
+
+    <div class="fp-hero-infos">
+      <div class="info-box">
+        Dal 5 febbraio al 3 marzo 2026 la Galleria Il Milione celebra il dialogo tra arte, sport e spiritualità Dal 5 febbraio al 3 marzo...      </div>
+    </div>
+
+    
+          <div class="fp-hero-subwrap">
+                <article class="fp-hero-subcard">
+          <a href="https://www.quotidianoarte.it/armonica-bellezza-la-mostra-di-malena-mazza-a-il-milione/">
+            <div class="fp-hero-subthumb">
+              <img width="600" height="400" src="https://www.quotidianoarte.it/wp-content/uploads/2026/02/0c8376cd-f1fe-403c-9c3b-3a3be743e822-768x768-1-600x400.jpg" class="attachment-discover_card size-discover_card wp-post-image" alt="" loading="lazy" sizes="auto, (max-width: 600px) 50vw, 300px" decoding="async" srcset="https://www.quotidianoarte.it/wp-content/uploads/2026/02/0c8376cd-f1fe-403c-9c3b-3a3be743e822-768x768-1-600x400.jpg 600w, https://www.quotidianoarte.it/wp-content/uploads/2026/02/0c8376cd-f1fe-403c-9c3b-3a3be743e822-768x768-1-300x200.jpg 300w" />            </div>
+            <div class="fp-hero-subcontent">
+              <h2 class="fp-hero-subtitle" style="font-size:1.1rem; margin:0;">
+                Armonica Bellezza: la mostra di Malena Mazza a Il Milione              </h2>
+            </div>
+          </a>
+        </article>
+                <article class="fp-hero-subcard">
+          <a href="https://www.quotidianoarte.it/artisti-contemporanei-italiani-da-conoscere-nel-2026/">
+            <div class="fp-hero-subthumb">
+              <img width="600" height="338" src="https://www.quotidianoarte.it/wp-content/uploads/2025/10/170435686-a430de28-823e-4be0-ba94-1b8d057666d6.jpg" class="attachment-discover_card size-discover_card wp-post-image" alt="" loading="lazy" sizes="auto, (max-width: 600px) 50vw, 300px" decoding="async" srcset="https://www.quotidianoarte.it/wp-content/uploads/2025/10/170435686-a430de28-823e-4be0-ba94-1b8d057666d6.jpg 2100w, https://www.quotidianoarte.it/wp-content/uploads/2025/10/170435686-a430de28-823e-4be0-ba94-1b8d057666d6-300x169.jpg 300w, https://www.quotidianoarte.it/wp-content/uploads/2025/10/170435686-a430de28-823e-4be0-ba94-1b8d057666d6-1024x576.jpg 1024w, https://www.quotidianoarte.it/wp-content/uploads/2025/10/170435686-a430de28-823e-4be0-ba94-1b8d057666d6-768x432.jpg 768w, https://www.quotidianoarte.it/wp-content/uploads/2025/10/170435686-a430de28-823e-4be0-ba94-1b8d057666d6-1536x865.jpg 1536w, https://www.quotidianoarte.it/wp-content/uploads/2025/10/170435686-a430de28-823e-4be0-ba94-1b8d057666d6-2048x1153.jpg 2048w" />            </div>
+            <div class="fp-hero-subcontent">
+              <h2 class="fp-hero-subtitle" style="font-size:1.1rem; margin:0;">
+                Artisti contemporanei italiani da conoscere nel 2026              </h2>
+            </div>
+          </a>
+        </article>
+              </div>
+    
+  </div>
+</section>
+
+
+<div class="magic-wrapper">
+
+
+    <div class="magic-top-grid">
+                <article class="magic-card-focus">
+            <a href="https://www.quotidianoarte.it/dove-creare-arte-e-incorniciare-opere-e-fotografie-a-roma-un-punto-di-riferimento-per-artisti-e-professionisti/" style="display:block;height:100%;">
+                <img width="1024" height="682" src="https://www.quotidianoarte.it/wp-content/uploads/2026/02/ALTERNATIVA-INTERNO_2-e1569967055548-1-1024x682.jpeg" class="magic-focus-bg wp-post-image" alt="" loading="lazy" decoding="async" srcset="https://www.quotidianoarte.it/wp-content/uploads/2026/02/ALTERNATIVA-INTERNO_2-e1569967055548-1-1024x682.jpeg 1024w, https://www.quotidianoarte.it/wp-content/uploads/2026/02/ALTERNATIVA-INTERNO_2-e1569967055548-1-300x200.jpeg 300w, https://www.quotidianoarte.it/wp-content/uploads/2026/02/ALTERNATIVA-INTERNO_2-e1569967055548-1-768x511.jpeg 768w, https://www.quotidianoarte.it/wp-content/uploads/2026/02/ALTERNATIVA-INTERNO_2-e1569967055548-1-1536x1022.jpeg 1536w, https://www.quotidianoarte.it/wp-content/uploads/2026/02/ALTERNATIVA-INTERNO_2-e1569967055548-1-600x400.jpeg 600w, https://www.quotidianoarte.it/wp-content/uploads/2026/02/ALTERNATIVA-INTERNO_2-e1569967055548-1-810x540.jpeg 810w, https://www.quotidianoarte.it/wp-content/uploads/2026/02/ALTERNATIVA-INTERNO_2-e1569967055548-1-1200x800.jpeg 1200w, https://www.quotidianoarte.it/wp-content/uploads/2026/02/ALTERNATIVA-INTERNO_2-e1569967055548-1.jpeg 1920w" sizes="auto, (max-width: 1024px) 100vw, 1024px" />                <div class="magic-focus-content">
+                    <span class="magic-cat-label">Arte e Cultura</span>
+                    <h3 class="magic-focus-title">Dove creare arte e incorniciare opere e fotografie a Roma: un punto di riferimento per artisti e professionisti</h3>
+                </div>
+            </a>
+        </article>
+                <article class="magic-card-focus">
+            <a href="https://www.quotidianoarte.it/malena-mazza-al-xmas-maroncelli-district-unindagine-visiva-sullidentita-femminile-contemporanea-2-dicembre-via-quadrio-18/" style="display:block;height:100%;">
+                <img width="476" height="318" src="https://www.quotidianoarte.it/wp-content/uploads/2025/11/3f3268_e90c3826e80e4d5ba0e549c68ca2079cmv2_d_2000_1335_s_2.avif" class="magic-focus-bg wp-post-image" alt="" loading="lazy" decoding="async" srcset="https://www.quotidianoarte.it/wp-content/uploads/2025/11/3f3268_e90c3826e80e4d5ba0e549c68ca2079cmv2_d_2000_1335_s_2.avif 476w, https://www.quotidianoarte.it/wp-content/uploads/2025/11/3f3268_e90c3826e80e4d5ba0e549c68ca2079cmv2_d_2000_1335_s_2-300x200.avif 300w" sizes="auto, (max-width: 476px) 100vw, 476px" />                <div class="magic-focus-content">
+                    <span class="magic-cat-label">Eventi</span>
+                    <h3 class="magic-focus-title">Malena Mazza al Xmas Maroncelli District: un’indagine visiva sull’identità femminile contemporanea – 2 dicembre, Via Quadrio 18</h3>
+                </div>
+            </a>
+        </article>
+                <article class="magic-card-focus">
+            <a href="https://www.quotidianoarte.it/sculture-tatuate-quando-il-tatuaggio-diventa-arte-contemporanea/" style="display:block;height:100%;">
+                <img width="1024" height="576" src="https://www.quotidianoarte.it/wp-content/uploads/2025/10/170435686-a430de28-823e-4be0-ba94-1b8d057666d6-1024x576.jpg" class="magic-focus-bg wp-post-image" alt="" loading="lazy" decoding="async" srcset="https://www.quotidianoarte.it/wp-content/uploads/2025/10/170435686-a430de28-823e-4be0-ba94-1b8d057666d6-1024x576.jpg 1024w, https://www.quotidianoarte.it/wp-content/uploads/2025/10/170435686-a430de28-823e-4be0-ba94-1b8d057666d6-300x169.jpg 300w, https://www.quotidianoarte.it/wp-content/uploads/2025/10/170435686-a430de28-823e-4be0-ba94-1b8d057666d6-768x432.jpg 768w, https://www.quotidianoarte.it/wp-content/uploads/2025/10/170435686-a430de28-823e-4be0-ba94-1b8d057666d6-1536x865.jpg 1536w, https://www.quotidianoarte.it/wp-content/uploads/2025/10/170435686-a430de28-823e-4be0-ba94-1b8d057666d6-2048x1153.jpg 2048w" sizes="auto, (max-width: 1024px) 100vw, 1024px" />                <div class="magic-focus-content">
+                    <span class="magic-cat-label">Arte e Cultura</span>
+                    <h3 class="magic-focus-title">Sculture tatuate: quando il tatuaggio diventa arte contemporanea</h3>
+                </div>
+            </a>
+        </article>
+            </div>
+
+        <div class="magic-bottom-grid">
+                <article class="magic-card-small">
+            <a href="https://www.quotidianoarte.it/festival-della-diplomazia-2025-roma-torna-a-parlare-al-mondo/" class="magic-small-thumb">
+                <img width="150" height="150" src="https://www.quotidianoarte.it/wp-content/uploads/2025/10/pubblico-150x150.jpg" class="attachment-thumbnail size-thumbnail wp-post-image" alt="" loading="lazy" decoding="async" />            </a>
+            <div class="magic-small-content">
+                <span class="magic-small-cat" style="color:#000000">
+                    Arte e Cultura                </span>
+                <a href="https://www.quotidianoarte.it/festival-della-diplomazia-2025-roma-torna-a-parlare-al-mondo/">
+                    <h3 class="magic-small-title">Festival della Diplomazia 2025: Roma torna a parlare al mondo</h3>
+                </a>
+            </div>
+        </article>
+                <article class="magic-card-small">
+            <a href="https://www.quotidianoarte.it/quotazioni-in-crescita-per-gli-artisti-contemporanei-italiani-scopri-i-nomi-dei-piu-richiesti-nel-mercato-internazionale/" class="magic-small-thumb">
+                <img width="150" height="150" src="https://www.quotidianoarte.it/wp-content/uploads/2025/09/0-4-150x150.jpeg" class="attachment-thumbnail size-thumbnail wp-post-image" alt="" loading="lazy" decoding="async" />            </a>
+            <div class="magic-small-content">
+                <span class="magic-small-cat" style="color:#000000">
+                    Mercato dell&#039;arte                </span>
+                <a href="https://www.quotidianoarte.it/quotazioni-in-crescita-per-gli-artisti-contemporanei-italiani-scopri-i-nomi-dei-piu-richiesti-nel-mercato-internazionale/">
+                    <h3 class="magic-small-title">Quotazioni in crescita per gli artisti contemporanei italiani: scopri i...</h3>
+                </a>
+            </div>
+        </article>
+                <article class="magic-card-small">
+            <a href="https://www.quotidianoarte.it/bonus-figli-2025-i-requisiti-segreti-per-avere-tutti-gli-incentivi/" class="magic-small-thumb">
+                <img width="150" height="150" src="https://www.quotidianoarte.it/wp-content/uploads/2025/09/children-593313_1280-150x150.jpg" class="attachment-thumbnail size-thumbnail wp-post-image" alt="" loading="lazy" decoding="async" />            </a>
+            <div class="magic-small-content">
+                <span class="magic-small-cat" style="color:#000000">
+                    Notizie                </span>
+                <a href="https://www.quotidianoarte.it/bonus-figli-2025-i-requisiti-segreti-per-avere-tutti-gli-incentivi/">
+                    <h3 class="magic-small-title">Bonus figli 2025: i requisiti segreti per avere tutti gli...</h3>
+                </a>
+            </div>
+        </article>
+                <article class="magic-card-small">
+            <a href="https://www.quotidianoarte.it/corri-alla-lidl-e-da-non-credere-laspirapolvere-potente-e-anti-allergia-a-un-prezzo-che-fa-impallidire-la-concorrenza/" class="magic-small-thumb">
+                <img width="150" height="150" src="https://www.quotidianoarte.it/wp-content/uploads/2025/09/aspirapolvere-Silvercrest-150x150.jpg" class="attachment-thumbnail size-thumbnail wp-post-image" alt="" loading="lazy" decoding="async" />            </a>
+            <div class="magic-small-content">
+                <span class="magic-small-cat" style="color:#000000">
+                    Notizie                </span>
+                <a href="https://www.quotidianoarte.it/corri-alla-lidl-e-da-non-credere-laspirapolvere-potente-e-anti-allergia-a-un-prezzo-che-fa-impallidire-la-concorrenza/">
+                    <h3 class="magic-small-title">Corri alla Lidl, è da non credere: l&#8217;aspirapolvere potente e...</h3>
+                </a>
+            </div>
+        </article>
+                <article class="magic-card-small">
+            <a href="https://www.quotidianoarte.it/milano-fashion-week-da-marco-manzo-a-murakami-e-abramovic-il-dialogo-tra-moda-e-arte-contemporanea/" class="magic-small-thumb">
+                <img width="150" height="150" src="https://www.quotidianoarte.it/wp-content/uploads/2025/09/Screenshot-2025-01-27-160308-150x150.png" class="attachment-thumbnail size-thumbnail wp-post-image" alt="" loading="lazy" decoding="async" />            </a>
+            <div class="magic-small-content">
+                <span class="magic-small-cat" style="color:#000000">
+                    LifeStyle                </span>
+                <a href="https://www.quotidianoarte.it/milano-fashion-week-da-marco-manzo-a-murakami-e-abramovic-il-dialogo-tra-moda-e-arte-contemporanea/">
+                    <h3 class="magic-small-title">Milano Fashion Week: da Marco Manzo a Murakami e Abramović,...</h3>
+                </a>
+            </div>
+        </article>
+                <article class="magic-card-small">
+            <a href="https://www.quotidianoarte.it/in-punta-di-pennello-un-cortometraggio-omaggio-al-maestro-claudio-spattini/" class="magic-small-thumb">
+                <img width="150" height="150" src="https://www.quotidianoarte.it/wp-content/uploads/2025/09/Senza-titolo-2-150x150.jpg" class="attachment-thumbnail size-thumbnail wp-post-image" alt="" loading="lazy" decoding="async" />            </a>
+            <div class="magic-small-content">
+                <span class="magic-small-cat" style="color:#000000">
+                    Arte e Cultura                </span>
+                <a href="https://www.quotidianoarte.it/in-punta-di-pennello-un-cortometraggio-omaggio-al-maestro-claudio-spattini/">
+                    <h3 class="magic-small-title">In punta di pennello: un cortometraggio omaggio al maestro Claudio...</h3>
+                </a>
+            </div>
+        </article>
+            </div>
+    
+
+</div>
+
+<section class="cat5-wrap" style="--catColor:#000000;">
+    <div class="cat5-header">
+        <h2><a href="https://www.quotidianoarte.it/notizie/">
+            Notizie        </a></h2>
+        <a class="cat5-more" href="https://www.quotidianoarte.it/notizie/">Vedi tutte →</a>
+    </div>
+
+    <div class="cat5-grid">
+
+        
+        <article class="cat5-main">
+            <a href="https://www.quotidianoarte.it/bonus-figli-2025-i-requisiti-segreti-per-avere-tutti-gli-incentivi/" class="cat5-main-img">
+               <img width="1024" height="682" src="https://www.quotidianoarte.it/wp-content/uploads/2025/09/children-593313_1280-1024x682.jpg" class="attachment-large size-large wp-post-image" alt="" loading="lazy" decoding="async" sizes="auto, (max-width: 768px) 100vw, 600px" srcset="https://www.quotidianoarte.it/wp-content/uploads/2025/09/children-593313_1280-1024x682.jpg 1024w, https://www.quotidianoarte.it/wp-content/uploads/2025/09/children-593313_1280-300x200.jpg 300w, https://www.quotidianoarte.it/wp-content/uploads/2025/09/children-593313_1280-768x512.jpg 768w, https://www.quotidianoarte.it/wp-content/uploads/2025/09/children-593313_1280.jpg 1280w" />            </a>
+
+            <div class="cat5-main-body">
+                <span class="cat5-label">Notizie</span>
+                <h3 class="cat5-main-title">
+                    <a href="https://www.quotidianoarte.it/bonus-figli-2025-i-requisiti-segreti-per-avere-tutti-gli-incentivi/">
+                        Bonus figli 2025: i requisiti segreti per avere tutti gli incentivi                    </a>
+                </h3>
+                <p class="cat5-main-excerpt">
+                    Nel 2025 le famiglie italiane possono contare su una serie di misure pensate per sostenere i costi legati alla crescita dei figli,…                </p>
+            </div>
+        </article>
+
+        <div class="cat5-side">
+
+                    <article class="cat5-side-item">
+                <a href="https://www.quotidianoarte.it/corri-alla-lidl-e-da-non-credere-laspirapolvere-potente-e-anti-allergia-a-un-prezzo-che-fa-impallidire-la-concorrenza/" class="cat5-side-img">
+                    <img width="300" height="200" src="https://www.quotidianoarte.it/wp-content/uploads/2025/09/aspirapolvere-Silvercrest.jpg" class="attachment-discover_thumb size-discover_thumb wp-post-image" alt="" loading="lazy" decoding="async" srcset="https://www.quotidianoarte.it/wp-content/uploads/2025/09/aspirapolvere-Silvercrest.jpg 1200w, https://www.quotidianoarte.it/wp-content/uploads/2025/09/aspirapolvere-Silvercrest-300x200.jpg 300w, https://www.quotidianoarte.it/wp-content/uploads/2025/09/aspirapolvere-Silvercrest-1024x683.jpg 1024w, https://www.quotidianoarte.it/wp-content/uploads/2025/09/aspirapolvere-Silvercrest-768x512.jpg 768w" sizes="auto, (max-width: 300px) 100vw, 300px" />                </a>
+
+                <div class="cat5-side-body">
+                    <h4 class="cat5-side-title">
+                        <a href="https://www.quotidianoarte.it/corri-alla-lidl-e-da-non-credere-laspirapolvere-potente-e-anti-allergia-a-un-prezzo-che-fa-impallidire-la-concorrenza/">
+                            Corri alla Lidl, è da non credere: l&#8217;aspirapolvere potente e anti-allergia a un prezzo che fa impallidire la concorrenza                        </a>
+                    </h4>
+                </div>
+            </article>
+                    <article class="cat5-side-item">
+                <a href="https://www.quotidianoarte.it/libri-scolastici-detraibili-il-governo-propone-una-nuova-agevolazione-fiscale-ecco-come-funziona/" class="cat5-side-img">
+                    <img width="300" height="200" src="https://www.quotidianoarte.it/wp-content/uploads/2025/09/children-306607_1280.jpg" class="attachment-discover_thumb size-discover_thumb wp-post-image" alt="" loading="lazy" decoding="async" srcset="https://www.quotidianoarte.it/wp-content/uploads/2025/09/children-306607_1280.jpg 1280w, https://www.quotidianoarte.it/wp-content/uploads/2025/09/children-306607_1280-300x200.jpg 300w, https://www.quotidianoarte.it/wp-content/uploads/2025/09/children-306607_1280-1024x682.jpg 1024w, https://www.quotidianoarte.it/wp-content/uploads/2025/09/children-306607_1280-768x512.jpg 768w" sizes="auto, (max-width: 300px) 100vw, 300px" />                </a>
+
+                <div class="cat5-side-body">
+                    <h4 class="cat5-side-title">
+                        <a href="https://www.quotidianoarte.it/libri-scolastici-detraibili-il-governo-propone-una-nuova-agevolazione-fiscale-ecco-come-funziona/">
+                            Libri scolastici detraibili il governo propone una nuova agevolazione fiscale, ecco come funziona                        </a>
+                    </h4>
+                </div>
+            </article>
+                    <article class="cat5-side-item">
+                <a href="https://www.quotidianoarte.it/cacciatori-di-patrimoni-indagini-patrimoniali-digitali-la-nuova-frontiera-del-recupero-crediti/" class="cat5-side-img">
+                    <img width="300" height="169" src="https://www.quotidianoarte.it/wp-content/uploads/2025/01/cacciatori-1044x587-1.jpg" class="attachment-discover_thumb size-discover_thumb wp-post-image" alt="" loading="lazy" decoding="async" srcset="https://www.quotidianoarte.it/wp-content/uploads/2025/01/cacciatori-1044x587-1.jpg 1044w, https://www.quotidianoarte.it/wp-content/uploads/2025/01/cacciatori-1044x587-1-300x169.jpg 300w, https://www.quotidianoarte.it/wp-content/uploads/2025/01/cacciatori-1044x587-1-1024x576.jpg 1024w, https://www.quotidianoarte.it/wp-content/uploads/2025/01/cacciatori-1044x587-1-768x432.jpg 768w" sizes="auto, (max-width: 300px) 100vw, 300px" />                </a>
+
+                <div class="cat5-side-body">
+                    <h4 class="cat5-side-title">
+                        <a href="https://www.quotidianoarte.it/cacciatori-di-patrimoni-indagini-patrimoniali-digitali-la-nuova-frontiera-del-recupero-crediti/">
+                            Cacciatori di Patrimoni &#8211; Indagini patrimoniali digitali: La nuova frontiera del Recupero Crediti                        </a>
+                    </h4>
+                </div>
+            </article>
+        
+        </div>
+
+    </div>
+</section>
+
+
+<section class="cat5-wrap" style="--catColor:#000000;">
+    <div class="cat5-header">
+        <h2><a href="https://www.quotidianoarte.it/eventi/">
+            Eventi        </a></h2>
+        <a class="cat5-more" href="https://www.quotidianoarte.it/eventi/">Vedi tutte →</a>
+    </div>
+
+    <div class="cat5-grid">
+
+        
+        <article class="cat5-main">
+            <a href="https://www.quotidianoarte.it/armonica-bellezza-malena-mazza-in-mostra-a-milano-verso-le-olimpiadi-milano-cortina-2026/" class="cat5-main-img">
+               <img width="1024" height="684" src="https://www.quotidianoarte.it/wp-content/uploads/2026/02/28872270_10210799526936686_402073492264058880_o-1-1024x684.jpg" class="attachment-large size-large wp-post-image" alt="" loading="lazy" decoding="async" sizes="auto, (max-width: 768px) 100vw, 600px" srcset="https://www.quotidianoarte.it/wp-content/uploads/2026/02/28872270_10210799526936686_402073492264058880_o-1-1024x684.jpg 1024w, https://www.quotidianoarte.it/wp-content/uploads/2026/02/28872270_10210799526936686_402073492264058880_o-1-300x200.jpg 300w, https://www.quotidianoarte.it/wp-content/uploads/2026/02/28872270_10210799526936686_402073492264058880_o-1-768x513.jpg 768w, https://www.quotidianoarte.it/wp-content/uploads/2026/02/28872270_10210799526936686_402073492264058880_o-1-600x400.jpg 600w, https://www.quotidianoarte.it/wp-content/uploads/2026/02/28872270_10210799526936686_402073492264058880_o-1-810x540.jpg 810w, https://www.quotidianoarte.it/wp-content/uploads/2026/02/28872270_10210799526936686_402073492264058880_o-1-1200x800.jpg 1200w, https://www.quotidianoarte.it/wp-content/uploads/2026/02/28872270_10210799526936686_402073492264058880_o-1.jpg 1476w" />            </a>
+
+            <div class="cat5-main-body">
+                <span class="cat5-label">Eventi</span>
+                <h3 class="cat5-main-title">
+                    <a href="https://www.quotidianoarte.it/armonica-bellezza-malena-mazza-in-mostra-a-milano-verso-le-olimpiadi-milano-cortina-2026/">
+                        Armonica Bellezza: Malena Mazza in mostra a Milano verso le Olimpiadi Milano Cortina 2026                    </a>
+                </h3>
+                <p class="cat5-main-excerpt">
+                    Dal 5 febbraio al 3 marzo 2026 la Galleria Il Milione celebra il dialogo tra arte, sport e spiritualità Dal 5 febbraio…                </p>
+            </div>
+        </article>
+
+        <div class="cat5-side">
+
+                    <article class="cat5-side-item">
+                <a href="https://www.quotidianoarte.it/malena-mazza-al-xmas-maroncelli-district-unindagine-visiva-sullidentita-femminile-contemporanea-2-dicembre-via-quadrio-18/" class="cat5-side-img">
+                    <img width="300" height="200" src="https://www.quotidianoarte.it/wp-content/uploads/2025/11/3f3268_e90c3826e80e4d5ba0e549c68ca2079cmv2_d_2000_1335_s_2.avif" class="attachment-discover_thumb size-discover_thumb wp-post-image" alt="" loading="lazy" decoding="async" srcset="https://www.quotidianoarte.it/wp-content/uploads/2025/11/3f3268_e90c3826e80e4d5ba0e549c68ca2079cmv2_d_2000_1335_s_2.avif 476w, https://www.quotidianoarte.it/wp-content/uploads/2025/11/3f3268_e90c3826e80e4d5ba0e549c68ca2079cmv2_d_2000_1335_s_2-300x200.avif 300w" sizes="auto, (max-width: 300px) 100vw, 300px" />                </a>
+
+                <div class="cat5-side-body">
+                    <h4 class="cat5-side-title">
+                        <a href="https://www.quotidianoarte.it/malena-mazza-al-xmas-maroncelli-district-unindagine-visiva-sullidentita-femminile-contemporanea-2-dicembre-via-quadrio-18/">
+                            Malena Mazza al Xmas Maroncelli District: un’indagine visiva sull’identità femminile contemporanea – 2 dicembre, Via Quadrio 18                        </a>
+                    </h4>
+                </div>
+            </article>
+                    <article class="cat5-side-item">
+                <a href="https://www.quotidianoarte.it/frascati-accoglie-la-fiera-dei-sapori-ditalia-2025-undici-giorni-tra-tradizione-e-convivialita/" class="cat5-side-img">
+                    <img width="300" height="200" src="https://www.quotidianoarte.it/wp-content/uploads/2025/09/FOTO-EVENTO-15.jpg" class="attachment-discover_thumb size-discover_thumb wp-post-image" alt="" loading="lazy" decoding="async" srcset="https://www.quotidianoarte.it/wp-content/uploads/2025/09/FOTO-EVENTO-15.jpg 1500w, https://www.quotidianoarte.it/wp-content/uploads/2025/09/FOTO-EVENTO-15-300x200.jpg 300w, https://www.quotidianoarte.it/wp-content/uploads/2025/09/FOTO-EVENTO-15-1024x683.jpg 1024w, https://www.quotidianoarte.it/wp-content/uploads/2025/09/FOTO-EVENTO-15-768x512.jpg 768w" sizes="auto, (max-width: 300px) 100vw, 300px" />                </a>
+
+                <div class="cat5-side-body">
+                    <h4 class="cat5-side-title">
+                        <a href="https://www.quotidianoarte.it/frascati-accoglie-la-fiera-dei-sapori-ditalia-2025-undici-giorni-tra-tradizione-e-convivialita/">
+                            Frascati accoglie la Fiera dei Sapori d’Italia 2025: undici giorni tra tradizione e convivialità                        </a>
+                    </h4>
+                </div>
+            </article>
+                    <article class="cat5-side-item">
+                <a href="https://www.quotidianoarte.it/fiumicino-celebra-la-birra-agricola-torna-loktoberfresh-2025-al-podere-676/" class="cat5-side-img">
+                    <img width="300" height="125" src="https://www.quotidianoarte.it/wp-content/uploads/2025/09/IOL4YOU_1674665193570.jpg" class="attachment-discover_thumb size-discover_thumb wp-post-image" alt="" loading="lazy" decoding="async" srcset="https://www.quotidianoarte.it/wp-content/uploads/2025/09/IOL4YOU_1674665193570.jpg 800w, https://www.quotidianoarte.it/wp-content/uploads/2025/09/IOL4YOU_1674665193570-300x125.jpg 300w, https://www.quotidianoarte.it/wp-content/uploads/2025/09/IOL4YOU_1674665193570-768x321.jpg 768w" sizes="auto, (max-width: 300px) 100vw, 300px" />                </a>
+
+                <div class="cat5-side-body">
+                    <h4 class="cat5-side-title">
+                        <a href="https://www.quotidianoarte.it/fiumicino-celebra-la-birra-agricola-torna-loktoberfresh-2025-al-podere-676/">
+                            Fiumicino celebra la birra agricola: torna l’OktoberFresh 2025 al Podere 676                        </a>
+                    </h4>
+                </div>
+            </article>
+                    <article class="cat5-side-item">
+                <a href="https://www.quotidianoarte.it/square-jam-2025-porta-a-san-felice-circeo-e-itri-lenergia-degli-urban-sport/" class="cat5-side-img">
+                    <img width="300" height="200" src="https://www.quotidianoarte.it/wp-content/uploads/2025/08/ChatGPT-Image-24-ago-2025-11_49_071.png" class="attachment-discover_thumb size-discover_thumb wp-post-image" alt="" loading="lazy" decoding="async" srcset="https://www.quotidianoarte.it/wp-content/uploads/2025/08/ChatGPT-Image-24-ago-2025-11_49_071.png 1536w, https://www.quotidianoarte.it/wp-content/uploads/2025/08/ChatGPT-Image-24-ago-2025-11_49_071-300x200.png 300w, https://www.quotidianoarte.it/wp-content/uploads/2025/08/ChatGPT-Image-24-ago-2025-11_49_071-1024x683.png 1024w, https://www.quotidianoarte.it/wp-content/uploads/2025/08/ChatGPT-Image-24-ago-2025-11_49_071-768x512.png 768w, https://www.quotidianoarte.it/wp-content/uploads/2025/08/ChatGPT-Image-24-ago-2025-11_49_071-332x221.png 332w, https://www.quotidianoarte.it/wp-content/uploads/2025/08/ChatGPT-Image-24-ago-2025-11_49_071-664x443.png 664w, https://www.quotidianoarte.it/wp-content/uploads/2025/08/ChatGPT-Image-24-ago-2025-11_49_071-688x459.png 688w, https://www.quotidianoarte.it/wp-content/uploads/2025/08/ChatGPT-Image-24-ago-2025-11_49_071-1044x696.png 1044w, https://www.quotidianoarte.it/wp-content/uploads/2025/08/ChatGPT-Image-24-ago-2025-11_49_071-1400x933.png 1400w" sizes="auto, (max-width: 300px) 100vw, 300px" />                </a>
+
+                <div class="cat5-side-body">
+                    <h4 class="cat5-side-title">
+                        <a href="https://www.quotidianoarte.it/square-jam-2025-porta-a-san-felice-circeo-e-itri-lenergia-degli-urban-sport/">
+                            Square Jam 2025 porta a San Felice Circeo e Itri l’energia degli urban sport                        </a>
+                    </h4>
+                </div>
+            </article>
+        
+        </div>
+
+    </div>
+</section>
+
+
+<section class="cat5-wrap" style="--catColor:#000000;">
+    <div class="cat5-header">
+        <h2><a href="https://www.quotidianoarte.it/arte-e-cultura/">
+            Arte e Cultura        </a></h2>
+        <a class="cat5-more" href="https://www.quotidianoarte.it/arte-e-cultura/">Vedi tutte →</a>
+    </div>
+
+    <div class="cat5-grid">
+
+        
+        <article class="cat5-main">
+            <a href="https://www.quotidianoarte.it/dove-creare-arte-e-incorniciare-opere-e-fotografie-a-roma-un-punto-di-riferimento-per-artisti-e-professionisti/" class="cat5-main-img">
+               <img width="1024" height="682" src="https://www.quotidianoarte.it/wp-content/uploads/2026/02/ALTERNATIVA-INTERNO_2-e1569967055548-1-1024x682.jpeg" class="attachment-large size-large wp-post-image" alt="" loading="lazy" decoding="async" sizes="auto, (max-width: 768px) 100vw, 600px" srcset="https://www.quotidianoarte.it/wp-content/uploads/2026/02/ALTERNATIVA-INTERNO_2-e1569967055548-1-1024x682.jpeg 1024w, https://www.quotidianoarte.it/wp-content/uploads/2026/02/ALTERNATIVA-INTERNO_2-e1569967055548-1-300x200.jpeg 300w, https://www.quotidianoarte.it/wp-content/uploads/2026/02/ALTERNATIVA-INTERNO_2-e1569967055548-1-768x511.jpeg 768w, https://www.quotidianoarte.it/wp-content/uploads/2026/02/ALTERNATIVA-INTERNO_2-e1569967055548-1-1536x1022.jpeg 1536w, https://www.quotidianoarte.it/wp-content/uploads/2026/02/ALTERNATIVA-INTERNO_2-e1569967055548-1-600x400.jpeg 600w, https://www.quotidianoarte.it/wp-content/uploads/2026/02/ALTERNATIVA-INTERNO_2-e1569967055548-1-810x540.jpeg 810w, https://www.quotidianoarte.it/wp-content/uploads/2026/02/ALTERNATIVA-INTERNO_2-e1569967055548-1-1200x800.jpeg 1200w, https://www.quotidianoarte.it/wp-content/uploads/2026/02/ALTERNATIVA-INTERNO_2-e1569967055548-1.jpeg 1920w" />            </a>
+
+            <div class="cat5-main-body">
+                <span class="cat5-label">Arte e Cultura</span>
+                <h3 class="cat5-main-title">
+                    <a href="https://www.quotidianoarte.it/dove-creare-arte-e-incorniciare-opere-e-fotografie-a-roma-un-punto-di-riferimento-per-artisti-e-professionisti/">
+                        Dove creare arte e incorniciare opere e fotografie a Roma: un punto di riferimento per artisti e professionisti                    </a>
+                </h3>
+                <p class="cat5-main-excerpt">
+                    Roma è una città in cui l’arte non è solo memoria storica, ma pratica quotidiana. Pittori, fotografi, designer e creativi cercano luoghi…                </p>
+            </div>
+        </article>
+
+        <div class="cat5-side">
+
+                    <article class="cat5-side-item">
+                <a href="https://www.quotidianoarte.it/armonica-bellezza-la-mostra-di-malena-mazza-a-il-milione/" class="cat5-side-img">
+                    <img width="300" height="200" src="https://www.quotidianoarte.it/wp-content/uploads/2026/02/0c8376cd-f1fe-403c-9c3b-3a3be743e822-768x768-1-300x200.jpg" class="attachment-discover_thumb size-discover_thumb wp-post-image" alt="" loading="lazy" decoding="async" srcset="https://www.quotidianoarte.it/wp-content/uploads/2026/02/0c8376cd-f1fe-403c-9c3b-3a3be743e822-768x768-1-300x200.jpg 300w, https://www.quotidianoarte.it/wp-content/uploads/2026/02/0c8376cd-f1fe-403c-9c3b-3a3be743e822-768x768-1-600x400.jpg 600w" sizes="auto, (max-width: 300px) 100vw, 300px" />                </a>
+
+                <div class="cat5-side-body">
+                    <h4 class="cat5-side-title">
+                        <a href="https://www.quotidianoarte.it/armonica-bellezza-la-mostra-di-malena-mazza-a-il-milione/">
+                            Armonica Bellezza: la mostra di Malena Mazza a Il Milione                        </a>
+                    </h4>
+                </div>
+            </article>
+                    <article class="cat5-side-item">
+                <a href="https://www.quotidianoarte.it/artisti-contemporanei-italiani-da-conoscere-nel-2026/" class="cat5-side-img">
+                    <img width="300" height="169" src="https://www.quotidianoarte.it/wp-content/uploads/2025/10/170435686-a430de28-823e-4be0-ba94-1b8d057666d6.jpg" class="attachment-discover_thumb size-discover_thumb wp-post-image" alt="" loading="lazy" decoding="async" srcset="https://www.quotidianoarte.it/wp-content/uploads/2025/10/170435686-a430de28-823e-4be0-ba94-1b8d057666d6.jpg 2100w, https://www.quotidianoarte.it/wp-content/uploads/2025/10/170435686-a430de28-823e-4be0-ba94-1b8d057666d6-300x169.jpg 300w, https://www.quotidianoarte.it/wp-content/uploads/2025/10/170435686-a430de28-823e-4be0-ba94-1b8d057666d6-1024x576.jpg 1024w, https://www.quotidianoarte.it/wp-content/uploads/2025/10/170435686-a430de28-823e-4be0-ba94-1b8d057666d6-768x432.jpg 768w, https://www.quotidianoarte.it/wp-content/uploads/2025/10/170435686-a430de28-823e-4be0-ba94-1b8d057666d6-1536x865.jpg 1536w, https://www.quotidianoarte.it/wp-content/uploads/2025/10/170435686-a430de28-823e-4be0-ba94-1b8d057666d6-2048x1153.jpg 2048w" sizes="auto, (max-width: 300px) 100vw, 300px" />                </a>
+
+                <div class="cat5-side-body">
+                    <h4 class="cat5-side-title">
+                        <a href="https://www.quotidianoarte.it/artisti-contemporanei-italiani-da-conoscere-nel-2026/">
+                            Artisti contemporanei italiani da conoscere nel 2026                        </a>
+                    </h4>
+                </div>
+            </article>
+                    <article class="cat5-side-item">
+                <a href="https://www.quotidianoarte.it/sculture-tatuate-quando-il-tatuaggio-diventa-arte-contemporanea/" class="cat5-side-img">
+                    <img width="300" height="169" src="https://www.quotidianoarte.it/wp-content/uploads/2025/10/170435686-a430de28-823e-4be0-ba94-1b8d057666d6.jpg" class="attachment-discover_thumb size-discover_thumb wp-post-image" alt="" loading="lazy" decoding="async" srcset="https://www.quotidianoarte.it/wp-content/uploads/2025/10/170435686-a430de28-823e-4be0-ba94-1b8d057666d6.jpg 2100w, https://www.quotidianoarte.it/wp-content/uploads/2025/10/170435686-a430de28-823e-4be0-ba94-1b8d057666d6-300x169.jpg 300w, https://www.quotidianoarte.it/wp-content/uploads/2025/10/170435686-a430de28-823e-4be0-ba94-1b8d057666d6-1024x576.jpg 1024w, https://www.quotidianoarte.it/wp-content/uploads/2025/10/170435686-a430de28-823e-4be0-ba94-1b8d057666d6-768x432.jpg 768w, https://www.quotidianoarte.it/wp-content/uploads/2025/10/170435686-a430de28-823e-4be0-ba94-1b8d057666d6-1536x865.jpg 1536w, https://www.quotidianoarte.it/wp-content/uploads/2025/10/170435686-a430de28-823e-4be0-ba94-1b8d057666d6-2048x1153.jpg 2048w" sizes="auto, (max-width: 300px) 100vw, 300px" />                </a>
+
+                <div class="cat5-side-body">
+                    <h4 class="cat5-side-title">
+                        <a href="https://www.quotidianoarte.it/sculture-tatuate-quando-il-tatuaggio-diventa-arte-contemporanea/">
+                            Sculture tatuate: quando il tatuaggio diventa arte contemporanea                        </a>
+                    </h4>
+                </div>
+            </article>
+                    <article class="cat5-side-item">
+                <a href="https://www.quotidianoarte.it/festival-della-diplomazia-2025-roma-torna-a-parlare-al-mondo/" class="cat5-side-img">
+                    <img width="300" height="200" src="https://www.quotidianoarte.it/wp-content/uploads/2025/10/pubblico-scaled.jpg" class="attachment-discover_thumb size-discover_thumb wp-post-image" alt="" loading="lazy" decoding="async" srcset="https://www.quotidianoarte.it/wp-content/uploads/2025/10/pubblico-scaled.jpg 2560w, https://www.quotidianoarte.it/wp-content/uploads/2025/10/pubblico-300x200.jpg 300w, https://www.quotidianoarte.it/wp-content/uploads/2025/10/pubblico-1024x684.jpg 1024w, https://www.quotidianoarte.it/wp-content/uploads/2025/10/pubblico-768x513.jpg 768w, https://www.quotidianoarte.it/wp-content/uploads/2025/10/pubblico-1536x1026.jpg 1536w, https://www.quotidianoarte.it/wp-content/uploads/2025/10/pubblico-2048x1367.jpg 2048w" sizes="auto, (max-width: 300px) 100vw, 300px" />                </a>
+
+                <div class="cat5-side-body">
+                    <h4 class="cat5-side-title">
+                        <a href="https://www.quotidianoarte.it/festival-della-diplomazia-2025-roma-torna-a-parlare-al-mondo/">
+                            Festival della Diplomazia 2025: Roma torna a parlare al mondo                        </a>
+                    </h4>
+                </div>
+            </article>
+        
+        </div>
+
+    </div>
+</section>
+
+
+<section class="cat5-wrap" style="--catColor:#000000;">
+    <div class="cat5-header">
+        <h2><a href="https://www.quotidianoarte.it/lifestyle/">
+            LifeStyle        </a></h2>
+        <a class="cat5-more" href="https://www.quotidianoarte.it/lifestyle/">Vedi tutte →</a>
+    </div>
+
+    <div class="cat5-grid">
+
+        
+        <article class="cat5-main">
+            <a href="https://www.quotidianoarte.it/milano-fashion-week-da-marco-manzo-a-murakami-e-abramovic-il-dialogo-tra-moda-e-arte-contemporanea/" class="cat5-main-img">
+               <img width="835" height="700" src="https://www.quotidianoarte.it/wp-content/uploads/2025/09/Screenshot-2025-01-27-160308.png" class="attachment-large size-large wp-post-image" alt="" loading="lazy" decoding="async" sizes="auto, (max-width: 768px) 100vw, 600px" srcset="https://www.quotidianoarte.it/wp-content/uploads/2025/09/Screenshot-2025-01-27-160308.png 835w, https://www.quotidianoarte.it/wp-content/uploads/2025/09/Screenshot-2025-01-27-160308-300x251.png 300w, https://www.quotidianoarte.it/wp-content/uploads/2025/09/Screenshot-2025-01-27-160308-768x644.png 768w" />            </a>
+
+            <div class="cat5-main-body">
+                <span class="cat5-label">LifeStyle</span>
+                <h3 class="cat5-main-title">
+                    <a href="https://www.quotidianoarte.it/milano-fashion-week-da-marco-manzo-a-murakami-e-abramovic-il-dialogo-tra-moda-e-arte-contemporanea/">
+                        Milano Fashion Week: da Marco Manzo a Murakami e Abramović, il dialogo tra moda e arte contemporanea                    </a>
+                </h3>
+                <p class="cat5-main-excerpt">
+                    Moda come linguaggio culturale La Milano Fashion Week 2025 non è soltanto l’occasione per presentare collezioni e tendenze: è soprattutto un grande…                </p>
+            </div>
+        </article>
+
+        <div class="cat5-side">
+
+                    <article class="cat5-side-item">
+                <a href="https://www.quotidianoarte.it/sembra-ieri-aurora-la-figlia-di-eros-ramazzotti-e-michelle-hunziker-e-cresciuta-ed-e-piu-radiosa-che-mai/" class="cat5-side-img">
+                    <img width="300" height="200" src="https://www.quotidianoarte.it/wp-content/uploads/2025/09/michelle-hunziker-e-aurora-ramazzotti-.jpg" class="attachment-discover_thumb size-discover_thumb wp-post-image" alt="" loading="lazy" decoding="async" srcset="https://www.quotidianoarte.it/wp-content/uploads/2025/09/michelle-hunziker-e-aurora-ramazzotti-.jpg 1200w, https://www.quotidianoarte.it/wp-content/uploads/2025/09/michelle-hunziker-e-aurora-ramazzotti--300x200.jpg 300w, https://www.quotidianoarte.it/wp-content/uploads/2025/09/michelle-hunziker-e-aurora-ramazzotti--1024x683.jpg 1024w, https://www.quotidianoarte.it/wp-content/uploads/2025/09/michelle-hunziker-e-aurora-ramazzotti--768x512.jpg 768w" sizes="auto, (max-width: 300px) 100vw, 300px" />                </a>
+
+                <div class="cat5-side-body">
+                    <h4 class="cat5-side-title">
+                        <a href="https://www.quotidianoarte.it/sembra-ieri-aurora-la-figlia-di-eros-ramazzotti-e-michelle-hunziker-e-cresciuta-ed-e-piu-radiosa-che-mai/">
+                            Sembra ieri: Aurora, la figlia di Eros Ramazzotti e Michelle Hunziker, è cresciuta ed è più radiosa che mai                        </a>
+                    </h4>
+                </div>
+            </article>
+                    <article class="cat5-side-item">
+                <a href="https://www.quotidianoarte.it/metti-una-moneta-da-1-euro-in-macchina-il-trucco-che-pochi-conoscono/" class="cat5-side-img">
+                    <img width="300" height="200" src="https://www.quotidianoarte.it/wp-content/uploads/2025/09/1-euro-coin.jpg" class="attachment-discover_thumb size-discover_thumb wp-post-image" alt="" loading="lazy" decoding="async" srcset="https://www.quotidianoarte.it/wp-content/uploads/2025/09/1-euro-coin.jpg 1200w, https://www.quotidianoarte.it/wp-content/uploads/2025/09/1-euro-coin-300x200.jpg 300w, https://www.quotidianoarte.it/wp-content/uploads/2025/09/1-euro-coin-1024x683.jpg 1024w, https://www.quotidianoarte.it/wp-content/uploads/2025/09/1-euro-coin-768x512.jpg 768w" sizes="auto, (max-width: 300px) 100vw, 300px" />                </a>
+
+                <div class="cat5-side-body">
+                    <h4 class="cat5-side-title">
+                        <a href="https://www.quotidianoarte.it/metti-una-moneta-da-1-euro-in-macchina-il-trucco-che-pochi-conoscono/">
+                            Metti una moneta da 1 euro in macchina: il trucco che pochi conoscono                        </a>
+                    </h4>
+                </div>
+            </article>
+                    <article class="cat5-side-item">
+                <a href="https://www.quotidianoarte.it/se-il-tuo-cane-abbaia-nel-vuoto-non-ignorarlo-ecco-cosa-potrebbe-significare-davvero/" class="cat5-side-img">
+                    <img width="300" height="200" src="https://www.quotidianoarte.it/wp-content/uploads/2025/09/9455.jpg" class="attachment-discover_thumb size-discover_thumb wp-post-image" alt="" loading="lazy" decoding="async" srcset="https://www.quotidianoarte.it/wp-content/uploads/2025/09/9455.jpg 1200w, https://www.quotidianoarte.it/wp-content/uploads/2025/09/9455-300x200.jpg 300w, https://www.quotidianoarte.it/wp-content/uploads/2025/09/9455-1024x683.jpg 1024w, https://www.quotidianoarte.it/wp-content/uploads/2025/09/9455-768x512.jpg 768w" sizes="auto, (max-width: 300px) 100vw, 300px" />                </a>
+
+                <div class="cat5-side-body">
+                    <h4 class="cat5-side-title">
+                        <a href="https://www.quotidianoarte.it/se-il-tuo-cane-abbaia-nel-vuoto-non-ignorarlo-ecco-cosa-potrebbe-significare-davvero/">
+                            Se il tuo cane abbaia nel vuoto non ignorarlo: ecco cosa potrebbe significare davvero                        </a>
+                    </h4>
+                </div>
+            </article>
+                    <article class="cat5-side-item">
+                <a href="https://www.quotidianoarte.it/non-immagini-cosa-succede-al-tuo-telefono-se-lo-carichi-sempre-fino-al-100-lerrore-che-fanno-tutti/" class="cat5-side-img">
+                    <img width="300" height="200" src="https://www.quotidianoarte.it/wp-content/uploads/2025/09/batteria-carica-0208202.jpg" class="attachment-discover_thumb size-discover_thumb wp-post-image" alt="" loading="lazy" decoding="async" srcset="https://www.quotidianoarte.it/wp-content/uploads/2025/09/batteria-carica-0208202.jpg 1200w, https://www.quotidianoarte.it/wp-content/uploads/2025/09/batteria-carica-0208202-300x200.jpg 300w, https://www.quotidianoarte.it/wp-content/uploads/2025/09/batteria-carica-0208202-1024x683.jpg 1024w, https://www.quotidianoarte.it/wp-content/uploads/2025/09/batteria-carica-0208202-768x512.jpg 768w" sizes="auto, (max-width: 300px) 100vw, 300px" />                </a>
+
+                <div class="cat5-side-body">
+                    <h4 class="cat5-side-title">
+                        <a href="https://www.quotidianoarte.it/non-immagini-cosa-succede-al-tuo-telefono-se-lo-carichi-sempre-fino-al-100-lerrore-che-fanno-tutti/">
+                            Non immagini cosa succede al tuo telefono se lo carichi sempre fino al 100%: l’errore che fanno tutti                        </a>
+                    </h4>
+                </div>
+            </article>
+        
+        </div>
+
+    </div>
+</section>
+
+
+</div>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container footer-top">
+
+    <div class="footer-brand">
+      <a href="https://www.quotidianoarte.it/" class="footer-logo">
+        <img src="https://www.quotidianoarte.it/wp-content/uploads/2025/08/cropped-logo-quotidiano-arte.png" 
+                       alt="Quotidianoarte.it"
+                       width="233" height="64"
+                       style="width:var(--footer-logo-width);height:auto;display:block;">      </a>
+
+      <div class="footer-text" style="margin-top:12px;font-size:14px;">
+         © 2025 proprietà Influencer Srls - Via Luca Bati 57 - Roma - P.iva 14920521003 - Questo blog non è una testata giornalistica, in quanto viene aggiornato senza alcuna periodicità. Non può pertanto considerarsi un prodotto editoriale ai sensi della legge n. 62 del 07.03.2001.       </div>
+    </div>
+
+    <nav class="footer-nav" aria-label="Footer menu">
+      <ul class="footer-menu"><li id="menu-item-18824" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-18824"><a href="https://www.quotidianoarte.it/redazione/">Redazione</a></li>
+<li id="menu-item-19607" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-19607"><a href="https://www.quotidianoarte.it/contatti/">Contatti</a></li>
+<li id="menu-item-18823" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-18823"><a href="https://www.quotidianoarte.it/disclaimer/">Disclaimer</a></li>
+<li id="menu-item-19602" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-19602"><a href="https://www.quotidianoarte.it/privacy-policy/">Privacy Policy</a></li>
+</ul>    </nav>
+
+  </div>
+</footer>
+
+<a href="#" id="backToTop" aria-label="Torna su">↑</a>
+
+<script type="speculationrules">
+{"prefetch":[{"source":"document","where":{"and":[{"href_matches":"/*"},{"not":{"href_matches":["/wp-*.php","/wp-admin/*","/wp-content/uploads/*","/wp-content/*","/wp-content/plugins/*","/wp-content/themes/discoverpress-pro-mobile100/*","/*\\?(.+)"]}},{"not":{"selector_matches":"a[rel~=\"nofollow\"]"}},{"not":{"selector_matches":".no-prefetch, .no-prefetch a"}}]},"eagerness":"conservative"}]}
+</script>
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        let loaded = false;
+        const loadGA = () => {
+            if(loaded) return;
+            loaded = true;
+            const s = document.createElement('script');
+            s.src = 'https://www.googletagmanager.com/gtag/js?id=G-9LS2F04WSV';
+            s.async = true;
+            document.head.appendChild(s);
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-9LS2F04WSV');
+        };
+        window.addEventListener('mousemove', loadGA, {once:true, passive:true});
+        window.addEventListener('touchstart', loadGA, {once:true, passive:true});
+        window.addEventListener('scroll', loadGA, {once:true, passive:true});
+        setTimeout(loadGA, 4000);
+    });
+    </script>
+            <style>
+        #nbv-wrapper{
+            width:100%;display:flex;justify-content:center;
+            margin-top:50px;margin-bottom:0;            opacity:0;transition:opacity .3s ease-out;
+            padding:0 15px;box-sizing:border-box;
+            will-change:opacity;transform:translateZ(0); /* GPU Accel */
+        }
+        #nbv-wrapper.nbv-visible{opacity:1}
+        
+        .nbv-box{
+            width:100%;max-width:1080px;background-color:#111111;
+            border-radius:18px;display:flex;align-items:center;justify-content:space-between;
+            flex-direction:row;
+            padding:18px 30px;box-sizing:border-box;
+            font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
+            box-shadow:0 10px 32px rgba(0,0,0,.15);border:1px solid rgba(255,255,255,.05);
+        }
+        
+        .nbv-brand{
+            display:flex;align-items:center;gap:12px;text-decoration:none;
+            margin-right:30px;margin-left:0;            transform:scale(0.8);transform-origin:left center;
+            flex-shrink:0;
+        }
+        
+        .nbv-icon-box{
+            width:38px;height:38px;border-radius:10px;
+            background:linear-gradient(135deg,#2563eb,#c026d3);
+            display:flex;align-items:center;justify-content:center;
+            box-shadow:0 0 15px rgba(192,38,211,.4);flex-shrink:0;
+        }
+        .nbv-icon-box svg{width:22px;height:22px;color:#fff;stroke:currentColor;stroke-width:2}
+        .nbv-text{color:#fff;font-weight:800;font-size:20px;letter-spacing:-.5px;line-height:1;text-transform:uppercase}
+        
+        .nbv-links{
+            display:flex;align-items:center;flex-grow:1;gap:24px;
+            overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;
+            justify-content:flex-end;
+        }
+        .nbv-links::-webkit-scrollbar{display:none}
+        
+        .nbv-link{
+            color:#aaa;text-decoration:none;font-size:13px;font-weight:700;
+            text-transform:uppercase;letter-spacing:.5px;white-space:nowrap;
+            transition:all .2s ease;
+        }
+        .nbv-link:hover{color:#fff;text-shadow:0 0 10px #d72626;transform:translateY(-1px)}
+        .nbv-sep{width:4px;height:4px;background-color:#333;border-radius:50%;flex-shrink:0}
+        
+        /* Mobile/Tablet Clean */
+        @media(max-width:992px){
+            .nbv-box{justify-content:center!important;flex-direction:row!important;padding:20px}
+            .nbv-brand{margin:0!important;transform-origin:center center!important}
+            .nbv-links{display:none!important}
+        }
+        </style>
+        
+        <div id="nbv-wrapper">
+            <div class="nbv-box">
+                <div class="nbv-brand">
+                    <div class="nbv-icon-box"><svg fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg></div>
+                    <span class="nbv-text">FARADAY NETWORK<span style="color:#d72626">.</span></span>
+                </div>
+                <div class="nbv-links"><a href="https://www.unita.tv/" class="nbv-link" rel="nofollow" target="_blank">Unita.tv</a><div class="nbv-sep"></div><a href="https://www.gaeta.it/" class="nbv-link" rel="nofollow" target="_blank">Gaeta.it</a><div class="nbv-sep"></div><a href="https://www.avvisatore.it/" class="nbv-link" rel="nofollow" target="_blank">Avvisatore.it</a><div class="nbv-sep"></div><a href="https://www.ilvaporetto.com/" class="nbv-link" rel="nofollow" target="_blank">Ilvaporetto.com</a><div class="nbv-sep"></div><a href="https://www.quotidianoarte.it" class="nbv-link" rel="nofollow" target="_blank">Quotidianoarte</a></div>
+            </div>
+        </div>
+        
+        <script>
+        (function(){
+            var b = document.getElementById('nbv-wrapper');
+            var f = document.querySelector('.site-footer');
+            var p = 'bottom';
+            
+            if(f && b){
+                if(p === 'top'){
+                    f.insertBefore(b, f.firstChild);
+                } else {
+                    f.appendChild(b);
+                }
+                // Request Animation Frame per performance massima senza blocco
+                requestAnimationFrame(function(){
+                    b.classList.add('nbv-visible');
+                });
+            } else {
+                b.classList.add('nbv-visible');
+            }
+        })();
+        </script>
+        
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    const btn = document.getElementById('backToTop');
+    if(btn) {
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                btn.style.opacity = '1';
+                btn.style.pointerEvents = 'all';
+            } else {
+                btn.style.opacity = '0';
+                btn.style.pointerEvents = 'none';
+            }
+        }, {passive: true});
+    }
+});
+</script>
+
+</body>
+</html>
+<!-- Dynamic page generated in 0.067 seconds. -->
+<!-- Cached page generated by WP-Super-Cache on 2026-02-24 13:05:27 -->
+
+<!-- Compression = gzip -->
+<!-- super cache -->

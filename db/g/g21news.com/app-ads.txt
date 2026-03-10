@@ -1,0 +1,1992 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <script type="text/javascript">
+      window._taboola = window._taboola || [];
+  _taboola.push({article:'auto'});
+  !function (e, f, u, i) {
+        if (!document.getElementById(i)){
+                e.async = 1;
+                e.src = u;
+                e.id = i;
+                f.parentNode.insertBefore(e, f);
+              }       
+      }(document.createElement('script'),
+          document.getElementsByTagName('script')[0],
+          '//cdn.taboola.com/libtrc/hxgbj-g21news/loader.js',
+          'tb_loader_script');
+  if(window.performance && typeof window.performance.mark == 'function')
+      {window.performance.mark('tbl_ic');}
+  </script>
+
+<!-- G21news GA4 Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-P92B6R5XVY"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-P92B6R5XVY');
+</script>
+
+  <title>G21news</title>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <link rel="stylesheet" href="css_20240202/main.min.css" />
+  <link rel="stylesheet" href="css_20240202/reset.min.css" />
+  <script src="js_20240202/jquery-3.4.1.min.js"></script>
+  <!-- <script src="js_20240202/vue.js" type="text/javascript" charset="utf-8"></script> -->
+  <script src="js_20240202/vue.min.js"></script>
+  <script src="js_20240202/axios.min.js"></script>
+  <script src="js_20240202/swiper.min.js"></script>
+  <script src="js_20240202/guid.min.js"></script>
+  <script src="js_20240202/uuid.min.js"></script>
+  <!-- <script src="js_20240202/jquery.lazyload.min.js"></script> -->
+  <link rel="stylesheet" href="css_20240202/swiper.min.css" />
+</head>
+
+<body>
+  <div class="container" :style="isOnlyAds === 1 ? 'padding-top: 46px;' : ''" id="app" v-cloak>
+    <!-- header -->
+    <header class="header_fixed">
+      <!-- header title -->
+      <div class="header_bar">
+        <div class="header_title flex-center"><img class="title" src="img/title.png" alt /></div>
+        <div class="header_menu flex-center" @click="showMenu" v-if="isOnlyAds === 0"><img class="icon" src="img/menu.png" alt /></div>
+      </div>
+      <!-- search -->
+    </header>
+    <!-- zhezhao -->
+    <div class="mask" :class="menuFlag && (isOnlyAds === 0) ? 'show' : ''" @click="hideMenu"></div>
+    <!-- cebian -->
+    <div class="side_bar" :class="menuFlag && (isOnlyAds === 0) ? 'show' : ''">
+      <div class="search_box flex">
+        <img class="logo" :src="imgUrl + search_logo" />
+        <div class="input_box flex">
+          <div class="input_left">
+            <input class="input" type="text" v-model="searchValue" :placeholder="search_place"
+              @click="clickInput('side')" @keyup="getAutoKey('side')" @blur="inputBlur('side')" @keyup.enter="toSearch" />
+            <ul class="auto_key" v-if="autokeyBoxSide && autoKeyList.length">
+              <li class="text-ellipsis" v-for="(item, index) in autoKeyList" :key="'autokey' + index" ga-data="600"
+                @click="choseAutokey(item.name)">{{item.name}}</li>
+            </ul>
+            <ul class="auto_key" v-if="hitoryBoxSide && historyList.length">
+              <li class="text-ellipsis" v-for="(item, index) in historyList" :key="'history' + index" ga-data="600"
+                @click="choseHistory(item)">{{item}}</li>
+            </ul>
+          </div>
+          <div class="icon_wrapper flex-center" @click="toSearch"><img class="icon" ga-data="600" src="img/search.png" /></div>
+        </div>
+      </div>
+      <nav class="side_menu">
+        <a :href="'detail.html?q=' + item.id" :ga-data="Number(index)" :id="'side_menu-' + item.param" v-for="(item, index) in navList" :key="'leftbar' + index" @click="hideMenu">
+          <div class="menu_item" v-if="item.param !== 'Recommend'">
+            <p class="text">{{item.name}}</p>
+            <div class="border"></div>
+          </div>
+        </a>
+        <a href="helper://unsubscribe?flag=true&message=unsubscribe success">
+            <div class="menu_item">
+                <p class="text">unsubscribe</p>
+            <div class="border"></div>
+            </div>
+        </a>
+        <a href="https://go.microsoft.com/fwlink/?LinkId=521839" target="_blank" @click="hideMenu">
+          <div class="menu_item">
+            <p class="text">PRIVACY</p>
+          </div>
+        </a>
+      </nav>
+    </div>
+    <div class="icon_power" style="width: 100%; text-align: right; font-size: 12px; font-weight: 600; padding-right: 8px;padding-top: 0px;"><span style="font-size: 10px; color: #888;">powered by </span>Microsoft News</div>
+    <div class="icon_content" style="padding: 0px 14px;">
+      <div style="width: 100%; padding: 10px 0px; border-bottom: solid 1px #b5bbc8;" v-for="(textnews, idx) in textNews" :key="'textnews' + idx">
+        <a :href="'/news_info.html?id='+textnews.id" style="color: rgb(40, 4, 40);word-break: break-all;text-overflow: ellipsis;display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp: 2;overflow: hidden;">
+          {{ textnews.title }}
+        </a>
+      </div>
+    </div>
+
+    <!-- ziyou ad -->
+     <div class="icon_content" style="padding: 0px 14px;margin-bottom: 0px;">
+       <div id="taboola-mid-article-thumbnails"></div>
+  <script type="text/javascript">
+      window._taboola = window._taboola || [];
+  _taboola.push({
+        mode: 'thumbnails-m',
+        container: 'taboola-mid-article-thumbnails',
+        placement: 'Mid Article Thumbnails',
+        target_type: 'mix'
+      });
+  </script>
+     </div>
+    <!-- ziyou  -->
+    <div class="swiper-container effect_swiper" v-if="selfNews.length && (isOnlyAds === 0)" style="background-color: #fff;margin-bottom: 10px;box-sizing: border-box;padding: 10px 0;">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide" :ga-data="Number(2400 + idx)" style="height: 197px;" v-for="(news, idx) in selfNews" :key="'self' + idx">
+          <a :ga-data="Number(85 + idx)" :href="news.url" v-if="news.id">
+            <img class="swiper-img" :src="news.image" style="border-radius: 10px;" />
+            <div class="swiper-text" style="bottom: 20px;">
+              <p class="multi-ellipsis">{{ news.title }}</p>
+            </div>
+          </a>
+          <!-- revcontent_ad -->
+          <a ga-data="63" :href="news.url" v-if="news.uid">
+            <img class="swiper-img" :src="news.image" />
+            <div class="swiper-text" style="bottom: 20px;">
+              <p class="multi-ellipsis">{{ news.headline }}</p>
+            </div>
+            <p class="tag flex-center">AD</p>
+          </a>
+          <!-- weiruan -->
+          <a ga-data="63" :href="news.url" v-if="(!news.id) && (!news.uid)">
+            <img class="swiper-img" :src="news.imageUrl" />
+            <div class="swiper-text" style="bottom: 20px;">
+              <p class="multi-ellipsis">{{ news.title }}</p>
+            </div>
+            <p class="tag flex-center">AD</p>
+          </a>
+          <div class="black_mask" style="border-radius: 0 0 10px 10px;"></div>
+        </div>
+      </div>
+      <div class="swiper-pagination" style="bottom: 10px;"></div>
+    </div>
+
+    <div class="icon_content" style="padding: 0px 14px;">
+      <div style="width: 100%; padding: 10px 0px; border-bottom: solid 1px #b5bbc8;" v-for="(news, idx) in selfNewsText" :key="'selftext' + idx">
+        <a :href="news.url" style="color: rgb(40, 4, 40);word-break: break-all;text-overflow: ellipsis;display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp: 2;overflow: hidden;">
+          {{ news.title }}
+        </a>
+      </div>
+    </div>
+
+    <!-- fenlei -->
+    <div class="category" v-if="cateNews.length && navList.length && (isOnlyAds === 0)">
+      <!-- tab -->
+      <!-- tab -->
+      <div class="tab_wrapper" v-for="(item, index) in cateNews" :key="'tab' + index" v-if="(index === 0) && cateNews.length">
+        <div class="tab_container" v-if="item.swiper !== undefined && item.swiper.length">
+          <div class="cate_swiper">
+            <div class="swiper-container category_swiper" :id="'category_swiper' + index">
+              <div class="swiper-wrapper">
+                <div class="swiper-slide" style="height: 197px;" v-for="(news, idx) in item.swiper" :key="'swiper' + idx">
+                  <a ga-data="100" :href="news.url" id="popularnews" v-if="news.id !== undefined">
+                    <img class="swiper-img" v-for="(img, i) in news.images" :key="i" :src="img.url + '?h=788&w=1388&m=6&q=60&o=f&l=f&x=647&y=216'" />
+                    <div class="swiper-text" style="bottom: 20px;">
+                      <p class="multi-ellipsis">{{ news.title }}</p>
+                    </div>
+                  </a>
+                  <a ga-data="200" :href="news.url" id="adsmicro" v-if="news.uid !== undefined">
+                    <img class="swiper-img" :src="news.image" />
+                    <div class="swiper-text" style="bottom: 20px;">
+                        <p class="multi-ellipsis">{{ news.headline }}</p>
+                    </div>
+                    <p class="tag flex-center">AD</p>
+                  </a>
+                  <a ga-data="200" :href="news.url" id="adsmicro" v-if="(!news.id) && (!news.uid)">
+                    <img class="swiper-img" :src="news.imageUrl" />
+                    <div class="swiper-text" style="bottom: 20px;">
+                        <p class="multi-ellipsis">{{ news.title }}</p>
+                    </div>
+                    <p class="tag flex-center">AD</p>
+                  </a>
+                  <div class="black_mask"></div>
+                </div>
+              </div>
+              <div class="swiper-pagination" style="bottom: 10px;"></div>
+            </div>
+          </div>
+        </div>
+        <div class="popular_news" v-if="item.newlist !== undefined && item.newlist.length">
+          <div class="news_list" v-for="(news, idx) in item.newlist" :key="'firstnew_' + idx" v-if="item.newlist !== undefined && item.newlist.length">
+            <div class="ads_container" :id="'firstnew_' + idx" style="padding: 0;" v-if="webRefresh < refreshMax">
+              <div class="ads_box" ga-data="200"></div>
+            </div>
+            <a ga-data="100" class="news_container flex" :href="news.url" v-if="news.id !== undefined">
+              <div class="left_container">
+                <p class="cont multi-ellipsis3">{{ news.title }}</p>
+                <div class="btm flex-between">
+                  <div class="flex" style="align-items: center;">
+                    <img class="logo" :src="news.provider.logoUrl"
+                      style="width: 18px;height: 18px;margin-right: 5px;border-radius: 4px;" />
+                    <p style="color: #909090;font-size: 12px;flex: 1;font-weight: bold;">{{ news.provider.name }}</p>
+                  </div>
+                </div>
+              </div>
+              <div v-for="(img, i) in news.images" :key="i">
+                <img class="pic" :src="img.url + '?h=428&w=536&m=6&q=60&o=f&l=f&x=647&y=216'" />
+              </div>
+            </a>
+            <div class="ads_container" v-if="news.uid !== undefined">
+              <div class="ads_box" v-if="webRefresh < refreshMax">
+                <a ga-data="200" class="micro_small flex" :href="news.url">
+                  <div class="left_info">
+                    <p class="cont multi-ellipsis3">{{ news.headline }}</p>
+                    <div class="btm flex">
+                      <p class="tag flex-center">AD</p>
+                      <p class="time">{{news.brand}}</p>
+                    </div>
+                  </div>
+                  <img class="img" :src="news.image" />
+                </a>
+              </div>
+            </div>
+            <div class="ads_container" v-if="(!news.id) && (!news.uid)">
+              <div class="ads_box" v-if="webRefresh < refreshMax">
+                <a ga-data="200" class="micro_small flex" :href="news.url">
+                  <div class="left_info">
+                    <p class="cont multi-ellipsis3">{{ news.title }}</p>
+                    <div class="btm flex">
+                      <p class="tag flex-center">AD</p>
+                      <p class="time">{{news.sourceName}}</p>
+                    </div>
+                  </div>
+                  <img class="img" :src="news.imageUrl" />
+                </a>
+              </div>
+            </div>
+          </div>
+          <a :href="'detail.html?q=' + navList[index].id" ga-data="300" v-if="navList[index].param !== 'Recommend'">
+            <div id="morenews" class="more flex">
+              <p>MORE NEWS</p><img src="img/more.png" />
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+    <!--  v-if="cateNews.length && navList.length && (index > 0) && (isOnlyAds === 0)" -->
+    <div class="news_wrapper" style="width: 100%;" v-for="(item, index) in cateNews" :key="'cate' + index" v-if="cateNews.length && navList.length && (index > 0) && (isOnlyAds === 0)">
+      <!--  navList[index].param !== 'Home' && -->
+      <div class="cate_news" v-if="navList[index].param !== 'Video'">
+        <!-- js -->
+        <div class="ads_container" :id="'ads_self' + index" v-if="(item.topstatus === 'normal') && (webRefresh < refreshMax)">
+          <div class="ads_box_js" style="padding-bottom: 0;" :ga-data="Number(200 + index)"></div>
+        </div>
+        <!--  -->
+        <div class="ads_container" style="padding-top: 14px;" v-if="(item.topstatus === 'hidden') && (webRefresh < refreshMax) && (item.topads !== undefined)">
+          <div class="ads_box" v-if="item.topstatus === 'hidden'">
+            <a class="micro_big" :ga-data="Number(200 + index)" :href="item.topads.url">
+              <img class="img" :src="item.topads.imageUrl"/>
+              <p class="des multi-ellipsis">{{item.topads.title}}</p>
+              <p class="tag flex-center">AD</p>
+            </a>
+          </div>
+        </div>
+        <!-- revcontent -->
+        <div class="ads_container" style="padding-top: 14px;" v-if="(item.topstatus === 'revcontent') && (webRefresh < refreshMax) && (item.topads !== undefined)">
+          <div class="ads_box" v-if="item.topstatus === 'revcontent'">
+            <a class="micro_big" :ga-data="Number(200 + index)" :href="item.topads.url">
+              <img class="img" :src="item.topads.image"/>
+              <p class="rev_des multi-ellipsis">{{item.topads.headline}}</p>
+              <p class="rev_tag">Ads by Revcontent</p>
+            </a>
+          </div>
+        </div>
+        <!--  -->
+        <div class="news_title flex">
+          <p class="text" v-text="navList[index].name === 'News' ? 'Latest' : navList[index].name"></p>
+          <a :ga-data="Number(300 + index)" :href="'detail.html?q=' + navList[index].id" v-if="navList[index].param !== 'Recommend'">
+            <img class="share" src="img/arrow.png" />
+          </a>
+        </div>
+        <!--  -->
+        <div class="swiper-container normal_swiper" :id="'nor_swiper' + index" v-if="item.swiper !== undefined && item.swiper.length">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide" style="height: 197px;" v-for="(news, idx) in item.swiper" :key="'cateswiper' + idx">
+              <a :ga-data="Number(100 + index)" :href="news.url" id="categorynews" v-if="news.id !== undefined">
+                <img class="swiper-img" v-for="(img, i) in news.images" :key="i" :src="img.url + '?h=788&w=1388&m=6&q=60&o=f&l=f&x=647&y=216'" />
+                <div class="swiper-text" style="bottom: 20px;">
+                  <p class="multi-ellipsis">{{ news.title }}</p>
+                </div>
+              </a>
+              <!-- revcontent -->
+              <a :ga-data="Number(200 + index)" :href="news.url" v-if="news.uid !== undefined">
+                <img class="swiper-img" :src="news.image" />
+                <div class="swiper-text" style="bottom: 20px;">
+                    <p class="multi-ellipsis">{{ news.headline }}</p>
+                </div>
+                <p class="tag flex-center">AD</p>
+              </a>
+              <!--  -->
+              <a :ga-data="Number(200 + index)" :href="news.url" v-if="(!news.id) && (!news.uid)">
+                <img class="swiper-img" :src="news.imageUrl" />
+                <div class="swiper-text" style="bottom: 20px;">
+                    <p class="multi-ellipsis">{{ news.title }}</p>
+                </div>
+                <p class="tag flex-center">AD</p>
+              </a>
+              <div class="black_mask"></div>
+            </div>
+          </div>
+          <div class="swiper-pagination" style="bottom: 10px;"></div>
+        </div>
+        <!--  -->
+        <div class="news_list" v-for="(news, idx) in item.newlist" :key="'cate' + idx" v-if="item.newlist !== undefined && item.newlist.length">
+          <!-- js -->
+          <div class="ads_container" :id="navList[index].param + '_' + idx" style="padding: 0;" v-if="webRefresh < refreshMax">
+            <div class="ads_box" :ga-data="Number(200 + index)"></div>
+          </div>
+          <a :ga-data="Number(100 + index)" class="news_container flex" :href="news.url" v-if="news.id !== undefined">
+            <div class="left_container">
+              <p class="cont multi-ellipsis3">{{ news.title }}</p>
+              <div class="btm flex-between">
+                <div class="flex" style="align-items: center;">
+                  <img class="logo" :src="news.provider.logoUrl" style="width: 18px;height: 18px;margin-right: 5px;border-radius: 4px;" />
+                  <p style="color: #909090;font-size: 12px;flex: 1;font-weight: bold;">{{ news.provider.name }}</p>
+                </div>
+              </div>
+            </div>
+            <div v-for="(img, i) in news.images" :key="i">
+              <img class="pic" :src="img.url + '?h=428&w=536&m=6&q=60&o=f&l=f&x=647&y=216'" />
+            </div>
+          </a>
+          <!-- revcontent -->
+          <div class="ads_container" v-if="news.uid !== undefined">
+            <div class="ads_box" v-if="webRefresh < refreshMax">
+              <a class="micro_small flex" :ga-data="Number(200 + index)" :href="news.url">
+                <div class="left_info">
+                  <p class="cont multi-ellipsis3">{{ news.headline }}</p>
+                  <div class="btm flex">
+                    <p class="tag flex-center">AD</p>
+                    <p class="time">{{news.brand}}</p>
+                  </div>
+                </div>
+                <img class="img" :src="news.image" />
+              </a>
+            </div>
+          </div>
+          <!--  -->
+          <div class="ads_container" v-if="(!news.id) && (!news.uid)">
+            <div class="ads_box" v-if="webRefresh < refreshMax">
+              <a class="micro_small flex" :ga-data="Number(200 + index)" :href="news.url">
+                <div class="left_info">
+                  <p class="cont multi-ellipsis3">{{ news.title }}</p>
+                  <div class="btm flex">
+                    <p class="tag flex-center">AD</p>
+                    <p class="time">{{news.sourceName}}</p>
+                  </div>
+                </div>
+                <img class="img" :src="news.imageUrl" />
+              </a>
+            </div>
+          </div>
+        </div>
+        <a :ga-data="Number(300 + index)" :href="'detail.html?q=' + navList[index].id" v-if="navList[index].param !== 'Recommend'">
+          <div id="morenews" class="more flex">
+            <p>MORE {{ upperCase(navList[index].param) }}</p><img src="img/more.png" />
+          </div>
+        </a>
+      </div>
+      <!--  -->
+      <div class="video_news" v-if="navList[index].param === 'Video'">
+        <!-- js -->
+        <div class="ads_container" :id="'ads_self' + index" v-if="(item.topstatus === 'normal') && (webRefresh < refreshMax)">
+          <div class="ads_box_js" style="padding-bottom: 0;" :ga-data="Number(200 + index)"></div>
+        </div>
+        <!--  -->
+        <div class="ads_container" style="padding-top: 14px;" v-if="(item.topstatus === 'hidden') && (webRefresh < refreshMax)">
+          <div class="ads_box" v-if="item.topstatus === 'hidden'">
+            <a class="micro_big" :ga-data="Number(200 + index)" :href="item.topads.url">
+              <img class="img" :src="item.topads.imageUrl"/>
+              <p class="des multi-ellipsis">{{item.topads.title}}</p>
+              <p class="tag flex-center">AD</p>
+            </a>
+          </div>
+        </div>
+        <!-- revcontent -->
+        <div class="ads_container" style="padding-top: 14px;" v-if="(item.topstatus === 'revcontent') && (webRefresh < refreshMax)">
+          <div class="ads_box" v-if="item.topstatus === 'revcontent'">
+            <a class="micro_big" :ga-data="Number(200 + index)" :href="item.topads.url">
+              <img class="img" :src="item.topads.image"/>
+              <p class="des multi-ellipsis">{{item.topads.headline}}</p>
+              <p class="tag flex-center">AD</p>
+            </a>
+          </div>
+        </div>
+        <!--  -->
+        <div class="news_title flex">
+          <p class="text">{{navList[index].name}}</p>
+          <a :href="'detail.html?q=' + navList[index].id" :ga-data="Number(300 + index)">
+            <img class="share" src="img/arrow.png" />
+          </a>
+        </div>
+        <!--  class="video_list flex-wrap" -->
+        <div class="video_list flex-wrap" v-if="item.newlist !== undefined && item.newlist.length">
+          <div class="video_item" v-for="(news, idx) in item.newlist" :key="'videobf' + idx">
+            <!-- js -->
+            <div class="ads_container" style="width:100%;padding: 0;" :id="navList[index].param + '_' + idx" v-if="webRefresh < refreshMax">
+              <div class="ads_box" :ga-data="Number(200 + index)"></div>
+            </div>
+            <a :ga-data="Number(100 + index)" :href="news.url" v-if="news.id !== undefined">
+              <img class="video" :src="news.images[0].url + '?h=440&w=672&m=6&q=60&o=f&l=f&x=647&y=216'" />
+              <p class="des multi-ellipsis">{{ news.title }}</p>
+              <div class="flex" style="align-items: center;margin-top: 5px;">
+                <img class="logo" :src="news.provider.logoUrl"
+                  style="width: 18px;height: 18px;margin-right: 5px;border-radius: 4px;" />
+                <p style="color: #909090;font-size: 12px;flex: 1;font-weight: bold;">{{ news.provider.name }}</p>
+              </div>
+            </a>
+            <!-- revcontent -->
+            <div class="video_ad" style="width: 100%;margin-bottom: 0;" v-if="news.uid !== undefined">
+              <div class="ad_container">
+                <a :ga-data="Number(200 + index)" class="ads_small" :href="news.url">
+                  <img class="img" :src="news.image" />
+                  <p class="des multi-ellipsis">{{ news.headline }}</p>
+                  <p class="source text-ellipsis" style="margin-top: 5px;">{{ news.brand }}</p>
+                  <p class="tag flex-center">AD</p>
+                </a>
+              </div>
+            </div>
+            <!--  -->
+            <div class="video_ad" style="width: 100%;margin-bottom: 0;" v-if="(!news.id) && (!news.uid)">
+              <div class="ad_container">
+                <a :ga-data="Number(200 + index)" class="ads_small" :href="news.url">
+                  <img class="img" :src="news.imageUrl" />
+                  <p class="des multi-ellipsis">{{ news.title }}</p>
+                  <p class="source text-ellipsis" style="margin-top: 5px;">{{ news.sourceName }}</p>
+                  <p class="tag flex-center">AD</p>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <a :ga-data="Number(300 + index)" :href="'detail.html?q=' + navList[index].id">
+          <div id="morenews" class="more flex">
+            <p>MORE {{ upperCase(navList[index].param) }}</p><img src="img/more.png" />
+          </div>
+        </a>
+      </div>
+    </div>
+    <!-- dibu -->
+    <div class="bottom_navbar" v-show="cateNews.length && navList.length && (isOnlyAds === 0) && hasLoading">
+      <!-- js -->
+      <div class="ads_container" style="background-color: #fff;box-sizing: border-box;padding: 0 15px;" id="adsfooter" v-if="(iconAdsStatus[3] === 'normal') && (webRefresh < refreshMax)">
+        <div class="ads_box_js" ga-data="62"></div>
+      </div>
+      <!--  -->
+      <div class="ads_container" style="background-color: #fff;box-sizing: border-box;padding: 0 15px;" v-if="(iconAdsStatus[3] === 'hidden') && (webRefresh < refreshMax) && (iconMicAds[3] !== undefined)">
+        <div class="ads_box" v-if="iconMicAds[3]">
+          <a class="micro_small flex" ga-data="62" style="border-bottom: none;" :href="iconMicAds[3].url">
+            <div class="left_info">
+              <p class="cont multi-ellipsis3">{{ iconMicAds[3].title }}</p>
+              <div class="btm flex">
+                <p class="tag flex-center">AD</p>
+                <p class="time">{{iconMicAds[3].sourceName}}</p>
+              </div>
+            </div>
+            <img class="img" :src="iconMicAds[3].imageUrl" />
+          </a>
+        </div>
+      </div>
+      <!-- revcontent -->
+      <div class="ads_container" style="background-color: #fff;box-sizing: border-box;padding: 0 15px;" v-if="(iconAdsStatus[3] === 'revcontent') && (webRefresh < refreshMax) && (iconRevAds[3] !== undefined)">
+        <div class="ads_box" v-if="iconRevAds[3]">
+          <a class="micro_small flex" ga-data="62" style="border-bottom: none;" :href="iconRevAds[3].url">
+            <div class="left_info">
+              <p class="cont multi-ellipsis3">{{ iconRevAds[3].headline }}</p>
+              <div class="btm flex">
+                <p class="tag flex-center">AD</p>
+                <p class="time">{{iconRevAds[3].brand}}</p>
+              </div>
+            </div>
+            <img class="img" :src="iconRevAds[3].image" />
+          </a>
+        </div>
+      </div>
+      <div class="search_box flex" v-if="isOnlyAds === 0">
+        <img class="logo" :src="imgUrl + search_logo" />
+        <div class="input_box flex">
+          <div class="input_left">
+            <input class="input" type="text" v-model="searchValue" :placeholder="search_place"
+              @click="clickInput('btm')" @keyup="getAutoKey('btm')" @blur="inputBlur('btm')" @keyup.enter="toSearch" />
+            <ul class="auto_key" v-if="autokeyBoxBtm && autoKeyList.length">
+              <li class="text-ellipsis" v-for="(item, index) in autoKeyList" :key="'autokey' + index" ga-data="600"
+                @click="choseAutokey(item.name)">{{item.name}}</li>
+            </ul>
+            <ul class="auto_key" v-if="hitoryBoxBtm && autoKeyList.length">
+              <li class="text-ellipsis" v-for="(item, index) in historyList" :key="'history' + index" ga-data="600"
+                @click="choseHistory(item)">{{item}}</li>
+            </ul>
+          </div>
+          <div class="icon_wrapper flex-center" @click="toSearch"><img class="icon" ga-data="600" src="img/search.png" /></div>
+        </div>
+      </div>
+      <nav class="menu_box" v-if="isOnlyAds === 0">
+        <a :ga-data="Number(20 + index)" :href="'detail.html?q=' + item.id" :id="'side_menu-' + item.name" v-for="(item, index) in navList" :key="'btmbar' + index">
+          <div class="menu_item" v-if="item.param !== 'Recommend'">
+            <p class="text">{{item.name}}</p>
+            <div class="border" v-if="index < navList.length - 1"></div>
+          </div>
+        </a>
+      </nav>
+      <div class="privacy" v-if="isOnlyAds === 0">
+        <a class="hint_top" href="https://go.microsoft.com/fwlink/?LinkId=521839" target="_blank">PRIVACY</a>
+        <p class="hint_btm">@2025 HXG Tech,All rights reserved</p>
+      </div>
+    </div>
+    <!--  -->
+    <div class="news_list" v-if="isOnlyAds === 1" style="width: 100%;box-sizing: border-box;padding: 0 15px;background-color: #fff;">
+      <!--  -->
+      <div class="ads_container" v-for="(ads, index) in micAdsList" :key="'omic' + index">
+        <div class="ads_box">
+          <a class="micro_small flex" :href="ads.url">
+            <div class="left_info">
+              <p class="cont multi-ellipsis3">{{ ads.title }}</p>
+              <div class="btm flex">
+                <p class="tag flex-center">AD</p>
+                <p class="time">{{ads.sourceName}}</p>
+              </div>
+            </div>
+            <img class="img" :src="ads.imageUrl" />
+          </a>
+        </div>
+      </div>
+      <!-- revecont -->
+      <div class="ads_container" v-for="(ads, index) in revAdsList" :key="'orev' + index">
+        <div class="ads_box">
+          <a class="micro_small flex" :href="ads.url">
+            <div class="left_info">
+              <p class="cont multi-ellipsis3">{{ ads.headline }}</p>
+              <div class="btm flex">
+                <p class="tag flex-center">AD</p>
+                <!-- <p class="time">{{ads.sourceName}}</p> -->
+              </div>
+            </div>
+            <img class="img" :src="ads.image" />
+          </a>
+        </div>
+      </div>
+      <!--  -->
+      <div class="ads_container" :id="'onlyjs_' + index" v-for="(ads, index) in jsAdsList" :key="'ojs' + index">
+        <div class="ads_box_js"></div>
+      </div>
+    </div>
+  </div>
+  <script>
+    function createSwiper() {
+      var swiper = new Swiper('.category_swiper', {
+        direction: 'horizontal',
+        loop: true,
+        autoplay: {
+          delay: 3000,
+          stopOnLastSlide: false,
+          disableOnInteraction: false
+        },
+        speed: 800, //
+        pagination: {//
+          el: '.swiper-pagination',
+          clickable: true,
+          type: 'custom',
+          renderCustom: function (swiper, current, total) {
+            var paginationHtml = ' ';
+            for (var i = 0; i < total; i++) {
+              if (i === current - 1) {//
+                paginationHtml += '<span class="swiper-pagination-customs swiper-pagination-customs-active"></span>';
+              } else {
+                paginationHtml += '<span class="swiper-pagination-customs"></span>';
+              }
+            }
+            return paginationHtml;
+          }
+        },
+        paginationClickable: true,
+        autoplayDisableOnInteraction: false,//
+        observer: true,
+        observeParents: true
+      });
+      return swiper;
+    };
+    function normalSwiper(index) {
+      var mySwiper = new Swiper('#nor_swiper' + index, { // .normal_swiper
+        direction: 'horizontal',
+        loop: true,
+        autoplay: {
+          delay: 3000,
+          stopOnLastSlide: false,
+          disableOnInteraction: false
+        },
+        speed: 800, //
+        pagination: {//
+          el: '.swiper-pagination',
+          clickable: true,
+          type: 'custom',
+          renderCustom: function (swiper, current, total) {
+            var paginationHtml = ' ';
+            for (var i = 0; i < total; i++) {
+              if (i === current - 1) {//
+                paginationHtml += '<span class="swiper-pagination-customs swiper-pagination-customs-active"></span>';
+              } else {
+                paginationHtml += '<span class="swiper-pagination-customs"></span>';
+              }
+            }
+            return paginationHtml;
+          }
+        },
+        paginationClickable: true,
+        autoplayDisableOnInteraction: false,//  
+        observer: true,
+        observeParents: true
+      });
+      return mySwiper;
+    };
+    function effectSwiper() {
+      var effSwiper = new Swiper('.effect_swiper', {
+        direction: 'horizontal',
+        loop: true,
+        speed: 800, //
+        pagination: {//
+          el: '.swiper-pagination',
+          clickable: true,
+          type: 'custom',
+          renderCustom: function (swiper, current, total) {
+            var paginationHtml = ' ';
+            for (var i = 0; i < total; i++) {
+              if (i === current - 1) {//
+                paginationHtml += '<span class="swiper-pagination-customs swiper-pagination-customs-active"></span>';
+              } else {
+                paginationHtml += '<span class="swiper-pagination-customs"></span>';
+              }
+            }
+            return paginationHtml;
+          }
+        },
+        paginationClickable: true,
+        autoplayDisableOnInteraction: false,//
+        observer: true,
+        observeParents: true,
+        slidesPerView: 1.2,
+        effect: 'coverflow',
+        centeredSlides: true,
+        coverflowEffect: {
+          rotate: 0,
+          stretch: -80,
+          depth: 500,
+          modifier: 1,
+          slideShadows: false
+        }
+      });
+      return effSwiper;
+    };
+    // window.onload = function () {
+    //   // effectSwiper();
+    //   // createSwiper();
+    //   // normalSwiper(1);
+    // };
+  </script>
+  <script>
+    var vm = new Vue({
+      el: '#app',
+      data: {
+        baseUrl: 'https://api.msn.com/news/Feed',
+        adsUrl: 'https://ads.msn.com/partners',
+        imgUrl: 'https://cms.www.g21news.com',
+        // imgUrl: 'http://v1ttn.fengzhishike.cn',
+        searchUrl: '',
+        search_logo: '',
+        search_place: '',
+        location: '',
+        menuFlag: false,
+        searchValue: '',
+        navList: [],
+        navSelected: 2,
+        selectCate: 0,
+        cateNews: [],
+        videoNews: {},
+        refArr: [],
+        heightArr: [],
+        languageCode: [
+          'es-ar',
+          'en-au',
+          'de-at',
+          'fr-be',
+          'nl-be',
+          'pt-br',
+          'en-ca',
+          'fr-ca',
+          'es-cl',
+          'es-co',
+          'cs-cz',
+          'da-dk',
+          'ar-eg',
+          'fi-fi',
+          'fr-fr',
+          'de-de',
+          'el-gr',
+          'zh-hk',
+          'hu-hu',
+          'en-in',
+          'hi-in',
+          'id-id',
+          'en-ie',
+          'he-il',
+          'it-it',
+          'ja-jp',
+          'ko-kr',
+          'es-xl',
+          'en-my',
+          'es-mx',
+          'nl-nl',
+          'en-nz',
+          'nb-no',
+          'es-pe',
+          'en-ph',
+          'pl-pl',
+          'pt-pt',
+          'ru-ru',
+          'ar-sa',
+          'en-sg',
+          'en-za',
+          'es-es',
+          'sv-se',
+          'de-ch',
+          'fr-ch',
+          'zh-tw',
+          'th-th',
+          'tr-tr',
+          'ar-ae',
+          'en-ae',
+          'en-gb',
+          'en-us',
+          'es-us',
+          'es-ve',
+          'vi-vn',
+          'en-xl',
+          'fr-xl',
+          'es-xl'
+        ],
+        iconList: [],
+        iconMicAds: [],
+        iconRevAds: [],
+        iconAdsStatus: [],
+        adsList: [],
+        userAgent: '',
+        ipAddress: '',
+        countryCode: '',
+        zipCode: '',
+        guid: '',
+        uuid: '',
+        userId: '',
+        ocid: 'newclick',
+        apikey: 'TVhc9qtB6mJRmYgnm5n5rieMO6AyH1OArYKdrLoB3G',
+        autoKeyList: [],
+        historyList: [],
+        autokeyBox: false,
+        hitoryBox: false,
+        autokeyBoxSide: false,
+        hitoryBoxSide: false,
+        autokeyBoxBtm: false,
+        hitoryBoxBtm: false,
+        webRefresh: localStorage.getItem('refresh') || 0,//
+        refreshMax: 100000, //
+        renderAll: [],
+        selfNews: [],
+        selfNewsText: [],
+        cateIndex: 0,
+        loadBusy: false,
+        listAdsSta: [],
+        isOnlyAds: -1,
+        micAdsList: [],
+        jsAdsList: [],
+        jsAdsCount: 0,
+        revAdsList: [],
+        hasLoading: false,
+        micSplitList: [],
+        revSplitList: [],
+        micSelfId: [],
+        revSelfId: [],
+        effSwiper: '',
+        firstCate: 'Home',
+        textNews: []
+      },
+      created() {
+        let _this = this;
+        //
+        this.userAgent = navigator.userAgent;
+        if (!localStorage.getItem('guid')) {
+          var setguid = new GUID();
+          this.guid = setguid.newGUID();
+          localStorage.setItem('guid', this.guid)
+        } else {
+          this.guid = localStorage.getItem('guid')
+        }
+        if (!localStorage.getItem('uuid')) {
+          this.uuid = getUuid(64, 16);
+          localStorage.setItem('uuid', this.uuid)
+        } else {
+          this.uuid = localStorage.getItem('uuid')
+        }
+        this.userId = this.ocid + '-' + this.guid;
+        //
+        let locat = navigator.language.toLowerCase();
+        for (let i = 0; i < this.languageCode.length; i++) {
+          if (locat === this.languageCode[i]) {
+            this.location = locat;
+            break;
+          } else if (this.languageCode[i].indexOf(locat) !== -1) {
+            this.location = this.languageCode[i];
+            break;
+          } else {
+            this.location = 'en-us';
+          }
+        }
+        //
+        this.onlyAds();
+        if (!localStorage.getItem('history')) {
+          this.historyList = []
+        } else {
+          this.historyList = JSON.parse(localStorage.getItem('history'))
+        }
+        this.getTextNews();
+      },
+      mounted() {
+        this.handleScroll();
+        //
+        window.onbeforeunload = function () {
+          if (localStorage.getItem('refresh')) {
+            this.webRefresh = localStorage.getItem('refresh')
+            this.webRefresh++
+            localStorage.setItem('refresh', this.webRefresh)
+          } else {
+            localStorage.setItem('refresh', 1)
+          }
+        };
+      },
+      methods: {
+        getTextNews() {
+          let _this = this
+          axios
+            .get('/getTextNews')
+            .then(function (res) {
+              if (res.data.code === 200) {
+                _this.textNews = res.data.data
+              } else {
+                console.log(res.data.msg)
+              }
+            })
+            .catch(function (error) {
+              console.log(error);
+            });
+        },
+        onlyAds() {
+          let _this = this
+          axios
+            .get(_this.imgUrl + '/isban')
+            .then(function (res) {
+              if (res.data.code === 1) {
+                _this.isOnlyAds = Number(res.data.data)
+                if (Number(res.data.data) === 0) {
+                  //
+                  _this.getAdself();
+                  //
+                  _this.getSearchUrl();
+                  //
+                  _this.getIcon();
+                  //
+                  _this.getMenu();
+                  //
+                  _this.getNewself();
+                } else {
+                  console.log('only')
+                  //
+                  _this.getOnlyAdself();
+                }
+              } else {
+                console.log(res.data.msg)
+              }
+            })
+            .catch(function (error) {
+              console.log(error);
+            });
+        },
+        getOnlyAdself() {
+          let _this = this;
+          axios
+            .get(_this.imgUrl + '/getBanner')
+            .then(function (res) {
+              if (res.data.code === 1) {
+                let data = res.data.data;
+                let ind = Object.keys(data.index);
+                let ic = Object.keys(data.icon);
+                let footer = Object.keys(data.foot);
+                let sNews = Object.keys(data.bgfoot);
+                let micCount = 0
+                let revCount = 0
+                let jsCount = 0
+                let jsData = []
+                if (data.index) {
+                  if (ind.length) {
+                    if (data.index.status === 'normal') {
+                      jsCount++
+                      jsData.push(data.index.data)
+                    } else if (data.index.status === 'hidden') {
+                      micCount++
+                    } else if (data.index.status === 'revcontent') {
+                      revCount++
+                    }
+                  }
+                }
+                if (data.icon) {
+                  if (ic.length) {
+                    if (data.icon.status === 'normal') {
+                      jsCount++
+                      jsData.push(data.icon.data)
+                    } else if (data.icon.status === 'hidden') {
+                      micCount++
+                    } else if (data.icon.status === 'revcontent') {
+                      revCount++
+                    }
+                  }
+                }
+                if (data.foot) {
+                  if (footer.length) {
+                    if (data.foot.status === 'normal') {
+                      jsCount++
+                      jsData.push(data.foot.data)
+                    } else if (data.foot.status === 'hidden') {
+                      micCount++
+                    } else if (data.foot.status === 'revcontent') {
+                      revCount++
+                    }
+                  }
+                }
+                if (data.bgfoot) {
+                  if (sNews.length) {
+                    if (data.bgfoot.status === 'normal') {
+                      jsCount++
+                      jsData.push(data.bgfoot.data)
+                    } else if (data.bgfoot.status === 'hidden') {
+                      micCount++
+                    } else if (data.bgfoot.status === 'revcontent') {
+                      revCount++
+                    }
+                  }
+                }
+                if (data.bglist) {
+                  if (data.bglist.length) {
+                    let arr = data.bglist
+                    arr.forEach(item => {
+                      if(item.status === 'hidden') {
+                        micCount++
+                      } else if(item.status === 'revcontent') {
+                        revCount++
+                      } else if(item.status === 'normal') {
+                        jsCount++
+                        jsData.push(item.data)
+                      }
+                    })
+                  }
+                }
+                if (data.cate) {
+                  if (data.cate.length) {
+                    let arr = data.cate
+                    for (let i = 0; i < arr.length; i++) {
+                      if(arr[i].count === 0) {
+                        continue
+                      }
+                      if(arr[i].adlist.length) {
+                        arr[i].adlist.forEach(item => {
+                          if(item.status === 'hidden') {
+                            micCount++
+                          } else if(item.status === 'revcontent') {
+                            revCount++
+                          } else if(item.status === 'normal') {
+                            jsCount++
+                            jsData.push(item.data)
+                          }
+                        })
+                      }
+                      if(arr[i].advition.length) {
+                        let item = arr[i].advition[0]
+                        if(item.status === 'hidden') {
+                          micCount++
+                        } else if(item.status === 'revcontent') {
+                          revCount++
+                        } else if(item.status === 'normal') {
+                          jsCount++
+                          jsData.push(item.data)
+                        }
+                      }
+                    }
+                    _this.jsAdsCount = jsCount
+                    jsData.forEach(item => {
+                      _this.jsAdsList.push(item)
+                    })
+                    _this.getOnlyMicro(micCount)
+                    _this.addOnlyJs(jsData)
+                    _this.getOnlyRevecont(revCount)
+                  } else {
+                    _this.listAdsSta = []
+                  }
+                }
+              } else {
+                _this.iconSelfAds = ['', '', '', ''];
+                _this.iconAdsStatus = ['off', 'off', 'off', 'off'];
+                _this.listAdsSta = []
+              }
+            })
+            .catch(function (error) {
+              console.log(error);
+            });
+        },
+        getOnlyMicro(number) {
+          let _this = this;
+          let indlist = []
+          let length = 0
+          let num = number
+          let random = Math.round(Math.random()*10)
+          if (num > 3) {
+            length = Math.ceil((num / 3)) + 1
+            for (let i = 1; i < length; i++) {
+              indlist.push(i)
+            }
+          } else {
+            indlist.push(1)
+          }
+          let args = {
+            userInfo: {
+              "deviceId": _this.uuid
+            },
+            content: {
+              "sourceUrl": "https://www.msn.com/en-us",
+              "pageType": "DistiPartner"
+            },
+            device: {
+              "userAgent": _this.userAgent,
+              "ipAddress": _this.ipAddress,
+              "location": {
+                "countryCode": _this.countryCode,
+                "zipCode": _this.zipCode
+              }
+            },
+            placements: [
+              {
+                "region": "MultiPlacement",
+                "indices": indlist
+              }
+            ],
+            locale: _this.location,
+            rid: ''
+          };
+          axios
+            .post(_this.adsUrl + '?ocid=' + _this.ocid + '&apikey=' + _this.apikey, args, {
+              headers: {
+                'Content-Type': 'application/json'
+              }
+            })
+            .then(function (res) {
+              if (res.status !== 500) {
+                if (res.data) {
+                  let data = res.data.ads;
+                  if (data.length) {
+                    let list = []
+                    for (let i = 0; i < data.length; i++) {
+                      let item = data[i].creative.items
+                      item.forEach(e => {
+                        list.push(e)
+                      });
+                    }
+                    if(list.length) {
+                      list = _this.randomArray(list)
+                      list.forEach(item => {
+                        _this.micAdsList.push(item)
+                      })
+                      _this.micSplitList = list
+                      if (_this.iconAdsStatus.length) {
+                        _this.iconAdsStatus.forEach((item, index) => {
+                          if(item === 'hidden') {
+                            let e = _this.micSplitList.shift()
+                            _this.$set(_this.iconMicAds, index, e)
+                          }
+                        })
+                      }
+                      if (_this.micSelfId.length) {
+                        _this.micSelfId.forEach((id, i) => {
+                          let e = _this.micSplitList.shift()
+                          _this.selfNews.splice(Number(id) + i - 1, 0, e);
+                        })
+                        _this.$nextTick(function() {
+                          effectSwiper();
+                        })
+                      }
+                      if (_this.listAdsSta.length) {
+                        if ((_this.listAdsSta[0].micads.length) && (_this.listAdsSta[0].micads !== undefined)) {
+                          _this.getMicroAds(_this.listAdsSta[0].micads, 0)
+                        }
+                      }
+                    }
+                  } else {
+                    console.log('nodata')
+                  }
+                }
+              } else {
+                console.log(res)
+              }
+            })
+            .catch(function (error) {
+              console.log(error);
+            });
+        },
+        getOnlyRevecont(number) {
+          let _this = this
+          let page = 1 + Math.round(Math.random()*10)
+          axios
+            .get('https://trends.revcontent.com/api/v2/', {
+              params: {
+                api_key: '3ec24e022344b6da79aa53b9c6078cb6c8db779d',
+                pub_id: '131717',
+                widget_id: '120869',
+                domain: 'papayaonline.vip',
+                sponsored_offset: 1, //
+                sponsored_count: number, //
+                ao: 0
+              },
+              headers: {
+                'Content-Type': 'application/json'
+              }
+            })
+            .then(function (res) {
+              if (res.status === 200) {
+                if(res.data.content.length) {
+                  let list = res.data.content
+                  if (list.length > 3) {
+                    let arr = []
+                    let relist = list
+                    for(let i = 0; i < 3; i++) {
+                      let e = relist.shift()
+                      arr.push(e)
+                    }
+                    relist = _this.randomArray(relist)
+                    relist.forEach(item => {
+                      arr.push(item)
+                    })
+                    list = arr
+                  }
+                  list.forEach(item => {
+                    _this.revAdsList.push(item)
+                  })
+                  _this.revSplitList = list
+                  if (_this.iconAdsStatus.length) {
+                    _this.iconAdsStatus.forEach((item, index) => {
+                      if(item === 'revcontent') {
+                        let e = _this.revSplitList.shift()
+                        _this.$set(_this.iconRevAds, index, e)
+                      }
+                    })
+                  }
+                  if (_this.revSelfId.length) {
+                    _this.revSelfId.forEach((id, i) => {
+                      let e = _this.revSplitList.shift()
+                      _this.selfNews.splice(Number(id) + i - 1, 0, e);
+                    })
+                    _this.$nextTick(function() {
+                      effectSwiper();
+                    })
+                  }
+                  if (_this.listAdsSta.length) {
+                    if ((_this.listAdsSta[0].revads.length) && (_this.listAdsSta[0].revads !== undefined)) {
+                      _this.getRevecontAds(_this.listAdsSta[0].revads, 0)
+                    }
+                  }
+                }
+              } else {
+                console.log(res)
+              }
+            })
+            .catch(function (error) {
+              console.log(error);
+            });
+        },
+        addOnlyJs(addata) {
+          console.log(addata)
+          let _this = this
+          addata.forEach((item, i) => {
+            let id = 'onlyjs_' + i;
+            _this.$nextTick(function(){
+              $('#' + id + ' > div').append(addata[i]);
+            })
+          })
+        },
+        choseAdsType(index) {
+          if(!this.listAdsSta.length) {
+            return false
+          }
+          let info = this.listAdsSta[index]
+          if(info.noads) {
+            return false
+          } else {
+            if(info.micads.length && info.micads !== 'undefined') {
+              this.getMicroAds(info.micads, index) //
+            }
+            if(info.revads.length && info.revads !== 'undefined') {
+              this.getRevecontAds(info.revads, index)
+            }
+            if(info.jsads.length && info.jsads !== 'undefined') {
+              this.addJsAds(info.jsads, info.jsdata, index)
+            }
+          }
+        },
+        getMicroAds(idlist, index) {
+          let _this = this
+          if(!this.micAdsList.length) {
+            return false
+          }
+          if(!this.micSplitList.length) {
+            this.micSplitList = this.micAdsList
+          }
+          if(_this.listAdsSta[index].param === 'Video') {
+            idlist.forEach((id, i) => {
+              if(id === 'top') {
+                let e = _this.micSplitList.shift()
+                _this.$set(_this.cateNews[index], 'topstatus', 'hidden')
+                _this.$set(_this.cateNews[index], 'topads', e)
+              } else {
+                let e = _this.micSplitList.shift()
+                _this.cateNews[index].newlist.splice(Number(id) - 1, 0, e);
+              }
+            })
+          } else {
+            idlist.forEach((id, i) => {
+              if(Number(id) < 5) {
+                let e = _this.micSplitList.shift()
+                _this.cateNews[index].swiper.splice((Number(id) + i - 1), 0, e);
+              } else if(Number(id) > 4){
+                let e = _this.micSplitList.shift()
+                _this.cateNews[index].newlist.splice((Number(id) - 5), 0, e);
+              } else if(id === 'top') {
+                let e = _this.micSplitList.shift()
+                _this.$set(_this.cateNews[index], 'topstatus', 'hidden')
+                _this.$set(_this.cateNews[index], 'topads', e)
+              }
+            })
+          }
+        },
+        getRevecontAds(idlist, index) {
+          let _this = this
+          if(!this.revAdsList.length) {
+            return false
+          }
+          if(!this.revSplitList.length) {
+            this.revSplitList = this.revAdsList
+          }
+          if(_this.listAdsSta[index].param === 'Video') {
+            idlist.forEach((id, i) => {
+              if(id === 'top') {
+                let e = _this.revSplitList.shift()
+                _this.$set(_this.cateNews[index], 'topstatus', 'revcontent')
+                _this.$set(_this.cateNews[index], 'topads', e)
+              } else {
+                let e = _this.revSplitList.shift()
+                _this.cateNews[index].newlist.splice(Number(id) - 1, 0, e);
+              }
+            })
+          } else {
+            idlist.forEach((id, i) => {
+              if(Number(id) < 5) {
+                let e = _this.revSplitList.shift()
+                _this.cateNews[index].swiper.splice((Number(id) + i - 1), 0, e);
+              } else if(Number(id) > 4){
+                let e = _this.revSplitList.shift()
+                _this.cateNews[index].newlist.splice((Number(id) - 5), 0, e);
+              } else if(id === 'top') {
+                let e = _this.revSplitList.shift()
+                _this.$set(_this.cateNews[index], 'topstatus', 'revcontent')
+                _this.$set(_this.cateNews[index], 'topads', e)
+              }
+            })
+          }
+        },
+        addJsAds(adlist, addata, index) {
+          let _this = this
+          let list = this.listAdsSta[index]
+          if(list.name === this.firstCate) {
+            adlist.forEach((item, i) => {
+              if(item !== 'top') {
+                let id = 'firstnew_' + (item - 5);
+                _this.$nextTick(function(){
+                  $('#' + id + ' > div').append(addata[i]);
+                  $('#' + id).css({'padding': '14px 0','border-bottom': '1px solid #F0F0F0'});
+                })
+              }
+            })
+          } else {
+            adlist.forEach((item, i) => {
+              if(item === 'top') {
+                let id = 'ads_self' + index;
+                _this.$set(_this.cateNews[index], 'topstatus', 'normal')
+                _this.$nextTick(function(){
+                  $('#' + id + ' > div').append(addata[i]);
+                })
+              } else {
+                let id = list.name + '_' + (item - 5);
+                _this.$nextTick(function(){
+                  $('#' + id + ' > div').append(addata[i]);
+                  $('#' + id).css({'padding': '14px 0','border-bottom': '1px solid #F0F0F0'});
+                })
+              }
+            })
+          }
+        },
+        randomArray(list) {
+          let arr = []
+          let list2 = []
+          for(let i = 0; i < list.length; i++) {
+            arr[i] = i
+          }
+          arr = arr.slice();
+          var len = arr.length;
+          var temp, random_index;
+          while(len !== 0) {
+            random_index = Math.round( 0 + (len-1-0) * Math.random());
+            temp = arr[random_index];
+            arr[random_index] = arr[len-1];
+            arr[len-1] = temp;
+            --len;
+          }
+          for(let i = 0; i < list.length; i++) {
+            list2[i] = list[Number(arr[i])]
+          }
+          return list2;
+        },
+        getMenu() {
+          let _this = this;
+          axios
+            .get(_this.imgUrl + '/getMenu', {
+              params: {
+                lang: _this.location
+              }
+            })
+            .then(function (res) {
+              if (res.data.code === 1) {
+                if (res.data.data.length) {
+                  _this.navList = res.data.data
+                  let list = _this.navList;
+                  let length = _this.navList.length;
+                  if (length) {
+                    _this.renderAll[0] = false
+                    _this.cateIndex = 0
+                    _this.cateNews[0] = {};
+                    _this.firstCate = list[0].param
+                    if (list[0].param === 'Home') {
+                      _this.getGeNews(list[0], 0);
+                    } else {
+                      _this.getCateNews(list[0], 0);
+                    }
+                  }
+                }
+              }
+            })
+            .catch(function (error) {
+              console.log(error);
+            });
+        },
+        getIcon() {
+          let _this = this;
+          axios
+            .get(_this.imgUrl + '/getIcon', {
+              params: {
+                lang: _this.location
+              }
+            })
+            .then(function (res) {
+              if (res.data.code === 1) {
+                _this.iconList = res.data.data;
+                let length = res.data.data.length;
+                if (length) {
+                  for (let i = 0; i < length; i++) {
+                    let l = _this.iconList[i].get_icon.length;
+                    _this.iconList[i]['width'] = parseInt(100 / l);
+                  }
+                }
+              }
+            })
+            .catch(function (error) {
+              console.log(error);
+            });
+        },
+        getAdself() {
+          let _this = this;
+          axios
+            .get(_this.imgUrl + '/getBanner')
+            .then(function (res) {
+              if (res.data.code === 1) {
+                let data = res.data.data;
+                let ind = Object.keys(data.index);
+                let ic = Object.keys(data.icon);
+                let footer = Object.keys(data.foot);
+                let sNews = Object.keys(data.bgfoot);
+                if (data.hid_num) {
+                  _this.getOnlyMicro(data.hid_num)
+                }
+                if (data.rev_num) {
+                  _this.getOnlyRevecont(data.rev_num)
+                }
+                if (data.index) {
+                  if (ind.length) {
+                    _this.iconAdsStatus.push(data.index.status)
+                    if (data.index.status === 'normal') {
+                      _this.$nextTick(function(){
+                        $('#adsindex > div').append(data.index.data);
+                      })
+                    } else {
+                      $('#adsindex').hide();
+                    }
+                  } else {
+                    _this.iconAdsStatus.push('')
+                  }
+                  _this.iconMicAds.push('')
+                  _this.iconRevAds.push('')
+                }
+                if (data.icon) {
+                  if (ic.length) {
+                    _this.iconAdsStatus.push(data.icon.status)
+                    if (data.icon.status === 'normal') {
+                      _this.$nextTick(function(){
+                        $('#adsicon > div').append(data.icon.data);
+                      })
+                    } else {
+                      $('#adsicon').hide();
+                    }
+                  } else {
+                    _this.iconAdsStatus.push('')
+                  }
+                  _this.iconMicAds.push('')
+                  _this.iconRevAds.push('')
+                }
+                if (data.foot) {
+                  if (footer.length) {
+                    _this.iconAdsStatus.push(data.foot.status)
+                    if (data.foot.status === 'normal') {
+                      _this.$nextTick(function(){
+                        $('#adsfooter > div').append(data.foot.data);
+                      })
+                    } else {
+                      $('#adsfooter').hide();
+                    }
+                  } else {
+                    _this.iconAdsStatus.push('')
+                  }
+                  _this.iconMicAds.push('')
+                  _this.iconRevAds.push('')
+                }
+                if (data.bgfoot) {
+                  if (sNews.length) {
+                    _this.iconAdsStatus.push(data.bgfoot.status)
+                    if (data.bgfoot.status === 'normal') {
+                      _this.$nextTick(function(){
+                        $('#adsself > div').append(data.bgfoot.data);
+                      })
+                    } else {
+                      $('#adsself').hide();
+                    }
+                  } else {
+                    _this.iconAdsStatus.push('')
+                  }
+                  _this.iconMicAds.push('')
+                  _this.iconRevAds.push('')
+                }
+                if (data.bglist) {
+                  if (data.bglist.length) {
+                    let arr = data.bglist
+                    let mic = []
+                    let rev = []
+                    arr.forEach(item => {
+                      if(item.status === 'hidden') {
+                        mic.push(item.position_id)
+                      } else if(item.status === 'revcontent') {
+                        rev.push(item.position_id)
+                      }
+                    })
+                    _this.micSelfId = mic
+                    _this.revSelfId = rev
+                  }
+                }
+                if (data.cate) {
+                  if (data.cate.length) {
+                    let arr = data.cate
+                    for (let i = 0; i < arr.length; i++) {
+                      let mic = []
+                      let rev = []
+                      let js = []
+                      let jsData = []
+                      let topads = ''
+                      let topData = ''
+                      if(arr[i].count === 0) {
+                        arr[i]['noads'] = true
+                        continue
+                      } else {
+                        arr[i]['noads'] = false
+                      }
+                      if(arr[i].adlist.length) {
+                        arr[i].adlist.forEach(item => {
+                          if(item.status === 'hidden') {
+                            mic.push(item.position_id)
+                          } else if(item.status === 'revcontent') {
+                            rev.push(item.position_id)
+                          } else if(item.status === 'normal') {
+                            js.push(item.position_id)
+                            jsData.push(item.data)
+                          }
+                        })
+                      }
+                      if(arr[i].advition.length) {
+                        let ads = arr[i].advition[0]
+                        if(ads.status === 'hidden') {
+                          mic.push('top')
+                        } else if(ads.status === 'revcontent') {
+                          rev.push('top')
+                        } else if(ads.status === 'normal') {
+                          js.push('top')
+                          jsData.push(ads.data)
+                        }
+                      }
+                      arr[i]['micads'] = mic
+                      arr[i]['revads'] = rev
+                      arr[i]['jsads'] = js
+                      arr[i]['jsdata'] = jsData
+                    }
+                    _this.listAdsSta = arr
+                  } else {
+                    _this.listAdsSta = []
+                  }
+                }
+              } else {
+                _this.iconSelfAds = ['', '', '', ''];
+                _this.iconAdsStatus = ['off', 'off', 'off', 'off'];
+                _this.listAdsSta = []
+              }
+            })
+            .catch(function (error) {
+              console.log(error);
+            });
+        },
+        getNewself() {
+          let _this = this;
+          axios
+            .get(_this.imgUrl + '/banNews')
+            .then(function (res) {
+              if (res.data.code === 1) {
+                if (res.data.data.length) {
+                  let list = res.data.data
+                  let first_num = res.data.data.length-4;
+                  list.forEach(function (item, index){
+                    if(index <= first_num){
+                      _this.selfNews.push(item)
+                    }else{
+                      _this.selfNewsText.push(item)
+                    }
+
+                  })
+                  _this.$nextTick(function() {
+                    effectSwiper();
+                  })
+                }
+              }
+            })
+            .catch(function (error) {
+              console.log(error);
+            });
+        },
+        getCateNews(item, index) {
+          let _this = this;
+          let key = ''
+          if (item) {
+            key = item.param.replace('&', '');
+          } else {
+            return false
+          }
+          if (item.param === 'Recommend') {
+            key = 'sports,money,lifestyle,health,foodanddrink,travel,autos'
+          }
+          axios
+            .get(_this.baseUrl, {
+              params: {
+                ocid: _this.ocid,
+                market: _this.location,
+                query: key,
+                $top: item.newscount,
+                $skip: 0,
+                $select: 'sourceid,type,url,provider,title,images,publishedDateTime,category,abstract',
+                apikey: _this.apikey
+              }
+            })
+            .then(function (res) {
+              if (res.data.value) {
+                let data = res.data.value[0];
+                if (item.newscount) {
+                  let swiper = []
+                  let newlist = []
+                  if (item.param === 'Video') {
+                    swiper = []
+                    newlist = data.subCards.slice(0, Number(item.newscount));
+                  } else {
+                    if (item.newscount > 4) {
+                      swiper = data.subCards.slice(0, 4);
+                      newlist = data.subCards.slice(4, Number(item.newscount));
+                    } else {
+                      swiper = data.subCards.slice(0, Number(item.newscount));
+                      newlist = []
+                    }
+                  }
+                  let list = {};
+                  list['nextPageUrl'] = data.nextPageUrl;
+                  list['swiper'] = swiper;
+                  list['newlist'] = newlist;
+                  _this.$set(_this.cateNews, index, list);
+                  _this.$set(_this.renderAll, index, true)
+                  _this.checkRender()
+                  _this.choseAdsType(index)
+                } else {
+                  let list = {};
+                  list['nextPageUrl'] = '';
+                  list['swiper'] = [];
+                  list['newlist'] = [];
+                  _this.$set(_this.cateNews, index, list);
+                  _this.$set(_this.renderAll, index, true);
+                  _this.checkRender();
+                }
+                _this.cateIndex++;
+              }
+            })
+            .catch(function (error) {
+              console.log(error);
+            });
+        },
+        getGeNews(item, index) {
+          let _this = this;
+          axios
+            .get(_this.baseUrl, {
+              params: {
+                ocid: _this.ocid,
+                market: _this.location,
+                $top: item.newscount,
+                apikey: _this.apikey,
+                activityId: _this.guid,
+                user: _this.userId,
+                queryType: 'myFeed'
+              }
+            })
+            .then(function (res) {
+              if (res.data.value) {
+                let data = res.data.value[0];
+                if (item.newscount) {
+                  let swiper = []
+                  let newlist = []
+                  if (item.newscount > 4) {
+                    swiper = data.subCards.slice(0, 4);
+                    newlist = data.subCards.slice(4, Number(item.newscount));
+                  } else {
+                    swiper = data.subCards.slice(0, Number(item.newscount));
+                    newlist = []
+                  }
+                  let list = {};
+                  list['nextPageUrl'] = data.nextPageUrl;
+                  list['swiper'] = swiper;
+                  list['newlist'] = newlist;
+                  _this.$set(_this.cateNews, index, list);
+                  _this.$set(_this.renderAll, index, true)
+                  _this.checkRender()
+                  _this.choseAdsType(index)
+                } else {
+                  let list = {};
+                  list['nextPageUrl'] = '';
+                  list['swiper'] = [];
+                  list['newlist'] = [];
+                  _this.$set(_this.cateNews, index, list);
+                  _this.$set(_this.renderAll, index, true)
+                  _this.checkRender()
+                }
+                _this.cateIndex++;
+              }
+            })
+            .catch(function (error) {
+              console.log(error);
+            });
+        },
+        checkRender() {
+          let all = true
+          let list = this.renderAll
+          for (let i = 0; i < list.length; i++) {
+            if (!list[i]) {
+              all = false
+              break
+            }
+          }
+          if (all) {
+            this.$forceUpdate()
+            this.loadBusy = false
+          }
+          this.hasLoading = true
+          if(list.length > 1) {
+            let index = list.length - 1
+            this.$nextTick(function() {
+              normalSwiper(index);
+            })
+          } else {
+            this.$nextTick(function() {
+              // effectSwiper();
+              createSwiper();
+            })
+          }
+        },
+        toFeedBack(event) {
+          let _this = this;
+          let args = {
+            "ClientId": _this.ocid,
+            "Product": "browser",
+            "Market": "en-us",
+            "Events": [
+              {
+                "EventType": 'Click',
+                "UserId": _this.userId,
+                "ActivityId": _this.guid,
+                "TargetId": event.id,
+                "TargetType": event.type,
+                "EventTime": event.publishedDateTime
+              }
+            ]
+          }
+          axios
+            .post(_this.baseUrl, args, {
+              headers: {
+                'Content-Type': 'application/json'
+              }
+              // params: {
+              // 	ocid: _this.ocid,
+              // 	// market: _this.location,
+              // 	// $top: 11,
+              // 	apikey: _this.apikey,
+              // 	// activityId: _this.guid,
+              // 	// user: _this.userId,
+              // 	queryType: 'FeedBack',
+              // 	"ClientId": _this.ocid,
+              // 	"Product": "browser",
+              // 	"Market": "en-us",
+              // 	"Events": [
+              // 	  {
+              // 	    "EventType": 'Click',
+              // 	    "UserId": _this.userId,
+              // 	    "ActivityId": _this.guid,
+              // 	    "TargetId": event.id,
+              // 	    "TargetType": event.type,
+              // 	    "EventTime": event.publishedDateTime
+              // 	  }
+              // 	]
+              // }
+            })
+            .then(function (res) {
+              if (res.status === 200) {
+                console.log(res.data)
+              } else {
+                console.log(res)
+              }
+            })
+            .catch(function (error) {
+              console.log(error);
+            });
+        },
+        formateDate(str) {
+          if (str) {
+            let date = str.replace('/[a-zA-Z]+/g', ' ');
+            let newdate = date.substr(0, 10);
+            return newdate;
+          } else {
+            return '';
+          }
+        },
+        selectCategory(index) {
+          this.selectCate = index;
+        },
+        showMenu() {
+          this.menuFlag = true;
+        },
+        hideMenu() {
+          this.menuFlag = false;
+        },
+        handleScroll() {
+          let _this = this
+          $(function () {
+            //
+            var start_height = $(document).scrollTop();
+            //
+            var navigation_height = $('.header_fixed').outerHeight();
+            var headerbar_height = $('.header_bar').outerHeight();
+            $(window).scroll(function () {
+              //
+              var end_height = $(document).scrollTop();
+              //
+              if (end_height > headerbar_height) {
+                $('.header_bar').addClass('hide');
+              }
+              //
+              if (end_height < start_height) {
+                $('.header_bar').removeClass('hide');
+                if (start_height < navigation_height) {
+                  $('.header_bar').removeClass('hide');
+                }
+              }
+              //
+              start_height = $(document).scrollTop();
+              //
+              var diff = $(document).height() - $(window).scrollTop()
+              var btmHeight = $(window).height() + 5500 //
+              if (diff < btmHeight) {
+                if(_this.isOnlyAds === 0) {
+                  console.log('half')
+                  _this.loadMoreNews()
+                }
+              }
+            });
+          });
+        },
+        loadMoreNews() {
+          let _this = this
+          let list = this.navList;
+          let length = this.navList.length;
+          if (this.cateIndex < length) {
+            if (!this.loadBusy) {
+              let j = this.cateIndex;
+              this.renderAll[j] = false;
+              this.cateNews[j] = {};
+              this.loadBusy = true
+              if (list[j]) {
+                if (list[j].param === 'Home') {
+                  _this.getGeNews(list[j], j);
+                } else {
+                  _this.getCateNews(list[j], j);
+                }
+              }
+            }
+          }
+        },
+        upperCase(str) {
+          return str.toUpperCase() || '';
+        },
+        getSearchUrl() {
+          let _this = this;
+          axios
+            .get(_this.imgUrl + '/getSearch')
+            .then(function (res) {
+              if (res.data.code === 1) {
+                _this.search_logo = res.data.data.logo_image;
+                _this.searchUrl = res.data.data.url;
+                _this.search_place = res.data.data.placeholder;
+              }
+            })
+            .catch(function (error) {
+              console.log(error);
+            });
+        },
+        toSearch() {
+          let _this = this
+          let list = _this.historyList;
+          if (_this.searchValue) {
+            if (list.indexOf(_this.searchValue) === -1) {
+              list.push(_this.searchValue);
+              if (list.length > 5) {
+                list = list.slice(-5);
+              }
+              localStorage.setItem('history', JSON.stringify(list));
+            }
+          }
+          window.location.href = this.searchUrl + this.searchValue;
+          this.searchValue = '';
+        },
+        clickInput(type) {
+          if (type === 'top') {
+            this.hitoryBox = true;
+          }
+          if (type === 'side') {
+            this.hitoryBoxSide = true;
+          }
+          if (type === 'btm') {
+            this.hitoryBoxBtm = true;
+          }
+        },
+        choseHistory(key) {
+          console.log('his')
+          this.searchValue = key;
+          this.autokeyBox = false;
+          window.location.href = this.searchUrl + this.searchValue;
+          this.searchValue = '';
+        },
+        getAutoKey(type) {
+          let _this = this;
+          if (type === 'top') {
+            this.hitoryBox = false;
+            this.autokeyBox = true;
+          }
+          if (type === 'side') {
+            this.hitoryBoxSide = false;
+            this.autokeyBoxSide = true;
+          }
+          if (type === 'btm') {
+            this.hitoryBoxBtm = false;
+            this.autokeyBoxBtm = true;
+          }
+          axios
+            .get('https://api.miaotl.cn/hot/search?q=' + _this.searchValue)
+            .then(function (res) {
+              if (res.data.code === 200) {
+                console.log(res.data)
+                _this.autoKeyList = res.data.list;
+              } else {
+                console.log(res.data.msg)
+              }
+            })
+            .catch(function (error) {
+              console.log(error);
+            });
+        },
+        choseAutokey(key) {
+          console.log('key')
+          let list = this.historyList;
+          if (key) {
+            if (list.indexOf(key) === -1) {
+              list.push(key);
+              if (list.length > 5) {
+                list = list.slice(-5);
+              }
+              localStorage.setItem('history', JSON.stringify(list));
+            }
+          }
+          this.searchValue = key;
+          this.autokeyBox = false;
+          window.location.href = this.searchUrl + this.searchValue;
+          this.searchValue = '';
+        },
+        inputBlur(type) {
+          let _this = this;
+          if (type === 'top') {
+            setTimeout(function () {
+              _this.autokeyBox = false;
+              _this.hitoryBox = false;
+            }, 200)
+          }
+          if (type === 'side') {
+            setTimeout(function () {
+              _this.autokeyBoxSide = false;
+              _this.hitoryBoxSide = false;
+            }, 200)
+          }
+          if (type === 'btm') {
+            setTimeout(function () {
+              _this.autokeyBoxBtm = false;
+              _this.hitoryBoxBtm = false;
+            }, 200)
+          }
+        }
+      }
+    });
+  </script>
+<script type="text/javascript">
+  window._taboola = window._taboola || [];
+  _taboola.push({flush: true});
+</script>
+</body>
+
+</html>

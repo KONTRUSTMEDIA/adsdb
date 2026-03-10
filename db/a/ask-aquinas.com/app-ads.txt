@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ask Aquinas</title>
+    <link rel="icon" type="image/x-icon" href="/static/book-bible-solid.svg"
+    <i class="fa-solid fa-cross"></i>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-KPZ0E6E3YF"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-KPZ0E6E3YF');
+</script>
+
+<style>
+  html, body {
+      height: 100%;
+  }
+  
+  .fill { 
+      min-height: 100%;
+      height: 100%;
+  }
+
+  .container-fluid {
+     max-width:1000px;
+  }
+
+  input:focus {
+    outline:none;
+  }
+
+  #messageHistory {
+    height: calc(100% - 240px);
+    overflow-y: scroll;
+    scrollbar-width: none;
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius:10px;
+  }
+</style>
+
+<body style="font-family:sans-serif">
+    <div class="container-fluid fill">
+      <!-- top banner -->
+      <script src="https://secureaddisplay.com/au/"></script>
+      <ins class="CANDisplayAD" data-ad-unit="1091190520240528T1213585037BC8D8898C354317ADAD5F3FF10D291A" style="display:block; text-align:center"></ins>
+      <!-- /top banner -->
+
+      <div style="padding-top:15px"><h2 style="text-align:center; color:#858585;">Ask Aquinas <i class="fa-solid fa-cross"></i></h2>
+      </div>
+
+      <div id="messageHistory" class="mb-3" >
+          <!-- Message history will be displayed here -->
+      </div>
+      <div class="input-group mb-3" style="height: 60px; border: 1px solid #ccc; padding: 10px; border-radius:10px">
+        <input type="text" id="userInput" class="form-control border-0 shadow-none" style="border:none; focus.outline:none" placeholder="What are you wondering?">
+        <div class="input-group-append">
+          <button class="btn btn-primary" id="sendButton" style="border-radius:10px">Send</button>
+        </div>
+      </div>
+    </div>
+</body>
+
+<script>
+
+
+    // encode this in the format expected by chatgpt so we dont' have to mess with that on the back end.
+    var conversation = []
+
+    $(document).ready(function() {
+        $('#sendButton').click(function() {
+            var userInput = $('#userInput').val();
+            conversation.push({"role": "user", "content": userInput});
+
+            if (userInput.trim() !== "") {
+              $('#messageHistory').append('<div class="alert alert-primary ml-auto" role="alert" style="width:fit-content">' + userInput + '</div>');
+              $('#messageHistory').scrollTop($('#messageHistory')[0].scrollHeight);
+              $('#userInput').val('');
+
+            $.ajax({
+              url: '/get-response',
+              method: 'POST',
+              contentType: 'application/json',
+              data: JSON.stringify({ prompt: conversation }),
+              success: function(response) {
+                $('#messageHistory').append('<div style="position:relative;"><span style="position: absolute; top:5px"><i class="fa-solid fa-cross"></i></span><div class="alert alert-secondary" style="width:fit-content; max-width:calc(100% - 22px); display: inline-block; margin-left:18px;" role="alert">' + response.message + '</div></div>');
+                $('#messageHistory').scrollTop($('#messageHistory')[0].scrollHeight);
+                conversation.push({"role": "assistant", "content": response.message});
+              },
+              error: function() {
+                $('#messageHistory').append('<div class="alert alert-danger" role="alert">Error: Could not get a response.</div>');
+                $('#messageHistory').scrollTop($('#messageHistory')[0].scrollHeight);
+              }
+            });
+          }
+        });
+
+        $('#userInput').keypress(function(event) {
+            if (event.which === 13) {
+                $('#sendButton').click();
+            }
+        });
+    });
+</script>
+</body>
+</html>

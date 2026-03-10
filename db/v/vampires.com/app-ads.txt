@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vampires.com</title>
+    <style>
+        :root {
+            --dark-red: #800020;
+            --light-red: #ff0033;
+            --black: #000000;
+            --off-white: #f8f8f8;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+        }
+        
+        body {
+            background-color: var(--black);
+            color: var(--off-white);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        header {
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .logo {
+            font-size: 48px;
+            font-weight: bold;
+            color: var(--light-red);
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px rgba(255, 0, 51, 0.5);
+        }
+        
+        main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .question-container {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        h1 {
+            font-size: 28px;
+            margin-bottom: 20px;
+            font-weight: 300;
+        }
+        
+        .form-container {
+            background-color: rgba(30, 30, 30, 0.7);
+            border-radius: 10px;
+            padding: 30px;
+            width: 100%;
+            box-shadow: 0 0 20px rgba(255, 0, 51, 0.2);
+        }
+        
+        /* Custom form styling */
+        form {
+            width: 100%;
+        }
+        
+        .input-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-size: 18px;
+            color: var(--off-white);
+        }
+        
+        textarea, input[type="email"] {
+            width: 100%;
+            padding: 15px;
+            background-color: rgba(20, 20, 20, 0.8);
+            border: 1px solid var(--dark-red);
+            border-radius: 5px;
+            color: var(--off-white);
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+        
+        textarea {
+            resize: vertical;
+        }
+        
+        textarea:focus, input[type="email"]:focus {
+            outline: none;
+            border-color: var(--light-red);
+            box-shadow: 0 0 10px rgba(255, 0, 51, 0.3);
+        }
+        
+        textarea::placeholder, input[type="email"]::placeholder {
+            color: #888;
+        }
+        
+        .submit-btn {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background-color: var(--dark-red);
+            color: var(--off-white);
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .submit-btn:hover {
+            background-color: var(--light-red);
+            box-shadow: 0 0 15px rgba(255, 0, 51, 0.5);
+        }
+        
+        .form-status {
+            margin-top: 15px;
+            text-align: center;
+            font-size: 16px;
+            min-height: 24px;
+        }
+        
+        .success {
+            color: #4BB543;
+        }
+        
+        .error {
+            color: var(--light-red);
+        }
+        
+        /* Blood drops animation */
+        .blood-drops {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            pointer-events: none;
+            z-index: -1;
+            opacity: 0.6;
+        }
+        
+        .drop {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: var(--light-red);
+            border-radius: 50%;
+            top: -20px;
+            animation: drop 10s infinite linear;
+        }
+        
+        @keyframes drop {
+            0% {
+                top: -20px;
+                opacity: 1;
+            }
+            70% {
+                opacity: 1;
+            }
+            100% {
+                top: 100vh;
+                opacity: 0;
+            }
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .footer-links {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: var(--light-red);
+            text-decoration: none;
+            margin: 0 10px;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: var(--off-white);
+            text-shadow: 0 0 5px var(--light-red);
+        }
+        
+        /* Honeypot field for spam protection */
+        .hidden-field {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Blood drops animation in background -->
+    <div class="blood-drops" id="bloodDrops"></div>
+    
+    <header>
+        <div class="logo">VAMPIRES.COM</div>
+    </header>
+    
+    <main>
+        <div class="question-container">
+            <h1>Shape the Dark Future of Vampires.com</h1>
+        </div>
+        
+        <div class="form-container">
+            <form id="vampireForm" action="send-form.php" method="POST">
+                <!-- CSRF Token -->
+                <input type="hidden" name="csrf_token" id="csrf_token" value="">
+                
+                <div class="input-group">
+                    <label for="email">Your Email Address</label>
+                    <input type="email" id="email" name="email" required placeholder="your@email.com">
+                </div>
+                <div class="input-group">
+                    <label for="response">Unleash Your Immortal Vision</label>
+                    <textarea id="response" name="message" rows="6" placeholder="Tell us how Vampires.com should evolve in the shadows..." required></textarea>
+                </div>
+                
+                <!-- Honeypot field for spam protection -->
+                <div class="hidden-field">
+                    <input type="text" name="website" id="website">
+                </div>
+                
+                <button type="submit" class="submit-btn">Offer Your Thoughts</button>
+                <div id="form-status" class="form-status"></div>
+            </form>
+        </div>
+    </main>
+    
+    <footer>
+        <div class="footer-links">
+            <a href="https://www.vampires.com/docs/vampire-timeline/">Timeline</a> | 
+            <a href="https://discord.gg/TheKreeps">Discord</a>
+        </div>
+        <div class="copyright">&copy; 2025 Vampires.com</div>
+    </footer>
+    
+    <script>
+        // Create blood drop animation
+        const bloodDrops = document.getElementById('bloodDrops');
+        const screenWidth = window.innerWidth;
+        
+        // Create 15 drops
+        for (let i = 0; i < 15; i++) {
+            const drop = document.createElement('div');
+            drop.classList.add('drop');
+            
+            // Random position and size
+            const size = Math.random() * 15 + 5;
+            drop.style.left = Math.random() * screenWidth + 'px';
+            drop.style.width = size + 'px';
+            drop.style.height = size + 'px';
+            
+            // Random animation duration and delay
+            const duration = Math.random() * 10 + 5;
+            const delay = Math.random() * 8;
+            drop.style.animationDuration = duration + 's';
+            drop.style.animationDelay = delay + 's';
+            
+            bloodDrops.appendChild(drop);
+        }
+        
+        // Generate and set CSRF token
+        function generateCSRFToken() {
+            const array = new Uint8Array(16);
+            window.crypto.getRandomValues(array);
+            return Array.from(array, byte => byte.toString(16).padStart(2, '0')).join('');
+        }
+        
+        // Set CSRF token on page load
+        document.getElementById('csrf_token').value = generateCSRFToken();
+        
+        // Form submission with fetch API
+        document.getElementById('vampireForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formStatus = document.getElementById('form-status');
+            const form = this;
+            
+            // Show loading message
+            formStatus.textContent = 'Submitting...';
+            formStatus.className = 'form-status';
+            
+            // Use fetch to submit the form data to our PHP handler
+            fetch(form.action, {
+                method: form.method,
+                body: new FormData(form),
+                headers: {
+                    'Accept': 'application/json'
+                }
+            })
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                }
+                throw new Error('Network response was not ok.');
+            })
+            .then(data => {
+                if (data.success) {
+                    // Show success message and reset form
+                    formStatus.textContent = 'Your dark whispers have been received. The coven thanks you for your blood oath to our future.';
+                    formStatus.className = 'form-status success';
+                    form.reset();
+                    
+                    // Generate new CSRF token for next submission
+                    document.getElementById('csrf_token').value = generateCSRFToken();
+                } else {
+                    // Show server error message
+                    formStatus.textContent = data.message || 'There was a problem submitting your form. Please try again.';
+                    formStatus.className = 'form-status error';
+                }
+            })
+            .catch(error => {
+                // Show error message
+                formStatus.textContent = 'There was a problem submitting your form. Please try again.';
+                formStatus.className = 'form-status error';
+                console.error('Error:', error);
+            });
+        });
+    </script>
+</body>
+</html>

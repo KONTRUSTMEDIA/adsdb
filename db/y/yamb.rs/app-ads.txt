@@ -1,0 +1,2092 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+	<meta charset=utf-8>
+	<script type="text/javascript" src="inc/jquery.js"></script>
+	<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-59ad4bd03cf58c7a"></script>
+	<script type="text/javascript" src="_yamb/js.js"></script>
+	<link rel="stylesheet" type="text/css" href="_yamb/css.css?ver=6" />
+	<link rel="stylesheet" type="text/css" href="_yamb/dechko.css?ver=1771938123" />
+	<link rel="icon" href="https://yamb.rs/file/favicon-16.png" sizes="16x16" />
+    <link rel="icon" href="https://yamb.rs/file/favicon-32.png" sizes="32x32" />
+    <link rel="icon" href="https://yamb.rs/file/favicon-192.png" sizes="192x192" />
+	<link rel="apple-touch-icon-precomposed" href="https://yamb.rs/file/favicon-57.png" />
+    <link rel="apple-touch-icon" sizes="72x72" href="https://yamb.rs/file/favicon-72.png" />
+    <link rel="apple-touch-icon" sizes="114x114" href="https://yamb.rs/file/favicon-114.png" />
+    <link rel="apple-touch-icon" sizes="144x144" href="https://yamb.rs/file/favicon-144.png" />
+
+	<meta name=viewport content="width=device-width, initial-scale=1">
+	<link rel="canonical" href="https://www.yamb.rs/">
+	<link rel="publisher" href="https://plus.google.com/100104423900031366747">
+    <meta name="description" content="Yamb - online game, igra sa pet i šest kockica. Igru možete igrati u četiri veličine: Small (4 kolona x 12 vrsta), Medium (5x13), Big (7x13) i Mega (10x13).">
+    <meta property="og:title" content="Yamb - online game">
+	<meta property="og:type" content="article">
+    <meta property="og:site_name" content="Yamb.rs">
+    <meta property="og:description" content="Yamb - online game, igra sa pet i šest kockica. Igru možete igrati u četiri veličine: Small (4 kolona x 12 vrsta), Medium (5x13), Big (7x13) i Mega (10x13).">
+    <meta property="og:image" content="https://yamb.rs/share/yamb-rs.png">
+    <meta property="og:url" content="https://yamb.rs/">
+	<meta name="twitter:card" content="summary_large_image">
+	<meta name="twitter:site" content="yamb.rs">
+	<meta name="twitter:url" content="https://yamb.rs/">
+	<meta name="twitter:title" content="Yamb - online game">
+	<meta name="twitter:description" content="Play Yamb online.">
+	<meta name="twitter:image" content="https://yamb.rs/share/yamb-rs.png">
+	<title id="pagetitle">Yamb.rs - Yamb, Jamb, Džima - igra sa pet i šest kockica</title>
+</head>
+<body>
+	<div id="pagedef"></div>
+	<script>
+		window_width=$("div#pagedef").width();
+		window_height=$("div#pagedef").height();
+	</script>
+    <div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.10&appId=197601924026489";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+<!-- Header -->
+<div id="controller-menu" class="controller">
+	<div class="in">
+    	<div class="nav">
+        	<ul>
+            	<li>
+                	<a href="https://www.hangman.rs/" class="el-clear" title="Hangman - hangman.rs">
+                    	<img src="file/controller/hangman.png" alt="Hangman" />
+                        <strong>Hangman</strong>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <button onclick="open_menu();" class="zoom-5" title="Menu">
+            <svg viewBox="0 0 99 99">
+                <g>
+                    <polygon points="0,0 99,0 99,15 0,15"></polygon>
+                    <polygon points="0,42 99,42 99,57 0,57"></polygon>
+                    <polygon points="0,84 99,84 99,99 0,99"></polygon>
+                </g>
+            </svg>
+        </button>
+    </div>
+    <script>
+		function open_menu()
+		{
+			$("div#controller-menu").toggleClass('open');
+		}
+	</script>
+</div>
+<div id="controller-user" class="controller">
+	<button class="switcher zoom-5" onclick="user_panel_switch()">
+    	<img src="file/controller/user.png" alt="User" />
+        <span id="controller-user-let"></span>
+    </button>
+	<div class="panel">
+    	<div id="user-on" style="display:none;">
+			<div id="igrac">
+				<p class="ime" id="user-ime"></p>
+                <p class="email" id="user-email"></p>
+                <button class="zoom-5" onclick="logout();">Logout</button>
+            </div>
+        </div>
+    	<div id="user-off">
+        	<div class="head el-clear">
+            	<button id="user-off-login" class="on" onclick="user_off_nav('login');">Login</button>
+            	<button id="user-off-register" onclick="user_off_nav('register');">Sign Up</button>
+            </div>
+            <div class="body">
+                <div id="register" style="display:none;">
+                    <form action="javascript:void%200" onsubmit="register(this)" id="register_form">
+                        <input type="email" name="email" id="register_email" class="input" maxlength="60" placeholder="E-mail" title="E-mail" spellcheck="false" required>
+                        <input type="text" name="name" id="register_name" class="input" maxlength="20" placeholder="Username" title="Username" spellcheck="false" required>
+                        <input type="password" name="password1" id="register_password1" class="input" maxlength="30" placeholder="Password" title="Password" spellcheck="false" required>
+                        <input type="password" name="password2" id="register_password2" class="input" maxlength="30" placeholder="Repeat password" spellcheck="false" title="Repeat password" required>
+                        <input type="submit" value="Send" title="Send" class="submit zoom-5">
+                        <div id="register-loading" class="loader"></div>
+                    </form>
+                    <p id="register_report"></p>
+                </div>
+                <div id="login">
+                    <form action="javascript:void%200" onsubmit="login(this)" id="login_form">
+                        <input type="email" name="email" class="input" placeholder="E-mail" title="E-mail" spellcheck="false" required>
+                        <input type="password" name="password" class="input" placeholder="Password" title="Password" spellcheck="false" required>
+                        <input type="checkbox" name="keep_me" class="check" value="1" id="keep_me" title="Keep me logged in" checked="checked">
+                        <label for="keep_me">Keep me logged in</label>
+                        <input type="submit" value="Send" title="Send" class="submit zoom-5">
+                        <div id="login-loading" class="loader"></div>
+                    </form>
+                    <p id="login_report"></p>
+                </div>
+            </div>
+        </div>
+        <div id="user-on" style="display:none;">
+        </div>
+    </div>
+    <script>
+		var igrac=false,
+			navigacija_grupa="default",
+			navigacija_cur="";
+	
+		function user_panel_switch()
+		{
+			$("div#controller-user div.panel").slideToggle(160);
+		}
+	</script>
+    
+</div>
+<div id="dechko-link">
+	<a href="https://www.hangman.rs/dechko/" target="_blank" title="Dupli rechko">
+    	<span class="a"></span>
+    	<span class="b"></span>
+    	<span class="c"></span>
+    	<span class="d"></span>
+    	<strong>Dupli<br />rečko</strong>
+    </a>
+</div>
+
+
+<div id="controller-sound" class="controller">
+	<button onclick="zvuk();" class="zoom-5" title="Sound">
+    	<img src="file/controller/sound.png" class="on" alt="Sound on" />
+    	<img src="file/controller/sound-off.png" class="off" alt="Sound off" />
+    </button>
+</div>
+<div id="controller-help" class="controller">
+	<button onclick="help();" class="zoom-5" title="Help">?</button>
+</div>
+<!-- Begin -->
+<div id="begin">
+	<div id="begin-in">
+    	<div id="begin-ab">
+            <!-- Start -->
+            <div id="start">
+            	<div class="head">
+                	<img src="file/yamb/yamb-desk.png" alt="Yamb" class="desk" />
+                	<img src="file/yamb/yamb-mob.png" alt="Yamb" class="mob" />
+                </div>
+                <div class="body">
+                	<div class="size el-clear">
+                    	<button onclick="izaberi_yamb_classic_size('small');" id="classic_option_small" class="cur" title="Small - Four columns">
+                            <span class="radio"><span class="l1"><span class="l2"></span></span></span>
+                            <span class="title">Small</span>
+                            <span class="about">4 columns</span>
+                        </button>
+                    	<button onclick="izaberi_yamb_classic_size('medium');" id="classic_option_medium" title="Medium - Five columns">
+                            <span class="radio"><span class="l1"><span class="l2"></span></span></span>
+                            <span class="title">Medium</span>
+                            <span class="about">5 columns</span>
+                        </button>
+                    	<button onclick="izaberi_yamb_classic_size('big');" id="classic_option_big" title="Big - Seven columns">
+                            <span class="radio"><span class="l1"><span class="l2"></span></span></span>
+                            <span class="title">Big</span>
+                            <span class="about">7 columns</span>
+                        </button>
+                    	<button onclick="izaberi_yamb_classic_size('mega');" id="classic_option_mega" title="Mega - Ten columns">
+                            <span class="radio"><span class="l1"><span class="l2"></span></span></span>
+                            <span class="title">Mega</span>
+                            <span class="about">10 columns</span>
+                        </button>
+                    </div>
+                    <div class="hardness">
+                        <button onclick="izaberi_yamb_classic_hardness('ease');" id="classic_option_ease" title="Beginner - Six dice ✕ four throw">
+                            <span class="title">Beginner</span>
+                            <img src="file/yamb/yamb-hardness-ease.png" alt="Six dice ✕ four throw" />
+                        </button>
+                        <button class="cur" onclick="izaberi_yamb_classic_hardness('standard');" id="classic_option_standard" title="Basic - Six dice ✕ three throw">
+                            <span class="title">Basic</span>
+                            <img src="file/yamb/yamb-hardness-standard.png" alt="Six dice ✕ three throw" />
+                        </button>
+                        <button onclick="izaberi_yamb_classic_hardness('expert');" id="classic_option_expert" title="Expert - Five dice ✕ three throw">
+                            <span class="title">Expert</span>
+                            <img src="file/yamb/yamb-hardness-expert.png" alt="Five dice ✕ three throw" />
+                        </button>
+                    </div>
+                </div>
+                <div class="foot">
+                	<button id="start_game" onclick="start_game('yamb_classic');" title="Start game"><span class="l1"><span class="l2"><span class="l3">Start game</span></span></span></button>
+                </div>
+            	<div id="ads-desk-start">
+                    <!-- YAMBrs DESK START -->
+                    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                    <ins class="adsbygoogle"
+                         style="display:inline-block;width:468px;height:60px"
+                         data-ad-client="ca-pub-4616284712500089"
+                         data-ad-slot="9951403456"></ins>
+                    <script>
+                    (adsbygoogle = window.adsbygoogle || []).push({});
+                    </script>
+                </div>
+                <div id="ads-mob-start">
+                    <!-- YAMBrs MOB START -->
+                    <ins class="adsbygoogle"
+                         style="display:inline-block;width:300px;height:250px"
+                         data-ad-client="ca-pub-4616284712500089"
+                         data-ad-slot="2428136653"></ins>
+                    <script>
+                    (adsbygoogle = window.adsbygoogle || []).push({});
+                    </script>
+                </div>
+            </div>
+            <!-- Share -->
+            <div id="share-yamb">
+                <div id="fb"><div class="fb-like" data-href="https://www.yamb.rs/" data-layout="button" data-action="like" data-size="large" data-show-faces="true" data-share="true"></div></div>
+                <ul class="el-clear">
+                	<li class="twitter el-clear"><a href="https://twitter.com/intent/tweet?text=https%3A%2F%2Fwww.yamb.rs%2F" title="Twitter" target="_blank"><span>Tweet</span></a></li>
+                    <li class="linkedin el-clear"><a href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3A%2F%2Fwww.yamb.rs%2F&amp;title=Yamb.rs" title="LinkedIn" target="_blank"><span>LinkedIn</span></a></li>
+                    <li class="viber el-clear"><a href="viber://forward?text=https%3A%2F%2Fwww.yamb.rs%2F" title="Viber" target="_blank"><span>Viber</span></a></li>
+                    <li class="whatsapp el-clear"><a href="whatsapp://send?text=https%3A%2F%2Fwww.yamb.rs%2F" title="WhatsApp" target="_blank"><span>WhatsApp</span></a></li>
+                    <li class="messinger el-clear"><a href="fb-messenger://share/?link=https%3A%2F%2Fwww.yamb.rs%2F" title="Messinger" target="_blank"><span>Messinger</span></a></li>
+                </ul>
+            </div>
+            <!-- Scores -->
+            <div id="scores">
+                                        <div class="scores-group scores-par-1 el-clear" id="scores-1">
+                                                            <div class="ad" id="ads-desk-tab-a">
+                                    <!-- YAMBrs DESK START a -->
+                                    <ins class="adsbygoogle"
+                                         style="display:inline-block;width:468px;height:60px"
+                                         data-ad-client="ca-pub-4616284712500089"
+                                         data-ad-slot="8335069451"></ins>
+                                    <script>
+                                    (adsbygoogle = window.adsbygoogle || []).push({});
+                                    </script>
+                               </div>
+                                                                                    <div class="naslov">
+                                <div class="kockica kockica-6"><span></span></div>
+                                <div class="title"><h5 class="gfont">small</h5><p>basic</p></div>
+                                <div class="icon"><img src="file/yamb/naslov-small.png" alt="small - basic" /></div>
+                            </div>
+                            <div class="tabela">
+                                <div class="head"><button onclick="scores_tab(1,'10')" id="scores-nav-1-10" class="cur">10 days</button><button onclick="scores_tab(1,'all')" id="scores-nav-1-all">All time</button></div>
+                                <div class="body"><ul id="score-1-10">
+					<li>
+						<p class="pts">1775</p>
+						<p class="vreme">2026/02/22</p>
+						<p class="user anonimus">- online -</p>
+					</li>
+					
+					<li>
+						<p class="pts">1774</p>
+						<p class="vreme">2026/02/24</p>
+						<p class="user anonimus">- džima -</p>
+					</li>
+					
+					<li>
+						<p class="pts">1773</p>
+						<p class="vreme">2026/02/17</p>
+						<p class="user anonimus">- kniffel -</p>
+					</li>
+					
+					<li>
+						<p class="pts">1766</p>
+						<p class="vreme">2026/02/17</p>
+						<p class="user anonimus">- igrica -</p>
+					</li>
+					
+					<li>
+						<p class="pts">1759</p>
+						<p class="vreme">2026/02/22</p>
+						<p class="user anonimus">- yatzy -</p>
+					</li>
+					
+					<li>
+						<p class="pts">1747</p>
+						<p class="vreme">2026/02/14</p>
+						<p class="user anonimus">- džima -</p>
+					</li>
+					
+					<li>
+						<p class="pts">1721</p>
+						<p class="vreme">2026/02/22</p>
+						<p class="user anonimus">- džima -</p>
+					</li>
+					
+					<li>
+						<p class="pts">1717</p>
+						<p class="vreme">2026/02/24</p>
+						<p class="user anonimus">- yamb -</p>
+					</li>
+					
+					<li>
+						<p class="pts">1708</p>
+						<p class="vreme">2026/02/18</p>
+						<p class="user anonimus">- yamb -</p>
+					</li>
+					</ul><ul id="score-1-all" style="display:none;">
+					<li>
+						<p class="pts">2122</p>
+						<p class="vreme">2021/01/12</p>
+						<p class="user">backey</p>
+					</li>
+					
+					<li>
+						<p class="pts">2120</p>
+						<p class="vreme">2019/12/19</p>
+						<p class="user anonimus">- generala -</p>
+					</li>
+					
+					<li>
+						<p class="pts">2112</p>
+						<p class="vreme">2019/12/12</p>
+						<p class="user">debeli100</p>
+					</li>
+					
+					<li>
+						<p class="pts">2003</p>
+						<p class="vreme">2020/01/01</p>
+						<p class="user">NIKI</p>
+					</li>
+					
+					<li>
+						<p class="pts">1920</p>
+						<p class="vreme">2020/01/20</p>
+						<p class="user anonimus">- generala -</p>
+					</li>
+					
+					<li>
+						<p class="pts">1907</p>
+						<p class="vreme">2019/11/26</p>
+						<p class="user">debeli100</p>
+					</li>
+					
+					<li>
+						<p class="pts">1874</p>
+						<p class="vreme">2019/11/25</p>
+						<p class="user anonimus">- generala -</p>
+					</li>
+					
+					<li>
+						<p class="pts">1857</p>
+						<p class="vreme">2022/02/03</p>
+						<p class="user anonimus">- generala -</p>
+					</li>
+					
+					<li>
+						<p class="pts">1846</p>
+						<p class="vreme">2025/10/13</p>
+						<p class="user anonimus">- jamb -</p>
+					</li>
+					</ul></div>
+                            </div>
+                                                                                </div>
+                                                <div class="scores-group scores-par-0 el-clear" id="scores-2">
+                                                                                    <div class="naslov">
+                                <div class="kockica kockica-6"><span></span></div>
+                                <div class="title"><h5 class="gfont">medium</h5><p>basic</p></div>
+                                <div class="icon"><img src="file/yamb/naslov-medium.png" alt="medium - basic" /></div>
+                            </div>
+                            <div class="tabela">
+                                <div class="head"><button onclick="scores_tab(2,'10')" id="scores-nav-2-10" class="cur">10 days</button><button onclick="scores_tab(2,'all')" id="scores-nav-2-all">All time</button></div>
+                                <div class="body"><ul id="score-2-10">
+					<li>
+						<p class="pts">2284</p>
+						<p class="vreme">2026/02/18</p>
+						<p class="user anonimus">- kniffel -</p>
+					</li>
+					
+					<li>
+						<p class="pts">2265</p>
+						<p class="vreme">2026/02/18</p>
+						<p class="user anonimus">- yatzy -</p>
+					</li>
+					
+					<li>
+						<p class="pts">2262</p>
+						<p class="vreme">2026/02/15</p>
+						<p class="user anonimus">- yamb -</p>
+					</li>
+					
+					<li>
+						<p class="pts">2261</p>
+						<p class="vreme">2026/02/16</p>
+						<p class="user anonimus">- džima -</p>
+					</li>
+					
+					<li>
+						<p class="pts">2231</p>
+						<p class="vreme">2026/02/18</p>
+						<p class="user anonimus">- yatzy -</p>
+					</li>
+					
+					<li>
+						<p class="pts">2226</p>
+						<p class="vreme">2026/02/14</p>
+						<p class="user">NancyS</p>
+					</li>
+					
+					<li>
+						<p class="pts">2221</p>
+						<p class="vreme">2026/02/17</p>
+						<p class="user anonimus">- yamb -</p>
+					</li>
+					
+					<li>
+						<p class="pts">2216</p>
+						<p class="vreme">2026/02/24</p>
+						<p class="user anonimus">- igra -</p>
+					</li>
+					
+					<li>
+						<p class="pts">2209</p>
+						<p class="vreme">2026/02/16</p>
+						<p class="user anonimus">- džima -</p>
+					</li>
+					</ul><ul id="score-2-all" style="display:none;">
+					<li>
+						<p class="pts">2840</p>
+						<p class="vreme">2025/04/03</p>
+						<p class="user anonimus">- yamb -</p>
+					</li>
+					
+					<li>
+						<p class="pts">2391</p>
+						<p class="vreme">2024/03/07</p>
+						<p class="user anonimus">- generala -</p>
+					</li>
+					
+					<li>
+						<p class="pts">2374</p>
+						<p class="vreme">2021/01/12</p>
+						<p class="user">backey</p>
+					</li>
+					
+					<li>
+						<p class="pts">2372</p>
+						<p class="vreme">2019/02/20</p>
+						<p class="user anonimus">- jamb -</p>
+					</li>
+					
+					<li>
+						<p class="pts">2370</p>
+						<p class="vreme">2025/12/03</p>
+						<p class="user anonimus">- yatzy -</p>
+					</li>
+					
+					<li>
+						<p class="pts">2358</p>
+						<p class="vreme">2022/10/05</p>
+						<p class="user anonimus">- igrica -</p>
+					</li>
+					
+					<li>
+						<p class="pts">2356</p>
+						<p class="vreme">2023/01/04</p>
+						<p class="user anonimus">- online -</p>
+					</li>
+					
+					<li>
+						<p class="pts">2347</p>
+						<p class="vreme">2023/10/23</p>
+						<p class="user anonimus">- džima -</p>
+					</li>
+					
+					<li>
+						<p class="pts">2347</p>
+						<p class="vreme">2021/08/12</p>
+						<p class="user anonimus">- online -</p>
+					</li>
+					</ul></div>
+                            </div>
+                                                            <div class="adm" id="ads-desk-tab-c">
+                                    <!-- YAMBrs MOB START a -->
+                                    <ins class="adsbygoogle"
+                                         style="display:inline-block;width:300px;height:250px"
+                                         data-ad-client="ca-pub-4616284712500089"
+                                         data-ad-slot="2288535851"></ins>
+                                    <script>
+                                    (adsbygoogle = window.adsbygoogle || []).push({});
+                                    </script>
+                                </div>
+                                                                                </div>
+                                                <div class="scores-group scores-par-1 el-clear" id="scores-3">
+                                                                                    <div class="naslov">
+                                <div class="kockica kockica-6"><span></span></div>
+                                <div class="title"><h5 class="gfont">big</h5><p>basic</p></div>
+                                <div class="icon"><img src="file/yamb/naslov-big.png" alt="big - basic" /></div>
+                            </div>
+                            <div class="tabela">
+                                <div class="head"><button onclick="scores_tab(3,'10')" id="scores-nav-3-10" class="cur">10 days</button><button onclick="scores_tab(3,'all')" id="scores-nav-3-all">All time</button></div>
+                                <div class="body"><ul id="score-3-10">
+					<li>
+						<p class="pts">3293</p>
+						<p class="vreme">2026/02/17</p>
+						<p class="user anonimus">- igra -</p>
+					</li>
+					
+					<li>
+						<p class="pts">3273</p>
+						<p class="vreme">2026/02/22</p>
+						<p class="user anonimus">- yatzy -</p>
+					</li>
+					
+					<li>
+						<p class="pts">3251</p>
+						<p class="vreme">2026/02/16</p>
+						<p class="user anonimus">- online -</p>
+					</li>
+					
+					<li>
+						<p class="pts">3228</p>
+						<p class="vreme">2026/02/18</p>
+						<p class="user anonimus">- kniffel -</p>
+					</li>
+					
+					<li>
+						<p class="pts">3224</p>
+						<p class="vreme">2026/02/19</p>
+						<p class="user anonimus">- generala -</p>
+					</li>
+					
+					<li>
+						<p class="pts">3220</p>
+						<p class="vreme">2026/02/19</p>
+						<p class="user anonimus">- yatzy -</p>
+					</li>
+					
+					<li>
+						<p class="pts">3219</p>
+						<p class="vreme">2026/02/18</p>
+						<p class="user">DarMar</p>
+					</li>
+					
+					<li>
+						<p class="pts">3212</p>
+						<p class="vreme">2026/02/23</p>
+						<p class="user anonimus">- igrica -</p>
+					</li>
+					
+					<li>
+						<p class="pts">3210</p>
+						<p class="vreme">2026/02/21</p>
+						<p class="user anonimus">- online -</p>
+					</li>
+					</ul><ul id="score-3-all" style="display:none;">
+					<li>
+						<p class="pts">3383</p>
+						<p class="vreme">2022/07/21</p>
+						<p class="user anonimus">- online -</p>
+					</li>
+					
+					<li>
+						<p class="pts">3370</p>
+						<p class="vreme">2021/01/12</p>
+						<p class="user">backey</p>
+					</li>
+					
+					<li>
+						<p class="pts">3369</p>
+						<p class="vreme">2018/05/06</p>
+						<p class="user anonimus">- generala -</p>
+					</li>
+					
+					<li>
+						<p class="pts">3362</p>
+						<p class="vreme">2023/09/16</p>
+						<p class="user anonimus">- džima -</p>
+					</li>
+					
+					<li>
+						<p class="pts">3359</p>
+						<p class="vreme">2020/10/30</p>
+						<p class="user anonimus">- yamb -</p>
+					</li>
+					
+					<li>
+						<p class="pts">3358</p>
+						<p class="vreme">2024/09/02</p>
+						<p class="user anonimus">- igra -</p>
+					</li>
+					
+					<li>
+						<p class="pts">3357</p>
+						<p class="vreme">2020/12/31</p>
+						<p class="user anonimus">- jamb -</p>
+					</li>
+					
+					<li>
+						<p class="pts">3354</p>
+						<p class="vreme">2019/05/22</p>
+						<p class="user">dvotockas</p>
+					</li>
+					
+					<li>
+						<p class="pts">3352</p>
+						<p class="vreme">2020/02/04</p>
+						<p class="user anonimus">- igra -</p>
+					</li>
+					</ul></div>
+                            </div>
+                                                                                </div>
+                                                <div class="scores-group scores-par-0 el-clear" id="scores-10">
+                                                                                    <div class="naslov">
+                                <div class="kockica kockica-6"><span></span></div>
+                                <div class="title"><h5 class="gfont">mega</h5><p>basic</p></div>
+                                <div class="icon"><img src="file/yamb/naslov-mega.png" alt="mega - basic" /></div>
+                            </div>
+                            <div class="tabela">
+                                <div class="head"><button onclick="scores_tab(10,'10')" id="scores-nav-10-10" class="cur">10 days</button><button onclick="scores_tab(10,'all')" id="scores-nav-10-all">All time</button></div>
+                                <div class="body"><ul id="score-10-10">
+					<li>
+						<p class="pts">4694</p>
+						<p class="vreme">2026/02/22</p>
+						<p class="user">MarkoSC</p>
+					</li>
+					
+					<li>
+						<p class="pts">4684</p>
+						<p class="vreme">2026/02/17</p>
+						<p class="user anonimus">- online -</p>
+					</li>
+					
+					<li>
+						<p class="pts">4669</p>
+						<p class="vreme">2026/02/20</p>
+						<p class="user anonimus">- yamb -</p>
+					</li>
+					
+					<li>
+						<p class="pts">4643</p>
+						<p class="vreme">2026/02/22</p>
+						<p class="user anonimus">- igrica -</p>
+					</li>
+					
+					<li>
+						<p class="pts">4637</p>
+						<p class="vreme">2026/02/22</p>
+						<p class="user anonimus">- free -</p>
+					</li>
+					
+					<li>
+						<p class="pts">4629</p>
+						<p class="vreme">2026/02/17</p>
+						<p class="user anonimus">- free -</p>
+					</li>
+					
+					<li>
+						<p class="pts">4606</p>
+						<p class="vreme">2026/02/16</p>
+						<p class="user anonimus">- yatzy -</p>
+					</li>
+					
+					<li>
+						<p class="pts">4589</p>
+						<p class="vreme">2026/02/15</p>
+						<p class="user anonimus">- yatzy -</p>
+					</li>
+					
+					<li>
+						<p class="pts">4588</p>
+						<p class="vreme">2026/02/19</p>
+						<p class="user anonimus">- kniffel -</p>
+					</li>
+					</ul><ul id="score-10-all" style="display:none;">
+					<li>
+						<p class="pts">4694</p>
+						<p class="vreme">2026/02/22</p>
+						<p class="user">MarkoSC</p>
+					</li>
+					
+					<li>
+						<p class="pts">4690</p>
+						<p class="vreme">2026/02/14</p>
+						<p class="user anonimus">- yamb -</p>
+					</li>
+					
+					<li>
+						<p class="pts">4688</p>
+						<p class="vreme">2026/01/22</p>
+						<p class="user anonimus">- free -</p>
+					</li>
+					
+					<li>
+						<p class="pts">4684</p>
+						<p class="vreme">2026/02/17</p>
+						<p class="user anonimus">- kniffel -</p>
+					</li>
+					
+					<li>
+						<p class="pts">4671</p>
+						<p class="vreme">2026/02/01</p>
+						<p class="user anonimus">- online -</p>
+					</li>
+					
+					<li>
+						<p class="pts">4669</p>
+						<p class="vreme">2026/02/20</p>
+						<p class="user anonimus">- igrica -</p>
+					</li>
+					
+					<li>
+						<p class="pts">4666</p>
+						<p class="vreme">2026/02/06</p>
+						<p class="user anonimus">- igra -</p>
+					</li>
+					
+					<li>
+						<p class="pts">4653</p>
+						<p class="vreme">2026/01/20</p>
+						<p class="user anonimus">- online -</p>
+					</li>
+					
+					<li>
+						<p class="pts">4643</p>
+						<p class="vreme">2026/02/22</p>
+						<p class="user anonimus">- yamb -</p>
+					</li>
+					</ul></div>
+                            </div>
+                                                                                </div>
+                                                <div class="scores-group scores-par-1 el-clear" id="scores-4">
+                                                                                        <div class="ad" id="ads-desk-tab-b">
+                                    <!-- YAMBrs DESK START b -->
+                                    <ins class="adsbygoogle"
+                                         style="display:inline-block;width:468px;height:60px"
+                                         data-ad-client="ca-pub-4616284712500089"
+                                         data-ad-slot="9811802653"></ins>
+                                    <script>
+                                    (adsbygoogle = window.adsbygoogle || []).push({});
+                                    </script>
+                                </div>
+                                                        <div class="naslov">
+                                <div class="kockica kockica-5"><span></span></div>
+                                <div class="title"><h5 class="gfont">small</h5><p>expert</p></div>
+                                <div class="icon"><img src="file/yamb/naslov-small.png" alt="small - expert" /></div>
+                            </div>
+                            <div class="tabela">
+                                <div class="head"><button onclick="scores_tab(4,'10')" id="scores-nav-4-10" class="cur">10 days</button><button onclick="scores_tab(4,'all')" id="scores-nav-4-all">All time</button></div>
+                                <div class="body"><ul id="score-4-10">
+					<li>
+						<p class="pts">1383</p>
+						<p class="vreme">2026/02/16</p>
+						<p class="user anonimus">- online -</p>
+					</li>
+					
+					<li>
+						<p class="pts">1338</p>
+						<p class="vreme">2026/02/18</p>
+						<p class="user">bogamber</p>
+					</li>
+					
+					<li>
+						<p class="pts">1302</p>
+						<p class="vreme">2026/02/22</p>
+						<p class="user anonimus">- jamb -</p>
+					</li>
+					
+					<li>
+						<p class="pts">1302</p>
+						<p class="vreme">2026/02/20</p>
+						<p class="user">Holden Caulfield</p>
+					</li>
+					
+					<li>
+						<p class="pts">1298</p>
+						<p class="vreme">2026/02/22</p>
+						<p class="user anonimus">- online -</p>
+					</li>
+					
+					<li>
+						<p class="pts">1292</p>
+						<p class="vreme">2026/02/20</p>
+						<p class="user anonimus">- generala -</p>
+					</li>
+					
+					<li>
+						<p class="pts">1277</p>
+						<p class="vreme">2026/02/20</p>
+						<p class="user anonimus">- kniffel -</p>
+					</li>
+					
+					<li>
+						<p class="pts">1271</p>
+						<p class="vreme">2026/02/15</p>
+						<p class="user anonimus">- free -</p>
+					</li>
+					
+					<li>
+						<p class="pts">1266</p>
+						<p class="vreme">2026/02/22</p>
+						<p class="user">bogamber</p>
+					</li>
+					</ul><ul id="score-4-all" style="display:none;">
+					<li>
+						<p class="pts">2102</p>
+						<p class="vreme">2025/09/16</p>
+						<p class="user anonimus">- jamb -</p>
+					</li>
+					
+					<li>
+						<p class="pts">1538</p>
+						<p class="vreme">2020/07/06</p>
+						<p class="user anonimus">- igrica -</p>
+					</li>
+					
+					<li>
+						<p class="pts">1503</p>
+						<p class="vreme">2023/03/15</p>
+						<p class="user anonimus">- online -</p>
+					</li>
+					
+					<li>
+						<p class="pts">1487</p>
+						<p class="vreme">2019/07/31</p>
+						<p class="user anonimus">- kniffel -</p>
+					</li>
+					
+					<li>
+						<p class="pts">1474</p>
+						<p class="vreme">2020/11/29</p>
+						<p class="user anonimus">- džima -</p>
+					</li>
+					
+					<li>
+						<p class="pts">1470</p>
+						<p class="vreme">2019/09/24</p>
+						<p class="user anonimus">- igra -</p>
+					</li>
+					
+					<li>
+						<p class="pts">1466</p>
+						<p class="vreme">2018/11/14</p>
+						<p class="user anonimus">- yamb -</p>
+					</li>
+					
+					<li>
+						<p class="pts">1465</p>
+						<p class="vreme">2018/06/17</p>
+						<p class="user">raman prizren</p>
+					</li>
+					
+					<li>
+						<p class="pts">1460</p>
+						<p class="vreme">2022/11/06</p>
+						<p class="user">Holden Caulfield</p>
+					</li>
+					</ul></div>
+                            </div>
+                                                                                        <div class="adm" id="ads-desk-tab-d">
+                                    <!-- YAMBrs MOB START b -->
+                                    <ins class="adsbygoogle"
+                                         style="display:inline-block;width:300px;height:250px"
+                                         data-ad-client="ca-pub-4616284712500089"
+                                         data-ad-slot="3765269058"></ins>
+                                    <script>
+                                    (adsbygoogle = window.adsbygoogle || []).push({});
+                                    </script>                    
+                                </div>
+                                                    </div>
+                                                <div class="scores-group scores-par-0 el-clear" id="scores-5">
+                                                                                    <div class="naslov">
+                                <div class="kockica kockica-5"><span></span></div>
+                                <div class="title"><h5 class="gfont">medium</h5><p>expert</p></div>
+                                <div class="icon"><img src="file/yamb/naslov-medium.png" alt="medium - expert" /></div>
+                            </div>
+                            <div class="tabela">
+                                <div class="head"><button onclick="scores_tab(5,'10')" id="scores-nav-5-10" class="cur">10 days</button><button onclick="scores_tab(5,'all')" id="scores-nav-5-all">All time</button></div>
+                                <div class="body"><ul id="score-5-10">
+					<li>
+						<p class="pts">1709</p>
+						<p class="vreme">2026/02/20</p>
+						<p class="user anonimus">- yatzy -</p>
+					</li>
+					
+					<li>
+						<p class="pts">1677</p>
+						<p class="vreme">2026/02/19</p>
+						<p class="user">koja</p>
+					</li>
+					
+					<li>
+						<p class="pts">1673</p>
+						<p class="vreme">2026/02/18</p>
+						<p class="user anonimus">- jamb -</p>
+					</li>
+					
+					<li>
+						<p class="pts">1672</p>
+						<p class="vreme">2026/02/22</p>
+						<p class="user anonimus">- yamb -</p>
+					</li>
+					
+					<li>
+						<p class="pts">1642</p>
+						<p class="vreme">2026/02/23</p>
+						<p class="user anonimus">- igra -</p>
+					</li>
+					
+					<li>
+						<p class="pts">1607</p>
+						<p class="vreme">2026/02/24</p>
+						<p class="user anonimus">- igrica -</p>
+					</li>
+					
+					<li>
+						<p class="pts">1603</p>
+						<p class="vreme">2026/02/24</p>
+						<p class="user anonimus">- kniffel -</p>
+					</li>
+					
+					<li>
+						<p class="pts">1590</p>
+						<p class="vreme">2026/02/18</p>
+						<p class="user anonimus">- jamb -</p>
+					</li>
+					
+					<li>
+						<p class="pts">1576</p>
+						<p class="vreme">2026/02/23</p>
+						<p class="user anonimus">- igra -</p>
+					</li>
+					</ul><ul id="score-5-all" style="display:none;">
+					<li>
+						<p class="pts">1930</p>
+						<p class="vreme">2024/05/06</p>
+						<p class="user anonimus">- igrica -</p>
+					</li>
+					
+					<li>
+						<p class="pts">1867</p>
+						<p class="vreme">2024/09/14</p>
+						<p class="user">Stef</p>
+					</li>
+					
+					<li>
+						<p class="pts">1857</p>
+						<p class="vreme">2018/08/27</p>
+						<p class="user anonimus">- igrica -</p>
+					</li>
+					
+					<li>
+						<p class="pts">1856</p>
+						<p class="vreme">2024/12/04</p>
+						<p class="user anonimus">- kniffel -</p>
+					</li>
+					
+					<li>
+						<p class="pts">1853</p>
+						<p class="vreme">2021/10/10</p>
+						<p class="user anonimus">- online -</p>
+					</li>
+					
+					<li>
+						<p class="pts">1846</p>
+						<p class="vreme">2024/11/23</p>
+						<p class="user anonimus">- online -</p>
+					</li>
+					
+					<li>
+						<p class="pts">1842</p>
+						<p class="vreme">2021/10/25</p>
+						<p class="user anonimus">- online -</p>
+					</li>
+					
+					<li>
+						<p class="pts">1831</p>
+						<p class="vreme">2024/08/19</p>
+						<p class="user">Stef</p>
+					</li>
+					
+					<li>
+						<p class="pts">1829</p>
+						<p class="vreme">2025/11/08</p>
+						<p class="user anonimus">- kniffel -</p>
+					</li>
+					</ul></div>
+                            </div>
+                                                                                </div>
+                                                <div class="scores-group scores-par-1 el-clear" id="scores-6">
+                                                                                    <div class="naslov">
+                                <div class="kockica kockica-5"><span></span></div>
+                                <div class="title"><h5 class="gfont">big</h5><p>expert</p></div>
+                                <div class="icon"><img src="file/yamb/naslov-big.png" alt="big - expert" /></div>
+                            </div>
+                            <div class="tabela">
+                                <div class="head"><button onclick="scores_tab(6,'10')" id="scores-nav-6-10" class="cur">10 days</button><button onclick="scores_tab(6,'all')" id="scores-nav-6-all">All time</button></div>
+                                <div class="body"><ul id="score-6-10">
+					<li>
+						<p class="pts">2342</p>
+						<p class="vreme">2026/02/18</p>
+						<p class="user anonimus">- generala -</p>
+					</li>
+					
+					<li>
+						<p class="pts">2239</p>
+						<p class="vreme">2026/02/19</p>
+						<p class="user anonimus">- generala -</p>
+					</li>
+					
+					<li>
+						<p class="pts">2229</p>
+						<p class="vreme">2026/02/14</p>
+						<p class="user anonimus">- yamb -</p>
+					</li>
+					
+					<li>
+						<p class="pts">2199</p>
+						<p class="vreme">2026/02/16</p>
+						<p class="user anonimus">- yatzy -</p>
+					</li>
+					
+					<li>
+						<p class="pts">2195</p>
+						<p class="vreme">2026/02/17</p>
+						<p class="user anonimus">- igra -</p>
+					</li>
+					
+					<li>
+						<p class="pts">2163</p>
+						<p class="vreme">2026/02/17</p>
+						<p class="user anonimus">- online -</p>
+					</li>
+					
+					<li>
+						<p class="pts">2147</p>
+						<p class="vreme">2026/02/19</p>
+						<p class="user">SILJA1</p>
+					</li>
+					
+					<li>
+						<p class="pts">2136</p>
+						<p class="vreme">2026/02/20</p>
+						<p class="user">SILJA1</p>
+					</li>
+					
+					<li>
+						<p class="pts">2094</p>
+						<p class="vreme">2026/02/15</p>
+						<p class="user">SILJA1</p>
+					</li>
+					</ul><ul id="score-6-all" style="display:none;">
+					<li>
+						<p class="pts">2889</p>
+						<p class="vreme">2025/11/15</p>
+						<p class="user anonimus">- yamb -</p>
+					</li>
+					
+					<li>
+						<p class="pts">2750</p>
+						<p class="vreme">2025/10/23</p>
+						<p class="user">SILJA1</p>
+					</li>
+					
+					<li>
+						<p class="pts">2722</p>
+						<p class="vreme">2023/10/30</p>
+						<p class="user anonimus">- generala -</p>
+					</li>
+					
+					<li>
+						<p class="pts">2717</p>
+						<p class="vreme">2019/10/17</p>
+						<p class="user anonimus">- online -</p>
+					</li>
+					
+					<li>
+						<p class="pts">2711</p>
+						<p class="vreme">2025/07/01</p>
+						<p class="user">Stef</p>
+					</li>
+					
+					<li>
+						<p class="pts">2695</p>
+						<p class="vreme">2025/07/21</p>
+						<p class="user">SILJA1</p>
+					</li>
+					
+					<li>
+						<p class="pts">2654</p>
+						<p class="vreme">2019/10/12</p>
+						<p class="user">marijaj</p>
+					</li>
+					
+					<li>
+						<p class="pts">2643</p>
+						<p class="vreme">2025/02/12</p>
+						<p class="user anonimus">- igrica -</p>
+					</li>
+					
+					<li>
+						<p class="pts">2611</p>
+						<p class="vreme">2025/04/17</p>
+						<p class="user">Stef</p>
+					</li>
+					</ul></div>
+                            </div>
+                                                                                </div>
+                                                <div class="scores-group scores-par-0 el-clear" id="scores-11">
+                                                                                    <div class="naslov">
+                                <div class="kockica kockica-5"><span></span></div>
+                                <div class="title"><h5 class="gfont">mega</h5><p>expert</p></div>
+                                <div class="icon"><img src="file/yamb/naslov-mega.png" alt="mega - expert" /></div>
+                            </div>
+                            <div class="tabela">
+                                <div class="head"><button onclick="scores_tab(11,'10')" id="scores-nav-11-10" class="cur">10 days</button><button onclick="scores_tab(11,'all')" id="scores-nav-11-all">All time</button></div>
+                                <div class="body"><ul id="score-11-10">
+					<li>
+						<p class="pts">3573</p>
+						<p class="vreme">2026/02/23</p>
+						<p class="user anonimus">- džima -</p>
+					</li>
+					
+					<li>
+						<p class="pts">3546</p>
+						<p class="vreme">2026/02/24</p>
+						<p class="user anonimus">- džima -</p>
+					</li>
+					
+					<li>
+						<p class="pts">3404</p>
+						<p class="vreme">2026/02/23</p>
+						<p class="user anonimus">- kniffel -</p>
+					</li>
+					
+					<li>
+						<p class="pts">3403</p>
+						<p class="vreme">2026/02/20</p>
+						<p class="user anonimus">- džima -</p>
+					</li>
+					
+					<li>
+						<p class="pts">3382</p>
+						<p class="vreme">2026/02/23</p>
+						<p class="user anonimus">- igra -</p>
+					</li>
+					
+					<li>
+						<p class="pts">3376</p>
+						<p class="vreme">2026/02/18</p>
+						<p class="user anonimus">- džima -</p>
+					</li>
+					
+					<li>
+						<p class="pts">3358</p>
+						<p class="vreme">2026/02/22</p>
+						<p class="user anonimus">- kniffel -</p>
+					</li>
+					
+					<li>
+						<p class="pts">3348</p>
+						<p class="vreme">2026/02/22</p>
+						<p class="user anonimus">- yamb -</p>
+					</li>
+					
+					<li>
+						<p class="pts">3326</p>
+						<p class="vreme">2026/02/22</p>
+						<p class="user anonimus">- džima -</p>
+					</li>
+					</ul><ul id="score-11-all" style="display:none;">
+					<li>
+						<p class="pts">3772</p>
+						<p class="vreme">2026/02/11</p>
+						<p class="user anonimus">- džima -</p>
+					</li>
+					
+					<li>
+						<p class="pts">3641</p>
+						<p class="vreme">2026/01/31</p>
+						<p class="user">denivet70@gmail.com</p>
+					</li>
+					
+					<li>
+						<p class="pts">3573</p>
+						<p class="vreme">2026/02/23</p>
+						<p class="user anonimus">- jamb -</p>
+					</li>
+					
+					<li>
+						<p class="pts">3546</p>
+						<p class="vreme">2026/02/24</p>
+						<p class="user anonimus">- yatzy -</p>
+					</li>
+					
+					<li>
+						<p class="pts">3523</p>
+						<p class="vreme">2026/01/12</p>
+						<p class="user anonimus">- kniffel -</p>
+					</li>
+					
+					<li>
+						<p class="pts">3512</p>
+						<p class="vreme">2026/02/07</p>
+						<p class="user anonimus">- yamb -</p>
+					</li>
+					
+					<li>
+						<p class="pts">3506</p>
+						<p class="vreme">2026/01/20</p>
+						<p class="user anonimus">- jamb -</p>
+					</li>
+					
+					<li>
+						<p class="pts">3474</p>
+						<p class="vreme">2026/02/12</p>
+						<p class="user">denivet70@gmail.com</p>
+					</li>
+					
+					<li>
+						<p class="pts">3465</p>
+						<p class="vreme">2026/01/21</p>
+						<p class="user anonimus">- igra -</p>
+					</li>
+					</ul></div>
+                            </div>
+                                                                                </div>
+                                                <div class="scores-group scores-par-1 el-clear" id="scores-7">
+                                                                                    <div class="naslov">
+                                <div class="kockica kockica-6"><span></span></div>
+                                <div class="title"><h5 class="gfont">small</h5><p>beginner</p></div>
+                                <div class="icon"><img src="file/yamb/naslov-small.png" alt="small - beginner" /></div>
+                            </div>
+                            <div class="tabela">
+                                <div class="head"><button onclick="scores_tab(7,'10')" id="scores-nav-7-10" class="cur">10 days</button><button onclick="scores_tab(7,'all')" id="scores-nav-7-all">All time</button></div>
+                                <div class="body"><ul id="score-7-10">
+					<li>
+						<p class="pts">1864</p>
+						<p class="vreme">2026/02/17</p>
+						<p class="user anonimus">- online -</p>
+					</li>
+					
+					<li>
+						<p class="pts">1855</p>
+						<p class="vreme">2026/02/21</p>
+						<p class="user anonimus">- yamb -</p>
+					</li>
+					
+					<li>
+						<p class="pts">1855</p>
+						<p class="vreme">2026/02/14</p>
+						<p class="user anonimus">- free -</p>
+					</li>
+					
+					<li>
+						<p class="pts">1839</p>
+						<p class="vreme">2026/02/19</p>
+						<p class="user anonimus">- free -</p>
+					</li>
+					
+					<li>
+						<p class="pts">1838</p>
+						<p class="vreme">2026/02/18</p>
+						<p class="user anonimus">- džima -</p>
+					</li>
+					
+					<li>
+						<p class="pts">1838</p>
+						<p class="vreme">2026/02/15</p>
+						<p class="user anonimus">- yatzy -</p>
+					</li>
+					
+					<li>
+						<p class="pts">1837</p>
+						<p class="vreme">2026/02/19</p>
+						<p class="user anonimus">- jamb -</p>
+					</li>
+					
+					<li>
+						<p class="pts">1836</p>
+						<p class="vreme">2026/02/19</p>
+						<p class="user anonimus">- free -</p>
+					</li>
+					
+					<li>
+						<p class="pts">1832</p>
+						<p class="vreme">2026/02/14</p>
+						<p class="user anonimus">- generala -</p>
+					</li>
+					</ul><ul id="score-7-all" style="display:none;">
+					<li>
+						<p class="pts">1876</p>
+						<p class="vreme">2026/02/09</p>
+						<p class="user anonimus">- generala -</p>
+					</li>
+					
+					<li>
+						<p class="pts">1874</p>
+						<p class="vreme">2026/01/26</p>
+						<p class="user anonimus">- yatzy -</p>
+					</li>
+					
+					<li>
+						<p class="pts">1870</p>
+						<p class="vreme">2026/02/08</p>
+						<p class="user anonimus">- kniffel -</p>
+					</li>
+					
+					<li>
+						<p class="pts">1869</p>
+						<p class="vreme">2026/01/18</p>
+						<p class="user anonimus">- jamb -</p>
+					</li>
+					
+					<li>
+						<p class="pts">1867</p>
+						<p class="vreme">2026/02/09</p>
+						<p class="user anonimus">- online -</p>
+					</li>
+					
+					<li>
+						<p class="pts">1864</p>
+						<p class="vreme">2026/02/17</p>
+						<p class="user anonimus">- igra -</p>
+					</li>
+					
+					<li>
+						<p class="pts">1859</p>
+						<p class="vreme">2026/01/18</p>
+						<p class="user anonimus">- igrica -</p>
+					</li>
+					
+					<li>
+						<p class="pts">1855</p>
+						<p class="vreme">2026/02/21</p>
+						<p class="user anonimus">- džima -</p>
+					</li>
+					
+					<li>
+						<p class="pts">1855</p>
+						<p class="vreme">2026/02/14</p>
+						<p class="user anonimus">- yatzy -</p>
+					</li>
+					</ul></div>
+                            </div>
+                                                                                </div>
+                                                <div class="scores-group scores-par-0 el-clear" id="scores-8">
+                                                                                    <div class="naslov">
+                                <div class="kockica kockica-6"><span></span></div>
+                                <div class="title"><h5 class="gfont">medium</h5><p>beginner</p></div>
+                                <div class="icon"><img src="file/yamb/naslov-medium.png" alt="medium - beginner" /></div>
+                            </div>
+                            <div class="tabela">
+                                <div class="head"><button onclick="scores_tab(8,'10')" id="scores-nav-8-10" class="cur">10 days</button><button onclick="scores_tab(8,'all')" id="scores-nav-8-all">All time</button></div>
+                                <div class="body"><ul id="score-8-10">
+					<li>
+						<p class="pts">2425</p>
+						<p class="vreme">2026/02/22</p>
+						<p class="user">McT86</p>
+					</li>
+					
+					<li>
+						<p class="pts">2424</p>
+						<p class="vreme">2026/02/20</p>
+						<p class="user anonimus">- jamb -</p>
+					</li>
+					
+					<li>
+						<p class="pts">2409</p>
+						<p class="vreme">2026/02/15</p>
+						<p class="user anonimus">- džima -</p>
+					</li>
+					
+					<li>
+						<p class="pts">2393</p>
+						<p class="vreme">2026/02/15</p>
+						<p class="user anonimus">- online -</p>
+					</li>
+					
+					<li>
+						<p class="pts">2386</p>
+						<p class="vreme">2026/02/20</p>
+						<p class="user anonimus">- džima -</p>
+					</li>
+					
+					<li>
+						<p class="pts">2386</p>
+						<p class="vreme">2026/02/16</p>
+						<p class="user anonimus">- generala -</p>
+					</li>
+					
+					<li>
+						<p class="pts">2382</p>
+						<p class="vreme">2026/02/19</p>
+						<p class="user anonimus">- yamb -</p>
+					</li>
+					
+					<li>
+						<p class="pts">2380</p>
+						<p class="vreme">2026/02/18</p>
+						<p class="user anonimus">- online -</p>
+					</li>
+					
+					<li>
+						<p class="pts">2377</p>
+						<p class="vreme">2026/02/17</p>
+						<p class="user anonimus">- igra -</p>
+					</li>
+					</ul><ul id="score-8-all" style="display:none;">
+					<li>
+						<p class="pts">2448</p>
+						<p class="vreme">2026/02/05</p>
+						<p class="user anonimus">- yamb -</p>
+					</li>
+					
+					<li>
+						<p class="pts">2440</p>
+						<p class="vreme">2026/01/24</p>
+						<p class="user anonimus">- igrica -</p>
+					</li>
+					
+					<li>
+						<p class="pts">2426</p>
+						<p class="vreme">2026/01/09</p>
+						<p class="user anonimus">- yamb -</p>
+					</li>
+					
+					<li>
+						<p class="pts">2425</p>
+						<p class="vreme">2026/02/22</p>
+						<p class="user">McT86</p>
+					</li>
+					
+					<li>
+						<p class="pts">2424</p>
+						<p class="vreme">2026/02/20</p>
+						<p class="user anonimus">- kniffel -</p>
+					</li>
+					
+					<li>
+						<p class="pts">2422</p>
+						<p class="vreme">2026/02/13</p>
+						<p class="user anonimus">- igra -</p>
+					</li>
+					
+					<li>
+						<p class="pts">2415</p>
+						<p class="vreme">2026/02/02</p>
+						<p class="user anonimus">- igrica -</p>
+					</li>
+					
+					<li>
+						<p class="pts">2414</p>
+						<p class="vreme">2026/01/10</p>
+						<p class="user anonimus">- kniffel -</p>
+					</li>
+					
+					<li>
+						<p class="pts">2409</p>
+						<p class="vreme">2026/02/15</p>
+						<p class="user anonimus">- jamb -</p>
+					</li>
+					</ul></div>
+                            </div>
+                                                                                </div>
+                                                <div class="scores-group scores-par-1 el-clear" id="scores-9">
+                                                                                    <div class="naslov">
+                                <div class="kockica kockica-6"><span></span></div>
+                                <div class="title"><h5 class="gfont">big</h5><p>beginner</p></div>
+                                <div class="icon"><img src="file/yamb/naslov-big.png" alt="big - beginner" /></div>
+                            </div>
+                            <div class="tabela">
+                                <div class="head"><button onclick="scores_tab(9,'10')" id="scores-nav-9-10" class="cur">10 days</button><button onclick="scores_tab(9,'all')" id="scores-nav-9-all">All time</button></div>
+                                <div class="body"><ul id="score-9-10">
+					<li>
+						<p class="pts">3456</p>
+						<p class="vreme">2026/02/22</p>
+						<p class="user anonimus">- igra -</p>
+					</li>
+					
+					<li>
+						<p class="pts">3439</p>
+						<p class="vreme">2026/02/22</p>
+						<p class="user anonimus">- online -</p>
+					</li>
+					
+					<li>
+						<p class="pts">3427</p>
+						<p class="vreme">2026/02/23</p>
+						<p class="user anonimus">- yamb -</p>
+					</li>
+					
+					<li>
+						<p class="pts">3421</p>
+						<p class="vreme">2026/02/18</p>
+						<p class="user anonimus">- online -</p>
+					</li>
+					
+					<li>
+						<p class="pts">3403</p>
+						<p class="vreme">2026/02/22</p>
+						<p class="user anonimus">- igra -</p>
+					</li>
+					
+					<li>
+						<p class="pts">3397</p>
+						<p class="vreme">2026/02/18</p>
+						<p class="user anonimus">- generala -</p>
+					</li>
+					
+					<li>
+						<p class="pts">3396</p>
+						<p class="vreme">2026/02/23</p>
+						<p class="user anonimus">- igrica -</p>
+					</li>
+					
+					<li>
+						<p class="pts">3396</p>
+						<p class="vreme">2026/02/19</p>
+						<p class="user anonimus">- jamb -</p>
+					</li>
+					
+					<li>
+						<p class="pts">3386</p>
+						<p class="vreme">2026/02/23</p>
+						<p class="user anonimus">- free -</p>
+					</li>
+					</ul><ul id="score-9-all" style="display:none;">
+					<li>
+						<p class="pts">3512</p>
+						<p class="vreme">2026/02/09</p>
+						<p class="user anonimus">- kniffel -</p>
+					</li>
+					
+					<li>
+						<p class="pts">3468</p>
+						<p class="vreme">2026/01/28</p>
+						<p class="user">miloffm</p>
+					</li>
+					
+					<li>
+						<p class="pts">3461</p>
+						<p class="vreme">2026/02/06</p>
+						<p class="user anonimus">- yamb -</p>
+					</li>
+					
+					<li>
+						<p class="pts">3456</p>
+						<p class="vreme">2026/02/22</p>
+						<p class="user anonimus">- online -</p>
+					</li>
+					
+					<li>
+						<p class="pts">3452</p>
+						<p class="vreme">2026/02/14</p>
+						<p class="user anonimus">- yamb -</p>
+					</li>
+					
+					<li>
+						<p class="pts">3450</p>
+						<p class="vreme">2026/01/13</p>
+						<p class="user anonimus">- yatzy -</p>
+					</li>
+					
+					<li>
+						<p class="pts">3443</p>
+						<p class="vreme">2026/02/12</p>
+						<p class="user anonimus">- igrica -</p>
+					</li>
+					
+					<li>
+						<p class="pts">3441</p>
+						<p class="vreme">2026/01/25</p>
+						<p class="user anonimus">- yamb -</p>
+					</li>
+					
+					<li>
+						<p class="pts">3439</p>
+						<p class="vreme">2026/02/22</p>
+						<p class="user anonimus">- online -</p>
+					</li>
+					</ul></div>
+                            </div>
+                                                                                </div>
+                                                <div class="scores-group scores-par-0 el-clear" id="scores-12">
+                                                                                    <div class="naslov">
+                                <div class="kockica kockica-6"><span></span></div>
+                                <div class="title"><h5 class="gfont">mega</h5><p>beginner</p></div>
+                                <div class="icon"><img src="file/yamb/naslov-mega.png" alt="mega - beginner" /></div>
+                            </div>
+                            <div class="tabela">
+                                <div class="head"><button onclick="scores_tab(12,'10')" id="scores-nav-12-10" class="cur">10 days</button><button onclick="scores_tab(12,'all')" id="scores-nav-12-all">All time</button></div>
+                                <div class="body"><ul id="score-12-10">
+					<li>
+						<p class="pts">5022</p>
+						<p class="vreme">2026/02/17</p>
+						<p class="user anonimus">- free -</p>
+					</li>
+					
+					<li>
+						<p class="pts">5006</p>
+						<p class="vreme">2026/02/16</p>
+						<p class="user anonimus">- generala -</p>
+					</li>
+					
+					<li>
+						<p class="pts">4991</p>
+						<p class="vreme">2026/02/17</p>
+						<p class="user anonimus">- džima -</p>
+					</li>
+					
+					<li>
+						<p class="pts">4986</p>
+						<p class="vreme">2026/02/20</p>
+						<p class="user anonimus">- jamb -</p>
+					</li>
+					
+					<li>
+						<p class="pts">4983</p>
+						<p class="vreme">2026/02/20</p>
+						<p class="user anonimus">- free -</p>
+					</li>
+					
+					<li>
+						<p class="pts">4983</p>
+						<p class="vreme">2026/02/16</p>
+						<p class="user anonimus">- kniffel -</p>
+					</li>
+					
+					<li>
+						<p class="pts">4977</p>
+						<p class="vreme">2026/02/16</p>
+						<p class="user anonimus">- jamb -</p>
+					</li>
+					
+					<li>
+						<p class="pts">4967</p>
+						<p class="vreme">2026/02/18</p>
+						<p class="user anonimus">- yamb -</p>
+					</li>
+					
+					<li>
+						<p class="pts">4951</p>
+						<p class="vreme">2026/02/18</p>
+						<p class="user anonimus">- yatzy -</p>
+					</li>
+					</ul><ul id="score-12-all" style="display:none;">
+					<li>
+						<p class="pts">5094</p>
+						<p class="vreme">2026/02/01</p>
+						<p class="user anonimus">- igrica -</p>
+					</li>
+					
+					<li>
+						<p class="pts">5066</p>
+						<p class="vreme">2026/01/20</p>
+						<p class="user anonimus">- generala -</p>
+					</li>
+					
+					<li>
+						<p class="pts">5045</p>
+						<p class="vreme">2026/01/25</p>
+						<p class="user anonimus">- free -</p>
+					</li>
+					
+					<li>
+						<p class="pts">5023</p>
+						<p class="vreme">2026/01/10</p>
+						<p class="user anonimus">- free -</p>
+					</li>
+					
+					<li>
+						<p class="pts">5022</p>
+						<p class="vreme">2026/02/17</p>
+						<p class="user anonimus">- igra -</p>
+					</li>
+					
+					<li>
+						<p class="pts">5022</p>
+						<p class="vreme">2026/01/29</p>
+						<p class="user anonimus">- yatzy -</p>
+					</li>
+					
+					<li>
+						<p class="pts">5006</p>
+						<p class="vreme">2026/02/16</p>
+						<p class="user anonimus">- igrica -</p>
+					</li>
+					
+					<li>
+						<p class="pts">4992</p>
+						<p class="vreme">2026/01/18</p>
+						<p class="user anonimus">- igrica -</p>
+					</li>
+					
+					<li>
+						<p class="pts">4991</p>
+						<p class="vreme">2026/02/17</p>
+						<p class="user anonimus">- yatzy -</p>
+					</li>
+					</ul></div>
+                            </div>
+                                                                                </div>
+                                        <div class="addthis_inline_share_toolbox"></div>
+                <script>
+                    scores_tab_cur=new Array;
+                    scores_tab_cur[1]="10"; scores_tab_cur[2]="10"; scores_tab_cur[3]="10"; scores_tab_cur[4]="10"; scores_tab_cur[5]="10"; scores_tab_cur[6]="10"; scores_tab_cur[7]="10"; scores_tab_cur[8]="10"; scores_tab_cur[9]="10"; scores_tab_cur[10]="10"; scores_tab_cur[11]="10"; scores_tab_cur[12]="10";                     function scores_tab(id,t)
+                    {
+                        if(scores_tab_cur[id]!=t)
+                        {
+                            $("button#scores-nav-"+id+"-"+scores_tab_cur[id]).removeClass('cur');
+                            $("ul#score-"+id+"-"+scores_tab_cur[id]).hide();
+                            scores_tab_cur[id]=t;
+                            $("button#scores-nav-"+id+"-"+scores_tab_cur[id]).addClass('cur');
+                            $("ul#score-"+id+"-"+scores_tab_cur[id]).fadeIn(200);
+                        }
+                    }
+                </script>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Game -->
+<div id="page">
+	<div id="page-in">
+        <div id="page-ab">
+            <div id="ad-page-right">
+                <!-- YAMBrs DESK GAME -->
+                <ins class="adsbygoogle"
+                     style="display:inline-block;width:320px;height:100px"
+                     data-ad-client="ca-pub-4616284712500089"
+                     data-ad-slot="2148935050"></ins>
+                <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </div>
+            <div id="ad-page-bottom">
+                <!-- YAMBrs DESK BOTTOM -->
+                <ins class="adsbygoogle"
+                     style="display:inline-block;width:728px;height:90px"
+                     data-ad-client="ca-pub-4616284712500089"
+                     data-ad-slot="3625668250"></ins>
+                <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </div>
+            <div id="igra">
+                <div id="tabla">
+                    <div id="tabla-head">
+                        <p id="tabla-head-title"></p>
+                        <button title="Quit game" onclick="quit_game();">
+                            <svg viewBox="0 0 62 62">
+                                <polygon points="14,19 19,14 31,28 32,28 44,14 49,19 37,31 37,32 49,44 44,49 32,37 31,37 19,49 14,44 26,32 26,31"></polygon>
+                            </svg>
+                        </button>
+                    </div>
+                    <div id="tabla-body"></div>
+                </div>
+                <div id="kockice"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Pop -->
+<div id="pop">
+	<div class="bg"><button onclick="pop_close()" title="Close"></button></div>
+    <div id="pop-load"></div>
+    <div id="pop-share">
+    	<div class="cont" id="pop-share-cont"></div>
+    </div>
+    <div id="pop-help">
+    	<div class="cont">
+            <div class="in">
+                <h1>Yamb, Jamb, Džima - online igra za pet i šest kockica</h1>
+                <p><strong>Yamb, Jamb, Džima</strong> je igra za sa pet ili šest <strong>kockica</strong> u kojoj je cilj osvojiti što više <strong>poena</strong>. <strong>Polja</strong> popunjavate onako kako je označeno iznad svake <strong>kolone</strong>. Tamnijom bojom označena su <strong>polja</strong> u koja je moguće uneti <strong>rezultat</strong>. <strong>Kockice</strong> bacate klikom na dugme označeno znakovima &#9711; i &#9747; i moguće je <strong>kockice</strong> bacati najviše tri puta (Basic i Expert) ili četiri puta (Beginner). Nakon svakog bacanja možete sačuvati <strong>kockice</strong> klikom na njih.</p>
+                <h2>Početak igre</h2>
+                <p><strong>Yamb - online igra</strong> se može igrati sa pet ili šest <strong>kockica</strong>. U igri sa šest <strong>kockica</strong>, šesta <strong>kockica</strong> je rezervna.</p>
+                <p>Ponuđene su četiri veličine: Small (4x12 polja), Medium (5x13), Big (7x13) i Mega (10x13).</p>
+                <h2>Kolone</h2>
+                <p id="help-c1"><strong>Kolona</strong> sa popunjava po redosledu od gore, nadole.</p>
+                <p id="help-c2"><strong>Slobodna kolona</strong> - polja se mogu popunjavati proizvoljno.</p>
+                <p id="help-c3"><strong>Kolona</strong> se popunjava po redosledu od dole, nagore.</p>
+                <p id="help-c4"><strong>Polje</strong> se može zaključati samo nakon prvog bacanja. Nakon zaključavanja polja, <strong>kocke</strong> se mogu baciti još dva puta.</p>
+                <p id="help-c5"><strong>Polja</strong> je moguće popunjavati samo nakon prvog <strong>bacanja</strong>.</p>
+                <p id="help-c6">Popunjava se po redosledu - od gore nadole i od dole nagore.</p>
+                <p id="help-c7">Popunjava se po redosledu - od sredine nagore i od sredine nadole.</p>
+                <p id="help-c8">U prvoj klackalici se naizmenično popunjava od gore nadole i od dole nagore: 1, Yamb, 2, Poker...</p>
+                <p id="help-c9">U prvoj klackalici se naizmenično popunjava od sredine nagore i od sredine nadole: Max, Min, 6, Kenta...</p>
+                <p id="help-c10">Maksimalna kolona - unose se samo najbolji mogući rezultati</p>
+                <h2>Vrste</h2>
+                <p id="help-16">U polja se unosi <strong>broj</strong> <strong>kockica</strong> od 1 do 6 koje je igrač dobio nakon tri <strong>bacanja</strong>. Vrednost se tako što se pomnože <strong>broj</strong> <strong>kockica</strong> i vrednost vrste u koju se upisuju.</p>
+                <p>Primer:<br />
+                    1 x 3 = 3<br />
+                    2 x 4 = 8<br />
+                    3 x 2 = 6<br />
+                    4 x 4 = 16<br />
+                    5 x 2 = 10<br />
+                    6 x 3 = 18</p>
+                <p>Sve vrednosti polja od 1 do 6 se sabiraju i ako je zbir jednak ili veći od 60, <strong>igrač</strong> dobija <strong>bonus</strong> 30 <strong>bodova</strong>.</p>
+                <p>Primer:<br />
+                    3 + 8 + 6 + 16 + 10 + 18 = 61 + <strong>bonus</strong> 30 = 91</p>
+                <p id="help-raz">Cilj je dobiti što veći <strong>zbir</strong> <strong>kockica</strong> u polju MAX i što manji u polju MIN. <strong>Razlika</strong> dva polja se množi sa brojem jedinica iz prve vrste.</p>
+                <p>Primer:<br />
+                    MAX: 4 + 5 + 6 + 3 + 6 = 24<br />
+                    MIN: 1 + 1 + 1 + 3 + 2 = 8</p>
+                <p><strong>Rezultat</strong>: (MAX - MIN) x F1 = (24 - 8) x 3 = 16 x 3 = 48</p>
+                <h3>Kenta</h3>
+                <p id="help-rk"><strong>Cilj</strong> je dobiti bar po jednu <strong>kockicu</strong> <strong>vrednosti</strong> od 1 do 5 ili od 2 do 6. Nakon prvog <strong>bacanja</strong> dobija se 66, nakon drugog 56 a nakon trećeg <strong>bacanja</strong> 46 bodova.</p>
+                <h3>Triling</h3>
+                <p id="help-rt">Cilj je dobiti tri <strong>kockice</strong> iste vrednosti. <strong>Zbir</strong> se uvećava za 20.</p>
+                <p>Primer: 3 + 3 + 3 = 9 + <strong>bonus</strong> 20 = 29</p>
+                <h3>Ful</h3>
+                <p id="help-rf"><strong>Cilj</strong> je dobiti tri <strong>kockice</strong> iste vrednosti i dve <strong>kockice</strong> iste vrednosti. <strong>Zbir</strong> se uvećava za 30.</p>
+                <p>Primer: 5 + 5 + 5 + 6 + 6 = 27 + bonus 30 = 57</p>
+                <h3>Poker</h3>
+                <p id="help-rp"><strong>Cilj</strong> je dobiti četiri <strong>kockice</strong> iste vrednosti. <strong>Zbir</strong> se uvećava za 40.</p>
+                <p>Primer: 4 + 4 + 4 + 4 = 16 + bonus 40 = 56</p>
+                <h3>Yamb</h3>
+                <p id="help-ry"><strong>Cilj</strong> je dobiti pet <strong>kockica</strong> iste vrednosti. <strong>Zbir</strong> se uvećava za 50.</p>
+                <p>Primer: 5 + 5 + 5 + 5 + 5 = 25 + <strong>bonus</strong> 50 = 75</p>
+                <!--
+                <h2>Achievements</h2>
+                <p>Dostupno <strong>registrovanim</strong> <strong>korisnicima</strong>.</p>
+                <p id="help-aa">Popunjena sva <strong>polja</strong>.</p>
+                <p id="help-a1">U svim <strong>kolonama</strong> osvojen <strong>bonus</strong>.</p>
+                <p id="help-ar">Ostvaren maksimalan <strong>rezultat</strong>: (30 - 5) x 5</p>
+                <p id="help-ak">Maksimalan <strong>rezultat</strong> u svim <strong>kolonama</strong>.</p>
+                <p id="help-at">Maksimalan <strong>rezultat</strong> u svim <strong>kolonama</strong>.</p>
+                <p id="help-af">Maksimalan <strong>rezultat</strong> u svim <strong>kolonama</strong>.</p>
+                <p id="help-ap">Maksimalan <strong>rezultat</strong> u svim <strong>kolonama</strong>.</p>
+                <p id="help-ay">Maksimalan <strong>rezultat</strong> u svim <strong>kolonama</strong>.</p>
+                <p id="help-pts"><strong>Boduje</strong> se po formuli: PTS + ((SCORE x coeff)<sup>4</sup> - PTS) x 3/100</p>
+                -->
+            </div>
+        </div>
+    </div>
+</div>
+<audio id="sound-white">
+	<source src="file/sound/white-1.mp3" type="audio/mpeg">
+	<source src="file/sound/white-2.mp3" type="audio/mpeg">
+	<source src="file/sound/white-3.mp3" type="audio/mpeg">
+	<source src="file/sound/white-4.mp3" type="audio/mpeg">
+	<source src="file/sound/white-1.ogg" type="audio/ogg">
+	<source src="file/sound/white-2.ogg" type="audio/ogg">
+	<source src="file/sound/white-3.ogg" type="audio/ogg">
+	<source src="file/sound/white-4.ogg" type="audio/ogg">
+</audio>
+<audio id="sound-plop">
+	<source src="file/sound/plop-1.mp3" type="audio/mpeg">
+	<source src="file/sound/plop-2.mp3" type="audio/mpeg">
+	<source src="file/sound/plop-3.mp3" type="audio/mpeg">
+	<source src="file/sound/plop-4.mp3" type="audio/mpeg">
+    <source src="file/sound/plop-1.ogg" type="audio/ogg">
+    <source src="file/sound/plop-2.ogg" type="audio/ogg">
+    <source src="file/sound/plop-3.ogg" type="audio/ogg">
+    <source src="file/sound/plop-4.ogg" type="audio/ogg">
+</audio>
+<audio id="sound-sure">
+	<source src="file/sound/sure-1.mp3" type="audio/mpeg">
+	<source src="file/sound/sure-2.mp3" type="audio/mpeg">
+	<source src="file/sound/sure-3.mp3" type="audio/mpeg">
+	<source src="file/sound/sure-4.mp3" type="audio/mpeg">
+    <source src="file/sound/sure-1.ogg" type="audio/ogg">
+    <source src="file/sound/sure-2.ogg" type="audio/ogg">
+    <source src="file/sound/sure-3.ogg" type="audio/ogg">
+    <source src="file/sound/sure-4.ogg" type="audio/ogg">
+</audio>
+<audio id="sound-alert">
+	<source src="file/sound/alert-1.mp3" type="audio/mpeg">
+	<source src="file/sound/alert-2.mp3" type="audio/mpeg">
+	<source src="file/sound/alert-3.mp3" type="audio/mpeg">
+	<source src="file/sound/alert-4.mp3" type="audio/mpeg">
+    <source src="file/sound/alert-1.ogg" type="audio/ogg">
+    <source src="file/sound/alert-2.ogg" type="audio/ogg">
+    <source src="file/sound/alert-3.ogg" type="audio/ogg">
+    <source src="file/sound/alert-4.ogg" type="audio/ogg">
+</audio>
+<audio id="sound-save">
+    <source src="file/sound/save-1.mp3" type="audio/mpeg">
+    <source src="file/sound/save-2.mp3" type="audio/mpeg">
+    <source src="file/sound/save-3.mp3" type="audio/mpeg">
+    <source src="file/sound/save-4.mp3" type="audio/mpeg">
+    <source src="file/sound/save-1.ogg" type="audio/ogg">
+    <source src="file/sound/save-2.ogg" type="audio/ogg">
+    <source src="file/sound/save-3.ogg" type="audio/ogg">
+    <source src="file/sound/save-4.ogg" type="audio/ogg">
+</audio>
+<audio id="sound-lock">
+    <source src="file/sound/lock-1.mp3" type="audio/mpeg">
+    <source src="file/sound/lock-2.mp3" type="audio/mpeg">
+    <source src="file/sound/lock-3.mp3" type="audio/mpeg">
+    <source src="file/sound/lock-4.mp3" type="audio/mpeg">
+    <source src="file/sound/lock-1.ogg" type="audio/ogg">
+    <source src="file/sound/lock-2.ogg" type="audio/ogg">
+    <source src="file/sound/lock-3.ogg" type="audio/ogg">
+    <source src="file/sound/lock-4.ogg" type="audio/ogg">
+</audio>
+<audio id="sound-tap">
+    <source src="file/sound/tap-1.mp3" type="audio/mpeg">
+    <source src="file/sound/tap-2.mp3" type="audio/mpeg">
+    <source src="file/sound/tap-3.mp3" type="audio/mpeg">
+    <source src="file/sound/tap-4.mp3" type="audio/mpeg">
+    <source src="file/sound/tap-1.ogg" type="audio/ogg">
+    <source src="file/sound/tap-2.ogg" type="audio/ogg">
+    <source src="file/sound/tap-3.ogg" type="audio/ogg">
+    <source src="file/sound/tap-4.ogg" type="audio/ogg">
+</audio>
+<audio id="sound-1-1">
+	<source src="file/sound/kocka-1-1.mp3" type="audio/mpeg">
+	<source src="file/sound/kocka-1-2.mp3" type="audio/mpeg">
+	<source src="file/sound/kocka-1-3.mp3" type="audio/mpeg">
+	<source src="file/sound/kocka-1-4.mp3" type="audio/mpeg">
+    <source src="file/sound/kocka-1-1.ogg" type="audio/ogg">
+    <source src="file/sound/kocka-1-2.ogg" type="audio/ogg">
+    <source src="file/sound/kocka-1-3.ogg" type="audio/ogg">
+    <source src="file/sound/kocka-1-4.ogg" type="audio/ogg">
+</audio>
+<audio id="sound-2-1">
+	<source src="file/sound/kocka-2-1.mp3" type="audio/mpeg">
+	<source src="file/sound/kocka-2-2.mp3" type="audio/mpeg">
+	<source src="file/sound/kocka-2-3.mp3" type="audio/mpeg">
+	<source src="file/sound/kocka-2-4.mp3" type="audio/mpeg">
+    <source src="file/sound/kocka-2-1.ogg" type="audio/ogg">
+    <source src="file/sound/kocka-2-2.ogg" type="audio/ogg">
+    <source src="file/sound/kocka-2-3.ogg" type="audio/ogg">
+    <source src="file/sound/kocka-2-4.ogg" type="audio/ogg">
+</audio>
+<audio id="sound-3-1">
+	<source src="file/sound/kocka-3-1.mp3" type="audio/mpeg">
+	<source src="file/sound/kocka-3-2.mp3" type="audio/mpeg">
+	<source src="file/sound/kocka-3-3.mp3" type="audio/mpeg">
+	<source src="file/sound/kocka-3-4.mp3" type="audio/mpeg">
+    <source src="file/sound/kocka-3-1.ogg" type="audio/ogg">
+    <source src="file/sound/kocka-3-2.ogg" type="audio/ogg">
+    <source src="file/sound/kocka-3-3.ogg" type="audio/ogg">
+    <source src="file/sound/kocka-3-4.ogg" type="audio/ogg">
+</audio>
+<audio id="sound-1-2">
+	<source src="file/sound/kocka-1-1.mp3" type="audio/mpeg">
+	<source src="file/sound/kocka-1-2.mp3" type="audio/mpeg">
+	<source src="file/sound/kocka-1-3.mp3" type="audio/mpeg">
+	<source src="file/sound/kocka-1-4.mp3" type="audio/mpeg">
+    <source src="file/sound/kocka-1-1.ogg" type="audio/ogg">
+    <source src="file/sound/kocka-1-2.ogg" type="audio/ogg">
+    <source src="file/sound/kocka-1-3.ogg" type="audio/ogg">
+    <source src="file/sound/kocka-1-4.ogg" type="audio/ogg">
+</audio>
+<audio id="sound-2-2">
+	<source src="file/sound/kocka-2-1.mp3" type="audio/mpeg">
+	<source src="file/sound/kocka-2-2.mp3" type="audio/mpeg">
+	<source src="file/sound/kocka-2-3.mp3" type="audio/mpeg">
+	<source src="file/sound/kocka-2-4.mp3" type="audio/mpeg">
+    <source src="file/sound/kocka-2-1.ogg" type="audio/ogg">
+    <source src="file/sound/kocka-2-2.ogg" type="audio/ogg">
+    <source src="file/sound/kocka-2-3.ogg" type="audio/ogg">
+    <source src="file/sound/kocka-2-4.ogg" type="audio/ogg">
+</audio>
+<audio id="sound-3-2">
+	<source src="file/sound/kocka-3-1.mp3" type="audio/mpeg">
+	<source src="file/sound/kocka-3-2.mp3" type="audio/mpeg">
+	<source src="file/sound/kocka-3-3.mp3" type="audio/mpeg">
+	<source src="file/sound/kocka-3-4.mp3" type="audio/mpeg">
+    <source src="file/sound/kocka-3-1.ogg" type="audio/ogg">
+    <source src="file/sound/kocka-3-2.ogg" type="audio/ogg">
+    <source src="file/sound/kocka-3-3.ogg" type="audio/ogg">
+    <source src="file/sound/kocka-3-4.ogg" type="audio/ogg">
+</audio>
+<audio id="sound-1-3">
+	<source src="file/sound/kocka-1-1.mp3" type="audio/mpeg">
+	<source src="file/sound/kocka-1-2.mp3" type="audio/mpeg">
+	<source src="file/sound/kocka-1-3.mp3" type="audio/mpeg">
+	<source src="file/sound/kocka-1-4.mp3" type="audio/mpeg">
+    <source src="file/sound/kocka-1-1.ogg" type="audio/ogg">
+    <source src="file/sound/kocka-1-2.ogg" type="audio/ogg">
+    <source src="file/sound/kocka-1-3.ogg" type="audio/ogg">
+    <source src="file/sound/kocka-1-4.ogg" type="audio/ogg">
+</audio>
+<audio id="sound-2-3">
+	<source src="file/sound/kocka-2-1.mp3" type="audio/mpeg">
+	<source src="file/sound/kocka-2-2.mp3" type="audio/mpeg">
+	<source src="file/sound/kocka-2-3.mp3" type="audio/mpeg">
+	<source src="file/sound/kocka-2-4.mp3" type="audio/mpeg">
+    <source src="file/sound/kocka-2-1.ogg" type="audio/ogg">
+    <source src="file/sound/kocka-2-2.ogg" type="audio/ogg">
+    <source src="file/sound/kocka-2-3.ogg" type="audio/ogg">
+    <source src="file/sound/kocka-2-4.ogg" type="audio/ogg">
+</audio>
+<audio id="sound-3-3">
+	<source src="file/sound/kocka-3-1.mp3" type="audio/mpeg">
+	<source src="file/sound/kocka-3-2.mp3" type="audio/mpeg">
+	<source src="file/sound/kocka-3-3.mp3" type="audio/mpeg">
+	<source src="file/sound/kocka-3-4.mp3" type="audio/mpeg">
+    <source src="file/sound/kocka-3-1.ogg" type="audio/ogg">
+    <source src="file/sound/kocka-3-2.ogg" type="audio/ogg">
+    <source src="file/sound/kocka-3-3.ogg" type="audio/ogg">
+    <source src="file/sound/kocka-3-4.ogg" type="audio/ogg">
+</audio>
+<audio id="sound-1-4">
+	<source src="file/sound/kocka-1-1.mp3" type="audio/mpeg">
+	<source src="file/sound/kocka-1-2.mp3" type="audio/mpeg">
+	<source src="file/sound/kocka-1-3.mp3" type="audio/mpeg">
+	<source src="file/sound/kocka-1-4.mp3" type="audio/mpeg">
+    <source src="file/sound/kocka-1-1.ogg" type="audio/ogg">
+    <source src="file/sound/kocka-1-2.ogg" type="audio/ogg">
+    <source src="file/sound/kocka-1-3.ogg" type="audio/ogg">
+    <source src="file/sound/kocka-1-4.ogg" type="audio/ogg">
+</audio>
+<audio id="sound-2-4">
+	<source src="file/sound/kocka-2-1.mp3" type="audio/mpeg">
+	<source src="file/sound/kocka-2-2.mp3" type="audio/mpeg">
+	<source src="file/sound/kocka-2-3.mp3" type="audio/mpeg">
+	<source src="file/sound/kocka-2-4.mp3" type="audio/mpeg">
+    <source src="file/sound/kocka-2-1.ogg" type="audio/ogg">
+    <source src="file/sound/kocka-2-2.ogg" type="audio/ogg">
+    <source src="file/sound/kocka-2-3.ogg" type="audio/ogg">
+    <source src="file/sound/kocka-2-4.ogg" type="audio/ogg">
+</audio>
+<audio id="sound-3-4">
+	<source src="file/sound/kocka-3-1.mp3" type="audio/mpeg">
+	<source src="file/sound/kocka-3-2.mp3" type="audio/mpeg">
+	<source src="file/sound/kocka-3-3.mp3" type="audio/mpeg">
+	<source src="file/sound/kocka-3-4.mp3" type="audio/mpeg">
+    <source src="file/sound/kocka-3-1.ogg" type="audio/ogg">
+    <source src="file/sound/kocka-3-2.ogg" type="audio/ogg">
+    <source src="file/sound/kocka-3-3.ogg" type="audio/ogg">
+    <source src="file/sound/kocka-3-4.ogg" type="audio/ogg">
+</audio>
+<audio id="sound-start">
+	<source src="file/sound/start-1.mp3" type="audio/mpeg">
+	<source src="file/sound/start-2.mp3" type="audio/mpeg">
+	<source src="file/sound/start-3.mp3" type="audio/mpeg">
+	<source src="file/sound/start-4.mp3" type="audio/mpeg">
+    <source src="file/sound/start-1.ogg" type="audio/ogg">
+    <source src="file/sound/start-2.ogg" type="audio/ogg">
+    <source src="file/sound/start-3.ogg" type="audio/ogg">
+    <source src="file/sound/start-4.ogg" type="audio/ogg">
+</audio>
+<audio id="sound-brojanje">
+	<source src="file/sound/brojanje-1.mp3" type="audio/mpeg">
+	<source src="file/sound/brojanje-2.mp3" type="audio/mpeg">
+	<source src="file/sound/brojanje-3.mp3" type="audio/mpeg">
+	<source src="file/sound/brojanje-4.mp3" type="audio/mpeg">
+    <source src="file/sound/brojanje-1.ogg" type="audio/ogg">
+    <source src="file/sound/brojanje-2.ogg" type="audio/ogg">
+    <source src="file/sound/brojanje-3.ogg" type="audio/ogg">
+    <source src="file/sound/brojanje-4.ogg" type="audio/ogg">
+</audio>
+<audio id="sound-rez">
+	<source src="file/sound/rez-1.mp3" type="audio/mpeg">
+	<source src="file/sound/rez-2.mp3" type="audio/mpeg">
+	<source src="file/sound/rez-3.mp3" type="audio/mpeg">
+	<source src="file/sound/rez-4.mp3" type="audio/mpeg">
+    <source src="file/sound/rez-1.ogg" type="audio/ogg">
+    <source src="file/sound/rez-2.ogg" type="audio/ogg">
+    <source src="file/sound/rez-3.ogg" type="audio/ogg">
+    <source src="file/sound/rez-4.ogg" type="audio/ogg">
+</audio>
+<script>
+	var yamb_classic_size='small',
+		yamb_classic_hardness='standard',
+		sound_supp=check_sound(),
+		is_android=false;
+	sound_on=sound_supp; 	if(!sound_on){$("div#controller-sound").addClass("sound-off");}else{zvuk_vol();}
+</script>
+	<script>
+		function window_onresize()
+		{
+			window_width=$("div#pagedef").width();
+			window_height=$("div#pagedef").height();
+			pozicioniranje(); 		}
+		window_onresize();
+		window.onresize=window_onresize;
+	</script>';
+	<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-62266893-1', 'auto');
+  ga('send', 'pageview');
+
+</script></body>
+</html>

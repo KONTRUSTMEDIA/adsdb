@@ -1,0 +1,1321 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+  <meta charset="UTF-8">
+  <script>
+  if(navigator.userAgent.match(/MSIE|Internet Explorer/i)||navigator.userAgent.match(/Trident\/7\..*?rv:11/i)){var href=document.location.href;if(!href.match(/[?&]nowprocket/)){if(href.indexOf("?")==-1){if(href.indexOf("#")==-1){document.location.href=href+"?nowprocket=1"}else{document.location.href=href.replace("#","?nowprocket=1#")}}else{if(href.indexOf("#")==-1){document.location.href=href+"&nowprocket=1"}else{document.location.href=href.replace("#","&nowprocket=1#")}}}}
+  </script>
+  <script>
+  class RocketLazyLoadScripts{constructor(){this.triggerEvents=["keydown","mousedown","mousemove","touchmove","touchstart","touchend","wheel"],this.userEventHandler=this._triggerListener.bind(this),this.touchStartHandler=this._onTouchStart.bind(this),this.touchMoveHandler=this._onTouchMove.bind(this),this.touchEndHandler=this._onTouchEnd.bind(this),this.clickHandler=this._onClick.bind(this),this.interceptedClicks=[],window.addEventListener("pageshow",t=>{this.persisted=t.persisted}),window.addEventListener("DOMContentLoaded",()=>{this._preconnect3rdParties()}),this.delayedScripts={normal:[],async:[],defer:[]},this.trash=[],this.allJQueries=[]}_addUserInteractionListener(t){if(document.hidden){t._triggerListener();return}this.triggerEvents.forEach(e=>window.addEventListener(e,t.userEventHandler,{passive:!0})),window.addEventListener("touchstart",t.touchStartHandler,{passive:!0}),window.addEventListener("mousedown",t.touchStartHandler),document.addEventListener("visibilitychange",t.userEventHandler)}_removeUserInteractionListener(){this.triggerEvents.forEach(t=>window.removeEventListener(t,this.userEventHandler,{passive:!0})),document.removeEventListener("visibilitychange",this.userEventHandler)}_onTouchStart(t){"HTML"!==t.target.tagName&&(window.addEventListener("touchend",this.touchEndHandler),window.addEventListener("mouseup",this.touchEndHandler),window.addEventListener("touchmove",this.touchMoveHandler,{passive:!0}),window.addEventListener("mousemove",this.touchMoveHandler),t.target.addEventListener("click",this.clickHandler),this._renameDOMAttribute(t.target,"onclick","rocket-onclick"),this._pendingClickStarted())}_onTouchMove(t){window.removeEventListener("touchend",this.touchEndHandler),window.removeEventListener("mouseup",this.touchEndHandler),window.removeEventListener("touchmove",this.touchMoveHandler,{passive:!0}),window.removeEventListener("mousemove",this.touchMoveHandler),t.target.removeEventListener("click",this.clickHandler),this._renameDOMAttribute(t.target,"rocket-onclick","onclick"),this._pendingClickFinished()}_onTouchEnd(t){window.removeEventListener("touchend",this.touchEndHandler),window.removeEventListener("mouseup",this.touchEndHandler),window.removeEventListener("touchmove",this.touchMoveHandler,{passive:!0}),window.removeEventListener("mousemove",this.touchMoveHandler)}_onClick(t){t.target.removeEventListener("click",this.clickHandler),this._renameDOMAttribute(t.target,"rocket-onclick","onclick"),this.interceptedClicks.push(t),t.preventDefault(),t.stopPropagation(),t.stopImmediatePropagation(),this._pendingClickFinished()}_replayClicks(){window.removeEventListener("touchstart",this.touchStartHandler,{passive:!0}),window.removeEventListener("mousedown",this.touchStartHandler),this.interceptedClicks.forEach(t=>{t.target.dispatchEvent(new MouseEvent("click",{view:t.view,bubbles:!0,cancelable:!0}))})}_waitForPendingClicks(){return new Promise(t=>{this._isClickPending?this._pendingClickFinished=t:t()})}_pendingClickStarted(){this._isClickPending=!0}_pendingClickFinished(){this._isClickPending=!1}_renameDOMAttribute(t,e,r){t.hasAttribute&&t.hasAttribute(e)&&(event.target.setAttribute(r,event.target.getAttribute(e)),event.target.removeAttribute(e))}_triggerListener(){this._removeUserInteractionListener(this),"loading"===document.readyState?document.addEventListener("DOMContentLoaded",this._loadEverythingNow.bind(this)):this._loadEverythingNow()}_preconnect3rdParties(){let t=[];document.querySelectorAll("script[type=rocketlazyloadscript]").forEach(e=>{if(e.hasAttribute("src")){let r=new URL(e.src).origin;r!==location.origin&&t.push({src:r,crossOrigin:e.crossOrigin||"module"===e.getAttribute("data-rocket-type")})}}),t=[...new Map(t.map(t=>[JSON.stringify(t),t])).values()],this._batchInjectResourceHints(t,"preconnect")}async _loadEverythingNow(){this.lastBreath=Date.now(),this._delayEventListeners(this),this._delayJQueryReady(this),this._handleDocumentWrite(),this._registerAllDelayedScripts(),this._preloadAllScripts(),await this._loadScriptsFromList(this.delayedScripts.normal),await this._loadScriptsFromList(this.delayedScripts.defer),await this._loadScriptsFromList(this.delayedScripts.async);try{await this._triggerDOMContentLoaded(),await this._triggerWindowLoad()}catch(t){console.error(t)}window.dispatchEvent(new Event("rocket-allScriptsLoaded")),this._waitForPendingClicks().then(()=>{this._replayClicks()}),this._emptyTrash()}_registerAllDelayedScripts(){document.querySelectorAll("script[type=rocketlazyloadscript]").forEach(t=>{t.hasAttribute("data-rocket-src")?t.hasAttribute("async")&&!1!==t.async?this.delayedScripts.async.push(t):t.hasAttribute("defer")&&!1!==t.defer||"module"===t.getAttribute("data-rocket-type")?this.delayedScripts.defer.push(t):this.delayedScripts.normal.push(t):this.delayedScripts.normal.push(t)})}async _transformScript(t){return new Promise((await this._littleBreath(),navigator.userAgent.indexOf("Firefox/")>0||""===navigator.vendor)?e=>{let r=document.createElement("script");[...t.attributes].forEach(t=>{let e=t.nodeName;"type"!==e&&("data-rocket-type"===e&&(e="type"),"data-rocket-src"===e&&(e="src"),r.setAttribute(e,t.nodeValue))}),t.text&&(r.text=t.text),r.hasAttribute("src")?(r.addEventListener("load",e),r.addEventListener("error",e)):(r.text=t.text,e());try{t.parentNode.replaceChild(r,t)}catch(i){e()}}:async e=>{function r(){t.setAttribute("data-rocket-status","failed"),e()}try{let i=t.getAttribute("data-rocket-type"),n=t.getAttribute("data-rocket-src");t.text,i?(t.type=i,t.removeAttribute("data-rocket-type")):t.removeAttribute("type"),t.addEventListener("load",function r(){t.setAttribute("data-rocket-status","executed"),e()}),t.addEventListener("error",r),n?(t.removeAttribute("data-rocket-src"),t.src=n):t.src="data:text/javascript;base64,"+window.btoa(unescape(encodeURIComponent(t.text)))}catch(s){r()}})}async _loadScriptsFromList(t){let e=t.shift();return e&&e.isConnected?(await this._transformScript(e),this._loadScriptsFromList(t)):Promise.resolve()}_preloadAllScripts(){this._batchInjectResourceHints([...this.delayedScripts.normal,...this.delayedScripts.defer,...this.delayedScripts.async],"preload")}_batchInjectResourceHints(t,e){var r=document.createDocumentFragment();t.forEach(t=>{let i=t.getAttribute&&t.getAttribute("data-rocket-src")||t.src;if(i){let n=document.createElement("link");n.href=i,n.rel=e,"preconnect"!==e&&(n.as="script"),t.getAttribute&&"module"===t.getAttribute("data-rocket-type")&&(n.crossOrigin=!0),t.crossOrigin&&(n.crossOrigin=t.crossOrigin),t.integrity&&(n.integrity=t.integrity),r.appendChild(n),this.trash.push(n)}}),document.head.appendChild(r)}_delayEventListeners(t){let e={};function r(t,r){!function t(r){!e[r]&&(e[r]={originalFunctions:{add:r.addEventListener,remove:r.removeEventListener},eventsToRewrite:[]},r.addEventListener=function(){arguments[0]=i(arguments[0]),e[r].originalFunctions.add.apply(r,arguments)},r.removeEventListener=function(){arguments[0]=i(arguments[0]),e[r].originalFunctions.remove.apply(r,arguments)});function i(t){return e[r].eventsToRewrite.indexOf(t)>=0?"rocket-"+t:t}}(t),e[t].eventsToRewrite.push(r)}function i(t,e){let r=t[e];Object.defineProperty(t,e,{get:()=>r||function(){},set(i){t["rocket"+e]=r=i}})}r(document,"DOMContentLoaded"),r(window,"DOMContentLoaded"),r(window,"load"),r(window,"pageshow"),r(document,"readystatechange"),i(document,"onreadystatechange"),i(window,"onload"),i(window,"onpageshow")}_delayJQueryReady(t){let e;function r(r){if(r&&r.fn&&!t.allJQueries.includes(r)){r.fn.ready=r.fn.init.prototype.ready=function(e){return t.domReadyFired?e.bind(document)(r):document.addEventListener("rocket-DOMContentLoaded",()=>e.bind(document)(r)),r([])};let i=r.fn.on;r.fn.on=r.fn.init.prototype.on=function(){if(this[0]===window){function t(t){return t.split(" ").map(t=>"load"===t||0===t.indexOf("load.")?"rocket-jquery-load":t).join(" ")}"string"==typeof arguments[0]||arguments[0]instanceof String?arguments[0]=t(arguments[0]):"object"==typeof arguments[0]&&Object.keys(arguments[0]).forEach(e=>{delete Object.assign(arguments[0],{[t(e)]:arguments[0][e]})[e]})}return i.apply(this,arguments),this},t.allJQueries.push(r)}e=r}r(window.jQuery),Object.defineProperty(window,"jQuery",{get:()=>e,set(t){r(t)}})}async _triggerDOMContentLoaded(){this.domReadyFired=!0,await this._littleBreath(),document.dispatchEvent(new Event("rocket-DOMContentLoaded")),await this._littleBreath(),window.dispatchEvent(new Event("rocket-DOMContentLoaded")),await this._littleBreath(),document.dispatchEvent(new Event("rocket-readystatechange")),await this._littleBreath(),document.rocketonreadystatechange&&document.rocketonreadystatechange()}async _triggerWindowLoad(){await this._littleBreath(),window.dispatchEvent(new Event("rocket-load")),await this._littleBreath(),window.rocketonload&&window.rocketonload(),await this._littleBreath(),this.allJQueries.forEach(t=>t(window).trigger("rocket-jquery-load")),await this._littleBreath();let t=new Event("rocket-pageshow");t.persisted=this.persisted,window.dispatchEvent(t),await this._littleBreath(),window.rocketonpageshow&&window.rocketonpageshow({persisted:this.persisted})}_handleDocumentWrite(){let t=new Map;document.write=document.writeln=function(e){let r=document.currentScript;r||console.error("WPRocket unable to document.write this: "+e);let i=document.createRange(),n=r.parentElement,s=t.get(r);void 0===s&&(s=r.nextSibling,t.set(r,s));let a=document.createDocumentFragment();i.setStart(a,0),a.appendChild(i.createContextualFragment(e)),n.insertBefore(a,s)}}async _littleBreath(){Date.now()-this.lastBreath>45&&(await this._requestAnimFrame(),this.lastBreath=Date.now())}async _requestAnimFrame(){return document.hidden?new Promise(t=>setTimeout(t)):new Promise(t=>requestAnimationFrame(t))}_emptyTrash(){this.trash.forEach(t=>t.remove())}static run(){let t=new RocketLazyLoadScripts;t._addUserInteractionListener(t)}}RocketLazyLoadScripts.run();
+  </script>
+  <meta name="viewport" id="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+  <title>Outlaw4Life - Outlaw 4 Life</title>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css?family=Heebo%3A300%2C400%2C500%2C700%2C800%2C900%7CAlegreya%3A400%2C500%2C700%2C800%2C900%7CJosefin%20Sans%3A300%2C400%2C600%2C700%7CLibre%20Franklin%3A300%2C400%2C500%2C600%2C700%2C800%2C900%7CFrank%20Ruhl%20Libre%3A300%2C400%2C500%2C700%2C900%7CNunito%20Sans%3A300%2C400%2C600%2C700%2C800%2C900%7CMontserrat%3A300%2C400%2C500%2C600%2C700%2C800%2C900%7CAnton%3A400%7CNoto%20Serif%3A400%2C700%7CNunito%3A300%2C400%2C600%2C700%2C800%2C900%7CRajdhani%3A300%2C400%2C500%2C600%2C700%7CTitillium%20Web%3A300%2C400%2C600%2C700%2C900%7CPT%20Serif%3A400%2C400i%2C700%2C700i%7CAmiri%3A400%2C400i%2C700%2C700i%7COswald%3A300%2C400%2C500%2C600%2C700%7CRoboto%20Mono%3A400%2C700%7CBarlow%20Semi%20Condensed%3A700%2C800%2C900%7CPoppins%3A300%2C400%2C500%2C600%2C700%2C800%2C900%7CRoboto%20Condensed%3A300%2C400%2C700%7CRoboto%3A300%2C400%2C500%2C700%2C900%7CPT%20Serif%3A400%2C700%7COpen%20Sans%20Condensed%3A300%2C700%7COpen%20Sans%3A700%7CSource%20Serif%20Pro%3A400%2C600%2C700%7CIM%20Fell%20French%20Canon%3A400%2C400i%7CMontserrat%3A100%2C100i%2C200%2C%20200i%2C300%2C300i%2C400%2C400i%2C500%2C500i%2C600%2C600i%2C700%2C700i%2C800%2C800i%2C900%2C900i%7CRoboto%3A100%2C100i%2C200%2C%20200i%2C300%2C300i%2C400%2C400i%2C500%2C500i%2C600%2C600i%2C700%2C700i%2C800%2C800i%2C900%2C900i%7CMontserrat%3A100%2C100i%2C200%2C%20200i%2C300%2C300i%2C400%2C400i%2C500%2C500i%2C600%2C600i%2C700%2C700i%2C800%2C800i%2C900%2C900i%7CMontserrat%3A100%2C100i%2C200%2C%20200i%2C300%2C300i%2C400%2C400i%2C500%2C500i%2C600%2C600i%2C700%2C700i%2C800%2C800i%2C900%2C900i%7CMontserrat%3A100%2C100i%2C200%2C%20200i%2C300%2C300i%2C400%2C400i%2C500%2C500i%2C600%2C600i%2C700%2C700i%2C800%2C800i%2C900%2C900i%7CMontserrat%3A100%2C100i%2C200%2C%20200i%2C300%2C300i%2C400%2C400i%2C500%2C500i%2C600%2C600i%2C700%2C700i%2C800%2C800i%2C900%2C900i%7CMontserrat%3A100%2C100i%2C200%2C%20200i%2C300%2C300i%2C400%2C400i%2C500%2C500i%2C600%2C600i%2C700%2C700i%2C800%2C800i%2C900%2C900i%26amp%3Bsubset%3Dlatin%2Clatin-ext%2Ccyrillic%2Ccyrillic-ext%2Cgreek-ext%2Cgreek%2Cvietnamese%7CRoboto%3A100%2C100italic%2C200%2C200italic%2C300%2C300italic%2C400%2C400italic%2C500%2C500italic%2C600%2C600italic%2C700%2C700italic%2C800%2C800italic%2C900%2C900italic%7CRoboto%20Slab%3A100%2C100italic%2C200%2C200italic%2C300%2C300italic%2C400%2C400italic%2C500%2C500italic%2C600%2C600italic%2C700%2C700italic%2C800%2C800italic%2C900%2C900italic&#038;display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Heebo%3A300%2C400%2C500%2C700%2C800%2C900%7CAlegreya%3A400%2C500%2C700%2C800%2C900%7CJosefin%20Sans%3A300%2C400%2C600%2C700%7CLibre%20Franklin%3A300%2C400%2C500%2C600%2C700%2C800%2C900%7CFrank%20Ruhl%20Libre%3A300%2C400%2C500%2C700%2C900%7CNunito%20Sans%3A300%2C400%2C600%2C700%2C800%2C900%7CMontserrat%3A300%2C400%2C500%2C600%2C700%2C800%2C900%7CAnton%3A400%7CNoto%20Serif%3A400%2C700%7CNunito%3A300%2C400%2C600%2C700%2C800%2C900%7CRajdhani%3A300%2C400%2C500%2C600%2C700%7CTitillium%20Web%3A300%2C400%2C600%2C700%2C900%7CPT%20Serif%3A400%2C400i%2C700%2C700i%7CAmiri%3A400%2C400i%2C700%2C700i%7COswald%3A300%2C400%2C500%2C600%2C700%7CRoboto%20Mono%3A400%2C700%7CBarlow%20Semi%20Condensed%3A700%2C800%2C900%7CPoppins%3A300%2C400%2C500%2C600%2C700%2C800%2C900%7CRoboto%20Condensed%3A300%2C400%2C700%7CRoboto%3A300%2C400%2C500%2C700%2C900%7CPT%20Serif%3A400%2C700%7COpen%20Sans%20Condensed%3A300%2C700%7COpen%20Sans%3A700%7CSource%20Serif%20Pro%3A400%2C600%2C700%7CIM%20Fell%20French%20Canon%3A400%2C400i%7CMontserrat%3A100%2C100i%2C200%2C%20200i%2C300%2C300i%2C400%2C400i%2C500%2C500i%2C600%2C600i%2C700%2C700i%2C800%2C800i%2C900%2C900i%7CRoboto%3A100%2C100i%2C200%2C%20200i%2C300%2C300i%2C400%2C400i%2C500%2C500i%2C600%2C600i%2C700%2C700i%2C800%2C800i%2C900%2C900i%7CMontserrat%3A100%2C100i%2C200%2C%20200i%2C300%2C300i%2C400%2C400i%2C500%2C500i%2C600%2C600i%2C700%2C700i%2C800%2C800i%2C900%2C900i%7CMontserrat%3A100%2C100i%2C200%2C%20200i%2C300%2C300i%2C400%2C400i%2C500%2C500i%2C600%2C600i%2C700%2C700i%2C800%2C800i%2C900%2C900i%7CMontserrat%3A100%2C100i%2C200%2C%20200i%2C300%2C300i%2C400%2C400i%2C500%2C500i%2C600%2C600i%2C700%2C700i%2C800%2C800i%2C900%2C900i%7CMontserrat%3A100%2C100i%2C200%2C%20200i%2C300%2C300i%2C400%2C400i%2C500%2C500i%2C600%2C600i%2C700%2C700i%2C800%2C800i%2C900%2C900i%7CMontserrat%3A100%2C100i%2C200%2C%20200i%2C300%2C300i%2C400%2C400i%2C500%2C500i%2C600%2C600i%2C700%2C700i%2C800%2C800i%2C900%2C900i%26amp%3Bsubset%3Dlatin%2Clatin-ext%2Ccyrillic%2Ccyrillic-ext%2Cgreek-ext%2Cgreek%2Cvietnamese%7CRoboto%3A100%2C100italic%2C200%2C200italic%2C300%2C300italic%2C400%2C400italic%2C500%2C500italic%2C600%2C600italic%2C700%2C700italic%2C800%2C800italic%2C900%2C900italic%7CRoboto%20Slab%3A100%2C100italic%2C200%2C200italic%2C300%2C300italic%2C400%2C400italic%2C500%2C500italic%2C600%2C600italic%2C700%2C700italic%2C800%2C800italic%2C900%2C900italic&#038;display=swap" media="print" onload="this.media='all'"><noscript>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Heebo%3A300%2C400%2C500%2C700%2C800%2C900%7CAlegreya%3A400%2C500%2C700%2C800%2C900%7CJosefin%20Sans%3A300%2C400%2C600%2C700%7CLibre%20Franklin%3A300%2C400%2C500%2C600%2C700%2C800%2C900%7CFrank%20Ruhl%20Libre%3A300%2C400%2C500%2C700%2C900%7CNunito%20Sans%3A300%2C400%2C600%2C700%2C800%2C900%7CMontserrat%3A300%2C400%2C500%2C600%2C700%2C800%2C900%7CAnton%3A400%7CNoto%20Serif%3A400%2C700%7CNunito%3A300%2C400%2C600%2C700%2C800%2C900%7CRajdhani%3A300%2C400%2C500%2C600%2C700%7CTitillium%20Web%3A300%2C400%2C600%2C700%2C900%7CPT%20Serif%3A400%2C400i%2C700%2C700i%7CAmiri%3A400%2C400i%2C700%2C700i%7COswald%3A300%2C400%2C500%2C600%2C700%7CRoboto%20Mono%3A400%2C700%7CBarlow%20Semi%20Condensed%3A700%2C800%2C900%7CPoppins%3A300%2C400%2C500%2C600%2C700%2C800%2C900%7CRoboto%20Condensed%3A300%2C400%2C700%7CRoboto%3A300%2C400%2C500%2C700%2C900%7CPT%20Serif%3A400%2C700%7COpen%20Sans%20Condensed%3A300%2C700%7COpen%20Sans%3A700%7CSource%20Serif%20Pro%3A400%2C600%2C700%7CIM%20Fell%20French%20Canon%3A400%2C400i%7CMontserrat%3A100%2C100i%2C200%2C%20200i%2C300%2C300i%2C400%2C400i%2C500%2C500i%2C600%2C600i%2C700%2C700i%2C800%2C800i%2C900%2C900i%7CRoboto%3A100%2C100i%2C200%2C%20200i%2C300%2C300i%2C400%2C400i%2C500%2C500i%2C600%2C600i%2C700%2C700i%2C800%2C800i%2C900%2C900i%7CMontserrat%3A100%2C100i%2C200%2C%20200i%2C300%2C300i%2C400%2C400i%2C500%2C500i%2C600%2C600i%2C700%2C700i%2C800%2C800i%2C900%2C900i%7CMontserrat%3A100%2C100i%2C200%2C%20200i%2C300%2C300i%2C400%2C400i%2C500%2C500i%2C600%2C600i%2C700%2C700i%2C800%2C800i%2C900%2C900i%7CMontserrat%3A100%2C100i%2C200%2C%20200i%2C300%2C300i%2C400%2C400i%2C500%2C500i%2C600%2C600i%2C700%2C700i%2C800%2C800i%2C900%2C900i%7CMontserrat%3A100%2C100i%2C200%2C%20200i%2C300%2C300i%2C400%2C400i%2C500%2C500i%2C600%2C600i%2C700%2C700i%2C800%2C800i%2C900%2C900i%7CMontserrat%3A100%2C100i%2C200%2C%20200i%2C300%2C300i%2C400%2C400i%2C500%2C500i%2C600%2C600i%2C700%2C700i%2C800%2C800i%2C900%2C900i%26amp%3Bsubset%3Dlatin%2Clatin-ext%2Ccyrillic%2Ccyrillic-ext%2Cgreek-ext%2Cgreek%2Cvietnamese%7CRoboto%3A100%2C100italic%2C200%2C200italic%2C300%2C300italic%2C400%2C400italic%2C500%2C500italic%2C600%2C600italic%2C700%2C700italic%2C800%2C800italic%2C900%2C900italic%7CRoboto%20Slab%3A100%2C100italic%2C200%2C200italic%2C300%2C300italic%2C400%2C400italic%2C500%2C500italic%2C600%2C600italic%2C700%2C700italic%2C800%2C800italic%2C900%2C900italic&#038;display=swap"></noscript>
+  <link rel="canonical" href="https://outlaw4life.com" />
+  <meta property="og:locale" content="en_US">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Outlaw4Life - Outlaw 4 Life">
+  <meta property="og:description" content="Still Livin It SHOP NOW Still Livin It SHOP NOW">
+  <meta property="og:url" content="https://outlaw4life.com/">
+  <meta property="og:site_name" content="Outlaw 4 Life">
+  <meta property="article:modified_time" content="2022-04-09T21:55:56+00:00">
+  <meta property="og:image" content="https://outlaw4life.com/wp-content/uploads/2022/04/dont-stop-t-shirt.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <script type="application/ld+json" class="yoast-schema-graph">
+  {"@context":"https://schema.org","@graph":[{"@type":"WebPage","@id":"https://outlaw4life.com/","url":"https://outlaw4life.com/","name":"Outlaw4Life - Outlaw 4 Life","isPartOf":{"@id":"https://outlaw4life.com/#website"},"about":{"@id":"https://outlaw4life.com/#organization"},"primaryImageOfPage":{"@id":"https://outlaw4life.com/#primaryimage"},"image":{"@id":"https://outlaw4life.com/#primaryimage"},"thumbnailUrl":"https://outlaw4life.com/wp-content/uploads/2022/04/dont-stop-t-shirt.jpg","datePublished":"2022-04-01T00:30:36+00:00","dateModified":"2022-04-09T21:55:56+00:00","breadcrumb":{"@id":"https://outlaw4life.com/#breadcrumb"},"inLanguage":"en-US","potentialAction":[{"@type":"ReadAction","target":["https://outlaw4life.com/"]}]},{"@type":"ImageObject","inLanguage":"en-US","@id":"https://outlaw4life.com/#primaryimage","url":"https://outlaw4life.com/wp-content/uploads/2022/04/dont-stop-t-shirt.jpg","contentUrl":"https://outlaw4life.com/wp-content/uploads/2022/04/dont-stop-t-shirt.jpg","width":625,"height":625,"caption":"Don't Stop T-Shirt"},{"@type":"BreadcrumbList","@id":"https://outlaw4life.com/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Home"}]},{"@type":"WebSite","@id":"https://outlaw4life.com/#website","url":"https://outlaw4life.com/","name":"Outlaw 4 Life","description":"The Legacy Continues . . .","publisher":{"@id":"https://outlaw4life.com/#organization"},"potentialAction":[{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://outlaw4life.com/?s={search_term_string}"},"query-input":"required name=search_term_string"}],"inLanguage":"en-US"},{"@type":"Organization","@id":"https://outlaw4life.com/#organization","name":"Outlaw 4 Life","url":"https://outlaw4life.com/","logo":{"@type":"ImageObject","inLanguage":"en-US","@id":"https://outlaw4life.com/#/schema/logo/image/","url":"https://outlaw4life.com/wp-content/uploads/2022/04/main-logo.jpg","contentUrl":"https://outlaw4life.com/wp-content/uploads/2022/04/main-logo.jpg","width":600,"height":376,"caption":"Outlaw 4 Life"},"image":{"@id":"https://outlaw4life.com/#/schema/logo/image/"}}]}
+  </script>
+  <link rel='dns-prefetch' href='//www.googletagmanager.com'>
+  <link rel='dns-prefetch' href='//stats.wp.com'>
+  <link rel='dns-prefetch' href='//ajax.googleapis.com'>
+  <link rel='dns-prefetch' href='//fonts.googleapis.com'>
+  <link rel='dns-prefetch' href='//pagead2.googlesyndication.com'>
+  <link href='https://fonts.gstatic.com' crossorigin="" rel='preconnect'>
+  <link rel="alternate" type="application/rss+xml" title="Outlaw 4 Life &raquo; Feed" href="/feed/">
+  <link rel="alternate" type="application/rss+xml" title="Outlaw 4 Life &raquo; Comments Feed" href="/comments/feed/">
+  <script id="outla-ready">
+                        window.advanced_ads_ready=function(e,a){a=a||"complete";var d=function(e){return"interactive"===a?"loading"!==e:"complete"===e};d(document.readyState)?e():document.addEventListener("readystatechange",(function(a){d(a.target.readyState)&&e()}),{once:"interactive"===a})},window.advanced_ads_ready_queue=window.advanced_ads_ready_queue||[];              
+  </script>
+  <style type="text/css">
+  img.wp-smiley,
+  img.emoji {
+        display: inline !important;
+        border: none !important;
+        box-shadow: none !important;
+        height: 1em !important;
+        width: 1em !important;
+        margin: 0 0.07em !important;
+        vertical-align: -0.1em !important;
+        background: none !important;
+        padding: 0 !important;
+  }
+  </style>
+  <link rel='stylesheet' id='mediaelement-css' href='/wp-includes/js/mediaelement/mediaelementplayer-legacy.min.css?ver=4.2.17' type='text/css' media='all'>
+  <link rel='stylesheet' id='wp-mediaelement-css' href='/wp-includes/js/mediaelement/wp-mediaelement.min.css?ver=6.3.2' type='text/css' media='all'>
+  <style id='classic-theme-styles-inline-css' type='text/css'>
+  /*! This file is auto-generated */
+  .wp-block-button__link{color:#fff;background-color:#32373c;border-radius:9999px;box-shadow:none;text-decoration:none;padding:calc(.667em + 2px) calc(1.333em + 2px);font-size:1.125em}.wp-block-file__button{background:#32373c;color:#fff;text-decoration:none}
+  </style>
+  <style id='global-styles-inline-css' type='text/css'>
+  body{--wp--preset--color--black: #000000;--wp--preset--color--cyan-bluish-gray: #abb8c3;--wp--preset--color--white: #ffffff;--wp--preset--color--pale-pink: #f78da7;--wp--preset--color--vivid-red: #cf2e2e;--wp--preset--color--luminous-vivid-orange: #ff6900;--wp--preset--color--luminous-vivid-amber: #fcb900;--wp--preset--color--light-green-cyan: #7bdcb5;--wp--preset--color--vivid-green-cyan: #00d084;--wp--preset--color--pale-cyan-blue: #8ed1fc;--wp--preset--color--vivid-cyan-blue: #0693e3;--wp--preset--color--vivid-purple: #9b51e0;--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple: linear-gradient(135deg,rgba(6,147,227,1) 0%,rgb(155,81,224) 100%);--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan: linear-gradient(135deg,rgb(122,220,180) 0%,rgb(0,208,130) 100%);--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange: linear-gradient(135deg,rgba(252,185,0,1) 0%,rgba(255,105,0,1) 100%);--wp--preset--gradient--luminous-vivid-orange-to-vivid-red: linear-gradient(135deg,rgba(255,105,0,1) 0%,rgb(207,46,46) 100%);--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray: linear-gradient(135deg,rgb(238,238,238) 0%,rgb(169,184,195) 100%);--wp--preset--gradient--cool-to-warm-spectrum: linear-gradient(135deg,rgb(74,234,220) 0%,rgb(151,120,209) 20%,rgb(207,42,186) 40%,rgb(238,44,130) 60%,rgb(251,105,98) 80%,rgb(254,248,76) 100%);--wp--preset--gradient--blush-light-purple: linear-gradient(135deg,rgb(255,206,236) 0%,rgb(152,150,240) 100%);--wp--preset--gradient--blush-bordeaux: linear-gradient(135deg,rgb(254,205,165) 0%,rgb(254,45,45) 50%,rgb(107,0,62) 100%);--wp--preset--gradient--luminous-dusk: linear-gradient(135deg,rgb(255,203,112) 0%,rgb(199,81,192) 50%,rgb(65,88,208) 100%);--wp--preset--gradient--pale-ocean: linear-gradient(135deg,rgb(255,245,203) 0%,rgb(182,227,212) 50%,rgb(51,167,181) 100%);--wp--preset--gradient--electric-grass: linear-gradient(135deg,rgb(202,248,128) 0%,rgb(113,206,126) 100%);--wp--preset--gradient--midnight: linear-gradient(135deg,rgb(2,3,129) 0%,rgb(40,116,252) 100%);--wp--preset--font-size--small: 13px;--wp--preset--font-size--medium: 20px;--wp--preset--font-size--large: 36px;--wp--preset--font-size--x-large: 42px;--wp--preset--spacing--20: 0.44rem;--wp--preset--spacing--30: 0.67rem;--wp--preset--spacing--40: 1rem;--wp--preset--spacing--50: 1.5rem;--wp--preset--spacing--60: 2.25rem;--wp--preset--spacing--70: 3.38rem;--wp--preset--spacing--80: 5.06rem;--wp--preset--shadow--natural: 6px 6px 9px rgba(0, 0, 0, 0.2);--wp--preset--shadow--deep: 12px 12px 50px rgba(0, 0, 0, 0.4);--wp--preset--shadow--sharp: 6px 6px 0px rgba(0, 0, 0, 0.2);--wp--preset--shadow--outlined: 6px 6px 0px -3px rgba(255, 255, 255, 1), 6px 6px rgba(0, 0, 0, 1);--wp--preset--shadow--crisp: 6px 6px 0px rgba(0, 0, 0, 1);}:where(.is-layout-flex){gap: 0.5em;}:where(.is-layout-grid){gap: 0.5em;}body .is-layout-flow > .alignleft{float: left;margin-inline-start: 0;margin-inline-end: 2em;}body .is-layout-flow > .alignright{float: right;margin-inline-start: 2em;margin-inline-end: 0;}body .is-layout-flow > .aligncenter{margin-left: auto !important;margin-right: auto !important;}body .is-layout-constrained > .alignleft{float: left;margin-inline-start: 0;margin-inline-end: 2em;}body .is-layout-constrained > .alignright{float: right;margin-inline-start: 2em;margin-inline-end: 0;}body .is-layout-constrained > .aligncenter{margin-left: auto !important;margin-right: auto !important;}body .is-layout-constrained > :where(:not(.alignleft):not(.alignright):not(.alignfull)){max-width: var(--wp--style--global--content-size);margin-left: auto !important;margin-right: auto !important;}body .is-layout-constrained > .alignwide{max-width: var(--wp--style--global--wide-size);}body .is-layout-flex{display: flex;}body .is-layout-flex{flex-wrap: wrap;align-items: center;}body .is-layout-flex > *{margin: 0;}body .is-layout-grid{display: grid;}body .is-layout-grid > *{margin: 0;}:where(.wp-block-columns.is-layout-flex){gap: 2em;}:where(.wp-block-columns.is-layout-grid){gap: 2em;}:where(.wp-block-post-template.is-layout-flex){gap: 1.25em;}:where(.wp-block-post-template.is-layout-grid){gap: 1.25em;}.has-black-color{color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-color{color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-color{color: var(--wp--preset--color--white) !important;}.has-pale-pink-color{color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-color{color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-color{color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-color{color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-color{color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-color{color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-color{color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-color{color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-color{color: var(--wp--preset--color--vivid-purple) !important;}.has-black-background-color{background-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-background-color{background-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-background-color{background-color: var(--wp--preset--color--white) !important;}.has-pale-pink-background-color{background-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-background-color{background-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-background-color{background-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-background-color{background-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-background-color{background-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-background-color{background-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-background-color{background-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-background-color{background-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-background-color{background-color: var(--wp--preset--color--vivid-purple) !important;}.has-black-border-color{border-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-border-color{border-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-border-color{border-color: var(--wp--preset--color--white) !important;}.has-pale-pink-border-color{border-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-border-color{border-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-border-color{border-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-border-color{border-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-border-color{border-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-border-color{border-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-border-color{border-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-border-color{border-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-border-color{border-color: var(--wp--preset--color--vivid-purple) !important;}.has-vivid-cyan-blue-to-vivid-purple-gradient-background{background: var(--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple) !important;}.has-light-green-cyan-to-vivid-green-cyan-gradient-background{background: var(--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan) !important;}.has-luminous-vivid-amber-to-luminous-vivid-orange-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange) !important;}.has-luminous-vivid-orange-to-vivid-red-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-orange-to-vivid-red) !important;}.has-very-light-gray-to-cyan-bluish-gray-gradient-background{background: var(--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray) !important;}.has-cool-to-warm-spectrum-gradient-background{background: var(--wp--preset--gradient--cool-to-warm-spectrum) !important;}.has-blush-light-purple-gradient-background{background: var(--wp--preset--gradient--blush-light-purple) !important;}.has-blush-bordeaux-gradient-background{background: var(--wp--preset--gradient--blush-bordeaux) !important;}.has-luminous-dusk-gradient-background{background: var(--wp--preset--gradient--luminous-dusk) !important;}.has-pale-ocean-gradient-background{background: var(--wp--preset--gradient--pale-ocean) !important;}.has-electric-grass-gradient-background{background: var(--wp--preset--gradient--electric-grass) !important;}.has-midnight-gradient-background{background: var(--wp--preset--gradient--midnight) !important;}.has-small-font-size{font-size: var(--wp--preset--font-size--small) !important;}.has-medium-font-size{font-size: var(--wp--preset--font-size--medium) !important;}.has-large-font-size{font-size: var(--wp--preset--font-size--large) !important;}.has-x-large-font-size{font-size: var(--wp--preset--font-size--x-large) !important;}
+  .wp-block-navigation a:where(:not(.wp-element-button)){color: inherit;}
+  :where(.wp-block-post-template.is-layout-flex){gap: 1.25em;}:where(.wp-block-post-template.is-layout-grid){gap: 1.25em;}
+  :where(.wp-block-columns.is-layout-flex){gap: 2em;}:where(.wp-block-columns.is-layout-grid){gap: 2em;}
+  .wp-block-pullquote{font-size: 1.5em;line-height: 1.6;}
+  </style>
+  <link data-minify="1" rel='stylesheet' id='ql-jquery-ui-css' href='/wp-content/cache/min/1/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css?ver=1679747594' type='text/css' media='all'>
+  <link data-minify="1" rel='stylesheet' id='zox-custom-style-css' href='/wp-content/cache/min/1/wp-content/themes/zoxpress/style.css?ver=1679747594' type='text/css' media='all'>
+  <style id='zox-custom-style-inline-css' type='text/css'>
+
+
+        a,
+        a:visited,
+        a:hover h2.zox-s-title1,
+        a:hover h2.zox-s-title1-feat,
+        a:hover h2.zox-s-title2,
+        a:hover h2.zox-s-title3,
+        .zox-post-body p a,
+        h3.zox-post-cat a,
+        .sp-template a,
+        .sp-data-table a,
+        span.zox-author-name a,
+        a:hover h2.zox-authors-latest,
+        span.zox-authors-name a:hover,
+        #zox-side-wrap a:hover {
+                color: #d82020;
+        }
+
+        .zox-s8 a:hover h2.zox-s-title1,
+        .zox-s8 a:hover h2.zox-s-title1-feat,
+        .zox-s8 a:hover h2.zox-s-title2,
+        .zox-s8 a:hover h2.zox-s-title3 {
+                box-shadow: 15px 0 0 #fff, -10px 0 0 #fff;
+                color: #d82020;
+        }
+
+        .woocommerce-message:before,
+        .woocommerce-info:before,
+        .woocommerce-message:before,
+        .woocommerce .star-rating span:before,
+        span.zox-s-cat,
+        h3.zox-post-cat a,
+        .zox-s6 span.zox-s-cat,
+        .zox-s8 span.zox-s-cat,
+        .zox-widget-side-trend-wrap .zox-art-text:before {
+                color: #000000;
+        }
+
+        .zox-widget-bgp,
+        .zox-widget-bgp.zox-widget-txtw .zox-art-wrap,
+        .zox-widget-bgp.zox-widget-txtw .zox-widget-featl-sub .zox-art-wrap,
+        .zox-s4 .zox-widget-bgp span.zox-s-cat,
+        .woocommerce span.onsale,
+        .zox-s7 .zox-byline-wrap:before,
+        .zox-s3 span.zox-s-cat,
+        .zox-o1 span.zox-s-cat,
+        .zox-s3 .zox-widget-side-trend-wrap .zox-art-text:before,
+        .sp-table-caption,
+        #zox-search-form #zox-search-submit,
+        #zox-search-form2 #zox-search-submit2,
+        .pagination .current,
+        .pagination a:hover,
+        .zox-o6 span.zox-s-cat {
+                background: #000000;
+        }
+
+        .woocommerce .widget_price_filter .ui-slider .ui-slider-handle,
+        .woocommerce #respond input#submit.alt,
+        .woocommerce a.button.alt,
+        .woocommerce button.button.alt,
+        .woocommerce input.button.alt,
+        .woocommerce #respond input#submit.alt:hover,
+        .woocommerce a.button.alt:hover,
+        .woocommerce button.button.alt:hover,
+        .woocommerce input.button.alt:hover {
+                background-color: #000000;
+        }
+
+        .woocommerce-error,
+        .woocommerce-info,
+        .woocommerce-message {
+                border-top-color: #000000;
+        }
+
+        .zox-feat-ent1-left,
+        .zox-ent1 .zox-side-widget {
+                border-top: 2px solid #000000;
+        }
+
+        .zox-feat-ent3-main-wrap h2.zox-s-title2 {
+                background-color: #000000;
+                box-shadow: 15px 0 0 #000000, -10px 0 0 #000000;
+        }
+
+        .zox-widget-side-trend-wrap .zox-art-text:before,
+        .pagination .current,
+        .pagination a:hover {
+                border: 1px solid #000000;
+        }
+
+        .zox-post-type {
+                border: 3px solid #000000;
+        }
+        .zox-net1 .zox-post-type,
+        .zox-net2 .zox-post-type {
+                background: #000000;
+        }
+        .zox-widget-featl-sub .zox-post-type {
+                border: 2px solid #000000;
+        }
+
+        @media screen and (max-width: 479px) {
+        .zox-net1.zox-s4 .zox-widget-bgp .zox-art-main span.zox-s-cat {
+                background: #000000 !important;
+        }
+        }
+
+        .zox-o3 h3.zox-s-cat {
+                background: #dddddd;
+        }
+
+        .zox-widget-bgs,
+        .zox-widget-bgs.zox-widget-txtw .zox-art-wrap,
+        .zox-widget-bgs.zox-widget-txtw .zox-widget-featl-sub .zox-art-wrap,
+        .zox-s4 .zox-widget-bgs span.zox-s-cat {
+                background: #dddddd;
+        }
+
+        #zox-top-head-wrap {
+                background: #000000;
+        }
+
+        span.zox-top-soc-but,
+        .zox-top-nav-menu ul li a,
+        span.zox-woo-cart-icon {
+                color: #cccccc;
+        }
+
+        span.zox-woo-cart-num {
+                background: #cccccc;
+        }
+
+        .zox-top-nav-menu ul li:hover a {
+                color: #ed1c24;
+        }
+
+        #zox-top-head-wrap,
+        #zox-top-head,
+        #zox-top-head-left,
+        #zox-top-head-mid,
+        #zox-top-head-right,
+        .zox-top-nav-menu ul {
+                height: 40px;
+        }
+
+        #zox-top-head-mid img {
+                max-height: calc(40px - 20px);
+        }
+
+        .zox-top-nav-menu ul li a {
+                font-size: 16px;
+        }
+
+        #zox-bot-head-wrap,
+        #zox-bot-head-wrap.zox-trans-bot.zox-fix-up,
+        #zox-fly-wrap,
+        #zox-bot-head-wrap.zox-trans-bot:hover {
+                background-color: #ffffff;
+                background-image: none;
+        }
+
+        .zox-nav-menu ul li a,
+        span.zox-nav-search-but,
+        span.zox-night,
+        .zox-trans-bot.zox-fix-up .zox-nav-menu ul li a,
+        .zox-trans-bot.zox-fix-up span.zox-nav-search-but,
+        nav.zox-fly-nav-menu ul li a,
+        span.zox-fly-soc-head,
+        ul.zox-fly-soc-list li a,
+        nav.zox-fly-nav-menu ul li.menu-item-has-children:after {
+                color: #000000;
+        }
+
+        .zox-nav-menu ul li.menu-item-has-children a:after,
+        .zox-nav-menu ul li.zox-mega-drop a:after {
+                border-right: 1px solid #000000;
+                border-bottom: 1px solid #000000;
+        }
+
+        .zox-fly-but-wrap span,
+        .zox-trans-bot.zox-fix-up .zox-fly-but-wrap span {
+                background: #000000;
+        }
+
+        .zox-nav-menu ul li:hover a,
+        span.zox-nav-search-but:hover,
+        span.zox-night:hover {
+                color: #ed1c24;
+        }
+
+        .zox-fly-but-wrap:hover span {
+                background: #ed1c24;
+        }
+
+        span.zox-widget-main-title {
+                color: #000000;
+        }
+
+        #zox-foot-wrap {
+                background: #ffffff;
+        }
+
+        #zox-foot-wrap p {
+                color: #aaaaaa;
+        }
+
+        #zox-foot-wrap a {
+                color: #aaaaaa;
+        }
+
+        ul.zox-foot-soc-list li a {
+                border: 1px solid #aaaaaa;
+        }
+
+        span.zox-widget-side-title {
+                color: #000000;
+        }
+
+        span.zox-post-main-title {
+                color: #00000;
+        }
+
+        .zox-top-nav-menu ul li a {
+                padding-top: calc((40px - 16px) / 2);
+                padding-bottom: calc((40px - 16px) / 2);
+        }
+
+        #zox-bot-head-wrap,
+        .zox-bot-head-menu,
+        #zox-bot-head,
+        #zox-bot-head-left,
+        #zox-bot-head-right,
+        #zox-bot-head-mid,
+        .zox-bot-head-logo,
+        .zox-bot-head-logo-main,
+        .zox-nav-menu,
+        .zox-nav-menu ul {
+                height: 76px;
+        }
+
+        .zox-bot-head-logo img,
+        .zox-bot-head-logo-main img {
+                max-height: calc(76px - 20px);
+        }
+
+        .zox-nav-menu ul li ul.sub-menu,
+        .zox-nav-menu ul li.menu-item-object-category .zox-mega-dropdown {
+                top: 76px;
+        }
+
+        .zox-nav-menu ul li a {
+                font-size: 16px;
+        }
+
+        .zox-nav-menu ul li a {
+                padding-top: calc((76px - 16px) / 2);
+                padding-bottom: calc((76px - 16px) / 2);
+        }
+
+        .zox-fix-up {
+                top: -76px !important;
+                -webkit-transform: translate3d(0,-76px,0) !important;
+                   -moz-transform: translate3d(0,-76px,0) !important;
+                -ms-transform: translate3d(0,-76px,0) !important;
+                 -o-transform: translate3d(0,-76px,0) !important;
+                                transform: translate3d(0,-76px,0) !important;
+        }
+
+        .zox-fix {
+                top: -76px;
+                -webkit-transform: translate3d(0,76px,0) !important;
+                   -moz-transform: translate3d(0,76px,0) !important;
+                -ms-transform: translate3d(0,76px,0) !important;
+                 -o-transform: translate3d(0,76px,0) !important;
+                                transform: translate3d(0,76px,0) !important;
+        }
+
+        .zox-fix-up .zox-nav-menu ul li a {
+                padding-top: calc((60px - 16px) / 2);
+                padding-bottom: calc((60px - 16px) / 2);
+        }
+
+        .zox-feat-ent1-grid,
+        .zox-feat-ent2-bot,
+        .zox-feat-net1-grid {
+                grid-template-columns: auto 300px;
+        }
+
+        body,
+        span.zox-s-cat,
+        span.zox-ad-label,
+        .woocommerce ul.product_list_widget li a,
+        .woocommerce ul.product_list_widget span.product-title,
+        .woocommerce #reviews #comments ol.commentlist li .comment-text p.meta,
+        .woocommerce div.product p.price,
+        .woocommerce div.product p.price ins,
+        .woocommerce div.product p.price del,
+        .woocommerce ul.products li.product .price del,
+        .woocommerce ul.products li.product .price ins,
+        .woocommerce ul.products li.product .price,
+        .woocommerce #respond input#submit,
+        .woocommerce a.button,
+        .woocommerce button.button,
+        .woocommerce input.button,
+        .woocommerce .widget_price_filter .price_slider_amount .button,
+        .woocommerce span.onsale,
+        .woocommerce-review-link,
+        #woo-content p.woocommerce-result-count,
+        .woocommerce div.product .woocommerce-tabs ul.tabs li a,
+        .woocommerce .woocommerce-breadcrumb,
+        .woocommerce #respond input#submit.alt,
+        .woocommerce a.button.alt,
+        .woocommerce button.button.alt,
+        .woocommerce input.button.alt,
+        .zox-post-tags-header,
+        .zox-post-tags a {
+                font-family: 'Montserrat', sans-serif;
+                font-weight: 400;
+                text-transform: None;
+        }
+
+        #zox-woo-side-wrap span.zox-widget-side-title,
+        span.zox-authors-name a,
+        h1.zox-author-top-head {
+                font-family: 'Montserrat', sans-serif;
+        }
+
+        p.zox-s-graph,
+        span.zox-post-excerpt p,
+        .zox-post-body p,
+        #woo-content p,
+        #zox-404 p,
+        .zox-post-body ul li,
+        .zox-post-body ol li,
+        .zox-author-box-text p {
+                font-family: 'Roboto', sans-serif;
+                font-weight: 400;
+                text-transform: None;
+        }
+
+        .zox-nav-menu ul li a,
+        .zox-top-nav-menu ul li a,
+        nav.zox-fly-nav-menu ul li a {
+                font-family: 'Montserrat', sans-serif;
+                font-weight: 800;
+                text-transform: Uppercase;
+        }
+
+        .zox-nav-menu ul li ul.zox-mega-list li a,
+        .zox-nav-menu ul li ul.zox-mega-list li a p {
+                font-family: 'Montserrat', sans-serif;
+        }
+
+        h2.zox-s-title1,
+        h2.zox-s-title1-feat,
+        .woocommerce div.product .product_title,
+        .woocommerce .related h2,
+        #woo-content .summary p.price,
+        .woocommerce div.product .woocommerce-tabs .panel h2,
+        #zox-404 h1,
+        h1.zox-post-title,
+        .zox-widget-side-trend-wrap .zox-art-text:before,
+        .zox-post-body blockquote p,
+        .zox-post-body .wp-block-pullquote blockquote p,
+        .zox-post-body h1,
+        .zox-post-body h2,
+        .zox-post-body h3,
+        .zox-post-body h4,
+        .zox-post-body h5,
+        .zox-post-body h6,
+        .comment-inner h1,
+        .comment-inner h2,
+        .comment-inner h3,
+        .comment-inner h4,
+        .comment-inner h5,
+        .comment-inner h6,
+        span.zox-author-box-name a {
+                font-family: 'Montserrat', sans-serif;
+                font-weight: 800;
+                text-transform: Uppercase;
+        }
+
+        span.zox-widget-main-title {
+                font-family: 'Montserrat', sans-serif;
+                font-weight: 900;
+                text-transform: Uppercase;
+        }
+
+        span.zox-widget-side-title {
+                font-family: 'Montserrat', sans-serif;
+                font-weight: 800;
+                text-transform: Uppercase;
+        }
+
+        span.zox-post-main-title {
+                font-family: 'Roboto', sans-serif;
+                font-weight: 800;
+                text-transform: Capitalize;
+        }
+
+        h2.zox-s-title2,
+        h2.zox-s-title3,
+        span.zox-woo-cart-num,
+        p.zox-search-p,
+        .alp-related-posts .current .post-title,
+        .alp-related-posts-wrapper .alp-related-post .post-title,
+        .zox-widget-txtw span.zox-widget-main-title {
+                font-family: 'Montserrat', sans-serif;
+                font-weight: 800;
+                text-transform: Uppercase;
+        }
+
+        .zox-post-width {
+                margin: 0 auto;
+                max-width: calc(1240px + 60px);
+        }
+
+
+        
+
+
+                .zox-nav-menu ul li ul.zox-mega-list li a,
+                .zox-nav-menu ul li ul.zox-mega-list li a p {
+                        font-weight: 600;
+                        text-transform: capitalize;
+                }
+                h2.zox-s-title3 {
+                        font-family: 'Roboto', sans-serif;
+                        font-weight: 700;
+                }
+                .zox-s8 span.zox-s-cat,
+                .zox-s8 .zox-widget-txtw .zox-widget-featl-wrap span.zox-s-cat {
+                        letter-spacing: 0;
+                        font-weight: 800;
+                        text-transform: uppercase;
+                }
+                .zox-o1 span.zox-s-cat {
+                        background: #fff;
+                        font-weight: 800;
+                        text-transform: uppercase;
+                }
+                        
+
+                        .zox-head-width {
+                                margin: 0 auto;
+                                max-width: none;
+                        }
+                        .zox-nav-menu ul li.zox-mega-drop .zox-mega-dropdown {
+                                left: calc(((100vw - 100%) /2) * -1);
+                        }
+                                
+
+                        .zox-body-width,
+                        .zox-widget-feat-wrap.zox-o1 .zox-art-text-cont,
+                        .zox-widget-feat-wrap.zox-o4 .zox-art-text-cont,
+                        .zox-widget-feat-main.zox-o1 .zox-art-text-cont,
+                        .zox-widget-feat-main.zox-o4 .zox-art-text-cont {
+                                margin: 0 auto;
+                                padding: 0 30px;
+                                max-width: calc(1200px + 60px);
+                        }
+                                
+
+                #zox-bot-head-mid {
+                        display: grid;
+                        grid-column-gap: 20px;
+                        grid-template-columns: auto auto;
+                        justify-content: start;
+                        position: static;
+                }
+                .zox-bot-head-logo {
+                        position: relative;
+                                top: auto;
+                                left: auto;
+                }
+                #zox-bot-head-wrap .zox-nav-menu ul li:first-child a {
+                        padding-left: 0;
+                }
+                .zox-bot-head-menu {
+                        padding: 0;
+                }
+                        
+
+                        @media screen and (min-width: 1024px) {
+                                #zox-bot-head-left {
+                                        display: none;
+                                }
+                                #zox-bot-head {
+                                        grid-template-columns: auto 60px;
+                                }
+                        }
+                        @media screen and (max-width: 1023px) {
+                                #zox-bot-head-left {
+                                        display: grid;
+                                }
+                        }
+                                
+
+        #zox-bot-head-wrap {
+                -webkit-box-shadow: 0 0.5rem 1rem 0 rgba(21,21,30,0.08);
+                   -moz-box-shadow: 0 0.5rem 1rem 0 rgba(21,21,30,0.08);
+                        -ms-box-shadow: 0 0.5rem 1rem 0 rgba(21,21,30,0.08);
+                         -o-box-shadow: 0 0.5rem 1rem 0 rgba(21,21,30,0.08);
+                                box-shadow: 0 0.5rem 1rem 0 rgba(21,21,30,0.08);
+        }
+                
+
+  .zox-nav-links {
+        display: none;
+        }
+        
+
+                                .zox-post-main-wrap,
+                                #zox-home-body-wrap {
+                                        grid-template-columns: calc(100% - 400px) 340px;
+                                        }
+                                        
+
+        .zox-post-body p a {
+                box-shadow: inset 0 -1px 0 0 #fff, inset 0 -2px 0 0 #d82020;
+                color: #000;
+        }
+        .zox-post-body p a:hover {
+                color: #d82020;
+        }
+        
+
+                        span.zox-widget-main-title {
+                                font-size: 2rem;
+                                letter-spacing: .05em;
+                        }
+                        @media screen and (max-width: 599px) {
+                                span.zox-widget-main-title {
+                                        font-size: 1.125rem;
+                                }
+                        }
+                        
+
+                        h4.zox-widget-side-title {
+                                border-bottom: 2px solid #000000;
+                                text-align: left;
+                        }
+                        span.zox-widget-side-title {
+                                background: #000000;
+                                color: #fff;
+                                font-size: .875rem;
+                                letter-spacing: -.02em;
+                                padding: 5px 10px 3px 10px;
+                                text-transform: uppercase;
+                        }
+                        #zox-woo-side-wrap span.zox-widget-side-title {
+                                font-size: .875rem;
+                        }
+                        
+
+                h4.zox-post-main-title {
+                        text-align: left;
+                }
+                span.zox-post-main-title {
+                        font-size: 1.5rem;
+                        letter-spacing: .1em;
+                }
+                
+
+        .home #zox-home-body-wrap {
+                grid-gap: 0;
+                grid-template-columns: 100%;
+        }
+        .home #zox-home-right-wrap {
+                display: none;
+        }
+        
+
+
+                
+
+        #zox-bot-head-right {
+                grid-template-columns: 100%;
+                justify-items: end;
+        }
+                
+  </style>
+  <link data-minify="1" rel='stylesheet' id='fontawesome-css' href='/wp-content/cache/min/1/wp-content/themes/zoxpress/font-awesome/css/all.css?ver=1679747594' type='text/css' media='all'>
+  <link data-minify="1" rel='stylesheet' id='zox-media-queries-css' href='/wp-content/cache/min/1/wp-content/themes/zoxpress/css/media-queries.css?ver=1679747594' type='text/css' media='all'>
+  <link data-minify="1" rel='stylesheet' id='elementor-icons-css' href='/wp-content/cache/min/1/wp-content/plugins/elementor/assets/lib/eicons/css/elementor-icons.min.css?ver=1679747594' type='text/css' media='all'>
+  <link rel='stylesheet' id='elementor-frontend-css' href='/wp-content/plugins/elementor/assets/css/frontend-lite.min.css?ver=3.18.2' type='text/css' media='all'>
+  <link rel='stylesheet' id='swiper-css' href='/wp-content/plugins/elementor/assets/lib/swiper/css/swiper.min.css?ver=5.3.6' type='text/css' media='all'>
+  <link rel='stylesheet' id='elementor-post-6-css' href='/wp-content/uploads/elementor/css/post-6.css?ver=1676289913' type='text/css' media='all'>
+  <link rel='stylesheet' id='elementor-global-css' href='/wp-content/uploads/elementor/css/global.css?ver=1676289913' type='text/css' media='all'>
+  <link rel='stylesheet' id='elementor-post-7-css' href='/wp-content/uploads/elementor/css/post-7.css?ver=1676289914' type='text/css' media='all'>
+  <style id='rocket-lazyload-inline-css' type='text/css'>
+  .rll-youtube-player{position:relative;padding-bottom:56.23%;height:0;overflow:hidden;max-width:100%;}.rll-youtube-player:focus-within{outline: 2px solid currentColor;outline-offset: 5px;}.rll-youtube-player iframe{position:absolute;top:0;left:0;width:100%;height:100%;z-index:100;background:0 0}.rll-youtube-player img{bottom:0;display:block;left:0;margin:auto;max-width:100%;width:100%;position:absolute;right:0;top:0;border:none;height:auto;-webkit-transition:.4s all;-moz-transition:.4s all;transition:.4s all}.rll-youtube-player img:hover{-webkit-filter:brightness(75%)}.rll-youtube-player .play{height:100%;width:100%;left:0;top:0;position:absolute;background:url(/wp-content/plugins/wp-rocket/assets/img/youtube.png) no-repeat center;background-color: transparent !important;cursor:pointer;border:none;}.wp-embed-responsive .wp-has-aspect-ratio .rll-youtube-player{position:absolute;padding-bottom:0;width:100%;height:100%;top:0;bottom:0;left:0;right:0}
+  </style>
+  <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
+  <script type="rocketlazyloadscript" data-rocket-type='text/javascript' data-rocket-src='/wp-includes/js/jquery/jquery.min.js?ver=3.7.0' id='jquery-core-js' defer></script>
+  <script type="rocketlazyloadscript" data-rocket-type='text/javascript' data-rocket-src='/wp-includes/js/jquery/jquery-migrate.min.js?ver=3.4.1' id='jquery-migrate-js' defer></script>
+  <script type='text/javascript' id='advanced-ads-advanced-js-js-extra'>
+  /* <![CDATA[ */
+  var advads_options = {"blog_id":"1","privacy":{"enabled":false,"state":"not_needed"}};
+  /* ]]> */
+  </script>
+  <script type="rocketlazyloadscript" data-rocket-type='text/javascript' data-rocket-src='/wp-content/plugins/advanced-ads/public/assets/js/advanced.min.js?ver=1.48.1' id='advanced-ads-advanced-js-js' defer></script>
+  <script type="rocketlazyloadscript" id="google_gtagjs-js-after" data-rocket-type="text/javascript">
+  window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}
+  gtag('set', 'linker', {"domains":["outlaw4life.com"]} );
+  gtag("js", new Date());
+  gtag("set", "developer_id.dZTNiMT", true);
+  gtag("config", "UA-224974751-1", {"anonymize_ip":true});
+  gtag("config", "G-2YH4BM8JWY");
+  </script>
+  <link rel="https://api.w.org/" href="/wp-json/">
+  <link rel="alternate" type="application/json" href="/wp-json/wp/v2/pages/7">
+  <link rel="EditURI" type="application/rsd+xml" title="RSD" href="/xmlrpc.php?rsd">
+  <link rel='shortlink' href='/'>
+  <link rel="alternate" type="application/json+oembed" href="/wp-json/oembed/1.0/embed?url=https%3A%2F%2Foutlaw4life.com%2F">
+  <link rel="alternate" type="text/xml+oembed" href="/wp-json/oembed/1.0/embed?url=https%3A%2F%2Foutlaw4life.com%2F&#038;format=xml">
+  <meta name="theme-color" content="#fff">
+  <meta property="og:description" content="The Legacy Continues . . .">
+  <style>
+  img#wpstats{display:none}
+  </style>
+  <script type="rocketlazyloadscript" data-rocket-type="text/javascript">
+                var advadsCfpQueue = [];
+                var advadsCfpAd = function( adID ){
+                        if ( 'undefined' == typeof advadsProCfp ) { advadsCfpQueue.push( adID ) } else { advadsProCfp.addElement( adID ) }
+                };
+  </script>
+  <meta name="google-adsense-platform-account" content="ca-host-pub-2644536267352236">
+  <meta name="google-adsense-platform-domain" content="sitekit.withgoogle.com">
+  <meta name="onesignal" content="wordpress-plugin">
+  <style type="text/css" id="custom-background-css">
+  body.custom-background { background-color: #ffffff; }
+  </style>
+  <link rel="icon" href="/wp-content/uploads/2022/04/cropped-socialmedia-logo-32x32.jpg" sizes="32x32">
+  <link rel="icon" href="/wp-content/uploads/2022/04/cropped-socialmedia-logo-192x192.jpg" sizes="192x192">
+  <link rel="apple-touch-icon" href="/wp-content/uploads/2022/04/cropped-socialmedia-logo-180x180.jpg">
+  <meta name="msapplication-TileImage" content="https://outlaw4life.com/wp-content/uploads/2022/04/cropped-socialmedia-logo-270x270.jpg"><noscript>
+  <style id="rocket-lazyload-nojs-css">
+
+  .rll-youtube-player, [data-lazy-src]{display:none !important;}
+  </style></noscript>
+<meta name="google-site-verification" content="4ML7NZNOC8Ggy9LnqjLakNkjZgowA2K9HrQ9sVkOWX0" />
+</head>
+<body class="home page-template page-template-page-home page-template-page-home-php page page-id-7 custom-background wp-embed-responsive zox-ent3 zox-s8 elementor-default elementor-kit-6 elementor-page elementor-page-7 aa-prefix-outla-">
+<div id="zox-site" class="left zoxrel">
+<div id="zox-fly-wrap">
+<div id="zox-fly-menu-top" class="left relative">
+<div id="zox-fly-logo" class="left relative"><a href="/"><img width="121" height="50" src="data:;base64,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 121 50'></svg>" alt="Outlaw 4 Life" data-rjs="2" data-lazy-src="/wp-content/uploads/2022/04/small-logo.jpg" /><noscript><img width="121" height="50" src="/wp-content/uploads/2022/04/small-logo.jpg" alt="Outlaw 4 Life" data-rjs="2"></noscript></a></div>
+<div class="zox-fly-but-wrap zox-fly-but-menu zox-fly-but-click"><span></span> <span></span> <span></span> <span></span><br /></div>
+</div>
+<div id="zox-fly-menu-wrap"><nav class="zox-fly-nav-menu left relative">
+<div class="menu-fly-out-container">
+<ul id="menu-fly-out" class="menu">
+<li id="menu-item-91" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-91"><a href="/category/news/">News</a></li>
+<li id="menu-item-90" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children menu-item-90"><a href="/category/blog/">Blog</a>
+<ul class="sub-menu">
+<li id="menu-item-92" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-92"><a href="/category/blog/fitness/">Fitness</a></li>
+</ul>
+</li>
+<li id="menu-item-299" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-299">AudioMack</li>
+<li id="menu-item-212" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-212"><a href="/playlist/">Playlist</a></li>
+<li id="menu-item-355" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-355">Shop</li>
+<li id="menu-item-191" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-191"><a href="/promo/">Promo</a></li>
+<li id="menu-item-149" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-149"><a href="/contact/">Contact</a></li>
+</ul>
+</div>
+</nav></div>
+<div id="zox-fly-soc-wrap"><span class="zox-fly-soc-head">Connect with us</span>
+<ul class="zox-fly-soc-list left relative">
+<li></li>
+<li></li>
+<li></li>
+<li></li>
+<li></li>
+<li></li>
+</ul>
+</div>
+</div>
+<div id="zox-search-wrap">
+<div class="zox-search-cont">
+<p class="zox-search-p">Hi, what are you looking for?</p>
+<div class="zox-search-box"><form method="get" id="zox-search-form" action="https://outlaw4life.com/" name="zox-search-form"><input type="text" name="s" id="zox-search-input" value="Search" onfocus="if (this.value == &quot;Search&quot;) { this.value = &quot;&quot;; }" onblur="if (this.value == &quot;Search&quot;) { this.value = &quot;&quot;; }" /> <input type="submit" id="zox-search-submit" value="Search" /></form></div>
+</div>
+<div class="zox-search-but-wrap zox-search-click"><span></span> <span></span><br /></div>
+</div>
+<div id="zox-site-wall" class="left zoxrel">
+<div id="zox-lead-top-wrap">
+<div id="zox-lead-top-in">
+<div id="zox-lead-top"><br /></div>
+</div>
+</div>
+<div id="zox-site-main" class="left zoxrel"><header id="zox-main-head-wrap" class="left zoxrel zox-trans-head">
+<div id="zox-bot-head-wrap" class="left zoxrel">
+<div class="zox-head-width">
+<div id="zox-bot-head">
+<div id="zox-bot-head-left">
+<div class="zox-fly-but-wrap zoxrel zox-fly-but-click"><span></span> <span></span> <span></span> <span></span><br /></div>
+</div>
+<div id="zox-bot-head-mid" class="relative">
+<div class="zox-bot-head-logo">
+<div class="zox-bot-head-logo-main"><a href="/"><img width="121" height="50" class="zox-logo-stand" src="data:;base64,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 121 50'></svg>" alt="Outlaw 4 Life" data-rjs="2" data-lazy-src="/wp-content/uploads/2022/04/small-logo.jpg" /><noscript><img width="121" height="50" class="zox-logo-stand" src="/wp-content/uploads/2022/04/small-logo.jpg" alt="Outlaw 4 Life" data-rjs="2"></noscript><img class="zox-logo-dark" alt="Outlaw 4 Life" data-rjs="2" /></a></div>
+<h1 class="zox-logo-title">Outlaw 4 Life</h1>
+</div>
+<div class="zox-bot-head-menu">
+<div class="zox-nav-menu">
+<div class="menu-main-container">
+<ul id="menu-main" class="menu">
+<li id="menu-item-88" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-88 zox-mega-drop"><a href="/category/news/">NEWS</a>
+<div class="zox-mega-dropdown">
+<div class="zox-head-width">
+<ul class="zox-mega-list">
+<li>
+<div class="zox-mega-img"><img width="600" height="337" src="data:;base64,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 337'></svg>" class="attachment-zox-mid-thumb size-zox-mid-thumb wp-post-image" alt="Dr. Dre Wanted To Work With Outlawz: Y'all The New NWA" decoding="async" data-lazy-srcset="/wp-content/uploads/2023/03/edi-mean-talks-dr-dre-outlawz-tupac-600x337.jpg 600w, /wp-content/uploads/2023/03/edi-mean-talks-dr-dre-outlawz-tupac-300x169.jpg 300w, /wp-content/uploads/2023/03/edi-mean-talks-dr-dre-outlawz-tupac-1024x576.jpg 1024w, /wp-content/uploads/2023/03/edi-mean-talks-dr-dre-outlawz-tupac-768x432.jpg 768w, /wp-content/uploads/2023/03/edi-mean-talks-dr-dre-outlawz-tupac.jpg 1200w" data-lazy-sizes="(max-width: 600px) 100vw, 600px" data-lazy-src="/wp-content/uploads/2023/03/edi-mean-talks-dr-dre-outlawz-tupac-600x337.jpg" /><noscript><img width="600" height="337" src="/wp-content/uploads/2023/03/edi-mean-talks-dr-dre-outlawz-tupac-600x337.jpg" class="attachment-zox-mid-thumb size-zox-mid-thumb wp-post-image" alt="Dr. Dre Wanted To Work With Outlawz: Y'all The New NWA" decoding="async" srcset="/wp-content/uploads/2023/03/edi-mean-talks-dr-dre-outlawz-tupac-600x337.jpg 600w, /wp-content/uploads/2023/03/edi-mean-talks-dr-dre-outlawz-tupac-300x169.jpg 300w, /wp-content/uploads/2023/03/edi-mean-talks-dr-dre-outlawz-tupac-1024x576.jpg 1024w, /wp-content/uploads/2023/03/edi-mean-talks-dr-dre-outlawz-tupac-768x432.jpg 768w, /wp-content/uploads/2023/03/edi-mean-talks-dr-dre-outlawz-tupac.jpg 1200w" sizes="(max-width: 600px) 100vw, 600px"></noscript></div>
+<p>Dr. Dre Wanted To Work With Outlawz: Y&rsquo;all The New NWA</p>
+</li>
+<li>
+<div class="zox-mega-img"><img width="600" height="337" src="data:;base64,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 337'></svg>" class="attachment-zox-mid-thumb size-zox-mid-thumb wp-post-image" alt="Outlawz Members Reunite After 8 Years: Tupac Smiling Down On Us" decoding="async" data-lazy-srcset="/wp-content/uploads/2023/03/kastro-and-young-noble-600x337.jpg 600w, /wp-content/uploads/2023/03/kastro-and-young-noble-300x169.jpg 300w, /wp-content/uploads/2023/03/kastro-and-young-noble-1024x576.jpg 1024w, /wp-content/uploads/2023/03/kastro-and-young-noble-768x432.jpg 768w, /wp-content/uploads/2023/03/kastro-and-young-noble.jpg 1200w" data-lazy-sizes="(max-width: 600px) 100vw, 600px" data-lazy-src="/wp-content/uploads/2023/03/kastro-and-young-noble-600x337.jpg" /><noscript><img width="600" height="337" src="/wp-content/uploads/2023/03/kastro-and-young-noble-600x337.jpg" class="attachment-zox-mid-thumb size-zox-mid-thumb wp-post-image" alt="Outlawz Members Reunite After 8 Years: Tupac Smiling Down On Us" decoding="async" srcset="/wp-content/uploads/2023/03/kastro-and-young-noble-600x337.jpg 600w, /wp-content/uploads/2023/03/kastro-and-young-noble-300x169.jpg 300w, /wp-content/uploads/2023/03/kastro-and-young-noble-1024x576.jpg 1024w, /wp-content/uploads/2023/03/kastro-and-young-noble-768x432.jpg 768w, /wp-content/uploads/2023/03/kastro-and-young-noble.jpg 1200w" sizes="(max-width: 600px) 100vw, 600px"></noscript></div>
+<p>Outlawz Members Reunite After 8 Years: Tupac Smiling Down On Us</p>
+</li>
+<li>
+<div class="zox-mega-img"><img width="600" height="337" src="data:;base64,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 337'></svg>" class="attachment-zox-mid-thumb size-zox-mid-thumb wp-post-image" alt="RJ Payne Features Young Noble On &quot;Pac Energy&quot;" decoding="async" data-lazy-srcset="/wp-content/uploads/2023/02/young-noble-featured-on-rj-payne-pac-energy-600x337.jpg 600w, /wp-content/uploads/2023/02/young-noble-featured-on-rj-payne-pac-energy-300x169.jpg 300w, /wp-content/uploads/2023/02/young-noble-featured-on-rj-payne-pac-energy-1024x576.jpg 1024w, /wp-content/uploads/2023/02/young-noble-featured-on-rj-payne-pac-energy-768x432.jpg 768w, /wp-content/uploads/2023/02/young-noble-featured-on-rj-payne-pac-energy.jpg 1200w" data-lazy-sizes="(max-width: 600px) 100vw, 600px" data-lazy-src="/wp-content/uploads/2023/02/young-noble-featured-on-rj-payne-pac-energy-600x337.jpg" /><noscript><img width="600" height="337" src="/wp-content/uploads/2023/02/young-noble-featured-on-rj-payne-pac-energy-600x337.jpg" class="attachment-zox-mid-thumb size-zox-mid-thumb wp-post-image" alt="RJ Payne Features Young Noble On "Pac Energy"" decoding="async" srcset="/wp-content/uploads/2023/02/young-noble-featured-on-rj-payne-pac-energy-600x337.jpg 600w, /wp-content/uploads/2023/02/young-noble-featured-on-rj-payne-pac-energy-300x169.jpg 300w, /wp-content/uploads/2023/02/young-noble-featured-on-rj-payne-pac-energy-1024x576.jpg 1024w, /wp-content/uploads/2023/02/young-noble-featured-on-rj-payne-pac-energy-768x432.jpg 768w, /wp-content/uploads/2023/02/young-noble-featured-on-rj-payne-pac-energy.jpg 1200w" sizes="(max-width: 600px) 100vw, 600px"></noscript></div>
+<p>RJ Payne Features Young Noble On &ldquo;Pac Energy&rdquo;</p>
+</li>
+<li>
+<div class="zox-mega-img"><img width="600" height="337" src="data:;base64,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 337'></svg>" class="attachment-zox-mid-thumb size-zox-mid-thumb wp-post-image" alt="Outlawz Performing Live For Super Bowl Weekend" decoding="async" data-lazy-srcset="/wp-content/uploads/2023/01/edi-mean-young-noble-photo-600x337.jpg 600w, /wp-content/uploads/2023/01/edi-mean-young-noble-photo-300x169.jpg 300w, /wp-content/uploads/2023/01/edi-mean-young-noble-photo-1024x576.jpg 1024w, /wp-content/uploads/2023/01/edi-mean-young-noble-photo-768x432.jpg 768w, /wp-content/uploads/2023/01/edi-mean-young-noble-photo.jpg 1200w" data-lazy-sizes="(max-width: 600px) 100vw, 600px" data-lazy-src="/wp-content/uploads/2023/01/edi-mean-young-noble-photo-600x337.jpg" /><noscript><img width="600" height="337" src="/wp-content/uploads/2023/01/edi-mean-young-noble-photo-600x337.jpg" class="attachment-zox-mid-thumb size-zox-mid-thumb wp-post-image" alt="Outlawz Performing Live For Super Bowl Weekend" decoding="async" srcset="/wp-content/uploads/2023/01/edi-mean-young-noble-photo-600x337.jpg 600w, /wp-content/uploads/2023/01/edi-mean-young-noble-photo-300x169.jpg 300w, /wp-content/uploads/2023/01/edi-mean-young-noble-photo-1024x576.jpg 1024w, /wp-content/uploads/2023/01/edi-mean-young-noble-photo-768x432.jpg 768w, /wp-content/uploads/2023/01/edi-mean-young-noble-photo.jpg 1200w" sizes="(max-width: 600px) 100vw, 600px"></noscript></div>
+<p>Outlawz Performing Live For Super Bowl Weekend</p>
+</li>
+<li>
+<div class="zox-mega-img"><img width="600" height="337" src="data:;base64,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 337'></svg>" class="attachment-zox-mid-thumb size-zox-mid-thumb wp-post-image" alt="Dr. Mutulu Shakur To Be Released From Prison, Parole Granted" decoding="async" data-lazy-srcset="/wp-content/uploads/2022/11/dr-mutulu-shakur-600x337.jpg 600w, /wp-content/uploads/2022/11/dr-mutulu-shakur-300x169.jpg 300w, /wp-content/uploads/2022/11/dr-mutulu-shakur-1024x576.jpg 1024w, /wp-content/uploads/2022/11/dr-mutulu-shakur-768x432.jpg 768w, /wp-content/uploads/2022/11/dr-mutulu-shakur.jpg 1200w" data-lazy-sizes="(max-width: 600px) 100vw, 600px" data-lazy-src="/wp-content/uploads/2022/11/dr-mutulu-shakur-600x337.jpg" /><noscript><img width="600" height="337" src="/wp-content/uploads/2022/11/dr-mutulu-shakur-600x337.jpg" class="attachment-zox-mid-thumb size-zox-mid-thumb wp-post-image" alt="Dr. Mutulu Shakur To Be Released From Prison, Parole Granted" decoding="async" srcset="/wp-content/uploads/2022/11/dr-mutulu-shakur-600x337.jpg 600w, /wp-content/uploads/2022/11/dr-mutulu-shakur-300x169.jpg 300w, /wp-content/uploads/2022/11/dr-mutulu-shakur-1024x576.jpg 1024w, /wp-content/uploads/2022/11/dr-mutulu-shakur-768x432.jpg 768w, /wp-content/uploads/2022/11/dr-mutulu-shakur.jpg 1200w" sizes="(max-width: 600px) 100vw, 600px"></noscript></div>
+<p>Dr. Mutulu Shakur To Be Released From Prison, Parole Granted</p>
+</li>
+</ul>
+</div>
+</div>
+</li>
+<li id="menu-item-89" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-89 zox-mega-drop"><a href="/category/blog/">BLOG</a>
+<div class="zox-mega-dropdown">
+<div class="zox-head-width">
+<ul class="zox-mega-list">
+<li>
+<div class="zox-mega-img"><img width="600" height="337" src="data:;base64,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 337'></svg>" class="attachment-zox-mid-thumb size-zox-mid-thumb wp-post-image" alt="My Fitness Journey: A Study in Self-Development and Mastery" decoding="async" data-lazy-srcset="/wp-content/uploads/2022/04/edimean-photo-600x337.jpg 600w, /wp-content/uploads/2022/04/edimean-photo-300x169.jpg 300w, /wp-content/uploads/2022/04/edimean-photo-1024x576.jpg 1024w, /wp-content/uploads/2022/04/edimean-photo-768x432.jpg 768w, /wp-content/uploads/2022/04/edimean-photo.jpg 1200w" data-lazy-sizes="(max-width: 600px) 100vw, 600px" data-lazy-src="/wp-content/uploads/2022/04/edimean-photo-600x337.jpg" /><noscript><img width="600" height="337" src="/wp-content/uploads/2022/04/edimean-photo-600x337.jpg" class="attachment-zox-mid-thumb size-zox-mid-thumb wp-post-image" alt="My Fitness Journey: A Study in Self-Development and Mastery" decoding="async" srcset="/wp-content/uploads/2022/04/edimean-photo-600x337.jpg 600w, /wp-content/uploads/2022/04/edimean-photo-300x169.jpg 300w, /wp-content/uploads/2022/04/edimean-photo-1024x576.jpg 1024w, /wp-content/uploads/2022/04/edimean-photo-768x432.jpg 768w, /wp-content/uploads/2022/04/edimean-photo.jpg 1200w" sizes="(max-width: 600px) 100vw, 600px"></noscript></div>
+<p>My Fitness Journey: A Study in Self-Development and Mastery</p>
+</li>
+</ul>
+</div>
+</div>
+</li>
+<li id="menu-item-300" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-300 zox-mega-drop"><a href="/category/flashback/">FLASHBACK</a>
+<div class="zox-mega-dropdown">
+<div class="zox-head-width">
+<ul class="zox-mega-list">
+<li>
+<div class="zox-mega-img"><img width="600" height="337" src="data:;base64,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 337'></svg>" class="attachment-zox-mid-thumb size-zox-mid-thumb wp-post-image" alt="Tupac, Outlawz Classic On Iggy Azalea's Top Rap Song Of All Time" decoding="async" data-lazy-srcset="/wp-content/uploads/2022/10/iggy-azalea-talks-tupac-outlawz-600x337.jpg 600w, /wp-content/uploads/2022/10/iggy-azalea-talks-tupac-outlawz-300x169.jpg 300w, /wp-content/uploads/2022/10/iggy-azalea-talks-tupac-outlawz-1024x576.jpg 1024w, /wp-content/uploads/2022/10/iggy-azalea-talks-tupac-outlawz-768x432.jpg 768w, /wp-content/uploads/2022/10/iggy-azalea-talks-tupac-outlawz.jpg 1200w" data-lazy-sizes="(max-width: 600px) 100vw, 600px" data-lazy-src="/wp-content/uploads/2022/10/iggy-azalea-talks-tupac-outlawz-600x337.jpg" /><noscript><img width="600" height="337" src="/wp-content/uploads/2022/10/iggy-azalea-talks-tupac-outlawz-600x337.jpg" class="attachment-zox-mid-thumb size-zox-mid-thumb wp-post-image" alt="Tupac, Outlawz Classic On Iggy Azalea's Top Rap Song Of All Time" decoding="async" srcset="/wp-content/uploads/2022/10/iggy-azalea-talks-tupac-outlawz-600x337.jpg 600w, /wp-content/uploads/2022/10/iggy-azalea-talks-tupac-outlawz-300x169.jpg 300w, /wp-content/uploads/2022/10/iggy-azalea-talks-tupac-outlawz-1024x576.jpg 1024w, /wp-content/uploads/2022/10/iggy-azalea-talks-tupac-outlawz-768x432.jpg 768w, /wp-content/uploads/2022/10/iggy-azalea-talks-tupac-outlawz.jpg 1200w" sizes="(max-width: 600px) 100vw, 600px"></noscript></div>
+<p>Tupac, Outlawz Classic On Iggy Azalea&rsquo;s Top Rap Song Of All Time</p>
+</li>
+<li>
+<div class="zox-mega-img"><img width="600" height="337" src="data:;base64,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 337'></svg>" class="attachment-zox-mid-thumb size-zox-mid-thumb wp-post-image" alt="Hussein Fatal Pranks Tupac With Janet Jackson Lookalike" decoding="async" data-lazy-srcset="/wp-content/uploads/2022/08/hussein-fatal-pranks-tupac-with-janet-jackson-lookalike-600x337.jpg 600w, /wp-content/uploads/2022/08/hussein-fatal-pranks-tupac-with-janet-jackson-lookalike-300x169.jpg 300w, /wp-content/uploads/2022/08/hussein-fatal-pranks-tupac-with-janet-jackson-lookalike-1024x576.jpg 1024w, /wp-content/uploads/2022/08/hussein-fatal-pranks-tupac-with-janet-jackson-lookalike-768x432.jpg 768w, /wp-content/uploads/2022/08/hussein-fatal-pranks-tupac-with-janet-jackson-lookalike.jpg 1200w" data-lazy-sizes="(max-width: 600px) 100vw, 600px" data-lazy-src="/wp-content/uploads/2022/08/hussein-fatal-pranks-tupac-with-janet-jackson-lookalike-600x337.jpg" /><noscript><img width="600" height="337" src="/wp-content/uploads/2022/08/hussein-fatal-pranks-tupac-with-janet-jackson-lookalike-600x337.jpg" class="attachment-zox-mid-thumb size-zox-mid-thumb wp-post-image" alt="Hussein Fatal Pranks Tupac With Janet Jackson Lookalike" decoding="async" srcset="/wp-content/uploads/2022/08/hussein-fatal-pranks-tupac-with-janet-jackson-lookalike-600x337.jpg 600w, /wp-content/uploads/2022/08/hussein-fatal-pranks-tupac-with-janet-jackson-lookalike-300x169.jpg 300w, /wp-content/uploads/2022/08/hussein-fatal-pranks-tupac-with-janet-jackson-lookalike-1024x576.jpg 1024w, /wp-content/uploads/2022/08/hussein-fatal-pranks-tupac-with-janet-jackson-lookalike-768x432.jpg 768w, /wp-content/uploads/2022/08/hussein-fatal-pranks-tupac-with-janet-jackson-lookalike.jpg 1200w" sizes="(max-width: 600px) 100vw, 600px"></noscript></div>
+<p>Hussein Fatal Pranks Tupac With Janet Jackson Lookalike</p>
+</li>
+<li>
+<div class="zox-mega-img"><img width="600" height="337" src="data:;base64,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 337'></svg>" class="attachment-zox-mid-thumb size-zox-mid-thumb wp-post-image" alt="" decoding="async" data-lazy-srcset="/wp-content/uploads/2022/06/Tupac-and-the-wack-room-producers-600x337.jpg 600w, /wp-content/uploads/2022/06/Tupac-and-the-wack-room-producers-300x169.jpg 300w, /wp-content/uploads/2022/06/Tupac-and-the-wack-room-producers-1024x576.jpg 1024w, /wp-content/uploads/2022/06/Tupac-and-the-wack-room-producers-768x432.jpg 768w, /wp-content/uploads/2022/06/Tupac-and-the-wack-room-producers.jpg 1200w" data-lazy-sizes="(max-width: 600px) 100vw, 600px" data-lazy-src="/wp-content/uploads/2022/06/Tupac-and-the-wack-room-producers-600x337.jpg" /><noscript><img width="600" height="337" src="/wp-content/uploads/2022/06/Tupac-and-the-wack-room-producers-600x337.jpg" class="attachment-zox-mid-thumb size-zox-mid-thumb wp-post-image" alt="" decoding="async" srcset="/wp-content/uploads/2022/06/Tupac-and-the-wack-room-producers-600x337.jpg 600w, /wp-content/uploads/2022/06/Tupac-and-the-wack-room-producers-300x169.jpg 300w, /wp-content/uploads/2022/06/Tupac-and-the-wack-room-producers-1024x576.jpg 1024w, /wp-content/uploads/2022/06/Tupac-and-the-wack-room-producers-768x432.jpg 768w, /wp-content/uploads/2022/06/Tupac-and-the-wack-room-producers.jpg 1200w" sizes="(max-width: 600px) 100vw, 600px"></noscript></div>
+<p>Tupac And Outlawz Made Hail Mary With &rdquo;Wack Room&rdquo; Producer</p>
+</li>
+<li>
+<div class="zox-mega-img"><img width="600" height="337" src="data:;base64,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 337'></svg>" class="attachment-zox-mid-thumb size-zox-mid-thumb wp-post-image" alt="Tupac Feat. Keyshia Cole, Krayzie Bone On EDI's &quot;One Day At A Time&quot;" decoding="async" data-lazy-srcset="/wp-content/uploads/2022/06/edi-one-day-at-a-time-version-feat-keyshia-cole-krayzie-bone-600x337.jpg 600w, /wp-content/uploads/2022/06/edi-one-day-at-a-time-version-feat-keyshia-cole-krayzie-bone-300x169.jpg 300w, /wp-content/uploads/2022/06/edi-one-day-at-a-time-version-feat-keyshia-cole-krayzie-bone-1024x576.jpg 1024w, /wp-content/uploads/2022/06/edi-one-day-at-a-time-version-feat-keyshia-cole-krayzie-bone-768x432.jpg 768w, /wp-content/uploads/2022/06/edi-one-day-at-a-time-version-feat-keyshia-cole-krayzie-bone.jpg 1200w" data-lazy-sizes="(max-width: 600px) 100vw, 600px" data-lazy-src="/wp-content/uploads/2022/06/edi-one-day-at-a-time-version-feat-keyshia-cole-krayzie-bone-600x337.jpg" /><noscript><img width="600" height="337" src="/wp-content/uploads/2022/06/edi-one-day-at-a-time-version-feat-keyshia-cole-krayzie-bone-600x337.jpg" class="attachment-zox-mid-thumb size-zox-mid-thumb wp-post-image" alt="Tupac Feat. Keyshia Cole, Krayzie Bone On EDI's "One Day At A Time"" decoding="async" srcset="/wp-content/uploads/2022/06/edi-one-day-at-a-time-version-feat-keyshia-cole-krayzie-bone-600x337.jpg 600w, /wp-content/uploads/2022/06/edi-one-day-at-a-time-version-feat-keyshia-cole-krayzie-bone-300x169.jpg 300w, /wp-content/uploads/2022/06/edi-one-day-at-a-time-version-feat-keyshia-cole-krayzie-bone-1024x576.jpg 1024w, /wp-content/uploads/2022/06/edi-one-day-at-a-time-version-feat-keyshia-cole-krayzie-bone-768x432.jpg 768w, /wp-content/uploads/2022/06/edi-one-day-at-a-time-version-feat-keyshia-cole-krayzie-bone.jpg 1200w" sizes="(max-width: 600px) 100vw, 600px"></noscript></div>
+<p>2Pac, Outlawz, Keyshia Cole, Krayzie Bone On EDI&rsquo;s &ldquo;One Day At A Time&rdquo;</p>
+</li>
+<li>
+<div class="zox-mega-img"><img width="600" height="337" src="data:;base64,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 337'></svg>" class="attachment-zox-mid-thumb size-zox-mid-thumb wp-post-image" alt="The Best Of 2Pac And Outlawz Mixtape, Download Free Here" decoding="async" data-lazy-srcset="/wp-content/uploads/2022/06/best-of-tupac-outlawz-mixtape-download-600x337.jpg 600w, /wp-content/uploads/2022/06/best-of-tupac-outlawz-mixtape-download-300x169.jpg 300w, /wp-content/uploads/2022/06/best-of-tupac-outlawz-mixtape-download-1024x576.jpg 1024w, /wp-content/uploads/2022/06/best-of-tupac-outlawz-mixtape-download-768x432.jpg 768w, /wp-content/uploads/2022/06/best-of-tupac-outlawz-mixtape-download.jpg 1200w" data-lazy-sizes="(max-width: 600px) 100vw, 600px" data-lazy-src="/wp-content/uploads/2022/06/best-of-tupac-outlawz-mixtape-download-600x337.jpg" /><noscript><img width="600" height="337" src="/wp-content/uploads/2022/06/best-of-tupac-outlawz-mixtape-download-600x337.jpg" class="attachment-zox-mid-thumb size-zox-mid-thumb wp-post-image" alt="The Best Of 2Pac And Outlawz Mixtape, Download Free Here" decoding="async" srcset="/wp-content/uploads/2022/06/best-of-tupac-outlawz-mixtape-download-600x337.jpg 600w, /wp-content/uploads/2022/06/best-of-tupac-outlawz-mixtape-download-300x169.jpg 300w, /wp-content/uploads/2022/06/best-of-tupac-outlawz-mixtape-download-1024x576.jpg 1024w, /wp-content/uploads/2022/06/best-of-tupac-outlawz-mixtape-download-768x432.jpg 768w, /wp-content/uploads/2022/06/best-of-tupac-outlawz-mixtape-download.jpg 1200w" sizes="(max-width: 600px) 100vw, 600px"></noscript></div>
+<p>The Best Of 2Pac And Outlawz Mixtape, Download Free Here</p>
+</li>
+</ul>
+</div>
+</div>
+</li>
+<li id="menu-item-301" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-301 zox-mega-drop"><a href="/category/artist-spotlight/">SPOTLIGHT</a>
+<div class="zox-mega-dropdown">
+<div class="zox-head-width">
+<ul class="zox-mega-list">
+<li>
+<div class="zox-mega-img"><img width="600" height="337" src="data:;base64,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 337'></svg>" class="attachment-zox-mid-thumb size-zox-mid-thumb wp-post-image" alt="Yhung T.O. Releases New Song And Video For &quot;Rhythm &amp; Thug&quot;" decoding="async" data-lazy-srcset="/wp-content/uploads/2022/05/yhung-to-rhythm-and-thug-music-video-screenshot-600x337.jpg 600w, /wp-content/uploads/2022/05/yhung-to-rhythm-and-thug-music-video-screenshot-300x169.jpg 300w, /wp-content/uploads/2022/05/yhung-to-rhythm-and-thug-music-video-screenshot-1024x576.jpg 1024w, /wp-content/uploads/2022/05/yhung-to-rhythm-and-thug-music-video-screenshot-768x432.jpg 768w, /wp-content/uploads/2022/05/yhung-to-rhythm-and-thug-music-video-screenshot.jpg 1200w" data-lazy-sizes="(max-width: 600px) 100vw, 600px" data-lazy-src="/wp-content/uploads/2022/05/yhung-to-rhythm-and-thug-music-video-screenshot-600x337.jpg" /><noscript><img width="600" height="337" src="/wp-content/uploads/2022/05/yhung-to-rhythm-and-thug-music-video-screenshot-600x337.jpg" class="attachment-zox-mid-thumb size-zox-mid-thumb wp-post-image" alt="Yhung T.O. Releases New Song And Video For "Rhythm & Thug"" decoding="async" srcset="/wp-content/uploads/2022/05/yhung-to-rhythm-and-thug-music-video-screenshot-600x337.jpg 600w, /wp-content/uploads/2022/05/yhung-to-rhythm-and-thug-music-video-screenshot-300x169.jpg 300w, /wp-content/uploads/2022/05/yhung-to-rhythm-and-thug-music-video-screenshot-1024x576.jpg 1024w, /wp-content/uploads/2022/05/yhung-to-rhythm-and-thug-music-video-screenshot-768x432.jpg 768w, /wp-content/uploads/2022/05/yhung-to-rhythm-and-thug-music-video-screenshot.jpg 1200w" sizes="(max-width: 600px) 100vw, 600px"></noscript></div>
+<p>Yhung T.O. Releases New Song And Video For &ldquo;Rhythm &amp; Thug&rdquo;</p>
+</li>
+</ul>
+</div>
+</div>
+</li>
+<li id="menu-item-298" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-298">AUDIOMACK</li>
+<li id="menu-item-213" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-213"><a href="/playlist/">PLAYLIST</a></li>
+<li id="menu-item-87" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-87">SHOP</li>
+<li id="menu-item-190" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-190"><a href="/promo/">PROMO</a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div id="zox-bot-head-right"><span class="zox-nav-search-but fas fa-search zox-search-click"></span><br /></div>
+</div>
+</div>
+</div>
+</header>
+<div id="zox-site-grid">
+<div id="zox-site-wall-small">
+<div id="zox-main-body-wrap" class="left relative">
+<div id="zox-home-main-wrap" class="zoxrel zox100">
+<div id="zox-feat-wrap" class="zoxrel">
+<div id="zox-feat-ent3-wrap" class="left zoxrel zox100">
+<div class="zox-body-width">
+<div class="zox-feat-ent3-grid left zoxrel zox100">
+<div class="zox-feat-ent3-main-wrap zox-div1 zox-s8">
+<section class="zox-art-wrap zoxrel">
+<div class="zox-art-grid">
+<div class="zox-art-img zoxrel zox100 zoxlh0"><img width="1024" height="576" src="data:;base64,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1024 576'></svg>" class="zox-reg-img lazy-load wp-post-image" alt="Dr. Dre Wanted To Work With Outlawz: Y'all The New NWA" decoding="async" data-lazy-srcset="/wp-content/uploads/2023/03/edi-mean-talks-dr-dre-outlawz-tupac-1024x576.jpg 1024w, /wp-content/uploads/2023/03/edi-mean-talks-dr-dre-outlawz-tupac-300x169.jpg 300w, /wp-content/uploads/2023/03/edi-mean-talks-dr-dre-outlawz-tupac-768x432.jpg 768w, /wp-content/uploads/2023/03/edi-mean-talks-dr-dre-outlawz-tupac-600x337.jpg 600w, /wp-content/uploads/2023/03/edi-mean-talks-dr-dre-outlawz-tupac.jpg 1200w" data-lazy-sizes="(max-width: 1024px) 100vw, 1024px" data-lazy-src="/wp-content/uploads/2023/03/edi-mean-talks-dr-dre-outlawz-tupac-1024x576.jpg" /><br /><br /><noscript><img width="1024" height="576" src="/wp-content/uploads/2023/03/edi-mean-talks-dr-dre-outlawz-tupac-1024x576.jpg" class="zox-reg-img lazy-load wp-post-image" alt="Dr. Dre Wanted To Work With Outlawz: Y'all The New NWA" decoding="async" srcset="/wp-content/uploads/2023/03/edi-mean-talks-dr-dre-outlawz-tupac-1024x576.jpg 1024w, /wp-content/uploads/2023/03/edi-mean-talks-dr-dre-outlawz-tupac-300x169.jpg 300w, /wp-content/uploads/2023/03/edi-mean-talks-dr-dre-outlawz-tupac-768x432.jpg 768w, /wp-content/uploads/2023/03/edi-mean-talks-dr-dre-outlawz-tupac-600x337.jpg 600w, /wp-content/uploads/2023/03/edi-mean-talks-dr-dre-outlawz-tupac.jpg 1200w" sizes="(max-width: 1024px) 100vw, 1024px"></noscript><img width="600" height="337" src="data:;base64,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 337'></svg>" class="zox-mob-img lazy-load wp-post-image" alt="Dr. Dre Wanted To Work With Outlawz: Y'all The New NWA" decoding="async" data-lazy-srcset="/wp-content/uploads/2023/03/edi-mean-talks-dr-dre-outlawz-tupac-600x337.jpg 600w, /wp-content/uploads/2023/03/edi-mean-talks-dr-dre-outlawz-tupac-300x169.jpg 300w, /wp-content/uploads/2023/03/edi-mean-talks-dr-dre-outlawz-tupac-1024x576.jpg 1024w, /wp-content/uploads/2023/03/edi-mean-talks-dr-dre-outlawz-tupac-768x432.jpg 768w, /wp-content/uploads/2023/03/edi-mean-talks-dr-dre-outlawz-tupac.jpg 1200w" data-lazy-sizes="(max-width: 600px) 100vw, 600px" data-lazy-src="/wp-content/uploads/2023/03/edi-mean-talks-dr-dre-outlawz-tupac-600x337.jpg" /><noscript><img width="600" height="337" src="/wp-content/uploads/2023/03/edi-mean-talks-dr-dre-outlawz-tupac-600x337.jpg" class="zox-mob-img lazy-load wp-post-image" alt="Dr. Dre Wanted To Work With Outlawz: Y'all The New NWA" decoding="async" srcset="/wp-content/uploads/2023/03/edi-mean-talks-dr-dre-outlawz-tupac-600x337.jpg 600w, /wp-content/uploads/2023/03/edi-mean-talks-dr-dre-outlawz-tupac-300x169.jpg 300w, /wp-content/uploads/2023/03/edi-mean-talks-dr-dre-outlawz-tupac-1024x576.jpg 1024w, /wp-content/uploads/2023/03/edi-mean-talks-dr-dre-outlawz-tupac-768x432.jpg 768w, /wp-content/uploads/2023/03/edi-mean-talks-dr-dre-outlawz-tupac.jpg 1200w" sizes="(max-width: 600px) 100vw, 600px"></noscript></div>
+<div class="zox-art-text">
+<div class="zox-art-text-cont">
+<h3 class="zox-s-cat"><span class="zox-s-cat">News</span></h3>
+<div class="zox-art-title">
+<h2 class="zox-s-title2">Dr. Dre Wanted To Work With Outlawz: Y&rsquo;all The New NWA</h2>
+</div>
+<p class="zox-s-graph">Dr. Dre's plans of working with the Outlawz never happened, E.D.I. Mean explains what really happened and how the Outlawz felt.</p>
+<div class="zox-byline-wrap"><span class="zox-byline-name"><a href="/author/outlaw4life/" title="Posts by Outlaw4Life Staff" rel="author">Outlaw4Life Staff</a></span><span class="zox-byline-date"><i class="far fa-clock"></i>March 26, 2023</span></div>
+</div>
+</div>
+</div>
+</section>
+</div>
+<div class="zox-feat-ent3-sub-wrap zox-div3 zox-s8">
+<section class="zox-art-wrap zoxrel zox-art-main">
+<div class="zox-art-grid">
+<div class="zox-art-img zoxrel zox100 zoxlh0"><img width="600" height="337" src="data:;base64,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 337'></svg>" class="lazy-load wp-post-image" alt="Young Noble, Dirty Bert Release Visuals For &quot;Club Adrienne&quot;" decoding="async" data-lazy-srcset="/wp-content/uploads/2023/03/Young-Noble-Dirty-Bert-Club-Adrienne-Official-Video-600x337.jpg 600w, /wp-content/uploads/2023/03/Young-Noble-Dirty-Bert-Club-Adrienne-Official-Video-300x169.jpg 300w, /wp-content/uploads/2023/03/Young-Noble-Dirty-Bert-Club-Adrienne-Official-Video-1024x576.jpg 1024w, /wp-content/uploads/2023/03/Young-Noble-Dirty-Bert-Club-Adrienne-Official-Video-768x432.jpg 768w, /wp-content/uploads/2023/03/Young-Noble-Dirty-Bert-Club-Adrienne-Official-Video.jpg 1200w" data-lazy-sizes="(max-width: 600px) 100vw, 600px" data-lazy-src="/wp-content/uploads/2023/03/Young-Noble-Dirty-Bert-Club-Adrienne-Official-Video-600x337.jpg" /><noscript><img width="600" height="337" src="/wp-content/uploads/2023/03/Young-Noble-Dirty-Bert-Club-Adrienne-Official-Video-600x337.jpg" class="lazy-load wp-post-image" alt="Young Noble, Dirty Bert Release Visuals For "Club Adrienne"" decoding="async" srcset="/wp-content/uploads/2023/03/Young-Noble-Dirty-Bert-Club-Adrienne-Official-Video-600x337.jpg 600w, /wp-content/uploads/2023/03/Young-Noble-Dirty-Bert-Club-Adrienne-Official-Video-300x169.jpg 300w, /wp-content/uploads/2023/03/Young-Noble-Dirty-Bert-Club-Adrienne-Official-Video-1024x576.jpg 1024w, /wp-content/uploads/2023/03/Young-Noble-Dirty-Bert-Club-Adrienne-Official-Video-768x432.jpg 768w, /wp-content/uploads/2023/03/Young-Noble-Dirty-Bert-Club-Adrienne-Official-Video.jpg 1200w" sizes="(max-width: 600px) 100vw, 600px"></noscript></div>
+<div class="zox-art-text">
+<div class="zox-art-text-cont">
+<h3 class="zox-s-cat"><span class="zox-s-cat">Music Video</span></h3>
+<div class="zox-art-title">
+<h2 class="zox-s-title2">Young Noble, Dirty Bert Release Visuals For &ldquo;Club Adrienne&rdquo;</h2>
+</div>
+<p class="zox-s-graph">Young Noble and Dirty Bert return with the official music video for "Club Adrienne"</p>
+<div class="zox-byline-wrap"><span class="zox-byline-name"><a href="/author/outlaw4life/" title="Posts by Outlaw4Life Staff" rel="author">Outlaw4Life Staff</a></span><span class="zox-byline-date"><i class="far fa-clock"></i>March 25, 2023</span></div>
+</div>
+</div>
+</div>
+</section>
+<section class="zox-art-wrap zoxrel zox-art-main">
+<div class="zox-art-grid">
+<div class="zox-art-img zoxrel zox100 zoxlh0"><img width="600" height="337" src="data:;base64,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 337'></svg>" class="lazy-load wp-post-image" alt="Outlawz Members Reunite After 8 Years: Tupac Smiling Down On Us" decoding="async" data-lazy-srcset="/wp-content/uploads/2023/03/kastro-and-young-noble-600x337.jpg 600w, /wp-content/uploads/2023/03/kastro-and-young-noble-300x169.jpg 300w, /wp-content/uploads/2023/03/kastro-and-young-noble-1024x576.jpg 1024w, /wp-content/uploads/2023/03/kastro-and-young-noble-768x432.jpg 768w, /wp-content/uploads/2023/03/kastro-and-young-noble.jpg 1200w" data-lazy-sizes="(max-width: 600px) 100vw, 600px" data-lazy-src="/wp-content/uploads/2023/03/kastro-and-young-noble-600x337.jpg" /><noscript><img width="600" height="337" src="/wp-content/uploads/2023/03/kastro-and-young-noble-600x337.jpg" class="lazy-load wp-post-image" alt="Outlawz Members Reunite After 8 Years: Tupac Smiling Down On Us" decoding="async" srcset="/wp-content/uploads/2023/03/kastro-and-young-noble-600x337.jpg 600w, /wp-content/uploads/2023/03/kastro-and-young-noble-300x169.jpg 300w, /wp-content/uploads/2023/03/kastro-and-young-noble-1024x576.jpg 1024w, /wp-content/uploads/2023/03/kastro-and-young-noble-768x432.jpg 768w, /wp-content/uploads/2023/03/kastro-and-young-noble.jpg 1200w" sizes="(max-width: 600px) 100vw, 600px"></noscript></div>
+<div class="zox-art-text">
+<div class="zox-art-text-cont">
+<h3 class="zox-s-cat"><span class="zox-s-cat">News</span></h3>
+<div class="zox-art-title">
+<h2 class="zox-s-title2">Outlawz Members Reunite After 8 Years: Tupac Smiling Down On Us</h2>
+</div>
+<p class="zox-s-graph">"I spoke to my Outlaw brother Kastro this morning for the first time in about 8 years it brought me to tears to hear...</p>
+<div class="zox-byline-wrap"><span class="zox-byline-name"><a href="/author/outlaw4life/" title="Posts by Outlaw4Life Staff" rel="author">Outlaw4Life Staff</a></span><span class="zox-byline-date"><i class="far fa-clock"></i>March 21, 2023</span></div>
+</div>
+</div>
+</div>
+</section>
+<section class="zox-art-wrap zoxrel zox-art-main">
+<div class="zox-art-grid">
+<div class="zox-art-img zoxrel zox100 zoxlh0"><img width="600" height="337" src="data:;base64,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 337'></svg>" class="lazy-load wp-post-image" alt="" decoding="async" data-lazy-srcset="/wp-content/uploads/2023/02/KOTROFI5-RECORDS-memories-featuring-kasinova-the-don-and-young-noble-600x337.jpg 600w, /wp-content/uploads/2023/02/KOTROFI5-RECORDS-memories-featuring-kasinova-the-don-and-young-noble-300x169.jpg 300w, /wp-content/uploads/2023/02/KOTROFI5-RECORDS-memories-featuring-kasinova-the-don-and-young-noble-1024x576.jpg 1024w, /wp-content/uploads/2023/02/KOTROFI5-RECORDS-memories-featuring-kasinova-the-don-and-young-noble-768x432.jpg 768w, /wp-content/uploads/2023/02/KOTROFI5-RECORDS-memories-featuring-kasinova-the-don-and-young-noble.jpg 1200w" data-lazy-sizes="(max-width: 600px) 100vw, 600px" data-lazy-src="/wp-content/uploads/2023/02/KOTROFI5-RECORDS-memories-featuring-kasinova-the-don-and-young-noble-600x337.jpg" /><noscript><img width="600" height="337" src="/wp-content/uploads/2023/02/KOTROFI5-RECORDS-memories-featuring-kasinova-the-don-and-young-noble-600x337.jpg" class="lazy-load wp-post-image" alt="" decoding="async" srcset="/wp-content/uploads/2023/02/KOTROFI5-RECORDS-memories-featuring-kasinova-the-don-and-young-noble-600x337.jpg 600w, /wp-content/uploads/2023/02/KOTROFI5-RECORDS-memories-featuring-kasinova-the-don-and-young-noble-300x169.jpg 300w, /wp-content/uploads/2023/02/KOTROFI5-RECORDS-memories-featuring-kasinova-the-don-and-young-noble-1024x576.jpg 1024w, /wp-content/uploads/2023/02/KOTROFI5-RECORDS-memories-featuring-kasinova-the-don-and-young-noble-768x432.jpg 768w, /wp-content/uploads/2023/02/KOTROFI5-RECORDS-memories-featuring-kasinova-the-don-and-young-noble.jpg 1200w" sizes="(max-width: 600px) 100vw, 600px"></noscript></div>
+<div class="zox-art-text">
+<div class="zox-art-text-cont">
+<h3 class="zox-s-cat"><span class="zox-s-cat">Music Video</span></h3>
+<div class="zox-art-title">
+<h2 class="zox-s-title2">KOTROF15 Records Drops &ldquo;Memories&rdquo; Feat. Kasinova The Don and Young Noble</h2>
+</div>
+<p class="zox-s-graph">KOTROFI5 Records adds another addition to their catalog of modern-day 90s hip-hop anthems with "Memories" featuring Kasinova The Don, Young Noble.</p>
+<div class="zox-byline-wrap"><span class="zox-byline-name"><a href="/author/outlaw4life/" title="Posts by Outlaw4Life Staff" rel="author">Outlaw4Life Staff</a></span><span class="zox-byline-date"><i class="far fa-clock"></i>February 14, 2023</span></div>
+</div>
+</div>
+</div>
+</section>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="zox-home-widget-wrap" class="zoxrel left zox100">
+<div class="zox-widget-bg zox-widget-bg">
+<div id="zox_feat_list_widget-2" class="zox-widget-home left relative zox_feat_list_widget">
+<div class="zox-body-width">
+<div class="zox-widget-featl-wrap">
+<div class="zox-widget-featl-grid zox100">
+<div class="zox-widget-featl-main zox-widget-featl-over zox-div23 zox-o1"><br /></div>
+<div class="zox-widget-featl-sub zox-divs"><br /></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="zox-body-width">
+<div id="zox-home-body-wrap" class="zoxrel zox100">
+<div id="zox-home-cont-wrap" class="zoxrel">
+<div id="zox-main-blog-wrap" class="zoxrel left zox100">
+<div class="zox-main-blog zoxrel left zox100">
+<section class="zox-blog-grid left zoxrel left zox100 infinite-content zox-divr zox-s8">
+<article class="zox-art-wrap zoxrel zox-art-main infinite-post">
+<div class="zox-art-grid">
+<div class="zox-art-img zoxrel zox100 zoxlh0"><img width="600" height="337" src="data:;base64,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 337'></svg>" class="attachment-zox-mid-thumb size-zox-mid-thumb wp-post-image" alt="RJ Payne Features Young Noble On &quot;Pac Energy&quot;" decoding="async" data-lazy-srcset="/wp-content/uploads/2023/02/young-noble-featured-on-rj-payne-pac-energy-600x337.jpg 600w, /wp-content/uploads/2023/02/young-noble-featured-on-rj-payne-pac-energy-300x169.jpg 300w, /wp-content/uploads/2023/02/young-noble-featured-on-rj-payne-pac-energy-1024x576.jpg 1024w, /wp-content/uploads/2023/02/young-noble-featured-on-rj-payne-pac-energy-768x432.jpg 768w, /wp-content/uploads/2023/02/young-noble-featured-on-rj-payne-pac-energy.jpg 1200w" data-lazy-sizes="(max-width: 600px) 100vw, 600px" data-lazy-src="/wp-content/uploads/2023/02/young-noble-featured-on-rj-payne-pac-energy-600x337.jpg" /><noscript><img width="600" height="337" src="/wp-content/uploads/2023/02/young-noble-featured-on-rj-payne-pac-energy-600x337.jpg" class="attachment-zox-mid-thumb size-zox-mid-thumb wp-post-image" alt="RJ Payne Features Young Noble On "Pac Energy"" decoding="async" srcset="/wp-content/uploads/2023/02/young-noble-featured-on-rj-payne-pac-energy-600x337.jpg 600w, /wp-content/uploads/2023/02/young-noble-featured-on-rj-payne-pac-energy-300x169.jpg 300w, /wp-content/uploads/2023/02/young-noble-featured-on-rj-payne-pac-energy-1024x576.jpg 1024w, /wp-content/uploads/2023/02/young-noble-featured-on-rj-payne-pac-energy-768x432.jpg 768w, /wp-content/uploads/2023/02/young-noble-featured-on-rj-payne-pac-energy.jpg 1200w" sizes="(max-width: 600px) 100vw, 600px"></noscript></div>
+<div class="zox-art-text">
+<div class="zox-art-text-cont">
+<h3 class="zox-s-cat"><span class="zox-s-cat">New Music<br /><br /><br /></span></h3>
+<div class="zox-art-title">
+<h2 class="zox-s-title2">RJ Payne Features Young Noble On &ldquo;Pac Energy&rdquo;</h2>
+</div>
+<p class="zox-s-graph">Battle rap legend, RJ Payne, links with Outlawz member Young Noble for his latest single entitled 'Pac Energy.'</p>
+<div class="zox-byline-wrap"><span class="zox-byline-name"><a href="/author/outlaw4life/" title="Posts by Outlaw4Life Staff" rel="author">Outlaw4Life Staff</a></span><span class="zox-byline-date"><i class="far fa-clock"></i>February 3, 2023</span></div>
+</div>
+</div>
+</div>
+</article>
+<article class="zox-art-wrap zoxrel zox-art-mid infinite-post">
+<div class="zox-art-grid">
+<div class="zox-art-img zoxrel zox100 zoxlh0"><img width="600" height="337" src="data:;base64,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 337'></svg>" class="zox-reg-img wp-post-image" alt="Young Noble Releases &quot;God Don't Make Mistakes&quot; Acoustic Video" decoding="async" data-lazy-srcset="/wp-content/uploads/2023/01/young-noble-and-deuce-deuce-god-dont-make-mistakes-music-video-youtube-600x337.jpg 600w, /wp-content/uploads/2023/01/young-noble-and-deuce-deuce-god-dont-make-mistakes-music-video-youtube-300x169.jpg 300w, /wp-content/uploads/2023/01/young-noble-and-deuce-deuce-god-dont-make-mistakes-music-video-youtube-1024x576.jpg 1024w, /wp-content/uploads/2023/01/young-noble-and-deuce-deuce-god-dont-make-mistakes-music-video-youtube-768x432.jpg 768w, /wp-content/uploads/2023/01/young-noble-and-deuce-deuce-god-dont-make-mistakes-music-video-youtube.jpg 1200w" data-lazy-sizes="(max-width: 600px) 100vw, 600px" data-lazy-src="/wp-content/uploads/2023/01/young-noble-and-deuce-deuce-god-dont-make-mistakes-music-video-youtube-600x337.jpg" /><noscript><img width="600" height="337" src="/wp-content/uploads/2023/01/young-noble-and-deuce-deuce-god-dont-make-mistakes-music-video-youtube-600x337.jpg" class="zox-reg-img wp-post-image" alt="Young Noble Releases "God Don't Make Mistakes" Acoustic Video" decoding="async" srcset="/wp-content/uploads/2023/01/young-noble-and-deuce-deuce-god-dont-make-mistakes-music-video-youtube-600x337.jpg 600w, /wp-content/uploads/2023/01/young-noble-and-deuce-deuce-god-dont-make-mistakes-music-video-youtube-300x169.jpg 300w, /wp-content/uploads/2023/01/young-noble-and-deuce-deuce-god-dont-make-mistakes-music-video-youtube-1024x576.jpg 1024w, /wp-content/uploads/2023/01/young-noble-and-deuce-deuce-god-dont-make-mistakes-music-video-youtube-768x432.jpg 768w, /wp-content/uploads/2023/01/young-noble-and-deuce-deuce-god-dont-make-mistakes-music-video-youtube.jpg 1200w" sizes="(max-width: 600px) 100vw, 600px"></noscript><img width="100" height="100" src="data:;base64,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'></svg>" class="zox-mob-img wp-post-image" alt="Young Noble Releases &quot;God Don't Make Mistakes&quot; Acoustic Video" decoding="async" data-lazy-srcset="/wp-content/uploads/2023/01/young-noble-and-deuce-deuce-god-dont-make-mistakes-music-video-youtube-100x100.jpg 100w, /wp-content/uploads/2023/01/young-noble-and-deuce-deuce-god-dont-make-mistakes-music-video-youtube-150x150.jpg 150w, /wp-content/uploads/2023/01/young-noble-and-deuce-deuce-god-dont-make-mistakes-music-video-youtube-600x600.jpg 600w" data-lazy-sizes="(max-width: 100px) 100vw, 100px" data-lazy-src="/wp-content/uploads/2023/01/young-noble-and-deuce-deuce-god-dont-make-mistakes-music-video-youtube-100x100.jpg" /><noscript><img width="100" height="100" src="/wp-content/uploads/2023/01/young-noble-and-deuce-deuce-god-dont-make-mistakes-music-video-youtube-100x100.jpg" class="zox-mob-img wp-post-image" alt="Young Noble Releases "God Don't Make Mistakes" Acoustic Video" decoding="async" srcset="/wp-content/uploads/2023/01/young-noble-and-deuce-deuce-god-dont-make-mistakes-music-video-youtube-100x100.jpg 100w, /wp-content/uploads/2023/01/young-noble-and-deuce-deuce-god-dont-make-mistakes-music-video-youtube-150x150.jpg 150w, /wp-content/uploads/2023/01/young-noble-and-deuce-deuce-god-dont-make-mistakes-music-video-youtube-600x600.jpg 600w" sizes="(max-width: 100px) 100vw, 100px"></noscript></div>
+<div class="zox-art-text">
+<div class="zox-art-text-cont">
+<h3 class="zox-s-cat"><span class="zox-s-cat">Music Video<br /><br /><br /></span></h3>
+<div class="zox-art-title">
+<h2 class="zox-s-title2">Young Noble Releases &ldquo;God Don&rsquo;t Make Mistakes&rdquo; Acoustic Video</h2>
+</div>
+<p class="zox-s-graph">Watch the official video of Young Noble and Deuce Deuce's acoustic version of 'God Don't Make Mistakes.'</p>
+<div class="zox-byline-wrap"><span class="zox-byline-name"><a href="/author/outlaw4life/" title="Posts by Outlaw4Life Staff" rel="author">Outlaw4Life Staff</a></span><span class="zox-byline-date"><i class="far fa-clock"></i>January 31, 2023</span></div>
+</div>
+</div>
+</div>
+</article>
+<article class="zox-art-wrap zoxrel zox-art-mid infinite-post">
+<div class="zox-art-grid">
+<div class="zox-art-img zoxrel zox100 zoxlh0"><img width="600" height="337" src="data:;base64,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 337'></svg>" class="zox-reg-img wp-post-image" alt="Outlawz Performing Live For Super Bowl Weekend" decoding="async" data-lazy-srcset="/wp-content/uploads/2023/01/edi-mean-young-noble-photo-600x337.jpg 600w, /wp-content/uploads/2023/01/edi-mean-young-noble-photo-300x169.jpg 300w, /wp-content/uploads/2023/01/edi-mean-young-noble-photo-1024x576.jpg 1024w, /wp-content/uploads/2023/01/edi-mean-young-noble-photo-768x432.jpg 768w, /wp-content/uploads/2023/01/edi-mean-young-noble-photo.jpg 1200w" data-lazy-sizes="(max-width: 600px) 100vw, 600px" data-lazy-src="/wp-content/uploads/2023/01/edi-mean-young-noble-photo-600x337.jpg" /><noscript><img width="600" height="337" src="/wp-content/uploads/2023/01/edi-mean-young-noble-photo-600x337.jpg" class="zox-reg-img wp-post-image" alt="Outlawz Performing Live For Super Bowl Weekend" decoding="async" srcset="/wp-content/uploads/2023/01/edi-mean-young-noble-photo-600x337.jpg 600w, /wp-content/uploads/2023/01/edi-mean-young-noble-photo-300x169.jpg 300w, /wp-content/uploads/2023/01/edi-mean-young-noble-photo-1024x576.jpg 1024w, /wp-content/uploads/2023/01/edi-mean-young-noble-photo-768x432.jpg 768w, /wp-content/uploads/2023/01/edi-mean-young-noble-photo.jpg 1200w" sizes="(max-width: 600px) 100vw, 600px"></noscript><img width="100" height="100" src="data:;base64,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'></svg>" class="zox-mob-img wp-post-image" alt="Outlawz Performing Live For Super Bowl Weekend" decoding="async" data-lazy-srcset="/wp-content/uploads/2023/01/edi-mean-young-noble-photo-100x100.jpg 100w, /wp-content/uploads/2023/01/edi-mean-young-noble-photo-150x150.jpg 150w, /wp-content/uploads/2023/01/edi-mean-young-noble-photo-600x600.jpg 600w" data-lazy-sizes="(max-width: 100px) 100vw, 100px" data-lazy-src="/wp-content/uploads/2023/01/edi-mean-young-noble-photo-100x100.jpg" /><noscript><img width="100" height="100" src="/wp-content/uploads/2023/01/edi-mean-young-noble-photo-100x100.jpg" class="zox-mob-img wp-post-image" alt="Outlawz Performing Live For Super Bowl Weekend" decoding="async" srcset="/wp-content/uploads/2023/01/edi-mean-young-noble-photo-100x100.jpg 100w, /wp-content/uploads/2023/01/edi-mean-young-noble-photo-150x150.jpg 150w, /wp-content/uploads/2023/01/edi-mean-young-noble-photo-600x600.jpg 600w" sizes="(max-width: 100px) 100vw, 100px"></noscript></div>
+<div class="zox-art-text">
+<div class="zox-art-text-cont">
+<h3 class="zox-s-cat"><span class="zox-s-cat">News</span></h3>
+<div class="zox-art-title">
+<h2 class="zox-s-title2">Outlawz Performing Live For Super Bowl Weekend</h2>
+</div>
+<p class="zox-s-graph">Outlawz set to perform Super Bowl weekend, giving fans an opportunity front row seats and exclusive photo with the group.</p>
+<div class="zox-byline-wrap"><span class="zox-byline-name"><a href="/author/outlaw4life/" title="Posts by Outlaw4Life Staff" rel="author">Outlaw4Life Staff</a></span><span class="zox-byline-date"><i class="far fa-clock"></i>January 18, 2023</span></div>
+</div>
+</div>
+</div>
+</article>
+<article class="zox-art-wrap zoxrel zox-art-mid infinite-post">
+<div class="zox-art-grid">
+<div class="zox-art-img zoxrel zox100 zoxlh0"><img width="600" height="337" src="data:;base64,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 337'></svg>" class="zox-reg-img wp-post-image" alt="Dr. Mutulu Shakur To Be Released From Prison, Parole Granted" decoding="async" data-lazy-srcset="/wp-content/uploads/2022/11/dr-mutulu-shakur-600x337.jpg 600w, /wp-content/uploads/2022/11/dr-mutulu-shakur-300x169.jpg 300w, /wp-content/uploads/2022/11/dr-mutulu-shakur-1024x576.jpg 1024w, /wp-content/uploads/2022/11/dr-mutulu-shakur-768x432.jpg 768w, /wp-content/uploads/2022/11/dr-mutulu-shakur.jpg 1200w" data-lazy-sizes="(max-width: 600px) 100vw, 600px" data-lazy-src="/wp-content/uploads/2022/11/dr-mutulu-shakur-600x337.jpg" /><noscript><img width="600" height="337" src="/wp-content/uploads/2022/11/dr-mutulu-shakur-600x337.jpg" class="zox-reg-img wp-post-image" alt="Dr. Mutulu Shakur To Be Released From Prison, Parole Granted" decoding="async" srcset="/wp-content/uploads/2022/11/dr-mutulu-shakur-600x337.jpg 600w, /wp-content/uploads/2022/11/dr-mutulu-shakur-300x169.jpg 300w, /wp-content/uploads/2022/11/dr-mutulu-shakur-1024x576.jpg 1024w, /wp-content/uploads/2022/11/dr-mutulu-shakur-768x432.jpg 768w, /wp-content/uploads/2022/11/dr-mutulu-shakur.jpg 1200w" sizes="(max-width: 600px) 100vw, 600px"></noscript><img width="100" height="100" src="data:;base64,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'></svg>" class="zox-mob-img wp-post-image" alt="Dr. Mutulu Shakur To Be Released From Prison, Parole Granted" decoding="async" data-lazy-srcset="/wp-content/uploads/2022/11/dr-mutulu-shakur-100x100.jpg 100w, /wp-content/uploads/2022/11/dr-mutulu-shakur-150x150.jpg 150w, /wp-content/uploads/2022/11/dr-mutulu-shakur-600x600.jpg 600w" data-lazy-sizes="(max-width: 100px) 100vw, 100px" data-lazy-src="/wp-content/uploads/2022/11/dr-mutulu-shakur-100x100.jpg" /><noscript><img width="100" height="100" src="/wp-content/uploads/2022/11/dr-mutulu-shakur-100x100.jpg" class="zox-mob-img wp-post-image" alt="Dr. Mutulu Shakur To Be Released From Prison, Parole Granted" decoding="async" srcset="/wp-content/uploads/2022/11/dr-mutulu-shakur-100x100.jpg 100w, /wp-content/uploads/2022/11/dr-mutulu-shakur-150x150.jpg 150w, /wp-content/uploads/2022/11/dr-mutulu-shakur-600x600.jpg 600w" sizes="(max-width: 100px) 100vw, 100px"></noscript></div>
+<div class="zox-art-text">
+<div class="zox-art-text-cont">
+<h3 class="zox-s-cat"><span class="zox-s-cat">News</span></h3>
+<div class="zox-art-title">
+<h2 class="zox-s-title2">Dr. Mutulu Shakur To Be Released From Prison, Parole Granted</h2>
+</div>
+<p class="zox-s-graph">After more than 30 years behind bars, Tupac's step-father Dr. Mutulu Shakur has been granted parole and is coming home to his family.</p>
+<div class="zox-byline-wrap"><span class="zox-byline-name"><a href="/author/outlaw4life/" title="Posts by Outlaw4Life Staff" rel="author">Outlaw4Life Staff</a></span><span class="zox-byline-date"><i class="far fa-clock"></i>November 11, 2022</span></div>
+</div>
+</div>
+</div>
+</article>
+<article class="zox-art-wrap zoxrel zox-art-mid infinite-post">
+<div class="zox-art-grid">
+<div class="zox-art-img zoxrel zox100 zoxlh0"><img width="600" height="337" src="data:;base64,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 337'></svg>" class="zox-reg-img wp-post-image" alt="Photographer, Outlawz Reminisce On Debut Album Anniversary" decoding="async" data-lazy-srcset="/wp-content/uploads/2022/11/outlawz-photo-by-fabrice-henssens-600x337.jpg 600w, /wp-content/uploads/2022/11/outlawz-photo-by-fabrice-henssens-300x169.jpg 300w, /wp-content/uploads/2022/11/outlawz-photo-by-fabrice-henssens-1024x576.jpg 1024w, /wp-content/uploads/2022/11/outlawz-photo-by-fabrice-henssens-768x432.jpg 768w, /wp-content/uploads/2022/11/outlawz-photo-by-fabrice-henssens.jpg 1200w" data-lazy-sizes="(max-width: 600px) 100vw, 600px" data-lazy-src="/wp-content/uploads/2022/11/outlawz-photo-by-fabrice-henssens-600x337.jpg" /><noscript><img width="600" height="337" src="/wp-content/uploads/2022/11/outlawz-photo-by-fabrice-henssens-600x337.jpg" class="zox-reg-img wp-post-image" alt="Photographer, Outlawz Reminisce On Debut Album Anniversary" decoding="async" srcset="/wp-content/uploads/2022/11/outlawz-photo-by-fabrice-henssens-600x337.jpg 600w, /wp-content/uploads/2022/11/outlawz-photo-by-fabrice-henssens-300x169.jpg 300w, /wp-content/uploads/2022/11/outlawz-photo-by-fabrice-henssens-1024x576.jpg 1024w, /wp-content/uploads/2022/11/outlawz-photo-by-fabrice-henssens-768x432.jpg 768w, /wp-content/uploads/2022/11/outlawz-photo-by-fabrice-henssens.jpg 1200w" sizes="(max-width: 600px) 100vw, 600px"></noscript><img width="100" height="100" src="data:;base64,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'></svg>" class="zox-mob-img wp-post-image" alt="Photographer, Outlawz Reminisce On Debut Album Anniversary" decoding="async" data-lazy-srcset="/wp-content/uploads/2022/11/outlawz-photo-by-fabrice-henssens-100x100.jpg 100w, /wp-content/uploads/2022/11/outlawz-photo-by-fabrice-henssens-150x150.jpg 150w, /wp-content/uploads/2022/11/outlawz-photo-by-fabrice-henssens-600x600.jpg 600w" data-lazy-sizes="(max-width: 100px) 100vw, 100px" data-lazy-src="/wp-content/uploads/2022/11/outlawz-photo-by-fabrice-henssens-100x100.jpg" /><noscript><img width="100" height="100" src="/wp-content/uploads/2022/11/outlawz-photo-by-fabrice-henssens-100x100.jpg" class="zox-mob-img wp-post-image" alt="Photographer, Outlawz Reminisce On Debut Album Anniversary" decoding="async" srcset="/wp-content/uploads/2022/11/outlawz-photo-by-fabrice-henssens-100x100.jpg 100w, /wp-content/uploads/2022/11/outlawz-photo-by-fabrice-henssens-150x150.jpg 150w, /wp-content/uploads/2022/11/outlawz-photo-by-fabrice-henssens-600x600.jpg 600w" sizes="(max-width: 100px) 100vw, 100px"></noscript></div>
+<div class="zox-art-text">
+<div class="zox-art-text-cont">
+<h3 class="zox-s-cat"><span class="zox-s-cat">News</span></h3>
+<div class="zox-art-title">
+<h2 class="zox-s-title2">Photographer, Outlawz Reminisce On Debut Album Anniversary</h2>
+</div>
+<p class="zox-s-graph">Photographer Fabrice Henssens recalls photographing a piece of history.</p>
+<div class="zox-byline-wrap"><span class="zox-byline-name"><a href="/author/outlaw4life/" title="Posts by Outlaw4Life Staff" rel="author">Outlaw4Life Staff</a></span><span class="zox-byline-date"><i class="far fa-clock"></i>November 9, 2022</span></div>
+</div>
+</div>
+</div>
+</article>
+</section>
+<div class="zox-inf-more-wrap left zoxrel"><a href="#" class="zox-inf-more-but">More Posts</a>
+<div class="zox-nav-links">
+<div class="pagination"><span>Page 1 of 10</span><span class="current">1</span><a href="/page/2/" class="inactive">2</a><a href="/page/3/" class="inactive">3</a><a href="/page/4/" class="inactive">4</a><a href="/page/5/" class="inactive">5</a><a href="/page/2/">Next &rsaquo;</a><a href="/page/10/">Last &raquo;</a></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="zox-home-right-wrap zoxrel zox-sticky-side">
+<div id="zox-side-wrap" class="zoxrel zox-divs"><br /></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<footer id="zox-foot-wrap" class="left zoxrel zox100">
+<div class="zox-head-width">
+<div class="zox-foot-grid left zoxrel zox100">
+<div class="zox-foot-left-wrap">
+<div class="zox-foot-logo left zox-lh0"><a href="/"><img width="300" height="124" src="data:;base64,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 124'></svg>" alt="Outlaw 4 Life" data-rjs="2" data-lazy-src="/wp-content/uploads/2022/04/footer-logo.jpg" /><noscript><img width="300" height="124" src="/wp-content/uploads/2022/04/footer-logo.jpg" alt="Outlaw 4 Life" data-rjs="2"></noscript></a></div>
+<div class="zox-foot-left left">
+<div class="zox-foot-menu">
+<div class="menu-footer-container">
+<ul id="menu-footer" class="menu">
+<li id="menu-item-148" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-148"><a href="/contact/">Contact</a></li>
+<li id="menu-item-189" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-189"><a href="/promo/">Promo</a></li>
+<li id="menu-item-144" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-144"><a href="/about/">About</a></li>
+<li id="menu-item-68" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-privacy-policy menu-item-68"><a rel="privacy-policy" href="/privacy-policy/">Privacy</a></li>
+</ul>
+</div>
+</div>
+<div class="zox-foot-copy">
+<p>Copyright &copy; 2023 Outlaw 4 Life</p>
+</div>
+</div>
+</div>
+<div class="zox-foot-right-wrap">
+<div class="zox-foot-soc right relative">
+<ul class="zox-foot-soc-list left relative">
+<li></li>
+<li></li>
+<li></li>
+<li></li>
+<li></li>
+<li></li>
+</ul>
+<br /></div>
+</div>
+</div>
+</div>
+</footer></div>
+</div>
+</div>
+</div>
+<div class="zox-fly-top back-to-top"><span class="fas fa-angle-up"></span><br /></div>
+</div>
+<div class="zox-fly-fade zox-fly-but-click"><br /></div>
+<script type="rocketlazyloadscript" data-rocket-type="text/javascript" data-rocket-src="/wp-includes/js/jquery/ui/core.min.js?ver=1.13.2" id="jquery-ui-core-js" defer="defer"></script>
+<script type="rocketlazyloadscript" data-rocket-type="text/javascript" data-rocket-src="/wp-content/plugins/zoxpress-plugin//scripts/jquery.sticky-kit.min.js?ver=6.3.2" id="jquery-sticky-kit-js" defer="defer"></script>
+<script type="rocketlazyloadscript" data-rocket-type="text/javascript" data-rocket-src="/wp-content/plugins/zoxpress-plugin//scripts/jquery.waypoints.min.js?ver=6.3.2" id="jquery-waypoints-js" defer="defer"></script>
+<script type="text/javascript" id="advanced-ads-responsive-js-extra">
+
+
+  /* <![CDATA[ */
+  var advanced_ads_responsive = {"reload_on_resize":"0"};
+  /* ]]> */
+  </script>
+<script type="rocketlazyloadscript" data-minify="1" data-rocket-type="text/javascript" data-rocket-src="/wp-content/cache/min/1/wp-content/plugins/advanced-ads-responsive/public/assets/js/script.js?ver=1679747594" id="advanced-ads-responsive-js" defer="defer"></script>
+<script type="rocketlazyloadscript" id="rocket-browser-checker-js-after" data-rocket-type="text/javascript">
+
+
+  "use strict";var _createClass=function(){function defineProperties(target,props){for(var i=0;i<props.length;i++){var descriptor=props[i];descriptor.enumerable=descriptor.enumerable||!1,descriptor.configurable=!0,"value"in descriptor&&(descriptor.writable=!0),Object.defineProperty(target,descriptor.key,descriptor)}}return function(Constructor,protoProps,staticProps){return protoProps&&defineProperties(Constructor.prototype,protoProps),staticProps&&defineProperties(Constructor,staticProps),Constructor}}();function _classCallCheck(instance,Constructor){if(!(instance instanceof Constructor))throw new TypeError("Cannot call a class as a function")}var RocketBrowserCompatibilityChecker=function(){function RocketBrowserCompatibilityChecker(options){_classCallCheck(this,RocketBrowserCompatibilityChecker),this.passiveSupported=!1,this._checkPassiveOption(this),this.options=!!this.passiveSupported&&options}return _createClass(RocketBrowserCompatibilityChecker,[{key:"_checkPassiveOption",value:function(self){try{var options={get passive(){return!(self.passiveSupported=!0)}};window.addEventListener("test",null,options),window.removeEventListener("test",null,options)}catch(err){self.passiveSupported=!1}}},{key:"initRequestIdleCallback",value:function(){!1 in window&&(window.requestIdleCallback=function(cb){var start=Date.now();return setTimeout(function(){cb({didTimeout:!1,timeRemaining:function(){return Math.max(0,50-(Date.now()-start))}})},1)}),!1 in window&&(window.cancelIdleCallback=function(id){return clearTimeout(id)})}},{key:"isDataSaverModeOn",value:function(){return"connection"in navigator&&!0===navigator.connection.saveData}},{key:"supportsLinkPrefetch",value:function(){var elem=document.createElement("link");return elem.relList&&elem.relList.supports&&elem.relList.supports("prefetch")&&window.IntersectionObserver&&"isIntersecting"in IntersectionObserverEntry.prototype}},{key:"isSlowConnection",value:function(){return"connection"in navigator&&"effectiveType"in navigator.connection&&("2g"===navigator.connection.effectiveType||"slow-2g"===navigator.connection.effectiveType)}}]),RocketBrowserCompatibilityChecker}();
+  </script>
+<script type="text/javascript" id="rocket-preload-links-js-extra">
+
+
+  /* <![CDATA[ */
+  var RocketPreloadLinksConfig = {"excludeUris":"\/(?:.+\/)?feed(?:\/(?:.+\/?)?)?$|\/(?:.+\/)?embed\/|\/(index\\.php\/)?(.*)wp\\-json(\/.*|$)|\/refer\/|\/go\/|\/recommend\/|\/recommends\/","usesTrailingSlash":"1","imageExt":"jpg|jpeg|gif|png|tiff|bmp|webp|avif|pdf|doc|docx|xls|xlsx|php","fileExt":"jpg|jpeg|gif|png|tiff|bmp|webp|avif|pdf|doc|docx|xls|xlsx|php|html|htm","siteUrl":"https:\/\/outlaw4life.com","onHoverDelay":"100","rateThrottle":"3"};
+  /* ]]> */
+  </script>
+<script type="rocketlazyloadscript" id="rocket-preload-links-js-after" data-rocket-type="text/javascript">
+
+
+  (function() {
+  "use strict";var r="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(e){return typeof e}:function(e){return e&&"function"==typeof Symbol&&e.constructor===Symbol&&e!==Symbol.prototype?"symbol":typeof e},e=function(){function i(e,t){for(var n=0;n<t.length;n++){var i=t[n];i.enumerable=i.enumerable||!1,i.configurable=!0,"value"in i&&(i.writable=!0),Object.defineProperty(e,i.key,i)}}return function(e,t,n){return t&&i(e.prototype,t),n&&i(e,n),e}}();function i(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}var t=function(){function n(e,t){i(this,n),this.browser=e,this.config=t,this.options=this.browser.options,this.prefetched=new Set,this.eventTime=null,this.threshold=1111,this.numOnHover=0}return e(n,[{key:"init",value:function(){!this.browser.supportsLinkPrefetch()||this.browser.isDataSaverModeOn()||this.browser.isSlowConnection()||(this.regex={excludeUris:RegExp(this.config.excludeUris,"i"),images:RegExp(".("+this.config.imageExt+")$","i"),fileExt:RegExp(".("+this.config.fileExt+")$","i")},this._initListeners(this))}},{key:"_initListeners",value:function(e){-1<this.config.onHoverDelay&&document.addEventListener("mouseover",e.listener.bind(e),e.listenerOptions),document.addEventListener("mousedown",e.listener.bind(e),e.listenerOptions),document.addEventListener("touchstart",e.listener.bind(e),e.listenerOptions)}},{key:"listener",value:function(e){var t=e.target.closest("a"),n=this._prepareUrl(t);if(null!==n)switch(e.type){case"mousedown":case"touchstart":this._addPrefetchLink(n);break;case"mouseover":this._earlyPrefetch(t,n,"mouseout")}}},{key:"_earlyPrefetch",value:function(t,e,n){var i=this,r=setTimeout(function(){if(r=null,0===i.numOnHover)setTimeout(function(){return i.numOnHover=0},1e3);else if(i.numOnHover>i.config.rateThrottle)return;i.numOnHover++,i._addPrefetchLink(e)},this.config.onHoverDelay);t.addEventListener(n,function e(){t.removeEventListener(n,e,{passive:!0}),null!==r&&(clearTimeout(r),r=null)},{passive:!0})}},{key:"_addPrefetchLink",value:function(i){return this.prefetched.add(i.href),new Promise(function(e,t){var n=document.createElement("link");n.rel="prefetch",n.href=i.href,n.onload=e,n.onerror=t,document.head.appendChild(n)}).catch(function(){})}},{key:"_prepareUrl",value:function(e){if(null===e||"object"!==(void 0===e?"undefined":r(e))||!1 in e||-1===["http:","https:"].indexOf(e.protocol))return null;var t=e.href.substring(0,this.config.siteUrl.length),n=this._getPathname(e.href,t),i={original:e.href,protocol:e.protocol,origin:t,pathname:n,href:t+n};return this._isLinkOk(i)?i:null}},{key:"_getPathname",value:function(e,t){var n=t?e.substring(this.config.siteUrl.length):e;return n.startsWith("/")||(n="/"+n),this._shouldAddTrailingSlash(n)?n+"/":n}},{key:"_shouldAddTrailingSlash",value:function(e){return this.config.usesTrailingSlash&&!e.endsWith("/")&&!this.regex.fileExt.test(e)}},{key:"_isLinkOk",value:function(e){return null!==e&&"object"===(void 0===e?"undefined":r(e))&&(!this.prefetched.has(e.href)&&e.origin===this.config.siteUrl&&-1===e.href.indexOf("?")&&-1===e.href.indexOf("#")&&!this.regex.excludeUris.test(e.href)&&!this.regex.images.test(e.href))}}],[{key:"run",value:function(){"undefined"!=typeof RocketPreloadLinksConfig&&new n(new RocketBrowserCompatibilityChecker({capture:!0,passive:!0}),RocketPreloadLinksConfig).init()}}]),n}();t.run();
+  }());
+  </script>
+<script type="text/javascript" id="advanced-ads-pro/front-js-extra">
+
+
+  /* <![CDATA[ */
+  var advadsCfpInfo = {"cfpExpHours":"3","cfpClickLimit":"3","cfpBan":"7","cfpPath":"","cfpDomain":""};
+  /* ]]> */
+  </script>
+<script type="rocketlazyloadscript" data-rocket-type="text/javascript" data-rocket-src="/wp-content/plugins/advanced-ads-pro/assets/js/advanced-ads-pro.min.js?ver=2.21.2" id="advanced-ads-pro/front-js" defer="defer"></script>
+<script type="rocketlazyloadscript" data-rocket-type="text/javascript" data-rocket-src="/wp-content/themes/zoxpress/js/zoxcustom.js?ver=6.3.2" id="zox-custom-js" defer="defer"></script>
+<script type="rocketlazyloadscript" id="zox-custom-js-after" data-rocket-type="text/javascript">
+
+  window.addEventListener('DOMContentLoaded', function() {
+                        jQuery(document).ready(function($) {
+                        var leaderHeight = $("#zox-lead-top").outerHeight();
+                        var botHeight = $("#zox-bot-head-wrap").outerHeight();
+                        var navHeight = $("#zox-main-head-wrap").outerHeight();
+                        var headerHeight = navHeight + leaderHeight;
+                        var stickHeight = headerHeight - botHeight;
+                        var previousScroll = 0;
+                        $(window).scroll(function(event){
+                                var scroll = $(this).scrollTop();
+                                if ( typeof leaderHeight !== "undefined" ) {
+                                        if ($(window).scrollTop() > headerHeight){
+                                                $("#zox-bot-head-wrap").addClass("zox-fix-up");
+                                                $("#zox-site-grid").css("margin-top", botHeight);
+                                                $(".zox-post-soc-scroll").addClass("zox-post-soc-scroll-out");
+                                                $(".zox-fly-top").addClass("zox-to-top");
+                                        } else {
+                                                $("#zox-bot-head-wrap").removeClass("zox-fix-up");
+                                                $("#zox-site-grid").css("margin-top", "0" );
+                                                $(".zox-post-soc-scroll").removeClass("zox-post-soc-scroll-out");
+                                                $(".zox-fly-top").removeClass("zox-to-top");
+                                        }
+                                        if ($(window).scrollTop() > headerHeight - botHeight){
+                                                $("#zox-bot-head-wrap").addClass("zox-fix");
+                                                if(scroll < previousScroll) {
+                                                        $("#zox-bot-head-wrap").addClass("zox-fix");
+                                                        $("#zox-site-grid").css("margin-top", botHeight);
+                                                } else {
+                                                        $("#zox-bot-head-wrap").removeClass("zox-fix");
+                                                }
+                                        } else {
+                                                $("#zox-bot-head-wrap").removeClass("zox-fix");
+                                                $("#zox-site-grid").css("margin-top", "0" );
+                                        }
+                                } else {
+                                        if ($(window).scrollTop() > navHeight){
+                                                $("#zox-bot-head-wrap").addClass("zox-fix-up");
+                                                $("#zox-site-grid").css("margin-top", botHeight);
+                                                $(".zox-post-soc-scroll").addClass("zox-post-soc-scroll-out");
+                                                $(".zox-fly-top").addClass("zox-to-top");
+                                        } else {
+                                                $("#zox-bot-head-wrap").removeClass("zox-fix-up");
+                                                $("#zox-site-grid").css("margin-top", "0" );
+                                                $(".zox-post-soc-scroll").removeClass("zox-post-soc-scroll-out");
+                                                $(".zox-fly-top").removeClass("zox-to-top");
+                                        }
+                                        if ($(window).scrollTop() > navHeight - botHeight){
+                                                $("#zox-bot-head-wrap").addClass("zox-fix");
+                                                if(scroll < previousScroll) {
+                                                        $("#zox-bot-head-wrap").addClass("zox-fix");
+                                                        $("#zox-site-grid").css("margin-top", botHeight);
+                                                } else {
+                                                        $("#zox-bot-head-wrap").removeClass("zox-fix");
+                                                }
+                                        } else {
+                                                $("#zox-bot-head-wrap").removeClass("zox-fix");
+                                                $("#zox-site-grid").css("margin-top", "0" );
+                                        }
+                                }
+                                previousScroll = scroll;
+                        });
+                        $(".zox-alp-side-in").niceScroll({cursorcolor:"#ccc",cursorwidth: 5,cursorborder: 0,zindex:999999});
+                        });
+                        
+
+        jQuery(document).ready(function($) {
+        $(".zox-fly-nav-menu .menu-item-has-children a").click(function(event){
+          event.stopPropagation();
+        });
+
+        $(".zox-fly-nav-menu .menu-item-has-children").click(function(){
+          $(this).addClass("toggled");
+          if($(".menu-item-has-children").hasClass("toggled"))
+          {
+          $(this).children("ul").toggle();
+          $(".zox-fly-nav-menu").getNiceScroll().resize();
+          }
+          $(this).toggleClass("tog-minus");
+          return false;
+        });
+
+        // Main Menu Scroll
+          $(".zox-fly-nav-menu").niceScroll({cursorcolor:"#888",cursorwidth: 7,cursorborder: 0,zindex:999999});
+        });
+        
+
+        jQuery(document).ready(function($) {
+                var headwrap = $("#zox-bot-head-wrap");
+                var position = headwrap.offset();
+                var headWidth = $("#zox-bot-head-wrap").outerWidth();
+                $(".zox-mega-dropdown").css("width", headWidth );
+                $(".zox-mega-dropdown").offset({
+                        left: position.left,
+                        width: headwrap.offsetWidth
+                });
+                $(window).resize(function(){
+                        var headwrap = $("#zox-bot-head-wrap");
+                        var position = headwrap.offset();
+                        var headWidth = $("#zox-bot-head-wrap").outerWidth();
+                        $(".zox-mega-dropdown").css("width", headWidth );
+                        $(".zox-mega-dropdown").offset({
+                                left: position.left,
+                                width: headwrap.offsetWidth
+                        });
+                });
+        });
+        
+
+        jQuery(document).ready(function($) {
+        $(".infinite-content").infinitescroll({
+          navSelector: ".zox-nav-links",
+          nextSelector: ".zox-nav-links a:first",
+          itemSelector: ".infinite-post",
+          errorCallback: function(){ $(".zox-inf-more-wrap").css("display", "none") }
+        });
+        $(window).unbind(".infscr");
+        $(".zox-inf-more-but").click(function(){
+                $(".infinite-content").infinitescroll("retrieve");
+                return false;
+        });
+        if ($(".zox-nav-links a").length) {
+                $(".zox-inf-more-wrap").css("display","inline-block");
+        } else {
+                $(".zox-inf-more-wrap").css("display","none");
+        }
+        });
+        
+  });
+  </script>
+<script type="rocketlazyloadscript" data-minify="1" data-rocket-type="text/javascript" data-rocket-src="/wp-content/cache/min/1/wp-content/themes/zoxpress/js/scripts.js?ver=1679747594" id="zox-scripts-js" defer="defer"></script>
+<script type="rocketlazyloadscript" data-minify="1" data-rocket-type="text/javascript" data-rocket-src="/wp-content/cache/min/1/wp-content/themes/zoxpress/js/retina.js?ver=1679747594" id="zox-retina-js" defer="defer"></script>
+<script type="rocketlazyloadscript" data-rocket-type="text/javascript" data-rocket-src="/wp-content/themes/zoxpress/js/jquery.infinitescroll.min.js?ver=6.3.2" id="zox-infinitescroll-js" defer="defer"></script>
+<script type="rocketlazyloadscript" data-rocket-type="text/javascript" data-rocket-src="/wp-includes/js/comment-reply.min.js?ver=6.3.2" id="comment-reply-js" defer="defer"></script>
+<script type="rocketlazyloadscript" data-minify="1" data-rocket-type="text/javascript" data-rocket-src="/wp-content/cache/min/1/wp-content/themes/zoxpress/js/intersection-observer.js?ver=1679747594" id="zox-intersection-observer-polyfill-js" defer="defer"></script>
+<script type="rocketlazyloadscript" data-rocket-type="text/javascript" data-rocket-src="/wp-content/themes/zoxpress/js/lozad.min.js" id="zox-lozad-js" defer="defer"></script>
+<script type="rocketlazyloadscript" id="zox-lozad-js-after" data-rocket-type="text/javascript">
+
+
+        var zoxWidgets = document.querySelectorAll("#zox-home-widget-wrap img");
+        lozad(zoxWidgets, {
+                rootMargin: "0px 0px",
+                loaded: function (el) {
+                        el.classList.add("is-loaded");
+                }
+        }).observe();
+  </script>
+<script id="jetpack-stats-js-after" type="text/javascript">
+
+
+  _stq = window._stq || [];
+  _stq.push([ "view", {v:'ext',blog:'205191706',post:'7',tz:'-5',srv:'outlaw4life.com',j:'1:12.9'} ]);
+  _stq.push([ "clickTrackerInit", "205191706", "7" ]);
+  </script>
+<script type="rocketlazyloadscript" data-minify="1" data-rocket-type="text/javascript" data-rocket-src="/wp-content/cache/min/1/sdks/OneSignalSDK.js?ver=1679747594" async="async" id="remote_sdk-js"></script>
+<script type="rocketlazyloadscript">
+
+  window.advads_admin_bar_items = [];
+  </script>
+<script type="rocketlazyloadscript">
+
+  !function(){window.advanced_ads_ready_queue=window.advanced_ads_ready_queue||[],advanced_ads_ready_queue.push=window.advanced_ads_ready;for(var d=0,a=advanced_ads_ready_queue.length;d<a;d++)advanced_ads_ready(advanced_ads_ready_queue[d])}();
+  </script>
+<script>
+
+  window.lazyLoadOptions=[{elements_selector:"img[data-lazy-src],.rocket-lazyload,iframe[data-lazy-src]",data_src:"lazy-src",data_srcset:"lazy-srcset",data_sizes:"lazy-sizes",class_loading:"lazyloading",class_loaded:"lazyloaded",threshold:300,callback_loaded:function(element){if(element.tagName==="IFRAME"&&element.dataset.rocketLazyload=="fitvidscompatible"){if(element.classList.contains("lazyloaded")){if(typeof window.jQuery!="undefined"){if(jQuery.fn.fitVids){jQuery(element).parent().fitVids()}}}}}},{elements_selector:".rocket-lazyload",data_src:"lazy-src",data_srcset:"lazy-srcset",data_sizes:"lazy-sizes",class_loading:"lazyloading",class_loaded:"lazyloaded",threshold:300,}];window.addEventListener('LazyLoad::Initialized',function(e){var lazyLoadInstance=e.detail.instance;if(window.MutationObserver){var observer=new MutationObserver(function(mutations){var image_count=0;var iframe_count=0;var rocketlazy_count=0;mutations.forEach(function(mutation){for(var i=0;i<mutation.addedNodes.length;i++){if(typeof mutation.addedNodes[i].getElementsByTagName!=='function'){continue}
+  if(typeof mutation.addedNodes[i].getElementsByClassName!=='function'){continue}
+  images=mutation.addedNodes[i].getElementsByTagName('img');is_image=mutation.addedNodes[i].tagName=="IMG";iframes=mutation.addedNodes[i].getElementsByTagName('iframe');is_iframe=mutation.addedNodes[i].tagName=="IFRAME";rocket_lazy=mutation.addedNodes[i].getElementsByClassName('rocket-lazyload');image_count+=images.length;iframe_count+=iframes.length;rocketlazy_count+=rocket_lazy.length;if(is_image){image_count+=1}
+  if(is_iframe){iframe_count+=1}}});if(image_count>0||iframe_count>0||rocketlazy_count>0){lazyLoadInstance.update()}});var b=document.getElementsByTagName("body")[0];var config={childList:!0,subtree:!0};observer.observe(b,config)}},!1)
+  </script>
+<script data-no-minify="1" async="" src="/wp-content/plugins/wp-rocket/assets/js/lazyload/17.5/lazyload.min.js"></script>
+<script>
+
+  function lazyLoadThumb(e){var t='<img data-lazy-src="https://i.ytimg.com/vi/ID/hqdefault.jpg" alt="" width="480" height="360"><noscript><img src="https://i.ytimg.com/vi/ID/hqdefault.jpg" alt="" width="480" height="360"></noscript>',a='<button class="play" aria-label="play Youtube video"></button>';return t.replace("ID",e)+a}function lazyLoadYoutubeIframe(){var e=document.createElement("iframe"),t="ID?autoplay=1";t+=0===this.parentNode.dataset.query.length?'':'&'+this.parentNode.dataset.query;e.setAttribute("src",t.replace("ID",this.parentNode.dataset.src)),e.setAttribute("frameborder","0"),e.setAttribute("allowfullscreen","1"),e.setAttribute("allow", "accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"),this.parentNode.parentNode.replaceChild(e,this.parentNode)}document.addEventListener("DOMContentLoaded",function(){var e,t,p,a=document.getElementsByClassName("rll-youtube-player");for(t=0;t<a.length;t++)e=document.createElement("div"),e.setAttribute("data-id",a[t].dataset.id),e.setAttribute("data-query", a[t].dataset.query),e.setAttribute("data-src", a[t].dataset.src),e.innerHTML=lazyLoadThumb(a[t].dataset.id),a[t].appendChild(e),p=e.querySelector('.play'),p.onclick=lazyLoadYoutubeIframe});
+  </script>
+<script>
+
+  class RocketElementorAnimation{constructor(){this.deviceMode=document.createElement("span"),this.deviceMode.id="elementor-device-mode",this.deviceMode.setAttribute("class","elementor-screen-only"),document.body.appendChild(this.deviceMode)}_detectAnimations(){let t=getComputedStyle(this.deviceMode,":after").content.replace(/"/g,"");this.animationSettingKeys=this._listAnimationSettingsKeys(t),document.querySelectorAll(".elementor-invisible[data-settings]").forEach(t=>{const e=t.getBoundingClientRect();if(e.bottom>=0&&e.top<=window.innerHeight)try{this._animateElement(t)}catch(t){}})}_animateElement(t){const e=JSON.parse(t.dataset.settings),i=e._animation_delay||e.animation_delay||0,n=e[this.animationSettingKeys.find(t=>e[t])];if("none"===n)return void t.classList.remove("elementor-invisible");t.classList.remove(n),this.currentAnimation&&t.classList.remove(this.currentAnimation),this.currentAnimation=n;let s=setTimeout(()=>{t.classList.remove("elementor-invisible"),t.classList.add("animated",n),this._removeAnimationSettings(t,e)},i);window.addEventListener("rocket-startLoading",function(){clearTimeout(s)})}_listAnimationSettingsKeys(t="mobile"){const e=[""];switch(t){case"mobile":e.unshift("_mobile");case"tablet":e.unshift("_tablet");case"desktop":e.unshift("_desktop")}const i=[];return["animation","_animation"].forEach(t=>{e.forEach(e=>{i.push(t+e)})}),i}_removeAnimationSettings(t,e){this._listAnimationSettingsKeys().forEach(t=>delete e[t]),t.dataset.settings=JSON.stringify(e)}static run(){const t=new RocketElementorAnimation;requestAnimationFrame(t._detectAnimations.bind(t))}}document.addEventListener("DOMContentLoaded",RocketElementorAnimation.run);
+  </script>
+</body>
+</html>

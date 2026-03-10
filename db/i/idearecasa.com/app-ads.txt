@@ -1,0 +1,63 @@
+
+  <script>
+    $(
+      function () {
+        var ck = false;
+        if ( document.cookie && document.cookie.match(/cookie=1/) ) { ck = true; }
+
+        if ( ! ck ) {
+          $("body").append("<section id='cookie'>Questo sito utilizza i cookies<br><a href='javascript:document.cookie.submit();' data-show='none' data-setc='closecookie'>Accetto</a><a href='//www.google.com' target='_self'>Rifiuto</a><br><a href='cookie.php' target='_blank'>che cosa sono i cookie?</a>.</section>");
+
+          $("#cookie").css({
+            position: "fixed",
+            bottom: 0,
+            left: 0,
+            width: "100%",
+            opacity: ".87",
+            background: "#ffffff",
+            "z-index": 60,
+            padding: "0.4em",
+            color: "#000000",
+            "text-align": "center",
+            "line-height": "26px",
+            "box-shadow": ".5em 0 .5em rgba(0,0,0,.5)",
+            margin: 0,
+            "min-height": 0
+          });
+
+          $("#cookie>a").css({
+            "text-decoration": "none",
+            background: "#444444",
+            color: "#ffffff",
+            "border-radius": ".2em",
+            display: "inline-block",
+            "text-align": "center",
+            "margin": "10px 5px",
+            "padding": "3px 15px"
+          });
+
+          $("#cookie>a:first").css({
+            background: "#444444",
+            color: "#ffffff"
+          });
+
+          $("#cookie>a:last").css({
+            background: "#444444",
+            color: "#ffffff"
+          });
+
+          $("a[data-setc='closecookie']").click(
+            function () {
+              $("#cookie").remove();
+                document.cookie = [
+                  encodeURIComponent('cookie'), '=1',
+                    '; expires=Thu, 26 Mar 2026 12:20:57 +0100',
+                    '; path=/'
+                ].join('');
+              }
+          );
+        }
+      }
+    );
+
+  </script>

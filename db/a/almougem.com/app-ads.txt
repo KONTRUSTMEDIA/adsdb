@@ -1,0 +1,941 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+        <title>المعجم</title>
+
+    <!-- SEO -->
+    <meta name="description" content="معنى ()"/>
+    <meta name="keywords" content=""/>
+    <meta name="author" content="حمادة عبيد"/>
+
+    <!-- Favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"/>
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"/>
+    <link rel="manifest" href="/site.webmanifest"/>
+
+    <!-- Font Awesome (أيقونات) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+
+    <!-- خطوط عربية -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Amiri:wght@400;700&display=swap" rel="stylesheet"/>
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZZTRLW10TL"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){ dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-ZZTRLW10TL');
+    </script>
+
+    <!-- AdSense 
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3636230775619750" crossorigin="anonymous"></script>
+    https://amzn.to/4r3innS
+    -->
+
+
+
+
+
+
+
+
+    <style>
+	/* الشعار */
+.logo {
+    display: flex;
+    align-items: center;
+    max-height: 100%;
+}
+
+.logo img {
+    height: clamp(36px, 6vw, 52px);
+    width: auto;
+    max-width: 100%;
+    object-fit: contain;
+}
+
+        :root {
+            --brick-red: #a52a2a;
+            --brick-red-600: #8c2424;
+            --brick-red-700: #7a1f1f;
+            --nav-bg: #ffffff;
+            --body-bg: #fdfcfb;
+            --card-bg: #ffffff;
+            --text-main: #333333;
+            --text-subtle: #5b5b5b;
+            --border: #e9e9e9;
+            --shadow: 0 6px 18px rgba(0,0,0,0.06);
+            --focus: #3b82f6;
+            --muted: rgba(165,42,42,0.08);
+            /* ارتفاع افتراضي للهيدر (يُستبدل برمجياً في الجوال) */
+            --header-height: 70px;
+        }
+
+        * { box-sizing: border-box; transition: background-color .25s, color .25s, border-color .25s; }
+        html, body { height: 100%; }
+
+        /* إلغاء التمرير العرضي */
+        html, body { overflow-x: hidden; }
+
+        /* أوضاع السمات */
+        body.dark-mode {
+            --nav-bg: #141414;
+            --body-bg: #0e0e0f;
+            --card-bg: #171717;
+            --text-main: #ececec;
+            --text-subtle: #bdbdbd;
+            --border: #2a2a2a;
+            --shadow: 0 14px 26px rgba(0,0,0,0.45);
+            --brick-red: #d35454;
+            --brick-red-600: #c34141;
+            --brick-red-700: #b33535;
+            --focus: #60a5fa;
+            --muted: rgba(211,84,84,0.15);
+        }
+        body.sepia-mode {
+            --nav-bg: #f4ecd8;
+            --body-bg: #fbf0d9;
+            --card-bg: #f7ecd3;
+            --text-main: #5b4636;
+            --text-subtle: #7a604a;
+            --border: #e2d7bf;
+            --shadow: 0 6px 18px rgba(120,90,50,0.12);
+            --brick-red: #9f3a28;
+            --brick-red-600: #8d3424;
+            --brick-red-700: #7c2e20;
+            --focus: #c27c2c;
+            --muted: rgba(159,58,40,0.12);
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Cairo', Arial, Helvetica, sans-serif;
+            background: var(--body-bg);
+            color: var(--text-main);
+            padding-top: 75px; /* سيتغيّر في الجوال حسب ارتفاع الهيدر */
+            display: flex;
+            min-height: 100vh;
+            flex-direction: column;
+            padding-bottom: 0;   /* سيزداد في الجوال بسبب الشريط السفلي */
+        }
+
+        /* الهيدر (ديسكتوب) */
+        .navbar-full {
+            position: fixed; top: 0; width: 100%; height: 70px; background: var(--nav-bg);
+            display: flex; align-items: center; justify-content: space-between; gap: 14px;
+            padding: 0 2%; box-shadow: 0 2px 10px rgba(0,0,0,0.10);
+            z-index: 3000; border-bottom: 1px solid var(--border);
+            overflow-x: hidden; /* منع أي انزلاق عرضي من مكونات الهيدر */
+        }
+        /* منع تمدد عناصر الهيدر */
+        .navbar-full > *, .logo-only, .search-area, .mobile-menu { min-width: 0; }
+
+        .logo-only {
+            font-family: 'Amiri', serif; font-weight: 700; text-decoration: none;
+            font-size: 2.1rem; color: var(--brick-red); letter-spacing: .3px;
+            white-space: nowrap;
+        }
+
+        /* البحث — إزالة الحد وتوسيع العرض */
+        .search-area {
+            flex: 1; display: flex; align-items: stretch;
+            background: rgba(128,128,128,0.08); border-radius: 10px;
+            border: 1px solid var(--border);
+            width: 100%;        /* مهم للجوال */
+            max-width: none;    /* إزالة الحد السابق 640px */
+            overflow: hidden;
+        }
+        .search-form { display: flex; width: 100%; }
+        .search-input {
+            width: 100%; border: none; background: transparent; outline: none;
+            padding: 10px 12px; color: var(--text-main); font-size: 1rem; text-align: right;
+        }
+        .search-btn {
+            background: var(--brick-red); border: none; color: #fff; cursor: pointer;
+            padding: 0 14px; font-size: 1rem; display: flex; align-items: center; gap: 6px;
+        }
+        .search-btn:hover  { background: var(--brick-red-600); }
+        .search-btn:active { background: var(--brick-red-700); }
+        .search-input:focus-visible { outline: 2px solid var(--focus); outline-offset: -2px; }
+
+        /* تبويبات (ديسكتوب) */
+        .tabs-nav { display: flex; gap: 6px; flex-shrink: 0; }
+        .tab-btn {
+            display: inline-flex; align-items: center; gap: 6px;
+            padding: 7px 12px; font-size: .9rem; font-weight: 700;
+            color: var(--text-main); cursor: pointer; border-radius: 8px;
+            border: 1px solid var(--border); background: transparent;
+            user-select: none;
+        }
+        .tab-btn i { font-size: .95rem; }
+        .tab-btn:hover { background: var(--muted); border-color: var(--brick-red); }
+        .tab-btn.active { color: #fff; background: var(--brick-red); border-color: var(--brick-red); }
+        .tab-btn:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+
+        /* أدوات القراءة (ديسكتوب) */
+        .read-tools { display: flex; gap: 6px; align-items: center; border-right: 1px solid var(--border); padding-right: 12px; }
+        .tool-btn {
+            cursor: pointer; border: 1px solid transparent; background: transparent;
+            font-size: 1.05rem; color: var(--text-main); padding: 5px 8px; border-radius: 8px;
+        }
+        .tool-btn:hover { background: var(--muted); border-color: var(--border); }
+        .tool-btn:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+
+        /* منسدلة الجوال */
+        .mobile-menu {
+            display: none;
+            font-family: 'Cairo', sans-serif;
+            font-size: .95rem;
+            padding: 8px 10px;
+            border: 1px solid var(--brick-red);
+            border-radius: 8px;
+            background: var(--nav-bg);
+            color: var(--text-main);
+        }
+
+        /* تخطيط المحتوى */
+
+.page-grid {
+    display: grid;
+    grid-template-columns: 25% 50% 25%;
+    grid-template-areas: "left main right";
+    width: 100%;
+    flex: 1;
+    align-items: start;
+}
+
+.page-grid > aside.sidebar:first-of-type { grid-area: left; }
+.page-grid > section.main-content         { grid-area: main; }
+.page-grid > aside.sidebar:last-of-type  { grid-area: right; }
+
+
+        .sidebar { display: flex; flex-direction: column; gap: 15px; padding: 20px; position: sticky;    top: var(--header-height);  
+    height: calc(100vh - var(--header-height));    overflow-y: auto; }
+        .widget  { background: var(--card-bg); border-radius: 12px; padding: 15px; border: 1px solid var(--border); box-shadow: var(--shadow); }
+        .widget-h{ color: var(--brick-red); font-size: .85rem; font-weight: 700; border-bottom: 1px solid var(--border); margin-bottom: 10px; padding-bottom: 5px; }
+
+
+.main-content {
+    padding: 20px;
+    padding-left: 30px; /* ← هامش يسار إضافي */
+}
+        .entry-card {
+            background: var(--card-bg); padding: clamp(20px, 5vw, 40px); border-radius: 20px;
+            border-top: 6px solid var(--brick-red); box-shadow: var(--shadow); min-height: 60vh;
+        }
+        .word-h { font-family: 'Amiri', serif; font-size: 2.4rem; color: var(--brick-red); margin: 0 0 12px; }
+        .word-p { font-size: 1.15rem; line-height: 2.05; text-align: justify; color: var(--text-main); }
+
+        footer {
+            background: var(--nav-bg); padding: 30px; text-align: center;
+            border-top: 1px solid var(--border); font-size: .9rem; color: var(--text-subtle);
+        }
+
+        /* صور المحتوى */
+        #contentBody img { max-width: 100%; height: auto; margin: 10px 0; }
+
+        /* نص لقارئات الشاشة */
+        .sr-only { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+
+        /* === الشريط السفلي الثابت للجوال === */
+        .mobile-bottom-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 56px;
+            background: var(--nav-bg);
+            border-top: 1px solid var(--border);
+            display: none;         /* يظهر فقط في الجوال */
+            align-items: center;
+            justify-content: space-around;
+            z-index: 3500;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.08);
+            padding-bottom: max(0px, env(safe-area-inset-bottom));
+            backdrop-filter: saturate(1.2) blur(8px);
+            background: color-mix(in oklab, var(--nav-bg) 90%, transparent);
+        }
+        .mobile-bottom-bar .tool-btn { font-size: 1.05rem; padding: 8px 12px; }
+
+        /* Responsive عام (≤1100px) */
+      @media (max-width: 1100px) {
+
+    .page-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-areas:
+            "main"
+            "left"
+            "right";
+        padding: 0 10px;
+    }
+
+    .page-grid > section.main-content {
+        order: 1;
+    }
+
+    .page-grid > aside.sidebar:first-of-type {
+        order: 2;
+    }
+
+    .page-grid > aside.sidebar:last-of-type {
+        order: 3;
+    }
+
+    .sidebar {
+        position: static;
+        height: auto;
+        overflow: visible;
+    }
+
+}
+
+
+        /* الجوال الضيق جدًا (≤600px): خيار B — الشعار (1.2fr) + البحث (2fr) + المنسدلة (1fr) */
+      @media (max-width: 600px) {
+
+    .navbar-full {
+        display: grid;
+        grid-template-columns: auto 1fr auto;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 10px;
+        height: auto;
+        min-height: 60px;
+    }
+
+    .logo {
+        justify-self: start;
+    }
+
+    .search-area {
+        width: 100%;
+    }
+
+    .mobile-menu {
+        display: block;
+        width: 100%;
+    }
+
+    .tabs-nav,
+    .read-tools {
+        display: none !important;
+    }
+
+}
+
+/* ===== فوتر بعمودين بعرض كامل ===== */
+.footer-cols{
+    background: var(--nav-bg);
+    border-top: 1px solid var(--border);
+    padding: 40px 5%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    width: 100%;
+}
+
+/* كل عمود */
+.footer-cols .fcol{
+    display: flex;
+    flex-direction: column;
+}
+
+/* العناوين */
+.footer-cols .ftitle{
+    color: var(--brick-red);
+    font-weight: 700;
+    margin-bottom: 12px;
+    font-size: 1rem;
+}
+
+/* الروابط */
+.footer-cols a{
+    color: var(--text-subtle);
+    text-decoration: none;
+    margin: 6px 0;
+}
+
+.footer-cols a:hover{
+    color: var(--brick-red);
+}
+
+/* للجوال */
+@media (max-width: 600px){
+    .footer-cols{
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+}
+
+    </style>
+</head>
+
+<body id="bodyMaster">
+
+    <!-- الهيدر -->
+    <nav class="navbar-full">
+        <!-- الشعار -->
+<a href="./" class="logo">
+    <img src="logo.png" alt="المُعجَم" loading="eager">
+</a>
+       
+
+        <!-- نموذج البحث -->
+        <div class="search-area">
+            <form id="searchForm" class="search-form" action="/search.php" method="get">
+                <input type="hidden" name="mdatabase" id="mdatabaseInput" value="smougem"/>
+                <input type="text" class="search-input" id="lexSearch" name="query" placeholder="ابحث عن..." value=""/>
+                <button type="button" class="search-btn" id="searchToggleBtn" aria-label="بحث">
+    <i class="fa fa-search"></i>
+</button>
+            </form>
+        </div>
+
+        <!-- تبويبات القواميس (ديسكتوب) -->
+        <div class="tabs-nav" id="tabsNav" role="tablist" aria-label="التبديل بين القواميس">
+            <button type="button" class="tab-btn" data-lex="smougem" aria-selected="false">
+                <i class="fa fa-book" aria-hidden="true"></i> الصغير
+            </button>
+            <button type="button" class="tab-btn" data-lex="lmougem" aria-selected="false">
+                <i class="fa fa-bookmark" aria-hidden="true"></i> الكبير
+            </button>
+            <button type="button" class="tab-btn" data-lex="poetrymougem" aria-selected="false">
+                <i class="fa fa-microphone" aria-hidden="true"></i> الشعري
+            </button>
+
+            <!--
+            <button type="button" class="tab-btn" data-lex="Quranmougem" aria-selected="false">
+                <i class="fa fa-star-o" aria-hidden="true"></i> القرآني
+            </button>
+            <button type="button" class="tab-btn" data-lex="hadeethmougem" aria-selected="false">
+                <i class="fa fa-comments" aria-hidden="true"></i> الحديثي
+            </button>
+            <button type="button" class="tab-btn" data-lex="enmougem" aria-selected="false">
+                <i class="fa fa-language" aria-hidden="true"></i> الإنجليزي
+            </button>-->
+        </div>
+
+        <!-- منسدلة الجوال -->
+        <select class="mobile-menu" id="mobileLex" aria-label="اختيار القاموس">
+            <option value="smougem">الصغير</option>
+            <option value="lmougem">الكبير</option>
+             <option value="poetrymougem">الشعري</option>
+            <!--
+            <option value="Quranmougem">القرآني</option>
+            <option value="hadeethmougem">الحديثي</option>
+           
+            <option value="enmougem">الإنجليزي</option>-->
+        </select>
+
+        <!-- أدوات القراءة (تظهر هنا على الديسكتوب فقط) -->
+        <div class="read-tools" aria-label="أدوات القراءة">
+            <button class="tool-btn" type="button" onclick="fontAdj(1)" title="تكبير الخط">A+</button>
+            <button class="tool-btn" type="button" onclick="fontAdj(-1)" title="تصغير الخط">A-</button>
+            <button class="tool-btn" type="button" onclick="setTheme('light')" title="سمة مضيئة">☀️</button>
+            <button class="tool-btn" type="button" onclick="setTheme('sepia')" title="سمة سيبيا">📜</button>
+            <button class="tool-btn" type="button" onclick="setTheme('dark')" title="سمة داكنة">🌙</button>
+        </div>
+    </nav>
+
+    <!-- تخطيط الثلاثة أعمدة -->
+    <main class="page-grid">
+
+        <!-- يسار -->
+        <aside class="sidebar">
+            <div class="widget">
+                <div class="widget-h">كلمات القرآن الكريم</div><p style="font-size:.9rem">
+			
+			<!-- حاوية العرض المحددة -->
+<div id="slide-container" style=" border: 1px solid #ccc; display: flex; justify-content: center; align-items: center; text-align: center;">
+    جاري التحميل...
+</div>
+			
+			</p></div>
+            <div class="widget">
+                <div class="widget-h"><span>قال رسول الله &#xFDFA;:</span></div><p style="font-size:.9rem">
+			
+			<!-- حاوية العرض المحددة -->
+<div id="slide-container1" style=" border: 1px solid #ccc; display: flex; justify-content: center; align-items: center; text-align: center;">
+    جاري التحميل...
+</div>
+			
+			</p></div>  
+                
+            <div class="widget"><div class="widget-h">إحصائيات</div><p style="font-size:.9rem">500 ألف مادة لغوية.</p></div>
+        </aside>
+
+        <!-- وسط -->
+        <section class="main-content">
+            <article class="entry-card">
+                <h1 class="word-h">الرئيسة</h1>
+
+                <p id="activeLexLabel" style="font-size:.9rem; color:var(--brick-red); font-weight:700; margin-bottom:20px;">
+                    النتائج من:
+                    <span id="activeLexText">smougem</span>
+                </p>
+
+                <div id="contentBody" class="word-p">
+
+			<!-- الفاصل بين الجزئين منطقة النتائج --><p><h1 class='word-h'>خبط عشواء!</h1><h1 class='word-h'>غُزْر</h1>(<span style='color:#d71f1f'>اسم، مفرد، مذكر</span>) الجذر: (<span style='color:#d71f1f'>غزر</span>) الوزن: <span style='color:#d71f1f'>فُعْل</span><p>(1)- مصدر للفعل: غَزُرَ.<hr style='border-top:1px solid #d71f1f;'>
+ </div>
+            </article>
+        </section>
+
+        <!-- يمين -->
+        <aside class="sidebar">
+            <div class="widget"><div class="widget-h">لقاء حول المعجم</div><p style="font-size:.9rem">
+    <!-- الفيديو -->
+			<iframe width="100%" height="145"  max-width: 100% src="https://www.youtube.com/embed/MiJn2Yp-3bA?si=Yt5KBuOboqt8qHPi" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+	    <!-- الفيديو -->
+		
+			
+	
+			
+			</p></div>
+            <div class="widget"><div class="widget-h">عرض مشروع علمي</div><p style="font-size:.9rem">
+			
+			    <!-- الفيديو -->
+			<iframe width="100%" height="145"  max-width: 100% src="https://www.youtube.com/embed/03GfH0voZJ0?si=Vt2FMCqwfugiQGeh" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+	    <!-- الفيديو -->
+
+			
+			</p></div>
+            <div class="widget"><div class="widget-h">تواصل</div><p style="font-size:.9rem">دعم لغة الضاد.</p></div>
+        </aside>
+
+    </main>
+
+    <!-- شريط أدوات القراءة السفلي للجوال -->
+    <div class="mobile-bottom-bar" aria-label="أدوات القراءة (شريط سفلي)">
+        <button class="tool-btn" type="button" onclick="fontAdj(1)" title="تكبير الخط">A+</button>
+        <button class="tool-btn" type="button" onclick="fontAdj(-1)" title="تصغير الخط">A-</button>
+        <button class="tool-btn" type="button" onclick="setTheme('light')" title="سمة مضيئة">☀️</button>
+        <button class="tool-btn" type="button" onclick="setTheme('sepia')" title="سمة سيبيا">📜</button>
+        <button class="tool-btn" type="button" onclick="setTheme('dark')" title="سمة داكنة">🌙</button>
+    </div>
+
+    <!-- فوتر -->
+	<footer class="footer-cols">
+  <div class="fcol">
+    <div class="ftitle"><a href="/about.php">عن المعجم</a></div>
+  </div>
+
+  <div class="fcol">
+    <div class="ftitle">حمادة عبيد أحمد إبراهيم: 00966501251072- almougem@gmail.com</div>   
+  </div>
+</footer>
+
+	
+	
+	
+	
+	
+
+
+
+    <script>
+        // (اختياري) توليد Favicon بحرف "ع"
+        function createDynamicFavicon() {
+            const size = 64;
+            const canvas = document.createElement('canvas');
+            canvas.width = size; canvas.height = size;
+            const ctx = canvas.getContext('2d');
+            if (ctx.roundRect) { ctx.fillStyle='#a52a2a'; ctx.beginPath(); ctx.roundRect(0,0,size,size,8); ctx.fill(); }
+            else { ctx.fillStyle='#a52a2a'; ctx.fillRect(0,0,size,size); }
+            ctx.fillStyle = '#ffffff';
+            ctx.font = '900 55px "Amiri","Times New Roman",serif';
+            ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+            ctx.fillText('ع', size/2, size/2 + 5);
+            let link = document.querySelector("link[rel~='icon']");
+            if (!link) { link = document.createElement('link'); link.rel = 'icon'; document.head.appendChild(link); }
+            link.href = canvas.toDataURL('image/png');
+        }
+
+        // السمات وحجم الخط
+        function setTheme(mode){
+            const body = document.getElementById('bodyMaster');
+            body.classList.remove('dark-mode','sepia-mode');
+            if(mode==='dark') body.classList.add('dark-mode');
+            if(mode==='sepia') body.classList.add('sepia-mode');
+            localStorage.setItem('userTheme', mode);
+        }
+        let zoomLevel = 1.15;
+        function fontAdj(step){
+            zoomLevel += step * 0.1;
+            if(zoomLevel < .9) zoomLevel = .9;
+            if(zoomLevel > 2.5) zoomLevel = 2.5;
+            document.getElementById('contentBody').style.fontSize = zoomLevel + 'rem';
+        }
+
+        // التبويبات + المنسدلة  ,'Quranmougem','hadeethmouge,'enmougem'm'
+        const allowedLex = ['smougem','lmougem','poetrymougem'];
+
+        function setActiveTab(current) {
+            document.querySelectorAll('.tab-btn').forEach(btn=>{
+                const isActive = (btn.dataset.lex === current);
+                btn.classList.toggle('active', isActive);
+                btn.setAttribute('aria-selected', isActive ? 'true' : 'false');
+            });
+            const mobile = document.getElementById('mobileLex');
+            if (mobile && allowedLex.includes(current)) mobile.value = current;
+            const activeLabel = document.getElementById('activeLexText');
+            if (activeLabel) activeLabel.textContent = current;
+        }
+
+        // إنشاء رابط البحث (بدون ajax=1؛ سنطلب JSON عبر الترويسات فقط)
+        function buildSearchUrl(query, mdatabase) {
+            const params = new URLSearchParams();
+            if (mdatabase) params.set('mdatabase', mdatabase);
+            if (query !== undefined) params.set('query', query);
+            return '/search.php?' + params.toString();
+        }
+
+        // جلب النتائج جزئيًا وتحديث الصفحة بـ JSON (متوافق مع /search.php المعدّل)
+        async function fetchAndRender(url, push = true) {
+            try {
+                const res = await fetch(url, {
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest',
+                        'Accept': 'application/json'
+                    }
+                });
+                if (!res.ok) throw new Error('HTTP ' + res.status);
+
+                const data = await res.json();
+
+                // عنوان الصفحة
+                if (data.title) {
+                    document.title = data.title;
+                    dynamicTitle = data.title; // تحديث قيمة العنوان الديناميكي
+                }
+
+                // <h1>
+                const h1 = document.querySelector('h1.word-h');
+                if (h1 && typeof data.h1_text === 'string') {
+                    h1.textContent = data.h1_text;
+                }
+
+                // النتائج
+                const contentBody = document.querySelector('#contentBody');
+                if (contentBody && typeof data.content_html === 'string') {
+                    contentBody.innerHTML = data.content_html;
+                }
+
+                // القاموس النشط (النص)
+                const activeLexText = document.getElementById('activeLexText');
+                if (activeLexText && typeof data.activeLexText === 'string') {
+                    activeLexText.textContent = data.activeLexText;
+                }
+
+                // تفعيل التبويب بصريًا + تحديث الحقل الخفي
+                if (data.mdatabase && allowedLex.includes(data.mdatabase)) {
+                    setActiveTab(data.mdatabase);
+                    const mdInput = document.getElementById('mdatabaseInput');
+                    if (mdInput) mdInput.value = data.mdatabase;
+                }
+
+                // حدّث حقل البحث بالقيمة الجديدة
+                const searchInput = document.getElementById('lexSearch');
+                if (searchInput && typeof data.query === 'string') {
+                    searchInput.value = data.query;
+                }
+
+                // إدارة العنوان/التاريخ
+                if (push) {
+                    const urlObj = new URL(url, location.origin);
+                    history.pushState({ url: urlObj.pathname + '?' + urlObj.searchParams.toString() }, '', urlObj.pathname + '?' + urlObj.searchParams.toString());
+                }
+            } catch (err) {
+                // في حال الفشل—إرسال عادي للنموذج (تجربة سليمة للمستخدم)
+                console.error('Partial fetch failed:', err);
+                const form = document.getElementById('searchForm');
+                if (form) form.submit();
+            }
+        }
+
+        function updateLex(val, submit=true){
+            if (!allowedLex.includes(val)) return;
+            document.getElementById('mdatabaseInput').value = val;
+            setActiveTab(val);
+
+            // طلب النتائج جزئيًا بدل إعادة تحميل
+            if (submit) {
+                const q = (document.getElementById('lexSearch')?.value ?? '').trim();
+                const url = buildSearchUrl(q, val);
+                fetchAndRender(url, true);
+            }
+        }
+
+        // العنوان الديناميكي (من PHP) لكي نعيده عند focus
+        let dynamicTitle = document.title;
+
+        // تفاعل العنوان عند التركيز/الفقدان
+        window.addEventListener('blur',  () => { document.title = "عد إلينا في المعجم.. 🔎"; });
+        window.addEventListener('focus', () => { document.title = dynamicTitle; });
+
+        // تحديث ارتفاع الهيدر الفعلي وحقنه في --header-height (لأجل padding-top في الجوال)
+        function updateHeaderHeightVar() {
+            const nav = document.querySelector('.navbar-full');
+            if (nav) {
+                const h = nav.offsetHeight;
+                document.documentElement.style.setProperty('--header-height', h + 'px');
+            }
+        }
+
+        // تهيئة
+        window.addEventListener('load', ()=>{
+            // createDynamicFavicon(); // فعّل إذا رغبت
+
+            // حساب ارتفاع الهيدر (لمنع اختفاء المحتوى خلفه في الجوال)
+            updateHeaderHeightVar();
+            window.addEventListener('resize', updateHeaderHeightVar);
+
+            const savedTheme = localStorage.getItem('userTheme');
+            if(savedTheme) setTheme(savedTheme);
+
+            const params = new URLSearchParams(location.search);
+            const current = params.get('mdatabase') || 'smougem';
+
+            // فعّل حالة التبويب الحالي
+            setActiveTab(current);
+
+            // فعل أزرار التبويب (ديسكتوب)
+            document.querySelectorAll('.tab-btn').forEach(btn=>{
+                btn.addEventListener('click', ()=> updateLex(btn.dataset.lex, true));
+            });
+
+            // فعل المنسدلة (جوال)
+            const mobile = document.getElementById('mobileLex');
+            if(mobile){
+                mobile.value = current;
+                mobile.addEventListener('change', e => updateLex(e.target.value, true));
+            }
+
+            // اعتراض إرسال نموذج البحث للقيام بجلب جزئي
+            const form = document.getElementById('searchForm');
+            if (form) {
+                form.addEventListener('submit', (ev)=>{
+                    ev.preventDefault();
+                    const q = (document.getElementById('lexSearch')?.value ?? '').trim();
+                    const md = (document.getElementById('mdatabaseInput')?.value ?? 'smougem').trim();
+                    const url = buildSearchUrl(q, md);
+                    fetchAndRender(url, true);
+                });
+            }
+
+            // دعم الرجوع/التقدم في المتصفح
+            window.addEventListener('popstate', (e)=>{
+                const url = (e.state && e.state.url) ? e.state.url : location.href;
+                fetchAndRender(url, false);
+            });
+        });
+    </script>
+
+    <!-- مراقبة الأداء -->
+    <script>
+        'undefined'=== typeof _trfq || (window._trfq = []);
+        'undefined'=== typeof _trfd && (window._trfd=[]),
+        _trfd.push({'tccl.baseHost':'secureserver.net'},{'ap':'cpsh-oh'},{'server':'p3plzcpnl489463'},{'dcenter':'p3'},{'cp_id':'9259121'},{'cp_cl':'8'});
+    </script>
+    
+    <!-- عارض كلمات القرآن -->
+ 
+  <script>
+    const JSON_URL = 'quraan.json'; // مسار ملف الـ JSON الجديد
+    const DISPLAY_DURATION = 15000;
+    let records = [];
+    let currentIndex = 0;
+
+    async function initApp() {
+        try {
+            // جلب البيانات بصيغة JSON مباشرة دون الحاجة لمكتبات XLSX
+            const response = await fetch(JSON_URL);
+            if (!response.ok) throw new Error("فشل الوصول للملف");
+            records = await response.json(); 
+            
+            // خلط البيانات عشوائياً
+            records.sort(() => Math.random() - 0.5);
+            
+            if (records.length > 0) {
+                render();
+                setInterval(render, DISPLAY_DURATION);
+            }
+        } catch (e) {
+            document.getElementById('slide-container').innerHTML = "خطأ: " + e.message;
+        }
+    }
+
+    function render() {
+        const container = document.getElementById('slide-container');
+        if (currentIndex >= records.length) {
+            currentIndex = 0;
+            records.sort(() => Math.random() - 0.5);
+        }
+
+        const item = records[currentIndex];
+        // تخصيص ما تود عرضه من أعمدة
+        container.innerHTML = `
+            <div class="fade-in">
+                <h2 style="margin:0">${item.word}</h2>
+                <p style="color:gray">${item.mean}</p>
+            </div>
+        `;
+        currentIndex++;
+    }
+
+    initApp();
+</script>
+
+
+<!-- عارض حديث النبي صلى الله عليه وسلم -->
+ 
+  <script>
+    const JSON1_URL = 'sonnah.json'; // مسار ملف الـ JSON الجديد
+    const DISPLAY_DURATION1 = 20000;
+    let records1 = [];
+    let currentIndex1 = 0;
+
+    async function initApp1() {
+        try {
+            // جلب البيانات بصيغة JSON مباشرة دون الحاجة لمكتبات XLSX
+            const response1 = await fetch(JSON1_URL);
+            if (!response1.ok) throw new Error("فشل الوصول للملف");
+            records1 = await response1.json(); 
+            
+            // خلط البيانات عشوائياً
+            records1.sort(() => Math.random() - 0.5);
+            
+            if (records1.length > 0) {
+                render1();
+                setInterval(render1, DISPLAY_DURATION1);
+            }
+        } catch (e) {
+            document.getElementById('slide-container1').innerHTML = "خطأ: " + e.message;
+        }
+    }
+
+    function render1() {
+        const container = document.getElementById('slide-container1');
+        if (currentIndex1 >= records1.length) {
+            currentIndex1 = 0;
+            records1.sort(() => Math.random() - 0.5);
+        }
+
+        const item = records1[currentIndex1];
+        // تخصيص ما تود عرضه من أعمدة
+        container.innerHTML = `
+            <div class="fade-in">
+                <h2 style="margin:0">${item.word}</h2>
+                <p style="color:gray">${item.mean}</p>
+            </div>
+        `;
+        currentIndex1++;
+    }
+
+    initApp1();
+</script>
+
+
+<style>
+    .fade-in { animation: fadeIn 0.8s; }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+</style>
+    
+    
+    
+    
+    
+    <script>
+(function () {
+
+    const form  = document.getElementById('searchForm');
+    const input = document.getElementById('lexSearch');
+    const btn   = document.getElementById('searchToggleBtn');
+    const icon  = btn.querySelector('i');
+
+    let isClearMode = false; // الحالة الحقيقية للزر
+
+    function setSearchMode() {
+        isClearMode = false;
+        icon.className = 'fa fa-search';
+        btn.setAttribute('aria-label', 'بحث');
+    }
+
+    function setClearMode() {
+        isClearMode = true;
+        icon.className = 'fa fa-times';
+        btn.setAttribute('aria-label', 'محو البحث');
+    }
+
+    btn.addEventListener('click', function () {
+
+        // وضع المحو
+        if (isClearMode) {
+            input.value = '';
+            input.focus();
+            setSearchMode();
+            return;
+        }
+
+        // وضع البحث
+        if (input.value.trim() !== '') {
+            setClearMode();
+            form.requestSubmit(); // AJAX أو submit عادي
+        }
+
+    });
+
+    // مهم جدًا: لا تغيّر حالة الزر عند الكتابة
+    input.addEventListener('input', function () {
+        /* متعمّد فارغ */
+    });
+
+    // عند تحميل الصفحة (نتيجة بحث مباشرة من URL)
+    if (input.value.trim() !== '') {
+        setClearMode();
+    }
+
+})();
+</script>
+
+<script>
+(function () {
+
+    const el = document.getElementById('activeLexText');
+    if (!el) return;
+
+    const map = {
+        smougem: 'المعجم الصغير',
+        lmougem: 'المعجم الكبير',
+        poetrymougem: 'المعجم الشعري',
+    };
+
+    function updateText() {
+        const value = el.textContent.trim();
+        if (map[value]) {
+            el.textContent = map[value];
+        }
+    }
+
+    // تعديل فوري
+    updateText();
+
+    // مراقبة أي تغيير لاحق
+    const observer = new MutationObserver(updateText);
+    observer.observe(el, { childList: true, characterData: true, subtree: true });
+
+})();
+</script>
+
+
+
+
+
+</body>
+<script>'undefined'=== typeof _trfq || (window._trfq = []);'undefined'=== typeof _trfd && (window._trfd=[]),_trfd.push({'tccl.baseHost':'secureserver.net'},{'ap':'cpsh-oh'},{'server':'p3plzcpnl489463'},{'dcenter':'p3'},{'cp_id':'9259121'},{'cp_cl':'8'}) // Monitoring performance to make your website faster. If you want to opt-out, please contact web hosting support.</script><script src='https://img1.wsimg.com/traffic-assets/js/tccl.min.js'></script></html>

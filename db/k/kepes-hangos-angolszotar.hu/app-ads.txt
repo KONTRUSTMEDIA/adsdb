@@ -1,0 +1,2343 @@
+
+
+<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.1//EN"
+"http://www.openmobilealliance.org/tech/DTD/xhtml-mobile11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="robots" content="INDEX, FOLLOW">
+<meta name="revisit-after" content="30 days">
+<link rel="icon" type="image/x-icon" href="https://www.iloveangol.hu/szokincs/wp-content/uploads/2015/09/cropped-angolSziv512-32x32.png" sizes="32x32" />
+<title>Angol szótár - app-adstxt jelentése magyarul</title>
+
+<link rel="stylesheet" type="text/css" href="https://www.iloveangol.hu/szokincs/cssTanulasUj.css" />	
+<link rel="stylesheet" type="text/css" href="https://kepes-hangos-angolszotar.hu/cssSzotar.css" />
+	 
+<script type="text/javascript" src="https://www.iloveangol.hu/scripts/prototype3.js"></script> 
+<script type="text/javascript" src="https://www.iloveangol.hu/scripts/jquery.min3.js"></script>
+<script src="https://online-angol.iloveangol.hu/wp-content/sajat_phpk/scripts/sound_recorder.js"></script>
+<script src="https://online-angol.iloveangol.hu/wp-content/sajat_phpk/scripts/sound_recorder_app.js"></script>
+
+<script type="text/javascript" src="https://kepes-hangos-angolszotar.hu/scripts/szotarJavaScriptKilepve5.js"></script>
+	
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-54757171-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-54757171-1');
+</script>
+
+		
+<script type='text/javascript'>
+var $j = jQuery.noConflict();
+
+
+function megjelenit(){						
+	
+	var oldSzel=document.body.offsetWidth;								
+	
+	document.getElementById('subheading_5').style.display='inline';												
+		
+		
+		getStarted(1,1);				
+		
+		
+					
+			
+}//end of megjelenit
+
+				
+
+/*****SPEECH TO TEXT eleje*****/
+var $j = jQuery.noConflict();
+
+var ua = navigator.userAgent;
+var android=0;
+if( ua.indexOf("Android") >= 0 )
+{
+  android=1;
+}
+
+
+var final_transcript = '';
+var linebreaked_interim_transcript = '';
+var recognizing = false;
+var ignore_onend;
+var start_timestamp;
+
+var apiNo=1000000;
+var interim_transcript_seged = '';
+showInfo('info_start',apiNo);
+
+if (!('webkitSpeechRecognition' in window)) {
+  var a=0;
+} else {  
+  var recognition = new webkitSpeechRecognition();
+  recognition.continuous = true;
+  recognition.interimResults = true;
+
+  recognition.onstart = function() {
+    recognizing = true;
+    showInfo('info_speak_now',apiNo);
+    document.getElementById('start_button'+apiNo).src = 'https://www.iloveangol.hu/images/mikrofonAktiv.png';
+  };
+
+  recognition.onerror = function(event) {
+    if (event.error == 'no-speech') {
+      document.getElementById('start_button'+apiNo).src = 'https://www.iloveangol.hu/images/mikrofon.png';
+      showInfo('info_no_speech',apiNo);
+      ignore_onend = true;
+    }
+    if (event.error == 'audio-capture') {
+      document.getElementById('start_button'+apiNo).src = 'https://www.iloveangol.hu/images/mikrofon.png';
+      showInfo('info_no_microphone',apiNo);
+      ignore_onend = true;
+    }
+    if (event.error == 'not-allowed') {
+      if (event.timeStamp - start_timestamp < 100) {
+        showInfo('info_blocked',apiNo);
+      } else {
+        showInfo('info_denied',apiNo);
+      }
+      ignore_onend = true;
+    }
+  };
+
+  recognition.onend = function() {
+    recognizing = false;
+    if (ignore_onend) {
+      return;
+    }
+   
+   if (apiNo<1000001 && final_transcript == ''){
+	 					
+		egyszotaguTablaNyit(apiNo);			
+		
+	} //if (apiNo==1000000) Ha angolul keres és üres vége
+		
+	document.getElementById('start_button'+apiNo).src = 'https://www.iloveangol.hu/images/mikrofon.png';
+    if (!final_transcript) {
+      showInfo('info_start',apiNo);
+      return;
+    }
+    
+	
+	showInfo('',apiNo);
+	if (android==1){	
+		if (apiNo==1000000)
+		keresesHangBeolvasva('engHuForm');
+		else if (apiNo==1000001)
+		keresesHangBeolvasva('huEngForm');				
+		else if (apiNo<1000000)	
+		szoEllenorzes2(apiNo);
+      }
+  };
+  // Ha apiNo==1000000, akkor a (split) dupla szó javítás a javascriptben van.
+  recognition.onresult = function(event) {
+    var interim_transcript = '';
+    if (typeof(event.results) == 'undefined') {
+      recognition.onend = null;
+      recognition.stop(); 
+	   alert("Ez a funkció a Chrome böngészőn kívül más böngészőkkel nem működik!\niPhone és iPad eszközökön sem működik.");
+      return;
+    }
+    var vege=0;
+	for (var i = event.resultIndex; i < event.results.length; ++i) {
+      if (event.results[i].isFinal) {
+        final_transcript = event.results[i][0].transcript; //+=
+		vege=1;
+      } else {
+        interim_transcript += event.results[i][0].transcript;
+      }
+    }
+   
+    if(interim_transcript == '' && android==0)
+	interim_transcript = interim_transcript_seged;
+	else if (android==0){	
+	interim_transcript_seged=interim_transcript;
+	linebreaked_interim_transcript=linebreak(interim_transcript);	
+	//document.getElementById('interim_span'+apiNo).innerHTML = linebreaked_interim_transcript;
+	}
+	else if (android==1){	
+	interim_transcript_seged=final_transcript;
+	linebreaked_interim_transcript=linebreak(final_transcript);
+	//document.getElementById('interim_span'+apiNo).innerHTML = linebreaked_interim_transcript;
+	}	
+	
+	var mregexp=/^([0-9])+$/; // Szám vizsgálat	
+	
+	if (apiNo<1000000){				
+			
+			if (linebreaked_interim_transcript=="b" && document.getElementById('english'+apiNo).value=="be")
+			{linebreaked_interim_transcript="be"; szazalek=100;}	
+			else if (linebreaked_interim_transcript=="v" && document.getElementById('english'+apiNo).value=="we")
+			{linebreaked_interim_transcript="we"; szazalek=100;}	
+			else if (linebreaked_interim_transcript=="vid" && document.getElementById('english'+apiNo).value=="with")
+			{linebreaked_interim_transcript="with"; szazalek=100;}
+			else if (document.getElementById('english'+apiNo).value=="eye" && (linebreaked_interim_transcript=="I" || linebreaked_interim_transcript=="hi"))
+			{linebreaked_interim_transcript="eye"; szazalek=100;}
+			else if (document.getElementById('english'+apiNo).value=="run" && (linebreaked_interim_transcript=="Iran" || linebreaked_interim_transcript=="Graham" || linebreaked_interim_transcript=="RAM"))
+			{linebreaked_interim_transcript="run"; szazalek=100;}
+			else if (linebreaked_interim_transcript=="ich")
+			{linebreaked_interim_transcript="ache"; szazalek=100;}
+			else if (document.getElementById('english'+apiNo).value=="fail" && (linebreaked_interim_transcript=="fear" || linebreaked_interim_transcript=="feeder" || linebreaked_interim_transcript=="feel"))
+			{linebreaked_interim_transcript="fail"; szazalek=100;}
+			else if (document.getElementById('english'+apiNo).value=="enter" && linebreaked_interim_transcript=="<br>")
+			{linebreaked_interim_transcript="enter"; szazalek=100;}
+			else if (document.getElementById('english'+apiNo).value=="times" && linebreaked_interim_transcript=="x")
+			{linebreaked_interim_transcript="times"; szazalek=100;}				
+			else if (document.getElementById('english'+apiNo).value=="you" && linebreaked_interim_transcript=="u")
+			{linebreaked_interim_transcript="you"; szazalek=100;}
+			else if (document.getElementById('english'+apiNo).value=="kill" && (linebreaked_interim_transcript.toLowerCase()=="keira"))
+			{linebreaked_interim_transcript="kill"; szazalek=100;}
+			else if (document.getElementById('english'+apiNo).value=="kill time" && linebreaked_interim_transcript=="time")
+			{linebreaked_interim_transcript="kill time"; szazalek=100;}			
+			else if (document.getElementById('english'+apiNo).value=="trouble" && linebreaked_interim_transcript=="travel")
+			{linebreaked_interim_transcript="trouble"; szazalek=100;}
+			else if (document.getElementById('english'+apiNo).value=="melt" && linebreaked_interim_transcript=="mad")
+			{linebreaked_interim_transcript="melt"; szazalek=100;}
+			else if (document.getElementById('english'+apiNo).value=="shy" && linebreaked_interim_transcript=="hi")
+			{linebreaked_interim_transcript="shy"; szazalek=100;}	
+			else if (document.getElementById('english'+apiNo).value=="pouch" && linebreaked_interim_transcript=="out")
+			{linebreaked_interim_transcript="pouch"; szazalek=100;}
+			else if (document.getElementById('english'+apiNo).value=="they’ll = they will/they shall" && (linebreaked_interim_transcript=="deal" || linebreaked_interim_transcript=="deal" || linebreaked_interim_transcript=="dale" || linebreaked_interim_transcript=="daily" || linebreaked_interim_transcript=="dear"))
+			{linebreaked_interim_transcript="they’ll"; szazalek=100;}
+			else if (document.getElementById('english'+apiNo).value=="for" && linebreaked_interim_transcript=="4")
+			{linebreaked_interim_transcript="four"; szazalek=100;}
+			else if (document.getElementById('english'+apiNo).value=="our" && linebreaked_interim_transcript=="h")
+			{linebreaked_interim_transcript="our"; szazalek=100;}	
+		    else if (document.getElementById('english'+apiNo).value=="seem to" && linebreaked_interim_transcript=="sim 2")
+			{linebreaked_interim_transcript="seem to"; szazalek=100;}
+			
+			
+			else if(linebreaked_interim_transcript.length>10 && szavakSzama(linebreaked_interim_transcript)>4) // Ha mondat és a hossza több mint 10
+			szazalek=82;
+			else if (szavakSzama(linebreaked_interim_transcript>2))
+			szazalek=90;
+			else
+			szazalek=95;			
+	
+		//alert(szazalek+"% ---"+similarity(linebreaked_interim_transcript,document.getElementById('english'+apiNo).value)*100);		
+			
+			if ((similarity(linebreaked_interim_transcript,document.getElementById('english'+apiNo).value)*100)>=szazalek){
+			document.getElementById('szo'+apiNo).value=document.getElementById('english'+apiNo).value;
+			voltMar=1;
+			//alert(similarity(linebreaked_interim_transcript,document.getElementById('english'+apiNo).value)*100+"- Voltmár:1");
+			}
+			else if (voltMar==0){
+			document.getElementById('szo'+apiNo).value=linebreak(final_transcript);
+			//alert("VoltMár:0");
+			}
+			
+		}else if (apiNo==1000000)				
+			document.getElementById('szo1000000').value=linebreaked_interim_transcript;			
+		
+		else if (apiNo==1000001)
+			document.getElementById('szo1000001').value=linebreaked_interim_transcript;		
+	
+	
+	if (android==0 && vege==1){	
+	
+		startButton(event,apiNo); // Ez leállítja a felvételt, ha sok szünet volt és beíródott a szöveg.
+		
+		if (apiNo==1000000)
+		keresesHangBeolvasva('engHuForm');
+		else if (apiNo==1000001)
+		keresesHangBeolvasva('huEngForm');				
+		else if (apiNo<1000000)	
+		szoEllenorzes2(apiNo);	
+		
+	} // else a showInfo('',apiNo)-nál
+    
+  };
+}
+
+
+var two_line = /\n\n/g;
+var one_line = /\n/g;
+function linebreak(s) {
+  
+  s=s.replace(two_line, '<p></p>').replace(one_line, '<br>');
+  
+  if(s.indexOf("'") >= 0)
+  s=s.replace("'","’");
+  
+  return s;
+}
+
+
+var voltMar=0; 
+
+function startButton(event,x) {
+  if (recognizing) {   
+    recognition.stop();	
+    return;
+  }
+  
+  interim_transcript_seged = '';  
+  apiNo=x;
+  voltMar=0;  
+  
+  
+  
+  if (apiNo<1000000){
+  document.getElementById('szo'+apiNo).value = '';
+  document.getElementById('szo'+apiNo).style.color="#000000";
+  document.getElementById('szo'+apiNo).style.background="#FFFFFF";
+  } 
+  else{
+   document.getElementById('szo1000000').value = '';
+   document.getElementById('szo1000001').value = '';
+  }
+  
+  //document.getElementById('interim_span'+apiNo).innerHTML = '';   
+  document.getElementById('start_button'+apiNo).src = 'https://www.iloveangol.hu/images/mikrofonNo.png';
+    
+  showInfo('info_allow',apiNo);  
+  
+  final_transcript = ''; 
+  
+  if (apiNo==1000001)
+  recognition.lang ="hu-HU"; 
+  else
+  recognition.lang ="en-GB";
+  
+  recognition.start();
+  ignore_onend = false;   
+  
+  start_timestamp = event.timeStamp;
+}
+
+
+function showInfo(s,apiNo) {
+
+	var mregexp=/^([0-9])+$/; // Szám vizsgálat	
+	if(mregexp.test(apiNo)){
+		if (s=="")
+		$j('infoSzoveg'+apiNo).html("&nbsp");
+
+		else if (s=="info_start")
+		$j('infoSzoveg'+apiNo).html("Kattints a mikrofon ikonra és kezdj el beszélni!");
+				
+		else if (apiNo<1000000 && s=="info_speak_now")
+		$j('infoSzoveg'+apiNo).html("Most beszélj!");
+		
+		else if (apiNo==1000000 && s=="info_speak_now")
+		$j('infoSzoveg'+apiNo).html("Most angolul mondd!");
+		
+		else if (apiNo==1000001 && s=="info_speak_now")
+		$j('infoSzoveg'+apiNo).html("Most magyarul mondd!");
+
+		else if (s=="info_no_speech")
+		$j('infoSzoveg'+apiNo).html("Nem érzékeltünk beszédet. Lehet, hogy módosítani kell a <a target='_blank' href='//support.google.com/chrome/bin/answer.py?hl=en&amp;answer=1407892'>mikrofon beállításokat.</a>.");
+			 
+		else if (s=="info_no_microphone")
+		$j('infoSzoveg'+apiNo).html("Nem találtuk meg a mikrofont. Győződj meg róla, hogy van-e mikrofonod és ha igen, akkor a <a target='_blank' href='//support.google.com/chrome/bin/answer.py?hl=en&amp;answer=1407892'>mikrofonbeállítások</a> megfelelően vannak-e beállítva.");
+
+		else if (s=="info_allow")
+		$j('infoSzoveg'+apiNo).html("A hangazonosító funkció igénybevételéhez a <a target='_blank' href='//www.google.com/chrome'>Chrome</a> böngészőre van szükséged vagy kattints a fenti 'Engedélyezés' gombra, ha az megjelent.<br><a target='_blank' href='https://www.iloveangol.hu/szokincs/gyik/#9'>Tudj meg többet itt! >>></a>");
+
+		else if (s=="info_denied")
+		$j('infoSzoveg'+apiNo).html("A mikrofon használatának engedélyezése nem lehetséges.");
+
+		else if (s=="info_blocked")
+		$j('infoSzoveg'+apiNo).html("A mikrofon használatának engedélyezése blokkolt. A változtatáshoz kattints ide! >>> chrome://settings/contentExceptions#media-stream");
+				 
+				  
+	}// if
+	else{
+	var abc=0;
+	}
+}
+
+
+function similarity(s1, s2) {
+      var longer = s1;
+      var shorter = s2;
+      if (s1.length < s2.length) {
+        longer = s2;
+        shorter = s1;
+      }
+      var longerLength = longer.length;
+      if (longerLength == 0) {
+        return 1.0;
+      }
+      
+	  var kulonbseg=szavakSzamaKulonbseg(s1,s2);
+	  //alert("különbség:"+kulonbseg);
+	  
+	  if ((kulonbseg<3 && kulonbseg>(-3)))
+	  return (longerLength - editDistance(longer, shorter)) / parseFloat(longerLength);
+	  else
+	  return 0;
+    }
+
+    function editDistance(s1, s2) {
+      s1 = s1.toLowerCase();
+      s2 = s2.toLowerCase();
+
+      var costs = new Array();
+      for (var i = 0; i <= s1.length; i++) {
+        var lastValue = i;
+        for (var j = 0; j <= s2.length; j++) {
+          if (i == 0)
+            costs[j] = j;
+          else {
+            if (j > 0) {
+              var newValue = costs[j - 1];
+              if (s1.charAt(i - 1) != s2.charAt(j - 1))
+                newValue = Math.min(Math.min(newValue, lastValue),
+                  costs[j]) + 1;
+              costs[j - 1] = lastValue;
+              lastValue = newValue;
+            }
+          }
+        }
+        if (i > 0)
+          costs[s2.length] = lastValue;
+      }
+      return costs[s2.length];
+    }
+	
+function szavakSzamaKulonbseg(s1,s2){
+
+	var i = 0, strLength1 = s1.length;
+	 
+	for(i; i < strLength1; i++) {
+	 
+	 s1 = s1.replace(" ", "_"); 
+	 
+	}
+
+	var j = 0, strLength2 = s2.length;
+	 
+	for(j; j < strLength2; j++) {
+	 
+	 s2 = s2.replace(" ", "_"); 
+	 
+	}
+	
+	//alert("s1:"+s1+"--s2:"+s2);
+	
+	var s1db=occurrences(s1, "_");
+	var s2db=occurrences(s2, "_");
+	
+	return s1db-s2db;
+	
+}
+
+function occurrences(string, subString, allowOverlapping) {
+
+    string += "";
+    subString += "";
+    if (subString.length <= 0) return (string.length + 1);
+
+    var n = 0,
+        pos = 0,
+        step = allowOverlapping ? 1 : subString.length;
+
+    while (true) {
+        pos = string.indexOf(subString, pos);
+        if (pos >= 0) {
+            ++n;
+            pos += step;
+        } else break;
+    }
+    return n;
+}
+
+function szavakSzama(str){
+
+   var i = 0, strLength1 = str.length;
+	 
+	for(i; i < strLength1; i++) {
+	 
+	 str = str.replace(" ", "_"); 
+	 
+	}
+	
+	return occurrences(str, "_");
+
+}
+
+function egyszotaguTablaNyit(apiNo){
+var x=document.body.offsetWidth;
+var maskHeight=document.body.offsetHeight;
+
+if (apiNo<1000000)
+var objPosTop=document.getElementById("kartya"+apiNo).offsetTop+500;	
+else
+var objPosTop="100";
+
+document.getElementById('egyszotaguTabla').style.display = 'block';	
+document.getElementById('egyszotaguTabla').style.top=objPosTop+"px";
+
+
+document.getElementById('egyszotaguTabla').style.left=((x/2)-150)+"px";
+document.getElementById('transparentDiv2').style.display = 'block';
+document.getElementById('transparentDiv2').style.height=maskHeight+"px";
+document.getElementById('transparentDiv2').style.width=(x+100)+"px";
+}
+
+function egyszotaguTablaBezar(){
+document.getElementById('egyszotaguTabla').style.display = 'none';	
+document.getElementById('transparentDiv2').style.display = 'none';
+}
+
+/*****SPEECH TO TEXT vége****/
+
+
+function playWord(id){			
+		
+	if(document.getElementById("speed_05_"+id).checked)
+	var y=0.5;	
+	else if(document.getElementById("speed_07_"+id).checked)
+	var y=0.7;	
+	else
+	var y=1;
+	 
+	 document.getElementById("wordAudio"+id).playbackRate = y;
+	 document.getElementById("wordAudio"+id).play();
+}
+
+
+
+function speedValt1(x,id){
+	
+	if (x==1 && document.getElementById("speed_07_"+id).checked==true)
+	document.getElementById("speed_07_"+id).checked=false;
+	else if (x==2 && document.getElementById("speed_05_"+id).checked==true)
+	document.getElementById("speed_05_"+id).checked=false;	
+	
+} //speedValt1
+
+function mezoTorol(id){
+document.getElementById('szo'+id).value="";
+document.getElementById('szo'+id).style.color="#000000";
+document.getElementById('szo'+id).style.background="#FFFFFF";
+}
+
+
+/* !!! TEXT TO SPEECH eleje !!! */ 
+var synth = window.speechSynthesis;
+var voices = [];
+
+PopulateVoices();
+if(speechSynthesis !== undefined){
+	speechSynthesis.onvoiceschanged = PopulateVoices;
+}
+
+function playText(id){ 		
+
+	var szoveg=document.getElementById("english"+id).value;			
+	var toSpeak = new SpeechSynthesisUtterance(szoveg);
+	var selectedVoiceName =  'Google UK English Male'; 
+	voices.forEach((voice)=>{
+		if(voice.name === selectedVoiceName){
+			toSpeak.voice = voice;
+		}
+	});
+	
+	if(document.getElementById("speed_05_"+id).checked)
+	var y=0.5;	
+	else if(document.getElementById("speed_07_"+id).checked)
+	var y=0.7;	
+	else
+	var y=1;			
+	
+	toSpeak.rate=y;
+	synth.speak(toSpeak);
+}
+		
+
+function PopulateVoices(){
+	voices = synth.getVoices();            
+	voices.forEach((voice)=>{
+		var listItem = document.createElement('option');
+		listItem.textContent = voice.name;
+		listItem.setAttribute('data-lang', 'en-GB'); //voice.lang);
+		listItem.setAttribute('data-name', 'Google UK English Male'); //voice.name);
+		
+	});
+	
+}
+
+/* !!! TEXT TO SPEECH vége !!! */ 	
+
+
+
+
+function panelNyit(x){
+				
+			
+	for (var n=1; n<6; n++){
+	document.getElementById("panel"+n).style.display="none";
+	document.getElementById("subheading_"+n).setAttribute("class", "subheading2");				
+	}	
+	
+	
+	document.getElementById("panel"+x).style.display="block";
+	if (x<5){
+	document.getElementById("subheading_"+x).setAttribute("class", "subheading1");	
+	}
+	
+	if (x!=1){
+		for (var n=1;n<=8;n++){
+		document.getElementById("getStarted"+n).style.display="none";	
+		}//for							
+	}	
+	
+
+} //panelNyit()
+
+function closeGombGetStarted(x, id){
+	
+var kepObj=document.getElementById("bezarGombGetStarted"+id);
+	if (x==2)
+	kepObj.src="https://www.iloveangol.hu/images/close-gray-button2.png";
+	else
+	kepObj.src="https://www.iloveangol.hu/images/close-gray-button1.png";
+}
+
+
+
+function getStarted(x,id){
+var oldSzel=document.body.offsetWidth;
+
+if (oldSzel<400)
+var magassagSeg=90;
+else
+magassagSeg=0;	
+
+// Bezárja a szókártyákat
+if (x==0){
+document.getElementById("getStarted"+id).style.display="none";	
+getStartedScrolling("#subheading_4");					
+}				
+else{	
+		
+	for (var n=1; n<=14; n++){ 			
+	document.getElementById("getStarted"+n).style.display="none";
+	}													
+	
+		
+		if (id>1) // Azért csak 2-től, mert az 1-est az id==1-nél döntjük el, melyik ugorjon fel.
+		document.getElementById("getStarted"+id).style.display="block";
+		
+		if (id==1){									
+			
+			panelNyit(1);			
+			var objPos=$j("#subheading_4").position();				
+			var objPosTop=Math.round(objPos.top);			
+			document.getElementById('getStarted1').style.display='block';
+			document.getElementById('getStarted1').style.left=(oldSzel/2-(250/2))+"px";
+			document.getElementById('getStarted1').style.top=(objPosTop+31)+"px";
+			getStartedScrolling("#getStarted1");
+												
+		}					
+		
+		else if (id==2){			
+			szoPopUp2(0,'1_0_0','1_0');	
+			var objPosLeft=document.getElementById('mondatkeret').offsetLeft;			
+			var objPosTop=document.getElementById('mondatkeret').offsetTop;	
+			
+			document.getElementById('getStarted2').style.top=objPosTop+50+"px";
+			document.getElementById('getStarted2').style.left=(oldSzel/2-(250/2))+"px";
+			getStartedScrolling("#getStarted2");
+			
+		}		
+		
+		else if (id==3){										
+			
+			if (document.getElementById('jelentesDiv1_0_0')){
+			szoPopUp2(1,'1_0_0','1_0');	
+			var objPosLeft1=document.getElementById( 'jelentesDiv1_0_0' ).offsetLeft;
+			var objPosTop1=document.getElementById( 'jelentesDiv1_0_0' ).offsetTop;			
+			var objPosTop2=document.getElementById( 'szoHang1_0_0' ).offsetTop;
+			var objWidthKartya=document.getElementById( 'jelentesDiv1_0_0' ).offsetWidth; 
+			}
+			else {
+			szoPopUp2(1,'1_1_0','1_1');	
+			var objPosLeft1=document.getElementById( 'jelentesDiv1_1_0' ).offsetLeft;
+			var objPosTop1=document.getElementById( 'jelentesDiv1_1_0' ).offsetTop;			
+			var objPosTop2=document.getElementById( 'szoHang1_1_0' ).offsetTop;
+			var objWidthKartya=document.getElementById( 'jelentesDiv1_1_0' ).offsetWidth;			
+			}
+			var objWidthSarga=document.getElementById( 'getStarted3' ).offsetWidth; 		
+			document.getElementById('getStarted3').style.top=(objPosTop1+objPosTop2)+"px";
+			document.getElementById('getStarted3').style.left=objPosLeft1+((objWidthKartya-objWidthSarga)/2)+"px";	
+			getStartedScrolling("#getStarted3");
+		}
+		
+		else if (id==4){	
+			
+			if (document.getElementById('jelentesDiv1_0_0')){
+			szoPopUp2(1,'1_0_0','1_0');	
+			var objPosLeft1=document.getElementById( 'jelentesDiv1_0_0' ).offsetLeft;
+			var objPosTop1=document.getElementById( 'jelentesDiv1_0_0' ).offsetTop;			
+			var objPosTop2=document.getElementById( 'szoHang1_0_0' ).offsetTop;
+			var objWidthKartya=document.getElementById( 'jelentesDiv1_0_0' ).offsetWidth; 
+			}
+			else {
+			szoPopUp2(1,'1_1_0','1_1');	
+			var objPosLeft1=document.getElementById( 'jelentesDiv1_1_0' ).offsetLeft;
+			var objPosTop1=document.getElementById( 'jelentesDiv1_1_0' ).offsetTop;			
+			var objPosTop2=document.getElementById( 'szoHang1_1_0' ).offsetTop;
+			var objWidthKartya=document.getElementById( 'jelentesDiv1_1_0' ).offsetWidth;			
+			}			
+			
+			var objWidthSarga=document.getElementById( 'getStarted4' ).offsetWidth; 
+					
+			document.getElementById('getStarted4').style.top=(objPosTop1+objPosTop2)+200+"px";
+			document.getElementById('getStarted4').style.left=objPosLeft1+((objWidthKartya-objWidthSarga)/2)+"px";
+			getStartedScrolling("#getStarted4");
+		}
+		
+		else if (id==5){				
+			
+			if (document.getElementById('jelentesDiv1_0_0')){
+			szoPopUp2(1,'1_0_0','1_0');	
+			var objPosLeft1=document.getElementById( 'jelentesDiv1_0_0' ).offsetLeft;
+			var objPosTop1=document.getElementById( 'jelentesDiv1_0_0' ).offsetTop;			
+			var objPosTop2=document.getElementById( 'szoHang1_0_0' ).offsetTop;
+			var objWidthKartya=document.getElementById( 'jelentesDiv1_0_0' ).offsetWidth; 
+			}
+			else {
+			szoPopUp2(1,'1_1_0','1_1');	
+			var objPosLeft1=document.getElementById( 'jelentesDiv1_1_0' ).offsetLeft;
+			var objPosTop1=document.getElementById( 'jelentesDiv1_1_0' ).offsetTop;			
+			var objPosTop2=document.getElementById( 'szoHang1_1_0' ).offsetTop;
+			var objWidthKartya=document.getElementById( 'jelentesDiv1_1_0' ).offsetWidth;			
+			}
+			var objWidthSarga=document.getElementById( 'getStarted5' ).offsetWidth; 	
+			document.getElementById('getStarted5').style.top=(objPosTop1+objPosTop2)+10+"px";
+			document.getElementById('getStarted5').style.left=objPosLeft1+((objWidthKartya-objWidthSarga)/2)+"px";
+			getStartedScrolling("#getStarted5");
+		}
+		
+		else if (id==6){		
+							
+			szoPopUp2(0,'1_0_0','1_0');			
+			var objPosTop=document.getElementById('mikrofonGomb1').offsetTop;				
+			document.getElementById('getStarted6').style.top=objPosTop+200+"px";
+			document.getElementById('getStarted6').style.left=(oldSzel/2-(250/2))+"px";
+			getStartedScrolling("#getStarted6");
+		}
+		
+		else if (id==7){				
+			
+			var objPosTop=document.getElementById('mikrofonGomb1').offsetTop;				
+			document.getElementById('getStarted7').style.top=objPosTop+190+"px";
+			document.getElementById('getStarted7').style.left=(oldSzel/2-(250/2))+"px";
+			getStartedScrolling("#getStarted7");
+		}
+			
+		
+		else if (id==8){
+		
+			var objPosTop=document.getElementById('mikrofonGomb1').offsetTop;				
+			document.getElementById('getStarted8').style.top=objPosTop+90+"px";
+			document.getElementById('getStarted8').style.left=(oldSzel/2-(250/2))+"px";
+			getStartedScrolling("#getStarted8");
+		}
+		
+		else if (id==9){
+		
+			var objPosTop=document.getElementById('mikrofonGomb1').offsetTop;				
+			document.getElementById('getStarted9').style.top=objPosTop+90+"px";
+			document.getElementById('getStarted9').style.left=(oldSzel/2-(250/2))+"px";
+			getStartedScrolling("#getStarted9");
+		}
+		
+		else if (id==10){				
+			
+			var objPosTop=document.getElementById('mikrofonGomb1').offsetTop;				
+			document.getElementById('getStarted10').style.top=objPosTop+190+"px";
+			document.getElementById('getStarted10').style.left=(oldSzel/2-(250/2))+"px";
+			getStartedScrolling("#getStarted10");			
+		}
+		
+		else if (id==11){				
+			
+			var objPosTop=document.getElementById('gyakorlas1').offsetTop;				
+			document.getElementById('getStarted11').style.top=objPosTop+80+"px";
+			document.getElementById('getStarted11').style.left=(oldSzel/2-(250/2))+"px";
+			getStartedScrolling("#getStarted11");
+		}
+		
+		else if (id==12){				
+			
+			var objPosTop=document.getElementById('subheading_2').offsetTop;				
+			document.getElementById('getStarted12').style.top=(objPosTop+30)+"px";
+			document.getElementById('getStarted12').style.left=(oldSzel/2-(250/2))+"px";
+			getStartedScrolling("#getStarted12");
+		}
+		
+		
+		else if (id==13){				
+			
+			var objPosTop=document.getElementById('elozo').offsetTop;				
+			document.getElementById('getStarted13').style.top=(objPosTop-250)+"px";
+			document.getElementById('getStarted13').style.left=(oldSzel/2-(250/2))+"px";
+			getStartedScrolling("#getStarted13");
+		}
+		else if (id==14){				
+			
+			var objPosTop=document.getElementById('kikerdezes').offsetTop;				
+			document.getElementById('getStarted14').style.top=(objPosTop-230)+"px";
+			document.getElementById('getStarted14').style.left=(oldSzel/2-(250/2))+"px";
+			getStartedScrolling("#getStarted14");
+		}
+
+}// else id>0					
+
+} //getStarted()
+
+function getStartedScrolling(id) {
+	
+	var objPos=$j(id).position();						
+	var objPosTop=Math.round(objPos.top)-200;
+	window.scrollBy({ top: objPosTop-document.documentElement.scrollTop, left: 0, behavior: 'smooth' }); // smooth scrolling
+				
+}
+
+					
+function belepes(fname)
+{     
+   var formx=document.getElementById(fname);
+   var hiba='';
+   var mregexp=/^([a-zA-Z0-9_\.\-\+&])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,6})+$/;
+   
+    var email=formx.email.value.trim();
+   
+   if(!mregexp.test(email))
+   {
+     hiba='* Hibás az e-mail cím formátuma!';
+     formx.email.focus();
+   }
+   
+   formx.email.value=email;
+
+   if (!formx.password.value)
+     {
+   hiba+= (hiba?"\n":'')+'* A jelszó nincs megadva!';
+   formx.password.focus();
+     }   
+	 
+if(hiba)alert(hiba); else formx.submit();
+} // belepes
+
+
+
+</script>
+			
+		
+<style type='text/css'>
+<!--
+
+body{
+ background-color:#0d023c;
+ margin: 0px;
+}
+
+h1
+{
+	font-size:25px;
+	font-family:'Times New Roman', verdana, arial, sans-serif;
+	color: #ffffff;
+}
+
+.mondatkeret{
+border: 0px; 
+margin: auto; 
+width: 50%;
+font-size:35px;
+color:#fff;
+font-family : verdana, sans-serif !important; 
+}
+
+
+@media only screen and (max-width: 600px){
+	
+.mondatkeret{
+border: 0px; 
+margin: auto;
+width: 100%; 
+font-size:25px;
+color:#fff;
+font-family : verdana, sans-serif !important; 
+}
+
+	
+}
+
+
+.grammar{
+color:#fff !important;
+font-size : 25px !important; 
+font-family : verdana, sans-serif !important; 
+text-decoration : none; 
+}
+
+.grammar A:link{
+color:#09cade !important;
+font-size : 25px !important; 
+font-family : verdana, sans-serif !important; 
+text-decoration : none; 
+}
+
+.grammar A:visited{ 
+color:#09cade !important; 
+font-size : 25px !important; 
+font-family : verdana, sans-serif !important; 
+text-decoration : none;
+}
+
+.grammar A:active{ 
+ color:yellow !important;
+font-size : 25px !important; 
+font-family : verdana, sans-serif !important; 
+text-decoration : none; 
+}
+
+.grammar A:hover{ 
+color:yellow !important;
+font-size : 25px !important; 
+font-family : verdana, sans-serif !important; 
+text-decoration : none; 
+}
+
+a.mondat{
+color : #a7cefb; 
+font-size : 35px !important;
+font-family : verdana, sans-serif !important; 
+text-decoration : none; 
+font-weight: normal; 
+}
+
+a.mondat:link{
+color : #a7cefb; 
+font-size : 35px !important;
+font-family : verdana, sans-serif !important; 
+text-decoration : none; 
+font-weight: normal; 
+}
+
+a.mondat:visited{ 
+color : #a7cefb; 
+font-size : 35px !important;
+font-family : verdana, sans-serif !important; 
+text-decoration : none; 
+font-weight: normal; 
+}
+
+a.mondat:active{ 
+color : yellow !important; 
+font-size : 35px !important; 
+font-family : verdana, sans-serif !important; 
+text-decoration : none;
+font-weight: normal; 
+}
+
+a.mondat:hover{ 
+color : #yellow !important; 
+font-size : 35px !important; 
+font-family : verdana, sans-serif !important;
+text-decoration : none;
+font-weight: normal; 
+}
+
+.kisLink{
+	font-size:15px; 		
+	font-family : verdana, sans-serif !important; 
+	color : #fff; 
+}
+
+a.kisLink{
+color : #a7cefb; 
+font-size:15px; 
+text-align: center;
+font-family : verdana, sans-serif !important; 
+text-decoration : none; 
+font-weight: normal; 
+}
+
+a.kisLink:link{
+color : #a7cefb; 
+font-size:15px; 
+text-align: center;
+font-family : verdana, sans-serif !important; 
+text-decoration : none; 
+font-weight: normal; 
+}
+
+a.kisLink:visited{
+color : #a7cefb; 
+font-size:15px; 
+text-align: center;
+font-family : verdana, sans-serif !important; 
+text-decoration : none; 
+font-weight: normal; 
+}
+
+a.kisLink:active{
+color : yellow !important; 
+font-size:15px; 
+text-align: center;
+font-family : verdana, sans-serif !important; 
+text-decoration : none; 
+font-weight: normal; 
+}
+
+a.kisLink:hover{
+color : yellow !important; 
+font-size:15px; 
+text-align: center;
+font-family : verdana, sans-serif !important; 
+text-decoration : none; 
+font-weight: normal; 
+}
+
+.kozepesLink{
+	font-size:20px; 	 
+	text-align: center;	
+}
+
+a.kozepesLink{
+color : #a7cefb; 
+font-size:20px; 
+text-align: center;
+font-family : verdana, sans-serif !important; 
+text-decoration : none; 
+font-weight: normal; 
+}
+
+a.kozepesLink:link{
+color : #a7cefb; 
+font-size:20px; 
+text-align: center;
+font-family : verdana, sans-serif !important; 
+text-decoration : none; 
+font-weight: normal; 
+}
+
+a.kozepesLink:visited{
+color : #a7cefb; 
+font-size:20px; 
+text-align: center;
+font-family : verdana, sans-serif !important; 
+text-decoration : none; 
+font-weight: normal; 
+}
+
+a.kozepesLink:active{
+color : yellow !important; 
+font-size:20px; 
+text-align: center;
+font-family : verdana, sans-serif !important; 
+text-decoration : none; 
+font-weight: normal; 
+}
+
+a.kozepesLink:hover{
+color : yellow !important; 
+font-size:20px; 
+text-align: center;
+font-family : verdana, sans-serif !important; 
+text-decoration : none; 
+font-weight: normal; 
+}
+
+.gombKek{
+padding: 5px 15px;
+background:#2e3369;
+color: #FFF;
+font-family:arial;
+text-decoration: none;
+font-size: 23px !important;
+line-height:22px;
+cursor:pointer;
+width:200px;
+}
+
+.gombKek:hover,.gombKek:focus,.gombKek:active{
+padding: 5px 15px;
+background: #424996;
+color: #FFF;
+font-family:arial;
+text-decoration: none;
+font-size: 23px !important;
+line-height:22px;
+cursor:pointer;
+width:200px;
+}
+
+
+.gombPiros{
+padding: 5px 15px;
+background:#cc0000;
+color: #FFF;
+font-family:arial;
+text-decoration: none;
+font-size: 20px !important;
+line-height:22px;
+cursor:pointer;
+width:220px;
+}
+
+.gombPiros:hover,.gombPiros:focus,.gombPiros:active{
+padding: 5px 15px;
+background: #a80505;
+color: #FFF;
+font-family:arial;
+text-decoration: none;
+font-size: 20px !important;
+line-height:22px;
+cursor:pointer;
+width:220px;
+}
+
+
+figure {
+  background: #395481;
+  height: 50px;
+  width: 50px;
+  margin: 10px 0px 0px 0px; 
+  display: -ms-flex;
+  display: -webkit-flex;
+  display: flex;
+}
+
+
+figure button[name="play"] {
+  width: 44px;
+  height: 44px;
+  background: #fff;
+  border: none;
+  border-radius: 50%;
+  margin: auto;
+  cursor: pointer;
+}
+
+
+figure button[name="play"]::after {
+  content: '';
+  display: inline-block;
+  position: relative;
+  top: 2px;
+  left: 2px;
+  border-style: solid;
+  border-width: 10px 0 10px 15px;
+  border-color: transparent transparent transparent #000;
+}
+
+
+figure button[name="play"]:hover {background-color: #ddd}
+
+
+figure button[name="play"]:active {
+  background-color: #fff;
+  box-shadow: 0 5px #666;
+  transform: translateY(0.5px);
+}
+
+figure.kek {
+  background: #395481;
+  height: 50px;
+  width: 50px;
+  margin: 0px;
+  display: -ms-flex;
+  display: -webkit-flex;
+  display: flex;
+  margin-left: -2px;
+}
+
+figure.lila {
+  background: #913590;
+  height: 50px;
+  width: 50px;
+  margin: 0px;
+  display: -ms-flex;
+  display: -webkit-flex;
+  display: flex;
+}
+
+.subheading1, .subheading1:hover,.subheading1:focus,.subheading1:active { /*Aktiv*/
+	background: #cc0000;
+	background: -moz-linear-gradient(top, #E20000 0%, #790107 100%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#E20000), color-stop(100%,#790107));
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#E20000', endColorstr='#790107',GradientType=0 );
+	border:0px;	
+	-moz-box-shadow:0px 0px 0px #000000;
+	-webkit-box-shadow:0px 0px 0px #000000;
+	box-shadow:0px 0px 0px #000000;
+	filter: progid:DXImageTransform.Microsoft.Shadow(strength=0, direction=0, color='#000000');
+	-ms-filter: "progid:DXImageTransform.Microsoft.Shadow(strength=0, Direction=0, Color='#000000')";
+	font-size:15px;	
+	font-family:verdana, sans-serif !important;
+	padding:7px 7px;	
+	text-decoration:none;
+	color:#ffffff;
+	margin-right:0px;
+	margin-bottom:0px;
+	margin-left:-5px;
+}
+.subheading2  { /*Nem Aktiv*/
+   background: #E5E5E5; /* old browsers */
+	background: -moz-linear-gradient(top, #E5E5E5 0%, #C4C4C4 100%); /* firefox */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#E5E5E5), color-stop(100%,#C4C4C4)); /* webkit */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#E5E5E5', endColorstr='#C4C4C4',GradientType=0 ); /* ie */
+	border:0px;	
+	-moz-box-shadow:0px 0px 0px #000000;
+	-webkit-box-shadow:0px 0px 0px #000000;
+	box-shadow:0px 0px 0px #000000;
+	filter: progid:DXImageTransform.Microsoft.Shadow(strength=0, direction=0, color='#000000');
+	-ms-filter: "progid:DXImageTransform.Microsoft.Shadow(strength=0, Direction=0, Color='#000000')";
+	font-size:15px;	
+	font-family:verdana, sans-serif !important;
+	padding:7px 7px;
+	text-decoration:none;
+	cursor:pointer;	
+	margin-right:0px;
+	margin-bottom:0px;
+	margin-left:-5px;
+	color:#000000;
+}
+
+.subheading2:hover,.subheading2:focus,.subheading2:active {/*Nem Aktiv*/
+   background: #c1c1c1; /* old browsers */
+	background: -moz-linear-gradient(top, #c1c1c1 0%, #C4C4C4 100%); /* firefox */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#c1c1c1), color-stop(100%,#C4C4C4)); /* webkit */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c1c1c1', endColorstr='#C4C4C4',GradientType=0 ); /* ie */
+	border:0px;	
+	-moz-box-shadow:0px 0px 0px #000000;
+	-webkit-box-shadow:0px 0px 0px #000000;
+	box-shadow:0px 0px 0px #000000;
+	filter: progid:DXImageTransform.Microsoft.Shadow(strength=0, direction=0, color='#000000');
+	-ms-filter: "progid:DXImageTransform.Microsoft.Shadow(strength=0, Direction=0, Color='#000000')";
+	font-size:15px;	
+	font-family:verdana, sans-serif !important;
+	padding:7px 7px;
+	text-decoration:none;
+	cursor:pointer;	
+	margin-right:0px;
+	margin-bottom:0px;
+	margin-left:-5px;
+	color:#000000;	
+}
+
+
+
+.subheading4 { /*Nem Aktiv*/
+   background: #E5E5E5; /* old browsers */
+	background: -moz-linear-gradient(top, #E5E5E5 0%, #C4C4C4 100%); /* firefox */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#E5E5E5), color-stop(100%,#C4C4C4)); /* webkit */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#E5E5E5', endColorstr='#C4C4C4',GradientType=0 ); /* ie */
+	border:0px;	
+	-moz-box-shadow:0px 0px 0px #000000;
+	-webkit-box-shadow:0px 0px 0px #000000;
+	box-shadow:0px 0px 0px #000000;
+	filter: progid:DXImageTransform.Microsoft.Shadow(strength=0, direction=0, color='#000000');
+	-ms-filter: "progid:DXImageTransform.Microsoft.Shadow(strength=0, Direction=0, Color='#000000')";
+	font-size:15px;	
+	font-family:verdana, sans-serif !important;
+	padding:7px 7px;
+	text-decoration:none;
+	cursor:pointer;	
+	margin-right:0px;
+	margin-bottom:0px;
+	margin-left:-5px;
+	color:#000000;
+	position: relative;
+	display: inline-block;
+	top: 7px;	
+					width:319px;
+			
+}
+
+
+.subheading4:hover,.subheading4:focus,.subheading4:active {/*Nem Aktiv*/
+   background: #c1c1c1; /* old browsers */
+	background: -moz-linear-gradient(top, #c1c1c1 0%, #C4C4C4 100%); /* firefox */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#c1c1c1), color-stop(100%,#C4C4C4)); /* webkit */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c1c1c1', endColorstr='#C4C4C4',GradientType=0 ); /* ie */
+	border:0px;	
+	-moz-box-shadow:0px 0px 0px #000000;
+	-webkit-box-shadow:0px 0px 0px #000000;
+	box-shadow:0px 0px 0px #000000;
+	filter: progid:DXImageTransform.Microsoft.Shadow(strength=0, direction=0, color='#000000');
+	-ms-filter: "progid:DXImageTransform.Microsoft.Shadow(strength=0, Direction=0, Color='#000000')";
+	font-size:15px;	
+	font-family:verdana, sans-serif !important;
+	padding:7px 7px;
+	text-decoration:none;
+	cursor:pointer;	
+	margin-right:0px;
+	margin-bottom:0px;
+	margin-left:-5px;
+	color:#000000;	
+    position: relative;
+	display: inline-block;
+	top: 7px;
+					width:319px;
+		}
+
+.subheading5  { /*Nem Aktiv*/
+   background: #E5E5E5; /* old browsers */
+	background: -moz-linear-gradient(top, #E5E5E5 0%, #C4C4C4 100%); /* firefox */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#E5E5E5), color-stop(100%,#C4C4C4)); /* webkit */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#E5E5E5', endColorstr='#C4C4C4',GradientType=0 ); /* ie */
+	border:0px;	
+	-moz-box-shadow:0px 0px 0px #000000;
+	-webkit-box-shadow:0px 0px 0px #000000;
+	box-shadow:0px 0px 0px #000000;
+	filter: progid:DXImageTransform.Microsoft.Shadow(strength=0, direction=0, color='#000000');
+	-ms-filter: "progid:DXImageTransform.Microsoft.Shadow(strength=0, Direction=0, Color='#000000')";
+	font-size:15px;	
+	font-family:verdana, sans-serif !important;
+	padding:7px 7px;
+	text-decoration:none;
+	cursor:pointer;	
+	margin-right:0px;
+	margin-bottom:0px;
+	margin-left:-5px;
+	color:#000000;
+	position: relative;
+	display: inline-block;
+	top: 7px;	
+		width:316px;
+	}
+
+
+.subheading5:hover,.subheading5:focus,.subheading5:active {/*Nem Aktiv*/
+   background: #c1c1c1; /* old browsers */
+	background: -moz-linear-gradient(top, #c1c1c1 0%, #C4C4C4 100%); /* firefox */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#c1c1c1), color-stop(100%,#C4C4C4)); /* webkit */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c1c1c1', endColorstr='#C4C4C4',GradientType=0 ); /* ie */
+	border:0px;	
+	-moz-box-shadow:0px 0px 0px #000000;
+	-webkit-box-shadow:0px 0px 0px #000000;
+	box-shadow:0px 0px 0px #000000;
+	filter: progid:DXImageTransform.Microsoft.Shadow(strength=0, direction=0, color='#000000');
+	-ms-filter: "progid:DXImageTransform.Microsoft.Shadow(strength=0, Direction=0, Color='#000000')";
+	font-size:15px;	
+	font-family:verdana, sans-serif !important;
+	padding:7px 7px;
+	text-decoration:none;
+	cursor:pointer;	
+	margin-right:0px;
+	margin-bottom:0px;
+	margin-left:-5px;
+	color:#000000;	
+    position: relative;
+	display: inline-block;
+	top: 7px;
+		width:316px;
+	}
+
+.getStarted{
+-moz-border-radius:10px 10px 10px 10px;
+-webkit-border-radius:10px 10px 10px 10px;
+border-radius:10px 10px 10px 10px;
+max-width:250px; 
+font-size: 13px;
+color:#111; 
+background:transparent; 
+position:absolute; 
+top:30px; 
+left:10px; 
+display:none; 
+z-index:5002;
+} 
+
+.getstartedTable{
+background:yellow; 
+border:2px solid #555555;
+width:250px !important;
+font-size: 13px;
+}
+
+.checklistaDiv{
+margin:auto;
+width:100%;
+text-align:center;
+padding-top:15px;
+font-size:11px;
+font-style:italic;
+}
+
+.checklistaLi{
+	font-weight:bold;
+	}
+	
+.checklistaLi_szurke{
+	font-weight:bold;
+	color:#aaa;
+	}
+
+.checklistaOl{
+	margin-left:0px;
+	padding-left: 15px;
+	text-align:left;
+	}
+
+@media only screen and (max-width: 600px){
+	
+	.checklistaOl{
+	margin-left:0px;
+	text-align:left;
+	}
+	
+	.checklistaDiv{
+	margin-left: 0px;	
+	}
+	
+}
+
+#videom {
+    position: relative;
+    padding-bottom: 56.25%;    
+	height: 0; overflow: hidden;  
+}
+
+#videom iframe{
+    position: absolute;
+    top: 0;
+    left: 0;	
+    width: 100%;
+    height: 100%;   
+}
+
+.getStarted{
+font-family:verdana, sans-serif !important;
+	
+}
+
+
+.gratulalokTablaKeret{
+	max-width: 350px;
+	padding:30px 0px 0px 0px;
+	position:absolute; 
+	top:30px; 
+	left:0px; 
+	display:none; 	 
+	background-:transparent;		
+	z-index:999999; 
+	
+}
+
+.gratulalokTabla{
+	-moz-border-radius:20px 20px 20px 20px;
+	-webkit-border-radius:20px 20px 20px 20px;
+	border-radius:20px 20px 20px 20px;	 
+	border:5px solid #cc0000; 
+	background-color:#ffffff; 
+	color:#000000; 
+	padding: 10px 20px 0px 20px;	
+	z-index:999999; 
+	font-family:Arial; 
+	font-size:15px;	
+}
+
+#transparentDiv {
+    position:absolute;
+	top:0px;
+	left:0px;
+	background: #000000;	
+   filter:alpha(opacity=50);
+   -moz-opacity:0.5;
+   opacity: 0.5;
+   display:none;
+   z-index: 999;
+}
+
+.szotar{
+border:1px solid #000 !important;
+background-color:#fff !important;
+font-family: verdana;
+padding:15px;
+}
+
+.szotar td{
+border-width: 0px !important;
+text-align: center !important;
+}
+ -->
+ </style>
+
+</head>
+
+<body onload="megjelenit()">
+
+<center>		
+<a id="head" href="https://www.iloveangol.hu" target="_self"><img src="https://www.iloveangol.hu/napi-online/images/iloveangolHu_logo350.jpg" alt="I Love Angol" title="I Love Angol"/></a>
+<br>			
+			<header style="border-bottom: 4px double #ebebeb;">
+				
+				
+				<h1>					
+				KÉPES, HANGOS, ANGOL SZÓTÁR
+				</h1>			
+					
+			
+			
+			</header><!-- .page-header -->			
+<div style="margin-top:8px;">
+<a id="subheading_1" class="subheading1" style="border-right: 2px solid #777;" onClick="panelNyit(1)">Szótár</a>
+<a id="subheading_2" class="subheading2" style="border-right: 2px solid #777;" onClick="javascript:alert('Hamarosan elkészül.')">Feladatok</a>
+<a id="subheading_3" class="subheading2" style="border-right: 2px solid #777;" onClick="panelNyit(3)">Útmutató</a>
+<a id="subheading_4" class="subheading2" style="border-right: 2px solid #777;" onClick="panelNyit(4)">Belépés</a>
+<a id="subheading_5" class="subheading2" onClick="getStarted(1,1);">?</a>
+<br>
+<a class="subheading4" onClick="javascript: document.location.href='https://www.iloveangol.hu/napi-online'">Napi mondatok</a>
+</div>
+<br><br>
+<div id="panel1" style="text-align:center;">
+<font style="font-family:verdana, sans-serif !important; font-size: 24px; color:#fff">
+	 
+	Melyik szót szeretnéd megtanulni?<br><br>
+		</font>
+	
+	
+
+
+	<div id="primary" class="content-area" onclick="document.getElementById('szoAjanlatDiv1000000').style.display='none';">
+	
+	<div style="border: 0px; width:100%; ">
+	
+	<center>	
+	<form id="engHuForm" method="post" action="https://kepes-hangos-angolszotar.hu">
+  <table id="engHu" class="szotar" style="display:table">
+	<tr><td align="center" style="line-height: 1.8;">
+	<a href="javascript:szotarValt(1)" >Angol -> Magyar</a><br>	
+	<input id="szo1000000" name="word" type="text" size="25" autocomplete="off" placeholder="Most angolul írj!" maxlength="50" style="text-align:center; width:230px; height:24px" onkeyup="szoEllenorzes1(1000000)" onfocus="szoEllenorzes1(1000000)" value="" />
+	  <img id="start_button1000000" style="cursor:pointer; margin-right:7px; margin-top: 1px; width:30px; float: right;" alt="Mikrofon" title="Mikrofon" src="https://www.iloveangol.hu/images/mikrofon.png" onclick="startButton(event,1000000)">			
+     <br>
+	 <div id="szoAjanlatDiv1000000" style="text-align:left"></div>
+	  <infoSzoveg1000000 style="color:red; font-size:11px">Kattints a mikrofon ikonra és kezdj el beszélni!</infoSzoveg1000000>
+	<!--<div style="display:none" id="interim_span1000000"></div>-->
+	<br>
+	<input type="hidden" name="angolulKeres" value=1 /> 
+	<button type='submit' name=sub class='btnNarancs' onclick="if(!kereses('engHuForm')) return false;" >KERESÉS</button>	
+	</td></tr>
+  </table>
+  </form>
+  <form id="huEngForm" method="post" action="https://kepes-hangos-angolszotar.hu">
+  <table id="huEng" class="szotar"  style="display:none">
+	<tr><td align="center" style="line-height: 1.0;">
+	<a href="javascript:szotarValt(2)" >Magyar -> Angol</a></td></tr>
+	<tr><td align="center" style="line-height: 1.0;">
+	<font style="font-size:9px">Az igéket főnévi igenév formájában add meg!<br>futni, játszani, stb.</font><br>
+	  <input id="szo1000001" name="word" type="text" size="25" autocomplete="off" placeholder="Most magyarul írj!" maxlength="50" style="margin-top: 5px;; text-align:center; width:230px; height:24px" onkeyup="szoEllenorzes1(1000001)" value="" />
+	  <img id="start_button1000001" style="cursor:pointer; margin-right:7px; margin-top: 5px; width:30px; float: right;" alt="Mikrofon" title="Mikrofon" src="https://www.iloveangol.hu/images/mikrofon.png" onclick="startButton(event,1000001)">			
+   </td></tr>
+   <tr><td align="center" style="line-height: 1.8;">
+	<infoSzoveg1000001 style="color:red; font-size:11px">Kattints a mikrofon ikonra!</infoSzoveg1000001>
+	<!--<div style="display:none" id="interim_span1000001"></div>-->
+	<br>
+	<input type="hidden" name="angolulKeres" value=0 /> 
+	<button type='submit' name=sub class='btnNarancs' onclick="if(!kereses('huEngForm')) return false;" >KERESÉS</button>	
+	</td></tr>
+  </table>
+  </form>
+  
+ <table  border="0px" width="85%" cellpadding="0" cellspacing="0" color='#000000' style=" font-family:Verdana; font-size:12px; max-width:350px" > 
+ <tr><td colspan="2" height="15px"></td></tr>
+
+	 <tr id="kartya10423"><td colspan="2" >
+	 <!--/*******************************/-->
+	 <div id="keret10423" class="stickytooltip" style="text-align:left; border:3px solid #395481;">
+		<span  style="font-size:12px; color:#000000" >1.</span><br>
+		<div style="text-align:center; padding:5px; color:#000000">
+			 <span style="font-size:14px; color:#000000">
+						<font style='font-size:10px; color:#000000'><i>(fn.)</i></font><br>												
+						<b><a href='https://kepes-hangos-angolszotar.hu/app' target='_self'><h2>app</h2></a></b> 
+						<font style='font-size:12px;'>[ap]</font>			  </span><br>
+			
+			 			 <br><img style="border:5px inset #395481" title="app" alt="app" src="https://kepes-hangos-angol-szotar.hu/pictures/n/noImageILA.jpg">
+			<br>
+				<div style="text-align:center; padding:0px">
+								
+				<table style="border:0px solid #000; margin: 0px;" width="100%">
+				<tr><td align="center">
+				 		
+				</td>
+				<td align="center">				
+								 
+								 <audio id="wordAudio10423">
+				 <source src="https://kepes-hangos-angol-szotar.hu/words/a/app.MP3" type="audio/mpeg">
+				  Ez a böngésző nem támogatja a hanglejátszást!
+				  <br>
+				  Használj Chrome böngészöt!
+				</audio>
+				<figure class="kek">
+				<button name="play" onclick="playWord(10423)" type="button"></button>
+				</figure>
+								
+				 </td>
+				<td align="center"> 
+				 				 
+				</td></tr>		
+				
+				<tr>
+				<td colspan="3" style="text-align:center">
+				<div style="font-size:11px; line-height: 1.2; margin-top: -5px; margin-left: 3px;">0.5x&nbsp;&nbsp;0.7x</div>
+				<div style="line-height: 1.0; margin-top:-5px; margin-left: 3px;">
+				<input style="margin-left:0px; width:15px !important; margin-top: 5px" id="speed_05_10423" type="checkbox" onclick="speedValt1(1,10423)" />
+				<input style="margin-left:10px; width:15px !important;" id="speed_07_10423" type="checkbox" onclick="speedValt1(2,10423)"/>
+				</div>				
+				</td>
+				</tr>
+				<tr>
+				<td colspan="3" style="text-align:center; font-size:11px; line-height: 0.7;">
+					<a href="https://www.iloveangol.hu/hanglejatszoTeszt.php" target="_blank">Hanglejátszó beállítása»</a>					
+				</td>
+				</tr>
+				
+				<tr>
+				<td colspan="3" style="text-align: center; font-size: 12px; line-height: 1.2; font-style: italic; font-weight: bold; color: #059205;">
+				Tanuld meg helyesen leírni és kimondani!
+				</td>
+				</tr>
+				
+				<tr>
+				<td colspan="3" style="text-align:center; font-size:11px; line-height: 0.7;">					
+					<a href="https://www.iloveangol.hu/mikrofonTeszt.php" target="_blank">Mikrofon beállítása»</a>
+				</td>
+				</tr>
+				</table>
+				
+						
+				<input id="english10423" type="hidden" value="app" > 
+				 
+				
+				
+				<input id="szo10423" type="text" autocomplete="off" placeholder="Írd le vagy mondd ki!" maxlength="50" style="margin-top: 5px;; text-align:center; width:230px" onkeyup="szoEllenorzes2(10423)" onfocus="mezoTorol(10423)" value="" />
+				 
+				 <img id="start_button10423" style="cursor:pointer; margin-right:7px; margin-top: 5px; width:30px; float: right;" alt="Mikrofon" title="Mikrofon" src="https://www.iloveangol.hu/images/mikrofon.png" onclick="startButton(event,10423)">			
+				<br><infoSzoveg10423 style="color:red; font-size:11px">Kattints a mikrofon ikonra és kezdj el beszélni!</infoSzoveg10423>
+				<div style="display:none" id="interim_span10423"></div>
+							
+			</div>
+			
+			<br>	
+			
+			<div id="meaning10423" style="text-align:left; padding:0px 35px; display:none; color:#000000" >
+			<ul class="szavak">			
+			<li><a href='https://kepes-hangos-angolszotar.hu/no' target='_self'><h3>no</h3></a> <a href='https://kepes-hangos-angolszotar.hu/definition' target='_self'><h3>definition</h3></a> <a href='https://kepes-hangos-angolszotar.hu/available' target='_self'><h3>available</h3></a> </li>		  
+		   </ul>
+			</div>
+			<div id="jelentes10423" style="text-align:left; padding:0px 35px; display:block; color:#000000" >
+			<ul class="szavak">			
+			<li><a href='https://kepes-hangos-angolszotar.hu/alkalmazás' target='_self'><h3>alkalmazás</h3></a></li><li><a href='https://kepes-hangos-angolszotar.hu/kisalkalmazás' target='_self'><h3>kisalkalmazás</h3></a></li><li><a href='https://kepes-hangos-angolszotar.hu/program' target='_self'><h3>program</h3></a></li>		   </ul>
+		   </div>
+		   		   <!-- <div id="jelentes_<php echo $row["id"]; ?>" style="text-align:left; padding:0px 35px; display:block; color:#000000" >
+			<ul class="szavak">			
+			php echo (tartalomLiMagyar($row["magyar"],1)); ?>
+		   </ul>
+		   </div>
+		   php } else { ?>
+		   <div id="jelentes_<php echo $row["id"]; ?>" style="display:none;" >
+		    </div> -->
+		    		    <br>
+			(A jelentés szavaira is rákattinthatsz.)<br><br>
+		   		   <!-- <div style="text-align:cente; padding:0px 35px; display:block; color:#000000" >
+		   <a href='javascript:szoPopUp(1,<php echo $row["id"]; ?>)'>A többi jelentéséhez katt ide!</a>		   
+		   </div> -->
+		   			
+			
+		</div>		
+		
+			 <div style="text-align:right; padding:10px; border:0px">
+					
+					<img border="0" id="loading10423" style="display:none" src="https://www.learningenglish.hu/images/loading.gif" />
+					<img border="0" id="jobbraNyil10423" style="display:inline"  src="https://kepes-hangos-angolszotar.hu/images/jobbraNyilSzotar.png" />
+					
+										
+					<img border="0" id="szoBe_ki10423" style="cursor:pointer"  src="https://www.iloveangol.hu/images/szoBe_ki_kek1.png" onmouseover="gombOverSzoBe(10423)" onmouseout="gombOutSzoBe(10423)" onclick="javascript:alert('Ehhez már regisztráció szükséges\nés be kell jelentkezni!')"/>
+										
+			</div>
+
+	</div>
+	<br>
+	
+		
+	<!-- Google Adsense -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1489445525562034"
+     crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-1489445525562034"
+     data-ad-slot="8181519336"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+<!-- Google Adsense vége -->
+		<br>
+		 
+		<!--/*******************************/-->
+		</td></tr>
+		  	        
+		 </table>
+ 
+ <div style="border:5px solid #cc0000; background-color:#fff; color:#000; max-width:320px; padding:15px; font-family:Verdana; font-size:12px;" class="kerekSarkokIMG">
+ 
+ <b>Szeretnél angol szövegeket egy kattintással kiszótárazni?</b><br><br>
+  Spórolj meg rengeteg időt és energiát!<br>
+   Csak másolj be egy angol szöveget és kattints!<br><br>
+   
+      <a href="https://www.iloveangol.hu/szokincs/index.php/lesson-wizard/?pWG=khasz" target="_blank">PRÓBÁLD KI INGYEN >>></a>
+       </div>
+</center>
+<input  type="hidden" id="szamlalo" value=2 >
+<input type="hidden" id="szoTorlese" value=0 />
+  	
+  </div>			
+			
+	</div><!-- #primary -->
+	
+	<div id='transparentDiv2' onclick="egyszotaguTablaBezar();"></div>
+	
+<style type='text/css'>
+#transparentDiv2 {
+    position:absolute;
+	top:0px;
+	left:0px;
+	background: #000000;	
+   filter:alpha(opacity=50);
+   -moz-opacity:0.5;
+   opacity: 0.5;
+   display:none;
+   z-index: 999;
+}
+</style>
+
+
+	
+	
+</div><!-- panel1 -->
+
+<div id="panel2" style="text-align:center; display:none; font-family:verdana, sans-serif !important; font-size: 20px; color:#fff">
+<div style="font-size:25px; font-weight:bold; max-width: 650px; margin: auto; text-align:center">FELADATOK:</div>
+
+<div style="max-width: 350px; margin: auto; text-align:center">
+<font style="font-size:20px; font-weight:bold">Feladatok</font><br>
+
+<ol class="checklistaOl">
+
+<li class="checklistaLi">
+Kattintgasd végig a szavakat, és a felugró szókártyákon gyakorold be a szavak írását és kiejtését! 
+</li>
+<i>Mindegyik szót hallgasd meg, mondd ki és írd le ötször! 
+Ha szükséges, lassítsd le a lejátszást!</i>
+<br>
+<br>
+
+<li class="checklistaLi">
+Írd be a mondatot a szövegmezőbe! Addig ismételd a mondat leírását, amíg sikerül hiba és segítség nélkül beírnod!
+</li>
+<i>Ha elakadsz az írással, akkor kérj egy betű segítséget a <img src="https://online-angol.iloveangol.hu/images/ujKerdojel.png" style="width:25px; height:25px" alt="Kérek egy betűt!" title="Kérek egy betűt!" > kérdőjel ikonra kattintva!<br>
+Ha az elején ezt a feladatot még nehéznek érzed, akkor se add fel! 
+Rendszeres tanulás mellett egyre könnyebben fog menni, mivel egyre ügyesebb leszel.</i> 
+<br>
+
+<li class="checklistaLi">
+Fordítsd le az angol mondatot!
+</li>
+<i>Hacsak nem nagyon egyszerű vagy rövid tőmondatról van szó, azt javaslom, hogy írd le a fordítást 
+az erre a célra szolgáló szövegmezőbe, majd kattints a kék gombra és hasonlítsd össze az általad leírtakkal!<br> 
+Ha a fordítás alatt megjegyzést is látsz, azt is olvasd el, mert sokat segít a tanulásban!</i>
+<br>
+
+<li class="checklistaLi">
+Hallgasd meg egymás után annyiszor a mondatot, míg végül sikerül hibátlanul elmondanod! 
+</li>
+<i>Ha túl gyorsnak vagy túl nehéznek tűnik neked, lassítsd le a lejátszógomb alatt található lassítási beállításokkal (0.5x és 0.7x)!</i>
+
+<br>
+
+<li class="checklistaLi">
+Mondd el a mondatot a kék mikrofon használatával!
+</li>
+<i>Ezt Legalább ötször tedd meg! Próbáld meg leutánozni a hangsúlyokat, a ritmust, a kiejtést és figyeld meg 
+hol tartanak szüneteket! Ha nem sikerül elmondani egyben a mondatot, akkor az alábbiakat javaslom:
+<ul style="text-align:left; padding-right: 5px;">
+<li>Lassítsd le a beszédedet úgy, mint ahogy azt a lassított lejátszásnál hallod!</li>
+<li>A hosszabb mondatokat két vagy több részletben mondd el! Ehhez pipáld ki a kék mikrofon alatti kis négyzetet.</li> 
+<li>Először a mondat első részét mondd el! Ha az jól sikerült, 
+ nyomd meg ismét a mikrofon gombot, és mondd el a mondat többi részét is!
+ A program felismeri a mondat helyesen elmondott részét és azt nem fogja kitörölni. Akár szavanként is elmondhatod.</li>
+<li>Ha a mondatban olyan szavak szerepelnek, amit képtelenség betű szerint elmondani, (mint például tulajdonnevek, indulatszavak, stb.)
+akkor a „?” kérdőjel gombbal kérd be a betűket és onnatól ismét a mikrofonnal folytasd a mondat elmondását!</li>
+</ul></i>
+
+<br>
+
+<li class="checklistaLi">
+Hallgasd meg a saját kiejtésedet!
+</li>
+<i>A lila mikrofonnal rögzítsd a hangodat, majd a lila lejátszógombbal hallgasd azt vissza! Ha a program a kék mikrofon esetében 
+sehogy sem írja be helyesen a mondatot, de a saját hangod visszahallgatása során úgy érézékeled, hogy jól mondod, akkor nyugodtan továbbléphetsz. 
+Ne idegeskedj miatta! A gyakorlás a lényeg. <u>Előfordulhat olyan mondat, amit a program soha nem fog tudni jól beírni, bár ez nagyon ritkán fordul csak elő.</u>
+</i>
+<br>
+
+</ol>
+</div>
+</div> <!-- panel2 -->
+
+<div id="panel3" style="text-align:center; display:none; font-family:verdana, sans-serif !important; font-size: 20px; color:#fff">
+<div style="font-size:25px; font-weight:bold; max-width: 650px; margin: auto; text-align:center">ÚTMUTATÓ:</div>
+<div style="font-size:16px; font-weight:bold; max-width: 650px; margin: auto; text-align:center">
+<b>Ha nem működik a mikrofon, akkor csináld végig az alábbi tesztet!</b>
+<br> 
+<a href="https://www.iloveangol.hu/mikrofonTeszt.php " target="_blank" class="kisLink">Kattints erre a linkre! >>></a>
+<br><br>
+<b>Ha nem működik a lejátszógomb, akkor pedig <a href="https://www.iloveangol.hu/mikrofonTeszt.php " target="_blank" class="kisLink">kattints ide! >>></a></b>
+</div>
+<br>
+<br>
+<div style="font-size:22px; font-weight:bold; max-width: 350px; margin: auto; text-align:center">1. Útmutató videó</div>
+<div style="max-width: 650px; margin: auto; text-align:center">										
+Hamarosan elérhető lesz.
+<!--Nézd teljes képernyőn!<br>
+Nem tudod hogyan kell? <a class="kisLink" href="javascript:segitek();">Kattints ide segítségért!</a><br><br>
+<div id="segitseg" style="text-align:left; display:none; max-width:600px;">
+
+A videó elindítása után, húzd az egérkurzort a videó fölé, és a megjelenő alsó sáv jobb oldalán látható <img src="https://www.iloveangol.hu/images/teljesKepernyo.jpg" > ikonra kattintva 
+tudod teljes képernyőre tenni a videót. A teljes képernyő funkcióból ugyanezzel az ikonnal
+vagy a billentyűzeten a jobb felső sarokban található „esc” gombbal tudsz kilépni.<br><br>	
+</div>
+					
+A videó hossza: 8p 07mp<br><br>
+
+<div id="videom" style="max-width:650px;" >
+<iframe width="560" height="315" src="https://www.youtube.com/embed/93LH8ckPjIU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>-->
+</div>
+<div style="max-width: 350px; margin: auto; text-align:center">
+<br><br>
+<div style="font-size:22px; font-weight:bold; max-width: 650px; margin: auto; text-align:center">2. Hogyan kezdj neki a feladatnak?</div>
+<br>
+<ul style="text-align:left">
+<li>Először kattints felül a füleknél látható „?” kérdőjelre és menj végig a kis, sárga táblákból álló, 
+interaktív útmutatón. Ezek a táblák megmutatják a különböző funkciókat, mit, hol és hogyan tudsz csinálni.</li><br>
+<li>Ezután kattints a füleknél a „Feladatokra”, ahol pontos útmutatást kapsz, hogy miként tanuld meg a szavakat. 
+</ul>
+<br>
+</div>
+</div><!-- panel3 -->
+
+
+<div id="panel4" style="text-align:center; display:none; max-width: 350px; margin: auto; font-family:verdana, sans-serif !important; font-size: 20px; color:#fff">
+
+<div style="font-size:25px; font-weight:bold; text-align:center">BELÉPÉS:</div>
+<form id="belepes" method="post" action="https://kepes-hangos-angolszotar.hu/">
+
+<strong>A teljes körű tanuláshoz és az összes funkció használatához jelentkezz be saját tanulási fiókodba.</strong><br><br>
+Ha még nem regisztráltál, most néhány másodperc alatt megteheted.<br><br>
+Tanulási fiókod létrehozásához <a class="kozepesLink" href="https://www.iloveangol.hu/start" target="_self">kattints ide! >>></a><br><br>
+E-mail:<br>
+<input type="text" style="text-align:center; width:200px; height: 22px;" name="email" value="" /><input type="hidden" name="belepes" value=1 ><br>
+Jelszó:<br>
+ <input type="password" style="text-align:center; width:200px; height: 22px;" name="password" /><br><br>
+<button type='submit' class="gombPiros" name=sub style='cursor:pointer' onClick="if(!belepes('belepes')) return false;">Belépés</button><br><br>
+<a class="kozepesLink" href="javascript:panelNyit(5);">Jelszó-emlékeztető</a>
+			   
+</form>
+<br><br>
+</div><!-- panel4 -->
+
+<div id="panel5" style="text-align:center; display:none;  max-width: 350px; margin: auto; font-family:verdana, sans-serif !important; font-size: 20px; color:#fff">
+
+<div style="font-size:25px; font-weight:bold; text-align:center">JELSZÓ-EMLÉKEZTETŐ</div>
+
+	
+	Add meg a regisztrált e-mail címedet,<br>és azonnal elküldöm levélben a jelszót.
+	<br><br>
+	E-mail cím:
+	<form id="jelszoForm" method="post" action="https://kepes-hangos-angolszotar.hu/">
+	<input type="text" style="text-align:center; height:22px;" name="jelszoEmlekezteto"><br><br>	
+<button type='submit' class="gombPiros" name=sub onClick="if(!jelszoKuldes('jelszoForm')) return false;">Kérem a jelszavamat</button>		
+<br><br>
+	</form>
+	  
+<br><br>
+</div><!-- panel5 -->
+
+
+</center>	
+
+<input type="hidden" id="szoID" value="x" >
+<div id="jelentesDivx" style="display:none"></div>
+<input id="uszoDivXpoz" type="hidden" value="0" />
+<input id="interim_szoveg" type="hidden" />
+<audio id="audioAlert">
+ <source src="https://kepes-hangos-angol-szotar.hu/words/f/false10.mp3" type="audio/mpeg"> 
+</audio>
+
+<audio id="congratulationsHang">
+	 <source src="https://www.iloveangol.hu/audios/congratulations_gav_taps_zene.mp3" type="audio/mpeg">	 
+</audio>
+
+<!-- GetStarted1 -->
+<div id='getStarted1' class="getStarted" >   
+   <table class="getstartedTable">
+	<tr><td width="30px"></td>
+	<td align="center" style="font-size:15px; font-weight:bold">
+	<br>1/14
+	 </td><td width="30px" align="left" valign="top" style="padding-top:7px">
+	 <img id="bezarGombGetStarted1" border="0" onmouseover="closeGombGetStarted(2,1)" onmouseout="closeGombGetStarted(1,1)" onclick="getStarted(0,1)" src="https://www.iloveangol.hu/images/close-gray-button1.png" alt="Kilépés" title="Kilépés">
+	 </td></tr>
+	 <tr><td colspan="3" align="center" class="getSzoveg">	
+	Ez egy interaktív útmutató, amit a későbbiekben e sárga tábla felett látható „?” gombra kattintva tudsz előhívni.
+	Ez az útmutató bemutatja a feladatok végrehajtásához szükséges funkciókat, gombokat.
+	<br><br>
+	<b>Kezdjük!</b><br>
+	E sárga tábla felett láthatod a különböző füleket. Ezek közül a legfontosabb a „Checklista”. 
+	Ott találod meg a feladatok pontos leírását. Az ott talált leírás alapján csináld végig a feladatot!
+	<br><br>
+	Most kattints rá az alábbi<br>„Tovább >>>” linkre!	
+	<br><br>
+	</td></tr>
+	 <tr><td colspan="3" align="center">		
+	<b><a href="javascript:getStarted(1,2)" style="text-decoration:underline; color:#555555">Tovább >>></a></b> 	
+	<br><br>	
+	</td></tr>
+   </table> 	
+</div>
+<!-- GetStarted1 vége-->
+
+<!-- GetStarted2 -->
+<div id='getStarted2' class="getStarted">
+	<img style="margin-left:108px" border="0" src="https://www.iloveangol.hu/images/getStartedArrow3.png" ><br>
+	<table class="getstartedTable">
+	<tr><td width="30px"></td>
+	<td align="center" style="font-size:15px; font-weight:bold">
+	<br>2/14
+	 </td><td width="30px" align="left" valign="top" style="padding-top:7px">
+	 <img id="bezarGombGetStarted2" border="0" onmouseover="closeGombGetStarted(2,2)" onmouseout="closeGombGetStarted(1,2)" onclick="getStarted(0,2)" src="https://www.iloveangol.hu/images/close-gray-button1.png" alt="Kilépés" title="Kilépés">
+	 </td></tr>
+	 <tr><td colspan="3" align="center" class="getSzoveg">	
+	Itt láthatod az angol a mondatot. (Ha magyarul látod, akkor be van kapcsolva az automatikus fordító. Kapcsold ki!
+	Ehhez segítséget <a href="https://www.iloveangol.hu/szokincs/gyik/#8" target="_blank">itt találsz</a>.)<br><br>
+	Ha rákattintasz a szavakra, akkor felugrik egy-egy multimédiás szókártya!
+	<br>Ez a rendszer lényege!
+	<br><br>
+	</td></tr>
+	 <tr><td colspan="3" align="center">	
+	<b><a href="javascript:getStarted(1,1)" style="text-decoration:underline; color:#555555"><<< Vissza</a>&nbsp;&nbsp; <a href="javascript:getStarted(1,3)" style="text-decoration:underline; color:#555555">Tovább >>></a></b> 	
+	<!-- Előre lépésnél a href javascript a késleltetés miatt. --> 
+	<br><br>	
+	</td></tr>
+   </table>  
+  							
+</div>
+<!-- GetStarted2 vége-->
+
+<!-- GetStarted3 -->
+<div id='getStarted3' class="getStarted">
+	<img style="margin-left:108px" border="0" src="https://www.iloveangol.hu/images/getStartedArrow3.png" ><br>
+	<table class="getstartedTable">
+	<tr><td width="30px"></td>
+	<td align="center" style="font-size:15px; font-weight:bold">
+	<br>3/14
+	 </td><td width="30px" align="left" valign="top" style="padding-top:7px">
+	 <img id="bezarGombGetStarted3" border="0" onmouseover="closeGombGetStarted(2,3)" onmouseout="closeGombGetStarted(1,3)" onclick="getStarted(0,3)" src="https://www.iloveangol.hu/images/close-gray-button1.png" alt="Kilépés" title="Kilépés">
+	 </td></tr>
+	 <tr><td colspan="3" align="center" class="getSzoveg">	
+	Ez egy multimédiás szókártya. A mező felső részében találod<br>a szó jelentéseit és minden egyéb fontos információt.<br><br>
+	[A kapcsos zárójelek között láthatod a fonetikus leírást.] A fonetikai jelekkel az oldal alján található „Kiejtési útmutató” gombra kattintva ismerkedhetsz meg.<br><br>
+	Zárójelben találod az igék múlt idejét, a főnevek rendhagyó többes számát, és a melléknevek valamint a határozók rendhagyó fokozását.<br><br>
+	Ha fontos nyelvtan is van a mondatban, akkor azt azon a szókártyán jelzem, amelyik szóhoz kapcsolódik. Ezt egy bordó „<font style="color:#cc0000; font-weight:bold">Nyelvtani magyarázat</font>” linkre kattintva nyithatod meg, és le is töltheted.   
+	<br><br>
+	</td></tr>
+	 <tr><td colspan="3" align="center">	
+	<b><a href="javascript:getStarted(1,2)" style="text-decoration:underline; color:#555555"><<< Vissza</a>&nbsp;&nbsp; <a href="javascript:getStarted(1,4)" style="text-decoration:underline; color:#555555">Tovább >>></a></b> 	
+	<br><br>	
+	</td></tr>
+   </table> 
+  							
+</div>
+<!-- GetStarted3 vége-->
+
+<!-- GetStarted4 -->
+<div id='getStarted4' class="getStarted">
+	<img style="margin-left:108px" border="0" src="https://www.iloveangol.hu/images/getStartedArrow3.png" ><br>
+	<table class="getstartedTable">
+	<tr><td width="30px"></td>
+	<td align="center" style="font-size:15px; font-weight:bold">
+	<br>4/14
+	 </td><td width="30px" align="left" valign="top" style="padding-top:7px">
+	 <img id="bezarGombGetStarted4" border="0" onmouseover="closeGombGetStarted(2,4)" onmouseout="closeGombGetStarted(1,4)" onclick="getStarted(0,4)" src="https://www.iloveangol.hu/images/close-gray-button1.png" alt="Kilépés" title="Kilépés">
+	 </td></tr>
+	 <tr><td colspan="3" align="center" class="getSzoveg">	
+	Itt találod azt a képet, amely segít a szó memorizálásában. Az oldal alján található EXTRA TIPPEK menüpontban azt is megmutatom, hogyan tudod ezeket a képeket legjobban segítségül hívni. 
+	<br><br>
+	</td></tr>
+	 <tr><td colspan="3" align="center">	
+	<b><a href="javascript:getStarted(1,3)" style="text-decoration:underline; color:#555555"><<< Vissza</a>&nbsp;&nbsp; <a href="javascript:getStarted(1,5)" style="text-decoration:underline; color:#555555">Tovább >>></a></b> 	
+	<br><br>	
+	</td></tr>
+   </table>    	
+  							
+</div>
+<!-- GetStarted4 vége-->
+
+<!-- GetStarted5 -->
+<div id='getStarted5' class="getStarted">
+	<img style="margin-left:108px" border="0" src="https://www.iloveangol.hu/images/getStartedArrow3.png" >
+	<table class="getstartedTable">
+	<tr><td width="30px"></td>
+	<td align="center" style="font-size:15px; font-weight:bold">
+	<br>5/14
+	 </td><td width="30px" align="left" valign="top" style="padding-top:7px">
+	 <img id="bezarGombGetStarted5" border="0" onmouseover="closeGombGetStarted(2,5)" onmouseout="closeGombGetStarted(1,5)" onclick="getStarted(0,5)" src="https://www.iloveangol.hu/images/close-gray-button1.png" alt="Kilépés" title="Kilépés">
+	 </td></tr>
+	 <tr><td colspan="3" align="center" class="getSzoveg">	
+	Ha számítógéppel tanulsz és a szókártyán található lejátszógomb feletti részére húzod az egérkurzort, akkor a háttér színe megváltozik. Ez egy újabb funkció elérhetőségét jelzi.<br><br>
+	Az egér bal gombjára kattintva és azt lenyomva tartva elhúzhatod a szókártyát a neked tetsző helyre. Az újabb felugró kártyák ugyanebben az Y-tengelyben fognak elhelyezkedni.<br><br>
+	Mobil eszközökön erre a területre vagy a képre kattintva is bezáródik a szókártya, így nem szükséges a „Bezár” gombot használnod.	
+	<br><br>
+	</td></tr>
+	 <tr><td colspan="3" align="center">	
+	<b><a href="javascript:getStarted(1,4)" style="text-decoration:underline; color:#555555"><<< Vissza</a>&nbsp;&nbsp; <a href="javascript:getStarted(1,6)" style="text-decoration:underline; color:#555555">Tovább >>></a></b> 	
+	<br><br>	
+	</td></tr>
+   </table>  							
+</div>
+<!-- GetStarted5 vége-->
+
+
+<!-- GetStarted6 -->
+<div id='getStarted6' class="getStarted" >
+ <table class="getstartedTable">
+	<tr><td width="30px"></td>
+	<td align="center" style="font-size:15px; font-weight:bold">
+	<br>6/14
+	 </td><td width="30px" align="left" valign="top" style="padding-top:7px">
+	 <img id="bezarGombGetStarted6" border="0" onmouseover="closeGombGetStarted(2,6)" onmouseout="closeGombGetStarted(1,6)" onclick="getStarted(0,6)" src="https://www.iloveangol.hu/images/close-gray-button1.png" alt="Kilépés" title="Kilépés">
+	 </td></tr>
+	 <tr><td colspan="3" align="center" class="getSzoveg">	
+	 Itt két, különböző színű mikrofont és lejátszógombot látsz.
+	<br><br>
+	Most megmutatom neked, hogy mire valók.
+	 <br><br>
+	</td></tr>
+	 <tr><td colspan="3" align="center">	
+	<b><a href="javascript:getStarted(1,5)" style="text-decoration:underline; color:#555555"><<< Vissza</a>&nbsp;&nbsp; <a href="javascript:getStarted(1,7)" style="text-decoration:underline; color:#555555">Tovább >>></a></b> 	
+	<br><br>	
+	</td></tr>
+   </table>    	
+  							
+</div>
+<!-- GetStarted6 vége-->
+
+<!-- GetStarted7 -->
+<div id='getStarted7' class="getStarted" >
+    <img style="margin:0px 0px 0px 60px" border="0" src="https://www.iloveangol.hu/images/getStartedArrow3.png" >  
+   <table class="getstartedTable">
+	<tr><td width="30px"></td>
+	<td align="center" style="font-size:15px; font-weight:bold">
+	<br>7/14
+	 </td><td width="30px" align="left" valign="top" style="padding-top:7px">
+	 <img id="bezarGombGetStarted7" border="0" onmouseover="closeGombGetStarted(2,7)" onmouseout="closeGombGetStarted(1,7)" onclick="getStarted(0,7)" src="https://www.iloveangol.hu/images/close-gray-button1.png" alt="Kilépés" title="Kilépés">
+	 </td></tr>
+	 <tr><td colspan="3" align="center" class="getSzoveg">	
+	Ezzel a kék lejátszógombbal hallgathatod meg az angol mondatot.
+	<br><br>
+	 Ha szükségesnek érzed, lassítsd le a lejátszást a lejátszógomb alatt található két checkbox segítségével.
+	<br><br>
+	</td></tr>
+	 <tr><td colspan="3" align="center">	
+	<b><a href="javascript:getStarted(1,6)" style="text-decoration:underline; color:#555555"><<< Vissza</a>&nbsp;&nbsp; <a href="javascript:getStarted(1,8)" style="text-decoration:underline; color:#555555">Tovább >>></a></b> 	
+	<br><br>	
+	</td></tr>
+   </table>			
+</div>
+<!-- GetStarted7 vége-->
+
+<!-- GetStarted8 -->
+<div id='getStarted8' class="getStarted" >
+    <img style="margin:0px 0px 0px 60px" border="0" src="https://www.iloveangol.hu/images/getStartedArrow3.png" >  
+   <table class="getstartedTable">
+	<tr><td width="30px"></td>
+	<td align="center" style="font-size:15px; font-weight:bold">
+	<br>8/14
+	 </td><td width="30px" align="left" valign="top" style="padding-top:7px">
+	 <img id="bezarGombGetStarted8" border="0" onmouseover="closeGombGetStarted(2,4)" onmouseout="closeGombGetStarted(1,4)" onclick="getStarted(0,4)" src="https://www.iloveangol.hu/images/close-gray-button1.png" alt="Kilépés" title="Kilépés">
+	 </td></tr>
+	 <tr><td colspan="3" align="center" class="getSzoveg">	
+	 Ha a kék mikrofont használod, akkor a gombok feletti szövegmezőbe íródik be az, amit mondasz.	 
+	<br><br>
+	 <u>Megjegyzés:</u><br> 
+	 Kattints a kék mikrofonra, majd amikor pirosra vált az ikon, akkor kezdj el beszélni. 
+	 Amikor csendben maradsz a felvétel automatikusan leáll és a piros mikrofon ismét kékre fog váltani.				
+	<br><br>
+	</td></tr>
+	 <tr><td colspan="3" align="center">	
+	<b><a href="javascript:getStarted(1,7)" style="text-decoration:underline; color:#555555"><<< Vissza</a>&nbsp;&nbsp; <a href="javascript:getStarted(1,9)" style="text-decoration:underline; color:#555555">Tovább >>></a></b> 	
+	<br><br>	
+	</td></tr>
+   </table>
+</div>
+<!-- GetStarted8 vége-->
+
+
+<!-- GetStarted9 -->
+<div id='getStarted9' class="getStarted" >
+    <img style="margin:0px 0px 0px 157px" border="0" src="https://www.iloveangol.hu/images/getStartedArrow3.png" >  
+   <table class="getstartedTable">
+	<tr><td width="30px"></td>
+	<td align="center" style="font-size:15px; font-weight:bold">
+	<br>9/14
+	 </td><td width="30px" align="left" valign="top" style="padding-top:7px">
+	 <img id="bezarGombGetStarted9" border="0" onmouseover="closeGombGetStarted(2,9)" onmouseout="closeGombGetStarted(1,9)" onclick="getStarted(0,9)" src="https://www.iloveangol.hu/images/close-gray-button1.png" alt="Kilépés" title="Kilépés">
+	 </td></tr>
+	 <tr><td colspan="3" align="center" class="getSzoveg">	
+	 A lila színű mikrofonnal átmenetileg rögzítjük a hangodat, hogy a lila hanglejátszóval visszahallgathasd az angol kiejtésedet.
+	 <br><br>
+	 Ez technikai okok miatt van külön mikrofonnal megoldva. 
+	 A hangodat nem menti el a rendszer, csak addig tárolódik egy átmeneti memóriában, amíg ezen az oldalon vagy.
+	 <br><br>
+	 <u>Megjegyzés:</u><br> 
+	 Ennél a mikrofonnál le kell állítani a felvételt a piros mikrofonra kattintva.
+	 <br><br>
+	</td></tr>
+	 <tr><td colspan="3" align="center">	
+	<b><a href="javascript:getStarted(1,8)" style="text-decoration:underline; color:#555555"><<< Vissza</a>&nbsp;&nbsp; <a href="javascript:getStarted(1,10)" style="text-decoration:underline; color:#555555">Tovább >>></a></b> 	
+	<br><br>	
+	</td></tr>
+   </table>			
+</div>
+<!-- GetStarted9 vége-->
+
+<!-- GetStarted10 -->
+<div id='getStarted10' class="getStarted" >
+   <img style="margin:0px 0px 0px 157px" border="0" src="https://www.iloveangol.hu/images/getStartedArrow3.png" >  
+  <table class="getstartedTable">
+	<tr><td width="30px"></td>
+	<td align="center" style="font-size:15px; font-weight:bold">
+	<br>10/14
+	 </td><td width="30px" align="left" valign="top" style="padding-top:7px">
+	 <img id="bezarGombGetStarted10" border="0" onmouseover="closeGombGetStarted(2,10)" onmouseout="closeGombGetStarted(1,10)" onclick="getStarted(0,10)" src="https://www.iloveangol.hu/images/close-gray-button1.png" alt="Kilépés" title="Kilépés">
+	 </td></tr>
+	 <tr><td colspan="3" align="center" class="getSzoveg">	
+	Ezzel a lila színű hanglejátszóval tudod visszahallgatni a saját hangodat, 
+	így össze tudod hasonlítani a kék lejátszógomb által meghallgatható eredeti angol kiejtéssel.
+	<br><br>	
+	</td></tr>
+	 <tr><td colspan="3" align="center">	
+	<b><a href="javascript:getStarted(1,9)" style="text-decoration:underline; color:#555555"><<< Vissza</a>&nbsp;&nbsp; <a href="javascript:getStarted(1,11)" style="text-decoration:underline; color:#555555">Tovább >>></a></b> 	
+	<br><br>	
+	</td></tr>
+   </table>
+</div>
+<!-- GetStarted10 vége-->
+
+
+<!-- GetStarted11 -->
+<div id='getStarted11' class="getStarted" >
+    <img style="margin:0px 0px 0px 110px" border="0" src="https://www.iloveangol.hu/images/getStartedArrow3.png" >  
+   <table class="getstartedTable">
+	<tr><td width="30px"></td>
+	<td align="center" style="font-size:15px; font-weight:bold">
+	<br>11/14
+	 </td><td width="30px" align="left" valign="top" style="padding-top:7px">
+	 <img id="bezarGombGetStarted11" border="0" onmouseover="closeGombGetStarted(2,11)" onmouseout="closeGombGetStarted(1,11)" onclick="getStarted(0,11)" src="https://www.iloveangol.hu/images/close-gray-button1.png" alt="Kilépés" title="Kilépés">
+	 </td></tr>
+	 <tr><td colspan="3" align="center" class="getSzoveg">	
+	Ha a kék mikrofonnal elmondod az angol mondatot, akkor ebbe a szövegmezőbe fog beíródni.<br>
+	<b>Ha nem sikerül jól elmondani a mondatot, akkor a checklistában két olyan javaslatot is találsz, mely megkönnyíti a dolgodat.</b>
+	<br><br>
+	Ha jó kiejtéssel mondod, zöldre fog változni a szövegmező háttere.
+	Hiba esetén bepirosodik a szövegmező és egy figyelmeztető hangot fogsz hallani.  
+	<br><br>	
+	</td></tr>
+	 <tr><td colspan="3" align="center">	
+	<b><a href="javascript:getStarted(1,10)" style="text-decoration:underline; color:#555555"><<< Vissza</a>&nbsp;&nbsp; <a href="javascript:getStarted(1,12)" style="text-decoration:underline; color:#555555">Tovább >>></a></b> 	
+	<br><br>	
+	</td></tr>
+   </table>			
+</div>
+<!-- GetStarted11 vége-->
+
+
+<!-- GetStarted12 -->
+<div id='getStarted12' class="getStarted" >    
+    <img style="margin:0px 0px 0px 50px" border="0" src="https://www.iloveangol.hu/images/getStartedArrow3.png" ><br>
+  <table class="getstartedTable">
+	<tr><td width="30px"></td>
+	<td align="center" style="font-size:15px; font-weight:bold">
+	<br>12/14
+	 </td><td width="30px" align="left" valign="top" style="padding-top:7px">
+	 <img id="bezarGombGetStarted12" border="0" onmouseover="closeGombGetStarted(2,12)" onmouseout="closeGombGetStarted(1,12)" onclick="getStarted(0,12)" src="https://www.iloveangol.hu/images/close-gray-button1.png" alt="Kilépés" title="Kilépés">
+	 </td></tr>
+	 <tr><td colspan="3" align="center" class="getSzoveg">	
+	A „Checklista” fülre kattintva pipáld ki  az összes feladatot, amikor azokat már elvégezted, és akkor egy felugró ablakban fogok neked gratulálni!
+	<br><br>
+	</td></tr>
+	 <tr><td colspan="3" align="center">	
+	<b><a href="javascript:getStarted(1,11)" style="text-decoration:underline; color:#555555"><<< Vissza</a>&nbsp;&nbsp; <a href="javascript:getStarted(1,13)" style="text-decoration:underline; color:#555555">Tovább >>></a></b> 	
+	<br><br>	
+	</td></tr>
+   </table>  
+</div>
+<!-- GetStarted12 vége-->
+
+<!-- GetStarted13 -->
+<div id='getStarted13' class="getStarted" >    
+  <table class="getstartedTable">
+	<tr><td width="30px"></td>
+	<td align="center" style="font-size:15px; font-weight:bold">
+	<br>13/14
+	 </td><td width="30px" align="left" valign="top" style="padding-top:7px">
+	 <img id="bezarGombGetStarted13" border="0" onmouseover="closeGombGetStarted(2,13)" onmouseout="closeGombGetStarted(1,13)" onclick="getStarted(0,13)" src="https://www.iloveangol.hu/images/close-gray-button1.png" alt="Kilépés" title="Kilépés">
+	 </td></tr>
+	 <tr><td colspan="3" align="center" class="getSzoveg">	
+	Itt tudsz visszalépni a korábbi mondatokra.<br>
+	Azt javaslom, inkább mindennap tanulj rövidebb ideig, mint hetente néhány alkalommal hosszabban.
+	<br><br>
+	</td></tr>
+	 <tr><td colspan="3" align="center">	
+	<b><a href="javascript:getStarted(1,12)" style="text-decoration:underline; color:#555555"><<< Vissza</a>&nbsp;&nbsp; <a href="javascript:getStarted(1,14)" style="text-decoration:underline; color:#555555">Tovább >>></a></b> 	
+	<br><br>	
+	</td></tr>
+   </table>
+    <img style="margin:0px 0px 0px 100px" border="0" src="https://www.iloveangol.hu/images/getStartedArrow4.png" ><br>
+</div>
+<!-- GetStarted14 vége-->
+
+<!-- GetStarted14 -->
+<div id='getStarted14' class="getStarted" >    
+  <table class="getstartedTable">
+	<tr><td width="30px"></td>
+	<td align="center" style="font-size:15px; font-weight:bold">
+	<br>14/14
+	 </td><td width="30px" align="left" valign="top" style="padding-top:7px">
+	 <img id="bezarGombGetStarted14" border="0" onmouseover="closeGombGetStarted(2,14)" onmouseout="closeGombGetStarted(1,14)" onclick="getStarted(0,14)" src="https://www.iloveangol.hu/images/close-gray-button1.png" alt="Kilépés" title="Kilépés">
+	 </td></tr>
+	 <tr><td colspan="3" align="center" class="getSzoveg">	
+	Időnként kérdezd ki magadtól a korábban megtanult mondatokat!<br>
+	Ott is kövesd a checklistában leírtakat!
+	<br><br>
+	</td></tr>
+	 <tr><td colspan="3" align="center">	
+	<b><a href="javascript:getStarted(1,13)" style="text-decoration:underline; color:#555555"><<< Vissza</a>&nbsp;&nbsp; <a href="javascript:getStarted(0,14)" style="text-decoration:underline; color:#555555">Bezár >>></a></b> 	
+	<br><br>	
+	</td></tr>
+   </table>
+    <img style="margin:0px 0px 0px 20px" border="0" src="https://www.iloveangol.hu/images/getStartedArrow4.png" ><br>
+</div>
+<!-- GetStarted14 vége-->
+
+<!-- Gratulálok eleje -->
+<div id='gratulalokTabla' class="gratulalokTablaKeret">
+	<div  class="gratulalokTabla">
+       				  
+		   <div style="text-align:center">
+			<img src="https://www.iloveangol.hu/images/iloveLogo350.jpg" width="220px" height="43px" title="I LOVE ANGOL" alt="I LOVE ANGOL" /><br>
+			</div>
+			 <div id="gratulalokFelirat" style="font-family: arial; font-size:13px; text-align:center;" >										 
+				<font size='4'>GRATULÁLOK!!!</font>							
+				 <br><br>
+				<img src="https://www.iloveangol.hu/images/adanyim.jpg" style="height:139px; min-width:120px;" align="center">
+			</div>	
+				<div id="gratulalokInfoSzoveg" style="text-align:left; padding-top:20px" >
+				 Ha így teszel minden nap, néhány hónapon belül meg fogod tapasztalni, hogyan bővül a szókincsed, hogyan javul a hallott és az olvasott szövegértésed, 
+				 a beszédkészséged, és a kiejtésed.
+				 <br><br>
+				 				 Amennyiben gyorsabban szeretnél haladni és a mondatok helyett szívesebben tanulnál rövid kis videókkal, valamint dalszövegekkel, 
+				 akkor most van egy nagyszerű ajánlatom számodra.
+				 <br><br>				 
+				  <font style="color:#cc0000; font-weight:bold">KUPONKÓD:KEDV40</font>
+				 <br><br>
+				 Ezzel a kuponkóddal 8900 Ft helyett 4900 Ft/hó áron tudod szinten tartani, és fejleszteni a meglévő angoltudásodat.
+				 <br><br>
+				 <font style="color:#cc0000; font-weight:bold">A kuponkódra árgaranciát vállalok</font>, ami azt jelenti, hogy amíg rendszeresen, 
+				 megszakítás nélkül fizeted a havi díjat, addig nem emelkedik az előfizetés ára.<br>
+				 <b>De ez még semmi!</b><br>
+				 <font style="color:#cc0000; font-weight:bold">3 év után örökre ingyenesen használhatod a tanulási rendszert</font>, 
+				 így nem kell soha többet költened az angoltanulásra, hiszen tőlem mindig fogsz kapni újabb leckéket, hogy folyamatosan szinten tarthasd 
+				 és fejleszthesd az angoltudásodat.
+				  <br><br>
+				<center>
+				Használd fel a kuponkódot és kezdj bele egy kalandba! 
+				  <br><br>
+				  <font style="color:#cc0000; font-weight:bold">KUPONKÓD:2023-04</font>
+				   <br><br>
+				  <a style="font-size:20px; font-weight:bold" href="https://www.iloveangol.hu/csomagok.php" target="_self">Kezdd el a tanulást havi előfizetéssel! >>></a>
+				   <br><br>
+				  	
+				  <a href="javascript:gratulaTablaZar()">[Bezár]</a>
+				  
+				   </center>
+				    <br> <br>
+							 
+				
+				</div> 				
+						   
+	</div>			
+</div>
+<!-- Gratulálok vége-->
+
+<!-- Egy szótagú szavak-->
+<div id='egyszotaguTabla' style="position:absolute; top:0px; left:0px; display: none; border:5px solid #cc0000; background-color:#fff; color:#000; padding:6px; width:355px; z-index:999999; font-family:Arial; font-size:12px;" class="kerekSarkokIMG">
+   	  
+   <table width="300px" >
+	<tr>
+	<td align="center">
+	<img src="https://www.iloveangol.hu/images/iloveLogo350.jpg" title="I LOVE ANGOL" alt="I LOVE ANGOL" /><br>   
+	 </td>
+	 </tr>
+	 <tr><td align="center">
+	 <table border="0px">
+		<tr><td valign="top" style="font-family: arial; font-size:13px" >
+		 <center>							 
+		<font size='4'>FIGYELMEZTETÉS!!!</font>							
+		 <br><br>		
+		 <font style="color:#cc0000;font-weight:bold">A rövid szavakat mondd el kétszer egymás után!<br>
+		 Csak akkor fogja érzékelni a rendszer.</font>	
+		<br><br>
+		 <a href="javascript:egyszotaguTablaBezar()">[Bezár]</a>
+			</center>		
+		 </td></tr>
+		</table>
+	</td></tr>
+   </table>					  						
+</div>
+<!-- Egy szótagú szavak vége-->
+
+<div id='transparentDiv' onclick="egyszotaguTablaBezar();"></div>
+
+<center>
+<br>
+
+<br>
+
+<header style="border-bottom: 4px double #ebebeb;"></header><!-- .page-header -->			
+<div style="margin-top:8px;">
+<!--<a id="gyakorlas" class="subheading2" style="border-right: 2px solid #777;" onClick="alert('Előbb jelentkezz be a tanulási fiókodba!');">Gyakorlás</a>-->
+<a id="gyakorlas" class="subheading2" style="border-right: 2px solid #777;" onClick="alert('Hamarosan elérhető lesz.');" >Gyakorlás</a>
+<a class="subheading2" style="border-right: 2px solid #777;" onClick="alert('Előbb jelentkezz be a tanulási fiókodba!');">Beállítások</a>
+<a class="subheading2" href="https://kepes-hangos-angolszotar.hu/kiejtesiUtmutato.php" terget="_self">Kiejtési útmutató</a>
+<br>
+<a class="subheading5" onClick="javascript: document.location.href='https://www.iloveangol.hu/napi-online'">Napi mondatok</a>
+</div>
+<br><br>
+<a class="kisLink" target="_blank" href="https://www.iloveangol.hu/szokincs/index.php/kapcsolat/">Kapcsolat</a><br>
+<a class="kisLink" target="_blank" href="https://www.iloveangol.hu/szokincs/index.php/ceginformaciok/">Céginformációk</a>
+<br><font class="kisLink">Minden jog fenntartva © 2026. Web-Multimédia Kft.</font>
+<br><br>
+</center>
+
+    
+		</body>
+</html>

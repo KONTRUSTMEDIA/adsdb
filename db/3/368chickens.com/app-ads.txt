@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>368 Chickens</title>
+
+    <script>
+      isMobile =
+        /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+          navigator.userAgent
+        ) ||
+        "ontouchstart" in window ||
+        navigator.msMaxTouchPoints > 0;
+    </script>
+    <meta http-equiv="Content-Language" content="en" />
+    <meta name="language" content="en" />
+    <meta
+      name="description"
+      content="Feathered friends unite! Become the ultimate chicken-matching champion? Ready for a clucking good time?"
+    />
+    <link rel="canonical" href="https://368chickens.com" />
+
+    <meta property="og:title" content="368 Chickens" />
+    <meta
+      property="og:description"
+      content="Feathered friends unite! Become the ultimate chicken-matching champion? Ready for a clucking good time?"
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://368chickens.com" />
+    <meta property="og:image" content="https://368chickens.com/assets/icons/512x512.png" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="368 Chickens" />
+    <meta
+      name="twitter:description"
+      content="Feathered friends unite! Become the ultimate chicken-matching champion? Ready for a clucking good time?"
+    />
+    <meta name="twitter:image" content="https://368chickens.com/assets/icons/512x512.png" />
+
+    <link rel="manifest" href="manifest.json" />
+    <meta name="theme-color" content="#2d3e75" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="#2d3e75" />
+    <meta name="apple-mobile-web-app-title" content="368 Chickens" />
+
+    <link rel="icon" type="image/png" sizes="192x192" href="assets/icons/192x192.png" />
+    <link rel="icon" type="image/png" sizes="512x512" href="assets/icons/512x512.png" />
+    <link rel="apple-touch-icon" href="assets/icons/192x192.png" />
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-E400H9F1Z5"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "G-E400H9F1Z5");
+    </script>
+    <!-- Raptive Head Tag Manual -->
+    <script data-no-optimize="1" data-cfasync="false">
+      (function (w, d) {
+        w.adthrive = w.adthrive || {};
+        w.adthrive.cmd = w.adthrive.cmd || [];
+        w.adthrive.plugin = "adthrive-ads-manual";
+        w.adthrive.host = "ads.adthrive.com";
+        var s = d.createElement("script");
+        s.async = true;
+        s.referrerpolicy = "no-referrer-when-downgrade";
+        s.src =
+          "https://" +
+          w.adthrive.host +
+          "/sites/687916613d1db95f520650c6/ads.min.js?referrer=" +
+          w.encodeURIComponent(w.location.href) +
+          "&cb=" +
+          (Math.floor(Math.random() * 100) + 1);
+        var n = d.getElementsByTagName("script")[0];
+        n.parentNode.insertBefore(s, n);
+      })(window, document);
+    </script>
+    <!-- End of Raptive Head Tag -->
+
+    <meta name="robots" content="index, follow" />
+
+    <style>
+      * {
+        box-sizing: border-box;
+        font-weight: bold;
+        margin: 0px;
+        padding-top: 0px;
+        font-family: monospace;
+        font-weight: 800;
+      }
+
+      body {
+        text-align: center;
+        background: #2d3e75;
+        color: white;
+        overflow: hidden;
+        touch-action: none;
+        font-weight: bold;
+        user-select: none;
+        max-width: 1020px;
+        margin: auto;
+      }
+
+      .container {
+        max-width: 420px;
+        margin: auto;
+        padding: 20px;
+        padding-top: 20px;
+      }
+
+      h1 {
+        font-size: 22px;
+        margin-bottom: 30px;
+      }
+
+      h2 {
+        font-size: 16px;
+        margin-bottom: 5px;
+      }
+
+      p {
+        margin-bottom: 30px;
+      }
+
+      .flex {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+      }
+
+      .flex div {
+        flex: 1;
+        font-size: 28px;
+      }
+
+      #board {
+        overflow: overlay;
+        background: #252f50;
+        border-radius: 5px;
+        border: solid 2px #20253a;
+        margin-left: -2px;
+        box-sizing: content-box;
+      }
+
+      #duplicateboard {
+        overflow: overlay;
+        background: #252f50;
+        border-radius: 5px;
+        border: solid 2px #20253a;
+        margin-left: -2px;
+        box-sizing: content-box;
+        margin-bottom: calc(-100% - 2px);
+      }
+
+      .square {
+        float: left;
+        display: inline-block;
+        aspect-ratio: 1 / 1;
+        background-color: #252f4f;
+        border: 2px solid #20253b;
+      }
+
+      .duplicatesquare {
+        float: left;
+        display: inline-block;
+        aspect-ratio: 1 / 1;
+        background-color: #252f4f;
+        border: 2px solid #20253b;
+      }
+
+      .square:not(.empty) {
+        background-size: cover;
+        background-repeat: no-repeat;
+      }
+
+      #points {
+        position: absolute;
+        display: none;
+        color: white;
+        z-index: 999;
+        text-shadow: 0 0 5px black, 0 0 10px black;
+        font-size: 34px;
+        text-align: center;
+      }
+
+      #pieces {
+        display: flex;
+        justify-content: center;
+        height: 200px;
+      }
+
+      #piece {
+        border-top: 65px solid transparent;
+        border-bottom: 50px solid transparent;
+        border-left: 100px solid transparent;
+        border-right: 100px solid transparent;
+        box-sizing: content-box;
+        cursor: grab;
+      }
+
+      .horizontal {
+        margin-top: -30px;
+      }
+
+      .vertical {
+        margin-top: 20px;
+      }
+
+      .first {
+        aspect-ratio: 1 / 1;
+        border: px solid #20253b;
+        background-size: cover;
+      }
+
+      .second {
+        position: absolute;
+        width: 100%;
+        aspect-ratio: 1 / 1;
+        border: px solid #20253b;
+        background-size: cover;
+      }
+
+      .horizontal div span {
+        top: 0px;
+        left: calc(100% - 4px);
+      }
+
+      .vertical div span {
+        top: calc(-100% + 4px);
+        left: 0px;
+      }
+
+      .highlight {
+        filter: brightness(160%);
+      }
+
+      #gameover {
+        margin-top: 30px;
+      }
+
+      #restart {
+        padding: 10px 20px;
+        font-size: 18px;
+        cursor: pointer;
+        background-color: lightblue;
+        border: none;
+        border-radius: 5px;
+      }
+
+      @keyframes pop {
+        0% {
+          transform: scale(1);
+          opacity: 1;
+        }
+        100% {
+          transform: scale(1);
+          opacity: 0;
+        }
+      }
+
+      .pop {
+        animation: pop 0.4s forwards;
+        background-size: cover;
+        background-color: transparent;
+        border: none;
+        position: relative;
+        z-index: 1;
+      }
+
+      .ui-draggable-dragging {
+        cursor: grabbing !important;
+      }
+
+      .hidden {
+        display: none !important;
+      }
+
+      .modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: #00000082;
+        z-index: 999;
+      }
+
+      .modalinner {
+        width: 90%;
+        max-width: 425px;
+        margin: auto;
+        margin-top: 160px;
+        max-height: 420px;
+        padding: 20px;
+        color: black;
+        background: white;
+        position: relative;
+        text-align: left;
+        overflow-y: scroll;
+        border-radius: 0px;
+        font-size: 18px;
+      }
+
+      .modal .close {
+        float: right;
+        position: sticky;
+        top: -20px;
+        cursor: pointer;
+        padding: 20px;
+        margin-top: -20px;
+        margin-right: -20px;
+        font-size: 24px;
+        margin-bottom: -42px;
+      }
+
+      .togglemodal {
+        cursor: pointer;
+      }
+
+      table {
+        width: 100%;
+      }
+
+      td {
+        padding-bottom: 10px;
+      }
+
+      .attempts {
+        font-weight: bold;
+      }
+      .footer {
+        border-top: solid 1px #8e8f9126;
+        color: white;
+        padding: 20px;
+        text-align: center;
+      }
+      .footer ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+      .footer li {
+        display: inline;
+        margin: 0 10px;
+      }
+      .footer li a {
+        color: #8f8f8f;
+        text-decoration: none;
+      }
+      .social-share {
+        margin: 5px 0;
+        padding-bottom: 5px;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .social-share button {
+        padding: 4px 6px;
+        border: none;
+        border-radius: 4px;
+        color: white;
+        cursor: pointer;
+        font-size: 14px;
+        align-items: center;
+        gap: 5px;
+      }
+
+      .social-share span {
+        display: block;
+        color: #8f8f8f;
+        margin-bottom: 5px;
+      }
+
+      .share-twitter {
+        background: #1da1f2;
+      }
+
+      .share-facebook {
+        background: #4267b2;
+      }
+      @media screen and (max-width: 768px) {
+        .hire-mobile {
+          display: none !important;
+        }
+        .mobile-container {
+          padding-top: 20px;
+          padding-bottom: 5px;
+        }
+        .mobile-container #pieces {
+          height: 130px;
+        }
+        .mobile-container #piece {
+          border-top: 60px solid transparent;
+          border-bottom: 10px solid transparent;
+        }
+        .mobile-container .score {
+          margin-bottom: 15px;
+        }
+        .mobile-container .vertical {
+          margin-top: 0px;
+        }
+        .social-share {
+          margin: 0px auto;
+          padding-bottom: 5px;
+        }
+        .footer {
+          padding: 5px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      id="368chickens-com_300x600"
+      class="hidden"
+      style="display: flex; float: left; width: 300px; height: 600px"
+    ></div>
+
+    <div
+      id="368chickens-com_300x600_2"
+      class="hidden"
+      style="display: flex; float: right; width: 300px; height: 600px"
+    ></div>
+
+    <div id="368chickens-com_320x50" class="hire-mobile" style="height: 50px"></div>
+
+    <div class="hidden" id="videoad"></div>
+
+    <div class="container hidden mobile-container">
+      <div class="header togglemodal">
+        <h1 class="instructions">Line up 3 chickens to rescue</h1>
+        <h1 class="score hidden"><span id="score">368</span> chickens remaining</h1>
+      </div>
+
+      <div id="points"></div>
+      <div id="duplicateboard"></div>
+      <div id="board"></div>
+      <div id="pieces">
+        <div id="piece" class="vertical">
+          <div class="first" style="background-position-x: 0%">
+            <span class="second" style="background-position-x: 25%"></span>
+          </div>
+        </div>
+      </div>
+
+      <div id="gameover" class="hidden">
+        <h1>GAME OVER</h1>
+        <button onclick="restart()" id="restart">PLAY AGAIN</button>
+      </div>
+      <div class="hidden">
+        <div id="xye">0</div>
+        <div id="xyd">1</div>
+        <div id="xyc">0</div>
+        <div id="level">368</div>
+      </div>
+
+      <div id="xpw" class="modal hidden">
+        <div class="modalinner">
+          <h1>Congratulations</h1>
+          <p>
+            You rescued the <span class="level"></span> chickens in
+            <span class="attempts">0</span> attempts.
+          </p>
+          <p>The chickens are very grateful.</p>
+          <p>Unfortunately <span class="newlevel"></span> more chickens have been captured.</p>
+          <button onclick="restart()" id="restart">PLAY AGAIN</button>
+        </div>
+      </div>
+    </div>
+    <div class="social-share">
+      <span>Share Us</span>
+      <button onclick="shareTwitter()" class="share-twitter">Twitter</button>
+      <button onclick="shareFacebook()" class="share-facebook">Facebook</button>
+    </div>
+    <div class="footer">
+      <ul>
+        <li>
+          <a href="/how-to-play.html">How to Play</a>
+        </li>
+        <li>
+          <a href="/privacy.html">Privacy Policy</a>
+        </li>
+        <li>
+          <a href="/about.html">About</a>
+        </li>
+      </ul>
+    </div>
+    <script src="service-worker-register.js"></script>
+    <script src="assets/jquery.js"></script>
+    <script>
+      level = $("#level").html();
+      $(".level").html(level);
+      skinurl = "assets/skin.png";
+      gridsize = 6;
+      rankup = false;
+      backgrounds = ["0%", "25%", "50%", "75%"];
+      $("<style>")
+        .html(`.pop, .square:not(.empty), .first, .second{background-image:url('${skinurl}')}`)
+        .appendTo("head");
+      $("<style>")
+        .html(
+          `.square, .duplicatesquare { width: calc(100% / ${gridsize}); } #piece { width: calc(100% / ${gridsize} + 4px); } .horizontal { margin-left: calc(-100% / ${gridsize} - 4px); }`
+        )
+        .appendTo("head");
+      isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) || window.innerWidth <= 768;
+
+      // Load game if already playing
+      if (localStorage.getItem("368chickenstest")) {
+        $(".container").html(localStorage.getItem("368chickenstest"));
+        $("#points").hide();
+      } else {
+        for (let i = 0; i < gridsize * gridsize; i++) {
+          $("#board").append('<div class="square empty"></div>');
+        }
+        for (let i = 0; i < gridsize * gridsize; i++) {
+          $("#duplicateboard").append('<div class="duplicatesquare"></div>');
+        }
+
+        $(".empty").eq(15).removeClass("empty");
+        $(".empty").eq(14).removeClass("empty");
+      }
+
+      // Add piece
+      function addPiece() {
+        $("#piece").css({ top: 0, left: 0 });
+
+        random1 = Math.floor(Math.random() * backgrounds.length);
+        random2 = Math.floor(Math.random() * backgrounds.length);
+
+        background1 = backgrounds[random1];
+        background2 = backgrounds[random2];
+
+        isHorizontal = Math.random() > 0.5;
+        type = isHorizontal ? "horizontal" : "vertical";
+
+        $("#piece").removeClass().addClass(type);
+        $(".first").css("background-position-x", background1);
+        $(".second").css("background-position-x", background2);
+
+        localStorage.setItem("368chickenstest", $(".container").html());
+        for (let i = 0; i < gridsize * gridsize; i++) {
+          if (validate(i, isHorizontal)) {
+            return true;
+          }
+        }
+        if (isHorizontal) {
+          $("#piece").removeClass().addClass("vertical");
+          isHorizontal = false;
+        } else {
+          $("#piece").removeClass().addClass("horizontal");
+          isHorizontal = true;
+        }
+
+        localStorage.setItem("368chickenstest", $(".container").html());
+        for (let i = 0; i < gridsize * gridsize; i++) {
+          if (validate(i, isHorizontal)) {
+            return true;
+          }
+        }
+        gameover();
+      }
+
+      // Drag piece
+      $("#piece").draggable({
+        distance: 0,
+        revert: function (dropTarget) {
+          return !dropTarget;
+        },
+        ...(isMobile && { cursorAt: { top: 210 } }),
+
+        drag: function (event, ui) {
+          $(".highlight").removeClass("highlight");
+          index = $(".square").index($(".ui-droppable-hover"));
+          isHorizontal = $("#piece").hasClass("horizontal");
+          if (index !== -1 && validate(index, isHorizontal)) {
+            $(".square").eq(index).addClass("highlight");
+            $(".square")
+              .eq(isHorizontal ? index + 1 : index - gridsize)
+              .addClass("highlight");
+          }
+        },
+        revertDuration: 200,
+      });
+
+      // Validate drop
+      function validate(index, isHorizontal) {
+        squares = $(".square");
+        if (isHorizontal) {
+          return (
+            index % gridsize !== gridsize - 1 &&
+            squares.eq(index).hasClass("empty") &&
+            squares.eq(index + 1).hasClass("empty")
+          );
+        } else {
+          return (
+            index - gridsize > -1 &&
+            squares.eq(index).hasClass("empty") &&
+            squares.eq(index - gridsize).hasClass("empty")
+          );
+        }
+      }
+
+      // Drop piece
+      $(".square").droppable({
+        accept: "#piece",
+        drop: function (event, ui) {
+          if ($(".highlight").length < 1) {
+            $("#piece").animate({ top: 0, left: 0 }, 200);
+            return;
+          }
+
+          if ($(".vertical").length < 1) {
+            background1 = $(".first").css("background-position-x");
+            background2 = $(".second").css("background-position-x");
+          } else {
+            background1 = $(".second").css("background-position-x");
+            background2 = $(".first").css("background-position-x");
+          }
+
+          $(".highlight").first().css("background-position-x", background1);
+          $(".highlight").last().css("background-position-x", background2);
+          $(".highlight").removeClass("highlight empty");
+
+          if ("vibrate" in navigator) {
+            navigator.vibrate(20);
+          }
+
+          // Check lines
+          squares = $(".square");
+          directions = [
+            { x: 1, y: 0 },
+            { x: 0, y: 1 },
+          ];
+
+          const toClear = new Set();
+
+          for (let i = 0; i < gridsize * gridsize; i++) {
+            x = i % gridsize;
+            y = Math.floor(i / gridsize);
+            position = squares.eq(i).css("background-position-x");
+
+            if (squares.eq(i).hasClass("empty")) continue;
+
+            for (dir of directions) {
+              line = [i];
+
+              for (step = 1; step < gridsize; step++) {
+                nx = x + dir.x * step;
+                ny = y + dir.y * step;
+                ni = ny * gridsize + nx;
+
+                if (nx < 0 || nx >= gridsize || ny < 0 || ny >= gridsize) break;
+                if (
+                  squares.eq(ni).css("background-position-x") !== position ||
+                  squares.eq(ni).hasClass("empty")
+                )
+                  break;
+                line.push(ni);
+              }
+
+              if (line.length >= 3) {
+                for (idx of line) {
+                  toClear.add(idx);
+                }
+              }
+            }
+          }
+
+          // Clear lines
+          if (toClear.size > 0) {
+            $(".instructions").addClass("hidden");
+            $(".score").removeClass("hidden");
+            toClear.forEach((idx) => {
+              const square = squares.eq(idx);
+              square.addClass("pop");
+              square.addClass("empty");
+              setTimeout(() => {
+                square.css("background-position-x", "");
+                square.removeClass("pop");
+                localStorage.setItem("368chickenstest", $(".container").html());
+              }, 400);
+            });
+
+            score = Number($("#score").html());
+
+            add = toClear.size;
+            newscore = score - add;
+            $("#score").html(newscore);
+
+            if (newscore < 1) {
+              $("#xpw").removeClass("hidden");
+              // Update level
+              level = level * 2;
+              $(".newlevel").html(level);
+              $("#level").html(level);
+              $("#score").html(0);
+            }
+
+            position = $(".pop").eq(1).offset();
+            $("#points").css("top", position.top).css("left", position.left);
+            $("#points").html("-" + add);
+            $("#points").stop(true, true).fadeIn(100).delay(200).fadeOut(400);
+          }
+          addPiece();
+        },
+      });
+
+      // Game over
+      function gameover() {
+        $("#pieces").addClass("hidden");
+        $("#gameover").removeClass("hidden");
+        localStorage.setItem("368chickenstest", $(".container").html());
+      }
+
+      // Restart game
+      function restart() {
+        $(".attempts").html(Number($(".attempts").html()) + 1);
+        $("#xye").html(0);
+        $("#score").html(level);
+        $(".level").html(level);
+        $("#xpw").addClass("hidden");
+        $(".square").css("background-position-x", "");
+        $(".square").addClass("empty");
+        $("#gameover").addClass("hidden");
+        $("#pieces").removeClass("hidden");
+        addPiece();
+        $("#videoad").removeClass("hidden");
+        show_videoad("368chickens.com_preroll");
+      }
+
+      // Block scroll
+      window.addEventListener("scroll", () => {
+        window.scrollTo(0, 0);
+      });
+
+      // Block double click
+      document.addEventListener(
+        "dblclick",
+        function (e) {
+          e.preventDefault();
+        },
+        { passive: false }
+      );
+
+      // Show modal
+      $(document).on("click", ".togglemodal", function () {
+        $(".modal").toggleClass("hidden");
+      });
+
+      // Unhide after load
+      $(".container").removeClass("hidden");
+
+      // Share functions
+      function shareTwitter() {
+        const text = "I just rescued chickens in 368 Chickens game!";
+        const url = "https://368chickens.com";
+        window.open(
+          `https://twitter.com/intent/tweet?text=${encodeURIComponent(
+            text
+          )}&url=${encodeURIComponent(url)}`,
+          "_blank"
+        );
+      }
+
+      function shareFacebook() {
+        const url = "https://368chickens.com";
+        window.open(
+          `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`,
+          "_blank"
+        );
+      }
+    </script>
+    <script
+      type="text/javascript"
+      async
+      src="https://btloader.com/tag?o=5698917485248512&upapi=true&domain=368chickens.com"
+    ></script>
+    <!-- Raptive Footer Tag Manual -->
+    <script>
+      !(function () {
+        "use strict";
+        var e;
+        (e = document),
+          (function () {
+            var t, n;
+            function r() {
+              var t = e.createElement("script");
+              (t.src = "https://cafemedia-com.videoplayerhub.com/galleryplayer.js"),
+                e.head.appendChild(t);
+            }
+            function a() {
+              var t = e.cookie.match("(^|[^;]+)\s*__adblocker\s*=\s*([^;]+)");
+              return t && t.pop();
+            }
+            function c() {
+              clearInterval(n);
+            }
+            return {
+              init: function () {
+                var e;
+                "true" === (t = a())
+                  ? r()
+                  : ((e = 0),
+                    (n = setInterval(function () {
+                      (100 !== e && "false" !== t) || c(),
+                        "true" === t && (r(), c()),
+                        (t = a()),
+                        e++;
+                    }, 50)));
+              },
+            };
+          })().init();
+      })();
+    </script>
+    <!-- End of Raptive Footer Tag -->
+  </body>
+</html>

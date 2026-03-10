@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Erro | Algo Deu Errado 😢</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --primary: #6BDD12;
+      --primary-light: rgba(107, 221, 18, 0.2);
+      --primary-dark: rgba(85, 180, 10, 1);
+      --purple: rgba(92, 31, 133, 1);
+      --purple-dark: rgba(86, 24, 105, 1);
+      --white: #ffffff;
+    }
+
+    body {
+      background-color: #f0f0f0;
+      background-image: 
+        radial-gradient(circle at 10% 20%, rgba(107, 221, 18, 0.03) 0%, transparent 20%),
+        radial-gradient(circle at 90% 80%, rgba(107, 221, 18, 0.03) 0%, transparent 20%),
+        radial-gradient(circle at 50% 50%, rgba(92, 31, 133, 0.03) 0%, transparent 40%);
+      font-family: 'Poppins', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    .noise {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+      opacity: 0.4;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .error-container {
+      position: relative;
+      width: 100%;
+      max-width: 1000px;
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 20px;
+      z-index: 1;
+    }
+
+    @media (max-width: 900px) {
+      .error-container {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .error-content {
+      background: linear-gradient(135deg, rgba(92, 31, 133, 0.95) 0%, rgba(86, 24, 105, 0.95) 100%);
+      border-radius: 24px;
+      padding: 50px 40px;
+      box-shadow: 
+        0 20px 50px rgba(0, 0, 0, 0.2),
+        0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+
+    .error-visual {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .error-circle {
+      width: 380px;
+      height: 380px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--purple) 0%, var(--purple-dark) 100%);
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 
+        0 20px 60px rgba(0, 0, 0, 0.2),
+        0 0 0 2px rgba(107, 221, 18, 0.3) inset;
+      animation: float 6s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-20px); }
+    }
+
+    .error-code {
+      position: absolute;
+      font-size: 180px;
+      font-weight: 700;
+      color: rgba(255, 255, 255, 0.1);
+      z-index: -1;
+      user-select: none;
+    }
+
+    .error-illustration {
+      width: 200px;
+      height: 200px;
+      position: relative;
+    }
+
+    .error-face {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    /* Novo design de olhos tristes */
+    .error-eyes {
+      display: flex;
+      margin-top: 30px;
+      gap: 50px;
+    }
+
+    .error-eye {
+      position: relative;
+      width: 30px;
+      height: 30px;
+    }
+
+    /* Olhos em formato de > < */
+    .error-eye::before,
+    .error-eye::after {
+      content: '';
+      position: absolute;
+      width: 30px;
+      height: 6px;
+      background-color: var(--primary);
+      border-radius: 3px;
+    }
+
+    .error-eye-left::before {
+      transform: rotate(45deg);
+      top: 12px;
+    }
+
+    .error-eye-left::after {
+      transform: rotate(-45deg);
+      top: 12px;
+    }
+
+    .error-eye-right::before {
+      transform: rotate(-45deg);
+      top: 12px;
+    }
+
+    .error-eye-right::after {
+      transform: rotate(45deg);
+      top: 12px;
+    }
+
+    /* Nova boca triste em formato de arco */
+    .error-mouth {
+      position: relative;
+      width: 100px;
+      height: 60px;
+      margin-top: 30px;
+      overflow: hidden;
+    }
+
+    .error-mouth::before {
+      content: '';
+      position: absolute;
+      width: 100px;
+      height: 100px;
+      border: 8px solid var(--primary);
+      border-radius: 50%;
+      bottom: 40px;
+      box-sizing: border-box;
+    }
+
+    /* Lágrima grande */
+    .error-tear {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background-color: var(--primary);
+      border-radius: 50% 50% 50% 0;
+      transform: rotate(-45deg);
+      top: 80px;
+      left: 50%;
+      margin-left: -10px;
+      animation: tearFall 3s ease-in-out infinite;
+    }
+
+    @keyframes tearFall {
+      0%, 100% { transform: rotate(-45deg) translateY(0); opacity: 0; }
+      20% { opacity: 0.8; }
+      80% { opacity: 0.8; transform: rotate(-45deg) translateY(40px); }
+      100% { opacity: 0; transform: rotate(-45deg) translateY(60px); }
+    }
+
+    .glowing-orbs {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      overflow: hidden;
+      z-index: -1;
+      opacity: 0.6;
+    }
+
+    .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(20px);
+    }
+
+    .orb-1 {
+      width: 150px;
+      height: 150px;
+      background-color: var(--primary-light);
+      top: -50px;
+      left: -50px;
+      animation: orbFloat 15s ease-in-out infinite alternate;
+    }
+
+    .orb-2 {
+      width: 100px;
+      height: 100px;
+      background-color: rgba(255, 255, 255, 0.1);
+      bottom: -30px;
+      right: 10%;
+      animation: orbFloat 12s ease-in-out 1s infinite alternate;
+    }
+
+    .orb-3 {
+      width: 80px;
+      height: 80px;
+      background-color: var(--primary-light);
+      top: 20%;
+      right: -20px;
+      animation: orbFloat 10s ease-in-out 0.5s infinite alternate;
+    }
+
+    @keyframes orbFloat {
+      0% { transform: translate(0, 0) scale(1); }
+      100% { transform: translate(20px, 20px) scale(1.1); }
+    }
+
+    .circuit-lines {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      overflow: hidden;
+      z-index: -1;
+      opacity: 0.15;
+    }
+
+    .circuit-line {
+      position: absolute;
+      background-color: var(--primary);
+    }
+
+    .line-1 {
+      width: 2px;
+      height: 40%;
+      top: 0;
+      left: 20%;
+    }
+
+    .line-2 {
+      width: 30%;
+      height: 2px;
+      top: 40%;
+      left: 20%;
+    }
+
+    .line-3 {
+      width: 2px;
+      height: 30%;
+      top: 40%;
+      left: 50%;
+    }
+
+    .line-4 {
+      width: 40%;
+      height: 2px;
+      top: 70%;
+      left: 50%;
+    }
+
+    .line-5 {
+      width: 2px;
+      height: 20%;
+      top: 70%;
+      left: 90%;
+    }
+
+    .line-dot {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background-color: var(--primary);
+    }
+
+    .dot-1 { top: 40%; left: 20%; transform: translate(-50%, -50%); }
+    .dot-2 { top: 40%; left: 50%; transform: translate(-50%, -50%); }
+    .dot-3 { top: 70%; left: 50%; transform: translate(-50%, -50%); }
+    .dot-4 { top: 70%; left: 90%; transform: translate(-50%, -50%); }
+    .dot-5 { top: 90%; left: 90%; transform: translate(-50%, -50%); }
+
+    h1 {
+      font-size: 3rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 20px;
+      position: relative;
+      z-index: 1;
+    }
+
+    h1 span {
+      color: var(--primary);
+    }
+
+    p {
+      font-size: 1.1rem;
+      color: var(--primary);
+      margin-bottom: 40px;
+      line-height: 1.8;
+      position: relative;
+      z-index: 1;
+      max-width: 500px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--primary);
+      color: var(--purple-dark);
+      font-weight: 600;
+      padding: 16px 32px;
+      border-radius: 50px;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      border: 2px solid var(--primary);
+      font-size: 1.1rem;
+      cursor: pointer;
+      font-family: 'Poppins', sans-serif;
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 0%;
+      height: 100%;
+      background-color: rgba(255, 255, 255, 0.2);
+      transition: width 0.3s ease;
+      z-index: -1;
+    }
+
+    .btn:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 25px rgba(0, 0, 0, 0.3);
+    }
+
+    .btn:hover::before {
+      width: 100%;
+    }
+
+    .btn-icon {
+      margin-right: 10px;
+      display: inline-flex;
+    }
+
+    .btn-icon svg {
+      width: 20px;
+      height: 20px;
+      fill: currentColor;
+    }
+
+    .particles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    .particle {
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      background-color: var(--primary);
+      border-radius: 50%;
+      opacity: 0.3;
+      animation: particleFloat 20s linear infinite;
+    }
+
+    @keyframes particleFloat {
+      0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+      10% { opacity: 0.3; }
+      90% { opacity: 0.3; }
+      100% { transform: translateY(-1000px) rotate(720deg); opacity: 0; }
+    }
+
+    @media (max-width: 1100px) {
+      .error-circle {
+        width: 320px;
+        height: 320px;
+      }
+      
+      .error-code {
+        font-size: 140px;
+      }
+    }
+
+    @media (max-width: 900px) {
+      .error-visual {
+        display: none;
+      }
+      
+      .error-content {
+        text-align: center;
+        align-items: center;
+      }
+      
+      p {
+        margin-left: auto;
+        margin-right: auto;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .error-content {
+        padding: 40px 25px;
+      }
+      
+      h1 {
+        font-size: 2.2rem;
+      }
+      
+      p {
+        font-size: 1rem;
+        margin-bottom: 30px;
+      }
+      
+      .btn {
+        padding: 14px 28px;
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="noise"></div>
+  
+  <div class="particles">
+    <!-- Particles will be added with JavaScript -->
+  </div>
+  
+  <div class="error-container">
+    <div class="error-content">
+      <div class="glowing-orbs">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+      </div>
+      
+      <div class="circuit-lines">
+        <div class="circuit-line line-1"></div>
+        <div class="circuit-line line-2"></div>
+        <div class="circuit-line line-3"></div>
+        <div class="circuit-line line-4"></div>
+        <div class="circuit-line line-5"></div>
+        <div class="line-dot dot-1"></div>
+        <div class="line-dot dot-2"></div>
+        <div class="line-dot dot-3"></div>
+        <div class="line-dot dot-4"></div>
+        <div class="line-dot dot-5"></div>
+      </div>
+      
+      <h1>Oops! <span>Algo deu errado</span> 😢</h1>
+      <p>Seu site está passando por um problema. Por favor, entre em contato com o administrador da hospedagem para resolver esta situação ou tente novamente.</p>
+      
+      <button onclick="window.location.reload()" class="btn">
+        <span class="btn-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/>
+          </svg>
+        </span>
+        Tentar Novamente
+      </button>
+    </div>
+    
+    <div class="error-visual">
+      <div class="error-code">404</div>
+      <div class="error-circle">
+        <div class="error-illustration">
+          <div class="error-face">
+            <div class="error-eyes">
+              <div class="error-eye error-eye-left"></div>
+              <div class="error-eye error-eye-right"></div>
+            </div>
+            <div class="error-mouth"></div>
+            <div class="error-tear"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Create floating particles
+    const particlesContainer = document.querySelector('.particles');
+    const particleCount = 20;
+    
+    for (let i = 0; i < particleCount; i++) {
+      const particle = document.createElement('div');
+      particle.classList.add('particle');
+      
+      // Random position
+      const posX = Math.random() * 100;
+      const posY = Math.random() * 100;
+      particle.style.left = `${posX}%`;
+      particle.style.top = `${posY}%`;
+      
+      // Random size
+      const size = Math.random() * 4 + 2;
+      particle.style.width = `${size}px`;
+      particle.style.height = `${size}px`;
+      
+      // Random animation duration and delay
+      const duration = Math.random() * 10 + 15;
+      const delay = Math.random() * 5;
+      particle.style.animationDuration = `${duration}s`;
+      particle.style.animationDelay = `${delay}s`;
+      
+      particlesContainer.appendChild(particle);
+    }
+  </script>
+</body>
+</html>

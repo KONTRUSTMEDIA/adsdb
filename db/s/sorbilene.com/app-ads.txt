@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SorBilene - Teknik Çözüm Rehberi</title>
+    
+    <meta name="description" content="Teknoloji sorunlarına uzman cevaplar, video rehberler ve forum tartışmaları.">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3089761483765060" crossorigin="anonymous"></script>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root { --primary: #007bff; --success: #28a745; --dark: #1a1a1a; --accent: #ffc107; --glass: rgba(255, 255, 255, 0.9); }
+        body { font-family: 'Poppins', sans-serif; background-color: #f0f2f5; color: #333; overflow-x: hidden; }
+        
+        .navbar { background: var(--dark) !important; padding: 15px 0; border-bottom: 3px solid var(--primary); }
+        .nav-link { font-weight: 600; color: #fff !important; margin-left: 20px; text-transform: uppercase; font-size: 0.9rem; }
+        .nav-link:hover { color: var(--accent) !important; }
+
+        .hero { background: linear-gradient(135deg, #004e92 0%, #000428 100%); color: white; padding: 80px 0; text-align: center; }
+        .hero h1 { font-size: 3.5rem; font-weight: 800; letter-spacing: -1px; margin-bottom: 20px; }
+        
+        /* Arama Kutusu */
+        .search-wrap { max-width: 700px; margin: 0 auto; position: relative; padding: 0 15px; }
+        .search-wrap .form-control { height: 65px; border-radius: 50px; padding: 0 160px 0 35px; border: none; font-size: 1.1rem; box-shadow: 0 15px 35px rgba(0,0,0,0.3); }
+        .search-wrap .btn-search { position: absolute; right: 25px; top: 8px; height: 49px; border-radius: 40px; padding: 0 25px; background: var(--accent); color: var(--dark); font-weight: 700; border: none; }
+
+        /* Başlıklar ve Kartlar */
+        .section-title { font-weight: 800; font-size: 2rem; margin-bottom: 35px; position: relative; display: inline-block; }
+        .title-blog { color: var(--success); } .title-blog::after { content: ''; width: 60px; height: 5px; background: var(--success); position: absolute; bottom: -8px; left: 0; }
+        .title-forum { color: var(--primary); } .title-forum::after { content: ''; width: 60px; height: 5px; background: var(--primary); position: absolute; bottom: -8px; left: 0; }
+        
+        .portal-card { background: #fff; border-radius: 15px; padding: 20px; margin-bottom: 20px; border: 1px solid rgba(0,0,0,0.05); transition: 0.3s; border-right: 5px solid transparent; }
+        .portal-card:hover { transform: translateX(10px); box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
+        .card-blog { border-right-color: var(--success); }
+        .card-forum { border-right-color: var(--primary); }
+
+        /* YouTube Kanal Kartı */
+        .yt-info-card { background: #fff; border-radius: 20px; padding: 30px; border-top: 5px solid #ff0000; box-shadow: 0 10px 25px rgba(0,0,0,0.05); margin-bottom: 40px; }
+
+        /* Belirgin Sosyal Medya İkonları */
+        .footer { background: var(--dark); color: #fff; padding: 60px 0; text-align: center; border-top: 4px solid var(--primary); }
+        .footer-social-wrapper { display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; margin-bottom: 30px; }
+        .footer-social-box { width: 55px; height: 55px; display: flex; align-items: center; justify-content: center; border-radius: 12px; font-size: 1.5rem; color: #fff; transition: 0.3s; text-decoration: none; }
+        .footer-social-box:hover { transform: translateY(-5px); filter: brightness(1.2); }
+        .fb { background: #1877f2; } .ig { background: #e4405f; } .tw { background: #1da1f2; } .th { background: #9146ff; } .wp { background: #25d366; }
+        
+        @media (max-width: 768px) { .hero h1 { font-size: 2.2rem; } .search-wrap .form-control { padding-right: 110px; } .search-wrap .btn-search { padding: 0 15px; } }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.php"><img src="img/logo.png" alt="SorBilene" height="45"></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto text-center">
+                    <li><a class="nav-link" href="index.php">Anasayfa</a></li>
+                    <li><a class="nav-link" href="/blog/">Teknik Blog</a></li>
+                    <li><a class="nav-link" href="/forum/">Topluluk Forumu</a></li>
+                    <li><a class="nav-link" href="contact.php">İletişim</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <div class="container">
+            <h1>Sor Bilene, Bilen Cevaplasın</h1>
+            <div class="search-wrap">
+                <form action="/forum/search.php" method="GET">
+                    <input type="hidden" name="action" value="do_search">
+                    <input type="text" name="keywords" class="form-control" placeholder="Teknik bir sorun veya hata kodu yazın..." required>
+                    <button type="submit" class="btn-search">SOR & ARA</button>
+                </form>
+            </div>
+        </div>
+    </header>
+
+    <main class="container my-5">
+        <div class="row g-5">
+            <div class="col-lg-6">
+                <h2 class="section-title title-blog">En Son Makaleler</h2>
+                                                            <div class="portal-card card-blog">
+                            <a href="/blog/zjiang-zj-5890k-termal-yazici-driver-kurulum-ozellikler-ve-sorun-giderme-rehberi/" class="text-decoration-none text-dark fw-bold text-truncate d-block">Zjiang ZJ-5890K Termal Yazıcı Driver: Kurulum, Özellikler ve Sorun Giderme Rehberi</a>
+                            <div class="mt-2 small text-muted"><i class="far fa-calendar-alt me-1"></i> 07.11.2025</div>
+                        </div>
+                                            <div class="portal-card card-blog">
+                            <a href="/blog/spenta-srp-160p-fis-yazici-surucusu-driver-indir/" class="text-decoration-none text-dark fw-bold text-truncate d-block">SPENTA SRP-160P Fiş Yazıcı Sürücüsü Driver indir</a>
+                            <div class="mt-2 small text-muted"><i class="far fa-calendar-alt me-1"></i> 20.10.2025</div>
+                        </div>
+                                            <div class="portal-card card-blog">
+                            <a href="/blog/kisisel-verin-calindi-mi-have-i-been-pwned-ile-hemen-ogren/" class="text-decoration-none text-dark fw-bold text-truncate d-block">Kişisel Verin Çalındı mı? Have I Been Pwned ile Hemen Öğren!</a>
+                            <div class="mt-2 small text-muted"><i class="far fa-calendar-alt me-1"></i> 05.10.2025</div>
+                        </div>
+                                            <div class="portal-card card-blog">
+                            <a href="/blog/apple-tanilarini-baslatma-macinizde-donanim-testi-nasil-yapilir/" class="text-decoration-none text-dark fw-bold text-truncate d-block">Apple Tanıları'nı Başlatma: Mac’inizde Donanım Testi Nasıl Yapılır?</a>
+                            <div class="mt-2 small text-muted"><i class="far fa-calendar-alt me-1"></i> 07.07.2025</div>
+                        </div>
+                                            <div class="portal-card card-blog">
+                            <a href="/blog/fotograflarda-kirmizi-goz-duzeltme-neden-olusur-ve-nasil-cozulur/" class="text-decoration-none text-dark fw-bold text-truncate d-block">Fotoğraflarda Kırmızı Göz Düzeltme: Neden Oluşur ve Nasıl Çözülür?</a>
+                            <div class="mt-2 small text-muted"><i class="far fa-calendar-alt me-1"></i> 18.03.2025</div>
+                        </div>
+                                            <div class="portal-card card-blog">
+                            <a href="/blog/geleneksel-doga-takvimi-ve-tarimsal-olaylar-tablosu/" class="text-decoration-none text-dark fw-bold text-truncate d-block">Geleneksel Halk, Doğa Takvimi ve Tarımsal Olaylar Tablosu</a>
+                            <div class="mt-2 small text-muted"><i class="far fa-calendar-alt me-1"></i> 27.02.2025</div>
+                        </div>
+                                            <div class="portal-card card-blog">
+                            <a href="/blog/lenovo-laptop-klavye-tuslari-calismiyor-mu-iste-kesin-cozum/" class="text-decoration-none text-dark fw-bold text-truncate d-block">Lenovo Laptop Klavye Tuşları Çalışmıyor mu? İşte Kesin Çözüm!</a>
+                            <div class="mt-2 small text-muted"><i class="far fa-calendar-alt me-1"></i> 12.02.2025</div>
+                        </div>
+                                            <div class="portal-card card-blog">
+                            <a href="/blog/philips-tv-4-basamakli-erisim-pin-kodu-nasil-ayarlanir-ve-degistirilir-adim-adim-rehber/" class="text-decoration-none text-dark fw-bold text-truncate d-block">Philips TV 4 Basamaklı Erişim PIN Kodu Nasıl Ayarlanır ve Değiştirilir? (Adım Adım Rehber)</a>
+                            <div class="mt-2 small text-muted"><i class="far fa-calendar-alt me-1"></i> 09.02.2025</div>
+                        </div>
+                                            <div class="portal-card card-blog">
+                            <a href="/blog/dell-notebook-hata-kodu-3-beyaz-2-amber-led-isik-cozumu/" class="text-decoration-none text-dark fw-bold text-truncate d-block">Dell Notebook Hata Kodu 3 Beyaz, 2 Amber LED Işık Çözümü</a>
+                            <div class="mt-2 small text-muted"><i class="far fa-calendar-alt me-1"></i> 28.01.2025</div>
+                        </div>
+                                            <div class="portal-card card-blog">
+                            <a href="/blog/raw-formatina-donusen-usb-hdd-veri-nasil-kurtarilir/" class="text-decoration-none text-dark fw-bold text-truncate d-block">RAW Formatına Dönüşen USB HDD veri Nasıl Kurtarılır?</a>
+                            <div class="mt-2 small text-muted"><i class="far fa-calendar-alt me-1"></i> 26.01.2025</div>
+                        </div>
+                                            <div class="portal-card card-blog">
+                            <a href="/blog/notebook-hoparlor-cizirtisi-goruntu-gelmeme-ve-led-sorunu/" class="text-decoration-none text-dark fw-bold text-truncate d-block">Notebook hoparlör cızırtısı, görüntü gelmeme ve LED sorunu</a>
+                            <div class="mt-2 small text-muted"><i class="far fa-calendar-alt me-1"></i> 26.01.2025</div>
+                        </div>
+                                            <div class="portal-card card-blog">
+                            <a href="/blog/msi-thin-15-b12ve-windows-kurulumu-hdd-sorunu-cozumu/" class="text-decoration-none text-dark fw-bold text-truncate d-block">MSI Thin 15 B12VE Windows Kurulumu, HDD Sorunu Çözümü</a>
+                            <div class="mt-2 small text-muted"><i class="far fa-calendar-alt me-1"></i> 07.12.2024</div>
+                        </div>
+                                            <div class="portal-card card-blog">
+                            <a href="/blog/msi-notebook-klavye-isigi-nasil-acilir-ve-kapatilir/" class="text-decoration-none text-dark fw-bold text-truncate d-block">MSI Notebook Klavye Işığı Nasıl Açılır ve Kapatılır?</a>
+                            <div class="mt-2 small text-muted"><i class="far fa-calendar-alt me-1"></i> 07.12.2024</div>
+                        </div>
+                                            <div class="portal-card card-blog">
+                            <a href="/blog/telefon-ekrani-bozulduysa-scrcpy-ile-bilgisayar-uzerinden-telefonunuza-erisin-ve-verilerinizi-kurtarin/" class="text-decoration-none text-dark fw-bold text-truncate d-block">Telefon Ekranı Bozulduysa, Scrcpy İle Bilgisayar Üzerinden Telefonunuza Erişin ve Verilerinizi Kurtarın</a>
+                            <div class="mt-2 small text-muted"><i class="far fa-calendar-alt me-1"></i> 17.11.2024</div>
+                        </div>
+                                            <div class="portal-card card-blog">
+                            <a href="/blog/lenovo-default-boot-device-missing-or-boot-failed-error-windows-7-8-10-solution/" class="text-decoration-none text-dark fw-bold text-truncate d-block">Lenovo Default Boot Device Missing or Boot Failed Error  Windows 7 8 10 Solution</a>
+                            <div class="mt-2 small text-muted"><i class="far fa-calendar-alt me-1"></i> 12.11.2024</div>
+                        </div>
+                                                </div>
+
+            <div class="col-lg-6">
+                <h2 class="section-title title-forum">Forumda Son Durum</h2>
+                                                            <div class="portal-card card-forum">
+                            <a href="/forum/showthread.php?tid=2290" class="text-decoration-none text-dark fw-bold text-truncate d-block">1 yıl veya daha uzun süredir kullanılmadığı için kapatılmış cihaz</a>
+                            <div class="mt-2 small text-muted">
+                                <span><i class="far fa-user me-1"></i> samsung</span>
+                                <span class="ms-3"><i class="far fa-comment-dots"></i> 1 Cevap</span>
+                            </div>
+                        </div>
+                                            <div class="portal-card card-forum">
+                            <a href="/forum/showthread.php?tid=1202" class="text-decoration-none text-dark fw-bold text-truncate d-block">Starbucks mağaza sayısı, Türkiye Starbucks şube sayısı 2018</a>
+                            <div class="mt-2 small text-muted">
+                                <span><i class="far fa-user me-1"></i> bilen</span>
+                                <span class="ms-3"><i class="far fa-comment-dots"></i> 1 Cevap</span>
+                            </div>
+                        </div>
+                                            <div class="portal-card card-forum">
+                            <a href="/forum/showthread.php?tid=2165" class="text-decoration-none text-dark fw-bold text-truncate d-block">Laptop Klavye Sıvı Teması ve İkinci El Bilgisayar Alırken Tuş Kontrolü</a>
+                            <div class="mt-2 small text-muted">
+                                <span><i class="far fa-user me-1"></i> sorbilene</span>
+                                <span class="ms-3"><i class="far fa-comment-dots"></i> 1 Cevap</span>
+                            </div>
+                        </div>
+                                            <div class="portal-card card-forum">
+                            <a href="/forum/showthread.php?tid=1348" class="text-decoration-none text-dark fw-bold text-truncate d-block">Belediye Başkanı Maaşı Ne Kadar? (2026) Belediye başkanları ne kadar maaş alıyor</a>
+                            <div class="mt-2 small text-muted">
+                                <span><i class="far fa-user me-1"></i> bilen</span>
+                                <span class="ms-3"><i class="far fa-comment-dots"></i> 1 Cevap</span>
+                            </div>
+                        </div>
+                                            <div class="portal-card card-forum">
+                            <a href="/forum/showthread.php?tid=2289" class="text-decoration-none text-dark fw-bold text-truncate d-block">Batarya Alırken Volt (V) ve Amper (mAh) Farklılığı Sorun Olur mu?</a>
+                            <div class="mt-2 small text-muted">
+                                <span><i class="far fa-user me-1"></i> thepatriot</span>
+                                <span class="ms-3"><i class="far fa-comment-dots"></i> 0 Cevap</span>
+                            </div>
+                        </div>
+                                            <div class="portal-card card-forum">
+                            <a href="/forum/showthread.php?tid=2288" class="text-decoration-none text-dark fw-bold text-truncate d-block">Hometech Tablet ve Notebook’lara Windows 10 Format Sonrası Driver Yükleme</a>
+                            <div class="mt-2 small text-muted">
+                                <span><i class="far fa-user me-1"></i> babacan</span>
+                                <span class="ms-3"><i class="far fa-comment-dots"></i> 0 Cevap</span>
+                            </div>
+                        </div>
+                                            <div class="portal-card card-forum">
+                            <a href="/forum/showthread.php?tid=517" class="text-decoration-none text-dark fw-bold text-truncate d-block">Opel Corsa Lastik hava basıncı nasıl olmalı, numarası ne, değeri nedir, Nasıl yapılma</a>
+                            <div class="mt-2 small text-muted">
+                                <span><i class="far fa-user me-1"></i> thepatriot</span>
+                                <span class="ms-3"><i class="far fa-comment-dots"></i> 1 Cevap</span>
+                            </div>
+                        </div>
+                                            <div class="portal-card card-forum">
+                            <a href="/forum/showthread.php?tid=2284" class="text-decoration-none text-dark fw-bold text-truncate d-block">Dell Inspiron 5559 BIOS güncellemesi anakart numarası değiştirir mi?</a>
+                            <div class="mt-2 small text-muted">
+                                <span><i class="far fa-user me-1"></i> Magenta</span>
+                                <span class="ms-3"><i class="far fa-comment-dots"></i> 1 Cevap</span>
+                            </div>
+                        </div>
+                                            <div class="portal-card card-forum">
+                            <a href="/forum/showthread.php?tid=2285" class="text-decoration-none text-dark fw-bold text-truncate d-block">Türk Telekom OptiXstar LG8245X6 modem kurulumu sorunu</a>
+                            <div class="mt-2 small text-muted">
+                                <span><i class="far fa-user me-1"></i> Magenta</span>
+                                <span class="ms-3"><i class="far fa-comment-dots"></i> 1 Cevap</span>
+                            </div>
+                        </div>
+                                            <div class="portal-card card-forum">
+                            <a href="/forum/showthread.php?tid=2286" class="text-decoration-none text-dark fw-bold text-truncate d-block">Vestel V Tab 1041 için Rufus MBR mi GPT mi?</a>
+                            <div class="mt-2 small text-muted">
+                                <span><i class="far fa-user me-1"></i> Magenta</span>
+                                <span class="ms-3"><i class="far fa-comment-dots"></i> 1 Cevap</span>
+                            </div>
+                        </div>
+                                            <div class="portal-card card-forum">
+                            <a href="/forum/showthread.php?tid=2287" class="text-decoration-none text-dark fw-bold text-truncate d-block">Windows 10/11 açılışta işletim sistemi seçme sorunu</a>
+                            <div class="mt-2 small text-muted">
+                                <span><i class="far fa-user me-1"></i> Magenta</span>
+                                <span class="ms-3"><i class="far fa-comment-dots"></i> 1 Cevap</span>
+                            </div>
+                        </div>
+                                            <div class="portal-card card-forum">
+                            <a href="/forum/showthread.php?tid=2271" class="text-decoration-none text-dark fw-bold text-truncate d-block">Samsung Galaxy Tab E Sıfırlama Sonrası Google ve Samsung Hesabına Giriş Sorunu</a>
+                            <div class="mt-2 small text-muted">
+                                <span><i class="far fa-user me-1"></i> Magenta</span>
+                                <span class="ms-3"><i class="far fa-comment-dots"></i> 1 Cevap</span>
+                            </div>
+                        </div>
+                                            <div class="portal-card card-forum">
+                            <a href="/forum/showthread.php?tid=2272" class="text-decoration-none text-dark fw-bold text-truncate d-block">TP-Link TL-WA830RE Range Extender ile Masaüstü PC’ye Kabloyla İnternet Verilir mi?</a>
+                            <div class="mt-2 small text-muted">
+                                <span><i class="far fa-user me-1"></i> Magenta</span>
+                                <span class="ms-3"><i class="far fa-comment-dots"></i> 1 Cevap</span>
+                            </div>
+                        </div>
+                                            <div class="portal-card card-forum">
+                            <a href="/forum/showthread.php?tid=2273" class="text-decoration-none text-dark fw-bold text-truncate d-block">ASUS Armoury Crate Kaldırılamıyor: AsusDownLoadLicense Açılıyor ve Kurulumda Taklıyr</a>
+                            <div class="mt-2 small text-muted">
+                                <span><i class="far fa-user me-1"></i> Magenta</span>
+                                <span class="ms-3"><i class="far fa-comment-dots"></i> 1 Cevap</span>
+                            </div>
+                        </div>
+                                            <div class="portal-card card-forum">
+                            <a href="/forum/showthread.php?tid=2274" class="text-decoration-none text-dark fw-bold text-truncate d-block">Gmail Depolama Alanı Dolu, Şifre Unutuldu ve Kod Gelmiyor (2 Adımlı Doğrulama)</a>
+                            <div class="mt-2 small text-muted">
+                                <span><i class="far fa-user me-1"></i> Magenta</span>
+                                <span class="ms-3"><i class="far fa-comment-dots"></i> 1 Cevap</span>
+                            </div>
+                        </div>
+                                                </div>
+        </div>
+
+        <section class="mt-5 pt-5 border-top">
+            <div class="yt-info-card">
+                <div class="row align-items-center text-center text-md-start">
+                    <div class="col-md-8">
+                        <h3 class="fw-bold"><i class="fab fa-youtube text-danger me-2"></i> SorBilene Video Eğitim Kanalı</h3>
+                        <p class="text-muted mb-0">Teknik konular ve sorun giderme videoları için kanalımıza abone olun.</p>
+                    </div>
+                    <div class="col-md-4 text-md-end mt-3 mt-md-0">
+                        <a href="https://www.youtube.com/channel/UCGGVnF_llEN0oaaHmTcTL7w?sub_confirmation=1" target="_blank" rel="noopener noreferrer" class="btn btn-danger btn-lg rounded-pill px-4">ABONE OL</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row g-4 mt-2">
+                                                            <div class="col-md-4">
+                            <div class="ratio ratio-16x9 rounded-4 shadow-sm overflow-hidden bg-black">
+                                <iframe src="https://www.youtube.com/embed/g_Sx02uJtmM" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                            </div>
+                            <p class="mt-2 text-center small fw-bold px-2">HP LaserJet P1102, P1005, 1020 Drivers for macOS Sequoia, Tahoe, Sonoma, Ventura How to Install</p>
+                        </div>
+                                            <div class="col-md-4">
+                            <div class="ratio ratio-16x9 rounded-4 shadow-sm overflow-hidden bg-black">
+                                <iframe src="https://www.youtube.com/embed/e2RiuGUJ1QM" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                            </div>
+                            <p class="mt-2 text-center small fw-bold px-2">Monster Notebook Ekran Bozuldu! İşte Driver ile Kesin Çözüm 💻 (Titreme, Çizgi, Renk Sorunu)</p>
+                        </div>
+                                            <div class="col-md-4">
+                            <div class="ratio ratio-16x9 rounded-4 shadow-sm overflow-hidden bg-black">
+                                <iframe src="https://www.youtube.com/embed/xjZ0gowJNNk" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                            </div>
+                            <p class="mt-2 text-center small fw-bold px-2">Razer Viper V2 Pro Orta Tuş Arızası Çözümü 🔧 | Fare Orta Tuş Çalışmıyor Sorunu %100 Tamir</p>
+                        </div>
+                                            <div class="col-md-4">
+                            <div class="ratio ratio-16x9 rounded-4 shadow-sm overflow-hidden bg-black">
+                                <iframe src="https://www.youtube.com/embed/3fdQX3OamrM" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                            </div>
+                            <p class="mt-2 text-center small fw-bold px-2">Windows 11 Bluetooth Simgesi Gözükmüyor? Bluetooth simgesi kaybolduysa bunu yap! #windows #hp</p>
+                        </div>
+                                            <div class="col-md-4">
+                            <div class="ratio ratio-16x9 rounded-4 shadow-sm overflow-hidden bg-black">
+                                <iframe src="https://www.youtube.com/embed/DtjubiGshSk" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                            </div>
+                            <p class="mt-2 text-center small fw-bold px-2">Windows 11 Kamera Tuşu Çalışmıyor! Klavye Kamera Düğmesi Sürekli Kapalı Sorunu Çözüldü</p>
+                        </div>
+                                            <div class="col-md-4">
+                            <div class="ratio ratio-16x9 rounded-4 shadow-sm overflow-hidden bg-black">
+                                <iframe src="https://www.youtube.com/embed/H28nwJcmySk" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                            </div>
+                            <p class="mt-2 text-center small fw-bold px-2">ASUS Laptop Klavyede Bazı Tuşlar Çalışıyor Bazıları Çalışmıyor Sorunu | Kesin Çözüm!</p>
+                        </div>
+                                                </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-social-wrapper">
+                <a href="https://www.facebook.com/bilenesor" target="_blank" rel="noopener noreferrer" class="footer-social-box fb" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://www.instagram.com/soorbilene" target="_blank" rel="noopener noreferrer" class="footer-social-box ig" title="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="https://twitter.com/sorbilenebilen" target="_blank" rel="noopener noreferrer" class="footer-social-box tw" title="X (Twitter)"><i class="fab fa-x-twitter"></i></a>
+                <a href="https://www.twitch.tv/sorbilenee" target="_blank" rel="noopener noreferrer" class="footer-social-box th" title="Twitch"><i class="fab fa-twitch"></i></a>
+                <a href="https://www.whatsapp.com/channel/0029VaBNo3R1dAw0TkMEPK3l" target="_blank" rel="noopener noreferrer" class="footer-social-box wp" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+            </div>
+            
+            <p class="mb-1">© 2026 <strong>SorBilene</strong>. Tüm Hakları Saklıdır.</p>
+            <div class="small opacity-50">
+                <a href="/blog/gizlilik-politikasi/" class="text-white text-decoration-none">Gizlilik Politikası</a> | 
+                <a href="contact.php" class="text-white text-decoration-none">Destek</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

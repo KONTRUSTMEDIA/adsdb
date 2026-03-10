@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="efficiency" ng-strict-di>
+  <head>
+    <!-- Title & Metadata-->
+    <meta charset="utf-8" />
+    <title>gw2efficiency</title>
+    <meta
+      name="description"
+      content="gw2efficiency is your helpful companion for everything Guild Wars 2 related."
+    />
+    <meta name="robots" content="follow, index, all" />
+    <base href="/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+
+    <!-- Favicon icons -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16" />
+    <link rel="manifest" href="/manifest.json" />
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#ae6559" />
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <meta name="apple-mobile-web-app-title" content="gw2efficiency" />
+    <meta name="application-name" content="gw2efficiency" />
+    <meta name="theme-color" content="#ae6559" />
+
+    <!-- Opensearch -->
+    <link
+      rel="search"
+      href="/opensearch.xml"
+      type="application/opensearchdescription+xml"
+      title="gw2efficiency"
+    />
+
+    <!-- Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css?family=PT+Serif:400,700|Open+Sans:300,400,600,700"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link
+      href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="/framework.css?cb=1771453437" />
+    <link rel="stylesheet" href="/legacy-styles.css?cb=1771453437" />
+
+    <!-- Scripts -->
+    <script src="https://cdn.ravenjs.com/3.26.4/raven.min.js" crossorigin="anonymous"></script>
+    <script src="/scripts/application.js?cb=1771453437" type="text/javascript"></script>
+    <script data-cfasync="false">
+      window.nitroAds = window.nitroAds || {
+        createAd: function () {
+          return new Promise((e) => {
+            window.nitroAds.queue.push(['createAd', arguments, e])
+          })
+        },
+        addUserToken: function () {
+          window.nitroAds.queue.push(['addUserToken', arguments])
+        },
+        queue: [],
+      }
+    </script>
+  </head>
+  <body id="body">
+    <expansion-countdown></expansion-countdown>
+    <no-email-warning></no-email-warning>
+
+    <!-- <div
+      class="eff-html eff-Alert eff-Alert--danger eff-text-align-center eff-margin-bottom-l noNightmode"
+      style="background-color: #d94130 !important; font-size: 80px !important"
+    >
+      The official Guild Wars 2 API will be disabled from October 24 - 30 to avoid spoilers.<br />
+      This means most pages on gw2efficiency won't load during this period.
+    </div> -->
+
+    <!-- <div
+      class="eff-html eff-Alert eff-Alert--danger eff-text-align-center eff-margin-bottom-l noNightmode"
+      style="background-color: #dc6200 !important; font-size: 32px"
+    >
+      The official Guild Wars 2 API is currently experiencing issues.<br />
+      If you are seeing errors or things are not loading, there is nothing we can do about it on our
+      end.
+    </div> -->
+
+    <div class="Layout--body" ng-controller="GlobalController">
+      <div
+        class="eff-html eff-padding-all-m eff-text-align-center eff-margin-bottom-l noNightmode"
+        style="background-color: #d4b1ae !important"
+        ng-show="isFirstOfApril"
+        ng-cloak
+      >
+        <strong>Tired of the 1% telling you how to play the game?</strong>
+        <br class="eff-phone-display-none" />
+        Try our new, exclusive
+        <a href="/rain-pidgeons-builds" class="eff-color-black">builds page</a> with never seen
+        before builds!
+      </div>
+
+      <!-- Side Ads -->
+      <div class="adv3rtisement-container-side-left-l"></div>
+      <div class="adv3rtisement-container-side-left-m"></div>
+      <div class="adv3rtisement-container-side-right-l"></div>
+      <div class="adv3rtisement-container-side-right-m"></div>
+
+      <!-- Content -->
+      <div class="Layout--content">
+        <div class="content-wrapper">
+          <!-- Header-->
+          <header class="header-wrapper">
+            <!-- Logo -->
+            <a href="/" class="logo">
+              <img src="/assets/logo.png" class="logo__image" style="max-width: 627px" />
+            </a>
+
+            <!-- Translation toggle -->
+            <div class="language-chooser">
+              <a
+                ng-click="setApplicationLanguage('en')"
+                ng-class="{'active': getApplicationLanguage() == 'en'}"
+              >
+                <i class="sprite-english-flag"></i>
+              </a>
+              <a
+                ng-click="setApplicationLanguage('de')"
+                ng-class="{'active': getApplicationLanguage() == 'de'}"
+              >
+                <i class="sprite-german-flag"></i>
+              </a>
+              <a
+                ng-click="setApplicationLanguage('fr')"
+                ng-class="{'active': getApplicationLanguage() == 'fr'}"
+              >
+                <i class="sprite-french-flag"></i>
+              </a>
+              <a
+                ng-click="setApplicationLanguage('es')"
+                ng-class="{'active': getApplicationLanguage() == 'es'}"
+              >
+                <i class="sprite-spanish-flag"></i>
+              </a>
+            </div>
+
+            <div class="user-container" ng-class="{'user-container--visible': showUserContainer}">
+              <!-- Translation toggle - Mobile -->
+              <div class="language-chooser language-chooser--mobile" ng-show="showUserContainer">
+                <a
+                  ng-click="setApplicationLanguage('en'); showUserContainer = false;"
+                  ng-class="{'active': getApplicationLanguage() == 'en'}"
+                >
+                  <i class="sprite-english-flag"></i>
+                </a>
+                <a
+                  ng-click="setApplicationLanguage('de'); showUserContainer = false;"
+                  ng-class="{'active': getApplicationLanguage() == 'de'}"
+                >
+                  <i class="sprite-german-flag"></i>
+                </a>
+                <a
+                  ng-click="setApplicationLanguage('fr'); showUserContainer = false;"
+                  ng-class="{'active': getApplicationLanguage() == 'fr'}"
+                >
+                  <i class="sprite-french-flag"></i>
+                </a>
+                <a
+                  ng-click="setApplicationLanguage('es'); showUserContainer = false;"
+                  ng-class="{'active': getApplicationLanguage() == 'es'}"
+                >
+                  <i class="sprite-spanish-flag"></i>
+                </a>
+              </div>
+
+              <!-- Logged in user account -->
+              <div class="user" ng-cloak ng-hide="location.path() == '/' || user === false">
+                <div class="username-wrapper">
+                  <span class="nightmode-toggle noNightmode">
+                    <span
+                      ng-show="isFirstOfApril"
+                      ng-click="changeDiscoMode()"
+                      style="display: inline-flex; margin-right: 10px; position: relative; top: 2px"
+                    >
+                      <img src="/assets/disco.gif" />
+                    </span>
+
+                    <!-- <a
+                      href="https://events.gw2efficiency.com"
+                      target="_blank"
+                      style="
+                        display: inline-flex;
+                        margin-right: 10px;
+                        position: relative;
+                        top: 3px;
+                        text-decoration: none;
+                        text-shadow: none;
+                        background-image: none;
+                      "
+                    >
+                      <img src="/assets/snowflake.png" width="18" />
+                    </a> -->
+
+                    <span ng-show="!nightmodeActive" ng-click="changeNightMode(true)">
+                      <i class="sprite-nightmode-on"></i>
+                    </span>
+                    <span ng-show="nightmodeActive" ng-click="changeNightMode(false)">
+                      <i class="sprite-nightmode-off"></i>
+                    </span>
+                  </span>
+
+                  <span ng-click="showUserContainer = !showUserContainer">
+                    {{ user.name }}
+                    <i
+                      class="user-container__toggle__icon--open fa fa-sort-desc"
+                      ng-hide="showUserContainer"
+                    ></i>
+                    <i
+                      class="user-container__toggle__icon--close fa fa-sort-asc"
+                      ng-show="showUserContainer"
+                    ></i>
+                  </span>
+                </div>
+
+                <div class="user-container__show-on-desktop" ng-show="showUserContainer">
+                  <a
+                    href="/supporter-benefits"
+                    class="support-us-shimmer"
+                    ng-click="showUserContainer = false;"
+                    onclick="analyticsEvent({ event: 'visit_supporter_benefits', event_position: 'General_Header'})"
+                    translate
+                  >
+                    Support us
+                  </a>
+                  <span class="placeholder light"> | </span>
+                  <a href="/frequently-asked-questions" translate>FAQ</a>
+                  <span class="placeholder light"> | </span>
+                  <a href="/user/api-keys" ng-click="showUserContainer = false" translate
+                    >API Keys</a
+                  >
+                  <span class="placeholder light"> | </span>
+                  <a href="/user" ng-click="showUserContainer = false" translate>Account</a>
+                  <span class="placeholder light"> | </span>
+                  <a ng-click="logout(); showUserContainer = false" translate>Logout</a>
+                </div>
+
+                <div ng-show="accounts.length > 1">
+                  <div
+                    class="user-container__show-on-desktop api-key-toggle"
+                    ng-show="showUserContainer"
+                  >
+                    <span translate>Account</span>:
+                    <select ng-model="current_account">
+                      <option ng-repeat="account in accounts" value="{{ account.key }}">
+                        {{ account.name }}
+                      </option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Logged out user login -->
+              <div ng-cloak ng-hide="user !== false" class="user">
+                <div class="username-wrapper">
+                  <span class="nightmode-toggle noNightmode">
+                    <span
+                      ng-show="isFirstOfApril"
+                      ng-click="changeDiscoMode()"
+                      style="display: inline-flex; margin-right: 10px; position: relative; top: 2px"
+                    >
+                      <img src="/assets/disco.gif" />
+                    </span>
+
+                    <a
+                      href="https://events.gw2efficiency.com"
+                      target="_blank"
+                      style="
+                        display: inline-flex;
+                        margin-right: 10px;
+                        position: relative;
+                        top: 3px;
+                        text-decoration: none;
+                        text-shadow: none;
+                        background-image: none;
+                      "
+                    >
+                      <img src="/assets/snowflake.png" width="18" />
+                    </a>
+
+                    <span ng-show="!nightmodeActive" ng-click="changeNightMode(true)">
+                      <i class="sprite-nightmode-on"></i>
+                    </span>
+                    <span ng-show="nightmodeActive" ng-click="changeNightMode(false)">
+                      <i class="sprite-nightmode-off"></i>
+                    </span>
+                  </span>
+
+                  <span ng-click="showUserContainer = !showUserContainer">
+                    <span translate>Login</span>
+                    <i
+                      class="user-container__toggle__icon--open fa fa-sort-desc"
+                      ng-hide="showUserContainer"
+                    ></i>
+                    <i
+                      class="user-container__toggle__icon--close fa fa-sort-asc"
+                      ng-show="showUserContainer"
+                    ></i>
+                  </span>
+                </div>
+
+                <div class="user-container__show-on-desktop" ng-show="showUserContainer">
+                  <a
+                    href="/supporter-benefits"
+                    class="support-us-shimmer"
+                    ng-click="showUserContainer = false;"
+                    onclick="analyticsEvent({ event: 'visit_supporter_benefits', event_position: 'General_Header'})"
+                    translate
+                  >
+                    Support us
+                  </a>
+                  <span class="placeholder light"> | </span>
+                  <a href="/frequently-asked-questions" translate>FAQ</a>
+                  <span class="placeholder light"> | </span>
+                  <a href="/user/api-keys" ng-click="showUserContainer = false" translate
+                    >API Keys</a
+                  >
+                  <span class="placeholder light"> | </span>
+                  <a href="/" ng-click="showUserContainer = false" translate>Login</a>
+                </div>
+
+                <div ng-show="accounts.length > 1">
+                  <div
+                    class="user-container__show-on-desktop api-key-toggle"
+                    ng-show="showUserContainer"
+                  >
+                    <span translate>Account</span>:
+                    <select ng-model="current_account">
+                      <option ng-repeat="account in accounts" value="{{ account.key }}">
+                        {{ account.name }}
+                      </option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div style="border-top: 2px solid #f2f2f2"></div>
+          </header>
+
+          <!-- Navigation -->
+          <nav class="navigation-container" ng-controller="NavigationController">
+            <div class="breakpoint-indicator"></div>
+
+            <button class="toggle">Navigation</button>
+
+            <div
+              class="navigation-inner"
+              ng-class="{
+                    'no-subnavigation': isSelected([{path: '/worldbosses'}, {path: '/daily'}, {path: '/user'}, {path: '/dungeons'}, {path: '/gathering'}, {path: '/', strict: true}, {path: '/password/remind'}, {path: '/password/reset'}, {path: '/legal-notice'}, {path: '/community'}, {path: '/supporter-benefits'}, {path: '/holiday-calendar'}]),
+                    'account-subnavigation': isSelected([{path: '/account'}]) && !isSelected('/account/statistics') && !isSelected('/account/unlock-statistics') && !isSelected('/account/player-statistics') && !isSelected('/account/skin-statistics')
+                }"
+            >
+              <button class="close-toggle">Close</button>
+
+              <ul class="navigation" ng-hide="location.path() == '/'">
+                <li class="no-subnavigation" ng-class="{'active': isSelected('/daily')}">
+                  <a href="/daily" ng-click="firstHandler($event)"
+                    ><i class="sprite-navigation-daily"></i> <span translate>Daily</span></a
+                  >
+                </li>
+
+                <li
+                  ng-class="{'active': isSelected('/account') && !isSelected('/account/statistics') && !isSelected('/account/unlock-statistics') && !isSelected('/account/player-statistics') && !isSelected('/account/skin-statistics')}"
+                >
+                  <a href="/account/overview" ng-click="firstHandler($event)"
+                    ><i class="sprite-navigation-account"></i> <span translate>Account</span></a
+                  >
+
+                  <ul class="second-level">
+                    <li ng-class="{'active': isSelected('/account/overview')}">
+                      <a href="/account/overview" ng-click="secondHandler()"
+                        ><i class="sprite-account-overview"></i> <span translate>Overview</span></a
+                      >
+                    </li>
+                    <li ng-class="{'active': isSelected('/account/character')}">
+                      <a href="/account/characters" ng-click="secondHandler()"
+                        ><i class="sprite-account-characters"></i>
+                        <span translate>Characters</span></a
+                      >
+                    </li>
+                    <li ng-class="{'active': isSelected('/account/guild')}">
+                      <a href="/account/guilds" ng-click="secondHandler()"
+                        ><i class="sprite-account-guild"></i> <span translate>Guilds</span></a
+                      >
+                    </li>
+                    <li ng-class="{'active': isSelected('/account/pvp', true)}">
+                      <a href="/account/pvp" ng-click="secondHandler()"
+                        ><i class="sprite-account-pvp"></i> <span translate>PvP</span></a
+                      >
+                    </li>
+                    <li ng-class="{'active': isSelected('/account/achievements')}">
+                      <a href="/account/achievements" ng-click="secondHandler()"
+                        ><i class="sprite-account-achievements"></i>
+                        <span translate>Achievements</span></a
+                      >
+                    </li>
+                    <li ng-class="{'active': isSelected('/account/sab')}" ng-show="shouldShowSab()">
+                      <a href="/account/sab" ng-click="secondHandler()"
+                        ><i class="sprite-account-sab"></i> <span translate>SAB</span></a
+                      >
+                    </li>
+                    <li ng-class="{'active': isSelected('/account/farming-tracker')}">
+                      <a href="/account/farming-tracker" ng-click="secondHandler()"
+                        ><i class="sprite-account-farming-tracker"></i>
+                        <span translate>Farming</span></a
+                      >
+                    </li>
+                    <li ng-class="{'active': isSelected('/account/time-machine')}">
+                      <a href="/account/time-machine" ng-click="secondHandler()"
+                        ><i class="sprite-account-time-machine"></i>
+                        <span translate>Time Machine</span></a
+                      >
+                    </li>
+                    <li ng-class="{'active': isSelected('/account/wallet')}">
+                      <a href="/account/wallet" ng-click="secondHandler()"
+                        ><i class="sprite-account-wallet"></i> <span translate>Wallet</span></a
+                      >
+                    </li>
+                    <li ng-class="{'active': isSelected('/account/bank')}">
+                      <a href="/account/bank" ng-click="secondHandler()"
+                        ><i class="sprite-account-bank"></i> <span translate>Bank</span></a
+                      >
+                    </li>
+                    <li ng-class="{'active': isSelected('/account/materials')}">
+                      <a href="/account/materials" ng-click="secondHandler()"
+                        ><i class="sprite-account-materials"></i>
+                        <span translate>Material Storage</span></a
+                      >
+                    </li>
+                    <li ng-class="{'active': isSelected('/account/shared-inventory')}">
+                      <a href="/account/shared-inventory" ng-click="secondHandler()"
+                        ><i class="sprite-account-shared-inventory"></i>
+                        <span translate>Shared Inventory</span></a
+                      >
+                    </li>
+                    <li ng-class="{'active': isSelected('/account/wardrobe')}">
+                      <a href="/account/wardrobe" ng-click="secondHandler()"
+                        ><i class="sprite-account-wardrobe"></i> <span translate>Wardrobe</span></a
+                      >
+                    </li>
+                    <li ng-class="{'active': isSelected('/account/miniatures')}">
+                      <a href="/account/miniatures" ng-click="secondHandler()"
+                        ><i class="sprite-account-miniatures"></i>
+                        <span translate>Miniatures</span></a
+                      >
+                    </li>
+                    <li ng-class="{'active': isSelected('/account/mounts')}">
+                      <a href="/account/mounts" ng-click="secondHandler()"
+                        ><i class="sprite-account-mounts"></i> <span translate>Mounts</span></a
+                      >
+                    </li>
+                    <li ng-class="{'active': isSelected('/account/dyes')}">
+                      <a href="/account/dyes" ng-click="secondHandler()"
+                        ><i class="sprite-account-dyes"></i> <span translate>Dyes</span></a
+                      >
+                    </li>
+                    <li ng-class="{'active': isSelected('/account/recipes')}">
+                      <a href="/account/recipes" ng-click="secondHandler()"
+                        ><i class="sprite-crafting-recipes"></i> <span translate>Recipes</span></a
+                      >
+                    </li>
+                    <li ng-class="{'active': isSelected('/account/pvp-heroes')}">
+                      <a href="/account/pvp-heroes" ng-click="secondHandler()"
+                        ><i class="sprite-pvp-heroes"></i> <span translate>PvP Heroes</span></a
+                      >
+                    </li>
+                    <li ng-class="{'active': isSelected('/account/mailcarriers')}">
+                      <a href="/account/mailcarriers" ng-click="secondHandler()"
+                        ><i class="sprite-mailcarriers"></i> <span translate>Mailcarriers</span></a
+                      >
+                    </li>
+                    <li ng-class="{'active': isSelected('/account/outfits')}">
+                      <a href="/account/outfits" ng-click="secondHandler()"
+                        ><i class="sprite-outfits"></i> <span translate>Outfits</span></a
+                      >
+                    </li>
+                    <li ng-class="{'active': isSelected('/account/finishers')}">
+                      <a href="/account/finishers" ng-click="secondHandler()"
+                        ><i class="sprite-finishers"></i> <span translate>Finishers</span></a
+                      >
+                    </li>
+                    <li ng-class="{'active': isSelected('/account/homestead')}">
+                      <a href="/account/homestead" ng-click="secondHandler()"
+                        ><i class="sprite-homestead"></i> <span translate>Homestead</span></a
+                      >
+                    </li>
+                    <li ng-class="{'active': isSelected('/account/gliders')}">
+                      <a href="/account/gliders" ng-click="secondHandler()"
+                        ><i class="sprite-gliders"></i> <span translate>Gliders</span></a
+                      >
+                    </li>
+                    <li ng-class="{'active': isSelected('/account/novelties')}">
+                      <a href="/account/novelties" ng-click="secondHandler()"
+                        ><i class="sprite-novelties"></i> <span translate>Novelties</span></a
+                      >
+                    </li>
+                    <li ng-class="{'active': isSelected('/account/skiffs')}">
+                      <a href="/account/skiffs" ng-click="secondHandler()"
+                        ><i class="sprite-skiffs"></i> <span translate>Skiffs</span></a
+                      >
+                    </li>
+                    <li ng-class="{'active': isSelected('/account/emotes')}">
+                      <a href="/account/emotes" ng-click="secondHandler()"
+                        ><i class="sprite-emotes"></i> <span translate>Emotes</span></a
+                      >
+                    </li>
+                    <li ng-class="{'active': isSelected('/account/jadebots')}">
+                      <a href="/account/jadebots" ng-click="secondHandler()"
+                        ><i class="sprite-jadebots"></i> <span translate>Jadebots</span></a
+                      >
+                    </li>
+                    <li ng-class="{'active': isSelected('/account/fishing')}">
+                      <a href="/account/fishing" ng-click="secondHandler()"
+                        ><i class="sprite-fishing"></i> <span translate>Fishing</span></a
+                      >
+                    </li>
+                    <li ng-class="{'active': isSelected('/account/gemstore-upgrades')}">
+                      <a href="/account/gemstore-upgrades" ng-click="secondHandler()"
+                        ><i class="sprite-upgrades"></i> <span translate>Upgrades</span></a
+                      >
+                    </li>
+                    <li ng-class="{'active': isSelected('/account/legendary-armory')}">
+                      <a href="/account/legendary-armory" ng-click="secondHandler()"
+                        ><i class="sprite-account-legendary-armory"></i>
+                        <span translate>Legendary Armory</span></a
+                      >
+                    </li>
+                  </ul>
+                </li>
+
+                <li
+                  ng-class="{'active': isSelected('/account/statistics') || isSelected('/account/unlock-statistics') || isSelected('/account/player-statistics') || isSelected('/account/skin-statistics')}"
+                >
+                  <a href="/account/statistics" ng-click="firstHandler($event)"
+                    ><i class="sprite-navigation-statistics"></i> <span translate>Stats</span></a
+                  >
+
+                  <ul class="second-level">
+                    <li ng-class="{'active': isSelected('/account/statistics')}">
+                      <a href="/account/statistics" ng-click="secondHandler()"
+                        ><i class="sprite-account-overview"></i>
+                        <span translate>Account Statistics</span></a
+                      >
+                    </li>
+                    <li ng-class="{'active': isSelected('/account/unlock-statistics')}">
+                      <a href="/account/unlock-statistics" ng-click="secondHandler()"
+                        ><i class="sprite-account-wardrobe"></i>
+                        <span translate>Unlock Statistics</span></a
+                      >
+                    </li>
+                    <li ng-class="{'active': isSelected('/account/player-statistics')}">
+                      <a href="/account/player-statistics" ng-click="secondHandler()"
+                        ><i class="sprite-account-characters"></i>
+                        <span translate>Player Statistics</span></a
+                      >
+                    </li>
+                    <li
+                      class="eff-display-none"
+                      ng-class="{'active': isSelected('/account/skin-statistics')}"
+                    >
+                      <a href="/account/skin-statistics" ng-click="secondHandler()"
+                        ><i class="sprite-account-wardrobe"></i>
+                        <span translate>Skin Statistics</span></a
+                      >
+                    </li>
+                  </ul>
+                </li>
+
+                <li ng-class="{'active': isSelected('/currencies')}">
+                  <a href="/currencies/dungeon-tokens" ng-click="firstHandler($event)"
+                    ><i class="sprite-navigation-currencies"></i> <span translate>Currency</span></a
+                  >
+
+                  <ul class="second-level">
+                    <li ng-class="{'active': isSelected('/currencies/dungeon-tokens')}">
+                      <a href="/currencies/dungeon-tokens" ng-click="secondHandler()"
+                        ><i class="sprite-crucible-of-eternity"></i>
+                        <span translate>Dungeon Delving</span></a
+                      >
+                    </li>
+                    <li ng-class="{'active': isSelected('/currencies/spirit-shards')}">
+                      <a href="/currencies/spirit-shards" ng-click="secondHandler()"
+                        ><i class="sprite-spirit-shard"></i> <span translate>Spirit Shards</span></a
+                      >
+                    </li>
+                    <li ng-class="{'active': isSelected('/currencies/karma')}">
+                      <a href="/currencies/karma" ng-click="secondHandler()"
+                        ><i class="sprite-karma"></i> <span translate>Karma</span></a
+                      >
+                    </li>
+                    <li ng-class="{'active': isSelected('/currencies/badges-of-honor')}">
+                      <a href="/currencies/badges-of-honor" ng-click="secondHandler()"
+                        ><i class="sprite-badge-of-honor"></i>
+                        <span translate>Badges of Honor</span></a
+                      >
+                    </li>
+                    <li ng-class="{'active': isSelected('/currencies/gems')}">
+                      <a href="/currencies/gems" ng-click="secondHandler()"
+                        ><i class="sprite-gem"></i> <span translate>Gems</span></a
+                      >
+                    </li>
+                    <li ng-class="{'active': isSelected('/currencies/laurels')}">
+                      <a href="/currencies/laurels" ng-click="secondHandler()"
+                        ><i class="sprite-laurel"></i> <span translate>Laurels</span></a
+                      >
+                    </li>
+                    <li ng-class="{'active': isSelected('/currencies/guild-commendations')}">
+                      <a href="/currencies/guild-commendations" ng-click="secondHandler()"
+                        ><i class="sprite-guild-commendation"></i>
+                        <span translate>Guild Commendations</span></a
+                      >
+                    </li>
+                    <li ng-class="{'active': isSelected('/currencies/claim-tickets')}">
+                      <a href="/currencies/claim-tickets" ng-click="secondHandler()"
+                        ><i class="sprite-claim-ticket"></i> <span translate>Claim Tickets</span></a
+                      >
+                    </li>
+                  </ul>
+                </li>
+
+                <li ng-class="{'active': isSelected('/tradingpost')}">
+                  <a href="/tradingpost" ng-click="firstHandler($event)"
+                    ><i class="sprite-navigation-tradingpost"></i>
+                    <span translate>Tradingpost</span></a
+                  >
+
+                  <ul class="second-level">
+                    <li ng-class="{'active': isSelected('/tradingpost', true)}">
+                      <a href="/tradingpost" ng-click="secondHandler()"
+                        ><i class="sprite-tradingpost-overview"></i>
+                        <span translate>Overview</span></a
+                      >
+                    </li>
+                    <li ng-class="{'active': isSelected('/tradingpost/delivery')}">
+                      <a href="/tradingpost/delivery" ng-click="secondHandler()"
+                        ><i class="sprite-tradingpost-delivery"></i>
+                        <span translate>Delivery Box</span></a
+                      >
+                    </li>
+                    <li ng-class="{'active': isSelected('/tradingpost/transactions')}">
+                      <a href="/tradingpost/transactions" ng-click="secondHandler()"
+                        ><i class="sprite-tradingpost-test"></i>
+                        <span translate>Current Transactions</span></a
+                      >
+                    </li>
+                    <li ng-class="{'active': isSelected('/tradingpost/history')}">
+                      <a href="/tradingpost/history" ng-click="secondHandler()"
+                        ><i class="sprite-tradingpost-test"></i>
+                        <span translate>Transaction History</span></a
+                      >
+                    </li>
+                    <li ng-class="{'active': isSelected('/tradingpost/investment-history')}">
+                      <a href="/tradingpost/investment-history" ng-click="secondHandler()"
+                        ><i class="sprite-tradingpost-transactions"></i>
+                        <span translate>Investment History</span></a
+                      >
+                    </li>
+                  </ul>
+                </li>
+
+                <li class="no-subnavigation" ng-class="{'active': isSelected('/worldbosses')}">
+                  <a href="/worldbosses" ng-click="firstHandler($event)"
+                    ><i class="sprite-navigation-worldbosses"></i> <span translate>Timers</span></a
+                  >
+                </li>
+
+                <li class="no-subnavigation" ng-class="{'active': isSelected('/dungeons')}">
+                  <a href="/dungeons" ng-click="firstHandler($event)"
+                    ><i class="sprite-navigation-dungeons"></i> <span translate>Dungeons</span></a
+                  >
+                </li>
+
+                <li ng-class="{'active': isSelected('/crafting')}">
+                  <a href="/crafting/calculator" ng-click="firstHandler($event)"
+                    ><i class="sprite-navigation-crafting"></i> <span translate>Crafting</span></a
+                  >
+
+                  <ul class="second-level">
+                    <li ng-class="{'active': isSelected('/crafting/recipe-search')}">
+                      <a href="/crafting/recipe-search" ng-click="secondHandler()"
+                        ><i class="sprite-crafting-recipes"></i>
+                        <span translate>Recipe Search</span></a
+                      >
+                    </li>
+                    <li ng-class="{'active': isSelected('/crafting/calculator')}">
+                      <a href="/crafting/calculator" ng-click="secondHandler()"
+                        ><i class="sprite-crafting-calculator"></i>
+                        <span translate>Calculator</span></a
+                      >
+                    </li>
+                    <li ng-class="{'active': isSelected('/crafting/legendaries')}">
+                      <a href="/crafting/legendaries" ng-click="secondHandler()"
+                        ><i class="sprite-crafting-legendary"></i>
+                        <span translate>Precursors &amp; Legendaries</span></a
+                      >
+                    </li>
+                    <li ng-class="{'active': isSelected('/crafting/ascended')}">
+                      <a href="/crafting/ascended" ng-click="secondHandler()"
+                        ><i class="sprite-crafting-ascended"></i>
+                        <span translate>Ascended Weapons &amp; Armor</span></a
+                      >
+                    </li>
+                    <li ng-class="{'active': isSelected('/crafting/zephyrite-supply-boxes')}">
+                      <a href="/crafting/zephyrite-supply-boxes" ng-click="secondHandler()"
+                        ><i class="sprite-skirmish-chest"></i>
+                        <span translate>Zephyrite Supply Boxes</span></a
+                      >
+                    </li>
+                  </ul>
+                </li>
+
+                <li class="no-subnavigation" ng-class="{'active': isSelected('/gathering')}">
+                  <a href="/gathering/permanent-nodes" ng-click="firstHandler($event)"
+                    ><i class="sprite-navigation-gathering"></i> <span translate>Gathering</span></a
+                  >
+                </li>
+
+                <li
+                  class="no-subnavigation"
+                  ng-class="{'active': isSelected('/community/lottery')}"
+                >
+                  <a href="/community/lottery" ng-click="firstHandler($event)"
+                    ><i class="sprite-navigation-lottery"></i> <span translate>Lottery</span></a
+                  >
+                </li>
+
+                <!-- <li class="no-subnavigation" ng-class="{'active': isSelected('/holiday-calendar')}">
+                  <a href="/holiday-calendar" ng-click="firstHandler($event)"
+                    ><i class="sprite-navigation-christmas-lottery"></i>
+                    <span translate>Holiday Calendar</span></a
+                  >
+                </li> -->
+              </ul>
+            </div>
+
+            <div class="mobile-nav-layer"></div>
+          </nav>
+
+          <div
+            style="
+              border-top: 2px solid #f2f2f2;
+              margin-bottom: 24px;
+              max-width: 1190px;
+              margin-left: auto;
+              margin-right: auto;
+            "
+          ></div>
+
+          <!-- Error handling -->
+          <error-splash></error-splash>
+
+          <suggest-supporter-upgrade></suggest-supporter-upgrade>
+
+          <!-- Content -->
+          <ng-view
+            autoscroll="true"
+            ng-class="{'has-no-subnavigation': subnavigation !== undefined && subnavigation === false}"
+          ></ng-view>
+        </div>
+      </div>
+
+      <div class="Layout--footer">
+        <!-- Bottom Ads -->
+        <div class="adv3rtisement-container-footer-bottom-l"></div>
+        <div class="adv3rtisement-container-footer-bottom-m"></div>
+        <div class="adv3rtisement-container-footer-bottom-s"></div>
+        <div class="adv3rtisement-container-floating-video"></div>
+
+        <!-- Detect AdBlock Banner -->
+        <daab></daab>
+
+        <!-- Footer -->
+        <page-footer></page-footer>
+      </div>
+    </div>
+
+    <div id="mouse-tooltip"></div>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-E2Z6ZDENC7"></script>
+    <script>
+      window.dataLayer = window.dataLayer || []
+      function gtag() {
+        dataLayer.push(arguments)
+      }
+      gtag('js', new Date())
+
+      gtag('config', 'G-E2Z6ZDENC7')
+    </script>
+  </body>
+</html>

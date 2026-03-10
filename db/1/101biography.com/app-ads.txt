@@ -1,0 +1,989 @@
+
+<!doctype html>
+<html lang="id" class="scroll-smooth">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>BogorEduCARE (BEC) — Kuliah Gratis 100% Sampai Lulus</title>
+  <meta name="description" content="BogorEduCARE (BEC) menyediakan program kuliah gratis 100% hingga lulus. Program studi: Administrasi Perkantoran dan Bisnis & Manajemen." />
+  <link rel="icon" type="image/png" href="bec-logo.png?v=20260124" />
+
+  <meta property="og:title" content="BogorEduCARE (BEC) | Kuliah Gratis 100% Sampai Lulus" />
+  <meta property="og:description" content="Kuliah gratis 100% sampai lulus untuk lulusan SMA/sederajat yang terkendala biaya." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="bec-logo.png?v=20260124" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+          },
+          colors: {
+            becBlue: "#013181",
+            becGreen: "#077432",
+          },
+          boxShadow: {
+            soft: "0 10px 28px rgba(2, 8, 23, 0.06)",
+            soft2:"0 20px 44px rgba(2, 8, 23, 0.10)",
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Global Styles */
+    body { font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; }
+    html { scroll-behavior: smooth; }
+    :focus-visible { outline: 3px solid rgba(1,49,129,.35); outline-offset: 3px; }
+    #imgHero { background-color: #0f172a; }
+
+    /* Step Card (Timeline) */
+    .stepCard{ position: relative; overflow: hidden; border-radius: 1.5rem; backdrop-filter: blur(10px); }
+    .stepCard::before{ content: ""; position: absolute; inset: -2px; background: radial-gradient(600px 240px at 12% 0%, var(--accent1), transparent 55%), radial-gradient(520px 260px at 90% 30%, var(--accent2), transparent 60%); opacity: .38; filter: blur(20px); pointer-events: none; }
+    .stepCard::after{ content: ""; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(255,255,255,.14), rgba(255,255,255,.06), transparent); pointer-events: none; }
+
+    /* ULTIMATE CARD (Fasilitas) */
+    .ultCard{ position:relative; border-radius:1.5rem; background: rgba(255,255,255,1); overflow:hidden; transform: translateZ(0); transition: transform .25s ease, box-shadow .25s ease; }
+    .ultCard::before{ content:""; position:absolute; inset:0; padding:1px; border-radius:1.5rem; background: linear-gradient(135deg, var(--gb-from), var(--gb-to)); -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); -webkit-mask-composite: xor; mask-composite: exclude; opacity:.0; transition: opacity .25s ease; pointer-events:none; }
+    .ultCard::after{ content:""; position:absolute; inset:-30%; background: radial-gradient(420px 180px at 15% 0%, color-mix(in srgb, var(--gb-from) 35%, transparent), transparent 60%), radial-gradient(420px 200px at 90% 35%, color-mix(in srgb, var(--gb-to) 28%, transparent), transparent 60%); filter: blur(18px); opacity: 0; transition: opacity .25s ease; pointer-events:none; }
+    .ultCard:hover{ transform: translateY(-4px); box-shadow: 0 18px 44px rgba(2, 8, 23, 0.14); }
+    .ultCard:hover::before{ opacity: 1; }
+    .ultCard:hover::after{ opacity: 1; }
+    .ultCard > *{ position:relative; z-index:1; }
+
+    /* ICON BADGE */
+    .iconBadge {
+      width: 48px; height: 48px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      background: white; border: 1px solid #e2e8f0;
+      color: var(--gb-from);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      transition: transform .25s ease, box-shadow .25s ease;
+    }
+    .ultCard:hover .iconBadge { transform: scale(1.1); box-shadow: 0 8px 20px rgba(0,0,0,0.1); }
+    .iconBadge svg { width: 24px; height: 24px; }
+
+    /* Hero Animation */
+    .heroAnim{ position:absolute; inset:0; overflow:hidden; pointer-events:none; }
+    .heroShimmer{ position:absolute; inset:-45%; background: conic-gradient(from 180deg at 50% 50%, rgba(59,130,246,.18), rgba(16,185,129,.14), rgba(245,158,11,.10), rgba(59,130,246,.18)); filter: blur(70px); opacity: .22; mix-blend-mode: overlay; animation: heroSpin 18s linear infinite; }
+    .heroBlob{ position:absolute; width:520px; height:520px; border-radius:9999px; filter: blur(46px); opacity:.30; transform: translate3d(0,0,0); will-change: transform; }
+    .heroBlob.b1{ left:-160px; top:-170px; background: radial-gradient(circle at 30% 30%, rgba(16,185,129,.60), transparent 62%); animation: heroFloat1 14s ease-in-out infinite; }
+    .heroBlob.b2{ right:-190px; top:-120px; width:560px; height:560px; background: radial-gradient(circle at 60% 35%, rgba(59,130,246,.55), transparent 62%); animation: heroFloat2 16s ease-in-out infinite; }
+    .heroBlob.b3{ left:22%; bottom:-260px; width:640px; height:640px; background: radial-gradient(circle at 45% 55%, rgba(245,158,11,.35), transparent 62%); animation: heroFloat3 18s ease-in-out infinite; }
+    @keyframes heroSpin{ to{ transform: rotate(360deg); } }
+    @keyframes heroFloat1{ 0%,100%{ transform: translate(-20px, 0) scale(1); } 50%{ transform: translate(60px, 46px) scale(1.12); } }
+    @keyframes heroFloat2{ 0%,100%{ transform: translate(0, 0) scale(1); } 50%{ transform: translate(-70px, 55px) scale(1.10); } }
+    @keyframes heroFloat3{ 0%,100%{ transform: translate(0, 0) scale(1); } 50%{ transform: translate(40px, -50px) scale(1.08); } }
+
+    /* News Card */
+    .newsCard{ position:relative; overflow:hidden; border-radius: 1.5rem; background:#fff; border:1px solid rgba(226,232,240,1); transition: transform .25s ease, box-shadow .25s ease; }
+    .newsCard:hover{ transform: translateY(-4px); box-shadow: 0 20px 46px rgba(2, 8, 23, .14); border-color: rgba(203,213,225,1); }
+    .newsMedia{ position:relative; overflow:hidden; border-radius: 1.25rem; }
+    .newsImg{ width:100%; height:190px; object-fit:cover; transform: scale(1.01); transition: transform .6s ease; background:#f1f5f9; display:block; }
+    .newsCard:hover .newsImg{ transform: scale(1.07); }
+    .clamp2{ display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
+    .clamp3{ display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden; }
+
+    /* Testimonials */
+    .testiCard{ position: relative; overflow: hidden; border-radius: 1.5rem; background: #fff; border: 1px solid rgba(226,232,240,1); transition: transform .25s ease, box-shadow .25s ease; }
+    .testiCard:hover{ transform: translateY(-3px); box-shadow: 0 18px 44px rgba(2, 8, 23, .12); border-color: rgba(203,213,225,1); }
+    .testiPhotoWrap{ width: 56px; height: 56px; border-radius: 50%; padding: 2px; background: linear-gradient(135deg, rgba(1,49,129,1), rgba(16,185,129,1)); flex-shrink: 0; }
+    .testiPhoto{ width: 100%; height: 100%; border-radius: 50%; object-fit: cover; background: #e2e8f0; display:block; border: 2px solid #fff; }
+    .testiInitial{ width: 100%; height: 100%; border-radius: 50%; display:flex; align-items:center; justify-content:center; background: linear-gradient(135deg, #f1f5f9, #e2e8f0); border: 2px solid #fff; font-weight: 800; color: #013181; font-size: 1.2rem; }
+
+    /* Utilities */
+    .masonry > * { break-inside: avoid; }
+    .skelBox{ background:#f1f5f9; border:1px solid #e2e8f0; }
+    .skelLine{ height:12px; border-radius:9999px; background:#f1f5f9; border:1px solid #e2e8f0; }
+    .skelLine2{ height:10px; border-radius:9999px; background:#f1f5f9; border:1px solid #e2e8f0; }
+  </style>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org", "@type": "EducationalOrganization",
+    "name": "BogorEduCARE (BEC)", "url": "https://bogoreducare.org",
+    "contactPoint": [{ "@type": "ContactPoint", "telephone": "+6289665520222", "contactType": "admissions" }]
+  }
+  </script>
+</head>
+
+<body class="bg-slate-50 text-slate-800 pb-24 sm:pb-0 font-sans text-sm md:text-base">
+
+  <noscript>
+    <div class="fallbackWarn">Aktifkan JavaScript untuk melihat konten lengkap.</div>
+  </noscript>
+
+  <div id="announceWrap" class="hidden">
+    <div id="announceBox" class="mx-auto max-w-7xl px-4">
+      <div id="announceInner" class="mt-4 rounded-2xl border p-4"></div>
+    </div>
+  </div>
+
+<header class="sticky top-0 z-40 bg-white/85 backdrop-blur border-b border-slate-200 transition-all duration-300">
+    <div class="mx-auto max-w-7xl px-4 py-3 flex items-center justify-between gap-4">
+      
+      <a href="#" class="flex items-center gap-3 group">
+        <div class="rounded-xl bg-white border border-slate-200 shadow-soft p-1.5 transition-transform group-hover:scale-105">
+          <img src="bec-logo.png?v=20260124" alt="Logo BEC" class="h-8 w-auto object-contain" />
+        </div>
+        <div class="leading-tight">
+          <div class="font-extrabold text-slate-900 text-base group-hover:text-becBlue transition-colors">BogorEduCARE</div>
+          <div class="text-[10px] text-slate-500 uppercase tracking-wide">Kuliah Gratis 100%</div>
+        </div>
+      </a>
+
+      <nav class="hidden xl:flex items-center gap-6 text-[13px] font-semibold text-slate-600">
+        <a class="hover:text-becBlue transition" href="#tentang">Tentang</a>
+        <a class="hover:text-becBlue transition" href="#program">Program</a>
+        <a class="hover:text-becBlue transition" href="#fasilitas">Fasilitas</a>
+        <a class="hover:text-becBlue transition" href="#timeline">Alur</a>
+        <a class="hover:text-becBlue transition" href="#gallery">Galeri</a>
+        <a class="hover:text-becBlue transition" href="#news">Berita</a>
+        
+        <a class="hover:text-becBlue transition flex items-center gap-1.5" href="#testimoni">
+          Testimoni
+          <span class="inline-flex items-center rounded-full bg-red-50 px-1.5 py-0.5 text-[9px] font-extrabold text-red-600 ring-1 ring-inset ring-red-500/20 animate-pulse">
+            NEW
+          </span>
+        </a>
+
+        <a class="hover:text-becBlue transition" href="#kontak">Kontak</a>
+      </nav>
+
+      <div class="flex items-center gap-3">
+        
+        <div class="hidden md:flex items-center gap-1.5 border-r border-slate-200 pr-3 mr-1">
+          <a href="https://instagram.com/bogoreducare" target="_blank" rel="noopener noreferrer" 
+             class="w-8 h-8 rounded-full flex items-center justify-center text-slate-400 hover:text-white hover:bg-gradient-to-tr hover:from-yellow-400 hover:via-red-500 hover:to-purple-500 transition-all duration-300" 
+             aria-label="Instagram">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+          </a>
+          <a href="https://facebook.com/bogoreducare" target="_blank" rel="noopener noreferrer"
+             class="w-8 h-8 rounded-full flex items-center justify-center text-slate-400 hover:text-white hover:bg-[#1877F2] transition-all duration-300"
+             aria-label="Facebook">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z"/></svg>
+          </a>
+          <a href="https://tiktok.com/@bogoreducare" target="_blank" rel="noopener noreferrer"
+             class="w-8 h-8 rounded-full flex items-center justify-center text-slate-400 hover:text-white hover:bg-black transition-all duration-300"
+             aria-label="TikTok">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93v6.16c0 2.58-1.12 4.88-3.1 6.27-2.09 1.49-4.73 1.99-7.23 1.37-2.65-.63-4.81-2.61-5.73-5.19-.97-2.73-.32-5.78 1.7-7.92 2.01-2.16 5.17-2.91 7.93-1.92v4.23c-1.45-.63-3.13-.47-4.42.42-1.32.9-2.02 2.52-1.74 4.09.28 1.58 1.54 2.89 3.12 3.19 1.67.32 3.39-.31 4.49-1.64.9-1.09 1.25-2.52 1.25-3.92v-9.35c.01-.79.01-1.59.02-2.39z"/></svg>
+          </a>
+        </div>
+
+        <button id="btnMenu" class="xl:hidden inline-flex items-center justify-center rounded-xl border border-slate-200 px-3 py-2 hover:bg-slate-50 transition">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        </button>
+        
+        <a id="btnChatTop" href="https://wa.me/6289665520222?text=Halo%20Admin%20BogorEduCARE%2C%20saya%20ingin%20bertanya." target="_blank" rel="noopener noreferrer" 
+           class="hidden sm:inline-flex items-center justify-center rounded-xl border border-slate-200 px-4 py-2 text-xs font-bold text-slate-700 hover:bg-slate-50 transition">
+           Chat Admin
+        </a>
+        
+        <a href="https://pmb.bogoreducare.org" target="_blank" class="inline-flex items-center justify-center rounded-xl bg-becBlue px-4 py-2 text-xs font-bold text-white hover:bg-blue-900 transition shadow-soft">
+          Daftar PMB
+        </a>
+      </div>
+    </div>
+
+    <div id="mobileMenu" class="hidden xl:hidden border-t border-slate-200 bg-white absolute w-full left-0 z-50 shadow-xl">
+      <div class="mx-auto max-w-7xl px-4 py-4 grid grid-cols-2 gap-2 text-sm font-medium">
+        <a class="p-2 border-b border-slate-50 hover:text-becBlue" href="#tentang">Tentang</a>
+        <a class="p-2 border-b border-slate-50 hover:text-becBlue" href="#program">Program</a>
+        <a class="p-2 border-b border-slate-50 hover:text-becBlue" href="#fasilitas">Fasilitas</a>
+        <a class="p-2 border-b border-slate-50 hover:text-becBlue" href="#timeline">Alur</a>
+        <a class="p-2 border-b border-slate-50 hover:text-becBlue" href="#gallery">Galeri</a>
+        <a class="p-2 border-b border-slate-50 hover:text-becBlue" href="#news">Berita</a>
+        
+        <a class="p-2 border-b border-slate-50 hover:text-becBlue flex items-center gap-2" href="#testimoni">
+          Testimoni
+          <span class="inline-flex items-center rounded-full bg-red-50 px-1.5 py-0.5 text-[9px] font-extrabold text-red-600 ring-1 ring-inset ring-red-500/20 animate-pulse">NEW</span>
+        </a>
+        
+        <a class="p-2 border-b border-slate-50 hover:text-becBlue" href="#kontak">Hubungi Kontak</a>
+        
+        <div class="col-span-2 mt-3 pt-3 border-t border-slate-100 flex items-center justify-center gap-4">
+          <a href="https://instagram.com/bogoreducare" target="_blank" class="text-slate-400 hover:text-pink-600"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a>
+          <a href="https://facebook.com/bogoreducare" target="_blank" class="text-slate-400 hover:text-blue-600"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z"/></svg></a>
+          <a href="https://tiktok.com/@bogoreducare" target="_blank" class="text-slate-400 hover:text-black"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93v6.16c0 2.58-1.12 4.88-3.1 6.27-2.09 1.49-4.73 1.99-7.23 1.37-2.65-.63-4.81-2.61-5.73-5.19-.97-2.73-.32-5.78 1.7-7.92 2.01-2.16 5.17-2.91 7.93-1.92v4.23c-1.45-.63-3.13-.47-4.42.42-1.32.9-2.02 2.52-1.74 4.09.28 1.58 1.54 2.89 3.12 3.19 1.67.32 3.39-.31 4.49-1.64.9-1.09 1.25-2.52 1.25-3.92v-9.35c.01-.79.01-1.59.02-2.39z"/></svg></a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+<section class="relative overflow-hidden min-h-[600px] flex items-center">
+    <div class="absolute inset-0 -z-10">
+      <picture class="block h-full w-full">
+        <source media="(max-width: 768px)" srcset="/cms/assets/img/hero-bec-1080x1350.webp" type="image/webp">
+        <source media="(max-width: 768px)" srcset="/cms/assets/img/hero-bec-1080x1350.jpg" type="image/jpeg">
+        <source srcset="/cms/assets/img/hero-bec-1920x1080.webp" type="image/webp">
+        <img id="imgHero" 
+             src="/cms/assets/img/hero-bec-1920x1080.jpg" 
+             alt="BogorEduCARE Campus" 
+             class="h-full w-full object-cover brightness-[0.85] contrast-110" 
+             fetchpriority="high" 
+             decoding="async" />
+      </picture>
+      
+      <div class="absolute inset-0 bg-gradient-to-r from-becBlue/90 via-becBlue/60 to-transparent"></div>
+      <div class="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-transparent to-transparent"></div>
+      
+      <div class="heroAnim opacity-40" aria-hidden="true">
+        <div class="heroShimmer"></div><div class="heroBlob b1"></div><div class="heroBlob b2"></div>
+      </div>
+    </div>
+
+    <div class="mx-auto max-w-7xl px-4 py-14 md:py-20 w-full">
+      <div class="grid lg:grid-cols-12 gap-12 items-center">
+        
+        <div class="lg:col-span-7 text-white space-y-6">
+          <div class="inline-flex items-center gap-3 rounded-full border border-white/20 bg-white/10 px-4 py-1.5 backdrop-blur-md">
+            <span class="relative flex h-2 w-2">
+              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+              <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+            </span>
+            <span class="text-xs font-bold tracking-wide uppercase">Beasiswa Penuh 100%</span>
+          </div>
+
+          <h1 class="text-4xl md:text-5xl lg:text-6xl font-black tracking-tight leading-tight">
+            Kuliah Gratis,<br>
+            <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-300 to-cyan-300">Masa Depan Fantastis.</span>
+          </h1>
+
+          <p class="text-lg text-slate-200 leading-relaxed max-w-2xl font-light">
+            BogorEduCARE (BEC) membuka kesempatan emas bagi lulusan SMA/sederajat untuk kuliah <strong>Administrasi Perkantoran dan Bisnis & Manajemen</strong> tanpa biaya sepeserpun.
+          </p>
+          
+          <div class="flex flex-wrap gap-4 pt-2">
+            <a href="https://pmb.bogoreducare.org" target="_blank" 
+               class="inline-flex items-center justify-center rounded-full bg-emerald-500 hover:bg-emerald-400 px-8 py-3 text-sm font-extrabold text-white transition-all duration-300 shadow-[0_0_20px_rgba(16,185,129,0.4)] hover:shadow-[0_0_30px_rgba(16,185,129,0.6)] transform hover:-translate-y-1">
+              Daftar Sekarang
+            </a>
+            <a href="#tentang" 
+               class="inline-flex items-center justify-center rounded-full border border-white/30 bg-white/5 hover:bg-white/10 px-8 py-3 text-sm font-bold text-white backdrop-blur-sm transition-all duration-300">
+              <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+              Tonton Video
+            </a>
+          </div>
+        </div>
+
+        <div class="lg:col-span-5 relative">
+          <div class="relative rounded-[2rem] bg-white/95 backdrop-blur-xl shadow-2xl border border-white/50 overflow-hidden transform transition-all hover:scale-[1.01] duration-500">
+            
+            <div class="h-2 w-full bg-gradient-to-r from-becBlue via-emerald-500 to-becGreen"></div>
+
+            <div class="p-6 md:p-8">
+              <div class="flex items-center justify-between mb-6">
+                <div>
+                  <h3 class="text-xl font-black text-slate-900 tracking-tight">Menuju Penutupan</h3>
+                  <div class="flex items-center gap-2 mt-1">
+                    <span class="h-1 w-8 rounded-full bg-emerald-500"></span>
+                    <p class="text-xs text-slate-500 font-bold uppercase tracking-wide">Pendaftaran Online</p>
+                  </div>
+                </div>
+                <div class="w-12 h-12 rounded-full bg-blue-50 flex items-center justify-center text-becBlue ring-4 ring-blue-50/50">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6 animate-pulse">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                  </svg>
+                </div>
+              </div>
+
+              <div class="grid grid-cols-4 gap-2 mb-6">
+                <div class="group bg-slate-50 rounded-2xl p-3 border border-slate-100 text-center relative overflow-hidden transition-all duration-300 hover:border-emerald-200 hover:shadow-lg hover:-translate-y-1">
+                  <div class="absolute inset-x-0 bottom-0 h-1 bg-emerald-500 scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></div>
+                  <div id="cdDays" class="text-2xl sm:text-3xl font-black text-transparent bg-clip-text bg-gradient-to-br from-becBlue to-becGreen leading-none mb-1">00</div>
+                  <div class="text-[9px] sm:text-[10px] font-bold text-slate-400 uppercase tracking-widest">Hari</div>
+                </div>
+                <div class="group bg-slate-50 rounded-2xl p-3 border border-slate-100 text-center relative overflow-hidden transition-all duration-300 hover:border-blue-200 hover:shadow-lg hover:-translate-y-1">
+                  <div class="absolute inset-x-0 bottom-0 h-1 bg-blue-500 scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></div>
+                  <div id="cdHours" class="text-2xl sm:text-3xl font-black text-slate-800 leading-none mb-1">00</div>
+                  <div class="text-[9px] sm:text-[10px] font-bold text-slate-400 uppercase tracking-widest">Jam</div>
+                </div>
+                <div class="group bg-slate-50 rounded-2xl p-3 border border-slate-100 text-center relative overflow-hidden transition-all duration-300 hover:border-indigo-200 hover:shadow-lg hover:-translate-y-1">
+                  <div class="absolute inset-x-0 bottom-0 h-1 bg-indigo-500 scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></div>
+                  <div id="cdMins" class="text-2xl sm:text-3xl font-black text-slate-800 leading-none mb-1">00</div>
+                  <div class="text-[9px] sm:text-[10px] font-bold text-slate-400 uppercase tracking-widest">Mnt</div>
+                </div>
+                <div class="group bg-slate-50 rounded-2xl p-3 border border-slate-100 text-center relative overflow-hidden transition-all duration-300 hover:border-red-200 hover:shadow-lg hover:-translate-y-1">
+                  <div class="absolute inset-x-0 bottom-0 h-1 bg-red-500 scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></div>
+                  <div id="cdSecs" class="text-2xl sm:text-3xl font-black text-slate-800 leading-none mb-1">00</div>
+                  <div class="text-[9px] sm:text-[10px] font-bold text-slate-400 uppercase tracking-widest">Dtk</div>
+                </div>
+              </div>
+
+              <div class="bg-slate-50/50 rounded-2xl p-4 border border-slate-200 mb-6">
+                <ul class="grid grid-cols-2 gap-y-3 gap-x-2">
+                  <li class="flex items-start gap-2 text-xs font-semibold text-slate-700">
+                    <svg class="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                    <span>Lulusan SMA/Sederajat</span>
+                  </li>
+                  <li class="flex items-start gap-2 text-xs font-semibold text-slate-700">
+                    <svg class="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                    <span>Usia Maks. 22 Tahun</span>
+                  </li>
+                  <li class="flex items-start gap-2 text-xs font-semibold text-slate-700">
+                    <svg class="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                    <span>Belum Menikah</span>
+                  </li>
+                  <li class="flex items-start gap-2 text-xs font-semibold text-slate-700">
+                    <svg class="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                    <span>Keluarga Tidak Mampu</span>
+                  </li>
+                </ul>
+              </div>
+
+              <div class="grid grid-cols-2 gap-3">
+                <a href="#timeline" 
+                   class="flex items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm font-bold text-slate-700 transition hover:bg-slate-50 hover:border-slate-300">
+                   Lihat Alur
+                </a>
+                <a href="https://pmb.bogoreducare.org" target="_blank" 
+                   class="flex items-center justify-center gap-2 rounded-xl bg-slate-900 px-4 py-3 text-sm font-bold text-white transition hover:bg-slate-800 hover:shadow-lg">
+                   Portal PMB <span aria-hidden="true">&rarr;</span>
+                </a>
+              </div>
+
+            </div>
+          </div>
+          
+          <div class="absolute -bottom-6 -right-6 -z-10 h-24 w-24 rounded-full bg-yellow-400 blur-3xl opacity-60"></div>
+          <div class="absolute -top-6 -left-6 -z-10 h-24 w-24 rounded-full bg-becBlue blur-3xl opacity-60"></div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+  
+<section id="tentang" class="bg-white border-b border-slate-100">
+    <div class="mx-auto max-w-7xl px-4 py-16">
+      <div class="grid lg:grid-cols-2 gap-10 items-center">
+        
+        <div class="order-2 lg:order-1">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 text-[10px] font-bold uppercase tracking-wider mb-3">
+            Tentang Institusi
+          </div>
+          
+          <h2 class="text-3xl font-black text-slate-900 leading-tight">
+            BogorEduCARE (BEC)
+          </h2>
+          <p class="mt-3 text-sm text-slate-600 leading-relaxed text-justify">
+            Lembaga pendidikan yang menyediakan program kuliah <span class="font-bold text-becGreen">beasiswa penuh (100% GRATIS)</span>
+            bagi lulusan SMA/sederajat. Waktu tempuh kuliah 1,5 tahun (3 caturwulan), Senin-Jumat, 08.00 - 16.00 WIB.
+          </p>
+
+          <div class="mt-6 space-y-3">
+            <div class="grid grid-cols-2 gap-3">
+              <div class="p-3 rounded-xl bg-white border border-slate-200 hover:shadow-soft transition flex items-center gap-3">
+                <div class="w-10 h-10 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-600 shrink-0">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                </div>
+                <div class="overflow-hidden">
+                  <div class="font-extrabold text-slate-900 text-sm whitespace-nowrap">100% Gratis</div>
+                  <div class="text-[11px] text-slate-500 whitespace-nowrap overflow-hidden text-ellipsis">Beasiswa penuh.</div>
+                </div>
+              </div>
+
+              <div class="p-3 rounded-xl bg-white border border-slate-200 hover:shadow-soft transition flex items-center gap-3">
+                <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 shrink-0">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+                </div>
+                <div class="overflow-hidden">
+                  <div class="font-extrabold text-slate-900 text-sm whitespace-nowrap">Pengajar Pro</div>
+                  <div class="text-[11px] text-slate-500 whitespace-nowrap overflow-hidden text-ellipsis">Kompeten & ahli.</div>
+                </div>
+              </div>
+
+              <div class="p-3 rounded-xl bg-white border border-slate-200 hover:shadow-soft transition flex items-center gap-3">
+                <div class="w-10 h-10 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600 shrink-0">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2" ry="2"/><rect x="9" y="9" width="6" height="6"/><line x1="9" y1="1" x2="9" y2="4"/><line x1="15" y1="1" x2="15" y2="4"/><line x1="9" y1="20" x2="9" y2="23"/><line x1="15" y1="20" x2="15" y2="23"/><line x1="20" y1="9" x2="23" y2="9"/><line x1="20" y1="14" x2="23" y2="14"/><line x1="1" y1="9" x2="4" y2="9"/><line x1="1" y1="14" x2="4" y2="14"/></svg>
+                </div>
+                <div class="overflow-hidden">
+                  <div class="font-extrabold text-slate-900 text-sm whitespace-nowrap">Fasilitas Lengkap</div>
+                  <div class="text-[11px] text-slate-500 whitespace-nowrap overflow-hidden text-ellipsis">Lab & asrama.</div>
+                </div>
+              </div>
+
+              <div class="p-3 rounded-xl bg-white border border-slate-200 hover:shadow-soft transition flex items-center gap-3">
+                <div class="w-10 h-10 rounded-full bg-amber-100 flex items-center justify-center text-amber-600 shrink-0">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+                </div>
+                <div class="overflow-hidden">
+                  <div class="font-extrabold text-slate-900 text-sm whitespace-nowrap">Siap Kerja</div>
+                  <div class="text-[11px] text-slate-500 whitespace-nowrap overflow-hidden text-ellipsis">Atau wirausaha.</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="mt-5 relative overflow-hidden rounded-xl border border-slate-200 bg-white p-5 text-center shadow-sm">
+              <div class="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-becBlue to-becGreen"></div>
+              <div class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">Tagline</div>
+              <div class="text-base md:text-lg font-black italic text-slate-800">
+                “A Place Where English Improves Your Life”
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="order-1 lg:order-2 h-full flex flex-col justify-center">
+          <div class="w-full relative rounded-2xl overflow-hidden shadow-2xl border-[3px] border-white transform rotate-1 hover:rotate-0 transition duration-500">
+            <div class="absolute -inset-4 bg-gradient-to-br from-becBlue/30 to-becGreen/30 rounded-[2rem] blur-2xl opacity-60 -z-10"></div>
+            
+            <div class="aspect-video bg-slate-900 relative group">
+              <iframe 
+                class="w-full h-full" 
+                src="https://www.youtube.com/embed/Kwra86-Ihfs" 
+                title="Profil BogorEduCARE (BEC)" 
+                frameborder="0" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                referrerpolicy="strict-origin-when-cross-origin" 
+                allowfullscreen 
+                loading="lazy">
+              </iframe>
+            </div>
+            
+            <div class="bg-white p-3 flex items-center justify-between">
+              <div>
+                <div class="text-sm font-extrabold text-slate-900">Video Profil</div>
+                <div class="text-[10px] text-slate-500">Kenali BEC lebih dekat</div>
+              </div>
+              <a href="https://www.youtube.com/@BogorEduCARE" target="_blank" class="text-[10px] font-bold text-red-600 bg-red-50 px-3 py-1.5 rounded-full hover:bg-red-100 transition uppercase tracking-wide">
+                Subscribe
+              </a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <section id="program" class="bg-slate-50 border-y border-slate-200">
+    <div class="mx-auto max-w-7xl px-4 py-16">
+      <div class="mb-8">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 text-[10px] font-bold uppercase tracking-wider mb-3">
+          Akademik
+        </div>
+        <h2 class="text-3xl font-black text-slate-900">Program Studi</h2>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-5">
+        
+        <div class="rounded-3xl bg-white border border-slate-200 p-5 shadow-soft overflow-hidden group hover:border-blue-200 transition-colors">
+          <div class="h-40 w-full bg-slate-100 rounded-xl border border-slate-200 overflow-hidden relative">
+            <img src="/cms/assets/img/prodi-ap.jpg" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" alt="AP">
+            <div class="absolute inset-0 bg-blue-900/0 group-hover:bg-blue-900/10 transition duration-300"></div>
+          </div>
+          
+          <div class="mt-4 flex items-start justify-between gap-4">
+            <div>
+              <div class="text-xs text-slate-500 font-bold uppercase tracking-wide">Prodi</div>
+              <div class="text-lg font-black text-slate-900 leading-tight">Administrasi Perkantoran</div>
+            </div>
+            <span class="text-[10px] font-bold rounded-full bg-blue-50 border border-blue-100 text-becBlue px-2.5 py-1">AP</span>
+          </div>
+          
+          <p class="mt-3 text-sm text-slate-600 leading-relaxed">
+            Fokus pada administrasi kantor, pengelolaan dokumen, komunikasi profesional, dan keterampilan office untuk industri.
+          </p>
+
+          <details class="group mt-5 border-t border-slate-100 pt-4">
+            <summary class="flex cursor-pointer items-center justify-between text-xs font-bold text-becBlue uppercase tracking-wide hover:text-blue-700 transition">
+              <span>Lihat Kompetensi Lulusan</span>
+              <span class="transition group-open:rotate-180">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4"><path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" /></svg>
+              </span>
+            </summary>
+            <div class="mt-4 animate-in slide-in-from-top-2 duration-300">
+              <ul class="space-y-3 text-sm text-slate-700">
+                <li class="flex gap-3">
+                  <span class="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-slate-900 text-[10px] font-bold text-white mt-0.5">1</span>
+                  <span>Mampu menangani tugas administrasi perkantoran serta mampu mengetik cepat 10 jari.</span>
+                </li>
+                <li class="flex gap-3">
+                  <span class="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-slate-900 text-[10px] font-bold text-white mt-0.5">2</span>
+                  <span>Mampu berbahasa Inggris dengan baik secara lisan dan tulisan.</span>
+                </li>
+                <li class="flex gap-3">
+                  <span class="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-slate-900 text-[10px] font-bold text-white mt-0.5">3</span>
+                  <span>Mampu mengoperasikan komputer dengan baik (Ms. Office, Web Internet dan Desain Grafis).</span>
+                </li>
+                <li class="flex gap-3">
+                  <span class="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-slate-900 text-[10px] font-bold text-white mt-0.5">4</span>
+                  <span>Memiliki akhlak yang baik guna menyeimbangkan ilmu dan adab.</span>
+                </li>
+              </ul>
+            </div>
+          </details>
+        </div>
+
+        <div class="rounded-3xl bg-white border border-slate-200 p-5 shadow-soft overflow-hidden group hover:border-emerald-200 transition-colors">
+          <div class="h-40 w-full bg-slate-100 rounded-xl border border-slate-200 overflow-hidden relative">
+            <img src="/cms/assets/img/prodi-bm.jpg" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" alt="BM">
+            <div class="absolute inset-0 bg-emerald-900/0 group-hover:bg-emerald-900/10 transition duration-300"></div>
+          </div>
+          
+          <div class="mt-4 flex items-start justify-between gap-4">
+            <div>
+              <div class="text-xs text-slate-500 font-bold uppercase tracking-wide">Prodi</div>
+              <div class="text-lg font-black text-slate-900 leading-tight">Bisnis & Manajemen</div>
+            </div>
+            <span class="text-[10px] font-bold rounded-full bg-emerald-50 border border-emerald-100 text-emerald-800 px-2.5 py-1">BM</span>
+          </div>
+          
+          <p class="mt-3 text-sm text-slate-600 leading-relaxed">
+            Fokus pada dasar manajemen, kewirausahaan, operasional, dan kemampuan bisnis yang bisa langsung dipraktikkan.
+          </p>
+
+          <details class="group mt-5 border-t border-slate-100 pt-4">
+            <summary class="flex cursor-pointer items-center justify-between text-xs font-bold text-emerald-700 uppercase tracking-wide hover:text-emerald-800 transition">
+              <span>Lihat Kompetensi Lulusan</span>
+              <span class="transition group-open:rotate-180">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4"><path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" /></svg>
+              </span>
+            </summary>
+            <div class="mt-4 animate-in slide-in-from-top-2 duration-300">
+              <ul class="space-y-3 text-sm text-slate-700">
+                <li class="flex gap-3">
+                  <span class="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-slate-900 text-[10px] font-bold text-white mt-0.5">1</span>
+                  <span>Mampu berwirausaha dan membuka lapangan pekerjaan.</span>
+                </li>
+                <li class="flex gap-3">
+                  <span class="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-slate-900 text-[10px] font-bold text-white mt-0.5">2</span>
+                  <span>Memiliki daya juang yang tinggi untuk bekal di dunia entrepreneurship.</span>
+                </li>
+                <li class="flex gap-3">
+                  <span class="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-slate-900 text-[10px] font-bold text-white mt-0.5">3</span>
+                  <span>Memiliki kemampuan manajemen bisnis dan keuangan yang baik.</span>
+                </li>
+                <li class="flex gap-3">
+                  <span class="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-slate-900 text-[10px] font-bold text-white mt-0.5">4</span>
+                  <span>Memiliki akhlak yang baik guna menyeimbangkan ilmu dan adab.</span>
+                </li>
+              </ul>
+            </div>
+          </details>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <section id="fasilitas" class="mx-auto max-w-7xl px-4 py-16">
+    <div class="mb-10">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 text-[10px] font-bold uppercase tracking-wider mb-3">
+        Fasilitas
+      </div>
+      <h2 class="text-3xl font-black text-slate-900">Lingkungan Kampus</h2>
+    </div>
+
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+      
+      <div class="ultCard border border-slate-200 p-5 shadow-soft" style="--gb-from:#10b981; --gb-to:#22c55e;">
+        <div class="flex items-center gap-4">
+          <div class="iconBadge">
+            <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 3.75h.008v.008h-.008v-.008Zm0 3h.008v.008h-.008v-.008Zm0 3h.008v.008h-.008v-.008Z" />
+            </svg>
+          </div>
+          <div>
+            <h3 class="text-base font-extrabold text-slate-900">Gedung Asri</h3>
+            <p class="text-xs text-slate-600">Lingkungan nyaman.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="ultCard border border-slate-200 p-5 shadow-soft" style="--gb-from:#3b82f6; --gb-to:#06b6d4;">
+        <div class="flex items-center gap-4">
+          <div class="iconBadge">
+            <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M8.288 15.038a5.25 5.25 0 0 1 7.424 0M5.106 11.856c3.807-3.808 9.98-3.808 13.788 0M1.924 8.674c5.565-5.565 14.587-5.565 20.152 0M12.53 18.22l-.53.53-.53-.53a.75.75 0 0 1 1.06 0Z" />
+            </svg>
+          </div>
+          <div>
+            <h3 class="text-base font-extrabold text-slate-900">WiFi & Locker</h3>
+            <p class="text-xs text-slate-600">Akses gratis & loker.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="ultCard border border-slate-200 p-5 shadow-soft" style="--gb-from:#6366f1; --gb-to:#8b5cf6;">
+        <div class="flex items-center gap-4">
+          <div class="iconBadge">
+            <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 6.75a1.5 1.5 0 0 1 1.5-1.5h13.5a1.5 1.5 0 0 1 1.5 1.5v9a1.5 1.5 0 0 1-1.5 1.5H5.25a1.5 1.5 0 0 1-1.5-1.5v-9ZM1.5 18.75h21a.75.75 0 0 0 .75-.75v-1.5a.75.75 0 0 0-.75-.75H1.5a.75.75 0 0 0-.75.75v1.5a.75.75 0 0 0 .75.75Z" />
+            </svg>
+          </div>
+          <div>
+            <h3 class="text-base font-extrabold text-slate-900">Lab Komputer</h3>
+            <p class="text-xs text-slate-600">Komp modern untuk praktik .</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="ultCard border border-slate-200 p-5 shadow-soft" style="--gb-from:#f59e0b; --gb-to:#fbbf24;">
+        <div class="flex items-center gap-4">
+          <div class="iconBadge">
+            <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="m15.75 10.5 4.72-4.72a.75.75 0 0 1 1.28.53v11.38a.75.75 0 0 1-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 0 0 2.25-2.25v-9a2.25 2.25 0 0 0-2.25-2.25h-9A2.25 2.25 0 0 0 2.25 7.5v9a2.25 2.25 0 0 0 2.25 2.25Z" />
+            </svg>
+          </div>
+          <div>
+            <h3 class="text-base font-extrabold text-slate-900">Kelas Multimedia</h3>
+            <p class="text-xs text-slate-600">Semua Kelas Full TV .</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="ultCard border border-slate-200 p-5 shadow-soft" style="--gb-from:#f43f5e; --gb-to:#fb7185;">
+        <div class="flex items-center gap-4">
+          <div class="iconBadge">
+            <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 21v-8.25M15.75 21v-8.25M8.25 21v-8.25M3 9l9-6 9 6m-1.5 12V10.332A48.36 48.36 0 0 0 12 9.75c-2.551 0-5.056.2-7.5.582V21M3 21h18M12 6.75h.008v.008H12V6.75Z" />
+            </svg>
+          </div>
+          <div>
+            <h3 class="text-base font-extrabold text-slate-900">Makan Gratis</h3>
+            <p class="text-xs text-slate-600">Siang & malam (asrama).</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="ultCard border border-slate-200 p-5 shadow-soft" style="--gb-from:#14b8a6; --gb-to:#2dd4bf;">
+        <div class="flex items-center gap-4">
+          <div class="iconBadge">
+            <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
+            </svg>
+          </div>
+          <div>
+            <h3 class="text-base font-extrabold text-slate-900">Asrama</h3>
+            <p class="text-xs text-slate-600">Putra & Putri terpisah.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section id="timeline" class="bg-slate-950 text-white py-16">
+    <div class="mx-auto max-w-7xl px-4">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 text-[10px] font-bold uppercase tracking-wider mb-3">
+          Alur Seleksi
+        </div>
+        <h2 class="text-3xl font-black mb-8">Tahapan Pendaftaran</h2>
+        <div class="grid lg:grid-cols-5 gap-4">
+            <div class="stepCard p-5 border border-white/10"><div class="font-bold text-lg text-blue-400">1. Online</div><p class="text-sm opacity-80">Registrasi di web PMB</p></div>
+            <div class="stepCard p-5 border border-white/10"><div class="font-bold text-lg text-indigo-400">2. Berkas</div><p class="text-sm opacity-80">Validasi dokumen utama</p></div>
+            <div class="stepCard p-5 border border-white/10"><div class="font-bold text-lg text-sky-400">3. Tes Tulis</div><p class="text-sm opacity-80">Uji potensi akademik</p></div>
+            <div class="stepCard p-5 border border-white/10"><div class="font-bold text-lg text-amber-400">4. Wawancara</div><p class="text-sm opacity-80">Motivasi & Komitmen</p></div>
+            <div class="stepCard p-5 border border-white/10"><div class="font-bold text-lg text-emerald-400">5. Lolos</div><p class="text-sm opacity-80">Mulai perkuliahan</p></div>
+        </div>
+    </div>
+  </section>
+
+  <section id="gallery" class="mx-auto max-w-7xl px-4 py-16">
+    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 text-[10px] font-bold uppercase tracking-wider mb-3">
+      Galeri
+    </div>
+    <h2 class="text-3xl font-black text-slate-900 mb-2">Kegiatan Kampus</h2>
+    <p class="text-sm text-slate-600 mb-8">Dokumentasi kegiatan dan lingkungan belajar.</p>
+    <div id="galleryGrid" class="columns-2 md:columns-4 gap-4 space-y-4">
+      <div class="h-48 bg-slate-100 rounded-2xl animate-pulse"></div>
+      <div class="h-64 bg-slate-100 rounded-2xl animate-pulse"></div>
+      <div class="h-48 bg-slate-100 rounded-2xl animate-pulse"></div>
+      <div class="h-56 bg-slate-100 rounded-2xl animate-pulse"></div>
+    </div>
+    <div id="galleryEmpty" class="hidden text-slate-500 text-sm">Belum ada foto.</div>
+  </section>
+
+  <section id="news" class="mx-auto max-w-7xl px-4 py-16">
+    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 text-[10px] font-bold uppercase tracking-wider mb-3">
+      Berita
+    </div>
+    <h2 class="text-3xl font-black text-slate-900 mb-8">Update Terbaru</h2>
+    <div id="newsGrid" class="grid lg:grid-cols-3 gap-5">
+      <div class="newsCard p-6 h-80 animate-pulse bg-slate-50"></div>
+      <div class="newsCard p-6 h-80 animate-pulse bg-slate-50"></div>
+      <div class="newsCard p-6 h-80 animate-pulse bg-slate-50"></div>
+    </div>
+    <div id="newsEmpty" class="hidden text-slate-500 text-sm">Belum ada berita.</div>
+  </section>
+
+<section id="testimoni" class="mx-auto max-w-7xl px-4 py-16 border-t border-slate-200">
+    <div class="mb-8">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 text-[10px] font-bold uppercase tracking-wider mb-3">
+        Testimoni
+      </div>
+      <h2 class="text-3xl font-black text-slate-900">Apa Kata Alumni?</h2>
+    </div>
+
+    <div id="testiGrid" class="grid md:grid-cols-3 gap-5">
+      <div class="testiCard p-6 h-48 animate-pulse bg-slate-50"></div>
+      <div class="testiCard p-6 h-48 animate-pulse bg-slate-50"></div>
+      <div class="testiCard p-6 h-48 animate-pulse bg-slate-50"></div>
+    </div>
+    <div id="testiEmpty" class="hidden text-slate-500 text-center text-sm">Belum ada testimoni.</div>
+    
+    <div class="mt-10 text-center">
+      <a href="/testimonials.php" class="inline-flex items-center justify-center gap-2 rounded-full border border-slate-200 bg-white px-5 py-2.5 text-xs font-bold text-slate-700 shadow-sm transition hover:bg-slate-50 hover:text-becBlue uppercase tracking-wide">
+        Lihat Semua Testimoni
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </a>
+    </div>
+  </section>
+
+ <section id="kontak" class="bg-slate-50 border-t border-slate-200 font-sans">
+    <div class="mx-auto max-w-7xl px-4 py-16"> 
+      
+      <div class="grid lg:grid-cols-2 gap-10 lg:gap-12 items-start">
+        
+        <div>
+          <div class="mb-6">
+            <div class="inline-flex items-center gap-2 px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-800 text-[10px] font-bold uppercase tracking-wider mb-2">
+              Bantuan & Kontak
+            </div>
+            <h2 class="text-2xl md:text-3xl font-black text-slate-900 leading-tight">Punya Pertanyaan?</h2>
+            <p class="mt-2 text-sm text-slate-600">Cek jawaban di bawah atau hubungi admin kami.</p>
+          </div>
+
+          <div class="space-y-3">
+            <details class="group bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden transition-all duration-300 hover:border-blue-200 open:border-blue-200 open:ring-1 open:ring-blue-100">
+              <summary class="flex cursor-pointer items-center justify-between px-4 py-3.5 font-bold text-slate-900 select-none text-sm hover:bg-slate-50 transition-colors">
+                <span>Daftar resminya di mana?</span>
+                <span class="transition-transform duration-300 group-open:rotate-180 text-slate-400">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-4 h-4"><path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" /></svg>
+                </span>
+              </summary>
+              <div class="px-4 pb-4 text-xs md:text-sm text-slate-600 leading-relaxed animate-in slide-in-from-top-1 border-t border-slate-50 pt-3">
+                Pendaftaran resmi hanya dilakukan secara online melalui portal PMB kami di <a href="https://pmb.bogoreducare.org" target="_blank" class="text-becBlue font-bold hover:underline">pmb.bogoreducare.org</a>.
+              </div>
+            </details>
+
+            <details class="group bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden transition-all duration-300 hover:border-blue-200 open:border-blue-200 open:ring-1 open:ring-blue-100">
+              <summary class="flex cursor-pointer items-center justify-between px-4 py-3.5 font-bold text-slate-900 select-none text-sm hover:bg-slate-50 transition-colors">
+                <span>Program studinya apa saja?</span>
+                <span class="transition-transform duration-300 group-open:rotate-180 text-slate-400">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-4 h-4"><path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" /></svg>
+                </span>
+              </summary>
+              <div class="px-4 pb-4 text-xs md:text-sm text-slate-600 leading-relaxed animate-in slide-in-from-top-1 border-t border-slate-50 pt-3">
+                Saat ini tersedia dua program studi: <strong>Administrasi Perkantoran</strong> dan <strong>Bisnis & Manajemen</strong>. Keduanya dirancang agar lulusan siap kerja atau berwirausaha.
+              </div>
+            </details>
+
+            <details class="group bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden transition-all duration-300 hover:border-blue-200 open:border-blue-200 open:ring-1 open:ring-blue-100">
+              <summary class="flex cursor-pointer items-center justify-between px-4 py-3.5 font-bold text-slate-900 select-none text-sm hover:bg-slate-50 transition-colors">
+                <span>Fasilitas apa yang didapat?</span>
+                <span class="transition-transform duration-300 group-open:rotate-180 text-slate-400">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-4 h-4"><path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" /></svg>
+                </span>
+              </summary>
+              <div class="px-4 pb-4 text-xs md:text-sm text-slate-600 leading-relaxed animate-in slide-in-from-top-1 border-t border-slate-50 pt-3">
+                Mahasiswa mendapatkan <strong>beasiswa penuh (gratis biaya pendidikan)</strong>, makan siang gratis setiap hari kuliah, serta fasilitas asrama dan makan malam bagi yang memenuhi kriteria.
+              </div>
+            </details>
+
+            <details class="group bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden transition-all duration-300 hover:border-blue-200 open:border-blue-200 open:ring-1 open:ring-blue-100">
+              <summary class="flex cursor-pointer items-center justify-between px-4 py-3.5 font-bold text-slate-900 select-none text-sm hover:bg-slate-50 transition-colors">
+                <span>Kontak admin via apa?</span>
+                <span class="transition-transform duration-300 group-open:rotate-180 text-slate-400">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-4 h-4"><path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" /></svg>
+                </span>
+              </summary>
+              <div class="px-4 pb-4 text-xs md:text-sm text-slate-600 leading-relaxed animate-in slide-in-from-top-1 border-t border-slate-50 pt-3">
+                Anda bisa menghubungi admin kami melalui <strong>WhatsApp</strong> menggunakan formulir di samping kanan (atau di bawah pada tampilan mobile).
+              </div>
+            </details>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-2xl border border-slate-200 p-5 shadow-lg shadow-slate-200/50 sticky top-24 max-w-md ml-auto w-full">
+          
+          <div class="mb-4 pb-4 border-b border-slate-100">
+            <div class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-0.5">Nomor Admin Resmi</div>
+            <div class="text-lg font-black text-becBlue tracking-tight" id="waDisplay">+62 896-6552-0222</div>
+          </div>
+
+          <h3 class="text-lg font-extrabold text-slate-900 mb-1">Chat WhatsApp Admin</h3>
+          <p class="text-xs text-slate-500 mb-5">Isi data singkat untuk terhubung otomatis.</p>
+          
+          <form id="waForm" class="space-y-3">
+            <div>
+              <label for="nama" class="sr-only">Nama Lengkap</label>
+              <input id="nama" class="w-full rounded-lg border border-slate-200 bg-slate-50 px-4 py-2.5 text-sm focus:border-blue-500 focus:bg-white focus:ring-2 focus:ring-blue-100 transition outline-none placeholder:text-slate-400" placeholder="Nama Lengkap" required>
+            </div>
+            
+            <div class="grid grid-cols-2 gap-3">
+              <div>
+                <label for="asal" class="sr-only">Asal Sekolah</label>
+                <input id="asal" class="w-full rounded-lg border border-slate-200 bg-slate-50 px-4 py-2.5 text-sm focus:border-blue-500 focus:bg-white focus:ring-2 focus:ring-blue-100 transition outline-none placeholder:text-slate-400" placeholder="Asal Sekolah">
+              </div>
+              <div>
+                <label for="usia" class="sr-only">Usia</label>
+                <input id="usia" type="number" class="w-full rounded-lg border border-slate-200 bg-slate-50 px-4 py-2.5 text-sm focus:border-blue-500 focus:bg-white focus:ring-2 focus:ring-blue-100 transition outline-none placeholder:text-slate-400" placeholder="Usia (Thn)">
+              </div>
+            </div>
+
+            <div class="flex flex-wrap gap-2 text-[11px] font-semibold">
+              <button type="button" class="chipBtn px-2.5 py-1 rounded-md border border-slate-200 bg-white text-slate-600 hover:bg-blue-50 hover:text-blue-600 hover:border-blue-200 transition" data-text="Saya ingin tanya syarat pendaftaran.">Syarat</button>
+              <button type="button" class="chipBtn px-2.5 py-1 rounded-md border border-slate-200 bg-white text-slate-600 hover:bg-blue-50 hover:text-blue-600 hover:border-blue-200 transition" data-text="Saya ingin tanya jadwal seleksi.">Jadwal</button>
+              <button type="button" class="chipBtn px-2.5 py-1 rounded-md border border-slate-200 bg-white text-slate-600 hover:bg-blue-50 hover:text-blue-600 hover:border-blue-200 transition" data-text="Saya ingin tanya tentang asrama.">Asrama</button>
+            </div>
+
+            <div>
+              <label for="pesan" class="sr-only">Pesan</label>
+              <textarea id="pesan" rows="3" class="w-full rounded-lg border border-slate-200 bg-slate-50 px-4 py-2.5 text-sm focus:border-blue-500 focus:bg-white focus:ring-2 focus:ring-blue-100 transition outline-none resize-none placeholder:text-slate-400" placeholder="Tulis pesan Anda..." required></textarea>
+            </div>
+
+            <button type="submit" class="w-full group relative flex items-center justify-center gap-2 rounded-lg bg-becBlue px-6 py-3 text-sm font-bold text-white hover:bg-blue-900 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300">
+              <span>Kirim ke WhatsApp</span>
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
+            </button>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <footer class="bg-slate-950 text-slate-400 py-10 text-center text-xs">
+    <p>© <span id="year">2026</span> BogorEduCARE. All rights reserved.</p>
+  </footer>
+
+  <div id="lightbox" class="fixed inset-0 z-[999] hidden">
+    <div class="absolute inset-0 bg-slate-950/80 backdrop-blur" id="lbOverlay"></div>
+    <div class="relative w-full h-full flex items-center justify-center p-4">
+      <img id="lbImg" src="" class="max-w-full max-h-[90vh] rounded-lg shadow-2xl">
+      <button id="lbClose" class="absolute top-5 right-5 text-white text-3xl font-bold hover:text-red-400">&times;</button>
+      <div id="lbCap" class="absolute bottom-5 bg-black/60 text-white px-4 py-2 rounded-full text-sm backdrop-blur"></div>
+    </div>
+  </div>
+
+  <script>
+    let WA_PHONE="6289665520222", countdownTimer=null, GALLERY_ITEMS=[], GALLERY_INDEX=-1;
+    const ASSET_VER="20260124";
+
+    function escapeHtml(s){return String(s||'').replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#039;"}[m]))}
+    function fmtDateID(s){try{return new Date(s).toLocaleDateString('id-ID',{day:'numeric',month:'short',year:'numeric'})}catch{return s}}
+    async function fetchJson(url){const r=await fetch(url);if(!r.ok)throw new Error(r.status);return await r.json()}
+
+    /* LOAD SETTINGS */
+    async function loadSettings(){
+      try{
+        const d=await fetchJson('/cms/api/settings.php');
+        if(d.ok){
+          if(d.wa_number){WA_PHONE=d.wa_number.replace(/[^0-9]/g,''); if(WA_PHONE.startsWith('0'))WA_PHONE='62'+WA_PHONE.slice(1); document.getElementById('waDisplay').textContent='+'+WA_PHONE}
+          startCountdown(d.pmb_date||"2026-04-01");
+        }else startCountdown("2026-04-01");
+      }catch{startCountdown("2026-04-01")}
+    }
+
+    /* LOAD ANNOUNCEMENT */
+    async function loadAnnouncement(){
+      try{
+        const d=await fetchJson('/cms/api/announcements.php');
+        if(d.ok && d.item){
+          const w=document.getElementById('announceWrap'), i=document.getElementById('announceInner');
+          w.classList.remove('hidden');
+          let c="bg-blue-50 text-blue-900 border-blue-200";
+          if(d.item.level==='warning')c="bg-amber-50 text-amber-900 border-amber-200";
+          if(d.item.level==='success')c="bg-emerald-50 text-emerald-900 border-emerald-200";
+          i.className=`rounded-2xl border p-4 ${c}`;
+          i.innerHTML=`<b>${escapeHtml(d.item.title)}</b>: ${escapeHtml(d.item.body)}`;
+        }
+      }catch(e){}
+    }
+
+    /* RENDERERS */
+    const renderNews = (items) => items.map(n => `
+      <a href="/news.php?id=${n.id}" class="newsCard block p-6">
+        <div class="newsMedia"><img src="${n.cover_url||''}" class="newsImg" loading="lazy">
+        <div class="absolute top-3 left-3 bg-white/90 px-2.5 py-1 rounded-full text-[10px] font-bold shadow-sm text-slate-800">${fmtDateID(n.published_at)}</div></div>
+        <div class="mt-4"><h3 class="text-base font-bold leading-tight line-clamp-2 text-slate-900">${escapeHtml(n.title)}</h3>
+        <p class="mt-2 text-xs text-slate-600 line-clamp-3">${escapeHtml(n.summary)}</p>
+        <div class="mt-3 text-xs font-bold text-becBlue">Baca Selengkapnya →</div></div>
+      </a>`).join('');
+
+    const renderGallery = (items) => items.map((it,i) => `
+      <div class="group relative mb-4 rounded-xl overflow-hidden cursor-pointer bg-slate-100 shadow-sm hover:shadow-md transition" onclick="openLb('${it.file_url}','${escapeHtml(it.caption)}')">
+        <img src="${it.file_url}" class="w-full object-cover transition duration-500 group-hover:scale-105" loading="lazy">
+        <div class="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition"></div>
+      </div>`).join('');
+
+    const renderTesti = (items) => items.slice(0,3).map(t => {
+      const initials = (t.name||'A').split(' ').slice(0,2).map(n=>n[0]).join('').toUpperCase();
+      const imgContent = t.photo_url 
+        ? `<img src="${t.photo_url}" class="testiPhoto">` 
+        : `<div class="testiInitial">${initials}</div>`;
+        
+      return `<figure class="testiCard p-5">
+        <div class="flex items-center gap-3 mb-3">
+          <div class="testiPhotoWrap">${imgContent}</div>
+          <div><div class="font-bold text-slate-900 line-clamp-1 text-sm">${escapeHtml(t.name)}</div>
+          <div class="text-[11px] text-slate-500 line-clamp-1 font-medium">${escapeHtml(t.role)}</div></div>
+        </div>
+        <blockquote class="text-xs text-slate-600 italic line-clamp-4 leading-relaxed">"${escapeHtml(t.quote)}"</blockquote>
+      </figure>`;
+    }).join('');
+
+    /* FETCH GENERIC */
+    async function fetchFromCMS(ep, elId, fn, empId){
+      const el=document.getElementById(elId); if(!el)return;
+      try{
+        const d=await fetchJson(`/cms/api/${ep}`);
+        if(d.ok && d.items && d.items.length>0){ 
+          if(ep.includes('gallery')) GALLERY_ITEMS=d.items; 
+          el.innerHTML=fn(d.items); 
+        } else { document.getElementById(empId)?.classList.remove('hidden'); el.innerHTML=''; }
+      }catch{ el.innerHTML='<div class="text-red-500 text-xs text-center col-span-full">Gagal memuat data.</div>'; }
+    }
+
+    /* COUNTDOWN */
+    function startCountdown(d){
+      const t=new Date(d).getTime();
+      if(countdownTimer)clearInterval(countdownTimer);
+      countdownTimer=setInterval(()=>{
+        const now=new Date().getTime(), dist=t-now;
+        if(dist<0){ document.getElementById("cdDays").innerText="0"; return;}
+        document.getElementById("cdDays").innerText=Math.floor(dist/(864e5));
+        document.getElementById("cdHours").innerText=Math.floor((dist%864e5)/(36e5)).toString().padStart(2,'0');
+        document.getElementById("cdMins").innerText=Math.floor((dist%36e5)/(6e4)).toString().padStart(2,'0');
+        document.getElementById("cdSecs").innerText=Math.floor((dist%6e4)/1e3).toString().padStart(2,'0');
+      },1000);
+    }
+
+    /* LIGHTBOX */
+    function openLb(src,cap){ document.getElementById('lbImg').src=src; document.getElementById('lbCap').textContent=cap; document.getElementById('lightbox').classList.remove('hidden'); }
+    document.getElementById('lbClose').onclick=()=>document.getElementById('lightbox').classList.add('hidden');
+    document.getElementById('lbOverlay').onclick=()=>document.getElementById('lightbox').classList.add('hidden');
+
+    /* WA & CHIPS */
+    document.querySelectorAll('.chipBtn').forEach(b=>{
+      b.onclick=()=>{ const t=document.getElementById('pesan'); t.value=(t.value?t.value+'\n':'')+b.dataset.text; }
+    });
+    document.getElementById('waForm').onsubmit=(e)=>{
+      e.preventDefault();
+      const n=document.getElementById('nama').value, a=document.getElementById('asal').value, u=document.getElementById('usia').value, p=document.getElementById('pesan').value;
+      window.open(`https://wa.me/${WA_PHONE}?text=${encodeURIComponent(`Halo Admin, nama saya ${n} (${a}, ${u}th).\n${p}`)}`,'_blank');
+    };
+
+    /* BOOT */
+    document.addEventListener('DOMContentLoaded', ()=>{
+      document.getElementById('btnMenu').onclick=()=>document.getElementById('mobileMenu').classList.toggle('hidden');
+      document.getElementById('year').textContent=new Date().getFullYear();
+      loadSettings(); loadAnnouncement();
+      fetchFromCMS('news.php?limit=3', 'newsGrid', renderNews, 'newsEmpty');
+      fetchFromCMS('gallery.php?limit=8', 'galleryGrid', renderGallery, 'galleryEmpty');
+      fetchFromCMS('testimonials.php?limit=3', 'testiGrid', renderTesti, 'testiEmpty');
+    });
+  </script>
+</body>
+</html>

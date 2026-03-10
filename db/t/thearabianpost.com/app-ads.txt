@@ -1,0 +1,1630 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Arabian Post WIRE</title>
+
+<style>
+
+
+  html,
+body {
+
+    scrollbar-width: none;      /* Firefox */
+    -ms-overflow-style: none;   /* IE 10+ */
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+    display: none;              /* Chrome, Safari, Edge */
+}
+
+
+  /* =========================
+   Neon Loading Bar Animation
+   ========================= */
+#loadingBar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  width: 0%;
+  background: linear-gradient(90deg, #00ffb3, #5bcd8b, #00ffb3);
+  background-size: 200% 100%;
+  box-shadow: 0 0 10px #00ffb3, 0 0 10px #00ffb3;
+  z-index: 999999;
+  border-radius: 0 4px 4px 0;
+  animation: neonFlow 1.5s linear infinite;
+  transition: width 0.3s ease, opacity 0.4s ease;
+  opacity: 0;
+}
+
+@keyframes neonFlow {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+ /* =========================
+   Core Theme Variables
+   ========================= */
+:root {
+  --bg: #0e0e10;
+  --card-bg: #18181b;
+  --text: #f9f9f9;
+  --accent: #5bcd8b;
+  --shadow: 0 10px 24px rgba(0, 0, 0, 0.35);
+  --gap: 22px;
+}
+
+/* =========================
+   Light Mode Overrides
+   ========================= */
+body.light {
+  --bg: #f6f6f6;
+  --card-bg: #ffffff;
+  --text: #111111;
+  --accent: #008a5e;
+  --shadow: 0 10px 24px rgba(0, 0, 0, 0.1);
+}
+
+/* =========================
+   Base Layout
+   ========================= */
+html, body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  overflow-x: hidden;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+/* =========================
+   Header Styling (Fixed & Animated)
+   ========================= */
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: white;
+    text-align: right;
+    font-weight: 600;
+    letter-spacing: 1px;
+    color: var(--accent);
+    font-size: 1.8rem;
+    text-transform: uppercase;
+    box-shadow: var(--shadow);
+    transition: all 0.3s 
+ease;
+    z-index: 999999999999;
+}
+
+a.logo-link img {
+    max-width: 390px;
+    float: left;
+}
+
+.shrink a.logo-link img {
+    max-width: 200px;
+    width: 100%;
+    float: left;
+}
+
+/* Add spacing below header so grid isn't hidden */
+body {
+  padding-top: 120px;
+
+}
+
+
+
+/*
+body{background: #1010e9;
+    overflow-x: hidden;
+    margin: 0;
+    background-blend-mode: overlay, screen, screen, screen, screen, screen, screen, screen, normal;
+    background-image: radial-gradient(at 100vw 0px, rgb(34 41 4) 0%, rgb(32, 0, 51) 100%), radial-gradient(farthest-side at 100vw 0px, rgb(0 0 0) 0%, rgb(0 0 0 / 72%) 70%, rgba(73, 0, 170, 0) 100%), url(https://cms.1arabia.com/pluggables/dot-pattern-left._CB1198675309_.png), url(https://cms.1arabia.com/pluggables/dot-pattern-right._CB1198675309_.png), url(https://cms.1arabia.com/pluggables/dot-pattern-left._CB1198675309_.png), url(https://cms.1arabia.com/pluggables/dot-pattern-left._CB1198675309_.png), url(dot-pattern-left._CB1198675309_.png), url(https://cms.1arabia.com/pluggables/dot-pattern-right._CB1198675309_.png), url(https://cms.1arabia.com/pluggables/smoke-bg_v2.jpg);
+    background-position: right top, right top, left 200px, right min(100vmin, 20%), left min(500vmin, 50%), right min(700vmin, 60%), left min(80vmax, 90%), right min(90vmax, 95%), right top;
+    background-repeat: no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, repeat-y;
+    background-size: max(800px, 100%) 100%, 100% max(120vw, 1200px), max(50%, 250px), max(50%, 250px), max(50%, 250px), max(50%, 250px), max(50%, 250px), max(50%, 250px), auto;
+    background-color: rgb(73, 0, 133);}
+
+*/
+
+
+body.light {
+    background: white !important;
+}
+
+
+/* Header shrink effect */
+header.shrink {
+  font-size: 1.3rem;
+  background: white;
+  transition: all 0.3s ease;
+
+}
+/* Ensure the blend happens against the header's own background */
+#mainHeader { isolation: isolate; }
+
+/* Default (dark) – make white bg disappear into the black header */
+#mainHeader img.site-logo{
+
+  display: block;
+  transition: transform .25s ease, filter .25s ease;
+  /* White → black, keep reds strong, blend with header */
+  filter: invert(1) brightness(0.85) contrast(115%) saturate(130%);
+  mix-blend-mode: screen;   /* whites "melt" into dark bg */
+}
+
+/* When the page is in light mode, show the original colors */
+body.light #mainHeader img.site-logo{
+  filter: none;
+  mix-blend-mode: normal;
+}
+
+
+
+#grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-auto-rows: auto;        /* 🔥 allow dynamic height */
+  grid-auto-flow: dense;
+  gap: var(--gap);
+  padding: 50px 4vw;
+  max-width: 1500px;
+  margin: auto;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  background: var(--card-bg);
+  border-radius: 14px;
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  transition: all 0.5s cubic-bezier(.25,.1,.25,1);
+}
+
+/* Allow .content to grow */
+.card .content {
+  flex: unset;
+  padding: 18px;
+}
+
+.card, .skeleton {
+  border-radius: 14px;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.skeleton {
+  background: var(--card-bg);
+  box-shadow: var(--shadow);
+  animation: fadeIn 0.6s ease both;
+}
+.skeleton::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(255,255,255,0.04) 25%, rgba(255,255,255,0.08) 50%, rgba(255,255,255,0.04) 75%);
+  background-size: 400% 100%;
+  animation: shimmer 1.5s infinite;
+}
+@keyframes shimmer {
+  0% { background-position: -400px 0; }
+  100% { background-position: 400px 0; }
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px);}
+  to { opacity: 1; transform: translateY(0);}
+}
+
+.skeleton .thumb {
+  flex: 0 0 60%;
+  background: #242427;
+  border-bottom: 1px solid #222;
+}
+.skeleton .lines {
+  flex: 1;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.skeleton .line {
+  height: 12px;
+  background: #2a2a2d;
+  margin: 6px 0;
+  border-radius: 6px;
+  width: 100%;
+}
+.skeleton .line.short { width: 60%; }
+
+.card {
+  background: var(--card-bg);
+  box-shadow: var(--shadow);
+  cursor: pointer;
+  transform: translateY(20px);
+  opacity: 0;
+  transition: all 0.5s cubic-bezier(.25,.1,.25,1);
+}
+
+.card p:after {
+    content: '__ _____ __ ______ _ _ _ __ _ ____';
+    border-bottom: 290px solid #00000021;
+    position: absolute;
+    bottom: -10px;
+    z-index: -1;
+    color: #319476e6;
+}
+.card.visible { opacity: 1; transform: translateY(0); }
+
+.card img {
+  width: 100%;
+  height: 60%;
+  object-fit: cover;
+  transition: transform 0.6s cubic-bezier(.23,1,.32,1);
+}
+.card:hover img { transform: scale(1.06);  }
+.card img {
+  transition: transform 0.37s ease-in !important;
+}
+.card .content {
+    padding: 18px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    color: #cfcfcf;
+}
+/* =========================
+   Headline Styling (Dynamic)
+   ========================= */
+.card h3 {
+    margin: 0 0 10px;
+    font-weight: bold;
+    color: var(--text);
+    line-height: 1.2;
+    white-space: normal;
+    overflow: visible;
+    text-overflow: unset;
+    transition: all 0.3s 
+ease;
+    font-family: arial black;
+    
+}
+
+/* First card headline: extra large */
+.card:nth-child(1) h3 {
+  font-size: 1.8rem;
+  font-family: "Arial Black", sans-serif;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+/* Random variation: slightly larger font (120–140%) */
+.card:nth-child(3n+2) h3 {
+  font-size: 1.35rem;
+  font-family: "Georgia", serif;
+  font-style: italic;
+  color: var(--text);
+}
+.card h3 {
+    font-size: 150%;
+}
+
+.card:nth-child(3n+2) h3:before{
+    border-left: 30px solid #1e2cb3;
+    margin:-8px -16px -12px -1px;
+}
+
+.card:nth-child(3n+2) h3:before{content:""}
+
+/* Random variation: Impact + uppercase for punch */
+.card:nth-child(4n+3) h3 {
+  font-size: 1.3rem;
+  font-family: "Impact", sans-serif;
+  text-transform: uppercase;
+}
+
+/* One in 5 gets pastel futuristic accent */
+.card:nth-child(5n) h3 {
+    color: #d3145a;
+    letter-spacing: -0.8px;
+    font-size: 240%;
+    line-height: 1.1;
+}
+/* Subtle hover lift */
+.card:hover h3 {
+  
+  color: var(--accent);
+}
+
+.card p {
+  font-size: 0.9rem;
+  color: #b3b3b3;
+  margin: 0;
+  line-height: 1.4;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.size-wide { grid-column: span 2; }
+.size-tall { grid-row: span 2; }
+.size-large { grid-column: span 2; grid-row: span 2; }
+
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.7);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  backdrop-filter: blur(6px);
+  animation: fadeIn .3s ease;
+  top:60px;
+}
+
+.modal-content {
+    background: var(--card-bg);
+    border-radius: 16px;
+    max-width: 100%;
+    width: 100%;
+    max-height: 90%;
+    overflow-y: auto;
+    padding: 8%;
+    position: relative;
+    color: var(--text);
+    box-shadow: 0 0 50px rgba(0, 0, 0, 0.3);
+    animation: modalIn 0.4s 
+cubic-bezier(.25, .8, .25, 1);
+    text-align: justify;
+}
+.separator img {
+    float: left;
+    margin: 0px 3px 7px -14px;
+    padding: 0px 10px;
+}
+
+@keyframes modalIn {
+  from {opacity:0; transform:scale(0.97) translateY(15px);}
+  to {opacity:1; transform:scale(1) translateY(0);}
+}
+.close-btn {
+    position: fixed;
+    top: 18px;
+    right: 22px;
+    font-size: 1.6rem;
+    color: #aaa;
+    cursor: pointer;
+    transition: color .2s;
+    background: grey;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    text-align: center;
+    line-height: 2.2;
+}
+.close-btn:hover { color: var(--accent); }
+.modal-content h2 {
+    color: var(--accent);
+    margin-bottom: .5em;
+    font-family: arial black;
+    font-size: 1.82rem;
+    line-height: 1.102;
+    letter-spacing: -0.6px;
+    text-align: left;
+}
+
+@media(max-width:768px){
+  #grid { grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); }
+  .size-large,.size-tall,.size-wide { grid-column: span 1; grid-row: span 1; }
+}
+
+
+.modal-content {
+    min-height: 90%;
+}
+
+div#postContent {
+    flex: 3;       /* allow it to share space with sidebar */
+    min-width: 0;  /* prevents flexbox overflow */
+    max-width: 100%;
+}
+
+/* =========================
+   Article + Sidebar Layout
+   ========================= */
+/* =========================
+   Article + Sidebar Layout
+   ========================= */
+.post-layout {
+  display: flex;
+  gap: 48px;
+  align-items: flex-start;
+  width: 100%;
+  max-width: 1238px;  /* keeps it neat */
+  margin: 0 auto;     /* center horizontally */
+}
+
+
+/* Article section */
+#postContent {
+  flex: 3;        /* Article takes majority of width */
+  min-width: 0;   /* Prevents flex overflow */
+  max-width: 100%;
+}
+
+/* Sidebar section */
+.sidebar {
+  flex: 1;
+  max-width: 320px;
+  position: sticky;
+  top: -4px;
+  align-self: flex-start;
+}
+
+
+.sidebar .ad-box {
+  width: 300px;
+  height: 600px;
+  background: #ccc;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+
+.sidebar .ad-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Ad slot styling */
+.ad-slot {
+  background: var(--card-bg);
+  border-radius: 12px;
+  padding: 10px;
+  box-shadow: var(--shadow);
+  text-align: center;
+}
+
+/* =========================
+   Mobile Responsive
+   ========================= */
+@media (max-width: 768px) {
+  .post-layout {
+    flex-direction: column;
+  }
+      .sidebar {
+        position: static;
+        max-width: 100%;
+        margin-top: 20px;
+        min-width: 300px;
+        height: 250px;
+        margin: 0 auto;
+    }
+  .sidebar .ad-box {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 300 / 600; /* keep ratio */
+  }
+}
+
+/* =========================
+   Header Styling (Logo + Sticky)
+   ========================= */
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: linear-gradient(135deg, #101010 0%, #18181b 100%);
+  box-shadow: var(--shadow);
+  transition: all 0.1s ease;
+  z-index: 999999999999;
+}
+
+.header-inner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 30px 8% 35px;
+  transition: all 0.1s ease;
+  position: relative;
+}
+
+.site-logo {
+  height: 65px;
+  transition: all 0.23s ease;
+  filter: drop-shadow(0 0 4px rgba(255,255,255,0.2));
+}
+
+/* Theme toggle button */
+#themeToggle {
+  position: absolute;
+  right: 70px;
+  background: var(--card-bg);
+  color: var(--text);
+  border: 1px solid #333;
+  border-radius: 20px;
+  padding: 6px 14px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  box-shadow: var(--shadow);
+  transition: background 0.23s, color 0.23s;
+}
+
+/* Shrink mode (on scroll or modal open) */
+header.shrink .header-inner {
+  justify-content: flex-start;
+  padding: 12px 5%;
+  background: linear-gradient(135deg, #080808 0%, #141414 100%);
+}
+
+header.shrink .site-logo {
+  height: 40px;
+}
+.light header.shrink .header-inner {
+    background: white;
+}
+
+.light header {
+    background: white;
+}
+</style>
+</head>
+<body>
+<header id="mainHeader">
+  <div id="loadingBar"></div>
+
+  <div class="header-inner">
+    <a href="/wirenews/" class="logo-link">
+      <img src="https://thearabianpost.com/wp-content/uploads/2025/09/arabian-post-logo-animated-2025v1.gif" alt="Arabian Post Logo" class="site-logo">
+    </a>
+
+<nav id="mainNav" style="visibility:hidden;opacity:0;transform:translateY(-8px);">
+      <ul class="nav-links">
+        <li><a href="https://wire.thearabianpost.com/">⌂</a></li>
+        <li><a href="https://thearabianpost.com/whats-on">What's On</a></li>
+        <li><a href="https://thearabianpost.com/columns/">Columns</a></li>
+        <li><a href="https://thearabianpost.com/business/">Biz</a></li>
+        <li><a href="https://thearabianpost.com/latest-updates/">Latest</a></li>
+        <li><a href="https://thearabianpost.com/markets/">Markets</a></li>
+        <li><a href="https://thearabianpost.com/tag/web3/">Web3</a></li>
+        <li><a href="https://thearabianpost.com/crypto/">Lifestyle</a></li>
+          <li><a href="https://thearabianpost.com/gitex/">AP↗</a></li>
+        <li><button id="themeToggle" class="theme-item" style="visibility:hidden;">🌙</button></li>
+      </ul>
+      <button id="menuToggle" aria-label="Toggle Menu">☰</button>
+    </nav>
+  </div>
+</header>
+
+
+
+<div id="grid"></div>
+
+<!-- Modal -->
+<!-- Modal -->
+<div class="modal" id="postModal">
+<div class="modal-content">
+  <span class="close-btn" id="closeModal">&times;</span>
+  
+<div class="post-layout">
+  <div id="postContent"></div>
+  <aside class="sidebar">
+    <div class="ad-box">
+      <!-- Your 300x250 ad -->
+     <!-- <iframe data-aa="2237439" src="//ad.a-ads.com/2237439?size=300x250&background_color=fafafa&text_color=000000&title_color=dc0101&title_hover_color=000000&link_color=ca2121&link_hover_color=000000" style="width:300px; height:250px; border:0px; padding:0; overflow:hidden; background-color: transparent;"></iframe> -->
+     <div id="frame" style="width: 300px;margin: auto;z-index: 99998;height: auto">
+          <iframe data-aa='2416238' src='//ad.a-ads.com/2416238/?size=300x600&background_color=0b0b0b&title_color=ffffff&title_hover_color=a8fff7&text_color=f2f2f2&link_color=a7fff5&link_hover_color=11ffea'
+                            style='border:0; padding:0; width:300px; height:600px; overflow:hidden;display: block;margin: auto'></iframe>
+        </div>
+    </div>
+  </aside>
+</div>
+
+</div>
+
+</div>
+
+
+<script>
+const API_BASE = "https://thearabianpost.com/wirenews/proxy.php?url=wfx/fetch.php";
+
+// ---- Client-side cache helpers ----
+const CACHE_NAME = "apmirror-v1";
+async function cacheGet(key) {
+  try {
+    const cache = await caches.open(CACHE_NAME);
+    const res = await cache.match(key);
+    if (res) return await res.json();
+  } catch (e) { console.warn("Cache read failed:", e); }
+  return null;
+}
+
+
+
+async function cacheSet(key, data) {
+  try {
+    const cache = await caches.open(CACHE_NAME);
+    await cache.put(key, new Response(JSON.stringify(data)));
+  } catch (e) { console.warn("Cache write failed:", e); }
+}
+
+const slugFromURL = "";
+const forceFetch = "0" === "1";
+let slugMap = {}, idMap = {};
+
+const grid = document.getElementById("grid");
+const modal = document.getElementById("postModal");
+const postContent = document.getElementById("postContent");
+const closeModal = document.getElementById("closeModal");
+
+// ===== SEO Meta Helpers =====
+function updateMetaTags({ title, description, image, url, published }) {
+  document.title = `${title} | Arabian Post WIRE`;
+
+  // Remove previous SEO tags
+  document.querySelectorAll('meta[name="description"], meta[property^="og:"], meta[name^="twitter:"], script[type="application/ld+json"]').forEach(el => el.remove());
+
+  const head = document.head;
+  const metaList = [
+    { name: "description", content: description },
+    { property: "og:title", content: title },
+    { property: "og:description", content: description },
+    { property: "og:image", content: image },
+    { property: "og:type", content: "article" },
+    { property: "og:url", content: url },
+    { name: "twitter:card", content: "summary_large_image" },
+    { name: "twitter:title", content: title },
+    { name: "twitter:description", content: description },
+    { name: "twitter:image", content: image },
+  ];
+  metaList.forEach(meta => {
+    const m = document.createElement("meta");
+    if (meta.name) m.setAttribute("name", meta.name);
+    if (meta.property) m.setAttribute("property", meta.property);
+    m.setAttribute("content", meta.content);
+    head.appendChild(m);
+  });
+
+  // Canonical tag
+  let canonical = document.querySelector("link[rel='canonical']");
+  if (!canonical) {
+    canonical = document.createElement("link");
+    canonical.rel = "canonical";
+    document.head.appendChild(canonical);
+  }
+  canonical.href = url;
+
+  // JSON-LD structured data
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "NewsArticle",
+    "headline": title,
+    "image": [image],
+    "datePublished": published,
+    "dateModified": published,
+    "author": { "@type": "Organization", "name": "Arabian Post WIRE" },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Arabian Post WIRE",
+      "logo": { "@type": "ImageObject", "url": "https://thearabianpost.com/wp-content/uploads/2025/09/arabian-post-logo-animated-2025v1.gif" }
+    },
+    "description": description,
+    "mainEntityOfPage": { "@type": "WebPage", "@id": url }
+  };
+  const script = document.createElement("script");
+  script.type = "application/ld+json";
+  script.textContent = JSON.stringify(schema, null, 2);
+  head.appendChild(script);
+}
+
+function resetMetaToDefault() {
+  document.title = "Arabian Post WIRE";
+  document.querySelectorAll('meta[name="description"], meta[property^="og:"], meta[name^="twitter:"], script[type="application/ld+json"]').forEach(el => el.remove());
+  let canonical = document.querySelector("link[rel='canonical']");
+  if (canonical) canonical.href = "https://thearabianpost.com/wirenews/";
+}
+
+// ===== Utility functions =====
+function slugify(text){return text.toLowerCase().replace(/\s+/g,'-').replace(/[^\w\-]+/g,'').replace(/\-+/g,'-');}
+function stripHTML(str){const d=document.createElement("div");d.innerHTML=str;return d.textContent||"";}
+function truncate(str,n){return str.length>n?str.substr(0,n)+"…":str;}
+function extractImage(html){const d=document.createElement("div");d.innerHTML=html;const img=d.querySelector("img");return img?img.src:"";}
+
+function randomizeCardSize(el){
+  const r=Math.random();
+  if(r<0.2) el.classList.add("size-large");
+  else if(r<0.4) el.classList.add("size-wide");
+  else if(r<0.6) el.classList.add("size-tall");
+}
+
+function createSkeletons(count=9){
+  for(let i=0;i<count;i++){
+    const s=document.createElement("div");
+    s.className="skeleton";
+    randomizeCardSize(s);
+    s.innerHTML=`<div class="thumb"></div>
+                 <div class="lines"><div class="line"></div>
+                 <div class="line short"></div></div>`;
+    grid.appendChild(s);
+  }
+}
+
+function extractImageMeta(html){
+  const d = document.createElement("div");
+  d.innerHTML = html;
+  const img = d.querySelector("img");
+  if (!img) return { src: "", w: 0, h: 0, alt: "" };
+  const w = parseInt(img.getAttribute("width")) || 0;
+  const h = parseInt(img.getAttribute("height")) || 0;
+  const alt = img.getAttribute("alt") || "";
+  return { src: img.src, w, h, alt };
+}
+
+
+// Guess width/height from common URL patterns if not present in HTML
+function guessDimsFromURL(src){
+  if (!src) return { w: 0, h: 0 };
+  const m = src.match(/(\d{3,5})x(\d{3,5})/); // e.g. ...1200x800...
+  if (m) return { w: +m[1], h: +m[2] };
+  try {
+    const u = new URL(src, location.href);
+    const w = parseInt(u.searchParams.get("w") || u.searchParams.get("width") || "0");
+    const h = parseInt(u.searchParams.get("h") || u.searchParams.get("height") || "0");
+    return { w: w||0, h: h||0 };
+  } catch { return { w: 0, h: 0 }; }
+}
+
+function esc(s){ return (s||"").replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])); }
+
+
+function clearSkeletons(){grid.querySelectorAll(".skeleton").forEach(s=>s.remove());}
+// === WIRE CORE FETCH HANDLER ===
+// Handles cache-first post loading, then live fetch with graceful fallback.
+// Works with the top-3 ordering logic inside renderPosts() — do NOT modify sequence.
+// Safe to use with infinite scroll, cache refresh, and modal article loading.
+async function fetchPosts() {
+
+  const cacheKey = "posts-home";
+  showLoadingBar();
+
+  if (slugFromURL) {
+    modal.style.display = "flex";
+    postContent.innerHTML = "<div style='color:#aaa;text-align:center;'><div class='loader'><div class='dot'></div><div class='dot'></div><div class='dot'></div><div class='dot'></div><div class='dot'></div><div class='dot'></div><div class='dot'></div><div class='dot'></div></div></div>";
+
+  } else {
+    createSkeletons(9);
+  }
+
+  // ---- Step 1: Try browser cache first ----
+  // ---- Step 1: Try browser cache first ----
+  const cachedData = await cacheGet(cacheKey);
+  if (cachedData && cachedData.items && cachedData.items.length > 0) {
+    console.log("✅ Loaded posts from local cache");
+
+    // 🌙 NEW: Preload top images in background for instant smoothness
+    requestIdleCallback(() => {
+      cachedData.items.slice(0, 10).forEach(p => {
+        const img = new Image();
+        img.src = extractImage(p.content) || "https://cms.1arabia.com/assets/ap-img-arab-news-post.jpg?bust=1";
+      });
+    });
+
+    clearSkeletons();
+    renderPosts(cachedData.items);
+    if (slugFromURL) setTimeout(() => openBySlug(slugFromURL), 50);
+
+    // If not forcing, stop here (don’t refetch from server)
+    if (!forceFetch) {
+      finishLoadingBar();
+      return;
+    }
+  }
+
+
+  // ---- Step 2: Try fetching from server ----
+  try {
+    console.log("🌐 Fetching from server...");
+    const res = await fetch(API_BASE + (forceFetch ? "?forceFetch=1" : ""));
+    const data = await res.json();
+    finishLoadingBar();
+
+    if (data && data.items && data.items.length > 0) {
+      clearSkeletons();
+      renderPosts(data.items);
+      await cacheSet(cacheKey, data);
+      console.log("💾 Cache updated from server data");
+    } else if (cachedData && cachedData.items) {
+      console.warn("⚠️ Server empty, using cached posts");
+      clearSkeletons();
+      renderPosts(cachedData.items);
+    } else {
+      console.warn("⚠️ No live posts, trying archive...");
+      await loadFromArchive();
+    }
+
+    if (slugFromURL) setTimeout(() => openBySlug(slugFromURL), 50);
+  } catch (e) {
+    console.error("❌ Network fetch failed:", e);
+    finishLoadingBar();
+
+    if (cachedData && cachedData.items && cachedData.items.length > 0) {
+      clearSkeletons();
+      renderPosts(cachedData.items);
+      console.log("📦 Served from cache due to fetch error");
+    } else {
+      console.warn("⚠️ Network failed and no cache, trying archive...");
+      await loadFromArchive(true);
+    }
+  }
+}
+
+// ===== ARCHIVE FALLBACK LOADER =====
+async function loadFromArchive(isOffline = false) {
+  try {
+    const res = await fetch(`${API_BASE}?source=archived&page=1`);
+    const data = await res.json();
+
+    if (data.items && data.items.length > 0) {
+      clearSkeletons();
+      renderPosts(data.items);
+      console.log("📚 Loaded from archive cache");
+    } else {
+      grid.innerHTML = `<p style='color:#999;text-align:center;'>${
+        isOffline ? "Offline and no archive available." : "No posts found in archive."
+      }</p>`;
+    }
+  } catch (err) {
+    console.error("❌ Failed to load from archive:", err);
+    grid.innerHTML = `<p style='color:#999;text-align:center;'>Unable to load posts or archive.</p>`;
+  }
+}
+
+
+
+
+
+// === WIRE CUSTOM LOGIC ===
+// Ensures the top 3 posts are always the latest (sorted by published date DESC)
+// Everything after the first 3 remains randomised to keep layout variety.
+// Safe modification: does NOT affect caching, lazy-load, or infinite scroll.
+
+// ===== RENDER POSTS =====
+// ===== RENDER POSTS =====
+function renderPosts(posts) {
+  const FALLBACK_IMG = "https://cms.1arabia.com/assets/ap-img-arab-news-post.jpg?bust=1";
+  window.displayedPostIds = window.displayedPostIds || new Set();
+
+  if (!posts || !Array.isArray(posts) || !posts.length) return;
+
+  // --- Sort newest first ---
+  posts.sort((a, b) => new Date(b.published) - new Date(a.published));
+
+  const top3 = posts.slice(0, 3);
+  const rest = posts.slice(3);
+
+  // Shuffle the rest
+  for (let i = rest.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [rest[i], rest[j]] = [rest[j], rest[i]];
+  }
+
+  const finalList = [...top3, ...rest];
+  const BATCH = 6;
+  let i = 0;
+
+  function createCard(p, index) {
+    if (window.displayedPostIds.has(p.id)) return null;
+    window.displayedPostIds.add(p.id);
+
+    const slug = slugify(p.title);
+    slugMap[slug] = p.id;
+    idMap[p.id] = slug;
+
+    const card = document.createElement("div");
+    card.className = "card";
+    randomizeCardSize(card);
+
+    const meta = extractImageMeta(p.content);
+    let imgSrc = meta.src || FALLBACK_IMG;
+    const { w, h } = meta.w && meta.h ? meta : guessDimsFromURL(imgSrc);
+
+    card.innerHTML = `
+      <div class="media" style="--w:${w || 16};--h:${h || 9}"></div>
+      <div class="content">
+        <h3>${p.title}</h3>
+        <p>${truncate(stripHTML(p.content), 120)}</p>
+      </div>`;
+
+    const media = card.querySelector(".media");
+    const imgEl = new Image();
+    imgEl.loading = "lazy";
+    imgEl.decoding = "async";
+    imgEl.alt = esc(meta.alt || p.title || "");
+    imgEl.src = imgSrc;
+
+    imgEl.addEventListener("load", () => media.classList.add("loaded"));
+    imgEl.addEventListener("error", () => {
+      if (imgEl.src !== FALLBACK_IMG) imgEl.src = FALLBACK_IMG;
+      media.classList.add("loaded");
+    });
+
+    media.appendChild(imgEl);
+    card.addEventListener("click", () => openPost(p.id, slug));
+    return card;
+  }
+
+  function renderBatch() {
+    const slice = finalList.slice(i, i + BATCH);
+    slice.forEach((p, idx) => {
+      const card = createCard(p, i + idx);
+      if (card) {
+        grid.appendChild(card);
+        requestAnimationFrame(() => card.classList.add("visible"));
+      }
+    });
+
+    i += BATCH;
+    if (i < finalList.length) requestIdleCallback(renderBatch, { timeout: 100 });
+  }
+
+  requestIdleCallback(renderBatch, { timeout: 100 });
+}
+
+
+// ===== MODAL FUNCTIONS =====
+// ===== MODAL FUNCTIONS =====
+async function openPost(id, slug) {
+  const skipAdFeature = false; // ⬅️ Set to false to disable skip message & timer
+
+  showLoadingBar();
+  modal.style.display = "flex";
+  history.pushState({ slug }, "", slug);
+
+  if (!skipAdFeature) {
+    // === Direct fast load (no ad delay) ===
+    postContent.innerHTML = "<p style='text-align:center;color:#aaa;'>Loading article...</p>";
+    try {
+      const res = await fetch(`${API_BASE}?id=${id}`);
+      const data = await res.json();
+      finishLoadingBar();
+
+      const img =
+        extractImage(data.content) ||
+        "https://cms.1arabia.com/assets/ap-img-arab-news-post.jpg?bust=1";
+      const description = truncate(stripHTML(data.content), 160);
+      const url = `https://thearabianpost.com/wirenews/${slug}`;
+
+      postContent.innerHTML = `
+        <h2>${data.title}</h2>
+        <p><small>${new Date(data.published).toLocaleString()}</small></p>
+        <div>${data.content}</div>`;
+
+      updateMetaTags({
+        title: data.title,
+        description,
+        image: img,
+        url,
+        published: data.published,
+      });
+    } catch {
+      finishLoadingBar();
+      postContent.innerHTML = "<p style='text-align:center;color:#aaa;'>Error loading post.</p>";
+    }
+    return; // exit here
+  }
+
+  // === Ad-delay version (with skip option) ===
+  let countdown = 3000; // 3 seconds
+  const intervalTime = 50; // update every 50ms
+  let timer;
+  let articleData = null;
+
+  // Create countdown display
+  const countdownEl = document.createElement("p");
+  countdownEl.style = "text-align:center;color:#aaa;font-size:1rem;margin-top:20px;";
+  postContent.innerHTML = "";
+  postContent.appendChild(countdownEl);
+
+  // Create Skip button
+  const skipBtn = document.createElement("button");
+  skipBtn.textContent = "⏩ Skip Ad";
+  skipBtn.style = `
+    margin-top: 10px;
+    padding: 8px 14px;
+    border: 2px solid var(--accent);
+    background: transparent;
+    color: var(--accent);
+    font-weight: bold;
+    border-radius: 6px;
+    cursor: pointer;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  `;
+  skipBtn.style.display = "none"; // hidden until timer is running
+  postContent.appendChild(skipBtn);
+
+  const updateCountdown = () => {
+    countdown -= intervalTime;
+    if (countdown < 0) countdown = 0;
+    countdownEl.textContent = `Please wait, showing ad… ${(countdown / 1000).toFixed(2)}s`;
+    if (countdown > 0) {
+      skipBtn.style.display = "block"; // show skip button while ticking
+    }
+  };
+
+  updateCountdown();
+  timer = setInterval(updateCountdown, intervalTime);
+
+  try {
+    const res = await fetch(`${API_BASE}?id=${id}`);
+    articleData = await res.json();
+    finishLoadingBar();
+
+    const renderArticle = () => {
+      clearInterval(timer);
+      skipBtn.style.display = "none";
+      const img =
+        extractImage(articleData.content) ||
+        "https://cms.1arabia.com/assets/ap-img-arab-news-post.jpg?bust=1";
+      const description = truncate(stripHTML(articleData.content), 160);
+      const url = `https://thearabianpost.com/wirenews/${slug}`;
+
+      postContent.innerHTML = `
+        <h2>${articleData.title}</h2>
+        <p><small>${new Date(articleData.published).toLocaleString()}</small></p>
+        <div>${articleData.content}</div>`;
+
+      updateMetaTags({
+        title: articleData.title,
+        description,
+        image: img,
+        url,
+        published: articleData.published,
+      });
+    };
+
+    // Auto load after 3s
+    setTimeout(() => {
+      if (articleData) renderArticle();
+    }, 3000);
+
+    // Skip button click → load instantly
+    skipBtn.addEventListener("click", renderArticle);
+
+  } catch {
+    finishLoadingBar();
+    clearInterval(timer);
+    postContent.innerHTML = "<p style='text-align:center;color:#aaa;'>Error loading post.</p>";
+  }
+}
+
+
+
+
+async function openBySlug(slug) {
+  // wait until posts are loaded or cached properly
+  let retries = 0;
+  while (!window.displayedPostIds && retries < 10) {
+    await new Promise(r => setTimeout(r, 200)); // wait 200ms
+    retries++;
+  }
+
+  try {
+    // 1️⃣ Try cache first
+    const cache = await cacheGet("posts-home");
+    if (cache && cache.items) {
+      const found = cache.items.find(p => slugify(p.title) === slug);
+      if (found) return openPost(found.id, slug);
+    }
+
+    // 2️⃣ Try live feed (page=1)
+    const res = await fetch(`${API_BASE}?page=1`);
+    const data = await res.json();
+
+    if (data && data.items) {
+      const found = data.items.find(p => slugify(p.title) === slug);
+      if (found) return openPost(found.id, slug);
+    }
+
+    // 3️⃣ Final fallback: ask CMS directly for slug
+    const directRes = await fetch(`${API_BASE}?slug=${slug}`);
+    if (directRes.ok) {
+      const article = await directRes.json();
+      if (article && (article.id || article.title)) return openPost(article.id, slug);
+    }
+
+    postContent.innerHTML = `<p style='color:#999;text-align:center;'>Article not found.</p>`;
+  } catch (e) {
+    console.error("Slug fetch error:", e);
+    postContent.innerHTML = `<p style='color:#999;text-align:center;'>Failed to load article.</p>`;
+  }
+}
+
+  
+
+function closePost() {
+  modal.style.display = "none";
+  postContent.innerHTML = "";
+  resetMetaToDefault();
+  const rand = Math.random().toString(36).substring(2, 8); // 6-char random string
+  history.pushState({}, "", `/wirenews/?v=${rand}`);
+}
+
+
+closeModal.addEventListener("click", closePost);
+modal.addEventListener("click", e => { if (e.target === modal) closePost(); });
+
+window.addEventListener("popstate", e => {
+  if (e.state && e.state.slug && slugMap[e.state.slug]) openPost(slugMap[e.state.slug], e.state.slug);
+  else closePost();
+});
+
+// ===== THEME HANDLING =====
+const themeToggle = document.getElementById("themeToggle");
+const currentTheme = localStorage.getItem("theme") || "dark";
+document.body.classList.toggle("light", currentTheme === "light");
+themeToggle.textContent = currentTheme === "light" ? "☀️" : "🌙";
+themeToggle.addEventListener("click", () => {
+  const isLight = document.body.classList.toggle("light");
+  const theme = isLight ? "light" : "dark";
+  localStorage.setItem("theme", theme);
+  themeToggle.textContent = isLight ? "☀️" : "🌙";
+});
+
+// ===== AJAX LOADING BAR CONTROLLER =====
+const loadingBar = document.getElementById("loadingBar");
+function showLoadingBar() {
+  loadingBar.style.opacity = "1";
+  loadingBar.style.width = "0%";
+  setTimeout(() => { loadingBar.style.width = "80%"; }, 100);
+}
+function finishLoadingBar() {
+  loadingBar.style.width = "100%";
+  setTimeout(() => {
+    loadingBar.style.opacity = "0";
+    loadingBar.style.width = "0%";
+  }, 400);
+}
+
+window.addEventListener("DOMContentLoaded", () => {
+  requestIdleCallback(fetchPosts);
+});
+
+</script>
+<script>
+let page = 1;
+let loadingMore = false;
+let archiveMode = false; // switch to archived after live feed ends
+
+async function loadMore() {
+  if (loadingMore) return;
+  loadingMore = true;
+
+  createSkeletons(4);
+
+  try {
+    const source = archiveMode ? "archived" : "live";
+    const url = archiveMode
+      ? `${API_BASE}?source=archived&page=${page}`
+      : `${API_BASE}?page=${page}`;
+    const res = await fetch(url);
+    const data = await res.json();
+    clearSkeletons();
+
+    if (data.items && data.items.length) {
+      renderPosts(data.items);
+      page++;
+      if (!data.hasMore && !archiveMode) {
+        archiveMode = true;
+        page = 1;
+      }
+    } else if (!archiveMode) {
+      // No more live posts, move to archived
+      archiveMode = true;
+      page = 1;
+    } else {
+      observer.unobserve(sentinel); // fully stop when no more
+    }
+  } catch (e) {
+    //console.error("Load more failed:", e);
+  } finally {
+    loadingMore = false;
+  }
+}
+
+const sentinel = document.createElement("div");
+sentinel.id = "scrollSentinel";
+sentinel.style.cssText = "height:80px;width:100%;";
+document.body.appendChild(sentinel);
+
+const observer = new IntersectionObserver(entries => {
+  const last = entries[0];
+  if (last.isIntersecting && !loadingMore) loadMore();
+}, {
+  root: null,
+  rootMargin: "0px 0px 300px 0px",
+  threshold: 0
+});
+
+observer.observe(sentinel);
+
+</script>
+
+<script>
+const header = document.getElementById('mainHeader');
+if (header) {
+
+  // Scroll shrink behaviour
+let ticking = false;
+window.addEventListener('scroll', () => {
+  if (!ticking) {
+    requestAnimationFrame(() => {
+      const scrolled = window.scrollY > 50;
+      header.classList.toggle('shrink', scrolled);
+      ticking = false;
+    });
+    ticking = true;
+  }
+});
+
+
+  // Observe modal open/close
+  const modal = document.getElementById('postModal');
+
+  const applyShrink = (state) => {
+    if (state) {
+      header.classList.add('shrink');
+      document.body.classList.add('modal-open');
+    } else {
+      document.body.classList.remove('modal-open');
+      // Keep shrink if user has scrolled down; else remove
+      if (window.scrollY < 50) header.classList.remove('shrink');
+    }
+  };
+
+  // When modal opens or closes
+  const observer = new MutationObserver(() => {
+    const isVisible = modal.style.display === 'flex';
+    applyShrink(isVisible);
+  });
+
+  observer.observe(modal, { attributes: true, attributeFilter: ['style'] });
+
+  // Force header shrink immediately if URL has a slug (deep article)
+  if ("") {
+    header.classList.add('shrink');
+  }
+}
+</script>
+
+<div id="loadStatus" style="
+  text-align:center; color:#999;
+  padding:20px 0; font-size:0.9rem; display:none;">
+  Loading more stories…
+</div>
+<style type="text/css">/* === Responsive Nav Menu (Arabian Post Style) === */
+/* === Responsive Nav Menu (final polish with theme fix) === */
+#mainNav {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  position: relative;
+  gap: 28px;
+}
+
+#mainNav ul.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 26px;
+  margin: 0;
+  padding: 0;
+  flex-wrap: nowrap;
+}
+
+#mainNav ul.nav-links li a {
+  color: var(--text);
+  font-weight: 600;
+  text-decoration: none;
+  letter-spacing: 0.5px;
+  font-size: 1rem;
+  transition: color 0.1s ease;
+}
+
+#mainNav ul.nav-links li a:hover {
+  color: var(--accent);
+}
+
+/* --- Theme toggle as nav item --- */
+#mainNav .theme-item {
+  background: none;
+  border: 2px solid var(--accent);
+  color: var(--accent);
+  border-radius: 50%;
+  font-size: 1rem;
+  width: 34px;
+  height: 34px;
+  cursor: pointer;
+  flex-shrink: 0; /* 🔥 prevent it from collapsing */
+  margin-left: 10px; /* extra breathing space */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.1s, color 0.1s, border 0.3s;
+}
+
+#mainNav .theme-item:hover {
+  background: var(--accent);
+  color: #000;
+}
+
+body.light #mainNav .theme-item {
+  border-color: #111;
+  color: #111;
+}
+body.light #mainNav .theme-item:hover {
+  background: #111;
+  color: #fff;
+}
+
+/* --- Mobile menu toggle --- */
+#menuToggle {
+  display: none;
+  background: none;
+  border: 2px solid var(--accent);
+  color: var(--accent);
+  font-size: 1.3rem;
+  border-radius: 6px;
+  padding: 6px 10px;
+  cursor: pointer;
+  transition: background 0.1s, color 0.3s;
+}
+
+#menuToggle:hover {
+  background: var(--accent);
+  color: #000;
+}
+
+/* --- Mobile layout --- */
+@media (max-width: 900px) {
+  #mainNav {
+    flex: 1;
+    justify-content: flex-end;
+  }
+
+  #mainNav ul.nav-links {
+    position: absolute;
+    top: 100%;
+    right: 10px;
+    background: rgba(10, 10, 10, 0.95);
+    backdrop-filter: blur(10px);
+    flex-direction: column;
+    gap: 14px;
+    padding: 16px 24px;
+    border-radius: 10px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+    display: none;
+    min-width: 180px;
+  }
+
+  #mainNav ul.nav-links.active {
+    display: flex;
+    animation: fadeIn 0.25s ease;
+  }
+
+  #menuToggle {
+    display: block;
+  }
+
+  #mainNav .theme-item {
+    margin-left: 0;
+    align-self: center;
+  }
+}
+
+</style>
+
+<script>
+const menuToggle = document.getElementById('menuToggle');
+const navLinks = document.querySelector('#mainNav .nav-links');
+
+menuToggle?.addEventListener('click', () => {
+  navLinks.classList.toggle('active');
+});
+</script>
+
+
+
+<style>
+/* === NAV FADE-IN ON LOAD (Fully Hidden Until Ready) === */
+#mainNav {
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  will-change: opacity, transform;
+}
+
+#mainNav.loaded {
+  visibility: visible !important;
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}
+
+/* --- Smooth image placeholders with warm shimmer + fixed aspect ratio --- */
+.card .media{
+  position: relative;
+  width: 100%;
+  /* Use real image ratio if provided; fallback 16:9 */
+  aspect-ratio: var(--w, 16) / var(--h, 9);
+  overflow: hidden;
+  border-bottom: 1px solid #222;
+  background:
+    linear-gradient(135deg, #2a1f17, #3b2b20); /* warm base */
+}
+
+/* shimmer layer */
+/* === Image placeholder with warm shimmer and a comfy height floor === */
+/* Black-chrome placeholder with warm luxe shine */
+.card .media{
+  position: relative;
+  width: 100%;
+  aspect-ratio: var(--w, 16) / var(--h, 9);
+  overflow: hidden;
+  border-bottom: 1px solid #1b1e22;
+
+  /* layered gunmetal > black-chrome base + soft vignette */
+  background:
+    radial-gradient(120% 120% at 80% 0%, rgba(255, 230, 190, .06), transparent 60%),
+    radial-gradient(120% 120% at 20% 100%, rgba(255, 216, 160, .05), transparent 55%),
+    linear-gradient(135deg, #0f1113, #15181c 45%, #0e0f11 100%);
+}
+
+/* warm, chrome-like sweep */
+.card .media::after{
+  content:"";
+  position:absolute; inset:0;
+  background: linear-gradient(90deg,
+    rgba(250, 220, 170, 0.06) 0%,
+    rgba(255, 235, 200, 0.18) 45%,
+    rgba(255, 245, 220, 0.26) 50%,
+    rgba(255, 235, 200, 0.18) 55%,
+    rgba(250, 220, 170, 0.06) 100%);
+  background-size: 320% 100%;
+  animation: mediaShimmer 1.8s linear infinite;
+  pointer-events: none;
+  mix-blend-mode: screen; /* gives that chrome glint on the dark base */
+}
+
+/* fade-in still applies when image loads */
+.card .media.loaded::after{ opacity:0; transition: opacity .25s ease; }
+.card .media.loaded img{ opacity:1; }
+
+/* Optional: lighter take for light theme */
+body.light .card .media{
+  border-bottom: 1px solid #e3e6ea;
+  background:
+    radial-gradient(120% 120% at 80% 0%, rgba(255, 210, 150, .08), transparent 60%),
+    radial-gradient(120% 120% at 20% 100%, rgba(255, 228, 180, .08), transparent 55%),
+    linear-gradient(135deg, #e8ebef, #f2f4f6 50%, #e9ecef 100%);
+}
+body.light .card .media::after{
+  background: linear-gradient(90deg,
+    rgba(210, 180, 130, 0.08) 0%,
+    rgba(255, 240, 210, 0.20) 45%,
+    rgba(255, 250, 232, 0.30) 50%,
+    rgba(255, 240, 210, 0.20) 55%,
+    rgba(210, 180, 130, 0.08) 100%);
+  mix-blend-mode: normal;
+}
+
+/* existing keyframes are perfect */
+@keyframes mediaShimmer{
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+
+/* fade real image in; hide shimmer */
+.card .media img{
+  position:absolute; inset:0;
+  width:100%; height:100%;
+  object-fit:cover;
+  opacity:0; transition:opacity .65s ease;
+}
+.card .media.loaded::after{ opacity:0; transition:opacity .25s ease; }
+.card .media.loaded img{ opacity:1; }
+
+/* we no longer render bare <img> as a direct child of .card */
+.card > img{ display:none !important; }
+
+/* === Performance Optimisation Layer === */
+.card,
+header,
+#loadingBar {
+  will-change: transform, opacity;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+.card .media::after {
+  backface-visibility: hidden;
+  transform: translateZ(0);
+}
+
+header {
+  will-change: background, transform, opacity;
+}
+
+/* Reduce shimmer motion if user prefers less motion */
+@media (prefers-reduced-motion: reduce) {
+  .card .media::after {
+    animation: none !important;
+  }
+}
+
+* {
+  transition: background 0.25s ease, color 0.25s ease;
+}
+html, body { scroll-behavior: smooth; }
+
+
+.loader {
+  position: relative;
+  width: 120px;
+  height: 120px;
+}
+
+.dot {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  background: #00ff6a;
+  border-radius: 50%;
+  box-shadow: 0 0 15px #00ff6a;
+  top: 50%;
+  left: 50%;
+  transform-origin: -50px center;
+  animation: spin 1.8s linear infinite;
+}
+
+@keyframes spin {
+  0%   { transform: rotate(0deg) translateX(50px) rotate(0deg); opacity: 0.6; }
+  50%  { transform: rotate(180deg) translateX(50px) rotate(-180deg); opacity: 1; }
+  100% { transform: rotate(360deg) translateX(50px) rotate(-360deg); opacity: 0.6; }
+}
+
+/* generate multiple orbiting dots */
+.dot:nth-child(1) { animation-delay: 0s; }
+.dot:nth-child(2) { animation-delay: 0.15s; }
+.dot:nth-child(3) { animation-delay: 0.3s; }
+.dot:nth-child(4) { animation-delay: 0.45s; }
+.dot:nth-child(5) { animation-delay: 0.6s; }
+.dot:nth-child(6) { animation-delay: 0.75s; }
+.dot:nth-child(7) { animation-delay: 0.9s; }
+.dot:nth-child(8) { animation-delay: 1.05s; }
+</style>
+
+<script>
+window.addEventListener("load", () => {
+  const nav = document.getElementById("mainNav");
+  if (nav) {
+    // wait a bit after everything is painted
+    setTimeout(() => {
+      nav.classList.add("loaded");
+    }, 400);
+  }
+});
+</script>
+
+
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9d2f1d212f5e2715',t:'MTc3MTkzNzY4OQ=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

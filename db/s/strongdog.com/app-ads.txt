@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script>
+  try {
+    const data = {
+      w: window.innerWidth,
+      h: window.innerHeight,
+      sw: screen.width,
+      sh: screen.height,
+      dpr: window.devicePixelRatio,
+      tz: Intl.DateTimeFormat().resolvedOptions().timeZone,
+      t: Date.now()
+    };
+    document.cookie =
+      "human=" + btoa(JSON.stringify(data)) +
+      "; path=/; max-age=3600";
+    location.reload();
+  } catch {}
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OmniScholar | Integrated Advanced Learning Environment</title>
+<meta name="description" content="A professional-grade, self-contained learning management system containing university-level modules in Quantum Physics, Advanced Calculus, Molecular Biology, and Computer Science. Features integrated tools including a graphing calculator, pomodoro timer, and spaced repetition flashcards.">
+<meta name="keywords" content="LMS, STEM, Physics, Calculus, Biology, Computer Science, Graphing Calculator, Periodic Table, Educational Tools, Online Learning, Self-Paced Study">
+<meta name="author" content="OmniScholar Systems">
+<meta property="og:title" content="OmniScholar: Advanced Open Courseware">
+<meta property="og:type" content="website">
+<meta property="og:description" content="Access a complete curriculum of STEM subjects and study tools in a single interface.">
+<meta property="og:image" content="https://via.placeholder.com/1200x630">
+<meta name="theme-color" content="#2563eb">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1609993827735056"
+     crossorigin="anonymous"></script>
+<style>
+:root {
+    --primary: #2563eb;
+    --primary-dark: #1e40af;
+    --secondary: #475569;
+    --accent: #0ea5e9;
+    --background: #f8fafc;
+    --surface: #ffffff;
+    --border: #e2e8f0;
+    --text-main: #0f172a;
+    --text-muted: #64748b;
+    --success: #10b981;
+    --danger: #ef4444;
+    --warning: #f59e0b;
+    --font-sans: system-ui, -apple-system, sans-serif;
+    --font-mono: 'SF Mono', Consolas, monospace;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; outline: none; }
+body { font-family: var(--font-sans); background: var(--background); color: var(--text-main); height: 100vh; display: flex; overflow: hidden; }
+a { text-decoration: none; color: inherit; }
+button { font-family: inherit; }
+.app-shell { display: flex; width: 100%; height: 100%; }
+.sidebar { width: 260px; background: #0f172a; color: #f1f5f9; display: flex; flex-direction: column; border-right: 1px solid #1e293b; flex-shrink: 0; }
+.brand { padding: 1.5rem; font-size: 1.25rem; font-weight: 700; color: #fff; border-bottom: 1px solid #1e293b; letter-spacing: -0.5px; display: flex; align-items: center; gap: 0.75rem; }
+.brand-icon { width: 32px; height: 32px; background: var(--primary); border-radius: 6px; display: grid; place-items: center; font-weight: 900; }
+.nav-scroll { flex: 1; overflow-y: auto; padding: 1rem 0; }
+.nav-group { margin-bottom: 1.5rem; }
+.nav-header { font-size: 0.7rem; text-transform: uppercase; color: #94a3b8; padding: 0 1.5rem 0.5rem; font-weight: 700; letter-spacing: 0.05em; }
+.nav-item { display: flex; align-items: center; padding: 0.6rem 1.5rem; color: #cbd5e1; transition: 0.2s; cursor: pointer; font-size: 0.9rem; border-left: 3px solid transparent; }
+.nav-item:hover { background: #1e293b; color: #fff; }
+.nav-item.active { background: #1e293b; color: var(--accent); border-left-color: var(--accent); }
+.nav-icon { width: 24px; opacity: 0.7; margin-right: 8px; }
+.main-viewport { flex: 1; display: flex; flex-direction: column; overflow: hidden; background: var(--background); }
+.top-bar { height: 64px; background: var(--surface); border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; padding: 0 2rem; flex-shrink: 0; }
+.breadcrumbs { font-size: 0.875rem; color: var(--text-muted); }
+.breadcrumbs span { color: var(--text-main); font-weight: 600; }
+.user-actions { display: flex; gap: 1rem; }
+.btn { padding: 0.5rem 1rem; border-radius: 6px; border: 1px solid var(--border); background: var(--surface); cursor: pointer; font-size: 0.875rem; font-weight: 500; color: var(--text-main); transition: 0.15s; }
+.btn:hover { background: #f1f5f9; }
+.btn-primary { background: var(--primary); color: white; border-color: var(--primary); }
+.btn-primary:hover { background: var(--primary-dark); }
+.content-area { flex: 1; overflow-y: auto; padding: 2rem; scroll-behavior: smooth; }
+.container { max-width: 1000px; margin: 0 auto; }
+.page { display: none; animation: fadeEntry 0.3s ease-out; }
+.page.active { display: block; }
+@keyframes fadeEntry { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
+h1 { font-size: 2rem; font-weight: 800; letter-spacing: -0.025em; margin-bottom: 1rem; color: var(--text-main); }
+h2 { font-size: 1.5rem; font-weight: 700; margin: 2.5rem 0 1rem; color: var(--text-main); padding-bottom: 0.5rem; border-bottom: 1px solid var(--border); }
+h3 { font-size: 1.15rem; font-weight: 600; margin: 1.5rem 0 0.75rem; color: var(--text-main); }
+p { margin-bottom: 1rem; line-height: 1.7; color: #334155; }
+ul, ol { margin-bottom: 1.5rem; padding-left: 1.5rem; color: #334155; line-height: 1.6; }
+li { margin-bottom: 0.5rem; }
+.card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; margin-bottom: 2rem; }
+.card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 1.5rem; transition: 0.2s; box-shadow: 0 1px 3px rgba(0,0,0,0.05); display: flex; flex-direction: column; }
+.card:hover { transform: translateY(-2px); box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); border-color: #cbd5e1; }
+.card h4 { font-size: 1.1rem; margin-bottom: 0.5rem; color: var(--text-main); }
+.card p { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1.5rem; flex: 1; }
+.tag { display: inline-flex; align-items: center; padding: 0.25rem 0.75rem; border-radius: 99px; font-size: 0.75rem; font-weight: 600; margin-bottom: 1rem; width: fit-content; }
+.tag.physics { background: #e0f2fe; color: #0284c7; }
+.tag.math { background: #dcfce7; color: #16a34a; }
+.tag.cs { background: #f3e8ff; color: #9333ea; }
+.tag.bio { background: #ffe4e6; color: #e11d48; }
+.equation-box { background: #1e293b; color: #e2e8f0; padding: 1.5rem; border-radius: 8px; font-family: var(--font-mono); overflow-x: auto; margin: 1.5rem 0; border-left: 4px solid var(--accent); white-space: pre; }
+.info-box { background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 8px; padding: 1rem 1.5rem; margin: 1.5rem 0; color: #1e3a8a; display: flex; gap: 1rem; align-items: flex-start; }
+.info-box svg { flex-shrink: 0; width: 20px; height: 20px; margin-top: 2px; }
+table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; font-size: 0.9rem; background: var(--surface); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+th { background: #f1f5f9; text-align: left; padding: 0.75rem 1rem; font-weight: 600; border-bottom: 1px solid var(--border); }
+td { padding: 0.75rem 1rem; border-bottom: 1px solid var(--border); color: #334155; }
+tr:last-child td { border-bottom: none; }
+.tool-container { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 2rem; min-height: 500px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); }
+.calc-wrapper { max-width: 360px; margin: 0 auto; background: #f8fafc; padding: 1.5rem; border-radius: 16px; border: 1px solid var(--border); box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); }
+.calc-screen { width: 100%; background: #0f172a; color: #10b981; font-family: var(--font-mono); font-size: 2rem; padding: 1rem; text-align: right; border-radius: 8px; margin-bottom: 1rem; overflow-x: auto; min-height: 80px; display: flex; align-items: flex-end; justify-content: flex-end; }
+.calc-keypad { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.5rem; }
+.calc-btn { padding: 1rem; border: none; border-radius: 8px; font-size: 1.1rem; font-weight: 500; cursor: pointer; background: #fff; box-shadow: 0 1px 2px rgba(0,0,0,0.05); transition: 0.1s; color: var(--text-main); }
+.calc-btn:active { transform: translateY(1px); box-shadow: none; }
+.calc-btn.op { background: #eff6ff; color: var(--primary); font-weight: 700; }
+.calc-btn.fn { background: #f1f5f9; font-size: 0.9rem; color: var(--secondary); }
+.calc-btn.eq { background: var(--primary); color: white; grid-column: span 1; }
+.calc-btn.clear { background: #fef2f2; color: var(--danger); }
+.periodic-wrapper { overflow-x: auto; padding: 1rem 0; }
+.periodic-table { display: grid; grid-template-columns: repeat(18, minmax(40px, 1fr)); gap: 4px; min-width: 800px; }
+.element { aspect-ratio: 1; border: 1px solid #cbd5e1; border-radius: 4px; display: flex; flex-direction: column; justify-content: center; align-items: center; font-size: 0.7rem; position: relative; cursor: pointer; background: #fff; transition: 0.2s; user-select: none; }
+.element:hover { transform: scale(1.5); z-index: 10; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); border-color: var(--primary); background: #fff; }
+.element b { font-size: 1rem; display: block; margin-bottom: 2px; }
+.element.gap { visibility: hidden; pointer-events: none; }
+.element.alkali { background: #ffedd5; border-color: #fdba74; }
+.element.alkaline { background: #fef3c7; border-color: #fcd34d; }
+.element.transition { background: #ecfccb; border-color: #bef264; }
+.element.basic { background: #ccfbf1; border-color: #5eead4; }
+.element.noble { background: #e0f2fe; border-color: #7dd3fc; }
+.element-detail { height: 100px; background: #f8fafc; border: 1px solid var(--border); border-radius: 8px; margin-bottom: 1rem; display: flex; align-items: center; padding: 0 2rem; gap: 2rem; }
+.element-detail h2 { margin: 0; padding: 0; border: none; font-size: 2rem; color: var(--primary); }
+.element-detail .stats { display: flex; gap: 2rem; color: var(--text-muted); font-size: 0.9rem; }
+.flashcard-stage { perspective: 1000px; width: 100%; max-width: 600px; height: 350px; margin: 2rem auto; }
+.flashcard { position: relative; width: 100%; height: 100%; text-align: center; transition: transform 0.6s; transform-style: preserve-3d; border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); cursor: pointer; }
+.flashcard.flipped { transform: rotateY(180deg); }
+.face { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 2rem; border-radius: 16px; background: var(--surface); border: 1px solid var(--border); }
+.face.front { z-index: 2; }
+.face.back { transform: rotateY(180deg); background: #f0f9ff; border-color: #bae6fd; }
+.face-label { text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-muted); font-size: 0.75rem; margin-bottom: 1rem; }
+.face-content { font-size: 1.5rem; font-weight: 600; color: var(--text-main); }
+.quiz-block { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 2rem; margin-bottom: 2rem; }
+.quiz-opt { display: block; width: 100%; text-align: left; padding: 1rem; margin: 0.5rem 0; border: 2px solid var(--border); border-radius: 6px; background: white; cursor: pointer; transition: 0.2s; }
+.quiz-opt:hover { border-color: var(--accent); background: #f8fafc; }
+.quiz-opt.correct { border-color: var(--success); background: #ecfdf5; color: #064e3b; }
+.quiz-opt.incorrect { border-color: var(--danger); background: #fef2f2; color: #7f1d1d; }
+.timer-display { font-size: 6rem; font-weight: 800; text-align: center; font-feature-settings: "tnum"; font-variant-numeric: tabular-nums; color: var(--text-main); margin: 2rem 0; }
+canvas { width: 100%; height: 400px; background: #fff; border: 1px solid var(--border); border-radius: 8px; }
+@media (max-width: 768px) { .app-shell { flex-direction: column; } .sidebar { width: 100%; height: auto; border-right: none; border-bottom: 1px solid var(--border); padding-bottom: 0; } .nav-scroll { display: none; } .nav-scroll.mobile-open { display: block; height: 300px; } .content-area { padding: 1rem; } }
+</style>
+</head>
+<body>
+<div class="app-shell">
+    <aside class="sidebar">
+        <div class="brand">
+            <div class="brand-icon">Ω</div>
+            OmniScholar
+        </div>
+        <div class="nav-scroll" id="sidebar-nav">
+            <div class="nav-group">
+                <div class="nav-header">Dashboard</div>
+                <div class="nav-item active" onclick="navigate('dashboard', this)">
+                    <span class="nav-icon">📊</span> Overview
+                </div>
+                <div class="nav-item" onclick="navigate('curriculum', this)">
+                    <span class="nav-icon">📚</span> My Curriculum
+                </div>
+            </div>
+            <div class="nav-group">
+                <div class="nav-header">Natural Sciences</div>
+                <div class="nav-item" onclick="navigate('physics', this)">
+                    <span class="nav-icon">⚛️</span> Physics & Mechanics
+                </div>
+                <div class="nav-item" onclick="navigate('biology', this)">
+                    <span class="nav-icon">🧬</span> Biology & Genetics
+                </div>
+                <div class="nav-item" onclick="navigate('chemistry', this)">
+                    <span class="nav-icon">🧪</span> Inorganic Chemistry
+                </div>
+            </div>
+            <div class="nav-group">
+                <div class="nav-header">Formal Sciences</div>
+                <div class="nav-item" onclick="navigate('math', this)">
+                    <span class="nav-icon">∫</span> Advanced Calculus
+                </div>
+                <div class="nav-item" onclick="navigate('cs', this)">
+                    <span class="nav-icon">💻</span> Computer Science
+                </div>
+            </div>
+            <div class="nav-group">
+                <div class="nav-header">Humanities</div>
+                <div class="nav-item" onclick="navigate('history', this)">
+                    <span class="nav-icon">🏛️</span> World History
+                </div>
+            </div>
+            <div class="nav-group">
+                <div class="nav-header">Laboratory Tools</div>
+                <div class="nav-item" onclick="navigate('calculator', this)">
+                    <span class="nav-icon">🧮</span> Sci Calculator
+                </div>
+                <div class="nav-item" onclick="navigate('grapher', this)">
+                    <span class="nav-icon">📉</span> Function Plotter
+                </div>
+                <div class="nav-item" onclick="navigate('periodic', this)">
+                    <span class="nav-icon">📅</span> Periodic Table
+                </div>
+                <div class="nav-item" onclick="navigate('pomodoro', this)">
+                    <span class="nav-icon">⏱️</span> Focus Timer
+                </div>
+                <div class="nav-item" onclick="navigate('flashcards', this)">
+                    <span class="nav-icon">🧠</span> Spaced Repetition
+                </div>
+                <div class="nav-item" onclick="navigate('quiz', this)">
+                    <span class="nav-icon">📝</span> Assessment Engine
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <div class="main-viewport">
+        <header class="top-bar">
+            <div class="breadcrumbs" id="breadcrumbs">Academics / <span>Dashboard</span></div>
+            <div class="user-actions">
+                <button class="btn">Settings</button>
+                <button class="btn btn-primary">Student Profile</button>
+            </div>
+        </header>
+
+        <main class="content-area">
+            <div class="container">
+                
+                <section id="dashboard" class="page active">
+                    <h1>Academic Dashboard</h1>
+                    <div class="info-box">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+                        <div>
+                            <strong>Welcome back, Scholar.</strong><br>
+                            Your current streak is 14 days. You have upcoming assessments in Calculus II and Molecular Biology.
+                        </div>
+                    </div>
+                    <h2>Active Modules</h2>
+                    <div class="card-grid">
+                        <div class="card" onclick="navigate('physics', document.querySelectorAll('.nav-item')[2])">
+                            <span class="tag physics">Physics 301</span>
+                            <h4>Quantum Mechanics</h4>
+                            <p>Wave functions, Schrödinger equation, and Heisenberg Uncertainty Principle.</p>
+                            <button class="btn btn-primary">Resume Module</button>
+                        </div>
+                        <div class="card" onclick="navigate('cs', document.querySelectorAll('.nav-item')[6])">
+                            <span class="tag cs">CS 204</span>
+                            <h4>Data Structures</h4>
+                            <p>Analysis of Algorithms, Hash Maps, Binary Trees, and Graph Theory.</p>
+                            <button class="btn btn-primary">Resume Module</button>
+                        </div>
+                        <div class="card" onclick="navigate('biology', document.querySelectorAll('.nav-item')[3])">
+                            <span class="tag bio">BIO 101</span>
+                            <h4>Cellular Respiration</h4>
+                            <p>Glycolysis, Krebs Cycle, and the Electron Transport Chain.</p>
+                            <button class="btn btn-primary">Resume Module</button>
+                        </div>
+                        <div class="card" onclick="navigate('history', document.querySelectorAll('.nav-item')[7])">
+                            <span class="tag" style="background:#f1f5f9; color:#475569">HIS 200</span>
+                            <h4>Industrial Revolution</h4>
+                            <p>Socio-economic shifts from agrarian societies to industrial urban centers.</p>
+                            <button class="btn btn-primary">Resume Module</button>
+                        </div>
+                    </div>
+                    <h2>Performance Analytics</h2>
+                    <table style="margin-top:0">
+                        <thead><tr><th>Subject</th><th>Modules Completed</th><th>Avg. Score</th><th>Status</th></tr></thead>
+                        <tbody>
+                            <tr><td>Physics & Mechanics</td><td>12/40</td><td>92%</td><td><span style="color:var(--success)">Excellent</span></td></tr>
+                            <tr><td>Calculus</td><td>8/35</td><td>88%</td><td><span style="color:var(--success)">Good</span></td></tr>
+                            <tr><td>Computer Science</td><td>24/50</td><td>95%</td><td><span style="color:var(--success)">Distinction</span></td></tr>
+                            <tr><td>Inorganic Chemistry</td><td>3/30</td><td>74%</td><td><span style="color:var(--warning)">Review Needed</span></td></tr>
+                        </tbody>
+                    </table>
+                </section>
+
+                <section id="curriculum" class="page">
+                    <h1>Curriculum Overview</h1>
+                    <p>Manage your learning path and review syllabus requirements.</p>
+                    <div class="card">
+                        <h4>Degree Progress</h4>
+                        <div style="width:100%; height:12px; background:#f1f5f9; border-radius:6px; margin:1rem 0; overflow:hidden;">
+                            <div style="width:45%; height:100%; background:var(--primary);"></div>
+                        </div>
+                        <p>You have completed 45% of the core requirements for the Bachelor of Science track.</p>
+                    </div>
+                </section>
+
+                <section id="physics" class="page">
+                    <span class="tag physics">PHY 301</span>
+                    <h1>Physics: Mechanics & Quantum Theory</h1>
+                    
+                    <h2>1. Classical Mechanics: Kinematics</h2>
+                    <p>Kinematics describes the motion of points, bodies (objects), and systems of bodies without considering the forces that cause them to move.</p>
+                    <div class="equation-box">
+v = v₀ + at
+x = x₀ + v₀t + ½at²
+v² = v₀² + 2a(x - x₀)
+                    </div>
+                    
+                    <h2>2. The Laws of Thermodynamics</h2>
+                    <p>Thermodynamics deals with heat, work, and temperature, and their relation to energy, radiation, and physical properties of matter.</p>
+                    <ul>
+                        <li><strong>Zeroth Law:</strong> If two systems are in thermal equilibrium with a third system, they are in thermal equilibrium with each other.</li>
+                        <li><strong>First Law:</strong> Energy cannot be created or destroyed in an isolated system (Conservation of Energy). <code style="background:#e2e8f0; padding:2px 4px; border-radius:4px">ΔU = Q - W</code></li>
+                        <li><strong>Second Law:</strong> The entropy of any isolated system always increases.</li>
+                    </ul>
+
+                    <h2>3. Quantum Mechanics</h2>
+                    <p>The study of matter and light at the atomic and subatomic scale. It attempts to describe and account for the properties of molecules and atoms and their constituents.</p>
+                    <h3>The Schrödinger Equation</h3>
+                    <p>A linear partial differential equation that governs the wave function of a quantum-mechanical system.</p>
+                    <div class="equation-box">
+iℏ ∂/∂t Ψ(r,t) = [ -ℏ²/2m ∇² + V(r,t) ] Ψ(r,t)
+                    </div>
+                    <p>Where <strong>Ψ</strong> is the wave function, <strong>V</strong> is the potential energy, and <strong>ℏ</strong> is the reduced Planck constant.</p>
+                </section>
+
+                <section id="biology" class="page">
+                    <span class="tag bio">BIO 101</span>
+                    <h1>Cellular Biology & Genetics</h1>
+                    
+                    <h2>1. Structure of the Eukaryotic Cell</h2>
+                    <p>Eukaryotic cells contain membrane-bound organelles, including a nucleus. They differ from prokaryotic cells (bacteria) which lack these structures.</p>
+                    <table class="data-table">
+                        <thead><tr><th>Organelle</th><th>Function</th><th>Structure</th></tr></thead>
+                        <tbody>
+                            <tr><td><strong>Nucleus</strong></td><td>Stores genetic material (DNA)</td><td>Double membrane with pores</td></tr>
+                            <tr><td><strong>Mitochondria</strong></td><td>ATP production (Cellular Respiration)</td><td>Double membrane, own DNA</td></tr>
+                            <tr><td><strong>Ribosome</strong></td><td>Protein synthesis (Translation)</td><td>RNA and protein complex</td></tr>
+                            <tr><td><strong>Golgi Apparatus</strong></td><td>Modifies, sorts, and packages proteins</td><td>Stacked flattened sacs</td></tr>
+                            <tr><td><strong>Lysosome</strong></td><td>Digestion and waste removal</td><td>Membrane sac with enzymes</td></tr>
+                        </tbody>
+                    </table>
+
+                    <h2>2. DNA Replication</h2>
+                    <p>The biological process of producing two identical replicas of DNA from one original DNA molecule.</p>
+                    <h3>Base Pairing Rules (Chargaff's Rules)</h3>
+                    <p>In DNA, Adenine (A) always pairs with Thymine (T) via two hydrogen bonds, and Cytosine (C) always pairs with Guanine (G) via three hydrogen bonds.</p>
+                    <div class="equation-box">
+5' - A T G C C G T A - 3'  (Coding Strand)
+3' - T A C G G C A T - 5'  (Template Strand)
+                    </div>
+                </section>
+
+                <section id="math" class="page">
+                    <span class="tag math">MAT 202</span>
+                    <h1>Calculus & Linear Algebra</h1>
+                    
+                    <h2>1. Differential Calculus</h2>
+                    <p>The derivative measures the sensitivity to change of the function value (output value) with respect to a change in its argument (input value).</p>
+                    <h3>Common Derivatives</h3>
+                    <ul>
+                        <li><code style="font-weight:bold">d/dx (x^n) = nx^(n-1)</code> (Power Rule)</li>
+                        <li><code style="font-weight:bold">d/dx (sin x) = cos x</code></li>
+                        <li><code style="font-weight:bold">d/dx (e^x) = e^x</code></li>
+                        <li><code style="font-weight:bold">d/dx (ln x) = 1/x</code></li>
+                    </ul>
+
+                    <h2>2. Integral Calculus</h2>
+                    <p>Integration represents the accumulation of quantities, such as areas under a curve or displacement from velocity.</p>
+                    <div class="equation-box">
+∫ xⁿ dx = (xⁿ⁺¹)/(n+1) + C
+∫ (1/x) dx = ln|x| + C
+                    </div>
+
+                    <h2>3. Linear Algebra: Matrix Operations</h2>
+                    <p>A matrix is a rectangular array of numbers arranged in rows and columns.</p>
+                    <div class="equation-box">
+Determinant of 2x2 Matrix A:
+| a  b |
+| c  d |
+det(A) = ad - bc
+                    </div>
+                </section>
+
+                <section id="cs" class="page">
+                    <span class="tag cs">CS 204</span>
+                    <h1>Computer Science Principles</h1>
+                    
+                    <h2>1. Computational Complexity (Big O)</h2>
+                    <p>Big O notation characterizes functions according to their growth rates: different functions with the same growth rate may be represented using the same O notation.</p>
+                    <table>
+                        <thead><tr><th>Complexity</th><th>Name</th><th>Example Algorithm</th></tr></thead>
+                        <tbody>
+                            <tr><td><strong>O(1)</strong></td><td>Constant</td><td>Accessing Array Index</td></tr>
+                            <tr><td><strong>O(log n)</strong></td><td>Logarithmic</td><td>Binary Search</td></tr>
+                            <tr><td><strong>O(n)</strong></td><td>Linear</td><td>Linear Search</td></tr>
+                            <tr><td><strong>O(n log n)</strong></td><td>Linearithmic</td><td>Merge Sort, Quick Sort</td></tr>
+                            <tr><td><strong>O(n²)</strong></td><td>Quadratic</td><td>Bubble Sort, Nested Loops</td></tr>
+                        </tbody>
+                    </table>
+
+                    <h2>2. Sorting Algorithms</h2>
+                    <h3>QuickSort Implementation Logic</h3>
+                    <p>QuickSort is a divide-and-conquer algorithm. It works by selecting a 'pivot' element from the array and partitioning the other elements into two sub-arrays, according to whether they are less than or greater than the pivot.</p>
+                    <div class="equation-box">
+function partition(arr, low, high) {
+  pivot = arr[high];
+  i = low - 1;
+  for (j = low; j <= high - 1; j++) {
+    if (arr[j] < pivot) {
+      i++;
+      swap(arr[i], arr[j]);
+    }
+  }
+  swap(arr[i + 1], arr[high]);
+  return i + 1;
+}
+                    </div>
+                </section>
+
+                <section id="history" class="page">
+                    <span class="tag">HIS 200</span>
+                    <h1>World History: The Modern Era</h1>
+                    
+                    <h2>1. The Industrial Revolution (1760 – 1840)</h2>
+                    <p>The transition to new manufacturing processes in Great Britain, continental Europe, and the United States.</p>
+                    <h3>Key Innovations</h3>
+                    <ul>
+                        <li><strong>The Steam Engine (James Watt):</strong> Allowed for factories to be located anywhere, not just near water sources.</li>
+                        <li><strong>Spinning Jenny (James Hargreaves):</strong> Revolutionized the textile industry by allowing one worker to spin eight threads at once.</li>
+                        <li><strong>Iron Production:</strong> Cort's puddling process allowed for the mass production of wrought iron.</li>
+                    </ul>
+
+                    <h2>2. Causes of World War I</h2>
+                    <p>Often remembered by the acronym <strong>M.A.I.N.</strong>:</p>
+                    <ul>
+                        <li><strong>M</strong>ilitarism: The belief that a country should maintain a strong military capability.</li>
+                        <li><strong>A</strong>lliances: The Triple Entente (Britain, France, Russia) vs. The Triple Alliance (Germany, Austria-Hungary, Italy).</li>
+                        <li><strong>I</strong>mperialism: Domination by one country of the political, economic, or cultural life of another.</li>
+                        <li><strong>N</strong>ationalism: Identification with one's own nation and support for its interests to the exclusion or detriment of the interests of other nations.</li>
+                    </ul>
+                </section>
+
+                <section id="chemistry" class="page">
+                    <span class="tag">CHEM 101</span>
+                    <h1>Inorganic Chemistry</h1>
+                    <h2>1. Atomic Structure</h2>
+                    <p>Atoms consist of protons, neutrons, and electrons. The number of protons determines the element (Atomic Number).</p>
+                    <h2>2. Stoichiometry</h2>
+                    <p>Stoichiometry is the calculation of reactants and products in chemical reactions based on the law of conservation of mass.</p>
+                    <div class="equation-box">
+Balance the equation:
+CH₄ + 2O₂ → CO₂ + 2H₂O
+                    </div>
+                </section>
+
+                <section id="calculator" class="page">
+                    <h1>Scientific Calculator</h1>
+                    <div class="tool-container" style="display:flex; justify-content:center; align-items:center; background:#f1f5f9;">
+                        <div class="calc-wrapper">
+                            <div class="calc-screen" id="calc-display">0</div>
+                            <div class="calc-keypad">
+                                <button class="calc-btn fn" onclick="calcFn('sin')">sin</button>
+                                <button class="calc-btn fn" onclick="calcFn('cos')">cos</button>
+                                <button class="calc-btn fn" onclick="calcFn('tan')">tan</button>
+                                <button class="calc-btn fn" onclick="calcFn('log')">log</button>
+
+                                <button class="calc-btn fn" onclick="calcInput('(')">(</button>
+                                <button class="calc-btn fn" onclick="calcInput(')')">)</button>
+                                <button class="calc-btn fn" onclick="calcFn('sqrt')">√</button>
+                                <button class="calc-btn op" onclick="calcInput('/')">÷</button>
+
+                                <button class="calc-btn" onclick="calcInput('7')">7</button>
+                                <button class="calc-btn" onclick="calcInput('8')">8</button>
+                                <button class="calc-btn" onclick="calcInput('9')">9</button>
+                                <button class="calc-btn op" onclick="calcInput('*')">×</button>
+
+                                <button class="calc-btn" onclick="calcInput('4')">4</button>
+                                <button class="calc-btn" onclick="calcInput('5')">5</button>
+                                <button class="calc-btn" onclick="calcInput('6')">6</button>
+                                <button class="calc-btn op" onclick="calcInput('-')">−</button>
+
+                                <button class="calc-btn" onclick="calcInput('1')">1</button>
+                                <button class="calc-btn" onclick="calcInput('2')">2</button>
+                                <button class="calc-btn" onclick="calcInput('3')">3</button>
+                                <button class="calc-btn op" onclick="calcInput('+')">+</button>
+
+                                <button class="calc-btn clear" onclick="calcClear()">C</button>
+                                <button class="calc-btn" onclick="calcInput('0')">0</button>
+                                <button class="calc-btn" onclick="calcInput('.')">.</button>
+                                <button class="calc-btn eq" onclick="calcResult()">=</button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="grapher" class="page">
+                    <h1>Function Plotter</h1>
+                    <div class="tool-container">
+                        <div style="display:flex; gap:1rem; margin-bottom:1rem; align-items:center;">
+                            <label style="font-weight:bold; font-family:var(--font-mono)">f(x) = </label>
+                            <input type="text" id="graph-input" value="Math.sin(x) * x" style="flex:1; padding:0.75rem; border:1px solid var(--border); border-radius:6px; font-family:var(--font-mono);" placeholder="e.g. x * x">
+                            <button class="btn btn-primary" onclick="plot()">Plot Graph</button>
+                        </div>
+                        <canvas id="graphCanvas" width="900" height="400"></canvas>
+                        <div style="margin-top:1rem; font-size:0.85rem; color:var(--text-muted);">
+                            <strong>Syntax Help:</strong> Use JavaScript Math functions. Examples: <code>Math.sin(x)</code>, <code>Math.pow(x, 2)</code>, <code>Math.log(x)</code>, <code>x + 5</code>.
+                        </div>
+                    </div>
+                </section>
+
+                <section id="periodic" class="page">
+                    <h1>Periodic Table of Elements</h1>
+                    <div class="element-detail" id="el-detail-box">
+                        <div id="el-preview" class="element" style="width:60px; height:60px; font-size:1rem; cursor:default; transform:none; pointer-events:none;">
+                            <span>1</span><b>H</b>
+                        </div>
+                        <div>
+                            <h2 id="el-name">Hydrogen</h2>
+                            <div class="stats" id="el-stats">
+                                <span>Atomic Mass: 1.008 u</span>
+                                <span>Category: Non-metal</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="periodic-wrapper">
+                        <div class="periodic-table" id="p-table">
+                        </div>
+                    </div>
+                    <div style="display:flex; gap:1.5rem; margin-top:2rem; flex-wrap:wrap; font-size:0.8rem;">
+                        <span style="display:flex; align-items:center; gap:5px;"><span style="width:12px;height:12px;background:#ffedd5;border:1px solid #fdba74"></span> Alkali Metal</span>
+                        <span style="display:flex; align-items:center; gap:5px;"><span style="width:12px;height:12px;background:#fef3c7;border:1px solid #fcd34d"></span> Alkaline Earth</span>
+                        <span style="display:flex; align-items:center; gap:5px;"><span style="width:12px;height:12px;background:#ecfccb;border:1px solid #bef264"></span> Transition Metal</span>
+                        <span style="display:flex; align-items:center; gap:5px;"><span style="width:12px;height:12px;background:#ccfbf1;border:1px solid #5eead4"></span> Basic Metal</span>
+                        <span style="display:flex; align-items:center; gap:5px;"><span style="width:12px;height:12px;background:#e0f2fe;border:1px solid #7dd3fc"></span> Noble Gas</span>
+                    </div>
+                </section>
+
+                <section id="pomodoro" class="page">
+                    <h1>Focus Timer (Pomodoro)</h1>
+                    <div class="tool-container" style="display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center;">
+                        <div class="timer-display" id="timer-display">25:00</div>
+                        <div style="display:flex; gap:1rem;">
+                            <button class="btn btn-primary" onclick="startTimer()" style="padding:1rem 2rem; font-size:1.2rem;">Start Focus</button>
+                            <button class="btn" onclick="pauseTimer()" style="padding:1rem 2rem; font-size:1.2rem;">Pause</button>
+                            <button class="btn" onclick="resetTimer()" style="padding:1rem 2rem; font-size:1.2rem; color:var(--danger); border-color:var(--danger);">Reset</button>
+                        </div>
+                        <div style="margin-top:3rem; max-width:500px; text-align:left;">
+                            <h3>Technique Guide</h3>
+                            <p>1. Decide on the task to be done.<br>
+                            2. Set the pomodoro timer (traditionally to 25 minutes).<br>
+                            3. Work on the task.<br>
+                            4. End work when the timer rings and take a short break (5 minutes).<br>
+                            5. After four pomodoros, take a longer break (15–30 minutes).</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="flashcards" class="page">
+                    <h1>Spaced Repetition Flashcards</h1>
+                    <div style="display:flex; justify-content:center; gap:1rem; margin-bottom:1rem;">
+                        <button class="btn" onclick="loadDeck('physics')">Physics Deck</button>
+                        <button class="btn" onclick="loadDeck('cs')">CompSci Deck</button>
+                        <button class="btn" onclick="loadDeck('bio')">Biology Deck</button>
+                    </div>
+                    <div class="flashcard-stage">
+                        <div class="flashcard" onclick="this.classList.toggle('flipped')">
+                            <div class="face front">
+                                <div class="face-label">Question</div>
+                                <div class="face-content" id="fc-q">Select a deck to begin.</div>
+                            </div>
+                            <div class="face back">
+                                <div class="face-label">Answer</div>
+                                <div class="face-content" id="fc-a">...</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="text-align:center;">
+                        <button class="btn btn-primary" onclick="nextCard()">Next Card</button>
+                    </div>
+                </section>
+
+                <section id="quiz" class="page">
+                    <h1>Assessment Engine</h1>
+                    <div class="tool-container">
+                        <h2>Physics: Forces and Motion</h2>
+                        <div class="quiz-block">
+                            <h4>1. Which of Newton's Laws states that for every action, there is an equal and opposite reaction?</h4>
+                            <button class="quiz-opt" onclick="check(this, false)">First Law</button>
+                            <button class="quiz-opt" onclick="check(this, false)">Second Law</button>
+                            <button class="quiz-opt" onclick="check(this, true)">Third Law</button>
+                            <button class="quiz-opt" onclick="check(this, false)">Law of Gravitation</button>
+                        </div>
+                        <div class="quiz-block">
+                            <h4>2. What is the SI unit of Force?</h4>
+                            <button class="quiz-opt" onclick="check(this, false)">Joule (J)</button>
+                            <button class="quiz-opt" onclick="check(this, true)">Newton (N)</button>
+                            <button class="quiz-opt" onclick="check(this, false)">Watt (W)</button>
+                            <button class="quiz-opt" onclick="check(this, false)">Pascal (Pa)</button>
+                        </div>
+                        <h2>Computer Science: Algorithms</h2>
+                        <div class="quiz-block">
+                            <h4>3. What is the worst-case time complexity of Merge Sort?</h4>
+                            <button class="quiz-opt" onclick="check(this, false)">O(n)</button>
+                            <button class="quiz-opt" onclick="check(this, false)">O(n²)</button>
+                            <button class="quiz-opt" onclick="check(this, true)">O(n log n)</button>
+                            <button class="quiz-opt" onclick="check(this, false)">O(log n)</button>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+        </main>
+    </div>
+</div>
+
+<script>
+    function navigate(pageId, navEl) {
+        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+        document.getElementById(pageId).classList.add('active');
+        
+        if (navEl) {
+            document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+            navEl.classList.add('active');
+        }
+
+        const bread = document.getElementById('breadcrumbs');
+        const title = pageId.charAt(0).toUpperCase() + pageId.slice(1);
+        bread.innerHTML = `Academics / <span>${title}</span>`;
+        
+        if (pageId === 'grapher') plot();
+    }
+
+    let expr = '0';
+    const display = document.getElementById('calc-display');
+    
+    function calcInput(v) {
+        if(expr === '0') expr = v; else expr += v;
+        updateCalc();
+    }
+    
+    function calcFn(fn) {
+        expr = `Math.${fn}(${expr})`;
+        updateCalc();
+    }
+    
+    function calcClear() {
+        expr = '0';
+        updateCalc();
+    }
+    
+    function calcResult() {
+        try {
+            const res = eval(expr); 
+            expr = res.toString();
+        } catch (e) {
+            expr = 'Error';
+        }
+        updateCalc();
+    }
+    
+    function updateCalc() {
+        display.innerText = expr.replace('Math.', '').replace('Error', 'Err');
+    }
+
+    function plot() {
+        const canvas = document.getElementById('graphCanvas');
+        const ctx = canvas.getContext('2d');
+        const w = canvas.width;
+        const h = canvas.height;
+        const input = document.getElementById('graph-input').value;
+        
+        ctx.clearRect(0, 0, w, h);
+        
+        ctx.beginPath();
+        ctx.strokeStyle = '#e2e8f0';
+        ctx.lineWidth = 1;
+        
+        for (let x = 0; x <= w; x += 50) { ctx.moveTo(x, 0); ctx.lineTo(x, h); }
+        for (let y = 0; y <= h; y += 50) { ctx.moveTo(0, y); ctx.lineTo(w, y); }
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.strokeStyle = '#94a3b8';
+        ctx.lineWidth = 2;
+        ctx.moveTo(w/2, 0); ctx.lineTo(w/2, h);
+        ctx.moveTo(0, h/2); ctx.lineTo(w, h/2);
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.strokeStyle = '#2563eb';
+        ctx.lineWidth = 3;
+        
+        const scale = 40; 
+        
+        for (let px = 0; px < w; px++) {
+            const x = (px - w/2) / scale;
+            try {
+                const y = eval(input);
+                const py = h/2 - (y * scale);
+                if (px === 0) ctx.moveTo(px, py);
+                else ctx.lineTo(px, py);
+            } catch (e) {}
+        }
+        ctx.stroke();
+    }
+
+    const elements = [
+        {n:1, s:"H", m:"1.008", name:"Hydrogen", c:"nonmetal", r:1, col:1},
+        {n:2, s:"He", m:"4.002", name:"Helium", c:"noble", r:1, col:18},
+        {n:3, s:"Li", m:"6.94", name:"Lithium", c:"alkali", r:2, col:1},
+        {n:4, s:"Be", m:"9.012", name:"Beryllium", c:"alkaline", r:2, col:2},
+        {n:5, s:"B", m:"10.81", name:"Boron", c:"metalloid", r:2, col:13},
+        {n:6, s:"C", m:"12.01", name:"Carbon", c:"nonmetal", r:2, col:14},
+        {n:7, s:"N", m:"14.00", name:"Nitrogen", c:"nonmetal", r:2, col:15},
+        {n:8, s:"O", m:"15.99", name:"Oxygen", c:"nonmetal", r:2, col:16},
+        {n:9, s:"F", m:"18.99", name:"Fluorine", c:"halogen", r:2, col:17},
+        {n:10, s:"Ne", m:"20.18", name:"Neon", c:"noble", r:2, col:18},
+        {n:11, s:"Na", m:"22.99", name:"Sodium", c:"alkali", r:3, col:1},
+        {n:12, s:"Mg", m:"24.30", name:"Magnesium", c:"alkaline", r:3, col:2},
+        {n:13, s:"Al", m:"26.98", name:"Aluminium", c:"basic", r:3, col:13},
+        {n:14, s:"Si", m:"28.08", name:"Silicon", c:"metalloid", r:3, col:14},
+        {n:15, s:"P", m:"30.97", name:"Phosphorus", c:"nonmetal", r:3, col:15},
+        {n:16, s:"S", m:"32.06", name:"Sulfur", c:"nonmetal", r:3, col:16},
+        {n:17, s:"Cl", m:"35.45", name:"Chlorine", c:"halogen", r:3, col:17},
+        {n:18, s:"Ar", m:"39.95", name:"Argon", c:"noble", r:3, col:18},
+    ];
+
+    const pTable = document.getElementById('p-table');
+    
+    for(let r=1; r<=3; r++) {
+        for(let c=1; c<=18; c++) {
+            const el = elements.find(e => e.r === r && e.col === c);
+            const div = document.createElement('div');
+            div.className = 'element';
+            
+            if (el) {
+                div.classList.add(el.c);
+                div.innerHTML = `<span>${el.n}</span><b>${el.s}</b>`;
+                div.onclick = () => {
+                    document.getElementById('el-name').innerText = el.name;
+                    document.getElementById('el-stats').innerHTML = `<span>Mass: ${el.m} u</span><span>Type: ${el.c.toUpperCase()}</span>`;
+                    const prev = document.getElementById('el-preview');
+                    prev.innerHTML = div.innerHTML;
+                    prev.className = `element ${el.c}`;
+                }
+            } else {
+                div.classList.add('gap');
+            }
+            pTable.appendChild(div);
+        }
+    }
+
+    let timerInterval;
+    let seconds = 1500;
+    const timerDisplay = document.getElementById('timer-display');
+    
+    function startTimer() {
+        if (timerInterval) return;
+        timerInterval = setInterval(() => {
+            seconds--;
+            if (seconds < 0) {
+                clearInterval(timerInterval);
+                alert('Session Complete.');
+                seconds = 1500;
+            }
+            updateTimer();
+        }, 1000);
+    }
+    
+    function pauseTimer() {
+        clearInterval(timerInterval);
+        timerInterval = null;
+    }
+    
+    function resetTimer() {
+        pauseTimer();
+        seconds = 1500;
+        updateTimer();
+    }
+    
+    function updateTimer() {
+        const m = Math.floor(seconds / 60);
+        const s = seconds % 60;
+        timerDisplay.innerText = `${m.toString().padStart(2,'0')}:${s.toString().padStart(2,'0')}`;
+    }
+
+    const decks = {
+        physics: [
+            {q: "What is the speed of light (c)?", a: "Approx. 3.00 × 10⁸ m/s"},
+            {q: "Formula for Kinetic Energy?", a: "KE = ½mv²"},
+            {q: "Unit of electrical resistance?", a: "Ohm (Ω)"}
+        ],
+        cs: [
+            {q: "Worst case for QuickSort?", a: "O(n²)"},
+            {q: "What does SQL stand for?", a: "Structured Query Language"},
+            {q: "Binary for decimal 5?", a: "101"}
+        ],
+        bio: [
+            {q: "Phase where chromosomes align?", a: "Metaphase"},
+            {q: "Molecule of energy?", a: "ATP (Adenosine Triphosphate)"}
+        ]
+    };
+    
+    let curDeck = decks.physics;
+    let cardIdx = 0;
+    
+    function loadDeck(key) {
+        curDeck = decks[key];
+        cardIdx = 0;
+        updateCard();
+    }
+    
+    function nextCard() {
+        cardIdx = (cardIdx + 1) % curDeck.length;
+        document.querySelector('.flashcard').classList.remove('flipped');
+        setTimeout(updateCard, 200);
+    }
+    
+    function updateCard() {
+        document.getElementById('fc-q').innerText = curDeck[cardIdx].q;
+        document.getElementById('fc-a').innerText = curDeck[cardIdx].a;
+    }
+
+    function check(btn, correct) {
+        const p = btn.parentElement;
+        p.querySelectorAll('.quiz-opt').forEach(b => b.classList.remove('correct', 'incorrect'));
+        btn.classList.add(correct ? 'correct' : 'incorrect');
+    }
+
+    updateCard();
+</script>
+</body>
+</html>

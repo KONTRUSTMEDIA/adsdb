@@ -1,0 +1,75 @@
+
+(function() {
+    // Standard banner sizes (width x height)
+    var bannerSizes = [
+        { width: 728, height: 90 },   // Leaderboard
+        { width: 468, height: 60 },   // Full Banner
+        { width: 336, height: 280 },  // Large Rectangle
+        { width: 300, height: 250 },  // Medium Rectangle
+        { width: 250, height: 250 },  // Square
+        { width: 160, height: 600 },  // Wide Skyscraper
+        { width: 120, height: 600 },  // Skyscraper
+        { width: 320, height: 100 },  // Large Mobile Banner
+        { width: 320, height: 50 }    // Mobile Banner
+    ];
+
+    // Get the script element that loaded this code
+    var scripts = document.getElementsByTagName('script');
+    var currentScript = document.currentScript || scripts[scripts.length - 1];
+    
+    // Get parent element dimensions
+    var parent = currentScript.parentElement;
+    var containerWidth = parent ? parent.offsetWidth : window.innerWidth;
+    var containerHeight = parent ? parent.offsetHeight : window.innerHeight;
+    
+    // Find the best fitting banner size
+    var bestFit = null;
+    for (var i = 0; i < bannerSizes.length; i++) {
+        var size = bannerSizes[i];
+        if (size.width <= containerWidth) {
+            if (!bestFit || size.width > bestFit.width) {
+                bestFit = size;
+            }
+        }
+    }
+    
+    // Fallback to smallest banner if none fit
+    if (!bestFit) {
+        bestFit = { width: 320, height: 50 };
+    }
+    
+    // Create container div
+    var container = document.createElement('div');
+    container.style.display = 'block';
+    container.style.width = '100%';
+    container.style.textAlign = 'center';
+    
+    // Create the link element
+    var link = document.createElement('a');
+    link.href = 'https://aitrackerstats.com/?ref=' + encodeURIComponent(window.location.hostname);
+    link.target = '_blank';
+    link.rel = 'noopener noreferrer';
+    
+    // Create the banner image from media subdomain
+    var img = document.createElement('img');
+    img.src = 'https://media.affiliatesparadise.com/banners/' + bestFit.width + 'x' + bestFit.height + '.png';
+    img.alt = 'AI Tracker for WordPress';
+    img.width = bestFit.width;
+    img.height = bestFit.height;
+    img.style.maxWidth = '100%';
+    img.style.height = 'auto';
+    img.style.display = 'block';
+    img.style.margin = '0 auto';
+    
+    // Assemble and insert
+    link.appendChild(img);
+    container.appendChild(link);
+    
+    // Insert after the script tag
+    if (currentScript.parentNode) {
+        currentScript.parentNode.insertBefore(container, currentScript.nextSibling);
+    }
+    
+    // Log dimensions for tracking
+    console.log('Banner loaded - Container: ' + containerWidth + 'x' + containerHeight + 'px, Banner: ' + bestFit.width + 'x' + bestFit.height);
+})();

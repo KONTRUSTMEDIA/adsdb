@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <!-- Google Analytic tracking code for monitoring website traffic & user interactions -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-VMGMPMCXKR"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-VMGMPMCXKR');
+    </script>
+
+    <!-- Venatus Ad Manager for duckstreet.net -->
+    <script src="https://hb.vntsm.com/v4/live/vms/sites/duckstreet.net/index.js" async
+        data-disable-placements="vertical_sticky,interstitial,video_slider">
+        </script>
+
+    <script>
+        window.__VM = window.__VM || [];
+        window.__VM.push(function (admanager, scope) {
+            scope.Config.get('horizontal_sticky').display({ body: true });
+        });
+    </script>
+
+    <title>duckstreet - The Idle Duck Collector Game</title>
+    <meta name="description"
+        content="Play Duckstreet, the best free idle clicker game online! Click on skating ducks to steal 8-bit accessories. Build your fashion collection in this relaxing idle game.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="keywords"
+        content="lazy game, clicker game, idle game, pixel art, duck game, collection game, free browser game">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://duckstreet.net/">
+    <meta property="og:title" content="Duckstreet - The Ultimate Idle Clicker & Collection Game">
+    <meta property="og:description"
+        content="Play Duckstreet, the best free idle clicker game online! Click on skating ducks to steal 8-bit accessories. Build your fashion collection in this relaxing idle game.">
+    <meta property="og:image" content="https://duckstreet.net/images/icon.png">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://duckstreet.net/">
+    <meta property="twitter:title" content="Duckstreet - The Ultimate Idle Clicker & Collection Game">
+    <meta property="twitter:description"
+        content="Play Duckstreet, the best free idle clicker game online! Click on skating ducks to steal 8-bit accessories. Build your fashion collection in this relaxing idle game.">
+    <meta property="twitter:image" content="https://duckstreet.net/images/icon.png">
+
+    <!-- SEO: Canonical and NoScript -->
+    <link rel="canonical" href="https://duckstreet.net/">
+
+
+
+    <link rel="preload" href="images/background_extended.png" as="image" fetchpriority="high">
+
+    <link rel="stylesheet" href="css/game-ui.css">
+    <link rel="stylesheet" href="css/page-index.css">
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="images/icon.png">
+    <link rel="icon" href="images/icon.png" type="image/png">
+
+    <!-- Structured Data for SEO -->
+    <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "VideoGame",
+          "name": "duckstreet",
+          "url": "https://duckstreet.net/",
+          "description": "Play duckstreet, the fun pixel duck collector game! Click on skating ducks to steal 8-bit accessories. Build your fashion collection in this fun clicker game.",
+          "operatingSystem": "Web (in browser)",
+          "applicationCategory": "Game",
+          "genre": ["Idle Game", "Clicker Game", "Simulation Game", "Pixel Art Game"],
+          "playMode": "SinglePlayer",
+          "author": {
+            "@type": "Person",
+            "name": "Matt Kingfish"
+          }
+        }
+    </script>
+
+</head>
+
+<body>
+    <noscript>
+        <p>Duckstreet is a free idle pixel art game where you collect and customize ducks! Watch ducks skate by, click
+            them to take their hats, outfits, and accessories. Build your own unique fashion ducks, save them to your
+            Pond, and complete the Gallery. Join thousands of players in this relaxing, fun clicker game.</p>
+    </noscript>
+    <!-- Background music (hidden iframe player) -->
+    <iframe id="global-music-frame" class="hidden" src="music.html" title="Global music"></iframe>
+
+    <div id="game-stage">
+        <!-- Optimized Background Layer -->
+        <div id="street-background-layer"></div>
+        <!-- Top Homepage Navigation -->
+        <div class="top-nav">
+            <div class="nav-links-left">
+                <div class="nav-button coin-display">
+                    <img src="images/coin.png" alt="Coins">
+                    <span class="coin-display-amount">0</span>
+                </div>
+                <button id="show-shop-btn" class="nav-button">Shop</button>
+                <button id="show-bounty-btn" class="nav-button">Bounties</button>
+            </div>
+
+            <!-- Site Title -->
+            <h1>duckstreet</h1>
+
+            <div class="nav-links">
+                <a href="gallery.html" class="nav-button" id="gallery-nav-link-desktop">
+                    Gallery
+                    <span id="gallery-notify-desktop" class="nav-notify-icon hidden">!</span>
+                </a>
+                <a href="pond.html" class="nav-button">My Pond</a>
+                <img src="images/settings.png" id="settings-btn" alt="Settings">
+            </div>
+
+            <div class="mobile-menu">
+                <span class="mobile-line"></span>
+                <span class="mobile-line"></span>
+                <span class="mobile-line"></span>
+            </div>
+
+            <div class="mobile-nav-centered">
+                <div class="mobile-nav-container">
+                    <div class="mobile-nav-header">
+                        <div class="nav-button coin-display">
+                            <img src="images/coin.png" alt="Coins">
+                            <span class="coin-display-amount">0</span>
+                        </div>
+                        <button id="close-mobile-nav-btn">×</button>
+                    </div>
+                    <div class="mobile-nav-items">
+                        <button id="show-shop-btn-mobile" class="nav-button">Shop</button>
+                        <button id="show-bounty-btn-mobile" class="nav-button">Bounties</button>
+                        <a href="gallery.html" class="nav-button" id="gallery-nav-link-mobile">
+                            Gallery
+                            <span id="gallery-notify-mobile" class="nav-notify-icon hidden">!</span>
+                        </a>
+                        <a href="pond.html" class="nav-button">My Pond</a>
+                        <button id="settings-btn-mobile" class="nav-button">Settings</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="active-buffs-container" class="hidden">
+            <div id="battery-buff-wrapper">
+                <svg class="buff-ring-svg" width="50" height="50">
+                    <circle class="buff-ring-bg" stroke="rgba(255,255,255,0.2)" stroke-width="4" fill="transparent"
+                        r="20" cx="25" cy="25" />
+                    <circle id="battery-ring-progress" stroke="#ffd700" stroke-width="4" fill="transparent" r="20"
+                        cx="25" cy="25" />
+                </svg>
+                <img src="images/items/supercharger.png" id="battery-buff-icon" alt="Battery">
+            </div>
+        </div>
+        <div id="game-area"></div>
+
+        <div id="my-duck-area">
+            <div id="my-duck-display">
+                <div id="duck-image-container">
+                    <img id="main-duck-ride" class="base-duck-image" width="32" height="32"
+                        src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+                        alt="Your duck's ride accessory">
+                    <img id="main-duck-legs" class="base-duck-image" width="32" height="32"
+                        src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+                        alt="Your duck's legs and feet">
+                    <img id="main-duck-body" class="base-duck-image" width="32" height="32"
+                        src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+                        alt="Your duck's body type">
+                    <img id="main-duck-eyecolor" class="base-duck-image" width="32" height="32"
+                        src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+                        alt="Your duck's eye color">
+                    <img id="main-duck-beak" class="base-duck-image" width="32" height="32"
+                        src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+                        alt="Your duck's beak type">
+                    <img id="main-duck-pants" class="base-duck-image" width="32" height="32"
+                        src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+                        alt="Your duck's pants">
+                    <img id="main-duck-wings" class="base-duck-image" width="32" height="32"
+                        src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+                        alt="Your duck's wings">
+                    <img id="main-duck-hat" class="base-duck-image" width="32" height="32"
+                        src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+                        alt="Your duck's hat">
+                    <img id="main-duck-other" class="base-duck-image" width="32" height="32"
+                        src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+                        alt="Your duck's other accessory">
+                </div>
+
+                <div id="duck-info-panel">
+                    <div id="duck-name-wrapper">
+                        <h2 id="duck-name-display">Your Duck</h2>
+                        <textarea id="duck-name-input-main" class="hidden" maxlength="20" rows="1"></textarea>
+                    </div>
+
+                    <div id="duck-ui-wrapper">
+                        <div id="duck-controls">
+                            <button id="save-to-pond-btn">Send to Pond</button>
+                            <div class="sell-control">
+                                <button id="sell-duck-btn">
+                                    <span class="sell-btn-label">
+                                        <span id="sell-duck-label">Sell</span>
+                                        <img src="images/coin.png" id="sell-value-coin-icon" alt="Coins">
+                                        <span id="sell-value-amount">0</span>
+                                    </span>
+                                    <!-- Segmented visual indicator for Sell Charges (no numeric text). -->
+                                    <div id="sell-charge-bar" class="sell-charge-bar" aria-hidden="true"></div>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer class="site-footer" id="footer-main">
+            <div class="site-footer-items">
+                <a href="blog.html"
+                    title="Read the latest development updates, patch notes, and future plans for Duckstreet."
+                    data-tooltip="Read the latest development updates, patch notes, and future plans.">Blog</a>
+                <a href="about.html" title="Learn more about the creation of Duckstreet and the developer."
+                    data-tooltip="Learn more about the creation of Duckstreet.">About</a>
+                <a href="https://discord.gg/gfZrt2NxcJ" target="_blank" rel="noopener noreferrer"
+                    title="Join our community Discord server to chat with other players!"
+                    data-tooltip="Join our community Discord server to chat with other players!">Discord</a>
+                <a href="privacy.html" title="Read our Privacy Policy to understand how we handle your data."
+                    data-tooltip="Read our Privacy Policy to understand how we handle your data.">Privacy Policy</a>
+                <a href="terms.html" title="Read the Terms of Service regarding your use of the Duckstreet game."
+                    data-tooltip="Read the Terms of Service regarding your use of the game.">Terms of Service</a>
+            </div>
+            <span id="site-footer-copyright"> DuckStreet&trade; © 2026 duckstreet.net. All rights reserved.</span>
+
+        </footer>
+
+        <!-- First time home page welcome overlay -->
+        <div id="welcome-overlay" class="hidden">
+            <div id="welcome-menu">
+                <h2>Welcome to duckstreet!</h2>
+                <!-- Desktop Welcome Text -->
+                <div class="desktop-welcome-text">
+                    <p>
+                        duckstreet is a unique pixel art game where you can collect, customize, and save your very own
+                        virtual
+                        ducks. Watch as a parade of ducks skate down the street, each with their own unique style and
+                        accessories.
+                    </p>
+                    <p>
+                        See a hat, a cool pair of sunglasses, or even some wild pants you like? Click the skating duck
+                        to
+                        claim
+                        its accessory for your own duck! Mix and match different items from various categories to create
+                        the
+                        ultimate look. When you've created a masterpiece, send your duck to the Pond to save it to your
+                        personal
+                        collection. This will also reset your duck so you can start creating a new style!
+                    </p>
+                </div>
+
+                <!-- Mobile Welcome Text (Abridged) -->
+                <div class="mobile-welcome-text hidden">
+                    <p>
+                        Welcome to duckstreet!
+                        duckstreet is a unique pixel art game where you can collect, customize, and save your very own
+                        virtual
+                        ducks. See a hat, a cool pair of sunglasses, or even some wild pants you like? Click the skating
+                        duck to
+                        claim its accessory for your own duck! Mix and match different items from various categories to
+                        create
+                        the ultimate look.
+                    </p>
+                </div>
+
+                <p class="welcome-version">v3.0</p>
+                <button id="close-welcome-btn">Got It!</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Settings Section: Audio, Saving & Progress, Info, Language, etc. -->
+    <div id="settings-overlay" class="hidden">
+        <div id="settings-menu">
+
+            <div class="settings-header">
+                <h3>Settings</h3>
+                <button id="close-settings-btn">&times;</button>
+            </div>
+
+
+            <div id="settings-main-view">
+
+                <div class="settings-group">
+                    <h4>Audio</h4>
+                    <div class="settings-volume-row">
+                        <label for="music-volume-slider">Music</label>
+                        <input type="range" id="music-volume-slider" min="0" max="1" step="0.05">
+                    </div>
+                    <div class="settings-volume-row">
+                        <label for="sfx-volume-slider">SFX</label>
+                        <input type="range" id="sfx-volume-slider" min="0" max="1" step="0.05">
+                    </div>
+                </div>
+
+                <div class="settings-group">
+                    <h4>Saving & Progress</h4>
+                    <button id="show-achievements-btn" class="nav-button">Achievements</button>
+                    <button id="export-save-btn" class="nav-button">Export Save</button>
+                    <button id="import-save-btn" class="nav-button">Import Save</button>
+                    <button id="show-reset-btn" class="nav-button">Reset Game</button>
+                </div>
+
+                <div class="settings-group">
+                    <h4>Info</h4>
+                    <button id="show-how-to-play-btn" class="nav-button">How to Play</button>
+
+                    <div id="google_translate_element"></div>
+                    <script type="text/javascript">
+                        function googleTranslateElementInit() {
+                            new google.translate.TranslateElement({
+                                pageLanguage: 'en',
+                                layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+                                autoDisplay: false
+                            }, 'google_translate_element');
+                        }
+                    </script>
+                    <script type="text/javascript"
+                        src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+                    <a href="about.html" class="nav-button settings-menu-button">About</a>
+                    <button id="show-privacy-terms-btn" class="nav-button">Privacy & Terms</button>
+                </div>
+
+                <div class="settings-group">
+                    <h4>Community</h4>
+                    <a href="https://www.instagram.com/_duckstreet?igsh=MWNjN3NycWI0cjRucw==" target="_blank"
+                        rel="noopener noreferrer" class="nav-button settings-menu-button" id="settings-insta-btn">Social
+                        Media</a>
+                    <button id="show-contact-btn" class="nav-button">Contact</button>
+                    <a href="blog.html" class="nav-button settings-menu-button">Dev Blog</a>
+                    <a href="https://ko-fi.com/mattkingfish" target="_blank" rel="noopener noreferrer"
+                        class="nav-button settings-menu-button">Support the Dev!</a>
+                </div>
+            </div>
+
+            <div id="how-to-play-section" class="hidden">
+                <h4>How to Play</h4>
+
+                <div class="htp-section">
+                    <h5 class="htp-heading">Objective</h5>
+                    <ul>
+                        <li>Watch ducks skate down the street — some wear cool accessories!</li>
+                        <li>Click a duck to steal its accessory. Your duck wears one of each type (hat, beak, etc.).
+                        </li>
+                        <li>Create the perfect look, then click <strong>Send to Pond</strong> to save it.</li>
+                    </ul>
+                </div>
+
+                <div class="htp-section htp-controls-section">
+                    <h5 class="htp-heading">Keyboard Shortcuts</h5>
+                    <div class="keybind-grid">
+                        <div class="keybind-row"><kbd>S</kbd><span>Shop</span></div>
+                        <div class="keybind-row"><kbd>B</kbd><span>Bounties</span></div>
+                        <div class="keybind-row"><kbd>E</kbd><span>Inventory</span></div>
+                        <div class="keybind-row"><kbd>O</kbd><span>Settings</span></div>
+                        <div class="keybind-row"><kbd>T</kbd><span>Speed Control</span></div>
+                        <div class="keybind-row"><kbd>↑↓</kbd><span>Adjust Speed</span></div>
+                        <div class="keybind-row"><kbd>Esc</kbd><span>Close Menus</span></div>
+                    </div>
+                </div>
+
+                <div class="htp-section">
+                    <h5 class="htp-heading">Tips</h5>
+                    <ul>
+                        <li>Visit the <strong>Gallery</strong> to see all accessories you've discovered and their
+                            rarity.</li>
+                        <li>Visit <strong>My Pond</strong> to view, name, and manage your saved ducks.</li>
+                        <li>Sell ducks for coins, then spend them in the <strong>Shop</strong> on packs and upgrades!
+                        </li>
+                    </ul>
+                </div>
+
+                <button class="settings-back-btn">Back</button>
+            </div>
+
+            <div id="privacy-terms-section" class="hidden">
+                <h4>Privacy & Terms</h4>
+                <p>Please review our legal documents:</p>
+                <div class="privacy-terms-links">
+                    <a href="privacy.html" class="nav-button settings-menu-button">Privacy Policy</a>
+                    <a href="terms.html" class="nav-button settings-menu-button">Terms of Service</a>
+                </div>
+                <button class="settings-back-btn">Back</button>
+            </div>
+
+            <div id="contact-section" class="hidden">
+                <h4>Contact</h4>
+                <p>I hope to update this game very frequently, and one way you can help is by giving me ideas! Feel free
+                    to reach out to make any suggestions for this site!</p>
+                <p>Email: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="660b0712120d0f0801000f150e1f26010b070f0a4805090b">[email&#160;protected]</a></p>
+                <button class="settings-back-btn">Back</button>
+            </div>
+
+            <div id="reset-section" class="hidden">
+                <h4>Reset Game</h4>
+                <p>Reset all game progress, including your Pond, Gallery, and Coins. This cannot be undone.</p>
+                <button id="reset-game-btn">Confirm Reset</button>
+                <button class="settings-back-btn">Back</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="pack-result-overlay" class="hidden">
+        <div id="pack-result-menu">
+            <h3>You got...</h3>
+            <div id="result-image-wrapper">
+                <div id="result-image-container">
+                </div>
+            </div>
+            <div id="result-item-name">
+                A Top Hat!
+            </div>
+            <div class="popup-actions">
+                <button id="equip-result-btn">Equip</button>
+                <button id="send-result-to-pond-btn">Send to Pond</button>
+                <button id="close-result-btn">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="shop-overlay" class="hidden">
+        <div id="shop-menu">
+            <button id="close-shop-btn">&times;</button>
+            <h3>Shop</h3>
+
+            <div class="shop-tabs">
+                <button id="shop-tab-daily" class="shop-tab-button active">Daily</button>
+                <button id="shop-tab-packs" class="shop-tab-button">Packs</button>
+                <button id="shop-tab-items" class="shop-tab-button">Items</button>
+                <button id="shop-tab-upgrades" class="shop-tab-button">Upgrades</button>
+            </div>
+
+            <div id="shop-daily-view">
+
+                <span id="shop-timer">Refreshes in 00:00:00</span>
+                <div id="shop-items-container">
+                </div>
+            </div>
+
+            <div id="shop-packs-view" class="hidden">
+
+                <div id="pack-options-container">
+
+                    <div id="buy-bronze-pack" class="pack-option">
+                        <div class="pack-card-inner">
+                            <div class="pack-card-front">
+                                <img src="images/packs/bronzepack.png" alt="Bronze Duck Pack - pixel duck game">
+                                <p>Bronze Pack</p>
+                                <span>80 Coins</span>
+                            </div>
+                            <div class="pack-card-back">
+                                <div>
+                                    <h5>Bronze Pack</h5>
+                                    <ul class="pack-chances">
+                                        <li>60% Common</li>
+                                        <li>20% Uncommon</li>
+                                        <li>15% Rare</li>
+                                        <li>5% Very Rare</li>
+                                    </ul>
+                                </div>
+                                <button id="buy-bronze-pack-btn" class="pack-buy-btn">Buy Pack</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="buy-silver-pack" class="pack-option">
+                        <div class="pack-card-inner">
+                            <div class="pack-card-front">
+                                <img src="images/packs/silverpack.png" alt="Silver Duck Pack - duck collector game">
+                                <p>Silver Pack</p>
+                                <span>400 Coins</span>
+                            </div>
+                            <div class="pack-card-back">
+                                <div>
+                                    <h5>Silver Pack</h5>
+                                    <ul class="pack-chances">
+                                        <li>45% Uncommon</li>
+                                        <li>30% Rare</li>
+                                        <li>19% Very Rare</li>
+                                        <li>5% Legendary</li>
+                                        <li>1% Mythical</li>
+                                    </ul>
+                                </div>
+                                <button id="buy-silver-pack-btn" class="pack-buy-btn">Buy Pack</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="buy-gold-pack" class="pack-option">
+                        <div class="pack-card-inner">
+                            <div class="pack-card-front">
+                                <img src="images/packs/goldpack.png" alt="Gold Duck Pack - 8-bit duck game">
+                                <p>Gold Pack</p>
+                                <span>1500 Coins</span>
+                            </div>
+                            <div class="pack-card-back">
+                                <div>
+                                    <h5>Gold Pack</h5>
+                                    <ul class="pack-chances">
+                                        <li>50% Very Rare</li>
+                                        <li>35% Legendary</li>
+                                        <li>15% Mythical</li>
+                                    </ul>
+                                </div>
+                                <button id="buy-gold-pack-btn" class="pack-buy-btn">Buy Pack</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="shop-upgrades-view" class="hidden">
+
+                <div id="global-stats-container">
+                </div>
+                <div id="upgrades-container">
+                    <div class="upgrade-card">
+                        <img src="images/settings.png" alt="Spawn Rate upgrade icon for idle clicker game"
+                            class="upgrade-icon">
+                        <span class="upgrade-title">Spawn Rate</span>
+                        <span id="upgrade-spawn-info" class="upgrade-info">Level 0</span>
+                        <button id="upgrade-spawn-btn" class="upgrade-buy-btn">Cost:1000</button>
+                    </div>
+                    <div class="upgrade-card">
+                        <img src="images/accessorychance.png" alt="Item Rate upgrade icon for duck collector game"
+                            class="upgrade-icon">
+                        <span class="upgrade-title">Luck</span>
+                        <span id="upgrade-itemRate-info" class="upgrade-info">Level 0</span>
+                        <button id="upgrade-itemRate-btn" class="upgrade-buy-btn">Cost:1200</button>
+                    </div>
+                    <div class="upgrade-card">
+                        <img src="images/coin.png" alt="Sell Price upgrade icon for idle clicker game"
+                            class="upgrade-icon">
+                        <span class="upgrade-title">Sell Price</span>
+                        <span id="upgrade-sell-info" class="upgrade-info">Level 0</span>
+                        <button id="upgrade-sell-btn" class="upgrade-buy-btn">Cost:2000</button>
+                    </div>
+                    <div class="upgrade-card upgrade-card--migration">
+                        <button id="migration-info-btn" type="button" aria-label="About Great Migration">?</button>
+
+                        <img src="images/migration.png" alt="Migration Icon" class="upgrade-icon">
+                        <span class="upgrade-title">Great Migration</span>
+                        <span id="upgrade-migration-info" class="upgrade-info"></span>
+                        <button id="upgrade-migration-btn" class="upgrade-buy-btn">100,000</button>
+                    </div>
+                </div>
+            </div>
+            <div id="shop-items-view" class="hidden">
+
+                <div id="game-items-container">
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div id="bounty-overlay" class="hidden">
+        <div class="bounty-board-wrapper">
+            <h2>Wanted Ducks</h2>
+
+            <div id="bounty-items-container"></div>
+            <button id="close-bounty-btn">Close Board</button>
+        </div>
+    </div>
+
+    <div id="achievements-overlay" class="hidden">
+        <div id="achievements-menu">
+            <div id="close-achievements-btn-container">
+                <button id="close-achievements-btn">&times;</button>
+            </div>
+            <h3>Achievements</h3>
+            <div id="achievements-list-container"></div>
+        </div>
+    </div>
+    <div id="notice-overlay" class="hidden">
+        <div id="notice-menu">
+            <h3 id="notice-title">Notice</h3>
+            <p id="notice-text">This is a sample message.</p>
+            <button id="close-notice-btn">Okay</button>
+        </div>
+    </div>
+
+    <div id="import-overlay" class="hidden">
+        <div id="import-menu">
+            <h3>Import Save Data</h3>
+            <p class="warning-text warning-text--small">WARNING: This will overwrite your current
+                game!</p>
+            <textarea id="import-save-input" placeholder="Paste your save code here..."></textarea>
+            <div class="popup-actions">
+                <button id="cancel-import-btn">Cancel</button>
+                <button id="confirm-import-btn">Load Save</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="achievement-toast" class="hidden">
+        <h3>Achievement Unlocked!</h3>
+        <p id="achievement-toast-title">Title Goes Here</p>
+        <p id="achievement-toast-desc">Description Goes Here</p>
+        <div id="achievement-toast-claim-wrapper" class="hidden">
+            <button id="achievement-toast-claim-btn" data-id=""></button>
+        </div>
+    </div>
+
+    <div id="set-complete-toast" class="hidden">
+        <h3>Set Complete!</h3>
+        <p id="set-complete-toast-desc">Set Name Goes Here</p>
+    </div>
+
+    <div id="insta-popup" class="hidden">
+        <button id="close-insta-popup">&times;</button>
+        <p>Visit our Insta! Can you make duck of the week?</p>
+        <a href="https://www.instagram.com/_duckstreet?igsh=MWNjN3NycWI0cjRucw==" target="_blank"
+            rel="noopener noreferrer" id="insta-visit-btn">Visit Instagram</a>
+    </div>
+
+    <div id="migration-overlay" class="hidden">
+        <div id="migration-menu">
+            <h3>THE GREAT MIGRATION</h3>
+            <p>You are about to perform a Prestige Reset.</p>
+
+            <div id="migration-stats-preview">
+                <p>Cost: <span id="migration-cost-display" class="text-accent">0</span> Coins</p>
+                <p class="warning-text">WARNING: This will RESET your Coins, Pond, and Gallery.</p>
+                <p>Your Head Duck's stats will be permanently added to your base stats:</p>
+                <ul id="migration-gain-list">
+                </ul>
+            </div>
+
+            <div class="popup-actions">
+                <button id="cancel-migration-btn" class="nav-button">Cancel</button>
+                <button id="confirm-migration-btn" class="nav-button">MIGRATE</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="speed-tray" class="speed-tray">
+        <div id="speed-tray-handle" class="speed-tray-handle">SPEED</div>
+        <div class="tray-content">
+            <div id="traffic-control-ui" class="hidden">
+                <label>SPEED</label>
+                <div id="traffic-slider-wrap">
+                    <div id="traffic-slider" role="slider" tabindex="0" aria-label="Speed" aria-valuemin="0"
+                        aria-valuemax="100" aria-valuenow="100">
+                        <div id="traffic-slider-track"></div>
+                        <div id="traffic-slider-thumb">
+                            <span id="traffic-slider-badge">100%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="inventory-tray" class="inventory-tray">
+        <div id="inventory-tray-handle" class="inventory-tray-handle">ITEMS</div>
+        <div class="tray-content">
+        </div>
+    </div>
+
+
+
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="js/data/duck-data.js"></script>
+    <script src="js/core/gameState.js"></script>
+    <script src="js/core/inventory.js"></script>
+    <script src="js/shared/popup.js"></script>
+    <script src="js/core/bounty.js"></script>
+    <script src="js/core/achievements.js"></script>
+    <script src="js/data/save-system.js"></script>
+    <script src="js/core/stats.js"></script>
+    <script src="js/music/music.js"></script>
+    <script src="js/core/shop/shop.js"></script>
+    <script src="js/core/shop/packs.js"></script>
+    <script src="js/core/shop/upgrades.js"></script>
+    <script src="js/shared/ad-manager.js"></script>
+    <script src="js/shared/shared-logic.js"></script>
+    <script src="js/dynamicviewport.js"></script>
+    <script src="js/main-game.js"></script>
+
+
+
+<!-- Cloudflare Pages Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "10c55477e53645f191054c8e2fd5428b"}'></script><!-- Cloudflare Pages Analytics --></body>
+
+</html>

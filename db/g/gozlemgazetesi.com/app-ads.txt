@@ -1,0 +1,93 @@
+
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sayfa Bulunamadı - Gözlem Gazetesi</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+    <link rel="stylesheet" href="/themes/includes/css/bootstrap/bootstrap.grid.min.css">
+    <link rel="stylesheet" href="/themes/includes/css/components.css">
+    <link rel="stylesheet" href="/themes/includes/css/navbar.css">
+    <link rel="stylesheet" href="/themes/includes/css/footer.css">
+    <link rel="stylesheet" href="/themes/includes/css/errorPages.css">
+    <link rel="stylesheet" href="/themes/includes/css/style.css">
+</head>
+<body>
+
+    <main style="margin-top: 120px;">
+        <div class="container">
+            <div class="error-container">
+                <div class="error-logo">
+                    <a href="/">
+                        <img src="/uploads/logo.png" alt="Gözlem Gazetesi Logo">
+                    </a>
+                </div>
+
+                <div class="error-code">404</div>
+
+                <h1 class="error-title">Aradığınız Sayfa Bulunamadı</h1>
+
+                <p class="error-message">
+                    Aradığınız sayfa taşınmış, silinmiş veya hiç var olmamış olabilir.
+                    Ana sayfamıza dönerek veya aşağıdaki arama kutusunu kullanarak
+                    aradığınız içeriği bulabilirsiniz.
+                </p>
+
+                <div class="error-search">
+                    <form class="error-search-form" action="/search" method="get">
+                        <input type="text" class="error-search-input" name="q" placeholder="Haber Ara...">
+                        <button type="submit" class="error-search-button">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </form>
+                </div>
+
+                <div class="error-actions">
+                    <a href="/" class="error-button">
+                        <i class="fas fa-home"></i> Ana Sayfaya Dön
+                    </a>
+                </div>
+
+                <div class="error-links">
+
+                </div>
+            </div>
+        </div>
+    </main>
+
+
+
+    <script src="/themes/includes/js/jquery/jquery-3.7.1.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $.ajax({
+                url: "/news/getCategories",
+                type: "POST",
+                success: function (result) {
+                    if (result.success == true) {
+                        var data = result.data.filter(x => x.isMenu == true);
+                        $(".error-links").empty();
+
+                        $.each(data, function (i, item) {
+                            $(".error-links").append('<a href="/haberler?kategori=' + item.friendlyUrl + '" class="nav-link">' + item.name + '</a>');
+                        })
+                    }
+                }
+            })
+        })
+
+
+
+        $(".error-search-form").on("submit", function (e) {
+            e.preventDefault();
+            var searchQuery = $(this).find(".error-search-input").val();
+            if (searchQuery.trim() === "") {
+                alert("Lütfen bir arama terimi girin.");
+                return;
+            }
+            window.location.href = "/haberler?terim=" + encodeURIComponent(searchQuery);
+        });
+    </script>
+</body>
+</html>

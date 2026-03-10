@@ -1,0 +1,593 @@
+
+ 
+
+
+
+
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <title>登录数据学习网站 | 原创博客分享,分享数据挖掘数据分析技术工程论文算法|数据学习(Datalearner) </title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="pragma" content="no-cache" />
+  <meta name="cache-control" content="max-age=3600" />
+  <meta name="expires" content="0" />
+  <meta name="keywords" content="数据分析,文献综述,自然语言处理,数据挖掘,统计,文本处理,文献推荐">
+  <meta name="description" content="致力于学习各种数据分析技术，包括数据挖掘、统计分析，同时关注文本处理、社交网络分析、个性化推荐等数据分析挖掘的应用。提供数据挖掘、统计分析文献综述,各种数据分析,机器学习,数据挖掘,文本处理,自然语言处理的知识、文献、新闻分享等">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link href="/resources/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+  <link href="/resources/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+  <link href="/resources/css/main.css" rel="stylesheet" type="text/css" />
+  <style type="text/css">
+    /*
+     * Specific styles of signin component
+     */
+    /*
+     * General styles
+     */
+    body, html {
+        height: 100%;
+        background-repeat: no-repeat;
+        background-image: linear-gradient(rgb(104, 145, 162), rgb(12, 97, 33));
+    }
+    
+    .card-container.card {
+        max-width: 350px;
+        padding: 40px 40px;
+    }
+    
+    .btn {
+        font-weight: 700;
+        height: 36px;
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        user-select: none;
+        cursor: default;
+    }
+    
+    /*
+     * Card component
+     */
+    .card {
+        background-color: #F7F7F7;
+        /* just in case there no content*/
+        padding: 20px 25px 30px;
+        margin: 0 auto 25px;
+        margin-top: 50px;
+        /* shadows and rounded borders */
+        -moz-border-radius: 2px;
+        -webkit-border-radius: 2px;
+        border-radius: 2px;
+        -moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+        -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+        box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+    }
+    
+    .profile-img-card {
+        width: 96px;
+        height: 96px;
+        margin: 0 auto 10px;
+        display: block;
+        -moz-border-radius: 50%;
+        -webkit-border-radius: 50%;
+        border-radius: 50%;
+    }
+    
+    /*
+     * Form styles
+     */
+    .profile-name-card {
+        font-size: 16px;
+        font-weight: bold;
+        text-align: center;
+        margin: 10px 0 0;
+        min-height: 1em;
+    }
+    
+    .reauth-email {
+        display: block;
+        color: #404040;
+        line-height: 2;
+        margin-bottom: 10px;
+        font-size: 14px;
+        text-align: center;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        -moz-box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+    }
+    
+    .form-signin #inputEmail,
+    .form-signin #inputPassword {
+        direction: ltr;
+        height: 44px;
+        font-size: 16px;
+    }
+    
+    .form-signin input[type=email],
+    .form-signin input[type=password],
+    .form-signin input[type=text],
+    .form-signin button {
+        width: 100%;
+        display: block;
+        margin-bottom: 10px;
+        z-index: 1;
+        position: relative;
+        -moz-box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+    }
+    
+    .form-signin .form-control:focus {
+        border-color: rgb(104, 145, 162);
+        outline: 0;
+        -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgb(104, 145, 162);
+        box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgb(104, 145, 162);
+    }
+    
+    .btn.btn-signin {
+        /*background-color: #4d90fe; */
+        background-color: rgb(104, 145, 162);
+        /* background-color: linear-gradient(rgb(104, 145, 162), rgb(12, 97, 33));*/
+        padding: 0px;
+        font-weight: 700;
+        font-size: 14px;
+        height: 36px;
+        -moz-border-radius: 3px;
+        -webkit-border-radius: 3px;
+        border-radius: 3px;
+        border: none;
+        -o-transition: all 0.218s;
+        -moz-transition: all 0.218s;
+        -webkit-transition: all 0.218s;
+        transition: all 0.218s;
+    }
+    
+    .btn.btn-signin:hover,
+    .btn.btn-signin:active,
+    .btn.btn-signin:focus {
+        background-color: rgb(12, 97, 33);
+    }
+    
+    .forgot-password {
+        color: rgb(104, 145, 162);
+    }
+    
+    .forgot-password:hover,
+    .forgot-password:active,
+    .forgot-password:focus{
+        color: rgb(12, 97, 33);
+    }
+    input{
+    margin-top:10px;
+    }
+    .tab-content{
+      margin-top:80px
+    }
+    #login_form input{
+    	margin-top:10px;
+    } 
+    #register_tab input{
+    margin-top:10px;
+    }
+    
+  </style>
+  
+</head>
+<body>
+
+  <!-- 导航区域 -->
+  
+
+<div id="top_area">
+  <div class="container" style="max-width: 98%!important;">
+
+    <nav class="navbar navbar-expand-lg navbar-light">
+      <a class="navbar-brand" href="">
+        <img src="/resources/images/dl_logo_rect.png" width="30" height="30" class="d-inline-block align-top"
+             alt="datalearner-logo">
+        <span class="text-secondary ml-1" style="font-size: 1.7rem; line-height: 1.7rem">AI大模型学习</span>
+        
+      </a>
+
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+              aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+        </ul>
+
+        <div class="rol">
+          <form class="devsite-search-form" action="" method="GET" id="top-search" style="z-index: 9">
+            <div id="blog-searchbox" style="position: relative">
+              <input id="searchform" class="form-control" placeholder="搜索博客" type="text" name="q" value=""
+                     autocomplete="on">
+              <span class="fa fa-search"></span>
+              <div id="message"></div>
+            </div>
+          </form>
+          <div id="blog-search-proposals" style="display:none;background-color: white;border: 1px solid #ced4da; max-height:500px; overflow: hidden; position: absolute"></div>
+        </div>
+
+        <div class="col-auto text-right user_area">
+
+          
+        </div>
+      </div>
+    </nav>
+
+    <div class="row" style="background-color:white;">
+      <div class="col" style="padding-left:0;background-color:white;">
+        <nav id="top_nav" class="navbar navbar-expand-lg navbar-light" style="z-index: 999;">
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+                  aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav">
+
+              <li id="blog-list-nav" class="nav-item dropdown">
+                <a class="nav-link" href="/blog_list">原创AI博客</a>
+              </li>
+
+
+              <li id="ai-model-blog" class="nav-item dropdown">
+                <a class="nav-link" href="/llm-blogs">大模型技术资讯</a>
+              </li>
+
+
+              <li id="leaderboards" class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="/leaderboards"
+                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  大模型评测排行
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                  <a class="dropdown-item" href="/leaderboards">大模型评测排行榜</a>
+                  <a class="dropdown-item" href="/leaderboards/category/math">大模型数学推理能力排行榜</a>
+                  <a class="dropdown-item" href="/leaderboards/category/code">大模型代码编程能力排行榜</a>
+                  <a class="dropdown-item" href="/leaderboards/category/image-edit">大模型图片编辑能力排行榜</a>
+                  <a class="dropdown-item" href="/leaderboards/external/lm-sys-chat-bot-arena-leaderboard">LMSys ChatBot Arena排行榜</a>
+                  <a class="dropdown-item" href="/leaderboards/external/berkeley-function-calling-leaderboard">Berkeley大模型工具使用能力排行榜</a>
+                  <a class="dropdown-item" href="/ai-models/leaderboard/datalearner-llm-leaderboard">大模型综合能力排行榜（旧）</a>
+                  <a class="dropdown-item" href="/ai-models/leaderboard/datalearner-llm-coding-leaderboard">大模型编程能力排行榜（旧）</a>
+                  <a class="dropdown-item" href="/ai-models/open-llm-leaderboard">OpenLLMLeaderboard中国站</a>
+                </div>
+              </li>
+
+
+              <li id="all-large-models" class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="/models"
+                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  AI大模型大全
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                  <a class="dropdown-item" href="/ai-models/pretrained-models">最新大模型列表</a>
+                  <a class="dropdown-item" href="/llm-tutorials/pretrained-model-tutorials">大模型部署教程</a>
+                </div>
+              </li>
+
+              <li id="ai-model-compare" class="nav-item dropdown">
+                <a class="nav-link" href="/compare">
+                  大模型对比工具
+                </a>
+              </li>
+
+              <li id="ai-benchmarks" class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="/benchmarks"
+                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  大模型评测基准
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                  <a class="dropdown-item" href="/benchmarks">大模型评测基准</a>
+                  <a class="dropdown-item" href="/benchmarks/swe-bench-verified">SWE Bench Verified</a>
+                  <a class="dropdown-item" href="/benchmarks/arc-agi-2">ARC-AGI-2</a>
+                  <a class="dropdown-item" href="/benchmarks/aime-2025">AIME 2025</a>
+                  <a class="dropdown-item" href="/benchmarks/frontier-math-tier-4">FrontierMath-Tier4</a>
+                  <a class="dropdown-item" href="/benchmarks/mmmu">MMMU</a>
+                </div>
+              </li>
+
+              <li id="ai-agents-li" class="nav-item dropdown">
+                <a class="nav-link" href="/ai-agents">
+                  AI Agents列表
+                </a>
+              </li>
+
+              <li id="ai-resources-li" class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" id="ai_resources" href="/ai-areas"
+                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  AI资源仓库
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                  <a class="dropdown-item" href="/ai-areas">AI领域与任务</a>
+                  <a class="dropdown-item" href="/ai-organizations">AI研究机构</a>
+                  <a class="dropdown-item" href="/ai-dataset">AI数据集</a>
+                  <a class="dropdown-item" href="/ai-resources/ai-tools">AI开源工具</a>
+                  <a class="dropdown-item" href="/ai-resources/datasets">数据推荐</a>
+                  <a class="dropdown-item" href="/china-opensource-llm">国产AI大模型生态全览</a>
+                  <a class="dropdown-item" href="/ai-models">AI模型概览图</a>
+                  <a class="dropdown-item" href="/ai-models/models-overview-by-months">AI模型月报</a>
+                  <a class="dropdown-item" href="/ai-models/foundation-models">AI基础大模型</a>
+                </div>
+              </li>
+
+              <li id="website-nav" class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="/website_navi" data-toggle="dropdown"
+                   aria-haspopup="true" aria-expanded="false">
+                  AI工具导航
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                  <a class="dropdown-item" href="/website_navi">AI大模型工具导航网站</a>
+                  <a class="dropdown-item" href="/ai-models/online-chat">在线聊天大模型列表</a>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </nav>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  #blog-searchbox input {
+    padding-left: 50px;
+    /*max-width: 300px;*/
+    /*-webkit-transition: width 0.4s ease-in-out;*/
+    /*transition: width 0.4s;*/
+  }
+
+  @media (max-width: 992px) {
+    #blog-searchbox input:focus {
+      max-width: 100%;
+      border: 1px solid rgba(0, 0, 0, .15);
+      background-color: white;
+      box-shadow: 0 0 0 0
+    }
+  }
+
+  @media (min-width: 992px) {
+    .search_focus {
+      width: 590px;
+      max-width: 100%;
+      border: 1px solid rgba(0, 0, 0, .15);
+      background-color: white;
+      box-shadow: 0 0 0 0
+    }
+  }
+
+  #blog-searchbox .active {
+    background-color: #EEEEEE
+  }
+
+  .fa-search {
+    font-size: 20px;
+    margin-left: 10px;
+    top: 10px;
+    position: absolute;
+    color: #77909c;
+  }
+</style>
+
+  <div style="margin-top:100px"></div>
+  
+  <!-- 图片区域 -->
+  <div class="container">
+  
+      <div class="card card-container">
+        
+        <ul class="nav nav-tabs" role="tablist">
+          <li class="nav-item"  style="width: 50%;text-align:center;">
+            <a class="nav-link active" data-toggle="tab" href="#login_tab" role="tab">登录</a>
+          </li>
+          <li class="nav-item" style="width: 50%;text-align:center;">
+            <a class="nav-link" data-toggle="tab" href="#register_tab" role="tab">注册</a>
+          </li>
+          
+        </ul>
+        
+        <div class="tab-content">
+        
+          <div class="tab-pane active" id="login_tab" role="tabpanel">
+            
+            <!-- <img class="profile-img-card" src="//lh3.googleusercontent.com/-6V8xOA6M7BA/AAAAAAAAAAI/AAAAAAAAAAA/rzlHcD0KYwo/photo.jpg?sz=120" alt="" /> -->
+            <img id="profile-img" class="profile-img-card" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" />
+            <p id="profile-name" class="profile-name-card"></p>
+            <div id="attention_alert_login" class="user_attetion"></div>
+            
+            <form class="form-signin" name="f" action="login" accept-charset="utf-8" id="login_form" class="loginForm" method="post">
+                
+                <input id="username" name="username" class="form-control" placeholder="请输入昵称或邮箱" required autofocus>
+                <input type="password" id="password" name="password" class="form-control" placeholder="请输入密码" required>
+                <div id="remember" class="checkbox">
+                    <label class="float-left">
+                        <input type="checkbox" name="remember-me" />下次自动登录
+                    </label>
+                    <div class="float-right" style="margin-top: 5px; display: inline-block;margin-bottom: .5rem;">
+                      <a href="/forget-password" style="margin-top: 10px">忘记密码？</a>
+                    </div>
+                </div>
+
+                <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">登录</button>
+            </form><!-- /form -->
+            <!-- <a href="#" class="forgot-password">
+                              忘记密码？
+            </a> -->
+              
+          </div>
+          
+          <div class="tab-pane" id="register_tab" role="tabpanel">
+            <!-- <img class="profile-img-card" src="//lh3.googleusercontent.com/-6V8xOA6M7BA/AAAAAAAAAAI/AAAAAAAAAAA/rzlHcD0KYwo/photo.jpg?sz=120" alt="" /> -->
+              <div id="attention_alert_reg" class="user_attetion"></div>
+
+              
+              <form class="form-signin loginForm" name="f" action="registerForm" onsubmit="return CheckPost();" accept-charset="utf-8" id="register_form" method="post">
+                  <span id="reauth-email" class="reauth-email"></span>
+                  <input id="register_username" name="username" class="form-control" placeholder="昵称" required autofocus autocomplete="off">
+                  <input id="register_email" name="email" class="form-control" placeholder="邮箱" required autofocus autocomplete="off">
+                  <input type="password" id="register_password" name="password" class="form-control" placeholder="密码" required autocomplete="off">
+                  <input type="password" id="register_password2" name="re_password" class="form-control" placeholder="重复密码" required>
+                  
+                  <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">注册</button>
+              </form><!-- /form -->
+          
+          </div>
+        </div>
+          
+          
+      </div>
+  </div>
+  
+  
+
+  <script type="text/javascript" src="/resources/js/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="/resources/js/tether.min.js"></script>
+  <script type="text/javascript" src="/resources/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="/resources/layer/layer.js"></script>
+  <script type="text/javascript">
+      $(function() {
+        // Javascript to enable link to tab
+        var hash = document.location.hash;
+        if (hash) {
+          console.log(hash);
+          $('.nav-tabs a[href="'+hash+'"]').tab('show');
+        }
+        
+        if( hash.indexOf("register") > -1){
+          $('#login_nav').removeClass('active');
+          $('#reg_nav').addClass('active'); // this.className = 'active';
+        }else{
+          $('#login_nav').addClass('active'); // this.className = 'active';
+        }
+
+        // Change hash for page-reload
+        $('a[data-toggle="tab"]').on('show.bs.tab', function (e) {
+          window.location.hash = e.target.hash;
+        });
+      });
+      
+      //密码位数
+      var reMethod = "GET",
+      pwdmin = 6;
+
+      $().ready(function() {
+      	//用户登录判断
+      	$("#username").blur(function() {
+      		var username = $.trim($("#username").val());
+      		var dom=document.getElementById("attention_alert_login")
+      		if(username==""||username==null){
+      			
+      			dom.innerHTML="用户名不能为空";
+      		}else{
+      			dom.innerHTML=" ";
+      		}		
+      	})
+          //用户注册中判断用户名是否为空或者存在以及用户名的位数
+      	/*$("#user").blur(function() {
+      		var username = $.trim($("#user").val());
+      		
+      		if(username==""||username==null){			
+      			$("#attention_alert_reg").html("<font color='red'><b>用户名不能为空</b></font>");
+      		}else{
+      			if($('#user').val().length < 4 || $('#user').val().length > 16){
+      			$("#attention_alert_reg").html("<font color='red'><b>请输入4-16字符的用户名</b></font>");
+      			}else{
+      				$.ajax({
+      					url : 'checkUsernameExists',
+      					data : {
+      						username : username
+      					},
+      					type : 'post',
+      					cache : false,
+      					dataType : 'text',
+      					success : function(data) {
+      						if (data=="true") {
+      							$("#attention_alert_reg").html("<font color='red'><b>该用户名已经被注册</b></font>");
+      						} else {
+      							$("#attention_alert_reg").html("<font color='red'><b>该用户名可以使用</b></font>");
+      						}
+      					}
+      				});
+      			}	
+      		}		
+      	});	*/
+
+
+      	
+      	//判断注册的邮箱格式是否正确
+      	$('#register_email').blur(function() {
+      	  if(!$("#register_email").val().match(/^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/)){ 
+      	    $("#attention_alert_reg").html("<font color='red'><b>邮箱格式不正确！</b></font>");
+            $("#register_email").focus(); 
+          }else{
+            $("#attention_alert_reg").html(" ");
+          }
+      	})
+      	
+      	//判断邮箱是否存在
+      	//判断密码是够一致和密码的位数
+      	$('#register_password').blur(function() {
+      		if ($('#register_password').val().length < pwdmin) {		
+      			$("#attention_alert_reg").html("<font color='red'><b>密码不能小于" + pwdmin + "位</b></font>");			
+      		}else{
+      			$("#attention_alert_reg").html(" ");
+      		}		
+      	});
+      	$("#register_password2").blur(function(){
+      	    if ($('#register_password2').val() != $('#register_password').val()) {		
+      		$("#attention_alert_reg").html("<font color='red'><b>两次密码不一致！</b></font>");
+      		}else{
+      			$("#attention_alert_reg").html(" ");
+      		}
+      	});
+      });
+
+      if( '' != '' && ''!=null ){
+        layer.msg('')
+      }
+
+      function CheckPost() {
+        var registerEmail = $("#register_email").val();
+        var validated = true;
+        $.ajax({
+          type: 'post',
+          url: ctx + 'account/validate/email',
+          data: {
+            'user_email':registerEmail
+          },
+          dataType : 'json',
+          async: false,
+          success: function(result) {
+            var res = $.parseJSON(result)
+
+            if( res.isEmailExisting === 1 ){
+
+              validated =  false
+
+            }else{
+
+            }
+
+          },
+          error: function(xhr) {
+            //中间发生异常，具体查看xhr.responseText
+          }
+        });
+
+        if( !validated ){
+          layer.msg("对不起，该邮箱已存在！")
+
+        }
+
+        return validated
+      }
+  </script>
+  
+  
+</body>
+</html>

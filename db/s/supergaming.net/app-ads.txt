@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image" href="/logo.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Supergaming</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <!-- Preload m6x11 font to avoid FOUT on loading screen -->
+    <link rel="preload" href="/fonts/m6x11.ttf" as="font" type="font/ttf" crossorigin>
+    <style>
+      /* Loading screen background always visible, content fades in after font loads */
+      #loading-screen {
+        background: linear-gradient(180deg, #1a1a2e 0%, #0f0f1a 100%);
+      }
+      .loading-content {
+        opacity: 0;
+      }
+      .loading-content.font-ready {
+        opacity: 1;
+        transition: opacity 0.2s ease-out;
+      }
+    </style>
+    <script>
+      // Load m6x11 font via FontFace API - this is the ONLY font definition
+      // Do NOT add @font-face CSS as it conflicts with this
+      var m6x11Font = new FontFace('m6x11', 'url(/fonts/m6x11.ttf)');
+      m6x11Font.load().then(function(loadedFont) {
+        document.fonts.add(loadedFont);
+        document.querySelectorAll('.loading-content').forEach(function(el) {
+          el.classList.add('font-ready');
+        });
+      }).catch(function(err) {
+        console.error('Font load error:', err);
+        document.querySelectorAll('.loading-content').forEach(function(el) {
+          el.classList.add('font-ready');
+        });
+      });
+      // Fallback timeout
+      setTimeout(function() {
+        document.querySelectorAll('.loading-content').forEach(function(el) {
+          el.classList.add('font-ready');
+        });
+      }, 1000);
+    </script>
+    <script type="module" crossorigin src="/assets/index-99ab4110.js"></script>
+    <link rel="modulepreload" crossorigin href="/assets/vendor-three-c0b81857.js">
+    <link rel="modulepreload" crossorigin href="/assets/vendor-voxelize-fa456628.js">
+    <link rel="modulepreload" crossorigin href="/assets/creator-modules-0a8ee912.js">
+    <link rel="stylesheet" href="/assets/index-9a1a0842.css">
+  </head>
+  <body>
+    <!-- Loading Screen - Shows immediately before JS loads -->
+    <div id="loading-screen" style="
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(180deg, #1a1a2e 0%, #0f0f1a 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 10000;
+      font-family: 'm6x11', 'Courier New', monospace;
+    ">
+      <!-- Platform Logo -->
+      <div class="loading-content" style="
+        font-size: clamp(32px, 8vw, 48px);
+        color: #fff;
+        text-shadow: 0 0 20px rgba(255, 255, 255, 0.3), 2px 2px 0 #1a1a2e;
+        margin-bottom: 16px;
+        letter-spacing: 4px;
+        font-weight: bold;
+      ">Supergaming</div>
+
+      <!-- Tagline -->
+      <div class="loading-content" style="
+        font-size: clamp(12px, 3vw, 16px);
+        color: rgba(255, 255, 255, 0.6);
+        margin-bottom: 40px;
+        letter-spacing: 2px;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+      ">Voxel worlds where every block pays out.</div>
+
+      <!-- Progress Bar Container -->
+      <div class="loading-content" style="
+        width: min(300px, 80%);
+        height: 20px;
+        background: rgba(255, 255, 255, 0.1);
+        border: 2px solid rgba(251, 191, 36, 0.3);
+        border-radius: 4px;
+        overflow: hidden;
+        image-rendering: pixelated;
+      ">
+        <div id="loading-progress" style="
+          width: 0%;
+          height: 100%;
+          background: linear-gradient(90deg, #fbbf24 0%, #f59e0b 100%);
+          transition: width 0.3s ease-out;
+          box-shadow: 0 0 10px rgba(251, 191, 36, 0.5);
+        "></div>
+      </div>
+
+      <!-- Status Text -->
+      <div id="loading-status" class="loading-content" style="
+        margin-top: 16px;
+        font-size: clamp(10px, 2.5vw, 14px);
+        color: rgba(255, 255, 255, 0.7);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      ">Initializing...</div>
+
+      <!-- Tip -->
+      <div id="loading-tip" class="loading-content" style="
+        position: absolute;
+        bottom: 40px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: clamp(12px, 3vw, 16px);
+        color: rgba(255, 255, 255, 0.4);
+        text-align: center;
+        max-width: 80%;
+        line-height: 1.6;
+      ">TIP: Dirt blocks have the highest win rate at ~27%</div>
+    </div>
+
+    <div id="app">
+      <canvas id="main"></canvas>
+      <video id="video" style="display: none" autoplay playsinline></video>
+      <div id="crosshair"></div>
+      <div id="block-label"></div>
+      <ul id="biomes"></ul>
+      <!-- <div id="chat">
+        <ul id="chat-history"></ul>
+        <input id="chat-input" />
+      </div> -->
+    </div>
+
+    <!-- Mobile PLAY NOW button - placed in HTML for guaranteed touch handling -->
+    <button id="html-play-now-btn" style="
+        display: none;
+        position: fixed;
+        bottom: 40px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-family: 'm6x11', 'Courier New', monospace;
+        font-size: 22px;
+        font-weight: bold;
+        color: #000000;
+        background: linear-gradient(135deg, #ffd700 0%, #ffb700 50%, #ffa500 100%);
+        border: 3px solid rgba(255, 255, 255, 0.3);
+        border-radius: 16px;
+        padding: 14px 36px;
+        cursor: pointer;
+        text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.3);
+        box-shadow: 0 0 20px rgba(255, 215, 0, 0.6), 0 0 40px rgba(255, 215, 0, 0.4), 0 4px 20px rgba(0, 0, 0, 0.4);
+        z-index: 9999;
+        -webkit-tap-highlight-color: transparent;
+        touch-action: manipulation;
+        pointer-events: auto;
+        user-select: none;
+        -webkit-user-select: none;
+      ">PLAY NOW</button>
+    <script>
+      // Attach touch/click handlers after button is in DOM
+      (function() {
+        var btn = document.getElementById('html-play-now-btn');
+        if (!btn) {
+          console.error('[HTML] PLAY NOW button not found!');
+          return;
+        }
+
+        function handlePlayNow(e) {
+          console.log('[HTML] PLAY NOW event:', e.type);
+          e.preventDefault();
+          e.stopPropagation();
+
+          // Try the JS callback first
+          if (window.__crashblockPlayNow) {
+            console.log('[HTML] Calling __crashblockPlayNow');
+            window.__crashblockPlayNow();
+          } else {
+            // Fallback: dispatch custom event that JS can catch
+            console.log('[HTML] Dispatching play-now-click event');
+            window.dispatchEvent(new CustomEvent('play-now-click'));
+          }
+          return false;
+        }
+
+        // Use capture phase to ensure we get the event first
+        btn.addEventListener('touchstart', handlePlayNow, { capture: true, passive: false });
+        btn.addEventListener('touchend', function(e) { e.preventDefault(); }, { capture: true, passive: false });
+        btn.addEventListener('click', handlePlayNow, { capture: true });
+
+        console.log('[HTML] PLAY NOW button handlers attached');
+      })();
+    </script>
+
+    
+  </body>
+</html>

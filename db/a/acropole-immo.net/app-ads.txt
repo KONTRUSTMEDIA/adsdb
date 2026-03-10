@@ -1,0 +1,1455 @@
+
+
+
+<!------------------------------------------------------------------------------------->
+<!--    FONCTIONS JAVASCRIPT                                                         -->
+<!------------------------------------------------------------------------------------->
+<script language="JavaScript">
+
+
+/* Gestion des photos ------------------------------------*/
+function changephoto(adresse,haut_max,larg_max){
+
+	var newImg = new Image();
+	newImg.src = adresse;
+	hauteur    = newImg.height;
+	largeur    = newImg.width;
+
+
+	// Si il faut recadrer la photo
+	if (hauteur > haut_max || largeur > larg_max){
+		if (largeur > hauteur){
+			ratio = largeur/hauteur;
+			new_largeur = larg_max;
+			new_hauteur = larg_max/ratio;
+		}else{
+			ratio = hauteur/largeur;
+			new_hauteur = haut_max;
+			new_largeur = haut_max/ratio;
+		}
+
+	// Sinon, on garde les dimensions actuelle
+	}else{
+		new_hauteur = hauteur;
+		new_largeur = largeur;
+	}
+
+
+	document.images["principal"].src=adresse;
+	document.images["principal"].height = new_hauteur;
+	document.images["principal"].width  = new_largeur;		
+}
+
+
+/* Fonction pour fermer la popup attente -----------------*/
+function fermer_attente(){
+	var attente = window.open('attente.php', 'attente', 'width=5, height=5, menubar=no, toolbar=no, status=no, statusbar=no, location=no, scrollbars=no, resizable=no, dependent=yes');
+    if (attente) attente.close();
+}
+
+/* Fonction pour ajouter aux favoris ---------------------*/
+function addtofav(){
+	if (!document.all){
+		alert('Faites CTRL-D pour ajouter cette page dans vos favoris');
+	}else{
+		external.AddFavorite('https://www.acropole-immo.net','ACROPOLE-IMMO.NET : Annonces immobili�res gratuites');
+	}
+	return false;
+}
+
+/* Fonction pour afficher les derniers biens -------------*/
+function charger_biens(chemin){
+	document.location.href=chemin;
+}
+
+/* D�tection r�solution �cran ----------------------------*/
+function ma_resolution(bibli_f){ 
+	$.ajax({ // fonction permettant de faire de l'ajax
+		type: "GET",
+		url: bibli_f+"ma_resolution.php", // url du fichier php
+		data: "larg_ecran="+screen.width+"&haut_ecran="+screen.height, // donn�es � transmettre
+		success: function(data){
+		}
+	});
+};
+
+</script>
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "https://www.w3.org/TR/html4/strict.dtd">
+
+<html>
+
+<head>
+
+	<title>Annonces immobili�res gratuites et locations de vacances</title>
+	<META name="keywords" content="Annonces immobili�res gratuites,immobilier,location de vacances,locations vacances,annonces immo particuliers,annonce immobiliere,annonce immobili�re,annonces immo gratuites,annonce immo gratuite,vacances en France,immobilier gratuit,vente maison,location appartement,achat villa,achat immobilier,vente immobiliere,d�fiscalisation,holiday in France,lodging,accomodations">
+	<META name="description" content="Location vacances, annonces gratuites, immobilier particulier: Location vacances, vente, achat, locations saisonni�res, location de vacances pour particuliers et agences immobilieres.">
+	<meta name="ABSTRACT" content="annonces immobili�res gratuites de particuliers, location de vacances et s�jours en france et a l'�tranger"/>
+	<meta name="SUBJECT" content="annonces immobilieres gratuites de particuliers"/>
+	<meta name="classification" content="annonces,immobilieres,particuliers"/>
+	<meta name="coverage" content="Worldwide"/>
+	<meta name="robots" content="follow, index, all">
+	<meta name="author" content="www.acropole-immo.net">
+	<meta name="Identifier-URL" content="https://www.acropole-immo.net/"/>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<meta HTTP-EQUIV="content-language" CONTENT="fr,en-us">
+	<meta name="google-site-verification" content="88aiKHVXaXImqfljVb7TLCI9EFpQPH5_rGzJSOgLoXQ"/>
+	<link rel="shortcut icon" href="https://www.acropole-immo.net/images/favicon.ico" type="image/x-icon">
+
+	<!-- CSS -->
+	<link rel="stylesheet" href="https://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css"/>
+	<link rel="stylesheet" type="text/CSS" href="https://www.acropole-immo.net/acro.css">
+					
+	<!-- Google Custom Search Ads 
+	<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+	<script>
+	  (adsbygoogle = window.adsbygoogle || []).push({
+		google_ad_client: "ca-pub-7298109914152497",
+		enable_page_level_ads: true
+	  });
+	</script> -->
+
+	<!-- jquery -->
+	<script type="text/javascript" src="https://code.jquery.com/jquery-1.10.2.js"></script>
+	<script type="text/javascript" src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+
+	<!-- Carte de France -->
+    <link href="https://www.acropole-immo.net/cartedefrance/jqvmap.css" media="screen" rel="stylesheet" type="text/css"/>
+    <script src="https://www.acropole-immo.net/cartedefrance/jquery.vmap.js" type="text/javascript"></script>
+    <script src="https://www.acropole-immo.net/cartedefrance/jquery.vmap.france.js" type="text/javascript"></script>
+	<script src="https://www.acropole-immo.net/cartedefrance/jquery.vmap.colorsFrance.js" type="text/javascript"></script>
+
+	<!-- encart Banni�res CPM Ad6media -->
+	<script type="text/javascript" src="https://c.ad6media.fr/l.js"></script>
+
+	<!-- NATIVE ARTICLE AUTO The Moneytizer -->
+	
+	<!-- InMobi Choice. Consent Manager Tag v3.0 (for TCF 2.2) -->
+<script type="text/javascript" async=true>
+(function() {
+  var host = "www.themoneytizer.com";
+  var element = document.createElement('script');
+  var firstScript = document.getElementsByTagName('script')[0];
+  var url = 'https://cmp.inmobi.com'
+    .concat('/choice/', '6Fv0cGNfc_bw8', '/', host, '/choice.js?tag_version=V3');
+  var uspTries = 0;
+  var uspTriesLimit = 3;
+  element.async = true;
+  element.type = 'text/javascript';
+  element.src = url;
+
+  firstScript.parentNode.insertBefore(element, firstScript);
+
+  function makeStub() {
+    var TCF_LOCATOR_NAME = '__tcfapiLocator';
+    var queue = [];
+    var win = window;
+    var cmpFrame;
+
+    function addFrame() {
+      var doc = win.document;
+      var otherCMP = !!(win.frames[TCF_LOCATOR_NAME]);
+
+      if (!otherCMP) {
+        if (doc.body) {
+          var iframe = doc.createElement('iframe');
+
+          iframe.style.cssText = 'display:none';
+          iframe.name = TCF_LOCATOR_NAME;
+          doc.body.appendChild(iframe);
+        } else {
+          setTimeout(addFrame, 5);
+        }
+      }
+      return !otherCMP;
+    }
+
+    function tcfAPIHandler() {
+      var gdprApplies;
+      var args = arguments;
+
+      if (!args.length) {
+        return queue;
+      } else if (args[0] === 'setGdprApplies') {
+        if (
+          args.length > 3 &&
+          args[2] === 2 &&
+          typeof args[3] === 'boolean'
+        ) {
+          gdprApplies = args[3];
+          if (typeof args[2] === 'function') {
+            args[2]('set', true);
+          }
+        }
+      } else if (args[0] === 'ping') {
+        var retr = {
+          gdprApplies: gdprApplies,
+          cmpLoaded: false,
+          cmpStatus: 'stub'
+        };
+
+        if (typeof args[2] === 'function') {
+          args[2](retr);
+        }
+      } else {
+        if(args[0] === 'init' && typeof args[3] === 'object') {
+          args[3] = Object.assign(args[3], { tag_version: 'V3' });
+        }
+        queue.push(args);
+      }
+    }
+
+    function postMessageEventHandler(event) {
+      var msgIsString = typeof event.data === 'string';
+      var json = {};
+
+      try {
+        if (msgIsString) {
+          json = JSON.parse(event.data);
+        } else {
+          json = event.data;
+        }
+      } catch (ignore) {}
+
+      var payload = json.__tcfapiCall;
+
+      if (payload) {
+        window.__tcfapi(
+          payload.command,
+          payload.version,
+          function(retValue, success) {
+            var returnMsg = {
+              __tcfapiReturn: {
+                returnValue: retValue,
+                success: success,
+                callId: payload.callId
+              }
+            };
+            if (msgIsString) {
+              returnMsg = JSON.stringify(returnMsg);
+            }
+            if (event && event.source && event.source.postMessage) {
+              event.source.postMessage(returnMsg, '*');
+            }
+          },
+          payload.parameter
+        );
+      }
+    }
+
+    while (win) {
+      try {
+        if (win.frames[TCF_LOCATOR_NAME]) {
+          cmpFrame = win;
+          break;
+        }
+      } catch (ignore) {}
+
+      if (win === window.top) {
+        break;
+      }
+      win = win.parent;
+    }
+    if (!cmpFrame) {
+      addFrame();
+      win.__tcfapi = tcfAPIHandler;
+      win.addEventListener('message', postMessageEventHandler, false);
+    }
+  };
+
+  makeStub();
+
+  var uspStubFunction = function() {
+    var arg = arguments;
+    if (typeof window.__uspapi !== uspStubFunction) {
+      setTimeout(function() {
+        if (typeof window.__uspapi !== 'undefined') {
+          window.__uspapi.apply(window.__uspapi, arg);
+        }
+      }, 500);
+    }
+  };
+
+  var checkIfUspIsReady = function() {
+    uspTries++;
+    if (window.__uspapi === uspStubFunction && uspTries < uspTriesLimit) {
+      console.warn('USP is not accessible');
+    } else {
+      clearInterval(uspInterval);
+    }
+  };
+
+  if (typeof window.__uspapi === 'undefined') {
+    window.__uspapi = uspStubFunction;
+    var uspInterval = setInterval(checkIfUspIsReady, 6000);
+  }
+})();
+</script>
+<!-- End InMobi Choice. Consent Manager Tag v3.0 (for TCF 2.2) -->
+</head>
+
+
+<body>
+
+
+<!-- Slide-In Ad6media 
+<script type="text/javascript">
+/* <![CDATA[ */
+var ad6_url = 'https://uxl1tz0vce.s.ad6media.fr/?d=' + ((new Date()).getTime()) + '&r=';try {ad6_url += encodeURIComponent(top.document.referrer);} catch (e) {ad6_url += encodeURIComponent(document.referrer);}document.write('<scr' + 'ipt typ' + 'e="text/javas' + 'cript" src="' + ad6_url + '"></scr' + 'ipt>');/* ]]> */</script> 
+<!-- Slide-In Ad6media -->
+
+
+<!-- Bouton j'aime de Facebook -->
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/fr_FR/all.js#xfbml=1&appId=252643174769961";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+<!-- D�tection r�solution �cran -->
+<script language='JavaScript'>ma_resolution('');</script>
+
+<!-- Banni�re & menu -->
+<table align="center" cellpadding="0" cellspacing="0" width="100%">
+
+	<tr>
+		<td>
+		
+
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+
+	<!-- Banniere -->
+	<tr height="90">
+
+		<td align="right" valign="top" background="https://www.acropole-immo.net/images/banniere-1004.jpg" style="background-repeat:no-repeat;background-color:black;">
+
+			<script type="text/javascript" src="https://tags.clickintext.net/UiENcB9f1ep5B" title="Classic (IAB)"></script>				
+		</td>
+
+	</tr>
+
+</table>
+		</td>
+	</tr>
+
+	<tr>
+		<td>
+		<!-- Menu -->
+<table  bgcolor="black" align="center" border="0" cellpadding="0" cellspacing="0" height="30" width="100%">
+	<tr>
+		<td align="left">
+			&nbsp;&nbsp;
+			<a class="menu" href="https://www.acropole-immo.net/" title="Annonces immobilieres">Accueil</a>
+			&nbsp;&nbsp;
+			<a class="menu" href="https://www.acropole-immo.net/annonces-immobilieres/" title="Annonces immobilieres de particuliers">Consulter les annonces</a>
+			&nbsp;&nbsp;
+			<a class="menu" href="https://www.acropole-immo.net/annonce-immobilier-particulier/" title="Annonces immobilieres gratuites">Passer une annonce</a>
+			&nbsp;&nbsp;
+			<a class="menu" href="https://www.acropole-immo.net/annonce-colocation/" title="Votre s�lection d'annonces immobili�res">Mes favoris</a>
+			&nbsp;&nbsp;
+			<a class="menu" href="https://www.acropole-immo.net/conditions/" title="Lire les conditions">Conditions</a>
+			&nbsp;&nbsp;
+			<a class="menu" href="https://www.acropole-immo.net/conseils-immobilier/" title="Conseils en immobilier">Conseils</a>
+		</td>
+		<td align="right">
+			<a class="menu" href="https://www.acropole-immo.net/contact/" title="Nous �crire">Nous contacter</a>
+			&nbsp;&nbsp;
+			<a class="menu" href="https://www.acropole-immo.net/pro/" title="G�rer vos annonces immo">Espace Perso</a>
+			&nbsp;&nbsp;
+		</td>  
+	</tr>
+</table>		</td>
+	</tr>
+
+</table>
+		
+
+<table align="center" bgcolor="#FBFCFA" border="0" cellpadding="0" cellspacing="0" width="100%">
+
+
+	<tr valign="top">
+
+		<!-- Colonne gauche --> 
+		<td align="center">
+				</td>
+
+		<!-- Contenu central --> 
+		<td align="center" width="70%">
+		
+
+
+<!---------------------------------------------------------> 
+<!--  ECRAN                                              -->
+<!---------------------------------------------------------> 
+<table align="center" border="0" cellspacing="2" cellpadding="2" width="100%">
+
+
+	<tr>
+
+		<!-- Colonne 1 -->
+		<td valign="top">
+
+			<table align="center" border="0" cellspacing="0" cellpadding="0" width="100%">
+
+
+				<tr>
+					<td>&nbsp;</td>
+				</tr> 
+
+
+				<!-- Nb annonces -->
+				<tr>
+					<td align="center">
+						<a class="alertes" href="https://www.acropole-immo.net/annonces/"><b>129 219 annonces immobili�res</b></a>
+					</td>
+				</tr>
+
+
+				<tr>
+					<td>&nbsp;</td>
+				</tr> 
+
+
+				<!-- Recherche --> 
+				<tr>
+
+					<td align="center">
+						
+						
+
+
+<!---------------------------------------------------------> 
+<!--  CONTROLE JAVASCRIPT                                -->
+<!---------------------------------------------------------> 
+
+<script language="javascript">
+
+
+/* Fonction pour tester la valeur des zones du formulaire */
+function ctl()
+{
+
+
+/* Nombre de surface habitable mini ----------------------*/
+	if(/^[0-9]?[0-9]?[0-9]?[0-9]?[0-9]?[0-9]?[0-9]?[0-9]?[0-9]?$/.test(document.biens_lig.superficie_mini.value)==false)
+	{
+	alert("Vous devez saisir une surface mini correcte (QUE DES CHIFFRES ET PAS DE DECIMALES)");
+	return false;
+	}
+
+
+/* Nombre de surface habitable maxi ----------------------*/
+	if(/^[0-9]?[0-9]?[0-9]?[0-9]?[0-9]?[0-9]?[0-9]?[0-9]?[0-9]?$/.test(document.biens_lig.superficie_maxi.value)==false)
+	{
+	alert("Vous devez saisir une surface maxi correcte (QUE DES CHIFFRES ET PAS DE DECIMALES)");
+	return false;
+	}
+
+
+/* surface habitable maxi doit �tre > � surface habitable mini ---------*/
+	mini = parseInt(document.biens_lig.superficie_mini.value);  
+	maxi = parseInt(document.biens_lig.superficie_maxi.value);
+	if(document.biens_lig.superficie_mini && document.biens_lig.superficie_maxi && maxi < mini)
+	{
+	alert("La surface maxi doit �tre sup�rieur � la surface mini");
+	return false;
+	}
+
+
+/* Prix mini ---------------------------------------------*/
+	if(/^[0-9]?[0-9]?[0-9]?[0-9]?[0-9]?[0-9]?[0-9]?$/.test(document.biens_lig.prix_mini.value)==false)
+	{
+	alert("Vous devez saisir un prix mini correct (QUE DES CHIFFRES ET PAS DE DECIMALES)");
+	return false;
+	}
+
+
+/* Prix maxi ---------------------------------------------*/
+	if(/^[0-9]?[0-9]?[0-9]?[0-9]?[0-9]?[0-9]?[0-9]?$/.test(document.biens_lig.prix_maxi.value)==false)
+	{
+	alert("Vous devez saisir un prix maxi correct (QUE DES CHIFFRES ET PAS DE DECIMALES)");
+	return false;
+	}
+
+
+/* Prix maxi doit �tre > � prix mini ---------------------*/
+	mini = parseInt(document.biens_lig.prix_mini.value);  
+	maxi = parseInt(document.biens_lig.prix_maxi.value);
+	if(document.biens_lig.prix_mini && document.biens_lig.prix_maxi && maxi < mini)
+	{
+	alert("Le prix maxi doit �tre sup�rieur au prix mini");
+	return false;
+	}
+
+
+/* R�f�rence ---------------------------------------------*/
+	if(/^[0-9]?[0-9]?[0-9]?[0-9]?[0-9]?[0-9]?[0-9]?[0-9]?[0-9]?$/.test(document.biens_lig.reference.value)==false)
+	{
+	alert("Vous devez saisir une r�f�rence correcte (QUE DES CHIFFRES)");
+	return false;
+	}
+
+
+/* Pays --------------------------------------------------*/
+	if(document.biens_lig.b_pays.value.substr(0,2)=="--")
+	{
+	alert("Veuillez choisir un pays SVP");
+	return false;
+	}
+}
+
+
+/* On cache "Nombre de personne" si non "VAC" ------------*/
+function ShowHideDiv_nbpersonne(aValue){
+
+	var isVisible;
+	var obj;
+
+	isVisible = (aValue == "VAC");
+	obj = document.biens_lig.capacite;
+
+	if (!isVisible){
+		obj.style.visibility = "hidden";
+	}else{
+		obj.style.visibility = "visible";
+	}
+}
+
+
+/* On cache "liste des d�partements si ETRANGER ----------*/
+function ShowHideDiv_departement(aValue){
+
+	var isVisible;
+	var obj1;
+
+	if (aValue.substr(0,2)=="--"){
+		alert("Le pays n'est pas valide");
+	}
+	
+	isVisible = (aValue == "00");
+	obj1 = document.biens_lig.b_rayon;
+
+	if (!isVisible){
+		obj1.style.visibility = "hidden";
+		document.getElementsByName('b_ville')[0].value='';
+		document.getElementsByName('b_ville')[0].placeholder='Ville...';
+	}else{
+		obj1.style.visibility = "visible";
+		document.getElementsByName('b_ville')[0].value='';
+		document.getElementsByName('b_ville')[0].placeholder='Code postal, ville, d�partement...';
+	}
+
+	if (aValue == "00"){
+		document.getElementById('aff_elargir').style.visibility = "visible";
+	}else{
+		document.getElementById('aff_elargir').style.visibility = "hidden";
+	}
+}
+
+</script>
+
+
+<!-- Style pour Autocomplete villes -->
+<style>
+.ui-autocomplete {
+	max-height: 200px;
+	overflow-y: auto;
+	/* prevent horizontal scrollbar */
+	overflow-x: hidden;
+}
+/* IE 6 doesn't support max-height
+ * we use height instead, but this forces the menu to always be this tall
+ */
+* html .ui-autocomplete {
+	height: 200px;
+}
+</style>
+
+
+<!-- Autocomplete villes -->
+<script type='text/javascript'>var bibli_zoo = '';</script><script src='https://www.acropole-immo.net/autocomplete/autocomplete_villes.js' type='text/javascript'></script>
+
+
+<!-- Formulaire de saisie -->
+<form method="get" name="biens_lig" action="https://www.acropole-immo.net/biens_lig/?init=N" onsubmit="return ctl()">
+
+
+<!-- ECRAN --> 
+<table align="center" border="0" cellspacing="0" cellpadding="0" width="320">
+
+
+	<!-- Recherche --> 
+	<tr>
+
+		<td align="center">
+
+			<table border="0" cellpadding="0" cellspacing="0">
+
+
+				<!-- Corps -->
+				<tr>
+					<td>
+
+
+					<div class="cadre_recherche"><div>
+
+
+					<table align="center" border="0" cellspacing="2" cellpadding="2" width="100%">
+
+
+					<!-- Titre -->
+					<tr>
+						<td colspan="5" align="center">
+							<font class="accueil_texte8" style="font-size:15"><b>RECHERCHE</b></font>
+						</td>
+					</tr>
+
+
+					<!-- Filet -->
+					<tr>
+						<td colspan="5"><hr class="hr.isolator"></td>
+					</tr>
+
+
+					<!-- LIGNE 1 -->
+					<tr>
+						
+						<!-- Rubriques -->
+						<td width="100">
+
+							<font class="infos_texte7">Rubrique</font>
+						
+						</td>
+							
+							
+					
+						<td colspan="2">
+
+							<select class="infos_texte3" name="rubrique" onchange="ShowHideDiv_nbpersonne(form.rubrique.options[form.rubrique.selectedIndex].value)">
+								<option value="VTE"><font class="infos_texte7">Vente</font><br><option value="LOC"><font class="infos_texte7">Location annuelle</font><br><option value="VAC"><font class="infos_texte7">H�bergement vacances</font><br><option value="RCH"><font class="infos_texte7">Recherche</font><br>							</select>
+
+						</td>
+
+					</tr>
+
+
+
+					<!-- LIGNE 2 -->
+					<tr>
+
+						<!-- Type -->
+						<td>
+
+							<font class="infos_texte7">Type de bien</font>
+						
+						</td>
+						
+							
+					
+						<td colspan="2">
+
+							<select class="infos_texte3" name="type">
+								<option value="TOU"><font class="infos_texte7">Tous</font><br><option value="VIL"><font class="infos_texte7">Maison/Villa</font><br><option value="APP"><font class="infos_texte7">Appartement</font><br><option value="MAI"><font class="infos_texte7">Maison de village</font><br><option value="CHA"><font class="infos_texte7">Chambre d'h�tes</font><br><option value="HOT"><font class="infos_texte7">H�tel</font><br><option value="TER"><font class="infos_texte7">Terrain</font><br><option value="GAR"><font class="infos_texte7">Garage/Parking</font><br><option value="COM"><font class="infos_texte7">Commerce</font><br><option value="BUR"><font class="infos_texte7">Bureau/Local</font><br><option value="IMM"><font class="infos_texte7">Immeuble</font><br><option value="MOB"><font class="infos_texte7">Mobil-home</font><br><option value="PEN"><font class="infos_texte7">Peniche/Bateau</font><br>							</select>
+
+						</td>
+
+					</tr>
+
+
+
+					<!-- LIGNE 3 -->
+					<tr>
+						
+						<!-- Type de contact -->
+						<td colspan="2">
+
+														<input class="infos_texte7" type="checkbox" name="ann_par" ><font class="accueil_texte8">Annonces de particulier</font><br>
+
+														<input class="infos_texte7" type="checkbox" name="ann_pro" ><font class="accueil_texte8">Annonces de pro</font>
+
+						</td>
+
+						
+						<!-- Nombre de personnes -->
+						<td colspan="2" valign="bottom">
+
+							<select class="infos_texte3" name="capacite">
+
+								<option value='' selected><font class="infos_texte7">Capacit�</font></option><option value='0'><font class="infos_texte7">Indiff�rent</font></option><option value='1'><font class="infos_texte7">1 personne</font></option><option value='2'><font class="infos_texte7">2 personnes</font></option><option value='3'><font class="infos_texte7">3 personnes</font></option><option value='4'><font class="infos_texte7">4 personnes</font></option><option value='5'><font class="infos_texte7">5 personnes</font></option><option value='6'><font class="infos_texte7">6 personnes</font></option><option value='7'><font class="infos_texte7">7 personnes</font></option><option value='8'><font class="infos_texte7">8 personnes</font></option><option value='9'><font class="infos_texte7">+ de 8 pers</font></option>
+							</select>
+
+						</td>
+
+					</tr>				
+
+
+
+					<!-- Filet -->
+					<tr>
+						<td colspan="5"><hr class="hr.isolator"></td>
+					</tr>
+
+
+
+					<!-- LIGNE 4 -->
+					<tr>
+
+						<!-- pays -->
+						<td>
+
+							<font class="infos_texte7">Pays</font>
+
+						</td>
+
+
+						<td colspan="2">
+
+							<select class="infos_texte3" name="b_pays" style="width:168px;" onchange="ShowHideDiv_departement(form.b_pays.options[form.b_pays.selectedIndex].value)">
+
+								<option value="00" >FRANCE</option><option value="BB" >Outre-mer</option><option value="CC" >Reste du Monde</option><option value="--A" >-----------------------------------</option><option value="all" >ALLEMAGNE</option><option value="and" >ANDORRE</option><option value="aut" >AUTRICHE</option><option value="bal" >BALEARES</option><option value="bel" >BELGIQUE</option><option value="bul" >BULGARIE</option><option value="cro" >CROATIE</option><option value="esp" >ESPAGNE</option><option value="gre" >GRECE</option><option value="hon" >HONGRIE</option><option value="ita" >ITALIE</option><option value="lux" >LUXEMBOURG</option><option value="pol" >POLOGNE</option><option value="por" >PORTUGAL</option><option value="rou" >ROUMANIE</option><option value="roy" >ROYAUME UNI</option><option value="slo" >SLOVENIE</option><option value="sui" >SUISSE</option><option value="tur" >TURQUIE</option><option value="eur" >EUROPE (autres pays)</option><option value="--B" >-----------------------------------</option><option value="ale" >ALGERIE</option><option value="cam" >CAMEROUN</option><option value="cot" >COTE D IVOIRE</option><option value="egy" >EGYPTE</option><option value="mad" >MADAGASCAR</option><option value="mar" >MAROC</option><option value="ile" >ILE MAURICE</option><option value="sen" >SENEGAL</option><option value="tun" >TUNISIE</option><option value="afr" >AFRIQUE (autres pays)</option><option value="--C" >-----------------------------------</option><option value="moy" >MOYEN ORIENT</option><option value="--D" >-----------------------------------</option><option value="rus" >RUSSIE</option><option value="tha" >THAILANDE</option><option value="asi" >ASIE (autres pays)</option><option value="--E" >-----------------------------------</option><option value="can" >CANADA</option><option value="usa" >USA</option><option value="amc" >AMERIQUE CENTRALE</option><option value="bah" >BAHAMAS</option><option value="rep" >REP. DOMINICAINE</option><option value="ant" >ANTILLES</option><option value="arg" >ARGENTINE</option><option value="bre" >BRESIL</option><option value="ams" >AMERIQUE DU SUD</option>							
+							</select>
+
+						</td>
+						
+					</tr>
+
+
+
+					<tr>
+						<td colspan="5"></td>
+					</tr>
+
+
+
+					<!-- LIGNE 5 -->
+					<tr>
+
+						<!-- Ville -->
+						<td colspan="3">
+						
+									
+							<div class="ui-widget">
+														<input type="text" class="ui-widget" style="margin-left:-5px;" id="ville" name="b_ville" size="40" value="" placeholder="Code postal, ville, d�partement...">
+							</div>
+						</td>
+
+					</tr>
+					
+
+					
+						
+						<!-- Filet -->
+						<tr>
+							<td colspan="5"><hr class="hr.isolator"></td>
+						</tr>
+						
+
+						<!-- LIGNE 6 -->
+						<tr>
+
+							<!-- Alentour -->
+							<td>
+
+								<div id="aff_elargir"><font class="infos_texte7">Distance</font></div>
+
+							</td>
+
+							<td colspan="2">
+							
+								<select class="infos_texte3" name="b_rayon">
+
+								<option value="00" >Non</option><option value="10" >dans un rayon de 10 kms</option><option value="20" >dans un rayon de 20 kms</option><option value="30" >dans un rayon de 30 kms</option><option value="40" >dans un rayon de 40 kms</option><option value="50" >dans un rayon de 50 kms</option>								</select>
+
+
+							</td>
+
+						</tr>
+
+
+											
+
+	
+					<!-- Filet -->
+					<tr>
+						<td colspan="5"><hr class="hr.isolator"></td>
+					</tr>
+
+
+
+					<!-- LIGNE 7 -->
+					<tr>
+
+						<!-- Prix -->
+						<td>
+							<font class="infos_texte7">Prix mini/maxi</font>
+						</td>
+
+						<td>
+							<Input class="infos_texte3" type="text" name="prix_mini" size="6" maxlength="7" value="">
+						</td>
+						<td>
+							<font class="infos_texte7">�</font>
+							<Input class="infos_texte3" type="text" name="prix_maxi" size="6" maxlength="7" value="">	
+							<font class="infos_texte7">�</font>
+						</td>
+					
+					</tr>
+
+
+
+					<!-- LIGNE 8 -->
+					<tr>
+
+						<!-- Surface habitable -->
+						<td>
+							<font class="infos_texte7">Surface</font>
+						</td>
+						
+						<td>
+							<Input class="infos_texte3" type="text" name="superficie_mini" size="5" maxlength="9" value="">
+						</td>
+						<td>
+							<font class="infos_texte7">�</font>
+							<Input class="infos_texte3" type="text" name="superficie_maxi" size="5" maxlength="9" value="">	
+							<font class="infos_texte7">m�</font>
+						</td>
+					</tr>
+
+
+
+					<!-- LIGNE 9 -->
+					<tr>
+
+						<!-- Nbre pi�ces -->
+						<td>
+							<font class="infos_texte7">Nbre pi�ces</font>
+						</td>
+						
+						<td>
+							<select class="infos_texte3" name="piece1">
+								<option value="0" selected><font class="infos_texte7"></font><br><option value="1"><font class="infos_texte7">1</font><br><option value="2"><font class="infos_texte7">2</font><br><option value="3"><font class="infos_texte7">3</font><br><option value="4"><font class="infos_texte7">4</font><br><option value="5"><font class="infos_texte7">5</font><br><option value="6"><font class="infos_texte7">6+</font><br>							</select>
+						</td>
+						<td>
+							<font class="infos_texte7">�</font>
+							<select class="infos_texte3" name="piece2">
+								<option value="0" selected><font class="infos_texte7"></font><br><option value="1"><font class="infos_texte7">1</font><br><option value="2"><font class="infos_texte7">2</font><br><option value="3"><font class="infos_texte7">3</font><br><option value="4"><font class="infos_texte7">4</font><br><option value="5"><font class="infos_texte7">5</font><br><option value="6"><font class="infos_texte7">6+</font><br>							</select>
+						</td>
+
+					</tr>
+
+
+
+					<!-- LIGNE 10 -->
+					<tr>
+
+						<!-- Nbre chambres -->
+						<td>
+							<font class="infos_texte7">Nbre chambres</font>
+						</td>
+						
+						<td>
+							<select class="infos_texte3" name="chambre1">
+								<option value="0" selected><font class="infos_texte7"></font><br><option value="1"><font class="infos_texte7">1</font><br><option value="2"><font class="infos_texte7">2</font><br><option value="3"><font class="infos_texte7">3</font><br><option value="4"><font class="infos_texte7">4</font><br><option value="5"><font class="infos_texte7">5</font><br><option value="6"><font class="infos_texte7">6+</font><br>							</select>
+						</td>
+						<td>
+							<font class="infos_texte7">�</font>
+							<select class="infos_texte3" name="chambre2">
+								<option value="0" selected><font class="infos_texte7"></font><br><option value="1"><font class="infos_texte7">1</font><br><option value="2"><font class="infos_texte7">2</font><br><option value="3"><font class="infos_texte7">3</font><br><option value="4"><font class="infos_texte7">4</font><br><option value="5"><font class="infos_texte7">5</font><br><option value="6"><font class="infos_texte7">6+</font><br>							</select>
+						</td>
+
+					</tr>
+
+
+
+					<!-- Filet -->
+					<tr>
+						<td colspan="5"><hr class="hr.isolator"></td>
+					</tr>
+
+
+
+					<!-- LIGNE 11 -->
+					<tr>
+
+						<!-- Acces par la r�f�rence de l'annonce -->
+						<td colspan="3">
+							<font class="infos_texte7">Acces direct � l'annonce N� </font><Input class="infos_texte3" type="text" name="reference" size="8" maxlength="8" value="">
+						</td>
+
+					</tr>
+
+
+
+					<!-- LIGNE 12 -->
+					<tr>
+
+						<!-- Message -->
+						<td colspan="3">
+													</td>
+
+					</tr>
+
+
+
+					<!-- LIGNE 13 -->
+					<tr>
+						<td align="center" colspan="3">
+							<button type="submit" class="btn_recherche" name="action" value="Suivant" title="Lancer la recherche">Lancer la recherche</button>
+						</td>
+					</tr>
+			
+			
+					<tr><td></td></tr>
+
+			
+					</table>
+
+
+					</div></div>
+
+
+					</td>
+				</tr>
+			
+			</table>
+
+		</td>
+
+	</tr>
+
+</table>
+
+</form>
+
+
+<script language='javascript'>document.biens_lig.capacite.style.visibility = 'hidden'</script>
+					</td>
+
+				</tr>
+
+				<tr>
+					<td>&nbsp;</td>
+				</tr> 
+
+			</table>
+
+		</td>
+
+
+		<!-- Colonne 2 -->
+		<td valign="top">
+
+			<table align="center" border="0" cellspacing="0" cellpadding="0" width="100%">
+				
+				<tr>
+					<td>&nbsp;</td>
+				</tr> 
+				<tr>
+					<td>&nbsp;</td>
+				</tr>
+				<tr>
+					<td>&nbsp;</td>
+				</tr>
+
+				<tr>
+					<td>
+						<script type="text/javascript">
+
+$(document).ready(function() {
+	$('#francemap').vectorMap({
+		map: 'france_fr',
+		hoverOpacity: 0.5,
+		hoverColor: false,
+		backgroundColor: "#FBFCFA",
+		colors: couleurs,
+		borderColor: "#FBFCFA",
+		selectedColor: "#EC0000",
+		enableZoom: true,
+		showTooltip: true,
+		onRegionClick: function(element, code, region){
+			if (code == "2A" || code == "2B"){
+				code = "20";
+			}
+ 			document.biens_lig.b_ville.value = code;
+			document.biens_lig.b_pays.value = '00';
+			document.biens_lig.b_rayon.value = '00';
+			document.biens_lig.submit();
+		}
+	});
+});
+</script>
+
+
+<!-- Affichage -->
+<table align="center" border="0" cellspacing="0" cellpadding="0">
+
+	<tr>
+		<td>
+			<div id="francemap" style="width: 500px; height: 500px;"></div>
+		</td>
+	</tr>
+
+</table>					</td>
+				</tr>
+
+			</table>
+		
+		</td>
+
+	</tr>
+
+
+	<tr>
+		<td>&nbsp;</td>
+	</tr>
+
+
+	<!-- Pr�sentation -->
+	<tr>
+		<td align="center" colspan="2">
+			<font class="liens_texte2" style="color:#CC9933;font-size:16;"><i>Acropole Immo</i></font><br><br>
+			<font class="liens_texte2" style="color:#CC9933;font-size:12;"><i>est un site gratuit d'annonces immobili�res.<br><br>Nous vous proposons un large choix de ventes, locations et locations de vacances.<br><br>La diffusion de vos annonces est totalement gratuite et un "Espace Perso" vous permet de les modifier en toute libert�.<br><br>Passez votre premi�re annonce pour obtenir vos codes d'acc�s.<br><br>Acropole Immo �tant totalement financ� par la publicit�, nous vous invitons r�guli�rement � cliquer sur nos banni�res de Pub<br><br>afin de nous soutenir et ainsi permettre � nos services de rester gratuit...</i></font>
+		</td>
+	</tr>
+
+	
+	<tr>
+		<td>&nbsp;</td>
+	</tr>
+
+
+	<tr>
+		<td align="center" colspan="2">
+			<a href="#" onclick="addtofav()">Ajouter Acropole Immo a vos favoris</a>
+		</td>
+	</tr>
+
+
+	<tr>
+		<td>&nbsp;</td>
+	</tr>
+	<tr>
+		<td>&nbsp;</td>
+	</tr>
+
+
+	<!-- Bouton j'aime de Facebook -->
+	<tr>
+		<td align="center" colspan="2">				
+			<div class="fb-like" data-href="https://www.acropole-immo.net/" data-send="true" data-width="750" data-show-faces="true" data-colorscheme="dark"></div>
+		</td>
+	</tr>
+
+
+	<tr>
+		<td>&nbsp;</td>
+	</tr>
+
+
+	<!-- Bouton Google + -->
+	<tr>
+		<td align="center" colspan="2">				
+			<div align='center'><g:plusone size='medium'></g:plusone></div>
+		</td>
+	</tr>
+	
+
+	<tr>
+		<td>&nbsp;</td>
+	</tr>
+	<tr>
+		<td>&nbsp;</td>
+	</tr>
+	<tr>
+		<td>&nbsp;</td>
+	</tr>
+
+
+	<!-- Actualit�s Immo -->
+	<tr>
+		<td colspan="2">
+
+			<table align="center" border="0" cellspacing="0" cellpadding="0" width="90%">
+
+			<tr>
+				<td>
+
+					<div class="biens_det_corps6">
+
+					<table align="center" border="0" cellspacing="8" cellpadding="8" width="100%">
+
+						<!-- Titre -->
+						<tr>
+							<td align="center">
+								<a class="alertes" href="https://www.acropole-immo.net/actualite/" title="Conseil, placement, investissement, infos et actualit�s immobilier"><h3>Les derni�res actualit�s de l'immobilier</h3></a>
+							</td>
+						</tr>
+
+						<!-- Corps -->
+						<tr>
+							<td align="center">
+								<table border='0' cellspacing='0' cellpadding='0'><tr><td><a href="https://www.acropole-immo.net/actualite/conseil-immobilier-2026-03-10">Trump et Cuba : vers une � prise de contr�le pacifique � ? | France-Jeunes</a><br><font class="liens_texte2" style="color:#CC9933;">...inhabituelle de l&#39;ancien magnat de l&#39;<b>immobilier</b>, qui tend � traiter les �tats nations comme des entreprises en...</font></td></tr><tr><td><font style='font-size:8'>&nbsp;</font></td></tr><tr><td><a href="https://www.acropole-immo.net/actualite/conseil-immobilier-2026-03-10">CDI ou int�rim : quel contrat paie vraiment plus ? | France-Jeunes</a><br><font class="liens_texte2" style="color:#CC9933;">...si tu g�res bien tes missions.Projet <b>immobilier</b> dans les 2 ans : pourquoi le CDI devient indispensableIci, on change de ... d&#39;un cr�dit. Donc, si tu projettes l&#39;<b>immobilier</b>, sacrifie un peu de revenu � court terme pour s�curiser ton dossier et...</font></td></tr><tr><td><font style='font-size:8'>&nbsp;</font></td></tr><tr><td><a href="https://www.acropole-immo.net/actualite/conseil-immobilier-2026-03-10">Guerre en Iran : la fortune cach�e du nouveau Guide Supr�me iranien Motjaba Khamenei, estim�e � au...</a><br><font class="liens_texte2" style="color:#CC9933;">...en janvier dernier.Un faste empire <b>immobilier</b> loin de la modestie affich�e du r�gime iranienLa fortune du nouveau ... dans un premier temps sur son empire <b>immobilier</b> et h�telier. Des biens immenses en totale contradiction avec la modestie...</font></td></tr><tr><td><font style='font-size:8'>&nbsp;</font></td></tr><tr><td><a href="https://www.acropole-immo.net/actualite/conseil-immobilier-2026-03-10">Pas-de-Calais. Un bien "rare sur le secteur" mis en vente par cette agence immobili�re</a><br><font class="liens_texte2" style="color:#CC9933;">Un bien rare sur le secteur ! D�tails.<b>Immobilier</b>Voil� une annonce qui va peut-�tre int�resser du monde. Et cette fois ... ligne une annonce concernant un bien <b>immobilier</b> loin d?�tre commun sur le secteur. Elle concerne un �tang de loisirs de...</font></td></tr><tr><td><font style='font-size:8'>&nbsp;</font></td></tr><tr><td><a href="https://www.acropole-immo.net/actualite/conseil-immobilier-2026-03-10">Conflit d?int�r�ts: cette courti�re a avantag� sa s?ur et son beau-fr�re</a><br><font class="liens_texte2" style="color:#CC9933;">...l?Organisme d?autor�glementation du courtage <b>immobilier</b> du Qu�bec (OACIQ). M Carri�re a reconnu ses torts et a pr�sent� un...</font></td></tr><tr><td><font style='font-size:8'>&nbsp;</font></td></tr><tr><td><a href="https://www.acropole-immo.net/actualite/conseil-immobilier-2026-03-10">chef supr�me de l?Iran? et un empire immobilier qui s?�tend de Francfort � Majorque</a><br><font class="liens_texte2" style="color:#CC9933;">Selon une �tude exclusive de Bloomberg, contr�le un empire <b>immobilier</b> mondiall qui comprend des h�tels de luxe en Europe...</font></td></tr><tr><td><font style='font-size:8'>&nbsp;</font></td></tr><tr><td><a href="https://www.acropole-immo.net/actualite/conseil-immobilier-2026-03-10">Vente appartement 2 pi�ces 42 m� � Marseille 3-13003 (65 000 ?)</a><br><font class="liens_texte2" style="color:#CC9933;">...42 m� - 13003 la belle de mai llinares <b>immobilier</b> vous propose clovis, un appartement t2 de 42 m� situ� � proximit� de la...</font></td></tr><tr><td><font style='font-size:8'>&nbsp;</font></td></tr><tr><td><a href="https://www.acropole-immo.net/actualite/conseil-immobilier-2026-03-10">Face � l?immobilier d?entreprise en retrait en C�te-d?Or, les professionnels veulent rassurer</a><br><font class="liens_texte2" style="color:#CC9933;"><b>IMMOBILIER</b> - BOURGOGNEFace � l?<b>immobilier</b> d?entreprise en retrait en C�te-d?Or, les ... des bureaux, le bilan 2025 du march� <b>immobilier</b> professionnel c�te-d?orien s?affiche en berne. Les transactions sont en net...</font></td></tr><tr><td><font style='font-size:8'>&nbsp;</font></td></tr><tr><td><a href="https://www.acropole-immo.net/actualite/conseil-immobilier-2026-03-10">Voir tous les actualit�s...</font></a></td></tr></table>							</td>
+						</tr>
+
+					</table>
+
+					</div>
+				
+				</td>
+			</tr>
+
+			</table>
+
+		</td>
+	</tr>
+
+
+	<tr>	
+		<td>&nbsp;</td>
+	</tr>
+	<tr>	
+		<td>&nbsp;</td>
+	</tr>
+
+
+	<!-- Texte de pr�sentation -->
+	<tr>
+		<td align="center" colspan="2">
+			<table align="center" border="0" cellspacing="2" cellpadding="2" width="80%">
+
+	<tr>
+
+		<td align="center">
+
+			<font class="accueil_texte4">
+
+			Les Fran�ais aiment la pierre, et celle-ci le leur rend bien, puisque ce sont plus de 600
+			000 transactions qui s�effectuent chaque ann�e dans l�hexagone.
+			<br><br>
+			Cr�dits � rallonge, taux d�assurance exorbitants, frais de notaire et surtout frais d�agence, rien ne
+			fait reculer les acheteurs qui souhaitent � � n�importe quel prix � �tre propri�taires de leurs murs.
+			L�intention est �videmment louable, puisque l�achat d�un bien immobilier est associ� � des
+			notions fortes de foyer, de s�curit�, et de patrimoine familial.
+			<br><br>
+			Mais ce n�est pas pour autant une raison pour acheter n�importe quoi, et � n�importe quel prix.
+			Parce que l�immobilier est un investissement qui p�se lourd dans le budget des familles, il doit
+			�tre raisonn�.
+			<br><br>
+			Le principe du site ACROPOLE IMMO est simple puisqu�il s�agit de mettre en relation vendeurs et acheteurs
+			potentiels, sans aucun interm�diaire� principe important puisque les interm�diaires en
+			question augmentent largement l�addition finale.
+			<br><br>
+			Il faut savoir que pas moins de 50% des transactions immobili�res en France s�effectuent aujourd�hui entre particuliers.
+			Ainsi, nous vous proposons une base de donn�es de biens � vendre et � louer partout en
+			France et dans le monde, ce service �tant totalement gratuit.
+			<br><br>		
+			Il est temps pour vous de naviguer dans le Temple de l'Immobilier...	
+			</font>
+
+		</td>
+
+	</tr>
+
+</table>		</td>
+	</tr>
+
+
+	<tr>	
+		<td>&nbsp;</td>
+	</tr>
+	<tr>	
+		<td>&nbsp;</td>
+	</tr>
+
+
+	<!-- Partenaires --> 
+	<tr>
+		<td colspan="2">
+
+			<table align="center" border="0" cellspacing="0" cellpadding="0" width="90%">
+
+			<tr>
+				<td>
+
+					<div class="biens_det_corps6">
+
+					<table align="center" border="0" cellspacing="8" cellpadding="8" width="100%">
+
+
+						<!-- Titre -->
+						<tr>
+							<td align="center">
+								<font class="infos_texte2"><h3>Nos partenaires</h3></a>
+							</td>
+						</tr>
+
+						<!-- Corps -->
+						<tr>
+							<td align="center">
+								<a href="http://hotel-lion-or.com" target="_blank" title="Hotel restaurant avec piscine � Entraygues sur Truy�re">Hotel du Lion d&#39;Or</a>&nbsp;&nbsp;&nbsp;<a href="http://www.vadif.com" title="location saisonniere" target="_blank">location de vacances</a>&nbsp;&nbsp;&nbsp;<a href="http://www.coin-immobilier.eu/" target="_blank">Le Coin Immobilier</a>&nbsp;&nbsp;&nbsp;<a href="https://fr.jooble.org/emploi-h%C3%B4tellerie" target="_blank">Emploi dans l h�tellerie</a>&nbsp;&nbsp;&nbsp;<a href="https://fr.jobsora.com/" target="_blank">Emploi en France</a>&nbsp;&nbsp;&nbsp;							</td>
+						</tr>
+
+					</table>
+
+					</div>
+				
+				</td>
+			</tr>
+
+			</table>
+
+		</td>
+	</tr>
+
+
+	<tr>	
+		<td>&nbsp;</td>
+	</tr>
+	<tr>	
+		<td>&nbsp;</td>
+	</tr>
+
+
+	<!-- Autres partenaires -->
+	<tr>
+		<td colspan="2" align="center">
+			<a class="partenaires" href="https://www.acropole-immo.net/logos/" title="Nos autres partenaires">Nos autres partenaires</a>
+		</td>
+	</tr>
+
+			
+	<!-- Gestion des pages -->
+	<!-- Serie de pages  -->
+<tr>
+
+	<td align="center" colspan="4">
+
+				
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+		<a class='partenaires' style='font-size:14px' href='https://www.acropole-immo.net/logos/' title='Partenaires 0'>0</a>&nbsp;&nbsp;<a class='partenaires' style='font-size:14px' href='https://www.acropole-immo.net/partenaires1' title='Partenaires 1'>1</a>&nbsp;&nbsp;<a class='partenaires' style='font-size:14px' href='https://www.acropole-immo.net/partenaires2' title='Partenaires 2'>2</a>&nbsp;&nbsp;<a class='partenaires' style='font-size:14px' href='https://www.acropole-immo.net/partenaires3' title='Partenaires 3'>3</a>&nbsp;&nbsp;<a class='partenaires' style='font-size:14px' href='https://www.acropole-immo.net/partenaires4' title='Partenaires 4'>4</a>&nbsp;&nbsp;<a class='partenaires' style='font-size:14px' href='https://www.acropole-immo.net/partenaires5' title='Partenaires 5'>5</a>&nbsp;&nbsp;<a class='partenaires' style='font-size:14px' href='https://www.acropole-immo.net/partenaires6' title='Partenaires 6'>6</a>&nbsp;&nbsp;<a class='partenaires' style='font-size:14px' href='https://www.acropole-immo.net/partenaires7' title='Partenaires 7'>7</a>&nbsp;&nbsp;<a class='partenaires' style='font-size:14px' href='https://www.acropole-immo.net/partenaires8' title='Partenaires 8'>8</a>&nbsp;&nbsp;<a class='partenaires' style='font-size:14px' href='https://www.acropole-immo.net/partenaires9' title='Partenaires 9'>9</a>&nbsp;&nbsp;<a class='partenaires' style='font-size:14px' href='https://www.acropole-immo.net/partenaires10' title='Partenaires 10'>10</a>&nbsp;&nbsp;<a class='partenaires' style='font-size:14px' href='https://www.acropole-immo.net/partenaires11' title='Partenaires 11'>11</a>&nbsp;&nbsp;<a class='partenaires' style='font-size:14px' href='https://www.acropole-immo.net/partenaires12' title='Partenaires 12'>12</a>&nbsp;&nbsp;<a class='partenaires' style='font-size:14px' href='https://www.acropole-immo.net/partenaires13' title='Partenaires 13'>13</a>&nbsp;&nbsp;<a class='partenaires' style='font-size:14px' href='https://www.acropole-immo.net/partenaires14' title='Partenaires 14'>14</a>&nbsp;&nbsp;<a class='partenaires' style='font-size:14px' href='https://www.acropole-immo.net/partenaires15' title='Partenaires 15'>15</a>&nbsp;&nbsp;<a class='partenaires' style='font-size:14px' href='https://www.acropole-immo.net/partenaires16' title='Partenaires 16'>16</a>&nbsp;&nbsp;<a class='partenaires' style='font-size:14px' href='https://www.acropole-immo.net/partenaires17' title='Partenaires 17'>17</a>&nbsp;&nbsp;<a class='partenaires' style='font-size:14px' href='https://www.acropole-immo.net/partenaires18' title='Partenaires 18'>18</a>&nbsp;&nbsp;<a class='partenaires' style='font-size:14px' href='https://www.acropole-immo.net/partenaires19' title='Partenaires 19'>19</a>&nbsp;&nbsp;<a class='partenaires' style='font-size:14px' href='https://www.acropole-immo.net/partenaires20' title='Partenaires 20'>20</a>&nbsp;&nbsp;
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+		
+	</td>
+
+</tr>
+
+	<tr>	
+		<td>&nbsp;</td>
+	</tr>
+	<tr>	
+		<td>&nbsp;</td>
+	</tr>
+
+
+	<!-- Logos/Partenariat/Echange de liens -->
+	<tr>
+
+		<td colspan="2" align="center">
+			<a href="https://www.acropole-immo.net/echangedeliens/" title="Cliquez ici pour faire une demande de partenariat ou �change de liens"><button type='submit' class='btn_ligne3'>Logos/Partenariat/Echange de liens</button></a>
+		</td>
+
+	</tr>
+
+
+	<tr>	
+		<td>&nbsp;</td>
+	</tr>
+	<tr>	
+		<td>&nbsp;</td>
+	</tr>
+
+
+	<!-- Copyright -->
+	<tr>
+		<td align="center" colspan="2">
+
+			<table align="center" border="0" cellspacing="2" cellpadding="2">
+				<tr>
+					<!-- Arborescance des annonces -->
+					<td align="center">
+						
+
+
+<!---------------------------------------------------------> 
+<!--  Affichage des r�pertoires                          -->
+<!---------------------------------------------------------> 
+<table align="center" border="0" cellspacing="2" cellpadding="2">
+
+	<tr>
+
+		<td align='center'><a href='https://www.acropole-immo.net/annonces/location' title='Annonces immobilieres de location' alt='Annonces immobilieres de location'><font style='font-family:tahoma;font-size:10px'><b>location</b></font></a></td><td align='center'><a href='https://www.acropole-immo.net/annonces/location-vacances' title='Annonces immobilieres de location vacances' alt='Annonces immobilieres de location vacances'><font style='font-family:tahoma;font-size:10px'><b>location vacances</b></font></a></td><td align='center'><a href='https://www.acropole-immo.net/annonces/vente' title='Annonces immobilieres de vente' alt='Annonces immobilieres de vente'><font style='font-family:tahoma;font-size:10px'><b>vente</b></font></a></td><td align='center'><a href='https://www.acropole-immo.net/annonces/recherche' title='Annonces immobilieres de recherche' alt='Annonces immobilieres de recherche'><font style='font-family:tahoma;font-size:10px'><b>recherche</b></font></a></td>	
+	</tr>
+
+</table>					</td>
+					<!-- Copyright -->
+					<td align="center" width="220">
+						<a target="_blank" href="https://www.copyrightdepot.com/rep95/00040789.htm"><img border="0" src="https://www.copyrightdepot.com/images/Sceau1.gif" width="130" height="37"></a>
+					</td>
+					<!-- Arborescance des regions -->
+					<td align="center">
+						
+
+
+<!---------------------------------------------------------> 
+<!--  Affichage des r�pertoires                          -->
+<!---------------------------------------------------------> 
+<table align="center" border="0" cellspacing="2" cellpadding="2">
+
+	<tr>
+
+		<td align="center">
+
+			<a href="https://www.acropole-immo.net/location-vacances-particulier/"><font style='font-family:tahoma;font-size:10px'><b>annonces immobili�res et location de vacances</b></font></a>
+
+		</td>
+
+	</tr>
+
+</table>					</td>
+				</tr>
+			</table>
+
+		</td>
+	</tr>	
+
+</table>		</td>
+
+		<!-- Colonne droite --> 
+		<td align="center">
+		<!---------------------------------------------------------> 
+<!--  ECRAN                                              -->
+<!---------------------------------------------------------> 
+<table align="center" border="0" cellspacing="0" cellpadding="0">
+
+
+	<tr>
+		<td>&nbsp;</td>
+	</tr>
+	<tr>
+		<td>&nbsp;</td>
+	</tr>
+	<tr>
+		<td>&nbsp;</td>
+	</tr>
+
+
+	<!-- PUB Principale-->
+	
+		<tr>
+			<td align="center">
+
+				<table align="center" border="0" cellspacing="0" cellpadding="0">
+				<tr><td align='center'><div id="16283-20"><script src="//ads.themoneytizer.com/s/gen.js?type=20"></script><script src="//ads.themoneytizer.com/s/requestform.js?siteId=16283&formatId=20" ></script></div></td></tr><tr><td align='center'>&nbsp;</td></tr><tr><td align='center'>&nbsp;</td></tr><tr><td align='center'>&nbsp;</td></tr><tr><td align='center'>&nbsp;</td></tr><tr><td align='center'>&nbsp;</td></tr><tr><td align='center'>&nbsp;</td></tr><tr><td align='center'>&nbsp;</td></tr><tr><td align='center'>&nbsp;</td></tr><tr><td align='center'>&nbsp;</td></tr>				</table>
+
+			</td>
+
+		</tr>
+
+	
+
+	<!-- PUB -->
+	
+		<tr>
+			<td align="center">
+
+				<table align="center" border="0" cellspacing="0" cellpadding="0">
+				<tr><td align='center'><script type="text/javascript" src="https://tags.clickintext.net/Uix90JnPbgPad" title="Classic (IAB)"></script></td></tr><tr><td align='center'>&nbsp;</td></tr><tr><td align='center'>&nbsp;</td></tr><tr><td align='center'>&nbsp;</td></tr><tr><td align='center'>&nbsp;</td></tr><tr><td align='center'>&nbsp;</td></tr><tr><td align='center'>&nbsp;</td></tr><tr><td align='center'>&nbsp;</td></tr>				</table>
+
+			</td>
+
+		</tr>
+
+	
+
+</table>		</td>
+
+	</tr>
+
+
+	<!-- Fermeture de la base de donn�es -->
+	
+
+	<!-- Bas de page -->
+	
+
+	
+		<tr>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<td colspan="3" align="center"><div style="text-align:center;" id="16283-31"><script src="//ads.themoneytizer.com/s/gen.js?type=31"></script><script src="//ads.themoneytizer.com/s/requestform.js?siteId=16283&formatId=31" ></script></div></td>
+		</tr>	
+
+	
+
+	<tr class="baspage_fond">
+		<td colspan="3" align="center" width="100%"><font class='nom_site'>Copyright &copy; ACROPOLE-IMMO.NET&nbsp;2026</font></td>
+	</tr>
+
+
+</table>
+
+
+<table align="center" bgcolor="#FBFCFA" border="0" cellpadding="0" cellspacing="0" width="100%">
+
+	<!-- Liens --> 
+	<tr>
+
+		<td colspan="3" align="center" width="100%">
+		<table align="center" border="0" cellspacing="0" cellpadding="0" width="100%">
+
+
+	<!-- Liens partenaires -->
+	<tr>
+		<td>&nbsp;</td>
+	</tr>
+
+
+	
+</table>		</td>
+
+	</tr>
+
+	<tr>
+
+		<td colspan="3" align="center" width="100%">
+		<table align="center" border="0" cellspacing="0" cellpadding="0" width="100%">
+
+	<tr>
+	
+		<td align="center">
+
+		
+		</td>
+
+	</tr>
+
+</table>		</td>
+
+	</tr>
+
+</table>
+
+
+</body>
+</html>
+
+
+<!------------------------------------------------------------------------------------->
+<noscript>
+<table align="center" border="2" cellpadding="0" cellspacing="0" height="24" width="100%">
+	<tr align="center" class="erreur">
+		<td colspan="3">Vous devez activer javascript pour pouvoir utiliser le site.</td>
+	</tr>
+</table>
+</noscript>

@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+<title>Satellite Dish Pointer with Google Maps, Location Detection</title>
+<meta charset=utf-8>
+<meta name=description content="Dishpointer - Satellite Dish Pointer with Google Maps and Automatic Location Detection">
+<meta name=author content=Walter>
+<meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1">
+<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+<link rel="stylesheet" href="css/w3.css">
+<!--link rel="preload" href="css/w3.css" as="style" onload="this.onload=null;this.rel='stylesheet'"-->
+<link rel="stylesheet" href="css/extra.css">
+<!--link rel="preload" href="css/extra.css" as="style" onload="this.onload=null;this.rel='stylesheet'"-->
+<link rel="stylesheet" href="css/tipso.min.css">
+<link rel=canonical href="https://www.dishpointer.eu">
+<link href="images/favicon.ico" rel=icon type="image/x-icon">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script defer src="Scripts/tipso.min.js"></script>
+<script src="Scripts/geomag/geomag.js"></script>
+<script defer src="Scripts/suncalc/suncalc.js"></script>
+<script defer src="Scripts/suncalc/sunSatAzimuth.js.php?lang=en"></script>
+<script src="/Scripts/gmaps.js.php?lang=en"></script>
+<script>
+function initMap() {
+    showMap(51.50735,-0.12775,11);
+
+    customControlDiv = document.createElement('div');
+    var customControl = new CustomControl(customControlDiv, map);
+
+    customControlDiv.index = 1;
+    customControlDiv.style.zIndex = 999;
+    map.controls[google.maps.ControlPosition.TOP_RIGHT].push(customControlDiv);
+
+
+    document.getElementById('Latitude').value=51.50735;document.getElementById('Longitude').value=-0.12775;DoCalc1();	circleOptions = {
+		strokeColor: '#CCCCCC',
+		strokeOpacity: 0.8,
+		strokeWeight: 1,
+		fillColor: '#FFFFFF',
+		fillOpacity: 0.2,
+		map: null,
+		center: new google.maps.LatLng(0,0),
+		radius: 0
+	};
+	accuracyCircle = new google.maps.Circle(circleOptions);
+}
+</script>
+<script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAyU2ghpFZAv_wMyd1BpWMNTQRw7hvmOko&callback=initMap&language=en"></script>
+<!--script src="/Scripts/yahoo-dom-event.js"></script-->
+<!--script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script-->
+
+<script>
+var textCW = `Rotated clockwise, if facing the dish from the front.<br>For details, click on 'Skew details'`;
+var textCCW = `Rotated counterclockwise, if facing the dish from the front.<br>For details, click on 'Skew details'`;
+var magneticDeclination;
+
+
+//$(window).on("beforeunload", function(e) {
+//    var cookieValue = "%24requestedLat%3D" + document.getElementById('Latitude').value + "%3B%0A%24requestedLng%3D" + document.getElementById('Longitude').value + "%3B%0A%24requestedSat%3D" + document.getElementById('SatPosition').value + "%3B%0A%24requestedZoom%3D" + map.getZoom() + "%3B%0A";
+//    var d = new Date();
+//    d.setTime(d.getTime() + (3650*24*60*60*1000));
+//    var expires = "expires=" + d.toUTCString();
+//    document.cookie = "LatLngSat=" + cookieValue + "; " + expires + "path=/";
+//});
+
+
+
+var customControlDiv;
+
+var accuracyCircle;
+var circleOptions;
+
+var positionOptions = {
+  enableHighAccuracy: true,
+  timeout: 1000,
+  maximumAge: 0
+};
+
+var positionOptionsNoGPS = {
+  enableHighAccuracy: false,
+  timeout: 10000,
+  maximumAge: 10000
+};
+
+var posId = -1;
+var setId = 0;
+
+
+var serverName = "www.dishpointer.eu";
+
+function pageLoad(){
+    setTimeout(function() {
+          var ad = document.querySelector("ins.adsbygoogle");
+          if (ad && ad.innerHTML.replace(/\s/g, "").length == 0) {
+            var message_divs = document.getElementsByClassName("HInAUQUbSw");
+            for(const message_div of message_divs) {
+                message_div.style.cssText = 'display:block!important; margin:20px 0!important; padding:5px!important; width:100%!important; text-align:center!important; background:red!important; color:white!important; font-size:2rem!important';
+                message_div.innerHTML = "You seem to be blocking ads in your browser.<br>It's OK, who doesn't?<br>But without advertising, this site could not exist.<br>Please consider disabling your ad blocker on this site!";
+            }
+          }
+    }, 10000);
+
+    document.getElementById('SatPosition').value=13;
+    if(document.getElementById('s0130')!=null){
+        document.getElementById('s0130').selected=true;
+
+        satPos = parseFloat(document.getElementById('SatPosition').value); 
+        satPos %= 360;
+        document.getElementById('SatPosition').value=RoundNum2String(satPos,1);
+        if(satPos<0)satPos += 360; 
+
+        var thiSel=document.getElementById('satellite');
+        var options = thiSel.getElementsByTagName("option");
+        var optionHTML = options[thiSel.selectedIndex].innerHTML;
+        var satId = optionHTML.split(" ")[0];
+
+        if(satPos>=315 || satPos<=75)document.getElementById("detalii_satelit").innerHTML = "<a href='http://en.kingofsat.net/pos-"+satId+".php' rel='nofollow' target='_blank'>Satellite info "+satId+"</a>";
+        else document.getElementById("detalii_satelit").innerHTML = "";
+    }else{
+        document.getElementById('satellite').selectedIndex='-1';
+        document.getElementById('detalii_satelit').innerHTML=''; 
+    } 
+
+    jQuery('.tipso-top').tipso({
+				position: 'top',
+				background: '#000',
+				useTitle: false,
+				width: '',
+				maxWidth: 400
+    });
+            
+    document.getElementById('map_canvas').style.height='98vh';
+};
+
+/*
+function initMap() {
+    showMap(51.50735,-0.12775,11);
+
+    customControlDiv = document.createElement('div');
+    var customControl = new CustomControl(customControlDiv, map);
+
+    customControlDiv.index = 1;
+    customControlDiv.style.zIndex = 999;
+    map.controls[google.maps.ControlPosition.TOP_RIGHT].push(customControlDiv);
+
+
+    document.getElementById('Latitude').value=51.50735;document.getElementById('Longitude').value=-0.12775;DoCalc1();circleOptions = {
+      strokeColor: '#CCCCCC',
+      strokeOpacity: 0.8,
+      strokeWeight: 1,
+      fillColor: '#FFFFFF',
+      fillOpacity: 0.2,
+      map: null,
+      center: new google.maps.LatLng(0,0),
+      radius: 0
+};
+accuracyCircle = new google.maps.Circle(circleOptions);
+}
+*/
+
+function blink() {
+        $(customControlDiv).fadeTo(250, 0.5).fadeTo(250, 1.0);
+}
+
+
+function trackPosition() {
+  if(posId == -1) { smoothScrollTo("#mapdiv")
+    if (navigator.geolocation) {
+      posId = navigator.geolocation.watchPosition(positionSuccess, positionError, positionOptions);
+      customControlDiv.firstChild.title = 'Click to stop tracking your location';
+      customControlDiv.firstChild.firstChild.innerHTML = `Stop tracking`;
+      setId = setInterval(function(){blink()}, 1000);
+    } else {
+      positionError(-1);
+    }
+  } else {
+  navigator.geolocation.clearWatch(posId);
+  posId = -1;
+  accuracyCircle.setMap(null);
+  customControlDiv.firstChild.title = 'Wifi and/or GPS needed for best results';
+  customControlDiv.firstChild.firstChild.innerHTML = `Track my location`;
+  clearInterval(setId);
+  }
+}
+
+
+  function positionSuccess(position) {
+    /* Centre the map on the new location */
+    var coords = position.coords || position.coordinate || position;
+    var newLat = RoundNum2(coords.latitude, 5);
+    var newLng = RoundNum2(coords.longitude, 5);
+    if(newLat != document.getElementById('Latitude').value || newLng != document.getElementById('Longitude').value) {
+    document.getElementById('Latitude').value = newLat;
+    document.getElementById('Longitude').value = newLng;
+    DoCalc1();
+    document.getElementById('map_canvas').style.display='block';
+    google.maps.event.trigger(map, 'resize');
+    }
+    /* Add the circle to the map. */
+    accuracyCircle.setMap(map);
+    accuracyCircle.setCenter(new google.maps.LatLng(newLat, newLng));
+    accuracyCircle.setRadius(coords.accuracy);
+    map.fitBounds(accuracyCircle.getBounds());
+}
+
+function positionError(err) {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(positionSuccess, positionErrorNoGPS, positionOptionsNoGPS);
+    } else {
+      positionErrorNoGPS(-1);
+    }
+
+}
+
+
+function positionErrorNoGPS(err) {
+  navigator.geolocation.clearWatch(posId);
+  posId = -1;
+  accuracyCircle.setMap(null);
+  customControlDiv.firstChild.title = `Wifi and/or GPS needed for best results`;
+  customControlDiv.firstChild.firstChild.innerHTML = `Track my location`;
+  clearInterval(setId);
+    var mes = "Position could not be detected";
+                var errors = { 
+                    1: 'Permission denied',
+                    2: 'Position unavailable',
+                    3: 'Request timeout'
+                    };
+
+    mes += "\nError: "+ errors[err.code];
+//    alert(mes);
+}
+
+function CustomControl(controlDiv, map) {
+
+  var controlUI = document.createElement('div');
+  controlUI.style.backgroundColor = '#fff';
+  controlUI.style.border = '2px solid #fff';
+  controlUI.style.borderRadius = '3px';
+  controlUI.style.boxShadow = '0 2px 6px rgba(0,0,0,.3)';
+  controlUI.style.cursor = 'pointer';
+  controlUI.style.marginTop = '6px';
+  controlUI.style.textAlign = 'center';
+  controlUI.title = `Wifi and/or GPS needed for best results`;
+  controlDiv.appendChild(controlUI);
+  var controlText = document.createElement('div');
+  controlText.style.color = 'rgb(25,25,25)';
+  controlText.style.fontFamily = 'Roboto,Arial,sans-serif';
+  controlText.style.fontSize = '1.4em';
+  controlText.style.lineHeight = '1.5em';
+  controlText.style.paddingLeft = '5px';
+  controlText.style.paddingRight = '5px';
+  controlText.innerHTML = `Track my location`;
+  controlUI.appendChild(controlText);
+
+  google.maps.event.addDomListener(controlUI, 'click', trackPosition);
+
+}
+
+
+function locResponse(xhr)
+{
+    if (xhr.readyState == 4  && xhr.status == 200)
+    {
+      var locVars = JSON.parse(xhr.responseText);
+      document.getElementById('address').value=locVars.country_name + " " + locVars.region_name + " " + locVars.city;
+    }
+}
+</script>
+
+
+
+<script>function smoothScrollTo(e){$("html, body").animate({scrollTop:$(e).offset().top},3e2)}</script>
+<script>
+    $(document).ready(function(){pageLoad()});
+</script>
+
+<script data-ad-client="ca-pub-9295038886879531" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!--script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js">
+(adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-9295038886879531",
+    enable_page_level_ads: "false"
+  });
+</script-->
+</head>
+<body>
+    <div id=fb-root></div>
+
+    <!--script>
+        ! function(e, t, n) {
+            var s, a = e.getElementsByTagName(t)[0];
+            e.getElementById(n) || (s = e.createElement(t), s.id = n, s.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.3&appId=828629147225513", a.parentNode.insertBefore(s, a))
+        }(document, "script", "facebook-jssdk");
+ab_detected = false;
+    </script-->
+
+    
+<ul class="w3-navbar w3-medium w3-black w3-left-align">
+  <li class="w3-hide-medium w3-hide-large w3-black w3-opennav w3-right">
+    <a href="javascript:void(0);" onclick="showHideMenu()">&#9776;</a>
+  </li>
+  <li class="w3-hide-small"><a href="https://en.dishpointer.eu">English</a></li>
+  <li class="w3-hide-small"><a href="https://ru.dishpointer.eu">Русский</a></li>
+</ul>
+
+<div id="mobileMenu" class="w3-hide w3-hide-large w3-hide-medium">
+  <ul class="w3-navbar w3-left-align w3-large w3-black">
+    <li><a href="https://en.dishpointer.eu">English</a></li>
+    <li><a href="https://ru.dishpointer.eu">Русский</a></li>
+  </ul>
+</div>
+
+<script>
+function showHideMenu() {
+    var x = document.getElementById("mobileMenu");
+    if (x.className.indexOf("w3-show") == -1) {
+        x.className += " w3-show";
+    } else { 
+        x.className = x.className.replace(" w3-show", "");
+    }
+}
+</script>
+
+
+    <script async src="Scripts/cookieconsent.en.min.js"></script>
+
+    <section id=content>
+        <div class=w3-container>
+		<br />
+                                            <!--style>
+                        .responsive_ad_1 { width: 100%; min-height: 100px; max-height: 320px; }
+                        @media(min-width: 500px) { .responsive_ad_1 { width: 468px; height: 60px; } }
+                        @media(min-width: 800px) { .responsive_ad_1 { width: 728px; height: 90px; } }
+                        @media(min-width: 1200px) { .responsive_ad_1 { width: 1150px; height: 120px; } }
+                        </style-->
+                    <div class="HInAUQUbSw" style='display:none'></div>
+					<ins class="adsbygoogle" style="display:inline-block; width:100%" data-ad-client=ca-pub-9295038886879531 data-ad-slot=3274145209 data-ad-format="auto" data-full-width-responsive="true"></ins>
+					<script>
+                        (adsbygoogle = window.adsbygoogle || []).push({});
+                    </script>
+                    
+                    <h2>Satellite Dish Pointing Calculator</h2>
+
+            <div id=mapdiv class="w3-row">
+                <div class="w3-threequarter w3-container w3-padding-0">
+                        <div id=map_canvas>&nbsp;</div>
+                </div>
+
+                <div class="w3-quarter w3-container"><br />
+                        <div id="LatExpl">&nbsp;</div>
+                        <div id="LongExpl">&nbsp;</div>
+                        <input class=rounded type=button value="Change location" onclick=smoothScrollTo(&quot;#locdiv&quot;)>
+                        <div id="SatExpl">&nbsp;</div>
+                        <input class=rounded type=button value="Change satellite" onclick=smoothScrollTo(&quot;#satdiv&quot;)>
+                        <div id="AzimuthExpl">&nbsp;</div>
+                        <div><span id='compass'>&nbsp;&nbsp;&nbsp;</span><span class="tipso-top tipso-style" data-tipso="Magnetic azimuth<br>Takes into account the compass error, i.e. the declination of the compass North from the true North."> <img src="/images/questionsmall.png"></span></div>
+                        <div><span class='link' onclick='getTimeZone(latDeg, -lngDeg)'><strong>Sun</strong></span>: <span id='sun'></span><span class="tipso-top tipso-style" data-tipso="Click to show the time of day when the sun is in the same position as the satellite.<br>This refers to the azimuth only."> <img src="/images/questionsmall.png" /></span></div>
+                        <div><span id="tz"></span><span id="tzExpl"  class="tipso-top tipso-style" data-tipso="Local time zone"></span></div>
+                        <div id="ElevationExpl">&nbsp;</div>
+                        <div><strong>Skew:</strong> <span id="skewText"></span><span id="skewExpl" class="tipso-top tipso-style" data-tipso=''></span>
+                        <br>
+                        <span class="link" id=skewDetails onclick="w3Show('skewangle');smoothScrollTo('#skewangle');">Skew details</span>
+                        </div>
+                        <div>&nbsp;</div>
+                        <div id=EmailLink>&nbsp;</div>
+                        <div>&nbsp;</div>
+                        <a class="w3-btn w3-padding-0 w3-border-0" href="https://facebook.com/sharer/sharer.php?u=http://www.dishpointer.eu" target=_blank title="Share on Facebook"><img class='lazyload' data-src="/images/social/fb.png" alt="facebook">
+                        </a>
+                        <a class="w3-btn w3-padding-0 w3-border-0" href="https://twitter.com/share?url=http://www.dishpointer.eu&text=Pointing%20a%20satellite%20dish" target=_blank title="Tweet"><img class='lazyload' data-src="/images/social/twitter.png" alt="twitter">
+                        </a>
+                        <a class="w3-btn w3-padding-0 w3-border-0" href="https://plus.google.com/share?url=http://www.dishpointer.eu" target=_blank title="Share on Google+"><img class='lazyload' data-src="/images/social/google.png" alt="google+">
+                        </a>
+                        <a class="w3-btn w3-padding-0 w3-border-0" href="https://www.linkedin.com/shareArticle?mini=true&url=http://www.dishpointer.eu&title=Pointing%20a%20satellite%20dish&summary=&source=" target=_blank title="Share on Linkedin"><img class='lazyload' data-src="/images/social/linkedin.png" alt="linkedin">
+                        </a>
+                        <a class="w3-btn w3-padding-0 w3-border-0" href="http://vk.com/share.php?url=http://www.dishpointer.eu" target=_blank title="Поделиться ВКонтакте"><img class='lazyload' data-src="/images/social/vk.png" alt="vk">
+                        </a>
+
+                        <span class="tipso-top tipso-style" data-tipso="Share this page on social networks<br><br>Your location and selected satellite won't be shared.""><img class='lazyload' data-src="/images/question32.png" alt="question"></span>
+                </div>
+            </div>
+            <div>
+                        <!-- not Right Column Ad -->
+                        <div class="HInAUQUbSw" style='display:none'></div>
+                            <ins class="adsbygoogle responsive_ad_1"
+                                style="display:block; width:100%; margin:20px auto"
+                                data-ad-client="ca-pub-9295038886879531"
+                                data-ad-slot="7745030809"
+                                data-ad-format="auto" 
+                                data-full-width-responsive="true"></ins>
+                            <script>
+                                (adsbygoogle = window.adsbygoogle || []).push({});
+                            </script>
+                        </div>
+
+            <br />
+            <div>
+                <form name="satazel">
+                    <div id=locdiv class="w3-row-padding w3-border w3-round-xlarge">
+                        <div class="w3-twothird w3-container">
+                            <strong>1. Where should the dish be installed?</strong>
+                                <br>(<em>Nr, Street, City, Country</em>)
+                                <br>
+                                <input  class="w3-input w3-border w3-white" id=address><br />
+                                <input  class="w3-btn w3-light-grey" type=button value="Search" onclick="smoothScrollTo(&quot;#mapdiv&quot;),codeAddress(true),hideExpl()">
+                        </div>
+                        <div class="w3-third w3-container">
+                            &nbsp;<strong>...or enter</strong>
+                                <br><strong>Latitude&nbsp;<span class="tipso-top tipso-style" data-tipso="Latitude, in degrees with decimals<br>Between 0 and 90 in the Northern Hemisphere<br>Between 0 and -90 in the Southern Hemisphere"><img class='lazyload' data-src="/images/question.png" alt="question"></span></strong>
+                                <br>
+                                <input  class="w3-input w3-border w3-white" id=Latitude name=Latitude size=8>
+                                <br><strong>Longitude&nbsp;<span class="tipso-top tipso-style" data-tipso="Longitude, in degrees with decimals<br>Positive (between 0 and 180) for eastern longitudes<br>Negative (between 0 and -180) for western longitudines<br>You can also enter a value from 0 to 360 (for example 4&deg; West can be entered either as -4 or as 356)"><img class='lazyload' data-src="/images/question.png" alt="question"></span></strong>
+                                <br>
+                                <input  class="w3-input w3-border w3-white" id=Longitude name=Longitude size=8>
+<br />
+                        </div>
+
+                    </div>
+<br />
+                    <div class="HInAUQUbSw" style='display:none'></div><ins class="adsbygoogle responsive_ad_1" style="display:inline-block; width:100%" data-ad-client=ca-pub-9295038886879531 data-ad-slot=1558896408 data-ad-format="auto" data-full-width-responsive="true"></ins>
+                    <script>
+                        (adsbygoogle = window.adsbygoogle || []).push({});
+                    </script>
+                    <br />
+                    <div class="w3-container w3-leftbar w3-border-red"><em><strong>If your device can detect location (has GPS or WiFi), and you are at the place where the dish should be installed, you can just click on the [Track my location] button on the map.</strong><br>You'll have to agree to share your location with the site.<br>When the location has been detected, you must click the same button, which is now called [Stop tracking]. Then you can adjust the desired installation location manually again.<br><br></em>
+                    </div>
+
+<br />
+                    <div id="satdiv" class="w3-row-padding w3-border w3-round-xlarge">
+                        <div class="w3-twothird w3-container">
+                            <strong>2. Satellite</strong>
+                                <br><strong>Select from the drop-down list...</strong>
+                                <br>
+                                <select name="satellite" id="satellite" onchange="return smoothScrollTo(&quot;#mapdiv&quot;),updateSatellite(this.options[this.selectedIndex].id),!1">
+                                    <option id=s1800 value=180>180E
+                                        <option id=s1720 value=172>172E
+                                            <option id=s1690 value=169>169E
+                                                <option id=s1660 value=166>166E
+                                                    <option id=s1640 value=164>164E
+                                                        <option id=s1630 value=163>163E
+                                                            <option id=s1620 value=162>162E
+                                                                <option id=s1600 value=160>160E
+                                                                    <option id=s1560 value=156>156E
+                                                                        <option id=s1540 value=154>154E
+                                                                            <option id=s1520 value=152>152E
+                                                                                <option id=s1505 value=150.5>150.5E
+                                                                                    <option id=s1500 value=150>150E
+                                                                                        <option id=s1460 value=146>146E
+                                                                                            <option id=s1440 value=144>144E
+                                                                                                <option id=s1435 value=143.5>143.5E
+                                                                                                    <option id=s1430 value=143>143E
+                                                                                                        <option id=s1400 value=140>140E
+                                                                                                            <option id=s1380 value=138>138E
+                                                                                                                <option id=s1340 value=134>134E
+                                                                                                                    <option id=s1320 value=132>132E
+                                                                                                                        <option id=s1299 value=130>130E
+                                                                                                                            <option id=s1280 value=128>128E
+                                                                                                                                <option id=s1250 value=125>125E
+                                                                                                                                    <option id=s1240 value=124>124E
+                                                                                                                                        <option id=s1222 value=122.2>122.2E
+                                                                                                                                            <option id=s1180 value=118>118E
+                                                                                                                                                <option id=s1160 value=116>116E
+                                                                                                                                                    <option id=s1155 value=115.5>115.5E
+                                                                                                                                                        <option id=s1130 value=113>113E
+                                                                                                                                                            <option id=s1105 value=110.5>110.5E
+                                                                                                                                                                <option id=s1100 value=110>110E
+                                                                                                                                                                    <option id=s1082 value=108.2>108.2E
+                                                                                                                                                                        <option id=s1055 value=105.5>105.5E
+                                                                                                                                                                            <option id=s1034 value=103.4>103.4E
+                                                                                                                                                                                <option id=s1030 value=103>103E
+                                                                                                                                                                                    <option id=s1005 value=100.5>100.5E
+                                                                                                                                                                                        <option id=s0965 value=96.5>96.5E
+                                                                                                                                                                                            <option id=s0950 value=95>95E
+                                                                                                                                                                                                <option id=s0935 value=93.5>93.5E
+                                                                                                                                                                                                    <option id=s0922 value=92.2>92.2E
+                                                                                                                                                                                                        <option id=s0915 value=91.5>91.5E
+                                                                                                                                                                                                            <option id=s0900 value=90>90E
+                                                                                                                                                                                                                <option id=s0893 value=89.3>89.3E
+                                                                                                                                                                                                                    <option id=s0880 value=88>88E
+                                                                                                                                                                                                                        <option id=s0875 value=87.5>87.5E
+                                                                                                                                                                                                                            <option id=s0852 value=85.2>85.2E
+                                                                                                                                                                                                                                <option id=s0830 value=83>83E
+                                                                                                                                                                                                                                    <option id=s0800 value=80>80E
+                                                                                                                                                                                                                                        <option id=s0785 value=78.5>78.5E
+                                                                                                                                                                                                                                            <option id=s0765 value=76.5>76.5E
+                                                                                                                                                                                                                                                <option id=s0750 value=75>75E
+                                                                                                                                                                                                                                                    <option id=s0740 value=74>74E
+                                                                                                                                                                                                                                                        <option id=s0705 value=70.5>70.5E
+                                                                                                                                                                                                                                                            <option id=s0685 value=68.5>68.5E
+                                                                                                                                                                                                                                                                <option id=s0660 value=66>66E
+                                                                                                                                                                                                                                                                    <option id=s0642 value=64.2>64.2E
+                                                                                                                                                                                                                                                                        <option id=s0620 value=62>62E
+                                                                                                                                                                                                                                                                            <option id=s0600 value=60>60E
+                                                                                                                                                                                                                                                                                <option id=s0570 value=57>57E
+                                                                                                                                                                                                                                                                                    <option id=s0560 value=56>56E
+                                                                                                                                                                                                                                                                                        <option id=s0550 value=55>55E
+                                                                                                                                                                                                                                                                                            <option id=s0530 value=53>53E
+                                                                                                                                                                                                                                                                                                <option id=s0500 value=50>50E
+                                                                                                                                                                                                                                                                                                    <option id=s0490 value=49>49E
+                                                                                                                                                                                                                                                                                                        <option id=s0450 value=45>45E
+                                                                                                                                                                                                                                                                                                            <option id=s0420 value=42>42E
+                                                                                                                                                                                                                                                                                                                <option id=s0400 value=40>40E
+                                                                                                                                                                                                                                                                                                                    <option id=s0390 value=39>39E
+                                                                                                                                                                                                                                                                                                                        <option id=s0380 value=38>38E
+                                                                                                                                                                                                                                                                                                                            <option id=s0360 value=36>36E
+                                                                                                                                                                                                                                                                                                                                <option id=s0330 value=33>33E
+                                                                                                                                                                                                                                                                                                                                    <option id=s0315 value=31.5>31.5E
+                                                                                                                                                                                                                                                                                                                                        <option id=s0305 value=30.5>30.5E
+                                                                                                                                                                                                                                                                                                                                            <option id=s0285 value=28.5>28.5E
+                                                                                                                                                                                                                                                                                                                                                <option id=s0282 value=28.2>28.2E
+                                                                                                                                                                                                                                                                                                                                                    <option id=s0260 value=26>26E
+                                                                                                                                                                                                                                                                                                                                                        <option id=s0255 value=25.5>25.5E
+                                                                                                                                                                                                                                                                                                                                                            <option id=s0235 value=23.5>23.5E
+                                                                                                                                                                                                                                                                                                                                                                <option id=s0216 value=21.6>21.6E
+                                                                                                                                                                                                                                                                                                                                                                    <option id=s0200 value=20>20E
+                                                                                                                                                                                                                                                                                                                                                                        <option id=s0192 value=19.2>19.2E
+                                                                                                                                                                                                                                                                                                                                                                            <option id=s0170 value=17>17E
+                                                                                                                                                                                                                                                                                                                                                                                <option id=s0160 value=16>16E
+                                                                                                                                                                                                                                                                                                                                                                                    <option id=s0130 value=13 selected>13E
+                                                                                                                                                                                                                                                                                                                                                                                        <option id=s0100 value=10>10E
+                                                                                                                                                                                                                                                                                                                                                                                            <option id=s0090 value=9>9E
+                                                                                                                                                                                                                                                                                                                                                                                                <option id=s0070 value=7>7E
+                                                                                                                                                                                                                                                                                                                                                                                                    <option id=s0048 value=4.8>4.8E
+                                                                                                                                                                                                                                                                                                                                                                                                        <option id=s0040 value=4>4E
+                                                                                                                                                                                                                                                                                                                                                                                                            <option id=s0029 value=2.8>2.8E
+                                                                                                                                                                                                                                                                                                                                                                                                                <option id=s0020 value=2>2E
+                                                                                                                                                                                                                                                                                                                                                                                                                    <option id=s3592 value=-0.8>0.8W
+                                                                                                                                                                                                                                                                                                                                                                                                                        <option id=s3560 value=-4>4W
+                                                                                                                                                                                                                                                                                                                                                                                                                            <option id=s3557 value=-4.3>4.3W
+                                                                                                                                                                                                                                                                                                                                                                                                                                <option id=s3550 value=-5>5W
+                                                                                                                                                                                                                                                                                                                                                                                                                                    <option id=s3530 value=-7>7W
+                                                                                                                                                                                                                                                                                                                                                                                                                                        <option id=s3522 value=-7.8>7.8W
+                                                                                                                                                                                                                                                                                                                                                                                                                                            <option id=s3520 value=-8>8W
+                                                                                                                                                                                                                                                                                                                                                                                                                                                <option id=s3490 value=-11>11W
+                                                                                                                                                                                                                                                                                                                                                                                                                                                    <option id=s3475 value=-12.5>12.5W
+                                                                                                                                                                                                                                                                                                                                                                                                                                                        <option id=s3460 value=-14>14W
+                                                                                                                                                                                                                                                                                                                                                                                                                                                            <option id=s3450 value=-15>15W
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                <option id=s3420 value=-18>18W
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <option id=s3400 value=-20>20W
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <option id=s3380 value=-22>22W
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <option id=s3355 value=-24.5>24.5W
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <option id=s3325 value=-27.5>27.5W
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <option id=s3305 value=-29.5>29.5W
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <option id=s3300 value=-30>30W
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <option id=s3285 value=-31.5>31.5W
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <option id=s3265 value=-33.5>33.5W
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <option id=s3255 value=-34.5>34.5W
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <option id=s3225 value=-37.5>37.5W
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <option id=s3195 value=-40.5>40.5W
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <option id=s3170 value=-43.1>43.1W
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <option id=s3150 value=-45>45W
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <option id=s3100 value=-50>50W
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <option id=s3070 value=-53>53W
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <option id=s3045 value=-55.5>55.5W
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <option id=s3020 value=-58>58W
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <option id=s2990 value=-61>61W
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <option id=s2985 value=-61.5>61.5W
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <option id=s2970 value=-63>63W
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <option id=s2950 value=-65>65W
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <option id=s2930 value=-67>67W
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <option id=s2900 value=-70>70W
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <option id=s2880 value=-72>72W
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <option id=s2875 value=-72.5>72.5W
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <option id=s2860 value=-74>74W
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <option id=s2850 value=-75>75W
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <option id=s2830 value=-77>77W
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <option id=s2820 value=-78>78W
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <option id=s2810 value=-79>79W
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <option id=s2790 value=-81>81W
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <option id=s2780 value=-82>82W
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <option id=s2770 value=-83>83W
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <option id=s2760 value=-84>84W
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <option id=s2750 value=-85>85W
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <option id=s2749 value=-85.1>85.1W
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <option id=s2730 value=-87>87W
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <option id=s2710 value=-89>89W
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <option id=s2690 value=-91>91W
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <option id=s2669 value=-93.1>93.1W
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <option id=s2650 value=-95>95W
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <option id=s2640 value=-96>96W
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <option id=s2630 value=-97>97W
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <option id=s2610 value=-99>99W
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <option id=s2608 value=-99.2>99.2W
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <option id=s2590 value=-101>101W
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <option id=s2570 value=-103>103W
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <option id=s2550 value=-105>105W
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <option id=s2527 value=-107.3>107.3W
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <option id=s2500 value=-110>110W
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <option id=s2489 value=-111.1>111.1W
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <option id=s2470 value=-113>113W
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <option id=s2451 value=-114.9>114.9W
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <option id=s2450 value=-115>115W
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <option id=s2432 value=-116.8>116.8W
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <option id=s2410 value=-119>119W
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <option id=s2390 value=-121>121W
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <option id=s2370 value=-123>123W
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <option id=s2350 value=-125>125W
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <option id=s2330 value=-127>127W
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <option id=s2310 value=-129>129W
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <option id=s2290 value=-131>131W
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <option id=s2270 value=-133>133W
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <option id=s2250 value=-135>135W
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <option id=s2230 value=-137>137W
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <option id=s2210 value=-139>139W
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <option id=s1830 value=-177>177W</select>
+                                <div id="detalii_satelit">&nbsp;</div>
+                        </div>
+                        <div class="w3-third w3-container">
+                            <strong>...or enter<br>&nbsp;<span class="tipso-top tipso-style" data-tipso="Satellite longitude, in degrees with decimals<br>Positive (between 0 and 180) for eastern longitudes<br>Negative (between 0 and -180) for western longitudines<br>You can also enter a value from 0 to 360 (for example 4&deg; West can be entered either as -4 or as 356)"><img class='lazyload' data-src="/images/question.png" alt="question"></span></strong>
+                                <br>
+                                <input class="w3-input w3-border w3-white" id=SatPosition name=SatPosition size=8 value=13>
+                                <br>
+                                <input class="w3-btn w3-light-grey" value="Display" onclick=afiseaza() name=CmdCalculate1 type="button"> &nbsp;&nbsp;<span  class="tipso-top tipso-style" data-tipso="Click on <em>Display</em>, to show the dish alignment data, based on the manually entered latitude, longitude and satellite."><img class='lazyload' data-src=/images/question.png alt="question"></span></div>
+<br />&nbsp;<br />
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+<br />
+
+            <div class="HInAUQUbSw" style='display:none'></div><ins class="adsbygoogle responsive_ad_1" style="display:inline-block; width:100%" data-ad-client=ca-pub-9295038886879531 data-ad-slot=7983546400 data-ad-format="auto" data-full-width-responsive="true"></ins>
+            <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+            <br />
+            <div class="w3-row-padding w3-border w3-round-xlarge">
+                <div class="w3-container">
+                        <p>3. Zoom the map if needed, then click on the exact place where you wish to install the dish. You can also drag the marker to the desired place. The line that shows the direction of the selected satellite will be green, for elevations above 5&deg;, yellow, for elevations between 0&deg;-5&deg;, or red, if the satellite is below the horizon.<br><br>Even with a green line, sometimes the satellite isn't visible: for example in an apartment building, if your windows/balconies are on the opposite side from the satellite.                        </p>
+                </div>
+            </div>
+<br />
+            <div class="w3-row-padding w3-border w3-round-xlarge">
+                <div class="w3-container">
+                        <p>4. But even if you have a window or balcony on the 'good' side of the building, the satellite could still be hidden behind an obstacle: a tree, a nearby building and so on. In that case you can move the mouse cursor (when using a smartphone or tablet just click) on the line that shows the satellite's direction, where it crosses a possible obstacle. A popup window will show the admissible height difference between the dish and the obstacle. (<span class="link" onclick="w3Show('obstacles');smoothScrollTo('#obstacles');">Details</span>)</p>
+                </div>
+            </div>
+<br />
+<div width="100%">
+    <!-- Full Width 3 -->
+    <div class="HInAUQUbSw" style='display:none'></div>
+    <ins class="adsbygoogle responsive_ad_1"
+        style="display:block"
+        data-ad-client="ca-pub-9295038886879531"
+        data-ad-slot="9460279600"
+        data-ad-format="auto" 
+        data-full-width-responsive="true"></ins>
+    <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+</div>
+<script>
+function w3Show(id) {
+    var x = document.getElementById(id);
+    if (x.className.indexOf("w3-show") == -1) {
+        x.className += " w3-show";
+    }
+}
+
+function w3ShowHide(id) {
+    var x = document.getElementById(id);
+    if (x.className.indexOf("w3-show") == -1) {
+        x.className += " w3-show";
+    } else {
+        x.className = x.className.replace(" w3-show", "");
+    }
+}
+
+</script>
+
+            <div class="w3-row">
+            <div class="w3-accordion w3-white">
+<h4>
+  <button onclick="w3ShowHide('more')" class="w3-btn-block w3-left-align w3-dark-grey">
+                <em>A few more details</em> >
+</button>
+</h4>
+  <div id="more" class="w3-accordion-content w3-container w3-show">
+
+<div class="w3-row">
+<div class="w3-container w3-padding-medium">
+                In order to receive the signal from a satellite, the dish has to point very precisely in the direction of that satellite. Geostationary satellites are placed on an orbit above the Equator, this means that from the Northern hemisphere they are seen generally towards the South (South-East, South-West). The dish must have a clear view towards the satellite, without any obstacles.</div>
+</div>
+
+<div class="w3-row">
+<div class="w3-threequarter w3-padding-medium">
+
+<div class=" w3-container w3-pale-blue w3-leftbar w3-border-blue w3-padding-small">
+	<p>A geostationary orbit [...] is a circular orbit 35,786 kilometres (22,236 mi) above the Earth's equator and following the direction of the Earth's rotation. An object in such an orbit has an orbital period equal to the Earth's rotational period and thus appears motionless, at a fixed position in the sky, to ground observers. Communications satellites and weather satellites are often placed in geostationary orbits, so that the satellite antennas (located on Earth) that communicate with them do not have to rotate to track them.<br /><a class="w3-btn w3-pale-blue w3-border-0 w3-padding-0" style="display: inline" href="https://en.wikipedia.org/wiki/Geostationary_orbit" target="_blank">Wikipedia</a></p>
+</div>
+
+</div>
+
+<div class="w3-quarter">
+<a title="By Talifero (Own work, created with Blender & ImageMagick) [Public domain], via Wikimedia Commons" href="https://commons.wikimedia.org/wiki/File%3AAnimate_orbit.gif"><img alt="Animate orbit" data-src="images/animate-orbit.webp"  class="lazyload" style="width:100%" /></a>
+</div>
+</div>
+</div>
+<div class="HInAUQUbSw" style='display:none'></div>
+<br />
+
+<h4>
+  <button onclick="w3ShowHide('obstacles')" class="w3-btn-block w3-left-align w3-dark-grey">
+<em>Obstacles</em> >
+</button>
+</h4>
+  <div id="obstacles" class="w3-accordion-content w3-container w3-show">
+<br />
+<div class="w3-row-padding">
+<div class="w3-third">
+<div class="w3-card-12">
+                <p><img class='lazyload' data-src="/images/obstacles.png" alt="obstacles" style="width:100%"></p>
+  <div class="w3-container w3-center">
+                    <p><br><em>A tree can obstruct the satellite signal, in which case the dish should be installed in a higher position.</em></p>
+  </div>
+
+</div>
+</div>
+<div class="w3-twothird w3-content">
+
+                <br />
+                <p>If you need to check if a possible obstacle (a tree, a nearby building and so on) will obstruct the signal from the satellite, move the mouse cursor to the point where the line representing the satellite's direction meets the possible obstacle. If using a smartphone or tablet, click on that point.<br /><br />A popup window will then show the maximum admissible height difference between the dish and the obstacle. (&Delta;h<sub>max</sub>)</p>
+
+
+
+<br />
+
+<div class="w3-container w3-leftbar w3-border-red">
+                <p>If there is such an obstacle and you can't install the dish in a high enough position to avoid it, you'll have to choose another point on the map where you could install the dish.</p>
+</div>
+
+</div>
+</div>
+
+
+                <p>&nbsp;</p>
+
+<div class="w3-row">
+<div class="w3-half w3-pale-blue w3-padding-small"><br />
+<div class=" w3-container w3-leftbar w3-border-blue w3-padding-small">
+<p>The maximum admissible height difference is computed based on the formula<br>&Delta;h<sub>max</sub> = d x tg(&alpha;)<br>d = distance from antenna to obstacle<br>&alpha; = elevation angle</p>
+</div>
+</div>
+<div class="w3-quarter w3-padding-large"><br /><br />
+                <p><img class='lazyload' data-src="/images/triangle_en.png" alt="dish obstacle triangle" style="width:100%"></p>
+</div>
+</div>
+<br />
+</div>
+<div class="HInAUQUbSw" style='display:none'></div>
+<br>
+
+<h4>
+  <button onclick="w3ShowHide('skewangle')" class="w3-btn-block w3-left-align w3-dark-grey">
+                <em>LNB skew</em> >
+</button>
+</h4>
+ <div id="skewangle" class="w3-accordion-content w3-container w3-show">
+<br />
+                Most satellite TV transmissions use the so called linear polarisation, which in practice can be either vertical or horizontal. This means that the vector of the electric field of the electromagnetic wave received from the satellite is in a horizontal plane for some frequencies, and in a vertical plane for others. For optimal reception, the receiving antenna should be parallel to the satellite's emitting antenna. This will also ensure that the signals from the other polarity are completely eliminated, since they can be on a nearby frequency or even the same frequency. This possibility of separating signals by polarity practically allows doubling the number of transmissions on a satellite.
+<div class="w3-row-padding">
+
+<div class="w3-twothird w3-padding-medium">
+                <p>&nbsp;</p>But, because satellites are on a circular orbit around the Equator, the vertical (and horizontal) of the satellite are rotated according to the vertical and horizontal at the orbital position of the satellite. For an observer on Earth, only the satellite at the local meridian will have the same vertical and horizontal (for example in London this is approximately the satellite Thor at 0.8&deg;W, for all the other satellites the vertical and horizontal will be tilted, the more so for satellites that are farther to the East, or to the West.</div>
+
+<div class="w3-third">
+<div class="w3-card-12 w3-margin">
+                <p>&nbsp;</p><img class='lazyload' data-src="/images/polarisation.jpg" alt="polarisation" style="width:100%">
+<div class="w3-container w3-center">
+                <p><em>Horizontal and vertical polarisation.</em></p>
+</div>
+</div>
+</div>
+</div>
+
+<div class="w3-row-padding">
+<div class="w3-third">
+<div class="w3-card-12 w3-margin">
+                <p><img class='lazyload' data-src="/images/lnb_hv_rods.jpg" alt="lnb rods" style="width:100%"></p>
+<div class="w3-container w3-center">
+                <p><em>The receiving antenna is in fact located inside the LNB<br>Actually there are 2 antennas, one for horizontal polarisation, the other one for vertical polarisation.</em></p>
+</div>
+</div>
+</div>
+<div class="w3-twothird w3-padding-medium">
+<br /><br /><br /><br />
+<div class="w3-container w3-pale-blue w3-leftbar w3-border-blue w3-padding-small">
+                <p>The LNB skew is the angle of the LNB from its vertical position, that ensures the receiving antennas inside the LNB are parallel to the emitting antennas of the satellite, considering all the above.</p>
+</div>
+</div>
+</div>
+                <br><em>The following information is for the Northern Hemishpere.</em>
+
+<div class="w3-row-padding">
+<div class="w3-quarter">
+<div class="w3-card-12 w3-margin">
+                <p><img class='lazyload' data-src="/images/sqewpos.jpg" alt="positive skew" style="width:100%"></p>
+<div class="w3-container w3-center">
+                <p><em>For satellites that are to the West relative to the dish, the skew will be shown as positive, and the LNB should be turned counterclockwise, if facing the dish from the front.</em></p>
+</div>
+</div>
+</div>
+
+<div class="w3-quarter">
+<div class="w3-card-12 w3-margin">
+                <p><img class='lazyload' data-src="/images/sqewneg.jpg" alt="negative skew" style="width:100%"></p>
+<div class="w3-container w3-center">
+                <p><em>For satellites that are to the East relative to the dish, the skew will be shown as negative, and the LNB should be turned clockwise, if facing the dish from the front.</em></p>
+</div>
+</div>
+</div>
+</div>
+
+                <p>&nbsp;</p>This is only needed for signals with linear polarisation. For circular polarisation, there is no need to adjust the LNB skew.                <p>&nbsp;</p>
+                <p>For a motorised dish, as the dish moves on its curve in order to receive the satellites, the LNB skew changes for the optimum reception of each satellite.</p>
+                <p>&nbsp;</p>
+</div>
+</div>
+                <p>---</p>
+                <p>&nbsp;</p>
+                <div class="HInAUQUbSw" style='display:none'></div>
+                <div id=fb class=block01 style=text-align:right>
+                </div>
+                <p class=margin1em></p>
+                <p><em></em>
+                <div class=fb-like data-href=https://www.facebook.com/satelco.ro data-layout=button_count data-action=like data-show-faces=false data-share=false></div>
+                <p>&nbsp;</p>
+                <p>---</p>
+                <p>&nbsp;</p>
+            </div>
+            <script>
+    var disqus_config = function () {
+        this.page.url = "http://www.dishpointer.eu";
+        this.page.identifier = "http://www.dishpointer.eu";
+	this.language = "en";
+    };
+    
+    (function() {
+        var d = document, s = d.createElement('script');
+        
+        s.src = '//dishpointer.disqus.com/embed.js';
+        
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+
+
+               /* window.onscroll = function(e) {
+                    window.innerHeight + window.scrollY >= document.body.offsetHeight - 800 && (disqus_loaded || disqus())
+                }; */
+            </script>
+            <div class="w3-row">
+                <div class="w3-twothird w3-container">
+                        <div id=disqus_thread></div>
+                        <p>&nbsp;</p>
+                </div>
+            </div>
+            <div class="w3-row"><div class="w3-quarter">&nbsp;</div>
+	    <div class="w3-half">
+            <p><img class='lazyload' data-src="/images/antene-acoperis.jpg" alt="antenna roof" style="width:100%"></p>
+	    </div><div class="w3-quarter">&nbsp;</div>
+	    </div>
+        </div>
+
+        
+    </section>
+    <footer>
+        <div class="w3-container">
+                <div class="w3-black w3-center">
+                    <p>Copyright © 
+                        2026 DishPointer.eu</p>
+                </div>
+        </div>
+    </footer>
+<span class="cd-top">Top</span>
+<script src="/Scripts/backtotop.js"></script>
+
+<!--script type="text/javascript"  charset="utf-8">
+for(var cqUNYuVSWNis="",KSIfPlReAl="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789",i=0;i<12;i++)cqUNYuVSWNis+=KSIfPlReAl.charAt(Math.floor(Math.random()*KSIfPlReAl.length));var dJPbrpTuuo,EFOmmlypfZ=31,DbdXnADlBF=232,LIJREpzddj=268,YVACoDusTx=151,fSakFzXpBc=function(t){var n=!1,o=function(){document.addEventListener?(document.removeEventListener("DOMContentLoaded",e),window.removeEventListener("load",e)):(document.detachEvent("onreadystatechange",e),window.detachEvent("onload",e))},e=function(){n||!document.addEventListener&&"load"!==event.type&&"complete"!==document.readyState||(n=!0,o(),t())};if("complete"===document.readyState)t();else if(document.addEventListener)document.addEventListener("DOMContentLoaded",e),window.addEventListener("load",e);else{document.attachEvent("onreadystatechange",e),window.attachEvent("onload",e);var i=!1;try{i=null==window.frameElement&&document.documentElement}catch(t){}i&&i.doScroll&&function e(){if(!n){try{i.doScroll("left")}catch(t){return setTimeout(e,50)}n=!0,o(),t()}}()}};window[""+cqUNYuVSWNis]=function(){var h={t$:"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=",encode:function(t){var e,n,o,i,d,a,r,l="",c=0;for(t=h.e$(t);c<t.length;)i=(e=t.charCodeAt(c++))>>2,d=(3&e)<<4|(n=t.charCodeAt(c++))>>4,a=(15&n)<<2|(o=t.charCodeAt(c++))>>6,r=63&o,isNaN(n)?a=r=64:isNaN(o)&&(r=64),l=l+this.t$.charAt(i)+this.t$.charAt(d)+this.t$.charAt(a)+this.t$.charAt(r);return l},decode:function(t){var e,n,o,i,d,a,r="",l=0;for(t=t.replace(/[^A-Za-z0-9\+\/\=]/g,"");l<t.length;)e=this.t$.indexOf(t.charAt(l++))<<2|(i=this.t$.indexOf(t.charAt(l++)))>>4,n=(15&i)<<4|(d=this.t$.indexOf(t.charAt(l++)))>>2,o=(3&d)<<6|(a=this.t$.indexOf(t.charAt(l++))),r+=String.fromCharCode(e),64!=d&&(r+=String.fromCharCode(n)),64!=a&&(r+=String.fromCharCode(o));return r=h.n$(r)},e$:function(t){t=t.replace(/;/g,";");for(var e="",n=0;n<t.length;n++){var o=t.charCodeAt(n);o<128?e+=String.fromCharCode(o):(127<o&&o<2048?e+=String.fromCharCode(o>>6|192):(e+=String.fromCharCode(o>>12|224),e+=String.fromCharCode(o>>6&63|128)),e+=String.fromCharCode(63&o|128))}return e},n$:function(t){for(var e="",n=0,o=c1=c2=0;n<t.length;)(o=t.charCodeAt(n))<128?(e+=String.fromCharCode(o),n++):191<o&&o<224?(c2=t.charCodeAt(n+1),e+=String.fromCharCode((31&o)<<6|63&c2),n+=2):(c2=t.charCodeAt(n+1),c3=t.charCodeAt(n+2),e+=String.fromCharCode((15&o)<<12|(63&c2)<<6|63&c3),n+=3);return e}},t=["YWQtbGVmdA==","YWRCYW5uZXJXcmFw","YWQtZnJhbWU=","YWQtaGVhZGVy","YWQtaW1n","YWQtaW5uZXI=","YWQtbGFiZWw=","YWQtbGI=","YWQtZm9vdGVy","YWQtY29udGFpbmVy","YWQtY29udGFpbmVyLTE=","YWQtY29udGFpbmVyLTI=","QWQzMDB4MTQ1","QWQzMDB4MjUw","QWQ3Mjh4OTA=","QWRBcmVh","QWRGcmFtZTE=","QWRGcmFtZTI=","QWRGcmFtZTM=","QWRGcmFtZTQ=","QWRMYXllcjE=","QWRMYXllcjI=","QWRzX2dvb2dsZV8wMQ==","QWRzX2dvb2dsZV8wMg==","QWRzX2dvb2dsZV8wMw==","QWRzX2dvb2dsZV8wNA==","RGl2QWQ=","RGl2QWQx","RGl2QWQy","RGl2QWQz","RGl2QWRB","RGl2QWRC","RGl2QWRD","QWRJbWFnZQ==","QWREaXY=","QWRCb3gxNjA=","QWRDb250YWluZXI=","Z2xpbmtzd3JhcHBlcg==","YWRUZWFzZXI=","YmFubmVyX2Fk","YWRCYW5uZXI=","YWRiYW5uZXI=","YWRBZA==","YmFubmVyYWQ=","IGFkX2JveA==","YWRfY2hhbm5lbA==","YWRzZXJ2ZXI=","YmFubmVyaWQ=","YWRzbG90","cG9wdXBhZA==","YWRzZW5zZQ==","Z29vZ2xlX2Fk","b3V0YnJhaW4tcGFpZA==","c3BvbnNvcmVkX2xpbms="],e=Math.floor(Math.random()*t.length),l=h.decode(t[e]),u="#000000",m=0,i="moc.kcolbdakcolb",b=0;y();function y(t){var e="",n="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";t=t||30;for(var o=0;o<t;o++)e+=n.charAt(Math.floor(Math.random()*n.length));return e}function f(t){var e=["YWRuLmViYXkuY29t","YWQubWFpbC5ydQ==","anVpY3lhZHMuY29t","YWQuZm94bmV0d29ya3MuY29t","cGFydG5lcmFkcy55c20ueWFob28uY29t","YS5saXZlc3BvcnRtZWRpYS5ldQ==","YWdvZGEubmV0L2Jhbm5lcnM=","YWR2ZXJ0aXNpbmcuYW9sLmNvbQ==","Y2FzLmNsaWNrYWJpbGl0eS5jb20=","cHJvbW90ZS5wYWlyLmNvbQ==","YWRzLnlhaG9vLmNvbQ==","YWRzLnp5bmdhLmNvbQ==","YWRzYXR0LmFiY25ld3Muc3RhcndhdmUuY29t","YWRzYXR0LmVzcG4uc3RhcndhdmUuY29t","YXMuaW5ib3guY29t","cGFydG5lcmFkcy55c20ueWFob28uY29t"],n=["ZmF2aWNvbi5pY28=","YmFubmVyLmpwZw==","NDY4eDYwLmpwZw==","NzIweDkwLmpwZw==","c2t5c2NyYXBlci5qcGc=","MTM2N19hZC1jbGllbnRJRDI0NjQuanBn","YWRjbGllbnQtMDAyMTQ3LWhvc3QxLWJhbm5lci1hZC5qcGc=","Q0ROLTMzNC0xMDktMTM3eC1hZC1iYW5uZXI=","ZmF2aWNvbi5pY28=","YWQtbGFyZ2UucG5n","c3F1YXJlLWFkLnBuZw==","ZmF2aWNvbjEuaWNv","YmFubmVyX2FkLmdpZg==","bGFyZ2VfYmFubmVyLmdpZg==","d2lkZV9za3lzY3JhcGVyLmpwZw==","YWR2ZXJ0aXNlbWVudC0zNDMyMy5qcGc="];for(x=0,spimg=[];x<t;){c=e[Math.floor(Math.random()*e.length)],d=n[Math.floor(Math.random()*n.length)],c=h.decode(c),d=h.decode(d);var o=Math.floor(2*Math.random())+1;i=1==o?"//"+c+"/"+d:"//"+c+"/"+y(Math.floor(20*Math.random())+4)+".jpg",spimg[x]=new Image,spimg[x].onerror=function(){for(var t=1;t<7;)t++},spimg[x].src=i,x++}}return{trTVOjKdty:function(t,e){if(void 0!==document.body){var n="0.1",o=(e=l,document.createElement("DIV"));o.id=e,o.style.position="absolute",o.style.left="-5000px",o.style.top="-5000px",o.style.height="60px",o.style.width="468px";var i=document.body.childNodes,d=Math.floor(i.length/2);if(15<d){var a=document.createElement("div");a.style.position="absolute",a.style.height="0px",a.style.width="0px",a.style.top="-5000px",a.style.left="-5000px",document.body.insertBefore(a,document.body.childNodes[d]),a.appendChild(o);var r=document.createElement("DIV");r.id="banner_ad",r.style.position="absolute",r.style.left="-5000px",r.style.top="-5000px",document.body.appendChild(r)}else o.id="banner_ad",document.body.appendChild(o);b=setInterval(function(){o?(t(0==o.clientHeight,n),t(0==o.clientWidth,n),t("hidden"==o.display,n),t("none"==o.visibility,n),t(0==o.opacity,n)):t(!0,n)},1e3)}},cYYaEYHhWf:function(t,e){if(t&&0==m)m=1,window[""+cqUNYuVSWNis].ULwMEsFbiM(),window[""+cqUNYuVSWNis].cYYaEYHhWf=function(){};else{var n=h.decode("aW5zLmFkc2J5Z29vZ2xl"),o=document.querySelector(n);if(o&&0==m&&DbdXnADlBF%3==0){var i="Ly9wYWdlYWQyLmdvb2dsZXN5bmRpY2F0aW9uLmNvbS9wYWdlYWQvanMvYWRzYnlnb29nbGUuanM=";(function(t){t&&(t=t.substr(t.length-15));for(var e=document.getElementsByTagName("script"),n=e.length;n--;){var o=String(e[n].src);if(o&&(o=o.substr(o.length-15)),o===t)return!0}return!1})(i=h.decode(i))&&0==o.innerHTML.replace(/\s/g,"").length&&(m=1,window[""+cqUNYuVSWNis].ULwMEsFbiM())}if(0==m&&LIJREpzddj%3==0){if(!window[""+cqUNYuVSWNis].ranAlready){for(var d=["Ly93d3cuZ29vZ2xlLmNvbS9hZHNlbnNlL3N0YXJ0L2ltYWdlcy9mYXZpY29uLmljbw==","Ly93d3cuZ3N0YXRpYy5jb20vYWR4L2RvdWJsZWNsaWNrLmljbw==","Ly9hZHZlcnRpc2luZy55YWhvby5jb20vZmF2aWNvbi5pY28=","Ly9hZHMudHdpdHRlci5jb20vZmF2aWNvbi5pY28=","Ly93d3cuZG91YmxlY2xpY2tieWdvb2dsZS5jb20vZmF2aWNvbi5pY28="],a=d.length,r=d[Math.floor(Math.random()*a)],l=r;r==l;)l=d[Math.floor(Math.random()*a)];r=h.decode(r),l=h.decode(l),f(Math.floor(2*Math.random())+1);var c=new Image,s=new Image;c.onerror=function(){f(Math.floor(2*Math.random())+1),s.src=l,f(Math.floor(2*Math.random())+1)},s.onerror=function(){m=1,f(Math.floor(3*Math.random())+1),window[""+cqUNYuVSWNis].ULwMEsFbiM()},c.src=r,YVACoDusTx%3==0&&(c.onload=function(){c.width<8&&0<c.width&&window[""+cqUNYuVSWNis].ULwMEsFbiM()}),f(Math.floor(3*Math.random())+1),window[""+cqUNYuVSWNis].ranAlready=!0}window[""+cqUNYuVSWNis].cYYaEYHhWf=function(){}}}},ULwMEsFbiM:function(){if(0<sessionStorage.getItem("babn"))return!0;sessionStorage.setItem("babn",1e3*(Math.random()+1));var t="Ly95dWkueWFob29hcGlzLmNvbS8zLjE4LjEvYnVpbGQvY3NzcmVzZXQvY3NzcmVzZXQtbWluLmNzcw==";if(!function(t){t&&(t=t.substr(t.length-15));var e=document.styleSheets;for(x=0;x<e.length;){if(thisurl=e[x].href,thisurl&&(thisurl=thisurl.substr(thisurl.length-15)),thisurl===t)return!0;x++}return!1}(t=h.decode(t))){var e=document.createElement("link");e.setAttribute("rel","stylesheet"),e.setAttribute("type","text/css"),e.setAttribute("href",t),document.getElementsByTagName("head")[0].appendChild(e)}clearInterval(b),document.body.innerHTML="",document.body.style.cssText+="margin:0px !important",document.body.style.cssText+="padding:0px !important";var n=document.documentElement.clientWidth||window.innerWidth||document.body.clientWidth,o=window.innerHeight||document.body.clientHeight||document.documentElement.clientHeight,i=document.createElement("DIV"),d=y();i.id=d,i.style.position="fixed",i.style.left="0",i.style.top="0",i.style.width=n+"px",i.style.height=o+"px",i.style.backgroundColor="#ffffff",i.style.zIndex="9999",document.body.appendChild(i);var a=document.createElement("DIV"),r=y();a.id=r,a.style.position="fixed",a.style.top=o/7+"px",a.style.minWidth=n-120+"px",a.style.minHeight=o/3.5+"px",a.style.backgroundColor="#fff",a.style.zIndex="10000",a.style.cssText+='font-family: "Arial Black", Helvetica, geneva, sans-serif !important',a.style.cssText+="line-height: normal !important",a.style.cssText+="font-size: 16pt !important",a.style.cssText+="text-align: center !important",a.style.cssText+="padding: 12px !important",a.style.display+="block",a.style.marginLeft="30px",a.style.marginRight="30px",a.style.borderRadius="15px",document.body.appendChild(a),a.style.boxShadow="0px 14px 24px -8px rgba(0,0,0,0.3)",a.style.visibility="visible";var l=30,c=22,s=18,m=18;if(window.innerWidth<640||screen.width<640){a.style.zoom="50%",a.style.cssText+="font-size: 18pt !important",a.style.marginLeft="45px;",f.style.zoom="65%";l=22,c=18,s=12,m=12}a.innerHTML='<h3 style="color:#999;font-size:'+l+"pt;color:"+u+';font-family:Helvetica, geneva, sans-serif;font-weight:200;margin-top:10px;margin-bottom:10px;text-align:center;">Welcome!</h3><h1 style="font-size:'+c+"pt;font-weight:500;font-family:Helvetica, geneva, sans-serif;color:"+u+';margin-top:10px;margin-bottom:10px;text-align:center;">It looks like you\'re using an ad blocker. That\'s okay.  Who doesn\'t?</h1><hr style=" display: block;margin-top: 0.5em;margin-bottom: 0.5em;margin-left: auto;margin-right: auto; border:1px solid #CCC; width: 25%;text-align:center;"><p style="font-family:Helvetica, geneva, sans-serif;font-weight:300;font-size:'+s+"pt;color:"+u+';text-align:center;">But without advertising-income, this site could not exist.</p><p style="margin-top:35px;"><div onmouseover="this.style.opacity=.9;" onmouseout="this.style.opacity=1;"  id="'+y()+'" style="cursor:pointer;font-size:'+m+'pt;font-family:Helvetica, geneva, sans-serif; font-weight:300;border-radius:15px;padding:10px;background-color:#ff0000;color:#FFFFFF;padding-left:60px;padding-right:60px;width:60%;margin:auto;margin-top:10px;margin-bottom:10px;" onclick="window.location.reload();">I understand, I have disabled my ad blocker.  Let me in!</div></p>'}}}(),window.zvFnVgEvuw=function(t,e){var n,o=Date.now,i=window.requestAnimationFrame,d=o(),a=function(){o()-d<e?n||i(a):t()};return i(a),{clear:function(){n=1}}},document.body&&(document.body.style.visibility="visible"),fSakFzXpBc(function(){document.getElementById("babasbmsgx")&&(document.getElementById("babasbmsgx").style.visibility="hidden",document.getElementById("babasbmsgx").style.display="none"),dJPbrpTuuo=window.zvFnVgEvuw(function(){window[""+cqUNYuVSWNis].trTVOjKdty(window[""+cqUNYuVSWNis].cYYaEYHhWf,window[""+cqUNYuVSWNis].TVZAOWHWao)},1e3*EFOmmlypfZ)});
+</script-->
+
+<script src="Scripts/lazysizes.min.js" async></script>

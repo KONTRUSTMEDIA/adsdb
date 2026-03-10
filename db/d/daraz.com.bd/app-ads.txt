@@ -1,0 +1,1516 @@
+
+
+
+<!DOCTYPE HTML>
+
+
+
+    
+<html><head><meta name="page-url" content="https://www.daraz.com.bd/wow/gcp/route/daraz/bd/upr/router?hybrid=1&data_prefetch=true&prefetch_replace=1&at_iframe=1&wh_pid=/lazada/channel/bd/common/error" ><script>window.gcpMarks = {};
+            window.gcpMarks.htmlStart = Date.now();</script><script>
+      (function () {
+        try {
+          if (location.href.indexOf('disable_localStorage_hook=true') >= 0) {
+            return;
+          }
+
+          if (window.localStorageHooked === true) {
+            return;
+          }
+          window.localStorageHooked = true;
+
+          var iosVersion = -1;
+          var userAgent = window.navigator.userAgent;
+          if (/iPad|iPhone|iPod/.test(userAgent)) {
+            var iosMatch = userAgent.match(/OS (\d+)_(\d+)_?(\d+)?/);
+            
+            if (iosMatch && iosMatch.length > 1) {
+              iosVersion = parseInt(iosMatch[1], 10);
+            }
+          }
+          if (iosVersion < 18) {
+            return;
+          }
+
+          console.log('通过ua判断系统为ios26，开始劫持localStorage');
+          var localStorageData = {};
+          for (var i = 0; i < localStorage.length; i++) {
+            var key = localStorage.key(i);
+            localStorageData[key] = localStorage.getItem(key);
+          }
+          console.log('localStorageData', localStorageData);
+
+          var taskQueue = [];
+          function processTaskQueue() {
+            while (taskQueue.length > 0) {
+              var task = taskQueue.shift();
+              try {
+                if (task.type === 'setItem') {
+                  localStorage.setItemOriginal(task.key, task.value);
+                  console.log(`处理任务${task.type}: ${task.key} = ${task.value}`);
+                } else if (task.type === 'removeItem') {
+                  localStorage.removeItemOriginal(task.key);
+                  console.log(`处理任务${task.type}: ${task.key}`);
+                } else {
+                  console.log(`处理任务unknown:${task}`);
+                }
+              } catch (error) {
+                console.warn(`处理任务时发生错误: ${task.type}, key: ${task.key}`, error);
+              }
+            }
+          }
+          setInterval(processTaskQueue, 500);
+
+          var originalSetItem = Storage.prototype.setItem;
+          Storage.prototype.setItem = function(key, value) {
+            console.log(`劫持到数据setItem:${key} = ${value}`);
+            // 完善类型判断，localStorage 只能存储字符串
+            var storageValue;
+            if (value === null || value === undefined) {
+              storageValue = '';
+            } else if (typeof value === 'string') {
+              storageValue = value;
+            } else if (typeof value === 'object' || typeof value === 'number' || typeof value === 'boolean') {
+              storageValue = JSON.stringify(value);
+            } else {
+              // function, symbol 等类型转为字符串
+              storageValue = String(value);
+            }
+            localStorageData[key] = storageValue;
+            taskQueue.push({ type: 'setItem', key, value: storageValue });
+            return;
+          };
+          Storage.prototype.setItemOriginal = function(key, value) {
+            return originalSetItem.call(this, key, value);
+          };
+
+          Storage.prototype.getItem = function(key) {
+            var value = localStorageData.hasOwnProperty(key) ? localStorageData[key] : null;
+            console.log(`劫持到数据getItem:${key} = ${value}`);
+            return value;
+          };
+
+          var originalRemoveItem = Storage.prototype.removeItem;
+          Storage.prototype.removeItem = function(key) {
+            console.log(`劫持到数据removeItem:${key}`);
+            delete localStorageData[key];
+            taskQueue.push({ type: 'removeItem', key });
+            return;
+          };
+          Storage.prototype.removeItemOriginal = function(key) {
+            return originalRemoveItem.call(this, key);
+          };
+        } catch (error) {
+          console.log('Error hook localStorage', error);
+        }
+      })();
+    </script>
+
+
+
+    
+
+<link href="//g.lazcdn.com/" rel="preconnect" importance="high"><link href="//lzd-img-global.slatic.net/" rel="preconnect" importance="high"><link href="//acs-m.daraz.com.bd" rel="preconnect"><link rel="preload" href="//g.lazcdn.com/res-d/alilog/mlog/aplus/202980191.js" as="script"><link rel="preload" crossorigin="anonymous" href="//g.lazcdn.com/g/woodpeckerx/itrace-next/??itrace-jserror.iife.js,itrace-interface.iife.js,itrace-perf.iife.js,itrace-flow.iife.js,itrace-blank.iife.js,itrace-resource.iife.js,itrace.iife.js" as="script"><link rel="preload" crossorigin="anonymous" href="https://g.lazcdn.com/res-o/lzdfe/lzd-h5-itrace/index-module.js" as="script"><link rel="preload" crossorigin="anonymous" href="//g.lazcdn.com/res-o/lzd_sec/LWSC/index.js" as="script">
+    <link rel="preload" href="//g.lazcdn.com/g/lzd/assets/1.2.13/font/EuclidCircularA-Regular.woff2" as="font" crossorigin="anonymous">
+    <link rel="preload" href="//g.lazcdn.com/g/lzd/assets/1.2.13/font/EuclidCircularA-Medium.woff2" as="font" crossorigin="anonymous">
+    <link rel="preload" href="//g.lazcdn.com/g/lzd/assets/1.2.13/font/EuclidCircularA-Bold.woff2" as="font" crossorigin="anonymous">
+
+
+
+
+<meta charset="utf-8"><meta name="aplus-waiting" content="MAN"><meta name="aplus-vt-cfg" content="1"><meta name="aplus-version" content="202980191"><meta name="aplus-cpvdata" content="{&quot;daraz_web_version&quot;:&quot;2.0.0&quot;}"><meta name="aplus-exdata" content="{&quot;daraz_web_version&quot;:&quot;2.0.0&quot;}"><meta name="wpk-bid" content="t8h20ib5-k98ohdir"><meta name="wpk-ctrid" content="lzdgcpmp"><link rel="manifest" id="manifest-placeholder"><meta name="lzd-itrace-close-auto-monitor" content="selfDefineFSP,webVitals"><meta name="keywords" content=""><meta name="description" content=""><meta name="wh-pid" content="/lazada/channel/bd/common/error"><meta name="itrace-importing-rate" content="0.1"><title></title>
+
+
+
+    
+<link rel="shortcut icon" href="https://laz-img-cdn.alicdn.com/imgextra/i1/O1CN01V8uEDV1jdZ9U2wL90_!!6000000004571-73-tps-64-64.ico"><script>
+try {
+  function getURLParameters(search) {
+    var params = {};
+    search = search.substring(1);
+    var definitions = search.split('&');
+
+    definitions.forEach(function(val, key) {
+      var parts = val.split('=', 2);
+      params[parts[0]] = parts[1];
+    });
+
+    return params;
+  }
+
+  var pathname = window.location.pathname;
+  var search = window.location.search;
+  var params = getURLParameters(search);
+  var wh_pid = params['wh_pid'] || '';
+
+  if (pathname.includes('-mybiz') || (wh_pid && wh_pid.includes('-mybiz'))) {
+    var shortcutIcons = document.querySelectorAll('link[rel="shortcut icon"], link[rel="icon"]');
+    shortcutIcons.forEach(function(icon) {
+      icon.href = 'https://img.alicdn.com/imgextra/i2/O1CN01PYXBuM20gdTGNZBka_!!6000000006879-73-tps-64-63.ico';
+    });
+  }
+} catch(err) {
+  console.error(err);
+}
+</script><script>
+window.g_config = window.g_config || {};
+window.g_config.language = "bn";
+window.g_config.regionID = "BD";
+</script>
+
+  
+  
+    
+    <style>
+      @font-face {
+        font-family: "NotoSans-Regular";
+        src:url('//g.lazcdn.com/g/lzd/assets/1.2.13/font/EuclidCircularA-Regular.woff2') format('woff2');
+        font-display: fallback;
+      }
+      @font-face {
+        font-family: "NotoSans-Regular";
+        font-weight: 400;
+        src:url('//g.lazcdn.com/g/lzd/assets/1.2.13/font/EuclidCircularA-Regular.woff2') format('woff2');
+        font-display: fallback;
+      }
+      @font-face {
+        font-family: "NotoSans-Regular";
+        font-weight: 500;
+        src:url('//g.lazcdn.com/g/lzd/assets/1.2.13/font/EuclidCircularA-Medium.woff2') format('woff2');
+        font-display: fallback;
+      }
+      @font-face {
+        font-family: "NotoSans-Regular";
+        font-weight: 600;
+        src:url('//g.lazcdn.com/g/lzd/assets/1.2.13/font/EuclidCircularA-Bold.woff2') format('woff2');
+        font-display: fallback;
+      }
+      @font-face {
+        font-family: "NotoSans-Regular";
+        font-weight: 700;
+        src:url('//g.lazcdn.com/g/lzd/assets/1.2.13/font/EuclidCircularA-Bold.woff2') format('woff2');
+        font-display: fallback;
+      }
+      @font-face {
+        font-family: "NotoSans-SemiBold";
+        src:url('//g.lazcdn.com/g/lzd/assets/1.2.13/font/EuclidCircularA-Medium.woff2') format('woff2');
+        font-display: fallback;
+      }
+      @font-face {
+        font-family: "NotoSans-SemiBold";
+        font-weight: 500;
+        src:url('//g.lazcdn.com/g/lzd/assets/1.2.13/font/EuclidCircularA-Medium.woff2') format('woff2');
+        font-display: fallback;
+      }
+      @font-face {
+        font-family: "NotoSans-SemiBold";
+        font-weight: 600;
+        src:url('//g.lazcdn.com/g/lzd/assets/1.2.13/font/EuclidCircularA-Bold.woff2') format('woff2');
+        font-display: fallback;
+      }
+      @font-face {
+        font-family: "NotoSans-SemiBold";
+        font-weight: 700;
+        src:url('//g.lazcdn.com/g/lzd/assets/1.2.13/font/EuclidCircularA-Bold.woff2') format('woff2');
+        font-display: fallback;
+      }
+      @font-face {
+        font-family: "NotoSans-Bold";
+        src:url('//g.lazcdn.com/g/lzd/assets/1.2.13/font/EuclidCircularA-Bold.woff2') format('woff2');
+        font-display: fallback;
+      }
+      @font-face {
+        font-family: "NotoSans-Bold";
+        font-weight: 700;
+        src:url('//g.lazcdn.com/g/lzd/assets/1.2.13/font/EuclidCircularA-Bold.woff2') format('woff2');
+        font-display: fallback;
+      }
+    </style>
+  
+
+
+
+<style>
+  *[style*=NotoSans-Regular i] {
+    font-family: NotoSans-Regular,-apple-system,BlinkMacSystemFont,Roboto,"Helvetica Neue",Helvetica,Tahoma,Arial,"PingFang SC","Microsoft YaHei",sans-serif !important;
+    font-weight: 400;
+  }
+  *[style*=NotoSans-SemiBold i] {
+    font-family: NotoSans-SemiBold,-apple-system,BlinkMacSystemFont,Roboto,"Helvetica Neue",Helvetica,Tahoma,Arial,"PingFang SC","Microsoft YaHei",sans-serif !important;
+    font-weight: 500;
+  }
+  *[style*=NotoSans-Bold i] {
+    font-family: NotoSans-Bold,-apple-system,BlinkMacSystemFont,Roboto,"Helvetica Neue",Helvetica,Tahoma,Arial,"PingFang SC","Microsoft YaHei",sans-serif !important;
+    font-weight: 700;
+  }
+</style>
+
+
+<style>
+  *[style*=NotoSans-SemiBold i], *[style*=NotoSans-Bold i] {
+    letter-spacing: -0.5px;
+  }
+</style>
+<style>*{margin:0;padding:0}a{text-decoration:none}button,hr,input{overflow:visible}progress,sub,sup{vertical-align:baseline}[type=checkbox],[type=radio],legend{box-sizing:border-box;padding:0}a,a:hover{text-decoration:none}a,html{-webkit-tap-highlight-color:transparent}body{font-family:NotoSans-Regular,-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,Helvetica,Tahoma,Arial,PingFang SC,Microsoft YaHei,sans-serif!important;margin:0}details,main{display:block}h1{font-size:2em;margin:.67em 0}hr{box-sizing:content-box;height:0}code,kbd,pre,samp{font-family:NotoSans-Regular;font-size:1em}a{background-color:transparent}abbr[title]{border-bottom:none;text-decoration:underline;-webkit-text-decoration:underline dotted;text-decoration:underline dotted}b,strong{font-weight:bolder}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative}sub{bottom:-.25em}sup{top:-.5em}img{border-style:none}button,input,optgroup,select,textarea{font-family:inherit;font-size:100%;margin:0}button,select{text-transform:none}[type=button],[type=reset],[type=submit],button{-webkit-appearance:button}[type=button]::-moz-focus-inner,[type=reset]::-moz-focus-inner,[type=submit]::-moz-focus-inner,button::-moz-focus-inner{border-style:none;padding:0}[type=button]:-moz-focusring,[type=reset]:-moz-focusring,[type=submit]:-moz-focusring,button:-moz-focusring{outline:1px dotted ButtonText}fieldset{padding:.35em .75em .625em}legend{color:inherit;display:table;max-width:100%;white-space:normal}textarea{overflow:auto}[type=number]::-webkit-inner-spin-button,[type=number]::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}[type=search]::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}summary{display:list-item}[hidden],template{display:none}table{border-collapse:separate;border-spacing:0}caption,td,th{text-align:left;font-weight:400}table,td,th{vertical-align:middle}blockquote:after,blockquote:before,q:after,q:before{content:""}blockquote,q{quotes:"" ""}a img{border:none}html{font-family:NotoSans-Regular,-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,Helvetica,Tahoma,Arial,PingFang SC,Microsoft YaHei,sans-serif;font-weight:400;font-size:100%;line-height:1.15}.lzd-font-thin{font-weight:300}.lzd-font-normal{font-weight:400}.lzd-font-bold{font-weight:500}.lzd-font-bolder{font-weight:600}.lzd-font-small{font-size:12px}.lzd-font-normal{font-size:14px}.lzd-font-large{font-size:16px}.lzd-font-larger{font-size:18px}.lzd-theme-color{color:#ff330c}.lzd-text-overflow{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.lzd-base-mask{position:absolute;top:0;bottom:0;left:0;right:0;width:100%;height:100%;background:rgba(0,0,0,.03)}.lzd-base-center{display:flex;align-items:center;justify-content:center}.lzd-icon-navigation-arrow:hover{background:rgba(0,0,0,.15)!important}.laz-icon-navigation-hover:hover{color:#fe4960!important}.lzd-voucher-arrow:hover{background:rgba(0,0,0,.3)!important}.lzd-two-line-ellipsis{overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2}.lzd-item-hover-mask:hover{opacity:1!important}.product-list .product-row:last-child{margin-bottom:0!important}.elevator-tab-item:hover{background-image:linear-gradient(136deg,#ff933f,#f93782 67%,#f93782)!important}.elevator-tab-item span:hover{color:#fff!important}.lzd-rwb-bottom-bar-placeholder{height:52px}@media only screen and (device-width:375px) and (device-height:812px),screen and (device-width:414px) and (device-height:896px){.lzdrwb-navigation-base{padding-bottom:17px}.lzd-rwb-bottom-bar-placeholder{height:69px}}.rax-view-v2{box-sizing:border-box;display:flex;flex-direction:column;flex-shrink:0;align-content:flex-start;border:0 solid #000;margin:0;padding:0;min-width:0}.circle{display:block;width:46px;height:46px;margin:5px;position:absolute;left:50%;top:50%;transform:translate(-50%,-50%)}.circle-loading{width:100%;height:100%;position:absolute;border-radius:50%;transition:-webkit-clip-path .2s;transition:clip-path .2s;transition:clip-path .2s,-webkit-clip-path .2s;background:conic-gradient(#fff,50%,#f06);--mask:radial-gradient(closest-side,transparent 88.5%,#000 0);-webkit-mask-image:var(--mask);mask-image:var(--mask);animation:spin 1s linear infinite}.circle img{display:block;width:100%;height:100%}.lzd-gcp-load-more-wrapper{width:100vw;height:52px}.lzd-gcp-load-more-circle,.lzd-gcp-load-more-wrapper{display:flex;justify-content:center;align-items:center}.lzd-gcp-load-more-circle{background-color:#fff;height:40px;width:40px;border-radius:50%;position:relative}.lzd-gcp-load-more-circle-ext{width:95%;height:95%;position:absolute;background-color:hsla(0,0%,100%,0);border-radius:50%;z-index:1}.lzd-gcp-load-more-circle-loading{width:90%;height:90%;position:absolute;border-radius:50%;transition:-webkit-clip-path .2s;transition:clip-path .2s;transition:clip-path .2s,-webkit-clip-path .2s;background:conic-gradient(#fff,60%,#f06);animation:spin 1s linear infinite;will-change:transform}.lzd-gcp-load-more-wrapper img{width:80%;height:80%;background-color:#fff;border-radius:50%;position:relative}@keyframes spin{0%{transform:rotate(0deg)}to{transform:rotate(1turn)}}.__hide_scrollbar__::-webkit-scrollbar{display:none}.gcp-loading-wrapper{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);display:flex;justify-content:center;align-items:center;width:51px;height:51px;background-color:#fff;border-radius:100%;z-index:999}.gcp-loading-daraz-icon{width:46px;height:46px}.gcp-loading-daraz-icon .st0{fill:#f57224}.gcp-loading-daraz-icon .st1{fill:url(#lzd-loader-spinner_1_)}.gcp-loading-daraz-icon .st2{-webkit-clip-path:url(#SVGID_2_);clip-path:url(#SVGID_2_)}.gcp-loading-daraz-icon .st3{-webkit-clip-path:url(#SVGID_4_);clip-path:url(#SVGID_4_);fill:#fff}.gcp-loading-daraz-icon .st4{-webkit-clip-path:url(#SVGID_6_);clip-path:url(#SVGID_6_)}.gcp-loading-daraz-icon .st5{-webkit-clip-path:url(#SVGID_8_);clip-path:url(#SVGID_8_);fill:#fff}.gcp-loading-daraz-icon .st6{fill:#fff}.gcp-loading-daraz-icon .loading-circle-daraz_normal{animation:spinner-rotate-daraz 1s ease-in-out infinite;transform-origin:center}.gcp-loading-daraz-icon .loading-circle-daraz,.gcp-loading-daraz-mybiz-icon .loading-circle-daraz-mybiz{animation:spinner-rotate-daraz .6s linear infinite;transform-origin:center center;transform-box:fill-box}@keyframes spinner-rotate-daraz{0%{transform:rotate(0)}to{transform:rotate(1turn)}}.rax-scrollview-vertical{display:flex;flex-direction:column}.rax-scrollview-horizontal{display:flex;flex-direction:row}.rax-scrollview-content-container-horizontal{flex-direction:column;flex-direction:row}.rax-scrollview-content-container-horizontal,.rax-scrollview-webcontainer{align-content:flex-start;border:0 solid #000;box-sizing:border-box;display:flex;flex-shrink:0;margin:0;min-width:0;padding:0}.rax-scrollview-webcontainer{display:block;flex-direction:column}</style><style id="css-container"></style><script>window.gcpMarks.styleLoaded = Date.now();</script></head><body class="gcp-daraz-page">
+
+
+
+    
+<script>
+try {
+  var isPrehot = window.location.href.indexOf('lzd_open_type=pre_hot') >= 0;
+  if (!isPrehot) {
+    function getURLParameters(search) {
+      var params = {};
+      search = search.substring(1); // remove the ?
+      var definitions = search.split('&');
+  
+      definitions.forEach(function(val, key) {
+        var parts = val.split('=', 2);
+        params[parts[0]] = parts[1];
+      });
+  
+      return params;
+    }
+    
+    var pathname = window.location.pathname;
+    var search = window.location.search;
+    var params = getURLParameters(search);
+    var wh_pid = params['wh_pid'] || '';
+    
+    if (pathname.includes('-mybiz') || (wh_pid && wh_pid.includes('-mybiz'))) {
+      var body = document.querySelector('body');
+      var bodyClass = body.className || '';
+      body.className = bodyClass.replace('gcp-daraz-page', 'gcp-daraz-mybiz-page');
+    }
+  }
+} catch (e) {
+  console.error(e);
+}
+</script><script>
+try {
+  var hidePCNavbar = window.location.search.indexOf('?lzd_pc_navbar_hidden=true') >= 0 || window.location.search.indexOf('&lzd_pc_navbar_hidden=true') >= 0;
+  if(hidePCNavbar) {
+      var autoShowStyleNode = document.createElement('style');
+      autoShowStyleNode.innerHTML = "#J_LzdSiteNav{ display: none } .desktop-footer{ display: none } #New_LzdSiteNav{ display: none } .new-desktop-footer{ display: none }";
+      document.head.appendChild(autoShowStyleNode);
+  }
+} catch (e) {
+  console.warn('[hide-pc-title-error]', e.message);
+}
+</script>
+        
+        
+        
+          
+  
+
+  
+  
+
+  
+
+  
+    
+  
+
+  
+    
+    
+    
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+    
+      
+    
+  
+	
+  
+
+  
+  
+  
+	<script>
+    window.g_config = window.g_config || {};
+    window.g_config.wh_project = "daraz";
+    window.g_config.pageType = "default";
+    window.g_config.channel = "default";
+    window.g_config.language = "bn";
+    window.g_config.regionID = "BD";
+    window.g_config.channelEnv = "product";
+    window.g_config.showPcSearchboxHotWords = false;
+    window.g_config.newPcHeadFoot = true;
+  </script><link rel="stylesheet" type="text/css" href="//g.lazcdn.com/g/psolution/lzd-head-foot/1.4.2/css/615.css"/><link rel="stylesheet" type="text/css" href="//g.lazcdn.com/g/psolution/lzd-head-foot/1.4.2/css/p_index-index.css"/>
+
+    <script>
+      console.log('[header debug data]:', 'header start');
+    </script>
+    <script>
+    (function() {
+      try {
+        if (window.aplusPageIdSetComplete || /AliApp/i.test(navigator.userAgent)) {
+          return;
+        }
+
+        var get_cookie = function (sName) {
+          var sRE = '(?:; )?' + sName + '=([^;]*);?';
+          var oRE = new RegExp(sRE);
+          if (oRE.test(document.cookie)) {
+          var str = decodeURIComponent(RegExp['$1']) || '';
+          if (str.trim().length > 0) {
+            return str;
+          } else {
+            return '-';
+          }
+          } else {
+            return '-';
+          }
+        };
+        var getRand = function () {
+          var page_id = get_cookie('cna') || '001';
+          page_id = page_id.toLowerCase().replace(/[^a-zd]/g, '');
+          page_id = page_id.substring(0, 16);
+          var d = (new Date()).getTime();
+          var randend = [
+            page_id,
+            d.toString(16)
+          ].join('');
+
+          for (var i = 1; i < 10; i++) {
+            var _r = parseInt(Math.round(Math.random() * 10000000000), 10).toString(16);
+            randend += _r;
+          }
+          randend = randend.substr(0, 42);
+          return randend;
+        };
+        var pageid = getRand();
+        var aq = (window.aplus_queue || (window.aplus_queue = []));
+        aq.push({
+          'action':'aplus.appendMetaInfo',
+          'arguments':['aplus-cpvdata', {"pageid":pageid}]
+        });
+        aq.push({
+          'action':'aplus.appendMetaInfo',
+          'arguments':['aplus-exdata',{"st_page_id":pageid}]
+        });
+        // 兼容老版本aplus
+        var gq = (window.goldlog_queue || (window.goldlog_queue = []));
+        gq.push({
+          'action':'goldlog.appendMetaInfo',
+          'arguments':['aplus-cpvdata', {"pageid":pageid}]
+        });
+        gq.push({
+          'action':'goldlog.appendMetaInfo',
+          'arguments':['aplus-exdata',{"st_page_id":pageid}]
+        });
+        window.aplusPageIdSetComplete = true;
+      } catch(err) {
+        console.error(err);
+      }
+    })();
+    </script>
+    
+		
+
+		
+			
+		
+
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+
+		
+
+		
+
+		
+
+		
+		
+		
+
+	<div id="New_LzdSiteNav" class="site-nav J_NavScroll"><div id="topActionHeaderWrapper" class="lzd-header" data-spm="header" data-tag="links"><div id="topActionHeader" class="lzd-header-content-wrap J_NavScroll"><div class="lzd-header-content daraz-pc-theme-style"><div class="lzd-links-bar daraz-pc-theme-style" id="topActionLinks"><div class="links-list header-content BD bn">
+		
+		
+	
+    
+      
+        <div class="top-links-item white" id="topActionDownload" data-spm-click="gostr=/lzdpub.header.tbar;locaid=app_download">
+          <span>Save More on App</span>
+          <div class="lzd-download-popup top-popup-wrap" id="lzdDownloadPopup">
+            <div class="top-popup-content lzd-download-content">
+              <div class="get-the-app-scope">
+                <div class="get-the-app">
+                  <div class="get-the-app-title">অ্যাপটি ডাউনলোড করুন</div>
+
+                  <div class="get-the-app-promotion">
+                    
+                      <div class="get-the-app-lazada-qr-wrap">
+                        <img class="get-the-app-lazada-qr" src="https://gw.alicdn.com/imgextra/i1/O1CN01EJwZkh1TCWAEThhF0_!!6000000002346-0-tps-150-150.jpg" alt="">
+                      </div>
+                    
+
+                    <div class="promotion-text" >
+                      
+                      <a href="https://www.daraz.com.bd/mobile-apps/">
+                        <div class="get-the-app-download-text">
+                          
+                        </div>
+                      </a>
+                      
+                    </div>
+                  </div>
+
+                  
+                  <div class="app-stores">
+                    <a href="https://apps.apple.com/us/app/daraz-online-shopping-app/id978058048" class="store-link">
+                      <i class="app-apple"></i>
+                    </a>
+                    <a href="https://play.google.com/store/apps/details?id=com.daraz.android" class="store-link">
+                      <i class="app-google"></i>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      
+    
+	
+    
+      <div class="top-links-item" id="topActionSell">
+        <a class="white" href="https://sellercenter.daraz.com.bd/v2/seller/login"  data-spm-click="gostr=/lzdpub.header.tbar;locaid=sell_on">Become a Seller</a>
+      </div>
+    
+	
+   
+
+    
+      
+        <div class="top-links-item white" id="topActionCustomCare"  data-spm-click="gostr=/lzdpub.header.tbar;locaid=customer_care">
+          <span>Help &amp; Support</span>
+          <div class="lzd-customcare-popup top-popup-wrap">
+            <div class="top-popup-content l-customcare-content">
+              <ul class="care-list">
+                
+                  <li class="care-item">
+                    
+                      
+                        
+                        <a href="https://buyer-helpcenter.daraz.com.bd/s/page" class="care-item-anchor">
+                        
+                          <span class="care-icon help-center"></span>
+                          Help Center
+                        </a>
+                      
+                      
+                    
+                  </li>
+                
+                  <li class="care-item">
+                    
+                      
+                        
+                        <a href="https://ai.alimebot.daraz.com.bd/intl/index.htm?from=WNqOxCxqjt&amp;_lang=bn-BD" class="care-item-anchor">
+                        
+                          <span class="care-icon chatbot"></span>
+                          Contact Customer Care
+                        </a>
+                      
+                      
+                    
+                  </li>
+                
+                  <li class="care-item">
+                    
+                      
+                        
+                        <a href="https://helpcenter.daraz.com.bd/page/knowledge?pageId=11&amp;category=1000001021" class="care-item-anchor">
+                        
+                          <span class="care-icon shipping-delivery"></span>
+                          Shipping &amp; Delivery
+                        </a>
+                      
+                      
+                    
+                  </li>
+                
+                  <li class="care-item">
+                    
+                      
+                        
+                        <a href="https://helpcenter.daraz.com.bd/page/knowledge?pageId=11&amp;category=1000001019" class="care-item-anchor">
+                        
+                          <span class="care-icon returns-refunds"></span>
+                          Order
+                        </a>
+                      
+                      
+                    
+                  </li>
+                
+                  <li class="care-item">
+                    
+                      
+                        
+                        <a href="https://helpcenter.daraz.com.bd/page/knowledge?pageId=11&amp;category=1000001020" class="care-item-anchor">
+                        
+                          <span class="care-icon order-payment"></span>
+                          Payment
+                        </a>
+                      
+                      
+                    
+                  </li>
+                
+                  <li class="care-item">
+                    
+                      
+                        
+                        <a href="https://www.daraz.com.bd/wow/i/bd/help-pages/how-to-return/" class="care-item-anchor">
+                        
+                          <span class="care-icon refund-money"></span>
+                          Returns &amp; Refunds
+                        </a>
+                      
+                      
+                    
+                  </li>
+                
+              </ul>
+            </div>
+          </div>
+
+        </div>
+      
+    
+	
+  
+	
+		<div class="top-links-item  white" id="anonLogin">
+			
+			
+			
+			<a class="white"  href="//member.daraz.com.bd/user/login" data-spm-click="gostr=/lzdpub.header.tbar;locaid=login">প্রবেশ করুন</a>
+		</div>
+	
+  <div class="top-links-item  white" id="anonSignup">
+    
+    
+    
+    <a class="white" href="https://member.daraz.com.bd/user/register" data-spm-click="gostr=/lzdpub.header.tbar;locaid=signup">Sign Up</a>
+  </div>
+	
+    <div class="top-links-item top-links-item-hidden" id="topActionUserAccont"  data-spm-click="gostr=/lzdpub.header.tbar;locaid=account">
+      <span id="myAccountTrigger" class="white top-links-item-text-limit"></span>
+
+      <div class="lzd-account-popup top-popup-wrap" id="lzdMyAccountPop">
+        <div class="top-popup-content lzd-account-content">
+          <ul class="account-list">
+            
+              <li class="account-item">
+                
+                
+                
+                  
+                  <a href="//member.daraz.com.bd/user/profile#/" class="account-item-anchor" id="account-popup-manage-account">
+                    <span class="account-icon test manage-account"></span>আমার অ্যাকাউন্ট পরিচালনা করুন
+                  </a>
+                
+              </li>
+            
+              <li class="account-item">
+                
+                
+                
+                  <a href="//my.daraz.com.bd/customer/order/index/" class="account-item-anchor">
+                    <span class="account-icon test my-orders"></span>আমার আদেশ
+                  </a>
+                
+              </li>
+            
+              <li class="account-item">
+                
+                
+                
+                  <a href="//my.daraz.com.bd/wishlist/index" class="account-item-anchor">
+                    <span class="account-icon test wishlist"></span>আমার ইচ্ছার তালিকা ও অনুসরণকারী স্টোর
+                  </a>
+                
+              </li>
+            
+              <li class="account-item">
+                
+                
+                
+                  <a href="https://my.daraz.com.bd/customer/myReview/my-reviews" class="account-item-anchor">
+                    <span class="account-icon test my-reviews"></span>আমার পর্যালোচনা
+                  </a>
+                
+              </li>
+            
+              <li class="account-item">
+                
+                
+                
+                  <a href="//my.daraz.com.bd/customer/returns/index?requestType=return" class="account-item-anchor">
+                    <span class="account-icon test returns"></span>আমার রিটার্ন এবং বাতিলকরণ
+                  </a>
+                
+              </li>
+            
+              <li class="account-item">
+                
+                
+                
+                  
+                  <a href="//member.daraz.com.bd/user/logout" class="account-item-anchor" id="account-popup-logout">
+                    <span class="account-icon test logout"></span>লগআউট
+                  </a>
+                
+              </li>
+            
+          </ul>
+
+        </div>
+        </div>
+
+
+      </div>
+	
+  
+    <div class="top-links-item white" id="topActionSwitchLang" data-spm-click="gostr=/lzdpub.header.tbar;locaid=change_language">
+      <span>change language</span>
+
+      
+      <div class="lzd-switch-popup top-popup-wrap" id="lzdSwitchPop">
+        <div class="top-popup-content lzd-switch-content">
+          
+            <div class="lzd-switch-item currentSelected" data-lang="bn">
+              <span class="lzd-switch-icon-daraz lzd-switch-icon lzd-switch-icon-bn"></span>
+              BN / Bengali
+              <div class="lzd-switch-checked"></div>
+            </div>
+          
+            <div class="lzd-switch-item " data-lang="en">
+              <span class="lzd-switch-icon-daraz lzd-switch-icon lzd-switch-icon-en"></span>
+              EN / English
+              
+            </div>
+          
+        </div>
+      </div>
+
+    </div>
+  
+	</div></div><div class="lzd-logo-bar default"><div class="logo-bar-content header-content">
+  
+    <div class="lzd-logo-content"><a href="https://www.daraz.com.bd/" data-spm="dhome"><img src="https://lzd-img-global.slatic.net/us/domino/3b870cb043c7f8a9741cbf66329e294e.png" alt="Online Shopping Daraz Logo" /></a></div>
+  
+	
+  <div class="lzd-nav-search"  data-spm="search">
+    <div id="button" data-spm-click="gostr=/lzdpub.header.search;locaid=d_go"></div>
+  </div>
+	
+  <div class="lzd-nav-cart">
+    
+    
+    <a href="https://cart.daraz.com.bd/cart" data-spm="dcart">
+      
+        <span class="cart-icon-daraz">
+          <svg width="30" height="30" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M4.51345 5H1.33325V3H6.15306L7.21972 8.33333H30.5315L27.5012 25H8.51345L4.51345 5ZM7.61972 10.3333L10.1531 23H25.832L28.135 10.3333H7.61972Z" fill="white"/>
+          <path d="M11.9999 28C11.9999 28.7364 11.403 29.3333 10.6666 29.3333C9.93021 29.3333 9.33325 28.7364 9.33325 28C9.33325 27.2636 9.93021 26.6667 10.6666 26.6667C11.403 26.6667 11.9999 27.2636 11.9999 28Z" fill="white"/>
+          <path d="M25.3333 29.3333C26.0696 29.3333 26.6666 28.7364 26.6666 28C26.6666 27.2636 26.0696 26.6667 25.3333 26.6667C24.5969 26.6667 23.9999 27.2636 23.9999 28C23.9999 28.7364 24.5969 29.3333 25.3333 29.3333Z" fill="white"/>
+          </svg>
+        </span>
+      
+      <span class="cart-num daraz-pc-theme-style" id="topActionCartNumber"></span>
+    </a>
+  </div>
+	
+  <div class="lzd-header-banner" id="topActionLiveUpBanner">
+  
+  </div></div></div></div><div class="lzd-site-nav-menu lzd-site-nav-menu-active" data-config="{}"><div class="lzd-site-menu-nav-container"><div class="lzd-site-menu-nav-category">
+	<div class="lzd-site-menu-nav-category-label">
+		
+			<span class="lzd-site-menu-nav-category-text">ক্যাটাগোরি</span>
+		
+	</div>
+	</div>
+  <nav class="lzd-menu-labels" data-spm="menu">
+    
+    
+  </nav></div></div></div></div></div><script src="//g.lazcdn.com/g/mtb/lib-mtop/2.7.3/mtop.js"></script>
+	
+	<script src="https://g.lazcdn.com/g/lzd/assets/1.2.13/??react/16.8.0/react.production.min.js,react-dom/16.8.0/react-dom.production.min.js"></script><script src="//g.lazcdn.com/g/lzd/??polyfill/0.0.1/index.js"></script><script src="//g.lazcdn.com/g/lzd/assets/0.0.5/next/0.19.21/next.min.js"></script>
+    
+    
+    
+
+    
+	
+	
+	<script>
+		console.log('[header debug data]:', 'header end');
+	</script>
+	
+          
+        
+      <section id="content"><div class="mui-zebra-page" data-page-id="80330838" data-page-schema-version="b1cba593-b0a7-4a1f-956a-c935d76175eb"></div></section>
+
+
+
+    
+
+
+        
+      
+  
+  
+  
+  
+  
+  <script>
+(function() {
+  if (window.document.getElementById("beacon-aplus")) {
+    return;
+  }
+
+  with(document)with(body)with(insertBefore(createElement("script"),firstChild))setAttribute("exparams","cfgver=1.0&aplus",id="beacon-aplus",src="//g.lazcdn.com/res-d/alilog/mlog/aplus/202980191.js");
+})();
+</script><script>
+(function() {
+  var isDebug = window.location.href.includes('debug=true') || window.location.href.includes('wh_query=devtool');
+  var itraceImportingRate = '0.1';
+  var rate = Number(itraceImportingRate) || 0.5;
+
+  var shouldImportItrace;
+  var itraceWhitelistRegex = /\/member\/|\/payment\/|\/trade\/|\/voucher\/|\/promotion\/|\/reverse\/|\/paylater\/|\/paylater-test\/|\/cashloan\/|\/cashloan-test\/|\/credit-seller\/|\/credit-seller-test\/|\/lazpay-page-module\/|\/lazpay-warchest\/|\/ewallet-h5\/|\/lazpay-warchest\/|\/dg-fe\//;
+  var getUrlParam = function(name) {
+    var reg = new RegExp(`(^|&)${name}=([^&]*)(&|$)`);
+    var r = window.location.search.substr(1).match(reg);
+    if (r != null) {
+        return decodeURIComponent(r[2]);
+    }
+    return null;
+  }
+  window.gcpIsPageMustImportItrace = function() {
+    var whPid = getUrlParam('wh_pid');
+    return !!(whPid && itraceWhitelistRegex.test(whPid));
+  }
+  if (window.gcpIsPageMustImportItrace()) {
+    shouldImportItrace = true;
+  } else {
+    shouldImportItrace = window.location.href.includes('use_itrace_force=true') || Math.random() < rate;
+  }
+  
+  // 对强制加载itrace的页面进行单项采样
+  var reportAnywayResult = ((Date.now() % 100) < (rate * 100));
+  window.__gcpWpkSampleReport = function() {
+    if (!window.__wpk) {
+      return;
+    }
+    if (window.gcpIsPageMustImportItrace() && !reportAnywayResult) {
+      return;
+    }
+    window.__wpk.report(...arguments);
+  }
+
+  isDebug && console.log("[itrace-import-sampling] rate: " + rate + ", result: " + shouldImportItrace);
+  window.gcpIsDebug = isDebug;
+  window.gcpShouldImportItrace = shouldImportItrace;
+
+
+  // 初始化itrace
+  
+        
+        
+        
+          !function(e){"function"==typeof define&&define.amd?define(e):e()}(function(){"use strict";var e;!function(){var e="",o=document.head.querySelector('meta[name="itrace-bid"]')||document.head.querySelector('meta[name="wpk-pid"]')||document.head.querySelector('meta[name="wpk-bid"]');o&&o.getAttribute("content")&&(e=o.getAttribute("content"));var i=1,n=document.head.querySelector('meta[name="wpk-sampleRate"]');n&&n.getAttribute("content")&&(i=Number(n.getAttribute("content")));var r=window.gcpIsPageMustImportItrace&&window.gcpIsPageMustImportItrace(),t={id:"perf",collectResTiming:!0,maxLoadTiming:5e3};window.lazada_itrace_config&&(t=Object.assign(t,window.lazada_itrace_config.perfPlugin)),window.isTrace2=!0,window.__itrace_conf={bid:e,debug:!1,cluster:"intl",sampleRate:i,beforeSend:function(e){if(e&&3===e.category){var o=Date.now()%100,i=r?1:10;if(o>=i)return console.log("[lzd-itrace-solution] report is filtered","category:",e.category,"lastTwoDigits:",o,"threshold:",i),!1;console.log("[lzd-itrace-solution]report is passed","category:",e.category,"lastTwoDigits:",o,"threshold:",i)}return e},plugins:["flow","resource","jserror",{id:"blank",maxDepth:10,rootDom:function(){return document.getElementById("container")||document.getElementById("root")||document.body}},{id:"interface",enableXHR:!1,enableFetch:!1},t]}}(),e=["report","reportError","reportJSError","reportApi","reportApiError","reportBlankPage","reportPerf","reportFlow","setConfig"],window.__wpk={},e.forEach(function(e){window.__wpk[e]=function(){}}),e.forEach(function(e){Object.defineProperty(window.__wpk,e,{get:function(){return function(){window.__iTraceLogQueue||(window.__iTraceLogQueue=[]),"reportError"===e&&(e="reportJSError"),"reportApiError"===e&&(e="reportApi");var o=[e].concat(Array.prototype.slice.call(arguments));window.__iTraceLogQueue.push(o)}}})}),window.onerror=function(e,o,i,n,r){!window.__wpk.ready&&r&&window.__wpk.reportJSError(r,{stack:(r.stack||"").toString(),w_msg:e,w_file:o,w_line:i,w_col:n})},window.iLogger={},["iLoggerInit","iLoggerMtopPluginInit","iLoggerReportApi","iLoggerSelfDefineFSP","iLoggerIntegrate"].forEach(function(e){window.iLogger[e]=function(){if(window.iLogger.isReady&&"function"==typeof window.iLogger[e])window.iLogger[e].apply(null,arguments);else{window.__iTraceExpansionQueue||(window.__iTraceExpansionQueue=[]);var o=[e].concat(Array.prototype.slice.call(arguments));window.__iTraceExpansionQueue.push(o)}}}),function(){window.lzdiTraceLifeCircle={};var e={};["NativePrefetchEnd","FirstScreenRenderingStart","FirstScreenRenderingEnd","FSPStart","FSPEnd","FetchSSRDataStart","FetchSSRDataEnd","FetchFirstScreenDataStart","FetchFirstScreenDataEnd","PageRenderingEnd","lzdiTraceShareDidMountTime"].forEach(function(o){var i=function(){window.__iTraceLifeQueue||(window.__iTraceLifeQueue=[]);var e=[o].concat(Array.prototype.slice.call(arguments));window.__iTraceLifeQueue.push(e)};window.lzdiTraceLifeCircle[o]=i,e[o]=i}),window.clearTraceLifeQueue=function(){if(window.__iTraceLifeQueue){for(var o=window.__iTraceLifeQueue,i=0;i<o.length;i++){var n=o[i]||[],r=n.shift&&n.shift();window.lzdiTraceLifeCircle&&"function"==typeof window.lzdiTraceLifeCircle[r]&&e[r]!==window.lzdiTraceLifeCircle[r]&&window.lzdiTraceLifeCircle[r].apply(null,n)}window.__iTraceLifeQueue=[]}};var o=navigator.userAgent||"",i=/iPad|iPhone|iPod/.test(o)?"pagehide":"beforeunload";window.addEventListener(i,function(){window.clearTraceLifeQueue()})}(),function(){window.addEventListener("oniLoggerMtopPluginInit",function(e){o(e.detail)},!1);var e=!(window.lib&&window.lib.mtop);window.lib||(window.lib={}),e&&(e=!1,Object.defineProperty(window.lib,"mtop",{get:function(){return window.__lzdlib_mtop__},set:function(e){window.__lzdlib_mtop__=e,Object.defineProperty(window.lib.mtop,"middlewares",{get:function(){return window.__lzdlib_mtop_middlewares__},set:function(e){var o=new CustomEvent("oniLoggerMtopPluginInit",{detail:{}});window.__lzdlib_mtop_middlewares__=e,window.dispatchEvent(o)},configurable:!0,enumerable:!0})},configurable:!0,enumerable:!0}));var o=function(){var e;window.isMtopMiddlewareReady||(window,(e=window.lib||(window.lib={}))&&e.mtop&&!e.mtop.ERROR?(window.__iTraceMtopQueue||(window.__iTraceMtopQueue=[]),e.mtop.middlewares.push(function(e){var o=this.params,i=this.options,n=i.querystring,r=parseInt((void 0===n?{}:n).t)||Date.now(),t=void 0;return performance&&"function"==typeof performance.now&&(t=Math.floor(performance.now())-Math.floor(window.preLoadTime||0)),e().then(function(){var e=(i.results[0]||{}).stat,n=(void 0===e?{}:e).oneWayTime||Date.now()-r,a={params:o,options:i,spent:n,performanceNow:t};window.iLogger&&window.iLogger.mtopReport?window.iLogger.mtopReport(a):window.__iTraceMtopQueue.push(a)})}),window.isMtopMiddlewareReady=!0,console.log("[lzd-h5-itrace] add mtop middlewares success")):console.warn("[lzd-h5-itrace] Mtop 没有初始化，无法添加 Mtop Itrace 监控插件！请参考 Mtop 文档 http://gitlab.alibaba-inc.com/mtb/lib-mtop ",e))}}(),window.__itraceBundleReady=function(){console.log("--- itrace sdk onload ---"),window.__wpk=window.__itrace,window.__wpk.reportError=window.__wpk.reportJSError,window.__wpk.reportApiError=window.__wpk.reportApi,window.__wpk.setReady(),"function"==typeof window.onWpkReady&&window.onWpkReady()},window.__itraceExpansionReady=function(){console.log("--- itrace expansion onload ---");var e=window.__iTraceExpansionQueue||[];window.iLogger.isReady=!0,window.lzdFspTrackerPlugin&&(window.iLogger.fspTracker=window.lzdFspTrackerPlugin);for(var o=0;o<e.length;o++){var i=e[o]||[],n=i.shift();"function"==typeof window.iLogger[n]&&window.iLogger[n].apply(null,i)}window.clearTraceLifeQueue(),"function"==typeof window.onTraceExpansionReady&&window.onTraceExpansionReady()}});
+
+          
+        
+      
+  if (shouldImportItrace) {
+    // import itrace libs
+    function loadItraceAsync(itraceUrl, cbName) {
+      if (!itraceUrl) {
+        return;
+      }
+      var bodyEl = document.getElementsByTagName('body')[0];
+      var script = document.createElement('script');
+      script.crossOrigin = 'anonymous';
+      script.src = itraceUrl;
+      if (cbName) {
+        script.onload = window[cbName];
+      }
+      bodyEl.appendChild(script);
+    }
+    loadItraceAsync("//g.lazcdn.com/g/woodpeckerx/itrace-next/??itrace-jserror.iife.js,itrace-interface.iife.js,itrace-perf.iife.js,itrace-flow.iife.js,itrace-blank.iife.js,itrace-resource.iife.js,itrace.iife.js", "__itraceBundleReady");
+    loadItraceAsync("https://g.lazcdn.com/res-o/lzdfe/lzd-h5-itrace/index-module.js", "__itraceExpansionReady");
+  }
+})();
+</script><script>window.g_config = window.g_config || {};window.g_config.seed = window.g_config.seed || {"packages":{"@ali/pnpm-react@18":{"debug":true,"ignorePackageNameInUri":true,"version":"18.2.0","path":"//g.alicdn.com/code/npm/@ali/pnpm-react/18.2.0/","group":"tm","name":"@ali/pnpm-react@18","base":"//g.alicdn.com/code/npm/@ali/pnpm-react/18.2.0/"},"@ali/pnpm-react-dom@18":{"debug":true,"ignorePackageNameInUri":true,"version":"18.2.1","path":"//g.alicdn.com/code/npm/@ali/pnpm-react-dom/18.2.1/","group":"tm","name":"@ali/pnpm-react-dom@18","base":"//g.alicdn.com/code/npm/@ali/pnpm-react-dom/18.2.1/"},"@ali/gcom-lang-i18n":{"debug":true,"ignorePackageNameInUri":true,"version":"1.0.0","path":"//g.alicdn.com/code/npm/@ali/gcom-lang-i18n/1.0.0/","group":"tm"},"@ali/lzdrwb-error-notice":{"debug":true,"ignorePackageNameInUri":true,"version":"0.0.6","path":"//g.alicdn.com/code/npm/@ali/lzdrwb-error-notice/0.0.6/","group":"tm","kangaroo":{"ssrEnabled":true}},"@ali/flute-i18n":{"debug":true,"group":"tm","ignorePackageNameInUri":true,"modSpec":"1.0","path":"//g.alicdn.com/code/npm/@ali/flute-i18n/3.0.1/","version":"3.0.1"},"@ali/gcom-gcp-rax-link":{"debug":true,"group":"tm","ignorePackageNameInUri":true,"modSpec":"1.0","path":"//g.alicdn.com/code/npm/@ali/gcom-gcp-rax-link/1.0.0/","version":"1.0.0"},"@ali/gcom-gcp-rax-text":{"debug":true,"group":"tm","ignorePackageNameInUri":true,"modSpec":"1.0","path":"//g.alicdn.com/code/npm/@ali/gcom-gcp-rax-text/1.2.1/","version":"1.2.1"},"@ali/gcom-gcp-rax-view":{"debug":true,"group":"tm","ignorePackageNameInUri":true,"modSpec":"1.0","path":"//g.alicdn.com/code/npm/@ali/gcom-gcp-rax-view/1.0.0/","version":"1.0.0"},"@ali/gcom-jsonp":{"debug":true,"ignorePackageNameInUri":true,"version":"1.3.0","path":"//g.alicdn.com/code/npm/@ali/gcom-jsonp/1.3.0/","group":"tm","name":"@ali/gcom-jsonp","base":"//g.alicdn.com/code/npm/@ali/gcom-jsonp/1.3.0/"},"@ali/gcom-lzd-base-component-badge":{"debug":true,"group":"tm","ignorePackageNameInUri":true,"modSpec":"1.0","path":"//g.alicdn.com/code/npm/@ali/gcom-lzd-base-component-badge/2.0.2/","version":"2.0.2"},"@ali/gcom-lzd-base-component-benefit-v2":{"debug":true,"group":"tm","ignorePackageNameInUri":true,"modSpec":"1.0","path":"//g.alicdn.com/code/npm/@ali/gcom-lzd-base-component-benefit-v2/1.0.5/","version":"1.0.5"},"@ali/gcom-lzd-base-component-button":{"debug":true,"group":"tm","ignorePackageNameInUri":true,"modSpec":"1.0","path":"//g.alicdn.com/code/npm/@ali/gcom-lzd-base-component-button/1.0.7/","version":"1.0.7"},"@ali/gcom-lzd-base-component-dynamic-wrapper-v2":{"debug":true,"group":"tm","ignorePackageNameInUri":true,"modSpec":"1.0","path":"//g.alicdn.com/code/npm/@ali/gcom-lzd-base-component-dynamic-wrapper-v2/1.0.1/","version":"1.0.1"},"@ali/gcom-lzd-base-component-evaluation2":{"debug":true,"group":"tm","ignorePackageNameInUri":true,"modSpec":"1.0","path":"//g.alicdn.com/code/npm/@ali/gcom-lzd-base-component-evaluation2/0.1.15/","version":"0.1.15"},"@ali/gcom-lzd-base-component-jfy-product-card":{"debug":true,"group":"tm","ignorePackageNameInUri":true,"modSpec":"1.0","path":"//g.alicdn.com/code/npm/@ali/gcom-lzd-base-component-jfy-product-card/0.0.8/","version":"0.0.8"},"@ali/gcom-lzd-base-component-jfy-with-long-press":{"debug":true,"group":"tm","ignorePackageNameInUri":true,"modSpec":"1.0","path":"//g.alicdn.com/code/npm/@ali/gcom-lzd-base-component-jfy-with-long-press/0.0.4/","version":"0.0.4"},"@ali/gcom-lzd-base-component-price2":{"debug":true,"group":"tm","ignorePackageNameInUri":true,"modSpec":"1.0","path":"//g.alicdn.com/code/npm/@ali/gcom-lzd-base-component-price2/0.1.7/","version":"0.1.7"},"@ali/gcom-lzd-base-component-product-image-v2":{"debug":true,"group":"tm","ignorePackageNameInUri":true,"modSpec":"1.0","path":"//g.alicdn.com/code/npm/@ali/gcom-lzd-base-component-product-image-v2/1.0.10/","version":"1.0.10"},"@ali/gcom-lzd-base-component-title":{"debug":true,"group":"tm","ignorePackageNameInUri":true,"modSpec":"1.0","path":"//g.alicdn.com/code/npm/@ali/gcom-lzd-base-component-title/0.0.2/","version":"0.0.2"},"@ali/gcom-lzd-base-component-title-bar":{"debug":true,"group":"tm","ignorePackageNameInUri":true,"modSpec":"1.0","path":"//g.alicdn.com/code/npm/@ali/gcom-lzd-base-component-title-bar/2.0.2/","version":"2.0.2"},"@ali/gcom-lzd-base-component-toolkit":{"debug":true,"group":"tm","ignorePackageNameInUri":true,"path":"//g.alicdn.com/code/npm/@ali/gcom-lzd-base-component-toolkit/0.0.2/","version":"0.0.2"},"@ali/gcom-lzd-common-info":{"debug":true,"group":"tm","ignorePackageNameInUri":true,"modSpec":"1.0","path":"//g.alicdn.com/code/npm/@ali/gcom-lzd-common-info/1.0.0/","version":"1.0.0"},"@ali/gcom-lzd-cookie":{"debug":true,"group":"tm","ignorePackageNameInUri":true,"path":"//g.alicdn.com/code/npm/@ali/gcom-lzd-cookie/1.7.0/","version":"1.7.0","name":"@ali/gcom-lzd-cookie","base":"//g.alicdn.com/code/npm/@ali/gcom-lzd-cookie/1.7.0/"},"@ali/gcom-lzd-device":{"debug":true,"ignorePackageNameInUri":true,"version":"0.0.1","path":"//g.alicdn.com/code/npm/@ali/gcom-lzd-device/0.0.1/","group":"tm","name":"@ali/gcom-lzd-device","base":"//g.alicdn.com/code/npm/@ali/gcom-lzd-device/0.0.1/"},"@ali/gcom-lzd-env":{"debug":true,"group":"tm","ignorePackageNameInUri":true,"path":"//g.alicdn.com/code/npm/@ali/gcom-lzd-env/1.5.0/","version":"1.5.0","name":"@ali/gcom-lzd-env","base":"//g.alicdn.com/code/npm/@ali/gcom-lzd-env/1.5.0/"},"@ali/gcom-lzd-mtop":{"debug":true,"ignorePackageNameInUri":true,"version":"1.2.15","path":"//g.alicdn.com/code/npm/@ali/gcom-lzd-mtop/1.2.15/","group":"tm","name":"@ali/gcom-lzd-mtop","base":"//g.alicdn.com/code/npm/@ali/gcom-lzd-mtop/1.2.15/"},"@ali/gcom-lzd-push":{"debug":true,"ignorePackageNameInUri":true,"version":"0.0.16","path":"//g.alicdn.com/code/npm/@ali/gcom-lzd-push/0.0.16/","group":"tm","name":"@ali/gcom-lzd-push","base":"//g.alicdn.com/code/npm/@ali/gcom-lzd-push/0.0.16/"},"@ali/gcom-lzd-qs":{"debug":true,"ignorePackageNameInUri":true,"version":"1.3.4","path":"//g.alicdn.com/code/npm/@ali/gcom-lzd-qs/1.3.4/","group":"tm","name":"@ali/gcom-lzd-qs","base":"//g.alicdn.com/code/npm/@ali/gcom-lzd-qs/1.3.4/"},"@ali/gcom-lzd-rax-view":{"debug":true,"group":"tm","ignorePackageNameInUri":true,"modSpec":"1.0","path":"//g.alicdn.com/code/npm/@ali/gcom-lzd-rax-view/1.0.0/","version":"1.0.0"},"@ali/gcom-lzd-resize":{"debug":true,"group":"tm","ignorePackageNameInUri":true,"modSpec":"1.0","path":"//g.alicdn.com/code/npm/@ali/gcom-lzd-resize/1.5.4/","version":"1.5.4","name":"@ali/gcom-lzd-resize","base":"//g.alicdn.com/code/npm/@ali/gcom-lzd-resize/1.5.4/"},"@ali/gcom-lzd-search-fxb":{"debug":true,"group":"tm","ignorePackageNameInUri":true,"modSpec":"1.0","path":"//g.alicdn.com/code/npm/@ali/gcom-lzd-search-fxb/0.1.19/","version":"0.1.19"},"@ali/gcom-lzd-sites":{"debug":true,"ignorePackageNameInUri":true,"version":"1.7.0","path":"//g.alicdn.com/code/npm/@ali/gcom-lzd-sites/1.7.0/","group":"tm","name":"@ali/gcom-lzd-sites","base":"//g.alicdn.com/code/npm/@ali/gcom-lzd-sites/1.7.0/"},"@ali/gcom-lzd-version-compare":{"debug":true,"ignorePackageNameInUri":true,"version":"1.4.0","path":"//g.alicdn.com/code/npm/@ali/gcom-lzd-version-compare/1.4.0/","group":"tm","name":"@ali/gcom-lzd-version-compare","base":"//g.alicdn.com/code/npm/@ali/gcom-lzd-version-compare/1.4.0/"},"@ali/gcom-rax-picture":{"debug":true,"group":"tm","ignorePackageNameInUri":true,"modSpec":"1.0","path":"//g.alicdn.com/code/npm/@ali/gcom-rax-picture/1.3.1/","version":"1.3.1"},"@ali/gcom-rax-text-v1":{"debug":true,"group":"tm","ignorePackageNameInUri":true,"modSpec":"1.0","path":"//g.alicdn.com/code/npm/@ali/gcom-rax-text-v1/1.0.0/","version":"1.0.0"},"@ali/lzdmod-common-info":{"debug":true,"group":"tm","ignorePackageNameInUri":true,"modSpec":"1.0","path":"//g.alicdn.com/code/npm/@ali/pnpm-ali--lzdmod-common-info/7.0.20/","version":"7.0.20"},"@ali/lzdrwb-just-for-you":{"debug":true,"group":"tm","ignorePackageNameInUri":true,"kangaroo":{"customize":"true","mobileExtParams":{"?rec_filter_disabled":"rec_filter_disabled"},"pcExtParams":{"?rec_filter_disabled":"rec_filter_disabled"},"reserveRequestParamsTags":["data"],"skipTags":["autoBuildTag"],"ssrEnabled":true},"modSpec":"1.0","path":"//g.alicdn.com/code/npm/@ali/lzdrwb-just-for-you/2.3.1/","version":"2.3.1"},"@ali/pnpm-uni--env@1":{"debug":true,"group":"tm","ignorePackageNameInUri":true,"modSpec":"1.0","path":"//g.alicdn.com/code/npm/@ali/pnpm-uni--env/1.0.6/","version":"1.0.6"},"@ali/rax-pkg-rax":{"debug":true,"group":"tm","ignorePackageNameInUri":true,"modSpec":"1.0","path":"//g.alicdn.com/rax-pkg/rax/1.2.3/","version":"1.2.3"},"@ali/rax-pkg-rax-children":{"debug":true,"group":"tm","ignorePackageNameInUri":true,"path":"//g.alicdn.com/rax-pkg/rax-children/1.0.0/","version":"1.0.0"},"@ali/rax-pkg-rax-clone-element":{"debug":true,"group":"tm","ignorePackageNameInUri":true,"path":"//g.alicdn.com/rax-pkg/rax-clone-element/1.0.0/","version":"1.0.0"},"@ali/rax-pkg-rax-create-factory":{"debug":true,"group":"tm","ignorePackageNameInUri":true,"path":"//g.alicdn.com/rax-pkg/rax-create-factory/1.0.0/","version":"1.0.0"},"@ali/rax-pkg-rax-image@2":{"debug":true,"group":"tm","ignorePackageNameInUri":true,"modSpec":"1.0","path":"//g.alicdn.com/rax-pkg/rax-image/2.2.6/","version":"2.2.6"},"@ali/rax-pkg-rax-is-valid-element":{"debug":true,"group":"tm","ignorePackageNameInUri":true,"path":"//g.alicdn.com/rax-pkg/rax-is-valid-element/1.0.0/","version":"1.0.0"},"@ali/rax-pkg-rax-link":{"debug":true,"group":"tm","ignorePackageNameInUri":true,"modSpec":"1.0","path":"//g.alicdn.com/rax-pkg/rax-link/1.4.4/","version":"1.4.4"},"@ali/rax-pkg-rax-swiper@0":{"debug":true,"group":"tm","ignorePackageNameInUri":true,"modSpec":"1.0","path":"//g.alicdn.com/rax-pkg/rax-swiper/0.2.2/","version":"0.2.2"},"@ali/rax-pkg-rax-text":{"debug":true,"group":"tm","ignorePackageNameInUri":true,"path":"//g.alicdn.com/rax-pkg/rax-text/1.0.2/","version":"1.0.2"},"@ali/rax-pkg-rax-text@2":{"debug":true,"group":"tm","ignorePackageNameInUri":true,"modSpec":"1.0","path":"//g.alicdn.com/rax-pkg/rax-text/2.2.0/","version":"2.2.0"},"@ali/rax-pkg-rax-unmount-component-at-node":{"debug":true,"group":"tm","ignorePackageNameInUri":true,"path":"//g.alicdn.com/rax-pkg/rax-unmount-component-at-node/1.0.0/","version":"1.0.0"},"@ali/rax-pkg-rax-view@2":{"debug":true,"group":"tm","ignorePackageNameInUri":true,"modSpec":"1.0","path":"//g.alicdn.com/rax-pkg/rax-view/2.3.0/","version":"2.3.0"},"@ali/rax-pkg-universal-env":{"debug":true,"group":"tm","ignorePackageNameInUri":true,"modSpec":"1.0","path":"//g.alicdn.com/rax-pkg/universal-env/3.3.3/","version":"3.3.3"},"@ali/psolution-gcp-solution":{"debug":true,"ignorePackageNameInUri":true,"version":"2.0.52","path":"//g.alicdn.com/psolution/gcp-solution/2.0.52/","group":"tm","modSpec":"1.0"},"@ali/mui-feloader":{"debug":true,"group":"tm","ignorePackageNameInUri":true,"path":"//g.alicdn.com/mui/feloader/5.0.5/","version":"5.0.5","name":"@ali/mui-feloader","base":"//g.alicdn.com/mui/feloader/5.0.5/"},"@ali/gcom-lzd-data-prefetch":{"debug":true,"ignorePackageNameInUri":true,"version":"1.4.0","path":"//g.alicdn.com/code/npm/@ali/gcom-lzd-data-prefetch/1.4.0/","group":"tm","name":"@ali/gcom-lzd-data-prefetch","base":"//g.alicdn.com/code/npm/@ali/gcom-lzd-data-prefetch/1.4.0/"},"@ali/gcom-lzd-render-v3":{"debug":true,"ignorePackageNameInUri":true,"version":"1.0.110","path":"//g.alicdn.com/code/npm/@ali/gcom-lzd-render-v3/1.0.110/","group":"tm","name":"@ali/gcom-lzd-render-v3","base":"//g.alicdn.com/code/npm/@ali/gcom-lzd-render-v3/1.0.110/"}},"modules":{"@ali/lzdrwb-error-notice/index":{"requires":["@ali/pnpm-react@18/index","@ali/pnpm-react@18/jsx-runtime","./vendor.cjs.es5.production","./index.cjs.es5.production.css"]},"@ali/lzdrwb-error-notice/index-pc":{"requires":["@ali/pnpm-react@18/index","@ali/pnpm-react@18/jsx-runtime","./vendor.cjs.es5.production","./index-pc.cjs.es5.production.css"]},"@ali/lzdrwb-error-notice/index-cov__v1":{"requires":["@ali/pnpm-react@18/index","@ali/pnpm-react@18/jsx-runtime","./vendor.cjs.es5.production"]},"@ali/lzdrwb-error-notice/index-pc-cov__v1":{"requires":["@ali/pnpm-react@18/index","@ali/pnpm-react@18/jsx-runtime","./vendor.cjs.es5.production"]},"@ali/lzdrwb-error-notice/vendor.cjs.es5.production":{"requires":["@ali/pnpm-react@18/jsx-runtime"]},"@ali/lzdrwb-error-notice/index-es6":{"requires":["@ali/pnpm-react@18/index-es6","@ali/pnpm-react@18/jsx-runtime","./vendor.cjs.es2017.production","./index-es6.cjs.es2017.production.css"]},"@ali/lzdrwb-error-notice/index-pc-es6":{"requires":["@ali/pnpm-react@18/index-es6","@ali/pnpm-react@18/jsx-runtime","./vendor.cjs.es2017.production","./index-pc-es6.cjs.es2017.production.css"]},"@ali/lzdrwb-error-notice/index-es6-cov__v1":{"requires":["@ali/pnpm-react@18/index-es6","@ali/pnpm-react@18/jsx-runtime","./vendor.cjs.es2017.production"]},"@ali/lzdrwb-error-notice/index-pc-es6-cov__v1":{"requires":["@ali/pnpm-react@18/index-es6","@ali/pnpm-react@18/jsx-runtime","./vendor.cjs.es2017.production"]},"@ali/lzdrwb-error-notice/vendor.cjs.es2017.production":{"requires":["@ali/pnpm-react@18/jsx-runtime"]},"@ali/gcom-gcp-rax-link/index":{"requires":["@ali/rax-pkg-rax/index","@ali/gcom-gcp-rax-text/index"]},"@ali/gcom-gcp-rax-link/index-es6":{"requires":["@ali/rax-pkg-rax/index-es6","@ali/gcom-gcp-rax-text/index-es6"]},"@ali/gcom-gcp-rax-link/index-weex":{"requires":["@ali/rax-pkg-rax/index-weex","@ali/gcom-gcp-rax-text/index-weex"]},"@ali/gcom-gcp-rax-text/index":{"requires":["@ali/rax-pkg-rax/index","@ali/rax-pkg-rax-text/index"]},"@ali/gcom-gcp-rax-text/index-es6":{"requires":["@ali/rax-pkg-rax/index-es6","@ali/rax-pkg-rax-text/index-es6"]},"@ali/gcom-gcp-rax-text/index-weex":{"requires":["@ali/rax-pkg-rax/index-weex","@ali/rax-pkg-rax-text/index-weex"]},"@ali/gcom-gcp-rax-view/index":{"requires":["@ali/rax-pkg-rax/index","@ali/rax-pkg-universal-env/index"]},"@ali/gcom-gcp-rax-view/index-es6":{"requires":["@ali/rax-pkg-rax/index-es6","@ali/rax-pkg-universal-env/index-es6"]},"@ali/gcom-gcp-rax-view/index-weex":{"requires":["@ali/rax-pkg-rax/index-weex","@ali/rax-pkg-universal-env/index-weex"]},"@ali/gcom-lzd-base-component-badge/index":{"requires":["@ali/rax-pkg-rax/index","@ali/gcom-lzd-rax-view/index","@ali/gcom-rax-picture/index"]},"@ali/gcom-lzd-base-component-badge/index-es6":{"requires":["@ali/rax-pkg-rax/index-es6","@ali/gcom-lzd-rax-view/index-es6","@ali/gcom-rax-picture/index-es6"]},"@ali/gcom-lzd-base-component-benefit-v2/index":{"requires":["@ali/rax-pkg-rax/index","@ali/gcom-lzd-rax-view/index","@ali/gcom-rax-text-v1/index","@ali/flute-i18n/index","@ali/gcom-rax-picture/index","@ali/lzdmod-common-info/index"]},"@ali/gcom-lzd-base-component-benefit-v2/index-es6":{"requires":["@ali/rax-pkg-rax/index-es6","@ali/gcom-lzd-rax-view/index-es6","@ali/gcom-rax-text-v1/index-es6","@ali/flute-i18n/index-es6","@ali/gcom-rax-picture/index-es6","@ali/lzdmod-common-info/index-es6"]},"@ali/gcom-lzd-base-component-button/index":{"requires":["@ali/rax-pkg-rax/index","@ali/gcom-lzd-rax-view/index","@ali/rax-pkg-rax-image@2/index","@ali/rax-pkg-rax-text@2/index","@ali/flute-i18n/index","@ali/lzdmod-common-info/index"]},"@ali/gcom-lzd-base-component-button/index-es6":{"requires":["@ali/rax-pkg-rax/index-es6","@ali/gcom-lzd-rax-view/index-es6","@ali/rax-pkg-rax-image@2/index-es6","@ali/rax-pkg-rax-text@2/index-es6","@ali/flute-i18n/index-es6","@ali/lzdmod-common-info/index-es6"]},"@ali/gcom-lzd-base-component-dynamic-wrapper-v2/index":{"requires":["@ali/gcom-lzd-mtop/index"]},"@ali/gcom-lzd-base-component-dynamic-wrapper-v2/index-es6":{"requires":["@ali/gcom-lzd-mtop/index-es6"]},"@ali/gcom-lzd-base-component-dynamic-wrapper-v2/index-weex":{"requires":["@ali/gcom-lzd-mtop/index-weex"]},"@ali/gcom-lzd-base-component-evaluation2/index":{"requires":["@ali/rax-pkg-rax/index","@ali/gcom-lzd-rax-view/index","@ali/gcom-rax-picture/index","@ali/flute-i18n/index","@ali/gcom-lzd-base-component-toolkit/index","@ali/rax-pkg-rax-unmount-component-at-node/index","@ali/gcom-lzd-base-component-button/index"]},"@ali/gcom-lzd-base-component-evaluation2/index-es6":{"requires":["@ali/rax-pkg-rax/index-es6","@ali/gcom-lzd-rax-view/index-es6","@ali/gcom-rax-picture/index-es6","@ali/flute-i18n/index-es6","@ali/gcom-lzd-base-component-toolkit/index-es6","@ali/rax-pkg-rax-unmount-component-at-node/index-es6","@ali/gcom-lzd-base-component-button/index-es6"]},"@ali/gcom-lzd-base-component-jfy-product-card/index":{"requires":["@ali/rax-pkg-rax/index","@ali/flute-i18n/index","@ali/gcom-lzd-base-component-benefit-v2/index","@ali/gcom-rax-picture/index","@ali/gcom-lzd-base-component-product-image-v2/index","@ali/gcom-lzd-base-component-price2/index","@ali/gcom-lzd-base-component-title/index","@ali/gcom-lzd-base-component-evaluation2/index","@ali/gcom-lzd-base-component-toolkit/index","@ali/gcom-lzd-rax-view/index"]},"@ali/gcom-lzd-base-component-jfy-product-card/index-es6":{"requires":["@ali/rax-pkg-rax/index-es6","@ali/flute-i18n/index-es6","@ali/gcom-lzd-base-component-benefit-v2/index-es6","@ali/gcom-rax-picture/index-es6","@ali/gcom-lzd-base-component-product-image-v2/index-es6","@ali/gcom-lzd-base-component-price2/index-es6","@ali/gcom-lzd-base-component-title/index-es6","@ali/gcom-lzd-base-component-evaluation2/index-es6","@ali/gcom-lzd-base-component-toolkit/index-es6","@ali/gcom-lzd-rax-view/index-es6"]},"@ali/gcom-lzd-base-component-jfy-with-long-press/index":{"requires":["@ali/rax-pkg-rax/index","@ali/gcom-lzd-rax-view/index","@ali/gcom-lzd-env/index"]},"@ali/gcom-lzd-base-component-jfy-with-long-press/index-es6":{"requires":["@ali/rax-pkg-rax/index-es6","@ali/gcom-lzd-rax-view/index-es6","@ali/gcom-lzd-env/index-es6"]},"@ali/gcom-lzd-base-component-price2/index":{"requires":["@ali/rax-pkg-rax/index","@ali/gcom-lzd-rax-view/index","@ali/gcom-lzd-base-component-toolkit/index"]},"@ali/gcom-lzd-base-component-price2/index-es6":{"requires":["@ali/rax-pkg-rax/index-es6","@ali/gcom-lzd-rax-view/index-es6","@ali/gcom-lzd-base-component-toolkit/index-es6"]},"@ali/gcom-lzd-base-component-product-image-v2/index":{"requires":["@ali/rax-pkg-rax/index","@ali/gcom-lzd-rax-view/index","@ali/gcom-rax-text-v1/index","@ali/gcom-rax-picture/index","@ali/flute-i18n/index","@ali/rax-pkg-rax-link/index"]},"@ali/gcom-lzd-base-component-product-image-v2/index-es6":{"requires":["@ali/rax-pkg-rax/index-es6","@ali/gcom-lzd-rax-view/index-es6","@ali/gcom-rax-text-v1/index-es6","@ali/gcom-rax-picture/index-es6","@ali/flute-i18n/index-es6","@ali/rax-pkg-rax-link/index-es6"]},"@ali/gcom-lzd-base-component-title-bar/index":{"requires":["@ali/rax-pkg-rax/index","@ali/gcom-lzd-rax-view/index","@ali/gcom-rax-text-v1/index","@ali/gcom-lzd-resize/index","@ali/rax-pkg-rax-link/index","@ali/flute-i18n/index"]},"@ali/gcom-lzd-base-component-title-bar/index-es6":{"requires":["@ali/rax-pkg-rax/index-es6","@ali/gcom-lzd-rax-view/index-es6","@ali/gcom-rax-text-v1/index-es6","@ali/gcom-lzd-resize/index-es6","@ali/rax-pkg-rax-link/index-es6","@ali/flute-i18n/index-es6"]},"@ali/gcom-lzd-base-component-title/index":{"requires":["@ali/rax-pkg-rax/index","@ali/gcom-rax-picture/index","@ali/rax-pkg-rax-swiper@0/index"]},"@ali/gcom-lzd-base-component-title/index-es6":{"requires":["@ali/rax-pkg-rax/index-es6","@ali/gcom-rax-picture/index-es6","@ali/rax-pkg-rax-swiper@0/index-es6"]},"@ali/gcom-lzd-base-component-toolkit/index":{"requires":["@ali/gcom-lzd-version-compare/index"]},"@ali/gcom-lzd-base-component-toolkit/index-es6":{"requires":["@ali/gcom-lzd-version-compare/index-es6"]},"@ali/gcom-lzd-rax-view/index":{"requires":["@ali/rax-pkg-rax/index"]},"@ali/gcom-lzd-rax-view/index-es6":{"requires":["@ali/rax-pkg-rax/index-es6"]},"@ali/gcom-lzd-rax-view/index-weex":{"requires":["@ali/rax-pkg-rax/index-weex"]},"@ali/gcom-lzd-search-fxb/index":{"requires":["@ali/rax-pkg-rax/index","@ali/gcom-gcp-rax-view/index","@ali/gcom-gcp-rax-text/index","@ali/flute-i18n/index","@ali/gcom-rax-picture/index","@ali/gcom-gcp-rax-link/index"]},"@ali/gcom-lzd-search-fxb/index-es6":{"requires":["@ali/rax-pkg-rax/index-es6","@ali/gcom-gcp-rax-view/index-es6","@ali/gcom-gcp-rax-text/index-es6","@ali/flute-i18n/index-es6","@ali/gcom-rax-picture/index-es6","@ali/gcom-gcp-rax-link/index-es6"]},"@ali/gcom-lzd-search-fxb/index-weex":{"requires":["@ali/rax-pkg-rax/index-weex","@ali/gcom-gcp-rax-view/index-weex","@ali/gcom-gcp-rax-text/index-weex","@ali/flute-i18n/index-weex","@ali/gcom-rax-picture/index-weex","@ali/gcom-gcp-rax-link/index-weex"]},"@ali/gcom-rax-picture/index":{"requires":["@ali/rax-pkg-rax/index","@ali/rax-pkg-rax-view@2/index","@ali/rax-pkg-rax-image@2/index","@ali/gcom-lzd-env/index","@ali/gcom-lzd-resize/index"]},"@ali/gcom-rax-picture/index-es6":{"requires":["@ali/rax-pkg-rax/index-es6","@ali/rax-pkg-rax-view@2/index-es6","@ali/rax-pkg-rax-image@2/index-es6","@ali/gcom-lzd-env/index-es6","@ali/gcom-lzd-resize/index-es6"]},"@ali/gcom-rax-text-v1/index":{"requires":["@ali/rax-pkg-rax/index"]},"@ali/gcom-rax-text-v1/index-es6":{"requires":["@ali/rax-pkg-rax/index-es6"]},"@ali/lzdrwb-just-for-you/index":{"requires":["@ali/rax-pkg-rax/index","@ali/gcom-lzd-rax-view/index","@ali/rax-pkg-rax-text@2/index","@ali/gcom-rax-picture/index","@ali/gcom-lzd-base-component-title-bar/index","@ali/gcom-lzd-base-component-dynamic-wrapper-v2/index","@ali/gcom-lzd-push/index","@ali/rax-pkg-rax-link/index","@ali/gcom-lzd-search-fxb/index","@ali/gcom-lzd-base-component-jfy-with-long-press/index","@ali/gcom-lzd-base-component-jfy-product-card/index","@ali/flute-i18n/index","@ali/gcom-lzd-env/index"]},"@ali/lzdrwb-just-for-you/index-cov__v1":{"requires":["@ali/rax-pkg-rax/index","@ali/gcom-lzd-rax-view/index","@ali/rax-pkg-rax-text@2/index","@ali/gcom-rax-picture/index","@ali/gcom-lzd-base-component-title-bar/index","@ali/gcom-lzd-base-component-dynamic-wrapper-v2/index","@ali/gcom-lzd-push/index","@ali/rax-pkg-rax-link/index","@ali/gcom-lzd-search-fxb/index","@ali/gcom-lzd-base-component-jfy-with-long-press/index","@ali/gcom-lzd-base-component-jfy-product-card/index","@ali/flute-i18n/index","@ali/gcom-lzd-env/index"]},"@ali/lzdrwb-just-for-you/index-es6":{"requires":["@ali/rax-pkg-rax/index-es6","@ali/gcom-lzd-rax-view/index-es6","@ali/rax-pkg-rax-text@2/index-es6","@ali/gcom-rax-picture/index-es6","@ali/gcom-lzd-base-component-title-bar/index-es6","@ali/gcom-lzd-base-component-dynamic-wrapper-v2/index-es6","@ali/gcom-lzd-push/index-es6","@ali/rax-pkg-rax-link/index-es6","@ali/gcom-lzd-search-fxb/index-es6","@ali/gcom-lzd-base-component-jfy-with-long-press/index-es6","@ali/gcom-lzd-base-component-jfy-product-card/index-es6","@ali/flute-i18n/index-es6","@ali/gcom-lzd-env/index-es6"]},"@ali/lzdrwb-just-for-you/index-es6-cov__v1":{"requires":["@ali/rax-pkg-rax/index-es6","@ali/gcom-lzd-rax-view/index-es6","@ali/rax-pkg-rax-text@2/index-es6","@ali/gcom-rax-picture/index-es6","@ali/gcom-lzd-base-component-title-bar/index-es6","@ali/gcom-lzd-base-component-dynamic-wrapper-v2/index-es6","@ali/gcom-lzd-push/index-es6","@ali/rax-pkg-rax-link/index-es6","@ali/gcom-lzd-search-fxb/index-es6","@ali/gcom-lzd-base-component-jfy-with-long-press/index-es6","@ali/gcom-lzd-base-component-jfy-product-card/index-es6","@ali/flute-i18n/index-es6","@ali/gcom-lzd-env/index-es6"]},"@ali/lzdrwb-just-for-you/index-pc":{"requires":["@ali/rax-pkg-rax/index","@ali/gcom-lzd-rax-view/index","@ali/rax-pkg-rax-text@2/index","@ali/gcom-rax-picture/index","@ali/flute-i18n/index","@ali/gcom-lzd-base-component-title-bar/index","@ali/gcom-lzd-base-component-dynamic-wrapper-v2/index","@ali/rax-pkg-rax-link/index","@ali/gcom-lzd-base-component-product-image-v2/index","@ali/gcom-lzd-base-component-badge/index","@ali/gcom-lzd-base-component-price2/index","@ali/gcom-lzd-base-component-benefit-v2/index","@ali/gcom-lzd-base-component-evaluation2/index","@ali/gcom-lzd-env/index"]},"@ali/lzdrwb-just-for-you/index-pc-cov__v1":{"requires":["@ali/rax-pkg-rax/index","@ali/gcom-lzd-rax-view/index","@ali/rax-pkg-rax-text@2/index","@ali/gcom-rax-picture/index","@ali/flute-i18n/index","@ali/gcom-lzd-base-component-title-bar/index","@ali/gcom-lzd-base-component-dynamic-wrapper-v2/index","@ali/rax-pkg-rax-link/index","@ali/gcom-lzd-base-component-product-image-v2/index","@ali/gcom-lzd-base-component-badge/index","@ali/gcom-lzd-base-component-price2/index","@ali/gcom-lzd-base-component-benefit-v2/index","@ali/gcom-lzd-base-component-evaluation2/index","@ali/gcom-lzd-env/index"]},"@ali/lzdrwb-just-for-you/index-weex":{"requires":["@ali/rax-pkg-rax/index-weex","@ali/gcom-lzd-rax-view/index-weex","@ali/rax-pkg-rax-text@2/index-weex","@ali/gcom-rax-picture/index-weex","@ali/gcom-lzd-base-component-title-bar/index-weex","@ali/gcom-lzd-base-component-dynamic-wrapper-v2/index-weex","@ali/gcom-lzd-push/index-weex","@ali/rax-pkg-rax-link/index-weex","@ali/gcom-lzd-search-fxb/index-weex","@ali/gcom-lzd-base-component-jfy-with-long-press/index-weex","@ali/gcom-lzd-base-component-jfy-product-card/index-weex","@ali/flute-i18n/index-weex","@ali/gcom-lzd-env/index-weex"]},"@ali/lzdrwb-just-for-you/index-weex-cov__v1":{"requires":["@ali/rax-pkg-rax/index-weex","@ali/gcom-lzd-rax-view/index-weex","@ali/rax-pkg-rax-text@2/index-weex","@ali/gcom-rax-picture/index-weex","@ali/gcom-lzd-base-component-title-bar/index-weex","@ali/gcom-lzd-base-component-dynamic-wrapper-v2/index-weex","@ali/gcom-lzd-push/index-weex","@ali/rax-pkg-rax-link/index-weex","@ali/gcom-lzd-search-fxb/index-weex","@ali/gcom-lzd-base-component-jfy-with-long-press/index-weex","@ali/gcom-lzd-base-component-jfy-product-card/index-weex","@ali/flute-i18n/index-weex","@ali/gcom-lzd-env/index-weex"]},"@ali/rax-pkg-rax-children/index":{"requires":["@ali/rax-pkg-rax/index"]},"@ali/rax-pkg-rax-children/index-es6":{"requires":["@ali/rax-pkg-rax/index-es6"]},"@ali/rax-pkg-rax-children/index-weex":{"requires":["@ali/rax-pkg-rax/index-weex"]},"@ali/rax-pkg-rax-clone-element/index":{"requires":["@ali/rax-pkg-rax/index","@ali/rax-pkg-rax-is-valid-element/index"]},"@ali/rax-pkg-rax-clone-element/index-es6":{"requires":["@ali/rax-pkg-rax/index-es6","@ali/rax-pkg-rax-is-valid-element/index-es6"]},"@ali/rax-pkg-rax-clone-element/index-weex":{"requires":["@ali/rax-pkg-rax/index-weex","@ali/rax-pkg-rax-is-valid-element/index-weex"]},"@ali/rax-pkg-rax-create-factory/index":{"requires":["@ali/rax-pkg-rax/index"]},"@ali/rax-pkg-rax-create-factory/index-es6":{"requires":["@ali/rax-pkg-rax/index-es6"]},"@ali/rax-pkg-rax-create-factory/index-weex":{"requires":["@ali/rax-pkg-rax/index-weex"]},"@ali/rax-pkg-rax-image@2/index":{"requires":["@ali/rax-pkg-rax/index","@ali/rax-pkg-universal-env/index"]},"@ali/rax-pkg-rax-image@2/index-es6":{"requires":["@ali/rax-pkg-rax/index-es6","@ali/rax-pkg-universal-env/index-es6"]},"@ali/rax-pkg-rax-image@2/index-weex":{"requires":["@ali/rax-pkg-rax/index-weex","@ali/rax-pkg-universal-env/index-weex"]},"@ali/rax-pkg-rax-link/index":{"requires":["@ali/rax-pkg-rax/index","@ali/rax-pkg-universal-env/index"]},"@ali/rax-pkg-rax-link/index-es6":{"requires":["@ali/rax-pkg-rax/index-es6","@ali/rax-pkg-universal-env/index-es6"]},"@ali/rax-pkg-rax-link/index-weex":{"requires":["@ali/rax-pkg-rax/index-weex","@ali/rax-pkg-universal-env/index-weex"]},"@ali/rax-pkg-rax-swiper@0/index":{"requires":["@ali/rax-pkg-rax/index","@ali/rax-pkg-rax-clone-element/index","@ali/rax-pkg-rax-children/index","@ali/rax-pkg-rax-swiper@0/index.css"]},"@ali/rax-pkg-rax-swiper@0/index-es6":{"requires":["@ali/rax-pkg-rax/index-es6","@ali/rax-pkg-rax-clone-element/index-es6","@ali/rax-pkg-rax-children/index-es6","@ali/rax-pkg-rax-swiper@0/index-es6.css"]},"@ali/rax-pkg-rax-swiper@0/index-weex":{"requires":["@ali/rax-pkg-rax/index-weex","@ali/rax-pkg-rax-clone-element/index-weex","@ali/rax-pkg-rax-children/index-weex"]},"@ali/rax-pkg-rax-text/index":{"requires":["@ali/rax-pkg-rax/index"]},"@ali/rax-pkg-rax-text/index-es6":{"requires":["@ali/rax-pkg-rax/index-es6"]},"@ali/rax-pkg-rax-text/index-weex":{"requires":["@ali/rax-pkg-rax/index-weex"]},"@ali/rax-pkg-rax-text@2/index":{"requires":["@ali/rax-pkg-rax/index","@ali/rax-pkg-universal-env/index","@ali/rax-pkg-rax-text@2/index.css"]},"@ali/rax-pkg-rax-text@2/index-es6":{"requires":["@ali/rax-pkg-rax/index-es6","@ali/rax-pkg-universal-env/index-es6","@ali/rax-pkg-rax-text@2/index-es6.css"]},"@ali/rax-pkg-rax-text@2/index-weex":{"requires":["@ali/rax-pkg-rax/index-weex","@ali/rax-pkg-universal-env/index-weex"]},"@ali/rax-pkg-rax-unmount-component-at-node/index":{"requires":["@ali/rax-pkg-rax/index"]},"@ali/rax-pkg-rax-unmount-component-at-node/index-es6":{"requires":["@ali/rax-pkg-rax/index-es6"]},"@ali/rax-pkg-rax-unmount-component-at-node/index-weex":{"requires":["@ali/rax-pkg-rax/index-weex"]},"@ali/rax-pkg-rax-view@2/index":{"requires":["@ali/rax-pkg-rax/index","@ali/rax-pkg-universal-env/index","@ali/rax-pkg-rax-view@2/index.css"]},"@ali/rax-pkg-rax-view@2/index-es6":{"requires":["@ali/rax-pkg-rax/index-es6","@ali/rax-pkg-universal-env/index-es6","@ali/rax-pkg-rax-view@2/index-es6.css"]},"@ali/rax-pkg-rax-view@2/index-weex":{"requires":["@ali/rax-pkg-rax/index-weex","@ali/rax-pkg-universal-env/index-weex"]},"@ali/rax-pkg-universal-env/index":{"requires":["@ali/pnpm-uni--env@1/index"]},"@ali/rax-pkg-universal-env/index-es6":{"requires":["@ali/pnpm-uni--env@1/index-es6"]},"@ali/rax-pkg-universal-env/index-weex":{"requires":["@ali/pnpm-uni--env@1/index-weex"]},"@ali/gcom-lzd-mtop/index":{"requires":["@ali/gcom-lzd-cookie/index","@ali/gcom-lzd-env/index","@ali/gcom-jsonp/index"]},"@ali/gcom-lzd-mtop/index-es6":{"requires":["@ali/gcom-lzd-cookie/index-es6","@ali/gcom-lzd-env/index-es6","@ali/gcom-jsonp/index-es6"]},"@ali/gcom-lzd-data-prefetch/index":{"requires":["@ali/gcom-lzd-qs/index","@ali/gcom-lzd-env/index","@ali/gcom-lzd-mtop/index"]},"@ali/gcom-lzd-data-prefetch/index-es6":{"requires":["@ali/gcom-lzd-qs/index-es6","@ali/gcom-lzd-env/index-es6","@ali/gcom-lzd-mtop/index-es6"]},"@ali/gcom-lzd-device/index":{"requires":["@ali/gcom-lzd-env/index","@ali/gcom-lzd-version-compare/index"]},"@ali/gcom-lzd-device/index-es6":{"requires":["@ali/gcom-lzd-env/index-es6","@ali/gcom-lzd-version-compare/index-es6"]},"@ali/gcom-lzd-push/index":{"requires":["@ali/gcom-lzd-qs/index","@ali/gcom-lzd-env/index","@ali/gcom-lzd-version-compare/index","@ali/gcom-lzd-device/index"]},"@ali/gcom-lzd-push/index-es6":{"requires":["@ali/gcom-lzd-qs/index-es6","@ali/gcom-lzd-env/index-es6","@ali/gcom-lzd-version-compare/index-es6","@ali/gcom-lzd-device/index-es6"]},"@ali/gcom-lzd-env/index":{"requires":["@ali/gcom-lzd-sites/index","@ali/gcom-lzd-cookie/index"]},"@ali/gcom-lzd-env/index-es6":{"requires":["@ali/gcom-lzd-sites/index-es6","@ali/gcom-lzd-cookie/index-es6"]},"@ali/gcom-lzd-resize/index":{"requires":["@ali/gcom-lzd-env/index"]},"@ali/gcom-lzd-resize/index-es6":{"requires":["@ali/gcom-lzd-env/index-es6"]},"@ali/pnpm-react@18/index":{"requires":["./6a96e9f5"]},"@ali/pnpm-react@18/jsx-runtime":{"requires":["./6a96e9f5"]},"@ali/pnpm-react@18/index-es6":{"requires":["./b10746f3"]},"@ali/pnpm-react@18/jsx-runtime-es6":{"requires":["./b10746f3"]},"@ali/pnpm-react-dom@18/index":{"requires":["./280b565f"]},"@ali/pnpm-react-dom@18/client":{"requires":["./280b565f"]},"@ali/pnpm-react-dom@18/index-es6":{"requires":["./50618344"]},"@ali/pnpm-react-dom@18/client-es6":{"requires":["./50618344"]},"@ali/gcom-lzd-render-v3/index":{"requires":["@ali/pnpm-react@18/index","@ali/pnpm-react-dom@18/client","@ali/pnpm-react-dom@18/index","@ali/gcom-lzd-env/index","@ali/gcom-lzd-cookie/index","@ali/gcom-lzd-data-prefetch/index","@ali/gcom-lzd-resize/index","@ali/pnpm-react@18/jsx-runtime","@ali/gcom-lzd-device/index","@ali/gcom-lzd-sites/index","@ali/gcom-lzd-push/index","./index.css"]},"@ali/gcom-lzd-render-v3/index-es6":{"requires":["@ali/pnpm-react@18/index-es6","@ali/pnpm-react-dom@18/client","@ali/pnpm-react-dom@18/index-es6","@ali/gcom-lzd-env/index-es6","@ali/gcom-lzd-cookie/index-es6","@ali/gcom-lzd-data-prefetch/index-es6","@ali/gcom-lzd-resize/index-es6","@ali/pnpm-react@18/jsx-runtime","@ali/gcom-lzd-device/index-es6","@ali/gcom-lzd-sites/index-es6","@ali/gcom-lzd-push/index-es6","./index-es6.css"]}},"combine":true,"crossorigin":true,"forceAssetsHost":"g.lazcdn.com/g"};</script>
+<script src="//g.lazcdn.com/g/??mui/feloader/5.0.5/feloader-min.js,code/npm/@ali/pnpm-react/18.2.0/6a96e9f5.js,code/npm/@ali/pnpm-react/18.2.0/index.js,code/npm/@ali/pnpm-react-dom/18.2.1/280b565f.js,code/npm/@ali/pnpm-react-dom/18.2.1/client.js,code/npm/@ali/pnpm-react-dom/18.2.1/index.js,code/npm/@ali/gcom-lzd-sites/1.7.0/index.js,code/npm/@ali/gcom-lzd-cookie/1.7.0/index.js,code/npm/@ali/gcom-lzd-env/1.5.0/index.js,code/npm/@ali/gcom-lzd-qs/1.3.4/index.js,code/npm/@ali/gcom-jsonp/1.3.0/index.js,code/npm/@ali/gcom-lzd-mtop/1.2.15/index.js,code/npm/@ali/gcom-lzd-data-prefetch/1.4.0/index.js,code/npm/@ali/gcom-lzd-resize/1.5.4/index.js,code/npm/@ali/pnpm-react/18.2.0/jsx-runtime.js,code/npm/@ali/gcom-lzd-version-compare/1.4.0/index.js,code/npm/@ali/gcom-lzd-device/0.0.1/index.js,code/npm/@ali/gcom-lzd-push/0.0.16/index.js,code/npm/@ali/gcom-lzd-render-v3/1.0.110/index.js" crossorigin="anonymous"></script>
+        
+        
+        
+          
+  
+
+  
+  
+
+  
+
+  
+    
+  
+
+  
+    
+    
+    
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+    
+      
+    
+  
+	
+  
+
+  
+  
+  
+	<script>
+    window.g_config = window.g_config || {};
+    window.g_config.wh_project = "daraz";
+    window.g_config.pageType = "default";
+    window.g_config.channel = "default";
+    window.g_config.language = "bn";
+    window.g_config.regionID = "BD";
+    window.g_config.channelEnv = "product";
+    window.g_config.showPcSearchboxHotWords = false;
+    window.g_config.newPcHeadFoot = true;
+  </script>
+
+		<script>
+			console.log('[header debug data]:', 'footer start');
+		</script>
+		
+
+		
+			
+		
+
+	
+    
+	
+		
+	<section class="new-desktop-footer daraz-pc-theme-style" data-config="{}">
+	
+		<div class="footer-first">
+			<div class="lzd-footer-inner" data-spm="footer_top">
+				<div class="lzd-footer-width-25">
+					<h3 class="footer-title">গ্রাহক সেবা</h3>
+					<ul class="footer-list">
+						
+							<li class="footer-li"><a href="//buyer-helpcenter.daraz.com.bd/s/page">সাহায্য কেন্দ্র</a></li>
+						
+							<li class="footer-li"><a href="//helpcenter.daraz.com.bd/page/knowledge?language=en&amp;pageId=11&amp;category=1000001032&amp;scm=1003.4.icms-zebra-100022982-6850452.OTHER_6502233775_7696023&amp;knowledge=1000005321">কিভাবে কেনাকাটা করবেন</a></li>
+						
+							<li class="footer-li"><a href="https://pages.daraz.com.bd/wow/gcp/route/daraz/bd/upr/router?spm=a2a0e.tm80426660.5819486610.1.110f3edbgBqiU9&amp;hybrid=1&amp;data_prefetch=true&amp;prefetch_replace=1&amp;at_iframe=1&amp;wh_pid=/lazada/channel/bd/fmcg-offers/HowtoReturnaProduct">পণ্য রিটার্ণ ও টাকা রিফান্ড</a></li>
+						
+							<li class="footer-li"><a href="//www.daraz.com.bd/contact-us/?scm=1003.4.icms-zebra-100022982-6850452.OTHER_6502233777_7696023">আমাদের সাথে যোগাযোগ করুন</a></li>
+						
+							<li class="footer-li"><a href="//pages.daraz.com.bd/wow/gcp/route/daraz/bd/upr/router?hybrid=1&amp;data_prefetch=true&amp;prefetch_replace=1&amp;at_iframe=1&amp;wh_pid=/lazada/channel/bd/weekly-campaigns/customer-tc">নিয়ম ও শর্তাবলী</a></li>
+						
+							<li class="footer-li"><a href="//ccms.gov.bd/ticket-apply?scm=1003.4.icms-zebra-100022982-6850452.OTHER_6502233779_7696023&amp;token=DAR-3011-iIMd2">সেন্ট্রাল কমপ্লেইন ম্যানেজমেন্ট সিস্টেম</a></li>
+						
+						
+					</ul>
+				</div>
+				<div class="lzd-footer-width-25">
+					<h3 class="footer-title">দারাজ</h3>
+					<ul class="footer-list">
+						
+							<li class="footer-li">
+							
+								<a href="//www.daraz.com.bd/about-us/?scm=1003.4.icms-zebra-100022982-2888463.OTHER_6051348799_2538033">দারাজ সম্পর্কে</a>
+							
+							</li>
+						
+							<li class="footer-li">
+							
+								<a href="//pages.daraz.com.bd/wow/gcp/daraz/channel/bd/pay/daraz-pay?scm=1003.4.icms-zebra-100022982-2888463.OTHER_6051348800_2538033">ডিজিটাল পেমেন্টস</a>
+							
+							</li>
+						
+							<li class="footer-li">
+							
+								<a href="//pages.daraz.com.bd/wow/gcp/daraz/channel/bd/help-page/daraz-co-brand-card?scm=1003.4.icms-zebra-100022982-2888463.OTHER_6502124219_2538033">Daraz Card</a>
+							
+							</li>
+						
+							<li class="footer-li">
+							
+								<a href="//blog.daraz.com.bd/?scm=1003.4.icms-zebra-100022982-2888463.OTHER_6051348802_2538033">দারাজ ব্লগ</a>
+							
+							</li>
+						
+							<li class="footer-li">
+							
+								<a href="//www.daraz.com.bd/daraz-cares/?scm=1003.4.icms-zebra-100022982-2888463.OTHER_6051348803_2538033">দারাজ কেয়ার</a>
+							
+							</li>
+						
+							<li class="footer-li">
+							
+								<a href="https://pages.daraz.com.bd/wow/gcp/route/daraz/bd/upr/router?hybrid=1&amp;data_prefetch=true&amp;prefetch_replace=1&amp;at_iframe=1&amp;wh_pid=/lazada/channel/bd/weekly-campaigns/privacy-policy">সুরক্ষা নীতিমালা</a>
+							
+							</li>
+						
+							<li class="footer-li">
+							
+								<a href="//pages.daraz.com.bd/wow/gcp/daraz/channel/bd/dmart/dmart-home?scm=1003.4.icms-zebra-100022982-2888463.OTHER_6051348804_2538033">দারাজ মার্ট</a>
+							
+							</li>
+						
+							<li class="footer-li">
+							
+								<a href="//www.daraz.com.bd/mobile-apps/?scm=1003.4.icms-zebra-100022982-2888463.OTHER_6051348806_2538033">দারাজ অ্যাপ</a>
+							
+							</li>
+						
+							<li class="footer-li">
+							
+								<a href="//www.daraz.com.bd/daraz-exclusive-products/?scm=1003.4.icms-zebra-100022982-2888463.OTHER_6051348807_2538033">দারাজ এক্সক্লুসিভ</a>
+							
+							</li>
+						
+							<li class="footer-li">
+							
+								<a href="//pages.daraz.com.bd/wow/gcp/daraz/channel/bd/help-page/daraz-donation-to-make-difference?scm=1003.4.icms-zebra-100022982-2888463.OTHER_6502117438_2538033">দারাজ ডোনেট</a>
+							
+							</li>
+						
+							<li class="footer-li">
+							
+								<a href="//university.daraz.com.bd?scm=1003.4.icms-zebra-100022982-2888459.OTHER_5476361449_2538025">সেলার বিশ্ববিদ্যালয়</a>
+							
+							</li>
+						
+							<li class="footer-li">
+							
+								<a href="//sellercenter.daraz.com.bd/apps/seller/login?scm=1003.4.icms-zebra-100022982-2888459.OTHER_5476361450_2538025&amp;regist=true">দারাজে বিক্রয় করুন</a>
+							
+							</li>
+						
+							<li class="footer-li">
+							
+								<a href="//www.daraz.com.bd/wow/i/bd/help-pages/code-of-conduct?hybrid=1&amp;scm=1003.4.icms-zebra-100022982-2888459.OTHER_5476361451_2538025">আচরণ বিধি</a>
+							
+							</li>
+						
+							<li class="footer-li">
+							
+								<a href="//www.daraz.com.bd/daraz-affiliate-program/?scm=1003.4.icms-zebra-100022982-2888459.OTHER_6035955355_2538025">দারাজ অ্যাফিলিয়েট প্রোগ্রাম জয়েন করুন</a>
+							
+							</li>
+						
+					</ul>
+				</div>
+				<div class="lzd-footer-width-50">
+					
+						
+						<div class="lzd-footer-app-downloads">
+							
+								
+								
+								
+							<div class="daraz-footer-appIcon pull-left logo icon-logo-lazada-footer">
+								<img loading="lazy" src="https://img.lazcdn.com/us/domino/5edde8a0-bbf7-42cf-8799-022d5510b54b_BD-60-60.png" alt="অ্যাপ ডাউনলোড করুন" style="width: 100%; height: 100%;" />
+							</div>
+						<div class="pull-left lzd-app-download-text">
+							<div class="title">Happy Shopping</div>
+							<div class="text">অ্যাপ ডাউনলোড করুন</div>
+						</div>
+						<div class="pull-left" style="width: 290px">
+							
+								<a class="pull-left icon-appStore-footer icon-appstore-footer" data-spm-click="gostr=/lzdpub.footer.top;locaid=app_store" href="//itunes.apple.com/app/id978058048?mt=8&amp;scm=1003.4.icms-zebra-100022982-2874591.OTHER_5436817469_2538051">
+									<img loading="lazy" src="https://img.lazcdn.com/us/domino/e1486716-675d-495a-ba5f-0435b55ca3f4_BD-126-42.png" style="width: 100%; height: 100%;" alt="Apple App Download" />
+								</a>
+							
+							
+								<a class="pull-left icon-android-footer icon-appstore-footer" data-spm-click="gostr=/lzdpub.footer.top;locaid=android" href="//play.google.com/store/apps/details?id=com.daraz.android&amp;scm=1003.4.icms-zebra-100022982-2874591.OTHER_5436817469_2538051">
+									<img loading="lazy" src="https://img.lazcdn.com/us/domino/84b7eda1-c90a-4f39-b056-dbec1cc76c2f_BD-126-42.png" style="width: 100%; height: 100%;" alt="Android App Download" />
+								</a>
+							
+							
+								<a class="pull-left icon-huawei-footer" data-spm-click="gostr=/lzdpub.footer.top;locaid=huawei" href="//appgallery.huawei.com/?scm=1003.4.icms-zebra-100022982-2874591.OTHER_5436817469_2538051#/app/C100948133">
+									<img loading="lazy" src="https://img.lazcdn.com/us/domino/38759af8-163f-4d76-99d4-bc69cfe2e324_BD-126-42.png" style="width: 100%; height: 100%;" alt="Huawei App Download" />
+								</a>
+							
+							</div>
+						</div>
+						<div class="clear"></div>
+						
+					
+				</div>
+			</div>
+		</div>
+	
+	<div class="footer-second"><div class="lzd-footer-inner">
+    
+        <div class="lzd-footer-width-32">
+            <h3 class="lzd-footer-h3">পেমেন্ট মেথডসমূহ</h3>
+            <div class="payment-card-list payment-card-list-daraz">
+              
+                <span class="lzd-icon-payment lzd-icon-payment-daraz">
+                  
+                    <img loading="lazy" src="https://img.lazcdn.com/us/domino/dd7d3db1-047c-4e65-b89e-d710eb539976_BD-139-84.png" alt="cod" style="height: 28px; width: 100%"/>
+                  
+                </span>
+              
+                <span class="lzd-icon-payment lzd-icon-payment-daraz">
+                  
+                    <img loading="lazy" src="https://img.lazcdn.com/us/domino/27fcee2a-7768-48b2-b369-faf91829bf76_BD-140-84.png" alt="visa" style="height: 28px; width: 100%"/>
+                  
+                </span>
+              
+                <span class="lzd-icon-payment lzd-icon-payment-daraz">
+                  
+                    <img loading="lazy" src="https://img.lazcdn.com/us/domino/e369d9f9-eb41-428c-b0c2-07bd60ffdc6e_BD-63-48.png" alt="master-card" style="height: 28px; width: 100%"/>
+                  
+                </span>
+              
+                <span class="lzd-icon-payment lzd-icon-payment-daraz">
+                  
+                    <img loading="lazy" src="https://img.lazcdn.com/us/domino/29d575f6-594f-4f9f-82f3-dbbe78a4ae0e_BD-145-84.png" alt="american-express" style="height: 28px; width: 100%"/>
+                  
+                </span>
+              
+                <span class="lzd-icon-payment lzd-icon-payment-daraz">
+                  
+                    <img loading="lazy" src="https://img.lazcdn.com/us/domino/9fcd39bd-e3e2-49f0-ad52-bfe54080562d_BD-144-84.png" alt="easy-monthly-installments" style="height: 28px; width: 100%"/>
+                  
+                </span>
+              
+                <span class="lzd-icon-payment lzd-icon-payment-daraz">
+                  
+                    <img loading="lazy" src="https://img.lazcdn.com/us/domino/dbfdbbea-19ca-4be1-9b8f-ecb1fabdc6f7_BD-145-86.png" alt="bKash" style="height: 28px; width: 100%"/>
+                  
+                </span>
+              
+                <span class="lzd-icon-payment lzd-icon-payment-daraz">
+                  
+                    <img loading="lazy" src="https://img.lazcdn.com/us/domino/395e474e-f67e-4a29-9521-5bc693ca53df_BD-144-84.png" alt="nagad" style="height: 28px; width: 100%"/>
+                  
+                </span>
+              
+                <span class="lzd-icon-payment lzd-icon-payment-daraz">
+                  
+                    <img loading="lazy" src="https://img.lazcdn.com/us/domino/7eff036e-acff-4560-890c-fde8e1bb053e_BD-144-84.png" alt="rainbow" style="height: 28px; width: 100%"/>
+                  
+                </span>
+              
+                <span class="lzd-icon-payment lzd-icon-payment-daraz">
+                  
+                    <img loading="lazy" src="https://img.lazcdn.com/us/domino/71587ea9-6e32-4728-b251-4513236a8ba5_BD-144-84.png" alt="rocket" style="height: 28px; width: 100%"/>
+                  
+                </span>
+              
+            </div>
+        </div>
+    
+	
+    
+      <div class=" lzd-footer-width-16 ">
+        <h3 class="lzd-footer-h3">কর্তৃক যাচাইকৃত</h3>
+        <div class="lzd-footer-verified">
+          <div class="lzd-footer-verified-left">
+            
+              
+                
+                  <div class="lzd-footer-verified-item">
+                    
+                      <img loading="lazy" alt="Daraz" src="//img.drz.lazcdn.com/g/tps/imgextra/i4/O1CN01ZaMORP1I3qlBom0V2_!!6000000000838-2-tps-73-41.png"  />
+                    
+                  </div>
+                
+              
+            
+          </div>
+          <div class="lzd-footer-verified-right">
+            
+              
+            
+          </div>
+        </div>
+      </div>
+      
+        
+          <div class="dbid-container">
+            <h3 class="lzd-footer-h3">DBID</h3>
+            <div class="dbid-content">
+              <p>Registration ID : </p>
+              <p>304903094 </p>
+            </div>
+          </div>
+        
+      
+    
+	</div></div>
+    
+      <div class="footer-fourth">
+          <div class="lzd-footer-inner">
+              <div class="lzd-footer-width-50" data-spm="venture">
+                <h3 class="lzd-footer-title">আন্তর্জাতিকভাবে দারাজ</h3>
+                <div class="lzd-footer-venture-list">
+                
+                  <a class="lzd-footer-country country-pk  lzd-footer-country-with-text" href="//www.daraz.pk/?scm=1003.4.icms-zebra-5029545-2834483.OTHER_5372735181_2485585" data-spm-click="gostr=/lzdpub.footer.venture;locaid=pk">
+                    <img loading="lazy" class="lzd-footer-country-image" src="https://img.lazcdn.com/us/domino/be86b237-3425-4f99-9177-e0d420ece837_BD-84-84.png" alt="pk" />
+                    
+                      <span class="lzd-footer-country-text">Pakistan</span>
+                    
+                  </a>
+                
+                  <a class="lzd-footer-country country-bd  lzd-footer-country-with-text" href="//www.daraz.com.bd/?scm=1003.4.icms-zebra-5029545-2834483.OTHER_5372735171_2485585" data-spm-click="gostr=/lzdpub.footer.venture;locaid=bd">
+                    <img loading="lazy" class="lzd-footer-country-image" src="https://img.lazcdn.com/us/domino/b9a34bd0-721d-451b-b828-4575bde3d2b5_BD-84-84.png" alt="bd" />
+                    
+                      <span class="lzd-footer-country-text">Bangladesh</span>
+                    
+                  </a>
+                
+                  <a class="lzd-footer-country country-lk  lzd-footer-country-with-text" href="//www.daraz.lk/?scm=1003.4.icms-zebra-5029545-2834483.OTHER_5372735173_2485585" data-spm-click="gostr=/lzdpub.footer.venture;locaid=lk">
+                    <img loading="lazy" class="lzd-footer-country-image" src="https://img.lazcdn.com/us/domino/2fb836db-3d37-4bb6-92e8-3af677a5503c_BD-84-84.png" alt="lk" />
+                    
+                      <span class="lzd-footer-country-text">Sri Lanka</span>
+                    
+                  </a>
+                
+                  <a class="lzd-footer-country country-mm  lzd-footer-country-with-text" href="//www.shop.com.mm/?scm=1003.4.icms-zebra-5029545-2834483.OTHER_5372735176_2485585" data-spm-click="gostr=/lzdpub.footer.venture;locaid=mm">
+                    <img loading="lazy" class="lzd-footer-country-image" src="https://img.lazcdn.com/us/domino/d1af7d07-f74e-44d2-8d27-e2dc6e5ea70c_BD-84-84.png" alt="mm" />
+                    
+                      <span class="lzd-footer-country-text">Myanmar</span>
+                    
+                  </a>
+                
+                  <a class="lzd-footer-country country-np  lzd-footer-country-with-text" href="//www.daraz.com.np/?scm=1003.4.icms-zebra-5029545-2834483.OTHER_5372735178_2485585" data-spm-click="gostr=/lzdpub.footer.venture;locaid=np">
+                    <img loading="lazy" class="lzd-footer-country-image" src="https://img.lazcdn.com/us/domino/187cdce2-c2da-4b05-a96e-e5b0386c654d_BD-86-86.png" alt="np" />
+                    
+                      <span class="lzd-footer-country-text">Nepal</span>
+                    
+                  </a>
+                
+                </div>
+              </div>
+              <div class="lzd-footer-width-25" data-spm="sns">
+              <h3 class="lzd-footer-title">আমাদেরকে অনুসরণ করুন</h3>
+              <div class="lzd-follow-us-icon-list">
+                
+                  <a class="lzd-follow-us-icon  lzd-follow-us-icon-daraz"
+                      href="https://www.facebook.com/DarazBangladesh" data-spm-click="gostr=/lzdpub.footer.sns;locaid="
+                  >
+                  <img loading="lazy" src="https://img.lazcdn.com/g/tps/imgextra/i3/O1CN01Wdetn224xMIRNihao_!!6000000007457-2-tps-34-34.png" alt="facebook" />
+                  </a>
+                
+                  <a class="lzd-follow-us-icon  lzd-follow-us-icon-daraz"
+                      href="https://www.youtube.com/@DarazBangladeshOfficial" data-spm-click="gostr=/lzdpub.footer.sns;locaid="
+                  >
+                  <img loading="lazy" src="https://img.lazcdn.com/us/domino/cc9e593f-adae-428c-abae-e55953feea31_BD-76-76.png" alt="youtube" />
+                  </a>
+                
+                  <a class="lzd-follow-us-icon  lzd-follow-us-icon-daraz"
+                      href="//twitter.com/DarazBangladesh/?scm=1003.4.icms-zebra-100022982-2933596.OTHER_5476239795_2580063" data-spm-click="gostr=/lzdpub.footer.sns;locaid="
+                  >
+                  <img loading="lazy" src="https://img.lazcdn.com/us/domino/f65e9f63-e19e-4fa6-bdfd-35158b2e21d8_BD-76-76.png" alt="twitter" />
+                  </a>
+                
+                  <a class="lzd-follow-us-icon  lzd-follow-us-icon-daraz"
+                      href="https://www.instagram.com/darazbangladesh/" data-spm-click="gostr=/lzdpub.footer.sns;locaid="
+                  >
+                  <img loading="lazy" src="https://img.lazcdn.com/us/domino/3f1d2d6a-1d36-4eb4-82ff-1e4511f6d293_BD-75-76.png" alt="instagram" />
+                  </a>
+                
+              </div>
+              </div>
+            
+              <div class="lzd-footer-width-25">
+                
+                
+                <div class="lzd-footer-copyright">
+                  © Daraz 2026
+                </div>
+              </div>
+            
+          </div>
+      </div>
+    
+	</section>
+  
+	
+    
+    
+      
+    
+
+    
+    
+    
+
+    <script>
+      window.__LIB_SEARCH_BOX_SCENE__ = 'default';
+      window.__LIB_SEARCH_BOX_VERSION__ = '0.4.13';
+      window.__LIB_SEARCH_BOX_ASSETS_ENV__ = 'product';
+      window.__GCP_ENV = 'production';
+    </script>
+    <link rel="stylesheet" href="//g.lazcdn.com/g/lazada-search-fe/lzd-searchbox/0.4.13/index.css" />
+    <script src="//g.lazcdn.com/g/lazada-search-fe/lzd-searchbox/0.4.13/index.js"></script>
+    <script>
+      (() => {
+        var ele = document.querySelector('.lzd-nav-search');
+        if(!ele) return;
+
+        var extraParam = {
+          taobao: {
+            showOnlyInTaobao: true,
+            onlyInTaobaoChecked: true,
+          },
+        }['default'] || {};
+
+        if (window.LZD && window.LZD.SearchBox && window.LZD.SearchBox.init) {
+          var initOptions = extraParam;
+          initOptions.lang = 'bn';
+          initOptions.regionID = 'BD';
+          initOptions.submitSpm = 'gostr=/lzdpub.header.search;locaid=d_go';
+          window.LZD.SearchBox.init(ele, initOptions);
+        }
+      })();
+    </script>
+	
+    
+    
+      
+    
+
+    
+    <script>
+      window.__LIB_LOGIN_SIGNUP_POPUP_SCENE__ = 'default';
+      window.__LIB_LOGIN_SIGNUP_POPUP_VERSION__ = '1.0.5';
+      window.__LIB_LOGIN_SIGNUP_POPUP_ASSETS_ENV__ = 'product';
+      window.__GCP_ENV = 'production';
+    </script>
+    <script src="//g.lazcdn.com/g/code/npm/@ali/multimod-lzd-member__signup-login-pop/1.0.5/lib-signuppop/index.umd.es5.production.js" crossorigin="anonymous"></script>
+	
+	
+
+	<script>
+    console.log('[header debug data]:', 'footer end');
+  </script>
+	
+  
+	
+    
+      
+    
+    
+        
+        
+          
+        
+
+        
+        
+        
+        
+            
+            <div id="webim-container" onclick="javascript:goldlog.record('/lazada.IM.im-msgbox','CLK','platform=desktop&pagename='+ window.LZD_RETCODE_PAGENAME || 'other','GET')"></div>
+        
+        <script>
+          var imJsLink = '//g.lazcdn.com/g/code/npm/@ali/lazada-buyer-im-pc/1.0.20/index.js';
+          var imCssLink = '//g.lazcdn.com/g/code/npm/@ali/lazada-buyer-im-pc/1.0.20/index.css';
+          
+          var gConfig = window.g_config || {regionID: 'SG', language: 'en'};
+          window.onload = function() {
+            if (!gConfig.regionID) return;
+            window._imSDKconfig = window._imSDKconfig || { region: (gConfig.regionID || 'sg').toLowerCase(), lang: gConfig.language || 'en', version: '1.0.20', enabled: /enable_webim=true/.test(document.location.search) || true };
+            if (window._imSDKconfig.disabled || !window._imSDKconfig.enabled) { return; }
+            var imy = document.createElement('link'); imy.rel = 'stylesheet'; imy.href = imCssLink;
+            var sty = document.getElementsByTagName('link')[0]; sty.parentNode.insertBefore(imy, sty);
+            var ims = document.createElement('script'); 
+            ims.type = 'text/javascript'; 
+            ims.async = true; 
+            ims.crossOrigin = "anonymous";
+            ims.src = imJsLink;
+            var scr = document.getElementsByTagName('body')[0]; scr.appendChild(ims);
+            var done = false; ims.onload = ims.onreadystatechange = function() {
+              if (!done && (!this.readyState || this.readyState==='loaded' || this.readyState==='complete')) {
+                done = true; window._chat && window._chat.init(window._imSDKconfig).render('webim-container');
+              }
+            };
+          };
+        </script>
+    
+	<script async src="//g.lazcdn.com/g/??mmfe/cps-rt-tracking/0.0.6/index.js,lzdmod/back-to-third-party-app/5.0.2/m/button.js"></script><script>!(function () {var a = window.__ICE_APP_CONTEXT__ || {};var b = {"appData":null,"loaderData":{"/":{"pageConfig":{}}},"routePath":"/","matchedIds":["/"],"documentOnly":true,"renderMode":"CSR"};for (var k in a) {b[k] = a[k]}window.__ICE_APP_CONTEXT__=b;})();</script><script src="//g.lazcdn.com/g/psolution/lzd-head-foot/1.4.2/js/809.js"></script><script src="//g.lazcdn.com/g/psolution/lzd-head-foot/1.4.2/js/772.js"></script><script src="//g.lazcdn.com/g/psolution/lzd-head-foot/1.4.2/js/432.js"></script><script src="//g.lazcdn.com/g/psolution/lzd-head-foot/1.4.2/js/158.js"></script><script src="//g.lazcdn.com/g/psolution/lzd-head-foot/1.4.2/js/p_index-index.js"></script><script src="//g.lazcdn.com/g/psolution/lzd-head-foot/1.4.2/js/framework.js"></script><script src="//g.lazcdn.com/g/psolution/lzd-head-foot/1.4.2/js/388.js"></script><script src="//g.lazcdn.com/g/psolution/lzd-head-foot/1.4.2/js/main.js"></script>
+          
+        
+      <script>window.gcpIsNewPCHeaderFooter = true;</script><script>
+try {
+  window.gcpStartConfig = {
+    platform: 'pc',
+    business: 'daraz',
+    mtopConfig: {
+      prefix: 'acs-m',
+      mainDomain: 'com.bd',
+      subDomain: 'daraz',
+      pageRecommendApi: 'mtop.lazada.kangaroo.core.service.route.lzdPageRecommendService',
+      appKey: '24936599',
+      timeout: '8000',
+      type: 'POST'
+    },
+    bottomConfig: {
+      kangaroo: 'lzd-kangaroo',
+      aldlamp: 'ald-lamp',
+    },
+    renderCoreName: '@ali/gcom-lzd-render-v3/index',
+    renderCoreVersion: '1.0.110',
+    itraceImportingRate: '0.1',
+    previewEnv: '',
+    uprPreload: {"js":["//g.alicdn.com/??mui/feloader/5.0.5/feloader-min.js,code/npm/@ali/pnpm-react/18.2.0/6a96e9f5.js,code/npm/@ali/pnpm-react/18.2.0/index.js,code/npm/@ali/pnpm-react-dom/18.2.1/280b565f.js,code/npm/@ali/pnpm-react-dom/18.2.1/client.js,code/npm/@ali/pnpm-react-dom/18.2.1/index.js,code/npm/@ali/gcom-lzd-sites/1.7.0/index.js,code/npm/@ali/gcom-lzd-cookie/1.7.0/index.js,code/npm/@ali/gcom-lzd-env/1.5.0/index.js,code/npm/@ali/gcom-lzd-qs/1.3.4/index.js,code/npm/@ali/gcom-jsonp/1.3.0/index.js,code/npm/@ali/gcom-lzd-mtop/1.2.15/index.js,code/npm/@ali/gcom-lzd-data-prefetch/1.4.0/index.js,code/npm/@ali/gcom-lzd-resize/1.5.4/index.js,code/npm/@ali/pnpm-react/18.2.0/jsx-runtime.js,code/npm/@ali/gcom-lzd-version-compare/1.4.0/index.js,code/npm/@ali/gcom-lzd-device/0.0.1/index.js,code/npm/@ali/gcom-lzd-push/0.0.16/index.js,code/npm/@ali/gcom-lzd-render-v3/1.0.110/index.js"]},
+    baxiaEnabled: true,
+    shouldImportAplus: window.gcpShouldImportAplus,
+    shouldImportItrace: window.gcpShouldImportItrace,
+    jsUrls: {
+      aplus: '//g.lazcdn.com/res-d/alilog/mlog/aplus/202980191.js',
+      wpkReporter: '//g.lazcdn.com/g/woodpeckerx/itrace-next/??itrace-jserror.iife.js,itrace-interface.iife.js,itrace-perf.iife.js,itrace-flow.iife.js,itrace-blank.iife.js,itrace-resource.iife.js,itrace.iife.js',
+      wpkReporterCb: '__itraceBundleReady',
+      itrace: 'https://g.lazcdn.com/res-o/lzdfe/lzd-h5-itrace/index-module.js',
+      itraceCb: '__itraceExpansionReady',
+      coreJs: window.gcpCoreJs,
+      coreJsArr: window.gcpCoreJsArr,
+      baxia: '//g.lazcdn.com/res-o/lzd_sec/LWSC/index.js',
+      lzdmodLoader: '//g.lazcdn.com/g/lzdmod/loader/5.1.3/??index.js'
+    }
+  };
+} catch(e) {
+  console.warn('[get-gcp-start-config-error]', e.message);
+}
+
+try {
+  window.gcpMybizLoadingHtml = `
+    <div class="gcp-loading-wrapper">
+      <svg width="201" height="202" viewBox="0 0 201 202" fill="none" class="gcp-loading-daraz-mybiz-icon" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="100.521" cy="101" r="100.051" fill="#3F0686"/>
+        <path d="M84.2817 76.0325C89.2217 76.0325 93.2265 72.0278 93.2265 67.0877C93.2265 62.1477 89.2217 58.1429 84.2817 58.1429C79.3416 58.1429 75.3369 62.1477 75.3369 67.0877C75.3369 72.0278 79.3416 76.0325 84.2817 76.0325Z" fill="white"/>
+        <path d="M118.949 76.0325C123.889 76.0325 127.893 72.0278 127.893 67.0877C127.893 62.1477 123.889 58.1429 118.949 58.1429C114.009 58.1429 110.004 62.1477 110.004 67.0877C110.004 72.0278 114.009 76.0325 118.949 76.0325Z" fill="white"/>
+        <path d="M129.226 83.6915L94.737 137.896C91.7592 142.577 85.5511 143.955 80.8701 140.977C76.1891 137.999 74.8112 131.791 77.789 127.11L101.496 89.8537C107.452 80.4918 119.872 77.7322 129.23 83.6877L129.226 83.6915Z" fill="url(#paint0_linear_230_254)"/>
+        <path d="M108.364 83.1933L140.488 138.833C143.263 143.637 149.406 145.282 154.209 142.511C159.013 139.736 160.658 133.593 157.887 128.79L135.807 90.5459C130.261 80.9351 117.971 77.6435 108.364 83.1933Z" fill="white"/>
+        <path d="M94.818 83.6915L60.3288 137.896C57.351 142.577 51.1429 143.955 46.4619 140.977C41.7809 137.999 40.403 131.791 43.3808 127.11L67.0881 89.8537C73.0436 80.4918 85.4637 77.7322 94.8218 83.6877L94.818 83.6915Z" fill="url(#paint1_linear_230_254)"/>
+        <path d="M73.9551 83.1933L106.079 138.833C108.854 143.637 114.997 145.282 119.8 142.511C124.604 139.736 126.25 133.593 123.479 128.79L101.398 90.5459C95.852 80.9351 83.562 77.6435 73.9551 83.1933Z" fill="white"/>
+        <circle class="loading-circle-daraz-mybiz" cx="100.522" cy="101" r="85.7577" stroke="url(#paint2_linear_230_254)" stroke-width="7.14647"/>
+        <defs>
+          <linearGradient id="paint0_linear_230_254" x1="86.3395" y1="131.757" x2="114.36" y2="89.1992" gradientUnits="userSpaceOnUse">
+            <stop stop-color="white"/>
+            <stop offset="0.32" stop-color="white" stop-opacity="0.99"/>
+            <stop offset="0.49" stop-color="white" stop-opacity="0.96"/>
+            <stop offset="0.62" stop-color="white" stop-opacity="0.91"/>
+            <stop offset="0.73" stop-color="white" stop-opacity="0.83"/>
+            <stop offset="0.84" stop-color="white" stop-opacity="0.74"/>
+            <stop offset="0.93" stop-color="white" stop-opacity="0.62"/>
+            <stop offset="1" stop-color="white" stop-opacity="0.5"/>
+          </linearGradient>
+          <linearGradient id="paint1_linear_230_254" x1="51.9313" y1="131.757" x2="79.9521" y2="89.1992" gradientUnits="userSpaceOnUse">
+            <stop stop-color="white"/>
+            <stop offset="0.32" stop-color="white" stop-opacity="0.99"/>
+            <stop offset="0.49" stop-color="white" stop-opacity="0.96"/>
+            <stop offset="0.62" stop-color="white" stop-opacity="0.91"/>
+            <stop offset="0.73" stop-color="white" stop-opacity="0.83"/>
+            <stop offset="0.84" stop-color="white" stop-opacity="0.74"/>
+            <stop offset="0.93" stop-color="white" stop-opacity="0.62"/>
+            <stop offset="1" stop-color="white" stop-opacity="0.5"/>
+          </linearGradient>
+          <linearGradient id="paint2_linear_230_254" x1="25.589" y1="134.841" x2="117.442" y2="123.964" gradientUnits="userSpaceOnUse">
+            <stop stop-color="white"/>
+            <stop offset="1" stop-color="white" stop-opacity="0"/>
+          </linearGradient>
+        </defs>
+      </svg>
+    </div>
+  `;
+  
+  
+    window.gcpLoadingHtml = `
+      <div class="gcp-loading-wrapper">
+        <svg
+          class="gcp-loading-daraz-icon"
+          viewBox="0 0 80 80" 
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <rect width="80" height="80" rx="40" fill="#F85606"/>
+          <path d="M51.3612 25.6913L41.0785 19.7668C40.4778 19.4038 39.9968 19.6461 39.9968 20.3677V32.9999L50.2188 38.8944C50.8204 39.2575 50.8204 39.7967 50.2188 40.1579L41.0785 45.4225C40.4778 45.7855 39.9968 45.5432 39.9968 44.8216V32.9999L28.6352 39.5561C28.1815 39.8284 28 40.128 28 40.639V53.2104C28 53.7214 28.1815 54.0273 28.6352 54.2932L39.3689 60.4881C39.8226 60.7605 40.1801 60.7605 40.6311 60.4881L51.3648 54.2932C51.8185 54.0209 52 53.7214 52 53.2104V26.7714C51.9927 26.2631 51.8122 25.9618 51.3612 25.6913Z" fill="white"/>
+          <path class="loading-circle-daraz_normal" d="M40 8C44.2023 8 48.3635 8.8277 52.2459 10.4359C56.1283 12.044 59.6559 14.4011 62.6274 17.3726C65.5989 20.3441 67.956 23.8717 69.5641 27.7541C71.1723 31.6366 72 35.7977 72 40C72 44.2023 71.1723 48.3635 69.5641 52.2459C67.956 56.1283 65.5989 59.6559 62.6274 62.6274C59.6559 65.5989 56.1283 67.956 52.2459 69.5641C48.3634 71.1723 44.2023 72 40 72" stroke="url(#paint0_linear_62473_8552)" stroke-width="3"/>
+          <path class="loading-circle-daraz_normal" d="M27.7541 69.5641L27.1801 70.95L27.1801 70.95L27.7541 69.5641ZM10.4359 52.2459L9.05003 52.8199L9.05003 52.8199L10.4359 52.2459ZM10.4359 27.7541L9.05004 27.1801L9.05004 27.1801L10.4359 27.7541ZM17.3726 17.3726L18.4332 18.4332L18.4332 18.4332L17.3726 17.3726ZM27.7541 10.4359L27.1801 9.05003L27.1801 9.05003L27.7541 10.4359ZM40 6.5C40.8284 6.5 41.5 7.17157 41.5 8C41.5 8.82843 40.8284 9.5 40 9.5L40 6.5ZM40 73.5C35.6007 73.5 31.2445 72.6335 27.1801 70.95L28.3282 68.1783C32.0286 69.7111 35.9947 70.5 40 70.5L40 73.5ZM27.1801 70.95C23.1157 69.2664 19.4227 66.7988 16.3119 63.6881L18.4332 61.5668C21.2654 64.3989 24.6277 66.6456 28.3282 68.1783L27.1801 70.95ZM16.3119 63.6881C13.2012 60.5773 10.7336 56.8843 9.05003 52.8199L11.8217 51.6718C13.3544 55.3723 15.6011 58.7346 18.4332 61.5668L16.3119 63.6881ZM9.05003 52.8199C7.3665 48.7555 6.5 44.3993 6.5 40L9.5 40C9.5 44.0053 10.2889 47.9714 11.8217 51.6718L9.05003 52.8199ZM6.5 40C6.5 35.6007 7.3665 31.2445 9.05004 27.1801L11.8217 28.3282C10.2889 32.0286 9.5 35.9947 9.5 40L6.5 40ZM9.05004 27.1801C10.7336 23.1157 13.2012 19.4227 16.3119 16.3119L18.4332 18.4332C15.6011 21.2654 13.3544 24.6277 11.8217 28.3282L9.05004 27.1801ZM16.3119 16.3119C19.4227 13.2012 23.1157 10.7336 27.1801 9.05003L28.3282 11.8217C24.6277 13.3544 21.2654 15.6011 18.4332 18.4332L16.3119 16.3119ZM27.1801 9.05003C31.2445 7.3665 35.6007 6.5 40 6.5L40 9.5C35.9947 9.5 32.0286 10.2889 28.3282 11.8217L27.1801 9.05003Z" fill="url(#paint1_linear_62473_8552)"/>
+          <defs>
+            <linearGradient id="paint0_linear_62473_8552" x1="72" y1="13" x2="72" y2="130" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#F85606"/>
+              <stop offset="1" stop-color="white"/>
+            </linearGradient>
+            <linearGradient id="paint1_linear_62473_8552" x1="72" y1="134.5" x2="72" y2="7.99999" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#F85606"/>
+              <stop offset="1" stop-color="white"/>
+            </linearGradient>
+          </defs>
+        </svg>
+      </div>
+    `;
+  
+  window.gcpLoadingHtmlDaraz = window.gcpLoadingHtml;
+} catch(err) {
+  console.error(err);
+};
+!function(e){var t={};function n(r){if(t[r])return t[r].exports;var i=t[r]={i:r,l:!1,exports:{}};return e[r].call(i.exports,i,i.exports,n),i.l=!0,i.exports}n.m=e,n.c=t,n.d=function(e,t,r){n.o(e,t)||Object.defineProperty(e,t,{enumerable:!0,get:r})},n.r=function(e){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})},n.t=function(e,t){if(1&t&&(e=n(e)),8&t)return e;if(4&t&&"object"==typeof e&&e&&e.__esModule)return e;var r=Object.create(null);if(n.r(r),Object.defineProperty(r,"default",{enumerable:!0,value:e}),2&t&&"string"!=typeof e)for(var i in e)n.d(r,i,function(t){return e[t]}.bind(null,i));return r},n.n=function(e){var t=e&&e.__esModule?function(){return e.default}:function(){return e};return n.d(t,"a",t),t},n.o=function(e,t){return Object.prototype.hasOwnProperty.call(e,t)},n.p="https://g.alicdn.com/psolution/lzd-module-solution-v3/1.0.97/",n(n.s=25)}([function(e,t,n){"use strict";function r(e){var t=new RegExp("(^|&)"+e+"=([^&]*)(&|$)"),n=window.location.search.substr(1).match(t);return null!=n?decodeURIComponent(n[2]):null}n.d(t,"a",(function(){return r}))},function(e,t,n){"use strict";var r=n(0);t.a=function(){var e=Object(r.a)("wh_query");if("true"===Object(r.a)("debug")||"devtool"===e){var t=document.createElement("script");t.async=!1,t.onload=function(){console.log("load vconsole success",window.vConsole)},t.onerror=function(){console.log("load vconsole failed")},document.body.insertBefore(t,document.body.firstChild);var n=Object(r.a)("wh_daily");t.src=n?"//dev.g.alicdn.com/alife/vconsole/index.js":"//g.lazcdn.com/g/alife/vconsole/index.js"}if("true"===Object(r.a)("tracker_debug")){var i=document.createElement("script");i.async=!1,i.onload=function(){console.log("load tracker debug success")},i.onerror=function(){console.log("load tracker debug failed")},document.body.insertBefore(i,document.body.firstChild);var o=location.href.indexOf("pre-www.")>=0||location.href.indexOf("pre-wormhole.")>=0;i.src=o?"https://dev.o.alicdn.com/lzdbase/tracker-check/src/index.js":"https://o.alicdn.com/lzdbase/tracker-check/src/index.js"}}},function(e,t,n){"use strict";var r=n(0),i=!1;t.a=function(){if(!i){i=!0;var e=location.href.includes("wv_report_all_changes=true"),t=location.href.includes("wv_reset_inp=true"),n=function(e){var n,r,i,o=function(){var e=self.performance&&performance.getEntriesByType&&performance.getEntriesByType("navigation")[0];if(e&&e.responseStart>0&&e.responseStart<performance.now())return e},a=function(e){if("loading"===document.readyState)return"loading";var t=o();if(t){if(e<t.domInteractive)return"loading";if(0===t.domContentLoadedEventStart||e<t.domContentLoadedEventStart)return"dom-interactive";if(0===t.domComplete||e<t.domComplete)return"dom-content-loaded"}return"complete"},c=function(e){var t=e.nodeName;return 1===e.nodeType?t.toLowerCase():t.toUpperCase().replace(/^#/,"")},s=function(e,t){var n="";try{for(;e&&9!==e.nodeType;){var r=e,i=r.id?"#"+r.id:c(r)+(r.classList&&r.classList.value&&r.classList.value.trim()&&r.classList.value.trim().length?"."+r.classList.value.trim().replace(/\s+/g,"."):"");if(n.length+i.length>(t||100)-1)return n||i;if(n=n?i+">"+n:i,r.id)break;e=r.parentNode}}catch(e){}return n},u=-1,l=function(){return u},d=function(e){addEventListener("pageshow",(function(t){t.persisted&&(u=t.timeStamp,e(t))}),!0)},f=function(){var e=o();return e&&e.activationStart||0},m=function(e,t){var n=o(),r="navigate";return l()>=0?r="back-forward-cache":n&&(document.prerendering||f()>0?r="prerender":document.wasDiscarded?r="restore":n.type&&(r=n.type.replace(/_/g,"-"))),{name:e,value:void 0===t?-1:t,rating:"good",delta:0,entries:[],id:"v4-".concat(Date.now(),"-").concat(Math.floor(8999999999999*Math.random())+1e12),navigationType:r}},p=function(e,t,n){try{if(PerformanceObserver.supportedEntryTypes.includes(e)){var r=new PerformanceObserver((function(e){Promise.resolve().then((function(){t(e.getEntries())}))}));return r.observe(Object.assign({type:e,buffered:!0},n||{})),r}}catch(e){}},g=function(e,t,n,r){var i,o;return function(a){t.value>=0&&(a||r)&&((o=t.value-(i||0))||void 0===i)&&(i=t.value,t.delta=o,t.rating=function(e,t){return e>t[1]?"poor":e>t[0]?"needs-improvement":"good"}(t.value,n),e(t))}},h=function(e){requestAnimationFrame((function(){return requestAnimationFrame((function(){return e()}))}))},v=function(e){document.addEventListener("visibilitychange",(function(){"hidden"===document.visibilityState&&e()}))},w=function(e){var t=!1;return function(){t||(e(),t=!0)}},b=-1,y=function(){return"hidden"!==document.visibilityState||document.prerendering?1/0:0},T=function(e){"hidden"===document.visibilityState&&b>-1&&(b="visibilitychange"===e.type?e.timeStamp:0,S())},_=function(){addEventListener("visibilitychange",T,!0),addEventListener("prerenderingchange",T,!0)},S=function(){removeEventListener("visibilitychange",T,!0),removeEventListener("prerenderingchange",T,!0)},E=function(){return b<0&&(b=y(),_(),d((function(){setTimeout((function(){b=y(),_()}),0)}))),{get firstHiddenTime(){return b}}},x=function(e){document.prerendering?addEventListener("prerenderingchange",(function(){return e()}),!0):e()},C=[1800,3e3],L=function(e,t){t=t||{},x((function(){var n,r=E(),i=m("FCP"),o=p("paint",(function(e){e.forEach((function(e){"first-contentful-paint"===e.name&&(o.disconnect(),e.startTime<r.firstHiddenTime&&(i.value=Math.max(e.startTime-f(),0),i.entries.push(e),n(!0)))}))}));o&&(n=g(e,i,C,t.reportAllChanges),d((function(r){i=m("FCP"),n=g(e,i,C,t.reportAllChanges),h((function(){i.value=performance.now()-r.timeStamp,n(!0)}))})))}))},M=[.1,.25],k=0,I=1/0,O=0,P=function(e){e.forEach((function(e){e.interactionId&&(I=Math.min(I,e.interactionId),O=Math.max(O,e.interactionId),k=O?(O-I)/7+1:0)}))},z=function(){return n?k:performance.interactionCount||0},A=function(){"interactionCount"in performance||n||(n=p("event",P,{type:"event",buffered:!0,durationThreshold:0}))},D=[],j=new Map,F=0,N=[],R=function(e){if(N.forEach((function(t){return t(e)})),e.interactionId||"first-input"===e.entryType){var t=D[D.length-1],n=j.get(e.interactionId);if(n||D.length<10||e.duration>t.latency){if(n)e.duration>n.latency?(n.entries=[e],n.latency=e.duration):e.duration===n.latency&&e.startTime===n.entries[0].startTime&&n.entries.push(e);else{var r={id:e.interactionId,latency:e.duration,entries:[e]};j.set(r.id,r),D.push(r)}D.sort((function(e,t){return t.latency-e.latency})),D.length>10&&D.splice(10).forEach((function(e){return j.delete(e.id)}))}}},B=function(e){var t=self.requestIdleCallback||self.setTimeout,n=-1;return e=w(e),"hidden"===document.visibilityState?e():(n=t(e),v(e)),n},q=[200,500],H=function(e,n){"PerformanceEventTiming"in self&&"interactionId"in PerformanceEventTiming.prototype&&(n=n||{},x((function(){var r;A();var i,o=m("INP"),a=function(e){B((function(){e.forEach(R);var n=function(){var e=Math.min(D.length-1,Math.floor((z()-F)/50));return D[e]}();n&&n.latency!==o.value&&(o.value=n.latency,o.entries=n.entries,i()),t&&(F=z(),D.length=0,j.clear())}))},c=p("event",a,{durationThreshold:null!==(r=n.durationThreshold)&&void 0!==r?r:40});i=g(e,o,q,n.reportAllChanges),c&&(c.observe({type:"first-input",buffered:!0}),v((function(){a(c.takeRecords()),i(!0)})),d((function(){F=z(),D.length=0,j.clear(),o=m("INP"),i=g(e,o,q,n.reportAllChanges)})))})))},V=[],W=[],U=new WeakMap,G=new Map,J=-1,Y=function(e){V=V.concat(e),X()},X=function(){J<0&&(J=B($))},$=function(){G.size>10&&G.forEach((function(e,t){j.has(t)||G.delete(t)}));var e=D.map((function(e){return U.get(e.entries[0])})),t=W.length-50;W=W.filter((function(n,r){return r>=t||e.includes(n)}));for(var n=new Set,r=0;r<W.length;r++){var o=W[r];te(o.startTime,o.processingEnd).forEach((function(e){n.add(e)}))}for(var a=0;a<50;a++){var c=V[V.length-1-a];if(!c||c.startTime<i)break;n.add(c)}V=Array.from(n),J=-1};N.push((function(e){e.interactionId&&e.target&&!G.has(e.interactionId)&&G.set(e.interactionId,e.target)}),(function(e){var t,n=e.startTime+e.duration;i=Math.max(i,e.processingEnd);for(var r=W.length-1;r>=0;r--){var o=W[r];if(Math.abs(n-o.renderTime)<=8){(t=o).startTime=Math.min(e.startTime,t.startTime),t.processingStart=Math.min(e.processingStart,t.processingStart),t.processingEnd=Math.max(e.processingEnd,t.processingEnd),t.entries.push(e);break}}t||(t={startTime:e.startTime,processingStart:e.processingStart,processingEnd:e.processingEnd,renderTime:n,entries:[e]},W.push(t)),(e.interactionId||"first-input"===e.entryType)&&U.set(e,t),X()}));var Q,K,Z,ee,te=function(e,t){for(var n,r=[],i=0;n=V[i];i++)if(!(n.startTime+n.duration<e)){if(n.startTime>t)break;r.push(n)}return r},ne=[2500,4e3],re={},ie=[800,1800],oe=function(e,t){t=t||{};var n=m("TTFB"),r=g(e,n,ie,t.reportAllChanges);!function e(t){document.prerendering?x((function(){return e(t)})):"complete"!==document.readyState?addEventListener("load",(function(){return e(t)}),!0):setTimeout(t,0)}((function(){var i=o();i&&(n.value=Math.max(i.responseStart-f(),0),n.entries=[i],r(!0),d((function(){n=m("TTFB",0),(r=g(e,n,ie,t.reportAllChanges))(!0)})))}))},ae={passive:!0,capture:!0},ce=new Date,se=function(e,t){Q||(Q=t,K=e,Z=new Date,de(removeEventListener),ue())},ue=function(){if(K>=0&&K<Z-ce){var e={entryType:"first-input",name:Q.type,target:Q.target,cancelable:Q.cancelable,startTime:Q.timeStamp,processingStart:Q.timeStamp+K};ee.forEach((function(t){t(e)})),ee=[]}},le=function(e){if(e.cancelable){var t=(e.timeStamp>1e12?new Date:performance.now())-e.timeStamp;"pointerdown"==e.type?function(e,t){var n=function(){se(e,t),i()},r=function(){i()},i=function(){removeEventListener("pointerup",n,ae),removeEventListener("pointercancel",r,ae)};addEventListener("pointerup",n,ae),addEventListener("pointercancel",r,ae)}(t,e):se(t,e)}},de=function(e){["mousedown","keydown","touchstart","pointerdown"].forEach((function(t){return e(t,le,ae)}))},fe=[100,300];return e.CLSThresholds=M,e.FCPThresholds=C,e.FIDThresholds=fe,e.INPThresholds=q,e.LCPThresholds=ne,e.TTFBThresholds=ie,e.onCLS=function(e,t){!function(e,t){t=t||{},L(w((function(){var n,r=m("CLS",0),i=0,o=[],a=function(e){e.forEach((function(e){if(!e.hadRecentInput){var t=o[0],n=o[o.length-1];i&&e.startTime-n.startTime<1e3&&e.startTime-t.startTime<5e3?(i+=e.value,o.push(e)):(i=e.value,o=[e])}})),i>r.value&&(r.value=i,r.entries=o,n())},c=p("layout-shift",a);c&&(n=g(e,r,M,t.reportAllChanges),v((function(){a(c.takeRecords()),n(!0)})),d((function(){i=0,r=m("CLS",0),n=g(e,r,M,t.reportAllChanges),h((function(){return n()}))})),setTimeout(n,0))})))}((function(t){var n=function(e){var t,n={};if(e.entries.length){var r=e.entries.reduce((function(e,t){return e&&e.value>t.value?e:t}));if(r&&r.sources&&r.sources.length){var i=(t=r.sources).find((function(e){return e.node&&1===e.node.nodeType}))||t[0];i&&(n={largestShiftTarget:s(i.node),largestShiftTime:r.startTime,largestShiftValue:r.value,largestShiftSource:i,largestShiftEntry:r,loadState:a(r.startTime)})}}return Object.assign(e,{attribution:n})}(t);e(n)}),t)},e.onFCP=function(e,t){L((function(t){var n=function(e){var t={timeToFirstByte:0,firstByteToFCP:e.value,loadState:a(l())};if(e.entries.length){var n=o(),r=e.entries[e.entries.length-1];if(n){var i=n.activationStart||0,c=Math.max(0,n.responseStart-i);t={timeToFirstByte:c,firstByteToFCP:e.value-c,loadState:a(e.entries[0].startTime),navigationEntry:n,fcpEntry:r}}}return Object.assign(e,{attribution:t})}(t);e(n)}),t)},e.onFID=function(e,t){!function(e,t){t=t||{},x((function(){var n,r=E(),i=m("FID"),o=function(e){e.startTime<r.firstHiddenTime&&(i.value=e.processingStart-e.startTime,i.entries.push(e),n(!0))},a=function(e){e.forEach(o)},c=p("first-input",a);n=g(e,i,fe,t.reportAllChanges),c&&(v(w((function(){a(c.takeRecords()),c.disconnect()}))),d((function(){var r;i=m("FID"),n=g(e,i,fe,t.reportAllChanges),ee=[],K=-1,Q=null,de(addEventListener),r=o,ee.push(r),ue()})))}))}((function(t){var n=function(e){var t=e.entries[0],n={eventTarget:s(t.target),eventType:t.name,eventTime:t.startTime,eventEntry:t,loadState:a(t.startTime)};return Object.assign(e,{attribution:n})}(t);e(n)}),t)},e.onINP=function(e,t){r||(r=p("long-animation-frame",Y)),H((function(t){var n=function(e){var t=e.entries[0],n=U.get(t),r=t.processingStart,i=n.processingEnd,o=n.entries.sort((function(e,t){return e.processingStart-t.processingStart})),c=te(t.startTime,i),u=e.entries.find((function(e){return e.target})),l=u&&u.target||G.get(t.interactionId),d=[t.startTime+t.duration,i].concat(c.map((function(e){return e.startTime+e.duration}))),f=Math.max.apply(Math,d),m={interactionTarget:s(l),interactionTargetElement:l,interactionType:t.name.startsWith("key")?"keyboard":"pointer",interactionTime:t.startTime,nextPaintTime:f,processedEventEntries:o,longAnimationFrameEntries:c,inputDelay:r-t.startTime,processingDuration:i-r,presentationDelay:Math.max(f-i,0),loadState:a(t.startTime)};return Object.assign(e,{attribution:m})}(t);e(n)}),t)},e.onLCP=function(e,t){!function(e,t){t=t||{},x((function(){var n,r=E(),i=m("LCP"),o=function(e){t.reportAllChanges||(e=e.slice(-1)),e.forEach((function(e){!function(e){if(location.href.includes("test_duration_data=true"))return!1;for(;e;){if(e.hasAttribute&&e.hasAttribute("ignorelcpcollection"))return!0;e=e.parentElement}return!1}(e.element)?e.startTime<r.firstHiddenTime&&(i.value=Math.max(e.startTime-f(),0),i.entries=[e],n()):window.gcpIsDebug&&console.log("[web-vitals] LCP ignore",e&&e.element)}))},a=p("largest-contentful-paint",o);if(a){n=g(e,i,ne,t.reportAllChanges);var c=w((function(){re[i.id]||(o(a.takeRecords()),a.disconnect(),re[i.id]=!0,n(!0))}));["keydown","click"].forEach((function(e){addEventListener(e,(function(){return B(c)}),!0)})),v(c),window.__LCP_STOP_LISTENING=c,d((function(r){i=m("LCP"),n=g(e,i,ne,t.reportAllChanges),h((function(){i.value=performance.now()-r.timeStamp,re[i.id]=!0,n(!0)}))}))}}))}((function(t){var n=function(e){var t={timeToFirstByte:0,resourceLoadDelay:0,resourceLoadDuration:0,elementRenderDelay:e.value};if(e.entries.length){var n=o();if(n){var r=n.activationStart||0,i=e.entries[e.entries.length-1],a=i.url&&performance.getEntriesByType("resource").filter((function(e){return e.name===i.url}))[0],c=Math.max(0,n.responseStart-r),u=Math.max(c,a?(a.requestStart||a.startTime)-r:0),l=Math.max(u,a?a.responseEnd-r:0),d=Math.max(l,i.startTime-r);t={element:s(i.element),timeToFirstByte:c,resourceLoadDelay:u-c,resourceLoadDuration:l-u,elementRenderDelay:d-l,navigationEntry:n,lcpEntry:i},i.url&&(t.url=i.url),a&&(t.lcpResourceEntry=a)}}return Object.assign(e,{attribution:t})}(t);e(n)}),t)},e.onTTFB=function(e,t){oe((function(t){var n=function(e){var t={waitingDuration:0,cacheDuration:0,dnsDuration:0,connectionDuration:0,requestDuration:0};if(e.entries.length){var n=e.entries[0],r=n.activationStart||0,i=Math.max((n.workerStart||n.fetchStart)-r,0),o=Math.max(n.domainLookupStart-r,0),a=Math.max(n.connectStart-r,0),c=Math.max(n.connectEnd-r,0);t={waitingDuration:i,cacheDuration:o-i,dnsDuration:a-o,connectionDuration:c-a,requestDuration:e.value-c,navigationEntry:n}}return Object.assign(e,{attribution:t})}(t);e(n)}),t)},e}({}),o=!1;n.onLCP(a,{reportAllChanges:e}),n.onINP(a,{reportAllChanges:!(!e&&!t)}),window.webVitals=n,window.gcpIsDebug&&console.log("[web-vitals] initialized")}function a(n){if(window.__wpk){if("INP"===n.name&&!e&&!t){if(o)return;o=!0}window.__CORE_WEB_VITALS=window.__CORE_WEB_VITALS||{},window.__CORE_WEB_VITALS[n.name]=n;var i=n.value,a=n.rating,c=n.attribution||{};if("LCP"===n.name){if(window.preLoadTime&&(a=(i-=window.preLoadTime)<=2500?"good":i<=4e3?"needs-improvement":"poor"),window.__LCP=i,"function"==typeof window.__LCP_LISTENER&&window.__LCP_LISTENER(i),location.href.includes("test_duration_data=true"))try{if(window.gcpMarks.lcpTimestamp=window.performance.timeOrigin+n.value,console.log("---gcpMarks---",window.gcpMarks),window.gcpIsPrehot){var s=window.gcpMarks||{},u=s.prehotShowUpStart,l=s.beforeDataFetch,d=s.afterDataFetch,f=s.lcpTimestamp,m=l-u,p=d-l,g=f-d;console.log("---gcpMarks---prehot",{a_prehotShowUpTime:m,b_dataFetchTime:p,c_renderTime:g})}else if(window.location.href.indexOf("use_ssr=true")>=0&&window.performance){var h=window.performance.timeOrigin,v=parseInt(Object(r.a)("uprproxy_time")),w=window.gcpMarks||{},b=w.htmlStart,y=w.styleLoaded,T=w.lcpTimestamp,_=h-v,S=b-h,E=y-b,x=T-y;console.log("---gcpMarks---uprproxy",{a_ssrFetchTime:_,b_htmlStartTime:S,c_styleLoadTime:E,d_renderTime:x})}}catch(e){console.warn(e)}!function(e,t){try{if(!(window.WindVane&&window.WindVane.isAvailable&&window.performance&&window.performance.timeOrigin))return;window.gcpIsDebug&&console.log("[send LCP to app]");var n={functype:"ctrl",funcId:"19999",url:""+location.origin+location.pathname,_h5url:location.href,"spm-cnt":aplus&&aplus.spm_ab?aplus.spm_ab.join("."):"",logkey:"lazada-module-page.send-to-app.lcp",statisticsType:4,statisticsValue:t,statisticsTime:window.performance.timeOrigin+e};window.WindVane.call("WVTBUserTrack","toUT2",n,(function(){}),(function(e){console.warn("[send-lcp-to-app-error]",e)}))}catch(e){console.warn("[send-lcp-to-app-error]",e)}}(n.value,i)}var C={category:1028,wl_avgv1:i,c1:window.__PID||Object(r.a)("wh_pid"),c2:window.__PAGE_ID,c3:n.name,c4:a,c5:(window.gcpStartConfig||{}).renderCoreName||"-",c6:(window.gcpStartConfig||{}).renderCoreVersion||"-"};c.element&&(C.c7=c.element),c.url&&(C.c8=c.url),c.interactionTarget&&(C.c9=c.interactionTarget),c.interactionType&&(C.c10=c.interactionType),c.largestShiftTarget&&(C.c11=c.largestShiftTarget),c.inputDelay&&(C.wl_avgv2=c.inputDelay),c.processingDuration&&(C.wl_avgv3=c.processingDuration),c.presentationDelay&&(C.wl_avgv4=c.presentationDelay),window.gcpIsDebug&&console.log("[web-vitals] reportWV:",n,C),Date.now()%100<10&&window.__gcpWpkSampleReport&&window.__gcpWpkSampleReport(C)}}}},function(e,t,n){"use strict";var r=!1;t.a=function(){if(!r){r=!0;try{!function(){function e(){var t;if(L){var n,r=null===(t=performance)||void 0===t?void 0:t.now();d++,r>500+l&&(n=Math.round(1e3*d/(r-l)),f.push(n),d=0,l=r),function(){var e,t=null===(e=performance)||void 0===e?void 0:e.now();if(0<v){var n=t-v;if(_)b=y,y=T,T=_,_=n;else switch(S%4){case 0:b=n;break;case 1:y=n;break;case 2:T=n;break;case 3:_=n}var r=(b+y+T)/3;_&&n>2*r&&(p++,n>o&&g++,n>a&&h++,w+=n-r),n>c&&E++}v=t,m+=1,S+=1}(),window.requestAnimationFrame(e)}}function t(){if(0===m)return g=0,m=0,v=0,0;var e=g/m*100;return g=0,m=0,v=0,e.toFixed(2)}function n(e,t){return Math.sqrt(e.map((function(e){return Math.pow(e-t,2)})).reduce((function(e,t){return e+t}),0)/e.length)}function r(e){try{C&&function(e){requestAnimationFrame((function(){setTimeout((function(){if(window.__wpk&&window.__wpk.report&&window.__gcpWpkSampleReport)window.__gcpWpkSampleReport(e);else{var t=(window.__iTraceLogQueue||[]).slice(0);t.push(["report",e]),window.__iTraceLogQueue=t}}),0)}))}(function(e){var r;void 0===e&&(e="revisit");var i=null===(r=performance)||void 0===r?void 0:r.now(),o=m,a=i-x,c=function(e){return e.reduce((function(e,t){return e+t}),0)/e.length}(f),s=window.actionList,u="";if(s&&0<s.length)try{u=JSON.stringify(s),window.actionList=[]}catch(e){window.actionList=[]}var l={category:1588,msg:"\u9875\u9762\u6d41\u7545\u5ea6\u548c\u5361\u987f\u7387",wl_avgv1:+c.toFixed(2),wl_avgv2:+n(f,c).toFixed(2),wl_avgv3:g,wl_avgv4:t(),wl_avgv5:(w/a*100).toFixed(2),wl_avgv6:"",wl_avgv7:h,wl_avgv8:o,wl_avgv9:E,wl_avgv10:p,c1:C||"common",c2:e,c3:"fps",bl1:u};return w=0,E=0,h=0,p=0,x=i,f=[],l}(e))}catch(e){}}var i,o=83.33,a=125,c=200,s=null===(i=window.performance)||void 0===i?void 0:i.now(),u=!1,l=s,d=0,f=[],m=0,p=0,g=0,h=0,v=0,w=0,b=0,y=0,T=0,_=0,S=0,E=0,x=s,C=null,L=!0;window.__isSSR||(!C&&(C=window.__PID||function(e,t){try{var n=(t||window.location.search.slice(1)||"").split("&").filter(Boolean).reduce((function(e,t){var n;return Object.assign({},e,((n={})[t.split("=")[0]]=t.split("=")[1],n))}),{});return n[e]&&decodeURIComponent(n[e])}catch(e){return null}}("wh_pid")),requestAnimationFrame((function(){setTimeout((function(){e()}),0)})),!u&&(u=!0,setTimeout((function(){r("stage3s")}),3e3),setTimeout((function(){r("stage5s")}),5e3),setTimeout((function(){r("stage10s")}),1e4),setTimeout((function(){r("stage15s"),L=!1}),15e3)))}()}catch(e){console.warn(e)}}}},function(e,t,n){"use strict";var r=n(0);t.a=function(e,t){void 0===t&&(t="lazada");var n=document.querySelector("#content .mui-zebra-page"),i="pc"===e?/[&?](hide_page_loading|hide_pc_loading)=true/:/[&?](hide_page_loading|hide_mobile_loading)=true/,o=window.gcpLoadingHtml||"";if("daraz"===t){var a=window.location.pathname,c=Object(r.a)("wh_pid");window.g_config=window.g_config||{},window.gcpReplaceMybizLoadingHtml=function(e,t){(e.includes("-mybiz")||t&&t.includes("-mybiz"))&&n&&!i.test(window.location.href)&&(n.innerHTML=window.gcpMybizLoadingHtml)},(a.includes("-mybiz")||c&&c.includes("-mybiz"))&&(o=window.gcpMybizLoadingHtml)}!n||window.__FIRST_SCREEN_DATA||window.__FIRST_SCREEN_DATA_SPLITTED||window.__FIRST_SCREEN_SSR_HTML_FIRST||i.test(window.location.href)||(n.innerHTML=o)}},function(e,t,n){"use strict";t.a=function(e,t){window.gcpStartPage=function(){!function(e,t){var n=e.platform,r=e.mtopConfig,i=e.bottomConfig,o=e.renderCoreName,a=e.previewEnv,c=e.asyncRender,s=e.uprPreload;if(window.require)window.require([o],(function(e){e.start({rootSelector:"#content .mui-zebra-page",mtopConfig:r,bottomConfig:i,platform:n,url:window.location.href,previewEnv:a,asyncRender:c,preload:s}),"function"==typeof t&&t()}));else if(window.gcpIsPrehot){var u=function(e){var t={};try{t=JSON.parse(e)}catch(e){console.error("[noRef-webviewShowUp]",e)}var n=t&&t.url||"";n&&(window.location.href=n+(n.indexOf("?")>-1?"&no_webview_showup_reload=true":"?no_webview_showup_reload=true"))};window.gcpPrehotParamsInStr?u(window.gcpPrehotParamsInStr):window.webviewShowUp=u}else window.location.href.indexOf("no_webview_showup_reload=true")<0&&(window.location.href=window.location.href+(window.location.href.indexOf("?")>-1?"&no_webview_showup_reload=true":"?no_webview_showup_reload=true"))}(e,t)};var n=document.createElement("script"),r=document.getElementsByTagName("body")[0];n.innerHTML="window.gcpStartPage();",r.appendChild(n)}},function(e,t,n){"use strict";t.a=function(e,t){if(void 0===t&&(t=!1),(navigator&&navigator.userAgent||"").toLowerCase().indexOf("aliapp")<0&&!location.href.includes("disable_baxia=true")&&!window.baxiaCommon){var n=["mtop.lazada.promotion.voucher.spread","mtop.lazada.promotion.brain.promotion.spread","mtop.lazada.usergrowth.newuser.voucher.get","mtop.lazada.interaction.benefit.get","mtop.lazada.ug.lpi.get","mtop.lazada.ug.stars.vulcan.allocation.collectBenefits","mtop.com.lazada.stars.prod.generic.service.strategy.touch","mtop.com.lazada.stars.prod.generic.service.strategy.effect","mtop.lazada.usergrowth.lpi.collect","mtop.lazada.usergrowth.newuser.collectNulpVoucherPackage","mtop.lazada.usergrowth.newuser.queryNulpVoucherPackage","mtop.member.user.findRelevanceAccount","mtop.lazada.member.user.biz.sendVerificationSms","mtop.lazada.member.user.biz.sendVerificationEmailCode","mtop.lazada.member.user.biz.verifyPhoneCode","mtop.lazada.member.user.biz.verifyEmailCode","mtop.lazada.member.user.biz.validatedevice","mtop.lazada.member.user.biz.changeQuickLoginStatus","mtop.lazada.member.user.biz.bindSocialAccount","mtop.lazada.member.user.biz.unbindSocialAccountByToken","mtop.lazada.member.user.biz.unbindSocialAccount","mtop.lazada.member.user.biz.resetPassword","mtop.lazada.member.user.kyc.checkOcrResult","mtop.lazada.member.user.verificationToken","mtop.lazada.member.user.sendConfirmationMessage","mtop.lazada.member.user.loginByToken","mtop.lazada.member.biz.verifyuseridentity","/user/api/login","/user/api/register","/user/api/loginByToken","/user/api/getTngAuthURL","/user/api/tngSilentLogin","/user/api/tngAuthLogin","/user/api/verifyPhoneCode","/user/api/danaAuthLogin","/user/api/danaSilentLogin","/user/api/loginByOAuthCode","/user/api/changePassword","/user/api/verifyEmailCode","/user/api/resetPassword","/user/api/applyResetPasswordWithSecurity"],r=document.createElement("script");r.src=e||"//g.lazcdn.com/res-o/lzd_sec/LWSC/index.js",r.crossOrigin="anonymous",document.body.appendChild(r),r.onload=function(){window.baxiaCommon&&window.baxiaCommon.init({appendTo:"header",umOptions:{serviceLocation:"lazada"},checkApiPath:function(e){return n.filter((function(t){return e.indexOf(t)>-1})).length>0}})}}}},function(e,t,n){"use strict";var r=n(0);t.a=function(){document.addEventListener("click",(function(n){var i=e(n,"a"),o=i&&i.href;o&&0===o.indexOf("https://")&&(o=function(e){try{if(e.indexOf("&prePvid=")>=0||e.indexOf("?prePvid=")>=0)return e;var n=Object(r.a)("clickTrackInfo");if(!n)return e;(n=JSON.parse(n)).pvid&&(e=t(e,"prePvid",n.pvid)),n.itemid&&(e=t(e,"preItemid",n.itemid)),n.app_bztag&&(e=t(e,"preBztag",n.app_bztag)),n.juno_layer_bucket&&(e=t(e,"preJbk",n.juno_layer_bucket))}catch(e){console.warn("add pre-click-track-info to url error:"+e)}return e}(o=function(e,n){try{if(e.indexOf("&spm=")>=0||e.indexOf("?spm=")>=0)return e;var r=[];if(n&&window.g_SPM&&window.g_SPM.getParam){var i=window.g_SPM.getParam(n);i&&Object.keys(i).sort().forEach((function(e){r.push(i[e])}))}r.length||window.aplus&&window.aplus.spm_ab&&(r=window.aplus.spm_ab),r&&r.length||window.__SPM_AB&&Object.keys(window.__SPM_AB).sort().forEach((function(e){"x"!==window.__SPM_AB[e]&&r.push(window.__SPM_AB[e])})),r.length&&(r.push("0","0","0","0"),r=r.slice(0,4),e=t(e,"spm",r.join("."),!0))}catch(e){console.warn("add spm to url error:"+e)}return e}(o,i)),i.href=o)}));var e=function(e,t){var n=e.target;do{if((!n.nodeName||n.nodeName.toLowerCase()==t)&&n.href)return n}while(n=n.parentNode)};function t(e,t,n,r){var i=e;return n=encodeURIComponent(n),i=e.indexOf("?")>=0?e.replace("?","?"+t+"="+n+"&"):e.indexOf("#")>=0?e.replace("#","?"+t+"="+n+"#"):e+"?"+t+"="+n,r?i:i.length>2048?e:i}}},function(e,t,n){"use strict";var r=n(1);n(0);t.a=function(e){return e.uprPreload.js.push("//g.lazcdn.com/g/??"+["rax-pkg/rax-children/1.0.0/index.js","rax-pkg/rax-clone-element/1.0.0/index.js","rax-pkg/rax-create-class/1.0.0/index.js","rax-pkg/rax-create-factory/1.0.0/index.js","rax-pkg/rax-create-portal/1.0.0/index.js","rax-pkg/rax-find-dom-node/1.0.0/index.js","rax-pkg/rax-is-valid-element/1.0.0/index.js","rax-pkg/rax-unmount-component-at-node/1.0.0/index.js"].join(",")),e.vconsoleInit=r.a,e}},function(e,t,n){"use strict";var r=!1;t.a=function(){r||(r=!0,function(){var e=-1!=location.href.indexOf("jt_debug=fsp"),t=function(){},n=e?console.log.bind(console.log,"jt_sfsp: "):t,r=["mousedown","touchstart"];if("undefined"!=typeof window&&"undefined"!=typeof performance&&"undefined"!=typeof MutationObserver&&"undefined"!=typeof screen){var i={SCRIPT:1,LINK:1,HEAD:1,MATE:1,TITLE:1,STYLE:1,BR:1,SVG:2,IMG:2,CANVAS:2,VIDEO:2},o=screen,a=o.width,c=o.height,s=document.documentElement,u=s.clientWidth,l=s.clientHeight,d=Math.round(Math.max(.02*Math.min(a,c),12)),f=Math.round(.05*c),m=Math.min(l,c),p=Math.min(u,a),g=[],h=null,v=!1,w=null,b=null,y=null,T=!1,_=0,S={version:"20221212",listeners:[],lazy:function(){h||M()},on:function(e){-1===this.listeners.indexOf(e)&&this.listeners.push(e)},un:function(e){if(e){var t=this.listeners.indexOf(e);this.listeners.splice(t,1)}},forceStop:function(){P({type:"force"})},_fn:function(e){var t;for(var n in this.listeners)(t=this.listeners[n])&&t(e);this.listeners=[]},getFrames:function(){return g},getIgnoreNodes:function(){return w},install:function(){M()},getXPATH:V},E=!1;window._JT_FSP?(S.listeners=window._JT_FSP.listeners,S.forceStop=window._JT_FSP.forceStop,v=!0):(window._JT_FSP=S,E=!0);var x=new MutationObserver((function(e){if(v)return;B(e,(function(e){var t=e.target,n=e.addedNodes,r=t.nodeName;if(1!==i[r]&&!q(w,(function(e){return e&&e.contains&&e.contains(t)}))){if(g.length>0&&"HTML"!==r&&"BODY"!==r){var o=t.getBoundingClientRect(),a=o.top,c=o.left,s=o.bottom,u=o.right;if(s<f||a>m-f||u<f||c>p-f)return}B(n,(function(e){try{if(!e.parentElement)return;var t=e;if(function(e){return 3===e.nodeType&&!/^[\r\n\s]*$/.test(e.wholeText)}(e)&&1===e.parentElement.childNodes.length&&(t=e.parentElement),1!==t.nodeType&&9!==t.nodeType)return;if(1===i[t.nodeName])return;!q(L,(function(e){return e.contains(t)}))&&L.push(t)}catch(e){}}))}})),L.length>0&&null===C&&(C=setTimeout((function(){I(L),L=[],C=null}),1e3/60))})),C=null,L=[];e&&(S.findViewRectInFirstScreen=z,S.createScreenBox=A,S.findMeaningfulDom=j)}function M(){if(E&&!h&&!v){w=[],y=function(){var n=null,r=null;if(!e)return t;var i=function e(){v||(r=requestAnimationFrame(e),n&&(n.innerHTML=""+Date.now()))},o=function(){if(!r){n=document.createElement("div");var e={position:"fixed",bottom:"6px",right:"6px",color:"#fff",padding:"0 4px",backgroundColor:"rgba(0, 0, 0, 0.6)",zIndex:99999990,textAlign:"center",fontSize:"12px"};for(var t in e)n.style[t]=e[t];document.body.appendChild(n),requestAnimationFrame(i)}};document.body?o():window.addEventListener("DOMContentLoaded",o);return function(e){if(n){var t=Date.now();if(e){cancelAnimationFrame(r);var i=(performance.timeOrigin||performance.timing.navigationStart)+e;t=Math.round(i),n.style.color="#0ff"}n.innerHTML=t+" | "+Math.round(e||performance.now())}}}();var n=document.firstElementChild;if(document.body)document.querySelectorAll("BODY > *").length>0&&(B(document.querySelectorAll("[ignorefspcollection]"),(function(e){w.push(e),T=!0})),I(document.querySelectorAll("BODY IMG")));y(),x.observe(n,{childList:!0,subtree:!0});var i=function(){r.forEach((function(e){return n.addEventListener(e,P,!0)}))};"loading"!==document.readyState?i():document.addEventListener("DOMContentLoaded",i),h=setTimeout((function(){P({type:"timeout"})}),3e4)}}function k(e,t){if(!v){y(),t=t||R();var n=e.top,r=e.left,i=e.bottom,o=e.right,a=Math.abs(i-n),c=Math.abs(o-r);e.lastTime=Math.max(t,e.lastTime),e.v=Math.floor(a*c/(m*p)*1e4)/1e4,b&&clearTimeout(b),b=setTimeout((function(){P({type:"idle"})}),3e3);var s=g.length;if(!(s<4))for(var u=0,l=0,f=0,h={},w=0;w<s;w++){var T=g[w];if(T.g=T.g||w+1,!(T.bottom-T.top<d||T.right-T.left<d)){if(u+=Math.min(T.v,1),T.v>=f&&(f=T.v,l=w),u>4){P({type:"sum_area",p:l});break}for(var _=0;_<w;_++){var S=g[_];if(!(S.bottom-S.top<d||S.right-S.left<d))if(D(T,S,d)){var E=T.g=S.g;h[E]=(h[E]||0)+1,h[E]>=3&&P({type:"tail",p:E-1});break}}}}}}function I(e){try{var t=z(e),r=t.meaningfulList,i=t.box,o=t.cost;if(!i||!i.count)return;g.push(i),_+=o,n("makeFrames cost:"+o+"ms; frames count: "+g.length,i),i.wait=0,i.imgSeq=[],B(r,(function(e){var t=e.nodeName;if("IMG"===t){i.wait+=1;var r=e.complete?1:0,o=e.src;e.addEventListener("load",(function t(){if(v)e.removeEventListener("load",t,!0);else{if(r>0){if(e.src===o)return;n("img change src",o,e.src,R())}++r>2&&i.startTime>1e3||function e(t,n){n&&n.then&&n.catch?n.then((function(){e(t)})).catch((function(){e(t)})):window.requestAnimationFrame?requestAnimationFrame(t):setTimeout(t,0)}((function(){var t=e.getBoundingClientRect(),n=t.top,r=t.left,o=t.bottom,a=t.right,c=t.width,s=t.height;c<d||s<d||o<f||n>m-f||a<f||r>p-f||(i.left=Math.min(r,i.left),i.top=Math.min(n,i.top),i.bottom=Math.max(i.bottom,n+s),i.right=Math.max(i.right,r+c),i.imgSeq.push({node:e,time:R()}),k(i))}),null)}}),!0)}else"VIDEO"===t&&e.poster&&i.bgImg.push(e.poster)})),k(i)}catch(e){}}function O(e,t,r){var i=function(){var e=performance.getEntriesByType&&performance.getEntriesByType("navigation")[0]||null;if(e)return e;var t=performance.timing;return{loadEventStart:t.loadEventStart-t.navigationStart,domContentLoadedEventStart:t.domContentLoadedEventStart-t.navigationStart}}().loadEventStart;if(!0!==r&&i<=0)!function(e){var t=null,n=0,r=function r(){t&&clearTimeout(t),window.removeEventListener("load",r),0==n++&&e()};t=setTimeout(r,3e4-R()),window.addEventListener("load",r)}((function(){return O(e,t,!0)}));else{var o={},a=-1,c=-1,s=0,u=null;B(performance.getEntries(),(function(e){var t=e.entryType,n=e.name,r=e.startTime,i=e.duration;if("paint"==t)switch(n){case"first-contentful-paint":a=r;break;case"first-paint":c=r}else/\.css$/i.test(n)?s=Math.max(r+i,s):o[H(n)]=r+i}));var l={},f=0;if(e&&e.length>0&&B(e,(function(e){e=H(e),o[e]&&(n("check img from resourceTiming: ",e,o[e]),l[e]=o[e],f=Math.max(l[e],f))})),i>0){var m=[],p=document.body&&document.body.querySelectorAll("*[style]"),g=function(e,t,r){if((t=H(t))&&!/^data:/i.test(t)){var a=o[t];if(!(a>i)){var c=A(e,r);if(c){var l=c.width,f=c.height;0==c.isCutoff&&l>d&&f>d?s<a&&(s=a,u=e):n("small size img",e)}}}};p&&p.length>0&&B(p,(function(e){var t=/url\(['"]?(.*?)['"]?\)/i.exec(e.style&&e.style.backgroundImage||"");t=t&&t[1],g(e,t,m)})),B(document.images,(function(e){return g(e,e.src,m)}))}t({ssrTime:Math.max(s,a,c),fcp:a,fp:c,ssrLastImg:u,checkResult:l,checkResultMaxValue:f})}}function P(t){if(!v){var i=t.type,o=t.p,a=0,c=R();try{var s=performance.getEntriesByName("first-contentful-paint")[0];if(s&&s.startTime&&(a=s.startTime),-1!=r.indexOf(i)&&(0===a||R()-a<200))return void n("no fcp, ignore mousedown",c)}catch(e){}h&&clearTimeout(h),b&&clearTimeout(b),v=!0,x&&(x.disconnect(),x.takeRecords(),x=null);var u=null,l=[];switch(i){case"tail":case"sum_area":u=L(g.slice(0,o));break;default:var f=L(g),m=f.length;if(m>=2){m--;var p=0;do{if(!D(f[m],f[m-1],d))break;p++}while(--m>0);p>0&&(0===m&&n("Full Screen Reflash x 2."),f=f.slice(0,m||1))}u=f}var E=0,C=null;u.length?B(u,(function(e){e.lastTime>E&&(E=e.lastTime,C=e)})):E=a,O(l,(function(t){try{var o=t.ssrTime,a=t.fcp,c=t.fp,s=t.ssrLastImg,l=t.checkResult,d=t.checkResultMaxValue;d>E&&(E=d);var f=(performance.timeOrigin||performance.timing.navigationStart)+E;n("stopHandleBy "+i+", sfsp: "+E+", checkImg: "+d+", ssrTime: "+o+", fcp: "+a+", fp: "+c+", ssrLastImg: ",s,u,l);var m=C||{},p=m.domSize,h=m.imgSeq,v="";try{h&&h.length>0&&(v=V(h[h.length-1].node))}catch(e){}var b={endType:-1!=r.indexOf(i)?r[0]:i,timestamp:f,cost:E,domSize:p,validFrames:u,ssrTime:o,ssrLastImg:s,bgImgRecord:l,bgImgMaxTime:d,fcp:a,fp:c,haveIgnoreAttr:T,lastImg:v,execCost:_,version:S.version};if(window.dispatchEvent&&window.CustomEvent){var x=new CustomEvent("jstracker.fsp",{detail:b});window.dispatchEvent(x)}try{S._fn(b)}catch(e){}y(E),e||(g.length=0,w&&(w.length=0,w=null))}catch(e){}}),"force"===i)}function L(e){var t=[];if(e.length<=1){var n=((t=e.slice(0))[0]||{}).bgImg;n&&B(n,(function(e){return l.push(e)}))}else B(e,(function(e){var n=e.v,r=e.bgImg;n<.02||(r&&B(r,(function(e){return l.push(e)})),t.push(e))}));return t}}function z(e,t){void 0===t&&(t=[]);var n=R(),r={startTime:n,lastTime:n,left:Number.MAX_SAFE_INTEGER,top:Number.MAX_SAFE_INTEGER,right:0,bottom:0,count:0,searchNodes:0,bgImg:[],domSize:document.all?document.all.length:document.getElementsByTagName("*").length},o=r.meaningfulList=[],a=function(e){r.searchNodes++;var n=A(e,t);return n?(function(e,t){if(e){var n=e.top,i=e.left,a=e.width,c=e.height,s=e.backgroundImage;r.left=Math.min(i,r.left),r.top=Math.min(n,r.top),r.bottom=Math.max(r.bottom,n+c),r.right=Math.max(r.right,i+a),o.push(t),r.count++,s&&r.bgImg.push(s)}}(n,e),!0):n};return B(e,(function(e){(i[e.nodeName]||3)<2||0!==a(e)&&B(j(e,[]),a)})),{meaningfulList:o,cacheObj:t,box:r,cost:R()-n}}function A(e,t){var n=null;if(t||(t=[]),n=F(t,e)){if(n.result)return n.result}else{if(n=N(e),t.push(n),n.ignore)return w.push(e),n.result=0;if(q(w,(function(t){return t&&t.contains&&t.contains(e)})))return n.result=0}var r=n,i=r.backgroundImage,o=void 0===i?null:i,s=r.pBox,u=s.top,l=s.left,g=s.bottom,h=s.right,v=s.width,b=s.height,y=!1,T=!0;if("IMG"!==e.nodeName||!0===e.complete||0!==v&&0!==b){if(v<d||b<d)return n.result=!1;if(g<f||u>c-f||h<f||l>a-f)return n.result=0}else T=!1;for(var _=e.parentElement,S=null,E=document.scrollingElement||document.documentElement;_;){if((S=F(t,_))||((S=N(_)).ignore&&w.push(_),t.push(S)),S.ignore)return n.result=0;var x=S,C=x.scrollTop,L=x.scrollLeft,M=x.scrollHeight,k=x.scrollWidth,I=x.clientHeight,O=x.clientWidth,P=x.overflowX,z=x.overflowY;if(M>I&&(_===E||"visible"!==z)||k>O&&(_===E||"visible"!==P)){u+=C,g+=C,l+=L,h+=L;var A=S.box?S.box:_.getBoundingClientRect();if(S.box=S.box||A,u-A.bottom>4||l-A.right>4||A.top-g>4||A.left-h>4)return n.result=!1}_=_.parentElement,S=null}return y=y||u>=m||l>=p,n.result=(!T||!(g<f||u>m-f||h<f||l>p-f))&&{top:u,left:l,width:v,height:b,isCutoff:y,backgroundImage:o}}function D(e,t,n){void 0===n&&(n=8);var r=Math.sqrt(Math.pow(e.top-t.top,2)+Math.pow(e.left-t.left,2)),i=Math.sqrt(Math.pow(e.bottom-t.bottom,2)+Math.pow(e.right-t.right,2));return r<2*n&&i<2*n}function j(e,t){t=t||[];var n=e.firstChild;if(n)do{switch(n.nodeType){case 1:if(1===(i[n.nodeName]||0))break;if("IMG"===n.nodeName||"VIDEO"===n.nodeName){t.push(n);break}if(0===n.childElementCount){t.push(n);break}j(n,t);break;case 3:/^[\r\n\s]*$/.test(n.wholeText)||t.push(e)}}while(n=n.nextSibling);return t}function F(e,t){for(var n=e.length-1;n>=0;n--){var r=e[n];if(r.key===t)return r}return null}function N(e){var t={key:e,pBox:e.getBoundingClientRect(),scrollTop:e.scrollTop,scrollLeft:e.scrollLeft,scrollHeight:e.scrollHeight,scrollWidth:e.scrollWidth,clientHeight:e.clientHeight,clientWidth:e.clientWidth,isNew:!0};if("BODY"!==e.tagName){if(window.getComputedStyle){var n=window.getComputedStyle(e,null);t.display=n.display,t.position=n.position,t.overflow=n.overflow,t.overflowX=n.overflowX,t.overflowY=n.overflowY,t.transform=n.transform;var r=/url\(['"]?(.*?)['"]?\)/i,i=n.backgroundImage;r.test(i)&&(i=i.replace(r,"$1"),/^data:/i.test(i)||(t.backgroundImage=i)),("fixed"===n.position||g.length>0&&("none"===n.display||"0"===n.opacity||"hidden"===n.visibility))&&(t.ignore=!0)}e.hasAttribute("ignorefspcollection")&&(t.ignore=!0,T=!0)}return t}function R(){return performance.now()}function B(e,t){if(t&&e)for(var n=e.length||0,r=0;r<n;r++)t(e[r],r)}function q(e,t){if(t&&e){for(var n=e.length||0,r=0;r<n;r++)if(t(e[r],r))return!0;return!1}}function H(e){return e?e.replace(/^https?:\/\//i,"//"):e}function V(e){var t=[],n=function(e){return e.className?e.tagName+'[@class="'+e.className+'"]':e.tagName},r=function(e){for(var r=n(e),i=1,o=e;o=o.previousElementSibling;)n(o)===r&&i++;t.push(r+"["+i+"]")},i=e;do{r(i)}while("BODY"!==i.tagName&&(i=i.parentElement));return t.push("/"),t.reverse().join("/")}}(),window.location.href.indexOf("lzd_open_type=pre_hot")>=0||(window._JT_FSP.install(),window._JT_FSP.listeners=[function(e){window.gcpIsDebug&&console.log("[fsp-report-in-solution]",e),window.__FSPV2=e}],window.gcpIsDebug&&console.log("[fsp-registered-in-solution]")))}},function(e,t,n){},function(e,t,n){},,,,,,,,,,,,,,function(e,t,n){e.exports=n(28)},function(e,t,n){},,function(e,t,n){"use strict";n.r(t);var r=n(4),i=n(5),o=n(6),a=n(7),c=n(8),s=n(2),u=n(3),l=n(9),d=(n(26),n(10),n(11),Object(c.a)(window.gcpStartConfig||{})),f=d.platform,m=d.baxiaEnabled,p=d.jsUrls,g=d.business;Object(r.a)(f,g),Object(s.a)(),Object(u.a)(),Object(l.a)(),Object(a.a)(),Object(i.a)(d),window.gcpIsNewPCHeaderFooter||function(e){window.pcFooterConfig=function(){var e;feloader&&(e=feloader,window.g_config=window.g_config||{},window.g_config.seed=window.g_config.seed||{},e.config(window.g_config.seed),e.config("combine",!0))};var t=document.createElement("script"),n=document.getElementsByTagName("body")[0];t.innerHTML="window.pcFooterConfig();",n.appendChild(t),t=document.createElement("script"),n=document.getElementsByTagName("body")[0],t.src=e,n.appendChild(t)}(p.lzdmodLoader),m&&Object(o.a)(p.baxia,!0)}]);</script></body></html>

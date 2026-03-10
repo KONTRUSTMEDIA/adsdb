@@ -1,0 +1,313 @@
+
+
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>TOKİ Haberleri — Ana Sayfa</title>
+  <meta name="description" content="TOKİ haberleri, duyurular, projeler ve konut güncellemeleri." />
+  <style>
+    :root{
+      --bg:#f6f8fb;
+      --card:#ffffff;
+      --muted:#6b7280;
+      --accent:#0f766e; /* petrol/mavi-yeşil */
+      --accent-2:#f59e0b; /* vurgulu sarı */
+      --radius:12px;
+      --max-width:1100px;
+      --shadow: 0 6px 20px rgba(16,24,40,0.08);
+      --glass: rgba(255,255,255,0.6);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      background:var(--bg);
+      color:#0f172a;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      padding:24px 16px;
+      display:flex;
+      justify-content:center;
+      font-size:15px;
+    }
+    .wrap{width:100%;max-width:var(--max-width)}
+
+    /* Header */
+    .topbar{display:flex;align-items:center;gap:12px;justify-content:space-between;margin-bottom:18px}
+    .brand{display:flex;gap:12px;align-items:center}
+    .brand .logo{width:48px;height:48px;border-radius:10px;background:linear-gradient(135deg,var(--accent),#065f60);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700}
+    .brand h1{font-size:18px;margin:0}
+    .brand p{margin:0;font-size:13px;color:var(--muted)}
+    .search{flex:1;margin-left:18px}
+    .search input{width:100%;padding:10px 14px;border-radius:10px;border:1px solid rgba(15,23,42,0.06);background:linear-gradient(180deg,rgba(255,255,255,0.9),#fff);box-shadow:var(--shadow)}
+    .actions{display:flex;gap:10px;align-items:center}
+    .btn{padding:8px 12px;border-radius:10px;background:var(--card);box-shadow:var(--shadow);border:none;cursor:pointer}
+    .btn.primary{background:linear-gradient(90deg,var(--accent),#0b6b66);color:#fff}
+
+    /* Layout */
+    .grid{display:grid;grid-template-columns:1fr;gap:18px}
+    @media(min-width:920px){
+      .grid{grid-template-columns:2fr 380px}
+    }
+
+    /* Hero */
+    .hero{display:flex;flex-direction:column;gap:12px;padding:18px;border-radius:var(--radius);background:linear-gradient(180deg,#fff, #fbfdff);box-shadow:var(--shadow)}
+    .hero .meta{display:flex;gap:12px;align-items:center}
+    .hero .meta .tag{background:rgba(15,118,110,0.12);color:var(--accent);padding:6px 10px;border-radius:999px;font-weight:600;font-size:13px}
+    .hero h2{margin:0;font-size:20px}
+    .hero p{margin:0;color:var(--muted)}
+    .hero .hero-img{width:100%;height:180px;border-radius:10px;background-size:cover;background-position:center}
+
+    /* Articles */
+    .articles{display:grid;gap:14px}
+    .card{background:var(--card);border-radius:12px;padding:12px;box-shadow:var(--shadow);display:flex;gap:12px}
+    .card .thumb{width:120px;height:80px;border-radius:8px;background-size:cover;background-position:center;flex-shrink:0}
+    .card .content h3{margin:0;font-size:16px}
+    .card .content p{margin:6px 0 0;color:var(--muted);font-size:14px}
+    .meta-line{display:flex;gap:10px;align-items:center;color:var(--muted);font-size:13px;margin-top:8px}
+
+    /* Sidebar */
+    .sidebar{display:flex;flex-direction:column;gap:12px}
+    .widget{background:var(--card);padding:12px;border-radius:12px;box-shadow:var(--shadow)}
+    .categories ul{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:8px}
+    .categories li{display:flex;justify-content:space-between;align-items:center}
+
+    /* Footer */
+    footer{margin-top:18px;padding:18px;border-radius:12px;background:linear-gradient(180deg,#fff,#f8fafc);box-shadow:var(--shadow);font-size:14px;color:var(--muted)}
+
+    /* small tweaks */
+    .kicker{font-size:12px;color:var(--muted)}
+    .pill{padding:6px 8px;border-radius:999px;background:rgba(15,118,110,0.08);color:var(--accent);font-weight:600}
+
+    /* Mobile menu (simple) */
+    .mobile-nav{display:flex;gap:8px}
+    .hamburger{display:inline-flex;align-items:center;gap:6px;padding:8px;border-radius:8px}
+    @media(min-width:720px){.hamburger{display:none}}
+
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="topbar">
+      <div class="brand">
+        <div class="logo">TOKİ</div>
+        <div>
+          <h1>TOKİ Haberleri</h1>
+          <p>Projeler, duyurular ve güncel gelişmeler</p>
+        </div>
+      </div>
+
+      <div class="search" style="max-width:520px;">
+        <input id="searchInput" type="search" placeholder="Haber ara — örn. başvuru tarihleri, projeler...">
+      </div>
+
+      <div class="actions">
+        <button class="btn" onclick="toggleDark()" title="Koyu/aydınlık">🌓</button>
+        <button class="btn primary">Toki Başvuru Kayıt Yap</button>
+        <button class="hamburger btn" onclick="openMenu()">☰</button>
+      </div>
+    </header>
+
+    <main class="grid">
+      <section>
+        <div class="hero">
+          <div class="meta">
+            <div class="tag">Güncel</div>
+            <div class="kicker">Son güncelleme: 6 Ekim 2025</div>
+          </div>
+          <h2>Yeni TOKİ Projeleri ve Başvuru Tarihleri Açıklandı</h2>
+          <p>Türkiye genelinde planlanan yeni konut projeleri, başvuru şartları ve ödeme planları hakkında önemli bilgiler. Aşağıdaki haberleri takip ederek bölgenizle ilgili detayları öğrenin.</p>
+          <div class="hero-img" style="background-image:url('https://images.unsplash.com/photo-1505842465776-3d0f6b8d2d3c?q=80&w=1600&auto=format&fit=crop');"></div>
+        </div>
+
+        <div style="height:14px"></div>
+
+        <div class="articles" id="articlesList">
+          <!-- Article cards (JS will filter/search) -->
+          <article class="card" data-title="Başvuru şartları ve ev fiyatları" data-category="Duyuru">
+            <div class="thumb" style="background-image:url('https://images.unsplash.com/photo-1570129477492-45c003edd2be?q=80&w=800&auto=format&fit=crop')"></div>
+            <div class="content">
+              <h3>Başvuru şartları ve ev fiyatları açıklandı</h3>
+              <p>Başvuru yapacak olan vatandaşlar için kimlik ve gelir şartları; örnek ödeme planları bu haberde.</p>
+              <div class="meta-line"><span class="kicker">6 Ekim 2025</span><span class="pill">Duyuru</span></div>
+            </div>
+          </article>
+
+          <article class="card" data-title="Kentsel dönüşüm projeleri" data-category="Proje">
+            <div class="thumb" style="background-image:url('https://images.unsplash.com/photo-1494526585095-c41746248156?q=80&w=800&auto=format&fit=crop')"></div>
+            <div class="content">
+              <h3>Kentsel dönüşüm projeleri hangi illeri kapsıyor?</h3>
+              <p>Öncelikli bölgeler ve hak sahibi seçme kriterleri ile ilgili detaylı açıklama.</p>
+              <div class="meta-line"><span class="kicker">3 Ekim 2025</span><span class="pill">Proje</span></div>
+            </div>
+          </article>
+
+          <article class="card" data-title="E-Devlet üzerinden başvuru" data-category="Rehber">
+            <div class="thumb" style="background-image:url('https://images.unsplash.com/photo-1524758631624-e2822e304c36?q=80&w=800&auto=format&fit=crop')"></div>
+            <div class="content">
+              <h3>Adım adım: E-Devlet üzerinden TOKİ başvurusu nasıl yapılır?</h3>
+              <p>Bilgisayar veya mobil cihazla başvuru adımları, gerekli belgeler ve sık yapılan hatalar.</p>
+              <div class="meta-line"><span class="kicker">28 Eylül 2025</span><span class="pill">Rehber</span></div>
+            </div>
+          </article>
+
+          <article class="card" data-title="Ödeme planı güncellemesi" data-category="Duyuru">
+            <div class="thumb" style="background-image:url('https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?q=80&w=800&auto=format&fit=crop')"></div>
+            <div class="content">
+              <h3>Ödeme planı güncellemesi ve örnek hesaplamalar</h3>
+              <p>Yeni ödeme seçenekleri ve örnek aylık taksit hesapları eklendi.</p>
+              <div class="meta-line"><span class="kicker">20 Eylül 2025</span><span class="pill">Duyuru</span></div>
+            </div>
+          </article>
+
+        </div>
+
+        <nav aria-label="Sayfalama" style="margin-top:16px;display:flex;gap:8px;justify-content:center">
+          <button class="btn">«</button>
+          <button class="btn">1</button>
+          <button class="btn">2</button>
+          <button class="btn">»</button>
+        </nav>
+
+      </section>
+
+      <aside class="sidebar">
+        <div class="widget">
+          <h4 style="margin:0 0 8px 0">Kategoriler</h4>
+          <div class="categories">
+            <ul>
+              <li><span>Güncel Duyurular</span><span class="kicker">12</span></li>
+              <li><span>Projeler</span><span class="kicker">8</span></li>
+              <li><span>Başvuru Rehberi</span><span class="kicker">6</span></li>
+              <li><span>Ödeme/Finans</span><span class="kicker">4</span></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="widget">
+          <h4 style="margin:0 0 8px 0">Popüler Haberler</h4>
+          <ol style="margin:0;padding-left:16px;color:var(--muted)">
+            <li>İlk kez ev sahibi olanlara özel kampanya detayları</li>
+            <li>Konut teslim tarihleri belli oldu</li>
+            <li>Engelli vatandaşlara öncelik uygulaması</li>
+          </ol>
+        </div>
+
+        <div class="widget">
+          <h4 style="margin:0 0 8px 0">Bültene Kayıt</h4>
+          <p style="margin:0 0 8px 0;color:var(--muted)">Yeni haberlerden anında haberdar olmak için e-posta adresinizi bırakın.</p>
+          <input type="email" placeholder="E-posta adresi" style="width:100%;padding:10px;border-radius:8px;border:1px solid rgba(15,23,42,0.06);margin-bottom:8px">
+          <button class="btn primary" style="width:100%">Abone Ol</button>
+        </div>
+Online:7<canvas id="visitChart" height="120"></canvas>
+<script>
+// Chart.js grafiği
+fetch('visits_log.json').then(r=>r.json()).then(data=>{
+const ctx = document.getElementById('visitChart').getContext('2d');
+const labels = Object.keys(data);
+const values = Object.values(data);
+new Chart(ctx, {
+type:'line',
+data:{
+labels:labels,
+datasets:[{
+label:'Günlük Ziyaretler',
+data:values,
+borderColor:'#0f766e',
+backgroundColor:'rgba(15,118,110,0.2)',
+fill:true,
+tension:0.3
+}]
+},
+options:{
+plugins:{legend:{display:false}},
+scales:{y:{beginAtZero:true}}
+}
+});
+});
+</script>
+      </aside>
+    </main>
+
+    <footer>
+      <div style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px">
+        <div>
+          <strong>TOKİ Haberleri</strong>
+          <div style="color:var(--muted);margin-top:6px">© 2025 — Hazırlayan: Siz</div>
+        </div>
+        <div style="color:var(--muted);display:flex;gap:12px;align-items:center">
+          <div>Gizlilik</div>
+          <div>İletişim</div>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    // Basit arama/filter
+    const searchInput = document.getElementById('searchInput');
+    const articles = Array.from(document.querySelectorAll('#articlesList article'));
+    searchInput.addEventListener('input', e=>{
+      const q = e.target.value.trim().toLowerCase();
+      articles.forEach(a=>{
+        const title = a.dataset.title.toLowerCase();
+        const cat = (a.dataset.category||'').toLowerCase();
+        const match = q === '' || title.includes(q) || cat.includes(q);
+        a.style.display = match ? 'flex' : 'none';
+      })
+    })
+
+    // Basit düzen: koyu/aydınlık modu (tarayıcıda tutmaz)
+    function toggleDark(){
+      const isDark = document.documentElement.style.getPropertyValue('--bg') === '#071013';
+      if(!isDark){
+        document.documentElement.style.setProperty('--bg','#071013');
+        document.documentElement.style.setProperty('--card','#071a1a');
+        document.documentElement.style.setProperty('--muted','#9ca3af');
+        document.documentElement.style.setProperty('--accent','#32d3b0');
+      } else {
+        document.documentElement.style.setProperty('--bg','#f6f8fb');
+        document.documentElement.style.setProperty('--card','#ffffff');
+        document.documentElement.style.setProperty('--muted','#6b7280');
+        document.documentElement.style.setProperty('--accent','#0f766e');
+      }
+    }
+
+    function openMenu(){
+      alert('Mobil menü örneği: buraya açılır menü ekleyebilirsiniz.');
+    }
+  </script>
+  
+  
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SK7NW02JG2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-SK7NW02JG2');
+</script>
+<!-- Event snippet for Hergun Temizlik conversion page
+In your html page, add the snippet and call gtag_report_conversion when someone clicks on the chosen link or button. -->
+<script>
+function gtag_report_conversion(url) {
+  var callback = function () {
+    if (typeof(url) != 'undefined') {
+      window.location = url;
+    }
+  };
+  gtag('event', 'conversion', {
+      'send_to': 'AW-11271300825/SNGhCOKsy9wZENnNyf4p',
+      'event_callback': callback
+  });
+  return false;
+}
+</script>
+
+</body>
+</html>
+

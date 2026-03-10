@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+    <title>Gelecek Seninle | Yaşayan Ormanlar 2026</title>
+    <meta name="description" content="Akıllı sensörlerle fidanları takip edin, dijital sertifika ve canlı saha takibi ile doğayı koruyun.">
+    <meta name="keywords" content="fidan sahiplen, ağaç dikme, dijital sertifika, orman koruma, gelecek seninle">
+
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://gelecekseninle.org/">
+    <meta property="og:title" content="Gelecek Seninle | Yaşayan Ormanlar 2026">
+    <meta property="og:description" content="Fidanını dik, akıllı sensörlerle anlık takip et. Doğaya nefes ol!">
+    <meta property="og:image" content="https://gelecekseninle.org/Logo-hd.png">
+
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://gelecekseninle.org/">
+    <meta property="twitter:title" content="Gelecek Seninle | Yaşayan Ormanlar 2026">
+    <meta property="twitter:description" content="Fidanını dik, akıllı sensörlerle anlık takip et.">
+    <meta property="twitter:image" content="https://gelecekseninle.org/images/social-preview.jpg">
+
+    <link rel="icon" type="image/png" href="favicon.png" sizes="32x32">
+
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&amp;family=Fraunces:opsz,wght@9..144,700&amp;display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
+
+    <style>
+        /* --- TEMEL AYARLAR --- */
+        :root {
+            --dark-green: #064e3b;
+            --bright-green: #057a55;
+            --acid-green: #a3e635;
+            --deep-emerald: #022c22;
+            --soft-white: #fdfcf7;
+            --white: #ffffff;
+            --text-slate: #475569;
+            --nav-height: 70px;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html, body { width: 100%; overflow-x: hidden; -webkit-overflow-scrolling: touch; }
+        html, body { max-width: 100%; overflow-x: hidden; }
+        img, video, svg { max-width: 100%; height: auto; }
+
+        /* MENÜ KİLİDİ: Açıldığında sayfa oynamaz (JS scroll-top ile birlikte çalışır) */
+        body.menu-open {
+            overflow: hidden !important;
+            height: 100% !important;
+            position: fixed !important;
+            width: 100% !important;
+            left: 0; right: 0;
+            top: var(--scroll-lock-top, 0px);
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--soft-white);
+            color: var(--dark-green);
+            line-height: 1.5;
+        }
+        h1, h2, h3 { font-family: 'Fraunces', serif; line-height: 1.1; }
+
+        /* --- MODERN NAVİGASYON SİSTEMİ --- */
+        .main-nav {
+            position: fixed; top: 0; left: 0; width: 100%; height: var(--nav-height);
+            background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 0 5%; z-index: 2000; box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+            padding-left: max(5%, env(safe-area-inset-left));
+            padding-right: max(5%, env(safe-area-inset-right));
+        }
+
+        .logo {
+            font-size: 1.5rem; font-weight: 800; color: var(--dark-green); text-decoration: none;
+            display: flex; align-items: center; gap: 8px; font-family: 'Fraunces', serif; z-index: 2005;
+        }
+        .logo span { color: #15803d; }
+
+        .nav-wrapper { display: flex; align-items: center; gap: 30px; }
+        .nav-links { display: flex; align-items: center; gap: 20px; }
+        .nav-actions { display: flex; align-items: center; gap: 15px; }
+
+        .nav-link {
+            text-decoration: none; color: var(--text-slate); font-weight: 600; font-size: 0.95rem; transition: 0.3s;
+        }
+        .nav-link:hover { color: #15803d; }
+        .active-link { color: #15803d; font-weight: 800; }
+
+        /* Butonlar */
+        .btn {
+            height: 40px; display: inline-flex; align-items: center; justify-content: center;
+            padding: 0 20px; font-weight: 700; font-size: 0.95rem;
+            border-radius: 12px; text-decoration: none; transition: 0.3s; border: none; cursor: pointer;
+        }
+        .btn-green { background: var(--bright-green); color: var(--white); border-radius: 8px; font-size: 1rem; }
+        .btn-green:hover { filter: brightness(1.1); transform: translateY(-2px); }
+
+        /* Giriş Yap Butonu Tasarımı */
+        .btn-login {
+            border: 2px solid var(--dark-green) !important;
+            color: var(--dark-green) !important;
+            background: transparent !important;
+            display: inline-flex !important;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        .btn-login:hover { background: var(--dark-green) !important; color: var(--white) !important; transform: translateY(-2px); }
+
+        .btn-logout { background: #fee2e2; color: #ef4444; border-radius: 8px; }
+        .btn-logout:hover { background: #fecaca; }
+
+        /* Dikkat Çeken Ürünler Menüsü */
+        .highlight-urunler {
+            color: #15803d !important; font-weight: 800; padding: 6px 14px; border-radius: 20px;
+            background: rgba(163, 230, 53, 0.1); animation: ecoPulse 2s infinite ease-in-out;
+        }
+        .highlight-urunler:hover { animation: none; background: var(--bright-green); color: var(--white) !important; transform: translateY(-2px); }
+        @keyframes ecoPulse {
+            0% { box-shadow: 0 0 0 0 rgba(163, 230, 53, 0.5); transform: scale(1); }
+            50% { box-shadow: 0 0 0 10px rgba(163, 230, 53, 0); transform: scale(1.05); background: rgba(163, 230, 53, 0.25); }
+            100% { box-shadow: 0 0 0 0 rgba(163, 230, 53, 0); transform: scale(1); }
+        }
+
+        /* Mobil Hamburger Butonu */
+        .mobile-menu-btn {
+            display: none; background: #f1f5f9; border: none; width: 45px; height: 45px; border-radius: 10px;
+            font-size: 1.4rem; color: var(--dark-green); cursor: pointer; z-index: 2005; transition: 0.3s;
+        }
+
+        /* --- MOBİL NAVİGASYON (HAMBURGER MENÜ) --- */
+        @media (max-width: 992px) {
+            .mobile-menu-btn { display: flex; align-items: center; justify-content: center; }
+
+            .nav-wrapper {
+                position: fixed;
+                inset: 0;
+                width: 100vw;
+                height: 100vh;
+                background: var(--white);
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: 25px;
+                opacity: 0;
+                visibility: hidden;
+                transform: translateY(-20px);
+                transition: all 0.4s ease;
+                z-index: 2004;
+                padding: 24px 16px;
+                box-sizing: border-box;
+            }
+
+            .nav-wrapper.menu-active { opacity: 1; visibility: visible; transform: translateY(0); }
+
+            .nav-links {
+                flex-direction: column;
+                width: 100%;
+                max-width: 520px;
+                gap: 15px;
+                text-align: center;
+            }
+
+            .nav-link {
+                font-size: 1.2rem;
+                display: block;
+                width: 100%;
+                padding: 12px 0;
+                border-bottom: 1px solid #f1f5f9;
+            }
+
+            .nav-actions {
+                flex-direction: column;
+                width: 100%;
+                max-width: 520px;
+                gap: 15px;
+                margin-top: 10px;
+            }
+
+            .btn {
+                width: 100% !important;
+                height: 50px;
+                font-size: 1.1rem;
+                justify-content: center !important;
+                max-width: 100%;
+            }
+
+            .btn-login { order: 2; border-color: var(--bright-green); color: var(--bright-green); background: #f0fdf4; }
+            .btn-green { order: 1; }
+        }
+
+        /* --- HERO BÖLÜMÜ --- */
+        .hero-bg {
+            position: relative; min-height: 90vh; display: flex; flex-direction: column;
+            justify-content: center; align-items: center; text-align: center; color: var(--white);
+            padding: 120px 20px 60px; overflow: hidden; background-color: var(--dark-green);
+            margin-top: var(--nav-height);
+        }
+        .hero-img-obj { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1; }
+        .hero-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.55); z-index: 2; }
+        .hero-content { position: relative; z-index: 3; max-width: 900px; }
+        .hero-content h1 { font-size: clamp(2.5rem, 6vw, 4.5rem); margin-bottom: 20px; text-shadow: 0 4px 15px rgba(0,0,0,0.4); }
+        .hero-content p { font-size: 1.2rem; max-width: 800px; margin: 0 auto 30px; opacity: 0.95; }
+
+        .btn-outline { background: rgba(255, 255, 255, 0.30); border: 4px solid var(--bright-green); color: var(--white); backdrop-filter: blur(5px); font-weight: 800; text-shadow: 0 1px 3px rgba(0,0,0,0.3); }
+        .btn-outline:hover { background: var(--white); color: var(--dark-green); }
+
+        .site-chip { display: inline-flex; align-items: center; gap: 10px; padding: 8px 16px; border-radius: 50px; background: rgba(0,0,0,0.4); backdrop-filter: blur(5px); border: 1px solid rgba(255,255,255,0.3); margin-top: 15px;}
+        .live-dot { width: 10px; height: 10px; background: #ef4444; border-radius: 50%; animation: pulse 1.5s infinite; }
+
+        /* --- İSTATİSTİK KARTLARI --- */
+        .live-stats {
+            max-width: 1100px; margin: -60px auto 40px; background: var(--white); border-radius: 30px; padding: 30px;
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.1); position: relative; z-index: 10;
+        }
+        .stat-card { border-radius: 20px; overflow: hidden; position: relative; height: 240px; }
+        .stat-card img { width: 100%; height: 100%; object-fit: cover; }
+        .stat-overlay { position: absolute; bottom: 0; width: 100%; padding: 20px; background: linear-gradient(transparent, rgba(6, 78, 59, 0.95)); color: white; }
+
+        /* --- 3 ANA ROTA (Kompakt) --- */
+        .routes-section { padding: 40px 20px; background: var(--soft-white); text-align: center; }
+        .routes-header { margin-bottom: 40px; }
+        .routes-header h2 { font-size: 2.5rem; color: var(--dark-green); margin-bottom: 10px; }
+        .routes-header p { color: #475569; font-size: 1.1rem; max-width: 600px; margin: 0 auto; }
+
+        .routes-grid { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; }
+        .route-card {
+            background: var(--white); border-radius: 25px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            transition: 0.3s; text-align: left; text-decoration: none; display: flex; flex-direction: column; border: 1px solid transparent;
+        }
+        .route-card:hover { transform: translateY(-5px); border-color: #a3e635; box-shadow: 0 15px 40px rgba(2, 44, 34, 0.08); }
+        .route-img { height: 200px; background-size: cover; background-position: center; position: relative; }
+        .route-icon {
+            position: absolute; bottom: -20px; left: 20px; width: 50px; height: 50px; background: #a3e635; color: #022c22;
+            border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; border: 3px solid var(--white);
+        }
+        .route-body { padding: 35px 25px 25px; display: flex; flex-direction: column; flex-grow: 1; }
+        .route-body h3 { font-size: 1.4rem; color: #022c22; margin-bottom: 10px; }
+        .route-body p { color: #475569; font-size: 0.9rem; margin-bottom: 20px; flex-grow: 1; line-height: 1.6; }
+        .route-link { color: #15803d; font-weight: 800; display: inline-flex; align-items: center; gap: 8px; font-size: 0.9rem; }
+
+        /* --- ÖZELLİKLER --- */
+        .features { padding: 40px 20px; display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 40px; align-items: center; max-width: 1100px; margin: 0 auto; }
+        .img-stack { position: relative; height: 350px; }
+        .img-main { width: 85%; height: 280px; object-fit: cover; border-radius: 20px; }
+        .img-sub { position: absolute; bottom: 0; right: 0; width: 60%; height: 180px; object-fit: cover; border-radius: 20px; border: 5px solid var(--white); }
+
+        /* --- APP BÖLÜMÜ --- */
+        .app-showcase-modern { background: linear-gradient(135deg, #022c22 0%, #064e3b 100%); padding: 60px 8%; position: relative; overflow: hidden; color: #fff; margin-top: 40px;}
+        .app-container { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; max-width: 1100px; margin: 0 auto; position: relative; z-index: 2; }
+        .badge-new { display: inline-flex; align-items: center; gap: 8px; background: rgba(16, 185, 129, 0.2); color: #34d399; padding: 6px 14px; border-radius: 50px; font-weight: 700; font-size: 0.85rem; margin-bottom: 15px; border: 1px solid rgba(16, 185, 129, 0.3); }
+        .app-content h2 { font-size: 3rem; margin-bottom: 15px; }
+        .highlight-text { background: linear-gradient(90deg, #34d399, #10b981); -webkit-background-clip: text; background-clip: text; color: transparent; }
+        .app-content p { font-size: 1.1rem; opacity: 0.8; margin-bottom: 30px; line-height: 1.6; }
+        .features-list { display: flex; flex-direction: column; gap: 15px; margin-bottom: 30px; }
+        .feature-item { display: flex; align-items: center; gap: 15px; }
+        .f-icon { width: 45px; height: 45px; background: rgba(255,255,255,0.1); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; color: #34d399; }
+
+        .store-buttons { display: flex; gap: 15px; flex-wrap: wrap; }
+        .store-btn { display: flex; align-items: center; gap: 10px; background: #fff; color: #000; padding: 10px 20px; border-radius: 12px; text-decoration: none; transition: transform 0.3s; }
+        .store-btn:hover { transform: translateY(-3px); }
+        .store-btn i { font-size: 1.6rem; }
+        .store-btn div { display: flex; flex-direction: column; line-height: 1.1; }
+        .store-btn small { font-size: 0.65rem; font-weight: 600; }
+        .store-btn span { font-size: 1rem; font-weight: 800; }
+        .google-btn { background: transparent; border: 1px solid rgba(255,255,255,0.4); color: #fff; }
+
+        .app-visual { display: flex; justify-content: center; align-items: center; position: relative; }
+        .phone-wrapper { position: relative; width: 250px; height: 500px; display: flex; justify-content: center; align-items: center; }
+        .glow-effect { position: absolute; width: 250px; height: 250px; background: #10b981; filter: blur(100px); opacity: 0.4; z-index: 1; pointer-events: none; }
+        .phone-mockup-modern { width: 100%; height: 100%; border-radius: 35px; border: 6px solid #1f2937; background: #000; box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.5); overflow: hidden; position: relative; z-index: 2; }
+        .living-sapling { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 10; }
+        .sapling-icon { font-size: 5rem; color: #4ade80; animation: growBreathing 3s ease-in-out infinite; }
+        .sapling-label { margin-top: 10px; background: rgba(0,0,0,0.6); padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: bold; backdrop-filter: blur(4px); border: 1px solid rgba(74, 222, 128, 0.3); }
+
+        .float-card {
+            position: absolute; background: rgba(255, 255, 255, 0.15); backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.2); padding: 8px 12px; border-radius: 12px;
+            display: flex; align-items: center; gap: 8px; box-shadow: 0 10px 20px rgba(0,0,0,0.25);
+            min-width: 120px; z-index: 5; animation: float 5s ease-in-out infinite;
+        }
+        .icon-box { width: 28px; height: 28px; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; color: #fff; }
+        .card-info { display: flex; flex-direction: column; }
+        .card-info .label { font-size: 0.6rem; opacity: 0.9; text-transform: uppercase; }
+        .card-info .value { font-size: 0.85rem; font-weight: 800; }
+
+        .card-level { top: 40px; right: -30px; animation-delay: 0s; }
+        .level-icon { background: linear-gradient(45deg, #f59e0b, #d97706); }
+        .card-carbon { bottom: 80px; left: -40px; animation-delay: 1.5s; }
+        .carbon-icon { background: linear-gradient(45deg, #10b981, #059669); }
+        .card-growth { bottom: 30px; right: -20px; animation-delay: 2.5s; }
+        .growth-icon { background: linear-gradient(45deg, #3b82f6, #2563eb); }
+
+        /* --- JOIN BÖLÜMÜ --- */
+        .join-live-section { position: relative; background: radial-gradient(circle at center, #ffffff 0%, #f0fdf4 100%); overflow: hidden; padding: 120px 20px; text-align: center; border-top: 1px solid #e2e8f0; }
+        .leaf-container { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; }
+        .leaf { position: absolute; width: 15px; height: 15px; background: #a3e635; border-radius: 0 100%; opacity: 0.3; animation: leaf-fall 10s linear infinite; }
+        .leaf:nth-child(1) { left: 10%; animation-delay: 0s; }
+        .leaf:nth-child(2) { left: 30%; animation-delay: 2s; width: 20px; height: 20px; }
+        .leaf:nth-child(3) { left: 50%; animation-delay: 4s; }
+        .leaf:nth-child(4) { left: 70%; animation-delay: 1s; opacity: 0.2; }
+        .leaf:nth-child(5) { left: 90%; animation-delay: 6s; }
+
+        .join-inner-content { position: relative; z-index: 10; max-width: 800px; margin: 0 auto; animation: fadeUp 1.2s ease-out; }
+        .join-title-animated { font-size: clamp(2.2rem, 5vw, 3.2rem); color: #064e3b; font-weight: 800; line-height: 1.1; margin-bottom: 20px; }
+        .join-marker { display: inline-block; position: relative; padding: 0 10px; }
+        .join-marker::after { content: ''; position: absolute; bottom: 5px; left: 0; width: 100%; height: 30%; background: #a3e635; z-index: -1; transform: rotate(-1deg); border-radius: 3px; }
+        .join-text-animated { color: #475569; font-size: 1.1rem; margin-bottom: 35px; line-height: 1.6; }
+        .btn-cta-pulse { display: inline-flex; align-items: center; background: #064e3b; color: #ffffff; font-size: 1.2rem; padding: 18px 45px; border-radius: 50px; text-decoration: none; font-weight: 800; animation: pulse-green 2.5s infinite; transition: 0.3s; }
+        .btn-cta-pulse:hover { background: #059669; transform: scale(1.05); }
+
+        /* Footer */
+        footer { background-color: #022c22; color: #ecfdf5; padding: 60px 20px 40px; text-align: center; }
+        footer a { color: #cbd5e1 !important; text-decoration: none; font-weight: 600; padding: 5px 10px; transition: color 0.3s ease; }
+        footer a:hover { color: #34d399 !important; text-decoration: underline; }
+
+        /* Keyframes */
+        @keyframes pulse { 0% { transform: scale(0.95); opacity: 0.7; } 50% { transform: scale(1.1); opacity: 1; } 100% { transform: scale(0.95); opacity: 0.7; } }
+        @keyframes leaf-fall { 0% { transform: translateY(-10%) rotate(0deg); opacity: 0; } 20% { opacity: 0.4; } 100% { transform: translateY(110vh) rotate(720deg); opacity: 0; } }
+        @keyframes pulse-green { 0% { box-shadow: 0 0 0 0 rgba(163, 230, 53, 0.5); } 70% { box-shadow: 0 0 0 20px rgba(163, 230, 53, 0); } 100% { box-shadow: 0 0 0 0 rgba(163, 230, 53, 0); } }
+        @keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-10px); } }
+        @keyframes growBreathing { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1) translateY(-3px); } }
+        @keyframes glowPulse { 0%, 100% { transform: scale(1); opacity: 0.5; } 50% { transform: scale(1.4); opacity: 0.8; } }
+        @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+
+        @media (max-width: 768px) {
+            .live-stats { grid-template-columns: 1fr; margin-top: -30px; }
+            .features { grid-template-columns: 1fr; text-align: center; }
+            .img-stack { height: 300px; margin-bottom: 20px; }
+        }
+
+        /* --- TELEFON ANİMASYONU MOBİL DÜZELTME (KAPATMA YOK) --- */
+        @media (max-width: 992px) {
+            /* App bölümünü tek kolon yap, telefonu alta indir */
+            .app-container { grid-template-columns: 1fr !important; }
+
+            .app-content { order: 1; }
+            .app-visual  {
+                order: 2;
+                margin-top: 26px;      /* telefonu aşağı indir */
+                width: 100%;
+                overflow: hidden;      /* taşan kartları kırp -> sayfa dışına taşma olmaz */
+            }
+
+            /* Telefon boyutu */
+            .phone-wrapper {
+                width: 220px;
+                height: 460px;
+                margin: 0 auto;
+            }
+
+            /* Negatif sağ/sol taşmaları kaldır, animasyon devam eder */
+            .card-level  { right: 8px; }
+            .card-growth { right: 8px; }
+            .card-carbon { left: 8px; }
+        }
+
+        @media (max-width: 420px) {
+            .phone-wrapper { width: 200px; height: 430px; }
+
+            .float-card {
+                min-width: 110px;
+                padding: 6px 10px;
+            }
+
+            .card-level  { top: 24px; }
+            .card-carbon { bottom: 74px; }
+            .card-growth { bottom: 22px; }
+        }
+    </style>
+</head>
+
+<body>
+<nav class="main-nav">
+    <a href="index.php" class="logo">
+        <i class="fas fa-leaf" style="color:var(--bright-green);"></i> GELECEK <span>SENİNLE</span>
+    </a>
+
+    <button class="mobile-menu-btn" onclick="toggleMenu()" aria-label="Menü">
+        <i class="fas fa-bars" id="menu-icon"></i>
+    </button>
+
+    <div class="nav-wrapper" id="nav-wrapper">
+        <div class="nav-links">
+            <a href="index.php" class="nav-link active-link">Anasayfa</a>
+            <a href="products.php" class="nav-link highlight-urunler">Ürünler</a>
+            <a href="ozel-gunler.php" class="nav-link">Özel Günler</a>
+            <a href="kurumsal.php" class="nav-link">Kurumsal</a>
+            <a href="about.php" class="nav-link">Hakkımızda</a>
+        </div>
+
+        <div class="nav-actions">
+                            <a href="login.php" class="btn btn-login">Giriş Yap</a>
+                <a href="register.php" class="btn btn-green">Kayıt Ol</a>
+                    </div>
+    </div>
+</nav>
+
+<script>
+    let __scrollY = 0;
+
+    function openMenu() {
+        const wrapper = document.getElementById('nav-wrapper');
+        const icon = document.getElementById('menu-icon');
+
+        __scrollY = window.scrollY || document.documentElement.scrollTop || 0;
+
+        wrapper.classList.add('menu-active');
+
+        // scroll kilidi (sayfa zıplamasın)
+        document.body.style.setProperty('--scroll-lock-top', `-${__scrollY}px`);
+        document.body.classList.add('menu-open');
+
+        icon.classList.remove('fa-bars');
+        icon.classList.add('fa-times');
+    }
+
+    function closeMenu() {
+        const wrapper = document.getElementById('nav-wrapper');
+        const icon = document.getElementById('menu-icon');
+
+        wrapper.classList.remove('menu-active');
+        document.body.classList.remove('menu-open');
+        document.body.style.removeProperty('--scroll-lock-top');
+
+        window.scrollTo(0, __scrollY);
+
+        icon.classList.remove('fa-times');
+        icon.classList.add('fa-bars');
+    }
+
+    function toggleMenu() {
+        const wrapper = document.getElementById('nav-wrapper');
+        wrapper.classList.contains('menu-active') ? closeMenu() : openMenu();
+    }
+
+    // Menü açıkken herhangi bir link/butona tıklanınca kapat
+    document.addEventListener('click', (e) => {
+        const wrapper = document.getElementById('nav-wrapper');
+        if (!wrapper.classList.contains('menu-active')) return;
+
+        const target = e.target.closest('.nav-link, .btn');
+        if (target) closeMenu();
+    });
+
+    // ESC ile kapat (opsiyonel)
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            const wrapper = document.getElementById('nav-wrapper');
+            if (wrapper.classList.contains('menu-active')) closeMenu();
+        }
+    });
+</script>
+
+<header class="hero-bg">
+    <img src="https://images.unsplash.com/photo-1446483050676-bd2fdf3ac2d6?q=50&amp;w=1200&amp;fm=webp" class="hero-img-obj" alt="Orman">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+        <h1 data-aos="fade-down">Gelecek <br><span style="color: #34d399;">Seninle</span> Yeşeriyor</h1>
+<p data-aos="fade-up">
+    Küçük bir katkıyla başla: bir fidan sahiplen, dijital ormanını büyüt.<br>
+    Sen de katıl; 2026’da 1 milyon fidana birlikte ulaşalım ve ömür boyu süren bir iz bırakalım.
+</p>
+        <div class="hero-actions" data-aos="zoom-in">
+            <div style="display: flex; gap: 12px; flex-wrap: wrap; justify-content: center;">
+                <a href="register.php" class="btn btn-green" style="height: 50px !important;">İlk Fidanını İsimlendir</a>
+                <a href="Gelecek Seninle - Etap1.ppt" class="btn btn-outline" style="height: 50px !important;">Sunumu İncele</a>
+            </div>
+
+            <a href="https://gelecekseninle.org/saha.html" class="site-chip" style="text-decoration: none; cursor: pointer;">
+                <div class="live-dot"></div>
+                <span style="font-size: 0.9rem; font-weight: 800; color: #fff; letter-spacing: 1px;">EKİM SAHASINI GÖSTER</span>
+            </a>
+        </div>
+    </div>
+</header>
+
+<section class="live-stats" data-aos="fade-up">
+    <div class="stat-card">
+        <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=30&amp;w=400&amp;fm=webp" alt="Akıllı Sensör">
+        <div class="stat-overlay">
+            <i class="fas fa-microchip fa-2x"></i>
+            <h2>Akıllı Sensörler</h2>
+            <p>Anlık Isı ve Nem Analizi</p>
+        </div>
+    </div>
+    <div class="stat-card">
+        <img src="https://images.unsplash.com/photo-1523348837708-15d4a09cfac2?q=30&amp;w=400&amp;fm=webp" alt="Genç Ormanlar">
+        <div class="stat-overlay">
+            <i class="fas fa-tree fa-2x"></i>
+            <h2>Genç Ormanlar</h2>
+            <p>%99 Yaşatma Garantisi</p>
+        </div>
+    </div>
+    <div class="stat-card">
+        <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?q=30&amp;w=400&amp;fm=webp" alt="Yangın Kalkanı">
+        <div class="stat-overlay">
+            <i class="fas fa-shield-alt fa-2x"></i>
+            <h2>Yangın Kalkanı</h2>
+            <p>15 Saniyede Erken Uyarı</p>
+        </div>
+    </div>
+</section>
+
+<section class="routes-section" data-aos="fade-up">
+    <div class="routes-header">
+        <h2>Doğaya Nasıl Dokunmak İstersiniz?</h2>
+        <p>İster kendiniz için, ister sevdikleriniz için, isterseniz de şirketinizin vizyonu için... Gelecek Seninle platformunda herkese uygun bir çözüm var.</p>
+    </div>
+
+    <div class="routes-grid">
+        <a href="products.php" class="route-card">
+            <div class="route-img" style="background-image: url('https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?q=80&w=800');">
+                <div class="route-icon"><i class="fas fa-tree"></i></div>
+            </div>
+            <div class="route-body">
+                <h3>Bireysel Ormanım</h3>
+                <p>Profilinizi oluşturun, fidanlarınızı seçin ve kendi dijital ormanınızı inşa edin. Büyüme sürecini sistemden takip edin.</p>
+                <span class="route-link">Mağazayı Keşfet <i class="fas fa-arrow-right"></i></span>
+            </div>
+        </a>
+
+        <a href="ozel-gunler.php" class="route-card">
+            <div class="route-img" style="background-image: url('https://images.unsplash.com/photo-1606041008023-472dfb5e530f?q=80&w=800');">
+                <div class="route-icon" style="background: #fde047;"><i class="fas fa-gift"></i></div>
+            </div>
+            <div class="route-body">
+                <h3>Ölümsüz Hediyeler</h3>
+                <p>Doğum günü, nikah veya anma törenleri için isme özel dijital sertifikalar tasarlayın. Sevdiklerinize QR kodla fidan hediye edin.</p>
+                <span class="route-link" style="color: #ca8a04;">Sertifika Tasarla <i class="fas fa-arrow-right"></i></span>
+            </div>
+        </a>
+
+        <a href="kurumsal.php" class="route-card">
+            <div class="route-img" style="background-image: url('https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=800');">
+                <div class="route-icon" style="background: #e0f2fe; color: #0284c7;"><i class="fas fa-building"></i></div>
+            </div>
+            <div class="route-body">
+                <h3>Kurumsal Çözümler</h3>
+                <p>Şirketinizin ESG vizyonunu destekleyin. Karbon ayak izinizi sıfırlayın veya markanız adına devasa hatıra ormanları kurun.</p>
+                <span class="route-link" style="color: #0284c7;">Paketleri İncele <i class="fas fa-arrow-right"></i></span>
+            </div>
+        </a>
+    </div>
+</section>
+
+<section class="features">
+    <div class="img-stack" data-aos="fade-right">
+        <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?q=30&amp;w=600&amp;fm=webp" class="img-main" alt="Orman">
+        <img src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?q=30&amp;w=600&amp;fm=webp" class="img-sub" alt="Fidan">
+    </div>
+    <div class="text-content" data-aos="fade-left">
+        <h2 style="font-size: 2.8rem; color: var(--dark-green); margin-bottom: 20px; font-family: 'Fraunces', serif;">
+            Geleceği Veriyle <span style="color: var(--bright-green);">Koruyoruz</span>
+        </h2>
+        <p style="font-size: 1.05rem; line-height: 1.7; color: #4b5563; margin-bottom: 25px;">
+            Eskiden fidan diker ve kadere bırakırdık. Şimdi her fidanın altına yerleştirdiğimiz sensörlerle toprağın nemini, sıcaklığını ve fidanın sağlığını cebinizden takip etmenizi sağlıyoruz. Herhangi bir tehlikede ekiplerimiz duman çıkmadan müdahale ediyor.
+        </p>
+        <ul style="list-style: none;">
+            <li style="margin-bottom: 12px; font-weight:600;"><i class="fas fa-check-circle" style="color: var(--bright-green); margin-right:8px;"></i> Uydu Destekli Harita Takibi</li>
+            <li style="margin-bottom: 12px; font-weight:600;"><i class="fas fa-check-circle" style="color: var(--bright-green); margin-right:8px;"></i> Yapay Zeka Destekli Yangın Tahmini</li>
+            <li style="margin-bottom: 12px; font-weight:600;"><i class="fas fa-check-circle" style="color: var(--bright-green); margin-right:8px;"></i> Her Satın Almaya Dijital Sertifika</li>
+        </ul>
+    </div>
+</section>
+
+<section class="app-showcase-modern">
+    <div class="app-container">
+        <div class="app-content" data-aos="fade-right">
+            <div class="badge-new">
+                <i class="fas fa-gamepad"></i> Oyunlaştırılmış Deneyim
+            </div>
+            <h2 style="font-family: 'Fraunces', serif;">Ormanın Kalbi <br><span class="highlight-text">Cebinizde</span> Atıyor</h2>
+            <p>Fidanınız sadece bir ağaç değil, yaşayan bir karakter! Mobil uygulamamızla onu bir oyun karakteri gibi büyütün.</p>
+
+            <div class="features-list">
+                <div class="feature-item">
+                    <div class="f-icon"><i class="fas fa-leaf"></i></div>
+                    <div style="line-height: 1.3;">
+                        <strong style="font-size:1.1rem;">Karbon Avcısı</strong><br>
+                        <span style="font-size:0.9rem; opacity:0.8;">Temizlediği havayı gram gram takip et.</span>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="f-icon"><i class="fas fa-trophy"></i></div>
+                    <div style="line-height: 1.3;">
+                        <strong style="font-size:1.1rem;">Doğa Kahramanı Ol</strong><br>
+                        <span style="font-size:0.9rem; opacity:0.8;">Büyüdükçe puan topla, rozetleri kazan.</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="store-buttons">
+                <a href="#" class="store-btn">
+                    <i class="fab fa-apple"></i>
+                    <div><small>Download on the</small><span>App Store</span></div>
+                </a>
+                <a href="#" class="store-btn google-btn">
+                    <i class="fab fa-google-play"></i>
+                    <div><small>GET IT ON</small><span>Google Play</span></div>
+                </a>
+            </div>
+        </div>
+
+        <div class="app-visual" data-aos="zoom-in">
+            <div class="glow-effect"></div>
+            <div class="phone-wrapper">
+                <div class="phone-mockup-modern">
+                    <div class="living-sapling">
+                        <div class="sapling-glow"></div>
+                        <i class="fas fa-seedling sapling-icon"></i>
+                        <div class="sapling-label">Büyüyor...</div>
+                    </div>
+                </div>
+
+                <div class="float-card card-level">
+                    <div class="icon-box level-icon"><i class="fas fa-crown"></i></div>
+                    <div class="card-info">
+                        <span class="label">Seviye 5</span>
+                        <span class="value">Doğa Muhafızı</span>
+                    </div>
+                </div>
+
+                <div class="float-card card-carbon">
+                    <div class="icon-box carbon-icon"><i class="fas fa-cloud"></i></div>
+                    <div class="card-info">
+                        <span class="label">Temizlenen CO2</span>
+                        <span class="value">+12.5 kg</span>
+                    </div>
+                </div>
+
+                <div class="float-card card-growth">
+                    <div class="icon-box growth-icon"><i class="fas fa-ruler-vertical"></i></div>
+                    <div class="card-info">
+                        <span class="label">Anlık Boy</span>
+                        <span class="value">145 cm</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="join" class="join-live-section">
+    <div class="leaf-container">
+        <div class="leaf"></div><div class="leaf"></div><div class="leaf"></div><div class="leaf"></div><div class="leaf"></div>
+    </div>
+
+    <div class="join-inner-content">
+        <h2 class="join-title-animated">
+            Dünyayı Değiştirmeye <br><span class="join-marker">Hazır mısın?</span>
+        </h2>
+        <p class="join-text-animated">
+            Doğayı korumak ve gelecek nesillere daha yeşil bir dünya bırakmak için <br>
+            bugün ilk adımı at. <strong>Seninle her şey daha güzel olacak.</strong>
+        </p>
+        <a href="products.php" class="btn-cta-pulse">Bir Tohum At <span style="margin-left:8px;">→</span></a>
+    </div>
+</section>
+
+<footer>
+    <div style="margin-bottom: 20px;"><i class="fas fa-seedling fa-3x" style="color: #34d399;"></i></div>
+    <p style="font-size: 1rem; font-weight: 800; letter-spacing: 2px; margin-bottom: 5px; text-transform: uppercase;">
+     <br> <span style="font-size: 0.8rem; opacity: 0.8;">© 2026</span>
+    </p>
+    <p style="font-size: 0.8rem; margin-bottom: 30px; color: #94a3b8;">
+        Gelecek Seninle | Bir KURUÇAY Sosyal Projesidir
+    </p>
+    <div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; padding: 0 20px; font-size: 0.85rem;">
+        <a href="sozlesmeler.html">Sözleşmeler</a>
+        <a href="gizlilik-kvkk.html">Kişisel Verilerin Korunması</a>
+        <a href="iptal-iade.html">İptal, İade ve Teslimat</a>
+    </div>
+</footer>
+
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js" defer></script>
+<script>
+    window.addEventListener('load', function() {
+        AOS.init({ duration: 1000, once: true });
+    });
+</script>
+</body>
+</html>

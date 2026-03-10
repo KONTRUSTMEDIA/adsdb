@@ -1,0 +1,691 @@
+        <!doctype html>
+        <html lang="en">
+          <head>
+            <meta charset="utf-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+        	<meta name="copyright" content="Mag. Andreas Melcher">
+			<meta name="description" content="amcoustics.com - a collection of tools and theory for a better understanding of room acoustics. Let's help each other to build the best acoustics!">
+			
+            <title>amcoustics.com: let's help each other to build the best acoustics</title>
+        
+                    	        <meta property="og:image"			content="https://amcoustics.com/assets/screenshot_homepage_1200x627.png" />
+        <meta property="og:image:alt"	    content="A screenshot of the amcoustics.com home page. Visible is the header with the amcoustics logo, the main menu, a big greeting and clickable thumbnails to the acoustic calculators." />
+        <meta property="og:image:width"		content="150" />
+        <meta property="og:image:height"	content="24" />
+                <meta property="og:title"		content="amcoustics.com: let's help each other to build the best acoustics" />
+            <meta property="og:description"	content="amcoustics.com - a collection of tools and theory for a better understanding of room acoustics. Let's help each other to build the best acoustics!" />
+            <meta property="og:url"		    content="https://amcoustics.com" />
+            <meta property="og:type"        content="website" />
+            <meta property="og:locale"      content="en_US" />
+            <meta property="og:site_name"	    content="amcoustics" /> 		
+                        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+            <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+            <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+            
+                        
+            <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+            <meta name="theme-color" content="#ffffff">
+        	
+                    	<meta name="google-site-verification" content="mhNL-s5EJ8iyLry7dPvrJjB5tqn2Fyeaz_hY20hLQiU" />
+        	
+            <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous"> -->
+            <link rel="stylesheet" href="/css/amcoustics.css">
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+                    <script defer>
+            console.log("load amc-ng-page-app");
+            // URL zu deiner entfernten INI-Datei
+            const iniUrl = "/be-amc/mfe/mfe_files.ini";
+
+            // INI Parser (minimal, reicht für key=value)
+            function parseIni(text) {
+                if(text.startsWith('<')) {
+                    throw new Error(`Not an ini file! FIrst 100 chars: ${text.substring(0,100)}`);
+                }
+                const result = {};
+                text.split(/\r?\n/).forEach(line => {
+                    const match = line.match(/^\s*([^=]+)\s*=\s*(.+)\s*$/);
+                    if (match) {
+                        result[match[1]] = match[2];
+                    }
+                });
+                return result;
+            }
+
+            // load INI to get current main<hash>.js
+            fetch(iniUrl)
+                .then(r => {
+                    if (!r.ok) {
+                        switch (r.status) {
+                            case 404:
+                                throw new Error("Not found (404)");
+                            case 500:
+                                throw new Error("Backend Problem (500)");
+                            case 502:
+                                throw new Error("Backend not reachable (502)");
+                            default:
+                                throw new Error(`Error Statuscode: ${r.status}.`);
+                        }
+                    }
+                    return r.text();
+                })
+                .then(text => {
+                    const cfg = parseIni(text.trim());
+                    
+                                        if (cfg.styles) {
+                        const link = document.createElement("link");
+                        link.rel = "stylesheet";
+                        link.href = "/be-amc/mfe/" +  cfg.styles;
+                        document.head.appendChild(link);
+                    }
+     
+                                        const script = document.createElement("script");
+                    script.src = "/be-amc/mfe/" + cfg.main;
+                    script.defer = true;
+                    script.type = "module"; // to capsule the code
+                    document.head.appendChild(script);
+                })
+                .catch(err => {
+                    console.error("Can't load mfe_files.ini of amc-ng-page-app!", err);
+                });
+        </script>
+            <meta name="amcoustics-promo-service-path" content="/promo">
+
+
+                	
+          </head>
+          <body>
+          
+                        <div itemscope itemtype="https://schema.org/WebSite">
+                <meta itemprop="url" content="https://amcoustics.com"/>
+                <meta itemprop="name" content="amcoustics"/>
+            </div>
+
+            
+            <div id="main-page-wrapper">
+          	            <style type="text/css">
+            
+/* those sizes are recommended by google */
+.material-icons.md-18 { font-size: 18px; }
+.material-icons.md-24 { font-size: 24px; }
+.material-icons.md-36 { font-size: 36px; }
+.material-icons.md-48 { font-size: 48px; }
+
+.material-icons{
+  font-size: 30px;
+  color: rgba(0,0,0,.75);
+}
+
+.navbar {
+  max-width: var(--max-total-width);  /* this is set in the main amcoustics.css, as it has to be read by header, content and footer */
+  margin: auto;                       /* to be centered if it is not full-width (screen is wider than --max-total-width) */
+}
+
+#navbarCollapse ul {
+    /* spread the nav bar a bit */
+  flex: 1;
+  justify-content: space-evenly;
+}
+
+#navbarCollapse{
+  font-weight: 600;
+  font-size: smaller; 
+}
+
+.dropdown-item{
+	font-size: large;
+	color: rgba(0, 0, 0, 0.6);
+}
+
+#btnHeaderToggler{
+	border: none;
+}
+
+
+/* 	############################################
+	hacks for multilevel dropdowns
+	https://stackoverflow.com/a/45755948
+	############################################
+*/
+.dropdown-submenu {
+  position: relative;
+}
+
+.dropdown-submenu a::after {
+  transform: rotate(-90deg);
+  position: absolute;
+  right: 6px;
+  top: .8em;
+}
+
+.dropdown-submenu .dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-left: .1rem;
+  margin-right: .1rem;
+}
+
+
+#right-button-nav .nav-item a {
+  line-height: 0;
+}
+#right-button-nav .nav-item button {
+  line-height: 0;
+}
+
+
+/* ############################################
+	NEW badge
+	############################################
+*/
+.btnNewBadge {
+  color: #5475a3 !important;
+  display: flex;
+  gap: 0.1em;
+}
+.spanNewBadge{
+  text-align: center;
+  border-radius: 20px;
+  color: #0c49a0cc;
+  padding: 0px 5px;
+  font-size: x-small;
+  border: 2px solid #0c49a01f;
+  transform: rotate(327deg);
+  line-height: 2em;
+}
+
+
+
+
+/* ########################################
+	for different screen sizes
+	######################################
+*/
+
+/* only on xs screens */
+/* @media (max-width: 575px) { */
+@media (max-width: 768px) {
+	.navbar{
+    /* reduced header size by removing padding from navbar */
+    padding: 0rem 0rem 0rem 0.75rem;
+  }
+  .material-icons{
+    font-size: 24px;
+  }
+
+  .dropdown-item {
+    /* sub-menu in navbar (eg specific tools) on mobile screens */
+    font-size: smaller;
+    padding: 0.25rem 0.5rem;  /* less padding */
+  }
+
+
+}
+
+/*Small devices (landscape phones, 576px and up)*/
+@media (min-width: 576px) {  }
+
+/*Medium devices (tablets, 768px and up)*/
+@media (min-width: 768px) {
+	#navbarCollapse{
+		font-size: larger;
+	}
+}
+
+/*Large devices (desktops, 992px and up)*/
+@media (min-width: 992px) {  }
+
+/*Extra large devices (large desktops, 1200px and up)*/
+@media (min-width: 1200px) {  }
+            </style>
+            
+        <div id="header-content" class="bg-light">
+
+            <nav class="navbar navbar-expand-sm navbar-light">
+
+                
+                <a id="logo_bigscreens" class="d-none d-sm-inline-block" href="/" title="amcoustics"> <img src="/assets/amcoustics_logo_24.png" alt="amcoustics logo">
+                </a>
+
+                <a id="logo_smallscreens" class=" d-inline-block d-sm-none" href="/" title="amcoustics"> <img src="/assets/amcoustics-logo_short_24.png" alt="amcoustics logo">
+                </a>
+
+                <button id="btnHeaderToggler" class="navbar-toggler d-sm-none mr-auto" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+
+                <div class="collapse navbar-collapse" id="navbarCollapse">
+                    <ul class="navbar-nav">
+                        <li class="nav-item d-sm-none"><a class="nav-link mr-5" href="/">Home</a></li>
+                                            <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle " href="" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Tools                        </a>
+                        <div class="dropdown-menu">
+                                                <a class="dropdown-item  " href="/tools/amroc">
+                        <span>amroc - The Room Mode Calculator</span>
+                                            </a>
+                                    <a class="dropdown-item  " href="/tools/amroc-pro">
+                        <span>amroc pro - for non-rectangular rooms</span>
+                                            </a>
+                                    <a class="dropdown-item  " href="/tools/amray">
+                        <span>amray - The Raytracing Sketchpad</span>
+                                            </a>
+                                    <a class="dropdown-item  " href="/tools/amalyzer">
+                        <span>amalyzer - analyze a room, voice, song...</span>
+                                            </a>
+                                    <a class="dropdown-item  " href="/tools/amrev">
+                        <span>amrev - The Reverberation Time Calculator</span>
+                                            </a>
+                                    <a class="dropdown-item btnNewBadge " href="/tools/amscan">
+                        <span>amscan - iOS App</span>
+                                                    <span class='spanNewBadge'>NEW</span>
+                                            </a>
+                                    <a class="dropdown-item  " href="/tools/other">
+                        <span>Other quality tools</span>
+                                            </a>
+                                        </div>
+                    </li>
+                                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle " href="" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Articles                        </a>
+                        <div class="dropdown-menu">
+                                                <a class="dropdown-item  " href="/articles/thesis/1">
+                        <span>Building a sound-insulated room</span>
+                                            </a>
+                                    <a class="dropdown-item  " href="/articles/roommodes">
+                        <span>What are Room Modes?</span>
+                                            </a>
+                                        </div>
+                    </li>
+                                    <li class="nav-item">
+                        <a class="nav-link  " href="/news">
+                            <span>News</span>
+                                                    </a>
+                    </li>
+                                    <li class="nav-item">
+                        <a class="nav-link btnNewBadge " href="/events">
+                            <span>Events</span>
+                                                            <span class='spanNewBadge'>NEW</span>
+                                                    </a>
+                    </li>
+                                    </ul>
+                </div>
+
+
+                                <ul id="right-button-nav" class="navbar-nav flex-row  ml-auto align-items-center">
+                                            <li class="nav-item d-none d-lg-block mr-1">            <a href="https://www.patreon.com/amcoustics/membership" target="_patreon">
+                <img src="/assets/support_me_via_patreon_button.png">
+            </a>
+        </li>
+                        <li class="nav-item d-none d-lg-block mr-1">
+                <form action="https://www.paypal.com/donate" target="_paypal" method="post" target="_top" style="display: flex; margin:0;">
+            <input type="hidden" name="business" value="UGDQCS9KDGQBE" />
+            <input type="hidden" name="item_name" value="Your donation means more tools, more features, better acoustics and a bright future for all of us ;)" />
+             
+            <input type="image" src="/assets/support_me_via_paypal_button.png" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" />
+        </form>
+
+        
+        </li>
+                                            <li class="nav-item">
+                            <button id="btnHeaderLogin" class='btn btn-link' title='Login' onclick="onLoginClick()">
+                                <i class='material-icons' style=''>input</i>
+                            </button>
+                            <button id="btnHeaderProfile" class='btn btn-link' title='Go to profile page' onclick='window.location.href="/profile"' style='display: none;'>
+                                <i class='material-icons' style=''>person</i>
+                            </button>
+                        </li>
+                                            <li class="nav-item">
+                            <a href="/about" title="About & Contact" class="btn">
+                                <i class="material-icons" style="">mail_outline</i>
+                            </a>
+                        </li>
+                                            <li class="nav-item">
+                            <a href="/contribute" title="Thank you" class="btn">
+                                <i class="material-icons" style="color: rgba(255, 63, 63, 0.76)">favorite</i>
+                            </a>
+                        </li>
+                </ul>
+            </nav>
+        </div>
+
+
+
+                    <div id="main-content-wrapper"> 
+                                    <!-- <div class="container"> -->
+                                <style type="text/css">
+            #consent-banner {
+    padding: 0.8em;
+    /* margin-top: 1em; */
+    padding-top: 1.8em;
+    text-align: center;
+    background-color: white;
+}
+
+#consent-banner-content {
+    display: flex;
+    gap: 0.8em;
+    justify-content: space-evenly;
+}
+
+#consent-footer {
+    margin-top: 0.5em;
+}
+
+.side-container{
+    /* border: 1px solid black; */
+    flex: 0.5;  /* both sides get half the space*/
+    padding: 0.5em;
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(235, 235, 235);
+    border-radius: 5px;
+    transition: background-color 0.5s ease;
+    box-shadow: 1px 1px 2px 0px rgba(131, 131, 131, 0.75);
+    transition: box-shadow 0.5s ease;
+}
+.side-container:hover{
+    background-color: rgb(255, 255, 255);
+    box-shadow: 5px 5px 5px 0px rgba(184, 184, 184, 0.75);
+}
+
+.feature-info {
+    font-weight: bold;
+}
+.patreon-plan-info {
+    font-size: small;
+    font-weight: bold;
+}
+
+.side-container button{
+    width: 100%;
+    bottom: 0px;
+    margin-top: auto;
+}
+.side-content {
+    font-family: monospace;
+    padding: 1em 0em;
+}
+.side-content p {
+    line-height: 1em;   /* to have more space between the points than between wrapped lines of one point */
+}
+
+h1 {
+    font-size: larger;
+    margin: 0;
+    border-bottom: 1px solid black;
+    padding-bottom: 0.4em;
+}
+p {
+    margin-bottom: 0.5em;
+}
+
+@media screen and (max-width: 40em) {
+    #consent-banner-content {
+        flex-direction: column;
+    }
+}            </style>
+                        <style>
+                
+            </style>
+            <div id="divContent" class="container">
+                <div class="row">
+                    <div class="col" style="display:grid">
+                        <div style="margin-top: 1em; grid-column: 1; grid-row: 1;">
+                                                        If you don't see a <strong>Cookie Consent Banner</strong> right now, your browser or some Browser Extension has <strong>blocked</strong> it.<br> 
+                            Please allow my website to display this (legally required) information in the <strong>settings of your tool</strong> or switch browser.
+                        </div>
+                            
+                        <div id="consent-banner" style="grid-column: 1; grid-row: 1;">
+                            <div id="consent-banner-header">
+                                <div>Welcome to</div>
+                                <img src="/assets/amcoustics_logo_24.png" alt="amcoustics logo">
+                                <hr>
+                                <div>Choose to enter</div>
+                            </div>
+
+                            <div id="consent-banner-content">
+                                <div id="okay-side-container" class="side-container">
+                                    <h1  class="side-header">Free for hobby users</h1>
+                                    <div class="side-content">
+                                        <p>Allow all cookies</p>
+                                        <p>See Google ads</p>
+                                        <p>Not allowed if you earn money using my free tools</p>
+                                    </div>
+                                    <button id="accept-cookies-button" class="btn btn-primary" 
+                                        onclick="onCookieConsentAccept()"
+                                    >Accept</button>
+                                </div>
+                                <div id="pay-side-container"  class="side-container">
+                                    <h1  class="side-header">A small monthly fee to help keep amcoustics alive</h1>
+                                    <div class="side-content">
+                                        <p>Register here for free</p>
+                                        <strong><p>Become a patreon to benefit even more</p></strong>
+                                        <p>
+                                            <span class="feature-info">No Google ads</span><br>
+                                            <span class="patreon-plan-info">('Emphatic Supporter' or higher)</span>
+                                        </p>
+                                        <p>
+                                            <span class="feature-info">Additional features</span><br>
+                                            <span class="patreon-plan-info">('Backing Supporter' or higher)</span>
+                                        </p>
+                                        <p>
+                                            <span class="feature-info">Use my free tools for commercial projects</span><br>
+                                            <span class="patreon-plan-info">('Business User' or higher)</span>
+                                        </p>
+                                    </div>
+                                    <button id="login-button" class="btn btn-primary"
+                                        onclick="onLoginRegisterClick()"    
+                                    >Login / Register</button>    
+                                </div>
+                            </div>
+                            <div id="consent-footer">
+                                In both cases, technically necessary cookies are stored! <a href="/privacy">Read the privacy policy</a> for details.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                            <!-- </div> -->
+                            </div>            <style type="text/css">
+            #divFooter{
+	background-color: #FAFAFA;
+	font-size: small;
+	padding: 1em;
+	padding-left: 0;
+	padding-right: 0;
+	border-top: 1px solid grey;
+}
+
+#link-list {
+	flex-wrap: wrap;
+}
+            </style>
+                    <footer id="divFooter">
+        
+            <div class="container">
+
+                
+                <div id="link-list" class="d-flex justify-content-around">
+                  <div class="pr-3"><a href="/about">about & contact</a></div>
+                  <div class="pr-3"><a href="/supporters">supporters</a></div>
+                  <div class="pr-3"><a href="/contribute">contribute</a></div>
+                  <div class="pr-3"><a target="_nl" href="http://eepurl.com/gh-V3H">newsletter</a></div>
+                  <div class="pr-3"><a href="/terms">t&c</a></div>
+                  <div class="pr-3"><a href="/privacy">privacy policy</a></div>
+                </div>
+            </div>
+        </footer>
+                    </div>
+
+            
+                                <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+                                    
+
+                                <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.2.0/js.cookie.min.js" defer></script>
+
+                <script>
+
+                                        $.ajaxSetup({
+                        beforeSend : function(xhr, settings) {
+                        if (settings.type == 'POST' || settings.type == 'PUT' || settings.type == 'DELETE') {
+                            if (!(/^http:.*/.test(settings.url) || /^https:.*/.test(settings.url))) {
+                            // Only send the token to relative URLs i.e. locally.
+                            xhr.setRequestHeader("X-XSRF-TOKEN", Cookies.get('XSRF-TOKEN'));
+                            }
+                        }
+                        }
+                    });
+                </script>
+                
+                                <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous" defer></script>
+                <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous" defer></script>
+                
+                            <script>
+                eval(function(p,a,c,k,e,d){e=function(c){return c.toString(36)};if(!''.replace(/^/,String)){while(c--){d[c.toString(a)]=k[c]||c.toString(a)}k=[function(e){return d[e]}];e=function(){return'\\w+'};c=1};while(c--){if(k[c]){p=p.replace(new RegExp('\\b'+e(c)+'\\b','g'),k[c])}}return p}('$(\'.1-3 a.1-q\').6(\'p\',5(e){o(!$(2).9().n(\'0\')){$(2).7(\'.1-3\').m().l(\'.0\').4("0")}k $8=$(2).9(".1-3");$8.j(\'0\');$(2).7(\'.i-h.1.0\').6(\'g.f.1\',5(e){$(\'.1-d .0\').4("0")});c b});',27,27,'show|dropdown|this|menu|removeClass|function|on|parents|subMenu|next||false|return|submenu||bs|hidden|item|nav|toggleClass|var|find|first|hasClass|if|click|toggle'.split('|'),0,{}))
+            </script>
+                    <script>
+
+            nextExpiryTimerData = {
+                date: null,
+                timerId: null
+            };
+
+            const bc = new BroadcastChannel("amc-login");
+
+            startListeningForLoginStateChanges(bc);
+
+            // initial login state
+            sendLoginStateChangedEvent({"loggedIn":false,"expiry":null,"userName":""}, "init");
+            
+            function sendLoginStateChangedEvent(loginStateChangeEvt, debugInfo) {
+                console.log(`Header sends loginStateChangeEvt (${debugInfo})`, {loginStateChangeEvt, bc});
+                bc.postMessage(loginStateChangeEvt);
+                // seems like this bc instance does not get events that it send itself (makes sense)
+                // so I need to trigger onLoginStateChange myself
+                onLoginStateChange(loginStateChangeEvt, "self");
+            }
+
+            function onLoginClick() {
+                console.log("window.location", window.location);
+
+                if (window.location.pathname === '/profile') {
+                    // login and redirect back to the current page
+                    window.location.href = "https://auth.amcoustics.com/realms/amcoustics.com/protocol/openid-connect/auth/?client_id=prod-amcoustics-page-be&redirect_uri=https%3A%2F%2Famcoustics.com%2Fauth%2Fredirect&response_type=code&scope=openid+profile+email&state=eyJyZWRpcmVjdCI6IlwvYXBwLWFkcy50eHQifQ%3D%3D";
+                } else {
+                    loginWithoutReload();
+                }
+            }
+
+            function startListeningForLoginStateChanges(bc) {
+                // listen for the message that the other tab will send, once the login succeeded
+                bc.onmessage = (message) => {
+                    onLoginStateChange(message.data, "broadcastChannel");
+                };
+                console.log("HEader started to listen for LoginStateChangedEvents");
+
+            }
+
+            function onLoginStateChange(loginStateChangeEvt, debugInfo) {
+                console.log(`Header got loginStateChange (${debugInfo})`);
+
+                if (!('loggedIn' in loginStateChangeEvt) || !('expiry' in loginStateChangeEvt)) {
+                    throw new Error("loginStateChangeEvt not valid", loginStateChangeEvt);
+                }
+                const loggedIn = loginStateChangeEvt['loggedIn'];
+                
+                if(!loggedIn) {
+                    showLoginButton();
+                    return;
+                } 
+
+                const expiry = new Date(loginStateChangeEvt['expiry']);
+                
+                if(nextExpiryTimerData.date == null || nextExpiryTimerData.date < expiry) {
+
+                    // stop old timer
+                    clearTimeout(nextExpiryTimerData.timerId);
+
+                    console.log(`New auth expiry timer: ${nextExpiryTimerData.date} => ${expiry}`);
+
+                    // new expiry timer
+                    const timerId = setTimeout(
+                        refreshAmcAuthTokens,
+                        expiry - (new Date()).getTime()
+                    )
+                    nextExpiryTimerData.date = expiry;
+                    nextExpiryTimerData.timerId = timerId;
+                }
+
+                showUserAsLoggedIn();
+
+            }
+
+            function refreshAmcAuthTokens() {
+                console.log("refreshAmcAuthTokens");
+                fetch('/auth/refresh')
+                    .then(async response => {
+                        const result = await response.json();
+                        sendLoginStateChangedEvent(result, "silent refresh");
+                    }).catch(err => {
+                        console.error("Error in refreshAmcAuthTokens", err);
+                    });
+            }
+
+            function loginWithoutReload() {
+                console.log("loginWithoutReload");
+
+                /** this opens another tab to do the login, this tab will send a loginStateChangeEvt 
+                 * via the broadcastChannel 'amc-login' that I started to listen on above in
+                 * startListeningForLoginStateChanges() */
+                window.open(
+                    'https://auth.amcoustics.com/realms/amcoustics.com/protocol/openid-connect/auth/?client_id=prod-amcoustics-page-be&redirect_uri=https%3A%2F%2Famcoustics.com%2Fauth%2Fredirect&response_type=code&scope=openid+profile+email',
+                    'amc-login' // <- This is what makes it open in a new window (always the same window if another such window is already open).
+                );
+            }
+
+            function showLoginButton(enabled) {
+                
+                // show login button
+                const loginBtn = $("#btnHeaderLogin");
+                loginBtn.show();
+                
+                // hide profile button
+                $("#btnHeaderProfile").hide();
+
+            }
+
+            function showUserAsLoggedIn(userName) {
+
+                // hode login button
+                $("#btnHeaderLogin").hide();
+
+                // show profile button
+                const profileBtn = $("#btnHeaderProfile");
+                profileBtn.prop('title', userName);
+                profileBtn.show();
+
+            }
+            
+        </script>
+                <script>
+                eval(function(p,a,c,k,e,d){e=function(c){return(c<a?'':e(parseInt(c/a)))+((c=c%a)>35?String.fromCharCode(c+29):c.toString(36))};if(!''.replace(/^/,String)){while(c--){d[e(c)]=k[c]||e(c)}k=[function(e){return d[e]}];e=function(){return'\\w+'};c=1};while(c--){if(k[c]){p=p.replace(new RegExp('\\b'+e(c)+'\\b','g'),k[c])}}return p}('8 1k=2M;7 y=6;7 n=6;7 o=6;7 v=6;7 F=p;8 1j={Y:"2L",2K:"-2J",2I:"2H",2G:"2F",2E:"2D"};d j(){7 L=`${v-n}O N 1n`;2(v==6){L="1m z a b 2C"}7 M=`${o-n}O N 1n`;2(o==6){M="1m W"}4`2B:${y},2A ${n-y}O N 2z,2y:${M},X:${L}`}d q(1,1l){2(o!=6){3.c(`q 2x 2w 2v 2u!?!...2t 2s 2r`);4}o=u.s();3.c(1l);$("#C").2q();m(1)}d J(1){n=u.s();2p(()=>{2(!F){q(1,`U f T A S r b R z.(${j()})`)}},1k)}d P(5,1){y=u.s();K=J;$(`<A 2o="C"2n="${5 + `/2m-2l?2k=${2j(17.2i.2h)}&2g=${2f.2e().2d().2c}`}"2b="r"2a="0">`).29("1d",(28)=>{2(K){K(1)}g{3.19(`I d\'J\'27 f 26!!`)}}).Z(1j).25($(1))}d 24(9){2(9==6||9.l<23){3.c(`9 1a 22:${9}`);4 p}9=9.1b();7 i=$(\'<21>\').20($.1Z(9));7 x=$(\'#D\',i);2(x.l>0){4 E}g{3.1i("I 1h 1g",i);i=$(9);7 x=i.1f(\'#D\');2(x.l>0){4 E}g{3.1i("I 1h 1g",i)}}4 p}1Y d m(1){}16(\'1X\',(1W)=>{8 H=\'1V-f-1U\';8 1=w.1T(H);2(1==6){3.c(`18\'t 1f \'${H}\'`);4}8 h=w.1S(\'1e[1R="1Q-f-1P-1O"]\');2(h==6||!h.1N(\'1c\')){3.c("1M r 1e 1L 1K 1d f 1J",h);m(1);4}8 5=h.1c;2(5==6||11 5!=\'10\'||5.1b().l==0){3.c("1I 1H h 1a ",5);m(1);4}g{1G{14 G(5,w.13)}1F(1E){3.19(`18\'t 1D G 1C \'${5}\'`);m(1);4}}17.16(\'b\',e=>{8 15=e.b?\'b\':\'k\';8 k=e[15];2(e.12!=14 G(5,w.13).12){4}g 2(11 k!=\'10\'){4}v=u.s();3.1B(`1A b!(${j()})`);F=E;1z(k){V\'D\':{8 B=$("#C");2(B.l){B.Z({Y:"1y"})}g{3.c(`X 1x b 1w 1v r 1u!1t 1s 1r W?!(${j()})`)}Q}V\'1q\':{q(1,`U f T A S 1p b\'${k}\'R z.(${j()})`);Q}1o:{}}},p);P(5,1)});',62,173,'|promoParentDiv|if|console|return|pathToAmcousticsPromoService|null|let|const|loadedHtmlCode||message|warn|function||promo|else|promoMetaTag|tempDom|timesInfoDebugString|data|length|doPromoFallBack|timeIframeWasLoaded|timeIframeRemoved|false|removeIFrameAndShowFallback|no|now||Date|timeIframeMessageWasRecived|document|markerElement|timeIframeWasAdded|received|iframe|ifrm_promo_news|ifrm_amcoustics_promo_news|amcoustics_promo_news|true|iframeMessageReceived|URL|idParentDiv|No|onIframeLoaded|_onIframeLoaded|dRcvd|dRmvd|after|ms|loadPromoIframe|break|was|as|news|Removing|case|removed|Received|position|css|string|typeof|origin|baseURI|new|key|addEventListener|window|Can|error|is|trim|content|load|meta|find|Element|Marker|log|initialIframeCss|IFRAME_MESSAGE_TIMEOUT|errMsg|not|loaded|default|the|fallback|been|already|Has|ifrm|found|but|promo_news|static|switch|Got|debug|from|get|err|catch|try|of|Content|stuff|to|tag|Found|hasAttribute|path|service|amcoustics|name|querySelector|getElementById|r1|div|event|DOMContentLoaded|async|parseHTML|append|output|wrong|50|isLoadedHtmlAnAmcousticsAd|appendTo|js|in|test|on|frameborder|scrolling|timeZone|resolvedOptions|DateTimeFormat|Intl|ctz|href|location|encodeURIComponent|referrer|view|page|src|id|setTimeout|remove|one|this|skipping|once|than|more|called|Removed|added|Loaded|Added|yet|250px|height|300px|width|0px|top|10000px|left|absolute|10000'.split('|'),0,{}))
+            </script>
+                        <script>
+                
+                function onCookieConsentAccept(){
+                    const exdate=new Date();
+                    exdate.setDate(exdate.getDate() + 365);
+                    document.cookie = "amc-cookies-accepted=true; expires=" + exdate.toUTCString() + "; path=/; domain=.amcoustics.com;secure;";
+                    location.reload();
+                };
+
+                function onLoginRegisterClick(){
+                    console.log('L/R');
+                    location.href='https://auth.amcoustics.com/realms/amcoustics.com/protocol/openid-connect/auth/?client_id=prod-amcoustics-page-be&redirect_uri=https%3A%2F%2Famcoustics.com%2Fauth%2Fredirect&response_type=code&scope=openid+profile+email&state=eyJyZWRpcmVjdCI6IlwvYXBwLWFkcy50eHQifQ%3D%3D';
+                };
+
+            </script>
+                    <script data-goatcounter="https://amc.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>           
+          </body>
+        </html>
+		<!--2026-02-10T11:03:29+01:00 -34a347db -->

@@ -1,0 +1,468 @@
+/**
+ * Functions which enhance the theme by hooking into WordPress
+ *
+ * @package NewsCard
+ */
+
+/**
+ * Adds custom classes to the array of body classes.
+ *
+ * @param array $classes Classes for the body element.
+ * @return array
+ */
+function newscard_body_classes( $classes ) {
+	$newscard_settings = newscard_get_option_defaults();
+
+	// Adds a class of group-blog to blogs with more than 1 published author.
+	if ( is_multi_author() ) {
+		$classes[] = 'group-blog';
+	}
+
+	// Adds a class of hfeed to non-singular pages.
+	if ( ! is_singular() ) {
+		$classes[] = 'hfeed';
+	}
+
+	if ( has_header_video() && has_header_image() ) {
+		if ( is_front_page() && is_home() ) {
+			$classes[] = '';
+		} elseif ( is_front_page() ) {
+			$classes[] = '';
+		} else {
+			$classes[] = 'header-image';
+		}
+	} elseif ( has_header_image() ) {
+		$classes[] = 'header-image';
+	}
+
+	return $classes;
+}
+add_filter( 'body_class', 'newscard_body_classes' );
+
+/**
+ * Add a pingback url auto-discovery header for single posts, pages, or attachments.
+ */
+function newscard_pingback_header() {
+	if ( is_singular() && pings_open() ) {
+		echo '<link rel="pingback" href="', esc_url( get_bloginfo( 'pingback_url' ) ), '">';
+	}
+}
+add_action( 'wp_head', 'newscard_pingback_header' );
+
+function newscard_sidebar_content() {
+
+	$newscard_settings = newscard_get_option_defaults();
+
+	global $post;
+	if ($post) {
+		$newscard_meta_layout = get_post_meta($post->ID, 'newscard_sidebarlayout', true);
+	}
+	$newscard_custom_layout = $newscard_settings['newscard_content_layout'];
+
+	if ( empty($newscard_meta_layout) || is_archive() || is_search() || is_home() ) {
+		$newscard_meta_layout = 'default';
+	}
+	
+		if ( 'default' == $newscard_meta_layout ) {
+			if ( 'right' == $newscard_custom_layout ) {
+				get_sidebar(); //used sidebar.php
+			}
+			elseif ( 'left' == $newscard_custom_layout ) {
+				get_sidebar('left'); //used sidebar-left.php
+			}
+			else {
+				return; // doesnot display sidebar
+			}
+		}
+		elseif ( 'meta-right' == $newscard_meta_layout ) {
+			get_sidebar(); //used sidebar.php
+		}
+		elseif ( 'meta-left' == $newscard_meta_layout ) {
+			get_sidebar('left'); //used sidebar-left.php
+		}
+		else {
+			return; // doesnot display sidebar
+		}
+}
+add_action( 'newscard_sidebar', 'newscard_sidebar_content');<!doctype html>
+<html lang="en-US">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<link rel="profile" href="https://gmpg.org/xfn/11">
+
+	<title>Page not found &#8211; samajvichar</title>
+<meta name='robots' content='max-image-preview:large' />
+<link rel='dns-prefetch' href='//fonts.googleapis.com' />
+<link rel="alternate" type="application/rss+xml" title="samajvichar &raquo; Feed" href="https://samajvichar.com/feed/" />
+<link rel="alternate" type="application/rss+xml" title="samajvichar &raquo; Comments Feed" href="https://samajvichar.com/comments/feed/" />
+<style id='wp-img-auto-sizes-contain-inline-css' type='text/css'>
+img:is([sizes=auto i],[sizes^="auto," i]){contain-intrinsic-size:3000px 1500px}
+/*# sourceURL=wp-img-auto-sizes-contain-inline-css */
+</style>
+<style id='wp-emoji-styles-inline-css' type='text/css'>
+
+	img.wp-smiley, img.emoji {
+		display: inline !important;
+		border: none !important;
+		box-shadow: none !important;
+		height: 1em !important;
+		width: 1em !important;
+		margin: 0 0.07em !important;
+		vertical-align: -0.1em !important;
+		background: none !important;
+		padding: 0 !important;
+	}
+/*# sourceURL=wp-emoji-styles-inline-css */
+</style>
+<style id='wp-block-library-inline-css' type='text/css'>
+:root{--wp-block-synced-color:#7a00df;--wp-block-synced-color--rgb:122,0,223;--wp-bound-block-color:var(--wp-block-synced-color);--wp-editor-canvas-background:#ddd;--wp-admin-theme-color:#007cba;--wp-admin-theme-color--rgb:0,124,186;--wp-admin-theme-color-darker-10:#006ba1;--wp-admin-theme-color-darker-10--rgb:0,107,160.5;--wp-admin-theme-color-darker-20:#005a87;--wp-admin-theme-color-darker-20--rgb:0,90,135;--wp-admin-border-width-focus:2px}@media (min-resolution:192dpi){:root{--wp-admin-border-width-focus:1.5px}}.wp-element-button{cursor:pointer}:root .has-very-light-gray-background-color{background-color:#eee}:root .has-very-dark-gray-background-color{background-color:#313131}:root .has-very-light-gray-color{color:#eee}:root .has-very-dark-gray-color{color:#313131}:root .has-vivid-green-cyan-to-vivid-cyan-blue-gradient-background{background:linear-gradient(135deg,#00d084,#0693e3)}:root .has-purple-crush-gradient-background{background:linear-gradient(135deg,#34e2e4,#4721fb 50%,#ab1dfe)}:root .has-hazy-dawn-gradient-background{background:linear-gradient(135deg,#faaca8,#dad0ec)}:root .has-subdued-olive-gradient-background{background:linear-gradient(135deg,#fafae1,#67a671)}:root .has-atomic-cream-gradient-background{background:linear-gradient(135deg,#fdd79a,#004a59)}:root .has-nightshade-gradient-background{background:linear-gradient(135deg,#330968,#31cdcf)}:root .has-midnight-gradient-background{background:linear-gradient(135deg,#020381,#2874fc)}:root{--wp--preset--font-size--normal:16px;--wp--preset--font-size--huge:42px}.has-regular-font-size{font-size:1em}.has-larger-font-size{font-size:2.625em}.has-normal-font-size{font-size:var(--wp--preset--font-size--normal)}.has-huge-font-size{font-size:var(--wp--preset--font-size--huge)}.has-text-align-center{text-align:center}.has-text-align-left{text-align:left}.has-text-align-right{text-align:right}.has-fit-text{white-space:nowrap!important}#end-resizable-editor-section{display:none}.aligncenter{clear:both}.items-justified-left{justify-content:flex-start}.items-justified-center{justify-content:center}.items-justified-right{justify-content:flex-end}.items-justified-space-between{justify-content:space-between}.screen-reader-text{border:0;clip-path:inset(50%);height:1px;margin:-1px;overflow:hidden;padding:0;position:absolute;width:1px;word-wrap:normal!important}.screen-reader-text:focus{background-color:#ddd;clip-path:none;color:#444;display:block;font-size:1em;height:auto;left:5px;line-height:normal;padding:15px 23px 14px;text-decoration:none;top:5px;width:auto;z-index:100000}html :where(.has-border-color){border-style:solid}html :where([style*=border-top-color]){border-top-style:solid}html :where([style*=border-right-color]){border-right-style:solid}html :where([style*=border-bottom-color]){border-bottom-style:solid}html :where([style*=border-left-color]){border-left-style:solid}html :where([style*=border-width]){border-style:solid}html :where([style*=border-top-width]){border-top-style:solid}html :where([style*=border-right-width]){border-right-style:solid}html :where([style*=border-bottom-width]){border-bottom-style:solid}html :where([style*=border-left-width]){border-left-style:solid}html :where(img[class*=wp-image-]){height:auto;max-width:100%}:where(figure){margin:0 0 1em}html :where(.is-position-sticky){--wp-admin--admin-bar--position-offset:var(--wp-admin--admin-bar--height,0px)}@media screen and (max-width:600px){html :where(.is-position-sticky){--wp-admin--admin-bar--position-offset:0px}}
+
+/*# sourceURL=wp-block-library-inline-css */
+</style>
+<style id='classic-theme-styles-inline-css' type='text/css'>
+/*! This file is auto-generated */
+.wp-block-button__link{color:#fff;background-color:#32373c;border-radius:9999px;box-shadow:none;text-decoration:none;padding:calc(.667em + 2px) calc(1.333em + 2px);font-size:1.125em}.wp-block-file__button{background:#32373c;color:#fff;text-decoration:none}
+/*# sourceURL=/wp-includes/css/classic-themes.min.css */
+</style>
+<style id='global-styles-inline-css' type='text/css'>
+:root{--wp--preset--aspect-ratio--square: 1;--wp--preset--aspect-ratio--4-3: 4/3;--wp--preset--aspect-ratio--3-4: 3/4;--wp--preset--aspect-ratio--3-2: 3/2;--wp--preset--aspect-ratio--2-3: 2/3;--wp--preset--aspect-ratio--16-9: 16/9;--wp--preset--aspect-ratio--9-16: 9/16;--wp--preset--color--black: #000000;--wp--preset--color--cyan-bluish-gray: #abb8c3;--wp--preset--color--white: #ffffff;--wp--preset--color--pale-pink: #f78da7;--wp--preset--color--vivid-red: #cf2e2e;--wp--preset--color--luminous-vivid-orange: #ff6900;--wp--preset--color--luminous-vivid-amber: #fcb900;--wp--preset--color--light-green-cyan: #7bdcb5;--wp--preset--color--vivid-green-cyan: #00d084;--wp--preset--color--pale-cyan-blue: #8ed1fc;--wp--preset--color--vivid-cyan-blue: #0693e3;--wp--preset--color--vivid-purple: #9b51e0;--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple: linear-gradient(135deg,rgb(6,147,227) 0%,rgb(155,81,224) 100%);--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan: linear-gradient(135deg,rgb(122,220,180) 0%,rgb(0,208,130) 100%);--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange: linear-gradient(135deg,rgb(252,185,0) 0%,rgb(255,105,0) 100%);--wp--preset--gradient--luminous-vivid-orange-to-vivid-red: linear-gradient(135deg,rgb(255,105,0) 0%,rgb(207,46,46) 100%);--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray: linear-gradient(135deg,rgb(238,238,238) 0%,rgb(169,184,195) 100%);--wp--preset--gradient--cool-to-warm-spectrum: linear-gradient(135deg,rgb(74,234,220) 0%,rgb(151,120,209) 20%,rgb(207,42,186) 40%,rgb(238,44,130) 60%,rgb(251,105,98) 80%,rgb(254,248,76) 100%);--wp--preset--gradient--blush-light-purple: linear-gradient(135deg,rgb(255,206,236) 0%,rgb(152,150,240) 100%);--wp--preset--gradient--blush-bordeaux: linear-gradient(135deg,rgb(254,205,165) 0%,rgb(254,45,45) 50%,rgb(107,0,62) 100%);--wp--preset--gradient--luminous-dusk: linear-gradient(135deg,rgb(255,203,112) 0%,rgb(199,81,192) 50%,rgb(65,88,208) 100%);--wp--preset--gradient--pale-ocean: linear-gradient(135deg,rgb(255,245,203) 0%,rgb(182,227,212) 50%,rgb(51,167,181) 100%);--wp--preset--gradient--electric-grass: linear-gradient(135deg,rgb(202,248,128) 0%,rgb(113,206,126) 100%);--wp--preset--gradient--midnight: linear-gradient(135deg,rgb(2,3,129) 0%,rgb(40,116,252) 100%);--wp--preset--font-size--small: 13px;--wp--preset--font-size--medium: 20px;--wp--preset--font-size--large: 36px;--wp--preset--font-size--x-large: 42px;--wp--preset--spacing--20: 0.44rem;--wp--preset--spacing--30: 0.67rem;--wp--preset--spacing--40: 1rem;--wp--preset--spacing--50: 1.5rem;--wp--preset--spacing--60: 2.25rem;--wp--preset--spacing--70: 3.38rem;--wp--preset--spacing--80: 5.06rem;--wp--preset--shadow--natural: 6px 6px 9px rgba(0, 0, 0, 0.2);--wp--preset--shadow--deep: 12px 12px 50px rgba(0, 0, 0, 0.4);--wp--preset--shadow--sharp: 6px 6px 0px rgba(0, 0, 0, 0.2);--wp--preset--shadow--outlined: 6px 6px 0px -3px rgb(255, 255, 255), 6px 6px rgb(0, 0, 0);--wp--preset--shadow--crisp: 6px 6px 0px rgb(0, 0, 0);}:where(.is-layout-flex){gap: 0.5em;}:where(.is-layout-grid){gap: 0.5em;}body .is-layout-flex{display: flex;}.is-layout-flex{flex-wrap: wrap;align-items: center;}.is-layout-flex > :is(*, div){margin: 0;}body .is-layout-grid{display: grid;}.is-layout-grid > :is(*, div){margin: 0;}:where(.wp-block-columns.is-layout-flex){gap: 2em;}:where(.wp-block-columns.is-layout-grid){gap: 2em;}:where(.wp-block-post-template.is-layout-flex){gap: 1.25em;}:where(.wp-block-post-template.is-layout-grid){gap: 1.25em;}.has-black-color{color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-color{color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-color{color: var(--wp--preset--color--white) !important;}.has-pale-pink-color{color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-color{color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-color{color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-color{color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-color{color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-color{color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-color{color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-color{color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-color{color: var(--wp--preset--color--vivid-purple) !important;}.has-black-background-color{background-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-background-color{background-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-background-color{background-color: var(--wp--preset--color--white) !important;}.has-pale-pink-background-color{background-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-background-color{background-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-background-color{background-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-background-color{background-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-background-color{background-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-background-color{background-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-background-color{background-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-background-color{background-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-background-color{background-color: var(--wp--preset--color--vivid-purple) !important;}.has-black-border-color{border-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-border-color{border-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-border-color{border-color: var(--wp--preset--color--white) !important;}.has-pale-pink-border-color{border-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-border-color{border-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-border-color{border-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-border-color{border-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-border-color{border-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-border-color{border-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-border-color{border-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-border-color{border-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-border-color{border-color: var(--wp--preset--color--vivid-purple) !important;}.has-vivid-cyan-blue-to-vivid-purple-gradient-background{background: var(--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple) !important;}.has-light-green-cyan-to-vivid-green-cyan-gradient-background{background: var(--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan) !important;}.has-luminous-vivid-amber-to-luminous-vivid-orange-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange) !important;}.has-luminous-vivid-orange-to-vivid-red-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-orange-to-vivid-red) !important;}.has-very-light-gray-to-cyan-bluish-gray-gradient-background{background: var(--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray) !important;}.has-cool-to-warm-spectrum-gradient-background{background: var(--wp--preset--gradient--cool-to-warm-spectrum) !important;}.has-blush-light-purple-gradient-background{background: var(--wp--preset--gradient--blush-light-purple) !important;}.has-blush-bordeaux-gradient-background{background: var(--wp--preset--gradient--blush-bordeaux) !important;}.has-luminous-dusk-gradient-background{background: var(--wp--preset--gradient--luminous-dusk) !important;}.has-pale-ocean-gradient-background{background: var(--wp--preset--gradient--pale-ocean) !important;}.has-electric-grass-gradient-background{background: var(--wp--preset--gradient--electric-grass) !important;}.has-midnight-gradient-background{background: var(--wp--preset--gradient--midnight) !important;}.has-small-font-size{font-size: var(--wp--preset--font-size--small) !important;}.has-medium-font-size{font-size: var(--wp--preset--font-size--medium) !important;}.has-large-font-size{font-size: var(--wp--preset--font-size--large) !important;}.has-x-large-font-size{font-size: var(--wp--preset--font-size--x-large) !important;}
+/*# sourceURL=global-styles-inline-css */
+</style>
+
+<link rel='stylesheet' id='bootstrap-style-css' href='https://samajvichar.com/wp-content/themes/newscard/assets/library/bootstrap/css/bootstrap.min.css?ver=4.0.0' type='text/css' media='all' />
+<link rel='stylesheet' id='font-awesome-style-css' href='https://samajvichar.com/wp-content/themes/newscard/assets/library/font-awesome/css/all.min.css?ver=6.9.1' type='text/css' media='all' />
+<link rel='stylesheet' id='newscard-google-fonts-css' href='//fonts.googleapis.com/css?family=Roboto%3A100%2C300%2C300i%2C400%2C400i%2C500%2C500i%2C700%2C700i&#038;ver=6.9.1' type='text/css' media='all' />
+<link rel='stylesheet' id='newscard-style-css' href='https://samajvichar.com/wp-content/themes/newscard/style.css?ver=6.9.1' type='text/css' media='all' />
+<script type="text/javascript" src="https://samajvichar.com/wp-includes/js/jquery/jquery.min.js?ver=3.7.1" id="jquery-core-js"></script>
+<script type="text/javascript" src="https://samajvichar.com/wp-includes/js/jquery/jquery-migrate.min.js?ver=3.4.1" id="jquery-migrate-js"></script>
+<link rel="https://api.w.org/" href="https://samajvichar.com/wp-json/" /><link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://samajvichar.com/xmlrpc.php?rsd" />
+<meta name="generator" content="WordPress 6.9.1" />
+		<style type="text/css">
+					.site-title,
+			.site-description {
+				position: absolute;
+				clip: rect(1px, 1px, 1px, 1px);
+			}
+				</style>
+		<link rel="icon" href="https://samajvichar.com/wp-content/uploads/2022/07/cropped-g-32x32.png" sizes="32x32" />
+<link rel="icon" href="https://samajvichar.com/wp-content/uploads/2022/07/cropped-g-192x192.png" sizes="192x192" />
+<link rel="apple-touch-icon" href="https://samajvichar.com/wp-content/uploads/2022/07/cropped-g-180x180.png" />
+<meta name="msapplication-TileImage" content="https://samajvichar.com/wp-content/uploads/2022/07/cropped-g-270x270.png" />
+</head>
+
+<body class="error404 wp-custom-logo wp-theme-newscard theme-body">
+
+<div id="page" class="site">
+	<a class="skip-link screen-reader-text" href="#content">Skip to content</a>
+	
+	<header id="masthead" class="site-header">
+					<div class="info-bar">
+				<div class="container">
+					<div class="row gutter-10">
+						<div class="col col-sm contact-section">
+							<div class="date">
+								<ul><li>Tuesday, February 24, 2026</li></ul>
+							</div>
+						</div><!-- .contact-section -->
+
+											</div><!-- .row -->
+          		</div><!-- .container -->
+        	</div><!-- .infobar -->
+        		<nav class="navbar navbar-expand-lg d-block">
+			<div class="navbar-head" >
+				<div class="container">
+					<div class="row navbar-head-row align-items-center">
+						<div class="col-lg-4">
+							<div class="site-branding navbar-brand">
+								<a href="https://samajvichar.com/" class="custom-logo-link" rel="home"><img width="260" height="100" src="https://samajvichar.com/wp-content/uploads/2022/07/cropped-logo-gif.gif" class="custom-logo" alt="samajvichar" decoding="async" /></a>									<h2 class="site-title"><a href="https://samajvichar.com/" rel="home">samajvichar</a></h2>
+															</div><!-- .site-branding .navbar-brand -->
+						</div>
+											</div><!-- .row -->
+				</div><!-- .container -->
+			</div><!-- .navbar-head -->
+			<div class="navigation-bar">
+				<div class="navigation-bar-top">
+					<div class="container">
+						<button class="navbar-toggler menu-toggle" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation"></button>
+						<span class="search-toggle"></span>
+					</div><!-- .container -->
+					<div class="search-bar">
+						<div class="container">
+							<div class="search-block off">
+								<form action="https://samajvichar.com/" method="get" class="search-form">
+	<label class="assistive-text"> Search </label>
+	<div class="input-group">
+		<input type="search" value="" placeholder="Search" class="form-control s" name="s">
+		<div class="input-group-prepend">
+			<button class="btn btn-theme">Search</button>
+		</div>
+	</div>
+</form><!-- .search-form -->
+							</div><!-- .search-box -->
+						</div><!-- .container -->
+					</div><!-- .search-bar -->
+				</div><!-- .navigation-bar-top -->
+				<div class="navbar-main">
+					<div class="container">
+						<div class="collapse navbar-collapse" id="navbarCollapse">
+							<div id="site-navigation" class="main-navigation nav-uppercase" role="navigation">
+								<ul class="nav-menu navbar-nav d-lg-block"><li id="menu-item-2626" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home menu-item-2626"><a href="https://samajvichar.com/">होम</a></li>
+<li id="menu-item-2694" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-2694"><a href="https://samajvichar.com/category/rajasthan/">राजस्थान</a></li>
+<li id="menu-item-2867" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-2867"><a href="https://samajvichar.com/category/national/">देश</a></li>
+<li id="menu-item-2689" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-2689"><a href="https://samajvichar.com/category/international/">विदेश</a></li>
+<li id="menu-item-2688" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-2688"><a href="https://samajvichar.com/category/business/">बिजनेस</a></li>
+<li id="menu-item-2695" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-2695"><a href="https://samajvichar.com/category/auto/">ऑटो</a></li>
+<li id="menu-item-2696" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-2696"><a href="https://samajvichar.com/category/gadgets/">गैजेट्स</a></li>
+<li id="menu-item-4720" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-4720"><a href="https://samajvichar.com/category/technology/">टेक्नोलॉजी</a></li>
+<li id="menu-item-2693" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-2693"><a href="https://samajvichar.com/category/careers/">करियर</a></li>
+<li id="menu-item-2690" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-2690"><a href="https://samajvichar.com/category/education/">शिक्षा</a></li>
+<li id="menu-item-2691" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-2691"><a href="https://samajvichar.com/category/health/">हेल्थ &amp; फिटनेस</a></li>
+<li id="menu-item-2692" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-2692"><a href="https://samajvichar.com/category/sports/">खेल</a></li>
+<li id="menu-item-2698" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-2698"><a href="https://samajvichar.com/category/astro/">ज्योतिष</a></li>
+<li id="menu-item-2702" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-2702"><a href="https://samajvichar.com/category/lifestyle/">लाइफस्टाइल</a></li>
+<li id="menu-item-2704" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-2704"><a href="https://samajvichar.com/category/bollywood/">सिनेमा जगत</a></li>
+<li id="menu-item-2701" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-2701"><a href="https://samajvichar.com/category/entertainment/">मनोरंजन</a></li>
+<li id="menu-item-2700" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-2700"><a href="https://samajvichar.com/category/photo/">फोटो गैलरी</a></li>
+<li id="menu-item-2703" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-2703"><a href="https://samajvichar.com/category/videos/">वीडियो</a></li>
+<li id="menu-item-2699" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-2699"><a href="https://samajvichar.com/category/amazing-factz/">अजब- गजब</a></li>
+</ul>							</div><!-- #site-navigation .main-navigation -->
+						</div><!-- .navbar-collapse -->
+						<div class="nav-search">
+							<span class="search-toggle"></span>
+						</div><!-- .nav-search -->
+					</div><!-- .container -->
+				</div><!-- .navbar-main -->
+			</div><!-- .navigation-bar -->
+		</nav><!-- .navbar -->
+
+		
+		
+					<div id="breadcrumb">
+				<div class="container">
+					<div role="navigation" aria-label="Breadcrumbs" class="breadcrumb-trail breadcrumbs" itemprop="breadcrumb"><ul class="trail-items" itemscope itemtype="http://schema.org/BreadcrumbList"><meta name="numberOfItems" content="2" /><meta name="itemListOrder" content="Ascending" /><li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem" class="trail-item trail-begin"><a href="https://samajvichar.com/" rel="home" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem" class="trail-item trail-end"><span itemprop="name">404 Not Found</span><meta itemprop="position" content="2" /></li></ul></div>				</div>
+			</div><!-- .breadcrumb -->
+			</header><!-- #masthead -->
+	<div id="content" class="site-content ">
+		<div class="container">
+							<div class="row justify-content-center site-content-row">
+			<div id="primary" class="col-lg-8 content-area">		<main id="main" class="site-main">
+			<div class="type-page">
+				<div class="error-404 not-found">
+					<header class="entry-header">
+						<h1 class="entry-title">Oops! That page can&rsquo;t be found.</h1>
+					</header><!-- .entry-header -->
+
+					<div class="page-content">
+						<p>It looks like nothing was found at this location. May be please check the URL for typing errors or start a new search to find the page you are looking for.</p>
+
+						<form action="https://samajvichar.com/" method="get" class="search-form">
+	<label class="assistive-text"> Search </label>
+	<div class="input-group">
+		<input type="search" value="" placeholder="Search" class="form-control s" name="s">
+		<div class="input-group-prepend">
+			<button class="btn btn-theme">Search</button>
+		</div>
+	</div>
+</form><!-- .search-form -->
+
+					</div><!-- .page-content -->
+				</div><!-- .error-404 -->
+			</div><!-- .type-page -->
+		</main><!-- #main -->
+	</div><!-- #primary -->
+
+					</div><!-- row -->
+		</div><!-- .container -->
+	</div><!-- #content .site-content-->
+	<footer id="colophon" class="site-footer" role="contentinfo">
+		
+			<div class="container">
+				<section class="featured-stories">
+								<h3 class="stories-title">
+									<a href="https://samajvichar.com/category/health/">खबरे</a>
+							</h3>
+							<div class="row gutter-parent-14">
+													<div class="col-sm-6 col-lg-3">
+								<div class="post-boxed">
+																			<div class="post-img-wrap">
+											<div class="featured-post-img">
+												<a href="https://samajvichar.com/%e0%a4%ad%e0%a4%be%e0%a4%b0%e0%a4%a4-%e0%a4%ae%e0%a5%87%e0%a4%82-%e0%a4%8f%e0%a4%9a%e0%a4%aa%e0%a5%80%e0%a4%b5%e0%a5%80-%e0%a4%9f%e0%a5%80%e0%a4%95%e0%a4%be%e0%a4%95%e0%a4%b0%e0%a4%a3-%e0%a4%95/" class="post-img" style="background-image: url('https://samajvichar.com/wp-content/uploads/https://www.hindustantimes.com/ht-img/img/2023/07/04/1600x900/vaccine_covid-19_1686726567306_1688459205252.jpg');"></a>
+											</div>
+											<div class="entry-meta category-meta">
+												<div class="cat-links"><a href="https://samajvichar.com/category/health/" rel="category tag">हेल्थ &amp; फिटनेस</a></div>
+											</div><!-- .entry-meta -->
+										</div><!-- .post-img-wrap -->
+																		<div class="post-content">
+																				<h3 class="entry-title"><a href="https://samajvichar.com/%e0%a4%ad%e0%a4%be%e0%a4%b0%e0%a4%a4-%e0%a4%ae%e0%a5%87%e0%a4%82-%e0%a4%8f%e0%a4%9a%e0%a4%aa%e0%a5%80%e0%a4%b5%e0%a5%80-%e0%a4%9f%e0%a5%80%e0%a4%95%e0%a4%be%e0%a4%95%e0%a4%b0%e0%a4%a3-%e0%a4%95/">भारत में एचपीवी टीकाकरण को बढ़ाने में बाधाएँ</a></h3>																					<div class="entry-meta">
+												<div class="date"><a href="https://samajvichar.com/%e0%a4%ad%e0%a4%be%e0%a4%b0%e0%a4%a4-%e0%a4%ae%e0%a5%87%e0%a4%82-%e0%a4%8f%e0%a4%9a%e0%a4%aa%e0%a5%80%e0%a4%b5%e0%a5%80-%e0%a4%9f%e0%a5%80%e0%a4%95%e0%a4%be%e0%a4%95%e0%a4%b0%e0%a4%a3-%e0%a4%95/" title="भारत में एचपीवी टीकाकरण को बढ़ाने में बाधाएँ">July 4, 2023</a> </div> <div class="by-author vcard author"><a href="https://samajvichar.com/author/samajvichar/">samajvichar</a> </div>											</div>
+																			</div><!-- .post-content -->
+								</div><!-- .post-boxed -->
+							</div><!-- .col-sm-6 .col-lg-3 -->
+													<div class="col-sm-6 col-lg-3">
+								<div class="post-boxed">
+																			<div class="post-img-wrap">
+											<div class="featured-post-img">
+												<a href="https://samajvichar.com/%e0%a4%95%e0%a4%b0%e0%a5%8d%e0%a4%95-%e0%a4%9c%e0%a4%be%e0%a4%97%e0%a4%b0%e0%a5%82%e0%a4%95%e0%a4%a4%e0%a4%be-%e0%a4%ac%e0%a4%a2%e0%a4%bc%e0%a4%be%e0%a4%a8%e0%a4%be-%e0%a4%94%e0%a4%b0-%e0%a4%89/" class="post-img" style="background-image: url('https://samajvichar.com/wp-content/uploads/https://www.hindustantimes.com/ht-img/img/2023/06/21/1600x900/_a260587a-5e8b-11e9-aa5c-e004eddcd1be_1687343631949.JPG');"></a>
+											</div>
+											<div class="entry-meta category-meta">
+												<div class="cat-links"><a href="https://samajvichar.com/category/health/" rel="category tag">हेल्थ &amp; फिटनेस</a></div>
+											</div><!-- .entry-meta -->
+										</div><!-- .post-img-wrap -->
+																		<div class="post-content">
+																				<h3 class="entry-title"><a href="https://samajvichar.com/%e0%a4%95%e0%a4%b0%e0%a5%8d%e0%a4%95-%e0%a4%9c%e0%a4%be%e0%a4%97%e0%a4%b0%e0%a5%82%e0%a4%95%e0%a4%a4%e0%a4%be-%e0%a4%ac%e0%a4%a2%e0%a4%bc%e0%a4%be%e0%a4%a8%e0%a4%be-%e0%a4%94%e0%a4%b0-%e0%a4%89/">कर्क: जागरूकता बढ़ाना और उत्तरजीवियों का समर्थन करना</a></h3>																					<div class="entry-meta">
+												<div class="date"><a href="https://samajvichar.com/%e0%a4%95%e0%a4%b0%e0%a5%8d%e0%a4%95-%e0%a4%9c%e0%a4%be%e0%a4%97%e0%a4%b0%e0%a5%82%e0%a4%95%e0%a4%a4%e0%a4%be-%e0%a4%ac%e0%a4%a2%e0%a4%bc%e0%a4%be%e0%a4%a8%e0%a4%be-%e0%a4%94%e0%a4%b0-%e0%a4%89/" title="कर्क: जागरूकता बढ़ाना और उत्तरजीवियों का समर्थन करना">June 21, 2023</a> </div> <div class="by-author vcard author"><a href="https://samajvichar.com/author/samajvichar/">samajvichar</a> </div>											</div>
+																			</div><!-- .post-content -->
+								</div><!-- .post-boxed -->
+							</div><!-- .col-sm-6 .col-lg-3 -->
+													<div class="col-sm-6 col-lg-3">
+								<div class="post-boxed">
+																			<div class="post-img-wrap">
+											<div class="featured-post-img">
+												<a href="https://samajvichar.com/%e0%a4%b8%e0%a5%8d%e0%a4%b5%e0%a4%be%e0%a4%b8%e0%a5%8d%e0%a4%a5%e0%a5%8d%e0%a4%af-%e0%a4%a6%e0%a5%87%e0%a4%96%e0%a4%ad%e0%a4%be%e0%a4%b2-%e0%a4%b8%e0%a5%87%e0%a4%b5%e0%a4%be%e0%a4%93%e0%a4%82/" class="post-img" style="background-image: url('https://samajvichar.com/wp-content/uploads/https://www.hindustantimes.com/ht-img/img/2023/06/21/1600x900/Blueprint-for-modernisation-of-the-healthcare-cent_1686942586129_1687343192560.jpg');"></a>
+											</div>
+											<div class="entry-meta category-meta">
+												<div class="cat-links"><a href="https://samajvichar.com/category/health/" rel="category tag">हेल्थ &amp; फिटनेस</a></div>
+											</div><!-- .entry-meta -->
+										</div><!-- .post-img-wrap -->
+																		<div class="post-content">
+																				<h3 class="entry-title"><a href="https://samajvichar.com/%e0%a4%b8%e0%a5%8d%e0%a4%b5%e0%a4%be%e0%a4%b8%e0%a5%8d%e0%a4%a5%e0%a5%8d%e0%a4%af-%e0%a4%a6%e0%a5%87%e0%a4%96%e0%a4%ad%e0%a4%be%e0%a4%b2-%e0%a4%b8%e0%a5%87%e0%a4%b5%e0%a4%be%e0%a4%93%e0%a4%82/">स्वास्थ्य देखभाल सेवाओं में टेलीमेडिसिन की क्षमता का आकलन करना</a></h3>																					<div class="entry-meta">
+												<div class="date"><a href="https://samajvichar.com/%e0%a4%b8%e0%a5%8d%e0%a4%b5%e0%a4%be%e0%a4%b8%e0%a5%8d%e0%a4%a5%e0%a5%8d%e0%a4%af-%e0%a4%a6%e0%a5%87%e0%a4%96%e0%a4%ad%e0%a4%be%e0%a4%b2-%e0%a4%b8%e0%a5%87%e0%a4%b5%e0%a4%be%e0%a4%93%e0%a4%82/" title="स्वास्थ्य देखभाल सेवाओं में टेलीमेडिसिन की क्षमता का आकलन करना">June 21, 2023</a> </div> <div class="by-author vcard author"><a href="https://samajvichar.com/author/samajvichar/">samajvichar</a> </div>											</div>
+																			</div><!-- .post-content -->
+								</div><!-- .post-boxed -->
+							</div><!-- .col-sm-6 .col-lg-3 -->
+													<div class="col-sm-6 col-lg-3">
+								<div class="post-boxed">
+																			<div class="post-img-wrap">
+											<div class="featured-post-img">
+												<a href="https://samajvichar.com/%e0%a4%8f%e0%a4%86%e0%a4%88-%e0%a4%95%e0%a5%87-%e0%a4%b8%e0%a4%be%e0%a4%a5-%e0%a4%b6%e0%a5%81%e0%a4%b0%e0%a5%81%e0%a4%86%e0%a4%a4%e0%a5%80-%e0%a4%ac%e0%a5%80%e0%a4%ae%e0%a4%be%e0%a4%b0%e0%a5%80/" class="post-img" style="background-image: url('https://samajvichar.com/wp-content/uploads/https://www.hindustantimes.com/ht-img/img/2023/06/21/1600x900/_0c908d24-270d-11ea-822c-9a9bb451da23_1687342782713.jpg');"></a>
+											</div>
+											<div class="entry-meta category-meta">
+												<div class="cat-links"><a href="https://samajvichar.com/category/health/" rel="category tag">हेल्थ &amp; फिटनेस</a></div>
+											</div><!-- .entry-meta -->
+										</div><!-- .post-img-wrap -->
+																		<div class="post-content">
+																				<h3 class="entry-title"><a href="https://samajvichar.com/%e0%a4%8f%e0%a4%86%e0%a4%88-%e0%a4%95%e0%a5%87-%e0%a4%b8%e0%a4%be%e0%a4%a5-%e0%a4%b6%e0%a5%81%e0%a4%b0%e0%a5%81%e0%a4%86%e0%a4%a4%e0%a5%80-%e0%a4%ac%e0%a5%80%e0%a4%ae%e0%a4%be%e0%a4%b0%e0%a5%80/">एआई के साथ शुरुआती बीमारी का पता लगाना आसान हो गया</a></h3>																					<div class="entry-meta">
+												<div class="date"><a href="https://samajvichar.com/%e0%a4%8f%e0%a4%86%e0%a4%88-%e0%a4%95%e0%a5%87-%e0%a4%b8%e0%a4%be%e0%a4%a5-%e0%a4%b6%e0%a5%81%e0%a4%b0%e0%a5%81%e0%a4%86%e0%a4%a4%e0%a5%80-%e0%a4%ac%e0%a5%80%e0%a4%ae%e0%a4%be%e0%a4%b0%e0%a5%80/" title="एआई के साथ शुरुआती बीमारी का पता लगाना आसान हो गया">June 21, 2023</a> </div> <div class="by-author vcard author"><a href="https://samajvichar.com/author/samajvichar/">samajvichar</a> </div>											</div>
+																			</div><!-- .post-content -->
+								</div><!-- .post-boxed -->
+							</div><!-- .col-sm-6 .col-lg-3 -->
+											</div><!-- .row -->
+				</section><!-- .featured-stories -->
+			</div><!-- .container -->
+		
+					<div class="widget-area">
+				<div class="container">
+					<div class="row">
+						<div class="col-sm-6 col-lg-3">
+							<section id="nav_menu-7" class="widget widget_nav_menu"><h3 class="widget-title">Page</h3><div class="menu-footer-page-container"><ul id="menu-footer-page" class="menu"><li id="menu-item-6025" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-6025"><a href="https://samajvichar.com/about-us/">About Us</a></li>
+<li id="menu-item-6026" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-6026"><a href="https://samajvichar.com/contact-us/">Contact Us</a></li>
+<li id="menu-item-6027" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-6027"><a href="https://samajvichar.com/dmca/">DMCA</a></li>
+<li id="menu-item-6029" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-6029"><a href="https://samajvichar.com/privacy-policy/">Privacy Policy</a></li>
+</ul></div></section>						</div><!-- footer sidebar column 1 -->
+						<div class="col-sm-6 col-lg-3">
+							<section id="archives-3" class="widget widget_archive"><h3 class="widget-title">Archives</h3>
+			<ul>
+					<li><a href='https://samajvichar.com/2026/02/'>February 2026</a></li>
+	<li><a href='https://samajvichar.com/2026/01/'>January 2026</a></li>
+	<li><a href='https://samajvichar.com/2025/12/'>December 2025</a></li>
+	<li><a href='https://samajvichar.com/2025/11/'>November 2025</a></li>
+	<li><a href='https://samajvichar.com/2025/10/'>October 2025</a></li>
+	<li><a href='https://samajvichar.com/2025/09/'>September 2025</a></li>
+	<li><a href='https://samajvichar.com/2025/08/'>August 2025</a></li>
+	<li><a href='https://samajvichar.com/2025/07/'>July 2025</a></li>
+	<li><a href='https://samajvichar.com/2025/06/'>June 2025</a></li>
+	<li><a href='https://samajvichar.com/2025/05/'>May 2025</a></li>
+	<li><a href='https://samajvichar.com/2025/04/'>April 2025</a></li>
+	<li><a href='https://samajvichar.com/2025/03/'>March 2025</a></li>
+	<li><a href='https://samajvichar.com/2025/02/'>February 2025</a></li>
+	<li><a href='https://samajvichar.com/2025/01/'>January 2025</a></li>
+	<li><a href='https://samajvichar.com/2024/12/'>December 2024</a></li>
+	<li><a href='https://samajvichar.com/2024/11/'>November 2024</a></li>
+	<li><a href='https://samajvichar.com/2024/10/'>October 2024</a></li>
+	<li><a href='https://samajvichar.com/2024/08/'>August 2024</a></li>
+	<li><a href='https://samajvichar.com/2023/11/'>November 2023</a></li>
+	<li><a href='https://samajvichar.com/2023/07/'>July 2023</a></li>
+	<li><a href='https://samajvichar.com/2023/06/'>June 2023</a></li>
+	<li><a href='https://samajvichar.com/2023/05/'>May 2023</a></li>
+	<li><a href='https://samajvichar.com/2023/04/'>April 2023</a></li>
+	<li><a href='https://samajvichar.com/2023/03/'>March 2023</a></li>
+	<li><a href='https://samajvichar.com/2023/02/'>February 2023</a></li>
+	<li><a href='https://samajvichar.com/2023/01/'>January 2023</a></li>
+	<li><a href='https://samajvichar.com/2022/12/'>December 2022</a></li>
+	<li><a href='https://samajvichar.com/2022/11/'>November 2022</a></li>
+	<li><a href='https://samajvichar.com/2022/10/'>October 2022</a></li>
+	<li><a href='https://samajvichar.com/2022/09/'>September 2022</a></li>
+	<li><a href='https://samajvichar.com/2022/08/'>August 2022</a></li>
+	<li><a href='https://samajvichar.com/2022/07/'>July 2022</a></li>
+	<li><a href='https://samajvichar.com/2022/06/'>June 2022</a></li>
+	<li><a href='https://samajvichar.com/2022/05/'>May 2022</a></li>
+	<li><a href='https://samajvichar.com/2022/04/'>April 2022</a></li>
+	<li><a href='https://samajvichar.com/2022/02/'>February 2022</a></li>
+	<li><a href='https://samajvichar.com/2022/01/'>January 2022</a></li>
+	<li><a href='https://samajvichar.com/2021/02/'>February 2021</a></li>
+	<li><a href='https://samajvichar.com/2020/02/'>February 2020</a></li>
+			</ul>
+
+			</section>						</div><!-- footer sidebar column 2 -->
+						<div class="col-sm-6 col-lg-3">
+							<section id="newscard_recent_posts-5" class="widget newscard-widget-recent-posts">
+		<h3 class="widget-title">				<a href="https://samajvichar.com/%e0%a4%8f%e0%a4%86%e0%a4%88-%e0%a4%95%e0%a5%87-%e0%a4%b8%e0%a4%be%e0%a4%a5-%e0%a4%b6%e0%a5%81%e0%a4%b0%e0%a5%81%e0%a4%86%e0%a4%a4%e0%a5%80-%e0%a4%ac%e0%a5%80%e0%a4%ae%e0%a4%be%e0%a4%b0%e0%a5%80/">Blogs</a>
+			</h3>			<div class="row gutter-parent-14">
+										<div class="col-md-6 post-col">
+							<div class="post-boxed inlined clearfix">
+																<div class="post-content">
+									<div class="entry-meta category-meta">
+										<div class="cat-links"><a href="https://samajvichar.com/category/uncategorized/" rel="category tag">Uncategorized</a></div>
+									</div><!-- .entry-meta -->
+									<h3 class="entry-title"><a href="https://samajvichar.com/de-los-cuales-se-encuentran-la-mejor-ruleta-sobre-presto-de-cada-segundo/">De los cuales se encuentran la mejor ruleta sobre presto de cada segundo</a></h3>									<div class="entry-meta">
+										<div class="date"><a href="https://samajvichar.com/de-los-cuales-se-encuentran-la-mejor-ruleta-sobre-presto-de-cada-segundo/" title="De los cuales se encuentran la mejor ruleta sobre presto de cada segundo">February 24, 2026</a> </div> <div class="by-author vcard author"><a href="https://samajvichar.com/author/xtw1838703fa/">xtw1838703fa</a> </div>									</div>
+								</div>
+							</div><!-- post-boxed -->
+						</div><!-- col-md-6 -->
+									</div><!-- .row .gutter-parent-14-->
+
+		</section><!-- .widget_recent_post -->						</div><!-- footer sidebar column 3 -->
+						<div class="col-sm-6 col-lg-3">
+							<section id="text-3" class="widget widget_text"><h3 class="widget-title">Subscribe to our Newsletter</h3>			<div class="textwidget"></div>
+		</section>						</div><!-- footer sidebar column 4 -->
+					</div><!-- .row -->
+				</div><!-- .container -->
+			</div><!-- .widget-area -->
+				<div class="site-info">
+			<div class="container">
+				<div class="row">
+										<div class="copyright col-lg order-lg-1 text-lg-left">
+						<div class="theme-link">
+							Copyright &copy; 2026 <a href="https://samajvichar.com/" title="samajvichar" >samajvichar</a></div><div class="author-link">Theme by: <a href="https://www.themehorse.com" target="_blank" rel="noopener noreferrer" title="Theme Horse" >Theme Horse</a></div><div class="wp-link">Proudly Powered by: <a href="http://wordpress.org/" target="_blank" rel="noopener noreferrer" title="WordPress">WordPress</a></div>					</div><!-- .copyright -->
+				</div><!-- .row -->
+			</div><!-- .container -->
+		</div><!-- .site-info -->
+	</footer><!-- #colophon -->
+	<div class="back-to-top"><a title="Go to Top" href="#masthead"></a></div>
+</div><!-- #page -->
+
+<script type="speculationrules">
+{"prefetch":[{"source":"document","where":{"and":[{"href_matches":"/*"},{"not":{"href_matches":["/wp-*.php","/wp-admin/*","/wp-content/uploads/*","/wp-content/*","/wp-content/plugins/*","/wp-content/themes/newscard/*","/*\\?(.+)"]}},{"not":{"selector_matches":"a[rel~=\"nofollow\"]"}},{"not":{"selector_matches":".no-prefetch, .no-prefetch a"}}]},"eagerness":"conservative"}]}
+</script>
+<script type="text/javascript" src="https://samajvichar.com/wp-content/themes/newscard/assets/library/bootstrap/js/popper.min.js?ver=1.12.9" id="popper-script-js"></script>
+<script type="text/javascript" src="https://samajvichar.com/wp-content/themes/newscard/assets/library/bootstrap/js/bootstrap.min.js?ver=4.0.0" id="bootstrap-script-js"></script>
+<script type="text/javascript" src="https://samajvichar.com/wp-content/themes/newscard/assets/library/match-height/jquery.matchHeight-min.js?ver=0.7.2" id="jquery-match-height-js"></script>
+<script type="text/javascript" src="https://samajvichar.com/wp-content/themes/newscard/assets/library/match-height/jquery.matchHeight-settings.js?ver=6.9.1" id="newscard-match-height-js"></script>
+<script type="text/javascript" src="https://samajvichar.com/wp-content/themes/newscard/assets/js/skip-link-focus-fix.js?ver=20151215" id="newscard-skip-link-focus-fix-js"></script>
+<script type="text/javascript" src="https://samajvichar.com/wp-content/themes/newscard/assets/library/sticky/jquery.sticky.js?ver=1.0.4" id="jquery-sticky-js"></script>
+<script type="text/javascript" src="https://samajvichar.com/wp-content/themes/newscard/assets/library/sticky/jquery.sticky-settings.js?ver=6.9.1" id="newscard-jquery-sticky-js"></script>
+<script type="text/javascript" src="https://samajvichar.com/wp-content/themes/newscard/assets/js/scripts.js?ver=6.9.1" id="newscard-scripts-js"></script>
+<script id="wp-emoji-settings" type="application/json">
+{"baseUrl":"https://s.w.org/images/core/emoji/17.0.2/72x72/","ext":".png","svgUrl":"https://s.w.org/images/core/emoji/17.0.2/svg/","svgExt":".svg","source":{"concatemoji":"https://samajvichar.com/wp-includes/js/wp-emoji-release.min.js?ver=6.9.1"}}
+</script>
+<script type="module">
+/* <![CDATA[ */
+/*! This file is auto-generated */
+const a=JSON.parse(document.getElementById("wp-emoji-settings").textContent),o=(window._wpemojiSettings=a,"wpEmojiSettingsSupports"),s=["flag","emoji"];function i(e){try{var t={supportTests:e,timestamp:(new Date).valueOf()};sessionStorage.setItem(o,JSON.stringify(t))}catch(e){}}function c(e,t,n){e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(t,0,0);t=new Uint32Array(e.getImageData(0,0,e.canvas.width,e.canvas.height).data);e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(n,0,0);const a=new Uint32Array(e.getImageData(0,0,e.canvas.width,e.canvas.height).data);return t.every((e,t)=>e===a[t])}function p(e,t){e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(t,0,0);var n=e.getImageData(16,16,1,1);for(let e=0;e<n.data.length;e++)if(0!==n.data[e])return!1;return!0}function u(e,t,n,a){switch(t){case"flag":return n(e,"\ud83c\udff3\ufe0f\u200d\u26a7\ufe0f","\ud83c\udff3\ufe0f\u200b\u26a7\ufe0f")?!1:!n(e,"\ud83c\udde8\ud83c\uddf6","\ud83c\udde8\u200b\ud83c\uddf6")&&!n(e,"\ud83c\udff4\udb40\udc67\udb40\udc62\udb40\udc65\udb40\udc6e\udb40\udc67\udb40\udc7f","\ud83c\udff4\u200b\udb40\udc67\u200b\udb40\udc62\u200b\udb40\udc65\u200b\udb40\udc6e\u200b\udb40\udc67\u200b\udb40\udc7f");case"emoji":return!a(e,"\ud83e\u1fac8")}return!1}function f(e,t,n,a){let r;const o=(r="undefined"!=typeof WorkerGlobalScope&&self instanceof WorkerGlobalScope?new OffscreenCanvas(300,150):document.createElement("canvas")).getContext("2d",{willReadFrequently:!0}),s=(o.textBaseline="top",o.font="600 32px Arial",{});return e.forEach(e=>{s[e]=t(o,e,n,a)}),s}function r(e){var t=document.createElement("script");t.src=e,t.defer=!0,document.head.appendChild(t)}a.supports={everything:!0,everythingExceptFlag:!0},new Promise(t=>{let n=function(){try{var e=JSON.parse(sessionStorage.getItem(o));if("object"==typeof e&&"number"==typeof e.timestamp&&(new Date).valueOf()<e.timestamp+604800&&"object"==typeof e.supportTests)return e.supportTests}catch(e){}return null}();if(!n){if("undefined"!=typeof Worker&&"undefined"!=typeof OffscreenCanvas&&"undefined"!=typeof URL&&URL.createObjectURL&&"undefined"!=typeof Blob)try{var e="postMessage("+f.toString()+"("+[JSON.stringify(s),u.toString(),c.toString(),p.toString()].join(",")+"));",a=new Blob([e],{type:"text/javascript"});const r=new Worker(URL.createObjectURL(a),{name:"wpTestEmojiSupports"});return void(r.onmessage=e=>{i(n=e.data),r.terminate(),t(n)})}catch(e){}i(n=f(s,u,c,p))}t(n)}).then(e=>{for(const n in e)a.supports[n]=e[n],a.supports.everything=a.supports.everything&&a.supports[n],"flag"!==n&&(a.supports.everythingExceptFlag=a.supports.everythingExceptFlag&&a.supports[n]);var t;a.supports.everythingExceptFlag=a.supports.everythingExceptFlag&&!a.supports.flag,a.supports.everything||((t=a.source||{}).concatemoji?r(t.concatemoji):t.wpemoji&&t.twemoji&&(r(t.twemoji),r(t.wpemoji)))});
+//# sourceURL=https://samajvichar.com/wp-includes/js/wp-emoji-loader.min.js
+/* ]]> */
+</script>
+
+</body>
+</html>

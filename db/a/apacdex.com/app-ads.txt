@@ -1,0 +1,1173 @@
+
+<!DOCTYPE html>
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if IE 9 ]><html class="ie ie9" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html lang="en">
+<!--<![endif]-->
+
+<head>
+
+  <!-- Basic Page Needs -->
+  <meta charset="utf-8" />
+  <title>APAC Digital Exchange - Apacdex.com</title>
+  <meta name="description" content="An Ad Exchange that focuses on the very core of advertising creates value for both publishers and advertisers." />
+  <!-- Mobile Specific Metas -->
+  <!-- <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" /> -->
+  <!-- Main Style -->
+  <link rel="stylesheet" href="/themes/invention/css/style.css?v=8.0.3">
+  <!-- Color Style -->
+  <link rel="stylesheet" href="/themes/invention/css/skins/colors/yellow.css?v=8.0.3" name="colors">
+  <!-- Layout Style -->
+  <link rel="stylesheet" href="/themes/invention/css/layout/wide.css?v=8.0.3" name="layout">
+  <!-- Style Switcher Box -->
+  <link rel="stylesheet" href="/themes/invention/css/switcher/style.css?v=8.0.3">
+
+  <!--[if lt IE 9]>
+            <script src="/themes/invention/js/html5.js"></script>
+        <![endif]-->
+
+  <!-- Favicons -->
+  <link rel="shortcut icon" href="favicon-1.3.png">
+  <link rel="stylesheet" href="https://use.typekit.net/sfi0qvh.css">
+  <style>
+    body {
+      font-family: hurme, sans-serif !important;
+    }
+
+    .open-walkthrough {
+      border: 0;
+      background: #5da3f2;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      font-size: 12px;
+      height: 40px;
+      width: 120px;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      margin-top: -20px;
+      margin-left: -60px;
+      display: none
+    }
+
+    .walkthrough {
+      border-radius: 0;
+      display: none;
+      flex-direction: column;
+      flex: 0 0 auto;
+      font-size: 14px;
+      height: 480px;
+      overflow: hidden;
+      transition: opacity 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+      width: 580px;
+      z-index: 1000;
+    }
+
+    .walkthrough.show {
+      display: flex;
+      opacity: 0;
+      transform: translateY(72px);
+    }
+
+    .walkthrough.reveal {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .walkthrough .walkthrough-body {
+      align-items: center;
+      display: flex;
+      flex: 1;
+      text-align: center;
+    }
+
+    .walkthrough .walkthrough-body .prev-screen,
+    .walkthrough .walkthrough-body .next-screen {
+      align-self: stretch;
+      background: none;
+      border: 0;
+      margin-top: -50px;
+      color: rgba(255, 255, 255, 0.25);
+      cursor: pointer;
+      flex: 0 0 auto;
+      font-size: 24px;
+      opacity: 1;
+      outline: none;
+      padding: 16px;
+      transform: scale(1);
+      transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), color 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), opacity 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+      z-index: 1000;
+    }
+
+    .walkthrough .walkthrough-body .prev-screen:hover,
+    .walkthrough .walkthrough-body .prev-screen:active,
+    .walkthrough .walkthrough-body .next-screen:hover,
+    .walkthrough .walkthrough-body .next-screen:active {
+      color: white;
+      transform-origin: center;
+      transform: scale(1.25);
+    }
+
+    .walkthrough .walkthrough-body .prev-screen:disabled,
+    .walkthrough .walkthrough-body .next-screen:disabled {
+      opacity: 0;
+    }
+
+    .walkthrough .walkthrough-body .prev-screen {
+      order: 1;
+    }
+
+    .walkthrough .walkthrough-body .next-screen {
+      order: 3;
+    }
+
+    .walkthrough .walkthrough-body .screens {
+      flex: 1;
+      align-self: stretch;
+      position: relative;
+      margin: 0 -10px 0 -10px;
+      padding: 0;
+      order: 2;
+    }
+
+    .walkthrough .walkthrough-body .screens .screen {
+      position: absolute;
+      list-style-type: none;
+    }
+
+    .walkthrough .walkthrough-body .media {
+      margin: 32px auto;
+      width: 610px;
+    }
+
+    .walkthrough .walkthrough-body h3 {
+      font-size: 15px;
+      line-height: 1.4em;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      margin-bottom: 5px;
+    }
+
+    .walkthrough .walkthrough-body p {
+      line-height: 1.3em;
+      font-size: 13px;
+      padding-top: 0;
+      color: rgba(255, 255, 255, 0.8);
+      width: 400px;
+      text-align: center;
+      margin: 0 auto;
+    }
+
+    .walkthrough .walkthrough-pagination {
+      align-items: center;
+      display: flex;
+      justify-content: center;
+      margin-top: 24px;
+    }
+
+    .walkthrough .walkthrough-pagination .dot {
+      background: rgba(0, 0, 0, 0.25);
+      border-radius: 8px;
+      height: 8px;
+      margin: 0 4px;
+      transform: scale(0.75);
+      transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), background 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+      width: 8px;
+    }
+
+    .walkthrough .walkthrough-pagination .dot.active {
+      background: white;
+      transform: scale(1);
+      transition-delay: 0.4s;
+    }
+
+    .walkthrough .walkthrough-footer {
+      display: none;
+      flex: 0 0 auto;
+      justify-content: space-around;
+      padding: 0;
+    }
+
+    .walkthrough .walkthrough-footer button {
+      height: 40px;
+      border: 0;
+      background: #5da3f2;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      border-radius: 0;
+      color: white;
+      flex: 1;
+      font-size: 12px;
+      margin: 0;
+      outline: 0;
+      padding: 12px;
+      transition: opacity 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), background 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+      cursor: pointer;
+    }
+
+    .walkthrough .walkthrough-footer button:hover {
+      background: #6babf3;
+    }
+
+    .walkthrough .walkthrough-footer button:active {
+      background: #5da3f2;
+    }
+
+    .walkthrough .walkthrough-footer button:disabled {
+      cursor: pointer;
+    }
+
+    .walkthrough .walkthrough-footer button.finish {
+      background: #3e94f5;
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      opacity: 0;
+      transform: scale(0, 1);
+      transform-origin: center;
+      transition: opacity 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), background 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+
+    .walkthrough .walkthrough-footer button.finish:hover {
+      background: #4d9cf6;
+    }
+
+    .walkthrough .walkthrough-footer button.finish:active {
+      background: #3e94f5;
+    }
+
+    .walkthrough .walkthrough-footer button.finish.active {
+      transform: scale(1, 1);
+      opacity: 1;
+    }
+
+    .walkthrough .screens {
+      margin: 0;
+    }
+
+    .walkthrough .screens .media .status-badge {
+      left: 136px;
+      opacity: 0;
+      position: absolute;
+      top: 104px;
+      transform: scale(0);
+      transition: opacity 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+      transition-delay: 0.6s;
+    }
+
+    .walkthrough .screens .media .status-badge i {
+      display: inline;
+    }
+
+    .walkthrough .screens .media.logo .logo {
+      margin-top: 20px;
+      opacity: 0;
+      transform: translateY(-60px);
+      transition: opacity 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+      width: 80px;
+    }
+
+    .walkthrough .screens .media .icon {
+      position: absolute;
+      opacity: 0;
+      transform: translateY(-30px);
+      transition: opacity 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+      width: 132px;
+      left: 48px;
+      top: 32px;
+    }
+
+    .walkthrough .screens .media.bars .icon {
+      transform: translate(40px, 20px);
+    }
+
+    .walkthrough .screens .media.bars .icon:nth-of-type(2) {
+      transform: scale(0.25);
+      transform-origin: 30% 54%;
+    }
+
+    .walkthrough .screens .media.bars .icon:nth-of-type(3) {
+      transform: scale(0.25);
+      transform-origin: 30% 40%;
+    }
+
+    .walkthrough .screens .media.bars .icon:nth-of-type(4) {
+      transform: scale(0.25);
+      transform-origin: 30% 26%;
+    }
+
+    .walkthrough .screens .media.files .icon {
+      transform: translate(40px, 20px);
+    }
+
+    .walkthrough .screens .media.comm .icon {
+      transform: scale(0.25);
+      transform-origin: 29% 73%;
+    }
+
+    .walkthrough .screens .media.comm .icon:nth-child(2) {
+      transform-origin: 66% 85%;
+    }
+
+    .walkthrough .screens .screen {
+      opacity: 0;
+      position: absolute;
+      transform: translateX(-72px);
+      transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+
+    .walkthrough .screens .screen.active {
+      opacity: 1;
+      transform: translateX(0) scale(1);
+      transition-delay: 0.4s;
+    }
+
+    .walkthrough .screens .screen.active~.screen {
+      opacity: 0;
+      transform: translateX(72px);
+    }
+
+    .walkthrough .screens .screen.active .media .status-badge {
+      opacity: 1;
+      transform: scale(1.75);
+    }
+
+    .walkthrough .screens .screen.active .media.logo .logo {
+      opacity: 0.8;
+      transform: translateY(0);
+      transition-delay: 0.6s;
+    }
+
+    .walkthrough .screens .screen.active .media.logo .status-badge {
+      transition-delay: 1s;
+    }
+
+    .walkthrough .screens .screen.active .media.books .icon {
+      opacity: 1;
+      transform: translateY(0);
+      transition-delay: 0.6s;
+    }
+
+    .walkthrough .screens .screen.active .media.books .icon:nth-child(2) {
+      transition-delay: 0.725s;
+    }
+
+    .walkthrough .screens .screen.active .media.books .icon:nth-child(3) {
+      transition-delay: 0.85s;
+    }
+
+    .walkthrough .screens .screen.active .media.books .status-badge {
+      transition-delay: 1.4s;
+    }
+
+    .walkthrough .screens .screen.active .media.bars .icon {
+      opacity: 1;
+      transform: translate(0) scale(1);
+      transition-delay: 0.6s;
+    }
+
+    .walkthrough .screens .screen.active .media.bars .icon:nth-child(2) {
+      transition-delay: 1.05s;
+    }
+
+    .walkthrough .screens .screen.active .media.bars .icon:nth-child(3) {
+      transition-delay: 0.925s;
+    }
+
+    .walkthrough .screens .screen.active .media.bars .icon:nth-child(4) {
+      transition-delay: 0.8s;
+    }
+
+    .walkthrough .screens .screen.active .media.files .icon {
+      opacity: 1;
+      transform: translateY(0);
+      transition-delay: 0.9s;
+    }
+
+    .walkthrough .screens .screen.active .media.files .icon:nth-child(3) {
+      transition-delay: 0.8s;
+    }
+
+    .walkthrough .screens .screen.active .media.files .icon:nth-child(2) {
+      transition-delay: 0.7s;
+    }
+
+    .walkthrough .screens .screen.active .media.files .icon:nth-child(1) {
+      transition-delay: 0.6s;
+    }
+
+    .walkthrough .screens .screen.active .media.files .status-badge {
+      transition-delay: 1.6s;
+    }
+
+    .walkthrough .screens .screen.active .media.comm .icon {
+      opacity: 1;
+      transform: scale(1);
+      transition-delay: 0.6s;
+    }
+
+    .walkthrough .screens .screen.active .media.comm .icon:nth-child(2) {
+      transition-delay: 0.8s;
+    }
+
+    .walkthrough .screens .screen.active .media.comm .status-badge {
+      transition-delay: 1.6s;
+    }
+
+    @font-face {
+      font-display: swap;
+      font-family: hurme;
+      src: url(self-serve/fonts/hurme/hurme-regular.eot);
+      src: url(self-serve/fonts/hurme/hurme-regular.eot?#iefix) format('embedded-opentype'), url(self-serve/fonts/hurme/hurme-regular.woff2) format('woff2'), url(self-serve/fonts/hurme/hurme-regular.woff) format('woff');
+      font-weight: 400;
+      font-style: normal
+    }
+
+    @font-face {
+      font-display: swap;
+      font-family: hurme;
+      src: url(self-serve/fonts/hurme/hurme-bold.eot);
+      src: url(self-serve/fonts/hurme/hurme-bold.eot?#iefix) format('embedded-opentype'), url(self-serve/fonts/hurme/hurme-bold.woff2) format('woff2'), url(self-serve/fonts/hurme/hurme-bold.woff) format('woff');
+      font-weight: 700;
+      font-style: normal
+    }
+
+
+    .services.style-2 .circle {
+      width: 50px;
+      height: 167px;
+      border-radius: 0;
+      padding: 14px 0;
+      margin-right: 0;
+      margin-top: 0;
+    }
+
+    .services.style-2 .data {
+      width: 230px;
+      height: 175px;
+      background: rgba(255, 255, 255, 0.05);
+      padding: 10px;
+    }
+
+    .slider-1 .slides li h2,
+    .slider-1 .slides li p,
+    .slider-1 .slides li .links {
+      max-width: 880px;
+      min-width: 880px;
+    }
+
+    #vertical-tabs .contents {
+      width: 580px;
+      border: 0;
+      margin-left: 20px;
+      margin-right: 10px;
+    }
+
+    #vertical-tabs ul.tabs {
+      width: 300px;
+      background: #333;
+      border: 0;
+      margin-right: 40px;
+      margin-left: 10px;
+      border-radius: 0px px 10px 10px 0;
+    }
+
+    #horizontal-tabs .tabscontent,
+    #vertical-tabs .tabscontent {
+      padding-top: 0px;
+      padding-right: 0;
+    }
+
+    #horizontal-tabs ul.tabs li,
+    #vertical-tabs ul.tabs li,
+    .accordion.style2 h4,
+    .accordion.style2 p,
+    #vertical-tabs ul.tabs li,
+    .post.style-1,
+    .post.style-2,
+    .sidebar .categories ul li,
+    .comments .comment-box .comment {
+      border: 0;
+    }
+
+    #vertical-tabs ul.tabs li.current {
+      border-right: 0;
+    }
+
+    #vertical-tabs ul.tabs li {
+      background: none;
+    }
+
+    #horizontal-tabs .tabscontent,
+    #vertical-tabs .tabscontent h3 {
+      font-size: 15px;
+      line-height: 1.4em;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      margin-bottom: 5px;
+      font-weight: 400;
+      text-align: center;
+      padding-top: 30px;
+    }
+
+    #horizontal-tabs .tabscontent,
+    #vertical-tabs .tabscontent p {
+      line-height: 1.3em;
+      font-size: 13px;
+      padding-top: 0;
+      color: rgba(255, 255, 255, 0.8);
+      width: 400px;
+      text-align: center;
+      margin: 0 auto;
+    }
+
+    .services.style-2 .item h4 {
+      text-transform: uppercase;
+      font-family: hurme, sans-serif;
+      font-size: 17px;
+      font-weight: 700;
+    }
+
+    .services.style-2 .item p {
+      font-family: hurme, sans-serif;
+    }
+
+    .menu-ac ul {
+      z-index: 100;
+      margin: 0;
+      padding: 0;
+      list-style-type: none;
+      margin-top: 45px;
+    }
+
+    .menu-ac ul li {
+      position: relative;
+      display: inline;
+      margin-left: 4px;
+      text-transform: uppercase;
+      float: left;
+    }
+
+    .menu-gs .menu-gs-1:hover {
+      color: #4d4d4d !important;
+    }
+
+    .menu-gs .menu-gs-2:hover {
+      color: rgba(255, 255, 255, .75) !important;
+    }
+
+    p a:hover,
+    .breadcrumbs a:hover {
+      color: #ffc107 !important;
+      text-decoration: underline;
+      opacity: 0.8;
+    }
+
+    .prebid-link {
+      color: #ffc107 !important;
+    }
+
+    .prebid-link:hover {
+      text-decoration: underline;
+      opacity: 0.8;
+    }
+
+    .table-partners {
+      width: 100%;
+      display: block;
+      padding-bottom: 60px;
+      margin-left: 10px;
+    }
+
+    .table-partners tr td {
+      width: 200px;
+      padding-right: 40px;
+      padding-bottom: 15px;
+      vertical-align: middle;
+    }
+
+    .table-partners tr td img {
+      width: 130px;
+      max-width: 130px
+    }
+
+    .price h2 {
+      margin-top: 0 !important;
+      text-align: center !important;
+    }
+  </style>
+
+</head>
+
+<body class="one-page">
+
+  <div id="wrap" class="boxed">
+
+    <header id="home">
+      <div class="main-header">
+        <div class="container clearfix">
+
+          <div class="one-third column">
+            <div class="logo">
+              <a href="index.html">
+                <img src="https://apacdex.com/logo.svg?v=1.0.1" alt="APAC Digital Exchange" />
+              </a>
+            </div>
+          </div><!-- End Logo -->
+
+          <div class="two-thirds column">
+            <nav class="menu-ac">
+              <ul class="menu-gs" style="float: right;">
+                <li><a class="menu-gs-1" href="https://pub.quantumdex.io/login" style="background: #ffc107;padding: 5px 10px 5px 10px;margin: 30px 0 0 0;color: #000;">GET STARTED</a></li>
+                <li><a class="menu-gs-2" href="https://pub.quantumdex.io/login" style="background: #000;padding: 5px 10px 5px 10px;margin: 30px 0 0 5px;color: #FFF;font-weight: 100;">LOGIN</a></li>
+              </ul>
+            </nav>
+          </div><!-- End Menu -->
+
+        </div><!-- End Container -->
+      </div><!-- End main-header -->
+
+    </header>
+    <!-- <<< End Header >>> -->
+
+    <style>
+      /*.slider-2 .slides li h2{width: 100%;}*/
+    </style>
+
+    <div class="slider-1 clearfix">
+
+      <div class="flex-container">
+        <div class="flexslider4 loading">
+          <ul class="slides" style="background: rgba(51,51,51,.96);">
+            <li class="slide-bg-color flex-active-slide" style="width: 100%; float: left; margin-right: -100%; position: relative; display: list-item;background:transparent;">
+
+              <div class="container">
+                <div class="sixteen columns contain">
+
+                  <h2 data-toptitle="20%" style="top: 20%;left: 30px;opacity: 1;font-family: hurme,sans-serif;font-weight: 600;line-height: 1.2;color: #fff;font-size: 45px;text-transform: uppercase;text-align: center;">
+                    Viewable ads and the audience engagement
+                  </h2>
+                  <div style="position:absolute;top: 46%;opacity: 1;width: 100%;text-align: center;line-height: 18px;left: 0;">An Ad Exchange that focuses on the very core of advertising creates value for both publishers and advertisers.</div>
+
+
+                </div>
+              </div><!-- End Container -->
+
+            </li>
+
+          </ul>
+        </div>
+      </div>
+
+    </div><!-- End slider -->
+
+
+    <div class="services style-2 home s-2 bottom-3">
+      <div class="container clearfix">
+
+        <div class="one-third column">
+          <div class="item bottom-4">
+            <div class="circle float-left"><a href="#"><i class="icon-bar-chart"></i></a></div>
+            <div class="data float-right">
+              <h4><a href="#">High-Quality Direct Publishers</a></h4>
+              <p>We have strict brand safety requirements, so we only work with premium publishers to enforce traffic quality controls.</p>
+            </div>
+          </div>
+        </div><!-- End item -->
+
+        <div class="one-third column">
+          <div class="item bottom-4">
+            <div class="circle float-left"><a href="#"><i class="icon-bolt"></i></a></div>
+            <div class="data float-right">
+              <h4><a href="#">High impact ad formats</a></h4>
+              <p>Improve efficiency, drive deeper engagement, and deliver better ROI with innovative ad formats.</p>
+            </div>
+          </div>
+        </div><!-- End item -->
+
+        <div class="one-third column">
+          <div class="item bottom-4">
+            <div class="circle float-left"><a href="#"><i class="icon-code-fork"></i></a></div>
+            <div class="data float-right">
+              <h4><a href="#">High-Quality Direct Demands</a></h4>
+              <p>With the ability to connect the top buyers in the industry, APAC Digital Exchange can help you get the highest value for each impression.</p>
+            </div>
+          </div>
+        </div><!-- End item -->
+
+        <div class="one-third column">
+          <div class="item bottom-4">
+            <div class="circle float-left"><a href="#"><i class="icon-cogs"></i></a></div>
+            <div class="data float-right">
+              <h4><a href="#">FRAUD-FILTERED TRAFFIC</a></h4>
+              <p>Our free, built-in anti-fraud and brand safety measures allow buyers to bid more confidently, reduce media investment waste, and reduce fees to 3rd-party providers.</p>
+            </div>
+          </div>
+        </div><!-- End item -->
+
+        <div class="one-third column">
+          <div class="item bottom-4">
+            <div class="circle float-left"><a href="#"><i class="icon-search"></i></a></div>
+            <div class="data float-right">
+              <h4><a href="#">Premium data for world-class buyers</a></h4>
+              <p>APAC Digital Exchange allows you to use first-party data and sell exclusive objects to interested buyers.</p>
+            </div>
+          </div>
+        </div><!-- End item -->
+
+        <div class="one-third column">
+          <div class="item bottom-4">
+            <div class="circle float-left"><a href="#"><i class="icon-legal"></i></a></div>
+            <div class="data float-right">
+              <h4><a href="#">BETTER EXECUTION</a></h4>
+              <p>We offer some of the fastest execution rates and lowest discrepancy rates in the business — significantly reducing both human and financial resource waste for buyers and sellers.</p>
+            </div>
+          </div>
+        </div><!-- End item -->
+
+
+      </div><!-- End Container -->
+    </div>
+
+    <div class="one-page section" style="padding-top: 0px;margin: -35px 0 0 0;">
+      <div class="container clearfix">
+
+        <div class="eight columns">
+          <h2 class="title" style="text-transform: uppercase;font-family: hurme, sans-serif;font-weight: 700;">Context and Identity is the future</h2>
+          <p class="description bottom-4">
+            Getting ready for a post-cookie advertising world by focusing all research resources on solving the identity issue together with the combination of context analysis has given us the most diverse data set on industry identifiers.
+          </p>
+        </div>
+
+        <div class="eight columns">
+          <center>
+            <img src="self-serve/img/identity1.png" class="pic">
+          </center>
+        </div>
+
+      </div><!-- End Container -->
+    </div>
+
+    <style>
+      .featured-clients .item {
+        border-right: none;
+        height: auto;
+      }
+    </style>
+    <div class="services style-1 home bottom-3" id="partners" style="margin-bottom: 0!important;">
+      <div class="container clearfix">
+        <div class="featured-clients clearfix bottom-2">
+          <div class="slidewrap4" role="application" style="overflow: hidden; width: 100.2%;">
+            <ul class="slidecontrols" role="navigation">
+              <li role="presentation"><a href="#sliderName4" class="carousel4-next"><i class="icon-angle-right"></i></a></li>
+              <li role="presentation"><a href="#sliderName4" class="carousel4-prev carousel4-disabled"><i class="icon-angle-left"></i></a></li>
+            </ul>
+            <ul class="slidecontrols" role="navigation">
+              <li role="presentation"><a href="#sliderName4" class="carousel4-next"><i class="icon-angle-right"></i></a></li>
+              <li role="presentation"><a href="#sliderName4" class="carousel4-prev carousel4-disabled" aria-disabled="true"><i class="icon-angle-left"></i></a></li>
+            </ul>
+            <div class="sixteen columns" style="margin-left: 0;">
+              <h3 class="title bottom-2" style="font-family: hurme, sans-serif;text-transform: uppercase;">Brands Trust APAC Digital Exchange</h3>
+            </div>
+            <div style="background:#FFF">
+              <ul class="slider" id="sliderName4" aria-activedescendant="carousel-5-0-slide0" style="margin-left: 0px; float: left; width: 200%; transition: margin-left 0.6s ease 0s;">
+                <li class="slide carousel4-active-slide" role="tabpanel document" id="carousel-5-0-slide0" aria-hidden="false" style="float: left; width: 50%;">
+                  <div class="four columns item"> <a href="#"><img src="self-serve/img/brands/1.png"></a> </div>
+                  <div class="four columns item"> <a href="#"><img src="self-serve/img/brands/2.png"></a> </div>
+                  <div class="four columns item"> <a href="#"><img src="self-serve/img/brands/3.png"></a> </div>
+                  <div class="four columns item"> <a href="#"><img src="self-serve/img/brands/4.png"></a> </div>
+                </li>
+                <li class="slide" role="tabpanel document" id="carousel-5-0-slide1" aria-hidden="true" style="float: left; width: 50%;">
+                  <div class="four columns item"> <a href="#"><img src="self-serve/img/brands/22.png"></a> </div>
+                  <div class="four columns item"> <a href="#"><img src="self-serve/img/brands/6.png"></a> </div>
+                  <div class="four columns item"> <a href="#"><img src="self-serve/img/brands/7.png"></a> </div>
+                  <div class="four columns item"> <a href="#"><img src="self-serve/img/brands/23.png"></a> </div>
+                </li>
+                <li class="slide" role="tabpanel document" id="carousel-5-0-slide2" aria-hidden="true" style="float: left; width: 50%;">
+                  <div class="four columns item"> <a href="#"><img src="self-serve/img/brands/9.0.png"></a> </div>
+                  <div class="four columns item"> <a href="#"><img src="self-serve/img/brands/10.png"></a> </div>
+                  <div class="four columns item"> <a href="#"><img src="self-serve/img/brands/11.png"></a> </div>
+                  <div class="four columns item"> <a href="#"><img src="self-serve/img/brands/12.png"></a> </div>
+                </li>
+                <li class="slide" role="tabpanel document" id="carousel-5-0-slide3" aria-hidden="true" style="float: left; width: 50%;">
+                  <div class="four columns item"> <a href="#"><img src="self-serve/img/brands/13.png"></a> </div>
+                  <div class="four columns item"> <a href="#"><img src="self-serve/img/brands/14.png"></a> </div>
+                  <div class="four columns item"> <a href="#"><img src="self-serve/img/brands/15.png"></a> </div>
+                  <div class="four columns item"> <a href="#"><img src="self-serve/img/brands/16.png"></a> </div>
+                </li>
+                <li class="slide" role="tabpanel document" id="carousel-5-0-slide4" aria-hidden="true" style="float: left; width: 50%;">
+                  <div class="four columns item"> <a href="#"><img src="self-serve/img/brands/17.png"></a> </div>
+                  <div class="four columns item"> <a href="#"><img src="self-serve/img/brands/18.png"></a> </div>
+                  <div class="four columns item"> <a href="#"><img src="self-serve/img/brands/19.png"></a> </div>
+                  <div class="four columns item"> <a href="#"><img src="self-serve/img/brands/24.png"></a> </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ======================== End ======================== -->
+
+    <!-- ======================== Start Contact ======================== -->
+
+    <div class="bottom-3__ " id="contact" style="padding: 0;">
+      <div class="container clearfix">
+        <div class="sixteen columns" style="margin: 0;">
+          <h2 class="title top-3" style="text-align: left;">Contact Us</h2>
+        </div>
+
+        <div class="clearfix"></div>
+
+        <!-- Start Google Map -->
+        <div id="map">
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1892.6084860533113!2d-64.61379489942665!3d18.42845521195799!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8c0576a9007f87b3%3A0x13fb2b379f96ce38!2sVistra%20Trust%20(BVI)%20Limited!5e0!3m2!1svi!2sus!4v1664250104583!5m2!1svi!2sus" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+        <!-- End -->
+
+        <div class="eleven columns top-3 bottom-2">
+          <h3 class="title bottom-2">Get in touch</h3>
+
+          <div id="note"></div><!-- End notification -->
+
+          <div id="fields">
+
+            <form id="ajax-contact-form" action="">
+
+              <div class="form-box">
+                <label>Name <small>*</small></label>
+                <input type="text" name="name" class="text">
+              </div><!-- End Box -->
+
+              <div class="form-box">
+                <label>Email <small>*</small></label>
+                <input type="text" name="email" class="text">
+              </div><!-- End Box -->
+
+              <div class="form-box last">
+                <label>Subject </label>
+                <input type="text" name="subject" class="text">
+              </div><!-- End Box -->
+
+              <div class="form-box big">
+                <label>Message <small>*</small></label>
+                <textarea name="message"></textarea>
+              </div><!-- End Box -->
+
+              <div class="clearfix"></div>
+
+              <input type="submit" value="Send Message" class="button medium color" />
+
+            </form>
+
+          </div><!-- End fields -->
+
+        </div>
+
+        <div class="five columns top-3 bottom-1">
+          <h3 class="title bottom-2">Contact Info</h3>
+
+          <ul class="address-info">
+            <li>138 ROBINSON ROAD #02-50 OXLEY TOWER SINGAPORE 068906.</li>
+          </ul>
+          <ul class="email-info">
+            <li><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="23505653534c5157634253424047465b0d404c4e">[email&#160;protected]</a></li>
+          </ul>
+          <style>
+            .nav-link {
+              color: #fff;
+            }
+
+            .nav-link:hover {
+              color: #fff;
+            }
+          </style>
+          <h3 class="title top-2 bottom-1">Company</h3>
+          <p><a class="nav-link nav-information" rel="about" href="#about">About Us</a></p>
+          <p><a class="nav-link" href="/privacy.html">Privacy Policy</a></p>
+          <p><a class="nav-link nav-information" rel="contact" href="#contact">Contact Us</a></p>
+
+          <h3 class="title top-2 bottom-1">Social Contact</h3>
+          <div class="share-social">
+            <a href="#" target="_blank"><i class="social_icon-twitter s-17 white"></i></a>
+            <a href="#" target="_blank"><i class="social_icon-facebook s-18 white"></i></a>
+            <a href="#" target="_blank"><i class="social_icon-dribbble s-18 white"></i></a>
+            <a href="#" target="_blank"><i class="social_icon-linkedin s-17 white"></i></a>
+            <a href="#" target="_blank"><i class="social_icon-gplus s-18 white"></i></a>
+          </div>
+
+        </div>
+
+
+
+      </div><!-- End Container -->
+    </div><!-- End about -->
+
+    <!-- ======================== End ======================== -->
+
+
+
+
+    <footer style="margin-top:0;">
+
+      <div class="footer-down">
+        <div class="container clearfix">
+
+          <div class="eight columns">
+            <span class="copyright">© Copyright 2020 <a href="https://www.interdogmedia.com/">Interdog Media Limited</a>. All Rights Reserved.</span>
+          </div><!-- End copyright -->
+
+          <div class="eight columns">
+            <div class="social">
+              <a href="#"><i class="social_icon-twitter s-14"></i></a>
+              <a href="#"><i class="social_icon-facebook s-18"></i></a>
+              <a href="#"><i class="social_icon-dribbble s-18"></i></a>
+              <a href="#"><i class="social_icon-gplus s-18"></i></a>
+              <a href="#"><i class="social_icon-pinterest s-18"></i></a>
+              <a href="#"><i class="social_icon-youtube s-18"></i></a>
+              <a href="#"><i class="social_icon-rss s-18"></i></a>
+            </div>
+          </div><!-- End social icons -->
+
+        </div><!-- End container -->
+      </div><!-- End footer-top -->
+
+    </footer><!-- <<< End Footer >>> -->
+
+  </div><!-- End wrap -->
+
+  <!-- Start JavaScript -->
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="/themes/invention/js/jquery-1.9.1.min.js?v=8.0.3"></script> <!-- jQuery library -->
+  <script src="/themes/invention/js/jquery.easing.1.3.min.js?v=8.0.3"></script> <!-- jQuery Easing -->
+  <script src="/themes/invention/js/jquery-ui/jquery.ui.core.js?v=8.0.3"></script> <!-- jQuery Ui Core-->
+  <script src="/themes/invention/js/jquery-ui/jquery.ui.widget.js?v=8.0.3"></script> <!-- jQuery Ui Widget -->
+  <script src="/themes/invention/js/jquery-ui/jquery.ui.accordion.js?v=8.0.3"></script> <!-- jQuery Ui accordion-->
+  <script src="/themes/invention/js/jquery-cookie.js?v=8.0.3"></script> <!-- jQuery cookie -->
+  <script src="/themes/invention/js/ddsmoothmenu.js?v=8.0.3"></script> <!-- Nav Menu ddsmoothmenu -->
+  <script src="/themes/invention/js/jquery.flexslider.js?v=8.0.3"></script> <!-- Flex Slider  -->
+  <script src="/themes/invention/js/colortip.js?v=8.0.3"></script> <!-- Colortip Tooltip Plugin  -->
+  <script src="/themes/invention/js/tytabs.js?v=8.0.3"></script> <!-- jQuery Plugin tytabs  -->
+  <script src="/themes/invention/js/jquery.ui.totop.js?v=8.0.3"></script> <!-- UItoTop plugin  -->
+  <script src="/themes/invention/js/carousel.js?v=8.0.3"></script> <!-- jQuery Carousel  -->
+  <script src="/themes/invention/js/jquery.isotope.min.js?v=8.0.3"></script> <!-- Isotope Filtering  -->
+  <script src="/themes/invention/js/twitter/jquery.tweet.js?v=8.0.3"></script> <!-- jQuery Tweets -->
+  <script src="/themes/invention/js/jflickrfeed.min.js?v=8.0.3"></script> <!-- jQuery Flickr -->
+  <script src="/themes/invention/js/social-options.js?v=8.0.3"></script> <!-- social options , twitter, flickr.. -->
+  <script src="/themes/invention/js/doubletaptogo.js?v=8.0.3"></script> <!-- Touch-friendly Script  -->
+  <script src="/themes/invention/js/fancybox/jquery.fancybox.js?v=8.0.3"></script> <!-- jQuery FancyBox -->
+  <script src="/themes/invention/js/jquery.sticky.js?v=8.0.3"></script> <!-- jQuery Sticky -->
+  <!-- Start onepage js -->
+  <script src="/themes/invention/js/one-page/jquery.scrollTo.js?v=8.0.3"></script>
+  <script src="/themes/invention/js/one-page/jquery.nav.js?v=8.0.3"></script>
+  <!-- <script type="text/javascript">
+    $(document).ready(function() {
+      $('#nav').onePageNav({
+        begin: function() {
+          console.log('start')
+        },
+        end: function() {
+          console.log('stop')
+        },
+        filter: ':not(.external)',
+        scrollThreshold: 0.25,
+        scrollOffset: 200
+      });
+
+      $("ul#nav > li > a").click(function() {
+        var divID = $(this).attr('rel');
+        $('html, body').animate({
+          scrollTop: $("#" + divID).offset().top - 100
+        }, 2200);
+      });
+      $(".nav-information").click(function() {
+        var divID = $(this).attr('rel');
+        $('html, body').animate({
+          scrollTop: $("#" + divID).offset().top - 100
+        }, 2200);
+      });
+    });
+  </script> -->
+  <!-- End onepage js -->
+  <script src="/themes/invention/js/custom.js?v=8.0.3"></script> <!-- Custom Js file for javascript in html -->
+  <!-- End JavaScript -->
+
+  <!--         Start Google Map JavaScript 
+                <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
+                <script type="text/javascript" src="/themes/invention/js/gmaps.js"></script>
+                <script type="text/javascript">
+                    var map;
+                    $(document).ready(function () {
+        
+                        // main directions
+                        map = new GMaps({
+                            el: '#map', lat: 51.5073346, lng: -0.1276831, zoom: 13, zoomControl: true,
+                            zoomControlOpt: {style: 'SMALL', position: 'TOP_LEFT'}, panControl: false, scrollwheel: false
+                        });
+                        // add address markers
+                        map.addMarker({lat: 51.503324, lng: -0.119543, title: 'London Eye',
+                            infoWindow: {content: '<p>You can add your address 1 here</p>'}});
+        
+                        map.addMarker({lat: 51.5007396, lng: -0.1245299, title: 'Big Ben',
+                            infoWindow: {content: '<p>You can add your address 2 here</p>'}});
+        
+                        map.addMarker({lat: 51.518856, lng: -0.1263371, title: 'British Museum',
+                            infoWindow: {content: '<p>You can add your address 3 here</p>'}});
+        
+                        map.addMarker({lat: 51.5085822, lng: -0.1283169, title: 'National Gallery',
+                            infoWindow: {content: '<p>You can add your address 4 here</p>'}});
+        
+                        map.addMarker({lat: 51.5089465, lng: -0.0764269, title: 'Tower Of London',
+                            infoWindow: {content: '<p>You can add your address 5 here</p>'}});
+        
+                    });
+                </script> 
+                 End Google Map JavaScript -->
+
+  <!-- Contact Form Js -->
+  <script type="text/javascript">
+    // contact form js
+    jQuery(document).ready(function($) {
+      $("#ajax-contact-form").submit(function() {
+        var str = $(this).serialize();
+        $.ajax({
+          type: "POST",
+          url: "inc/contact-process.php",
+          data: str,
+          success: function(msg) {
+            // Message Sent? Show the 'Thank You' message and hide the form
+            if (msg == 'OK') {
+              result = '<div class="notification_ok">Your message has been sent. Thank you!</div>';
+              $("#fields").hide();
+              setTimeout("location.reload(true);", 7000);
+            } else {
+              result = msg;
+            }
+            $('#note').html(result);
+          }
+        });
+        return false;
+      });
+    });
+  </script>
+  <!-- End Contact -->
+
+  <!-- Slide -->
+  <script type="text/javascript">
+    (function() {
+      $(document).ready(function() {
+        var walkthrough;
+        walkthrough = {
+          index: 0,
+          nextScreen: function() {
+            if (this.index < this.indexMax()) {
+              this.index++;
+              return this.updateScreen();
+            }
+          },
+          prevScreen: function() {
+            if (this.index > 0) {
+              this.index--;
+              return this.updateScreen();
+            }
+          },
+          updateScreen: function() {
+            this.reset();
+            this.goTo(this.index);
+            return this.setBtns();
+          },
+          setBtns: function() {
+            var $lastBtn, $nextBtn, $prevBtn;
+            $nextBtn = $('.next-screen');
+            $prevBtn = $('.prev-screen');
+            $lastBtn = $('.finish');
+            if (walkthrough.index === walkthrough.indexMax()) {
+              $nextBtn.prop('disabled', true);
+              $prevBtn.prop('disabled', false);
+              return $lastBtn.addClass('active').prop('disabled', false);
+            } else if (walkthrough.index === 0) {
+              $nextBtn.prop('disabled', false);
+              $prevBtn.prop('disabled', true);
+              return $lastBtn.removeClass('active').prop('disabled', true);
+            } else {
+              $nextBtn.prop('disabled', false);
+              $prevBtn.prop('disabled', false);
+              return $lastBtn.removeClass('active').prop('disabled', true);
+            }
+          },
+          goTo: function(index) {
+            $('.screen').eq(index).addClass('active');
+            return $('.dot').eq(index).addClass('active');
+          },
+          reset: function() {
+            return $('.screen, .dot').removeClass('active');
+          },
+          indexMax: function() {
+            return $('.screen').length - 1;
+          },
+          closeModal: function() {
+            $('.walkthrough, .shade').removeClass('reveal');
+            return setTimeout((() => {
+              $('.walkthrough, .shade').removeClass('show');
+              this.index = 0;
+              return this.updateScreen();
+            }), 200);
+          },
+          openModal: function() {
+            $('.walkthrough, .shade').addClass('show');
+            setTimeout((() => {
+              return $('.walkthrough, .shade').addClass('reveal');
+            }), 200);
+            return this.updateScreen();
+          }
+        };
+        $('.next-screen').click(function() {
+          return walkthrough.nextScreen();
+        });
+        $('.prev-screen').click(function() {
+          return walkthrough.prevScreen();
+        });
+        $('.close').click(function() {
+          return walkthrough.closeModal();
+        });
+        $('.open-walkthrough').click(function() {
+          return walkthrough.openModal();
+        });
+        walkthrough.openModal();
+
+        // Optionally use arrow keys to navigate walkthrough
+        return $(document).keydown(function(e) {
+          switch (e.which) {
+            case 37:
+              // left
+              walkthrough.prevScreen();
+              break;
+            case 38:
+              // up
+              walkthrough.openModal();
+              break;
+            case 39:
+              // right
+              walkthrough.nextScreen();
+              break;
+            case 40:
+              // down
+              walkthrough.closeModal();
+              break;
+            default:
+              return;
+          }
+          e.preventDefault();
+        });
+      });
+
+    }).call(this);
+  </script>
+  <!-- End Slide -->
+</body>
+
+</html>

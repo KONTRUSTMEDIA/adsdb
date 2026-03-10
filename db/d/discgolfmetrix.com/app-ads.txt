@@ -1,0 +1,622 @@
+<!doctype html>
+<html class="no-js" lang="en">
+	<head>
+		<base href="https://discgolfmetrix.com/">
+		<meta charset="utf-8" />
+		<meta http-equiv="x-ua-compatible" content="ie=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Metrix</title>		<link rel="stylesheet" href="/assets/css/app.css?version=4.1">
+		<link rel="stylesheet" href="/library/likely/likely.css">
+		<link rel="shortcut icon" href="/assets/img/favicon.png" type="image/x-icon"/>
+		<script src="/js/jquery.min.js"></script>
+		<script src="/library/likely/likely.js"></script>
+		<script src='https://www.google.com/recaptcha/api.js'></script>
+        <!-- Google tag (gtag.js) -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-5F8RH81RBZ"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+
+            // Wait for DOM to be ready before configuring
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', initializeAnalytics);
+            } else {
+                initializeAnalytics();
+            }
+
+            function initializeAnalytics() {
+                gtag('js', new Date());
+                gtag('config', 'G-5F8RH81RBZ', {
+                    'page_path': getCleanPagePath(),
+                    'page_title': getPageTitle()
+                });
+                trackViewParameter();
+            }
+
+            function getCleanPagePath() {
+                try {
+                    const urlParams = new URLSearchParams(window.location.search);
+                    const uParam = urlParams.get('u');
+                    if (uParam) {
+                        return '/u-' + encodeURIComponent(uParam);
+                    }
+                    return window.location.pathname;
+                } catch (e) {
+                    return '/';
+                }
+            }
+
+            function getPageTitle() {
+                try {
+                    const urlParams = new URLSearchParams(window.location.search);
+                    const uParam = urlParams.get('u');
+                    if (uParam) {
+                        return uParam.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+                    }
+                    return document.title || '/';
+                } catch (e) {
+                    return '/';
+                }
+            }
+
+            function getViewParam() {
+                const urlParams = new URLSearchParams(window.location.search);
+                let view = urlParams.get('view');
+
+                if (!view) {
+                    const match = window.location.href.match(/[?&]view=([^&#]*)/);
+                    if (match) {
+                        view = match[1];
+                    }
+                }
+
+                return view;
+            }
+
+            function trackViewParameter() {
+                let viewParam = getViewParam();
+                if (viewParam) {
+                    gtag('event', 'view_tab_interaction', {
+                        'view_tab_type': viewParam,
+                        'page_context': getCleanPagePath()
+                    });
+                }
+            }
+        </script>
+<script>
+window.lang = {"br_main":"Main","br_competitions":"Find competition","tab_result":"Results","tab_entering":"Enter","message_deleted":"Deleted","br_competition":"Competition","button_cancel":"Cancel","sort_no":"No","yes":"Yes","no":"No","type1":"Practice","type2":"Competition","type10":"C - PDGA","type11":"B - PDGA","type12":"A - PDGA","previous":"Previous","next":"Next","button_back":"Back","br_clubs":"Clubs","contact":"Contact: ","br_courses":"Find course","logout":"Logout","login":"Login","forgot_password":"Forgot password?","make_user":"Create an account","show_menu":"Show\/hide menu","menu":"Menu","ad_management":"Ads manager","invoice_management":"Invoice management","player_name":"Player name","type6":"Double","type7":"Putt","meter":"Meter","feet":"Feet","button_save":"Save","button_delete":"Delete","br_bagtags":"Bagtags","only_pay_comment":"Available in paid version","allowed":"Allowed","not_allowed":"Not allowed","no_records":"No records","type8":"Weekly","type_lpdga":"L - PDGA","type13":"L - PDGA","name":"Name","filter_groups_all":"All","privacy_policy":"Privacy policy","support_and_feedback":"Support & feedback","gamemode_regular":"Regular","gamemode_doubles":"Doubles","country":"Country","gamemode_mixed":"Mixed","info_rounds_must_add":"You have to add rounds to enable results entering!","error_rounds_must_be_added":"At least one round must be added to the multi-round event before entering results!","gamemode_teams":"Teams","gamemode_matchplay":"Matchplay","you_have_unpaid_invoices":"You have unpaid invoices totaling","click_here":"Click here","warning_limited_use":"Your account has limited of use due to outstanding debt!","warning_will_be_limited":"Your account will be restricted due to outstanding debt from","name_is_required":"Name is required","name_50":"Name must be less than 50 characters","email_is_required":"E-mail is required","email_point":"E-mail must contain a dot","email_at":"E-mail must contain @","password_required":"Password is required","passwords_must_match":"Passwords must match","headline":"Live scorecard for your disc golf scores","user_exists_with_email":"User with this e-mail already exists","user_exists_with_name":"User with this name already exists. Differentiate from another player by adding a nickname.","change_your_data":"Change your data","change":"Change","add_user":"Add user","email":"E-mail","password":"Password","password_again":"Password again","language":"Language","user_ok":"Saved","male":"Male","female":"Female","gender":"Gender","birthyear":"Year of birth","pdga":"PDGA#","user_exist_with_email":"User with this e-mail already exists","nickname":"Nickname","user_exists_with_nickname":"User exists with same name and nickname. Change nickname!","connected":"connected","button_disconnect":"Disconnect","connect_facebook":"Click the button to connect your Facebook account","connect_google":"Click the button to connect your Google account","picture":"Profile picture","image_type_not_valid":"Image type is not valid","firstname":"Firstname","lastname":"Lastname","area":"Region","city":"City","headline_password":"Password","headline_connected_services":"Connected services","length_unit":"Length unit","missing_info1":"You have some details missing on your profile","missing_info2":"Please add the missing info here","date_format":"Date format","default":"(default)","headline_country_specific":"SFL License - Finnish players only","suomi_sportid":"SFL license required","suomi_sportid_status":"SFL license status","checking":"Checking...","pdga_number":"PDGA number","required":"required","licence_not_valid":"License is not valid","licence_valid_until":"License valid until","soumi_sportid_status_comment":"If you have issues with SFL license, please check instructions from <a href=\u0022http:\/\/frisbeegolfliitto.fi\/suomisportukk-pelaajat\/\u0022 target=\u0022_new\u0022>frisbeegolfliitto.fi<\/a> before contacting support.<br \/><br \/>Most common issues relate to:<br \/><ul><li>PDGA number missing from SuomiSport<\/li><li>Club membership missing from SuomiSport<\/li><li>Incorrect PDGA number or SuomiSport ID in any of the systems<\/li><li>PDGA membership purchased directly from PDGA instead of SFL<\/li><\/ul>","suomiid_player_not_found":"Player not found","info_email_verification":"You have changed your email address and you need to verify it. <br><br>An email with an activation code has been sent to the new email address.","name_comment":"Player name is updated automatically based on firstname and lastname","password_required_when_saving_profile":"Password required when saving profile","current_password":"Current password","email_not_verified":"Your new e-mail address [new_email] has not been verified. You should have received an e-mail with verification instructions. Please check your inbox and spam folder. We also sent an informative e-mail to your previous email address ([previous_email]).","cant_find_resend_email_verification":"If you cannot find the e-mail, <a href=\u0022\/?u=resend_email_verification\u0022>Click here<\/a> to send it again.","old_email_not_verified":"E-mail address not verified. <a href=\u0022\/?u=resend_email_verification&create_new=true\u0022>Verify e-mail address<\/a>.","old_email_not_verified_long":"Your current e-mail address has not been verified yet. <a href=\u0022\/?u=resend_email_verification&create_new=true\u0022>Click here<\/a> to verify e-mail address.","invalid_email":"Invalid e-mail address","space_character_in_email":"You have a space character in your e-mail address","new_email_address":"New e-mail address","default_club":"Default club","message_saved":"Saved","suomi_sfl_club":"SFL club","headline_integration":"Integration","code":"Code","metrix_id":"MetrixID","code_apple_watch":"Apple Watch","comment_apple_watch":"Enter the code on the Apple Watch within 2 minutes. More info: ","club_comment":"You must be a member of the club in Metrix","account_delete":"Account delete","headline_other":"Other","more_info":"More info...","signup":"Sign up","continue_description":"You are participating in competition","continue":"Continue competition","see_competitions":"See competitions","hello":"Hi","start_training":"Start practice","my_rating":"My rating","headline_rating":"My rating is","headline_my_competitions":"My competitions","start_competition":"Start competition","enter_group_code":"Enter the code of the group","create":"Create","create2":"new competition or practice","see":"See","see2":"scores roll out live","enter":"Easily","enter2":"Enter","enter3":"Results in all smartphones","visualise":"Visualize","visualise2":"Your personal development","intro":"Make your play more exciting!","group_not_found":"Group not found (starting today)","code_4":"Code should contain 4 characters","headline_forum_posts":"Latest forum posts","headline_last_competitions":"Latest competitions","all_competitions":"All competitions","location":"Location","players":"Players","headline_rating_missing":"No rating","no_rating":"You need to complete 3 competitions to get a rating","no_competitions":"No competitions","statistic":"Statistics","no_comments":"No comments added","create_competition":"Create competition","headline_my_competitions_admin":"My competitions (as admin)","headline_top5_rating":"Top 5 rated rounds","headline_top5_round":"My top 5 rated rounds","no_admin":"You have not created any competition","headline_my_trainings":"My practice rounds","intro_competitions":"Arrange competitions with live scoring.<br> Manage registrations with multiple classes and queuing.<br> Set up tours and weekly series with different points and handicap systems.<br> Provide good service to players.<br>","intro_stat":"Keep track of every throw for competitions and practice rounds.<br> Follow your progress based on different statistics.<br> Get your personal Metrix Rating.<br> Compare your stats against friends, club members or other disc golf athletes.","intro_stat_headline":"Personal statistics","intro_competitions_headline":"Manage competitions","intro_course_headline":"Manage and find courses","into_course":"Thousands of public courses readily available.<br> Find courses based on name and location as well as GPS coordinates.<br> Manage local courses and create different layouts.<br> Course statistics, top results and course-based rating system.<br> Private or personal courses are also available.<br>","intro_club_headline":"Get involved in Clubs","intro_club":"Join a local club or create one for your friends.<br> Compare Metrix Ratings between club members.<br> Organize competitions for your club.<br> Start a new Bagtag challenge for your club.<br>","intro_bagtag_headline":"Run your own BagTag challenge","intro_bagtag":"Join a bagtag challenge or start your own.<br> Keep track of current standings and tag history.<br> Simple, fast and easy to use.<br> Available for clubs on request.<br>","intro_course":"Thousands of public courses readily available.<br> Find courses based on name and location, GPS also.<br> Manage local courses and create different layouts.<br> Course statistics, top results and course based rating system.<br> Private or personal courses also available.<br>","find_competitions":"Find competitions","sign_up_stat":"Sign up for stats","find_courses":"Find courses near you","sign_up_club":"Sign up for clubs","sign_up_bagtag":"Sign up for bagtag","headline_actions":"Let\u2019s play disc golf!","start_practice_at":"Start practice at","my_metrix_ratings":"My Metrix statistics","message_sign1":"Round completed? Please sign your scores","message_sign2":"click here","message_email_verified":"Email verified","followed_events":"Followed events","loading":"Loading...","live_live":"Live","live_upcoming":"Upcoming","live_past":"Past","dashboard_settings":"Dashboard settings","section":"Section","enabled":"Enabled","stored_in_cookie":"Settings are stored in a cookie on your device.","effect_at_reload":"Changes will take effect at next page load.","save":"Save","followed_players":"Followed players","is_now_playing_at":"is now playing at","will_play_at":"will play at","played_a_round":"played a round","started_a_round":"started a round","player":"Player","action":"Action","event":"Event","result":"Result","not_following_anyone":"You are not following anyone","announcements":"Announcements","like":"Like","unlike":"Unlike","followed_players_feed":"Followed players activity feed","no_activity":"No activity","getting_location":"Getting location...","getting_events":"Getting events...","you_denied_location":"You have denied Disc Golf Metrix access to your location.<br \/>To enable location access, change your browser settings related to discgolfmetrix.com.<br \/>These settings can usually be accessed somewhere close to the address bar.","needs_location":"Disc Golf Metrix needs access to your location.","grant_access":"Grant access","nearby_weeklies":"Nearby weekly competitions","registered":"Registered on","registration_open":"REGISTRATION OPEN","no_nearby_weeklies":"No nearby weekly competitions found","headline_nearby_weeklies":"Nearby weekly competitions","headline_my_competitions_and_trainings":"My competitions and trainings","metrix_rating":"Metrix rating","points":"points","since_last_time":"since last time","metrix_plus":"Metrix plus","rating":"Rating","info":"Information","latest_competiton":"Latest competition","latest_round":"Latest round","total":"Total","users":"Users","courses":"Courses","clubs":"Clubs","practice_rounds":"Practice rounds","competitions":"Competitions","thousands_abbr":"K","slogan":"Live scorecard and statistics for disc golf","headline_incomplete_rounds":"Incomplete rounds","round":"Round","not_found":"Not found","br_current":"Result","table_order":"No.","table_name":"Name","table_date":"Date","filter_time":"Time","filter_players":"Players:","filter_classes":"Classes:","filter_location":"Location:","filter_comment":"Comment:","filter_competition_all":"(Choose competition)","filter_players_all":"(Choose player)","filter_classes_all":"(Choose class)","btn_registration_here":"Register here","btn_unregistration":"Remove your registration","registration_name":"Name","competition_statistic":"Hole-by-hole statistics","result_updated":"The result was updated on: ","result_every":"Results will be updated every 30 seconds!","button_change_competition":"Edit...","scroll":"Show presenter","print_pdf":"Show PDF","forum":"Forum:","min_results":"Minimum results","message_removed_registration":"You were removed from the competition","click_forum":"Click here","hc_table_no":"No","hc_table_name":"Name","hc_table_result":"Result","hc_table_handycap":"Handicap (HC)","hc_table_summery":"Adjusted (Result-HC)","hc_table_change":"Change (Adjusted-Par)","hc_table_newhc":"New handicap","hc_table_last_hc":"Last HC","headline_weekly_hc":"Weekly Handicap (HC) summary table","headline_weekly_points_hc":"Table of points","hc_table_average":"Average","headline_comment":"Forum posts","new_post":"New post","all_post":"All posts","headline_result":"Results","addcomment_post":"New post","btn_newcomment_save":"Save","registration_date_time":"Date","registration_start":"Registration start","registration_end":"Registration end","registration_ended":"Registration ended","btn_editregistration":"Edit registration...","filter_groups":"Group:","user_statistic":"User statistics","ad":"Advert","new_ad":"Create Ad","registration_stage":"Stage","condition_headline":"Conditions","registered_players_headline":"Registered players","start":"Start","end":"End","all":"all","max_player_count":"Maximum number of players","skoorin_rating":"Metrix rating","pdga_rating":"PDGA rating","registration_statistics_headline":"Registration statistics","paid":"Paid","wildcard":"Wildcard","confirmed":"Confirmed","registered_players_count":"The number of registered players","confirmed_to_competition":"Confirmed","waiting_list":"Waiting list","used_wildcards":"Used wildcards","max_wildcard_count":"Max number of wildcards","free_service":"Free discgolfmetrix.com is used","headline_skoorin_rating_hc":"Handicap (HC) calculation by Metrix rating","hc_skoorin_rating":"Rating of Metrix","hc_rating_score":"Rating of score","hc_table_change_rating":"Change","headline_sum_of_table":"Results Summary","hc_result":"Result","hc_table_sum":"Sum (Result-HC)","hc_player_rating":"Rating","hc_table_skoorin_rating":"Metrix rating","hc_sumoftable_sum":"Sum","group":"Group","column_total":"Total","club_belongs":"Club membership","club":"Club","wildcard_count":"Wildcards","filter_manual_info":"click here","filter_manual":"Manual","filter_date_time":"Date & time","message_no_access":"You do not have access! The competition is set to private","show_groups":"Show groups","button_errors":"Check","message_error_no_premium_account":"There are over 10 players! Please turn off Metrix stat or switch to premium account","send_email_to_admins":"Send email to admins","news":"News","add_news":"Add news","registration":"Registration","licence":"License","division":"Division","conditions":"Conditions","or":"OR","general_conditions":"General","event_info":"Ratings","golf_start":"Golfstart","flex_start":"Flex start","error_event_deleted":"Event has been deleted","restore_here":"To restore the event click here","share_result":"Share result","generating_preview":"Generating preview... please wait.","share":"Share","share_what":"What would you like to share?","short_url":"Short URL","scorecard":"Scorecard","personal_stats":"Personal stats","copy_url_or_share":"Copy the following URL or click one of the sharing buttons","view":"View","grouped_chart":"Grouped chart","detailed_chart":"Detailed chart","table":"Table","follow":"Follow","unfollow":"Unfollow","countries":"Countries","summary":"Summary","count":"Count","max":"Max","min":"Min","waiting":"Waiting","message_registered":"You are registered!","throws_on_map":"Throws on map","button_change_training":"Change training","button_checkin":"Check-in","message_checkin":"Already on site? Let organizers know that you are ready to start and check in, please.","message_checkin_done":"You have checked in. Get ready to play!","message_checkin_start":"Check-in time","message_checkin_over":"You missed the checkin!","btn_comment_add":"Add comment","error_comment_cant_be_empty":"Comment can not be empty!","comment_posted":"Comment posted!","error_unable_to_post_comment":"Error: unable to post this comment!","comment_maximum_character_limit_reached":"Comment maximum character limit (%d) reached!","comment_deleted":"Comment deleted!","error_unable_to_delete_comment":"Error: unable to delete this comment!","error_delete_comment_permission_missing":"You have no permission to delete this comment!","reply":"Reply","reset":"Reset","remove":"Remove","upload":"Upload...","tooltip_played_holes":"Played holes","headline_played_holes":"Thr","image1":"Image1","image2":"Image2","image3":"Image3"};
+window.locale = 'en';
+</script>
+<script type="text/javascript" src="rek_container.js?ver=1.0"></script>
+<style>
+#box-followed-players .competition-location {
+	margin-top: .2rem;
+	line-height: 13px;
+}
+.badge-et { padding: 3px; line-height: 0.7rem; font-size: 0.7rem; vertical-align: super; border-radius: 5px; margin-left: 2px; word-wrap: unset; }
+.badge-issue { background-color: #EE1111; }
+.badge-ok { background-color: #00a861; }
+</style>
+
+	<script type="text/javascript" src="/js/jquery-1.7.1.min.js"></script>
+	<script>
+		$(function() {
+
+
+
+			$('.box-dashboard.ajaxified').each(function() {
+				$(this).load('main_server.php?section=' + $(this).attr('data-section') + '&r=' + Math.random());
+			});
+			$('.ann-dismiss').click(function() {
+				$.ajax({
+					url:'announcement_dismiss.php?aid=' + $(this).attr('data-aid')
+				});
+				var tr = $(this).parent().parent().parent();
+				tr.fadeOut(function() {
+					tr.remove();
+					if ($('.ann-row:visible').length == 0) {
+						$('#ann-box').fadeOut(function() {
+							$('#ann-box').remove();
+						});
+					}
+				});
+			});
+			$('.ann-like').click(function() {
+				var op = $(this).attr('data-op');
+				var self = this;
+				$.ajax({
+					url:'announcement_like.php?aid=' + $(this).attr('data-aid') + '&action=' + op,
+					success: function() {
+						if (op == 'like') {
+							$(self).attr('data-op', 'unlike').html(lang.unlike);
+						}
+						else {
+							$(self).attr('data-op', 'like').html(lang.like);
+						}
+					}
+				});
+			});
+			window.makeRealRequest = function() {
+				var range = $('select[name=range]').val() || '';
+				$('.box-dashboard.ajaxified[data-section=weeklies] table').append(lang.getting_events).remove();
+				$('.box-dashboard.ajaxified[data-section=weeklies]').load('main_server.php?section=weeklies_real&r=' + Math.random() + '&lat=' + window.position.coords.latitude + '&lon=' + window.position.coords.longitude + '&range=' + range);
+			}
+			window.pollLocation = function() {
+				setCookie('locPrompted', 1, 99999999);
+				window.pollStartTime = +new Date;
+				$('#weeklies_status').html(lang.getting_location);
+				$('.locbtn').prop('disabled', true);
+				navigator.geolocation.getCurrentPosition(onLocation, onLocationError, {
+					maximumAge: 60000, timeout: 10000, enableHighAccuracy: true
+				});
+			}
+			function onLocation(position) {
+				if (!window.position) {
+					window.position = position;
+				}
+				else if (position.coords.accuracy < window.position.accuracy) {
+					window.position = position;
+				}
+				makeRealRequest();
+			}
+			function onLocationError(err) {
+				var pollEndTime = +new Date;
+				// if getCurrentLocation returns an error very fast
+				// it means that the access prompt was not shown
+				// because the user has dismissed it several times or choose to "block" location access
+				if (pollEndTime - pollStartTime < 100) {
+					$('#weeklies_status').html(lang.you_denied_location);
+				}
+				else {
+					$('#weeklies_status').html('Error: '+err.message+'<br />'+lang.needs_location+'<br /><button class="button locbtn" onclick="pollLocation()">'+lang.grant_access+'</button>');
+				}
+				$('.locbtn').prop('disabled', false);
+				window.positionError = err;
+			}
+			$.ajax({
+				url: 'main_server.php?section=metrix_rating_json',
+				dataType: 'json',
+				success: function(data) {
+					$('#rating').html(data.rate2);
+					var diff = data.rate2 - data.rate2_last;
+					$('#rating_change').addClass((diff > 0 ? 'up' : (diff < 0 ? 'down' : ''))).html(diff + '<small> '+lang.points+'</small>');
+				}
+			});
+		});
+	</script>
+
+<script src="/assets/js/dependencies.js?version=3.2"></script>
+<script src="/assets/js/app.js?version=3.3"></script>
+<script src="/assets/js/competitionSubmenu.js?version=2.2"></script>
+<script src="/assets/js/messages.js"></script>
+<script src="/assets/js/topMenuStacking.js?version=2.0"></script>
+<script src="/assets/js/scoreTable.js"></script>
+<script src="/assets/js/datepicker.js?version=1.0"></script>
+
+<script type="text/javascript">
+	document.cookie = "time_zone="+ (- new Date().getTimezoneOffset()*60);
+	var CompetitionID=0;
+	window.plus = 0;
+	window.addEventListener('resize', function() {
+		if (typeof windowResize == 'function') {
+			windowResize();
+		}
+	});
+	window.addEventListener('load', function() {
+		if (typeof load == 'function') {
+			load();
+		}
+	});
+</script>
+
+<script>
+        var enableFooterSticky = true;
+</script>
+
+<script async src="https://cdn.fuseplatform.net/publift/tags/2/4206/fuse.js"></script>
+</head>
+
+<body>
+<div style="position:absolute;width:0;height:0;overflow:hidden;visibility:hidden;right:0;bottom:0;"><svg width="100%" height="100%" viewBox="0 0 764 624" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;"><g id="iconset_metrix"><g><path id="icon_basket" d="M43.483,0c1.533,20.771 -0.635,36.554 -7.483,43l14,0l-3,13l-19,0l0,18l-6,3l0,-21l-19,0l-3,-13l14,0c-6.7,-6.446 -9.567,-22.227 -7.565,-43l37.048,0Z" style="fill:#aec7c0;"/><g id="logo_white"><path d="M123.414,155.435c0.027,-0.252 -0.161,-0.465 -0.414,-0.465l-9.718,0c-0.253,0 -0.486,0.213 -0.512,0.465l-1.022,9.716c-0.026,0.253 0.162,0.466 0.415,0.466l9.718,0c0.253,0 0.485,-0.213 0.512,-0.466l1.021,-9.716Zm-0.174,-2.746c1.519,0 2.615,1.224 2.455,2.746l-1.021,9.716c-0.16,1.522 -1.513,2.746 -3.033,2.746l-12.464,0l1.598,-15.208l12.465,0Z" style="fill:#fff;fill-rule:nonzero;"/><path d="M128.364,152.689l2.281,0l-1.599,15.208l-2.28,0l1.598,-15.208Z" style="fill:#fff;fill-rule:nonzero;"/><path d="M147.709,156.322l-2.28,0l0.093,-0.887c0.027,-0.253 -0.161,-0.465 -0.417,-0.465l-9.715,0c-0.253,0 -0.486,0.212 -0.513,0.465l-0.341,3.252c-0.027,0.256 0.161,0.466 0.414,0.466l9.716,0c1.522,0 2.617,1.224 2.457,2.746l-0.342,3.252c-0.16,1.522 -1.512,2.746 -3.035,2.746l-9.715,0c-1.52,0 -2.618,-1.224 -2.458,-2.746l0.093,-0.886l2.283,0l-0.093,0.886c-0.026,0.253 0.162,0.466 0.414,0.466l9.716,0c0.255,0 0.488,-0.213 0.515,-0.466l0.342,-3.252c0.026,-0.253 -0.162,-0.465 -0.417,-0.465l-9.716,0c-1.52,0 -2.617,-1.225 -2.458,-2.747l0.342,-3.252c0.16,-1.522 1.516,-2.746 3.035,-2.746l9.716,0c1.522,0 2.617,1.224 2.458,2.746l-0.094,0.887Z" style="fill:#fff;fill-rule:nonzero;"/><path d="M152.851,154.97c-0.253,0 -0.486,0.213 -0.512,0.465l-1.021,9.716c-0.027,0.253 0.161,0.466 0.414,0.466l12.422,0l-0.24,2.28l-12.422,0c-1.52,0 -2.615,-1.224 -2.455,-2.746l1.021,-9.716c0.16,-1.522 1.513,-2.746 3.033,-2.746l12.421,0l-0.239,2.281l-12.422,0Z" style="fill:#fff;fill-rule:nonzero;"/><path d="M188.651,156.344l-2.284,0l0.096,-0.909c0.026,-0.252 -0.161,-0.465 -0.414,-0.465l-9.719,0c-0.252,0 -0.485,0.213 -0.512,0.465l-1.021,9.716c-0.026,0.253 0.162,0.466 0.414,0.466l9.719,0c0.252,0 0.485,-0.213 0.512,-0.466l0.346,-3.294l-3.59,0l0.24,-2.281l5.873,0l-0.586,5.575c-0.16,1.522 -1.516,2.746 -3.035,2.746l-9.718,0c-1.52,0 -2.618,-1.224 -2.458,-2.746l1.021,-9.716c0.16,-1.522 1.516,-2.746 3.035,-2.746l9.718,0c1.52,0 2.618,1.224 2.458,2.746l-0.095,0.909Z" style="fill:#fff;fill-rule:nonzero;"/><path d="M202.411,165.617c0.253,0 0.485,-0.213 0.512,-0.466l1.021,-9.716c0.027,-0.252 -0.161,-0.465 -0.414,-0.465l-9.718,0c-0.253,0 -0.486,0.213 -0.512,0.465l-1.022,9.716c-0.026,0.253 0.162,0.466 0.415,0.466l9.718,0Zm1.359,-12.928c1.519,0 2.617,1.224 2.457,2.746l-1.021,9.716c-0.16,1.522 -1.515,2.746 -3.035,2.746l-9.718,0c-1.519,0 -2.615,-1.224 -2.455,-2.746l1.021,-9.716c0.16,-1.522 1.513,-2.746 3.032,-2.746l9.719,0Z" style="fill:#fff;fill-rule:nonzero;"/><path d="M208.856,152.669l2.281,0l-1.361,12.948l12.928,0l-0.24,2.28l-15.208,0l1.6,-15.228Z" style="fill:#fff;fill-rule:nonzero;"/><path d="M239.263,152.689l-0.239,2.281l-11.659,0l-0.44,4.183l9.378,0l-0.239,2.281l-9.378,0l-0.68,6.463l-2.283,0l1.599,-15.208l13.941,0Z" style="fill:#fff;fill-rule:nonzero;"/><path d="M128.824,171.493l5.032,0l-2.366,22.503l-4.876,0l1.586,-15.096c-2.846,3.002 -5.913,6.314 -8.723,9.25l-6.814,-9.217l-1.583,15.063l-4.844,0l2.365,-22.503l5.002,0l6.669,9.095l8.552,-9.095Z" style="fill:#fff;fill-rule:nonzero;"/><path d="M157.166,176.369l-15.877,0l-0.414,3.938l12.785,0l-0.512,4.874l-12.785,0l-0.414,3.938l15.877,0l-0.513,4.877l-20.783,0l2.365,-22.503l20.783,0l-0.512,4.876Z" style="fill:#fff;fill-rule:nonzero;"/><path d="M181.376,171.493l-0.513,4.876l-8.812,0l-1.853,17.627l-4.876,0l1.852,-17.627l-8.814,0l0.512,-4.876l22.504,0Z" style="fill:#fff;fill-rule:nonzero;"/><path d="M186.682,181.714l12.753,0l0.562,-5.344l-12.753,0l-0.562,5.344Zm17.633,0.251c-0.266,2.531 -2.579,4.623 -5.142,4.623l-0.218,0c1.395,1.875 2.905,3.876 4.27,5.751l-0.174,1.657l-5,0l-5.442,-7.408l-6.442,0.033c0.062,0 0.088,0.062 0.075,0.188c-0,0 -0.062,0 -0.092,-0.033l-0.758,7.22l-4.844,0l2.361,-22.471l17.847,0c2.564,0 4.437,2.093 4.17,4.624l-0.611,5.816Z" style="fill:#fff;fill-rule:nonzero;"/><path d="M207.987,171.493l4.874,0l-2.365,22.503l-4.874,0l2.365,-22.503Z" style="fill:#fff;fill-rule:nonzero;"/><path d="M237.492,171.493l-0.174,1.657l-9.072,9.596l7.058,9.563l-0.177,1.687l-5.032,0l-5.476,-7.375c-1.94,2.093 -4.809,5.032 -6.963,7.375l-5.032,0l0.174,-1.657l9.042,-9.593c-2.295,-3.157 -4.697,-6.472 -7.025,-9.596l0.174,-1.657l5.032,0l5.472,7.407c1.911,-2.125 4.78,-5.032 6.967,-7.407l5.032,0Z" style="fill:#fff;fill-rule:nonzero;"/><path d="M77.926,196.685l-3.535,-4.866c-0.509,0.397 -1.033,0.776 -1.572,1.133l3.539,4.871c-4.711,3.177 -10.337,5.091 -16.389,5.277l0,-6.019c-0.322,0.012 -0.644,0.024 -0.969,0.024c-0.325,0 -0.647,-0.012 -0.969,-0.024l0,6.019c-6.053,-0.186 -11.678,-2.1 -16.389,-5.277l3.539,-4.871c-0.54,-0.357 -1.063,-0.736 -1.573,-1.133l-3.535,4.866c-4.613,-3.546 -8.211,-8.349 -10.268,-13.897l5.745,-1.867c-0.228,-0.602 -0.432,-1.214 -0.615,-1.837l-5.742,1.866c-0.854,-2.837 -1.318,-5.84 -1.318,-8.95c0,-2.922 0.413,-5.748 1.17,-8.431l5.757,1.871c0.17,-0.627 0.362,-1.244 0.578,-1.85l-5.753,-1.869c1.985,-5.656 5.558,-10.566 10.184,-14.2l3.56,4.9c0.505,-0.403 1.022,-0.791 1.557,-1.154l-3.559,-4.898c4.767,-3.289 10.491,-5.279 16.662,-5.469l-0,6.072c0.322,-0.012 0.644,-0.024 0.969,-0.024c0.325,0 0.647,0.012 0.969,0.024l-0,-6.072c6.171,0.19 11.895,2.18 16.661,5.469l-3.558,4.898c0.535,0.363 1.052,0.751 1.557,1.153l3.559,-4.899c4.626,3.634 8.2,8.544 10.185,14.2l-5.753,1.869c0.216,0.606 0.408,1.223 0.578,1.85l5.757,-1.871c0.757,2.683 1.17,5.509 1.17,8.431c-0,3.11 -0.464,6.113 -1.318,8.95l-5.742,-1.866c-0.183,0.623 -0.387,1.235 -0.615,1.837l5.745,1.867c-2.057,5.548 -5.655,10.351 -10.269,13.897m-18.926,-59.685c-19.299,0 -35,15.701 -35,35c-0,19.299 15.701,35 35,35c19.299,0 35,-15.701 35,-35c-0,-19.299 -15.701,-35 -35,-35" style="fill:#fff;fill-rule:nonzero;"/><path d="M59.981,179.487l0,14.488l-1.95,0l0,-14.488l-9.116,0l-1.215,-7.217l7.53,-0.042c-3.399,-2.729 -5.779,-9.037 -5.779,-16.384c0,-1.198 0.063,-2.37 0.183,-3.503l18.731,0c0.121,1.133 0.184,2.305 0.184,3.503c0,7.311 -2.357,13.593 -5.729,16.344l7.48,-0.041l-1.513,7.34l-8.806,0Z" style="fill:#fff;fill-rule:nonzero;"/></g><path id="icon_location" d="M82,0c-4.561,0 -8,3.582 -8,8.333c0,5.978 7.437,11.362 7.753,11.588c0.074,0.053 0.161,0.079 0.247,0.079c0.086,0 0.173,-0.026 0.247,-0.079c0.316,-0.226 7.753,-5.61 7.753,-11.588c0,-4.751 -3.439,-8.333 -8,-8.333Zm4.48,6.571l-2.324,1.915l0.778,3.08c0.045,0.175 -0.03,0.359 -0.185,0.455c-0.16,0.096 -0.357,0.079 -0.493,-0.034l-2.256,-1.862l-2.257,1.862c-0.14,0.114 -0.339,0.129 -0.493,0.033c-0.155,-0.096 -0.229,-0.28 -0.186,-0.455l0.779,-3.08l-2.323,-1.914c-0.136,-0.114 -0.187,-0.299 -0.127,-0.463c0.061,-0.164 0.219,-0.275 0.396,-0.275l2.862,0l0.953,-2.64c0.059,-0.166 0.217,-0.276 0.396,-0.276c0.178,0 0.336,0.11 0.397,0.276l0.952,2.64l2.862,0c0.176,0 0.335,0.111 0.395,0.275c0.061,0.164 0.01,0.349 -0.126,0.463Z" style="fill:#ff6700;fill-rule:nonzero;"/><path id="icon_calendar" d="M126,5.333l0,10.334c0,0.184 -0.149,0.333 -0.333,0.333l-15.334,0c-0.184,0 -0.333,-0.149 -0.333,-0.333l0,-10.334l16,0Zm-4.667,2l0,-1c0,-0.184 -0.149,-0.333 -0.333,-0.333c-0.184,0 -0.333,0.149 -0.333,0.333l0,1l-2.667,0l0,-1c0,-0.184 -0.149,-0.333 -0.333,-0.333c-0.184,0 -0.334,0.149 -0.334,0.333l0,1l-2.666,0l0,-1c0,-0.184 -0.15,-0.333 -0.334,-0.333c-0.184,0 -0.333,0.149 -0.333,0.333l0,1l-2.333,0c-0.184,0 -0.334,0.15 -0.334,0.334c0,0.184 0.15,0.333 0.334,0.333l2.333,0l0,2l-2.333,0c-0.184,0 -0.334,0.149 -0.334,0.333c0,0.184 0.15,0.334 0.334,0.334l2.333,0l0,2l-2.333,0c-0.184,0 -0.334,0.149 -0.334,0.333c0,0.184 0.15,0.333 0.334,0.333l2.333,0l0,1c0,0.184 0.149,0.334 0.333,0.334c0.184,0 0.334,-0.15 0.334,-0.334l0,-1l2.666,0l0,1c0,0.184 0.15,0.334 0.334,0.334c0.184,0 0.333,-0.15 0.333,-0.334l0,-1l2.667,0l0,1c0,0.184 0.149,0.334 0.333,0.334c0.184,0 0.333,-0.15 0.333,-0.334l0,-1l3,0c0.184,0 0.334,-0.149 0.334,-0.333c0,-0.184 -0.15,-0.333 -0.334,-0.333l-3,0l0,-2l3,0c0.184,0 0.334,-0.15 0.334,-0.334c0,-0.184 -0.15,-0.333 -0.334,-0.333l-3,0l0,-2l3,0c0.184,0 0.334,-0.149 0.334,-0.333c0,-0.184 -0.15,-0.334 -0.334,-0.334l-3,0Zm-3.333,3.334l2.667,0l0,2l-2.667,0l0,-2Zm-3.333,0l2.666,0l0,2l-2.666,0l0,-2Zm3.333,-2.667l2.667,0l0,2l-2.667,0l0,-2Zm-3.333,0l2.666,0l0,2l-2.666,0l0,-2Zm0.333,-8c0.184,0 0.333,0.149 0.333,0.333l0,1l5.334,0l0,-1c0,-0.184 0.149,-0.333 0.333,-0.333l2,0c0.184,0 0.333,0.149 0.333,0.333l0,1l2.334,0c0.184,0 0.333,0.15 0.333,0.334l0,3l-16,0l0,-3c0,-0.184 0.149,-0.334 0.333,-0.334l2.334,0l0,-1c0,-0.184 0.149,-0.333 0.333,-0.333l2,0Zm-0.333,2.667l0,-2l-1.334,0l0,2l1.334,0Zm8,0l0,-2l-1.334,0l0,2l1.334,0Z" style="fill:#ff6700;"/><path id="icon_distance" d="M165.816,6.304c-0.066,0.102 -0.153,0.231 -0.265,0.389c-0.068,0.095 -0.175,0.146 -0.284,0.146c-0.07,0 -0.139,-0.021 -0.201,-0.064c-0.157,-0.111 -0.193,-0.328 -0.082,-0.485c0.234,-0.33 0.366,-0.549 0.37,-0.555c0.06,-0.1 0.161,-0.153 0.268,-0.162c-1.028,-3.231 -4.05,-5.573 -7.622,-5.573c-4.419,0 -8,3.583 -8,8c0,1.496 0.419,2.892 1.133,4.089c0.025,-0.099 0.054,-0.209 0.092,-0.338c0.054,-0.184 0.246,-0.291 0.431,-0.236c0.185,0.054 0.29,0.247 0.236,0.432c-0.11,0.375 -0.157,0.629 -0.158,0.638c-0.016,0.086 -0.064,0.159 -0.128,0.209c1.459,1.943 3.776,3.206 6.394,3.206c4.419,0 8,-3.581 8,-8c0,-0.582 -0.066,-1.149 -0.184,-1.696Zm-12.849,3.41c-0.231,0.293 -0.445,0.648 -0.634,1.054c-0.059,0.126 -0.185,0.2 -0.316,0.2c-0.049,0 -0.1,-0.01 -0.147,-0.032c-0.174,-0.081 -0.249,-0.288 -0.168,-0.462c0.213,-0.454 0.454,-0.855 0.718,-1.19c0.12,-0.15 0.338,-0.176 0.489,-0.057c0.15,0.118 0.177,0.337 0.058,0.487Zm9.679,-0.168c-0.447,0.261 -0.894,0.435 -1.327,0.515c-0.022,0.004 -0.043,0.006 -0.065,0.006c-0.163,0 -0.309,-0.117 -0.341,-0.284c-0.035,-0.189 0.089,-0.37 0.278,-0.406c0.355,-0.066 0.727,-0.212 1.106,-0.432c0.164,-0.096 0.378,-0.041 0.476,0.126c0.096,0.166 0.04,0.379 -0.127,0.475Zm-2.696,0.519c-0.02,0 -0.039,-0.001 -0.059,-0.004c-0.395,-0.067 -0.816,-0.186 -1.323,-0.375c-0.18,-0.066 -0.272,-0.266 -0.205,-0.446c0.068,-0.181 0.27,-0.273 0.447,-0.206c0.466,0.173 0.846,0.281 1.198,0.34c0.189,0.032 0.317,0.211 0.285,0.401c-0.029,0.169 -0.177,0.29 -0.343,0.29Zm-2.157,-1.063c-0.055,0.137 -0.185,0.22 -0.324,0.22c-0.042,0 -0.086,-0.008 -0.128,-0.025c-0.351,-0.14 -0.767,-0.296 -1.198,-0.403c-0.188,-0.045 -0.301,-0.234 -0.254,-0.421c0.046,-0.186 0.233,-0.299 0.421,-0.254c0.471,0.117 0.914,0.283 1.287,0.431c0.18,0.072 0.267,0.274 0.196,0.452Zm-2.852,-0.343c-0.122,0.005 -0.245,0.016 -0.37,0.033c-0.254,0.037 -0.5,0.12 -0.731,0.249c-0.054,0.029 -0.111,0.043 -0.169,0.043c-0.122,0 -0.241,-0.064 -0.305,-0.179c-0.093,-0.168 -0.032,-0.379 0.135,-0.472c0.306,-0.171 0.632,-0.282 0.971,-0.33c0.149,-0.021 0.297,-0.034 0.441,-0.039l0.014,0c0.187,0 0.34,0.147 0.348,0.334c0.008,0.192 -0.142,0.354 -0.334,0.361Zm9.769,-0.894c-0.314,0.36 -0.634,0.684 -0.951,0.965c-0.067,0.06 -0.149,0.089 -0.231,0.089c-0.096,0 -0.192,-0.04 -0.261,-0.117c-0.128,-0.144 -0.114,-0.364 0.03,-0.492c0.295,-0.261 0.594,-0.565 0.889,-0.903c0.128,-0.145 0.348,-0.158 0.491,-0.033c0.145,0.126 0.159,0.346 0.033,0.491Zm-4.623,-4.982c1.257,0 1.739,1.043 1.739,1.739c-0,1.259 -1.739,3.826 -1.739,3.826c-0,0 -1.739,-2.567 -1.739,-3.826c-0,-0.696 0.481,-1.739 1.739,-1.739Zm0.775,2.434c-0,-0.471 -0.348,-0.695 -0.695,-0.695c-0.348,0 -0.696,0.224 -0.696,0.695c-0,0.473 0.348,0.696 0.696,0.696c0.347,0 0.695,-0.223 0.695,-0.696Z" style="fill:#ff6700;"/><path id="icon_club" d="M248.164,15.997c-0.181,0 -0.329,-0.145 -0.333,-0.327c-0.004,-0.184 0.143,-0.336 0.326,-0.34c1.624,-0.034 3.151,-0.587 4.419,-1.601c0.145,-0.114 0.354,-0.091 0.468,0.053c0.115,0.143 0.092,0.353 -0.052,0.469c-1.382,1.105 -3.049,1.709 -4.821,1.746l-0.007,0Zm-1.934,-0.196c-1.698,-0.384 -3.251,-1.335 -4.372,-2.679c-0.118,-0.141 -0.1,-0.351 0.042,-0.469c0.14,-0.118 0.351,-0.1 0.469,0.042c1.028,1.232 2.452,2.104 4.008,2.456c0.179,0.04 0.292,0.219 0.251,0.398c-0.041,0.188 -0.232,0.294 -0.398,0.252Zm7.66,-2.884c-0.147,-0.112 -0.174,-0.32 -0.063,-0.466c0.986,-1.288 1.506,-2.827 1.506,-4.453c-0,-0.184 0.15,-0.348 0.334,-0.348c0.183,0 0.333,0.118 0.333,0.348c-0,1.774 -0.569,3.453 -1.643,4.857c-0.111,0.145 -0.319,0.175 -0.467,0.062Zm-5.866,-5.302c0.78,-0.465 1.31,-1.31 1.31,-2.283c-0,-1.471 -1.196,-2.667 -2.667,-2.667c-1.47,0 -2.666,1.196 -2.666,2.667c-0,0.973 0.529,1.818 1.31,2.283c-1.508,0.631 -2.643,2.253 -2.643,4.05c-0,0.184 0.149,0.333 0.333,0.333l7.333,0c0.184,0 0.333,-0.149 0.333,-0.333c-0,-1.797 -1.135,-3.419 -2.643,-4.05Zm-7.226,3.868c-0.786,-1.62 -0.976,-3.414 -0.637,-5.087c0.037,-0.18 0.215,-0.296 0.393,-0.26c0.181,0.037 0.297,0.213 0.261,0.393c-0.307,1.511 -0.146,3.161 0.583,4.664c0.08,0.166 0.012,0.365 -0.154,0.445c-0.167,0.08 -0.366,0.012 -0.446,-0.155Zm13.202,-0.819l-2.779,0c-0.224,-1.07 -0.787,-2.063 -1.584,-2.79c0.158,-0.109 0.323,-0.208 0.498,-0.285c-0.231,-0.173 -0.419,-0.397 -0.558,-0.651c0.388,-0.694 0.529,-1.49 0.335,-2.343c0.363,-0.368 0.866,-0.596 1.422,-0.596c1.102,0 2,0.897 2,1.999c-0,0.65 -0.317,1.224 -0.798,1.589c1.056,0.465 1.797,1.518 1.797,2.744c-0,0.184 -0.149,0.333 -0.333,0.333Zm1.109,-4.471c-0.391,-1.545 -1.299,-2.946 -2.557,-3.944c-0.144,-0.114 -0.168,-0.324 -0.054,-0.468c0.115,-0.145 0.325,-0.169 0.468,-0.054c1.372,1.087 2.363,2.615 2.789,4.302c0.046,0.179 -0.062,0.36 -0.24,0.405c-0.186,0.046 -0.362,-0.069 -0.406,-0.241Zm-14.169,-1.204c-0.166,-0.08 -0.236,-0.279 -0.157,-0.445c0.755,-1.573 2.026,-2.877 3.58,-3.672c0.164,-0.082 0.364,-0.019 0.448,0.145c0.084,0.164 0.019,0.365 -0.145,0.449c-1.425,0.729 -2.59,1.924 -3.282,3.367c-0.078,0.162 -0.275,0.238 -0.444,0.156Zm10.085,-3.673c-1.457,-0.661 -3.122,-0.823 -4.678,-0.463c-0.181,0.042 -0.358,-0.07 -0.4,-0.25c-0.041,-0.179 0.071,-0.359 0.25,-0.399c1.699,-0.392 3.514,-0.215 5.103,0.505c0.168,0.076 0.242,0.273 0.166,0.441c-0.078,0.171 -0.28,0.241 -0.441,0.166Z" style="fill:#cacaca;"/><path id="icon_group" d="M217.847,7.827c1.07,-0.648 1.796,-1.825 1.796,-3.181c0,-2.048 -1.64,-3.714 -3.657,-3.714c-2.016,0 -3.657,1.666 -3.657,3.714c0,1.356 0.726,2.533 1.797,3.181c-2.068,0.879 -3.625,3.137 -3.625,5.641c0,0.256 0.205,0.464 0.457,0.464l10.057,0c0.252,0 0.457,-0.208 0.457,-0.464c0,-2.504 -1.557,-4.762 -3.625,-5.641Zm8.196,4.247l-3.812,0c-0.307,-1.491 -1.079,-2.874 -2.172,-3.887c0.217,-0.151 0.443,-0.289 0.683,-0.396c-0.316,-0.242 -0.575,-0.554 -0.765,-0.908c0.532,-0.965 0.725,-2.075 0.459,-3.264c0.498,-0.511 1.187,-0.83 1.95,-0.83c1.512,0 2.743,1.25 2.743,2.786c0,0.905 -0.435,1.704 -1.095,2.213c1.449,0.647 2.466,2.114 2.466,3.822c0,0.256 -0.205,0.464 -0.457,0.464Z" style="fill:#ff6700;"/><path id="icon_placeholder" d="M188,4.583l0,9.988l7.776,-2.589l0.224,-0.315l0,-9.344l-8,2.26Zm-8,7.084l0.224,0.315l7.109,2.589l0,-9.985l-7.333,-2.17l0,9.251Zm8.084,-11.656c-0.055,-0.015 -0.113,-0.015 -0.168,-0l-7.268,1.896l7.043,2.069l7.504,-2.11l-7.111,-1.855Z" style="fill:#ff6700;"/><path id="placeholder_portrait" d="M137.408,505.283c6.734,-6.366 6.242,-20.275 0.784,-25c4.341,-11.541 9.908,-24.975 7.558,-36.741c-2.883,-14.425 -23.367,-19.542 -40.033,-19.542c-12.925,0 -28.625,3.258 -33.575,12.175c-4.975,0.55 -8.817,2.608 -11.442,6.142c-7.233,9.766 -2.292,24.758 1.267,37.808c-5.459,4.733 -6.109,18.792 0.625,25.158c0.925,13.234 8.75,21.342 12.408,24.45l-0,20.067c-3.508,1.308 -6.942,2.575 -10.283,3.8c-28.925,10.633 -49.825,18.325 -55.942,30.567c-8.675,17.341 -8.775,34.925 -8.775,35.666c-0,2.3 1.867,4.167 4.167,4.167l191.666,0c2.3,0 4.167,-1.867 4.167,-4.167c-0,-0.741 -0.1,-18.325 -8.775,-35.666c-6.125,-12.25 -27.025,-19.934 -55.95,-30.567c-3.333,-1.233 -6.775,-2.492 -10.275,-3.8l0,-20.067c3.658,-3.116 11.483,-11.216 12.408,-24.45Z" style="fill:#d8dfdb;fill-rule:nonzero;"/><path id="icon_speech" d="M270,0c-4.411,0 -8,2.989 -8,6.662c0,1.735 0.785,3.361 2.217,4.605l-1.607,3.244c-0.143,0.287 0.157,0.591 0.439,0.456l4.291,-2.019c0.852,0.249 1.746,0.376 2.66,0.376c4.411,0 8,-2.988 8,-6.662c0,-3.673 -3.589,-6.662 -8,-6.662Z" style="fill:#ff6700;fill-rule:nonzero;"/><path id="icon_flag_triangle" d="M302.793,4.361l-9.716,-4.202c-0.115,-0.094 -0.257,-0.159 -0.418,-0.159c-0.368,0 -0.666,0.299 -0.666,0.667l0,14.669c0,0.368 0.298,0.666 0.666,0.666c0.369,0 0.667,-0.298 0.667,-0.666l0,-6.261l9.467,-4.102c0.268,-0.115 0.268,-0.496 0,-0.612Z" style="fill:#ff6700;fill-rule:nonzero;"/><path id="icon_length" d="M313.329,3.108c-2.425,0 -3.64,2.127 -3.261,4.324c0.382,2.215 3.261,6.919 3.261,6.919c0,-0 2.96,-5.016 3.26,-6.919c0.354,-2.236 -0.835,-4.324 -3.26,-4.324Zm0.58,12.892c-0.133,0 -0.263,-0.069 -0.341,-0.196c-0.123,-0.2 -0.07,-0.468 0.119,-0.599l9.373,-6.486c0.189,-0.129 0.441,-0.073 0.564,0.126c0.122,0.199 0.07,0.468 -0.118,0.599l-9.374,6.486c-0.07,0.048 -0.146,0.07 -0.223,0.07Zm-0.58,-7.702c-0.843,0 -1.631,-0.835 -1.631,-1.73c0,-0.894 0.788,-1.73 1.631,-1.73c0.843,0 1.63,0.836 1.63,1.73c0,0.895 -0.787,1.73 -1.63,1.73Zm10.226,-8.298c-1.475,0 -2.445,1.032 -2.445,2.594c0,1.566 2.445,5.189 2.445,5.189c0,0 2.445,-3.623 2.445,-5.189c0,-1.561 -0.972,-2.594 -2.445,-2.594Zm0,3.892c-0.553,0 -1.223,-0.433 -1.223,-1.298c0,-0.864 0.67,-1.297 1.223,-1.297c0.552,0 1.222,0.433 1.222,1.297c0,0.865 -0.67,1.298 -1.222,1.298Z" style="fill:#ff6700;"/><g id="illustration_top"><path id="Filled_Icons" d="M55.998,245.696c-0,-0.706 -0.607,-1.251 -1.165,-1.196l-4.701,0.015c0.041,-1.15 0.067,-2.345 0.067,-3.6c-0,-0.66 -0.523,-1.195 -1.163,-1.195l-41.852,0c-0.642,0 -1.163,0.535 -1.163,1.195c0,1.25 0.026,2.438 0.065,3.585l-4.715,0c-0.642,0 -1.163,0.536 -1.163,1.196c-0.107,9.838 1.66,19.808 11.242,20.289c5.613,8.268 13.091,6.781 13.091,14.349c-0.105,5.916 -1.681,9.583 -9.219,9.583c-0.642,0 -1.163,0.535 -1.163,1.195l-0,4.781c-0,0.659 0.521,1.195 1.163,1.195l25.56,0c0.639,0 1.163,-0.536 1.163,-1.195l-0,-4.781c-0,-0.66 -0.524,-1.195 -1.163,-1.195c-6.664,0 -9.366,-2.771 -9.366,-9.562c-0,-7.584 7.494,-6.174 13.158,-14.37c9.703,-0.478 11.396,-10.676 11.324,-20.289Zm-53.479,1.195l3.684,-0c0.481,7.584 1.888,12.781 3.734,16.493c-6.427,-1.453 -7.478,-9.741 -7.418,-16.493Zm33.211,6.96l-3.439,2.434l1.553,4.553c0.167,0.498 -0,1.05 -0.412,1.36c-0.414,0.311 -0.974,0.309 -1.385,-0.009l-3.953,-3.048l-3.953,3.045c-0.412,0.318 -0.972,0.321 -1.386,0.01c-0.411,-0.311 -0.579,-0.863 -0.411,-1.36l1.553,-4.554l-3.439,-2.431c-0.419,-0.298 -0.602,-0.839 -0.449,-1.338c0.151,-0.5 0.6,-0.842 1.109,-0.842l3.93,0l2.004,-4.121c0.393,-0.81 1.686,-0.81 2.081,0l2.007,4.121l3.929,0c0.509,0 0.958,0.342 1.109,0.842c0.154,0.499 -0.03,1.04 -0.448,1.338Zm10.481,9.531c1.877,-3.705 3.311,-8.897 3.802,-16.477l3.671,-0.012c0.045,6.738 -1.044,15.026 -7.473,16.489Z" style="fill:#ff6700;fill-rule:nonzero;"/></g><path id="icon_pedestal" d="M353.95,8.29c-0.002,-0.005 -0.001,-0.01 -0.003,-0.014l-1.5,-3c-0.085,-0.169 -0.257,-0.276 -0.447,-0.276l-5,-0l0,-1.5c0,-0.075 -0.02,-0.147 -0.05,-0.21c-0.002,-0.005 -0.001,-0.01 -0.003,-0.014l-1.5,-3c-0.085,-0.169 -0.258,-0.276 -0.447,-0.276l-6,-0c-0.189,-0 -0.362,0.107 -0.447,0.276l-1.5,3c-0.002,0.004 -0.001,0.009 -0.003,0.014c-0.031,0.063 -0.05,0.135 -0.05,0.21l0,1.5l-5,-0c-0.189,-0 -0.362,0.107 -0.447,0.276l-1.5,3c-0.002,0.004 -0.001,0.009 -0.003,0.014c-0.03,0.064 -0.05,0.135 -0.05,0.21l0,9c0,0.276 0.224,0.5 0.5,0.5l23,0c0.276,0 0.5,-0.224 0.5,-0.5l0,-9c0,-0.075 -0.02,-0.146 -0.05,-0.21Zm-18.96,6.71c0.276,0 0.5,0.224 0.5,0.5c0,0.276 -0.223,0.5 -0.5,0.5l-1.873,0c-0.401,0 -0.642,-0.454 -0.409,-0.786l1.703,-2.434c0.228,-0.343 -0.022,-0.696 -0.347,-0.696c-0.234,0 -0.426,0.183 -0.436,0.416c-0.012,0.275 -0.253,0.493 -0.522,0.477c-0.276,-0.011 -0.49,-0.245 -0.478,-0.521c0.034,-0.771 0.664,-1.373 1.436,-1.373c1.111,0 1.862,1.245 1.169,2.264l-1.156,1.653l0.913,0Zm2.01,-7l-5.691,-0l1,-2l4.691,-0l0,2Zm6,4.894c0,0.276 -0.224,0.5 -0.5,0.5c-0.276,-0 -0.5,-0.224 -0.5,-0.5l0,-3.842c-0.483,0.082 -0.785,-0.514 -0.43,-0.854l0.584,-0.56c0.314,-0.301 0.846,-0.079 0.846,0.362l0,4.894Zm-4.691,-9.894l1,-2l5.383,-0l1,2l-7.383,-0Zm13.062,11.499c0,0.747 -0.444,1.501 -1.436,1.501c-0.833,-0 -1.395,-0.555 -1.434,-1.413c-0.013,-0.276 0.2,-0.51 0.477,-0.523c0.32,-0.022 0.51,0.202 0.521,0.477c0.022,0.459 0.281,0.459 0.436,0.459c0.142,-0 0.436,-0 0.436,-0.501c0,-0.5 -0.294,-0.5 -0.436,-0.5c-0.276,-0 -0.5,-0.224 -0.5,-0.5c0,-0.275 0.224,-0.5 0.5,-0.5c0.142,-0 0.436,-0 0.436,-0.5c0,-0.499 -0.294,-0.499 -0.436,-0.499c-0.155,-0 -0.415,-0 -0.436,0.458c-0.012,0.276 -0.197,0.498 -0.521,0.477c-0.276,-0.013 -0.489,-0.247 -0.477,-0.522c0.039,-0.858 0.602,-1.413 1.434,-1.413c0.991,-0 1.436,0.753 1.436,1.499c0,0.361 -0.106,0.722 -0.326,1c0.22,0.278 0.326,0.64 0.326,1Zm-4.371,-6.499l0,-2l4.691,-0l1,2l-5.691,-0Z" style="fill:#fe6b1f;fill-rule:nonzero;"/><g id="icon_small"><rect x="72" y="24" width="24" height="24" style="fill:none;"/><path d="M73.686,33.752l1.853,0.854c0.066,0.031 0.137,0.046 0.21,0.046l6.5,0c0.915,0 1.5,-1.1 1.5,-1.855l0,-0.145c0,-0.552 -0.448,-1 -1,-1l-8.5,0c-0.552,0 -1,0.448 -1,1l0,0.292c-0.001,0.265 0.105,0.52 0.293,0.707c0.041,0.042 0.09,0.076 0.144,0.101Z" style="fill:#ff6700;fill-rule:nonzero;"/><path d="M94.348,41.904l-6.2,0c-0.125,0 -0.23,0.092 -0.247,0.216c-0.019,0.135 -0.029,0.272 -0.029,0.409c0.032,1.864 1.569,3.349 3.434,3.317c1.819,-0.031 3.286,-1.498 3.317,-3.317c0,-0.136 -0.01,-0.273 -0.028,-0.408c-0.017,-0.124 -0.122,-0.216 -0.247,-0.217Z" style="fill:#ff6700;fill-rule:nonzero;"/><path d="M80.691,42.904l-5.885,0c-0.139,0 -0.251,0.113 -0.25,0.252c0,0.013 0.001,0.027 0.003,0.04c0.289,1.762 1.95,2.956 3.712,2.667c1.369,-0.224 2.443,-1.298 2.667,-2.667c0.023,-0.137 -0.07,-0.266 -0.207,-0.289c-0.013,-0.002 -0.026,-0.003 -0.04,-0.003Z" style="fill:#ff6700;fill-rule:nonzero;"/><path d="M91.25,35.904l-0.793,0c-0.071,0 -0.139,-0.03 -0.186,-0.084c-0.049,-0.054 -0.072,-0.127 -0.063,-0.2c0.026,-0.207 0.04,-0.416 0.042,-0.625l0,-2.423c-0.001,-0.138 0.109,-0.25 0.247,-0.251c0.055,0 0.109,0.017 0.153,0.051c0.623,0.428 1.347,0.685 2.1,0.747c0.552,0 1,-0.448 1,-1l0,-2.93c0,-0.288 -0.124,-0.563 -0.341,-0.753c-0.216,-0.19 -0.504,-0.277 -0.789,-0.239c-0.747,0.079 -1.459,0.36 -2.059,0.812c-0.066,0.054 -0.156,0.07 -0.237,0.044c-0.081,-0.027 -0.143,-0.093 -0.164,-0.176c-0.28,-1.103 -1.272,-1.875 -2.41,-1.877l-1.5,0c-0.552,0 -1,0.448 -1,1c0,0.552 0.448,1 1,1l1.5,0c0.276,0 0.5,0.224 0.5,0.5l0,5.5c-0.002,1.855 -1.041,3.554 -2.693,4.4c-0.122,0.063 -0.272,0.016 -0.336,-0.106c-0.007,-0.014 -0.013,-0.029 -0.018,-0.045c-0.57,-2.268 -2.614,-3.855 -4.953,-3.845l-2.5,0c-3.173,0.004 -5.745,2.575 -5.75,5.748c0,0.414 0.336,0.75 0.75,0.75l10.5,0c1.274,0.041 2.532,-0.294 3.617,-0.964c0.039,-0.023 0.084,-0.036 0.13,-0.036l8.254,0c0.414,-0.001 0.749,-0.336 0.749,-0.75c-0.149,-2.48 -2.269,-4.375 -4.75,-4.248Z" style="fill:#ff6700;fill-rule:nonzero;"/></g><g id="icon_medium"><rect x="96" y="24" width="24" height="24" style="fill:none;"/><path d="M96.672,35.189l1.9,-2.853c0.556,-0.837 1.495,-1.339 2.5,-1.336l5.6,0c0.963,0.002 1.883,0.4 2.545,1.1l3.21,3.4c0.039,0.041 0.09,0.067 0.146,0.075l4.589,0.656c1.011,0.148 1.897,0.755 2.4,1.644c0.044,0.078 0.044,0.172 0,0.25c-0.045,0.077 -0.127,0.124 -0.216,0.124l-1.846,0c-0.414,0 -0.75,0.336 -0.75,0.75c0,0.414 0.336,0.75 0.75,0.75l2.25,0c0.138,0 0.25,0.112 0.25,0.25l0,1c0,1.105 -0.895,2 -2,2l-0.5,0c-0.138,0 -0.25,-0.112 -0.25,-0.25c0,-1.657 -1.343,-3 -3,-3c-1.657,0 -3,1.343 -3,3c0.001,0.138 -0.11,0.249 -0.248,0.25l-7.002,0c-0.138,0 -0.25,-0.112 -0.25,-0.25c-0.015,-1.657 -1.37,-2.988 -3.026,-2.973c-1.474,0.013 -2.719,1.093 -2.94,2.55c-0.019,0.137 -0.146,0.232 -0.283,0.212c-0.037,-0.005 -0.072,-0.018 -0.103,-0.039c-0.311,-0.204 -0.578,-0.468 -0.785,-0.777c-0.4,-0.599 -0.614,-1.304 -0.613,-2.025l0,-2.289c-0.001,-0.79 0.233,-1.562 0.672,-2.219Zm9.328,0.061c-0,0.138 0.112,0.25 0.25,0.25l2.85,0c0.138,0 0.25,-0.111 0.251,-0.249c-0,-0.065 -0.025,-0.126 -0.069,-0.173l-1.519,-1.603c-0.284,-0.3 -0.678,-0.469 -1.091,-0.47l-0.422,0c-0.138,0 -0.25,0.112 -0.25,0.25l-0,1.995Zm-4.305,0.151c0.047,0.063 0.121,0.1 0.2,0.1l2.355,0c0.138,0 0.25,-0.112 0.25,-0.25l-0,-2c-0,-0.138 -0.112,-0.25 -0.25,-0.25l-1.8,0c-0.112,0 -0.211,0.075 -0.241,0.183l-0.556,2c-0.02,0.075 -0.004,0.155 0.042,0.217Z" style="fill:#ff6700;fill-rule:nonzero;"/><path d="M112.836,41.336c-0.781,0.781 -0.781,2.047 0,2.828c0.781,0.781 2.047,0.781 2.828,0c0.781,-0.781 0.781,-2.047 0,-2.828c-0.781,-0.781 -2.047,-0.781 -2.828,0" style="fill:#ff6700;fill-rule:nonzero;"/><path d="M99.336,41.336c-0.781,0.781 -0.781,2.047 0,2.828c0.781,0.781 2.047,0.781 2.828,0c0.781,-0.781 0.781,-2.047 0,-2.828c-0.781,-0.781 -2.047,-0.781 -2.828,0" style="fill:#ff6700;fill-rule:nonzero;"/></g><g id="icon_large"><rect x="120" y="24" width="24" height="24" style="fill:none;"/><path d="M121.675,44.305c0.075,0.083 0.196,0.105 0.295,0.055c0.43,-0.233 0.814,-0.542 1.132,-0.913c0.47,-0.575 1.171,-0.911 1.913,-0.917c0.85,-0.002 1.64,0.435 2.09,1.156c0.326,0.456 0.83,0.752 1.386,0.816c0.709,-0.071 1.358,-0.427 1.8,-0.985c0.472,-0.611 1.196,-0.975 1.967,-0.987c0.947,0 1.81,0.545 2.218,1.4c0.201,0.345 0.565,0.562 0.964,0.574c0.559,-0.028 1.07,-0.321 1.375,-0.789c0.432,-0.748 1.237,-1.201 2.1,-1.183c0.849,0 1.638,0.437 2.087,1.158c0.171,0.222 0.37,0.419 0.594,0.587c0.103,0.073 0.245,0.056 0.327,-0.04c0.913,-1.04 1.475,-2.34 1.607,-3.717c0.06,-0.676 -0.44,-1.273 -1.116,-1.333c-0.035,-0.003 -0.071,-0.004 -0.107,-0.004l-1.2,0c-0.108,0 -0.204,-0.071 -0.235,-0.175l-1.178,-3.928c-0.184,-0.625 -0.759,-1.052 -1.41,-1.049l-1.358,0c-0.135,0 -0.245,-0.11 -0.245,-0.245l0,-2.947c0,-0.271 -0.219,-0.49 -0.49,-0.49l-1.963,0c-0.27,-0.001 -0.49,0.218 -0.491,0.489l0,2.945c0,0.135 -0.109,0.245 -0.245,0.245l-3.435,0c-0.135,0 -0.245,-0.11 -0.245,-0.245l0,-2.944c0,-0.271 -0.219,-0.49 -0.49,-0.49l-1.964,0c-0.27,0 -0.49,0.219 -0.49,0.49l0,2.944c0,0.135 -0.11,0.245 -0.246,0.245l-1.347,0c-0.649,0.002 -1.221,0.428 -1.41,1.05l-1.183,3.927c-0.031,0.104 -0.126,0.175 -0.235,0.175l-1.2,0c-0.678,0 -1.227,0.551 -1.227,1.229c0,0.036 0.002,0.072 0.005,0.108c0.131,1.406 0.709,2.734 1.65,3.788Zm3.1,-5.441l0.81,-2.7c0.031,-0.104 0.127,-0.175 0.235,-0.175l11.91,-0c0.109,-0 0.204,0.071 0.235,0.175l0.81,2.7c0.039,0.129 -0.034,0.266 -0.163,0.305c-0.023,0.007 -0.048,0.011 -0.072,0.011l-13.532,-0c-0.135,-0.001 -0.244,-0.111 -0.243,-0.247c0,-0.023 0.003,-0.047 0.01,-0.069Z" style="fill:#ff6700;fill-rule:nonzero;"/><path d="M134.304,29.37c-0.542,0 -0.981,-0.44 -0.981,-0.981c-0.001,-0.542 -0.44,-0.981 -0.982,-0.981c-1.355,-0.003 -2.453,-1.102 -2.453,-2.457c0.017,-0.542 0.471,-0.968 1.013,-0.95c0.518,0.016 0.933,0.432 0.95,0.95c0,0.27 0.219,0.49 0.49,0.491c1.625,0.001 2.943,1.318 2.944,2.944c0.002,0.541 -0.436,0.982 -0.978,0.984l-0.003,0Z" style="fill:#ff6700;fill-rule:nonzero;"/><path d="M128.416,29.37c-0.542,0 -0.981,-0.44 -0.981,-0.981c-0.001,-0.542 -0.44,-0.981 -0.982,-0.981c-1.355,-0.003 -2.453,-1.102 -2.453,-2.457c0.017,-0.542 0.471,-0.968 1.013,-0.95c0.518,0.016 0.933,0.432 0.95,0.95c0,0.27 0.219,0.49 0.49,0.491c1.625,0.001 2.943,1.318 2.944,2.944c0.002,0.541 -0.436,0.982 -0.978,0.984l-0.003,0Z" style="fill:#ff6700;fill-rule:nonzero;"/><path d="M143.542,46.792c-0.074,-0.535 -0.564,-0.91 -1.1,-0.843c-1.6,0.211 -2.686,-1.472 -2.694,-1.484c-0.331,-0.461 -0.973,-0.566 -1.433,-0.235c-0.098,0.071 -0.182,0.157 -0.25,0.257c-0.576,0.899 -1.561,1.455 -2.63,1.483c-0.963,-0.024 -1.839,-0.564 -2.293,-1.413c-0.277,-0.494 -0.902,-0.67 -1.397,-0.393c-0.108,0.061 -0.204,0.141 -0.284,0.236c-0.721,0.921 -1.802,1.492 -2.97,1.57c-1.065,-0.059 -2.04,-0.615 -2.635,-1.5c-0.32,-0.465 -0.957,-0.583 -1.423,-0.262c-0.067,0.046 -0.128,0.101 -0.183,0.162c-0.014,0.018 -1.493,1.835 -3.139,1.615c-0.537,-0.072 -1.03,0.305 -1.102,0.842c-0.072,0.537 0.305,1.031 0.842,1.103c0.179,0.025 0.359,0.039 0.539,0.04c1.266,-0.059 2.473,-0.553 3.415,-1.4c0.094,-0.078 0.232,-0.075 0.322,0.007c0.912,0.858 2.113,1.342 3.364,1.356c1.278,-0.021 2.51,-0.48 3.489,-1.3c0.097,-0.077 0.236,-0.071 0.325,0.015c0.83,0.828 1.958,1.289 3.13,1.281c1.226,0 2.409,-0.456 3.316,-1.28c0.093,-0.083 0.234,-0.083 0.327,0c0.961,0.934 2.29,1.388 3.621,1.237c0.534,-0.072 0.909,-0.56 0.843,-1.094Z" style="fill:#ff6700;fill-rule:nonzero;"/></g><g id="icon_ok"><rect x="144" y="24" width="24" height="24" style="fill:none;"/><path d="M153.917,39.71c-0,0 7.608,-9.484 9.868,-12.301c0.166,-0.207 0.407,-0.34 0.671,-0.369c0.263,-0.029 0.528,0.048 0.734,0.214c0.581,0.466 1.37,1.099 1.951,1.565c0.206,0.166 0.339,0.407 0.368,0.671c0.029,0.263 -0.048,0.528 -0.214,0.735c-2.453,3.058 -11.281,14.061 -11.281,14.061c-0.374,0.467 -0.918,0.765 -1.513,0.829c-0.594,0.065 -1.19,-0.11 -1.655,-0.486c0,0 -5.601,-4.521 -7.696,-6.212c-0.43,-0.347 -0.497,-0.977 -0.15,-1.406c0.467,-0.579 1.103,-1.367 1.57,-1.946c0.167,-0.206 0.409,-0.338 0.672,-0.366c0.264,-0.028 0.528,0.05 0.735,0.216c1.768,1.428 5.94,4.795 5.94,4.795Z" style="fill:#3ec300;"/></g><g id="icon_forbidden"><rect x="168" y="24" width="24" height="24" style="fill:none;"/><path d="M179.921,32.813c0,-0 3.217,-3.228 4.678,-4.693c0.39,-0.391 1.023,-0.392 1.414,-0.002c0.527,0.525 1.243,1.239 1.771,1.764c0.187,0.188 0.293,0.442 0.294,0.707c0,0.265 -0.105,0.52 -0.292,0.708c-1.463,1.467 -4.688,4.703 -4.688,4.703c-0,-0 3.225,3.236 4.688,4.703c0.187,0.188 0.292,0.443 0.292,0.708c-0.001,0.265 -0.107,0.519 -0.294,0.707c-0.528,0.525 -1.244,1.239 -1.771,1.764c-0.391,0.39 -1.024,0.389 -1.414,-0.002c-1.461,-1.465 -4.678,-4.693 -4.678,-4.693c0,0 -3.217,3.228 -4.678,4.693c-0.39,0.391 -1.023,0.392 -1.414,0.002c-0.527,-0.525 -1.243,-1.239 -1.77,-1.764c-0.188,-0.188 -0.294,-0.442 -0.295,-0.707c0,-0.265 0.105,-0.52 0.292,-0.708c1.463,-1.467 4.688,-4.703 4.688,-4.703c0,0 -3.225,-3.236 -4.688,-4.703c-0.187,-0.188 -0.292,-0.443 -0.292,-0.708c0.001,-0.265 0.107,-0.519 0.295,-0.707c0.527,-0.525 1.243,-1.239 1.77,-1.764c0.391,-0.39 1.024,-0.389 1.414,0.002c1.461,1.465 4.678,4.693 4.678,4.693Z" style="fill:#f42b03;"/></g><g id="icon_grid"><rect x="190" y="24" width="24" height="24" style="fill:none;"/><path d="M201,41c-0,-0.552 -0.448,-1 -1,-1l-7,0c-0.552,0 -1,0.448 -1,1l-0,4c-0,0.552 0.448,1 1,1l7,0c0.552,0 1,-0.448 1,-1l-0,-4Zm11,0c0,-0.552 -0.448,-1 -1,-1l-7,0c-0.552,0 -1,0.448 -1,1l0,4c0,0.552 0.448,1 1,1l7,0c0.552,0 1,-0.448 1,-1l0,-4Zm-11,-7c-0,-0.552 -0.448,-1 -1,-1l-7,0c-0.552,0 -1,0.448 -1,1l-0,4c-0,0.552 0.448,1 1,1l7,0c0.552,0 1,-0.448 1,-1l-0,-4Zm11,0c0,-0.552 -0.448,-1 -1,-1l-7,0c-0.552,0 -1,0.448 -1,1l0,4c0,0.552 0.448,1 1,1l7,0c0.552,0 1,-0.448 1,-1l0,-4Zm-11,-7c-0,-0.552 -0.448,-1 -1,-1l-7,0c-0.552,0 -1,0.448 -1,1l-0,4c-0,0.552 0.448,1 1,1l7,0c0.552,0 1,-0.448 1,-1l-0,-4Zm11,0c0,-0.552 -0.448,-1 -1,-1l-7,0c-0.552,0 -1,0.448 -1,1l0,4c0,0.552 0.448,1 1,1l7,0c0.552,0 1,-0.448 1,-1l0,-4Z" style="fill:#ff6700;"/></g><g id="icon_grid_active"><rect x="190" y="48" width="24" height="24" style="fill:none;"/><path d="M201,65c-0,-0.552 -0.448,-1 -1,-1l-7,0c-0.552,0 -1,0.448 -1,1l-0,4c-0,0.552 0.448,1 1,1l7,0c0.552,0 1,-0.448 1,-1l-0,-4Zm11,0c0,-0.552 -0.448,-1 -1,-1l-7,0c-0.552,0 -1,0.448 -1,1l0,4c0,0.552 0.448,1 1,1l7,0c0.552,0 1,-0.448 1,-1l0,-4Zm-11,-7c-0,-0.552 -0.448,-1 -1,-1l-7,0c-0.552,0 -1,0.448 -1,1l-0,4c-0,0.552 0.448,1 1,1l7,0c0.552,0 1,-0.448 1,-1l-0,-4Zm11,0c0,-0.552 -0.448,-1 -1,-1l-7,0c-0.552,0 -1,0.448 -1,1l0,4c0,0.552 0.448,1 1,1l7,0c0.552,0 1,-0.448 1,-1l0,-4Zm-11,-7c-0,-0.552 -0.448,-1 -1,-1l-7,0c-0.552,0 -1,0.448 -1,1l-0,4c-0,0.552 0.448,1 1,1l7,0c0.552,0 1,-0.448 1,-1l-0,-4Zm11,0c0,-0.552 -0.448,-1 -1,-1l-7,0c-0.552,0 -1,0.448 -1,1l0,4c0,0.552 0.448,1 1,1l7,0c0.552,0 1,-0.448 1,-1l0,-4Z" style="fill:#fffdf9;"/></g><g id="icon_list"><rect x="214" y="24" width="24" height="24" style="fill:none;"/><path d="M236,45c0,-0.552 -0.448,-1 -1,-1l-18,0c-0.552,0 -1,0.448 -1,1c0,0.552 0.448,1 1,1l18,0c0.552,0 1,-0.448 1,-1Zm0,-3c0,-0.552 -0.448,-1 -1,-1l-18,0c-0.552,0 -1,0.448 -1,1c0,0.552 0.448,1 1,1l18,0c0.552,0 1,-0.448 1,-1Zm0,-3c0,-0.552 -0.448,-1 -1,-1l-18,0c-0.552,0 -1,0.448 -1,1c0,0.552 0.448,1 1,1l18,0c0.552,0 1,-0.448 1,-1Zm0,-3c0,-0.552 -0.448,-1 -1,-1l-18,0c-0.552,0 -1,0.448 -1,1c0,0.552 0.448,1 1,1l18,0c0.552,0 1,-0.448 1,-1Zm0,-3c0,-0.552 -0.448,-1 -1,-1l-18,0c-0.552,0 -1,0.448 -1,1c0,0.552 0.448,1 1,1l18,0c0.552,0 1,-0.448 1,-1Zm0,-3c0,-0.552 -0.448,-1 -1,-1l-18,0c-0.552,0 -1,0.448 -1,1c0,0.552 0.448,1 1,1l18,0c0.552,0 1,-0.448 1,-1Zm0,-3c0,-0.552 -0.448,-1 -1,-1l-18,-0c-0.552,-0 -1,0.448 -1,1c0,0.552 0.448,1 1,1l18,0c0.552,0 1,-0.448 1,-1Z" style="fill:#ff6700;"/></g><g id="icon_list_active"><rect x="214" y="48" width="24" height="24" style="fill:none;"/><path d="M236,69c0,-0.552 -0.448,-1 -1,-1l-18,0c-0.552,0 -1,0.448 -1,1c0,0.552 0.448,1 1,1l18,0c0.552,0 1,-0.448 1,-1Zm0,-3c0,-0.552 -0.448,-1 -1,-1l-18,0c-0.552,0 -1,0.448 -1,1c0,0.552 0.448,1 1,1l18,0c0.552,0 1,-0.448 1,-1Zm0,-3c0,-0.552 -0.448,-1 -1,-1l-18,0c-0.552,0 -1,0.448 -1,1c0,0.552 0.448,1 1,1l18,0c0.552,0 1,-0.448 1,-1Zm0,-3c0,-0.552 -0.448,-1 -1,-1l-18,0c-0.552,0 -1,0.448 -1,1c0,0.552 0.448,1 1,1l18,0c0.552,0 1,-0.448 1,-1Zm0,-3c0,-0.552 -0.448,-1 -1,-1l-18,0c-0.552,0 -1,0.448 -1,1c0,0.552 0.448,1 1,1l18,0c0.552,0 1,-0.448 1,-1Zm0,-3c0,-0.552 -0.448,-1 -1,-1l-18,0c-0.552,0 -1,0.448 -1,1c0,0.552 0.448,1 1,1l18,0c0.552,0 1,-0.448 1,-1Zm0,-3c0,-0.552 -0.448,-1 -1,-1l-18,-0c-0.552,-0 -1,0.448 -1,1c0,0.552 0.448,1 1,1l18,0c0.552,0 1,-0.448 1,-1Z" style="fill:#fffdf9;"/></g><g id="icon_map"><rect x="238" y="24" width="24" height="24" style="fill:none;"/><path d="M250,26c3.863,-0 7,3.137 7,7c0,3.863 -7,13 -7,13c0,-0 -7,-9.137 -7,-13c0,-3.863 3.137,-7 7,-7Zm0,3c1.656,0 3,1.344 3,3c0,1.656 -1.344,3 -3,3c-1.656,0 -3,-1.344 -3,-3c0,-1.656 1.344,-3 3,-3Z" style="fill:#ff6700;"/></g><g id="icon_metrixplus"><path d="M277,33l9,0l0,6l-9,0l0,9l-6,0l0,-9l-9,0l0,-6l9,0l0,-8.007c0,-0.47 0.411,-0.993 1.002,-0.993l4.01,-0c0.468,0 0.988,0.529 0.988,0.997l0,8.003Z" style="fill:#3ec300;fill-rule:nonzero;"/></g><g id="icon_map_active"><rect x="238" y="48" width="24" height="24" style="fill:none;"/><path d="M250,50c3.863,-0 7,3.137 7,7c0,3.863 -7,13 -7,13c0,-0 -7,-9.137 -7,-13c0,-3.863 3.137,-7 7,-7Zm0,3c1.656,0 3,1.344 3,3c0,1.656 -1.344,3 -3,3c-1.656,0 -3,-1.344 -3,-3c0,-1.656 1.344,-3 3,-3Z" style="fill:#fffdf9;"/></g><g id="metrix_paf_logo_white" transform="translate(400,550)"><path d="M158.67 0C141.68 0 127.86 13.82 127.86 30.81C127.86 47.8 141.68 61.62 158.67 61.62C175.66 61.62 189.48 47.8 189.48 30.81C189.48 13.82 175.66 0 158.67 0ZM175.33 52.53L172.22 48.25C171.77 48.6 171.31 48.93 170.84 49.25L173.95 53.54C169.8 56.34 164.85 58.02 159.52 58.19V52.89C159.24 52.9 158.95 52.91 158.67 52.91C158.39 52.91 158.1 52.9 157.82 52.89V58.19C152.49 58.03 147.54 56.34 143.39 53.54L146.5 49.25C146.03 48.94 145.56 48.6 145.12 48.25L142.01 52.53C137.95 49.41 134.78 45.18 132.97 40.3L138.03 38.66C137.83 38.13 137.65 37.59 137.49 37.04L132.44 38.68C131.69 36.18 131.28 33.54 131.28 30.8C131.28 28.23 131.64 25.74 132.31 23.38L137.38 25.03C137.53 24.48 137.7 23.94 137.89 23.4L132.83 21.75C134.58 16.77 137.72 12.45 141.79 9.25L144.92 13.56C145.36 13.21 145.82 12.86 146.29 12.54L143.16 8.23C147.36 5.34 152.39 3.58001 157.83 3.42001V8.77C158.11 8.76 158.4 8.75 158.68 8.75C158.96 8.75 159.25 8.76 159.53 8.77V3.42001C164.96 3.59001 170 5.34 174.2 8.23L171.07 12.54C171.54 12.86 172 13.2 172.44 13.56L175.57 9.25C179.64 12.45 182.79 16.77 184.53 21.75L179.47 23.4C179.66 23.93 179.83 24.48 179.98 25.03L185.05 23.38C185.72 25.74 186.08 28.23 186.08 30.8C186.08 33.54 185.67 36.18 184.92 38.68L179.87 37.04C179.71 37.59 179.53 38.13 179.33 38.66L184.39 40.3C182.58 45.18 179.41 49.41 175.35 52.53" style="fill:#fff;"/><path d="M159.54 37.39V50.14H157.82V37.39H149.8L148.73 31.04L155.36 31C152.37 28.6 150.27 23.05 150.27 16.58C150.27 15.52 150.33 14.49 150.43 13.5H166.92C167.03 14.5 167.08 15.53 167.08 16.58C167.08 23.01 165.01 28.54 162.04 30.97L168.62 30.93L167.29 37.39H159.54Z" style="fill:#fff;"/><path d="M14.96 12.64C16.3 12.64 17.26 13.72 17.12 15.06L16.22 23.61C16.08 24.95 14.89 26.03 13.55 26.03H2.58L3.99 12.64H14.96ZM15.11 15.05C15.13 14.83 14.97 14.64 14.75 14.64H6.2C5.98 14.64 5.77 14.83 5.75 15.05L4.85 23.6C4.83 23.82 4.99 24.01 5.21 24.01H13.76C13.98 24.01 14.19 23.82 14.21 23.6L15.11 15.05Z" style="fill:#fff;"/><path d="M19.47 12.64H21.48L20.07 26.02H18.06L19.47 12.64Z" style="fill:#fff;"/><path d="M36.5 15.83H34.49L34.57 15.05C34.59 14.83 34.43 14.64 34.2 14.64H25.65C25.43 14.64 25.22 14.83 25.2 15.05L24.9 17.91C24.88 18.13 25.04 18.32 25.27 18.32H33.82C35.16 18.32 36.12 19.4 35.98 20.74L35.68 23.6C35.54 24.94 34.35 26.02 33.01 26.02H24.46C23.12 26.02 22.16 24.94 22.3 23.6L22.38 22.82H24.39L24.31 23.6C24.29 23.82 24.45 24.01 24.68 24.01H33.23C33.45 24.01 33.66 23.82 33.68 23.6L33.98 20.74C34 20.52 33.84 20.33 33.61 20.33H25.06C23.72 20.33 22.76 19.25 22.9 17.91L23.2 15.05C23.34 13.71 24.53 12.63 25.87 12.63H34.42C35.76 12.63 36.72 13.71 36.58 15.05L36.5 15.83Z" style="fill:#fff;"/><path d="M41.02 14.64C40.8 14.64 40.59 14.83 40.57 15.05L39.67 23.6C39.65 23.82 39.81 24.01 40.03 24.01H50.96L50.75 26.02H39.82C38.48 26.02 37.52 24.94 37.66 23.6L38.56 15.05C38.7 13.71 39.89 12.63 41.23 12.63H52.16L51.95 14.64H41.02Z" style="fill:#fff;"/><path d="M72.53 15.85H70.52L70.6 15.05C70.62 14.83 70.46 14.64 70.23 14.64H61.68C61.46 14.64 61.25 14.83 61.23 15.05L60.33 23.6C60.31 23.82 60.47 24.01 60.7 24.01H69.25C69.47 24.01 69.68 23.82 69.7 23.6L70.01 20.7H66.85L67.06 18.69H72.23L71.71 23.6C71.57 24.94 70.38 26.02 69.04 26.02H60.49C59.15 26.02 58.19 24.94 58.33 23.6L59.23 15.05C59.37 13.71 60.56 12.63 61.9 12.63H70.45C71.79 12.63 72.75 13.71 72.61 15.05L72.53 15.85Z" style="fill:#fff;"/><path d="M85.84 12.64C87.18 12.64 88.14 13.72 88 15.06L87.1 23.61C86.96 24.95 85.77 26.03 84.43 26.03H75.88C74.54 26.03 73.58 24.95 73.72 23.61L74.62 15.06C74.76 13.72 75.95 12.64 77.29 12.64H85.84ZM84.64 24.01C84.86 24.01 85.07 23.82 85.09 23.6L85.99 15.05C86.01 14.83 85.85 14.64 85.62 14.64H77.07C76.85 14.64 76.64 14.83 76.62 15.05L75.72 23.6C75.7 23.82 75.86 24.01 76.09 24.01H84.64Z" style="fill:#fff;"/><path d="M90.32 12.62H92.32L91.13 24.01H102.51L102.29 26.02H88.91L90.32 12.62Z" style="fill:#fff;"/><path d="M117.08 12.64L116.87 14.64H106.61L106.22 18.33H114.48L114.26 20.33H106.01L105.41 26.02H103.4L104.81 12.64H117.08Z" style="fill:#fff;"/><path d="M19.87 29.19H24.3L22.22 49H17.93L19.33 35.71C16.82 38.35 14.13 41.27 11.65 43.85L5.65 35.74L4.26 49H0L2.08 29.19H6.48L12.35 37.2L19.88 29.19H19.87Z" style="fill:#fff;"/><path d="M44.82 33.48H30.85L30.48 36.94H41.73L41.28 41.23H30.03L29.67 44.7H43.64L43.19 48.99H24.9L26.98 29.19H45.27L44.82 33.48Z" style="fill:#fff;"/><path d="M66.13 29.19L65.68 33.48H57.92L56.29 48.99H52L53.63 33.48H45.87L46.32 29.19H66.13Z" style="fill:#fff;"/><path d="M86.32 38.4C86.09 40.63 84.05 42.47 81.79 42.47H81.6C82.83 44.12 84.16 45.88 85.36 47.53L85.21 48.99H80.81L76.02 42.47L70.35 42.5C70.4 42.5 70.43 42.56 70.42 42.67C70.42 42.67 70.37 42.67 70.34 42.64L69.67 48.99H65.41L67.49 29.21H83.2C85.46 29.21 87.1 31.05 86.87 33.28L86.33 38.4H86.32ZM70.8 38.18H82.02L82.51 33.48H71.29L70.8 38.18Z" style="fill:#fff;"/><path d="M89.55 29.19H93.84L91.76 48.99H87.47L89.55 29.19Z" style="fill:#fff;"/><path d="M115.52 29.19L115.37 30.65L107.39 39.1L113.6 47.52L113.44 49.01H109.01L104.19 42.52C102.48 44.36 99.96 46.95 98.06 49.01H93.63L93.78 47.55L101.74 39.11C99.72 36.33 97.61 33.41 95.56 30.66L95.71 29.2H100.14L104.96 35.72C106.64 33.85 109.17 31.29 111.09 29.2H115.52V29.19Z" style="fill:#fff;"/><path d="M225.98 35.05C225.98 30.64 222.41 27.07 218 27.07H205.58C203.85 27.07 202.46 28.47 202.46 30.19V46.03C202.46 47.75 203.86 49.15 205.58 49.15H213.93C215.66 49.15 217.05 47.75 217.05 46.03V43.52C217.05 43.24 217.28 43.01 217.56 43.01H218C222.41 43.01 225.98 39.44 225.98 35.03" style="fill:#fff;"/><path d="M208.89 43.45C211.83 43.45 214.22 41.06 214.22 38.12C214.22 35.18 211.83 32.79 208.89 32.79C205.95 32.79 203.56 35.18 203.56 38.12C203.56 41.06 205.95 43.45 208.89 43.45Z" style="fill:#E73F13;"/><path d="M268.94 35C270.11 35 271.06 34.05 271.06 32.88V29.71C271.06 28.26 269.88 27.08 268.43 27.08H252.86C251.13 27.08 249.74 28.48 249.74 30.2V46.04C249.74 47.76 251.14 49.16 252.86 49.16H261.21C262.94 49.16 264.33 47.76 264.33 46.04V43.53C264.33 43.25 264.56 43.02 264.84 43.02H266.18C267.63 43.02 268.81 41.84 268.81 40.39V38.18C268.81 36.73 267.63 35.55 266.18 35.55H264.61C264.46 35.55 264.33 35.42 264.33 35.27C264.33 35.12 264.46 34.99 264.61 34.99H268.94V35Z" style="fill:#fff;"/><path d="M244.86 27.08H235.84C234.77 27.08 233.77 27.63 233.19 28.54L223.24 44.38C221.93 46.46 223.43 49.16 225.88 49.16H231.7C233.19 49.16 234.58 48.43 235.44 47.21L237.68 44.01C237.87 43.74 238.29 43.87 238.29 44.2V46.18C238.29 47.82 239.62 49.15 241.26 49.15H244.84C246.57 49.15 247.96 47.75 247.96 46.03V30.19C247.96 28.46 246.56 27.07 244.84 27.07" style="fill:#fff;"/><path d="M202.46 23.74V13.15C202.46 12.95 202.56 12.85 202.76 12.85H205.02C205.61 12.85 206.15 13 206.66 13.31C207.17 13.61 207.57 14.02 207.86 14.52C208.15 15.02 208.3 15.56 208.3 16.14C208.3 16.72 208.15 17.26 207.86 17.76C207.57 18.26 207.17 18.66 206.66 18.97C206.15 19.27 205.61 19.43 205.02 19.43H204.28V23.77C204.28 23.97 204.18 24.07 203.98 24.07H202.76C202.56 24.07 202.46 23.97 202.46 23.77V23.74ZM205.02 17.58C205.4 17.58 205.74 17.43 206.04 17.14C206.33 16.85 206.48 16.51 206.48 16.12C206.48 15.73 206.33 15.4 206.04 15.1C205.75 14.81 205.41 14.66 205.02 14.66H204.28V17.57H205.02V17.58Z" style="fill:#fff;"/><path d="M210.87 23.78C210.41 23.51 210.05 23.15 209.78 22.69C209.51 22.23 209.38 21.73 209.38 21.19V15.72C209.38 15.18 209.51 14.67 209.78 14.22C210.05 13.76 210.41 13.4 210.87 13.13C211.33 12.86 211.83 12.73 212.37 12.73C212.91 12.73 213.42 12.86 213.87 13.13C214.33 13.4 214.69 13.76 214.96 14.22C215.23 14.68 215.36 15.18 215.36 15.72V21.19C215.36 21.73 215.23 22.24 214.96 22.69C214.69 23.14 214.33 23.51 213.87 23.78C213.41 24.05 212.91 24.18 212.37 24.18C211.83 24.18 211.32 24.05 210.87 23.78ZM213.2 22.01C213.43 21.78 213.54 21.51 213.54 21.19V15.72C213.54 15.4 213.43 15.13 213.2 14.9C212.97 14.67 212.7 14.56 212.38 14.56C212.06 14.56 211.79 14.67 211.56 14.9C211.33 15.13 211.22 15.4 211.22 15.72V21.19C211.22 21.51 211.33 21.79 211.56 22.01C211.79 22.24 212.06 22.35 212.38 22.35C212.7 22.35 212.97 22.23 213.2 22.01Z" style="fill:#fff;"/><path d="M218.45 23.98C218.4 23.93 218.36 23.87 218.35 23.8L216.27 13.24L216.25 13.16C216.25 13.08 216.28 13 216.34 12.94C216.4 12.88 216.48 12.85 216.57 12.85H217.77C217.84 12.85 217.91 12.88 217.96 12.94C218.01 13 218.05 13.07 218.07 13.16L219.19 19.62L220.34 13.75C220.37 13.59 220.48 13.51 220.66 13.51H221.88C222.06 13.51 222.17 13.59 222.2 13.75L223.35 19.62L224.47 13.16C224.49 13.08 224.53 13 224.58 12.94C224.63 12.88 224.7 12.85 224.77 12.85H225.97C226.08 12.85 226.16 12.89 226.22 12.96C226.28 13.04 226.3 13.13 226.28 13.23L224.2 23.79C224.19 23.86 224.16 23.93 224.1 23.97C224.04 24.01 223.98 24.04 223.91 24.04H222.77C222.6 24.04 222.5 23.95 222.47 23.78L221.27 17.27L220.07 23.78C220.04 23.95 219.94 24.04 219.77 24.04H218.63C218.55 24.04 218.49 24.02 218.44 23.97L218.45 23.98Z" style="fill:#fff;"/><path d="M227.57 23.96C227.51 23.9 227.48 23.83 227.48 23.74V13.15C227.48 13.07 227.51 12.99 227.57 12.93C227.63 12.87 227.7 12.84 227.79 12.84H233.04C233.12 12.84 233.2 12.87 233.26 12.93C233.32 12.99 233.35 13.06 233.35 13.15V14.37C233.35 14.46 233.32 14.53 233.26 14.59C233.2 14.65 233.13 14.68 233.04 14.68H229.31V17.54H232.29C232.38 17.54 232.45 17.57 232.51 17.63C232.57 17.69 232.6 17.76 232.6 17.85V19.07C232.6 19.15 232.57 19.23 232.51 19.29C232.45 19.35 232.38 19.38 232.29 19.38H229.31V22.25H233.04C233.12 22.25 233.2 22.28 233.26 22.34C233.32 22.4 233.35 22.47 233.35 22.56V23.78C233.35 23.87 233.32 23.94 233.26 24C233.2 24.06 233.13 24.09 233.04 24.09H227.79C227.71 24.09 227.63 24.06 227.57 24V23.96Z" style="fill:#fff;"/><path d="M234.72 23.74V13.15C234.72 12.95 234.82 12.85 235.02 12.85H237.26C237.84 12.85 238.38 12.99 238.88 13.28C239.38 13.57 239.8 13.96 240.1 14.46C240.41 14.96 240.56 15.51 240.56 16.11C240.56 16.68 240.42 17.2 240.14 17.68C239.86 18.16 239.45 18.58 238.93 18.93C239.58 20.71 240.03 21.94 240.27 22.63C240.52 23.31 240.64 23.68 240.64 23.73C240.64 23.82 240.61 23.89 240.54 23.95C240.47 24.01 240.4 24.05 240.3 24.05H239.05C238.9 24.05 238.8 23.98 238.76 23.84L237.18 19.34H236.52V23.74C236.52 23.94 236.42 24.04 236.22 24.04H235C234.8 24.04 234.7 23.94 234.7 23.74H234.72ZM237.31 17.55C237.7 17.55 238.04 17.41 238.33 17.13C238.62 16.85 238.75 16.51 238.75 16.11C238.75 15.71 238.61 15.38 238.33 15.09C238.05 14.81 237.71 14.67 237.31 14.67H236.54V17.55H237.31Z" style="fill:#fff;"/><path d="M242.03 23.96C241.97 23.9 241.94 23.83 241.94 23.74V13.15C241.94 13.07 241.97 12.99 242.03 12.93C242.09 12.87 242.16 12.84 242.25 12.84H247.5C247.58 12.84 247.66 12.87 247.72 12.93C247.78 12.99 247.81 13.06 247.81 13.15V14.37C247.81 14.46 247.78 14.53 247.72 14.59C247.66 14.65 247.59 14.68 247.5 14.68H243.77V17.54H246.75C246.84 17.54 246.91 17.57 246.97 17.63C247.03 17.69 247.06 17.76 247.06 17.85V19.07C247.06 19.15 247.03 19.23 246.97 19.29C246.91 19.35 246.84 19.38 246.75 19.38H243.77V22.25H247.5C247.58 22.25 247.66 22.28 247.72 22.34C247.78 22.4 247.81 22.47 247.81 22.56V23.78C247.81 23.87 247.78 23.94 247.72 24C247.66 24.06 247.59 24.09 247.5 24.09H242.25C242.17 24.09 242.09 24.06 242.03 24V23.96Z" style="fill:#fff;"/><path d="M249.27 23.96C249.21 23.9 249.18 23.83 249.18 23.74V13.15C249.18 13.07 249.21 12.99 249.27 12.93C249.33 12.87 249.4 12.84 249.49 12.84H252.2C252.72 12.84 253.2 12.96 253.64 13.22C254.08 13.47 254.42 13.81 254.67 14.25C254.92 14.69 255.05 15.17 255.05 15.69V21.2C255.05 21.72 254.92 22.2 254.67 22.64C254.42 23.08 254.08 23.42 253.64 23.67C253.2 23.92 252.72 24.05 252.2 24.05H249.49C249.41 24.05 249.33 24.02 249.27 23.96ZM252.19 22.23C252.51 22.23 252.76 22.14 252.94 21.96C253.12 21.78 253.21 21.53 253.21 21.21V15.7C253.21 15.38 253.12 15.13 252.94 14.95C252.76 14.77 252.51 14.68 252.19 14.68H251.01V22.23H252.19Z" style="fill:#fff;"/><path d="M259.33 23.96C259.27 23.9 259.24 23.83 259.24 23.74V13.15C259.24 13.07 259.27 12.99 259.33 12.93C259.39 12.87 259.46 12.84 259.55 12.84H261.81C262.38 12.84 262.91 12.99 263.43 13.28C263.94 13.57 264.35 13.97 264.65 14.48C264.95 14.99 265.11 15.54 265.11 16.14C265.11 17.06 264.79 17.83 264.15 18.46C264.79 19.06 265.11 19.83 265.11 20.76C265.11 21.34 264.96 21.88 264.67 22.38C264.38 22.88 263.98 23.28 263.48 23.59C262.98 23.89 262.42 24.05 261.82 24.05H259.56C259.48 24.05 259.4 24.02 259.34 23.96H259.33ZM261.85 17.6C262.29 17.6 262.63 17.45 262.89 17.15C263.15 16.85 263.27 16.52 263.27 16.14C263.27 15.75 263.13 15.4 262.85 15.11C262.57 14.82 262.23 14.67 261.85 14.67H261.07V17.6H261.85ZM261.85 22.23C262.22 22.23 262.55 22.09 262.84 21.81C263.13 21.53 263.27 21.18 263.27 20.78C263.27 20.41 263.15 20.07 262.92 19.77C262.69 19.47 262.33 19.32 261.85 19.32H261.07V22.23H261.85Z" style="fill:#fff;"/><path d="M267.83 23.95C267.77 23.89 267.73 23.81 267.73 23.73V18.58L265.68 13.28C265.66 13.22 265.65 13.17 265.65 13.14C265.65 13.07 265.67 13 265.72 12.94C265.77 12.88 265.84 12.85 265.92 12.85H267.26C267.41 12.85 267.51 12.92 267.55 13.06L268.64 15.88L269.71 13.06C269.75 12.92 269.85 12.85 270 12.85H271.34C271.44 12.85 271.51 12.88 271.56 12.94C271.61 13 271.63 13.06 271.63 13.14C271.63 13.17 271.62 13.22 271.6 13.28L269.55 18.58V23.73C269.55 23.82 269.52 23.89 269.45 23.95C269.38 24.01 269.31 24.05 269.21 24.05H268.04C267.95 24.05 267.88 24.02 267.82 23.95H267.83Z" style="fill:#fff;"/></g></g></g></svg></div>
+		<div class="off-canvas-wrapper">
+			<div class="off-canvas-wrapper-inner" data-off-canvas-wrapper>
+<div class="title-bar hide-for-medium" data-hide-for="medium">
+	<div class="title-bar-left">
+		<span class="title-bar-title">
+			<a id="logo_xsmall" href="/">
+                                    <svg viewBox="400 550 272 62">
+                        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#metrix_paf_logo_white"></use>
+                    </svg>
+                			</a>
+		</span>
+	</div>
+			<input id="search-mobile" type="text" placeholder="Search..." onkeyup="search_onchange(this.value)">
+			<div class="title-bar-right">
+		<button data-open="offCanvasRight">
+			<svg class="icon-small margin-0" viewBox="214 48 24 24">
+				<use xlink:href="#icon_list_active"></use>
+			</svg>
+		</button>
+	</div>
+</div>
+
+<div class="off-canvas position-right" id="offCanvasRight" data-off-canvas data-position="right">
+	<ul class="vertical dropdown menu" data-dropdown-menu>
+		<li  class="is-active" >
+			<a href="/">Dashboard</a>
+		</li>
+		<li >
+			<a href="/?u=competitions_all">Competitions</a>
+		</li>
+		<li    >
+			<a href="/?u=mystat">Statistics</a>
+		</li>
+		<li  >
+			<a href="/?u=courses">Courses</a>
+		</li>
+		<li   >
+			<a href="/?u=clubs">Clubs</a>
+		</li>
+		<li   >
+			<a href="/?u=rule&ID=2">Instructions</a>
+		</li>
+        <li>
+            <a href="https://www.growdiscgolf.eu" target="_blank">Blog</a>
+        </li>
+		<li   >
+			<a href="/?u=bagtags">Bagtag</a>
+		</li>
+				<li>
+			<label id="language-menu">Language				<select onchange="window.location.href='/?locale='+this.options[this.selectedIndex].value"><option value="da" >Dansk</option><option value="de" >Deutsch</option><option value="et" >Eesti</option><option value="en" selected="selected">English</option><option value="es" >Español</option><option value="fr" >Français</option><option value="is" >Íslenska</option><option value="lv" >Latviešu valoda</option><option value="lt" >Lietuvių kalba</option><option value="no" >Norsk</option><option value="pl" >Polski</option><option value="fi" >Suomi</option><option value="sv" >Svenska</option><option value="ru" >Русский язык</option><option value="ja" >日本語</option></select>			</label>
+		</li>
+		<li>
+			<a href="/?u=login&logout=1">Login</a>
+		</li>
+			</ul>
+
+</div>
+
+<div id="widemenu" class="top-bar show-for-medium collapse">
+	<div class="row column">
+		<div id="top-menu">
+			<div id="top-menu-primary">
+				<ul id="top-menu-row">
+					<li id="top-menu-logo">
+						<a href="/">
+                                                            <svg viewBox="400 550 272 62" style="width: 8rem;">
+                                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#metrix_paf_logo_white"></use>
+                                </svg>
+                            						</a>
+					</li>
+					<li ><a href="/?u=competitions_all">Competitions</a></li>
+					<li ><a href="/?u=mystat">Statistics</a></li>
+					<li ><a href="/?u=courses">Courses</a></li>
+					<li ><a href="/?u=clubs">Clubs</a></li>
+					<li ><a href="/?u=rule&ID=2">Instructions</a></li>
+                    <li><a href="https://www.growdiscgolf.eu" target="_blank">Blog</a></li>
+					<li class="last"><a href="/?u=bagtags">Bagtag</a></li>
+					<li id="show-more">
+						<i>
+							<svg preserveAspectRatio="xMidYMid meet" viewBox="0 0 512 512">
+								<path d="M256 224c-17.7 0-32 14.3-32 32s14.3 32 32 32 32-14.3 32-32-14.3-32-32-32zM128.4 224c-17.7 0-32 14.3-32 32s14.3 32 32 32 32-14.3 32-32-14.4-32-32-32zM384 224c-17.7 0-32 14.3-32 32s14.3 32 32 32 32-14.3 32-32-14.3-32-32-32z"/>
+							</svg>
+						</i>
+					</li>
+				</ul>
+			</div>
+							<div id="top-menu-secondary">
+					<a id="login-link" href="/?u=login">Login</a>
+					<div id="language-menu">
+						<select onchange="window.location.href='/?locale='+this.options[this.selectedIndex].value"><option value="da" >Dansk</option><option value="de" >Deutsch</option><option value="et" >Eesti</option><option value="en" selected="selected">English</option><option value="es" >Español</option><option value="fr" >Français</option><option value="is" >Íslenska</option><option value="lv" >Latviešu valoda</option><option value="lt" >Lietuvių kalba</option><option value="no" >Norsk</option><option value="pl" >Polski</option><option value="fi" >Suomi</option><option value="sv" >Svenska</option><option value="ru" >Русский язык</option><option value="ja" >日本語</option></select>					</div>
+				</div>
+
+						</div>
+	</div>
+</div>
+
+<script>
+	var needToSend = 0;
+	var needToSendString = "";
+	var isSending = 0;
+	var intervalSearch;
+
+	function search_onchange(value) {
+
+		if(value.length>=2)
+		{
+			if(!isSending)
+				searchString(value);
+			else
+			{
+				needToSend = 1;
+				needToSendString = value;
+				intervalSearch = setInterval(trySearch, 500);
+			}
+		}
+
+	}
+
+	function trySearch()
+	{
+		if(needToSend == 1 && isSending == 0)
+		{
+			if(intervalSearch)
+				clearInterval(intervalSearch);
+
+			needToSend = 0;
+			searchString(needToSendString);
+		}
+		else
+		{
+			intervalSearch = setInterval(trySearch, 500);
+		}
+	}
+
+	function searchString(value)
+	{
+		var xmlhttp;
+
+		if (window.XMLHttpRequest)
+			xmlhttp=new XMLHttpRequest();
+
+		xmlhttp.onreadystatechange=function()
+		{
+			if (xmlhttp.readyState==4 && xmlhttp.status==200) {
+
+				doc=document.getElementById("content");
+				doc.innerHTML = xmlhttp.responseText;
+
+				isSending = 0;
+			}
+		}
+
+		if(value.length>=2)
+		{
+			isSending = 1;
+			xmlhttp.open("GET","../search.php?value="+value,true);
+			xmlhttp.send();
+		}
+
+	}
+
+</script>
+<div id="content" class="off-canvas-content" data-off-canvas-content>
+		<div id="landing">
+
+		<div id="hero">
+		<div class="row expanded">
+		<div class="column">
+		<svg id="logo_landing" viewBox="400 550 272 62">
+		<use xlink:href="#metrix_paf_logo_white"></use>
+		</svg>
+		<h1 class="text-center">Live scorecard and statistics for disc golf</h1>
+		<p class="text-center">
+		<a class="button cta" href="/?u=login">Login</a>
+		<a class="button cta" href="/?u=login#panel2">Sign up</a>
+		</p>
+		</div>
+		</div>
+		</div>
+		<div class="row">
+		<div class="column">
+		<ul class="communitynumbers">
+		<li><div class="stats">226K</div>Users</li>
+		<li><div class="stats">18866</div>Courses</li>
+		<li><div class="stats">2463</div>Clubs</li>
+		<li><div class="stats">2632K</div>Practice rounds</li>
+		<li><div class="stats">820K</div>Competitions</li>
+		</li>
+		</div>
+		</div>
+
+		<div class="row">
+		<div class="column small-12 medium-6">
+		<img class="landing-img" src="assets/img/illustration_landing_manageresuts.png" alt="pedestal">
+		</div>
+		<div class="column small-12 medium-6">
+		<h2>Manage competitions</h2>
+		<p>Arrange competitions with live scoring.<br> Manage registrations with multiple classes and queuing.<br> Set up tours and weekly series with different points and handicap systems.<br> Provide good service to players.<br></p>
+		<p><a class="button" href="/?u=competitions">Find competitions</a></p>
+		</div>
+		</div>
+		<hr>
+		<div class="row">
+		<div class="column small-12 medium-6">
+		<img class="landing-img" src="assets/img/illustration_landing_stats.png" alt="pedestal">
+		</div>
+		<div class="column small-12 medium-6">
+		<h2>Personal statistics</h2>
+		<p>Keep track of every throw for competitions and practice rounds.<br> Follow your progress based on different statistics.<br> Get your personal Metrix Rating.<br> Compare your stats against friends, club members or other disc golf athletes.</p>
+		<p><a class="button" href="/?u=login">Sign up for stats</a></p>
+		</div>
+		</div>
+
+		<hr>
+		<div class="row">
+		<div class="column small-12 medium-6">
+		<img class="landing-img" src="assets/img/illustration_landing_courses.png" alt="pedestal">
+		</div>
+		<div class="column small-12 medium-6">
+		<h2>Manage and find courses</h2>
+		<p>Thousands of public courses readily available.<br> Find courses based on name and location, GPS also.<br> Manage local courses and create different layouts.<br> Course statistics, top results and course based rating system.<br> Private or personal courses also available.<br></p>
+		<p><a class="button" href="/?u=courses">Find courses near you</a></p>
+		</div>
+		</div>
+
+		<hr>
+		<div class="row">
+		<div class="column small-12 medium-6">
+		<img class="landing-img" src="assets/img/illustration_landing_clubs.png" alt="pedestal">
+		</div>
+		<div class="column small-12 medium-6">
+		<h2>Get involved in Clubs</h2>
+		<p>Join a local club or create one for your friends.<br> Compare Metrix Ratings between club members.<br> Organize competitions for your club.<br> Start a new Bagtag challenge for your club.<br></p>
+		<p><a class="button" href="/?u=login">Sign up for clubs</a></p>
+		</div>
+
+		</div>
+
+		<hr>
+		<div class="row">
+		<div class="column small-12 medium-6">
+		<img class="landing-img" src="assets/img/illustration_landing_bagtag.png" alt="pedestal">
+		</div>
+		<div class="column small-12 medium-6">
+		<h2>Run your own BagTag challenge</h2>
+		<p>Join a bagtag challenge or start your own.<br> Keep track of current standings and tag history.<br> Simple, fast and easy to use.<br> Available for clubs on request.<br></p>
+		<p><a class="button" href="/?u=login">Sign up for bagtag</a></p>
+		</div>
+		</div>
+		</div><style>
+#sharer-modal {
+    text-align: center;
+}
+#sharer-preview {
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+#sharer-preview img {
+    width: 100%;
+    height: auto;
+}
+.fakely-button {
+    color: #000;
+    background: hsla(0, 0%, 91%, 0.8);
+    line-height: 28px;
+    font-size: 18px;
+    border-radius: 4px;
+    height: 32px;
+    margin: 0 6px 12px;
+}
+</style>
+<script>
+function setCookie(name, value, days) {
+    var expires = "";
+    if (days) {
+        var date = new Date();
+        date.setTime(date.getTime() + (days*24*60*60*1000));
+        expires = "; expires=" + date.toUTCString();
+    }
+    document.cookie = name + "=" + (value || "")  + expires + "; path=/";
+}
+
+function getCookie(name) {
+    var nameEQ = name + "=";
+    var ca = document.cookie.split(';');
+    for(var i=0;i < ca.length;i++) {
+        var c = ca[i];
+        while (c.charAt(0)==' ') c = c.substring(1, c.length);
+        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+    }
+    return null;
+}
+
+function eraseCookie(name) {   
+    document.cookie = name + '=; Max-Age=-99999999;';  
+}
+
+$(function() {
+
+    var hiddenSections = '';
+    if (hiddenSections == ',') hiddenSections = '';
+    $('#settings-table input[type=checkbox]:not([disabled])').prop('checked', true);
+    $('#settings-table input[type=checkbox]:not([disabled])').each(function() {
+        if (hiddenSections && hiddenSections.indexOf($(this).attr('name')) > -1) {
+            $(this).prop('checked', false);
+        }
+    });
+
+    $('#save-settings').click(function() {
+        /*
+        var cv = '';
+        $('#settings-table input[type=checkbox]:not([disabled])').each(function() {
+            if (!$(this).prop('checked')) {
+                cv += $(this).attr('name') + ',';
+            }
+        });
+        if (!cv) eraseCookie('dashboardHiddenSections');
+        else setCookie('dashboardHiddenSections', cv);
+        location.reload();
+        */
+    });
+
+});
+</script>
+<div class="reveal" id="settings-modal" data-reveal>
+    <form action="/" method="POST">
+        <input type="hidden" name="action" value="updateDashboardSettings" />
+        <div style="text-align: center;"><h1>Dashboard settings</h1></div>
+        <div>
+            <table id="settings-table">
+                <tr>
+                    <th>Section</th>
+                    <th>Enabled</th>
+                </tr>
+                <!--
+                <tr>
+                    <td>Let’s play disc golf!</td>
+                    <td><input type="checkbox" name="shortcuts" checked disabled></td>
+                </tr>
+                <tr>
+                    <td>MetrixLive</td>
+                    <td><input type="checkbox" name="live" checked disabled></td>
+                </tr>
+                -->
+                <tr>
+                    <td>My Metrix statistics</td>
+                    <td><input type="checkbox" name="ratings"></td>
+                </tr>
+                <tr>
+                    <td>My competitions</td>
+                    <td><input type="checkbox" name="competitions_p"></td>
+                </tr>
+                <tr>
+                    <td>My competitions (as admin)</td>
+                    <td><input type="checkbox" name="competitions_a"></td>
+                </tr>
+                <tr>
+                    <td>My practice rounds</td>
+                    <td><input type="checkbox" name="trainings"></td>
+                </tr>
+                <tr>
+                    <td>Nearby weekly competitions</td>
+                    <td><input type="checkbox" name="weeklies"></td>
+                </tr>
+                <tr>
+                    <td>Followed players</td>
+                    <td><input type="checkbox" name="players"></td>
+                </tr>
+                <tr>
+                    <td>Followed events</td>
+                    <td><input type="checkbox" name="followed"></td>
+                </tr>
+                <tr>
+                    <td>My top 5 rated rounds</td>
+                    <td><input type="checkbox" name="best"></td>
+                </tr>
+            </table>
+            <div style="text-align: center;"><button id="save-settings" class="button">Save</button><br />Settings are stored in a cookie on your device.</div>
+        </div>
+        <button class="close-button" data-close aria-label="Close modal" type="button">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </form>
+</div>                </div>
+                <!-- close wrapper .off-canvas-wrapper-inner, no more content after this -->
+            </div>
+        </div>
+		<footer>
+			<a href="/?u=feedback" target="_blank">Support & feedback</a>
+			<span class="separator">|</span>
+			<a class="facebook-link" href="https://www.facebook.com/discgolfmetrix/" target="_blank">
+				<img class="footer" src="/assets/img/facebook-box.png" alt="Like us on Facebook">
+			</a>
+			<span class="separator">|</span>
+			<a href="/?u=privacy_policy">Privacy policy</a>
+			<span class="separator">|</span>
+			© Disc Golf Metrix 2026		</footer>
+		
+		<div id="sass-to-js"></div>
+	</body>
+</html>

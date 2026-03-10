@@ -1,0 +1,1632 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>GamePad Viewer - The Official Controller Display & Tester</title>
+    <link rel="icon" type="image/png" href="app-icon.png" />
+    <link rel="stylesheet" type="text/css" href="reset.css" />
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    <style type="text/css">@font-face {font-family:Source Sans Pro;font-style:normal;font-weight:400;src:url(/cf-fonts/s/source-sans-pro/5.0.11/latin-ext/400/normal.woff2);unicode-range:U+0100-02AF,U+0304,U+0308,U+0329,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20CF,U+2113,U+2C60-2C7F,U+A720-A7FF;font-display:swap;}@font-face {font-family:Source Sans Pro;font-style:normal;font-weight:400;src:url(/cf-fonts/s/source-sans-pro/5.0.11/vietnamese/400/normal.woff2);unicode-range:U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB;font-display:swap;}@font-face {font-family:Source Sans Pro;font-style:normal;font-weight:400;src:url(/cf-fonts/s/source-sans-pro/5.0.11/cyrillic/400/normal.woff2);unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116;font-display:swap;}@font-face {font-family:Source Sans Pro;font-style:normal;font-weight:400;src:url(/cf-fonts/s/source-sans-pro/5.0.11/latin/400/normal.woff2);unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-display:swap;}@font-face {font-family:Source Sans Pro;font-style:normal;font-weight:400;src:url(/cf-fonts/s/source-sans-pro/5.0.11/cyrillic-ext/400/normal.woff2);unicode-range:U+0460-052F,U+1C80-1C88,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F;font-display:swap;}@font-face {font-family:Source Sans Pro;font-style:normal;font-weight:400;src:url(/cf-fonts/s/source-sans-pro/5.0.11/greek-ext/400/normal.woff2);unicode-range:U+1F00-1FFF;font-display:swap;}@font-face {font-family:Source Sans Pro;font-style:normal;font-weight:400;src:url(/cf-fonts/s/source-sans-pro/5.0.11/greek/400/normal.woff2);unicode-range:U+0370-03FF;font-display:swap;}@font-face {font-family:Source Sans Pro;font-style:normal;font-weight:700;src:url(/cf-fonts/s/source-sans-pro/5.0.11/cyrillic/700/normal.woff2);unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116;font-display:swap;}@font-face {font-family:Source Sans Pro;font-style:normal;font-weight:700;src:url(/cf-fonts/s/source-sans-pro/5.0.11/cyrillic-ext/700/normal.woff2);unicode-range:U+0460-052F,U+1C80-1C88,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F;font-display:swap;}@font-face {font-family:Source Sans Pro;font-style:normal;font-weight:700;src:url(/cf-fonts/s/source-sans-pro/5.0.11/latin/700/normal.woff2);unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-display:swap;}@font-face {font-family:Source Sans Pro;font-style:normal;font-weight:700;src:url(/cf-fonts/s/source-sans-pro/5.0.11/vietnamese/700/normal.woff2);unicode-range:U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB;font-display:swap;}@font-face {font-family:Source Sans Pro;font-style:normal;font-weight:700;src:url(/cf-fonts/s/source-sans-pro/5.0.11/latin-ext/700/normal.woff2);unicode-range:U+0100-02AF,U+0304,U+0308,U+0329,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20CF,U+2113,U+2C60-2C7F,U+A720-A7FF;font-display:swap;}@font-face {font-family:Source Sans Pro;font-style:normal;font-weight:700;src:url(/cf-fonts/s/source-sans-pro/5.0.11/greek-ext/700/normal.woff2);unicode-range:U+1F00-1FFF;font-display:swap;}@font-face {font-family:Source Sans Pro;font-style:normal;font-weight:700;src:url(/cf-fonts/s/source-sans-pro/5.0.11/greek/700/normal.woff2);unicode-range:U+0370-03FF;font-display:swap;}@font-face {font-family:Source Sans Pro;font-style:normal;font-weight:900;src:url(/cf-fonts/s/source-sans-pro/5.0.11/cyrillic-ext/900/normal.woff2);unicode-range:U+0460-052F,U+1C80-1C88,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F;font-display:swap;}@font-face {font-family:Source Sans Pro;font-style:normal;font-weight:900;src:url(/cf-fonts/s/source-sans-pro/5.0.11/greek/900/normal.woff2);unicode-range:U+0370-03FF;font-display:swap;}@font-face {font-family:Source Sans Pro;font-style:normal;font-weight:900;src:url(/cf-fonts/s/source-sans-pro/5.0.11/latin/900/normal.woff2);unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-display:swap;}@font-face {font-family:Source Sans Pro;font-style:normal;font-weight:900;src:url(/cf-fonts/s/source-sans-pro/5.0.11/latin-ext/900/normal.woff2);unicode-range:U+0100-02AF,U+0304,U+0308,U+0329,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20CF,U+2113,U+2C60-2C7F,U+A720-A7FF;font-display:swap;}@font-face {font-family:Source Sans Pro;font-style:normal;font-weight:900;src:url(/cf-fonts/s/source-sans-pro/5.0.11/vietnamese/900/normal.woff2);unicode-range:U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB;font-display:swap;}@font-face {font-family:Source Sans Pro;font-style:normal;font-weight:900;src:url(/cf-fonts/s/source-sans-pro/5.0.11/greek-ext/900/normal.woff2);unicode-range:U+1F00-1FFF;font-display:swap;}@font-face {font-family:Source Sans Pro;font-style:normal;font-weight:900;src:url(/cf-fonts/s/source-sans-pro/5.0.11/cyrillic/900/normal.woff2);unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116;font-display:swap;}</style>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://netdna.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.css" rel="stylesheet">
+    <script type="text/javascript" src="queue.js"></script>
+    <script type="text/javascript" src="gamepad.js"></script>
+    <script type="text/javascript" src="tester.js"></script>
+    <!--<script type="text/javascript" src="msgpack.min.js"></script>-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="https://cdn.rawgit.com/zenorocha/clipboard.js/v1.5.5/dist/clipboard.min.js"></script>
+    <script src='https://www.google.com/recaptcha/api.js'></script>
+    <script type="text/javascript" src="form.js"></script>
+    <style type="text/css" id="custom-css"></style>
+    <style type="text/css" id="css-preview"></style>
+    <meta property="og:title" content="GamePad Viewer - The Official Controller Display & Tester" />
+    <meta name="google-site-verification" content="-0vAfpCPiEyZGlmxBu3yY7G4c_nDRa-jjxFPaIqTze4" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://gamepadviewer.com" />
+    <meta property="og:image" content="http://gamepadviewer.com/app-icon.png" />
+    <meta property="og:description"
+        content="Show your gamepad input live on Twitch and upgrade your experience with personalized controller skins!" />
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@gamepadviewer">
+    <meta name="twitter:creator" content="@mrmcpowned">
+    <meta name="twitter:image" content="https://gamepadviewer.com/twittercard.gif">
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-20916585-6"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-20916585-6');
+    </script>
+
+    <!-- Google tag (gtag.js) - GA4 Property -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-CRLGW2C0DH"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-CRLGW2C0DH');
+    </script>
+
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6461293058804731"
+        crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+    <div class="navbar ty hide-me" id="thanks">
+        <div class="content">
+            <span>Thank you so much for donating! You're awesome!</span>
+        </div>
+    </div>
+    <div class="navbar update message hide-me">
+        <div class="content">
+            <span>New in this version: <a
+                    href="https://obsproject.com/forum/resources/gamepad-display.3/update?update=557">custom
+                    CSS skinning!</a></span>
+        </div>
+    </div>
+
+    <div class="navbar hide-me">
+        <div class="content">
+            <div class="left">
+                <a href="#menu">
+                    <i class="material-icons menu-button">menu</i>
+                </a>
+            </div>
+            <div class="center pselect">
+                <div class="left">
+                    <span>Currently Viewing: </span>
+                    <select class="player">
+                        <option>None</option>
+                        <option value="gamepad-0">Player 1</option>
+                        <option value="gamepad-1">Player 2</option>
+                        <option value="gamepad-2">Player 3</option>
+                        <option value="gamepad-3">Player 4</option>
+                    </select>
+                </div>
+                <ul class="left skins">
+                    <select class="console" id="cselect">
+                        <option value="xbox">Xbox One</option>
+                        <option value="xbox white">Xbox One (White)</option>
+                        <option value="xbox-old">Xbox 360</option>
+                        <option value="ps">PlayStation 3</option>
+                        <option value="ps white">PlayStation 3 (White)</option>
+                        <option value="ds4">PlayStation 4</option>
+                        <option value="ds4 white">PlayStation 4 (White)</option>
+                        <option value="gc">GameCube</option>
+                        <option value="fpp">FightPad Pro</option>
+                        <option value="fight-stick">Fight Stick</option>
+                        <option value="nes">NES</option>
+                        <option value="n64">Nintendo 64</option>
+                    </select>
+                </ul>
+                <a href="#" id="color-picker" class="left"><i class="material-icons">color_lens</i></a>
+                <input type="color" id="color-picker-input" value="#8B4513">
+            </div>
+            <div class="right">
+                <a href="https://beta.gamepadviewer.com" class="button">GPV 2 Beta</a>
+                <a href="https://discord.gg/0SdzYaRROBqfdd0v" target="_blank"
+                    style="background: mediumpurple; color: white; border: 1px solid whitesmoke"
+                    class="button">Discord</a>
+            </div>
+        </div>
+    </div>
+    <div class="navbar nocon hide-me">
+        <div class="content">
+            <div class="left">
+                <ul>
+                    <li class="box alert">
+                        <span><i class="fa fa-exclamation-circle"></i></span>
+                    </li>
+                </ul>
+                <span>There are currently no gamepads connected. Press any button to enable...</span>
+            </div>
+            <span class="clear"></span>
+        </div>
+    </div>
+
+    <div class="slideout-menu hide-me" id="menu">
+        <a class="bglink" href="#">
+            <div class="modal-bg"></div>
+        </a>
+
+        <div class="menu">
+            <h1><i class="material-icons">videogame_asset</i> Gamepad Viewer</h1>
+
+            <div class="yt-contain">
+                <iframe src="https://www.youtube.com/embed/_jdupqY9oxM" frameborder="0" allowfullscreen=""></iframe>
+                <!--<iframe src="https://player.twitch.tv/?channel=upefiu&muted=true" frameborder="0" scrolling="no"></iframe>-->
+            </div>
+            <!-- GPV Classic - Menu -->
+            <ins class="adsbygoogle" style="display:inline-block;max-width: 400px;width: 100%;height: 90px;"
+                data-ad-client="ca-pub-6461293058804731" data-ad-slot="7714411903"></ins>
+            <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+            <ul>
+                <li><a href="#about"><i class="material-icons">info_outline</i><span>Info</span></a>
+                </li>
+                <li><a href="#faq"><i class="material-icons">help_outline</i><span>FAQ</span></a>
+                </li>
+                <li><a href="#docs"><i class="material-icons">insert_drive_file</i><span>Docs</span></a>
+                </li>
+                <li><a href="#log"><i class="material-icons">new_releases</i><span>Changelog</span></a>
+                </li>
+                <li><a href="#generate"><i class="material-icons">link</i><span>Generate URL</span></a>
+                </li>
+                <li><a href="#remap"><i class="material-icons">gamepad</i><span>Remap Buttons</span></a>
+                </li>
+                <!--            <li><a href="#showcase"><i class="material-icons">style</i><span>Skin Showcase</span></a>
+                        </li>-->
+                <!--<li><a href="#adoptaskin"><i class="material-icons">loyalty</i><span>Adopt a Skin</span></a></li>-->
+                <li><a href="#contact"><i class="material-icons">contact_mail</i><span>Contact</span></a>
+                </li>
+                <li><a href="#donate"><i class="material-icons">stars</i><span>Donate</span></a>
+                </li>
+                <li class="divider">
+                </li>
+                <li><a href="https://discord.gg/0SdzYaRROBqfdd0v" target="_blank"><i
+                            class="material-icons">chat</i><span>Discord Server</span></a>
+                </li>
+                <li><a href="https://trello.com/b/aSUJ68Km/gamepad-viewer-roadmap" target="_blank"><i
+                            class="material-icons">view_carousel</i><span>Trello Board</span></a>
+                </li>
+                <li><a href="https://twitch.tv/mrmcpowned" target="_blank"><i
+                            class="material-icons">live_tv</i><span>Twitch</span></a>
+                </li>
+                <li><a href="https://youtube.com/mrmcpowned" target="_blank"><i
+                            class="material-icons">subscriptions</i><span>YouTube Channel</span></a>
+                </li>
+                <li><a href="https://obsproject.com/forum/threads/gamepad-display.12508" target="_blank"><i
+                            class="material-icons">forum</i><span>OBS Forums</span></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="modals" class="hide-me">
+        <div id="modal-template" class="modal-container">
+            <a class="bglink" href="#">
+                <div class="modal-bg"></div>
+            </a>
+
+            <div class="modal">
+                <header class="minimenu">
+                    <!--Nuke everything in here when copying-->
+                    <ul>
+                        <li><a href="#about">Info</a></li>
+                        <li><a href="#faq">FAQ</a></li>
+                        <li><a href="#docs">Docs</a></li>
+                        <li><a href="#log">Changelog</a></li>
+                        <li><a href="#generate">Generate URL</a></li>
+                        <li><a href="#remap">Remap Buttons</a></li>
+                        <!--<li><a href="#showcase">Skin Showcase</a></li>-->
+                        <!--<li><a href="#adoptaskin">Adopt a Skin</a></li>-->
+                        <li><a href="#contact">Contact</a></li>
+                        <li><a href="#donate">Donate</a></li>
+                    </ul>
+                </header>
+                <header>
+                    <a class="close" href="#">&times;</a>
+
+                    <h1>Parameters List</h1>
+                </header>
+                <article>
+                    <p>Ayyy</p>
+                </article>
+            </div>
+        </div>
+        <div id="about" class="modal-container">
+            <a class="bglink" href="#">
+                <div class="modal-bg"></div>
+            </a>
+
+            <div class="modal">
+                <header class="minimenu">
+                </header>
+                <header>
+                    <a class="close" href="#">&times;</a>
+
+                    <h1>Info & About</h1>
+                </header>
+                <article>
+                    <h2>About this tool</h2>
+
+                    <div class="video">
+                        <div class="yt-contain">
+                            <iframe src="https://www.youtube.com/embed/XZLBh5yul6I" frameborder="0"
+                                allowfullscreen=""></iframe>
+
+
+                        </div>
+                    </div>
+
+                    <p>I started out making this tool because I found that all the alternatives to display gamepad input
+                        were too much of a hassle to set up or simply weren't customizable enough to my liking. After a
+                        while, I realized that other people could benefit from the tool I made, and ever since I've been
+                        updating and extending the original features. I started out with only the Xbox 360 skin and
+                        since
+                        then I've added several skins, the ability to create custom skins, scaling, input delay and many
+                        more features.
+                    </p>
+
+                    <p>Thankfully, this is all possible due to <a href="http://aresluna.org" target="_blank">Marcin
+                            Wichary's</a> <a
+                            href="https://github.com/html5rocks/www.html5rocks.com/blob/master/content/tutorials/doodles/gamepad/static/gamepad-tester/gamepad.js"
+                            target="_blank">Gamepad.js</a> and <a
+                            href="https://github.com/html5rocks/www.html5rocks.com/blob/master/content/tutorials/doodles/gamepad/static/gamepad-tester/tester.js"
+                            target="_blank">Tester.js</a> libraries, which I've modified for my own purposes.
+                    </p>
+
+                    <div class="info">
+                        <div>
+                            <h2>Chroma Key Installation</h2>
+                            <ol>
+                                <li>Create new window capture source</li>
+                                <li>Select the window with the gamepad viewer</li>
+                                <li>Enable "Color Key"</li>
+                                <li>Next to "Color" click the "Select" button and use the eyedropper tool to select the
+                                    brown background on the page
+                                </li>
+                                <li>Set the "Similarity" and "Blend" to your desired values</li>
+                                <li>Enable "Sub-Region"</li>
+                                <li>Click on "Select Region" and shrink the region box to the desired size</li>
+                                <li>Click "OK" and you're done!</li>
+                            </ol>
+                        </div>
+                        <div>
+                            <h2>CLR Browser Installation</h2>
+                            <ol>
+                                <li>Head to the <a href="#generate">URL Generator</a> to create your own gamepad URL
+                                </li>
+                                <li>Click on the generated preview URL to copy it</li>
+                                <li>In OBS, create a new CLR Browser source</li>
+                                <li>Paste the copied URL in the "URL" text box in the browser source</li>
+                                <li>The width and height will require playing around with inorder to get the right
+                                    values,
+                                    so simply work your way up or down from the default values the source already has
+                                    set
+                                </li>
+                                <li>Click "OK" and you're done!</li>
+                            </ol>
+                        </div>
+                        <span class="clear"></span>
+                    </div>
+                </article>
+            </div>
+        </div>
+        <div id="faq" class="modal-container">
+            <a class="bglink" href="#">
+                <div class="modal-bg"></div>
+            </a>
+
+            <div class="modal">
+                <header class="minimenu">
+                </header>
+                <header>
+                    <a class="close" href="#">&times;</a>
+
+                    <h1>Frequently Asked Questions</h1>
+                </header>
+                <article>
+                    <section>
+                        <h2>What exactly is this?</h2>
+
+                        <p>This is a web-based tool used for representing gamepad input visually. You basically get to
+                            see
+                            what you're doing with your gamepad on screen. Usually, people would use a tool like this
+                            for
+                            showing their controller input on screen for a stream or recorded video.</p>
+                    </section>
+                    <!--
+                                <section>
+                                    <h2>Cool. So, how do I actually use this?</h2>
+
+                                    <p>First you need to make sure your gamepad is connected. Pressing one of the face buttons after
+                                        connecting, like A or &times;, will work. If you did it all correctly, the error
+                                        message should have disappeared and you should be able to select the player and skin. Now, if
+                                        you're still getting a "Disconnected" error, usually refreshing the page will fix that. With
+                                        that, simply <strong>clicking on the dropdown</strong> that says "None" will give you the option
+                                        to select a player. If the player disconnected, you'll see a red silhouette of the controller
+                                        with the words "Disconnected", else you should see the gamepad inputs displayed when you press
+                                        them on the controller. The other dropdown next to that one lets you <strong>switch
+                                            skins</strong>. Switching skins is as easy as clicking the icon (which is by default an Xbox
+                                        logo for the Xbox One controller) and selecting the preferred skin by name.</p>
+                                </section>
+                -->
+                    <section>
+                        <h2>How do I set this up to record/stream?</h2>
+
+                        <p>Just follow the steps on the <a href="#about">Info page</a> and you should be ready to go in
+                            no
+                            time.</p>
+                    </section>
+                    <section>
+                        <h2>How do I make a custom skin?</h2>
+
+                        <p>Well, you need to have some basic knowledge of CSS and how it works to make one from scratch,
+                            but
+                            I have an <a href="https://gist.github.com/mrmcpowned/31eddbc3f8344ee69799">example file</a>
+                            which can help you. be sure to check up on it every once in a while though as I do make
+                            changes
+                            to in to coincide with updates on the site.</p>
+                    </section>
+                    <section>
+                        <h2>Can I edit the skins instead of just making a custom one?</h2>
+
+                        <p>Yes! You can use the <code class="codeblock">editcss=</code> URL parameter to point to a
+                            properly
+                            formatted CSS file which will edit the currently selected skin. Here's a small <a
+                                href="https://gist.github.com/mrmcpowned/a787fc4f5307b7c008fb">example edit file</a>
+                            just to show what can be done.</p>
+                    </section>
+
+                </article>
+            </div>
+        </div>
+        <div id="docs" class="modal-container">
+            <a class="bglink" href="#">
+                <div class="modal-bg"></div>
+            </a>
+
+            <div class="modal">
+                <header class="minimenu">
+                </header>
+                <header>
+                    <a class="close" href="#">&times;</a>
+
+                    <h1>Parameter Documentation</h1>
+                </header>
+                <article>
+                    <p>This section contains documentation of each URL parameter. If you'd like to generate your own
+                        custom
+                        URL, please visit
+                        <a href="#generate">this page</a>.
+                    </p>
+                    <section class="definition">
+                        <h2 data-param="p=">Player Number</h2>
+
+                        <div class="codeblock">https://gamepadviewer.com/?p=1</div>
+                        <ul>
+                            <li>N/A</li>
+                            <li>1</li>
+                            <li>1,2,3,4</li>
+                            <li>Setting this parameter initiates "Compact Mode", which removes the background and UI
+                                elements so only the controller is
+                                displayed
+                            </li>
+                        </ul>
+                        <p>The player number parameter is the main method of selecting which connected controller to
+                            view in
+                            Compact Mode.</p>
+                    </section>
+                    <section class="definition">
+                        <h2 data-param="s=">Skin ID</h2>
+
+                        <div class="codeblock">https://gamepadviewer.com/?s=1</div>
+                        <ul>
+                            <li>N/A</li>
+                            <li>1</li>
+                            <li>0,1,2,3,4,5</li>
+                            <li>Setting the ID to anything other than the values above defaults the skin to '1', which
+                                is
+                                the "Xbox One" skin
+                            </li>
+                            <li>Setting a player number (<code class="codeblock">p=</code>) is <strong>required</strong>
+                                if
+                                you plan
+                                on using the skin ID parameter
+                            </li>
+                        </ul>
+                        <p>Setting a skin ID is the only way to choose what gamepad it is you'd like to display in
+                            Compact
+                            Mode. If you'd like to use a custom skin, you'll need to read about the <code
+                                class="codeblock">css=</code>
+                            parameter below.</p>
+                    </section>
+                    <section class="definition">
+                        <h2 data-param="smeter=">Strength Meter</h2>
+
+                        <div class="codeblock">https://gamepadviewer.com/?smeter=1</div>
+                        <ul>
+                            <li>N/A</li>
+                            <li>0</li>
+                            <li>0,1</li>
+                            <li>Any value other than '1' disables this setting</li>
+                        </ul>
+                        <p>When this setting is enabled, the visual representation for the triggers will be strength
+                            meters
+                            instead of opacity levels.</p>
+                    </section>
+                    <section class="definition">
+                        <h2 data-param="sc=">Scale Multiplier</h2>
+
+                        <div class="codeblock">https://gamepadviewer.com/?sc=1.2</div>
+                        <ul>
+                            <li>N/A</li>
+                            <li>1</li>
+                            <li>Any number, including decimal values</li>
+                            <li>Negative values simply flip the skin, while also scaling it negatively</li>
+                        </ul>
+                        <p>Enabling this setting allows you to scale the gamepad's size using either integer or decimal
+                            values.</p>
+                    </section>
+                    <section class="definition">
+                        <h2 data-param="dz=">Deadzone Radius</h2>
+
+                        <div class="codeblock">https://gamepadviewer.com/?dz=0.3</div>
+                        <ul>
+                            <li>N/A</li>
+                            <li>.25</li>
+                            <li>Any number from 0 to 1, including decimal values</li>
+                            <li>Setting this to 1 or anything greater basically disables the sticks' movement</li>
+                        </ul>
+                        <p>This setting is ideal if you have an old gamepad that's experiencing stick drifting, or
+                            simply
+                            don't want every tiny movement made with the gamepad to be displayed.</p>
+                    </section>
+                    <section class="definition">
+                        <h2 data-param="delay=">Input Delay</h2>
+
+                        <div class="codeblock">https://gamepadviewer.com/?delay=2000</div>
+                        <ul>
+                            <li>Milliseconds</li>
+                            <li>0</li>
+                            <li>Any positive number</li>
+                        </ul>
+                        <p>If you capture gameplay from a PS4 and have your controller connected to both the computer
+                            and
+                            console, this setting is for you. Simply enter the stream delay from the console to your PC
+                            in
+                            milliseconds and your inputs will be synced, instead of ahead.</p>
+                    </section>
+                    <section class="definition">
+                        <h2 data-param="rot=">Rotational Stop</h2>
+
+                        <div class="codeblock">https://gamepadviewer.com/?rot=450</div>
+                        <ul>
+                            <li>Degrees</li>
+                            <li>120</li>
+                            <li>Any positive number</li>
+                            <li>This number is half the total rotational stop of the wheel. E.g. A wheel with a 900deg
+                                max
+                                rotation will have a 450deg rotation stop.
+                            </li>
+                            <li>Deadzone values <strong>WILL</strong> affect this setting. Setting <code
+                                    class="codeblock">dz=0</code>
+                                is recommended.
+                            </li>
+                        </ul>
+                        <p>This setting is meant mainly for having the thumbsticks represent wheels, with the option to
+                            set
+                            their max degree of rotation.</p>
+                    </section>
+                    <section class="definition">
+                        <h2 data-param="css=">Custom CSS URL</h2>
+
+                        <div class="codeblock">
+                            https://gamepadviewer.com/?css=https://gist.githubusercontent.com/mrmcpowned/d61ff0d8d0c57cc207d8/raw/minimal%2520xbox.css
+                        </div>
+                        <ul>
+                            <li>N/A</li>
+                            <li>None</li>
+                            <li>Any URL pointing to a properly formatted CSS file</li>
+                            <li>This parameter disables the <code class="codeblock">id=</code> parameter</li>
+                            <li>Whatever the selected skin's CSS class is is replaced with the <code
+                                    class="codeblock">.custom</code>
+                                class
+                            </li>
+                        </ul>
+                        <p>Using this parameter allows you to completely change the design of the Gamepad Viewer into
+                            one of
+                            your own or one somebody has shared.</p>
+                    </section>
+                    <section class="definition">
+                        <h2 data-param="editcss=">Edit CSS URL</h2>
+
+                        <div class="codeblock">
+                            https://gamepadviewer.com/?editcss=https://gist.githubusercontent.com/mrmcpowned/a787fc4f5307b7c008fb/raw/edit%2520example.css
+                        </div>
+                        <ul>
+                            <li>N/A</li>
+                            <li>None</li>
+                            <li>Any URL pointing to a properly formatted CSS file</li>
+                            <li>The <code class="codeblock">.edit</code> class is applied to all gamepads</li>
+                        </ul>
+                        <p>Similar to the <code class="codeblock">css=</code> parameter, you can edit the currently
+                            selected
+                            skin's css instead of making a completely new skin.</p>
+                    </section>
+
+                </article>
+            </div>
+        </div>
+        <div id="log" class="modal-container">
+            <a class="bglink" href="#">
+                <div class="modal-bg"></div>
+            </a>
+
+            <div class="modal">
+                <header class="minimenu">
+                </header>
+                <header>
+                    <a class="close" href="#">&times;</a>
+
+                    <h1>Changelog</h1>
+                </header>
+                <article class="changelog">
+
+                    <div class="log">
+                        <h3>Version 0.7.0 - March 8, 2017</h3>
+                        <ul>
+                            <li><b>New Skin</b>: There's a sorta-new skin in the available list: The white PS3
+                                controller.
+                                Edits are courtesy of <a href="https://www.twitch.tv/million_lights">Million Lights</a>
+                            </li>
+                            <li><b>OBS Studio & Issues</b>: A recent update to OBS Studio has updated the browser
+                                source,
+                                and in doing so has partially broken the Gamepad Viewer. A workaround exists so you can
+                                continue using the Gamepad Viewer until I can find out where it is exactly the bug
+                                that's
+                                causing this issue is, and fix it (but that will most likely take some time, cause
+                                school).
+                                The steps to fix are as follows:
+                                <code>
+                                1. Double click the Browser Source which has your Gamepad Viewer custom URL
+                                2. Scroll down and click "Clear Cache"
+                                3. Click "Cancel", not "OK" and not the "X" button at the top right
+                                4. Make DOUBLE sure you click "Cancel" else you'll have to repeat steps 2 and 3.
+                            </code>
+                            </li>
+                            <li><b>I'm not dead</b>: I'm still alive, even though school has me beaten down. I still
+                                answer
+                                emails though, so if you have any issues just send one of those, or if you're more of a
+                                cool
+                                kid like me, join me in my <a href="https://discord.gg/0SdzYaRROBqfdd0v">Discord
+                                    server</a>.
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="log">
+                        <h3>Version 0.7.0 - August 17, 2016</h3>
+
+                        <ul>
+                            <li><b>Patreon</b>: Yup, <a href="https://www.patreon.com/mrmcpowned" target="_blank"
+                                    class="externalLink" rel="nofollow">this thing's on Patreon</a>. If
+                                you know someone who'd be willing to support, feel free to point 'em in the right
+                                direction.
+                            </li>
+                            <li><b>New Skin</b>: The long-awaited and much-requested GameCube skin is finally out! Sorry
+                                I
+                                kinda took too long with this one, it's just that I wanted to get some stuff together
+                                and
+                                ship this with some other things that needed to be done, as follows...
+                            </li>
+                            <li><b>GameCube controller Fix</b>: So, if you own a GameCube controller and MayFlash
+                                adapter,
+                                you'd get some really weird values for the triggers and sticks, even if you tried
+                                remapping.
+                                Now, there's new remapping setting which can help you solve that! Just watch <a
+                                    href="https://www.youtube.com/watch?v=_jdupqY9oxM" target="_blank"
+                                    class="externalLink" rel="nofollow">the update video</a> to find out how to do just
+                                that!
+                            </li>
+                            <li><b>Remapping Axis/Button exclusion</b>: Another small but useful update to button
+                                remapping
+                                is the ability to disable a button or axes' ability to be selected when remapping
+                                inputs.
+                                This is typically useful for when you have an out of control axis that changes values
+                                rapidly and don't want it interfering with remapping. To cancel an input's mapping
+                                ability,
+                                simply right click it's blue box on the mapping page after a player is selected. To
+                                re-enable the input, simply right click the red box.
+                            </li>
+                            <li><b>DPAD POV Mapping</b>: Another common issue was that of DPADs that show up as a single
+                                axis input, or a <a href="https://en.wikipedia.org/wiki/Joystick#Hat_switch"
+                                    target="_blank" class="externalLink" rel="nofollow">Point-Of-View Hat Switch</a>.
+                                With
+                                the new "DPAD" remapping option, just select the DPAD's axis, fill in the requested
+                                values,
+                                and the DPAD should be fixed!
+                            </li>
+                            <li><b>Remapping feedback</b>: When I was asking someone to test the new remapping options,
+                                i
+                                found that they had a hard time of telling if something worked or if it failed. To fix
+                                that,
+                                should a mapping failed, you'll see a persistent error message in red above the
+                                appropriate
+                                mapping, and if it succeeds, a green success message which fades away.
+                            </li>
+                            <li><b>Remapping UI Populated via URL</b>: Before when you would access exported remapping
+                                settings via URL, you couldn't edit them or customize them. Now, when accessing the
+                                exported
+                                mappings via URL, the remapping page will populate with the appropriate settings.
+                            </li>
+                            <li><b>Input hints in Generate Page</b>: Now, before entering information into the text
+                                boxes
+                                you see input hints. Hopefully this helps with people who are unsure of what to place in
+                                those inputs.
+                            </li>
+                            <li><b>New Generate Page options</b>: You can now disable stick curving and change the stick
+                                offset as well.
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="log">
+                        <h3>Version 0.6.2 - April 27, 2016</h3>
+
+                        <ul>
+                            <li><strong>New Digs</strong>: Now sure if you've noticed, but the URL doesn't say
+                                <strong>http://mrmcpowned.com/gamepad</strong>
+                                anymore! Yup, the site's on it's own special domain:
+                                <a href="https://gamepadviewer.com/">https://gamepadviewer.com/</a> Don't worry about
+                                the
+                                old links either, they'll redirect here properly from the old address.
+                            </li>
+                            <li><strong>Discord</strong>: I've got a <a
+                                    href="https://discord.gg/0SdzYaRROBqfdd0v">Discord
+                                    Server</a> setup for anyone who feels the need to chat or prefers help in a slightly
+                                faster
+                                manner. I'm usually on, although that doesn't mean not busy working either :P
+                            </li>
+                            <li><strong>Problems? Questions? Concerns?</strong>: If anything's broken, or if you need
+                                help,
+                                or just wanna say hi, you can always contact me using the <a href="#contact">contact
+                                    form</a> or by visiting the discord server linked above.
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="log">
+                        <h3>Version 0.6.1 - April 23, 2016</h3>
+
+                        <ul>
+                            <li><strong>Mapping Bugfix</strong>: Apparently mapping values for buttons that don't exist
+                                (like
+                                trying to show a touchpad or PS Button press) was broken before, but now it's not!
+                            </li>
+                            <li><strong>Swanky New Skin</strong>: Thanks to an anonymous benefactor, there's a new white
+                                DS4
+                                skin, and it looks <em>sweeeeet</em>.
+                            </li>
+                            <li><strong>DS4 Changes</strong>: The DS4's touchpad press is now represented (though not
+                                the
+                                touches on the touchpad, as I have no way of figuring out that information from the
+                                Gamepad
+                                API), as well as the PS button. Also, the sticks are inverted now when pressed, and I
+                                have
+                                no idea why I didn't set them to do that before. Enjoy!
+                            </li>
+                            <li><strong>Not much else</strong>: Yeah, not much else to this update. I've mostly been
+                                working
+                                on a site redesign for a podcast, so that's been my main focus so far in terms of work.
+                                Once
+                                I'm done with that, I'll probably get to work on this and go through the tasks I have
+                                listed
+                                on the trello.
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="log">
+                        <h3>Version 0.6.0 - March 20, 2016</h3>
+
+                        <ul>
+                            <li><strong>Getting Started</strong>: There's a <a
+                                    href="https://youtu.be/XZLBh5yul6I">getting
+                                    started video</a> on YouTube for anyone who's unsure about how to set up the tool,
+                                or for
+                                those who are curious and don't have a gamepad to test! It's also on the <a
+                                    href="#about">Info
+                                    &amp; About</a> page too for easy access.
+                            </li>
+                            <li><strong>Pretty Colors</strong>: You can now change the color of the background with a
+                                click of a button! Just click the palette icon after you've connected your controller
+                                and
+                                <em>voila</em>, you're instantly a background <em>artiste</em>.
+                            </li>
+                            <li><strong>Gamepad Cartesian</strong>: Controller button remapping is
+                                <strong><em>finally</em></strong> here! It's got a <em>swanky</em> <a href="#remap">new
+                                    modal</a>, some very intuitive functionality, and even the ability to export
+                                mappings to
+                                the URL generator. Yay! If you're a little lost on how to use it, simply choose a
+                                connected
+                                player, add a mapping, select whether you're mapping an axis or button and select the
+                                appropriate choice from the dropdown, click the button to set an axis/button to be
+                                mapped to
+                                (at this point you have a three second window to press the desired button on the
+                                controller), and when you're finished that process with all applicable mappings, just
+                                click
+                                "Apply Mappings" or export them for use with Compact Mode. <strong>Author's
+                                    Note</strong> -
+                                Yeah, it's a tad complicated, but I'll be making a video soon on how to set mappings up
+                                easily. <a href="http://chrisr.xyz/s/2016-03-14_17-20-17.mp4">Here's a sort of mini
+                                    tutorial
+                                    on how to do it</a>. Also, the Touchpad and PS buttons work, it's just that none of
+                                the
+                                skins have anything set up for them when they're pressed.
+                            </li>
+                            <li><strong>New Skins</strong>: Finally, I've included a generic Fight Stick skin setup for
+                                use. The background's transparent so you can use your favorite image as your own
+                                background
+                                :D
+                            </li>
+                            <li><strong>White wash</strong>: Decided to have the top row of icons all be white to follow
+                                some sort of consistency.
+                            </li>
+                            <li><strong>Ah, the [Scale]ne Triangle</strong>: So, I kinda might have broken scaling
+                                during
+                                the last update. Luckily, I caught it quick and fixed it a couple days after I pushed
+                                the
+                                last major update, but I thought you should know anyway.
+                            </li>
+                            <li><strong>Generated Choice</strong>: Now if you generate a URL, the tooltip mentions you
+                                can hold shift and it'll copy the link starting with HTTP instead of HTTPS, which leads
+                                me
+                                to...
+                            </li>
+                            <li><strong>A word on HTTPS and skins</strong>: Ok, so during the last major update, I
+                                decided it would be great to force HTTPS. I mean, why not, right? Then I realized people
+                                load skins insecurely from their own sites, to which I hurriedly changed the setting.
+                                So, if
+                                your stylesheet or any assets are loaded via HTTP, access the site from HTTP, else use
+                                HTTPS.
+                            </li>
+                            <li><strong>To <code>name</code>, or not to <code>name</code></strong>: Another sort of
+                                unimportant-but-still-interesting-I-kinda-suppose-maybe updates was changing the
+                                attribute
+                                used to select buttons and axes from <code>name</code> to <code>data-name</code> which
+                                has
+                                it fall more inline with HTML5's semantics. Riveting stuff, I know.
+                            </li>
+                            <li><strong>Addendum on Remapping</strong>: It should be noted that you can't half remap an
+                                axis, like say you only want to map the positive or only the negative end. If you try to
+                                do
+                                that, the mapping is just straight up ignored.
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="log">
+                        <h3>Version 0.5.1 - February 18, 2016</h3>
+                        <ul>
+                            <li><strong>FightPad Pro Skin</strong>: Not much of an overall update, but an update
+                                nonetheless! Many a thanks to
+                                <a href="https://twitch.tv/kingradinov" target="_blank">King Radinov</a> for being the
+                                first
+                                skin adopter! If you'd like to show the right stick instead of the left stick, you can
+                                use
+                                <a href="https://gist.githubusercontent.com/mrmcpowned/511679c83346beed889d/raw/2a1c08d3c3321f59e33d460b365f6ec489e63d1d/rightstick.css"
+                                    target="_blank">this edit CSS</a> as well.
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="log">
+                        <h3>Version 0.5.0 - February 1, 2016</h3>
+                        <ul>
+                            <li><strong>New Slide-in Menu</strong>: Who needs square buttons when you have a <em>whole
+                                    menu</em> to link to stuff. Stuff like...
+                            </li>
+                            <li><strong>Modals</strong>: All brand-spankin'-new content modals, for everything and
+                                anything
+                                that needs text on it.
+                            </li>
+                            <li><strong>Contact Form</strong>: If you're lonely and want someone to talk to or want to
+                                find
+                                out more info on the new...
+                            </li>
+                            <li><strong>Adopt a Skin Initiative</strong>: I don't think I could properly summarize what
+                                I
+                                have written on the page, so <a href="#adoptaskin">here's a link to it instead</a>!
+                            </li>
+                            <li><strong>Edit CSS Parameter</strong>: Because sometimes you just want to <a
+                                    target="_blank"
+                                    href="https://gamepadviewer.com/?editcss=https%3A%2F%2Fgist.githubusercontent.com%2Fmrmcpowned%2Fa787fc4f5307b7c008fb%2Fraw%2Fedit%252520example.css">make
+                                    all the colors look psychedelic</a>.
+                            </li>
+                            <li><strong>Edit Opacity Parameter</strong>: Sometimes you just want the controller to melt
+                                into
+                                the background, forever hidden yet always seen.
+                            </li>
+                            <li><strong>Click to copy</strong>: Now you can simply *<strong>click</strong>* and easily
+                                copy
+                                a generated URL. Speaking of which...
+                            </li>
+                            <li><strong>Generate custom URLs</strong>: Long gone are the cavemen times when man used to
+                                place numbers into address bars. Behold, a new age of typing things into forms and
+                                clicking
+                                to copy them dawns upon us!
+                            </li>
+                            <li><strong>Trigger meters</strong>: This a feature many of you have asked for, and one that
+                                I've neglected for far too long. It's finally here though and it looks
+                                <em>sweeeeet</em>.
+                            </li>
+                            <li><strong>Better controller centering CSS</strong>: This one isn't a very large
+                                announcement,
+                                since it only really affects custom skins but now centering them is done better and no
+                                longer necessary on the custom skin's end of things!
+                            </li>
+                            <li><strong>X360 Quadrant Fixed</strong>: Another bugfix, but anyone who would see a black
+                                square for the quadrant shouldn't be having that issue anymore.
+                            </li>
+
+                        </ul>
+                    </div>
+                    <div class="log">
+                        <h3>Version 0.4.0 - November 18, 2015</h3>
+                        <ul>
+                            <li>Added a new skin, the DualShock 4! The trackpad can't show where your finger is, but
+                                pushing
+                                down on the trackpad is registered (but not shown because I haven't implemented that
+                                yet).
+                            </li>
+                            <li>Added a new deadzone setting, just add &dz=[Any number from 0 to 1] to the URL! The
+                                default
+                                is set to .25 and the accepted values are anything between 0 and 1 (although at 1 you
+                                wouldn't have anything showing because the max the sticks go to is 1)
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="log">
+                        <h3>Version 0.3.4 - November 8, 2015</h3>
+                        <ul>
+                            <li>Added a new skin, the DualShock 4! The trackpad can't show where your finger is, but
+                                pushing
+                                down on the trackpad is registered (but not shown because I haven't implemented that
+                                yet).
+                            </li>
+                            <li>Added a new deadzone setting, just add &dz=[Any number from 0 to 1] to the URL! The
+                                default
+                                is set to .25 and the accepted values are anything between 0 and 1 (although at 1 you
+                                wouldn't have anything showing because the max the sticks go to is 1)
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="log">
+                        <h3>Version 0.3.3 - October 25, 2015</h3>
+                        <ul>
+                            <li>Added queueing, with code provided by <a href="http://romibi.ch/">romibi</a>, so many a
+                                thanks to him.
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="log">
+                        <h3>Version 0.3.2 - August 15, 2015</h3>
+                        <ul>
+                            <li>Added custom styles! Now, you too can make your own controller skin and share it with
+                                your
+                                friends!
+                            </li>
+                            <li>To apply a custom skin, add &css=[url to CSS file] to the end of the address.</li>
+                            <li>Added some HTML for future fighstick functionality.</li>
+                        </ul>
+                    </div>
+                    <div class="log">
+                        <h3>Version 0.3.1 - July 7, 2015</h3>
+                        <ul>
+                            <li>Added back the Xbox 360 skin, cause reasons</li>
+                            <li>The new URL ID for the Xbox 360 skin is 4</li>
+                        </ul>
+                    </div>
+                    <div class="log">
+                        <h3>Version 0.3.0 - July 6, 2015</h3>
+                        <ul>
+                            <li>Hello darkness my old friend <sup>I've come to speak with you again...</sup></li>
+                            <li>Finally updated the Xbox controller skin</li>
+                            <li>Added a dark Xbox controller skin along with a white one</li>
+                            <li>The new order of skins for the URL params is 0: White Xbox, 2: Dark Xbox, 3: PS
+                                Controller,
+                                4: NES Controller
+                            </li>
+                            <li>New Xbox skin is the first to be saved in SVG format, allowing for infinite scalability.
+                                Speaking of scaling..
+                            </li>
+                            <li>You can now scale controllers using &sc=[scale multiplier] in the URL! Do note, this
+                                currently works best with the Xbox controller skins at the moment due to them being
+                                scalable
+                                vectors. The other controllers will look pixelated at larger sizes, but I'm working on
+                                moving them over to SVG a well :)
+                            </li>
+                            <li>Added links to my <a href="http://twitch.tv/MrMcPowned">Twitch</a>, <a
+                                    href="http://imraising.tv/u/mrmcpowned">ImRaising</a> and
+                                <a href="https://youtube.com/MrMcPowned">YouTube</a> to the top bar.
+                            </li>
+                            <li>I believe in the honor system. If you'd like to donate to me for how much of a help this
+                                tool I've made has been to you, I believe it's up to
+                                <b><strong>you</strong></b> to decide how much you think this app is worth.
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="log">
+                        <h3>Version 0.2.2 - May 26, 2014</h3>
+                        <ul>
+                            <li>Added the NES skin for some retro-ey goodness.</li>
+                        </ul>
+                    </div>
+                    <div class="log">
+                        <h3>Version 0.2.1 - May 24, 2014</h3>
+                        <ul>
+                            <li>Now you can control the gamepad display via URL parameters. More on that <a
+                                    href="https://obsproject.com/forum/resources/gamepad-display.3/update?update=127">here</a>.
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="log">
+                        <h3>Version 0.2.1 - May 23, 2014</h3>
+                        <ul>
+                            <li>New PS3 Skin!</li>
+                            <li>Along with this skin, a way to easily switch skins</li>
+                        </ul>
+                    </div>
+                    <div class="log">
+                        <h3>PSA - Jan 31, 2014</h3>
+                        <ul>
+                            <li>Just want to point out that if you don't see much development happening on this, it's
+                                not
+                                because I've suddenly abandoned the project, but simply because school is my main
+                                priority;
+                                I only have so much time to dedicate when I have to allot most of it towards my studies.
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="log">
+                        <h3>Version 0.1.8 - Jan 21, 2014</h3>
+                        <ul>
+                            <li>The analog sticks may look a little trippy now. Don't worry, that's perfectly normal.
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="log">
+                        <h3>Version 0.1.7 - Jan 14, 2014</h3>
+                        <ul>
+                            <li>Bye, bye emoji. Hello, <a href="http://fontawesome.io/">Font Awesome</a>!</li>
+                            <li>Made controller show a red silhouette with the word "Disconnected" when disconnected,
+                                instead of showing a frozen controller display.
+                            </li>
+                            <li>Fixed "Changelog" from Chaneglog", because letters.</li>
+                        </ul>
+                    </div>
+                    <div class="log">
+                        <h3>Version 0.1.6 - Jan 4, 2014</h3>
+                        <ul>
+                            <li>Changed the <a href="favicon.png">favicon</a> to something a little more visually
+                                pleasing.
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="log">
+                        <h3>Version 0.1.5 - Jan 2, 2014</h3>
+                        <ul>
+                            <li>Added a link to the <a
+                                    href="https://obsproject.com/forum/viewtopic.php?f=22&t=9977">Open
+                                    Broadcaster thread</a> for discussion and user suggestions.
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="log">
+                        <h3>Version 0.1.4 - Dec 31, 2013</h3>
+                        <ul>
+                            <li>Applied better deadzoning so the analog sticks won't snap to top edges. Should be a more
+                                of
+                                a radial deadzone now.
+                            </li>
+                            <li>Title now says which player is selected, so you don't have to fumble around with
+                                figuring
+                                out which window you want.
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="log">
+                        <h3>Version 0.1.3 - Dec 30, 2013</h3>
+                        <ul>
+                            <li>Changed the title from "Xbox Remote Control" to "Gamepad Viewer" for generic reasons
+                            </li>
+                            <li>Moved the Viewer's location to <a
+                                    href="https://mrmcpowned.com/gamepad">https://mrmcpowned.com/gamepad</a>
+                                from <a href="https://mrmcpowned.com/xbrc">https://mrmcpowned.com/xbrc</a>. The old URL
+                                redirects to the newer one.
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="log">
+                        <h3>Version 0.1.2 - Dec 29, 2013</h3>
+                        <ul>
+                            <li>Added a warning to the top of the help pane</li>
+                            <li>Changed non-connected text to "There are currently no gamepads connected. Press any
+                                button
+                                to enable..."
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="log">
+                        <h3>Version 0.1.1 - Dec 28, 2013</h3>
+                        <ul>
+                            <li>Moved directional pad arrows to css for cleaner html. Will allow for easier skinning of
+                                the
+                                gamepad in the future.
+                            </li>
+                            <li>Added a changelog</li>
+                            <li>Added <a href="http://emojisymbols.com/">Emoji Symbols Font</a> for donation button. If
+                                you
+                                like my work, and would like to "buy me a coffee", then simply click the coffee mug up
+                                top
+                                <span class="emj">&#x1F44D;</span>.
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="log">
+                        <h3>Version 0.1 - Dec 26, 2013</h3>
+                        <ul>
+                            <li>Initial release</li>
+                        </ul>
+                    </div>
+                </article>
+            </div>
+        </div>
+        <div id="generate" class="modal-container">
+            <a class="bglink" href="#">
+                <div class="modal-bg"></div>
+            </a>
+
+            <div class="modal">
+                <header class="minimenu">
+                </header>
+                <header>
+                    <a class="close" href="#">&times;</a>
+
+                    <h1>Generate Custom URL</h1>
+                </header>
+                <article id="generate-page">
+                    <div id="generate-area">
+                        <div class="codeblock" id="generated-url" data-clipboard-text="" data-message="" tabindex="0">
+                            Click to copy URL (Hover to show)</div>
+                        <div class="codeblock" id="url-generate-reset"><span>Reset</span></div>
+                    </div>
+                    <!-- GPV Classic - Generate Page -->
+                    <ins class="adsbygoogle" style="display:inline-block;max-width: 834px;width: 100%;height: 90px;"
+                        data-ad-client="ca-pub-6461293058804731" data-ad-slot="9410636958"></ins>
+                    <script>
+                        (adsbygoogle = window.adsbygoogle || []).push({});
+                    </script>
+                    <form id="url-form">
+                        <div class="form-group"><label for="p-input">Player Number: </label><select id="p-input"
+                                name="p">
+                                <option value="">None (Meant for Chroma-Key users)</option>
+                                <option selected value="1">Player 1</option>
+                                <option value="2">Player 2</option>
+                                <option value="3">Player 3</option>
+                                <option value="4">Player 4</option>
+                            </select><span class="clear"></span></div>
+                        <div class="form-group"><label for="s-input">Skin: </label>
+                            <select id="s-input" name="s">
+                                <option value="">Choose a skin (Xbox One is Default)</option>
+                                <option value="1">Xbox One</option>
+                                <option value="0">Xbox One (White)</option>
+                                <option value="4">Xbox 360</option>
+                                <option value="2">PlayStation 3</option>
+                                <option value="10">PlayStation 3 (White)</option>
+                                <option value="5">PlayStation 4</option>
+                                <option value="8">PlayStation 4 (White)</option>
+                                <option value="9">GameCube</option>
+                                <option value="6">FightPad Pro</option>
+                                <option value="7">Fight Stick</option>
+                                <option value="3">NES</option>
+                                <option value="11">Nintendo 64</option>
+                            </select><span class="clear"></span>
+                        </div>
+                        <div class="form-group"><label for="smeter-input">Strength Meter: </label><input
+                                id="smeter-input" type="checkbox" name="smeter" value="1" /><span class="clear"></span>
+                        </div>
+                        <div class="form-group"><label for="nocurve-input">Stick Curving: </label><input
+                                id="nocurve-input" type="checkbox" name="nocurve" class="flipped" value="1" /><span
+                                class="clear"></span></div>
+                        <div class="form-group"><label for="sc-input">Scale Modifier: </label><input id="sc-input"
+                                type="text" name="sc" placeholder="1 = Normal, 2 = 2x, .5 = Half, etc..." /><span
+                                class="clear"></span></div>
+                        <div class="form-group"><label for="dz-input">Deadzone Value: </label><input id="dz-input"
+                                type="text" name="dz" placeholder="Number from 0.0 to 1.0" /><span class="clear"></span>
+                        </div>
+                        <div class="form-group"><label for="op-input">Opacity Value: </label><input id="op-input"
+                                type="text" name="op" placeholder="Number from 0.0 to 1.0" /><span class="clear"></span>
+                        </div>
+                        <div class="form-group"><label for="delay-input">Delay Value: </label><span
+                                class="input-unit">ms</span><input id="delay-input" type="text" name="delay"
+                                placeholder="1000 = 1 second" /><span class="clear"></span></div>
+                        <div class="form-group"><label for="rot-input">Rotation Stop: </label><span
+                                class="input-unit">deg</span><input id="rot-input" type="text" name="rot" /><span
+                                class="clear"></span></div>
+                        <div class="form-group"><label for="soffset-input">Stick Offset Value: </label><span
+                                class="input-unit">px</span><input id="soffset-input" type="text" name="soffset"
+                                placeholder="Default is 22" /><span class="clear"></span></div>
+                        <div class="form-group"><label for="css-input">Custom CSS URL: </label><input id="css-input"
+                                type="text" name="css" placeholder="http://url.to/custom/stylesheet.css" /><span
+                                class="clear"></span></div>
+                        <div class="form-group"><label for="editcss-input">Edit CSS URL: </label><input
+                                id="editcss-input" type="text" name="editcss"
+                                title="This MUST be linked with https:// to work!"
+                                placeholder="https://url.to/custom/stylesheet.css" /><span class="clear"></span></div>
+                        <input type="text" name="map" id="map-input" hidden>
+                    </form>
+                </article>
+            </div>
+        </div>
+        <div id="remap" class="modal-container">
+            <a class="bglink" href="#">
+                <div class="modal-bg"></div>
+            </a>
+
+            <div class="modal">
+                <header class="minimenu">
+                </header>
+                <header>
+                    <a class="close" href="#">&times;</a>
+
+                    <h1>Button Rebinding</h1>
+                </header>
+                <article>
+                    <p>Please select the controller to use as a mapping base.
+                        <select id="player-base">
+                            <option>None</option>
+                            <option value="0" disabled>Player 1</option>
+                            <option value="1" disabled>Player 2</option>
+                            <option value="2" disabled>Player 3</option>
+                            <option value="3" disabled>Player 4</option>
+                        </select>
+                    </p>
+                    <div id="output-display">
+                        <div class="raw-outputs template">
+                            <div>
+                                <h3>Axes</h3>
+                                <ul class="axes">
+                                </ul>
+                            </div>
+                            <div>
+                                <h3>Buttons</h3>
+                                <ul class="buttons">
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="mapping-config">
+                        <a href="#" id="prepend-mapping" class="map-control"><i class="material-icons">add_circle</i>
+                            Add
+                            New Mapping</a>
+                        <a href="https://www.youtube.com/watch?v=b5OxYt0RNzc" target="_blank" id="mapping-help"
+                            class="map-control">Need Help?</a>
+
+                        <div class="template">
+                            <div class="form-group">
+                                <div class="map-message"></div>
+                                <input type="radio" name="targetType" value="buttons" checked>
+                                <input type="radio" name="targetType" value="axes">
+                                <input type="radio" name="targetType" value="dpad">
+                                <input type="checkbox" class="material-icons axes-config" value="false">
+                                <select name="buttons" value>
+                                    <option title="Button 0" value="0">A/Cross</option>
+                                    <option title="Button 1" value="1">B/Circle</option>
+                                    <option title="Button 2" value="2">X/Square</option>
+                                    <option title="Button 3" value="3">Y/Triangle</option>
+                                    <option title="Button 4" value="4">LB/L1</option>
+                                    <option title="Button 5" value="5">RB/R1</option>
+                                    <option title="Button 6" value="6">LT/L2</option>
+                                    <option title="Button 7" value="7">RT/R2</option>
+                                    <option title="Button 8" value="8">Select/Back</option>
+                                    <option title="Button 9" value="9">Start</option>
+                                    <option title="Button 10" value="10">LS/L3</option>
+                                    <option title="Button 11" value="11">RS/R3</option>
+                                    <option title="Button 12" value="12">D-Pad Up</option>
+                                    <option title="Button 13" value="13">D-Pad Down</option>
+                                    <option title="Button 14" value="14">D-Pad Left</option>
+                                    <option title="Button 15" value="15">D-Pad Right</option>
+                                    <option title="Button 16" value="16">PS Button</option>
+                                    <option title="Button 17" value="17">TouchPad Press</option>
+                                </select>
+                                <select name="axes" value>
+                                    <option title="Axis 0" value="0">LS Horizontal</option>
+                                    <option title="Axis 1" value="1">LS Vertical</option>
+                                    <option title="Axis 2" value="2">RS Horizontal</option>
+                                    <option title="Axis 3" value="3">RS Vertical</option>
+                                </select>
+                                <input type="checkbox" class="disable-item" value="true">
+                                <button data-tooltip="Positive Axis" data-button="positive" data-button-type="remapping"
+                                    data-object="">Click to Set
+                                </button>
+                                <button data-tooltip="Negative Axis" data-button="negative" data-button-type="remapping"
+                                    data-object="">Click to Set
+                                </button>
+                                <a href="#" class="material-icons del-config">remove_circle</a>
+                                <a href="#" class="material-icons add-config">add_circle</a>
+
+                                <div class="fix-panel fix-axes">
+                                    <span>Fix Type: </span>
+                                    <select name="fix-type">
+                                        <option value="trigger">Trigger (0 to 1)</option>
+                                        <option value="stick">Stick (-1 to 1)</option>
+                                    </select>
+                                    <button data-tooltip="Lowest Value" data-button="low-value"
+                                        data-button-type="value">
+                                        Click to Set Value
+                                    </button>
+                                    <button data-tooltip="Highest Value" data-button="high-value"
+                                        data-button-type="value">
+                                        Click to Set Value
+                                    </button>
+                                </div>
+
+                                <ul class="fix-panel fix-dpad">
+                                    <li><span>Up: </span>
+                                        <button data-button="up" data-button-type="value">Click to Set Value</button>
+                                    </li>
+                                    <li><span>Down: </span>
+                                        <button data-button="down" data-button-type="value">Click to Set Value</button>
+                                    </li>
+                                    <li><span>Left: </span>
+                                        <button data-button="left" data-button-type="value">Click to Set Value</button>
+                                    </li>
+                                    <li><span>Right: </span>
+                                        <button data-button="right" data-button-type="value">Click to Set Value</button>
+                                    </li>
+                                    <li><span>Up and Right: </span>
+                                        <button data-button="upright" data-button-type="value">Click to Set
+                                            Value</button>
+                                    </li>
+                                    <li><span>Up and Left: </span>
+                                        <button data-button="upleft" data-button-type="value">Click to Set
+                                            Value</button>
+                                    </li>
+                                    <li><span>Down and Right: </span>
+                                        <button data-button="downright" data-button-type="value">Click to Set
+                                            Value</button>
+                                    </li>
+                                    <li><span>Down and Left: </span>
+                                        <button data-button="downleft" data-button-type="value">Click to Set
+                                            Value</button>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div id="mappings"></div>
+                        <div class="button-group">
+                            <button id="export-mapping">Export Mapping to URL Generator</button>
+                            <button id="apply-mapping">Apply Mapping</button>
+                            <span class="clear"></span>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+        <!--
+        <div id="showcase" class="modal-container">
+            <a class="bglink" href="#">
+                <div class="modal-bg"></div>
+            </a>
+
+            <div class="modal">
+                <header class="minimenu">
+                </header>
+                <header>
+                    <a class="close" href="#">&times;</a>
+
+                    <h1>Skin Showcase</h1>
+                </header>
+                <article>
+                    <p>Skins</p>
+                    <div class="showcase-group">
+                        <input type="checkbox"  title="" data-heading="Custom Skins"/>
+                        <div class="showcase-list">
+                            <div class="showcase-item">
+                                <div class="preview">
+                                    <iframe src="http://mrmcpowned.com/gamepad/?p=1&s=5&sc=.245" frameborder="0"></iframe>
+                                </div>
+                                <div class="description">
+                                    <h3>This is </h3>
+                                </div>
+                                <span class="clear"></span>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    -->
+        <div id="adoptaskin" class="modal-container">
+            <a class="bglink" href="#">
+                <div class="modal-bg"></div>
+            </a>
+
+            <div class="modal">
+                <header class="minimenu">
+                </header>
+                <header>
+                    <a class="close" href="#">&times;</a>
+
+                    <h1>Adopt a Skin</h1>
+                </header>
+                <article>
+                    <p>All the currently served skins are made by me. I usually make them in my spare time when I'm not
+                        working on the site itself. I also will usually make them to take care of the demand for a
+                        certain
+                        skin. I don't get paid to offer this service to all of you, and I know some of you have been
+                        wanting
+                        skins made for some fairly obscure controllers, so as of right now you can adopt a skin! So,
+                        what
+                        does it mean to adopt a skin? Well, the perks are as follows:</p>
+                    <ul>
+                        <li>You get a "thank you" link under the Donations page</li>
+                        <li>In the upcoming Skin Showcase, you'll have an "Adopted by" next to the skin, also with your
+                            link
+                            of choice
+                        </li>
+                        <li>You get a copy of all the CSS and Assets for that skin to do with as you please</li>
+                        <li>The files will be hosted on this site for easy access and use</li>
+                    </ul>
+                    <p>While there are perks, there are also some stipulations, which are listed below:</p>
+                    <ul>
+                        <li>The skin will be available to <strong>all users</strong>. This is why it's called "adopt a
+                            skin", although if you like, you have the option to exclusively use it for a MAXIMUM of 1
+                            month.
+                        </li>
+                        <li>As not every skin is the same, I can't really place a flat price on all of them, but the
+                            baseline pricing is $25.
+                        </li>
+                        <li>Adopting a skin is a commitment, both on your part and mine. It takes time and vast amounts
+                            of
+                            effort for me to make these skins to the standard of quality I place. Because of this, the
+                            payment process will consist of 50% of the cost up front, and the other 50% at time of
+                            delivery.
+                            If you back out or decide not to pay the last half, I am entitled to keep the initial
+                            payment as
+                            a severance charge.
+                        </li>
+                    </ul>
+                    <p>If you agree to the terms described above, clicking the button below will open the contact page
+                        with
+                        the proper subject selected</p>
+                    <a href="#contact" id="skin-tc">I agree to the Terms and Conditions stated above and would like to
+                        inquire about skin
+                        adoption.</a>
+
+                </article>
+            </div>
+        </div>
+        <div id="contact" class="modal-container">
+            <a class="bglink" href="#">
+                <div class="modal-bg"></div>
+            </a>
+
+            <div class="modal">
+                <header class="minimenu">
+                </header>
+                <header>
+                    <a class="close" href="#">&times;</a>
+
+                    <h1>Contact Me</h1>
+                </header>
+                <article>
+                    <p>If you want to send me a message about asking me a question or anything like that, just <a
+                            href="https://discord.gg/0SdzYaRROBqfdd0v">join the discord</a>. </p>
+
+                    <!--<form action="mailer.php" id="contact-form" method="post">-->
+                    <!--<div id="messages" class=""></div>-->
+                    <!--<div class="form-group"><input type="text" placeholder="Full Name" name="name" required></div>-->
+                    <!--<div class="form-group"><input type="email" placeholder="Your Email" name="email" required></div>-->
+                    <!--<div class="form-group">-->
+                    <!--<select name="subject" required>-->
+                    <!--<option value="general" selected>General Inquiry</option>-->
+                    <!--<option value="skin">Skin Adoption Inquiry</option>-->
+                    <!--<option value="help">Gamepad Viewer Help</option>-->
+                    <!--</select>-->
+                    <!--</div>-->
+                    <!--<div class="form-group"><textarea name="message" minlength="80" required></textarea></div>-->
+                    <!--<div class="g-recaptcha" data-sitekey="6LeUaQwUAAAAAMfeh74M-VE-m2ddppIICvdYePS_"></div>-->
+                    <!--<div class="button-group">-->
+                    <!--<button type="reset">Reset</button>-->
+                    <!--<button type="submit">Submit</button>-->
+                    <!--</div>-->
+                    <!--<span class="clear"></span>-->
+                    <!--</form>-->
+                </article>
+            </div>
+        </div>
+        <div id="donate" class="modal-container">
+            <a class="bglink" href="#">
+                <div class="modal-bg"></div>
+            </a>
+
+            <div class="modal">
+                <header class="minimenu">
+                </header>
+                <header>
+                    <a class="close" href="#">&times;</a>
+
+                    <h1>Donations</h1>
+
+                </header>
+                <article>
+                    <div class="left">
+
+                        <p>I'm a fair believer in the honor system, so I believe it's up to you to set the amount of
+                            what
+                            you
+                            think my tools are worth to you. Below, you can choose to give me a donation via PayPal
+                            (through
+                            Twitch Alerts). I've also <a href="https://www.patreon.com/mrmcpowned" target="_blank">set
+                                up a Patreon</a> for those
+                            who wish to donate via that.</p>
+
+                        <div class="info">
+                            <div>
+                                <h2>Skin Adopters</h2>
+                                <ul>
+                                    <li><a href="https://twitch.tv/kingradinov" target="_blank">King Radinov</a></li>
+                                </ul>
+                            </div>
+                            <div>
+                                <!--
+                                                    <h2>CLR Browser Installation</h2>
+                                                    <ol>
+                                                        <li>Head to the <a href="#generate">URL Generator</a> to create your own gamepad URL</li>
+                                                        <li>Click on the generated preview URL to copy it</li>
+                                                        <li>In OBS, create a new CLR Browser source</li>
+                                                        <li>Paste the copied URL in the "URL" text box in the browser source</li>
+                                                        <li>The width and height will require playing around with inorder to get the right values,
+                                                            so simply work your way up or down from the default values the source already has set
+                                                        </li>
+                                                        <li>Click "OK" and you're done!</li>
+                                                    </ol>
+                            -->
+                            </div>
+                            <span class="clear"></span>
+                        </div>
+                    </div>
+
+                    <div class="donate-buttons">
+                        <a target="_blank" href="https://www.patreon.com/mrmcpowned">
+                            <div class="amzn dbutton"><i class="fa fa-patreon"></i><span>Support via Patreon!</span>
+                            </div>
+                        </a>
+                        <!--<a target="_blank" href="https://greenaddress.it/pay/GA3NubGP8aLdjYbNHqH72SGAUyBWu3/">-->
+                        <!--<div class="btc dbutton"><i class="fa fa-btc"></i><span>Bitcoin</span></div>-->
+                        <!--</a>-->
+                        <a target="_blank" href="https://www.twitchalerts.com/donate/mrmcpowned">
+                            <div class="pp dbutton"><i class="fa fa-paypal"></i><span>PayPal</span></div>
+                        </a>
+                    </div>
+
+                </article>
+            </div>
+        </div>
+        <div class="modal-container">
+            <a class="bglink" href="#">
+                <div class="modal-bg"></div>
+            </a>
+
+            <div class="modal">
+                <header class="minimenu">
+                </header>
+                <header>
+                    <a class="close" href="#">&times;</a>
+
+                    <h1>Parameters List</h1>
+                </header>
+                <article>
+                    <p>Ayyy</p>
+                </article>
+            </div>
+        </div>
+    </div>
+
+    <div id="banners" class="hide-me">
+        <div class="banner left">
+            <ins class="adsbygoogle"
+                style="display:block"
+                data-ad-client="ca-pub-6461293058804731"
+                data-ad-slot="2078336564"
+                data-ad-format="auto"
+                data-full-width-responsive="true"></ins>
+            <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
+        <div class="spacer"></div>
+        <div class="banner right">
+            <ins class="adsbygoogle"
+                style="display:block"
+                data-ad-client="ca-pub-6461293058804731"
+                data-ad-slot="4728550631"
+                data-ad-format="auto"
+                data-full-width-responsive="true"></ins>
+            <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
+    </div>
+
+    <div class="container" id="gamepads">
+        <div class="template">
+            <div class="plshalpme">
+                <div>
+                    <p>Disconnected</p>
+
+                    <p><a href="https://goo.gl/XF4VjL">https://goo.gl/XF4VjL</a></p>
+                </div>
+            </div>
+            <div class="triggers">
+                <span class="trigger left" data-name="button-left-shoulder-bottom"></span>
+                <span class="trigger right" data-name="button-right-shoulder-bottom"></span>
+                <span class="trigger-button left" data-name="button-left-shoulder-bottom-digital"></span>
+                <span class="trigger-button right" data-name="button-right-shoulder-bottom-digital"></span>
+                <span class="clear"></span>
+            </div>
+            <div class="bumpers">
+                <span class="bumper left" data-name="button-left-shoulder-top"></span>
+                <span class="bumper right" data-name="button-right-shoulder-top"></span>
+                <span class="clear"></span>
+            </div>
+            <div class="touchpad" data-name="touch-pad"></div>
+            <div class="quadrant"></div>
+            <div class="meta" data-name="button-meta"></div>
+            <div class="arrows">
+                <span class="back" data-name="button-select"></span>
+                <span class="start" data-name="button-start"></span>
+                <span class="clear"></span>
+            </div>
+            <div class="abxy">
+                <span class="button a" data-name="button-1"></span>
+                <span class="button b" data-name="button-2"></span>
+                <span class="button x" data-name="button-3"></span>
+                <span class="button y" data-name="button-4"></span>
+            </div>
+            <div class="sticks">
+                <span class="stick left" data-name="stick-1"></span>
+                <span class="stick right" data-name="stick-2"></span>
+            </div>
+            <div class="wheels">
+                <span class="wheel left" data-name="stick-1-wheel"></span>
+                <span class="wheel right" data-name="stick-2-wheel"></span>
+            </div>
+            <div class="dpad">
+                <span class="face up" data-name="button-dpad-top"></span>
+                <span class="face down" data-name="button-dpad-bottom"></span>
+                <span class="face left" data-name="button-dpad-left"></span>
+                <span class="face right" data-name="button-dpad-right"></span>
+            </div>
+            <div class="fstick" data-name="arcade-stick"></div>
+        </div>
+        <div class="controller xbox disconnected" id="gamepad-0"></div>
+        <div class="controller xbox disconnected" id="gamepad-1"></div>
+        <div class="controller xbox disconnected" id="gamepad-2"></div>
+        <div class="controller xbox disconnected" id="gamepad-3"></div>
+    </div>
+
+   
+    <script type="text/javascript" src="main.js"></script>
+    <script type="text/javascript">
+        tester.init();
+        gamepadSupport.init();
+    </script>
+
+    <script>
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-20916585-6', 'auto');
+        ga('require', 'linkid');
+        ga('send', 'pageview');
+
+    </script>
+</body>
+
+</html>

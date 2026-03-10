@@ -1,0 +1,512 @@
+<!doctype html>
+<html lang="ko">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=0,maximum-scale=10,user-scalable=yes">
+    <meta http-equiv="imagetoolbar" content="no">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="icon" href="/img/ico_picon.svg" sizes="152x152">
+    <!-- 웹폰트 적용 -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700&Nanum+Gothic:wght@400;700&Roboto+Slab:wght@600&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <title>드림엑스</title>
+    <link rel="stylesheet" href="https://dreamx.com/theme/basic/css/pc.css?ver=24012602">
+<link rel="stylesheet" href="https://dreamx.com/js/font-awesome/css/font-awesome.min.css?ver=24012602">
+<link rel="stylesheet" href="https://dreamx.com/css/swiper-bundle.min.css?ver=24012602">
+<link rel="stylesheet" href="https://dreamx.com/theme/basic/css/mobile.css?ver=24012602">
+    <!--[if lte IE 8]>
+<script src="https://dreamx.com/js/html5.js"></script>
+<![endif]-->
+    <script>
+        // 자바스크립트에서 사용하는 전역변수 선언
+        var g5_url = "https://dreamx.com";
+        var g5_bbs_url = "https://dreamx.com/bbs";
+        var g5_is_member = "";
+        var g5_is_admin = "";
+        var g5_is_mobile = "1";
+        var g5_bo_table = "";
+        var g5_sca = "";
+        var g5_editor = "";
+        var g5_cookie_domain = ".dreamx.com";
+                    var g5_theme_shop_url = "https://dreamx.com/theme/basic/shop";
+            var g5_shop_url = "https://dreamx.com/shop";
+                    </script>
+    <script src="https://dreamx.com/js/jquery-1.12.4.min.js?ver=23010602"></script>
+<script src="https://dreamx.com/js/jquery-migrate-1.4.1.min.js?ver=23010602"></script>
+<script src="https://dreamx.com/js/common.js?ver=23010602"></script>
+<script src="https://dreamx.com/js/wrest.js?ver=23010602"></script>
+<script src="https://dreamx.com/js/placeholders.min.js?ver=23010602"></script>
+<script src="https://dreamx.com/js/modernizr.custom.70111.js?ver=23010602"></script>
+<script src="https://dreamx.com/js/swiper-bundle.min.js?ver=23010602"></script>
+<script src="https://dreamx.com/js/jquery.lazy.min.js?ver=23010602"></script>
+</head>
+
+<body >
+<!-- 슬라이드 네비 출력 -->
+<script>
+    //모달 출력시 스크롤바 보정
+    $(document).ready(function() {
+        $windowWidth = $(window).width();
+    });
+    $(window).resize(function() {
+        $windowWidth = $(window).width();
+    });
+    //사이드메뉴
+    $(function() {
+        var s = $(".menu"),
+            a = $(".mdim");
+        $(".btn_close").click(function() {
+            if (s.hasClass("modal-open")) {
+                s.removeClass("modal-open");
+                $('body').removeClass('noscroll');
+                $('body').removeAttr('style');
+            }
+        });
+        $(".mdim").click(function() {
+            if (s.hasClass("modal-open")) {
+                s.removeClass("modal-open");
+                $('body').removeClass('noscroll');
+                $('body').removeAttr('style');
+            }
+        });
+        $("#hMenu, .search_modal").click(function(e) {
+            s.addClass("modal-open");
+            e.stopPropagation();
+            $('body').addClass('noscroll');
+            $('body').css('width', $windowWidth);
+        });
+    });
+
+    //검색창 토글
+    $(document).ready(function() {
+        $('#search_tg').click(function() {
+            $('#search_wrap').toggle();
+            $('.search_input').focus();
+            $('html, body').css({
+                'overflow': 'hidden',
+                'height': '100%'
+            });
+        });
+        $('.btn_close_sb').click(function() {
+            $('#search_wrap').toggle();
+            $('html, body').css({
+                'overflow': 'inherit',
+                'height': 'inherit'
+            });
+        });
+    });
+</script>
+
+<!-- 탭으로 이루어진 부분 -->
+<script>
+    $(document).ready(function() {
+        var $tablink = $(".tab_tit li").click(function() {
+            if ($(this).attr('class') == "tab_disabled") {
+                return false;
+            }
+            var idx = $tablink.index(this);
+            $(".tab_tit li").removeClass("on");
+            $(".tab_tit li").eq(idx).addClass("on");
+            $(".tab_cont .tab_box").hide();
+            $(".tab_cont .tab_box").eq(idx).show();
+        })
+    });
+</script>
+
+<!-- pc 헤더 시작 -->
+<header id="header_pc">
+    <div class="inner_lm">
+        <!-- 로고 및 슬로건 영역 -->
+        <div id="logo_area">
+            <ul>
+                <li class="logo">
+                    <a href="https://dreamx.com/"><img src="https://dreamx.com/img/logo.svg" alt="드림엑스"></a>
+                </li>
+                <li class="search">
+                    <!-- 검색창 출력 -->
+                    <div id="search_wrap">
+                        <div class="search_bar">
+                            <div class="search_box">
+                                <form action="https://dreamx.com/mall/search.php" onsubmit="return search_submit(this);">
+                                    <input type="text" class="search_input" name="q" value="" required placeholder="검색어를 입력해주세요.">
+                                    <button type="summit" class="btn_search" title="Search"><img src="https://dreamx.com/img/ico_search.svg" class="icon_search_w" alt="Search"></button>
+                                </form>
+                                <script>
+                                    function search_submit(f) {
+                                        if (f.q.value.length < 2) {
+                                            alert("검색어는 두글자 이상 입력하십시오.");
+                                            f.q.select();
+                                            f.q.focus();
+                                            return false;
+                                        }
+                                        return true;
+                                    }
+                                </script>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                            </ul>
+        </div>
+    </div>
+    <!-- 상단 네비 영역 -->
+    <nav>
+        <div id="gnb_wrap">
+            <div id="gnb">
+                <ul class="dis_none">
+                    <li id="hMenu_pc">
+                        <img src="https://dreamx.com/img/ico_menu.svg" class="ico_menu" alt="카테고리">카테고리
+                        <div class="hMenu_box">
+                            <ul>
+                                <li><a href="#"><img src="https://dreamx.com/img/menuico1.svg" class="ico_bullet2">종합쇼핑몰</a></li>
+                                <li><a href="#"><img src="https://dreamx.com/img/menuico1.svg" class="ico_bullet2">식품</a></li>
+                                <li><a href="#"><img src="https://dreamx.com/img/menuico1.svg" class="ico_bullet2">여행</a></li>
+                                <li><a href="#"><img src="https://dreamx.com/img/menuico1.svg" class="ico_bullet2">패션</a></li>
+                                <li><a href="#"><img src="https://dreamx.com/img/menuico1.svg" class="ico_bullet2">화장품/뷰티</a></li>
+                                <li><a href="#"><img src="https://dreamx.com/img/menuico1.svg" class="ico_bullet2">유아/아동</a></li>
+                                <li><a href="#"><img src="https://dreamx.com/img/menuico1.svg" class="ico_bullet2">도서/티켓</a></li>
+                                <li><a href="#"><img src="https://dreamx.com/img/menuico1.svg" class="ico_bullet2">가전/디지털</a></li>
+                                <li><a href="#"><img src="https://dreamx.com/img/menuico1.svg" class="ico_bullet2">생활/팬시/인테리어</a></li>
+                                <li><a href="#"><img src="https://dreamx.com/img/menuico1.svg" class="ico_bullet2">휴대폰</a></li>
+                                <li><a href="#"><img src="https://dreamx.com/img/menuico1.svg" class="ico_bullet2">건강</a></li>
+                                <li><a href="#"><img src="https://dreamx.com/img/menuico1.svg" class="ico_bullet2">교육</a></li>
+                                <li><a href="#"><img src="https://dreamx.com/img/menuico1.svg" class="ico_bullet2">금융/신용</a></li>
+                                <li><a href="#"><img src="https://dreamx.com/img/menuico1.svg" class="ico_bullet2">꽃배달</a></li>
+                                <li><a href="#"><img src="https://dreamx.com/img/menuico1.svg" class="ico_bullet2">기타</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="gnb_menu menu_01">
+                        <a class="gnb_tit" href="/mall/kr.php">국내</a>
+                    </li>
+                    <li class="gnb_menu menu_02">
+                        <a class="gnb_tit" href="/mall/foreign.php">해외</a>
+                    </li>
+                    <li class="gnb_menu menu_03">
+                        <a class="gnb_tit" href="/mall/store.php">스토어</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li><a href="https://dreamx.com" class="nav_slide_home"><img src="https://dreamx.com/img/ico_home.svg" class="ico_bullet4"></a></li>
+                    <li id="hMenu_pc2" class="nav_height menu_04">
+                        <a class="menu_txt" href="https://dreamx.com/service/">서비스소개</a>
+                        <div class="hMenu_box">
+                            <ul>
+                                <li><a href="https://dreamx.com/service/">돈버는 쇼핑?</a></li>
+                                <li><a href="https://dreamx.com/service/cash.php">쇼핑적립금 이란</a></li>
+                                <li><a href="https://dreamx.com/service/way.php">쇼핑적립금 적립방법</a></li>
+                                <li><a href="https://dreamx.com/service/mall.php">적립몰 안내</a></li>
+                                <li><a href="https://dreamx.com/service/no.php">적립금 누락 안내</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li id="hMenu_pc2" class="nav_height menu_05">
+                        <a class="menu_txt" href="https://dreamx.com/mycash/">쇼핑적립금</a>
+                        <div class="hMenu_box">
+                            <ul>
+                                <li><a href="https://dreamx.com/mycash/">쇼핑적립금 조회</a></li>
+                                <li><a href="https://dreamx.com/mycash/moneyback.php">머니백 신청</a></li>
+                                <li><a href="https://dreamx.com/mycash/omission.php">미적립금 신청</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li id="hMenu_pc2" class="nav_height menu_07">
+                        <a class="menu_txt" href="https://dreamx.com/coupang/stamp.php">쿠팡스탬프</a>
+                        <div class="hMenu_box">
+                            <ul>
+                                <li><a href="https://dreamx.com/coupang/stamp.php">쿠팡스탬프</a></li>
+                                <li><a href="https://dreamx.com/coupang/stamp_list.php">스탬프 당첨내역</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li id="hMenu_pc2" class="nav_height menu_06">
+                        <a class="menu_txt" href="https://dreamx.com/bbs/board.php?bo_table=notice">고객센터</a>
+                        <div class="hMenu_box">
+                            <ul>
+                                <li><a href="https://dreamx.com/bbs/board.php?bo_table=notice">공지사항</a></li>
+                                <li><a href="https://dreamx.com/bbs/faq.php">자주하는 질문</a></li>
+                                <li><a href="https://dreamx.com/bbs/qa.php">1:1문의</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<!-- 모바일 헤더 시작 -->
+<!-- 카테고리창 -->
+<div class="menu">
+    <div class="mslide">
+        <div class="m_head">
+            <div class="logo"><img src="https://dreamx.com/img/logo.svg" alt="드림엑스"></div>
+            <div class="btn_close"><img src="https://dreamx.com/img/ico_close_b.svg" class="ico_close" alt="닫기"></div>
+        </div>
+        <div class="menu_wrap">
+            <!-- 상단 네비 영역 -->
+            <div id="gnb_wrap">
+                <ul>
+                    <li class="search">
+                        <!-- 검색창 출력 -->
+                        <div id="search_wrap">
+                            <div class="search_bar">
+                                <div class="search_box">
+                                    <form action="https://dreamx.com/mall/search.php" onsubmit="return search_submit(this);">
+                                        <input type="text" class="search_input" name="q" value="" required placeholder="검색어를 입력해주세요.">
+                                        <button type="summit" class="btn_search" title="Search"><img src="https://dreamx.com/img/ico_search.svg" class="icon_search_w" alt="Search"></button>
+                                    </form>
+                                    <script>
+                                        function search_submit(f) {
+                                            if (f.q.value.length < 2) {
+                                                alert("검색어는 두글자 이상 입력하십시오.");
+                                                f.q.select();
+                                                f.q.focus();
+                                                return false;
+                                            }
+                                            return true;
+                                        }
+                                    </script>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+                            <!-- 로그아웃이 되어있는 상태 -->
+                <ul>
+                    <li class="join">
+                        <a href="https://dreamx.com/bbs/login.php?url=%2Fapp-ads.txt"><img src="https://dreamx.com/img/login.svg" class="ico_bullet">로그인</a>
+                        <span class="pipe2"></span>
+                        <a href="https://dreamx.com/bbs/signup.php"><img src="https://dreamx.com/img/join.svg" class="ico_bullet">회원가입</a>
+                    </li>
+                </ul>
+                        <div class="hMenu_box2">
+                <ul>
+                    <li><a href="#"><img src="https://dreamx.com/img/menuico2.svg" class="ico_bullet2">종합쇼핑몰</a></li>
+                    <li><a href="#"><img src="https://dreamx.com/img/menuico3.svg" class="ico_bullet2">식품</a></li>
+                    <li><a href="#"><img src="https://dreamx.com/img/menuico1.svg" class="ico_bullet2">여행</a></li>
+                    <li><a href="#"><img src="https://dreamx.com/img/menuico1.svg" class="ico_bullet2">패션</a></li>
+                    <li><a href="#"><img src="https://dreamx.com/img/menuico1.svg" class="ico_bullet2">화장품/뷰티</a></li>
+                    <li><a href="#"><img src="https://dreamx.com/img/menuico1.svg" class="ico_bullet2">유아/아동</a></li>
+                    <li><a href="#"><img src="https://dreamx.com/img/menuico1.svg" class="ico_bullet2">도서/티켓</a></li>
+                    <li><a href="#"><img src="https://dreamx.com/img/menuico1.svg" class="ico_bullet2">가전/디지털</a></li>
+                    <li><a href="#"><img src="https://dreamx.com/img/menuico1.svg" class="ico_bullet2">생활/팬시/인테리어</a></li>
+                    <li><a href="#"><img src="https://dreamx.com/img/menuico1.svg" class="ico_bullet2">휴대폰</a></li>
+                    <li><a href="#"><img src="https://dreamx.com/img/menuico1.svg" class="ico_bullet2">건강</a></li>
+                    <li><a href="#"><img src="https://dreamx.com/img/menuico1.svg" class="ico_bullet2">교육</a></li>
+                    <li><a href="#"><img src="https://dreamx.com/img/menuico1.svg" class="ico_bullet2">금융/신용</a></li>
+                    <li><a href="#"><img src="https://dreamx.com/img/menuico1.svg" class="ico_bullet2">꽃배달</a></li>
+                    <li><a href="#"><img src="https://dreamx.com/img/menuico1.svg" class="ico_bullet2">기타</a></li>
+                </ul>
+            </div>
+
+            <hr>
+
+            <div class="mobile_nav">
+                <div class="nav_slide1"><img src="https://dreamx.com/img/ico_shopping.svg" class="ico_bullet4">서비스소개</div>
+                <div class="hMenu_mobile1">
+                    <ul>
+                        <li><a href="https://dreamx.com/service/">돈버는 쇼핑?</a></li>
+                        <li><a href="https://dreamx.com/service/cash.php">쇼핑적립금 이란</a></li>
+                        <li><a href="https://dreamx.com/service/way.php">쇼핑적립금 적립방법</a></li>
+                        <li><a href="https://dreamx.com/service/mall.php">적립몰 안내</a></li>
+                        <li><a href="https://dreamx.com/service/no.php">적립금 누락 안내</a></li>
+                    </ul>
+                </div>
+                <div class="nav_slide2"><img src="https://dreamx.com/img/ico_shopping.svg" class="ico_bullet4">쇼핑적립금</div>
+                <div class="hMenu_mobile2">
+                    <ul>
+                        <li><a href="https://dreamx.com/mycash/">쇼핑적립금 조회</a></li>
+                        <li><a href="https://dreamx.com/mycash/moneyback.php">머니백 신청</a></li>
+                        <li><a href="https://dreamx.com/mycash/omission.php">미적립금 신청</a></li>
+                    </ul>
+                </div>
+                <div class="nav_slide4"><img src="https://dreamx.com/img/ico_shopping.svg" class="ico_bullet4">쿠팡스탬프</div>
+                <div class="hMenu_mobile4">
+                    <ul>
+                        <li><a href="https://dreamx.com/coupang/stamp.php">쿠팡스탬프</a></li>
+                        <li><a href="https://dreamx.com/coupang/stamp_list.php">스탬프 적립내역</a></li>
+                    </ul>
+                </div>
+                <div class="nav_slide3"><img src="https://dreamx.com/img/ico_shopping.svg" class="ico_bullet4">고객센터</div>
+                <div class="hMenu_mobile3">
+                    <ul>
+                        <li><a href="https://dreamx.com/bbs/board.php?bo_table=notice">공지사항</a></li>
+                        <li><a href="https://dreamx.com/bbs/faq.php">자주하는 질문</a></li>
+                        <li><a href="https://dreamx.com/bbs/qa.php">1:1문의</a></li>
+                    </ul>
+                </div>
+            </div>
+            <script>
+                $(".hMenu_mobile1").hide();
+                $(".nav_slide1").click(function() {
+                    $(".hMenu_mobile1").slideToggle();
+                });
+                $(".hMenu_mobile2").hide();
+                $(".nav_slide2").click(function() {
+                    $(".hMenu_mobile2").slideToggle();
+                });
+                $(".hMenu_mobile3").hide();
+                $(".nav_slide3").click(function() {
+                    $(".hMenu_mobile3").slideToggle();
+                });
+                $(".hMenu_mobile4").hide();
+                $(".nav_slide4").click(function() {
+                    $(".hMenu_mobile4").slideToggle();
+                });
+            </script>
+        </div>
+    </div>
+    <div class="mdim"></div>
+</div>
+<header id="header_mobile">
+    <div class="inner_lm">
+        <!-- 로고 및 슬로건 영역 -->
+        <div class="logo">
+            <a href="https://dreamx.com/"><img src="https://dreamx.com/img/logo.svg" alt="드림엑스"></a>
+        </div>
+        <div id="logo_area">
+            <ul>
+                <li class="search_modal"><img src="https://dreamx.com/img/ico_menu.svg" class="ico_menu" alt="카테고리"></li>
+                <li class="join">
+                    <a href="https://dreamx.com/bbs/login.php"><img src="https://dreamx.com/img/ico_people.svg" class="ico_bullet7"></a>                    <span id="hMenu"><img src="https://dreamx.com/img/ico_search.svg" class="icon_search_w ico_bullet7" alt="Search"></span>
+                </li>
+            </ul>
+        </div>
+    </div>
+</header>
+
+
+<!-- 메인 슬라이드 -->
+<!-- 메인 슬라이드(모바일) -->
+
+
+<!-- 국내쇼핑 제휴사 -->
+<section>
+    <div class="shopping_per">
+        <!-- <h2>국내쇼핑 제휴사<a href="/mall/kr.php"><img src="https://dreamx.com/img/ico_plus.svg" class="ico_bullet3"></a></h2> -->
+        <h2>제휴사<a href="https://dreamx.com/mall/all.php"><img src="https://dreamx.com/img/ico_plus.svg" class="ico_bullet3"></a></h2>
+        <ul>
+            
+        </ul>
+    </div>
+</section>
+
+
+
+
+
+<!-- 하단정보 -->
+<footer>
+    <div id="fnb">
+        <div class="fnb_l">
+            <ul>
+                <li><a href="https://dreamx.com/bbs/content.php?co_id=provision">이용약관</a></li>
+                <li><a href="https://dreamx.com/bbs/content.php?co_id=privacy">개인정보처리방침</a></li>
+            </ul>
+        </div>
+        <div class="fnb_r">
+        </div>
+    </div>
+    <div id="copyright">
+        <!-- 피씨버전일때 -->
+        <div class="inner_scroll">
+            <div class="cr_l">
+                <ul>
+                    <li>(주)드림엑스 (대표:박진성)<span>|</span>서울특별시 강남구 강남대로 126길 30, 202호 (논현동, 스퀘어 146)<br>
+                        사업자번호: 549-86-02375<span>|</span>통신판매업신고: 2021-서울강남-02427<span>|</span>개인정보관리책임자: 박진성</li>
+                    <li>Copyright 2026. <strong>(주)드림엑스</strong> All rights reserved.</li>
+                </ul>
+            </div>
+            <div class="cr_r">
+                <ul>
+                    <li>
+                        <img src="https://dreamx.com/img/logo.svg" alt="드림엑스" class="footer_img">
+                        <img src="https://dreamx.com/img/venture-min.png" alt="벤처확인기업">
+                        <img src="https://dreamx.com/img/bestfamily-min.png" alt="가족친화우수기업">
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!-- 모바일버전일때 -->
+        <div class="inner_scroll2">
+            <div class="cr_l">
+                <ul>
+                    <li>(주)드림엑스 (대표:박진성)</li>
+                    <li>서울특별시 강남구 강남대로 126길 30, 202호 (논현동, 스퀘어 146)</li>
+                    <li>사업자번호: 549-86-02375</li>
+                    <li>통신판매업신고: 2021-서울강남-02427</li>
+                    <li>개인정보관리책임자: 박진성</li>
+                    <li>ⓒ 2026. <strong>(주)드림엑스</strong> All rights reserved.</li>
+                </ul>
+            </div>
+            <div class="cr_r">
+                <ul>
+                    <li>
+                        <img src="https://dreamx.com/img/logo.svg" alt="드림엑스" class="footer_img">
+                        <img src="https://dreamx.com/img/venture-min.png" alt="벤처확인기업">
+                        <img src="https://dreamx.com/img/bestfamily-min.png" alt="가족친화우수기업">
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-PR2KS00YDR"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-PR2KS00YDR');
+</script>
+
+<!-- 맨위로 아이콘 -->
+<a id="backToTop" class="scrolltop" href="#">
+    <img src="https://dreamx.com/img/ico_arrow.svg">
+</a>
+<script>
+    jQuery(document).ready(function() {
+        $(window).scroll(function() {
+            if ($(this).scrollTop() > 500) {
+                $('#backToTop').fadeIn(500);
+            } else {
+                $('#backToTop').fadeOut('slow');
+            }
+        });
+        $('#backToTop').click(function(e) {
+            e.preventDefault();
+            $('html, body').animate({
+                scrollTop: 0
+            }, 200);
+        });
+        $('.lazy').Lazy();
+    });
+</script>
+
+<script src="https://dreamx.com/js/sns.js"></script>
+
+
+
+<!-- ie6,7에서 사이드뷰가 게시판 목록에서 아래 사이드뷰에 가려지는 현상 수정 -->
+<!--[if lte IE 7]>
+<script>
+$(function() {
+    var $sv_use = $(".sv_use");
+    var count = $sv_use.length;
+
+    $sv_use.each(function() {
+        $(this).css("z-index", count);
+        $(this).css("position", "relative");
+        count = count - 1;
+    });
+});
+</script>
+<![endif]-->
+
+
+</body>
+</html>

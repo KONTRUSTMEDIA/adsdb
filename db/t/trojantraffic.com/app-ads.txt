@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trojan Traffic — медиабаинг & арбитраж</title>
+<meta name="description" content="Trojan Traffic — команда медиабаинга и арбитража. Масштабируем трафик. Одна кампания за раз.">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0b0b0c; --fg:#f5f5f6; --muted:#a1a1aa; --line:#1c1c1e;
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%; margin:0}
+  body{
+    font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    color:var(--fg); background:var(--bg);
+    display:flex; align-items:center; justify-content:center; overflow:hidden;
+  }
+  .wrap{position:relative; width:100%; min-height:100svh; display:grid; place-items:center; padding:32px}
+  .bg{
+    position:absolute; inset:0; pointer-events:none;
+    background:
+      radial-gradient(1200px 500px at -10% -10%, rgba(255,255,255,.06), transparent 60%),
+      radial-gradient(1000px 400px at 110% 0%, rgba(255,255,255,.04), transparent 60%),
+      linear-gradient(#0b0b0c, #0b0b0c);
+  }
+  .bg:after{
+    content:""; position:absolute; inset:0;
+    background:url('assets/grain.svg');
+    opacity:.6; mix-blend-mode:overlay;
+  }
+  main{
+    position:relative; z-index:1;
+    width:min(1120px, 94vw);
+    display:grid; grid-template-columns: 1.1fr .9fr; gap:64px; align-items:center;
+  }
+  @media (max-width: 900px){ main{grid-template-columns:1fr; gap:32px; text-align:center} }
+  header{display:flex; align-items:center; gap:12px; margin-bottom:28px}
+  header img{width:44px; height:44px}
+  header .name{font-weight:800; letter-spacing:.02em}
+  h1{
+    margin:0;
+    font-size:clamp(36px, 6vw, 84px);
+    line-height:0.98; letter-spacing:-.02em;
+    text-wrap:balance;
+    background:linear-gradient(180deg,#fff, #cfcfd4 60%, #a1a1aa);
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+    filter: drop-shadow(0 10px 40px rgba(255,255,255,.08));
+  }
+  .lead{margin-top:18px; color:var(--muted); font-size:clamp(16px, 2.2vw, 20px); max-width:40ch}
+  .glass{
+    backdrop-filter:saturate(140%) blur(10px);
+    background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+    border:1px solid var(--line); border-radius:18px; padding:26px;
+    box-shadow:0 20px 60px rgba(0,0,0,.45), inset 0 1px rgba(255,255,255,.04);
+  }
+  form{display:flex; flex-direction:column; gap:14px}
+  label{font-size:13px; color:#b5b5bd; text-align:left}
+  input, textarea{
+    width:100%; padding:14px 16px; border-radius:14px; border:1px solid #242427; background:#0e0e10; color:var(--fg); font:inherit;
+  }
+  input:focus, textarea:focus{outline:none; border-color:#fff}
+  textarea{height:120px; resize:none}
+  .row{display:flex; align-items:center; gap:12px; flex-wrap:wrap}
+  button{
+    appearance:none; border:0; border-radius:14px; padding:12px 18px;
+    background:#fff; color:#0b0b0c; font-weight:800; cursor:pointer;
+    transition:transform .12s ease, background .2s ease;
+  }
+  button:hover{background:#e7e7ea}
+  button:active{transform:translateY(1px)}
+  .ok{display:none; color:#c7c7ce; font-size:14px}
+  .tg{margin-top:10px; color:#bfbfc6; font-size:14px}
+  .tg a{color:#fff; text-decoration:none; border-bottom:1px solid #fff}
+  footer{position:absolute; left:50%; transform:translateX(-50%); bottom:16px; color:#6b6b72; font-size:12px}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="bg"></div>
+    <main>
+      <section>
+        <header>
+          <img src="assets/tt.svg" alt="Trojan Traffic">
+          <div class="name">Trojan Traffic</div>
+        </header>
+        <h1>Масштабируем трафик.<br>Одна кампания за раз.</h1>
+        <p class="lead">Команда медиабаинга и арбитража. Ставим гипотезы, тестируем быстро, масштабируем доказанные связки.</p>
+      </section>
+
+      <section class="glass" aria-labelledby="formTitle">
+        <div id="formTitle" style="font-weight:800; margin-bottom:6px">Связаться</div>
+        <form id="f" action="#" method="POST" novalidate>
+          <label for="name">Имя</label>
+          <input id="name" name="name" placeholder="Как к вам обращаться" required>
+          <label for="email">Email</label>
+          <input id="email" name="email" type="email" placeholder="name@company.com" required>
+          <label for="msg">Сообщение</label>
+          <textarea id="msg" name="message" placeholder="Кратко о задаче" required></textarea>
+          <div class="row">
+            <button type="submit">Отправить</button>
+            <span id="ok" class="ok">Спасибо! Мы на связи.</span>
+          </div>
+        </form>
+        <div class="tg">Telegram: <a href="https://t.me/trojantraffic" rel="noopener">@trojantraffic</a></div>
+      </section>
+    </main>
+    <footer>© <span id="y"></span> Trojan Traffic</footer>
+  </div>
+<script>
+  document.getElementById('y').textContent = new Date().getFullYear();
+  const f = document.getElementById('f');
+  const ok = document.getElementById('ok');
+  f.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const btn = f.querySelector('button');
+    const prev = btn.textContent;
+    btn.textContent = 'Отправляем…';
+    btn.disabled = true;
+    setTimeout(() => {
+      btn.textContent = prev;
+      btn.disabled = false;
+      f.reset();
+      ok.style.display = 'inline';
+    }, 460);
+  });
+</script>
+</body>
+</html>

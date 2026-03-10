@@ -1,0 +1,35 @@
+<html>
+<head>
+<title>uspstudios.co</title>
+<script type="text/javascript" src="/js/fingerprint/iife.min.js"></script>
+<script type="text/javascript">
+var redirect_link = 'http://uspstudios.co/app-ads.txt?tr_uuid=20260224-2346-18ed-9823-0d8d69d6b7bf&';
+let redirected = false;
+
+function redirect(suffix) {
+	if (redirected) return;
+	redirected = true;
+	window.location.replace(redirect_link + suffix);
+}
+
+const rdrTimeout = setTimeout(() => redirect('fp=-7'), 300);
+
+try {
+	FingerprintJS.load({monitoring: false})
+		.then(fp => fp.get())
+		.then(result => {
+			clearTimeout(rdrTimeout);
+			redirect('fp=' + result.visitorId);
+		});
+} catch (err) {
+	redirect('fp=-7');
+}
+
+</script>
+<style> body { background:#101c36 } </style>
+</head>
+<body bgcolor="#ffffff" text="#000000">
+<div style='display: none;'><a href='http://uspstudios.co/app-ads.txt?tr_uuid=20260224-2346-18ed-9823-0d8d69d6b7bf&fp=-3'>Click here to enter</a></div>
+<noscript><meta http-equiv="refresh" content="0; URL=http://uspstudios.co/app-ads.txt?tr_uuid=20260224-2346-18ed-9823-0d8d69d6b7bf&fp=-5"></noscript>
+</body>
+</html>

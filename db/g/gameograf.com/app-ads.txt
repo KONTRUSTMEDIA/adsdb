@@ -1,0 +1,360 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="robots" content="noindex,nofollow" />
+  <title>Gameograf</title>
+
+  <style>
+    :root{
+      --bg0:#f6f7fb;
+      --bg1:#ffffff;
+      --text:#0b1220;
+      --muted:rgba(11,18,32,.72);
+      --border:rgba(11,18,32,.10);
+      --shadow:0 18px 50px rgba(11,18,32,.10);
+      --pill:rgba(11,18,32,.06);
+      --accent:#5b8cff;
+      --accent2:#22c55e;
+      --radius:18px;
+    }
+    @media (prefers-color-scheme: dark){
+      :root{
+        --bg0:#070b14;
+        --bg1:#0b1220;
+        --text:#eaf0ff;
+        --muted:rgba(234,240,255,.72);
+        --border:rgba(234,240,255,.10);
+        --shadow:0 18px 60px rgba(0,0,0,.40);
+        --pill:rgba(234,240,255,.06);
+        --accent:#7aa5ff;
+        --accent2:#34d399;
+      }
+    }
+
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      min-height:100vh;
+      display:grid;
+      place-items:center;
+      padding:24px;
+      font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
+      color:var(--text);
+      background:
+        radial-gradient(900px 500px at 20% 10%, rgba(91,140,255,.18), transparent 60%),
+        radial-gradient(900px 500px at 80% 10%, rgba(52,211,153,.14), transparent 60%),
+        radial-gradient(900px 600px at 50% 120%, rgba(91,140,255,.10), transparent 60%),
+        var(--bg0);
+    }
+
+    .wrap{width:min(860px,100%);}
+
+    .card{
+      background:linear-gradient(180deg, rgba(255,255,255,.75), rgba(255,255,255,.55));
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      overflow:hidden;
+      position:relative;
+    }
+    @media (prefers-color-scheme: dark){
+      .card{
+        background:linear-gradient(180deg, rgba(11,18,32,.78), rgba(11,18,32,.58));
+        backdrop-filter: blur(10px);
+      }
+    }
+
+    .top{
+      padding:22px 22px 14px;
+      display:flex;
+      gap:14px;
+      align-items:flex-start;
+    }
+
+    .logo{
+      width:44px;height:44px;border-radius:14px;
+      background:linear-gradient(135deg, var(--accent), var(--accent2));
+      box-shadow:0 12px 25px rgba(91,140,255,.25);
+      flex:0 0 auto;
+    }
+
+    .title{margin:0;font-size:20px;line-height:1.25}
+    .desc{margin:8px 0 0;font-size:14.5px;line-height:1.55;color:var(--muted)}
+
+    .pillrow{padding:0 22px 14px;display:flex;gap:10px;flex-wrap:wrap}
+    .pill{
+      display:inline-flex;align-items:center;gap:8px;
+      padding:8px 10px;border-radius:999px;
+      background:var(--pill);border:1px solid var(--border);
+      font-size:12.5px;color:var(--muted)
+    }
+    .dot{width:8px;height:8px;border-radius:99px;background:var(--accent2)}
+    .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace}
+
+    .content{
+      padding:0 22px 22px;
+      display:grid;
+      grid-template-columns: 1fr;
+      gap:14px;
+    }
+
+    .hint{
+      font-size:13.5px;color:var(--muted);
+      background:rgba(255,255,255,.45);
+      border:1px dashed var(--border);
+      border-radius:14px;
+      padding:12px 12px;
+      line-height:1.55;
+    }
+    @media (prefers-color-scheme: dark){
+      .hint{background:rgba(11,18,32,.35);}
+    }
+
+    /* new: why box */
+    .why{
+      border:1px solid var(--border);
+      border-radius:14px;
+      padding:12px 12px;
+      background:rgba(255,255,255,.55);
+      display:flex;
+      gap:10px;
+      align-items:flex-start;
+      text-align:left;
+    }
+    @media (prefers-color-scheme: dark){
+      .why{background:rgba(11,18,32,.40);}
+    }
+    .why .q{
+      flex:0 0 auto;
+      width:28px;height:28px;border-radius:10px;
+      display:grid;place-items:center;
+      background:var(--pill);
+      border:1px solid var(--border);
+      color:var(--text);
+      font-weight:700;
+    }
+    .why .whyt{
+      margin:0;
+      font-size:13.5px;
+      color:var(--text);
+      line-height:1.35;
+    }
+    .why .whyd{
+      margin:6px 0 0;
+      font-size:13px;
+      color:var(--muted);
+      line-height:1.55;
+    }
+
+    .video{
+      border-radius:16px;
+      overflow:hidden;
+      border:1px solid var(--border);
+      background:rgba(0,0,0,.04);
+    }
+    @media (prefers-color-scheme: dark){
+      .video{background:rgba(255,255,255,.04);}
+    }
+    video{display:block;width:100%;height:auto}
+
+    .footer{
+      padding:14px 22px 18px;
+      border-top:1px solid var(--border);
+      display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;
+      font-size:12.5px;color:var(--muted);
+    }
+    .kbd{
+      font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;
+      padding:.12rem .42rem;border-radius:8px;
+      background:rgba(0,0,0,.06);border:1px solid var(--border);
+      color:var(--text);
+    }
+    @media (prefers-color-scheme: dark){
+      .kbd{background:rgba(255,255,255,.06);color:var(--text);}
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <div class="card">
+      <div class="top">
+        <div class="logo" aria-hidden="true"></div>
+        <div>
+          <h1 class="title" id="t">Quick note 😊</h1>
+          <p class="desc" id="m1">
+            This web page isn’t available in your region right now — but you can still enjoy Gameograf via our Chrome extensions.
+          </p>
+        </div>
+      </div>
+
+      <div class="pillrow">
+        <div class="pill"><span class="dot"></span><span id="note1">Chrome Web Store search</span> <span class="kbd">Gameograf</span></div>
+        <div class="pill" id="note2">No ads • No tracking • Info only</div>
+      </div>
+
+      <div class="content">
+        <div class="hint" id="m2">
+          Open Chrome Web Store and search for <span class="kbd">Gameograf</span>. The short video below shows exactly how.
+        </div>
+
+        <!-- Why am I seeing this? -->
+        <div class="why" role="note" aria-label="Why am I seeing this?">
+          <div class="q">?</div>
+          <div>
+            <p class="whyt" id="whyT">Why am I seeing this?</p>
+            <p class="whyd" id="whyD">
+              Some pages are region-limited. This doesn’t mean there’s anything wrong — it’s simply a location-based access setting.
+            </p>
+          </div>
+        </div>
+
+        <div class="video" aria-label="Chrome Web Store search demo">
+          <video id="demo" autoplay muted loop playsinline preload="auto">
+            <source src="https://api.gameograf.com/restricted/gameograf-search.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+
+      <div class="footer">
+        <div id="m3">Thanks for checking in 💙</div>
+        <div>Gameograf</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Autoplay robustness
+    document.addEventListener("DOMContentLoaded", () => {
+      const v = document.getElementById("demo");
+      if (v) { v.muted = true; v.play().catch(()=>{}); }
+    });
+
+    // Non-tier1 oriented language set
+    const T = {
+      en:{
+        t:"Quick note 😊",
+        m1:"This web page isn’t available in your region right now — but you can still enjoy Gameograf via our Chrome extensions.",
+        note1:"Chrome Web Store search",
+        note2:"No ads • No tracking • Info only",
+        m2:"Open Chrome Web Store and search for <span class='kbd'>Gameograf</span>. The short video below shows exactly how.",
+        whyT:"Why am I seeing this?",
+        whyD:"Some pages are region-limited. This doesn’t mean there’s anything wrong — it’s simply a location-based access setting.",
+        m3:"Thanks for checking in 💙"
+      },
+      tr:{
+        t:"Kısa bir not 😊",
+        m1:"Bu sayfa şu an bulunduğun bölge için açık değil — ama Gameograf’ı Chrome uzantılarımızla rahatça kullanabilirsin.",
+        note1:"Chrome Web Store araması",
+        note2:"Reklam yok • Takip yok • Bilgi amaçlı",
+        m2:"Chrome Web Store’u açıp <span class='kbd'>Gameograf</span> diye arat. Aşağıdaki kısa video tam olarak nasıl yapacağını gösteriyor.",
+        whyT:"Bunu neden görüyorum?",
+        whyD:"Bazı sayfalar bölgeye göre kısıtlanabilir. Bu bir hata değil — sadece konuma göre bir erişim ayarıdır.",
+        m3:"Uğradığın için teşekkürler 💙"
+      },
+      zh:{
+        t:"小提示 😊",
+        m1:"此网页目前在您所在地区不可用——但您仍然可以通过我们的 Chrome 扩展使用 Gameograf。",
+        note1:"Chrome 网上应用店搜索",
+        note2:"无广告 • 无跟踪 • 仅提示",
+        m2:"打开 Chrome 网上应用店并搜索 <span class='kbd'>Gameograf</span>。下方短视频演示了操作方法。",
+        whyT:"为什么会看到这个页面？",
+        whyD:"部分页面会按地区限制访问。这不是故障，只是基于位置的访问设置。",
+        m3:"感谢访问 💙"
+      },
+      hi:{
+        t:"छोटा सा नोट 😊",
+        m1:"यह पेज अभी आपके क्षेत्र में उपलब्ध नहीं है — लेकिन आप हमारे Chrome एक्सटेंशन के जरिए Gameograf का उपयोग कर सकते हैं।",
+        note1:"Chrome Web Store खोज",
+        note2:"कोई विज्ञापन नहीं • कोई ट्रैकिंग नहीं • केवल जानकारी",
+        m2:"Chrome Web Store खोलें और <span class='kbd'>Gameograf</span> खोजें। नीचे वाला छोटा वीडियो बिल्कुल तरीका दिखाता है।",
+        whyT:"यह मुझे क्यों दिख रहा है?",
+        whyD:"कुछ पेज क्षेत्र के अनुसार सीमित हो सकते हैं। यह कोई त्रुटि नहीं है — यह केवल लोकेशन-आधारित सेटिंग है।",
+        m3:"आने के लिए धन्यवाद 💙"
+      },
+      ur:{
+        t:"ایک مختصر نوٹ 😊",
+        m1:"یہ صفحہ فی الحال آپ کے علاقے میں دستیاب نہیں ہے — لیکن آپ ہمارے Chrome ایکسٹینشن کے ذریعے Gameograf استعمال کر سکتے ہیں۔",
+        note1:"Chrome Web Store میں تلاش",
+        note2:"کوئی اشتہار نہیں • کوئی ٹریکنگ نہیں • صرف معلومات",
+        m2:"Chrome Web Store کھولیں اور <span class='kbd'>Gameograf</span> تلاش کریں۔ نیچے والی مختصر ویڈیو طریقہ دکھاتی ہے۔",
+        whyT:"مجھے یہ کیوں دکھ رہا ہے؟",
+        whyD:"کچھ صفحات علاقے کے مطابق محدود ہو سکتے ہیں۔ یہ کوئی خرابی نہیں — یہ صرف لوکیشن پر مبنی رسائی کی سیٹنگ ہے۔",
+        m3:"وزٹ کرنے کا شکریہ 💙"
+      },
+      id:{
+        t:"Catatan singkat 😊",
+        m1:"Halaman ini belum tersedia di wilayah Anda saat ini — tapi Anda tetap bisa menikmati Gameograf lewat ekstensi Chrome kami.",
+        note1:"Cari di Chrome Web Store",
+        note2:"Tanpa iklan • Tanpa pelacakan • Info saja",
+        m2:"Buka Chrome Web Store lalu cari <span class='kbd'>Gameograf</span>. Video singkat di bawah menunjukkan caranya.",
+        whyT:"Kenapa saya melihat ini?",
+        whyD:"Sebagian halaman dibatasi berdasarkan wilayah. Ini bukan error — hanya pengaturan akses berbasis lokasi.",
+        m3:"Terima kasih sudah mampir 💙"
+      },
+      vi:{
+        t:"Ghi chú nhanh 😊",
+        m1:"Trang này hiện chưa khả dụng ở khu vực của bạn — nhưng bạn vẫn có thể dùng Gameograf qua các tiện ích Chrome của chúng tôi.",
+        note1:"Tìm trên Chrome Web Store",
+        note2:"Không quảng cáo • Không theo dõi • Chỉ thông tin",
+        m2:"Mở Chrome Web Store và tìm <span class='kbd'>Gameograf</span>. Video ngắn bên dưới hướng dẫn cách làm.",
+        whyT:"Vì sao tôi thấy trang này?",
+        whyD:"Một số trang bị giới hạn theo khu vực. Đây không phải lỗi — chỉ là cài đặt truy cập theo vị trí.",
+        m3:"Cảm ơn bạn đã ghé qua 💙"
+      },
+      th:{
+        t:"โน้ตสั้น ๆ 😊",
+        m1:"หน้านี้ยังไม่พร้อมใช้งานในภูมิภาคของคุณตอนนี้ — แต่คุณยังใช้ Gameograf ได้ผ่านส่วนขยาย Chrome ของเรา",
+        note1:"ค้นหาใน Chrome Web Store",
+        note2:"ไม่มีโฆษณา • ไม่มีการติดตาม • เพื่อแจ้งข้อมูล",
+        m2:"เปิด Chrome Web Store แล้วค้นหา <span class='kbd'>Gameograf</span> วิดีโอสั้นด้านล่างแสดงวิธีทำ",
+        whyT:"ทำไมฉันถึงเห็นหน้านี้?",
+        whyD:"บางหน้าถูกจำกัดตามภูมิภาค นี่ไม่ใช่ข้อผิดพลาด — เป็นการตั้งค่าการเข้าถึงตามตำแหน่งเท่านั้น",
+        m3:"ขอบคุณที่แวะมา 💙"
+      },
+      bn:{
+        t:"একটা ছোট নোট 😊",
+        m1:"এই পেজটি এখন আপনার অঞ্চলে উপলব্ধ নয় — তবে আপনি আমাদের Chrome এক্সটেনশনের মাধ্যমে Gameograf ব্যবহার করতে পারবেন।",
+        note1:"Chrome Web Store অনুসন্ধান",
+        note2:"কোনো বিজ্ঞাপন নেই • ট্র্যাকিং নেই • শুধু তথ্য",
+        m2:"Chrome Web Store খুলে <span class='kbd'>Gameograf</span> লিখে সার্চ করুন। নিচের ছোট ভিডিওতে কীভাবে করতে হয় দেখানো আছে।",
+        whyT:"আমি এটা কেন দেখছি?",
+        whyD:"কিছু পেজ অঞ্চলভিত্তিকভাবে সীমিত থাকতে পারে। এটি কোনো সমস্যা নয় — কেবল অবস্থানভিত্তিক অ্যাক্সেস সেটিং।",
+        m3:"আসার জন্য ধন্যবাদ 💙"
+      }
+    };
+
+    const countryToLang = {TR:"tr", CN:"zh", IN:"hi", PK:"ur", BD:"bn", ID:"id", VN:"vi", TH:"th"};
+    const nav = (navigator.language || "en").toLowerCase().split("-")[0];
+    let chosen = T[nav] ? nav : "en";
+
+    fetch("/cdn-cgi/trace", { cache: "no-store" })
+      .then(r => r.text())
+      .then(txt => {
+        const m = txt.match(/loc=([A-Z]{2})/);
+        if (m && m[1]) {
+          const lang = countryToLang[m[1]];
+          if (lang && T[lang]) chosen = lang;
+        }
+        apply(chosen);
+      })
+      .catch(() => apply(chosen));
+
+    function apply(lang){
+      const t = T[lang] || T.en;
+      document.documentElement.lang = lang;
+      document.getElementById("t").textContent = t.t;
+      document.getElementById("m1").textContent = t.m1;
+      document.getElementById("note1").textContent = t.note1;
+      document.getElementById("note2").textContent = t.note2;
+      document.getElementById("m2").innerHTML = t.m2;
+      document.getElementById("whyT").textContent = t.whyT;
+      document.getElementById("whyD").textContent = t.whyD;
+      document.getElementById("m3").textContent = t.m3;
+      document.title = "Gameograf";
+    }
+  </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9d2e824a6af9d33d',t:'MTc3MTkzMTM0Nw=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

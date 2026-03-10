@@ -1,0 +1,377 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>مرحبا — لوحة الترحيب</title>
+<style>
+  :root{
+    --bg1: #0f1724;
+    --bg2: #071233;
+    --card: rgba(255,255,255,0.04);
+    --accent: #06b6d4;
+    --glass: rgba(255,255,255,0.04);
+    --muted: #9fb2bd;
+    --glass-border: rgba(255,255,255,0.06);
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0;
+    min-height:100vh;
+    font-family: "Segoe UI", Roboto, "Noto Naskh Arabic", system-ui, sans-serif;
+    background: radial-gradient(1200px 800px at 10% 10%, rgba(6,182,212,0.06), transparent 8%),
+                linear-gradient(180deg,var(--bg1) 0%, var(--bg2) 100%);
+    color:#eaf6f8;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:24px;
+  }
+
+  .stage{
+    width:100%;
+    max-width:980px;
+    border-radius:16px;
+    padding:28px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+    box-shadow: 0 10px 40px rgba(2,8,23,0.6);
+    position:relative;
+    overflow:hidden;
+  }
+
+  /* subtle animated background blobs */
+  .blob{
+    position:absolute;
+    border-radius:50%;
+    filter: blur(70px);
+    opacity:0.18;
+    transform: translate3d(0,0,0);
+    animation: floaty 8s ease-in-out infinite;
+  }
+  .blob.a{ width:360px; height:360px; background:#06b6d4; left:-80px; top:-120px; animation-duration:10s;}
+  .blob.b{ width:260px; height:260px; background:#7c3aed; right:-80px; bottom:-100px; animation-duration:12s; opacity:0.12;}
+  @keyframes floaty {
+    0%{ transform: translateY(0) rotate(0deg); }
+    50%{ transform: translateY(18px) rotate(8deg); }
+    100%{ transform: translateY(0) rotate(0deg); }
+  }
+
+  .grid{
+    display:grid;
+    grid-template-columns: 1fr 360px;
+    gap:22px;
+    align-items:start;
+  }
+
+  .panel{
+    background: var(--card);
+    border: 1px solid var(--glass-border);
+    padding:20px;
+    border-radius:12px;
+    backdrop-filter: blur(6px) saturate(120%);
+  }
+
+  .header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+    margin-bottom:8px;
+  }
+  .title{
+    display:flex;
+    gap:10px;
+    align-items:center;
+  }
+  .logo{
+    width:54px;
+    height:54px;
+    border-radius:12px;
+    background: linear-gradient(135deg,#06b6d4,#7c3aed);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:700;
+    color:#021018;
+    font-size:18px;
+    box-shadow: 0 6px 18px rgba(7,17,25,0.5);
+  }
+  h1{ margin:0; font-size:18px; letter-spacing:0.2px; color: #dff8fb;}
+  p.lead{ margin:0; color:var(--muted); font-size:13px }
+
+  /* Clock */
+  .clock{
+    font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Noto Naskh Arabic";
+    font-weight:600;
+    font-size:34px;
+    letter-spacing:0.6px;
+  }
+  .sub { color:var(--muted); font-size:13px; margin-top:6px; }
+
+  /* greetings */
+  .greetings-wrap{
+    margin-top:18px;
+    display:flex;
+    gap:12px;
+    align-items:center;
+  }
+  .greetings{
+    flex:1;
+    min-height:72px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    position:relative;
+    overflow:hidden;
+  }
+  .greet{
+    position:absolute;
+    left:50%;
+    top:50%;
+    transform:translate(-50%,-50%);
+    font-size:28px;
+    font-weight:700;
+    text-align:center;
+    white-space:nowrap;
+    opacity:0;
+    transform-origin:center;
+    transition: all 600ms cubic-bezier(.2,.9,.2,1);
+    will-change: transform, opacity;
+  }
+
+  .greet.show{
+    opacity:1;
+    transform: translate(-50%,-50%) scale(1);
+  }
+  .greet.small { font-size:22px; font-weight:600; color:#d6f6f8; }
+
+  /* typed effect */
+  .typed {
+    display:inline-block;
+    border-right:2px solid rgba(255,255,255,0.6);
+    padding-right:6px;
+    animation: blink 1s step-start infinite;
+    white-space:nowrap;
+  }
+  @keyframes blink { 50% { border-color: transparent; } }
+
+  /* right column */
+  .meta {
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+  }
+  .box { padding:14px; border-radius:10px; background: linear-gradient(180deg, rgba(255,255,255,0.015), transparent); border:1px solid rgba(255,255,255,0.03); }
+  .muted-sm { color:var(--muted); font-size:13px; }
+
+  /* footer */
+  .footer{
+    margin-top:18px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:8px;
+  }
+  .btn {
+    background: linear-gradient(90deg,#06b6d4,#7c3aed);
+    color:#021018;
+    padding:8px 12px;
+    border-radius:10px;
+    font-weight:700;
+    border:none;
+    cursor:pointer;
+    box-shadow: 0 8px 20px rgba(7,17,25,0.45);
+  }
+
+  /* responsive */
+  @media (max-width:880px){
+    .grid{ grid-template-columns: 1fr; }
+    .clock{ font-size:28px; }
+    .logo{ width:48px; height:48px; font-size:16px; }
+  }
+</style>
+</head>
+<body>
+  <div class="stage" role="main" aria-label="لوحة الترحيب">
+    <div class="blob a" aria-hidden="true"></div>
+    <div class="blob b" aria-hidden="true"></div>
+
+    <div class="grid">
+      <div class="panel">
+        <div class="header">
+          <div class="title">
+            <div class="logo">مرحبا</div>
+            <div>
+              <h1 id="pageTitle">مرحباً بك</h1>
+              <p class="lead" id="subtitle">لوحة بسيطة تعرض الوقت والتاريخ وترحيب متعدد اللغات</p>
+            </div>
+          </div>
+
+          <div style="text-align:right">
+            <div class="muted-sm">الوقت الآن (Asia/Dubai)</div>
+            <div class="clock" id="liveClock">--:--:--</div>
+            <div class="sub" id="liveDate">--</div>
+          </div>
+        </div>
+
+        <div class="greetings-wrap">
+          <div class="greetings" aria-live="polite" aria-atomic="true">
+            <!-- greetings injected by JS -->
+          </div>
+
+          <div style="width:160px">
+            <div class="box">
+              <div class="muted-sm">خادم — توقيت السيرفر</div>
+              <div style="margin-top:8px; font-weight:600;">2026-02-27 04:14:59 UTC</div>
+              <div class="muted-sm" style="margin-top:6px">عرض احتياطي (UTC - من PHP)</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="footer">
+          <div class="muted-sm">تصميم بسيط — تفاعلي — يعمل محليًا</div>
+          <div>
+            <button class="btn" id="nextBtn" title="إظهار الترحيب التالي">التالي ↻</button>
+          </div>
+        </div>
+      </div>
+
+      <aside class="meta">
+        <div class="box">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <div>
+              <div class="muted-sm">تعليمات</div>
+              <div style="font-weight:700; margin-top:6px">أغلق المتصفح لتسجيل الخروج</div>
+            </div>
+            <div style="text-align:center">
+              <div class="muted-sm">حالتك</div>
+              <div style="font-weight:700; margin-top:6px">متصل</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="box">
+          <div class="muted-sm">التحكم</div>
+          <div style="margin-top:8px">
+            <button class="btn" id="pauseBtn">إيقاف الحركة</button>
+            <button class="btn" id="playBtn" style="display:none">تشغيل الحركة</button>
+          </div>
+        </div>
+
+        <div class="box">
+          <div class="muted-sm">معلومات</div>
+          <div style="margin-top:8px; font-size:13px">
+            هذه الصفحة تعمل بالكامل محليًا — التاريخ/الوقت الحي يعرض بواسطة جافاسكربت بمنطقة زمنية Asia/Dubai.
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+<script>
+/* تحكم بالترحيبات */
+const greetings = [
+  "مرحبا", "Hello", "你好", "नमस्ते", "Hola", "Bonjour", "Здравствуйте", "こんにちは",
+  "Guten Tag", "Olá", "স্বাগতম", "خوش آمدید", "Bienvenue", "హలో", "ہیلو", "Ciao",
+  "שלום", "Γειά σου", "Xin chào", "Witam", "Hallo", "Selamat datang", "ਸਤ ਸ੍ਰੀ ਅਕਾਲ", "สวัสดี",
+  "안녕하세요", "Merhaba", "Sawubona", "Habari", "ਸਤ ਸ੍ਰੀ ਅਕਾਲ", "Salam", "হ্যালো"
+];
+
+const container = document.querySelector('.greetings');
+let idx = 0;
+let autoPlay = true;
+let animPaused = false;
+let rotTimer = null;
+
+function makeGreetNode(text){
+  const el = document.createElement('div');
+  el.className = 'greet';
+  // we will use small font if long
+  if (text.length > 12) el.classList.add('small');
+  // typed span
+  const span = document.createElement('span');
+  span.className = 'typed';
+  span.textContent = text;
+  el.appendChild(span);
+  return el;
+}
+
+function showGreeting(i){
+  container.innerHTML = '';
+  const el = makeGreetNode(greetings[i]);
+  container.appendChild(el);
+  // force reflow then show
+  requestAnimationFrame(()=> {
+    el.classList.add('show');
+  });
+}
+
+// rotate
+function nextGreeting(){
+  idx = (idx + 1) % greetings.length;
+  showGreeting(idx);
+}
+
+function prevGreeting(){
+  idx = (idx - 1 + greetings.length) % greetings.length;
+  showGreeting(idx);
+}
+
+// autoplay loop
+function startRotate(){
+  stopRotate();
+  rotTimer = setInterval(()=> {
+    if (!animPaused) nextGreeting();
+  }, 3500);
+}
+
+function stopRotate(){
+  if (rotTimer) { clearInterval(rotTimer); rotTimer = null; }
+}
+
+/* Clock: عرض حي بمنطقة Asia/Dubai */
+function updateClock(){
+  // use Intl to format in Asia/Dubai
+  const now = new Date();
+  const optsTime = { hour:'2-digit', minute:'2-digit', second:'2-digit', hour12:false, timeZone:'Asia/Dubai' };
+  const optsDate = { weekday:'long', year:'numeric', month:'long', day:'numeric', timeZone:'Asia/Dubai' };
+  const timeStr = new Intl.DateTimeFormat(undefined, optsTime).format(now);
+  const dateStr = new Intl.DateTimeFormat(undefined, optsDate).format(now);
+  document.getElementById('liveClock').textContent = timeStr;
+  document.getElementById('liveDate').textContent = dateStr;
+}
+
+// wire buttons
+document.getElementById('nextBtn').addEventListener('click', ()=> { nextGreeting(); resetTimer(); });
+document.getElementById('pauseBtn').addEventListener('click', ()=>{
+  animPaused = true;
+  document.getElementById('pauseBtn').style.display = 'none';
+  document.getElementById('playBtn').style.display = 'inline-block';
+});
+document.getElementById('playBtn').addEventListener('click', ()=>{
+  animPaused = false;
+  document.getElementById('pauseBtn').style.display = 'inline-block';
+  document.getElementById('playBtn').style.display = 'none';
+});
+
+function resetTimer(){
+  if (autoPlay) {
+    stopRotate();
+    startRotate();
+  }
+}
+
+// init
+showGreeting(idx);
+startRotate();
+setInterval(updateClock, 1000);
+updateClock();
+
+// keyboard navigation (optional)
+document.addEventListener('keydown', (e)=>{
+  if (e.key === 'ArrowRight') { nextGreeting(); resetTimer(); }
+  if (e.key === 'ArrowLeft') { prevGreeting(); resetTimer(); }
+});
+</script>
+</body>
+</html>

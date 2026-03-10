@@ -1,0 +1,31 @@
+
+<!doctype html>
+<html lang="ru">
+<head>
+<meta name="robots" content="noindex">
+<meta charset="utf-8"><title>Проверка</title></head>
+<body>
+  <h1>Request Challenge Verify</h1>
+  <p>We are verify your browser and request...</p>
+  <script>
+    document.cookie = "bm=1; path=/; max-age=604800";
+    const p = new URLSearchParams(location.search);
+    const r = p.get("r") || "/";
+    setTimeout(() => { window.location = r; }, 80);
+  </script>
+    <p>Please, click on the button if your browser does not redirect</p>
+    <form method="post" action="/hostiman/verify/complete">
+      <input type="hidden" name="r" value="">
+      <button type="submit">Manual verify</button>
+    </form>
+    <script></script>
+  <script>
+    (function(){
+      const p = new URLSearchParams(location.search);
+      const r = p.get("r") || "/";
+      const inp = document.querySelector('form[action="/hostiman/verify/complete"] input[name="r"]');
+      if (inp) inp.value = r;
+    })();
+  </script>
+</body>
+</html>

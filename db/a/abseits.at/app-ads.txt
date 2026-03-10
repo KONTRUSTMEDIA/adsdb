@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sicherheitsüberprüfung / Security Check</title>
+  <style nonce="J3Yyr9l7RhhFXw4KU7DXpcWW">
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f9;
+      color: #333;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+
+    .wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    h1 {
+      font-size: 2em;
+      margin: 0.4em 0 0.3em;
+    }
+
+    p {
+      font-size: 1.2em;
+      margin: 0.6em 0;
+    }
+
+    .spinner {
+      margin: 2em 0;
+      width: 50px;
+      height: 50px;
+      border: 5px solid #ccc;
+      border-top: 5px solid #333;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    
+    <h1>Einen Moment Geduld...</h1>
+    <p>Im Hintergrund läuft gerade eine kleine<br>
+    mathematische Herausforderung - ganz automatisch<br>
+    zur Bestätigung, dass Sie kein Bot sind 🔒.</p>
+    <p>⏳ In wenigen Sekunden geht es weiter.</p>
+
+    
+    <div class="spinner"></div>
+
+    
+    <h1>Just a moment...</h1>
+    <p>A small mathematical challenge is running<br>
+    in the background - fully automatic to confirm<br>
+    you're not a bot 🔒.</p>
+    <p>⏳ You'll be redirected shortly.</p>
+  </div>
+
+  <script nonce="J3Yyr9l7RhhFXw4KU7DXpcWW">
+const fromHex = h => new Uint8Array(h.match(/.{1,2}/g).map(b => parseInt(b, 16)));
+
+
+const toHex = b => Array.from(b).map(x => x.toString(16).padStart(2, "0")).join("");
+
+const challengeSeed = "00000000699d7c216645755f22dd0b02";
+const challengeMAC = "3d36d06473e8ad7f7036e9268685bb24fac63f850c356b001da0414ad83fb927c3baa332e5a3eda4fb23a5b8096c0a84f06383b766626a805ccd9634221a83d7";
+const complexity = 16;
+const seedCookie = "__challenge_seed";
+const solCookie = "__challenge_solution";
+const macCookie = "__challenge_mac";
+
+
+const maxAge = 86400;
+
+
+const seed = fromHex(challengeSeed);
+
+
+const challengeBuffer = new ArrayBuffer(seed.length * 2);
+
+
+const challengeSeedView = new Uint8Array(challengeBuffer, 0, seed.length);
+
+
+const challengeNonceView = new Uint8Array(challengeBuffer, seed.length);
+
+
+seed.forEach((v, i) => challengeSeedView[i] = v);
+
+
+function countLeadingZeros(buf) {
+  const view = new Uint8Array(buf);
+  let bits = 0;
+  for (let byte of view) {
+    for (let i = 7; i >= 0; i--) {
+      if ((byte >> i) & 1) {
+        
+        return bits;
+      }
+      bits++;
+    }
+  }
+  return bits;
+}
+
+
+(async () => {
+  while (true) {
+    
+    crypto.getRandomValues(challengeNonceView);
+    
+    const digest = await crypto.subtle.digest("SHA-512", challengeBuffer);
+    
+    const leadingZeros = countLeadingZeros(digest);
+
+    if (leadingZeros >= complexity) {
+      
+      document.cookie = `${seedCookie}=${challengeSeed}; Path=/; max-age=${maxAge}; SameSite=Lax; Secure`;
+      document.cookie = `${solCookie}=${toHex(challengeNonceView)}; Path=/; max-age=${maxAge}; SameSite=Lax; Secure`;
+      document.cookie = `${macCookie}=${challengeMAC}; Path=/; max-age=${maxAge}; SameSite=Lax; Secure`;
+      
+      window.location.reload();
+      return;
+    }
+  }
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <meta name="publisher" content="realmofgames.click" />
+    <meta name="robots" content="all" />
+    <link rel="shortcut icon" href="./assets/logo.png" />
+    <title>Play Free Online Games | Instant Fun, No Downloads!</title>
+    <meta name="ad" content="googleads" />
+    <link rel="stylesheet" href="styles.css" />
+
+    <style>
+      [v-cloak] {
+        display: none;
+      }
+    </style>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-QVNHHVZR6S"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "G-QVNHHVZR6S");
+    </script>
+  </head>
+
+  <body>
+    <div id="app" v-cloak>
+      <div class="background fx-h fx-ac fx-bc">
+        <!-- logo -->
+        <div class="logo">
+          <div class="logo-top">
+            <img
+              @click="()=>{this.orShowNav = !this.orShowNav,this.orShowSearch=false}"
+              class="logoimg"
+              loading="lazy"
+              src="./assets/menunav.png"
+              alt="games" />
+            <a href="./index.html" class="logo-l">
+              <div class="logoImg fx-r fx-ac fx-bc">
+                <div class="logoTitle">reGame</div>
+              </div>
+            </a>
+            <img
+              @click="()=>{this.orShowSearch = !this.orShowSearch,this.orShowNav=false}"
+              class="search"
+              src="./assets/search.png"
+              loading="lazy"
+              alt="games" />
+          </div>
+
+          <!-- nav -->
+          <nav class="logo-b" :style="{left: orShowNav ? '0' : '-80vw'}" role="navigation">
+            <div class="menu-main-tit">
+              <h1>games</h1>
+              <img @click="()=>{this.orShowNav = !this.orShowNav}" src="./assets/close.png" loading="lazy" alt="games" />
+            </div>
+            <div class="menu-b">
+              <a role="listitem" href="./index.html">Home</a>
+              <a role="listitem" href="./allList.html?gameType=hotgame">Hot Game</a>
+              <a role="listitem" href="./allList.html?gameType=newgame">New Game</a>
+              <a role="listitem" href="./allList.html">All Game</a>
+            </div>
+          </nav>
+        </div>
+
+        <!-- 游戏 -->
+        <div class="gamesdom">
+          <!-- search -->
+          <div class="logo-s" :style="{height: orShowSearch ? '40px' : '0'}">
+            <input
+              type="text"
+              placeholder="Please enter the content..."
+              placeholder-class="searchPlaceholder"
+              class="searinput"
+              @input="handleInput"
+              @keydown="handleEnter" />
+            <div class="searfont" @click="searchFn">Search</div>
+          </div>
+          <!-- Hot Games -->
+          <div class="hotgame" v-if="searchSection">
+            <div class="hotgametiltle fx-r fx-ac fx-bc">
+              <h2>Hot Games</h2>
+              <a href="./allList.html?gameType=hotgame">More</a>
+            </div>
+
+            <div class="gamesmain" v-if="hotgame.length">
+              <div class="game-cards fx-h" v-for="item in  hotgame.slice(0,6) " :key="item.title" @click="goToDetail(item)">
+                <img class="imgs" :src="item.image" loading="lazy" alt="games" />
+                <div class="gameTitle">{{item.title}}</div>
+              </div>
+            </div>
+            <div v-else>
+              <div class="gamesmain fx-r fx-ac fx-bc" style="color: #f0f0f0">Loading ……</div>
+            </div>
+          </div>
+
+          <!-- New Games -->
+          <div class="hotgame" v-if="searchSection">
+            <div class="hotgametiltle fx-r fx-ac fx-bc">
+              <h2>New Games</h2>
+              <a href="./allList.html?gameType=newgame">More</a>
+            </div>
+
+            <div class="gamesmain" v-if="newgame.length">
+              <div class="game-cards fx-h" v-for="item in  newgame.slice(0,6) " :key="item.title" @click="goToDetail(item)">
+                <img class="imgs" :src="item.image" loading="lazy" alt="games" />
+                <div class="gameTitle">{{item.title}}</div>
+              </div>
+            </div>
+            <div v-else>
+              <div class="gamesmain fx-r fx-ac fx-bc" style="color: #f0f0f0">Loading ……</div>
+            </div>
+          </div>
+          <!-- all games -->
+          <div class="hotgame">
+            <div class="hotgametiltle fx-r fx-ac fx-bc">
+              <h2>All Games</h2>
+              <a href="./allList.html">More</a>
+            </div>
+            <div class="gamesmain" v-if="list.length">
+              <div
+                class="game-cards fx-h"
+                style="border-radius: 20px"
+                v-for="item in (list.length == allList.length ? list.slice(20,32) : list)"
+                :key="item.title"
+                @click="goToDetail(item)">
+                <img class="imgs" :src="item.image" loading="lazy" alt="games" />
+                <div class="gameTitle">{{item.title}}</div>
+              </div>
+            </div>
+            <div class="gamesmain fx-r fx-ac fx-bc" v-else>No results.</div>
+            <div class="more" @click="toList()">View All Games</div>
+          </div>
+        </div>
+
+        <!-- footer -->
+        <footer id="contact" class="footer fx-h fx-ac fx-bc">
+          <div class="aboutUs">
+            <h4>About us</h4>
+            <h3>Free Online Games</h3>
+            <p style="font-size: 18px"><strong>realmofgames.click</strong></p>
+            <p>
+              Home to the largest collection of free online games — no downloads, no logins, just click and play. Challenge yourself
+              <strong>solo or battle friends anytime</strong>, anywhere on desktop, mobile, or tablet.
+            </p>
+            <p>
+              Whether you're new or a pro, find guides, fresh updates, and join our lively community: share your epic moves, discover hidden gems, and
+              geek out about games together.
+            </p>
+            <p>Simple. Free. All about play.</p>
+            <p>Start your gaming adventure now!</p>
+          </div>
+          <div class="logoImg fx-r fx-ac fx-bc">
+            <img src="./assets/logo.png" loading="lazy" alt="games" />
+            <div style="font-size: 26px">realmofgames.click</div>
+          </div>
+          <div class="fx-h fx-ac fx-bc" style="margin-top: 10px">
+            <div class="fx-r fx-ac fx-bc" style="margin-bottom: 10px">
+              <a href="./PrivacyPolicy/index.html">Privacy Policy</a>
+              <a href="./TermsOfUse/index.html">Terms Of Use</a>
+              <a href="./ContactUs/index.html">Contact Us</a>
+              <div href="" rel=" " style="position: relative; margin-left: 10px; cursor: pointer">
+                <div @click="showLanguage">English(US)</div>
+                <div class="language" v-if="languageShow">
+                  <ul>
+                    <li>Chinese</li>
+                    <li>Korean</li>
+                    <li>Japanese</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <p style="font-size: 12px; margin-bottom: 5px">Copyright © {{date}} realmofgames.click.</p>
+            <p style="font-size: 12px">All rights reserved.</p>
+          </div>
+        </footer>
+      </div>
+
+      <script src="./js/vue/vue.js"></script>
+      <script src="./js/game/embedgames.js"></script>
+      <script>
+        new Vue({
+          el: "#app",
+          data: {
+            orShowNav: false,
+            orShowSearch: false,
+            inputValue: "",
+            allList: [],
+            list: [],
+            newgame: [],
+            hotgame: [],
+            date: "",
+            searchSection: true, //展示分类
+            languageShow: false,
+          },
+          mounted() {
+            this.getData();
+            this.date = new Date().getFullYear();
+          },
+          methods: {
+            showLanguage() {
+              this.languageShow = !this.languageShow;
+            },
+            getData() {
+              this.allList = embedgames;
+              this.list = this.allList;
+              this.hotgame = this.list.sort(() => 0.5 - Math.random()).slice(0, 60);
+              this.newgame = this.list.sort(() => 0.5 - Math.random()).slice(0, 60);
+            },
+            toList() {
+              window.location.href = "./allList.html";
+            },
+            goToDetail(item) {
+              var tmp = item.title.replace(/^\d+-/, "-").replace(/ /g, "-");
+              window.location.href = "./detail.html?id=" + item.id + "&title=" + tmp;
+            },
+            handleInput(event) {
+              // 获取输入框的内容
+              const inputValue = event.target.value;
+              this.inputValue = inputValue;
+            },
+            handleEnter(event) {
+              if (event.key === "Enter") {
+                this.searchFn();
+              }
+            },
+            searchFn() {
+              const query = this.inputValue.trim().toLowerCase();
+              if (this.inputValue !== "" || !this.inputValue) {
+                console.log("Search for: ", this.inputValue);
+
+                this.list = this.allList.filter((item) => {
+                  const title = item.title ? String(item.title) : "";
+                  return title.toLowerCase().includes(query) || (item.tags && item.tags.some((tag) => tag.name.includes(query)));
+                });
+                this.searchSection = false;
+              } else {
+                this.list = this.allList;
+              }
+              if (this.inputValue == "" || !this.inputValue) {
+                this.searchSection = true;
+              }
+            },
+          },
+        });
+      </script>
+    </div>
+  </body>
+</html>

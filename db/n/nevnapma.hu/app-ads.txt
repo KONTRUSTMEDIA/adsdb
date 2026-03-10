@@ -1,0 +1,436 @@
+<!doctype html>
+<html lang="hu">
+ <head>
+	 <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+	
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+	
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>
+		Nevnapma.hu - Mai névnap	</title>
+	<meta name="description" content="Mai névnap: naptári névnapok és a Nyelvtudományi Intézett bővítettt ajánlott névnapjai a mai napra.">
+	
+	<style>
+	.lead {padding-left:0px;}
+	@media only screen and (max-width: 600px) {
+		.takar{
+		display:none;
+		}
+		.szinkocka {height:0px;}
+	}
+	@media only screen and (min-width: 600px) {
+		.szinkocka {height:0px;}
+	}
+	.custom-container {
+    max-width: 1200px;
+    margin: auto;
+}
+	</style>
+
+ </head>
+ <body style="background-color:#FFF">
+ 
+<style>
+    .header-img {
+        width: 100%;
+        height: auto;
+    }
+    .card-img-overlay {
+        left: 30px;
+    }
+    .header-click, .header-click:hover {
+        color: white;
+    }
+    a {
+        text-decoration: none;
+    }
+    /* Új és módosított stílusok a keresőmezőhöz és a javaslatokhoz */
+  .navbar-search {
+        flex-grow: 1;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        margin-left: 15px;
+    }
+    .search-container {
+        position: relative;
+        max-width: 300px; /* vagy amennyit szeretne */
+        width: 100%;
+    }
+    @media (max-width: 991px) {
+        .navbar-search {
+            order: -1; /* Ez a keresőmezőt a hamburger menü elé helyezi mobilon */
+            margin-right: 15px;
+        }
+        .search-container {
+            max-width: none;
+        }
+    }
+    #suggestionList {
+        position: absolute;
+        top: 100%; /* Közvetlenül az input mező alatt */
+        left: 0;
+        right: 0;
+        z-index: 1000; /* Magasabb z-index, hogy a tartalom fölött jelenjen meg */
+        max-height: 200px; /* Maximális magasság */
+        overflow-y: auto; /* Görgethetővé teszi, ha sok javaslat van */
+        background-color: white;
+        border: 1px solid #ddd;
+        border-top: none;
+        border-radius: 0 0 4px 4px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    #suggestionList .list-group-item:first-child {
+        border-top: none;
+    }
+#searchInput {
+        border-color: #ff69b4;
+        box-shadow: 0 0 5px rgba(255, 105, 180, 0.5);
+        transition: box-shadow 0.3s ease-in-out;
+    }
+    #searchInput:focus {
+        box-shadow: 0 0 15px rgba(255, 105, 180, 0.8);
+    }
+    #searchButton {
+        background-color: #ff69b4;
+        border-color: #ff69b4;
+        color: white;
+    }
+    #searchButton:hover {
+        background-color: #ff1493;
+        border-color: #ff1493;
+    }
+	
+/* Süti banner stílus */
+.cookie-banner {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #e91e63; /* Oldal rózsaszín színéhez igazítva */
+    color: #ffffff;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0px -2px 5px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+}
+
+.cookie-banner p {
+    margin: 0;
+}
+
+.cookie-banner a {
+    color: #ffffff;
+    text-decoration: underline;
+}
+
+.cookie-banner button {
+    background-color: #d81b60; /* Sötétebb rózsaszín a gombhoz */
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+
+</style>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-white mx-5">
+    <a class="navbar-brand" href="#">Névnapma.hu</a>
+    <div class="navbar-search">
+        <div class="search-container">
+            <div class="input-group">
+                <input type="text" id="searchInput" class="form-control" placeholder="Kezd el beírni a nevet...">
+                <div class="input-group-append">
+                    <button class="btn" type="button" id="searchButton">Keresés</button>
+                </div>
+            </div>
+            <ul id="suggestionList" class="list-group"></ul>
+        </div>
+    </div>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown" style="background-color:white;">
+        <ul class="navbar-nav">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Férfi/Nő
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    <a class="dropdown-item" href="https://nevnapma.hu/nem/női">Női nevek</a>
+                    <a class="dropdown-item" href="https://nevnapma.hu/nem/férfi">Férfi nevek</a>
+                </div>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Hónapok
+                </a>
+				<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    <a class="dropdown-item" href="https://nevnapma.hu/honap/január">Január</a>
+                    <a class="dropdown-item" href="https://nevnapma.hu/honap/február">Február</a>
+					<a class="dropdown-item" href="https://nevnapma.hu/honap/március">Március</a>
+					<a class="dropdown-item" href="https://nevnapma.hu/honap/április">Április</a>
+					<a class="dropdown-item" href="https://nevnapma.hu/honap/május">Május</a>
+					<a class="dropdown-item" href="https://nevnapma.hu/honap/június">Június</a>
+					<a class="dropdown-item" href="https://nevnapma.hu/honap/július">Július</a>
+					<a class="dropdown-item" href="https://nevnapma.hu/honap/augusztus">Augusztus</a>
+					<a class="dropdown-item" href="https://nevnapma.hu/honap/szeptember">Szeptember</a>
+					<a class="dropdown-item" href="https://nevnapma.hu/honap/október">Október</a>
+					<a class="dropdown-item" href="https://nevnapma.hu/honap/november">November</a>
+					<a class="dropdown-item" href="https://nevnapma.hu/honap/december">December</a>
+                </div>
+            </li>
+        </ul>
+    </div>
+</nav>
+            
+<!-- Header kép -->
+<header>
+    <div class="card bg-dark text-white" style="border:0;">
+        <a class="header-click" href="https://nevnapma.hu">
+		<img class="card-img header-img" src="https://nevnapma.hu/img/site/header.jpg"" alt="Header kép">
+        <div class="card-img-overlay d-flex align-items-start p-3">
+            <div>
+                <h1 class="card-title d-none d-sm-block">Névnapma.hu</h1>
+                <p class="card-text d-none d-sm-block">Névnapok dátuma, nevek jelentése</p>
+            </div>
+        </div>
+		</a>
+    </div>
+</header>
+ <div class="cookie-banner" id="cookieBanner">
+        <p>Ez a weboldal sütiket használ a jobb felhasználói élmény érdekében. <a href="https://nevnapma.hu/cikkek/adatvedelem">Tudj meg többet!</a></p>
+        <button onclick="acceptCookies()">Elfogadom</button>
+   </div>
+
+
+    <script>
+        let names = [];
+
+        const searchInput = document.getElementById('searchInput');
+        const suggestionList = document.getElementById('suggestionList');
+        const searchButton = document.getElementById('searchButton');
+
+        searchInput.addEventListener('input', function() {
+            const inputValue = this.value.toLowerCase();
+            suggestionList.innerHTML = '';
+
+            if (inputValue.length > 0) {
+                const filteredNames = names.filter(name => 
+                    name.toLowerCase().startsWith(inputValue)
+                );
+
+                filteredNames.forEach(name => {
+                    const li = document.createElement('li');
+                    li.classList.add('list-group-item', 'list-group-item-action');
+                    li.textContent = name;
+                    li.addEventListener('click', () => selectName(name));
+                    suggestionList.appendChild(li);
+                });
+            }
+        });
+
+        searchButton.addEventListener('click', function() {
+            const selectedName = searchInput.value;
+            if (selectedName) {
+                selectName(selectedName);
+            }
+        });
+
+        function selectName(name) {
+            const url = `https://nevnapma.hu/nevnap/${encodeURIComponent(name)}`;
+            window.location.href = url;
+        }
+
+        // Nevek betöltése a PHP szkriptből
+        fetch('https://nevnapma.hu/search/names.php')
+            .then(response => response.json())
+            .then(data => {
+                names = data;
+                console.log('Nevek betöltve:', names);
+            })
+            .catch(error => console.error('Hiba a nevek betöltése során:', error));
+	
+	function acceptCookies() {
+    document.getElementById('cookieBanner').style.display = 'none';
+    localStorage.setItem('cookiesAccepted', 'true');
+}
+
+	// Ellenőrizzük, hogy elfogadták-e már a sütiket
+	document.addEventListener('DOMContentLoaded', function () {
+		if (localStorage.getItem('cookiesAccepted') === 'true') {
+			document.getElementById('cookieBanner').style.display = 'none';
+		}
+	});
+    </script><!-- Grey with black text -->
+
+ 
+ 
+ <div class="container-fluid custom-container" style="background-color:#FFF">
+	<div class="row" style="height:50px;">
+	</div>
+	<div class="row mx-sm-5 mx-1" style="background-color:#FFF">
+		<div class="container px-sm-5 " style="margin-top:-50px;">
+		<div class="row"style="background-color:white;border-radius:5px;">
+		<div class="col mx-sm-5">
+			
+<div class="row">
+			
+<h1 class='display-3 my-sm-3 my-2 text-center' style='padding-left:0px;'>Mai névnap</h1><p class='text-center display-6' style: padding-bottom:30px;>február 24.</p><p class='text-center lead' style: padding-bottom:30px;>A mai napon a <b>naptár szerint </b>az alábbi keresztneveknek ünnepeljük a névnapját:</p><a href="https://nevnapma.hu/nevnap/Elemér"><h2 class="display-5 text-center">Elemér</a>
+</h2></div>
+<div class="row mt-5">
+
+<p class='text-center lead' style: padding-bottom:30px;>A mai napon a <b>Nyelvtudományi Intézet szerint (bővített verzió) </b>az alábbi keresztneveknek ünnepeljük a névnapját:</p><a href="https://nevnapma.hu/nevnap/Darina"><h2 class="display-6 text-center">Darina</a>
+</h2><a href="https://nevnapma.hu/nevnap/Darinka"><h2 class="display-6 text-center">Darinka</a>
+</h2><a href="https://nevnapma.hu/nevnap/Etel"><h2 class="display-6 text-center">Etel</a>
+</h2><a href="https://nevnapma.hu/nevnap/Eunika"><h2 class="display-6 text-center">Eunika</a>
+</h2><a href="https://nevnapma.hu/nevnap/Euniké"><h2 class="display-6 text-center">Euniké</a>
+</h2><a href="https://nevnapma.hu/nevnap/Hedvig"><h2 class="display-6 text-center">Hedvig</a>
+</h2><a href="https://nevnapma.hu/nevnap/Hetti"><h2 class="display-6 text-center">Hetti</a>
+</h2><a href="https://nevnapma.hu/nevnap/Jávorka"><h2 class="display-6 text-center">Jávorka</a>
+</h2><a href="https://nevnapma.hu/nevnap/Jázmin"><h2 class="display-6 text-center">Jázmin</a>
+</h2><a href="https://nevnapma.hu/nevnap/Edömér"><h2 class="display-6 text-center">Edömér</a>
+</h2><a href="https://nevnapma.hu/nevnap/János"><h2 class="display-6 text-center">János</a>
+</h2><a href="https://nevnapma.hu/nevnap/Mahmud"><h2 class="display-6 text-center">Mahmud</a>
+</h2><a href="https://nevnapma.hu/nevnap/Mateó"><h2 class="display-6 text-center">Mateó</a>
+</h2><a href="https://nevnapma.hu/nevnap/Mateusz"><h2 class="display-6 text-center">Mateusz</a>
+</h2><a href="https://nevnapma.hu/nevnap/Mattenai"><h2 class="display-6 text-center">Mattenai</a>
+</h2><a href="https://nevnapma.hu/nevnap/Mátyás"><h2 class="display-6 text-center">Mátyás</a>
+</h2><a href="https://nevnapma.hu/nevnap/Mátyus"><h2 class="display-6 text-center">Mátyus</a>
+</h2></div>
+<div class="row" style="background-color:#f6f6f6";>
+<h1 class='display-3 my-sm-3 my-2 text-center' style='padding-left:0px;'>Holnapi névnapok</h1><h2 class="display-6 text-center">Narmin
+</h2><h2 class="display-6 text-center">Serihen
+</h2><h2 class="display-6 text-center">Valburga
+</h2><h2 class="display-6 text-center">Vanda
+</h2><h2 class="display-6 text-center">Vásti
+</h2><h2 class="display-6 text-center">Cézár
+</h2><h2 class="display-6 text-center">Décse
+</h2><h2 class="display-6 text-center">Frederik
+</h2><h2 class="display-6 text-center">Frederíkó
+</h2><h2 class="display-6 text-center">Gécsa
+</h2><h2 class="display-6 text-center">Géza
+</h2><h2 class="display-6 text-center">Kos
+</h2><h2 class="display-6 text-center">Tacitusz
+</h2><h2 class="display-6 text-center">Tar
+</h2><h2 class="display-6 text-center">Taráz
+</h2><h2 class="display-6 text-center">Tarcal
+</h2><h2 class="display-6 text-center">Tarcsa
+</h2><h2 class="display-6 text-center">Tarsa
+</h2><h2 class="display-6 text-center">Tege
+</h2>
+</div>
+
+</div></div>
+</div>
+</div>
+</div>
+<!-- Footer -->
+<footer class="text-center text-lg-start bg-dark text-muted">
+  
+
+  <!-- Section: Links  -->
+  <section class="">
+    <div class="container text-center text-md-start mt-5">
+      <!-- Grid row -->
+      <div class="row mt-3 pt-5">
+        <!-- Grid column -->
+        <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+          <!-- Content -->
+          <h6 class="text-uppercase fw-bold mb-4">
+            <i class=""></i>Névnap Ma
+          </h6>
+          <p>
+            Ismerd meg a neveket, jelentésüket és eredetüket, köszöntsd fel barátaidat névnapjukon.
+          </p>
+        </div>
+        <!-- Grid column -->
+
+        <!-- Grid column -->
+        <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+          <!-- Links -->
+          <h6 class="text-uppercase fw-bold mb-4">
+            Népszerű női nevek
+          </h6>
+          <p>
+            <a href="https://nevnapma.hu/eredete/Katalin" class="text-reset">Katalin</a>
+          </p>
+          <p>
+            <a href="https://nevnapma.hu/eredete/Mária" class="text-reset">Mária</a>
+          </p>
+          <p>
+            <a href="https://nevnapma.hu/eredete/Erzsébet" class="text-reset">Erzsébet</a>
+          </p>
+          <p>
+            <a href="https://nevnapma.hu/eredete/Anna" class="text-reset">Anna</a>
+          </p>
+        </div>
+        <!-- Grid column -->
+
+        <!-- Grid column -->
+        <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+          <!-- Links -->
+          <h6 class="text-uppercase fw-bold mb-4">
+            Népszerű férfi nevek
+          </h6>
+          <p>
+            <a href="https://nevnapma.hu/eredete/László" class="text-reset">László</a>
+          </p>
+          <p>
+            <a href="https://nevnapma.hu/eredete/Péter" class="text-reset">Péter</a>
+          </p>
+          <p>
+            <a href="https://nevnapma.hu/eredete/János" class="text-reset">János</a>
+          </p>
+          <p>
+            <a href="https://nevnapma.hu/eredete/József" class="text-reset">József</a>
+          </p>
+        </div>
+        <!-- Grid column -->
+
+        <!-- Grid column -->
+        <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+          <!-- Links -->
+          <h6 class="text-uppercase fw-bold mb-4">
+            Kapcsolat
+          </h6>
+          <p><i class=""></i> Hungary, Esztergom, 2500</p>
+          <p>
+            <i class=""></i>
+            info@nevnapma.hu
+          </p>
+          <p><i class=""></i> + 36 30 563 7749</p>
+          <p><i class=""></i>Facebook</p>
+        </div>
+        <!-- Grid column -->
+      </div>
+      <!-- Grid row -->
+    </div>
+  </section>
+  <!-- Section: Links  -->
+
+  <!-- Copyright -->
+  <div class="text-center p-4" style="background-color:black;">
+    <span style="color:#F1F1F1;">© 2023 Copyright - </span>
+    <a class="fw-bold" style="color:#F1F1F1;" href="https:/nevnapma.hu/">Névnapma.hu</a>
+  </div>
+  <!-- Copyright -->
+</footer>
+<!-- Footer -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.6/dist/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.2.1/dist/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+  
+ </body>
+</html>

@@ -1,0 +1,210 @@
+<!doctype html> <html lang="en"> <head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Site Under Maintenance</title>
+  <meta name="description" content="We're performing scheduled maintenance and will be back shortly." />
+  <style>
+    :root{
+      --bg1:#0f172a; --bg2:#1e293b; --card:#0b1021F2;
+      --text:#e5e7eb; --muted:#94a3b8;
+      --accent:#4f46e5; --accent-2:#22d3ee; --success:#10b981;
+      --glass: rgba(255,255,255,.06); --radius:20px; --shadow:0 10px 35px rgba(0,0,0,.45);
+    }
+    @media (prefers-color-scheme: light){
+      :root{ --bg1:#f8fafc; --bg2:#e2e8f0; --card:#ffffffF2; --text:#0f172a; --muted:#334155; --glass:rgba(0,0,0,.04) }
+      .gear line, .gear circle, .gear path{ stroke:#0f172a }
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; color:var(--text); font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, "Helvetica Neue", Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      background: radial-gradient(1200px 600px at 10% 10%, #1f2a5a 0%, transparent 60%),
+                  radial-gradient(1000px 500px at 90% 20%, #0f766e 0%, transparent 60%),
+                  linear-gradient(160deg, var(--bg1), var(--bg2));
+      display:grid; place-items:center; padding:24px;
+    }
+    .wrap{ max-width:980px; width:100% }
+    .card{
+      background: linear-gradient(180deg, var(--card), var(--glass));
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      overflow:hidden; position:relative;
+      display:grid; grid-template-columns:1.2fr 1fr;
+    }
+    @media (max-width:900px){ .card{ grid-template-columns:1fr } }
+    header{
+      display:flex; align-items:center; gap:12px; padding:18px 22px; border-bottom:1px solid rgba(255,255,255,.08);
+      background: linear-gradient(180deg, rgba(255,255,255,.06), transparent);
+      backdrop-filter: blur(6px);
+    }
+    .logo{ width:40px; height:40px; border-radius:12px; background:linear-gradient(135deg, var(--accent), var(--accent-2));
+      display:grid; place-items:center; color:white; font-weight:800; letter-spacing:1px; box-shadow: 0 8px 22px rgba(79,70,229,.35); }
+    .brand{ font-size:18px; font-weight:700 }
+    .subtitle{ color:var(--muted); font-size:13px }
+    .content{ padding:28px 26px 26px }
+    h1{ margin:0 0 10px; font-size: clamp(26px, 3.2vw, 36px); line-height:1.2 }
+    p.lead{ margin:0 0 18px; color:var(--muted); font-size: clamp(14px, 2vw, 16px) }
+    .status{ display:flex; align-items:center; gap:8px; font-size:14px; margin:10px 0 22px; color:#e2e8f0 }
+    .dot{
+      width:10px; height:10px; border-radius:999px; background: radial-gradient(circle at 30% 30%, #fff, var(--success) 30%);
+      box-shadow: 0 0 0 0 rgba(16,185,129,.8); animation: pulse 2s infinite;
+    }
+    @keyframes pulse{ 0%{box-shadow:0 0 0 0 rgba(16,185,129,.7)} 70%{box-shadow:0 0 0 12px rgba(16,185,129,0)} 100%{box-shadow:0 0 0 0 rgba(16,185,129,0)} }
+    .progress{ height:10px; background: rgba(255,255,255,.08); border-radius:999px; overflow:hidden; position:relative; margin: 10px 0 8px }
+    .bar{
+      height:100%; width:0%;
+      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+      box-shadow: 0 8px 18px rgba(34,211,238,.25) inset;
+      transition: width .8s ease;
+    }
+    .eta{ font-size:12px; color:var(--muted) }
+    .cta{ display:flex; gap:10px; align-items:center; flex-wrap:wrap; margin-top:16px }
+    .btn{
+      appearance:none; border:none; cursor:pointer; font-weight:700; font-size:14px; padding:12px 16px; border-radius:12px;
+      background:linear-gradient(135deg, var(--accent), var(--accent-2)); color:white;
+      box-shadow: 0 10px 22px rgba(79,70,229,.35); transition: transform .12s ease, box-shadow .2s ease;
+      text-decoration:none; display:inline-flex; align-items:center; gap:8px;
+    }
+    .btn:hover{ transform: translateY(-1px); box-shadow: 0 14px 26px rgba(79,70,229,.45) }
+    .btn.secondary{ background:transparent; color:var(--text); border:1px solid rgba(255,255,255,.16); box-shadow:none }
+    .aside{
+      position:relative; min-height:280px; display:grid; place-items:center;
+      background:
+        radial-gradient(400px 150px at 80% 15%, rgba(79,70,229,.25), transparent 70%),
+        radial-gradient(250px 120px at 20% 85%, rgba(34,211,238,.2), transparent 70%),
+        linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+      border-left:1px solid rgba(255,255,255,.08); padding:22px;
+    }
+    @media (max-width:900px){ .aside{ border-left:none; border-top:1px solid rgba(255,255,255,.08) } }
+    .gear{ width:min(360px, 90%); height:auto; filter: drop-shadow(0 16px 36px rgba(0,0,0,.4)) }
+    .gear .spin-slow{ animation: spin 12s linear infinite }
+    .gear .spin-fast{ animation: spin 6s linear infinite reverse }
+    @keyframes spin{ from{transform:rotate(0)} to{transform:rotate(360deg)} }
+    footer{ text-align:center; color:var(--muted); font-size:12px; padding:16px 10px 0 }
+    .links{ display:flex; justify-content:center; gap:14px; margin-top:8px; flex-wrap:wrap }
+    .links a{ color:inherit; opacity:.85; text-decoration:none; border-bottom:1px dotted rgba(148,163,184,.5) }
+    .links a:hover{ opacity:1; border-bottom-color: transparent }
+    .visually-hidden{ position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0 }
+  </style> </head> <body>
+  <main class="wrap" role="main" aria-labelledby="title">
+    <section class="card" role="region" aria-label="Maintenance Notice">
+      <!-- LEFT -->
+      <div class="content">
+        <header>
+          <div class="logo" aria-hidden="true">IT</div>
+          <div>
+            <div class="brand">Your Brand</div>
+            <div class="subtitle">Infrastructure вЂ” Service Status</div>
+          </div>
+        </header>
+        <h1 id="title">Web ll be right back.</h1>
+        <p class="lead">
+          Web are upgrading our systems to make your experience faster, safer, and more reliable.
+          Thanks for your patience. This page will auto-refresh when web are back online.
+        </p>
+        <div class="status" aria-live="polite" aria-atomic="true">
+          <span class="dot" aria-hidden="true"></span>
+          <span id="status-text">Maintenance in progress</span>
+        </div>
+        <div class="progress" aria-label="Maintenance progress" aria-valuemin="0" aria-valuemax="100">
+          <div class="bar" id="bar" role="progressbar" aria-valuenow="0"></div>
+        </div>
+        <div class="eta" id="eta">Estimating time</div>
+        <div class="cta">
+          <button class="btn" id="retry">Try Now</button>
+          <a class="btn secondary" href="mailto:support@example.com">Contact Support</a>
+          <a class="btn secondary" href="/" id="home">Go to Homepage</a>
+        </div>
+        <footer>
+          <div>В© <span id="year"></span> Your Brand. All rights reserved.</div>
+          <div class="links">
+            <a href="#" onclick="return false;">Status Page</a>
+            <a href="#" onclick="return false;">Security</a>
+            <a href="#" onclick="return false;">Twitter</a>
+          </div>
+        </footer>
+      </div>
+      <!-- RIGHT -->
+      <aside class="aside" aria-hidden="true">
+        <svg class="gear" viewBox="0 0 300 300" fill="none" stroke="#e5e7eb" stroke-width="3" aria-hidden="true">
+          <defs>
+            <linearGradient id="g1" x1="0" x2="1">
+              <stop offset="0" stop-color="rgba(79,70,229,.7)"/>
+              <stop offset="1" stop-color="rgba(34,211,238,.7)"/>
+            </linearGradient>
+          </defs>
+          <!-- Outer gear -->
+          <g class="spin-slow">
+            <circle cx="150" cy="150" r="80" stroke="url(#g1)"/>
+            <g>
+              <!-- teeth -->
+              <g>
+                <!-- 12 teeth -->
+                <g transform="rotate(0 150 150)"><rect x="146" y="53" width="8" height="26" rx="3" fill="url(#g1)"/></g>
+                <g transform="rotate(30 150 150)"><rect x="146" y="53" width="8" height="26" rx="3" fill="url(#g1)"/></g>
+                <g transform="rotate(60 150 150)"><rect x="146" y="53" width="8" height="26" rx="3" fill="url(#g1)"/></g>
+                <g transform="rotate(90 150 150)"><rect x="146" y="53" width="8" height="26" rx="3" fill="url(#g1)"/></g>
+                <g transform="rotate(120 150 150)"><rect x="146" y="53" width="8" height="26" rx="3" fill="url(#g1)"/></g>
+                <g transform="rotate(150 150 150)"><rect x="146" y="53" width="8" height="26" rx="3" fill="url(#g1)"/></g>
+                <g transform="rotate(180 150 150)"><rect x="146" y="53" width="8" height="26" rx="3" fill="url(#g1)"/></g>
+                <g transform="rotate(210 150 150)"><rect x="146" y="53" width="8" height="26" rx="3" fill="url(#g1)"/></g>
+                <g transform="rotate(240 150 150)"><rect x="146" y="53" width="8" height="26" rx="3" fill="url(#g1)"/></g>
+                <g transform="rotate(270 150 150)"><rect x="146" y="53" width="8" height="26" rx="3" fill="url(#g1)"/></g>
+                <g transform="rotate(300 150 150)"><rect x="146" y="53" width="8" height="26" rx="3" fill="url(#g1)"/></g>
+                <g transform="rotate(330 150 150)"><rect x="146" y="53" width="8" height="26" rx="3" fill="url(#g1)"/></g>
+              </g>
+            </g>
+          </g>
+          <!-- Inner gear -->
+          <g class="spin-fast">
+            <circle cx="150" cy="150" r="38" stroke="url(#g1)"/>
+            <g>
+              <g transform="rotate(0 150 150)"><rect x="148" y="97" width="4" height="16" rx="2" fill="url(#g1)"/></g>
+              <g transform="rotate(45 150 150)"><rect x="148" y="97" width="4" height="16" rx="2" fill="url(#g1)"/></g>
+              <g transform="rotate(90 150 150)"><rect x="148" y="97" width="4" height="16" rx="2" fill="url(#g1)"/></g>
+              <g transform="rotate(135 150 150)"><rect x="148" y="97" width="4" height="16" rx="2" fill="url(#g1)"/></g>
+              <g transform="rotate(180 150 150)"><rect x="148" y="97" width="4" height="16" rx="2" fill="url(#g1)"/></g>
+              <g transform="rotate(225 150 150)"><rect x="148" y="97" width="4" height="16" rx="2" fill="url(#g1)"/></g>
+              <g transform="rotate(270 150 150)"><rect x="148" y="97" width="4" height="16" rx="2" fill="url(#g1)"/></g>
+              <g transform="rotate(315 150 150)"><rect x="148" y="97" width="4" height="16" rx="2" fill="url(#g1)"/></g>
+            </g>
+          </g>
+        </svg>
+      </aside>
+    </section>
+  </main>
+  <script>
+    // Year
+    document.getElementById('year').textContent = new Date().getFullYear();
+    // Nice looping progress w/ ETA text
+    const bar = document.getElementById('bar');
+    const eta = document.getElementById('eta');
+    let pct = 0, dir = 1;
+    function tick(){
+      pct += dir * (Math.random() * 6 + 2); // 2вЂ“8% steps
+      if(pct >= 96){ dir = -1 }
+      if(pct <= 8){ dir = 1 }
+      bar.style.width = Math.max(0, Math.min(100, pct)).toFixed(0) + '%';
+      bar.setAttribute('aria-valuenow', Math.round(pct));
+      eta.textContent = (pct < 50) ? 'Applying updatesвЂ¦' :
+                        (pct < 80) ? 'Running checksвЂ¦' :
+                        'Warming up servicesвЂ¦';
+    }
+    setInterval(tick, 900);
+    // Auto-ping: replace /healthz with your endpoint that returns 200 when live
+    async function ping(){
+      try{
+        const res = await fetch('/healthz', {cache:'no-store'});
+        if(res.ok){ location.reload(); }
+      }catch(e){ /* ignore until next check */ }
+    }
+    // Check every 15s
+    setInterval(ping, 15000);
+    // Buttons
+    document.getElementById('retry').addEventListener('click', () => location.reload());
+    document.getElementById('home').addEventListener('click', e => {
+      // Keep link but prevent navigating to a broken home during maintenance if same origin
+      if(location.pathname === '/'){ e.preventDefault(); }
+    });
+  </script> </body> </html>
