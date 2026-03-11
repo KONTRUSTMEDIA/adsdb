@@ -1,0 +1,1179 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <link rel="icon" type="image/png" href="/img/favIcon/icon.png">
+
+    <style>
+        html {
+            overflow-y: scroll;
+            scrollbar-gutter: stable;
+            scrollbar-color: #444 #1e1e1e;
+            scrollbar-width: thin;
+        }
+        
+        html::-webkit-scrollbar { width: 12px; }
+        html::-webkit-scrollbar-track { background: #151515; }
+        html::-webkit-scrollbar-thumb { background: #444; border-radius: 6px; }
+        html::-webkit-scrollbar-thumb:hover { background: #666; }
+
+        body {
+            margin: 0;
+            background-color: #1C1C1C;
+            font-family: 'Oswald', sans-serif;
+            color: #e0e0e0;
+        }
+
+        .main-navbar {
+            background: rgba(20, 20, 20, 0.92);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border-bottom: 1px solid rgba(255, 204, 0, 0.18);
+            padding: 0.7rem 1rem;
+        }
+
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.55rem;
+            color: #ffcc00 !important;
+            text-shadow: 0 0 8px rgba(255, 204, 0, 0.5);
+            display: flex;
+            align-items: center;
+        }
+
+        .navbar-brand img {
+            height: 42px;
+            filter: drop-shadow(0 0 6px rgba(255, 204, 0, 0.6));
+        }
+
+        .nav-link {
+            color: #ddd !important;
+            font-weight: 500;
+            padding: 0.55rem 1rem !important;
+            transition: color 0.25s;
+            position: relative;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: #ffcc00 !important;
+        }
+
+        @media (min-width: 992px) {
+            .nav-link::after {
+                content: '';
+                position: absolute;
+                width: 0;
+                height: 2px;
+                bottom: 4px;
+                left: 50%;
+                background: #ffcc00;
+                transition: all 0.3s ease;
+                transform: translateX(-50%);
+            }
+
+            .nav-link:hover::after,
+            .nav-link.active::after {
+                width: 70%;
+            }
+        }
+
+        .dropdown-menu {
+            background: #1a1a1a !important;
+            border: 1px solid #444 !important;
+            border-radius: 8px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.7);
+            margin-top: 8px;
+        }
+
+        .dropdown-item {
+            color: #ddd !important;
+            padding: 0.6rem 1.3rem;
+        }
+
+        .dropdown-item:hover {
+            background: #2a2a2a !important;
+            color: #ffcc00 !important;
+        }
+
+        .offcanvas {
+            background: #141414 !important;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .offcanvas-start {
+            width: 340px; 
+        }
+
+        @media (max-width: 991.98px) {
+            .offcanvas-start {
+                width: 100vw !important;
+                max-width: none !important;
+                margin: 0 !important;
+                padding: 0 !important;
+                border: none !important;
+                box-shadow: none !important;
+            }
+
+            .offcanvas-body {
+                padding: 1.5rem 1.2rem;
+                padding-bottom: 4rem;
+            }
+
+            .offcanvas .nav-link,
+            .offcanvas .dropdown-toggle {
+                font-size: 1.3rem;
+                padding: 1.2rem 1.5rem !important;
+                margin: 0.3rem 0;
+            }
+
+            .offcanvas .dropdown-item {
+                padding: 1rem 2.8rem;
+                font-size: 1.15rem;
+            }
+        }
+
+        .offcanvas-header {
+            padding: 1.25rem 1.5rem;
+            border-bottom: 1px solid #333;
+        }
+
+        .offcanvas-title {
+            color: #ffcc00;
+            font-weight: 700;
+            font-size: 1.8rem;
+        }
+
+        .offcanvas-body .nav-link:hover,
+        .offcanvas-body .dropdown-toggle:hover {
+            background: rgba(255, 204, 0, 0.12) !important;
+            color: #ffcc00 !important;
+            padding-left: 2rem !important;
+        }
+
+        .offcanvas .dropdown-menu {
+            background: #1f1f1f !important;
+            border: none;
+            box-shadow: none;
+            margin: 0;
+            padding: 0.4rem 0;
+        }
+
+        .navbar-toggler {
+            border: none;
+        }
+
+        .navbar-toggler-icon {
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(255, 204, 0, 0.95)' stroke-width='2.4' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e") !important;
+        }
+
+        .page-content {
+            padding-top: 80px;
+        }
+
+        @media (max-width: 991px) {
+            .navbar-brand { font-size: 1.4rem; }
+            .navbar-brand img { height: 38px; }
+        }
+
+        .user-link {
+            color: #ffcc00 !important;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        .user-link:hover {
+            color: #ffeb3b !important;
+            text-shadow: 0 0 8px rgba(255, 204, 0, 0.6);
+        }
+
+        .auth-link {
+            color: #ddd !important;
+            transition: color 0.25s;
+        }
+
+        .auth-link:hover {
+            color: #ffcc00 !important;
+        }
+
+        .auth-btn {
+            color: #ffcc00 !important;
+            border-color: #ffcc00 !important;
+            transition: all 0.25s;
+        }
+
+        .auth-btn:hover {
+            background-color: #ffcc00 !important;
+            color: #1C1C1C !important;
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg main-navbar fixed-top">
+    <div class="container-fluid px-3 px-lg-4">
+        <a class="navbar-brand" href="https://dblegendshub.com">
+            <img src="/img/LogoDBLegendsHUB.png" alt="DB Legends Hub">
+        </a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasMainMenu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarMain">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
+                        <i class="fas fa-newspaper me-1"></i> News
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="/news">News</a></li>
+                        <li><a class="dropdown-item" href="/old/news">All Time News</a></li>
+                    </ul>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Personajes</a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="/characters">Personajes</a></li>
+                        <li><a class="dropdown-item" href="/tags">Tags / Categorías</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item"><a class="nav-link" href="/banners">Invocaciones</a></li>
+                <li class="nav-item"><a class="nav-link" href="/events">Eventos</a></li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Items</a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="/equipments">Equipamientos</a></li>
+                        <li><a class="dropdown-item" href="/mensajes">Mensajes PvP</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item"><a class="nav-link" href="/builder">Team Builder</a></li>
+                
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
+                        <i class="fas fa-list me-1"></i> Tier List Maker
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="/tier">Tier List</a></li>
+                        <li><a class="dropdown-item" href="/tiers/diamond">Tier Diamond</a></li>
+                    </ul>
+                </li>
+            </ul>
+
+            <ul class="navbar-nav ms-auto align-items-center">
+                                    <li class="nav-item">
+                        <a class="nav-link auth-link" href="/registro.php">
+                            <i class="fas fa-user-plus me-1"></i> Registrarse
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link auth-btn btn btn-sm px-3 py-1 ms-2" href="/login.php">
+                            <i class="fas fa-sign-in-alt me-1"></i> Login
+                        </a>
+                    </li>
+                
+                <li class="nav-item dropdown ms-3">
+                    <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
+                        <i class="fas fa-language me-1"></i> ES
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li><a class="dropdown-item" href="#" onclick="cambiarIdioma()">English</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
+                        <i class="fas fa-link me-1"></i> Links
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li><a class="dropdown-item" href="https://dokkan.dblegendshub.com" target="_blank">Dokkan</a></li>
+                        <li><a class="dropdown-item" href="https://dblegends.net" target="_blank">DBLegends ENG</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasMainMenu" aria-labelledby="offcanvasMainMenuLabel">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasMainMenuLabel">Legends Hub</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+        <ul class="navbar-nav flex-column">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
+                    <i class="fas fa-newspaper me-2"></i> News
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="/news">News</a></li>
+                    <li><a class="dropdown-item" href="/old/news">All Time News</a></li>
+                </ul>
+            </li>
+
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Personajes</a>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="/characters">Personajes</a></li>
+                    <li><a class="dropdown-item" href="/tags">Tags / Categorías</a></li>
+                </ul>
+            </li>
+            <li class="nav-item"><a class="nav-link" href="/banners">Invocaciones</a></li>
+            <li class="nav-item"><a class="nav-link" href="/events">Eventos</a></li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Items</a>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="/equipments">Equipamientos</a></li>
+                    <li><a class="dropdown-item" href="/mensajes">Mensajes PvP</a></li>
+                </ul>
+            </li>
+            <li class="nav-item"><a class="nav-link" href="/builder">Team Builder</a></li>
+            <li class="nav-item">
+                <a class="nav-link" href="/tier">
+                    <i class="fas fa-list me-2"></i>Tier List Maker
+                </a>
+            </li>
+
+            <hr class="bg-secondary my-4">
+
+                            <li class="nav-item">
+                    <a class="nav-link" href="/registro.php">
+                        <i class="fas fa-user-plus me-2"></i> Registrarse
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/login.php">
+                        <i class="fas fa-sign-in-alt me-2"></i> Login
+                    </a>
+                </li>
+            
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
+                    <i class="fas fa-language me-2"></i> Idioma
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="#" onclick="cambiarIdioma()">English</a></li>
+                </ul>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
+                    <i class="fas fa-link me-2"></i> Links
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="https://dokkan.dblegendshub.com" target="_blank">Dokkan</a></li>
+                    <li><a class="dropdown-item" href="https://dblegends.net" target="_blank">DBLegends ENG</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<div class="page-content container">
+    
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+function cambiarIdioma() {
+    let url = window.location.href;
+    if (!url.includes('en.dblegendshub.com')) {
+        window.location.href = url.replace('dblegendshub.com', 'en.dblegendshub.com');
+    } else {
+        window.location.reload();
+    }
+}
+</script>
+</body>
+</html>
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3582001665371701"
+     crossorigin="anonymous"></script>
+<!-- Ads -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-3582001665371701"
+     data-ad-slot="9682101634"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+<title>Dragon Ball Legends HUB</title>
+
+<div class="container my-5 pt-5" style="padding-top: 140px !important; max-width: 1400px; margin: 0 auto;">
+
+    <div class="text-center mb-5">
+        <img src="/img/LogoDBLegendsHUB_Clean.png" alt="Dragon Ball Legends HUB Logo" 
+             style="max-width: 100%; height: auto; max-height: 180px; width: auto;">
+    </div>
+
+    <div class="section-bar text-center mb-5" style="background: #0a0a1f; border: 2px solid #00d4ff; border-radius: 12px; padding: 12px 0; box-shadow: 0 0 20px rgba(0, 212, 255, 0.5); width: 100%; max-width: 1200px; margin-left: auto; margin-right: auto;">
+        <h2 style="color: #00eaff; text-shadow: 0 0 15px #00d4ff, 0 0 25px #0099cc; margin: 0; font-size: 1.8rem; font-weight: bold; letter-spacing: 1px;">Personajes & ZENKAI Recientes</h2>
+    </div>
+
+    <div class="character-container" id="recientes-grid" style="opacity: 0; max-width: 1200px; margin: 0 auto;"><div class='character-card zoom-effect' 
+                  data-name='Unión con Dios Piccolo' 
+                  data-attribute='24' 
+                  data-rarity='4' 
+                  data-legends-limited='0' 
+                  data-zenkai='0'
+                  style="background: linear-gradient(to bottom, rgba(100, 180, 255, 0.58) 0%, rgba(80, 140, 220, 0.36) 18%, rgba(60, 100, 180, 0.14) 38%, transparent 58%); border-radius: 12px; overflow: hidden; position: relative;"><a href="/characters/base/719" style="color: white; text-decoration: none;"><div class="character-image"><img src='/img/assets/BChaIco/BChaIco_0719_Piccolo_719.png' alt='Character Image' class='main-image' style='position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 1; transition: opacity 1s ease-in-out;' data-index='0'><img src='/img/assets/icon_elements/type_menu/MChaIco_24.png' alt='Atributo' class='attribute-image'><img src='/img/assets/icon_elements/MChaIco_txtRarityLR.png' alt='Rareza' class='rarity-image'></div></a><div class='character-name'>Unión con Dios Piccolo<br><small style='color:#a0d0ff; font-size:0.75rem;'>25/02/26</small></div></div><div class='character-card zoom-effect' 
+                  data-name='Majin Buu maligno' 
+                  data-attribute='2' 
+                  data-rarity='2' 
+                  data-legends-limited='0' 
+                  data-zenkai='1'
+                  style="background: linear-gradient(to bottom, rgba(220, 190, 120, 0.38) 0%, rgba(180, 150, 90, 0.26) 18%, rgba(140, 120, 70, 0.12) 38%, transparent 58%); border-radius: 12px; overflow: hidden; position: relative;"><a href="/characters/base/200" style="color: white; text-decoration: none;"><div class="character-image"><img src='/img/assets/BChaIco/BChaIco_0200_Buu3rd_200.png' alt='Character Image' class='main-image' style='position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 1; transition: opacity 1s ease-in-out;' data-index='0'><img src='/img/assets/icon_elements/type_menu/MChaIco_2.png' alt='Atributo' class='attribute-image'><img src='/img/assets/card_icons/CharaInfo_icnPlentySymbol.webp' alt='Zenkai' class='zenkai-image'><img src='/img/assets/icon_elements/MChaIco_txtRaritySP.png' alt='Rareza' class='rarity-image'></div></a><div class='character-name'>Majin Buu maligno<br><small style='color:#a0d0ff; font-size:0.75rem;'>18/02/26</small></div></div><div class='character-card zoom-effect' 
+                  data-name='Súper Vegetto' 
+                  data-attribute='22' 
+                  data-rarity='4' 
+                  data-legends-limited='0' 
+                  data-zenkai='0'
+                  style="background: linear-gradient(to bottom, rgba(100, 180, 255, 0.58) 0%, rgba(80, 140, 220, 0.36) 18%, rgba(60, 100, 180, 0.14) 38%, transparent 58%); border-radius: 12px; overflow: hidden; position: relative;"><a href="/characters/base/717" style="color: white; text-decoration: none;"><div class="character-image"><img src='/img/assets/BChaIco/BChaIco_0717_VegitoSV_717.png' alt='Character Image' class='main-image' style='position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 1; transition: opacity 1s ease-in-out;' data-index='0'><img src='/img/assets/icon_elements/type_menu/MChaIco_22.png' alt='Atributo' class='attribute-image'><img src='/img/assets/icon_elements/MChaIco_txtRarityLR.png' alt='Rareza' class='rarity-image'></div></a><div class='character-name'>Súper Vegetto<br><small style='color:#a0d0ff; font-size:0.75rem;'>11/02/26</small></div></div><div class='character-card zoom-effect' 
+                  data-name='Supersaiyajin dios SS Goku &amp; Vegeta' 
+                  data-attribute='4' 
+                  data-rarity='2' 
+                  data-legends-limited='0' 
+                  data-zenkai='0'
+                  style="background: linear-gradient(to bottom, rgba(100, 180, 255, 0.58) 0%, rgba(80, 140, 220, 0.36) 18%, rgba(60, 100, 180, 0.14) 38%, transparent 58%); border-radius: 12px; overflow: hidden; position: relative;"><a href="/characters/base/718" style="color: white; text-decoration: none;"><div class="character-image"><img src='/img/assets/BChaIco/BChaIco_0718_GokuSSGSS_718.png' alt='Character Image' class='main-image' style='position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 1; transition: opacity 1s ease-in-out;' data-index='0'><img src='/img/assets/BChaIco/BChaIco_0718_VegetaSSGSS_718.png' alt='Character Image' class='main-image' style='position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 1s ease-in-out;' data-index='1'><img src='/img/assets/icon_elements/type_menu/MChaIco_4.png' alt='Atributo' class='attribute-image'><img src='/img/assets/icon_elements/MChaIco_txtRaritySP.png' alt='Rareza' class='rarity-image'></div></a><div class='character-name'>Supersaiyajin dios SS Goku &amp; Vegeta<br><small style='color:#a0d0ff; font-size:0.75rem;'>11/02/26</small></div></div><div class='character-card zoom-effect' 
+                  data-name='Supersaiyajin Gotenks' 
+                  data-attribute='0' 
+                  data-rarity='2' 
+                  data-legends-limited='0' 
+                  data-zenkai='1'
+                  style="background: linear-gradient(to bottom, rgba(220, 190, 120, 0.38) 0%, rgba(180, 150, 90, 0.26) 18%, rgba(140, 120, 70, 0.12) 38%, transparent 58%); border-radius: 12px; overflow: hidden; position: relative;"><a href="/characters/base/313" style="color: white; text-decoration: none;"><div class="character-image"><img src='/img/assets/BChaIco/BChaIco_0313_GotenksSS1_313.png' alt='Character Image' class='main-image' style='position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 1; transition: opacity 1s ease-in-out;' data-index='0'><img src='/img/assets/BChaIco/BChaIco_0313_GotenksSS3_313.png' alt='Character Image' class='main-image' style='position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 1s ease-in-out;' data-index='1'><img src='/img/assets/icon_elements/type_menu/MChaIco_0.png' alt='Atributo' class='attribute-image'><img src='/img/assets/card_icons/CharaInfo_icnPlentySymbol.webp' alt='Zenkai' class='zenkai-image'><img src='/img/assets/icon_elements/MChaIco_txtRaritySP.png' alt='Rareza' class='rarity-image'></div></a><div class='character-name'>Supersaiyajin Gotenks<br><small style='color:#a0d0ff; font-size:0.75rem;'>04/02/26</small></div></div><div class='character-card zoom-effect' 
+                  data-name='Supersaiyajin Trunks niño' 
+                  data-attribute='3' 
+                  data-rarity='2' 
+                  data-legends-limited='0' 
+                  data-zenkai='0'
+                  style="background: linear-gradient(to bottom, rgba(100, 180, 255, 0.58) 0%, rgba(80, 140, 220, 0.36) 18%, rgba(60, 100, 180, 0.14) 38%, transparent 58%); border-radius: 12px; overflow: hidden; position: relative;"><a href="/characters/base/408" style="color: white; text-decoration: none;"><div class="character-image"><img src='/img/assets/BChaIco/BChaIco_0408_TrunksTeenSS1_408.png' alt='Character Image' class='main-image' style='position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 1; transition: opacity 1s ease-in-out;' data-index='0'><img src='/img/assets/icon_elements/type_menu/MChaIco_3.png' alt='Atributo' class='attribute-image'><img src='/img/assets/icon_elements/MChaIco_txtRaritySP.png' alt='Rareza' class='rarity-image'></div></a><div class='character-name'>Supersaiyajin Trunks niño<br><small style='color:#a0d0ff; font-size:0.75rem;'>04/02/26</small></div></div><div class='character-card zoom-effect' 
+                  data-name='Absorción de Gohan definitivo Majin Buu' 
+                  data-attribute='0' 
+                  data-rarity='3' 
+                  data-legends-limited='0' 
+                  data-zenkai='0'
+                  style="background: linear-gradient(to bottom, rgba(100, 180, 255, 0.58) 0%, rgba(80, 140, 220, 0.36) 18%, rgba(60, 100, 180, 0.14) 38%, transparent 58%); border-radius: 12px; overflow: hidden; position: relative;"><a href="/characters/base/716" style="color: white; text-decoration: none;"><div class="character-image"><img src='/img/assets/BChaIco/BChaIco_0716_BuuGohan_716.png' alt='Character Image' class='main-image' style='position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 1; transition: opacity 1s ease-in-out;' data-index='0'><img src='/img/assets/icon_elements/type_menu/MChaIco_0.png' alt='Atributo' class='attribute-image'><img src='/img/assets/icon_elements/MChaIco_txtRarityUL.png' alt='Rareza' class='rarity-image'></div></a><div class='character-name'>Absorción de Gohan definitivo Majin Buu<br><small style='color:#a0d0ff; font-size:0.75rem;'>28/01/26</small></div></div><div class='character-card zoom-effect' 
+                  data-name='Tamagami Número Tres' 
+                  data-attribute='2' 
+                  data-rarity='2' 
+                  data-legends-limited='0' 
+                  data-zenkai='1'
+                  style="background: linear-gradient(to bottom, rgba(220, 190, 120, 0.38) 0%, rgba(180, 150, 90, 0.26) 18%, rgba(140, 120, 70, 0.12) 38%, transparent 58%); border-radius: 12px; overflow: hidden; position: relative;"><a href="/characters/base/655" style="color: white; text-decoration: none;"><div class="character-image"><img src='/img/assets/BChaIco/BChaIco_0655_Tgm3_655.png' alt='Character Image' class='main-image' style='position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 1; transition: opacity 1s ease-in-out;' data-index='0'><img src='/img/assets/icon_elements/type_menu/MChaIco_2.png' alt='Atributo' class='attribute-image'><img src='/img/assets/card_icons/CharaInfo_icnPlentySymbol.webp' alt='Zenkai' class='zenkai-image'><img src='/img/assets/icon_elements/MChaIco_txtRaritySP.png' alt='Rareza' class='rarity-image'></div></a><div class='character-name'>Tamagami Número Tres<br><small style='color:#a0d0ff; font-size:0.75rem;'>21/01/26</small></div></div><div class='character-card zoom-effect' 
+                  data-name='Supersaiyajin 3 Vegeta (Mini)' 
+                  data-attribute='1' 
+                  data-rarity='2' 
+                  data-legends-limited='1' 
+                  data-zenkai='0'
+                  style="background: linear-gradient(to bottom, rgba(100, 180, 255, 0.58) 0%, rgba(80, 140, 220, 0.36) 18%, rgba(60, 100, 180, 0.14) 38%, transparent 58%); border-radius: 12px; overflow: hidden; position: relative;"><a href="/characters/base/714" style="color: white; text-decoration: none;"><div class="character-image"><img src='/img/assets/BChaIco/BChaIco_0714_VegetaKidDMSS3_714.png' alt='Character Image' class='main-image' style='position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 1; transition: opacity 1s ease-in-out;' data-index='0'><img src='/img/assets/icon_elements/type_menu/MChaIco_1.png' alt='Atributo' class='attribute-image'><img src='/img/assets/icon_elements/MChaIco_txtLL.png' alt='LL' class='legends-limited-image'><img src='/img/assets/icon_elements/MChaIco_txtRaritySP.png' alt='Rareza' class='rarity-image'></div></a><div class='character-name'>Supersaiyajin 3 Vegeta (Mini)<br><small style='color:#a0d0ff; font-size:0.75rem;'>14/01/26</small></div></div><div class='character-card zoom-effect' 
+                  data-name='Tamagami Número Dos' 
+                  data-attribute='0' 
+                  data-rarity='2' 
+                  data-legends-limited='0' 
+                  data-zenkai='0'
+                  style="background: linear-gradient(to bottom, rgba(100, 180, 255, 0.58) 0%, rgba(80, 140, 220, 0.36) 18%, rgba(60, 100, 180, 0.14) 38%, transparent 58%); border-radius: 12px; overflow: hidden; position: relative;"><a href="/characters/base/715" style="color: white; text-decoration: none;"><div class="character-image"><img src='/img/assets/BChaIco/BChaIco_0715_Tamagami2_715.png' alt='Character Image' class='main-image' style='position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 1; transition: opacity 1s ease-in-out;' data-index='0'><img src='/img/assets/icon_elements/type_menu/MChaIco_0.png' alt='Atributo' class='attribute-image'><img src='/img/assets/icon_elements/MChaIco_txtRaritySP.png' alt='Rareza' class='rarity-image'></div></a><div class='character-name'>Tamagami Número Dos<br><small style='color:#a0d0ff; font-size:0.75rem;'>14/01/26</small></div></div></div>
+    <style>
+    .character-container { max-width: 1200px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; padding: 20px 0; transition: opacity 0.3s ease; }
+    .character-card { position: relative; width: 200px; text-align: center; transition: transform 0.3s ease; }
+    .character-card:hover { transform: scale(1.1); }
+    .character-image { position: relative; width: 200px; height: 200px; overflow: hidden; padding-top: 32px; box-sizing: border-box; }
+    .main-image { position: absolute; top: -32px; left: 0; width: 100%; height: 232px; object-fit: cover; }
+    .attribute-image { width: 200px; height: auto; position: absolute; top: 120px; left: 50%; transform: translateX(-50%); z-index: 2; }
+    .legends-limited-image { width: 220px; max-width: 110%; height: auto; position: absolute; top: 2px; left: 50%; transform: translateX(-50%); z-index: 3; }
+    .zenkai-image { width: 35%; height: auto; position: absolute; bottom: 10%; right: 1%; z-index: 4; }
+    .rarity-image { width: 75px; height: auto; position: absolute; bottom: 10%; left: -5px; z-index: 3; }
+    .character-name { color: #FFF; background-color: rgba(0, 0, 0, 0.7); padding: 5px; border-radius: 0 0 5px 5px; font-size: 0.9rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; width: 100%; margin-top: 5px; text-align: center; }
+    .zoom-effect:hover { transform: scale(1.1); }
+    @media (max-width: 576px) {
+        .character-card { width: 160px; }
+        .character-image { width: 160px; height: 160px; padding-top: 26px; }
+        .main-image { top: -26px; height: 186px; }
+        .legends-limited-image { width: 176px; max-width: 115%; top: 2px; transform: translateX(-50%); }
+        .attribute-image { width: 160px; top: 96px; }
+        .rarity-image { width: 60px; bottom: 8%; left: -4px; }
+        .zenkai-image { bottom: 8%; }
+    }
+    </style>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const grid = document.getElementById('recientes-grid');
+        if (grid) grid.style.opacity = '1';
+
+        let imageContainers = document.querySelectorAll('.character-image');
+        imageContainers.forEach(container => {
+            let images = container.querySelectorAll('.main-image');
+            let currentIndex = 0;
+
+            function changeImage() {
+                images.forEach((img, index) => {
+                    img.style.opacity = index === currentIndex ? '1' : '0';
+                });
+                currentIndex = (currentIndex + 1) % images.length;
+            }
+
+            if (images.length > 1) {
+                setInterval(changeImage, 5000);
+            }
+        });
+    });
+    </script>
+    <br></br>
+
+    <div class="section-bar text-center mb-5" style="background: #0a0a1f; border: 2px solid #00d4ff; border-radius: 12px; padding: 12px 0; box-shadow: 0 0 20px rgba(0, 212, 255, 0.5); width: 100%; max-width: 1200px; margin-left: auto; margin-right: auto;">
+        <h2 style="color: #00eaff; text-shadow: 0 0 15px #00d4ff, 0 0 25px #0099cc; margin: 0; font-size: 1.8rem; font-weight: bold; letter-spacing: 1px;">News</h2>
+    </div>
+
+    <div class="news-grid" style="max-width: 1200px; margin: 0 auto;">
+                <div class="news-card">
+                <a href="news/5404">
+                    <img src="https://nah3ohdioj7ye3sh.dblgnds.channel.or.jp/information/es/img/banner/maintenance.png" alt="Banner" style="width: 100%; height: auto; object-fit: contain;">
+                </a>
+                <div class="news-card-content">
+                    <h3 class="news-card-title">
+                        <a href="news/5404">Aviso de mantenimiento</a>
+                    </h3>
+                    <div class="news-card-date">
+                        10-03-2026 07:00 ~ 11-03-2026 10:00 (Europe/Madrid)
+                    </div>
+                </div>
+            </div>
+                        <div class="news-card">
+                <a href="news/5402">
+                    <img src="https://nah3ohdioj7ye3sh.dblgnds.channel.or.jp/information/es/img/banner/video_260306.png" alt="Banner" style="width: 100%; height: auto; object-fit: contain;">
+                </a>
+                <div class="news-card-content">
+                    <h3 class="news-card-title">
+                        <a href="news/5402">¡&quot;LEGENDS INFORMATION&quot; estará disponible el !</a>
+                    </h3>
+                    <div class="news-card-date">
+                        08-03-2026 15:00 ~ 11-03-2026 07:00 (Europe/Madrid)
+                    </div>
+                </div>
+            </div>
+                        <div class="news-card">
+                <a href="news/1590">
+                    <img src="https://nah3ohdioj7ye3sh.dblgnds.channel.or.jp/information/es/img/banner/info.png" alt="Banner" style="width: 100%; height: auto; object-fit: contain;">
+                </a>
+                <div class="news-card-content">
+                    <h3 class="news-card-title">
+                        <a href="news/1590">Problemas detectados</a>
+                    </h3>
+                    <div class="news-card-date">
+                        05-03-2026 04:56 ~ 31-12-2029 16:00 (Europe/Madrid)
+                    </div>
+                </div>
+            </div>
+                        <div class="news-card">
+                <a href="news/1759">
+                    <img src="https://nah3ohdioj7ye3sh.dblgnds.channel.or.jp/information/es/img/banner/info.png" alt="Banner" style="width: 100%; height: auto; object-fit: contain;">
+                </a>
+                <div class="news-card-content">
+                    <h3 class="news-card-title">
+                        <a href="news/1759">Corrección de problemas</a>
+                    </h3>
+                    <div class="news-card-date">
+                        05-03-2026 04:56 ~ 19-03-2026 07:00 (Europe/Madrid)
+                    </div>
+                </div>
+            </div>
+                        <div class="news-card">
+                <a href="news/2593">
+                    <img src="https://nah3ohdioj7ye3sh.dblgnds.channel.or.jp/information/es/img/banner/story_2_main_119.jpg" alt="Banner" style="width: 100%; height: auto; object-fit: contain;">
+                </a>
+                <div class="news-card-content">
+                    <h3 class="news-card-title">
+                        <a href="news/2593">¡Ya está aquí el libro 1 de la parte 19 de la historia principal!</a>
+                    </h3>
+                    <div class="news-card-date">
+                        04-03-2026 07:00 ~ 18-03-2026 07:00 (Europe/Madrid)
+                    </div>
+                </div>
+            </div>
+                        <div class="news-card">
+                <a href="news/3121">
+                    <img src="https://nah3ohdioj7ye3sh.dblgnds.channel.or.jp/information/es/img/banner/eqico_info_sm.jpg" alt="Banner" style="width: 100%; height: auto; object-fit: contain;">
+                </a>
+                <div class="news-card-content">
+                    <h3 class="news-card-title">
+                        <a href="news/3121">¡¡Llega &quot;Festival de refuerzo de fragmentos&quot;!!</a>
+                    </h3>
+                    <div class="news-card-date">
+                        04-03-2026 07:00 ~ 11-03-2026 07:00 (Europe/Madrid)
+                    </div>
+                </div>
+            </div>
+                </div>
+
+    <div class="section-bar text-center mb-5 mt-5" style="background: #0a0a1f; border: 2px solid #00d4ff; border-radius: 12px; padding: 12px 0; box-shadow: 0 0 20px rgba(0, 212, 255, 0.5); width: 100%; max-width: 1200px; margin-left: auto; margin-right: auto;">
+        <h2 style="color: #00eaff; text-shadow: 0 0 15px #00d4ff, 0 0 25px #0099cc; margin: 0; font-size: 1.8rem; font-weight: bold; letter-spacing: 1px;">Gashas Actuales</h2>
+    </div>
+
+    <ul class="nav nav-tabs mb-4 justify-content-center" id="gashaTabs" role="tablist" style="max-width: 1200px; margin: 0 auto;">
+        <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="cristales-tab" data-bs-toggle="tab" data-bs-target="#cristales" type="button" role="tab" aria-controls="cristales" aria-selected="true">Cristales</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="tickets-tab" data-bs-toggle="tab" data-bs-target="#tickets" type="button" role="tab" aria-controls="tickets" aria-selected="false">Tickets</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="zenkai-tab" data-bs-toggle="tab" data-bs-target="#zenkai" type="button" role="tab" aria-controls="zenkai" aria-selected="false">Zenkai</button>
+        </li>
+    </ul>
+
+    <div class="tab-content" id="gashaTabContent">
+        <div class="tab-pane fade show active" id="cristales" role="tabpanel" aria-labelledby="cristales-tab">
+            <div class="row g-4 justify-content-center" style="max-width: 1200px; margin: 0 auto;">
+                                        <div class="col-12 col-md-6 col-lg-4">
+                            <a href="/banners/27900" class="text-decoration-none">
+                                <div class="event-card h-100">
+                                    <img src="/img/assets/gasha/gasha_27900.webp" class="card-img-top" alt="WORLD CHAMPIONSHIP 2025-2026 Destacados de las FINALES" style="height: 200px; object-fit: cover;" loading="lazy">
+                                    <div class="card-body text-center d-flex flex-column justify-content-between p-3">
+                                        <h5 class="card-title mb-2" style="font-size: 1.2rem; line-height: 1.3; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis; color: #00d4ff;">
+                                            WORLD CHAMPIONSHIP 2025-2026 Destacados de las FINALES                                        </h5>
+                                        <div class="countdown fw-bold" style="font-size: 1rem; color: #ff6b6b;" data-end-date="1773208800000"></div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                                                <div class="col-12 col-md-6 col-lg-4">
+                            <a href="/banners/2040500" class="text-decoration-none">
+                                <div class="event-card h-100">
+                                    <img src="/img/assets/gasha/gasha_2040500.webp" class="card-img-top" alt="¡Celebración por 120 millones de usuarios en todo el mundo! Invocación x10 de Superagradecimiento gratis todos los días" style="height: 200px; object-fit: cover;" loading="lazy">
+                                    <div class="card-body text-center d-flex flex-column justify-content-between p-3">
+                                        <h5 class="card-title mb-2" style="font-size: 1.2rem; line-height: 1.3; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis; color: #00d4ff;">
+                                            ¡Celebración por 120 millones de usuarios en todo el mundo! Invocación x10 de Superagradecimiento gratis todos los días                                        </h5>
+                                        <div class="countdown fw-bold" style="font-size: 1rem; color: #ff6b6b;" data-end-date="1773208800000"></div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                                                <div class="col-12 col-md-6 col-lg-4">
+                            <a href="/banners/2040600" class="text-decoration-none">
+                                <div class="event-card h-100">
+                                    <img src="/img/assets/gasha/gasha_2040600.webp" class="card-img-top" alt="LEGEND RISING - ¡¡Unión de Dios y Demonio!! ¡¡El nacimiento de un súper namekiano!! -" style="height: 200px; object-fit: cover;" loading="lazy">
+                                    <div class="card-body text-center d-flex flex-column justify-content-between p-3">
+                                        <h5 class="card-title mb-2" style="font-size: 1.2rem; line-height: 1.3; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis; color: #00d4ff;">
+                                            LEGEND RISING - ¡¡Unión de Dios y Demonio!! ¡¡El nacimiento de un súper namekiano!! -                                        </h5>
+                                        <div class="countdown fw-bold" style="font-size: 1rem; color: #ff6b6b;" data-end-date="1774418400000"></div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                                                <div class="col-12 col-md-6 col-lg-4">
+                            <a href="/banners/2040400" class="text-decoration-none">
+                                <div class="event-card h-100">
+                                    <img src="/img/assets/gasha/gasha_2040400.webp" class="card-img-top" alt="LEGEND RISING - ¡¡Poder feroz!! Vegetto, más que definitivo -" style="height: 200px; object-fit: cover;" loading="lazy">
+                                    <div class="card-body text-center d-flex flex-column justify-content-between p-3">
+                                        <h5 class="card-title mb-2" style="font-size: 1.2rem; line-height: 1.3; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis; color: #00d4ff;">
+                                            LEGEND RISING - ¡¡Poder feroz!! Vegetto, más que definitivo -                                        </h5>
+                                        <div class="countdown fw-bold" style="font-size: 1rem; color: #ff6b6b;" data-end-date="1773295200000"></div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                                                <div class="col-12 col-md-6 col-lg-4">
+                            <a href="/banners/1004700" class="text-decoration-none">
+                                <div class="event-card h-100">
+                                    <img src="/img/assets/gasha/gasha_1004700.webp" class="card-img-top" alt="Set de Maestros Z" style="height: 200px; object-fit: cover;" loading="lazy">
+                                    <div class="card-body text-center d-flex flex-column justify-content-between p-3">
+                                        <h5 class="card-title mb-2" style="font-size: 1.2rem; line-height: 1.3; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis; color: #00d4ff;">
+                                            Set de Maestros Z                                        </h5>
+                                        <div class="countdown fw-bold" style="font-size: 1rem; color: #ff6b6b;" data-end-date="1893423600000"></div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                                                <div class="col-12 col-md-6 col-lg-4">
+                            <a href="/banners/100" class="text-decoration-none">
+                                <div class="event-card h-100">
+                                    <img src="/img/assets/gasha/gasha_100.webp" class="card-img-top" alt="Tutorial de Invocaciones" style="height: 200px; object-fit: cover;" loading="lazy">
+                                    <div class="card-body text-center d-flex flex-column justify-content-between p-3">
+                                        <h5 class="card-title mb-2" style="font-size: 1.2rem; line-height: 1.3; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis; color: #00d4ff;">
+                                            Tutorial de Invocaciones                                        </h5>
+                                        <div class="countdown fw-bold" style="font-size: 1rem; color: #ff6b6b;" data-end-date="1893423600000"></div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                                    </div>
+        </div>
+
+        <div class="tab-pane fade" id="tickets" role="tabpanel" aria-labelledby="tickets-tab">
+            <div class="row g-4 justify-content-center" style="max-width: 1200px; margin: 0 auto;">
+                                        <div class="col-12 col-md-6 col-lg-4">
+                            <a href="/banners/1004800" class="text-decoration-none">
+                                <div class="event-card h-100">
+                                    <img src="/img/assets/gasha/no_gasha/gasha_not_found.png" class="card-img-top" alt="Invocación de Ticket Set de Maestros Z con SP garantizado" style="height: 200px; object-fit: cover;" loading="lazy">
+                                    <div class="card-body text-center d-flex flex-column justify-content-between p-3">
+                                        <h5 class="card-title mb-2" style="font-size: 1.2rem; line-height: 1.3; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis; color: #00d4ff;">
+                                            Invocación de Ticket Set de Maestros Z con SP garantizado                                        </h5>
+                                        <div class="countdown fw-bold" style="font-size: 1rem; color: #ff6b6b;" data-end-date="1893423600000"></div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                                                <div class="col-12 col-md-6 col-lg-4">
+                            <a href="/banners/1300160" class="text-decoration-none">
+                                <div class="event-card h-100">
+                                    <img src="/img/assets/gasha/gasha_1300160.webp" class="card-img-top" alt="LEGENDS WELCOME" style="height: 200px; object-fit: cover;" loading="lazy">
+                                    <div class="card-body text-center d-flex flex-column justify-content-between p-3">
+                                        <h5 class="card-title mb-2" style="font-size: 1.2rem; line-height: 1.3; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis; color: #00d4ff;">
+                                            LEGENDS WELCOME                                        </h5>
+                                        <div class="countdown fw-bold" style="font-size: 1rem; color: #ff6b6b;" data-end-date="1893423600000"></div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                                                <div class="col-12 col-md-6 col-lg-4">
+                            <a href="/banners/1300170" class="text-decoration-none">
+                                <div class="event-card h-100">
+                                    <img src="/img/assets/gasha/gasha_1300170.webp" class="card-img-top" alt="Invocación de Ticket LEGENDS WELCOME con SP garantizado" style="height: 200px; object-fit: cover;" loading="lazy">
+                                    <div class="card-body text-center d-flex flex-column justify-content-between p-3">
+                                        <h5 class="card-title mb-2" style="font-size: 1.2rem; line-height: 1.3; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis; color: #00d4ff;">
+                                            Invocación de Ticket LEGENDS WELCOME con SP garantizado                                        </h5>
+                                        <div class="countdown fw-bold" style="font-size: 1rem; color: #ff6b6b;" data-end-date="1893423600000"></div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                                                <div class="col-12 col-md-6 col-lg-4">
+                            <a href="/banners/1400500" class="text-decoration-none">
+                                <div class="event-card h-100">
+                                    <img src="/img/assets/gasha/gasha_1400500.webp" class="card-img-top" alt="LEGENDS COMEBACK" style="height: 200px; object-fit: cover;" loading="lazy">
+                                    <div class="card-body text-center d-flex flex-column justify-content-between p-3">
+                                        <h5 class="card-title mb-2" style="font-size: 1.2rem; line-height: 1.3; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis; color: #00d4ff;">
+                                            LEGENDS COMEBACK                                        </h5>
+                                        <div class="countdown fw-bold" style="font-size: 1rem; color: #ff6b6b;" data-end-date="1893423600000"></div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                                                <div class="col-12 col-md-6 col-lg-4">
+                            <a href="/banners/1400600" class="text-decoration-none">
+                                <div class="event-card h-100">
+                                    <img src="/img/assets/gasha/gasha_1400600.webp" class="card-img-top" alt="Invocación de Ticket LEGENDS COMEBACK con SP garantizado" style="height: 200px; object-fit: cover;" loading="lazy">
+                                    <div class="card-body text-center d-flex flex-column justify-content-between p-3">
+                                        <h5 class="card-title mb-2" style="font-size: 1.2rem; line-height: 1.3; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis; color: #00d4ff;">
+                                            Invocación de Ticket LEGENDS COMEBACK con SP garantizado                                        </h5>
+                                        <div class="countdown fw-bold" style="font-size: 1rem; color: #ff6b6b;" data-end-date="1893423600000"></div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                                                <div class="col-12 col-md-6 col-lg-4">
+                            <a href="/banners/1004600" class="text-decoration-none">
+                                <div class="event-card h-100">
+                                    <img src="/img/assets/gasha/gasha_1004600.webp" class="card-img-top" alt="Invocación de Ticket de Súper Set de Maestros 7 con SPARKING garantizado" style="height: 200px; object-fit: cover;" loading="lazy">
+                                    <div class="card-body text-center d-flex flex-column justify-content-between p-3">
+                                        <h5 class="card-title mb-2" style="font-size: 1.2rem; line-height: 1.3; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis; color: #00d4ff;">
+                                            Invocación de Ticket de Súper Set de Maestros 7 con SPARKING garantizado                                        </h5>
+                                        <div class="countdown fw-bold" style="font-size: 1rem; color: #ff6b6b;" data-end-date="1893423600000"></div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                                    </div>
+        </div>
+
+        <div class="tab-pane fade" id="zenkai" role="tabpanel" aria-labelledby="zenkai-tab">
+            <div class="row g-4 justify-content-center" style="max-width: 1200px; margin: 0 auto;">
+                                        <div class="col-12 col-md-6 col-lg-4">
+                            <a href="/banners/100313" class="text-decoration-none">
+                                <div class="event-card h-100">
+                                    <img src="/img/assets/gasha/gasha_100313.webp" class="card-img-top" alt="ZENKAI AWAKENING - Gotenks supersaiyajin (DBL23-04S) -" style="height: 200px; object-fit: cover;" loading="lazy">
+                                    <div class="card-body text-center d-flex flex-column justify-content-between p-3">
+                                        <h5 class="card-title mb-2" style="font-size: 1.2rem; line-height: 1.3; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis; color: #00d4ff;">
+                                            ZENKAI AWAKENING - Gotenks supersaiyajin (DBL23-04S) -                                        </h5>
+                                        <div class="countdown fw-bold" style="font-size: 1rem; color: #ff6b6b;" data-end-date="1893423600000"></div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                                                <div class="col-12 col-md-6 col-lg-4">
+                            <a href="/banners/100200" class="text-decoration-none">
+                                <div class="event-card h-100">
+                                    <img src="/img/assets/gasha/gasha_100200.webp" class="card-img-top" alt="ZENKAI AWAKENING - Majin Buu maligno (DBL11-09S) -" style="height: 200px; object-fit: cover;" loading="lazy">
+                                    <div class="card-body text-center d-flex flex-column justify-content-between p-3">
+                                        <h5 class="card-title mb-2" style="font-size: 1.2rem; line-height: 1.3; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis; color: #00d4ff;">
+                                            ZENKAI AWAKENING - Majin Buu maligno (DBL11-09S) -                                        </h5>
+                                        <div class="countdown fw-bold" style="font-size: 1rem; color: #ff6b6b;" data-end-date="1893423600000"></div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                                                <div class="col-12 col-md-6 col-lg-4">
+                            <a href="/banners/100654" class="text-decoration-none">
+                                <div class="event-card h-100">
+                                    <img src="/img/assets/gasha/gasha_100654.webp" class="card-img-top" alt="ZENKAI AWAKENING - Goku supersaiyajin (Mini) (DBL78-01S) -" style="height: 200px; object-fit: cover;" loading="lazy">
+                                    <div class="card-body text-center d-flex flex-column justify-content-between p-3">
+                                        <h5 class="card-title mb-2" style="font-size: 1.2rem; line-height: 1.3; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis; color: #00d4ff;">
+                                            ZENKAI AWAKENING - Goku supersaiyajin (Mini) (DBL78-01S) -                                        </h5>
+                                        <div class="countdown fw-bold" style="font-size: 1rem; color: #ff6b6b;" data-end-date="1893423600000"></div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                                                <div class="col-12 col-md-6 col-lg-4">
+                            <a href="/banners/100655" class="text-decoration-none">
+                                <div class="event-card h-100">
+                                    <img src="/img/assets/gasha/gasha_100655.webp" class="card-img-top" alt="ZENKAI AWAKENING - Tamagami Número Tres (DBL78-04S) -" style="height: 200px; object-fit: cover;" loading="lazy">
+                                    <div class="card-body text-center d-flex flex-column justify-content-between p-3">
+                                        <h5 class="card-title mb-2" style="font-size: 1.2rem; line-height: 1.3; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis; color: #00d4ff;">
+                                            ZENKAI AWAKENING - Tamagami Número Tres (DBL78-04S) -                                        </h5>
+                                        <div class="countdown fw-bold" style="font-size: 1rem; color: #ff6b6b;" data-end-date="1893423600000"></div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                                                <div class="col-12 col-md-6 col-lg-4">
+                            <a href="/banners/100588" class="text-decoration-none">
+                                <div class="event-card h-100">
+                                    <img src="/img/assets/gasha/gasha_100588.webp" class="card-img-top" alt="ZENKAI AWAKENING - Goku (DBL67-01S) -" style="height: 200px; object-fit: cover;" loading="lazy">
+                                    <div class="card-body text-center d-flex flex-column justify-content-between p-3">
+                                        <h5 class="card-title mb-2" style="font-size: 1.2rem; line-height: 1.3; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis; color: #00d4ff;">
+                                            ZENKAI AWAKENING - Goku (DBL67-01S) -                                        </h5>
+                                        <div class="countdown fw-bold" style="font-size: 1rem; color: #ff6b6b;" data-end-date="1893423600000"></div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                                                <div class="col-12 col-md-6 col-lg-4">
+                            <a href="/banners/100272" class="text-decoration-none">
+                                <div class="event-card h-100">
+                                    <img src="/img/assets/gasha/gasha_100272.webp" class="card-img-top" alt="ZENKAI AWAKENING - Neo Shenron (DBL35-04S) -" style="height: 200px; object-fit: cover;" loading="lazy">
+                                    <div class="card-body text-center d-flex flex-column justify-content-between p-3">
+                                        <h5 class="card-title mb-2" style="font-size: 1.2rem; line-height: 1.3; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis; color: #00d4ff;">
+                                            ZENKAI AWAKENING - Neo Shenron (DBL35-04S) -                                        </h5>
+                                        <div class="countdown fw-bold" style="font-size: 1rem; color: #ff6b6b;" data-end-date="1893423600000"></div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                                    </div>
+        </div>
+    </div>
+
+    <br></br>
+
+    <div class="section-bar text-center mb-5" style="background: #0a0a1f; border: 2px solid #00d4ff; border-radius: 12px; padding: 12px 0; box-shadow: 0 0 20px rgba(0, 212, 255, 0.5); width: 100%; max-width: 1200px; margin-left: auto; margin-right: auto;">
+        <h2 style="color: #00eaff; text-shadow: 0 0 15px #00d4ff, 0 0 25px #0099cc; margin: 0; font-size: 1.8rem; font-weight: bold; letter-spacing: 1px;">Eventos Recientes</h2>
+    </div>
+
+    <div class="row g-4 justify-content-center event-grid" style="max-width: 1200px; margin: 0 auto;">
+            <div class="col-12 col-md-6 col-lg-4">
+            <div class="event-card h-100">
+                <div class="event-image-wrapper">
+    <img src="img/assets/story_events/story_info_13001.jpg" alt="¡Elección especial del fin de semana!" loading="lazy"> 
+    </div>
+                <div class="card-body text-center d-flex flex-column justify-content-between p-3">
+                    <h5 class="card-title mb-2" style="font-size: 1.2rem; line-height: 1.3;">¡Elección especial del fin de semana!</h5>
+                    <div class="countdown fw-bold" style="font-size: 1rem; color: #ff6b6b; margin-top: 8px;" ></div>
+                </div>
+            </div>
+        </div>
+                <div class="col-12 col-md-6 col-lg-4">
+            <div class="event-card h-100">
+                <div class="event-image-wrapper">
+    <img src="img/assets/story_events/story_info_28300.jpg" alt="El invencible Androide Nº17" loading="lazy"> 
+    </div>
+                <div class="card-body text-center d-flex flex-column justify-content-between p-3">
+                    <h5 class="card-title mb-2" style="font-size: 1.2rem; line-height: 1.3;">El invencible Androide Nº17</h5>
+                    <div class="countdown fw-bold" style="font-size: 1rem; color: #ff6b6b; margin-top: 8px;" data-end-date="1773208800000"></div>
+                </div>
+            </div>
+        </div>
+                <div class="col-12 col-md-6 col-lg-4">
+            <div class="event-card h-100">
+                <div class="event-image-wrapper">
+    <img src="img/assets/story_events/story_info_29100.jpg" alt="La invencible Androide Nº18" loading="lazy"> 
+    </div>
+                <div class="card-body text-center d-flex flex-column justify-content-between p-3">
+                    <h5 class="card-title mb-2" style="font-size: 1.2rem; line-height: 1.3;">La invencible Androide Nº18</h5>
+                    <div class="countdown fw-bold" style="font-size: 1rem; color: #ff6b6b; margin-top: 8px;" data-end-date="1773208800000"></div>
+                </div>
+            </div>
+        </div>
+                <div class="col-12 col-md-6 col-lg-4">
+            <div class="event-card h-100">
+                <div class="event-image-wrapper">
+    <img src="img/assets/story_events/story_info_40182.jpg" alt="Rush Ultradimensional ZENKAI" loading="lazy"> 
+    </div>
+                <div class="card-body text-center d-flex flex-column justify-content-between p-3">
+                    <h5 class="card-title mb-2" style="font-size: 1.2rem; line-height: 1.3;">Rush Ultradimensional ZENKAI</h5>
+                    <div class="countdown fw-bold" style="font-size: 1rem; color: #ff6b6b; margin-top: 8px;" data-end-date="1773208800000"></div>
+                </div>
+            </div>
+        </div>
+                <div class="col-12 col-md-6 col-lg-4">
+            <div class="event-card h-100">
+                <div class="event-image-wrapper">
+    <img src="img/assets/story_events/story_info_80108.jpg" alt="Raid de Superagradecimiento - ¡¡Gracias por 120 millones de usuarios en todo el mundo!! -" loading="lazy"> 
+    </div>
+                <div class="card-body text-center d-flex flex-column justify-content-between p-3">
+                    <h5 class="card-title mb-2" style="font-size: 1.2rem; line-height: 1.3;">Raid de Superagradecimiento - ¡¡Gracias por 120 millones de usuarios en todo el mundo!! -</h5>
+                    <div class="countdown fw-bold" style="font-size: 1rem; color: #ff6b6b; margin-top: 8px;" data-end-date="1773208800000"></div>
+                </div>
+            </div>
+        </div>
+                <div class="col-12 col-md-6 col-lg-4">
+            <div class="event-card h-100">
+                <div class="event-image-wrapper">
+    <img src="img/assets/story_events/story_info_200124.jpg" alt="Especial de Batallas Multiverso contra Cell primera forma" loading="lazy"> 
+    </div>
+                <div class="card-body text-center d-flex flex-column justify-content-between p-3">
+                    <h5 class="card-title mb-2" style="font-size: 1.2rem; line-height: 1.3;">Especial de Batallas Multiverso contra Cell primera forma</h5>
+                    <div class="countdown fw-bold" style="font-size: 1rem; color: #ff6b6b; margin-top: 8px;" ></div>
+                </div>
+            </div>
+        </div>
+                <div class="col-12 col-md-6 col-lg-4">
+            <div class="event-card h-100">
+                <div class="event-image-wrapper">
+    <img src="img/assets/story_events/story_info_13001.jpg" alt="¡Elección especial del fin de semana!" loading="lazy"> 
+    </div>
+                <div class="card-body text-center d-flex flex-column justify-content-between p-3">
+                    <h5 class="card-title mb-2" style="font-size: 1.2rem; line-height: 1.3;">¡Elección especial del fin de semana!</h5>
+                    <div class="countdown fw-bold" style="font-size: 1rem; color: #ff6b6b; margin-top: 8px;" ></div>
+                </div>
+            </div>
+        </div>
+                <div class="col-12 col-md-6 col-lg-4">
+            <div class="event-card h-100">
+                <div class="event-image-wrapper">
+    <img src="img/assets/story_events/story_info_80107.jpg" alt="Raid Cargado de Energía de Fin de Semana" loading="lazy"> 
+    </div>
+                <div class="card-body text-center d-flex flex-column justify-content-between p-3">
+                    <h5 class="card-title mb-2" style="font-size: 1.2rem; line-height: 1.3;">Raid Cargado de Energía de Fin de Semana</h5>
+                    <div class="countdown fw-bold" style="font-size: 1rem; color: #ff6b6b; margin-top: 8px;" ></div>
+                </div>
+            </div>
+        </div>
+                <div class="col-12 col-md-6 col-lg-4">
+            <div class="event-card h-100">
+                <div class="event-image-wrapper">
+    <img src="img/assets/story_events/story_info_45006.jpg" alt="Desafío Divino WCS2025-2026" loading="lazy"> 
+    </div>
+                <div class="card-body text-center d-flex flex-column justify-content-between p-3">
+                    <h5 class="card-title mb-2" style="font-size: 1.2rem; line-height: 1.3;">Desafío Divino WCS2025-2026</h5>
+                    <div class="countdown fw-bold" style="font-size: 1rem; color: #ff6b6b; margin-top: 8px;" ></div>
+                </div>
+            </div>
+        </div>
+            </div>
+</div>
+
+<script>
+function formatCountdown(distance) {
+    if (distance < 0) return "Comenzado";
+    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+    return `${days}d ${hours}h ${minutes}m ${seconds}s`;
+}
+
+function updateCountdowns() {
+    const countdowns = document.querySelectorAll('.countdown');
+    countdowns.forEach(el => {
+        let distance;
+        if (el.hasAttribute('data-begin-date')) {
+            distance = parseInt(el.getAttribute('data-begin-date')) - Date.now();
+            el.innerHTML = `Disponible en: ${formatCountdown(distance)}`;
+        } else if (el.hasAttribute('data-end-date')) {
+            distance = parseInt(el.getAttribute('data-end-date')) - Date.now();
+            el.innerHTML = `Restante(s): ${formatCountdown(distance)}`;
+        }
+    });
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    updateCountdowns();
+    setInterval(updateCountdowns, 1000);
+});
+</script>
+
+<style>
+    
+    .event-image-wrapper {
+    width: 100%;
+    aspect-ratio: 16 / 6; /* proporción tipo banner */
+    overflow: hidden;
+    border-bottom: 1px solid #2a2a2a;
+}
+
+.event-image-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+    background: #111; /* MUY suave, no negro puro */
+}
+
+
+    
+    .container {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 0 15px;
+    }
+
+    .news-grid, .event-grid, .character-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 25px;
+        justify-content: center;
+    }
+
+    .news-card, .event-card {
+        background: linear-gradient(145deg, #2c2c2c, #1f1f1f);
+        border-radius: 11px;
+        overflow: hidden;
+        flex: 1 1 340px;
+        max-width: 380px;
+        box-shadow: 0 6.6px 13.2px rgba(0, 0, 0, 0.3);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        border: 1.1px solid #00d4ff20;
+        box-sizing: border-box;
+    }
+
+    .news-card:hover, .event-card:hover {
+        transform: translateY(-8.8px);
+        box-shadow: 0 11px 22px rgba(0, 212, 255, 0.3);
+    }
+
+    .news-card img, .event-card .card-img-top {
+    width: 100%;
+    height: auto;
+    display: block;
+    }
+    .event-card {
+    display: flex;
+    flex-direction: column;
+}
+
+.event-card .card-body {
+    flex: 1;
+}
+
+    .news-card-content, .event-card .card-body {
+        padding: 14px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height: 130px;
+        color: #d0d0d0;
+    }
+
+    .news-card-title, .event-card .card-title {
+        font-size: 19.8px;
+        margin: 0;
+        line-height: 1.3;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        color: #00d4ff;
+    }
+
+    .news-card-title a, .event-card .card-title {
+        color: #00d4ff;
+        text-decoration: none;
+        transition: color 0.3s ease;
+    }
+
+    .news-card-title a:hover, .event-card .card-title:hover {
+        color: #ffeb3b;
+    }
+
+    .news-card-date, .event-card .text-muted {
+        font-size: 14.3px;
+        color: #d0d0d0;
+        line-height: 1.5;
+    }
+
+    .countdown {
+        font-size: 1.1rem;
+        font-weight: bold;
+        color: #ff6b6b;
+        margin-top: auto;
+    }
+
+    .nav-tabs .nav-link {
+        color: #a0d0ff;
+        border-color: transparent;
+    }
+
+    .nav-tabs .nav-link.active {
+        color: #00d4ff;
+        border-bottom: 3px solid #00d4ff;
+        background: transparent;
+    }
+
+    .nav-tabs .nav-link:hover {
+        color: #ffeb3b;
+    }
+
+    .section-bar {
+        width: 100%;
+        max-width: 1200px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    @media (max-width: 992px) {
+        .event-card {
+            max-width: 48%;
+        }
+        .event-card .card-img-top {
+            height: 140px;
+        }
+    }
+
+    @media (max-width: 576px) {
+        .event-card {
+            max-width: 100%;
+        }
+        .event-card .card-img-top {
+            height: 140px;
+        }
+        .event-grid {
+            gap: 20px;
+        }
+    }
+</style>
+
+<br><br>
+
+<footer class="text-center text-lg-start text-muted mt-5" style="background-color: #1b1d20">
+  <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.025);">
+    
+    <div class="d-flex justify-content-center align-items-center flex-wrap mb-2">
+      <a class="navbar-brand m-0" style="color:#4599ce; font-size: calc(0.575rem + 0.5vw); font-family: Oswald;">
+        ©2024 - @ProDigitalY | DB Legends HUB
+      </a>
+    </div>
+
+    <a href="/privacidad.php" style="font-size: 14px; color:#4599ce;" title="Política de Privacidad">
+      Política de Privacidad
+    </a>
+
+    <!-- Disclaimer añadido aquí -->
+    <small class="d-block mt-3" style="font-size: 12px; color: #4599ce; opacity: 0.9;">
+      DB Legends HUB is a fan-made, independent website and is not affiliated with, endorsed by, or officially connected to Bandai Namco Entertainment Inc., DIMPS Corporation, or Dragon Ball Legends.
+    </small>
+  </div>
+</footer>
+
+</div>
+</body>
+</html>

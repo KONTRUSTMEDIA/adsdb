@@ -1,0 +1,1394 @@
+<script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
+<script>
+    window.OneSignalDeferred = window.OneSignalDeferred || [];
+    OneSignalDeferred.push(async function(OneSignal) {
+
+        await OneSignal.init({
+            appId: "c8754340-1edd-4d9f-a655-5535c4592c3b",
+            notifyButton: { enable: false },
+            allowLocalhostAsSecureOrigin: true
+        });
+
+                // ✅ KAYITSIZ (ANON) KULLANICI
+        OneSignal.setExternalUserId("anon_dbcc303122f55890f1ea758a");
+        
+    });
+</script>
+
+
+
+<!doctype html>
+<html lang="tr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Amora</title>
+
+    <style>
+        /* RESET */
+        *{box-sizing:border-box;margin:0;padding:0}
+        body{font-family: "DM Sans", Arial, sans-serif}
+
+        /* HEADER */
+        .site-header{
+            background:#fff;
+            border-bottom:1px solid #eee;
+        }
+        .header-inner{
+            max-width:1300px;
+            margin:auto;
+            padding:18px 24px;
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+        }
+
+        /* LOGO */
+        .logo{
+            display:flex;
+            align-items:center;
+            gap:10px;
+            font-size:26px;
+            font-weight:500;
+            color:#d16e6f;
+        }
+        .logo-icon{
+            font-size:28px;
+        }
+
+        /* MENU */
+        .nav-menu{
+            display:flex;
+            gap:32px;
+            list-style:none;
+        }
+        .nav-menu li{
+            font-size:16px;
+        }
+        .nav-menu a{
+            text-decoration:none;
+            color:#111;
+        }
+        .nav-menu a:hover{
+            color:#c48b8b;
+        }
+
+        /* RIGHT AREA */
+        .header-right{
+            display:flex;
+            align-items:center;
+            gap:18px;
+        }
+        .social a{
+            text-decoration:none;
+            color:#111;
+            font-size:15px;
+            margin-right:6px;
+        }
+        .social a:hover{color:#c48b8b}
+
+        .cta-btn{
+            border:1px solid #111;
+            padding:8px 16px;
+            font-size:14px;
+            background:#fff;
+            cursor:pointer;
+        }
+        .cta-btn:hover{
+            background:#111;
+            color:#fff;
+        }
+
+        /* HAMBURGER */
+        .hamburger{
+            display:none;
+            flex-direction:column;
+            gap:5px;
+            cursor:pointer;
+        }
+        .hamburger span{
+            width:24px;
+            height:2px;
+            background:#111;
+        }
+
+        /* MOBILE MENU */
+        .mobile-menu{
+            position:fixed;
+            top:0;
+            left:-280px;
+            width:280px;
+            height:100%;
+            background:#fff;
+            box-shadow:2px 0 20px rgba(0,0,0,.15);
+            padding:30px;
+            transition:.3s;
+            z-index:9999;
+        }
+        .mobile-menu.active{left:0}
+        .mobile-menu ul{
+            list-style:none;
+            margin-top:30px;
+        }
+        .mobile-menu li{
+            margin-bottom:18px;
+        }
+        .mobile-menu a{
+            text-decoration:none;
+            color:#111;
+            font-size:18px;
+        }
+
+        /* RESPONSIVE */
+        @media(max-width:1024px){
+            .nav-menu{display:none}
+            .social{display:none}
+            .cta-btn{display:none}
+            .hamburger{display:flex}
+        }
+        .nav-menu {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-menu li {
+            position: relative;
+        }
+
+        .has-submenu .submenu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: #fff;
+            min-width: 160px;
+            border-radius: 10px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            padding: 8px 0;
+            z-index: 1000;
+        }
+
+        .has-submenu:hover .submenu {
+            display: block;
+        }
+
+        .submenu li {
+            padding: 0;
+        }
+
+        .submenu a {
+            display: block;
+            padding: 8px 14px;
+            color: #333;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .submenu a:hover {
+            background: #f6edf1;
+        }
+        @media(max-width:1024px){
+            .btn-primary{display:none;}
+        }
+        @media (max-width: 1024px) {
+
+            /* DESKTOP MENÜ TAMAMEN KAPAT */
+            .nav-menu {
+                display: none !important;
+            }
+
+            /* SAĞDAKİ HER ŞEYİ KAPAT */
+            .header-right .social,
+            .header-right .btn-primary {
+                display: none !important;
+            }
+
+            /* HEADER DÜZENİ */
+            .header-inner {
+                flex-wrap: nowrap;
+            }
+
+            /* LOGO BOZULMASIN */
+            .logo img {
+                max-height: 36px;
+            }
+
+            /* HAMBURGER NET GÖRÜNSÜN */
+            .hamburger {
+                display: flex !important;
+                margin-left: auto;
+            }
+        }
+        @media (max-width: 1024px){
+            .header-right .btn-primary{
+                display:none !important;
+            }
+        }
+        .logo a{
+            display:flex;
+            align-items:center;
+            gap:10px;
+            text-decoration:none;
+        }
+
+        .logo-icon img{
+            height:36px;
+            width:auto;
+            display:block;
+        }
+
+        .logo-text{
+            display:flex;
+            flex-direction:column;
+            line-height:1.1;
+        }
+
+        .logo-text strong{
+            font-size:20px;
+            font-weight:700;
+            color:#222;
+        }
+
+        .logo-text small{
+            font-size:12px;
+            color:#888;
+            font-weight:400;
+        }
+
+
+    </style>
+</head>
+
+<body>
+
+<header class="site-header">
+    <div class="header-inner">
+
+        <div class="logo">
+            <a href="https://dugun.me/">
+        <span class="logo-icon">
+            <img src="https://dugun.me/images/evlilik_logo.png" alt="Dugun.me">
+        </span>
+
+                <span class="logo-text">
+            <strong>Amora Dugun.me</strong>
+            <small>Benim Düğünüm</small>
+        </span>
+            </a>
+        </div>
+
+
+        <!-- MENU -->
+        <ul class="nav-menu">
+
+            <li><a href="#">Düğün Mekanları</a></li>
+            <li><a href="#">Düğün Firmaları</a></li>
+            <!-- MODELLER -->
+            <li class="has-submenu">
+                <a href="#">Modeller</a>
+                <ul class="submenu">
+                    <li><a href="https://dugun.me/amora/gelinlik_modelleri">Gelinlik Modelleri</a></li>
+                    <li><a href="https://dugun.me/amora/sac_modelleri">Saç Modelleri</a></li>
+                    <li><a href="https://dugun.me/amora/kart_modelleri">Davetiye Modelleri</a></li>
+                    <li><a href="https://dugun.me/amora/pasta_modelleri">Pasta Modelleri</a></li>
+                    <li><a href="https://dugun.me/amora/alyans_modelleri">Alyans Modelleri</a></li>
+                    <li><a href="https://dugun.me/amora/masa_modelleri">Masa Modelleri</a></li>
+                    <!-- ileride -->
+                    <!-- <li><a href="/amora/makyaj_modelleri">Makyaj Modelleri</a></li> -->
+                    <!-- <li><a href="/amora/aksesuar_modelleri">Aksesuar Modelleri</a></li> -->
+                </ul>
+
+            <li><a href="#">Organizasyon</a></li>
+
+            <li class="has-submenu">
+                <a href="#">Diyet & Spor</a>
+                <ul class="submenu">
+                    <li><a href="https://dugun.me/diyet/balance">Günlük</a></li>
+                    <li><a href="https://dugun.me/diyet/kackalori">Kaç Kalori</a></li>
+                    <li><a href="https://dugun.me/diyet/diyet">Diyet</a></li>
+                    <li><a href="https://dugun.me/diyet/spor">Spor</a></li>
+                    <li><a href="https://dugun.me/diyet/su">Su</a></li>
+                    <li><a href="https://dugun.me/diyet/kilo">Ölçüm</a></li>
+                    <li><a href="https://dugun.me/diyet/start">Tercihlerim</a></li>
+                </ul>
+
+
+            <!-- ARAÇLAR -->
+            <li class="has-submenu">
+                <a href="#">Mürvet Teyze</a>
+                <ul class="submenu">
+                    <li><a href="https://dugun.me/amora/murvet">Mürvet Teyze</a></li>
+                    <li><a href="https://dugun.me/amora/nasihat">Mürvet Teyze Anlatıyor</a></li>
+                    <li><a href="https://dugun.me/amora/yabanci_gelin_damat">Aunt Mürvet Foreign Bride & Groom</a></li>
+                    <li><a href="https://dugun.me/amora/davetiye">eDavetiye</a></li>
+                    <li><a href="https://dugun.me/amora/ajanda">Ajanda</a></li>
+                    <li><a href="https://dugun.me/amora/harcama">Bütçem</a></li>
+                    <li><a href="https://dugun.me/amora/oturma">Oturma Planı</a></li>
+                    <li><a href="https://dugun.me/amora/dugun_tv">Düğün TV</a></li>
+                    <li><a href="https://dugun.me/amora/album">Canlı Albüm</a></li>
+                    <li><a href="https://dugun.me/amora/hava">Hava Durumu</a></li>
+                    <!-- ileride -->
+                    <!-- <li><a href="/amora/butce">Bütçe Planlayıcı</a></li> -->
+                    <!-- <li><a href="/amora/yapilacaklar">Yapılacaklar</a></li> -->
+                </ul>
+            </li>
+            <li class="has-submenu">
+                <a href="#">TrueCert</a>
+                <ul class="submenu">
+                    <li><a href="https://dugun.me/amora/telifsiz_muzik">Telifsiz Müzik</a></li>
+                    <li><a href="https://dugun.me/amora/yesil_surdurulebilir_dugun">Yeşil Sürdürülebilir Düğün</a></li>
+                    <li><a href="https://dugun.me/amora/egitimli_personel_dugun">Eğitimli Personel</a></li>
+                </ul>
+
+
+
+        </ul>
+
+
+        <!-- RIGHT -->
+        <div class="header-right">
+            <div class="social">
+                <a href="#">◎</a>
+                <a href="#">𝕏</a>
+                <a href="#">P</a>
+                <a href="#">in</a>
+            </div>
+
+            <a href="#" class="btn-primary">Teklif Al</a>
+
+            <div class="hamburger" onclick="toggleMenu()">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+
+    </div>
+</header>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+    <strong>Menü</strong>
+    <ul>
+        <li><a href="https://dugun.me/">Ana Sayfa</a></li>
+        <li><a href="#">Düğün Mekanları</a></li>
+        <li><a href="#">Düğün Firmaları</a></li>
+        <!-- MODELLER -->
+        <li style="margin-top:15px;">
+            <a href="#">Modeller</a>
+            <ul style="margin-top:8px;padding-left:12px;">
+                <li><a href="https://dugun.me/amora/gelinlik_modelleri">Gelinlik Modelleri</a></li>
+                <li><a href="https://dugun.me/amora/sac_modelleri">Saç Modelleri</a></li>
+                <!-- ileride -->
+                <!-- <li><a href="/amora/makyaj_modelleri">Makyaj Modelleri</a></li> -->
+                <!-- <li><a href="/amora/aksesuar_modelleri">Aksesuar Modelleri</a></li> -->
+            </ul>
+        </li>
+
+        <li><a href="#">Organizasyon</a></li>
+        <li><a href="https://dugun.me/amora/balance">Ballance</a></li>
+        <li><a href="#">PoseAI</a></li>
+
+        <li style="margin-top:15px;">
+            <a href="#">Mürvet Teyze</a>
+            <ul style="margin-top:8px;padding-left:12px;">
+
+                <li><a href="https://dugun.me/amora/murvet">Mürvet Teyze</a></li>
+                <li><a href="https://dugun.me/amora/nasihat">Mürvet Teyze Anlatıyor</a></li>
+                <li><a href="https://dugun.me/amora/yabanci_gelin_damat">Aunt Mürvet Foreign Bride & Groom</a></li>
+                <li><a href="https://dugun.me/amora/davetiye">eDavetiye</a></li>
+                <li><a href="https://dugun.me/amora/ajanda">Ajanda</a></li>
+                <li><a href="https://dugun.me/amora/harcama">Bütçem</a></li>
+                <li><a href="https://dugun.me/amora/oturma">Oturma Planı</a></li>
+                <li><a href="https://dugun.me/amora/dugun_tv">Düğün TV</a></li>
+                <li><a href="https://dugun.me/amora/album">Canlı Albüm</a></li>
+                <li><a href="https://dugun.me/amora/hava">Hava Durumu</a></li>
+            </ul>
+        </li>
+
+        <li class="has-submenu">
+            <a href="#">TrueCert</a>
+            <ul class="submenu">
+                <li><a href="https://dugun.me/amora/telifsiz_muzik">Telifsiz Müzik</a></li>
+                <li><a href="https://dugun.me/amora/yesil_surdurulebilir_dugun">Yeşil Sürdürülebilir Düğün</a></li>
+                <li><a href="https://dugun.me/amora/egitimli_personel_dugun">Eğitimli Personel</a></li>
+            </ul>
+    </ul>
+</div>
+
+<script>
+    function toggleMenu(){
+        document.getElementById('mobileMenu').classList.toggle('active');
+    }
+</script>
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>Amora – Düğününü Planla, Hikâyeni Yaz</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta name="description"
+          content="Düğün mekanları, firmalar, gelinlik modelleri, organizasyon ve ücretsiz teklif alma araçları Amora’da.">
+
+    <link rel="stylesheet" href="amora.css">
+</head>
+<body>
+
+<!-- ================= HEADER ================= -->
+
+
+<!-- ================= HERO ================= -->
+<section class="hero">
+    <div class="hero-overlay"></div>
+    <div class="container hero-content">
+        <h1>Her Düğün Bir Hikâyedir</h1>
+        <p>Mekandan gelinliğe, firmalardan teklif almaya kadar her şey Amora’da.</p>
+
+        <div class="hero-search">
+            <select name="category">
+
+                <optgroup label="Düğün Mekanları">
+                    <option value="kir-dugunu">Kır Düğünü</option>
+                    <option value="otel-dugunu">Otel Düğünü</option>
+                    <option value="tarihi-mekanlar">Tarihi Mekanlar</option>
+                    <option value="dugun-salonlari">Düğün Salonları</option>
+                    <option value="sosyal-tesisler">Sosyal Tesisler</option>
+                    <option value="balo-davet">Balo ve Davet Salonları</option>
+                    <option value="tekne-dugunu">Tekne Düğünü</option>
+                    <option value="nikah-salonlari">Nikah Salonları</option>
+                    <option value="nikah-sonrasi">Nikah Sonrası Yemeği</option>
+                    <option value="after-party">After Party</option>
+                </optgroup>
+
+                <optgroup label="Düğün Firmaları">
+                    <option value="fotografci">Düğün Fotoğrafçıları</option>
+                    <option value="gelin-saci-makyaj">Gelin Saçı ve Makyajı</option>
+                    <option value="muzik">Müzik</option>
+                    <option value="catering">Catering Hizmetleri</option>
+                    <option value="gelin-arabasi">Gelin Arabası</option>
+                    <option value="davetiye">Düğün Davetiyesi</option>
+                    <option value="nikah-sekeri">Nikah Şekeri & Hediyelik</option>
+                    <option value="dans-kurslari">Dans Kursları</option>
+                    <option value="cicekci">Çiçekçiler</option>
+                    <option value="pasta">Düğün Pastası</option>
+                    <option value="isik-ses">Işık, Ses ve Düzenleme</option>
+                </optgroup>
+
+                <optgroup label="Gelinlik & Moda">
+                    <option value="gelinlik">Gelinlik</option>
+                    <option value="abiye-nisanlik">Abiye ve Nişanlık</option>
+                    <option value="damatlik">Damatlık</option>
+                    <option value="ayakkabi-aksesuar">Gelin Ayakkabısı & Aksesuarları</option>
+                    <option value="alyans">Alyans ve Takı</option>
+                </optgroup>
+
+                <optgroup label="Organizasyon & Özel Anlar">
+                    <option value="organizasyon">Düğün Organizasyon</option>
+                    <option value="evlilik-teklifi">Evlilik Teklifi</option>
+                    <option value="kina-bekarliga-veda">Kına ve Bekarlığa Veda</option>
+                    <option value="kina-mekan">Kına & Bekarlığa Veda Mekanları</option>
+                    <option value="kina-aksesuar">Kına & Bekarlığa Veda Aksesuarları</option>
+                    <option value="soz-nisan">Söz & Nişan Mekanları</option>
+                </optgroup>
+
+                <optgroup label="Diğer">
+                    <option value="guzellik-merkezleri">Güzellik Merkezleri</option>
+                    <option value="evlendirme-daireleri">Evlendirme Daireleri</option>
+                    <option value="alternatif-fikirler">Alternatif Fikirler</option>
+                </optgroup>
+
+            </select>
+
+            <select name="city">
+                <option value="">İl Seçiniz</option>
+                <option value="istanbul">İstanbul</option>
+                <option value="ankara">Ankara</option>
+                <option value="izmir">İzmir</option>
+                <option value="adana">Adana</option>
+                <option value="adiyaman">Adıyaman</option>
+                <option value="afyonkarahisar">Afyonkarahisar</option>
+                <option value="agri">Ağrı</option>
+                <option value="amasya">Amasya</option>
+                <option value="antalya">Antalya</option>
+                <option value="artvin">Artvin</option>
+                <option value="aydin">Aydın</option>
+                <option value="balikesir">Balıkesir</option>
+                <option value="bilecik">Bilecik</option>
+                <option value="bingol">Bingöl</option>
+                <option value="bitlis">Bitlis</option>
+                <option value="bolu">Bolu</option>
+                <option value="burdur">Burdur</option>
+                <option value="bursa">Bursa</option>
+                <option value="canakkale">Çanakkale</option>
+                <option value="cankiri">Çankırı</option>
+                <option value="corum">Çorum</option>
+                <option value="denizli">Denizli</option>
+                <option value="diyarbakir">Diyarbakır</option>
+                <option value="edirne">Edirne</option>
+                <option value="elazig">Elazığ</option>
+                <option value="erzincan">Erzincan</option>
+                <option value="erzurum">Erzurum</option>
+                <option value="eskisehir">Eskişehir</option>
+                <option value="gaziantep">Gaziantep</option>
+                <option value="giresun">Giresun</option>
+                <option value="gumushane">Gümüşhane</option>
+                <option value="hakkari">Hakkâri</option>
+                <option value="hatay">Hatay</option>
+                <option value="isparta">Isparta</option>
+                <option value="mersin">Mersin</option>
+                <option value="kars">Kars</option>
+                <option value="kastamonu">Kastamonu</option>
+                <option value="kayseri">Kayseri</option>
+                <option value="kirklareli">Kırklareli</option>
+                <option value="kirsehir">Kırşehir</option>
+                <option value="kocaeli">Kocaeli</option>
+                <option value="konya">Konya</option>
+                <option value="kutahya">Kütahya</option>
+                <option value="malatya">Malatya</option>
+                <option value="manisa">Manisa</option>
+                <option value="kahramanmaras">Kahramanmaraş</option>
+                <option value="mardin">Mardin</option>
+                <option value="mugla">Muğla</option>
+                <option value="mus">Muş</option>
+                <option value="nevsehir">Nevşehir</option>
+                <option value="nigde">Niğde</option>
+                <option value="ordu">Ordu</option>
+                <option value="rize">Rize</option>
+                <option value="sakarya">Sakarya</option>
+                <option value="samsun">Samsun</option>
+                <option value="siirt">Siirt</option>
+                <option value="sinop">Sinop</option>
+                <option value="sivas">Sivas</option>
+                <option value="tekirdag">Tekirdağ</option>
+                <option value="tokat">Tokat</option>
+                <option value="trabzon">Trabzon</option>
+                <option value="tunceli">Tunceli</option>
+                <option value="sanliurfa">Şanlıurfa</option>
+                <option value="usak">Uşak</option>
+                <option value="van">Van</option>
+                <option value="yozgat">Yozgat</option>
+                <option value="zonguldak">Zonguldak</option>
+                <option value="aksaray">Aksaray</option>
+                <option value="bayburt">Bayburt</option>
+                <option value="karaman">Karaman</option>
+                <option value="kirikkale">Kırıkkale</option>
+                <option value="batman">Batman</option>
+                <option value="sirnak">Şırnak</option>
+                <option value="bartin">Bartın</option>
+                <option value="ardahan">Ardahan</option>
+                <option value="igdir">Iğdır</option>
+                <option value="yalova">Yalova</option>
+                <option value="karabuk">Karabük</option>
+                <option value="kilis">Kilis</option>
+                <option value="osmaniye">Osmaniye</option>
+                <option value="duzce">Düzce</option>
+            </select>
+
+
+            <button class="btn-primary">Ara</button>
+        </div>
+    </div>
+</section>
+
+<!-- ================= KATEGORİLER ================= -->
+<section class="section">
+    <div class="container">
+        <h2 class="section-title">Düğününü Planla</h2>
+
+        <div class="category-grid">
+
+            <a href="#" class="category-card" style="background-image:url('/images/dugun.png')">
+                <span>Düğün Mekanları</span>
+            </a>
+
+            <a href="https://dugun.me/amora/gelinlik_modelleri" class="category-card" style="background-image:url('/images/gelinlik.png')">
+                <span>Gelinlik Modelleri</span>
+            </a>
+
+            <a href="#" class="category-card" style="background-image:url('/images/organizasyon.png')">
+                <span>Düğün Organizasyon</span>
+            </a>
+
+            <a href="https://dugun.me/amora/fotograf_dugun_albumu" class="category-card" style="background-image:url('/images/fotorgraf.png')">
+                <span>Düğün Fotografçısı & Albümü</span>
+            </a>
+
+            <a href="https://dugun.me/amora/sac_modelleri" class="category-card" style="background-image:url('/images/makyaj.png')">
+                <span>Gelin Saçı ve Makyajı</span>
+            </a>
+
+            <a href="#" class="category-card" style="background-image:url('/images/evlilik_teklifi.png')">
+                <span>Evlilik Teklifi</span>
+            </a>
+
+        </div>
+    </div>
+</section>
+
+
+<!-- ================= TEKLİF AL ================= -->
+<section class="section highlight">
+    <div class="container">
+        <h2>Ücretsiz Teklif Al</h2>
+        <p>İhtiyacını söyle, sana en uygun firmalar teklif versin.</p>
+        <a href="#" class="btn-primary">Teklif Al</a>
+    </div>
+</section>
+
+<section class="section section-gallery">
+    <div class="container">
+
+        <div class="gallery-grid">
+
+            <div class="gallery-item" onclick="location.href='https://dugun.me/amora/gelinlik_modelleri'">
+                <img src="/images/gallery/01.jpg" alt="">
+                <span>Gelinlik Modelleri</span>
+            </div>
+
+
+            <div class="gallery-item" onclick="location.href='https://dugun.me/amora/sac_modelleri'">
+                <img src="/images/gallery/02.jpg" alt="">
+                <span>Gelin Saçı ve Makyajı</span>
+            </div>
+
+            <div class="gallery-item" onclick="location.href='https://dugun.me/amora/kart_modelleri'">
+                <img src="/images/gallery/03.jpg" alt="">
+                <span>Davetiye Modelleri</span>
+            </div>
+
+            <div class="gallery-item" onclick="location.href='https://dugun.me/amora/pasta_modelleri'">
+                <img src="/images/gallery/04.jpg" alt="">
+                <span>Düğün Pastası Modelleri</span>
+            </div>
+
+            <div class="gallery-item" onclick="location.href='https://dugun.me/amora/alyans_modelleri'">
+                <img src="/images/gallery/05.jpg" alt="">
+                <span>Alyans ve Tektaş</span>
+            </div>
+
+            <div class="gallery-item">
+                <img src="/images/gallery/06.jpg" alt="">
+                <span>Damatlık Modelleri</span>
+            </div>
+
+            <div class="gallery-item">
+                <img src="/images/gallery/07.jpg" alt="">
+                <span>Düğün Mekan Galerileri</span>
+            </div>
+
+            <div class="gallery-item">
+                <img src="/images/gallery/08.jpg" alt="">
+                <span>Gelin Aksesuarları</span>
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+
+
+<!-- ================= GELİNLİK MODELLERİ ================= -->
+<section class="section">
+    <div class="container">
+        <h2 class="section-title">Popüler Gelinlik Modelleri</h2>
+
+        <div class="grid-6">
+            <div class="gelinres">
+               <img src="https://dugun.me/images/gelinlik/yrtmacl_etekli_gelinlik/front_89.jpg" loading="lazy" >
+               <p class="gelintxt">A Kesim</p>
+            </div>
+            <div class="gelinres">
+                <img src="https://dugun.me/images/gelinlik/yrtmacl_etekli_gelinlik/front_69.jpg" loading="lazy" >
+                <p class="gelintxt">Balık</p>
+            </div>
+            <div class="gelinres">
+                <img src="https://dugun.me/images/gelinlik/yrtmacl_etekli_gelinlik/front_49.jpg" loading="lazy" >
+                <p class="gelintxt">Bohem</p>
+            </div>
+            <div class="gelinres">
+                <img src="https://dugun.me/images/gelinlik/yrtmacl_etekli_gelinlik/front_39.jpg" loading="lazy" >
+                <p class="gelintxt">Helen</p>
+            </div>
+            <div class="gelinres">
+                <img src="https://dugun.me/images/gelinlik/yrtmacl_etekli_gelinlik/front_29.jpg" loading="lazy" >
+                <p class="gelintxt">Prenses</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ================= SAĞLIK & FORM TAKİBİ ================= -->
+<section class="section soft">
+    <div class="container">
+        <h2 class="section-title">Form ve Sağlık Takibi</h2>
+
+        <div class="story-grid">
+
+            <div class="story-card">
+                <h3>📊 Form Tut</h3>
+                <p>Kilo, ölçü ve günlük ilerlemeni takip et.</p>
+                <button class="btn-primary" onclick="window.location.href='diyet/start'">Form Takibi Başla</button>
+            </div>
+
+            <div class="story-card">
+                <h3>🥗 Diyet Yap</h3>
+                <p>Kişisel hedeflerine uygun diyet planı oluştur.</p>
+                <button class="btn-primary" onclick="window.location.href='diyet/diyet'">Diyet Planı Oluştur</button>
+            </div>
+
+            <div class="story-card">
+                <h3>🏃‍♂️ Spor Yap</h3>
+                <p>Evde veya salonda uygulayabileceğin spor programları.</p>
+                <button class="btn-primary" onclick="window.location.href='diyet/spor'">Spor Programı Seç</button>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+<!-- ================= DESTEK & EĞİTİM ================= -->
+<section class="section soft">
+    <div class="container">
+        <h2 class="section-title">Destek ve Eğitim Alanları</h2>
+
+        <div class="story-grid">
+
+            <!-- Mürvet Teyze Dinlesin -->
+            <div class="story-card">
+                <h3>👩‍🦳 Mürvet Teyze Yanında</h3>
+                <p>
+                    Tanış, dertlerini anlat. Mürvet Teyze seni dinler,
+                    tecrübesiyle yol gösterir.
+                </p>
+                <button class="btn-primary" onclick="window.location.href='amora/murvet'">Mürvet Teyze ile Tanış</button>
+            </div>
+
+            <!-- Önleyici Eğitimler -->
+            <div class="story-card">
+                <h3>🎓 Mürvet Teyze Senin İçin Hazırladı</h3>
+                <p>
+                    Sorunlar oluşmadan önce bilmen gereken konular için
+                    hazırlanmış evlilik eğitimleri.
+                </p>
+                <button class="btn-primary" onclick="window.location.href='amora/nasihat'">Eğitimleri İncele</button>
+            </div>
+
+            <!-- Yabancı Gelin & Damat -->
+            <div class="story-card">
+                <h3>🌍 Yabancı Gelin ve Damatlar İçin Eğitim</h3>
+                <p>
+                    Türkiye’de evlilik süreci, kültürel uyum ve resmi işlemler
+                    hakkında özel eğitim içerikleri.
+                </p>
+                <button class="btn-primary" onclick="window.location.href='amora/yabanci_gelin_damat'">Eğitimlere Git</button>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+<!-- ================= MÜR VET TEYZE GÜVENCE ================= -->
+<section class="section soft">
+    <div class="container">
+
+        <div class="murvet-wrap">
+
+            <!-- SOL: MÜR VET TEYZE -->
+            <div class="murvet-image">
+                <img src="/images/murvet-teyze.png" alt="Mürvet Teyze">
+            </div>
+
+            <!-- SAĞ: METİN -->
+            <div class="murvet-text">
+                <h2>Gelin ve Damatlar Merak Etmesin</h2>
+
+                <p>
+                    Amora ile çalışan tüm <strong>işletmeler</strong>, <strong>tesisler</strong> ve
+                    <strong>saha ekipleri</strong> düğün sürecinin
+                    <strong>her aşaması</strong> için önceden
+                    <strong>eğitilmiş</strong>, <strong>denetlenmiş</strong> ve
+                    <strong>onaylanmıştır</strong>.
+                    En özel gününüzde hiçbir <strong>belirsizlik</strong> yaşamamanız için
+                    tüm detaylar önceden <strong>planlanır</strong> ve
+                    <strong>güvence altına alınır</strong>.
+                </p>
+
+                <p>
+                    Organizasyonun <strong>ilk planlama adımından</strong> düğün günü
+                    <strong>sahadaki uygulamalara</strong> kadar;
+                    <strong>iletişim dili</strong>, <strong>hizmet kalitesi</strong>,
+                    <strong>zaman yönetimi</strong> ve
+                    <strong>kriz anlarında doğru müdahale</strong> gibi kritik konular
+                    <strong>standartlara bağlanmıştır</strong>.
+                    Her <strong>çalışan</strong>, görev aldığı alana göre
+                    <strong>özel olarak değerlendirilmiş</strong>,
+                    her <strong>tesis</strong> ise hizmet süreçleri açısından
+                    <strong>ayrı ayrı belgelendirilmiştir</strong>.
+                </p>
+
+                <p>
+                    Bu sistem sayesinde <strong>ekipler arası uyum</strong> sağlanır,
+                    <strong>olası aksaklıkların</strong> önüne geçilir ve
+                    <strong>stresli anlar</strong>
+                    <strong>profesyonel bir yaklaşımla</strong> yönetilir.
+                    Siz düğün gününüzü yaşarken, sahadaki tüm detaylar
+                    <strong>kontrollü</strong> ve
+                    <strong>koordine</strong> şekilde ilerler.
+                </p>
+
+                <p>
+                    Amora’nın bu yaklaşımı, yalnızca bir <strong>organizasyon</strong> değil;
+                    <strong>güven</strong>, <strong>kalite</strong> ve
+                    <strong>profesyonellik</strong> üzerine kurulmuş bir
+                    <strong>deneyim</strong> sunar.
+                    Hizmet aldığınız her <strong>işletmenin</strong>
+                    belirli <strong>standartlara</strong> sahip olduğunu bilerek
+                    <strong>içiniz rahat eder</strong>.
+                </p>
+
+                <p>
+                    <strong>Mürvet Teyze</strong> bu süreci sizin yerinize
+                    <strong>düşündü</strong>, olası <strong>sorunları</strong>
+                    <strong>önceden hesapladı</strong> ve gerekli tüm
+                    <strong>hazırlıkları</strong> yaptı.
+                    Siz sadece <strong>hayalinize odaklanın</strong>;
+                    gerisini Amora’nın
+                    <strong>eğitimli</strong>, <strong>belgeli</strong> ve
+                    <strong>güvenilir çözüm ortaklarına</strong> bırakın.
+                </p>
+
+
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+
+
+<!-- ================= ARAÇLAR ================= -->
+<section class="section section-tools">
+    <div class="container">
+        <h2 class="section-title">Düğün Araçları</h2>
+
+        <div class="tools-grid">
+
+            <a href="/amora/ajanda" class="tool-card">
+                <img src="/images/tools/yapilacak.jpg" alt="">
+                <span>Yapılacaklar Listesi</span>
+            </a>
+
+            <a href="#" class="tool-card">
+                <img src="/images/tools/butce.jpg" alt="">
+                <span>Bütçe Planlayıcı</span>
+            </a>
+
+            <a href="#" class="tool-card">
+                <img src="/images/tools/oturma.jpg" alt="">
+                <span>Oturma Planı</span>
+            </a>
+
+            <a href="#" class="tool-card">
+                <img src="/images/tools/davetiye.jpg" alt="">
+                <span>Davetiye</span>
+            </a>
+
+            <a href="#" class="tool-card">
+                <img src="/images/tools/hava.jpg" alt="">
+                <span>Hava Durumu</span>
+            </a>
+
+        </div>
+    </div>
+</section>
+
+
+
+
+</body>
+</html>
+<style>
+    /* ================= RESET ================= */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+    body {
+        color: #333;
+        background: #fff;
+    }
+
+    .container {
+        width: 90%;
+        max-width: 1200px;
+        margin: auto;
+    }
+
+    /* ================= BUTTON ================= */
+    .btn-primary {
+        background: #b68b5a;
+        color: #fff !important;
+        padding: 8px 16px;
+        border-radius: 6px;
+        text-decoration: none;
+        border: none;
+        cursor: pointer;
+    }
+
+    /* ================= HERO ================= */
+    .hero {
+        position: relative;
+        background: url('hero.jpg') center/cover no-repeat;
+        height: 420px;
+        color: #fff;
+    }
+
+    .hero-overlay {
+        position: absolute;
+        inset: 0;
+        background: rgba(0,0,0,.45);
+        background-image: url("/images/arka_fon.jpg");
+    }
+
+    .hero-content {
+        position: relative;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+
+    .hero h1 {
+        font-size: 42px;
+        margin-bottom: 10px;
+    }
+
+    .hero-search {
+        margin-top: 25px;
+        display: flex;
+        gap: 10px;
+    }
+
+    .hero-search select,
+    .hero-search button {
+        padding: 12px;
+        border-radius: 6px;
+        border: none;
+    }
+
+    /* ================= SECTIONS ================= */
+    .section {
+        padding: 60px 0;
+    }
+
+    .section-title {
+        margin-bottom: 30px;
+        font-size: 26px;
+    }
+
+    .highlight {
+        background: #f8f4ef;
+        text-align: center;
+    }
+
+    .soft {
+        background: #fafafa;
+    }
+
+    /* ================= CATEGORY GRID ================= */
+    .category-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 24px;
+    }
+
+    .category-card {
+        position: relative;
+        height: 220px;
+        border-radius: 18px;
+        background-size: cover;
+        background-position: center;
+        text-decoration: none;
+        overflow: hidden;
+        transition: transform .25s ease, box-shadow .25s ease;
+    }
+
+    .category-card::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: rgba(0,0,0,.45);
+    }
+
+    .category-card span {
+        position: absolute;
+        left: 20px;
+        bottom: 20px;
+        color: #fff;
+        font-size: 20px;
+        font-weight: 600;
+        z-index: 2;
+    }
+
+    .category-card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 16px 40px rgba(0,0,0,.25);
+    }
+
+    /* ================= GALLERY ================= */
+    .section-gallery {
+        padding: 60px 0;
+    }
+
+    .gallery-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 24px;
+    }
+
+    .gallery-item {
+        position: relative;
+        overflow: hidden;
+        border-radius: 18px;
+    }
+
+    .gallery-item img {
+        width: 100%;
+        height: 220px;
+        object-fit: cover;
+    }
+
+    .gallery-item::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(to top, rgba(0,0,0,.55), rgba(0,0,0,.15));
+    }
+
+    .gallery-item span {
+        position: absolute;
+        left: 20px;
+        bottom: 20px;
+        color: #fff;
+        font-size: 18px;
+        font-weight: 600;
+        z-index: 2;
+    }
+
+    /* ================= TOOLS ================= */
+    .section-tools {
+        padding: 80px 0;
+    }
+
+    .tools-grid {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 24px;
+    }
+
+    .tool-card {
+        position: relative;
+        border-radius: 18px;
+        overflow: hidden;
+        text-decoration: none;
+    }
+
+    .tool-card img {
+        width: 100%;
+        height: 220px;
+        object-fit: cover;
+    }
+
+    .tool-card::after {
+        content: "";
+        position: absolute;
+        inset: auto 0 0 0;
+        height: 60px;
+        background: rgba(0,0,0,.55);
+    }
+
+    .tool-card span {
+        position: absolute;
+        bottom: 18px;
+        left: 0;
+        right: 0;
+        text-align: center;
+        color: #fff;
+        font-weight: 600;
+        z-index: 2;
+    }
+
+    /* ================= GELİNLİK MODELLERİ ================= */
+    .grid-6 {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+        gap: 20px;
+    }
+
+    .gelinres {
+        background: #fff;
+        border-radius: 12px;
+        overflow: hidden;
+        border: 1px solid #eee;
+        text-align: center;
+        transition: .25s;
+    }
+
+    .gelinres img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        display: block;
+    }
+
+    .gelintxt {
+        margin: 0;
+        padding: 12px;
+        font-size: 15px;
+        font-weight: 600;
+        background: #babdb3;
+        color: #333;
+    }
+
+    /* ================= STORY ================= */
+    .story-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
+        gap: 20px;
+    }
+
+    .story-card {
+        background: #fff;
+        border: 1px solid #eee;
+        padding: 40px;
+        border-radius: 10px;
+        text-align: center;
+    }
+
+    /* ================= RESPONSIVE ================= */
+    @media (max-width: 1024px) {
+        .gallery-grid { grid-template-columns: repeat(2,1fr); }
+    }
+
+    @media (max-width: 992px) {
+        .category-grid { grid-template-columns: repeat(2,1fr); }
+        .tools-grid { grid-template-columns: repeat(3,1fr); }
+    }
+
+    @media (max-width: 768px) {
+        .tools-grid { grid-template-columns: repeat(2,1fr); }
+    }
+
+    @media (max-width: 480px) {
+        .category-grid,
+        .gallery-grid,
+        .tools-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .gelinres img {
+            height: 180px;
+        }
+    }
+
+    .story-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 24px;
+    }
+
+    .story-card {
+        background: #fff;
+        border-radius: 14px;
+        padding: 32px 24px;
+        border: 1px solid #eee;
+        text-align: center;
+        transition: transform .25s ease, box-shadow .25s ease;
+    }
+
+    .story-card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 14px 32px rgba(0,0,0,.12);
+    }
+
+    .story-card h3 {
+        font-size: 20px;
+        margin-bottom: 10px;
+        color: #333;
+    }
+
+    .story-card p {
+        font-size: 15px;
+        color: #666;
+        margin-bottom: 18px;
+    }
+
+    .murvet-wrap {
+        display: grid;
+        grid-template-columns: 360px 1fr;
+        gap: 40px;
+        align-items: center;
+    }
+
+    /* SOL RESİM */
+    .murvet-image img {
+        width: 100%;
+        border-radius: 18px;
+        box-shadow: 0 18px 40px rgba(0,0,0,.18);
+        display: block;
+    }
+
+    /* SAĞ METİN */
+    .murvet-text h2 {
+        font-size: 28px;
+        margin-bottom: 18px;
+        color: #333;
+    }
+
+    .murvet-text p {
+        font-size: 16px;
+        line-height: 1.7;
+        color: #555;
+        margin-bottom: 14px;
+        text-align: justify;
+    }
+
+    /* MOBİL */
+    @media (max-width: 768px) {
+        .murvet-wrap {
+            grid-template-columns: 1fr;
+            text-align: center;
+        }
+
+        .murvet-image {
+            max-width: 280px;
+            margin: 0 auto 20px;
+        }
+    }
+    .gallery-item {
+        cursor: pointer;
+    }
+</style><style>
+    .footer-white {
+        background: #ffffff;
+        border-top: 1px solid #eee;
+        padding: 60px 0 30px;
+        color: #444;
+        margin-top: 30px;
+    }
+
+    .footer-container {
+        max-width: 1200px;
+        margin: auto;
+        padding: 0 20px;
+    }
+
+    .footer-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 40px;
+    }
+
+    .footer-title {
+        font-weight: bold;
+        margin-bottom: 15px;
+        color: #5a2b36;
+    }
+
+    .footer-text {
+        font-size: 15px;
+        line-height: 1.7;
+        color: #666;
+    }
+
+    .footer-links a {
+        display: block;
+        text-decoration: none;
+        color: #666;
+        margin-bottom: 10px;
+        font-size: 15px;
+    }
+
+    .footer-links a:hover {
+        color: #f2a1b3;
+    }
+
+    .footer-bottom {
+        margin-top: 40px;
+        padding-top: 20px;
+        border-top: 1px solid #eee;
+        text-align: center;
+        font-size: 14px;
+        color: #999;
+    }
+
+    /* MOBILE */
+    @media (max-width: 768px) {
+        .footer-white {
+            padding: 40px 0 20px;
+        }
+    }
+</style>
+
+<footer class="footer-white">
+    <div class="footer-container">
+        <div class="footer-grid">
+
+            <!-- BRAND -->
+            <div>
+                <div class="footer-title">Amora</div>
+                <img src="https://dugun.me/images/evlilik_logo.png">
+                <p class="footer-text">
+                    Evliliğiniz için tasarlanmış,<br>
+                    sessiz, güvenli ve kişisel<br>
+                    bir anı sistemi.
+                </p>
+            </div>
+
+            <!-- LINKS -->
+            <div class="footer-links">
+                <div class="footer-title">Bağlantılar</div>
+                <a href="#">Nasıl Çalışır</a>
+                <a href="#">Gizlilik</a>
+                <a href="#">Hakkımızda</a>
+                <a href="#">İletişim</a>
+            </div>
+
+            <!-- APPROACH -->
+            <div>
+                <div class="footer-title">Yaklaşımımız</div>
+                <p class="footer-text">
+                    Sosyal değil.<br>
+                    Gösterişsiz.<br>
+                    Zamana saygılı.
+                </p>
+            </div>
+
+        </div>
+
+        <div class="footer-bottom">
+            © 2026 Evlilik Hafızası · Tüm hakları saklıdır.
+        </div>
+    </div>
+</footer>
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Language" content="tr">
+<link rel="shortcut icon" href="https://dugun.me/Projects/Frontend/Resources/Files/favicon.ico" />
+<link href="https://fonts.googleapis.com/css?family=Sarpanch" rel="stylesheet" type="text/css" />
+<link href="https://dugun.me/Projects/Frontend/Resources/Themes/Default/style.css" rel="stylesheet" type="text/css" />
+
+</head>
+<body>
+
+</body>
+</html>

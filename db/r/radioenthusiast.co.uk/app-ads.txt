@@ -11,7 +11,7 @@
 
 
         <!-- InMobi Choice. Consent Manager Tag v3.0 (for TCF 2.2) -->
-    <script type="697def19f52f149101c8e33b-text/javascript" async=true>
+    <script type="6855a2a0308ff6b25bf398b2-text/javascript" async=true>
         (function () {
             var host = 'www.mymagazinesub.co.uk';
             var universalTagId = 'qxm0pkX14fVVz';
@@ -175,7 +175,7 @@
     <!-- End InMobi Choice. Consent Manager Tag v3.0 (for TCF 2.2) -->
 
     
-        <script type="697def19f52f149101c8e33b-text/javascript">
+        <script type="6855a2a0308ff6b25bf398b2-text/javascript">
         // Initiate Web Behaviour Tracking (this section MUST come prior any other dmPt calls)
         (function(w,d,u,t,o,c){w['dmtrackingobjectname']=o;c=d.createElement(t);c.async=1;c.src=u;t=d.getElementsByTagName
                 (t)[0];t.parentNode.insertBefore(c,t);w[o]=w[o]||function(){(w[o].q=w[o].q||[]).push(arguments);};
@@ -185,10 +185,20 @@
     </script>
 
 
-    <script type="697def19f52f149101c8e33b-text/javascript">
+    <script type="6855a2a0308ff6b25bf398b2-text/javascript">
         window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+
+        // Google Consent Mode v2 — default all to denied
+        gtag('consent', 'default', {
+            'ad_storage': 'denied',
+            'ad_user_data': 'denied',
+            'ad_personalization': 'denied',
+            'analytics_storage': 'denied',
+            'wait_for_update': 500
+        });
     </script>
-        <script type="697def19f52f149101c8e33b-text/javascript">
+        <script type="6855a2a0308ff6b25bf398b2-text/javascript">
             (function (w, d, s, l, i) {
                 w[l] = w[l] || []; w[l].push({
                     'gtm.start':
@@ -197,6 +207,79 @@
                     j = d.createElement(s), dl = l !== 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
                     'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
             })(window, document, 'script', 'dataLayer', 'GTM-NL4MWD86');
+        </script>
+        <script type="6855a2a0308ff6b25bf398b2-text/javascript">
+            (function () {
+                var consentUpdated = false;
+                var listenerId = null;
+
+                function updateGoogleConsent(tcData) {
+                    var hasTargeting = false;
+                    var hasAnalytics = false;
+
+                    if (tcData && typeof tcData.purpose === 'object') {
+                        var purposes = tcData.purpose.consents || {};
+                        hasAnalytics = purposes[1] === true;
+                        hasTargeting = purposes[3] === true && purposes[4] === true;
+                    }
+
+                    var consentState = {
+                        'ad_storage': hasTargeting ? 'granted' : 'denied',
+                        'ad_user_data': hasTargeting ? 'granted' : 'denied',
+                        'ad_personalization': hasTargeting ? 'granted' : 'denied',
+                        'analytics_storage': hasAnalytics ? 'granted' : 'denied'
+                    };
+
+                    gtag('consent', 'update', consentState);
+                    dataLayer.push({ event: 'cookie_consent_refresh' });
+                }
+
+                function handleTcfEvent(tcData, success) {
+                    if (!success) {
+                        return;
+                    }
+
+                    if (tcData.eventStatus === 'tcloaded') {
+                        // Returning visitor: consent loaded from cookie — update once and stop listening
+                        updateGoogleConsent(tcData);
+                        consentUpdated = true;
+
+                        if (listenerId !== null) {
+                            window.__tcfapi('removeEventListener', 2, function () {}, listenerId);
+                            listenerId = null;
+                        }
+                    } else if (tcData.eventStatus === 'useractioncomplete') {
+                        // First-time visitor accepted/rejected — update consent
+                        updateGoogleConsent(tcData);
+                        consentUpdated = true;
+                    }
+                }
+
+                function attachListener() {
+                    window.__tcfapi('addEventListener', 2, function (tcData, success) {
+                        if (tcData && tcData.listenerId !== undefined) {
+                            listenerId = tcData.listenerId;
+                        }
+                        handleTcfEvent(tcData, success);
+                    });
+                }
+
+                if (typeof window.__tcfapi !== 'undefined') {
+                    attachListener();
+                } else {
+                    var retryCount = 0;
+                    var maxRetries = 50; // 5 seconds max
+                    var cmpCheckInterval = setInterval(function () {
+                        retryCount++;
+                        if (typeof window.__tcfapi !== 'undefined') {
+                            clearInterval(cmpCheckInterval);
+                            attachListener();
+                        } else if (retryCount >= maxRetries) {
+                            clearInterval(cmpCheckInterval);
+                        }
+                    }, 100);
+                }
+            })();
         </script>
 
 
@@ -211,7 +294,7 @@
 <link href="/bundles/css?v=Pilp1qfFZvWgzgwpvxNZ-1y-6JrbwCHBZ33dPu5w49o1" rel="stylesheet"/>
 <link href="/bundles/css/advanced?v=r9yqAgtioCJM4zmY530214TdmQA463XF4DIy04wrbMk1" rel="stylesheet"/>
     
-        <script src="https://kit.fontawesome.com/07f9ffbe50.js" crossorigin="anonymous" type="697def19f52f149101c8e33b-text/javascript"></script>
+        <script src="https://kit.fontawesome.com/07f9ffbe50.js" crossorigin="anonymous" type="6855a2a0308ff6b25bf398b2-text/javascript"></script>
 
     
 <link href="/bundles/css/fancybox?v=jiZkwDxq727rOJT3pjRmWu7NtkYutyehjjBcAqtdbIw1" rel="stylesheet"/>
@@ -234,443 +317,204 @@
         <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NL4MWD86" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     
-        <script type="697def19f52f149101c8e33b-text/javascript">
-        dataLayer.push({ ecommerce: null });  // Clear the previous ecommerce object.
+        <script type="6855a2a0308ff6b25bf398b2-text/javascript">
+        (function () {
+            var eventFired = false;
 
-        dataLayer.push({
-            event: "view_item_list",
-            ecommerce: {
-                value: 0,
-                tax: 0,
-                shipping: 0,
-                currency: "GBP",
-                payment_type: "",
-                coupon: "",
-                item_list_name: "Subscriptions",
-                items: [
-                            {
-                                item_id: "",
-                                item_name: "Practical Wireless Insert Archive Free Gift 2025",
-                                affiliation: "",
-                                coupon: "",
-                                discount: 0,
-                                index: 0,
-                                item_brand: "",
-                                item_category: "Subscriptions",
-                                item_category2: "",
-                                item_category3: "",
-                                item_category4: "",
-                                item_category5: "",
-                                item_list_id: "",
-                                item_list_name: "",
-                                item_variant: "",
-                                location_id: "",
-                                price: 0,
-                                currency: "0",
-                                quantity: 1
-                            },
-                            {
-                                item_id: "",
-                                item_name: "Practical Wireless Direct Debit Monthly Subscription",
-                                affiliation: "",
-                                coupon: "",
-                                discount: 0,
-                                index: 0,
-                                item_brand: "",
-                                item_category: "Subscriptions",
-                                item_category2: "",
-                                item_category3: "",
-                                item_category4: "",
-                                item_category5: "",
-                                item_list_id: "",
-                                item_list_name: "",
-                                item_variant: "",
-                                location_id: "",
-                                price: 4.99,
-                                currency: "GBP",
-                                quantity: 1
-                            },
-                            {
-                                item_id: "",
-                                item_name: "Practical Wireless Direct Debit Quarterly Subscription",
-                                affiliation: "",
-                                coupon: "",
-                                discount: 0,
-                                index: 0,
-                                item_brand: "",
-                                item_category: "Subscriptions",
-                                item_category2: "",
-                                item_category3: "",
-                                item_category4: "",
-                                item_category5: "",
-                                item_list_id: "",
-                                item_list_name: "",
-                                item_variant: "",
-                                location_id: "",
-                                price: 13.99,
-                                currency: "GBP",
-                                quantity: 1
-                            },
-                            {
-                                item_id: "",
-                                item_name: " Practical Wireless Direct Debit 12 Month Subscription",
-                                affiliation: "",
-                                coupon: "",
-                                discount: 0,
-                                index: 0,
-                                item_brand: "",
-                                item_category: "Subscriptions",
-                                item_category2: "",
-                                item_category3: "",
-                                item_category4: "",
-                                item_category5: "",
-                                item_list_id: "",
-                                item_list_name: "",
-                                item_variant: "",
-                                location_id: "",
-                                price: 51.99,
-                                currency: "GBP",
-                                quantity: 1
-                            },
-                            {
-                                item_id: "",
-                                item_name: "Practical Wireless 12 Month Subscription",
-                                affiliation: "",
-                                coupon: "",
-                                discount: 0,
-                                index: 0,
-                                item_brand: "",
-                                item_category: "Subscriptions",
-                                item_category2: "",
-                                item_category3: "",
-                                item_category4: "",
-                                item_category5: "",
-                                item_list_id: "",
-                                item_list_name: "",
-                                item_variant: "",
-                                location_id: "",
-                                price: 61.99,
-                                currency: "GBP",
-                                quantity: 1
-                            },
-                            {
-                                item_id: "",
-                                item_name: "Practical Wireless Europe subscription ",
-                                affiliation: "",
-                                coupon: "",
-                                discount: 0,
-                                index: 0,
-                                item_brand: "",
-                                item_category: "Subscriptions",
-                                item_category2: "",
-                                item_category3: "",
-                                item_category4: "",
-                                item_category5: "",
-                                item_list_id: "",
-                                item_list_name: "",
-                                item_variant: "",
-                                location_id: "",
-                                price: 129.99,
-                                currency: "EUR",
-                                quantity: 1
-                            },
-                            {
-                                item_id: "",
-                                item_name: "Practical Wireless USA subscription",
-                                affiliation: "",
-                                coupon: "",
-                                discount: 0,
-                                index: 0,
-                                item_brand: "",
-                                item_category: "Subscriptions",
-                                item_category2: "",
-                                item_category3: "",
-                                item_category4: "",
-                                item_category5: "",
-                                item_list_id: "",
-                                item_list_name: "",
-                                item_variant: "",
-                                location_id: "",
-                                price: 149.99,
-                                currency: "USD",
-                                quantity: 1
-                            },
-                            {
-                                item_id: "",
-                                item_name: "Practical Wireless Canada subscription",
-                                affiliation: "",
-                                coupon: "",
-                                discount: 0,
-                                index: 0,
-                                item_brand: "",
-                                item_category: "Subscriptions",
-                                item_category2: "",
-                                item_category3: "",
-                                item_category4: "",
-                                item_category5: "",
-                                item_list_id: "",
-                                item_list_name: "",
-                                item_variant: "",
-                                location_id: "",
-                                price: 149.99,
-                                currency: "CAD",
-                                quantity: 1
-                            },
-                            {
-                                item_id: "",
-                                item_name: "Practical Wireless Australia subscription",
-                                affiliation: "",
-                                coupon: "",
-                                discount: 0,
-                                index: 0,
-                                item_brand: "",
-                                item_category: "Subscriptions",
-                                item_category2: "",
-                                item_category3: "",
-                                item_category4: "",
-                                item_category5: "",
-                                item_list_id: "",
-                                item_list_name: "",
-                                item_variant: "",
-                                location_id: "",
-                                price: 199.99,
-                                currency: "AUD",
-                                quantity: 1
-                            },
-                            {
-                                item_id: "",
-                                item_name: "Practical Wireless Worldwide subscription",
-                                affiliation: "",
-                                coupon: "",
-                                discount: 0,
-                                index: 0,
-                                item_brand: "",
-                                item_category: "Subscriptions",
-                                item_category2: "",
-                                item_category3: "",
-                                item_category4: "",
-                                item_category5: "",
-                                item_list_id: "",
-                                item_list_name: "",
-                                item_variant: "",
-                                location_id: "",
-                                price: 89.99,
-                                currency: "GBP",
-                                quantity: 1
-                            },
-                            {
-                                item_id: "",
-                                item_name: "Practical Wireless Quarterly Subscription Europe",
-                                affiliation: "",
-                                coupon: "",
-                                discount: 0,
-                                index: 0,
-                                item_brand: "",
-                                item_category: "Subscriptions",
-                                item_category2: "",
-                                item_category3: "",
-                                item_category4: "",
-                                item_category5: "",
-                                item_list_id: "",
-                                item_list_name: "",
-                                item_variant: "",
-                                location_id: "",
-                                price: 32.99,
-                                currency: "EUR",
-                                quantity: 1
-                            },
-                            {
-                                item_id: "",
-                                item_name: "Practical Wireless Quarterly Subscription ",
-                                affiliation: "",
-                                coupon: "",
-                                discount: 0,
-                                index: 0,
-                                item_brand: "",
-                                item_category: "Subscriptions",
-                                item_category2: "",
-                                item_category3: "",
-                                item_category4: "",
-                                item_category5: "",
-                                item_list_id: "",
-                                item_list_name: "",
-                                item_variant: "",
-                                location_id: "",
-                                price: 37.99,
-                                currency: "USD",
-                                quantity: 1
-                            },
-                            {
-                                item_id: "",
-                                item_name: "Practical Wireless Quarterly Subscription ",
-                                affiliation: "",
-                                coupon: "",
-                                discount: 0,
-                                index: 0,
-                                item_brand: "",
-                                item_category: "Subscriptions",
-                                item_category2: "",
-                                item_category3: "",
-                                item_category4: "",
-                                item_category5: "",
-                                item_list_id: "",
-                                item_list_name: "",
-                                item_variant: "",
-                                location_id: "",
-                                price: 37.99,
-                                currency: "CAD",
-                                quantity: 1
-                            },
-                            {
-                                item_id: "",
-                                item_name: "Practical Wireless Quarterly Subscription",
-                                affiliation: "",
-                                coupon: "",
-                                discount: 0,
-                                index: 0,
-                                item_brand: "",
-                                item_category: "Subscriptions",
-                                item_category2: "",
-                                item_category3: "",
-                                item_category4: "",
-                                item_category5: "",
-                                item_list_id: "",
-                                item_list_name: "",
-                                item_variant: "",
-                                location_id: "",
-                                price: 50.99,
-                                currency: "AUD",
-                                quantity: 1
-                            },
-                            {
-                                item_id: "",
-                                item_name: "Practical Wireless Quarterly Subscription",
-                                affiliation: "",
-                                coupon: "",
-                                discount: 0,
-                                index: 0,
-                                item_brand: "",
-                                item_category: "Subscriptions",
-                                item_category2: "",
-                                item_category3: "",
-                                item_category4: "",
-                                item_category5: "",
-                                item_list_id: "",
-                                item_list_name: "",
-                                item_variant: "",
-                                location_id: "",
-                                price: 22.99,
-                                currency: "GBP",
-                                quantity: 1
-                            },
-                            {
-                                item_id: "",
-                                item_name: "Practical Wireless Annual Subscription - One off payment EU",
-                                affiliation: "",
-                                coupon: "",
-                                discount: 0,
-                                index: 0,
-                                item_brand: "",
-                                item_category: "Subscriptions",
-                                item_category2: "",
-                                item_category3: "",
-                                item_category4: "",
-                                item_category5: "",
-                                item_list_id: "",
-                                item_list_name: "",
-                                item_variant: "",
-                                location_id: "",
-                                price: 139.99,
-                                currency: "EUR",
-                                quantity: 1
-                            },
-                            {
-                                item_id: "",
-                                item_name: "Practical Wireless Annual Subscription - One off payment USA",
-                                affiliation: "",
-                                coupon: "",
-                                discount: 0,
-                                index: 0,
-                                item_brand: "",
-                                item_category: "Subscriptions",
-                                item_category2: "",
-                                item_category3: "",
-                                item_category4: "",
-                                item_category5: "",
-                                item_list_id: "",
-                                item_list_name: "",
-                                item_variant: "",
-                                location_id: "",
-                                price: 159.99,
-                                currency: "USD",
-                                quantity: 1
-                            },
-                            {
-                                item_id: "",
-                                item_name: "Practical Wireless Annual Subscription - One off payment CAD",
-                                affiliation: "",
-                                coupon: "",
-                                discount: 0,
-                                index: 0,
-                                item_brand: "",
-                                item_category: "Subscriptions",
-                                item_category2: "",
-                                item_category3: "",
-                                item_category4: "",
-                                item_category5: "",
-                                item_list_id: "",
-                                item_list_name: "",
-                                item_variant: "",
-                                location_id: "",
-                                price: 159.99,
-                                currency: "CAD",
-                                quantity: 1
-                            },
-                            {
-                                item_id: "",
-                                item_name: "Practical Wireless Annual Subscription - One off payment AUD",
-                                affiliation: "",
-                                coupon: "",
-                                discount: 0,
-                                index: 0,
-                                item_brand: "",
-                                item_category: "Subscriptions",
-                                item_category2: "",
-                                item_category3: "",
-                                item_category4: "",
-                                item_category5: "",
-                                item_list_id: "",
-                                item_list_name: "",
-                                item_variant: "",
-                                location_id: "",
-                                price: 209.99,
-                                currency: "AUD",
-                                quantity: 1
-                            },
-                            {
-                                item_id: "",
-                                item_name: "Practical Wireless Exclusive Subscription Offer - Archive CD Offer",
-                                affiliation: "",
-                                coupon: "",
-                                discount: 0,
-                                index: 0,
-                                item_brand: "",
-                                item_category: "Subscriptions",
-                                item_category2: "",
-                                item_category3: "",
-                                item_category4: "",
-                                item_category5: "",
-                                item_list_id: "",
-                                item_list_name: "",
-                                item_variant: "",
-                                location_id: "",
-                                price: 61.99,
-                                currency: "GBP",
-                                quantity: 1
-                            },
-                        ]
+            function pushEcommerceEvent() {
+                if (eventFired) return;
+                eventFired = true;
+
+                dataLayer.push({ ecommerce: null });  // Clear the previous ecommerce object.
+
+                dataLayer.push({
+                    event: "view_item_list",
+                    ecommerce: {
+                        value: 0,
+                                                currency: "GBP",
+                                                                            item_list_name: "Subscriptions",
+                        items: [
+                                    {
+                                        item_id: "",
+                                        item_name: "Practical Wireless Insert Archive Free Gift 2025",
+                                            item_category: "Subscriptions",
+                                        price: 0,
+                                        quantity: 1
+                                    },
+                                    {
+                                        item_id: "",
+                                        item_name: "Practical Wireless Direct Debit Monthly Subscription",
+                                            item_category: "Subscriptions",
+                                        price: 4.99,
+                                        quantity: 1
+                                    },
+                                    {
+                                        item_id: "",
+                                        item_name: "Practical Wireless Direct Debit Quarterly Subscription",
+                                            item_category: "Subscriptions",
+                                        price: 13.99,
+                                        quantity: 1
+                                    },
+                                    {
+                                        item_id: "",
+                                        item_name: " Practical Wireless Direct Debit 12 Month Subscription",
+                                            item_category: "Subscriptions",
+                                        price: 51.99,
+                                        quantity: 1
+                                    },
+                                    {
+                                        item_id: "",
+                                        item_name: "Practical Wireless 12 Month Subscription",
+                                            item_category: "Subscriptions",
+                                        price: 61.99,
+                                        quantity: 1
+                                    },
+                                    {
+                                        item_id: "",
+                                        item_name: "Practical Wireless Europe subscription ",
+                                            item_category: "Subscriptions",
+                                        price: 129.99,
+                                        quantity: 1
+                                    },
+                                    {
+                                        item_id: "",
+                                        item_name: "Practical Wireless USA subscription",
+                                            item_category: "Subscriptions",
+                                        price: 149.99,
+                                        quantity: 1
+                                    },
+                                    {
+                                        item_id: "",
+                                        item_name: "Practical Wireless Canada subscription",
+                                            item_category: "Subscriptions",
+                                        price: 149.99,
+                                        quantity: 1
+                                    },
+                                    {
+                                        item_id: "",
+                                        item_name: "Practical Wireless Australia subscription",
+                                            item_category: "Subscriptions",
+                                        price: 199.99,
+                                        quantity: 1
+                                    },
+                                    {
+                                        item_id: "",
+                                        item_name: "Practical Wireless Worldwide subscription",
+                                            item_category: "Subscriptions",
+                                        price: 89.99,
+                                        quantity: 1
+                                    },
+                                    {
+                                        item_id: "",
+                                        item_name: "Practical Wireless Quarterly Subscription Europe",
+                                            item_category: "Subscriptions",
+                                        price: 32.99,
+                                        quantity: 1
+                                    },
+                                    {
+                                        item_id: "",
+                                        item_name: "Practical Wireless Quarterly Subscription ",
+                                            item_category: "Subscriptions",
+                                        price: 37.99,
+                                        quantity: 1
+                                    },
+                                    {
+                                        item_id: "",
+                                        item_name: "Practical Wireless Quarterly Subscription ",
+                                            item_category: "Subscriptions",
+                                        price: 37.99,
+                                        quantity: 1
+                                    },
+                                    {
+                                        item_id: "",
+                                        item_name: "Practical Wireless Quarterly Subscription",
+                                            item_category: "Subscriptions",
+                                        price: 50.99,
+                                        quantity: 1
+                                    },
+                                    {
+                                        item_id: "",
+                                        item_name: "Practical Wireless Quarterly Subscription",
+                                            item_category: "Subscriptions",
+                                        price: 22.99,
+                                        quantity: 1
+                                    },
+                                    {
+                                        item_id: "",
+                                        item_name: "Practical Wireless Annual Subscription - One off payment EU",
+                                            item_category: "Subscriptions",
+                                        price: 139.99,
+                                        quantity: 1
+                                    },
+                                    {
+                                        item_id: "",
+                                        item_name: "Practical Wireless Annual Subscription - One off payment USA",
+                                            item_category: "Subscriptions",
+                                        price: 159.99,
+                                        quantity: 1
+                                    },
+                                    {
+                                        item_id: "",
+                                        item_name: "Practical Wireless Annual Subscription - One off payment CAD",
+                                            item_category: "Subscriptions",
+                                        price: 159.99,
+                                        quantity: 1
+                                    },
+                                    {
+                                        item_id: "",
+                                        item_name: "Practical Wireless Annual Subscription - One off payment AUD",
+                                            item_category: "Subscriptions",
+                                        price: 209.99,
+                                        quantity: 1
+                                    },
+                                ]
+                    }
+                });
             }
-        });
+
+            function hasAnalyticsConsent(tcData) {
+                if (tcData && typeof tcData.purpose === 'object') {
+                    var purposes = tcData.purpose.consents || {};
+                    return purposes[1] === true; // Purpose 1: Store and/or access information on a device
+                }
+                return false;
+            }
+
+            function handleTcfEvent(tcData, success) {
+                if (!success || eventFired) return;
+
+                if (tcData.eventStatus === 'tcloaded' || tcData.eventStatus === 'useractioncomplete') {
+                    if (hasAnalyticsConsent(tcData)) {
+                        pushEcommerceEvent();
+                    }
+
+                    // Clean up listener after consent is resolved
+                    if (tcData.listenerId !== undefined) {
+                        window.__tcfapi('removeEventListener', 2, function () {}, tcData.listenerId);
+                    }
+                }
+            }
+
+            function attachListener() {
+                window.__tcfapi('addEventListener', 2, handleTcfEvent);
+            }
+
+            if (typeof window.__tcfapi !== 'undefined') {
+                attachListener();
+            } else {
+                var retryCount = 0;
+                var maxRetries = 50; // 5 seconds max
+                var cmpCheckInterval = setInterval(function () {
+                    retryCount++;
+                    if (typeof window.__tcfapi !== 'undefined') {
+                        clearInterval(cmpCheckInterval);
+                        attachListener();
+                    } else if (retryCount >= maxRetries) {
+                        clearInterval(cmpCheckInterval);
+                    }
+                }, 100);
+            }
+        })();
     </script>
 
 
@@ -893,7 +737,7 @@ Select your preferred subscription offer from the options below:</p>
         <label for="DeliveryLocationSelectList" class="form-label">Deliver my subscription to:</label>
 
 
-<select class="form-select" id="DeliveryLocationSelectList" name="DeliveryLocationSelectList" onchange="if (!window.__cfRLUnblockHandlers) return false; this.form.submit()" data-cf-modified-697def19f52f149101c8e33b-=""><option selected="selected" value="GBR">United Kingdom</option>
+<select class="form-select" id="DeliveryLocationSelectList" name="DeliveryLocationSelectList" onchange="if (!window.__cfRLUnblockHandlers) return false; this.form.submit()" data-cf-modified-6855a2a0308ff6b25bf398b2-=""><option selected="selected" value="GBR">United Kingdom</option>
 <option value="EUR">Europe</option>
 <option value="USA">United States of America</option>
 <option value="CAN">Canada</option>
@@ -915,7 +759,7 @@ Select your preferred subscription offer from the options below:</p>
 
 
     <label for="GiftBillingLocationSelectList" class="form-label">My billing country is:</label>
-<select class="form-select" id="GiftBillingLocationSelectList" name="GiftBillingLocationSelectList" onchange="if (!window.__cfRLUnblockHandlers) return false; this.form.submit()" data-cf-modified-697def19f52f149101c8e33b-=""><option selected="selected" value="">Select Location</option>
+<select class="form-select" id="GiftBillingLocationSelectList" name="GiftBillingLocationSelectList" onchange="if (!window.__cfRLUnblockHandlers) return false; this.form.submit()" data-cf-modified-6855a2a0308ff6b25bf398b2-=""><option selected="selected" value="">Select Location</option>
 <option value="GBR">United Kingdom</option>
 <option value="EUR">Europe</option>
 <option value="USA">United States of America</option>
@@ -930,7 +774,7 @@ Select your preferred subscription offer from the options below:</p>
 
 
     <label for="GiftDeliveryLocationSelectList" class="form-label">The recipient of this subscription lives in:</label>
-<select class="form-select" id="GiftDeliveryLocationSelectList" name="GiftDeliveryLocationSelectList" onchange="if (!window.__cfRLUnblockHandlers) return false; this.form.submit()" data-cf-modified-697def19f52f149101c8e33b-=""><option selected="selected" value="">Select Location</option>
+<select class="form-select" id="GiftDeliveryLocationSelectList" name="GiftDeliveryLocationSelectList" onchange="if (!window.__cfRLUnblockHandlers) return false; this.form.submit()" data-cf-modified-6855a2a0308ff6b25bf398b2-=""><option selected="selected" value="">Select Location</option>
 <option value="GBR">United Kingdom</option>
 <option value="EUR">Europe</option>
 <option value="USA">United States of America</option>
@@ -1153,48 +997,6 @@ Select your preferred subscription offer from the options below:</p>
     </div>
 </div>
 
-<div class="row py-5 border-bottom">
-    <div class="col-3 col-md-2 col-xl-1 my-1 text-center listing-payment-icon">
-                <img src="/Assets/icons/store-advanced/directdebitlogo.png" alt="Direct Debit" class="img-fluid" title="Payment available via Direct Debit UK Residents only" />
-    </div>
-
-    <div class="col-9 col-md-4 col-xl-6 my-1 listing-title">
-        <p class="m-0">
-            <strong>Practical Wireless Exclusive Subscription Offer - Archive CD Offer</strong>
-<a class="text-info" tabindex="0" data-bs-container="body" role="button" data-bs-toggle="popover" data-bs-placement="right" data-bs-trigger="focus" data-bs-title="Payment Information" data-bs-content="To make sure you never miss out on your subscription benefits, this offer is a continuous Direct Debit subscription. Your subscription plan payment fees will be paid by Direct Debit at the interval displayed. For further details please consult our <a href='https://www.warnersgroup.co.uk/about-warners-group/terms-of-sale/' target='_blank'>Terms of Sale</a>">
-    <i class="fa-solid fa-circle-info"></i>
-</a>            
-        </p>
-
-        <p class="m-0">
-            Exclusive offer! Join today and receive a Practical Wireless Archive CD Bundle worth &#163;71.97! Includes every issue from 2024, 2023 and 2022
-        </p>
-
-
-
-    </div>
-
-    <div class="col-12 col-md-2 my-1 text-center listing-price">
-        <strong class="d-block">&pound;61.99 <small class="small">GBP</small></strong>
-<small class="small d-block">recurring payment per year</small>    </div>
-
-    <div class="col my-1 listing-button">
-        <a type="button" 
-           class="btn btn-primary d-block js_ActivateSelectStartIssueModal" 
-           data-bs-toggle="modal" 
-           data-bs-target="#modalAddToBasketStartIssue"
-           data-MyriadSubsPromotionId="21904" 
-           data-DeliveryRegionId="1"
-           data-OrderProductTypeId="1"
-           data-ga4Price="61.99" 
-           data-ga4ItemName="Exclusive offer! Join today and receive a Practical Wireless Archive CD Bundle worth &#163;71.97! Includes every issue from 2024, 2023 and 2022" 
-           data-ga4itemSubsPromotion="">
-            <i class="fa-solid fa-cart-shopping"></i>
-            Add to basket
-        </a>
-    </div>
-</div>
-
 <h6 class="text-muted mt-2 mb-0 d-none d-md-block position-absolute">You can also buy a digital edition from our partner company Pocketmags.</h6>
 
 
@@ -1248,9 +1050,9 @@ Select your preferred subscription offer from the options below:</p>
 
 <div class="mb-2">
     <label for="js_SubscriptionStartIssueId" class="mb-1">Please select the first issue of your subscription</label>
-    <select Class="form-select" id="js_SubscriptionStartIssueId" name="js_SubscriptionStartIssueId"><option value="36260">Vol 102 No 4 April 2026</option>
-<option value="36261">Vol 102 No 5 May 2026</option>
+    <select Class="form-select" id="js_SubscriptionStartIssueId" name="js_SubscriptionStartIssueId"><option value="36261">Vol 102 No 5 May 2026</option>
 <option value="36262">Vol 102 No 6 June 2026</option>
+<option value="36263">Vol 102 No 7 July 2026</option>
 </select>
 </div>
                 </section>
@@ -1423,7 +1225,7 @@ Practical Wireless is a ‘doing’ magazine focusing on the practical and const
 
                         <p>
                             <i class="fa fa-envelope-o"></i>
-                            <abbr title="Email">E</abbr>: <a href="/cdn-cgi/l/email-protection#681b1d0a1b0b1a01181c0107061b281f091a060d1a1b0f1a071d18460b07461d03"><span class="__cf_email__" data-cfemail="97e4e2f5e4f4e5fee7e3fef8f9e4d7e0f6e5f9f2e5e4f0e5f8e2e7b9f4f8b9e2fc">[email&#160;protected]</span></a>
+                            <abbr title="Email">E</abbr>: <a href="/cdn-cgi/l/email-protection#126167706171607b62667b7d7c61526573607c77606175607d67623c717d3c6779"><span class="__cf_email__" data-cfemail="4c3f392e3f2f3e253c382523223f0c3b2d3e22293e3f2b3e23393c622f23623927">[email&#160;protected]</span></a>
                         </p>
 
                         <p>
@@ -1468,7 +1270,7 @@ Practical Wireless is a ‘doing’ magazine focusing on the practical and const
         <a href="https://twitter.com/WarnersGroup" title="Warners Group X (Twitter) Profile" aria-label="Link to Warners Group X (Twitter) Profile"><i class="fa-brands fa-square-x-twitter fa-2x"></i></a>
     </li>
     <li class="list-inline-item">
-        <a href="#" title="View your Cookie Consent options for this website" onclick="if (!window.__cfRLUnblockHandlers) return false; __tcfapi('displayConsentUi', 2, function() {});return false;" data-cf-modified-697def19f52f149101c8e33b-=""><i class="fa-solid fa-cookie-bite fa-2x"></i></a>
+        <a href="#" title="View your Cookie Consent options for this website" onclick="if (!window.__cfRLUnblockHandlers) return false; __tcfapi('displayConsentUi', 2, function() {});return false;" data-cf-modified-6855a2a0308ff6b25bf398b2-=""><i class="fa-solid fa-cookie-bite fa-2x"></i></a>
     </li>
 </ul>
 
@@ -1482,13 +1284,13 @@ Practical Wireless is a ‘doing’ magazine focusing on the practical and const
         </div>
     </div>
 </footer>
-    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="/bundles/js/jquery?v=N2YlHnRI7it2_JoqUZTYWxPtx-s61zIGkk78Q0eabPM1" type="697def19f52f149101c8e33b-text/javascript"></script>
-<script src="/bundles/js/jquery-val?v=ebYgJ0933He6mLoNZsGmzqqTJD2a_LLhzeKBINLaMsA1" type="697def19f52f149101c8e33b-text/javascript"></script>
-<script src="/bundles/js/jquery-val-unobtrusive?v=NnnDClbq7Jdl2VKEn4WGqCx0ET3GpY_i-5S42q-KpQQ1" type="697def19f52f149101c8e33b-text/javascript"></script>
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="/bundles/js/jquery?v=N2YlHnRI7it2_JoqUZTYWxPtx-s61zIGkk78Q0eabPM1" type="6855a2a0308ff6b25bf398b2-text/javascript"></script>
+<script src="/bundles/js/jquery-val?v=ebYgJ0933He6mLoNZsGmzqqTJD2a_LLhzeKBINLaMsA1" type="6855a2a0308ff6b25bf398b2-text/javascript"></script>
+<script src="/bundles/js/jquery-val-unobtrusive?v=NnnDClbq7Jdl2VKEn4WGqCx0ET3GpY_i-5S42q-KpQQ1" type="6855a2a0308ff6b25bf398b2-text/javascript"></script>
 
-        <script src="https://cdn.jsdelivr.net/npm/&#64;popperjs/core@2.11.8/dist/umd/popper.min.js" type="697def19f52f149101c8e33b-text/javascript"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" type="697def19f52f149101c8e33b-text/javascript"></script>
-    <script type="697def19f52f149101c8e33b-text/javascript">
+        <script src="https://cdn.jsdelivr.net/npm/&#64;popperjs/core@2.11.8/dist/umd/popper.min.js" type="6855a2a0308ff6b25bf398b2-text/javascript"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" type="6855a2a0308ff6b25bf398b2-text/javascript"></script>
+    <script type="6855a2a0308ff6b25bf398b2-text/javascript">
         const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]');
         const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl, { html: true }));
         const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
@@ -1496,9 +1298,9 @@ Practical Wireless is a ‘doing’ magazine focusing on the practical and const
     </script>
 
 
-<script src="/bundles/js/advanced-site?v=yl2ANZ0MHKX_HseygGSeZsXm-vgNmJXN6NUhGVlwjA41" type="697def19f52f149101c8e33b-text/javascript"></script>
-<script src="/bundles/js/advanced-store?v=KT_6PGIq9eiFVPGqdu0rcyidZXkp_cLc1au_FhHmC_41" type="697def19f52f149101c8e33b-text/javascript"></script>
-<script src="/bundles/js/fancybox?v=W22aNWtBB02XFnv3hHr0SNbkeS-TA9NWBnIuT5IdKY81" type="697def19f52f149101c8e33b-text/javascript"></script>
+<script src="/bundles/js/advanced-site?v=yl2ANZ0MHKX_HseygGSeZsXm-vgNmJXN6NUhGVlwjA41" type="6855a2a0308ff6b25bf398b2-text/javascript"></script>
+<script src="/bundles/js/advanced-store?v=B7BdC3OTLoJZvYa3HikctoDnGVF_YoGQwJLxSNkYH2k1" type="6855a2a0308ff6b25bf398b2-text/javascript"></script>
+<script src="/bundles/js/fancybox?v=W22aNWtBB02XFnv3hHr0SNbkeS-TA9NWBnIuT5IdKY81" type="6855a2a0308ff6b25bf398b2-text/javascript"></script>
     <div class="modal fade" id="modalAddToBasketResult" tabindex="-1" aria-labelledby="addtobasket-modal-title" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -1541,7 +1343,7 @@ Practical Wireless is a ‘doing’ magazine focusing on the practical and const
     </div>
 
     
-            <script src="https://r1-t.trackedlink.net/_dmpt.js" type="697def19f52f149101c8e33b-text/javascript"></script>
+            <script src="https://r1-t.trackedlink.net/_dmpt.js" type="6855a2a0308ff6b25bf398b2-text/javascript"></script>
 
-<script src="/cdn-cgi/scripts/7d0fa10a/cloudflare-static/rocket-loader.min.js" data-cf-settings="697def19f52f149101c8e33b-|49" defer></script><script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9d2f2444cc2926cd',t:'MTc3MTkzNzk4Mg=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script src="/cdn-cgi/scripts/7d0fa10a/cloudflare-static/rocket-loader.min.js" data-cf-settings="6855a2a0308ff6b25bf398b2-|49" defer></script><script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9da3f0413a2d7b58',t:'MTc3MzE2MjY4NQ=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>

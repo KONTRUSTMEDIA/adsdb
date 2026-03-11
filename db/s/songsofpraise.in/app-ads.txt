@@ -507,6 +507,33 @@ padding: 0;
 background: transparent;
 }
 }
+
+.playlist-msg{
+position:fixed;
+bottom:30px;
+left:50%;
+transform:translateX(-50%);
+background:#1c3470;
+color:#fff;
+padding:10px 16px;
+border-radius:6px;
+font-size:14px;
+z-index:9999;
+opacity:0;
+transition:0.3s;
+}
+
+.playlist-msg.show{
+opacity:1;
+}
+
+.playlist-msg.error{
+background:#c0392b;
+}
+
+.hidden{
+display:none;
+}
 </style>
 
 </head>
@@ -543,9 +570,9 @@ background: transparent;
 
                 <div class="search-help">
                 <p>
-                Search by title, songwriter, tags, etc.<br>
-                For instance, type healing for songs related to healing.<br>
-                Type anil adoor for songs by Anil Adoor.<br>
+                Search by title, lyrics, songwriter, tags, etc.<br>
+                For instance, type "healing" for songs related to healing.<br>
+                Type "anil adoor" for songs by Anil Adoor.<br>
                 Try alternative spellings for non-English songs.
                 </p>
                 </div>
@@ -609,22 +636,24 @@ const IS_ADMIN = false;
             <ul class="slide-menu-list">
             <li><a href="index.php"><i data-lucide="home" class="icon-inline"></i> Home</a></li>
             </ul>
-            <p class="slide-menu-header"><i data-lucide="mic-vocal" class="icon-inline"></i> WORSHIP TEAM</p>
+            <p class="slide-menu-header">WORSHIP TEAM</p>
 	    <ul class="slide-menu-list">
             <li><a href="songlist.php?song_lang=Hindi"><i data-lucide="music" class="icon-inline"></i>Hindi Songs</a></li>
             <li><a href="songlist.php?song_lang=Malayalam"><i data-lucide="drum" class="icon-inline"></i>Malayalam Songs</a></li>
             <li><a href="songlist.php?song_lang=English"><i data-lucide="guitar" class="icon-inline"></i>English Songs</a></li>
             <li><a href="song_search.php"><i data-lucide="search" class="icon-inline"></i>Search Songs</a></li>
+            <li><a href="search_by_scale.php"><i data-lucide="text-search" class="icon-inline"></i>Search Songs By Scale</a></li>
             <li><a href="favourites.php"><i data-lucide="folder-heart" class="icon-inline"></i>My Setlist</a></li>
+            <li><a href="comments_page.php"><i data-lucide="file-plus-corner" class="icon-inline"></i>Suggest A Song</a></li>
                         </ul>
-            <p class="slide-menu-header"><i data-lucide="monitor" class="icon-inline"></i> MEDIA TEAM</p>
+            <p class="slide-menu-header">MEDIA TEAM</p>
 	    <ul class="slide-menu-list">
-            <li><a href="project_verses.php"><i data-lucide="screen-share" class="icon-inline"></i>Verses To Project</a></li>
-            <li><a href="favourites.php"><i data-lucide="monitor-check" class="icon-inline"></i>Lyrics To Project</a></li>
+            <li><a href="present_verses.php"><i data-lucide="screen-share" class="icon-inline"></i>Present Verses</a></li>
+            <li><a href="favourites.php"><i data-lucide="monitor-check" class="icon-inline"></i>Present Lyrics</a></li>
             <li><a href="media.php"><i data-lucide="monitor-play" class="icon-inline"></i>Quick Links & Help</a></li>
             </ul>
             	    </ul>
-            <p class="slide-menu-header"><i data-lucide="layers" class="icon-inline"></i> OTHER PAGES</p>
+            <p class="slide-menu-header">OTHER PAGES</p>
 	    <ul class="slide-menu-list">
             <li><a href="bible.php"><i data-lucide="book" class="icon-inline"></i>Read Bible</a></li>
             <li><a href="select_quiz.php"><i data-lucide="circle-question-mark" class="icon-inline"></i>Bible Quiz</a></li>
@@ -634,7 +663,7 @@ const IS_ADMIN = false;
             </ul>
             <!-- Sidebar Song List (Only for non-admin pages) -->
                         <p class="slide-menu-header">
-            <i data-lucide="list-music" class="icon-inline"></i> SONGLIST (Hindi)
+            SONGLIST (Hindi)
             </p>
             <ul class="slide-menu-list">
                         <li>
@@ -820,6 +849,10 @@ const IS_ADMIN = false;
                         <li>
             <a href="song.php?title=bolo-jai-milkar-jai">
             Bolo Jai Milkar Jai            </a>
+            </li>
+                        <li>
+            <a href="song.php?title=chaak-par-apni-rakh-mujhe">
+            Chaak Par Apni Rakh Mujhe            </a>
             </li>
                         <li>
             <a href="song.php?title=chale-masih-ke-saath-hum">
@@ -1610,6 +1643,10 @@ const IS_ADMIN = false;
             Teri Panah Mein            </a>
             </li>
                         <li>
+            <a href="song.php?title=teri-stuti-mein-karu">
+            Teri Stuti Mein Karu            </a>
+            </li>
+                        <li>
             <a href="song.php?title=teri-upasthiti">
             Teri Upasthiti            </a>
             </li>
@@ -1931,23 +1968,25 @@ const IS_ADMIN = false;
         <a href="song_search.php"><i data-lucide="search"></i>Search Songs</a>
         <a href="search_by_scale.php"><i data-lucide="text-search"></i>Search by Scale</a>
         <a href="favourites.php"><i data-lucide="folder-heart"></i>My Setlist</a>
-        <a href="song_suggestions.php"><i data-lucide="list-music"></i>Make Setlist</a>
+        <a href="youtube_playlist.php"><i data-lucide="youtube"></i>My Youtube Playlist</a>
+        <a href="song_suggestions.php"><i data-lucide="list-music"></i>Quick Setlist</a>
         <a href="comments_page.php"><i data-lucide="file-plus-corner"></i>Suggest a Song</a>
                 <a href="guitar_tabs_maker.php"><i data-lucide="guitar"></i>Guitar Tabs Maker</a>
 		<a href="select_quiz.php"><i data-lucide="circle-question-mark"></i>Bible Quiz</a>
                 <a href="bible.php"><i data-lucide="book"></i>Read Bible</a>
         <a href="blog/index.php"><i data-lucide="square-pen"></i>Blog</a>
         <a href="media.php"><i data-lucide="monitor"></i>Media</a>
-        		            </div>	</div>
+        				<a href="prayer_requests.php"><i data-lucide="hand"></i> Prayer Requests</a>
+            </div>	</div>
 </div>
 
 <div class="row">
 	<div class="box w50">
 	<h4>Verse of the Day</h4><h3>
-    <a href='bible.php?lang=eng&book=50&chapter=4'>
-        Philippians 4:13
+    <a href='bible.php?lang=eng&book=19&chapter=30'>
+        Psalms 30:7
     </a>
-</h3><p>जो मुझे सामर्थ्य देता है उसमें मैं सब कुछ कर सकता हूँ।<br><br>എന്നെ ശക്തനാക്കുന്നവൻ മുഖാന്തരം ഞാൻ സകലത്തിന്നും മതിയാകുന്നു.<br><br>I can do all things through Christ, who strengthens me.</p>
+</h3><p>हे यहोवा, अपनी प्रसन्नता से तूने मेरे पहाड़ को दृढ़ और स्थिर किया था; जब तूने अपना मुख फेर लिया तब मैं घबरा गया।<br><br>യഹോവേ, നിന്റെ പ്രസാദത്താൽ നീ എന്റെ പർവ്വതത്തെ ഉറെച്ചു നില്ക്കുമാറാക്കി; നീ നിന്റെ മുഖത്തെ മറെച്ചു, ഞാൻ ഭ്രമിച്ചുപോയി.<br><br>You, Yahweh, when you favored me, made my mountain stand strong; but when you hid your face, I was troubled.</p>
 <h4>Bible Quiz</h4>
 <a href="select_quiz.php"><img src="assets/images/bible-timeline.jpg" style="width:100%; margin-bottom: 20px; "></a>
 <p>Do you have a novice-level or a scholar-level knowledge of the Bible?<br>
@@ -1968,12 +2007,15 @@ const IS_ADMIN = false;
 	
 	</div>
 	<div class="box w50" style="background: var(--nv-background-light2); padding: 30px;">
-	<h4>What's New!</h4>
-<p><i data-lucide='mail' class='icon-inline'></i> Added option to display song stanzas as slides in church LED display. (Look for this icon <i data-lucide='monitor' class='icon-inline' style="margin-right: 0;"></i>). (19/1/2026)</p>
-<p><i data-lucide='mail' class='icon-inline'></i> Now logged in users can submit songs. (1/1/2026)</p>
-<p><i data-lucide='mail' class='icon-inline'></i> Added option for logged in users to edit song lyrics/chords. (31/12/2025)</p>
-<p><i data-lucide='mail' class='icon-inline'></i> <a href="quiz.php?level=novice&subject=Bible+Verses">Bible Verses quiz added</a>, for both novice and scholar level users. Try it now. (24/12/2025)</p>
-<p><i data-lucide='mail' class='icon-inline'></i> Added Jesus Prophecies quiz. Test your knowledge on the Bible prophecies about Jesus (Select level Scholar to view quiz): <a href="quiz.php?level=scholar&subject=Jesus+Prophecies">Jesus Prophecies quiz</a>. (05/12/2025)</p>
+	<h4 style="margin-top:20px;">Register and Login to Get More</h4>
+<h5 style="margin: 40px 0;">Logged-in Users Can</h5>
+<p>Create and share your own setlists with others. You can also add notes to your setlists and share them too.</p>
+<p>Make a list of your favourite Bible verses and add your own personal notes.</p>
+<p>Pick up right where you left off — your last read Bible chapter is automatically bookmarked.</p>
+<p>Customize your lyrics and Bible presenter settings — change font size, font family, line height, background color, gradients, or even use an image as background.</p>
+<p>Edit existing songs or add brand new ones easily.</p>
+<p>Save your quiz scores and track your progress over time.</p>
+<p><a href="login.php">Login/Register here</a></p>
 
 			</div>
 </div>
@@ -1982,6 +2024,50 @@ const IS_ADMIN = false;
 	<div class="box w100">
 	<h4>Recently Added</h4>
 <div class='recent-songs-grid'>
+        <div class='song-item'>
+            <div class='song-thumb'>
+                <a href='song.php?title=yeshu-vannidum'>
+                    <img src='assets/images/thumbs/15.jpg' alt='Yeshu Vannidum' loading='lazy'>
+                </a>
+            </div>
+            <div class='song-information'>
+                <a href='song.php?title=yeshu-vannidum' class='song-title'>Yeshu Vannidum (യേശു വന്നീടും)</a><br>
+                <small class='song-credits'>Words/Music: Sam T Mukhathala</small>
+            </div>
+        </div>
+        <div class='song-item'>
+            <div class='song-thumb'>
+                <a href='song.php?title=let-it-be-jesus'>
+                    <img src='assets/images/thumbs/9.jpg' alt='Let It Be Jesus' loading='lazy'>
+                </a>
+            </div>
+            <div class='song-information'>
+                <a href='song.php?title=let-it-be-jesus' class='song-title'>Let It Be Jesus</a><br>
+                <small class='song-credits'>Words/Music: We The Kingdom</small>
+            </div>
+        </div>
+        <div class='song-item'>
+            <div class='song-thumb'>
+                <a href='song.php?title=chaak-par-apni-rakh-mujhe'>
+                    <img src='assets/images/thumbs/14.jpg' alt='Chaak Par Apni Rakh Mujhe' loading='lazy'>
+                </a>
+            </div>
+            <div class='song-information'>
+                <a href='song.php?title=chaak-par-apni-rakh-mujhe' class='song-title'>Chaak Par Apni Rakh Mujhe (चाक पर अपनी रख मुझे)</a><br>
+                <small class='song-credits'>Words/Music: Abhinav Massey</small>
+            </div>
+        </div>
+        <div class='song-item'>
+            <div class='song-thumb'>
+                <a href='song.php?title=nandiyal-sthuthi-paadaam'>
+                    <img src='assets/images/thumbs/13.jpg' alt='Nandiyal Sthuthi Paadaam' loading='lazy'>
+                </a>
+            </div>
+            <div class='song-information'>
+                <a href='song.php?title=nandiyal-sthuthi-paadaam' class='song-title'>Nandiyal Sthuthi Paadaam (നന്ദിയാൽ സ്തുതി പാടാം)</a><br>
+                <small class='song-credits'>Words/Music: Unknown</small>
+            </div>
+        </div>
         <div class='song-item'>
             <div class='song-thumb'>
                 <a href='song.php?title=kuch-naya'>
@@ -1996,7 +2082,7 @@ const IS_ADMIN = false;
         <div class='song-item'>
             <div class='song-thumb'>
                 <a href='song.php?title=jeevitha-yathrakkara'>
-                    <img src='assets/images/thumbs/14.jpg' alt='Jeevitha Yathrakkara' loading='lazy'>
+                    <img src='assets/images/thumbs/1.jpg' alt='Jeevitha Yathrakkara' loading='lazy'>
                 </a>
             </div>
             <div class='song-information'>
@@ -2036,50 +2122,6 @@ const IS_ADMIN = false;
                 <a href='song.php?title=mahonnatham' class='song-title'>Mahonnatham (മഹോന്നതം)</a><br>
                 <small class='song-credits'>Words/Music: Mathew T John</small>
             </div>
-        </div>
-        <div class='song-item'>
-            <div class='song-thumb'>
-                <a href='song.php?title=en-aasha-neeye'>
-                    <img src='assets/images/thumbs/16.jpg' alt='En Aasha Neeye' loading='lazy'>
-                </a>
-            </div>
-            <div class='song-information'>
-                <a href='song.php?title=en-aasha-neeye' class='song-title'>En Aasha Neeye (എന്നാശ നീയേ)</a><br>
-                <small class='song-credits'>Words/Music: Brian Johnson, Phil Wickham, Philix Joel Philip, Prince Philip, Aksa Samson, Joemon Poykayil</small>
-            </div>
-        </div>
-        <div class='song-item'>
-            <div class='song-thumb'>
-                <a href='song.php?title=vallabha-nee-kotta'>
-                    <img src='assets/images/thumbs/6.jpg' alt='Vallabha Nee Kotta' loading='lazy'>
-                </a>
-            </div>
-            <div class='song-information'>
-                <a href='song.php?title=vallabha-nee-kotta' class='song-title'>Vallabha Nee Kotta (വല്ലഭ നീ കോട്)</a><br>
-                <small class='song-credits'>Words/Music: Dalton Divakaran, John Abraham</small>
-            </div>
-        </div>
-        <div class='song-item'>
-            <div class='song-thumb'>
-                <a href='song.php?title=en-ullam-nandriyal'>
-                    <img src='assets/images/thumbs/5.jpg' alt='En Ullam Nandriyal' loading='lazy'>
-                </a>
-            </div>
-            <div class='song-information'>
-                <a href='song.php?title=en-ullam-nandriyal' class='song-title'>En Ullam Nandriyal (என் உள்ளம் நன்றியால்)</a><br>
-                <small class='song-credits'>Words/Music: Praiselin Stephen</small>
-            </div>
-        </div>
-        <div class='song-item'>
-            <div class='song-thumb'>
-                <a href='song.php?title=sanketha-pattanamam-puthen-yerushalemil'>
-                    <img src='assets/images/thumbs/11.jpg' alt='Sanketha Pattanamam Puthen Yerushalemil' loading='lazy'>
-                </a>
-            </div>
-            <div class='song-information'>
-                <a href='song.php?title=sanketha-pattanamam-puthen-yerushalemil' class='song-title'>Sanketha Pattanamam Puthen Yerushalemil (സങ്കേത പട്ടണമാം)</a><br>
-                <small class='song-credits'>Words/Music: Unknown</small>
-            </div>
         </div></div>
     <p class='bottomline'>
         Images: pexels.com<br>
@@ -2087,30 +2129,15 @@ const IS_ADMIN = false;
     </p>	</div>
 </div>
 
+	
 <div class="row">
 	<div class="box w50">
 	<h4>Top 50 Today</h4>
 	<ul class='top-songs'><li>
-                <a href='song.php?title=ee-paradevanaho'>Ee Paradevanaho (ഈ പരദേവനഹോ)</a>
-
-                <div class='song-meta-row'><span class='credits-info'>Words/Music: <a href='song_search.php?search=Justus+Joseph'>Justus Joseph</a></span> | <span class='song-lang'><a href='songlist.php?song_lang=MALAYALAM'>MALAYALAM</a></span>
-               | <span class='hits'>68 views</span><span class='song-icons'><a href="presenter.php?title=ee-paradevanaho"
-          target="songPresenter"
-          title="Presenter">
-        <i data-lucide="monitor"></i>
-      </a>
-                <a href='#'
-                   class='openCommentModal'
-                   data-page-id='song-ee-paradevanaho'
-                   title='Comment / Suggest'>
-                    <i data-lucide='message-square' class='icon-inline'></i>
-                </a></span>
-                </div>
-            </li><li>
                 <a href='song.php?title=aaraadhana-chaetunu-anni-vaelalaa'>Aaraadhana Chaetunu Anni Vaelalaa (ఆరాధన చేతును అన్ని వేళలా)</a>
 
                 <div class='song-meta-row'><span class='credits-info'>Words/Music: <a href='song_search.php?search=Palaparthi+Prabhudas'>Palaparthi Prabhudas</a></span> | <span class='song-lang'><a href='songlist.php?song_lang=TELUGU'>TELUGU</a></span>
-               | <span class='hits'>62 views</span><span class='song-icons'><a href="presenter.php?title=aaraadhana-chaetunu-anni-vaelalaa"
+               | <span class='hits'>61 views</span><span class='song-icons'><a href="presenter.php?title=aaraadhana-chaetunu-anni-vaelalaa"
           target="songPresenter"
           title="Presenter">
         <i data-lucide="monitor"></i>
@@ -2123,113 +2150,17 @@ const IS_ADMIN = false;
                 </a></span>
                 </div>
             </li><li>
-                <a href='song.php?title=haath-uthaakar-gaoonga'>Haath Uthaakar Gaoonga (हाथ उठाकर गाऊँगा)</a>
+                <a href='song.php?title=ee-paradevanaho'>Ee Paradevanaho (ഈ പരദേവനഹോ)</a>
 
-                <div class='song-meta-row'><span class='credits-info'>Words/Music: <a href='song_search.php?search=Cameron+Mendes'>Cameron Mendes</a>, <a href='song_search.php?search=Samarth+Shukla'>Samarth Shukla</a>, <a href='song_search.php?search=Sam+Alex'>Sam Alex</a></span> | <span class='song-lang'><a href='songlist.php?song_lang=HINDI'>HINDI</a></span>
-               | <span class='hits'>40 views</span><span class='song-icons'><a href="presenter.php?title=haath-uthaakar-gaoonga"
+                <div class='song-meta-row'><span class='credits-info'>Words/Music: <a href='song_search.php?search=Justus+Joseph'>Justus Joseph</a></span> | <span class='song-lang'><a href='songlist.php?song_lang=MALAYALAM'>MALAYALAM</a></span>
+               | <span class='hits'>55 views</span><span class='song-icons'><a href="presenter.php?title=ee-paradevanaho"
           target="songPresenter"
           title="Presenter">
         <i data-lucide="monitor"></i>
       </a>
                 <a href='#'
                    class='openCommentModal'
-                   data-page-id='song-haath-uthaakar-gaoonga'
-                   title='Comment / Suggest'>
-                    <i data-lucide='message-square' class='icon-inline'></i>
-                </a></span>
-                </div>
-            </li><li>
-                <a href='song.php?title=ho-jai-jaikaar'>Ho Jai Jaikaar (हो जय जयकार)</a>
-
-                <div class='song-meta-row'><span class='credits-info'>Words/Music: Unknown</span> | <span class='song-lang'><a href='songlist.php?song_lang=HINDI'>HINDI</a></span>
-               | <span class='hits'>35 views</span><span class='song-icons'><a href="presenter.php?title=ho-jai-jaikaar"
-          target="songPresenter"
-          title="Presenter">
-        <i data-lucide="monitor"></i>
-      </a>
-                <a href='#'
-                   class='openCommentModal'
-                   data-page-id='song-ho-jai-jaikaar'
-                   title='Comment / Suggest'>
-                    <i data-lucide='message-square' class='icon-inline'></i>
-                </a></span>
-                </div>
-            </li><li>
-                <a href='song.php?title=ho-teri-stuti-aur-aaradhana'>Ho Teri Stuti Aur Aaradhana (हो तेरी स्तुति और आराधना)</a>
-
-                <div class='song-meta-row'><span class='credits-info'>Words/Music: Unknown</span> | <span class='song-lang'><a href='songlist.php?song_lang=HINDI'>HINDI</a></span>
-               | <span class='hits'>34 views</span><span class='song-icons'><a href="presenter.php?title=ho-teri-stuti-aur-aaradhana"
-          target="songPresenter"
-          title="Presenter">
-        <i data-lucide="monitor"></i>
-      </a>
-                <a href='#'
-                   class='openCommentModal'
-                   data-page-id='song-ho-teri-stuti-aur-aaradhana'
-                   title='Comment / Suggest'>
-                    <i data-lucide='message-square' class='icon-inline'></i>
-                </a></span>
-                </div>
-            </li><li>
-                <a href='song.php?title=yahweh'>Yahweh</a>
-
-                <div class='song-meta-row'><span class='credits-info'>Words/Music: <a href='song_search.php?search=Oasis+Ministry'>Oasis Ministry</a></span> | <span class='song-lang'><a href='songlist.php?song_lang=ENGLISH'>ENGLISH</a></span>
-               | <span class='hits'>30 views</span><span class='song-icons'><a href="presenter.php?title=yahweh"
-          target="songPresenter"
-          title="Presenter">
-        <i data-lucide="monitor"></i>
-      </a>
-                <a href='#'
-                   class='openCommentModal'
-                   data-page-id='song-yahweh'
-                   title='Comment / Suggest'>
-                    <i data-lucide='message-square' class='icon-inline'></i>
-                </a></span>
-                </div>
-            </li><li>
-                <a href='song.php?title=hazaaron-zubane'>Hazaaron Zubane (हज़ारों ज़ुबाने)</a>
-
-                <div class='song-meta-row'><span class='credits-info'>Words/Music: <a href='song_search.php?search=Amit+Kamble'>Amit Kamble</a>, <a href='song_search.php?search=Deepak+Tusham'>Deepak Tusham</a>, <a href='song_search.php?search=Suraj+Dogra'>Suraj Dogra</a>, <a href='song_search.php?search=Hemant+Sharma'>Hemant Sharma</a></span> | <span class='song-lang'><a href='songlist.php?song_lang=HINDI'>HINDI</a></span>
-               | <span class='hits'>30 views</span><span class='song-icons'><a href="presenter.php?title=hazaaron-zubane"
-          target="songPresenter"
-          title="Presenter">
-        <i data-lucide="monitor"></i>
-      </a>
-                <a href='#'
-                   class='openCommentModal'
-                   data-page-id='song-hazaaron-zubane'
-                   title='Comment / Suggest'>
-                    <i data-lucide='message-square' class='icon-inline'></i>
-                </a></span>
-                </div>
-            </li><li>
-                <a href='song.php?title=mahima-aadar-karte-hue'>Mahima Aadar Karte Hue (महिमा आदर करते हुए)</a>
-
-                <div class='song-meta-row'><span class='credits-info'>Words/Music: <a href='song_search.php?search=Eva-Lena+Hellmark'>Eva-Lena Hellmark</a></span> | <span class='song-lang'><a href='songlist.php?song_lang=HINDI'>HINDI</a></span>
-               | <span class='hits'>28 views</span><span class='song-icons'><a href="presenter.php?title=mahima-aadar-karte-hue"
-          target="songPresenter"
-          title="Presenter">
-        <i data-lucide="monitor"></i>
-      </a>
-                <a href='#'
-                   class='openCommentModal'
-                   data-page-id='song-mahima-aadar-karte-hue'
-                   title='Comment / Suggest'>
-                    <i data-lucide='message-square' class='icon-inline'></i>
-                </a></span>
-                </div>
-            </li><li>
-                <a href='song.php?title=aaradhana-teri-aaradhana'>Aaradhana Teri Aaradhana (आराधना तेरी आराधना)</a>
-
-                <div class='song-meta-row'><span class='credits-info'>Words/Music: <a href='song_search.php?search=Brite+Abraham'>Brite Abraham</a>, <a href='song_search.php?search=Matthew+Varghese'>Matthew Varghese</a>, <a href='song_search.php?search=Jessy+Robin'>Jessy Robin</a></span> | <span class='song-lang'><a href='songlist.php?song_lang=HINDI'>HINDI</a></span>
-               | <span class='hits'>27 views</span><span class='song-icons'><a href="presenter.php?title=aaradhana-teri-aaradhana"
-          target="songPresenter"
-          title="Presenter">
-        <i data-lucide="monitor"></i>
-      </a>
-                <a href='#'
-                   class='openCommentModal'
-                   data-page-id='song-aaradhana-teri-aaradhana'
+                   data-page-id='song-ee-paradevanaho'
                    title='Comment / Suggest'>
                     <i data-lucide='message-square' class='icon-inline'></i>
                 </a></span>
@@ -2238,7 +2169,7 @@ const IS_ADMIN = false;
                 <a href='song.php?title=abraham-ka-prabhu'>Abraham Ka Prabhu (अब्रहाम का प्रभु)</a>
 
                 <div class='song-meta-row'><span class='credits-info'>Words/Music: <a href='song_search.php?search=Amit+Kamble'>Amit Kamble</a></span> | <span class='song-lang'><a href='songlist.php?song_lang=HINDI'>HINDI</a></span>
-               | <span class='hits'>25 views</span><span class='song-icons'><a href="presenter.php?title=abraham-ka-prabhu"
+               | <span class='hits'>50 views</span><span class='song-icons'><a href="presenter.php?title=abraham-ka-prabhu"
           target="songPresenter"
           title="Presenter">
         <i data-lucide="monitor"></i>
@@ -2251,17 +2182,113 @@ const IS_ADMIN = false;
                 </a></span>
                 </div>
             </li><li>
-                <a href='song.php?title=shukr-ada'>Shukr Ada (शुक्र अदा)</a>
+                <a href='song.php?title=yeshu-naam'>Yeshu Naam (येशु नाम)</a>
 
-                <div class='song-meta-row'><span class='credits-info'>Words/Music: <a href='song_search.php?search=Prince+Mulla'>Prince Mulla</a></span> | <span class='song-lang'><a href='songlist.php?song_lang=HINDI'>HINDI</a></span>
-               | <span class='hits'>25 views</span><span class='song-icons'><a href="presenter.php?title=shukr-ada"
+                <div class='song-meta-row'><span class='credits-info'>Words/Music: <a href='song_search.php?search=Cameron+Mendes'>Cameron Mendes</a></span> | <span class='song-lang'><a href='songlist.php?song_lang=HINDI'>HINDI</a></span>
+               | <span class='hits'>45 views</span><span class='song-icons'><a href="presenter.php?title=yeshu-naam"
           target="songPresenter"
           title="Presenter">
         <i data-lucide="monitor"></i>
       </a>
                 <a href='#'
                    class='openCommentModal'
-                   data-page-id='song-shukr-ada'
+                   data-page-id='song-yeshu-naam'
+                   title='Comment / Suggest'>
+                    <i data-lucide='message-square' class='icon-inline'></i>
+                </a></span>
+                </div>
+            </li><li>
+                <a href='song.php?title=hazaaron-zubane'>Hazaaron Zubane (हज़ारों ज़ुबाने)</a>
+
+                <div class='song-meta-row'><span class='credits-info'>Words/Music: <a href='song_search.php?search=Amit+Kamble'>Amit Kamble</a>, <a href='song_search.php?search=Deepak+Tusham'>Deepak Tusham</a>, <a href='song_search.php?search=Suraj+Dogra'>Suraj Dogra</a>, <a href='song_search.php?search=Hemant+Sharma'>Hemant Sharma</a></span> | <span class='song-lang'><a href='songlist.php?song_lang=HINDI'>HINDI</a></span>
+               | <span class='hits'>42 views</span><span class='song-icons'><a href="presenter.php?title=hazaaron-zubane"
+          target="songPresenter"
+          title="Presenter">
+        <i data-lucide="monitor"></i>
+      </a>
+                <a href='#'
+                   class='openCommentModal'
+                   data-page-id='song-hazaaron-zubane'
+                   title='Comment / Suggest'>
+                    <i data-lucide='message-square' class='icon-inline'></i>
+                </a></span>
+                </div>
+            </li><li>
+                <a href='song.php?title=there-shall-be-showers-of-blessing'>There Shall Be Showers Of Blessing</a>
+
+                <div class='song-meta-row'><span class='credits-info'>Words/Music: <a href='song_search.php?search=James+McGranahan'>James McGranahan</a>, <a href='song_search.php?search=Daniel+Webster'>Daniel Webster</a></span> | <span class='song-lang'><a href='songlist.php?song_lang=ENGLISH'>ENGLISH</a></span>
+               | <span class='hits'>41 views</span><span class='song-icons'><a href="presenter.php?title=there-shall-be-showers-of-blessing"
+          target="songPresenter"
+          title="Presenter">
+        <i data-lucide="monitor"></i>
+      </a>
+                <a href='#'
+                   class='openCommentModal'
+                   data-page-id='song-there-shall-be-showers-of-blessing'
+                   title='Comment / Suggest'>
+                    <i data-lucide='message-square' class='icon-inline'></i>
+                </a></span>
+                </div>
+            </li><li>
+                <a href='song.php?title=nanni-nanni-en-daivame'>Nanni Nanni En Daivame (നന്ദി നന്ദി എൻ ദൈവമേ)</a>
+
+                <div class='song-meta-row'><span class='credits-info'>Words/Music: <a href='song_search.php?search=Charles+Jacob'>Charles Jacob</a></span> | <span class='song-lang'><a href='songlist.php?song_lang=MALAYALAM'>MALAYALAM</a></span>
+               | <span class='hits'>35 views</span><span class='song-icons'><a href="presenter.php?title=nanni-nanni-en-daivame"
+          target="songPresenter"
+          title="Presenter">
+        <i data-lucide="monitor"></i>
+      </a>
+                <a href='#'
+                   class='openCommentModal'
+                   data-page-id='song-nanni-nanni-en-daivame'
+                   title='Comment / Suggest'>
+                    <i data-lucide='message-square' class='icon-inline'></i>
+                </a></span>
+                </div>
+            </li><li>
+                <a href='song.php?title=haath-uthaakar-gaoonga'>Haath Uthaakar Gaoonga (हाथ उठाकर गाऊँगा)</a>
+
+                <div class='song-meta-row'><span class='credits-info'>Words/Music: <a href='song_search.php?search=Cameron+Mendes'>Cameron Mendes</a>, <a href='song_search.php?search=Samarth+Shukla'>Samarth Shukla</a>, <a href='song_search.php?search=Sam+Alex'>Sam Alex</a></span> | <span class='song-lang'><a href='songlist.php?song_lang=HINDI'>HINDI</a></span>
+               | <span class='hits'>35 views</span><span class='song-icons'><a href="presenter.php?title=haath-uthaakar-gaoonga"
+          target="songPresenter"
+          title="Presenter">
+        <i data-lucide="monitor"></i>
+      </a>
+                <a href='#'
+                   class='openCommentModal'
+                   data-page-id='song-haath-uthaakar-gaoonga'
+                   title='Comment / Suggest'>
+                    <i data-lucide='message-square' class='icon-inline'></i>
+                </a></span>
+                </div>
+            </li><li>
+                <a href='song.php?title=pavitra-mujhe-bana-de-prabhu'>Pavitra Mujhe Bana De Prabhu (पवित्र मुझे बना दे प्रभु)</a>
+
+                <div class='song-meta-row'><span class='credits-info'>Words/Music: <a href='song_search.php?search=Paul+Thomas+Mathews'>Paul Thomas Mathews</a></span> | <span class='song-lang'><a href='songlist.php?song_lang=HINDI'>HINDI</a></span>
+               | <span class='hits'>35 views</span><span class='song-icons'><a href="presenter.php?title=pavitra-mujhe-bana-de-prabhu"
+          target="songPresenter"
+          title="Presenter">
+        <i data-lucide="monitor"></i>
+      </a>
+                <a href='#'
+                   class='openCommentModal'
+                   data-page-id='song-pavitra-mujhe-bana-de-prabhu'
+                   title='Comment / Suggest'>
+                    <i data-lucide='message-square' class='icon-inline'></i>
+                </a></span>
+                </div>
+            </li><li>
+                <a href='song.php?title=senao-ka-yahowa'>Senao Ka Yahowa (सेनाओं का यहोवा)</a>
+
+                <div class='song-meta-row'><span class='credits-info'>Words/Music: Unknown</span> | <span class='song-lang'><a href='songlist.php?song_lang=HINDI'>HINDI</a></span>
+               | <span class='hits'>35 views</span><span class='song-icons'><a href="presenter.php?title=senao-ka-yahowa"
+          target="songPresenter"
+          title="Presenter">
+        <i data-lucide="monitor"></i>
+      </a>
+                <a href='#'
+                   class='openCommentModal'
+                   data-page-id='song-senao-ka-yahowa'
                    title='Comment / Suggest'>
                     <i data-lucide='message-square' class='icon-inline'></i>
                 </a></span>
@@ -2270,7 +2297,7 @@ const IS_ADMIN = false;
                 <a href='song.php?title=mera-dil-bane-tera-sinhasan'>Mera Dil Bane Tera Sinhasan (मेरा दिल बने तेरा सिंहासन)</a>
 
                 <div class='song-meta-row'><span class='credits-info'>Words/Music: <a href='song_search.php?search=Ajay+Chavan'>Ajay Chavan</a></span> | <span class='song-lang'><a href='songlist.php?song_lang=HINDI'>HINDI</a></span>
-               | <span class='hits'>25 views</span><span class='song-icons'><a href="presenter.php?title=mera-dil-bane-tera-sinhasan"
+               | <span class='hits'>34 views</span><span class='song-icons'><a href="presenter.php?title=mera-dil-bane-tera-sinhasan"
           target="songPresenter"
           title="Presenter">
         <i data-lucide="monitor"></i>
@@ -2283,65 +2310,33 @@ const IS_ADMIN = false;
                 </a></span>
                 </div>
             </li><li>
-                <a href='song.php?title=abhishek'>Abhishek (अभिषेक)</a>
+                <a href='song.php?title=prabhu-mahaan'>Prabhu Mahaan (प्रभु महान)</a>
 
-                <div class='song-meta-row'><span class='credits-info'>Words/Music: <a href='song_search.php?search=Mark+Tribhuvan'>Mark Tribhuvan</a></span> | <span class='song-lang'><a href='songlist.php?song_lang=HINDI'>HINDI</a></span>
-               | <span class='hits'>25 views</span><span class='song-icons'><a href="presenter.php?title=abhishek"
+                <div class='song-meta-row'><span class='credits-info'>Words/Music: <a href='song_search.php?search=Carl+Gustav+Boberg'>Carl Gustav Boberg</a></span> | <span class='song-lang'><a href='songlist.php?song_lang=HINDI'>HINDI</a></span>
+               | <span class='hits'>33 views</span><span class='song-icons'><a href="presenter.php?title=prabhu-mahaan"
           target="songPresenter"
           title="Presenter">
         <i data-lucide="monitor"></i>
       </a>
                 <a href='#'
                    class='openCommentModal'
-                   data-page-id='song-abhishek'
+                   data-page-id='song-prabhu-mahaan'
                    title='Comment / Suggest'>
                     <i data-lucide='message-square' class='icon-inline'></i>
                 </a></span>
                 </div>
             </li><li>
-                <a href='song.php?title=isse-pehle-ki-chala-jaaoon'>Isse Pehle Ki Chala Jaaoon (इससे पहले कि चला जाऊ)</a>
+                <a href='song.php?title=aasha-meri'>Aasha Meri (आशा मेरी)</a>
 
-                <div class='song-meta-row'><span class='credits-info'>Words/Music: Unknown</span> | <span class='song-lang'><a href='songlist.php?song_lang=HINDI'>HINDI</a></span>
-               | <span class='hits'>24 views</span><span class='song-icons'><a href="presenter.php?title=isse-pehle-ki-chala-jaaoon"
+                <div class='song-meta-row'><span class='credits-info'>Words/Music: <a href='song_search.php?search=Brian+Johnson'>Brian Johnson</a>, <a href='song_search.php?search=Shivani+Prakash'>Shivani Prakash</a>, <a href='song_search.php?search=Allen+Ganta'>Allen Ganta</a>, <a href='song_search.php?search=Phil+Wickham'>Phil Wickham</a>, <a href='song_search.php?search=Finny+Prakash'>Finny Prakash</a></span> | <span class='song-lang'><a href='songlist.php?song_lang=HINDI'>HINDI</a></span>
+               | <span class='hits'>33 views</span><span class='song-icons'><a href="presenter.php?title=aasha-meri"
           target="songPresenter"
           title="Presenter">
         <i data-lucide="monitor"></i>
       </a>
                 <a href='#'
                    class='openCommentModal'
-                   data-page-id='song-isse-pehle-ki-chala-jaaoon'
-                   title='Comment / Suggest'>
-                    <i data-lucide='message-square' class='icon-inline'></i>
-                </a></span>
-                </div>
-            </li><li>
-                <a href='song.php?title=the-sweetest-name-of-all'>The Sweetest Name Of All</a>
-
-                <div class='song-meta-row'><span class='credits-info'>Words/Music: <a href='song_search.php?search=Tom+Coomes'>Tom Coomes</a></span> | <span class='song-lang'><a href='songlist.php?song_lang=ENGLISH'>ENGLISH</a></span>
-               | <span class='hits'>23 views</span><span class='song-icons'><a href="presenter.php?title=the-sweetest-name-of-all"
-          target="songPresenter"
-          title="Presenter">
-        <i data-lucide="monitor"></i>
-      </a>
-                <a href='#'
-                   class='openCommentModal'
-                   data-page-id='song-the-sweetest-name-of-all'
-                   title='Comment / Suggest'>
-                    <i data-lucide='message-square' class='icon-inline'></i>
-                </a></span>
-                </div>
-            </li><li>
-                <a href='song.php?title=aradhana-ho-aradhana'>Aradhana Ho Aradhana (आराधना हो आराधना)</a>
-
-                <div class='song-meta-row'><span class='credits-info'>Words/Music: Unknown</span> | <span class='song-lang'><a href='songlist.php?song_lang=HINDI'>HINDI</a></span>
-               | <span class='hits'>23 views</span><span class='song-icons'><a href="presenter.php?title=aradhana-ho-aradhana"
-          target="songPresenter"
-          title="Presenter">
-        <i data-lucide="monitor"></i>
-      </a>
-                <a href='#'
-                   class='openCommentModal'
-                   data-page-id='song-aradhana-ho-aradhana'
+                   data-page-id='song-aasha-meri'
                    title='Comment / Suggest'>
                     <i data-lucide='message-square' class='icon-inline'></i>
                 </a></span>
@@ -2350,7 +2345,7 @@ const IS_ADMIN = false;
                 <a href='song.php?title=raavilum-pakalilum'>Raavilum Pakalilum (രാവിലും പകലിലും)</a>
 
                 <div class='song-meta-row'><span class='credits-info'>Words/Music: <a href='song_search.php?search=Anil+Adoor'>Anil Adoor</a></span> | <span class='song-lang'><a href='songlist.php?song_lang=MALAYALAM'>MALAYALAM</a></span>
-               | <span class='hits'>23 views</span><span class='song-icons'><a href="presenter.php?title=raavilum-pakalilum"
+               | <span class='hits'>32 views</span><span class='song-icons'><a href="presenter.php?title=raavilum-pakalilum"
           target="songPresenter"
           title="Presenter">
         <i data-lucide="monitor"></i>
@@ -2363,49 +2358,33 @@ const IS_ADMIN = false;
                 </a></span>
                 </div>
             </li><li>
-                <a href='song.php?title=ithramel-ithramel-enne-snehichuvo'>Ithramel Ithramel Enne Snehichuvo (ഇത്രമേൽ ഇത്രമേൽ എന്നെ സ്നേഹിച്ചുവോ)</a>
+                <a href='song.php?title=ho-jai-jaikaar'>Ho Jai Jaikaar (हो जय जयकार)</a>
 
-                <div class='song-meta-row'><span class='credits-info'>Words/Music: <a href='song_search.php?search=Thomas+Abraham'>Thomas Abraham</a></span> | <span class='song-lang'><a href='songlist.php?song_lang=MALAYALAM'>MALAYALAM</a></span>
-               | <span class='hits'>22 views</span><span class='song-icons'><a href="presenter.php?title=ithramel-ithramel-enne-snehichuvo"
+                <div class='song-meta-row'><span class='credits-info'>Words/Music: Unknown</span> | <span class='song-lang'><a href='songlist.php?song_lang=HINDI'>HINDI</a></span>
+               | <span class='hits'>31 views</span><span class='song-icons'><a href="presenter.php?title=ho-jai-jaikaar"
           target="songPresenter"
           title="Presenter">
         <i data-lucide="monitor"></i>
       </a>
                 <a href='#'
                    class='openCommentModal'
-                   data-page-id='song-ithramel-ithramel-enne-snehichuvo'
+                   data-page-id='song-ho-jai-jaikaar'
                    title='Comment / Suggest'>
                     <i data-lucide='message-square' class='icon-inline'></i>
                 </a></span>
                 </div>
             </li><li>
-                <a href='song.php?title=tere-jaisa-kaun-hai'>Tere Jaisa Kaun Hai (तेरे जैसा कौन है)</a>
+                <a href='song.php?title=you-deserve-the-glory'>You Deserve The Glory</a>
 
-                <div class='song-meta-row'><span class='credits-info'>Words/Music: <a href='song_search.php?search=Benny+Joshua'>Benny Joshua</a></span> | <span class='song-lang'><a href='songlist.php?song_lang=HINDI'>HINDI</a></span>
-               | <span class='hits'>22 views</span><span class='song-icons'><a href="presenter.php?title=tere-jaisa-kaun-hai"
+                <div class='song-meta-row'><span class='credits-info'>Words/Music: <a href='song_search.php?search=Eva-Lena+Hellmark'>Eva-Lena Hellmark</a>, <a href='song_search.php?search=Terry+MacAlmon'>Terry MacAlmon</a></span> | <span class='song-lang'><a href='songlist.php?song_lang=ENGLISH'>ENGLISH</a></span>
+               | <span class='hits'>31 views</span><span class='song-icons'><a href="presenter.php?title=you-deserve-the-glory"
           target="songPresenter"
           title="Presenter">
         <i data-lucide="monitor"></i>
       </a>
                 <a href='#'
                    class='openCommentModal'
-                   data-page-id='song-tere-jaisa-kaun-hai'
-                   title='Comment / Suggest'>
-                    <i data-lucide='message-square' class='icon-inline'></i>
-                </a></span>
-                </div>
-            </li><li>
-                <a href='song.php?title=enne-nadathum-aa-ponnu-karamo'>Enne Nadathum Aa Ponnu Karamo (എന്നെ  നടത്തും  ആ  പൊന്നു  കരമോ)</a>
-
-                <div class='song-meta-row'><span class='credits-info'>Words/Music: <a href='song_search.php?search=Anil+Adoor'>Anil Adoor</a></span> | <span class='song-lang'><a href='songlist.php?song_lang=MALAYALAM'>MALAYALAM</a></span>
-               | <span class='hits'>22 views</span><span class='song-icons'><a href="presenter.php?title=enne-nadathum-aa-ponnu-karamo"
-          target="songPresenter"
-          title="Presenter">
-        <i data-lucide="monitor"></i>
-      </a>
-                <a href='#'
-                   class='openCommentModal'
-                   data-page-id='song-enne-nadathum-aa-ponnu-karamo'
+                   data-page-id='song-you-deserve-the-glory'
                    title='Comment / Suggest'>
                     <i data-lucide='message-square' class='icon-inline'></i>
                 </a></span>
@@ -2414,7 +2393,7 @@ const IS_ADMIN = false;
                 <a href='song.php?title=halaat-badal-jaate-hain'>Halaat Badal Jaate Hain (हालात बदल जाते है)</a>
 
                 <div class='song-meta-row'><span class='credits-info'>Words/Music: Unknown</span> | <span class='song-lang'><a href='songlist.php?song_lang=HINDI'>HINDI</a></span>
-               | <span class='hits'>22 views</span><span class='song-icons'><a href="presenter.php?title=halaat-badal-jaate-hain"
+               | <span class='hits'>30 views</span><span class='song-icons'><a href="presenter.php?title=halaat-badal-jaate-hain"
           target="songPresenter"
           title="Presenter">
         <i data-lucide="monitor"></i>
@@ -2427,65 +2406,417 @@ const IS_ADMIN = false;
                 </a></span>
                 </div>
             </li><li>
-                <a href='song.php?title=welcome-holy-spirit'>Welcome Holy Spirit</a>
+                <a href='song.php?title=aashiq-tera'>Aashiq Tera (आशिक तेरा)</a>
 
-                <div class='song-meta-row'><span class='credits-info'>Words/Music: <a href='song_search.php?search=Hilde+Bedsvaag'>Hilde Bedsvaag</a></span> | <span class='song-lang'><a href='songlist.php?song_lang=ENGLISH'>ENGLISH</a></span>
-               | <span class='hits'>21 views</span><span class='song-icons'><a href="presenter.php?title=welcome-holy-spirit"
+                <div class='song-meta-row'><span class='credits-info'>Words/Music: <a href='song_search.php?search=Emmanuel+Gollar'>Emmanuel Gollar</a></span> | <span class='song-lang'><a href='songlist.php?song_lang=HINDI'>HINDI</a></span>
+               | <span class='hits'>29 views</span><span class='song-icons'><a href="presenter.php?title=aashiq-tera"
           target="songPresenter"
           title="Presenter">
         <i data-lucide="monitor"></i>
       </a>
                 <a href='#'
                    class='openCommentModal'
-                   data-page-id='song-welcome-holy-spirit'
+                   data-page-id='song-aashiq-tera'
                    title='Comment / Suggest'>
                     <i data-lucide='message-square' class='icon-inline'></i>
                 </a></span>
                 </div>
             </li><li>
-                <a href='song.php?title=jayam-jayam-hallelujah'>Jayam Jayam Hallelujah (ജയം ജയം ഹല്ലേലുയ്യാ)</a>
+                <a href='song.php?title=maine-kabhi-jaana-nahi'>Maine Kabhi Jaana Nahi (मैंने कभी जाना नहीं)</a>
 
-                <div class='song-meta-row'><span class='credits-info'>Words/Music: <a href='song_search.php?search=Traditional'>Traditional</a></span> | <span class='song-lang'><a href='songlist.php?song_lang=MALAYALAM'>MALAYALAM</a></span>
-               | <span class='hits'>21 views</span><span class='song-icons'><a href="presenter.php?title=jayam-jayam-hallelujah"
+                <div class='song-meta-row'><span class='credits-info'>Words/Music: <a href='song_search.php?search=Prayash+Rai'>Prayash Rai</a></span> | <span class='song-lang'><a href='songlist.php?song_lang=HINDI'>HINDI</a></span>
+               | <span class='hits'>28 views</span><span class='song-icons'><a href="presenter.php?title=maine-kabhi-jaana-nahi"
           target="songPresenter"
           title="Presenter">
         <i data-lucide="monitor"></i>
       </a>
                 <a href='#'
                    class='openCommentModal'
-                   data-page-id='song-jayam-jayam-hallelujah'
+                   data-page-id='song-maine-kabhi-jaana-nahi'
                    title='Comment / Suggest'>
                     <i data-lucide='message-square' class='icon-inline'></i>
                 </a></span>
                 </div>
             </li><li>
-                <a href='song.php?title=tu-mera-bal'>Tu Mera Bal (तू मेरा बल)</a>
+                <a href='song.php?title=aaj-ka-ye-din'>Aaj Ka Ye Din (आज का ये दिन)</a>
 
-                <div class='song-meta-row'><span class='credits-info'>Words/Music: <a href='song_search.php?search=Kiran+Ezekiel'>Kiran Ezekiel</a>, <a href='song_search.php?search=Sammy+Thangiah'>Sammy Thangiah</a></span> | <span class='song-lang'><a href='songlist.php?song_lang=HINDI'>HINDI</a></span>
-               | <span class='hits'>21 views</span><span class='song-icons'><a href="presenter.php?title=tu-mera-bal"
+                <div class='song-meta-row'><span class='credits-info'>Words/Music: <a href='song_search.php?search=Amit+Kamble'>Amit Kamble</a></span> | <span class='song-lang'><a href='songlist.php?song_lang=HINDI'>HINDI</a></span>
+               | <span class='hits'>28 views</span><span class='song-icons'><a href="presenter.php?title=aaj-ka-ye-din"
           target="songPresenter"
           title="Presenter">
         <i data-lucide="monitor"></i>
       </a>
                 <a href='#'
                    class='openCommentModal'
-                   data-page-id='song-tu-mera-bal'
+                   data-page-id='song-aaj-ka-ye-din'
                    title='Comment / Suggest'>
                     <i data-lucide='message-square' class='icon-inline'></i>
                 </a></span>
                 </div>
             </li><li>
-                <a href='song.php?title=nanni-nanni-en-daivame'>Nanni Nanni En Daivame (നന്ദി നന്ദി എൻ ദൈവമേ)</a>
+                <a href='song.php?title=bhule-aur-bhatke-thhe-hum'>Bhule Aur Bhatke Thhe Hum (भूले और भटके थे हम)</a>
 
-                <div class='song-meta-row'><span class='credits-info'>Words/Music: <a href='song_search.php?search=Charles+Jacob'>Charles Jacob</a></span> | <span class='song-lang'><a href='songlist.php?song_lang=MALAYALAM'>MALAYALAM</a></span>
-               | <span class='hits'>21 views</span><span class='song-icons'><a href="presenter.php?title=nanni-nanni-en-daivame"
+                <div class='song-meta-row'><span class='credits-info'>Words/Music: Unknown</span> | <span class='song-lang'><a href='songlist.php?song_lang=HINDI'>HINDI</a></span>
+               | <span class='hits'>28 views</span><span class='song-icons'><a href="presenter.php?title=bhule-aur-bhatke-thhe-hum"
           target="songPresenter"
           title="Presenter">
         <i data-lucide="monitor"></i>
       </a>
                 <a href='#'
                    class='openCommentModal'
-                   data-page-id='song-nanni-nanni-en-daivame'
+                   data-page-id='song-bhule-aur-bhatke-thhe-hum'
+                   title='Comment / Suggest'>
+                    <i data-lucide='message-square' class='icon-inline'></i>
+                </a></span>
+                </div>
+            </li><li>
+                <a href='song.php?title=orthidumbol-albhuthame'>Orthidumbol Albhuthame (ഓർത്തീടുമ്പോൾ അത്ഭുതമേ)</a>
+
+                <div class='song-meta-row'><span class='credits-info'>Words/Music: <a href='song_search.php?search=Anil+Adoor'>Anil Adoor</a></span> | <span class='song-lang'><a href='songlist.php?song_lang=MALAYALAM'>MALAYALAM</a></span>
+               | <span class='hits'>27 views</span><span class='song-icons'><a href="presenter.php?title=orthidumbol-albhuthame"
+          target="songPresenter"
+          title="Presenter">
+        <i data-lucide="monitor"></i>
+      </a>
+                <a href='#'
+                   class='openCommentModal'
+                   data-page-id='song-orthidumbol-albhuthame'
+                   title='Comment / Suggest'>
+                    <i data-lucide='message-square' class='icon-inline'></i>
+                </a></span>
+                </div>
+            </li><li>
+                <a href='song.php?title=yeshu-tere-kareeb'>Yeshu Tere Kareeb (येशु तेरे करीब)</a>
+
+                <div class='song-meta-row'><span class='credits-info'>Words/Music: <a href='song_search.php?search=Mark+Tribhuvan'>Mark Tribhuvan</a></span> | <span class='song-lang'><a href='songlist.php?song_lang=HINDI'>HINDI</a></span>
+               | <span class='hits'>26 views</span><span class='song-icons'><a href="presenter.php?title=yeshu-tere-kareeb"
+          target="songPresenter"
+          title="Presenter">
+        <i data-lucide="monitor"></i>
+      </a>
+                <a href='#'
+                   class='openCommentModal'
+                   data-page-id='song-yeshu-tere-kareeb'
+                   title='Comment / Suggest'>
+                    <i data-lucide='message-square' class='icon-inline'></i>
+                </a></span>
+                </div>
+            </li><li>
+                <a href='song.php?title=main-tujhko-pasand-aoun'>Main Tujhko Pasand Aoun (मैं तुझको पसंद आऊं)</a>
+
+                <div class='song-meta-row'><span class='credits-info'>Words/Music: <a href='song_search.php?search=Ashish+Charan'>Ashish Charan</a></span> | <span class='song-lang'><a href='songlist.php?song_lang=HINDI'>HINDI</a></span>
+               | <span class='hits'>25 views</span><span class='song-icons'><a href="presenter.php?title=main-tujhko-pasand-aoun"
+          target="songPresenter"
+          title="Presenter">
+        <i data-lucide="monitor"></i>
+      </a>
+                <a href='#'
+                   class='openCommentModal'
+                   data-page-id='song-main-tujhko-pasand-aoun'
+                   title='Comment / Suggest'>
+                    <i data-lucide='message-square' class='icon-inline'></i>
+                </a></span>
+                </div>
+            </li><li>
+                <a href='song.php?title=aaradhana-teri-aaradhana'>Aaradhana Teri Aaradhana (आराधना तेरी आराधना)</a>
+
+                <div class='song-meta-row'><span class='credits-info'>Words/Music: <a href='song_search.php?search=Brite+Abraham'>Brite Abraham</a>, <a href='song_search.php?search=Matthew+Varghese'>Matthew Varghese</a>, <a href='song_search.php?search=Jessy+Robin'>Jessy Robin</a></span> | <span class='song-lang'><a href='songlist.php?song_lang=HINDI'>HINDI</a></span>
+               | <span class='hits'>24 views</span><span class='song-icons'><a href="presenter.php?title=aaradhana-teri-aaradhana"
+          target="songPresenter"
+          title="Presenter">
+        <i data-lucide="monitor"></i>
+      </a>
+                <a href='#'
+                   class='openCommentModal'
+                   data-page-id='song-aaradhana-teri-aaradhana'
+                   title='Comment / Suggest'>
+                    <i data-lucide='message-square' class='icon-inline'></i>
+                </a></span>
+                </div>
+            </li><li>
+                <a href='song.php?title=enni-enni-sthuthikkuvan'>Enni Enni Sthuthikkuvan (എണ്ണി എണ്ണി സ്തുതിക്കുവാൻ)</a>
+
+                <div class='song-meta-row'><span class='credits-info'>Words/Music: <a href='song_search.php?search=J+V+Peter'>J V Peter</a></span> | <span class='song-lang'><a href='songlist.php?song_lang=MALAYALAM'>MALAYALAM</a></span>
+               | <span class='hits'>24 views</span><span class='song-icons'><a href="presenter.php?title=enni-enni-sthuthikkuvan"
+          target="songPresenter"
+          title="Presenter">
+        <i data-lucide="monitor"></i>
+      </a>
+                <a href='#'
+                   class='openCommentModal'
+                   data-page-id='song-enni-enni-sthuthikkuvan'
+                   title='Comment / Suggest'>
+                    <i data-lucide='message-square' class='icon-inline'></i>
+                </a></span>
+                </div>
+            </li><li>
+                <a href='song.php?title=mahonnathan-neeye'>Mahonnathan Neeye (മഹോന്നതൻ നീയേ)</a>
+
+                <div class='song-meta-row'><span class='credits-info'>Words/Music: Unknown</span> | <span class='song-lang'><a href='songlist.php?song_lang=MALAYALAM'>MALAYALAM</a></span>
+               | <span class='hits'>23 views</span><span class='song-icons'><a href="presenter.php?title=mahonnathan-neeye"
+          target="songPresenter"
+          title="Presenter">
+        <i data-lucide="monitor"></i>
+      </a>
+                <a href='#'
+                   class='openCommentModal'
+                   data-page-id='song-mahonnathan-neeye'
+                   title='Comment / Suggest'>
+                    <i data-lucide='message-square' class='icon-inline'></i>
+                </a></span>
+                </div>
+            </li><li>
+                <a href='song.php?title=enne-nadathum-aa-ponnu-karamo'>Enne Nadathum Aa Ponnu Karamo (എന്നെ  നടത്തും  ആ  പൊന്നു  കരമോ)</a>
+
+                <div class='song-meta-row'><span class='credits-info'>Words/Music: <a href='song_search.php?search=Anil+Adoor'>Anil Adoor</a></span> | <span class='song-lang'><a href='songlist.php?song_lang=MALAYALAM'>MALAYALAM</a></span>
+               | <span class='hits'>23 views</span><span class='song-icons'><a href="presenter.php?title=enne-nadathum-aa-ponnu-karamo"
+          target="songPresenter"
+          title="Presenter">
+        <i data-lucide="monitor"></i>
+      </a>
+                <a href='#'
+                   class='openCommentModal'
+                   data-page-id='song-enne-nadathum-aa-ponnu-karamo'
+                   title='Comment / Suggest'>
+                    <i data-lucide='message-square' class='icon-inline'></i>
+                </a></span>
+                </div>
+            </li><li>
+                <a href='song.php?title=jo-krus-pe-kurbaan-hai'>Jo Krus Pe Kurbaan Hai (जो क्रूस पे कुर्बान है)</a>
+
+                <div class='song-meta-row'><span class='credits-info'>Words/Music: Unknown</span> | <span class='song-lang'><a href='songlist.php?song_lang=HINDI'>HINDI</a></span>
+               | <span class='hits'>23 views</span><span class='song-icons'><a href="presenter.php?title=jo-krus-pe-kurbaan-hai"
+          target="songPresenter"
+          title="Presenter">
+        <i data-lucide="monitor"></i>
+      </a>
+                <a href='#'
+                   class='openCommentModal'
+                   data-page-id='song-jo-krus-pe-kurbaan-hai'
+                   title='Comment / Suggest'>
+                    <i data-lucide='message-square' class='icon-inline'></i>
+                </a></span>
+                </div>
+            </li><li>
+                <a href='song.php?title=njanente-priyante-mukham-kaanunnu'>Njanente Priyante Mukham Kaanunnu (ഞാനെന്റെ പ്രിയന്റെ മുഖം കാണുന്നു)</a>
+
+                <div class='song-meta-row'><span class='credits-info'>Words/Music: <a href='song_search.php?search=Mathew+T+John'>Mathew T John</a></span> | <span class='song-lang'><a href='songlist.php?song_lang=MALAYALAM'>MALAYALAM</a></span>
+               | <span class='hits'>23 views</span><span class='song-icons'><a href="presenter.php?title=njanente-priyante-mukham-kaanunnu"
+          target="songPresenter"
+          title="Presenter">
+        <i data-lucide="monitor"></i>
+      </a>
+                <a href='#'
+                   class='openCommentModal'
+                   data-page-id='song-njanente-priyante-mukham-kaanunnu'
+                   title='Comment / Suggest'>
+                    <i data-lucide='message-square' class='icon-inline'></i>
+                </a></span>
+                </div>
+            </li><li>
+                <a href='song.php?title=gin-gin-ke-stuthi-karoon'>Gin Gin Ke Stuthi Karoon (गिन गिन के स्तुति करूँ)</a>
+
+                <div class='song-meta-row'><span class='credits-info'>Words/Music: <a href='song_search.php?search=J+V+Peter'>J V Peter</a>, <a href='song_search.php?search=Wilson+George'>Wilson George</a></span> | <span class='song-lang'><a href='songlist.php?song_lang=HINDI'>HINDI</a></span>
+               | <span class='hits'>22 views</span><span class='song-icons'><a href="presenter.php?title=gin-gin-ke-stuthi-karoon"
+          target="songPresenter"
+          title="Presenter">
+        <i data-lucide="monitor"></i>
+      </a>
+                <a href='#'
+                   class='openCommentModal'
+                   data-page-id='song-gin-gin-ke-stuthi-karoon'
+                   title='Comment / Suggest'>
+                    <i data-lucide='message-square' class='icon-inline'></i>
+                </a></span>
+                </div>
+            </li><li>
+                <a href='song.php?title=kuch-naya'>Kuch Naya (कुछ नया)</a>
+
+                <div class='song-meta-row'><span class='credits-info'>Words/Music: <a href='song_search.php?search=Allen+Ganta'>Allen Ganta</a>, <a href='song_search.php?search=Prince+Mulla'>Prince Mulla</a>, <a href='song_search.php?search=Thanga+Selvam'>Thanga Selvam</a>, <a href='song_search.php?search=Ian+Eskelin'>Ian Eskelin</a></span> | <span class='song-lang'><a href='songlist.php?song_lang=HINDI'>HINDI</a></span>
+               | <span class='hits'>22 views</span><span class='song-icons'><a href="presenter.php?title=kuch-naya"
+          target="songPresenter"
+          title="Presenter">
+        <i data-lucide="monitor"></i>
+      </a>
+                <a href='#'
+                   class='openCommentModal'
+                   data-page-id='song-kuch-naya'
+                   title='Comment / Suggest'>
+                    <i data-lucide='message-square' class='icon-inline'></i>
+                </a></span>
+                </div>
+            </li><li>
+                <a href='song.php?title=en-premageethamam'>En Premageethamam (എൻ പ്രേമഗീതമാം)</a>
+
+                <div class='song-meta-row'><span class='credits-info'>Words/Music: <a href='song_search.php?search=Rajesh+Elappara'>Rajesh Elappara</a></span> | <span class='song-lang'><a href='songlist.php?song_lang=MALAYALAM'>MALAYALAM</a></span>
+               | <span class='hits'>22 views</span><span class='song-icons'><a href="presenter.php?title=en-premageethamam"
+          target="songPresenter"
+          title="Presenter">
+        <i data-lucide="monitor"></i>
+      </a>
+                <a href='#'
+                   class='openCommentModal'
+                   data-page-id='song-en-premageethamam'
+                   title='Comment / Suggest'>
+                    <i data-lucide='message-square' class='icon-inline'></i>
+                </a></span>
+                </div>
+            </li><li>
+                <a href='song.php?title=ashcharya-tere'>Ashcharya Tere (आश्चर्य तेरे)</a>
+
+                <div class='song-meta-row'><span class='credits-info'>Words/Music: <a href='song_search.php?search=Geo+Verghese'>Geo Verghese</a>, <a href='song_search.php?search=Ratan+Maheshwari'>Ratan Maheshwari</a></span> | <span class='song-lang'><a href='songlist.php?song_lang=HINDI'>HINDI</a></span>
+               | <span class='hits'>21 views</span><span class='song-icons'><a href="presenter.php?title=ashcharya-tere"
+          target="songPresenter"
+          title="Presenter">
+        <i data-lucide="monitor"></i>
+      </a>
+                <a href='#'
+                   class='openCommentModal'
+                   data-page-id='song-ashcharya-tere'
+                   title='Comment / Suggest'>
+                    <i data-lucide='message-square' class='icon-inline'></i>
+                </a></span>
+                </div>
+            </li><li>
+                <a href='song.php?title=abhishek'>Abhishek (अभिषेक)</a>
+
+                <div class='song-meta-row'><span class='credits-info'>Words/Music: <a href='song_search.php?search=Mark+Tribhuvan'>Mark Tribhuvan</a></span> | <span class='song-lang'><a href='songlist.php?song_lang=HINDI'>HINDI</a></span>
+               | <span class='hits'>21 views</span><span class='song-icons'><a href="presenter.php?title=abhishek"
+          target="songPresenter"
+          title="Presenter">
+        <i data-lucide="monitor"></i>
+      </a>
+                <a href='#'
+                   class='openCommentModal'
+                   data-page-id='song-abhishek'
+                   title='Comment / Suggest'>
+                    <i data-lucide='message-square' class='icon-inline'></i>
+                </a></span>
+                </div>
+            </li><li>
+                <a href='song.php?title=dhanyawad-ho-tera'>Dhanyawad Ho Tera (धन्यवाद हो तेरा)</a>
+
+                <div class='song-meta-row'><span class='credits-info'>Words/Music: <a href='song_search.php?search=Carmel+Community+Church'>Carmel Community Church</a></span> | <span class='song-lang'><a href='songlist.php?song_lang=HINDI'>HINDI</a></span>
+               | <span class='hits'>21 views</span><span class='song-icons'><a href="presenter.php?title=dhanyawad-ho-tera"
+          target="songPresenter"
+          title="Presenter">
+        <i data-lucide="monitor"></i>
+      </a>
+                <a href='#'
+                   class='openCommentModal'
+                   data-page-id='song-dhanyawad-ho-tera'
+                   title='Comment / Suggest'>
+                    <i data-lucide='message-square' class='icon-inline'></i>
+                </a></span>
+                </div>
+            </li><li>
+                <a href='song.php?title=saari-srishti-ke-malik-tumhi-ho'>Saari Srishti Ke Malik Tumhi Ho (सारी सृष्टि के मालिक तुम्ही हो)</a>
+
+                <div class='song-meta-row'><span class='credits-info'>Words/Music: <a href='song_search.php?search=Kiran+Pradhan'>Kiran Pradhan</a></span> | <span class='song-lang'><a href='songlist.php?song_lang=HINDI'>HINDI</a></span>
+               | <span class='hits'>21 views</span><span class='song-icons'><a href="presenter.php?title=saari-srishti-ke-malik-tumhi-ho"
+          target="songPresenter"
+          title="Presenter">
+        <i data-lucide="monitor"></i>
+      </a>
+                <a href='#'
+                   class='openCommentModal'
+                   data-page-id='song-saari-srishti-ke-malik-tumhi-ho'
+                   title='Comment / Suggest'>
+                    <i data-lucide='message-square' class='icon-inline'></i>
+                </a></span>
+                </div>
+            </li><li>
+                <a href='song.php?title=onnumillaymayil-ninnenne-uyarthiya'>Onnumillaymayil Ninnenne Uyarthiya (ഒന്നുമില്ലായ്മയിൽ നിന്നെന്നെ ഉയർത്തിയ)</a>
+
+                <div class='song-meta-row'><span class='credits-info'>Words/Music: <a href='song_search.php?search=Susan+Shaji+Palackamannil'>Susan Shaji Palackamannil</a></span> | <span class='song-lang'><a href='songlist.php?song_lang=MALAYALAM'>MALAYALAM</a></span>
+               | <span class='hits'>21 views</span><span class='song-icons'><a href="presenter.php?title=onnumillaymayil-ninnenne-uyarthiya"
+          target="songPresenter"
+          title="Presenter">
+        <i data-lucide="monitor"></i>
+      </a>
+                <a href='#'
+                   class='openCommentModal'
+                   data-page-id='song-onnumillaymayil-ninnenne-uyarthiya'
+                   title='Comment / Suggest'>
+                    <i data-lucide='message-square' class='icon-inline'></i>
+                </a></span>
+                </div>
+            </li><li>
+                <a href='song.php?title=mukti-dilaye-yeshu-naam'>Mukti Dilaye Yeshu Naam (मुक्ति दिलाये यीशु नाम)</a>
+
+                <div class='song-meta-row'><span class='credits-info'>Words/Music: Unknown</span> | <span class='song-lang'><a href='songlist.php?song_lang=HINDI'>HINDI</a></span>
+               | <span class='hits'>21 views</span><span class='song-icons'><a href="presenter.php?title=mukti-dilaye-yeshu-naam"
+          target="songPresenter"
+          title="Presenter">
+        <i data-lucide="monitor"></i>
+      </a>
+                <a href='#'
+                   class='openCommentModal'
+                   data-page-id='song-mukti-dilaye-yeshu-naam'
+                   title='Comment / Suggest'>
+                    <i data-lucide='message-square' class='icon-inline'></i>
+                </a></span>
+                </div>
+            </li><li>
+                <a href='song.php?title=mahima-aadar-karte-hue'>Mahima Aadar Karte Hue (महिमा आदर करते हुए)</a>
+
+                <div class='song-meta-row'><span class='credits-info'>Words/Music: <a href='song_search.php?search=Eva-Lena+Hellmark'>Eva-Lena Hellmark</a></span> | <span class='song-lang'><a href='songlist.php?song_lang=HINDI'>HINDI</a></span>
+               | <span class='hits'>20 views</span><span class='song-icons'><a href="presenter.php?title=mahima-aadar-karte-hue"
+          target="songPresenter"
+          title="Presenter">
+        <i data-lucide="monitor"></i>
+      </a>
+                <a href='#'
+                   class='openCommentModal'
+                   data-page-id='song-mahima-aadar-karte-hue'
+                   title='Comment / Suggest'>
+                    <i data-lucide='message-square' class='icon-inline'></i>
+                </a></span>
+                </div>
+            </li><li>
+                <a href='song.php?title=enne-karuthum-ennum-pularthum'>Enne Karuthum Ennum Pularthum (എന്നെ കരുതും എന്നും പുലർത്തും)</a>
+
+                <div class='song-meta-row'><span class='credits-info'>Words/Music: <a href='song_search.php?search=Issac+William'>Issac William</a></span> | <span class='song-lang'><a href='songlist.php?song_lang=MALAYALAM'>MALAYALAM</a></span>
+               | <span class='hits'>20 views</span><span class='song-icons'><a href="presenter.php?title=enne-karuthum-ennum-pularthum"
+          target="songPresenter"
+          title="Presenter">
+        <i data-lucide="monitor"></i>
+      </a>
+                <a href='#'
+                   class='openCommentModal'
+                   data-page-id='song-enne-karuthum-ennum-pularthum'
+                   title='Comment / Suggest'>
+                    <i data-lucide='message-square' class='icon-inline'></i>
+                </a></span>
+                </div>
+            </li><li>
+                <a href='song.php?title=stuti-prashansa-hamare-yeshu-ki'>Stuti Prashansa Hamare Yeshu Ki (स्तुति प्रशंसा हमारे यीशु की)</a>
+
+                <div class='song-meta-row'><span class='credits-info'>Words/Music: Unknown</span> | <span class='song-lang'><a href='songlist.php?song_lang=HINDI'>HINDI</a></span>
+               | <span class='hits'>20 views</span><span class='song-icons'><a href="presenter.php?title=stuti-prashansa-hamare-yeshu-ki"
+          target="songPresenter"
+          title="Presenter">
+        <i data-lucide="monitor"></i>
+      </a>
+                <a href='#'
+                   class='openCommentModal'
+                   data-page-id='song-stuti-prashansa-hamare-yeshu-ki'
+                   title='Comment / Suggest'>
+                    <i data-lucide='message-square' class='icon-inline'></i>
+                </a></span>
+                </div>
+            </li><li>
+                <a href='song.php?title=magan'>Magan (मगन)</a>
+
+                <div class='song-meta-row'><span class='credits-info'>Words/Music: <a href='song_search.php?search=Sheldon+Bangera'>Sheldon Bangera</a></span> | <span class='song-lang'><a href='songlist.php?song_lang=HINDI'>HINDI</a></span>
+               | <span class='hits'>20 views</span><span class='song-icons'><a href="presenter.php?title=magan"
+          target="songPresenter"
+          title="Presenter">
+        <i data-lucide="monitor"></i>
+      </a>
+                <a href='#'
+                   class='openCommentModal'
+                   data-page-id='song-magan'
                    title='Comment / Suggest'>
                     <i data-lucide='message-square' class='icon-inline'></i>
                 </a></span>
@@ -2507,385 +2838,97 @@ const IS_ADMIN = false;
                 </a></span>
                 </div>
             </li><li>
-                <a href='song.php?title=en-yeshu-allathilleniku'>En Yeshu allathilleniku (എന്നേശു അല്ലാതില്ലെനിക്ക്)</a>
-
-                <div class='song-meta-row'><span class='credits-info'>Words/Music: Unknown</span> | <span class='song-lang'><a href='songlist.php?song_lang=MALAYALAM'>MALAYALAM</a></span>
-               | <span class='hits'>19 views</span><span class='song-icons'><a href="presenter.php?title=en-yeshu-allathilleniku"
-          target="songPresenter"
-          title="Presenter">
-        <i data-lucide="monitor"></i>
-      </a>
-                <a href='#'
-                   class='openCommentModal'
-                   data-page-id='song-en-yeshu-allathilleniku'
-                   title='Comment / Suggest'>
-                    <i data-lucide='message-square' class='icon-inline'></i>
-                </a></span>
-                </div>
-            </li><li>
-                <a href='song.php?title=lakdi-pe-latka-naasri'>Lakdi Pe Latka Naasri (लकड़ी पे लटका नासरी)</a>
-
-                <div class='song-meta-row'><span class='credits-info'>Words/Music: <a href='song_search.php?search=Ernest+Mall'>Ernest Mall</a></span> | <span class='song-lang'><a href='songlist.php?song_lang=HINDI'>HINDI</a></span>
-               | <span class='hits'>19 views</span><span class='song-icons'><a href="presenter.php?title=lakdi-pe-latka-naasri"
-          target="songPresenter"
-          title="Presenter">
-        <i data-lucide="monitor"></i>
-      </a>
-                <a href='#'
-                   class='openCommentModal'
-                   data-page-id='song-lakdi-pe-latka-naasri'
-                   title='Comment / Suggest'>
-                    <i data-lucide='message-square' class='icon-inline'></i>
-                </a></span>
-                </div>
-            </li><li>
-                <a href='song.php?title=vandanam-yeshupara'>Vandanam Yeshupara (വന്ദനം യേശുപരാ)</a>
-
-                <div class='song-meta-row'><span class='credits-info'>Words/Music: <a href='song_search.php?search=P+V+Thommy'>P V Thommy</a></span> | <span class='song-lang'><a href='songlist.php?song_lang=MALAYALAM'>MALAYALAM</a></span>
-               | <span class='hits'>19 views</span><span class='song-icons'><a href="presenter.php?title=vandanam-yeshupara"
-          target="songPresenter"
-          title="Presenter">
-        <i data-lucide="monitor"></i>
-      </a>
-                <a href='#'
-                   class='openCommentModal'
-                   data-page-id='song-vandanam-yeshupara'
-                   title='Comment / Suggest'>
-                    <i data-lucide='message-square' class='icon-inline'></i>
-                </a></span>
-                </div>
-            </li><li>
-                <a href='song.php?title=nee-ente-sankethavum'>Nee Ente Sankethavum (നീയെന്റെ സങ്കേതവും)</a>
-
-                <div class='song-meta-row'><span class='credits-info'>Words/Music: <a href='song_search.php?search=Rona+Kottoor'>Rona Kottoor</a>, <a href='song_search.php?search=Samson+Kottoor'>Samson Kottoor</a></span> | <span class='song-lang'><a href='songlist.php?song_lang=MALAYALAM'>MALAYALAM</a></span>
-               | <span class='hits'>19 views</span><span class='song-icons'><a href="presenter.php?title=nee-ente-sankethavum"
-          target="songPresenter"
-          title="Presenter">
-        <i data-lucide="monitor"></i>
-      </a>
-                <a href='#'
-                   class='openCommentModal'
-                   data-page-id='song-nee-ente-sankethavum'
-                   title='Comment / Suggest'>
-                    <i data-lucide='message-square' class='icon-inline'></i>
-                </a></span>
-                </div>
-            </li><li>
-                <a href='song.php?title=main-tujhko-pasand-aoun'>Main Tujhko Pasand Aoun (मैं तुझको पसंद आऊं)</a>
-
-                <div class='song-meta-row'><span class='credits-info'>Words/Music: <a href='song_search.php?search=Ashish+Charan'>Ashish Charan</a></span> | <span class='song-lang'><a href='songlist.php?song_lang=HINDI'>HINDI</a></span>
-               | <span class='hits'>18 views</span><span class='song-icons'><a href="presenter.php?title=main-tujhko-pasand-aoun"
-          target="songPresenter"
-          title="Presenter">
-        <i data-lucide="monitor"></i>
-      </a>
-                <a href='#'
-                   class='openCommentModal'
-                   data-page-id='song-main-tujhko-pasand-aoun'
-                   title='Comment / Suggest'>
-                    <i data-lucide='message-square' class='icon-inline'></i>
-                </a></span>
-                </div>
-            </li><li>
-                <a href='song.php?title=kuch-naya'>Kuch Naya (कुछ नया)</a>
-
-                <div class='song-meta-row'><span class='credits-info'>Words/Music: <a href='song_search.php?search=Allen+Ganta'>Allen Ganta</a>, <a href='song_search.php?search=Prince+Mulla'>Prince Mulla</a>, <a href='song_search.php?search=Thanga+Selvam'>Thanga Selvam</a>, <a href='song_search.php?search=Ian+Eskelin'>Ian Eskelin</a></span> | <span class='song-lang'><a href='songlist.php?song_lang=HINDI'>HINDI</a></span>
-               | <span class='hits'>18 views</span><span class='song-icons'><a href="presenter.php?title=kuch-naya"
-          target="songPresenter"
-          title="Presenter">
-        <i data-lucide="monitor"></i>
-      </a>
-                <a href='#'
-                   class='openCommentModal'
-                   data-page-id='song-kuch-naya'
-                   title='Comment / Suggest'>
-                    <i data-lucide='message-square' class='icon-inline'></i>
-                </a></span>
-                </div>
-            </li><li>
-                <a href='song.php?title=he-rakshayaam-divya-snehakadale'>He Rakshayaam Divya Snehakadale (ഹേ രക്ഷയാം ദിവ്യ സ്നേഹകടലേ)</a>
-
-                <div class='song-meta-row'><span class='credits-info'>Words/Music: <a href='song_search.php?search=William+Booth'>William Booth</a></span> | <span class='song-lang'><a href='songlist.php?song_lang=MALAYALAM'>MALAYALAM</a></span>
-               | <span class='hits'>18 views</span><span class='song-icons'><a href="presenter.php?title=he-rakshayaam-divya-snehakadale"
-          target="songPresenter"
-          title="Presenter">
-        <i data-lucide="monitor"></i>
-      </a>
-                <a href='#'
-                   class='openCommentModal'
-                   data-page-id='song-he-rakshayaam-divya-snehakadale'
-                   title='Comment / Suggest'>
-                    <i data-lucide='message-square' class='icon-inline'></i>
-                </a></span>
-                </div>
-            </li><li>
-                <a href='song.php?title=har-pal-yeshu-ke-sang'>Har Pal Yeshu Ke Sang (हर पल यीशु के संग)</a>
-
-                <div class='song-meta-row'><span class='credits-info'>Words/Music: <a href='song_search.php?search=Rajesh+Daniel+Elappara'>Rajesh Daniel Elappara</a></span> | <span class='song-lang'><a href='songlist.php?song_lang=HINDI'>HINDI</a></span>
-               | <span class='hits'>18 views</span><span class='song-icons'><a href="presenter.php?title=har-pal-yeshu-ke-sang"
-          target="songPresenter"
-          title="Presenter">
-        <i data-lucide="monitor"></i>
-      </a>
-                <a href='#'
-                   class='openCommentModal'
-                   data-page-id='song-har-pal-yeshu-ke-sang'
-                   title='Comment / Suggest'>
-                    <i data-lucide='message-square' class='icon-inline'></i>
-                </a></span>
-                </div>
-            </li><li>
-                <a href='song.php?title=tu-mera-bal-tu-meri-dhal'>Tu Mera Bal, Tu Meri Dhal (तू मेरा बल, तू मेरी ढाल)</a>
-
-                <div class='song-meta-row'><span class='credits-info'>Words/Music: <a href='song_search.php?search=Samuel+Minj'>Samuel Minj</a></span> | <span class='song-lang'><a href='songlist.php?song_lang=HINDI'>HINDI</a></span>
-               | <span class='hits'>18 views</span><span class='song-icons'><a href="presenter.php?title=tu-mera-bal-tu-meri-dhal"
-          target="songPresenter"
-          title="Presenter">
-        <i data-lucide="monitor"></i>
-      </a>
-                <a href='#'
-                   class='openCommentModal'
-                   data-page-id='song-tu-mera-bal-tu-meri-dhal'
-                   title='Comment / Suggest'>
-                    <i data-lucide='message-square' class='icon-inline'></i>
-                </a></span>
-                </div>
-            </li><li>
-                <a href='song.php?title=hey-yeeshu-daata'>Hey Yeeshu Daata (हे यीशु दाता)</a>
-
-                <div class='song-meta-row'><span class='credits-info'>Words/Music: <a href='song_search.php?search=Pastor+Wilson+George'>Pastor Wilson George</a>, <a href='song_search.php?search=Jubin+Kurian'>Jubin Kurian</a></span> | <span class='song-lang'><a href='songlist.php?song_lang=HINDI'>HINDI</a></span>
-               | <span class='hits'>18 views</span><span class='song-icons'><a href="presenter.php?title=hey-yeeshu-daata"
-          target="songPresenter"
-          title="Presenter">
-        <i data-lucide="monitor"></i>
-      </a>
-                <a href='#'
-                   class='openCommentModal'
-                   data-page-id='song-hey-yeeshu-daata'
-                   title='Comment / Suggest'>
-                    <i data-lucide='message-square' class='icon-inline'></i>
-                </a></span>
-                </div>
-            </li><li>
-                <a href='song.php?title=israyelin-rajave'>Israyelin Rajave (ഇസ്രായേലിന്‍ രാജാവേ)</a>
-
-                <div class='song-meta-row'><span class='credits-info'>Words/Music: <a href='song_search.php?search=Issac+William'>Issac William</a></span> | <span class='song-lang'><a href='songlist.php?song_lang=MALAYALAM'>MALAYALAM</a></span>
-               | <span class='hits'>18 views</span><span class='song-icons'><a href="presenter.php?title=israyelin-rajave"
-          target="songPresenter"
-          title="Presenter">
-        <i data-lucide="monitor"></i>
-      </a>
-                <a href='#'
-                   class='openCommentModal'
-                   data-page-id='song-israyelin-rajave'
-                   title='Comment / Suggest'>
-                    <i data-lucide='message-square' class='icon-inline'></i>
-                </a></span>
-                </div>
-            </li><li>
-                <a href='song.php?title=loke-njan-en-ottam-thikechu'>Loke Njan En Ottam Thikechu (ലോകേ ഞാൻ എൻ ഓട്ടം തികച്ചു)</a>
-
-                <div class='song-meta-row'><span class='credits-info'>Words/Music: Unknown</span> | <span class='song-lang'><a href='songlist.php?song_lang=MALAYALAM'>MALAYALAM</a></span>
-               | <span class='hits'>17 views</span><span class='song-icons'><a href="presenter.php?title=loke-njan-en-ottam-thikechu"
-          target="songPresenter"
-          title="Presenter">
-        <i data-lucide="monitor"></i>
-      </a>
-                <a href='#'
-                   class='openCommentModal'
-                   data-page-id='song-loke-njan-en-ottam-thikechu'
-                   title='Comment / Suggest'>
-                    <i data-lucide='message-square' class='icon-inline'></i>
-                </a></span>
-                </div>
-            </li><li>
-                <a href='song.php?title=khud-ko-main-deta-hoon'>Khud Ko Main Deta Hoon (खुद को मैं देता हूँ)</a>
-
-                <div class='song-meta-row'><span class='credits-info'>Words/Music: <a href='song_search.php?search=Rijo+Joseph'>Rijo Joseph</a></span> | <span class='song-lang'><a href='songlist.php?song_lang=HINDI'>HINDI</a></span>
-               | <span class='hits'>17 views</span><span class='song-icons'><a href="presenter.php?title=khud-ko-main-deta-hoon"
-          target="songPresenter"
-          title="Presenter">
-        <i data-lucide="monitor"></i>
-      </a>
-                <a href='#'
-                   class='openCommentModal'
-                   data-page-id='song-khud-ko-main-deta-hoon'
-                   title='Comment / Suggest'>
-                    <i data-lucide='message-square' class='icon-inline'></i>
-                </a></span>
-                </div>
-            </li><li>
-                <a href='song.php?title=azaad-hoon'>Azaad Hoon (आज़ाद हूँ)</a>
-
-                <div class='song-meta-row'><span class='credits-info'>Words/Music: <a href='song_search.php?search=Sheldon+Bangera'>Sheldon Bangera</a>, <a href='song_search.php?search=Prince+Robinson'>Prince Robinson</a></span> | <span class='song-lang'><a href='songlist.php?song_lang=HINDI'>HINDI</a></span>
-               | <span class='hits'>17 views</span><span class='song-icons'><a href="presenter.php?title=azaad-hoon"
-          target="songPresenter"
-          title="Presenter">
-        <i data-lucide="monitor"></i>
-      </a>
-                <a href='#'
-                   class='openCommentModal'
-                   data-page-id='song-azaad-hoon'
-                   title='Comment / Suggest'>
-                    <i data-lucide='message-square' class='icon-inline'></i>
-                </a></span>
-                </div>
-            </li><li>
-                <a href='song.php?title=senao-ka-yahowa'>Senao Ka Yahowa (सेनाओं का यहोवा)</a>
+                <a href='song.php?title=aradhana-ho-aradhana'>Aradhana Ho Aradhana (आराधना हो आराधना)</a>
 
                 <div class='song-meta-row'><span class='credits-info'>Words/Music: Unknown</span> | <span class='song-lang'><a href='songlist.php?song_lang=HINDI'>HINDI</a></span>
-               | <span class='hits'>17 views</span><span class='song-icons'><a href="presenter.php?title=senao-ka-yahowa"
+               | <span class='hits'>20 views</span><span class='song-icons'><a href="presenter.php?title=aradhana-ho-aradhana"
           target="songPresenter"
           title="Presenter">
         <i data-lucide="monitor"></i>
       </a>
                 <a href='#'
                    class='openCommentModal'
-                   data-page-id='song-senao-ka-yahowa'
+                   data-page-id='song-aradhana-ho-aradhana'
                    title='Comment / Suggest'>
                     <i data-lucide='message-square' class='icon-inline'></i>
                 </a></span>
                 </div>
             </li><li>
-                <a href='song.php?title=bhagya-nattil-pokum-njan'>Bhagya Nattil Pokum Njan (ഭാഗ്യനാട്ടിൽ പോകും ഞാൻ)</a>
+                <a href='song.php?title=aye-mere-mann-kyon-hai-udaas'>Aye Mere Mann Kyon Hai Udaas (ए मेरे मन क्यों है उदास)</a>
 
-                <div class='song-meta-row'><span class='credits-info'>Words/Music: <a href='song_search.php?search=Muttom+Geevarghese'>Muttom Geevarghese</a></span> | <span class='song-lang'><a href='songlist.php?song_lang=MALAYALAM'>MALAYALAM</a></span>
-               | <span class='hits'>17 views</span><span class='song-icons'><a href="presenter.php?title=bhagya-nattil-pokum-njan"
+                <div class='song-meta-row'><span class='credits-info'>Words/Music: <a href='song_search.php?search=Sheldon+Bangera'>Sheldon Bangera</a></span> | <span class='song-lang'><a href='songlist.php?song_lang=HINDI'>HINDI</a></span>
+               | <span class='hits'>20 views</span><span class='song-icons'><a href="presenter.php?title=aye-mere-mann-kyon-hai-udaas"
           target="songPresenter"
           title="Presenter">
         <i data-lucide="monitor"></i>
       </a>
                 <a href='#'
                    class='openCommentModal'
-                   data-page-id='song-bhagya-nattil-pokum-njan'
+                   data-page-id='song-aye-mere-mann-kyon-hai-udaas'
                    title='Comment / Suggest'>
                     <i data-lucide='message-square' class='icon-inline'></i>
                 </a></span>
                 </div>
             </li><li>
-                <a href='song.php?title=tu-pavitra-pavitra-hai'>Tu Pavitra Pavitra Hai (तू पवित्र पवित्र है)</a>
-
-                <div class='song-meta-row'><span class='credits-info'>Words/Music: Unknown</span> | <span class='song-lang'><a href='songlist.php?song_lang=HINDI'>HINDI</a></span>
-               | <span class='hits'>17 views</span><span class='song-icons'><a href="presenter.php?title=tu-pavitra-pavitra-hai"
-          target="songPresenter"
-          title="Presenter">
-        <i data-lucide="monitor"></i>
-      </a>
-                <a href='#'
-                   class='openCommentModal'
-                   data-page-id='song-tu-pavitra-pavitra-hai'
-                   title='Comment / Suggest'>
-                    <i data-lucide='message-square' class='icon-inline'></i>
-                </a></span>
-                </div>
-            </li><li>
-                <a href='song.php?title=aasha-meri'>Aasha Meri (आशा मेरी)</a>
-
-                <div class='song-meta-row'><span class='credits-info'>Words/Music: <a href='song_search.php?search=Brian+Johnson'>Brian Johnson</a>, <a href='song_search.php?search=Shivani+Prakash'>Shivani Prakash</a>, <a href='song_search.php?search=Allen+Ganta'>Allen Ganta</a>, <a href='song_search.php?search=Phil+Wickham'>Phil Wickham</a>, <a href='song_search.php?search=Finny+Prakash'>Finny Prakash</a></span> | <span class='song-lang'><a href='songlist.php?song_lang=HINDI'>HINDI</a></span>
-               | <span class='hits'>17 views</span><span class='song-icons'><a href="presenter.php?title=aasha-meri"
-          target="songPresenter"
-          title="Presenter">
-        <i data-lucide="monitor"></i>
-      </a>
-                <a href='#'
-                   class='openCommentModal'
-                   data-page-id='song-aasha-meri'
-                   title='Comment / Suggest'>
-                    <i data-lucide='message-square' class='icon-inline'></i>
-                </a></span>
-                </div>
-            </li><li>
-                <a href='song.php?title=there-shall-be-showers-of-blessing'>There Shall Be Showers Of Blessing</a>
-
-                <div class='song-meta-row'><span class='credits-info'>Words/Music: <a href='song_search.php?search=James+McGranahan'>James McGranahan</a>, <a href='song_search.php?search=Daniel+Webster'>Daniel Webster</a></span> | <span class='song-lang'><a href='songlist.php?song_lang=ENGLISH'>ENGLISH</a></span>
-               | <span class='hits'>17 views</span><span class='song-icons'><a href="presenter.php?title=there-shall-be-showers-of-blessing"
-          target="songPresenter"
-          title="Presenter">
-        <i data-lucide="monitor"></i>
-      </a>
-                <a href='#'
-                   class='openCommentModal'
-                   data-page-id='song-there-shall-be-showers-of-blessing'
-                   title='Comment / Suggest'>
-                    <i data-lucide='message-square' class='icon-inline'></i>
-                </a></span>
-                </div>
-            </li><li>
-                <a href='song.php?title=angepolen-daivame'>Angepolen Daivame (അങ്ങേപ്പോലെൻ ദൈവമേ)</a>
-
-                <div class='song-meta-row'><span class='credits-info'>Words/Music: <a href='song_search.php?search=Brite+Abraham'>Brite Abraham</a></span> | <span class='song-lang'><a href='songlist.php?song_lang=MALAYALAM'>MALAYALAM</a></span>
-               | <span class='hits'>16 views</span><span class='song-icons'><a href="presenter.php?title=angepolen-daivame"
-          target="songPresenter"
-          title="Presenter">
-        <i data-lucide="monitor"></i>
-      </a>
-                <a href='#'
-                   class='openCommentModal'
-                   data-page-id='song-angepolen-daivame'
-                   title='Comment / Suggest'>
-                    <i data-lucide='message-square' class='icon-inline'></i>
-                </a></span>
-                </div>
-            </li><li>
-                <a href='song.php?title=gaaoon-hallelujah'>Gaaoon Hallelujah (गाऊँ हाल्लेलूयाह)</a>
-
-                <div class='song-meta-row'><span class='credits-info'>Words/Music: <a href='song_search.php?search=Shivani+Prakash'>Shivani Prakash</a>, <a href='song_search.php?search=Allen+Ganta'>Allen Ganta</a>, <a href='song_search.php?search=Bethel+Music'>Bethel Music</a>, <a href='song_search.php?search=Finny+Prakash'>Finny Prakash</a></span> | <span class='song-lang'><a href='songlist.php?song_lang=HINDI'>HINDI</a></span>
-               | <span class='hits'>16 views</span><span class='song-icons'><a href="presenter.php?title=gaaoon-hallelujah"
-          target="songPresenter"
-          title="Presenter">
-        <i data-lucide="monitor"></i>
-      </a>
-                <a href='#'
-                   class='openCommentModal'
-                   data-page-id='song-gaaoon-hallelujah'
-                   title='Comment / Suggest'>
-                    <i data-lucide='message-square' class='icon-inline'></i>
-                </a></span>
-                </div>
-            </li><li>
-                <a href='song.php?title=yeshu-nallavan-avan-vallabhan'>Yeshu Nallavan Avan Vallabhan (യേശു നല്ലവൻ അവൻ വല്ലഭൻ)</a>
-
-                <div class='song-meta-row'><span class='credits-info'>Words/Music: <a href='song_search.php?search=Traditional'>Traditional</a></span> | <span class='song-lang'><a href='songlist.php?song_lang=MALAYALAM'>MALAYALAM</a></span>
-               | <span class='hits'>16 views</span><span class='song-icons'><a href="presenter.php?title=yeshu-nallavan-avan-vallabhan"
-          target="songPresenter"
-          title="Presenter">
-        <i data-lucide="monitor"></i>
-      </a>
-                <a href='#'
-                   class='openCommentModal'
-                   data-page-id='song-yeshu-nallavan-avan-vallabhan'
-                   title='Comment / Suggest'>
-                    <i data-lucide='message-square' class='icon-inline'></i>
-                </a></span>
-                </div>
-            </li><li>
-                <a href='song.php?title=blind-man-sat-by-the-road'>Blind Man Sat By The Road</a>
-
-                <div class='song-meta-row'><span class='credits-info'>Words/Music: Unknown</span> | <span class='song-lang'><a href='songlist.php?song_lang=ENGLISH'>ENGLISH</a></span>
-               | <span class='hits'>16 views</span><span class='song-icons'><a href="presenter.php?title=blind-man-sat-by-the-road"
-          target="songPresenter"
-          title="Presenter">
-        <i data-lucide="monitor"></i>
-      </a>
-                <a href='#'
-                   class='openCommentModal'
-                   data-page-id='song-blind-man-sat-by-the-road'
-                   title='Comment / Suggest'>
-                    <i data-lucide='message-square' class='icon-inline'></i>
-                </a></span>
-                </div>
-            </li><li>
-                <a href='song.php?title=yahweh-india-manifesta'>Yahweh India Manifesta</a>
+                <a href='song.php?title=stuti-aradhana-upar-jati-hai'>Stuti Aradhana Upar Jati Hai (स्तुति आराधना ऊपर जाती है)</a>
 
                 <div class='song-meta-row'><span class='credits-info'>Words/Music: Unknown</span> | <span class='song-lang'><a href='songlist.php?song_lang=HINDI'>HINDI</a></span>
-               | <span class='hits'>16 views</span><span class='song-icons'><a href="presenter.php?title=yahweh-india-manifesta"
+               | <span class='hits'>19 views</span><span class='song-icons'><a href="presenter.php?title=stuti-aradhana-upar-jati-hai"
           target="songPresenter"
           title="Presenter">
         <i data-lucide="monitor"></i>
       </a>
                 <a href='#'
                    class='openCommentModal'
-                   data-page-id='song-yahweh-india-manifesta'
+                   data-page-id='song-stuti-aradhana-upar-jati-hai'
+                   title='Comment / Suggest'>
+                    <i data-lucide='message-square' class='icon-inline'></i>
+                </a></span>
+                </div>
+            </li><li>
+                <a href='song.php?title=tadpa-tha-yeshu-kiske-liye'>Tadpa Tha Yeshu Kiske Liye (तड़पा था येशु किसके लिए)</a>
+
+                <div class='song-meta-row'><span class='credits-info'>Words/Music: <a href='song_search.php?search=Rajinald+Vijay+Milton'>Rajinald Vijay Milton</a></span> | <span class='song-lang'><a href='songlist.php?song_lang=HINDI'>HINDI</a></span>
+               | <span class='hits'>19 views</span><span class='song-icons'><a href="presenter.php?title=tadpa-tha-yeshu-kiske-liye"
+          target="songPresenter"
+          title="Presenter">
+        <i data-lucide="monitor"></i>
+      </a>
+                <a href='#'
+                   class='openCommentModal'
+                   data-page-id='song-tadpa-tha-yeshu-kiske-liye'
+                   title='Comment / Suggest'>
+                    <i data-lucide='message-square' class='icon-inline'></i>
+                </a></span>
+                </div>
+            </li><li>
+                <a href='song.php?title=tera-pyar-hai-mahaan'>Tera Pyar Hai Mahaan (तेरा प्यार है महान)</a>
+
+                <div class='song-meta-row'><span class='credits-info'>Words/Music: Unknown</span> | <span class='song-lang'><a href='songlist.php?song_lang=HINDI'>HINDI</a></span>
+               | <span class='hits'>19 views</span><span class='song-icons'><a href="presenter.php?title=tera-pyar-hai-mahaan"
+          target="songPresenter"
+          title="Presenter">
+        <i data-lucide="monitor"></i>
+      </a>
+                <a href='#'
+                   class='openCommentModal'
+                   data-page-id='song-tera-pyar-hai-mahaan'
+                   title='Comment / Suggest'>
+                    <i data-lucide='message-square' class='icon-inline'></i>
+                </a></span>
+                </div>
+            </li><li>
+                <a href='song.php?title=sada-raja'>Sada Raja (सदा राजा)</a>
+
+                <div class='song-meta-row'><span class='credits-info'>Words/Music: <a href='song_search.php?search=Ashish+Borkar'>Ashish Borkar</a>, <a href='song_search.php?search=Joesph+Raj+Alam'>Joesph Raj Alam</a></span> | <span class='song-lang'><a href='songlist.php?song_lang=HINDI'>HINDI</a></span>
+               | <span class='hits'>19 views</span><span class='song-icons'><a href="presenter.php?title=sada-raja"
+          target="songPresenter"
+          title="Presenter">
+        <i data-lucide="monitor"></i>
+      </a>
+                <a href='#'
+                   class='openCommentModal'
+                   data-page-id='song-sada-raja'
                    title='Comment / Suggest'>
                     <i data-lucide='message-square' class='icon-inline'></i>
                 </a></span>
@@ -2897,7 +2940,7 @@ const IS_ADMIN = false;
                 <a href='song.php?title=enne-nadathum-aa-ponnu-karamo'>Enne Nadathum Aa Ponnu Karamo (എന്നെ  നടത്തും  ആ  പൊന്നു  കരമോ)</a>
 
                 <div class='song-meta-row'><span class='credits-info'>Words/Music: <a href='song_search.php?search=Anil+Adoor'>Anil Adoor</a></span> | <span class='song-lang'><a href='songlist.php?song_lang=MALAYALAM'>MALAYALAM</a></span>
-               | <span class='hits'>7450 views</span><span class='song-icons'><a href="presenter.php?title=enne-nadathum-aa-ponnu-karamo"
+               | <span class='hits'>8261 views</span><span class='song-icons'><a href="presenter.php?title=enne-nadathum-aa-ponnu-karamo"
           target="songPresenter"
           title="Presenter">
         <i data-lucide="monitor"></i>
@@ -2913,7 +2956,7 @@ const IS_ADMIN = false;
                 <a href='song.php?title=hazaaron-zubane'>Hazaaron Zubane (हज़ारों ज़ुबाने)</a>
 
                 <div class='song-meta-row'><span class='credits-info'>Words/Music: <a href='song_search.php?search=Amit+Kamble'>Amit Kamble</a>, <a href='song_search.php?search=Deepak+Tusham'>Deepak Tusham</a>, <a href='song_search.php?search=Suraj+Dogra'>Suraj Dogra</a>, <a href='song_search.php?search=Hemant+Sharma'>Hemant Sharma</a></span> | <span class='song-lang'><a href='songlist.php?song_lang=HINDI'>HINDI</a></span>
-               | <span class='hits'>7232 views</span><span class='song-icons'><a href="presenter.php?title=hazaaron-zubane"
+               | <span class='hits'>8035 views</span><span class='song-icons'><a href="presenter.php?title=hazaaron-zubane"
           target="songPresenter"
           title="Presenter">
         <i data-lucide="monitor"></i>
@@ -2926,26 +2969,10 @@ const IS_ADMIN = false;
                 </a></span>
                 </div>
             </li><li>
-                <a href='song.php?title=masiha-aaya-hai'>Masiha Aaya Hai (मसीहा आया है)</a>
-
-                <div class='song-meta-row'><span class='credits-info'>Words/Music: <a href='song_search.php?search=Jaago+Music'>Jaago Music</a></span> | <span class='song-lang'><a href='songlist.php?song_lang=HINDI'>HINDI</a></span>
-               | <span class='hits'>7133 views</span><span class='song-icons'><a href="presenter.php?title=masiha-aaya-hai"
-          target="songPresenter"
-          title="Presenter">
-        <i data-lucide="monitor"></i>
-      </a>
-                <a href='#'
-                   class='openCommentModal'
-                   data-page-id='song-masiha-aaya-hai'
-                   title='Comment / Suggest'>
-                    <i data-lucide='message-square' class='icon-inline'></i>
-                </a></span>
-                </div>
-            </li><li>
                 <a href='song.php?title=mera-dil-bane-tera-sinhasan'>Mera Dil Bane Tera Sinhasan (मेरा दिल बने तेरा सिंहासन)</a>
 
                 <div class='song-meta-row'><span class='credits-info'>Words/Music: <a href='song_search.php?search=Ajay+Chavan'>Ajay Chavan</a></span> | <span class='song-lang'><a href='songlist.php?song_lang=HINDI'>HINDI</a></span>
-               | <span class='hits'>6956 views</span><span class='song-icons'><a href="presenter.php?title=mera-dil-bane-tera-sinhasan"
+               | <span class='hits'>7973 views</span><span class='song-icons'><a href="presenter.php?title=mera-dil-bane-tera-sinhasan"
           target="songPresenter"
           title="Presenter">
         <i data-lucide="monitor"></i>
@@ -2961,7 +2988,7 @@ const IS_ADMIN = false;
                 <a href='song.php?title=aaradhana-teri-aaradhana'>Aaradhana Teri Aaradhana (आराधना तेरी आराधना)</a>
 
                 <div class='song-meta-row'><span class='credits-info'>Words/Music: <a href='song_search.php?search=Brite+Abraham'>Brite Abraham</a>, <a href='song_search.php?search=Matthew+Varghese'>Matthew Varghese</a>, <a href='song_search.php?search=Jessy+Robin'>Jessy Robin</a></span> | <span class='song-lang'><a href='songlist.php?song_lang=HINDI'>HINDI</a></span>
-               | <span class='hits'>6814 views</span><span class='song-icons'><a href="presenter.php?title=aaradhana-teri-aaradhana"
+               | <span class='hits'>7575 views</span><span class='song-icons'><a href="presenter.php?title=aaradhana-teri-aaradhana"
           target="songPresenter"
           title="Presenter">
         <i data-lucide="monitor"></i>
@@ -2977,7 +3004,7 @@ const IS_ADMIN = false;
                 <a href='song.php?title=haath-uthaakar-gaoonga'>Haath Uthaakar Gaoonga (हाथ उठाकर गाऊँगा)</a>
 
                 <div class='song-meta-row'><span class='credits-info'>Words/Music: <a href='song_search.php?search=Cameron+Mendes'>Cameron Mendes</a>, <a href='song_search.php?search=Samarth+Shukla'>Samarth Shukla</a>, <a href='song_search.php?search=Sam+Alex'>Sam Alex</a></span> | <span class='song-lang'><a href='songlist.php?song_lang=HINDI'>HINDI</a></span>
-               | <span class='hits'>6603 views</span><span class='song-icons'><a href="presenter.php?title=haath-uthaakar-gaoonga"
+               | <span class='hits'>7491 views</span><span class='song-icons'><a href="presenter.php?title=haath-uthaakar-gaoonga"
           target="songPresenter"
           title="Presenter">
         <i data-lucide="monitor"></i>
@@ -2993,7 +3020,7 @@ const IS_ADMIN = false;
                 <a href='song.php?title=nanni-nanni-en-daivame'>Nanni Nanni En Daivame (നന്ദി നന്ദി എൻ ദൈവമേ)</a>
 
                 <div class='song-meta-row'><span class='credits-info'>Words/Music: <a href='song_search.php?search=Charles+Jacob'>Charles Jacob</a></span> | <span class='song-lang'><a href='songlist.php?song_lang=MALAYALAM'>MALAYALAM</a></span>
-               | <span class='hits'>6596 views</span><span class='song-icons'><a href="presenter.php?title=nanni-nanni-en-daivame"
+               | <span class='hits'>7284 views</span><span class='song-icons'><a href="presenter.php?title=nanni-nanni-en-daivame"
           target="songPresenter"
           title="Presenter">
         <i data-lucide="monitor"></i>
@@ -3006,10 +3033,26 @@ const IS_ADMIN = false;
                 </a></span>
                 </div>
             </li><li>
+                <a href='song.php?title=masiha-aaya-hai'>Masiha Aaya Hai (मसीहा आया है)</a>
+
+                <div class='song-meta-row'><span class='credits-info'>Words/Music: <a href='song_search.php?search=Jaago+Music'>Jaago Music</a></span> | <span class='song-lang'><a href='songlist.php?song_lang=HINDI'>HINDI</a></span>
+               | <span class='hits'>7277 views</span><span class='song-icons'><a href="presenter.php?title=masiha-aaya-hai"
+          target="songPresenter"
+          title="Presenter">
+        <i data-lucide="monitor"></i>
+      </a>
+                <a href='#'
+                   class='openCommentModal'
+                   data-page-id='song-masiha-aaya-hai'
+                   title='Comment / Suggest'>
+                    <i data-lucide='message-square' class='icon-inline'></i>
+                </a></span>
+                </div>
+            </li><li>
                 <a href='song.php?title=aaraadhana-chaetunu-anni-vaelalaa'>Aaraadhana Chaetunu Anni Vaelalaa (ఆరాధన చేతును అన్ని వేళలా)</a>
 
                 <div class='song-meta-row'><span class='credits-info'>Words/Music: <a href='song_search.php?search=Palaparthi+Prabhudas'>Palaparthi Prabhudas</a></span> | <span class='song-lang'><a href='songlist.php?song_lang=TELUGU'>TELUGU</a></span>
-               | <span class='hits'>5604 views</span><span class='song-icons'><a href="presenter.php?title=aaraadhana-chaetunu-anni-vaelalaa"
+               | <span class='hits'>6463 views</span><span class='song-icons'><a href="presenter.php?title=aaraadhana-chaetunu-anni-vaelalaa"
           target="songPresenter"
           title="Presenter">
         <i data-lucide="monitor"></i>
@@ -3025,7 +3068,7 @@ const IS_ADMIN = false;
                 <a href='song.php?title=vagdathathin-samayam'>Vagdathathin Samayam (വാഗ്ദത്തത്തിൻ സമയ)</a>
 
                 <div class='song-meta-row'><span class='credits-info'>Words/Music: <a href='song_search.php?search=Roshan+Ninan+Koshy'>Roshan Ninan Koshy</a></span> | <span class='song-lang'><a href='songlist.php?song_lang=MALAYALAM'>MALAYALAM</a></span>
-               | <span class='hits'>4837 views</span><span class='song-icons'><a href="presenter.php?title=vagdathathin-samayam"
+               | <span class='hits'>5283 views</span><span class='song-icons'><a href="presenter.php?title=vagdathathin-samayam"
           target="songPresenter"
           title="Presenter">
         <i data-lucide="monitor"></i>
@@ -3038,42 +3081,10 @@ const IS_ADMIN = false;
                 </a></span>
                 </div>
             </li><li>
-                <a href='song.php?title=saari-srishti-ke-malik-tumhi-ho'>Saari Srishti Ke Malik Tumhi Ho (सारी सृष्टि के मालिक तुम्ही हो)</a>
-
-                <div class='song-meta-row'><span class='credits-info'>Words/Music: <a href='song_search.php?search=Kiran+Pradhan'>Kiran Pradhan</a></span> | <span class='song-lang'><a href='songlist.php?song_lang=HINDI'>HINDI</a></span>
-               | <span class='hits'>4465 views</span><span class='song-icons'><a href="presenter.php?title=saari-srishti-ke-malik-tumhi-ho"
-          target="songPresenter"
-          title="Presenter">
-        <i data-lucide="monitor"></i>
-      </a>
-                <a href='#'
-                   class='openCommentModal'
-                   data-page-id='song-saari-srishti-ke-malik-tumhi-ho'
-                   title='Comment / Suggest'>
-                    <i data-lucide='message-square' class='icon-inline'></i>
-                </a></span>
-                </div>
-            </li><li>
-                <a href='song.php?title=orthidumbol-albhuthame'>Orthidumbol Albhuthame (ഓർത്തീടുമ്പോൾ അത്ഭുതമേ)</a>
-
-                <div class='song-meta-row'><span class='credits-info'>Words/Music: <a href='song_search.php?search=Anil+Adoor'>Anil Adoor</a></span> | <span class='song-lang'><a href='songlist.php?song_lang=MALAYALAM'>MALAYALAM</a></span>
-               | <span class='hits'>4398 views</span><span class='song-icons'><a href="presenter.php?title=orthidumbol-albhuthame"
-          target="songPresenter"
-          title="Presenter">
-        <i data-lucide="monitor"></i>
-      </a>
-                <a href='#'
-                   class='openCommentModal'
-                   data-page-id='song-orthidumbol-albhuthame'
-                   title='Comment / Suggest'>
-                    <i data-lucide='message-square' class='icon-inline'></i>
-                </a></span>
-                </div>
-            </li><li>
                 <a href='song.php?title=ho-jai-jaikaar'>Ho Jai Jaikaar (हो जय जयकार)</a>
 
                 <div class='song-meta-row'><span class='credits-info'>Words/Music: Unknown</span> | <span class='song-lang'><a href='songlist.php?song_lang=HINDI'>HINDI</a></span>
-               | <span class='hits'>4379 views</span><span class='song-icons'><a href="presenter.php?title=ho-jai-jaikaar"
+               | <span class='hits'>5007 views</span><span class='song-icons'><a href="presenter.php?title=ho-jai-jaikaar"
           target="songPresenter"
           title="Presenter">
         <i data-lucide="monitor"></i>
@@ -3086,10 +3097,58 @@ const IS_ADMIN = false;
                 </a></span>
                 </div>
             </li><li>
+                <a href='song.php?title=saari-srishti-ke-malik-tumhi-ho'>Saari Srishti Ke Malik Tumhi Ho (सारी सृष्टि के मालिक तुम्ही हो)</a>
+
+                <div class='song-meta-row'><span class='credits-info'>Words/Music: <a href='song_search.php?search=Kiran+Pradhan'>Kiran Pradhan</a></span> | <span class='song-lang'><a href='songlist.php?song_lang=HINDI'>HINDI</a></span>
+               | <span class='hits'>5004 views</span><span class='song-icons'><a href="presenter.php?title=saari-srishti-ke-malik-tumhi-ho"
+          target="songPresenter"
+          title="Presenter">
+        <i data-lucide="monitor"></i>
+      </a>
+                <a href='#'
+                   class='openCommentModal'
+                   data-page-id='song-saari-srishti-ke-malik-tumhi-ho'
+                   title='Comment / Suggest'>
+                    <i data-lucide='message-square' class='icon-inline'></i>
+                </a></span>
+                </div>
+            </li><li>
+                <a href='song.php?title=abraham-ka-prabhu'>Abraham Ka Prabhu (अब्रहाम का प्रभु)</a>
+
+                <div class='song-meta-row'><span class='credits-info'>Words/Music: <a href='song_search.php?search=Amit+Kamble'>Amit Kamble</a></span> | <span class='song-lang'><a href='songlist.php?song_lang=HINDI'>HINDI</a></span>
+               | <span class='hits'>4963 views</span><span class='song-icons'><a href="presenter.php?title=abraham-ka-prabhu"
+          target="songPresenter"
+          title="Presenter">
+        <i data-lucide="monitor"></i>
+      </a>
+                <a href='#'
+                   class='openCommentModal'
+                   data-page-id='song-abraham-ka-prabhu'
+                   title='Comment / Suggest'>
+                    <i data-lucide='message-square' class='icon-inline'></i>
+                </a></span>
+                </div>
+            </li><li>
+                <a href='song.php?title=orthidumbol-albhuthame'>Orthidumbol Albhuthame (ഓർത്തീടുമ്പോൾ അത്ഭുതമേ)</a>
+
+                <div class='song-meta-row'><span class='credits-info'>Words/Music: <a href='song_search.php?search=Anil+Adoor'>Anil Adoor</a></span> | <span class='song-lang'><a href='songlist.php?song_lang=MALAYALAM'>MALAYALAM</a></span>
+               | <span class='hits'>4843 views</span><span class='song-icons'><a href="presenter.php?title=orthidumbol-albhuthame"
+          target="songPresenter"
+          title="Presenter">
+        <i data-lucide="monitor"></i>
+      </a>
+                <a href='#'
+                   class='openCommentModal'
+                   data-page-id='song-orthidumbol-albhuthame'
+                   title='Comment / Suggest'>
+                    <i data-lucide='message-square' class='icon-inline'></i>
+                </a></span>
+                </div>
+            </li><li>
                 <a href='song.php?title=angepolen-daivame'>Angepolen Daivame (അങ്ങേപ്പോലെൻ ദൈവമേ)</a>
 
                 <div class='song-meta-row'><span class='credits-info'>Words/Music: <a href='song_search.php?search=Brite+Abraham'>Brite Abraham</a></span> | <span class='song-lang'><a href='songlist.php?song_lang=MALAYALAM'>MALAYALAM</a></span>
-               | <span class='hits'>4309 views</span><span class='song-icons'><a href="presenter.php?title=angepolen-daivame"
+               | <span class='hits'>4827 views</span><span class='song-icons'><a href="presenter.php?title=angepolen-daivame"
           target="songPresenter"
           title="Presenter">
         <i data-lucide="monitor"></i>
@@ -3105,7 +3164,7 @@ const IS_ADMIN = false;
                 <a href='song.php?title=there-shall-be-showers-of-blessing'>There Shall Be Showers Of Blessing</a>
 
                 <div class='song-meta-row'><span class='credits-info'>Words/Music: <a href='song_search.php?search=James+McGranahan'>James McGranahan</a>, <a href='song_search.php?search=Daniel+Webster'>Daniel Webster</a></span> | <span class='song-lang'><a href='songlist.php?song_lang=ENGLISH'>ENGLISH</a></span>
-               | <span class='hits'>4290 views</span><span class='song-icons'><a href="presenter.php?title=there-shall-be-showers-of-blessing"
+               | <span class='hits'>4663 views</span><span class='song-icons'><a href="presenter.php?title=there-shall-be-showers-of-blessing"
           target="songPresenter"
           title="Presenter">
         <i data-lucide="monitor"></i>
@@ -3118,42 +3177,10 @@ const IS_ADMIN = false;
                 </a></span>
                 </div>
             </li><li>
-                <a href='song.php?title=abraham-ka-prabhu'>Abraham Ka Prabhu (अब्रहाम का प्रभु)</a>
-
-                <div class='song-meta-row'><span class='credits-info'>Words/Music: <a href='song_search.php?search=Amit+Kamble'>Amit Kamble</a></span> | <span class='song-lang'><a href='songlist.php?song_lang=HINDI'>HINDI</a></span>
-               | <span class='hits'>4260 views</span><span class='song-icons'><a href="presenter.php?title=abraham-ka-prabhu"
-          target="songPresenter"
-          title="Presenter">
-        <i data-lucide="monitor"></i>
-      </a>
-                <a href='#'
-                   class='openCommentModal'
-                   data-page-id='song-abraham-ka-prabhu'
-                   title='Comment / Suggest'>
-                    <i data-lucide='message-square' class='icon-inline'></i>
-                </a></span>
-                </div>
-            </li><li>
-                <a href='song.php?title=yeshu-masih-tere-jaisa-hai-koi-nahi'>Yeshu Masih Tere Jaisa Hai Koi Nahi (येशु मसीह तेरे जैसा है कोई नही)</a>
-
-                <div class='song-meta-row'><span class='credits-info'>Words/Music: <a href='song_search.php?search=Yeshua+Band'>Yeshua Band</a></span> | <span class='song-lang'><a href='songlist.php?song_lang=HINDI'>HINDI</a></span>
-               | <span class='hits'>4232 views</span><span class='song-icons'><a href="presenter.php?title=yeshu-masih-tere-jaisa-hai-koi-nahi"
-          target="songPresenter"
-          title="Presenter">
-        <i data-lucide="monitor"></i>
-      </a>
-                <a href='#'
-                   class='openCommentModal'
-                   data-page-id='song-yeshu-masih-tere-jaisa-hai-koi-nahi'
-                   title='Comment / Suggest'>
-                    <i data-lucide='message-square' class='icon-inline'></i>
-                </a></span>
-                </div>
-            </li><li>
                 <a href='song.php?title=rajadhirajan-mahimayode'>Rajadhirajan Mahimayode (രാജാധി രാജൻ മഹിമയോടെ)</a>
 
                 <div class='song-meta-row'><span class='credits-info'>Words/Music: <a href='song_search.php?search=Pr+P+P+Mathew'>Pr P P Mathew</a></span> | <span class='song-lang'><a href='songlist.php?song_lang=MALAYALAM'>MALAYALAM</a></span>
-               | <span class='hits'>4155 views</span><span class='song-icons'><a href="presenter.php?title=rajadhirajan-mahimayode"
+               | <span class='hits'>4641 views</span><span class='song-icons'><a href="presenter.php?title=rajadhirajan-mahimayode"
           target="songPresenter"
           title="Presenter">
         <i data-lucide="monitor"></i>
@@ -3169,7 +3196,7 @@ const IS_ADMIN = false;
                 <a href='song.php?title=yeshu-naam'>Yeshu Naam (येशु नाम)</a>
 
                 <div class='song-meta-row'><span class='credits-info'>Words/Music: <a href='song_search.php?search=Cameron+Mendes'>Cameron Mendes</a></span> | <span class='song-lang'><a href='songlist.php?song_lang=HINDI'>HINDI</a></span>
-               | <span class='hits'>4132 views</span><span class='song-icons'><a href="presenter.php?title=yeshu-naam"
+               | <span class='hits'>4638 views</span><span class='song-icons'><a href="presenter.php?title=yeshu-naam"
           target="songPresenter"
           title="Presenter">
         <i data-lucide="monitor"></i>
@@ -3182,58 +3209,10 @@ const IS_ADMIN = false;
                 </a></span>
                 </div>
             </li><li>
-                <a href='song.php?title=aasha-meri'>Aasha Meri (आशा मेरी)</a>
-
-                <div class='song-meta-row'><span class='credits-info'>Words/Music: <a href='song_search.php?search=Brian+Johnson'>Brian Johnson</a>, <a href='song_search.php?search=Shivani+Prakash'>Shivani Prakash</a>, <a href='song_search.php?search=Allen+Ganta'>Allen Ganta</a>, <a href='song_search.php?search=Phil+Wickham'>Phil Wickham</a>, <a href='song_search.php?search=Finny+Prakash'>Finny Prakash</a></span> | <span class='song-lang'><a href='songlist.php?song_lang=HINDI'>HINDI</a></span>
-               | <span class='hits'>4125 views</span><span class='song-icons'><a href="presenter.php?title=aasha-meri"
-          target="songPresenter"
-          title="Presenter">
-        <i data-lucide="monitor"></i>
-      </a>
-                <a href='#'
-                   class='openCommentModal'
-                   data-page-id='song-aasha-meri'
-                   title='Comment / Suggest'>
-                    <i data-lucide='message-square' class='icon-inline'></i>
-                </a></span>
-                </div>
-            </li><li>
-                <a href='song.php?title=jashan-jashan-manaye-hum'>Jashan Jashan Manaye Hum (जश्न जश्न मनाये हम)</a>
-
-                <div class='song-meta-row'><span class='credits-info'>Words/Music: <a href='song_search.php?search=Blessy+Simon'>Blessy Simon</a>, <a href='song_search.php?search=Merlyn+Salvadi'>Merlyn Salvadi</a></span> | <span class='song-lang'><a href='songlist.php?song_lang=HINDI'>HINDI</a></span>
-               | <span class='hits'>4070 views</span><span class='song-icons'><a href="presenter.php?title=jashan-jashan-manaye-hum"
-          target="songPresenter"
-          title="Presenter">
-        <i data-lucide="monitor"></i>
-      </a>
-                <a href='#'
-                   class='openCommentModal'
-                   data-page-id='song-jashan-jashan-manaye-hum'
-                   title='Comment / Suggest'>
-                    <i data-lucide='message-square' class='icon-inline'></i>
-                </a></span>
-                </div>
-            </li><li>
-                <a href='song.php?title=dhanyawad-ke-saath-stuti-gaoonga'>Dhanyawad Ke Saath Stuti Gaoonga (धन्यवाद के साथ स्तुति गाऊंगा)</a>
-
-                <div class='song-meta-row'><span class='credits-info'>Words/Music: <a href='song_search.php?search=Pastor+Wilson+George'>Pastor Wilson George</a>, <a href='song_search.php?search=P+G+Abraham+Padinjarethalackal'>P G Abraham Padinjarethalackal</a></span> | <span class='song-lang'><a href='songlist.php?song_lang=HINDI'>HINDI</a></span>
-               | <span class='hits'>4048 views</span><span class='song-icons'><a href="presenter.php?title=dhanyawad-ke-saath-stuti-gaoonga"
-          target="songPresenter"
-          title="Presenter">
-        <i data-lucide="monitor"></i>
-      </a>
-                <a href='#'
-                   class='openCommentModal'
-                   data-page-id='song-dhanyawad-ke-saath-stuti-gaoonga'
-                   title='Comment / Suggest'>
-                    <i data-lucide='message-square' class='icon-inline'></i>
-                </a></span>
-                </div>
-            </li><li>
                 <a href='song.php?title=tu-mera-bal-tu-meri-dhal'>Tu Mera Bal, Tu Meri Dhal (तू मेरा बल, तू मेरी ढाल)</a>
 
                 <div class='song-meta-row'><span class='credits-info'>Words/Music: <a href='song_search.php?search=Samuel+Minj'>Samuel Minj</a></span> | <span class='song-lang'><a href='songlist.php?song_lang=HINDI'>HINDI</a></span>
-               | <span class='hits'>3995 views</span><span class='song-icons'><a href="presenter.php?title=tu-mera-bal-tu-meri-dhal"
+               | <span class='hits'>4556 views</span><span class='song-icons'><a href="presenter.php?title=tu-mera-bal-tu-meri-dhal"
           target="songPresenter"
           title="Presenter">
         <i data-lucide="monitor"></i>
@@ -3246,10 +3225,42 @@ const IS_ADMIN = false;
                 </a></span>
                 </div>
             </li><li>
+                <a href='song.php?title=yeshu-masih-tere-jaisa-hai-koi-nahi'>Yeshu Masih Tere Jaisa Hai Koi Nahi (येशु मसीह तेरे जैसा है कोई नही)</a>
+
+                <div class='song-meta-row'><span class='credits-info'>Words/Music: <a href='song_search.php?search=Yeshua+Band'>Yeshua Band</a></span> | <span class='song-lang'><a href='songlist.php?song_lang=HINDI'>HINDI</a></span>
+               | <span class='hits'>4555 views</span><span class='song-icons'><a href="presenter.php?title=yeshu-masih-tere-jaisa-hai-koi-nahi"
+          target="songPresenter"
+          title="Presenter">
+        <i data-lucide="monitor"></i>
+      </a>
+                <a href='#'
+                   class='openCommentModal'
+                   data-page-id='song-yeshu-masih-tere-jaisa-hai-koi-nahi'
+                   title='Comment / Suggest'>
+                    <i data-lucide='message-square' class='icon-inline'></i>
+                </a></span>
+                </div>
+            </li><li>
+                <a href='song.php?title=aasha-meri'>Aasha Meri (आशा मेरी)</a>
+
+                <div class='song-meta-row'><span class='credits-info'>Words/Music: <a href='song_search.php?search=Brian+Johnson'>Brian Johnson</a>, <a href='song_search.php?search=Shivani+Prakash'>Shivani Prakash</a>, <a href='song_search.php?search=Allen+Ganta'>Allen Ganta</a>, <a href='song_search.php?search=Phil+Wickham'>Phil Wickham</a>, <a href='song_search.php?search=Finny+Prakash'>Finny Prakash</a></span> | <span class='song-lang'><a href='songlist.php?song_lang=HINDI'>HINDI</a></span>
+               | <span class='hits'>4543 views</span><span class='song-icons'><a href="presenter.php?title=aasha-meri"
+          target="songPresenter"
+          title="Presenter">
+        <i data-lucide="monitor"></i>
+      </a>
+                <a href='#'
+                   class='openCommentModal'
+                   data-page-id='song-aasha-meri'
+                   title='Comment / Suggest'>
+                    <i data-lucide='message-square' class='icon-inline'></i>
+                </a></span>
+                </div>
+            </li><li>
                 <a href='song.php?title=mahima-aadar-karte-hue'>Mahima Aadar Karte Hue (महिमा आदर करते हुए)</a>
 
                 <div class='song-meta-row'><span class='credits-info'>Words/Music: <a href='song_search.php?search=Eva-Lena+Hellmark'>Eva-Lena Hellmark</a></span> | <span class='song-lang'><a href='songlist.php?song_lang=HINDI'>HINDI</a></span>
-               | <span class='hits'>3966 views</span><span class='song-icons'><a href="presenter.php?title=mahima-aadar-karte-hue"
+               | <span class='hits'>4473 views</span><span class='song-icons'><a href="presenter.php?title=mahima-aadar-karte-hue"
           target="songPresenter"
           title="Presenter">
         <i data-lucide="monitor"></i>
@@ -3262,17 +3273,33 @@ const IS_ADMIN = false;
                 </a></span>
                 </div>
             </li><li>
-                <a href='song.php?title=aashiq-tera'>Aashiq Tera (आशिक तेरा)</a>
+                <a href='song.php?title=dhanyawad-ke-saath-stuti-gaoonga'>Dhanyawad Ke Saath Stuti Gaoonga (धन्यवाद के साथ स्तुति गाऊंगा)</a>
 
-                <div class='song-meta-row'><span class='credits-info'>Words/Music: <a href='song_search.php?search=Emmanuel+Gollar'>Emmanuel Gollar</a></span> | <span class='song-lang'><a href='songlist.php?song_lang=HINDI'>HINDI</a></span>
-               | <span class='hits'>3787 views</span><span class='song-icons'><a href="presenter.php?title=aashiq-tera"
+                <div class='song-meta-row'><span class='credits-info'>Words/Music: <a href='song_search.php?search=Pastor+Wilson+George'>Pastor Wilson George</a>, <a href='song_search.php?search=P+G+Abraham+Padinjarethalackal'>P G Abraham Padinjarethalackal</a></span> | <span class='song-lang'><a href='songlist.php?song_lang=HINDI'>HINDI</a></span>
+               | <span class='hits'>4329 views</span><span class='song-icons'><a href="presenter.php?title=dhanyawad-ke-saath-stuti-gaoonga"
           target="songPresenter"
           title="Presenter">
         <i data-lucide="monitor"></i>
       </a>
                 <a href='#'
                    class='openCommentModal'
-                   data-page-id='song-aashiq-tera'
+                   data-page-id='song-dhanyawad-ke-saath-stuti-gaoonga'
+                   title='Comment / Suggest'>
+                    <i data-lucide='message-square' class='icon-inline'></i>
+                </a></span>
+                </div>
+            </li><li>
+                <a href='song.php?title=ee-paradevanaho'>Ee Paradevanaho (ഈ പരദേവനഹോ)</a>
+
+                <div class='song-meta-row'><span class='credits-info'>Words/Music: <a href='song_search.php?search=Justus+Joseph'>Justus Joseph</a></span> | <span class='song-lang'><a href='songlist.php?song_lang=MALAYALAM'>MALAYALAM</a></span>
+               | <span class='hits'>4305 views</span><span class='song-icons'><a href="presenter.php?title=ee-paradevanaho"
+          target="songPresenter"
+          title="Presenter">
+        <i data-lucide="monitor"></i>
+      </a>
+                <a href='#'
+                   class='openCommentModal'
+                   data-page-id='song-ee-paradevanaho'
                    title='Comment / Suggest'>
                     <i data-lucide='message-square' class='icon-inline'></i>
                 </a></span>
@@ -3281,7 +3308,7 @@ const IS_ADMIN = false;
                 <a href='song.php?title=karta-hu-mai-teri-chinta'>Karta Hu Mai Teri Chinta (करता हुँ मैं तेरी चिंता)</a>
 
                 <div class='song-meta-row'><span class='credits-info'>Words/Music: <a href='song_search.php?search=M+T+Jose'>M T Jose</a></span> | <span class='song-lang'><a href='songlist.php?song_lang=HINDI'>HINDI</a></span>
-               | <span class='hits'>3696 views</span><span class='song-icons'><a href="presenter.php?title=karta-hu-mai-teri-chinta"
+               | <span class='hits'>4263 views</span><span class='song-icons'><a href="presenter.php?title=karta-hu-mai-teri-chinta"
           target="songPresenter"
           title="Presenter">
         <i data-lucide="monitor"></i>
@@ -3294,17 +3321,17 @@ const IS_ADMIN = false;
                 </a></span>
                 </div>
             </li><li>
-                <a href='song.php?title=abhishek'>Abhishek (अभिषेक)</a>
+                <a href='song.php?title=aashiq-tera'>Aashiq Tera (आशिक तेरा)</a>
 
-                <div class='song-meta-row'><span class='credits-info'>Words/Music: <a href='song_search.php?search=Mark+Tribhuvan'>Mark Tribhuvan</a></span> | <span class='song-lang'><a href='songlist.php?song_lang=HINDI'>HINDI</a></span>
-               | <span class='hits'>3658 views</span><span class='song-icons'><a href="presenter.php?title=abhishek"
+                <div class='song-meta-row'><span class='credits-info'>Words/Music: <a href='song_search.php?search=Emmanuel+Gollar'>Emmanuel Gollar</a></span> | <span class='song-lang'><a href='songlist.php?song_lang=HINDI'>HINDI</a></span>
+               | <span class='hits'>4188 views</span><span class='song-icons'><a href="presenter.php?title=aashiq-tera"
           target="songPresenter"
           title="Presenter">
         <i data-lucide="monitor"></i>
       </a>
                 <a href='#'
                    class='openCommentModal'
-                   data-page-id='song-abhishek'
+                   data-page-id='song-aashiq-tera'
                    title='Comment / Suggest'>
                     <i data-lucide='message-square' class='icon-inline'></i>
                 </a></span>
@@ -3313,7 +3340,7 @@ const IS_ADMIN = false;
                 <a href='song.php?title=you-deserve-the-glory'>You Deserve The Glory</a>
 
                 <div class='song-meta-row'><span class='credits-info'>Words/Music: <a href='song_search.php?search=Eva-Lena+Hellmark'>Eva-Lena Hellmark</a>, <a href='song_search.php?search=Terry+MacAlmon'>Terry MacAlmon</a></span> | <span class='song-lang'><a href='songlist.php?song_lang=ENGLISH'>ENGLISH</a></span>
-               | <span class='hits'>3637 views</span><span class='song-icons'><a href="presenter.php?title=you-deserve-the-glory"
+               | <span class='hits'>4164 views</span><span class='song-icons'><a href="presenter.php?title=you-deserve-the-glory"
           target="songPresenter"
           title="Presenter">
         <i data-lucide="monitor"></i>
@@ -3326,97 +3353,33 @@ const IS_ADMIN = false;
                 </a></span>
                 </div>
             </li><li>
-                <a href='song.php?title=aaya-masih-duniya-mein-tu'>Aaya Masih Duniya Mein Tu (आया मसीह दुनिया में तू)</a>
+                <a href='song.php?title=jashan-jashan-manaye-hum'>Jashan Jashan Manaye Hum (जश्न जश्न मनाये हम)</a>
 
-                <div class='song-meta-row'><span class='credits-info'>Words/Music: Unknown</span> | <span class='song-lang'><a href='songlist.php?song_lang=HINDI'>HINDI</a></span>
-               | <span class='hits'>3618 views</span><span class='song-icons'><a href="presenter.php?title=aaya-masih-duniya-mein-tu"
+                <div class='song-meta-row'><span class='credits-info'>Words/Music: <a href='song_search.php?search=Blessy+Simon'>Blessy Simon</a>, <a href='song_search.php?search=Merlyn+Salvadi'>Merlyn Salvadi</a></span> | <span class='song-lang'><a href='songlist.php?song_lang=HINDI'>HINDI</a></span>
+               | <span class='hits'>4158 views</span><span class='song-icons'><a href="presenter.php?title=jashan-jashan-manaye-hum"
           target="songPresenter"
           title="Presenter">
         <i data-lucide="monitor"></i>
       </a>
                 <a href='#'
                    class='openCommentModal'
-                   data-page-id='song-aaya-masih-duniya-mein-tu'
+                   data-page-id='song-jashan-jashan-manaye-hum'
                    title='Comment / Suggest'>
                     <i data-lucide='message-square' class='icon-inline'></i>
                 </a></span>
                 </div>
             </li><li>
-                <a href='song.php?title=parishudhan-mahonnatha-devan'>Parishudhan Mahonnatha Devan (പരിശുദ്ധൻ മഹോന്നത ദേവൻ)</a>
+                <a href='song.php?title=abhishek'>Abhishek (अभिषेक)</a>
 
-                <div class='song-meta-row'><span class='credits-info'>Words/Music: <a href='song_search.php?search=Kiran+Pradhan'>Kiran Pradhan</a>, <a href='song_search.php?search=Bhakthavalsalan'>Bhakthavalsalan</a></span> | <span class='song-lang'><a href='songlist.php?song_lang=MALAYALAM'>MALAYALAM</a></span>
-               | <span class='hits'>3599 views</span><span class='song-icons'><a href="presenter.php?title=parishudhan-mahonnatha-devan"
+                <div class='song-meta-row'><span class='credits-info'>Words/Music: <a href='song_search.php?search=Mark+Tribhuvan'>Mark Tribhuvan</a></span> | <span class='song-lang'><a href='songlist.php?song_lang=HINDI'>HINDI</a></span>
+               | <span class='hits'>4078 views</span><span class='song-icons'><a href="presenter.php?title=abhishek"
           target="songPresenter"
           title="Presenter">
         <i data-lucide="monitor"></i>
       </a>
                 <a href='#'
                    class='openCommentModal'
-                   data-page-id='song-parishudhan-mahonnatha-devan'
-                   title='Comment / Suggest'>
-                    <i data-lucide='message-square' class='icon-inline'></i>
-                </a></span>
-                </div>
-            </li><li>
-                <a href='song.php?title=nin-marvodu-cheratte-njan'>Nin Marvodu Cheratte Njan (നിൻ മാർവോട് ചേരട്ടെ ഞാൻ)</a>
-
-                <div class='song-meta-row'><span class='credits-info'>Words/Music: Unknown</span> | <span class='song-lang'><a href='songlist.php?song_lang=MALAYALAM'>MALAYALAM</a></span>
-               | <span class='hits'>3590 views</span><span class='song-icons'><a href="presenter.php?title=nin-marvodu-cheratte-njan"
-          target="songPresenter"
-          title="Presenter">
-        <i data-lucide="monitor"></i>
-      </a>
-                <a href='#'
-                   class='openCommentModal'
-                   data-page-id='song-nin-marvodu-cheratte-njan'
-                   title='Comment / Suggest'>
-                    <i data-lucide='message-square' class='icon-inline'></i>
-                </a></span>
-                </div>
-            </li><li>
-                <a href='song.php?title=rajao-ka-raja-hai'>Rajao Ka Raja Hai (राजाओं का राजा है)</a>
-
-                <div class='song-meta-row'><span class='credits-info'>Words/Music: Unknown</span> | <span class='song-lang'><a href='songlist.php?song_lang=HINDI'>HINDI</a></span>
-               | <span class='hits'>3488 views</span><span class='song-icons'><a href="presenter.php?title=rajao-ka-raja-hai"
-          target="songPresenter"
-          title="Presenter">
-        <i data-lucide="monitor"></i>
-      </a>
-                <a href='#'
-                   class='openCommentModal'
-                   data-page-id='song-rajao-ka-raja-hai'
-                   title='Comment / Suggest'>
-                    <i data-lucide='message-square' class='icon-inline'></i>
-                </a></span>
-                </div>
-            </li><li>
-                <a href='song.php?title=tu-raj-kare'>Tu Raj Kare (तू राज करे)</a>
-
-                <div class='song-meta-row'><span class='credits-info'>Words/Music: <a href='song_search.php?search=Jaago+Music'>Jaago Music</a></span> | <span class='song-lang'><a href='songlist.php?song_lang=HINDI'>HINDI</a></span>
-               | <span class='hits'>3470 views</span><span class='song-icons'><a href="presenter.php?title=tu-raj-kare"
-          target="songPresenter"
-          title="Presenter">
-        <i data-lucide="monitor"></i>
-      </a>
-                <a href='#'
-                   class='openCommentModal'
-                   data-page-id='song-tu-raj-kare'
-                   title='Comment / Suggest'>
-                    <i data-lucide='message-square' class='icon-inline'></i>
-                </a></span>
-                </div>
-            </li><li>
-                <a href='song.php?title=nee-ente-sankethavum'>Nee Ente Sankethavum (നീയെന്റെ സങ്കേതവും)</a>
-
-                <div class='song-meta-row'><span class='credits-info'>Words/Music: <a href='song_search.php?search=Rona+Kottoor'>Rona Kottoor</a>, <a href='song_search.php?search=Samson+Kottoor'>Samson Kottoor</a></span> | <span class='song-lang'><a href='songlist.php?song_lang=MALAYALAM'>MALAYALAM</a></span>
-               | <span class='hits'>3455 views</span><span class='song-icons'><a href="presenter.php?title=nee-ente-sankethavum"
-          target="songPresenter"
-          title="Presenter">
-        <i data-lucide="monitor"></i>
-      </a>
-                <a href='#'
-                   class='openCommentModal'
-                   data-page-id='song-nee-ente-sankethavum'
+                   data-page-id='song-abhishek'
                    title='Comment / Suggest'>
                     <i data-lucide='message-square' class='icon-inline'></i>
                 </a></span>
@@ -3425,7 +3388,7 @@ const IS_ADMIN = false;
                 <a href='song.php?title=senao-ka-yahowa'>Senao Ka Yahowa (सेनाओं का यहोवा)</a>
 
                 <div class='song-meta-row'><span class='credits-info'>Words/Music: Unknown</span> | <span class='song-lang'><a href='songlist.php?song_lang=HINDI'>HINDI</a></span>
-               | <span class='hits'>3413 views</span><span class='song-icons'><a href="presenter.php?title=senao-ka-yahowa"
+               | <span class='hits'>4036 views</span><span class='song-icons'><a href="presenter.php?title=senao-ka-yahowa"
           target="songPresenter"
           title="Presenter">
         <i data-lucide="monitor"></i>
@@ -3438,17 +3401,81 @@ const IS_ADMIN = false;
                 </a></span>
                 </div>
             </li><li>
-                <a href='song.php?title=swapnam-kaanumpol'>Swapnam Kaanumpol (സ്വപ്‌നം കാണുമ്പോൾ)</a>
+                <a href='song.php?title=nin-marvodu-cheratte-njan'>Nin Marvodu Cheratte Njan (നിൻ മാർവോട് ചേരട്ടെ ഞാൻ)</a>
 
-                <div class='song-meta-row'><span class='credits-info'>Words/Music: <a href='song_search.php?search=Anil+Adoor'>Anil Adoor</a></span> | <span class='song-lang'><a href='songlist.php?song_lang=MALAYALAM'>MALAYALAM</a></span>
-               | <span class='hits'>3332 views</span><span class='song-icons'><a href="presenter.php?title=swapnam-kaanumpol"
+                <div class='song-meta-row'><span class='credits-info'>Words/Music: Unknown</span> | <span class='song-lang'><a href='songlist.php?song_lang=MALAYALAM'>MALAYALAM</a></span>
+               | <span class='hits'>3980 views</span><span class='song-icons'><a href="presenter.php?title=nin-marvodu-cheratte-njan"
           target="songPresenter"
           title="Presenter">
         <i data-lucide="monitor"></i>
       </a>
                 <a href='#'
                    class='openCommentModal'
-                   data-page-id='song-swapnam-kaanumpol'
+                   data-page-id='song-nin-marvodu-cheratte-njan'
+                   title='Comment / Suggest'>
+                    <i data-lucide='message-square' class='icon-inline'></i>
+                </a></span>
+                </div>
+            </li><li>
+                <a href='song.php?title=parishudhan-mahonnatha-devan'>Parishudhan Mahonnatha Devan (പരിശുദ്ധൻ മഹോന്നത ദേവൻ)</a>
+
+                <div class='song-meta-row'><span class='credits-info'>Words/Music: <a href='song_search.php?search=Kiran+Pradhan'>Kiran Pradhan</a>, <a href='song_search.php?search=Bhakthavalsalan'>Bhakthavalsalan</a></span> | <span class='song-lang'><a href='songlist.php?song_lang=MALAYALAM'>MALAYALAM</a></span>
+               | <span class='hits'>3959 views</span><span class='song-icons'><a href="presenter.php?title=parishudhan-mahonnatha-devan"
+          target="songPresenter"
+          title="Presenter">
+        <i data-lucide="monitor"></i>
+      </a>
+                <a href='#'
+                   class='openCommentModal'
+                   data-page-id='song-parishudhan-mahonnatha-devan'
+                   title='Comment / Suggest'>
+                    <i data-lucide='message-square' class='icon-inline'></i>
+                </a></span>
+                </div>
+            </li><li>
+                <a href='song.php?title=nee-ente-sankethavum'>Nee Ente Sankethavum (നീയെന്റെ സങ്കേതവും)</a>
+
+                <div class='song-meta-row'><span class='credits-info'>Words/Music: <a href='song_search.php?search=Rona+Kottoor'>Rona Kottoor</a>, <a href='song_search.php?search=Samson+Kottoor'>Samson Kottoor</a></span> | <span class='song-lang'><a href='songlist.php?song_lang=MALAYALAM'>MALAYALAM</a></span>
+               | <span class='hits'>3834 views</span><span class='song-icons'><a href="presenter.php?title=nee-ente-sankethavum"
+          target="songPresenter"
+          title="Presenter">
+        <i data-lucide="monitor"></i>
+      </a>
+                <a href='#'
+                   class='openCommentModal'
+                   data-page-id='song-nee-ente-sankethavum'
+                   title='Comment / Suggest'>
+                    <i data-lucide='message-square' class='icon-inline'></i>
+                </a></span>
+                </div>
+            </li><li>
+                <a href='song.php?title=tu-raj-kare'>Tu Raj Kare (तू राज करे)</a>
+
+                <div class='song-meta-row'><span class='credits-info'>Words/Music: <a href='song_search.php?search=Jaago+Music'>Jaago Music</a></span> | <span class='song-lang'><a href='songlist.php?song_lang=HINDI'>HINDI</a></span>
+               | <span class='hits'>3825 views</span><span class='song-icons'><a href="presenter.php?title=tu-raj-kare"
+          target="songPresenter"
+          title="Presenter">
+        <i data-lucide="monitor"></i>
+      </a>
+                <a href='#'
+                   class='openCommentModal'
+                   data-page-id='song-tu-raj-kare'
+                   title='Comment / Suggest'>
+                    <i data-lucide='message-square' class='icon-inline'></i>
+                </a></span>
+                </div>
+            </li><li>
+                <a href='song.php?title=rajao-ka-raja-hai'>Rajao Ka Raja Hai (राजाओं का राजा है)</a>
+
+                <div class='song-meta-row'><span class='credits-info'>Words/Music: Unknown</span> | <span class='song-lang'><a href='songlist.php?song_lang=HINDI'>HINDI</a></span>
+               | <span class='hits'>3784 views</span><span class='song-icons'><a href="presenter.php?title=rajao-ka-raja-hai"
+          target="songPresenter"
+          title="Presenter">
+        <i data-lucide="monitor"></i>
+      </a>
+                <a href='#'
+                   class='openCommentModal'
+                   data-page-id='song-rajao-ka-raja-hai'
                    title='Comment / Suggest'>
                     <i data-lucide='message-square' class='icon-inline'></i>
                 </a></span>
@@ -3457,7 +3484,7 @@ const IS_ADMIN = false;
                 <a href='song.php?title=muttollam-alla-arayolavum-pora'>Muttollam Alla Arayolavum Pora (മുട്ടോളമല്ല അരയോളവും പോര)</a>
 
                 <div class='song-meta-row'><span class='credits-info'>Words/Music: <a href='song_search.php?search=Jubin+Kurian'>Jubin Kurian</a></span> | <span class='song-lang'><a href='songlist.php?song_lang=MALAYALAM'>MALAYALAM</a></span>
-               | <span class='hits'>3327 views</span><span class='song-icons'><a href="presenter.php?title=muttollam-alla-arayolavum-pora"
+               | <span class='hits'>3745 views</span><span class='song-icons'><a href="presenter.php?title=muttollam-alla-arayolavum-pora"
           target="songPresenter"
           title="Presenter">
         <i data-lucide="monitor"></i>
@@ -3470,10 +3497,26 @@ const IS_ADMIN = false;
                 </a></span>
                 </div>
             </li><li>
+                <a href='song.php?title=raavilum-pakalilum'>Raavilum Pakalilum (രാവിലും പകലിലും)</a>
+
+                <div class='song-meta-row'><span class='credits-info'>Words/Music: <a href='song_search.php?search=Anil+Adoor'>Anil Adoor</a></span> | <span class='song-lang'><a href='songlist.php?song_lang=MALAYALAM'>MALAYALAM</a></span>
+               | <span class='hits'>3729 views</span><span class='song-icons'><a href="presenter.php?title=raavilum-pakalilum"
+          target="songPresenter"
+          title="Presenter">
+        <i data-lucide="monitor"></i>
+      </a>
+                <a href='#'
+                   class='openCommentModal'
+                   data-page-id='song-raavilum-pakalilum'
+                   title='Comment / Suggest'>
+                    <i data-lucide='message-square' class='icon-inline'></i>
+                </a></span>
+                </div>
+            </li><li>
                 <a href='song.php?title=enni-enni-sthuthikkuvan'>Enni Enni Sthuthikkuvan (എണ്ണി എണ്ണി സ്തുതിക്കുവാൻ)</a>
 
                 <div class='song-meta-row'><span class='credits-info'>Words/Music: <a href='song_search.php?search=J+V+Peter'>J V Peter</a></span> | <span class='song-lang'><a href='songlist.php?song_lang=MALAYALAM'>MALAYALAM</a></span>
-               | <span class='hits'>3322 views</span><span class='song-icons'><a href="presenter.php?title=enni-enni-sthuthikkuvan"
+               | <span class='hits'>3698 views</span><span class='song-icons'><a href="presenter.php?title=enni-enni-sthuthikkuvan"
           target="songPresenter"
           title="Presenter">
         <i data-lucide="monitor"></i>
@@ -3486,49 +3529,33 @@ const IS_ADMIN = false;
                 </a></span>
                 </div>
             </li><li>
-                <a href='song.php?title=israyelin-naadhanaayi-vaazhum'>Israyelin Naadhanaayi Vaazhum (ഇസ്രായേലിന് നാഥനായി വാഴും)</a>
+                <a href='song.php?title=aaya-masih-duniya-mein-tu'>Aaya Masih Duniya Mein Tu (आया मसीह दुनिया में तू)</a>
 
-                <div class='song-meta-row'><span class='credits-info'>Words/Music: <a href='song_search.php?search=Peter+Cheranalloor'>Peter Cheranalloor</a>, <a href='song_search.php?search=Peter+K+Joseph'>Peter K Joseph</a></span> | <span class='song-lang'><a href='songlist.php?song_lang=MALAYALAM'>MALAYALAM</a></span>
-               | <span class='hits'>3288 views</span><span class='song-icons'><a href="presenter.php?title=israyelin-naadhanaayi-vaazhum"
+                <div class='song-meta-row'><span class='credits-info'>Words/Music: Unknown</span> | <span class='song-lang'><a href='songlist.php?song_lang=HINDI'>HINDI</a></span>
+               | <span class='hits'>3670 views</span><span class='song-icons'><a href="presenter.php?title=aaya-masih-duniya-mein-tu"
           target="songPresenter"
           title="Presenter">
         <i data-lucide="monitor"></i>
       </a>
                 <a href='#'
                    class='openCommentModal'
-                   data-page-id='song-israyelin-naadhanaayi-vaazhum'
+                   data-page-id='song-aaya-masih-duniya-mein-tu'
                    title='Comment / Suggest'>
                     <i data-lucide='message-square' class='icon-inline'></i>
                 </a></span>
                 </div>
             </li><li>
-                <a href='song.php?title=fasla'>Fasla (फासला)</a>
+                <a href='song.php?title=swapnam-kaanumpol'>Swapnam Kaanumpol (സ്വപ്‌നം കാണുമ്പോൾ)</a>
 
-                <div class='song-meta-row'><span class='credits-info'>Words/Music: <a href='song_search.php?search=David+Massey'>David Massey</a></span> | <span class='song-lang'><a href='songlist.php?song_lang=HINDI'>HINDI</a></span>
-               | <span class='hits'>3268 views</span><span class='song-icons'><a href="presenter.php?title=fasla"
+                <div class='song-meta-row'><span class='credits-info'>Words/Music: <a href='song_search.php?search=Anil+Adoor'>Anil Adoor</a></span> | <span class='song-lang'><a href='songlist.php?song_lang=MALAYALAM'>MALAYALAM</a></span>
+               | <span class='hits'>3618 views</span><span class='song-icons'><a href="presenter.php?title=swapnam-kaanumpol"
           target="songPresenter"
           title="Presenter">
         <i data-lucide="monitor"></i>
       </a>
                 <a href='#'
                    class='openCommentModal'
-                   data-page-id='song-fasla'
-                   title='Comment / Suggest'>
-                    <i data-lucide='message-square' class='icon-inline'></i>
-                </a></span>
-                </div>
-            </li><li>
-                <a href='song.php?title=ithramel-ithramel-enne-snehichuvo'>Ithramel Ithramel Enne Snehichuvo (ഇത്രമേൽ ഇത്രമേൽ എന്നെ സ്നേഹിച്ചുവോ)</a>
-
-                <div class='song-meta-row'><span class='credits-info'>Words/Music: <a href='song_search.php?search=Thomas+Abraham'>Thomas Abraham</a></span> | <span class='song-lang'><a href='songlist.php?song_lang=MALAYALAM'>MALAYALAM</a></span>
-               | <span class='hits'>3185 views</span><span class='song-icons'><a href="presenter.php?title=ithramel-ithramel-enne-snehichuvo"
-          target="songPresenter"
-          title="Presenter">
-        <i data-lucide="monitor"></i>
-      </a>
-                <a href='#'
-                   class='openCommentModal'
-                   data-page-id='song-ithramel-ithramel-enne-snehichuvo'
+                   data-page-id='song-swapnam-kaanumpol'
                    title='Comment / Suggest'>
                     <i data-lucide='message-square' class='icon-inline'></i>
                 </a></span>
@@ -3537,7 +3564,7 @@ const IS_ADMIN = false;
                 <a href='song.php?title=tere-jaisa-kaun-hai'>Tere Jaisa Kaun Hai (तेरे जैसा कौन है)</a>
 
                 <div class='song-meta-row'><span class='credits-info'>Words/Music: <a href='song_search.php?search=Benny+Joshua'>Benny Joshua</a></span> | <span class='song-lang'><a href='songlist.php?song_lang=HINDI'>HINDI</a></span>
-               | <span class='hits'>3169 views</span><span class='song-icons'><a href="presenter.php?title=tere-jaisa-kaun-hai"
+               | <span class='hits'>3602 views</span><span class='song-icons'><a href="presenter.php?title=tere-jaisa-kaun-hai"
           target="songPresenter"
           title="Presenter">
         <i data-lucide="monitor"></i>
@@ -3550,65 +3577,65 @@ const IS_ADMIN = false;
                 </a></span>
                 </div>
             </li><li>
-                <a href='song.php?title=kya-din-khushi-ka-aaya'>Kya Din Khushi Ka Aaya (क्या दिन खुशी का आया)</a>
+                <a href='song.php?title=israyelin-naadhanaayi-vaazhum'>Israyelin Naadhanaayi Vaazhum (ഇസ്രായേലിന് നാഥനായി വാഴും)</a>
 
-                <div class='song-meta-row'><span class='credits-info'>Words/Music: Unknown</span> | <span class='song-lang'><a href='songlist.php?song_lang=HINDI'>HINDI</a></span>
-               | <span class='hits'>3100 views</span><span class='song-icons'><a href="presenter.php?title=kya-din-khushi-ka-aaya"
+                <div class='song-meta-row'><span class='credits-info'>Words/Music: <a href='song_search.php?search=Peter+Cheranalloor'>Peter Cheranalloor</a>, <a href='song_search.php?search=Peter+K+Joseph'>Peter K Joseph</a></span> | <span class='song-lang'><a href='songlist.php?song_lang=MALAYALAM'>MALAYALAM</a></span>
+               | <span class='hits'>3537 views</span><span class='song-icons'><a href="presenter.php?title=israyelin-naadhanaayi-vaazhum"
           target="songPresenter"
           title="Presenter">
         <i data-lucide="monitor"></i>
       </a>
                 <a href='#'
                    class='openCommentModal'
-                   data-page-id='song-kya-din-khushi-ka-aaya'
+                   data-page-id='song-israyelin-naadhanaayi-vaazhum'
                    title='Comment / Suggest'>
                     <i data-lucide='message-square' class='icon-inline'></i>
                 </a></span>
                 </div>
             </li><li>
-                <a href='song.php?title=aradhana-aradhana'>Aradhana Aradhana (ആരാധന ആരാധന)</a>
+                <a href='song.php?title=ithramel-ithramel-enne-snehichuvo'>Ithramel Ithramel Enne Snehichuvo (ഇത്രമേൽ ഇത്രമേൽ എന്നെ സ്നേഹിച്ചുവോ)</a>
 
-                <div class='song-meta-row'><span class='credits-info'>Words/Music: Unknown</span> | <span class='song-lang'><a href='songlist.php?song_lang=MALAYALAM'>MALAYALAM</a></span>
-               | <span class='hits'>3022 views</span><span class='song-icons'><a href="presenter.php?title=aradhana-aradhana"
+                <div class='song-meta-row'><span class='credits-info'>Words/Music: <a href='song_search.php?search=Thomas+Abraham'>Thomas Abraham</a></span> | <span class='song-lang'><a href='songlist.php?song_lang=MALAYALAM'>MALAYALAM</a></span>
+               | <span class='hits'>3518 views</span><span class='song-icons'><a href="presenter.php?title=ithramel-ithramel-enne-snehichuvo"
           target="songPresenter"
           title="Presenter">
         <i data-lucide="monitor"></i>
       </a>
                 <a href='#'
                    class='openCommentModal'
-                   data-page-id='song-aradhana-aradhana'
+                   data-page-id='song-ithramel-ithramel-enne-snehichuvo'
                    title='Comment / Suggest'>
                     <i data-lucide='message-square' class='icon-inline'></i>
                 </a></span>
                 </div>
             </li><li>
-                <a href='song.php?title=nanniyal-nirayunnu'>Nanniyal Nirayunnu (നന്ദിയാൽ നിറയുന്നു)</a>
+                <a href='song.php?title=fasla'>Fasla (फासला)</a>
 
-                <div class='song-meta-row'><span class='credits-info'>Words/Music: <a href='song_search.php?search=Pr+Sam+Joseph+Kumarakom'>Pr Sam Joseph Kumarakom</a></span> | <span class='song-lang'><a href='songlist.php?song_lang=MALAYALAM'>MALAYALAM</a></span>
-               | <span class='hits'>3013 views</span><span class='song-icons'><a href="presenter.php?title=nanniyal-nirayunnu"
+                <div class='song-meta-row'><span class='credits-info'>Words/Music: <a href='song_search.php?search=David+Massey'>David Massey</a></span> | <span class='song-lang'><a href='songlist.php?song_lang=HINDI'>HINDI</a></span>
+               | <span class='hits'>3456 views</span><span class='song-icons'><a href="presenter.php?title=fasla"
           target="songPresenter"
           title="Presenter">
         <i data-lucide="monitor"></i>
       </a>
                 <a href='#'
                    class='openCommentModal'
-                   data-page-id='song-nanniyal-nirayunnu'
+                   data-page-id='song-fasla'
                    title='Comment / Suggest'>
                     <i data-lucide='message-square' class='icon-inline'></i>
                 </a></span>
                 </div>
             </li><li>
-                <a href='song.php?title=tu-badhe-main-ghatu'>Tu Badhe, Main Ghatu (तू बढ़े मैं घटूं)</a>
+                <a href='song.php?title=tu-mera-bal'>Tu Mera Bal (तू मेरा बल)</a>
 
-                <div class='song-meta-row'><span class='credits-info'>Words/Music: <a href='song_search.php?search=Shelley+Reddy'>Shelley Reddy</a></span> | <span class='song-lang'><a href='songlist.php?song_lang=HINDI'>HINDI</a></span>
-               | <span class='hits'>3002 views</span><span class='song-icons'><a href="presenter.php?title=tu-badhe-main-ghatu"
+                <div class='song-meta-row'><span class='credits-info'>Words/Music: <a href='song_search.php?search=Kiran+Ezekiel'>Kiran Ezekiel</a>, <a href='song_search.php?search=Sammy+Thangiah'>Sammy Thangiah</a></span> | <span class='song-lang'><a href='songlist.php?song_lang=HINDI'>HINDI</a></span>
+               | <span class='hits'>3311 views</span><span class='song-icons'><a href="presenter.php?title=tu-mera-bal"
           target="songPresenter"
           title="Presenter">
         <i data-lucide="monitor"></i>
       </a>
                 <a href='#'
                    class='openCommentModal'
-                   data-page-id='song-tu-badhe-main-ghatu'
+                   data-page-id='song-tu-mera-bal'
                    title='Comment / Suggest'>
                     <i data-lucide='message-square' class='icon-inline'></i>
                 </a></span>
@@ -3617,7 +3644,7 @@ const IS_ADMIN = false;
                 <a href='song.php?title=onnumillaymayil-ninnumenne'>Onnumillaymayil Ninnumenne (ഒന്നുമില്ലായ്മയിൽ നിന്നുമെന്നെ)</a>
 
                 <div class='song-meta-row'><span class='credits-info'>Words/Music: <a href='song_search.php?search=Nelson+Peter'>Nelson Peter</a>, <a href='song_search.php?search=Manoj+Elavumkal'>Manoj Elavumkal</a></span> | <span class='song-lang'><a href='songlist.php?song_lang=MALAYALAM'>MALAYALAM</a></span>
-               | <span class='hits'>2992 views</span><span class='song-icons'><a href="presenter.php?title=onnumillaymayil-ninnumenne"
+               | <span class='hits'>3309 views</span><span class='song-icons'><a href="presenter.php?title=onnumillaymayil-ninnumenne"
           target="songPresenter"
           title="Presenter">
         <i data-lucide="monitor"></i>
@@ -3630,10 +3657,26 @@ const IS_ADMIN = false;
                 </a></span>
                 </div>
             </li><li>
+                <a href='song.php?title=nanniyal-nirayunnu'>Nanniyal Nirayunnu (നന്ദിയാൽ നിറയുന്നു)</a>
+
+                <div class='song-meta-row'><span class='credits-info'>Words/Music: <a href='song_search.php?search=Pr+Sam+Joseph+Kumarakom'>Pr Sam Joseph Kumarakom</a></span> | <span class='song-lang'><a href='songlist.php?song_lang=MALAYALAM'>MALAYALAM</a></span>
+               | <span class='hits'>3275 views</span><span class='song-icons'><a href="presenter.php?title=nanniyal-nirayunnu"
+          target="songPresenter"
+          title="Presenter">
+        <i data-lucide="monitor"></i>
+      </a>
+                <a href='#'
+                   class='openCommentModal'
+                   data-page-id='song-nanniyal-nirayunnu'
+                   title='Comment / Suggest'>
+                    <i data-lucide='message-square' class='icon-inline'></i>
+                </a></span>
+                </div>
+            </li><li>
                 <a href='song.php?title=mahonnathan-neeye'>Mahonnathan Neeye (മഹോന്നതൻ നീയേ)</a>
 
                 <div class='song-meta-row'><span class='credits-info'>Words/Music: Unknown</span> | <span class='song-lang'><a href='songlist.php?song_lang=MALAYALAM'>MALAYALAM</a></span>
-               | <span class='hits'>2934 views</span><span class='song-icons'><a href="presenter.php?title=mahonnathan-neeye"
+               | <span class='hits'>3269 views</span><span class='song-icons'><a href="presenter.php?title=mahonnathan-neeye"
           target="songPresenter"
           title="Presenter">
         <i data-lucide="monitor"></i>
@@ -3646,33 +3689,17 @@ const IS_ADMIN = false;
                 </a></span>
                 </div>
             </li><li>
-                <a href='song.php?title=aaradhichidam-kumbittaradhichidam'>Aaradhichidam Kumbittaradhichidam (ആരാധിച്ചീടാം കുമ്പിട്ടാരാധിച്ചീടാം)</a>
-
-                <div class='song-meta-row'><span class='credits-info'>Words/Music: <a href='song_search.php?search=Tomin+J+Thachankary'>Tomin J Thachankary</a></span> | <span class='song-lang'><a href='songlist.php?song_lang=MALAYALAM'>MALAYALAM</a></span>
-               | <span class='hits'>2903 views</span><span class='song-icons'><a href="presenter.php?title=aaradhichidam-kumbittaradhichidam"
-          target="songPresenter"
-          title="Presenter">
-        <i data-lucide="monitor"></i>
-      </a>
-                <a href='#'
-                   class='openCommentModal'
-                   data-page-id='song-aaradhichidam-kumbittaradhichidam'
-                   title='Comment / Suggest'>
-                    <i data-lucide='message-square' class='icon-inline'></i>
-                </a></span>
-                </div>
-            </li><li>
-                <a href='song.php?title=nin-thiru-sannidhiyil'>Nin Thiru Sannidhiyil (നിൻ തിരു സന്നിധിയിൽ)</a>
+                <a href='song.php?title=aradhana-aradhana'>Aradhana Aradhana (ആരാധന ആരാധന)</a>
 
                 <div class='song-meta-row'><span class='credits-info'>Words/Music: Unknown</span> | <span class='song-lang'><a href='songlist.php?song_lang=MALAYALAM'>MALAYALAM</a></span>
-               | <span class='hits'>2896 views</span><span class='song-icons'><a href="presenter.php?title=nin-thiru-sannidhiyil"
+               | <span class='hits'>3232 views</span><span class='song-icons'><a href="presenter.php?title=aradhana-aradhana"
           target="songPresenter"
           title="Presenter">
         <i data-lucide="monitor"></i>
       </a>
                 <a href='#'
                    class='openCommentModal'
-                   data-page-id='song-nin-thiru-sannidhiyil'
+                   data-page-id='song-aradhana-aradhana'
                    title='Comment / Suggest'>
                     <i data-lucide='message-square' class='icon-inline'></i>
                 </a></span>
@@ -3681,7 +3708,7 @@ const IS_ADMIN = false;
                 <a href='song.php?title=magan'>Magan (मगन)</a>
 
                 <div class='song-meta-row'><span class='credits-info'>Words/Music: <a href='song_search.php?search=Sheldon+Bangera'>Sheldon Bangera</a></span> | <span class='song-lang'><a href='songlist.php?song_lang=HINDI'>HINDI</a></span>
-               | <span class='hits'>2875 views</span><span class='song-icons'><a href="presenter.php?title=magan"
+               | <span class='hits'>3217 views</span><span class='song-icons'><a href="presenter.php?title=magan"
           target="songPresenter"
           title="Presenter">
         <i data-lucide="monitor"></i>
@@ -3689,6 +3716,22 @@ const IS_ADMIN = false;
                 <a href='#'
                    class='openCommentModal'
                    data-page-id='song-magan'
+                   title='Comment / Suggest'>
+                    <i data-lucide='message-square' class='icon-inline'></i>
+                </a></span>
+                </div>
+            </li><li>
+                <a href='song.php?title=aaradhichidam-kumbittaradhichidam'>Aaradhichidam Kumbittaradhichidam (ആരാധിച്ചീടാം കുമ്പിട്ടാരാധിച്ചീടാം)</a>
+
+                <div class='song-meta-row'><span class='credits-info'>Words/Music: <a href='song_search.php?search=Tomin+J+Thachankary'>Tomin J Thachankary</a></span> | <span class='song-lang'><a href='songlist.php?song_lang=MALAYALAM'>MALAYALAM</a></span>
+               | <span class='hits'>3200 views</span><span class='song-icons'><a href="presenter.php?title=aaradhichidam-kumbittaradhichidam"
+          target="songPresenter"
+          title="Presenter">
+        <i data-lucide="monitor"></i>
+      </a>
+                <a href='#'
+                   class='openCommentModal'
+                   data-page-id='song-aaradhichidam-kumbittaradhichidam'
                    title='Comment / Suggest'>
                     <i data-lucide='message-square' class='icon-inline'></i>
                 </a></span>
@@ -3760,6 +3803,55 @@ const IS_ADMIN = false;
 <div class="home-comments">
 
             
+            
+            <div class="home-comment">
+                <strong>Guest very nice 👍</strong>
+                on <a href="song.php?title=khud-ko-main-deta-hoon">
+                    Khud Ko Main Deta Hoon                </a>
+
+                <p>
+                    God bless you all                </p>
+
+                <small>06 Mar 2026</small>
+
+                <!-- ADMIN REPLIES -->
+                
+            </div>
+
+        
+            
+            <div class="home-comment">
+                <strong>Ankur samson</strong>
+                on <a href="#">
+                    Songlist                </a>
+
+                <p>
+                    Chak par apni rakh muje by ABC                </p>
+
+                <small>03 Mar 2026</small>
+
+                <!-- ADMIN REPLIES -->
+                
+            </div>
+
+        
+            
+            <div class="home-comment">
+                <strong>Rakesh</strong>
+                on <a href="#">
+                    Songlist                </a>
+
+                <p>
+                    Badlo par ho ke sawar raha yeshu aayega...<br />
+Apni dulhan ko lene yeshu raha aayega                </p>
+
+                <small>25 Feb 2026</small>
+
+                <!-- ADMIN REPLIES -->
+                
+            </div>
+
+        
             
             <div class="home-comment">
                 <strong>Guest</strong>
@@ -3876,54 +3968,6 @@ God bless                </p>
                 
             </div>
 
-        
-            
-            <div class="home-comment">
-                <strong>Guest</strong>
-                on <a href="song.php?title=thirumunpil-kazhchavekuvan">
-                    Thirumunpil Kazhchavekuvan                </a>
-
-                <p>
-                    This chord chart is little confusing or not correct with the Chord transpose. Please check Because, when I change to C# it shows the chords for the C major                </p>
-
-                <small>15 Feb 2026</small>
-
-                <!-- ADMIN REPLIES -->
-                
-            </div>
-
-        
-            
-            <div class="home-comment">
-                <strong>sneha</strong>
-                on <a href="#">
-                    Songlist                </a>
-
-                <p>
-                    Mahonatham by Mathew T John Ellam nanmakkai ente nanmakkai                </p>
-
-                <small>13 Feb 2026</small>
-
-                <!-- ADMIN REPLIES -->
-                
-            </div>
-
-        
-            
-            <div class="home-comment">
-                <strong>Annkey8</strong>
-                on <a href="#">
-                    Songlist                </a>
-
-                <p>
-                    Aaradhanekku Yogyane, Ninne Njangal                </p>
-
-                <small>12 Feb 2026</small>
-
-                <!-- ADMIN REPLIES -->
-                
-            </div>
-
             </div>	</div>
 </div>
 
@@ -3959,12 +4003,12 @@ God bless                </p>
 <div class="hits">
     <p>
         TODAY:
-        Page Hits: 2184 |
-        Site Hits: 10114<br>
+        Page Hits: 6602 |
+        Site Hits: 14494<br>
 
         ALL TIME:
-        Page Hits: 932511 |
-        Site Hits: 2217669    </p>
+        Page Hits: 1028115 |
+        Site Hits: 2482486    </p>
 </div>
 
 
@@ -4093,12 +4137,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
             <select name="security_answer" required>
                 <option value="">-- Select your answer --</option>
-                                    <option value="all the time">
-                        All the time                    </option>
                                     <option value="most of the time">
                         Most of the time                    </option>
                                     <option value="none of the time">
                         None of the time                    </option>
+                                    <option value="all the time">
+                        All the time                    </option>
                                     <option value="some of the time">
                         Some of the time                    </option>
                             </select>
@@ -4205,5 +4249,60 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 </script>
 
+<script>
+document.addEventListener("click", function(e){
+
+    const btn = e.target.closest(".add-playlist");
+    if(!btn) return;
+
+    e.preventDefault();
+
+    const ytube = btn.dataset.ytube;
+const songId = btn.dataset.songId;
+const msg = document.getElementById("playlistMessage");
+if(!msg) return;
+
+    fetch(window.location.href,{
+        method:"POST",
+        headers:{ "Content-Type":"application/x-www-form-urlencoded" },
+        body:"ajax=1&add_to_playlist=1"
+    + "&song_id=" + encodeURIComponent(songId)
+    + "&ytube=" + encodeURIComponent(ytube)
+    })
+    .then(res=>res.json())
+    .then(data=>{
+
+        msg.textContent = data.message;
+
+        msg.classList.remove("hidden","error");
+        msg.classList.add("show");
+
+        if(data.status !== "success"){
+            msg.classList.add("error");
+        }
+        
+        if(data.status === "success" || data.status === "exists"){
+    btn.innerHTML = `<i data-lucide="list-check" class="icon-inline"></i>`;
+    lucide.createIcons();
+}
+
+        setTimeout(()=>{
+            msg.classList.remove("show");
+
+            setTimeout(()=>{
+                msg.classList.add("hidden");
+                msg.classList.remove("error");
+            },300);
+
+        },2000);
+
+    })
+    .catch(err=>{
+        console.error("Playlist error:",err);
+    });
+
+});
+</script>
+<div id="playlistMessage" class="playlist-msg hidden"></div>
 </body>
 </html>

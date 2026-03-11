@@ -3,6 +3,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="es">
 <head>
+
+
 <meta name="google" content="nositelinkssearchbox">
 <meta name="author" content="Vidal Vademecum Spain" />
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -104,21 +106,21 @@
 
 
 <!-- <script async type="text/javascript" src="/ressource/js/prebid.js"></script> -->
-<script async src="https://securepubads.g.doubleclick.net/tag/js/gpt.js" type="d2944f68de9a1cbafbbf1101-text/javascript"></script>
+<script async src="https://securepubads.g.doubleclick.net/tag/js/gpt.js"></script>
 
 
 
 
 <!-- Google Tag Manager -->
-<script type="d2944f68de9a1cbafbbf1101-text/javascript">(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
 j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
 })(window,document,'script','dataLayer','GTM-566HM63');</script>
 <!-- End Google Tag Manager -->
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js" type="d2944f68de9a1cbafbbf1101-text/javascript"></script>
-<script language="JavaScript" src="https://svadcf.es/js/app.min.js" type="d2944f68de9a1cbafbbf1101-text/javascript"></script>
+<script  src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+<script language="JavaScript" src="https://svadcf.es/js/app.min.js"></script>
 
 
 
@@ -640,6 +642,12 @@ html { font-size: 93% !important; }
 .btn-signup, .btn-login, .btn-logout, .btn-logged { 
 	box-shadow: 0 4px 4px rgba(99, 102, 241, 0.4);
 }
+
+.btn-signup {
+    background-color: #aa0c2d !important;
+    color: #fff !important;
+    border: 1px solid #aa0c2d !important;
+}
 		
 </style>
 
@@ -651,7 +659,7 @@ html { font-size: 93% !important; }
 
 
 
-<script type="d2944f68de9a1cbafbbf1101-text/javascript">
+<script>
 
 var idRight1='';
 
@@ -676,7 +684,7 @@ var execute_RejectAnalytics=0;
 	
 
 
-	<script type="d2944f68de9a1cbafbbf1101-text/javascript">
+	<script>
 	
 
 	var subdomain = getSubdomain();
@@ -708,7 +716,7 @@ var execute_RejectAnalytics=0;
 	
 	
 	
-	<script type="d2944f68de9a1cbafbbf1101-text/javascript">
+	<script type="text/javascript">
 	
 	
 	var pays = [
@@ -1171,7 +1179,7 @@ var execute_RejectAnalytics=0;
 	
 	
 	
-	<script type="d2944f68de9a1cbafbbf1101-text/javascript">
+	<script type='text/javascript'>
 	
 	
 	var load_social=0;
@@ -1192,8 +1200,9 @@ var execute_RejectAnalytics=0;
 		}
 	
 	
+
 	
-	//###
+		
 		
 		
 		
@@ -1313,6 +1322,7 @@ var execute_RejectAnalytics=0;
 			}
 		}
 		var banner_GAM=banner_otherpages;
+		
 		
 		
 		
@@ -1492,14 +1502,8 @@ var execute_RejectAnalytics=0;
 				
 				}
 			
+			
 
-
-			if (document.getElementById("ultimos_medicamentos")){
-				if(user_CountryCode=='es')new_ajax(0,'../../../vweb/emptyNoCache/medicamento/ultimos_medicamentos','ultimos_medicamentos');
-				else new_ajax(0,'../../../vweb/emptyNoCache/medicamento/ultimos_medicamentos_internacional?cc='+user_CountryCode,'ultimos_medicamentos');
-				
-			}
-		
 					
 	
 		}
@@ -1566,8 +1570,56 @@ var execute_RejectAnalytics=0;
 
 	
 
+
+
+<script>
+    (function() {
+        // 1. Détection du consentement CookieYes
+        const cookieValue = document.cookie.split('; ').find(row => row.trim().startsWith('cookieyes-consent='));
+        const hasAdConsent = cookieValue ? cookieValue.includes("advertisement:yes") : false;
+        const isExplicitlyRefused = cookieValue ? cookieValue.includes("advertisement:no") : false;
+
+        // 2. Pré-calcul des conditions métier (Sécurisé avec typeof)
+        const isLogin = (typeof ha_hecho_login !== 'undefined' && ha_hecho_login === true);
+        const isStart = (typeof transaction !== 'undefined' && transaction === 'inicio');
+        const isSearch = (typeof transaction !== 'undefined' && transaction === 'm_buscar');
+        const isClient = (typeof prm_tipo_labo !== 'undefined' && prm_tipo_labo === 'cliente insertado');
+        const mobile = (typeof isMobile !== 'undefined' && isMobile);
+
+        // 3. Logique de décision pour le Billboard (Desktop)
+        // On affiche SI : Consentement OK (ou pas encore refusé) ET (Pas Mobile et Pas exclu)
+        const showBillboard = !isExplicitlyRefused && !isLogin && !isStart && !isSearch && !isClient && !mobile;
+        
+        // 4. Logique de décision pour le Mobile Top
+        // On affiche SI : Consentement OK (ou pas encore refusé) ET (Mobile et Pas exclu)
+        const showMobileTop = !isExplicitlyRefused && !isLogin && !isStart && !isSearch && !isClient && mobile;
+
+        
+        // 5. Injection du style global
+        const style = document.createElement('style');
+        style.textContent = `
+            /* Billboard Desktop */
+            .pub-container { 
+                display: ${showBillboard ? 'flex' : 'none'} !important; 
+                min-height: ${showBillboard ? '340px' : '0px'} !important; 
+                height: ${showBillboard ? '340px' : '0px'} !important;
+                justify-content: center; align-items: center; overflow: hidden;
+            }
+            /* Mobile Top */
+            .pub-container-top { 
+                display: ${showMobileTop ? 'flex' : 'none'} !important; 
+                min-height: ${showMobileTop ? '150px' : '0px'} !important; 
+                height: ${showMobileTop ? '150px' : '0px'} !important;
+                justify-content: center; align-items: center; overflow: hidden;
+            }
+        `;
+        document.head.appendChild(style);
+    })();
+</script>
+
+
 </head>
-<body><a href="https://www.vademecum.es/cdn-cgi/content?id=pdQWnJhi2vAlFlpYsN7CipnW1TkHO4rB3bRJx5MEO0s-1771937189.5413728-1.0.1.1-HoNIdpwsprwbPKPXoG8X1qqiFzRikWo88wwhQ.woWr0" aria-hidden="true" rel="nofollow noopener" style="display: none !important; visibility: hidden !important"></a>
+<body><a href="https://www.vademecum.es/cdn-cgi/content?id=oqg45I2vZs2BIL_M9I1.riaYLQ9R9SaVjnGqnUKPxFc-1773162063.635795-1.0.1.1-j9v_JYYS3iHk7AGokzAPh6._iaZqNrJ8V5myZPnNqzo" aria-hidden="true" rel="nofollow noopener" style="display: none !important; visibility: hidden !important"></a>
 	<a name="top"></a>
 <div id="menu_login" class="auth-top-corner"></div>
 
@@ -1603,7 +1655,7 @@ var execute_RejectAnalytics=0;
 }
 
 .btn-login, .btn-logged { background-color: #fff !important; color: #aa0c2d !important; border: 1px solid #aa0c2d !important; }
-.btn-signup, .btn-logout { background-color: #f4f4f4 !important; color: #333 !important; border: 1px solid #ccc !important; }
+.btn-logout { background-color: #f4f4f4 !important; color: #333 !important; border: 1px solid #ccc !important; }
 
 /* Style spécifique déconnexion (bouton plus compact) */
 .btn-logout { padding: 7px 10px !important; }
@@ -1624,7 +1676,7 @@ var execute_RejectAnalytics=0;
 }
 </style>
 
-<script type="d2944f68de9a1cbafbbf1101-text/javascript">
+<script>
     var html_var = '';
     var nom = '';
     
@@ -1677,7 +1729,7 @@ var execute_RejectAnalytics=0;
 			<nav class="top-bar" data-topbar role="navigation">
 				
 				<div class="hide-for-medium-up" style="height:56px;">
-					<form id="miform_buscador_inicio" name="miform_buscador_inicio" action="/buscar?q" method="get" onsubmit="if (!window.__cfRLUnblockHandlers) return false; javascript:document.getElementById('q').value=remove_spechar(document.getElementById('q').value);document.getElementById('cc').value=user_CountryCode.toLowerCase();if(!checktexte(document.getElementById('q').value))return false;document.getElementById('miform_buscador_inicio').submit();" data-cf-modified-d2944f68de9a1cbafbbf1101-="">			
+					<form id="miform_buscador_inicio" name="miform_buscador_inicio" action="/buscar?q" method="get"  onsubmit="javascript:document.getElementById('q').value=remove_spechar(document.getElementById('q').value);document.getElementById('cc').value=user_CountryCode.toLowerCase();if(!checktexte(document.getElementById('q').value))return false;document.getElementById('miform_buscador_inicio').submit();">			
 						<table style="width:100%;background: none;margin-bottom: 0rem;border: solid 0px red;padding:0px;">
 							<tr>
 								<td  style="min-width:50px;width:50px;border: solid 0px red;padding:2px;">
@@ -1689,7 +1741,7 @@ var execute_RejectAnalytics=0;
 
 								</td>
 								<td width="auto"  style="border: solid 0px red;padding:2px;">
-								<input style="box-shadow: none;" type="image" src="https://svadcf.es/documentos/images_appli/lupa.png" alt="Submit Form" onclick="if (!window.__cfRLUnblockHandlers) return false; javascript: document.getElementById('q').value=remove_spechar(document.getElementById('q').value);document.getElementById('cc').value=user_CountryCode.toLowerCase();if(!checktexte(document.getElementById('q').value))return false;document.getElementById('miform_buscador_inicio').submit();" data-cf-modified-d2944f68de9a1cbafbbf1101-="" />
+								<input style="box-shadow: none;" type="image" src="https://svadcf.es/documentos/images_appli/lupa.png" alt="Submit Form" onclick="javascript: document.getElementById('q').value=remove_spechar(document.getElementById('q').value);document.getElementById('cc').value=user_CountryCode.toLowerCase();if(!checktexte(document.getElementById('q').value))return false;document.getElementById('miform_buscador_inicio').submit();"/>
 								</td>
 								<td width="35%"  style="padding:2px;">	
 									<form>
@@ -1729,7 +1781,7 @@ var execute_RejectAnalytics=0;
 				</div>
 					<center>
 						<div class="hide-for-small-only" style="max-width:1050px;">
-							<form id="miform_buscador_inicio2" name="miform_buscador_inicio2" action="/buscar?q" method="get" onsubmit="if (!window.__cfRLUnblockHandlers) return false; document.getElementById('q2').value=remove_spechar(document.getElementById('q2').value);document.getElementById('cc2').value=user_CountryCode.toLowerCase();if(!checktexte(document.getElementById('q2').value))return false;document.getElementById('miform_buscador_inicio2').submit();" data-cf-modified-d2944f68de9a1cbafbbf1101-="">		
+							<form id="miform_buscador_inicio2" name="miform_buscador_inicio2" action="/buscar?q" method="get" onsubmit="document.getElementById('q2').value=remove_spechar(document.getElementById('q2').value);document.getElementById('cc2').value=user_CountryCode.toLowerCase();if(!checktexte(document.getElementById('q2').value))return false;document.getElementById('miform_buscador_inicio2').submit();">		
 								<table style="background: none;margin-bottom: 0rem;width:100%;text-align:center;border: solid 0px red;">
 									<tr>
 										<td style="width:100%;margin: 0;padding:0;">	
@@ -1763,7 +1815,7 @@ var execute_RejectAnalytics=0;
 													</td>
 													
 													<td style="width:10%;">
-														<a style="border-radius: 8px;" href="#" class="alert button" onclick="if (!window.__cfRLUnblockHandlers) return false; javascript:  document.getElementById('q2').value=remove_spechar(document.getElementById('q2').value);document.getElementById('cc2').value=user_CountryCode.toLowerCase();if(!checktexte(document.getElementById('q2').value))return false;document.getElementById('miform_buscador_inicio2').submit();" data-cf-modified-d2944f68de9a1cbafbbf1101-="">Buscar</a>
+														<a style="border-radius: 8px;" href="#" class="alert button"  onclick="javascript:  document.getElementById('q2').value=remove_spechar(document.getElementById('q2').value);document.getElementById('cc2').value=user_CountryCode.toLowerCase();if(!checktexte(document.getElementById('q2').value))return false;document.getElementById('miform_buscador_inicio2').submit();">Buscar</a>
 													</td>
 													<td style="width:10%;"></td>
 													
@@ -1914,7 +1966,7 @@ var execute_RejectAnalytics=0;
 		<div class="inner-wrap">
 			<aside class="left-off-canvas-menu">
 				<ul class="off-canvas-list">
-	<li style="text-align: right;"><label style="font-size: 1.3rem;" onclick="if (!window.__cfRLUnblockHandlers) return false; javascript:$('.off-canvas-wrap').removeClass('move-right');" data-cf-modified-d2944f68de9a1cbafbbf1101-="">Cerrar&nbsp;&nbsp;&nbsp;X</label></li>
+	<li style="text-align: right;"><label style="font-size: 1.3rem;" onclick="javascript:$('.off-canvas-wrap').removeClass('move-right');">Cerrar&nbsp;&nbsp;&nbsp;X</label></li>
 	<li class="" style="display:none;" id="wrap_vbox"><a id="wrap_href_vbox" href="/box-es"  title="Vademecum Box">Vademecum Box</a></li>
 	<!-- li class="" style="display:none;" id="wrap_clinalert"><a id="wrap_href_clinalert" href="/clin-alert"  title="ClinAlert">ClinAlert</a></li> -->
 	<li class="" style="display:none;" id="wrap_cnis" ><a id="wrap_href_cniss" href="/cnis"  title="CNIS">CNIS</a></li>
@@ -1975,47 +2027,53 @@ var execute_RejectAnalytics=0;
 					
 						
 						
+								
 															
 								
-									<style>
-									  .pub-container-top { display:flex; justify-content:center; align-items:center; min-height:145px;}
-									</style>
-									
-									<script type="d2944f68de9a1cbafbbf1101-text/javascript">
-										//Calculer la hauteur dynamique
-										const minHeightTop =     (ha_hecho_login === true || transaction === 'inicio' || prm_tipo_labo === 'cliente insertado' || !isMobile)? '0px' : '150px';
-										//  Crée un nouveau <style> pour forcer la valeur de min-height
-										const styleTop = document.createElement('style');
-										styleTop.textContent = `.pub-container-top { display:flex!important; justify-content:center; align-items:center;min-height: ${minHeightTop} !important; }`;
-										document.head.appendChild(styleTop);
-									</script>
-									
-									<div class="pub-container-top hide-for-medium-up" style="min-height: 150px;display:none;">
-									<!-- Mobile_Top --><div id='optidigital-adslot-Mobile_Top' class="Mobile_Top"></div>
-									</div>
 								
 								
-											
 								
 								
-									<style>
-									  .pub-container { display:flex; justify-content:center; align-items:center; min-height:auto;}
-									</style>
+<script>
+    // Plus besoin de vérifier le consentement ici, le style du Head s'en charge.
+    // On gère juste vos règles métier (Login, Mobile, etc.)
+    
+
+    //const minHeight = (typeof ha_hecho_login !== 'undefined' && ha_hecho_login === true || transaction === 'inicio' || transaction === 'm_buscar' || prm_tipo_labo === 'cliente insertado' || isMobile) ? '0px' : '340px';
+    
+    //const style = document.createElement('style');
+    //style.textContent = `.pub-container { display:flex; justify-content:center; align-items:center; min-height: ${minHeight}; height: ${minHeight}; }`;
+    //document.head.appendChild(style);
+</script>
+
+<!-- <div id="pub-container" class="pub-container hide-for-small-only"> -->
+<!--     <div class="small-12 Billboard_1"></div> -->
+<!-- </div> -->
+
+<script>
+    //const minHeightTop = (typeof ha_hecho_login !== 'undefined' && ha_hecho_login === true || transaction === 'inicio' || transaction === 'm_buscar'  || prm_tipo_labo === 'cliente insertado' || !isMobile) ? '0px' : '150px';
+    
+    //const styleTop = document.createElement('style');
+    //styleTop.textContent = `.pub-container-top { display:flex; justify-content:center; align-items:center; min-height: ${minHeightTop}; height: ${minHeightTop}; }`;
+    //document.head.appendChild(styleTop);
+</script>
+
+<div class="pub-container-top hide-for-medium-up">
+    <div id='optidigital-adslot-Mobile_Top' class="Mobile_Top"></div>
+</div>
+			
+														
+								
+								
+								
+								
+								
+								
 									
-									<script type="d2944f68de9a1cbafbbf1101-text/javascript">
-										//Calculer la hauteur dynamique
-										const minHeight =     (ha_hecho_login === true || transaction === 'inicio' || prm_tipo_labo === 'cliente insertado' || isMobile)? '0px' : '340px';
-										//  Crée un nouveau <style> pour forcer la valeur de min-height
-										const style = document.createElement('style');
-										console.log('minHeight:'+minHeight);
-										style.textContent = `.pub-container { display:flex!important; justify-content:center; align-items:center;min-height: ${minHeight} !important; }`;
-										document.head.appendChild(style);
-									</script>
-									
-									<div id="pub-container" class="pub-container hide-for-small-only" style="min-height: 340px;display:none;">
-									  <div class="small-12 Billboard_1" style="position: relative; display:flex; justify-content:center; align-items:center;"></div>
-									</div>
-																	
+								
+														
+
+		
 								
 								
 								<div id="pub-top" class="small-12 panel panel-pub" style="display:none;position: relative;"></div>
@@ -2063,8 +2121,8 @@ var execute_RejectAnalytics=0;
 		
 	<div class="panel panel-pub" id="div-gpt-ad-3604810-otherpages-right-1" style="display:block;margin-bottom:10px;" ></div>	
 	
-		<!-- Rectangle_1 -->		 
-		<div style='display:none;margin-bottom: 1em;' class="Rectangle_1"></div>	 
+		<!-- DESACTIVATED_Rectangle_1 -->		 
+		<div style='display:none;margin-bottom: 1em;' class="DESACTIVATED_Rectangle_1"></div>	 
 	
 	<div class="panel panel-pub" id="div-gpt-ad-3604810-otherpages-right-2" style="display:none;margin-bottom:10px;" ></div>
 
@@ -2082,18 +2140,14 @@ var execute_RejectAnalytics=0;
 
 
 	
-		
-	
 	
 	
 	
 	   
 
-<script type="d2944f68de9a1cbafbbf1101-text/javascript">
+<script  type="text/javascript">
 	
 	if (ha_hecho_login){
-		if (document.getElementById('zone1'))document.getElementById('zone1').innerHTML='Vademecum Box';
-		if (document.getElementById('zone2'))document.getElementById('zone2').innerHTML='Contenido destacado:';
 	}
 	else{
 		if (document.getElementById('clinAlertLabo'))
@@ -2144,7 +2198,7 @@ var execute_RejectAnalytics=0;
 					Vademecum.es est&aacute; reconocido oficialmente por las autoridades sanitarias correspondientes como Soporte V&aacute;lido para incluir publicidad de medicamentos o especialidades farmac&eacute;uticas de prescripci&oacute;n dirigida a los profesionales sanitarios (S.V.n&ordm;09/10-W-CM), concedida el 3 de diciembre de 2010.
 					<br/><br/>
 					Aviso: La informaci&oacute;n que figura en esta p&aacute;gina web est&aacute; dirigida exclusivamente a profesionales facultados para prescribir o dispensar medicamentos, por lo que se requiere una formaci&oacute;n especializada para su correcta interpretaci&oacute;n.
-					<br/><br/>&copy; Vidal Vademecum Spain | <a href="/contacto" style="color:white;">Contacte con nosotros</a> | <a href="/politica_privacidad" style="color:white;">Pol&iacute;tica de Privacidad</a> | <a href="/aviso_legal" style="color:white;">Aviso legal</a> | <a href="/aviso_cookie" style="color:white;">Pol&iacute;tica de Cookies</a> | <a href="#" style="color:white;    padding: 0; background: none; border: 0;" class="cky-banner-element" onclick="if (!window.__cfRLUnblockHandlers) return false; return false;" data-cf-modified-d2944f68de9a1cbafbbf1101-="">Configurar preferencias Cookies</a> 
+					<br/><br/>&copy; Vidal Vademecum Spain | <a href="/contacto" style="color:white;">Contacte con nosotros</a> | <a href="/politica_privacidad" style="color:white;">Pol&iacute;tica de Privacidad</a> | <a href="/aviso_legal" style="color:white;">Aviso legal</a> | <a href="/aviso_cookie" style="color:white;">Pol&iacute;tica de Cookies</a> | <a href="#"  style="color:white;    padding: 0; background: none; border: 0;"  class="cky-banner-element" onclick="return false;">Configurar preferencias Cookies</a> 
 					</p>			
 				</div>
 				<div class="small-1 medium-1 columns">&nbsp;</div>
@@ -2155,10 +2209,10 @@ var execute_RejectAnalytics=0;
 
 
 
-<script src="https://tag.aticdn.net/piano-analytics.js" defer type="d2944f68de9a1cbafbbf1101-text/javascript"></script>
-<script src="https://svadcf.es/js/jquery.autocomplete.min.js" defer type="d2944f68de9a1cbafbbf1101-text/javascript"></script>
-<script src="https://svadcf.es/js/foundation.min.js" defer type="d2944f68de9a1cbafbbf1101-text/javascript"></script>
-<script type="d2944f68de9a1cbafbbf1101-text/javascript" src="/ressource/js/init.js" defer></script>
+<script src="https://tag.aticdn.net/piano-analytics.js" defer></script>
+<script src="https://svadcf.es/js/jquery.autocomplete.min.js" defer></script>
+<script src="https://svadcf.es/js/foundation.min.js" defer></script>
+<script type="text/javascript" src="/ressource/js/init.js" defer></script>
 
 	
 <div id="scroll-guide" class="scroll-container-guide">
@@ -2170,7 +2224,7 @@ var execute_RejectAnalytics=0;
         </svg>
     </button>
 </div>
-<script type="d2944f68de9a1cbafbbf1101-text/javascript">
+<script>
 const btn = document.querySelector('#backToTop');
 const guide = document.querySelector('#scroll-guide');
 const contentRef = document.body; // Vous pouvez remplacer par document.querySelector('.votre-conteneur')
@@ -2204,8 +2258,8 @@ btn.onclick = () => {
 				
 
 
-<script src="/cdn-cgi/scripts/7d0fa10a/cloudflare-static/rocket-loader.min.js" data-cf-settings="d2944f68de9a1cbafbbf1101-|49" defer></script></body>
-<script type="d2944f68de9a1cbafbbf1101-text/javascript">
+</body>
+<script>
 
 var domaine = window.location.hostname;
 
@@ -2237,7 +2291,7 @@ window.pdl.consent_items = {
 </script>
 
 
-<script type="d2944f68de9a1cbafbbf1101-text/javascript">
+<script>
 	
 
 function onAcceptMarketing(){
@@ -2626,7 +2680,7 @@ function updateUserPreference(){
 
 
 
-<script type="d2944f68de9a1cbafbbf1101-text/javascript">
+<script type="text/javascript">
 
 
 
@@ -2832,7 +2886,7 @@ function adformPlacementNotFilled() {
 	
 		
 	
-	<script type="d2944f68de9a1cbafbbf1101-text/javascript">
+	<script>
 	
 	
 	
@@ -3031,7 +3085,7 @@ function adformPlacementNotFilled() {
 	
 	 
 	
-		<script type="d2944f68de9a1cbafbbf1101-text/javascript">	
+		<script type='text/javascript'>	
 		
 		
 		 var doc = document.documentElement;
@@ -3046,7 +3100,7 @@ function adformPlacementNotFilled() {
 	
 	
 	
-	<script type="d2944f68de9a1cbafbbf1101-text/javascript">
+	<script type="text/javascript">
 	
 	
 	
@@ -3319,7 +3373,7 @@ function adformPlacementNotFilled() {
 	
 	  });
 	</script>
-	<script type="d2944f68de9a1cbafbbf1101-text/javascript">
+	<script  type="text/javascript">
 	if (document.getElementById("google_ads_div_Vademecum.es-FT-Vinculos_ad_container"))
 	{
 	document.getElementById("google_ads_div_Vademecum.es-FT-Vinculos_ad_container").style.height='auto';
@@ -3335,7 +3389,7 @@ function adformPlacementNotFilled() {
 		     
 	
 	
-	<script type="d2944f68de9a1cbafbbf1101-text/javascript">
+	<script>
 	
 	
 		
