@@ -1077,4 +1077,397 @@
                 <td>Developer website must match the app store developer listing</td>
               </tr>
               <tr>
-                <td><strong>IAB specification
+                <td><strong>IAB specification</strong></td>
+                <td>ads.txt v1.0 (2017), updated v1.1 (2022)</td>
+                <td>app-ads.txt v1.0 (2019)</td>
+              </tr>
+              <tr>
+                <td><strong>File format</strong></td>
+                <td>Comma-delimited, same four fields</td>
+                <td>Identical comma-delimited format</td>
+              </tr>
+              <tr>
+                <td><strong>AdsDB coverage</strong></td>
+                <td>40,823 files indexed</td>
+                <td>40,823 files indexed</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p>
+          AdsDB indexes both ads.txt and app-ads.txt files. For the mobile and CTV ecosystem, see the
+          <a href="/app-ads-txt/">app-ads.txt guide and database</a>. For the exchange/SSP side of
+          supply chain verification, see the <a href="/sellers-json/">sellers.json guide and database</a>.
+        </p>
+      </section>
+
+      <!-- ─────────────────────────────────────────
+           6. Download Dataset
+      ───────────────────────────────────────── -->
+      <section id="download">
+        <h2>Download the AdsDB ads.txt Dataset</h2>
+        <p>
+          The complete AdsDB dataset is available on GitHub under the MIT License &#8212; free to use
+          for any purpose, including commercial projects, research, compliance tools, and fraud
+          detection systems.
+        </p>
+        <div class="cta-block">
+          <h3>&#128230; Free Dataset Download</h3>
+          <p>
+            Over <strong style="color:#e6edf3;">40,823 ads.txt files</strong> from real publisher
+            domains, organized alphabetically in a predictable directory structure. Clone once, pull
+            daily for continuous updates.
+          </p>
+          <div class="cta-block-actions">
+            <a href="https://github.com/KONTRUSTMEDIA/adsdb" class="cta-primary" target="_blank" rel="noopener">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                <path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
+              </svg>
+              View on GitHub
+            </a>
+            <a href="/directory.html" class="cta-secondary">Browse Directory</a>
+          </div>
+        </div>
+
+        <h3>Repository Directory Structure</h3>
+        <p>
+          Files are stored in a consistent, crawlable directory tree partitioned by the first character
+          of each domain name. This makes it easy to enumerate domains programmatically:
+        </p>
+        <pre><code>adsdb/
+&#</pre>9492;&#9472;&#9472; db/
+    &#9500;&#9472;&#9472; a/
+    &#9474;   &#9500;&#9472;&#9472; abc.com/
+    &#9474;   &#9474;   &#9492;&#9472;&#9472; ads.txt          <span class="c-comment"># the raw ads.txt file content</span>
+    &#9474;   &#9500;&#9472;&#9472; allure.com/
+    &#9474;   &#9474;   &#9492;&#9472;&#9472; ads.txt
+    &#9474;   &#9492;&#9472;&#9472; anzu.io/
+    &#9474;       &#9492;&#9472;&#9472; ads.txt
+    &#9500;&#9472;&#9472; b/
+    &#9474;   &#9492;&#9472;&#9472; bbc.com/
+    &#9474;       &#9492;&#9472;&#9472; ads.txt
+    &#9492;&#9472;&#9472; ...                     <span class="c-comment"># a&#8211;z plus 0&#8211;9 subdirectories</span></code></pre>
+
+        <h3>Programmatic Access</h3>
+        <p>Fetch any individual file directly from GitHub's raw content CDN, or clone the full dataset:</p>
+        <pre><code><span class="c-comment"># Fetch ads.txt for a specific domain</span>
+curl https://raw.githubusercontent.com/KONTRUSTMEDIA/adsdb/main/db/a/allure.com/ads.txt
+
+<span class="c-comment"># Clone the full dataset (~3.1 GB)</span>
+git clone https://github.com/KONTRUSTMEDIA/adsdb.git
+
+<span class="c-comment"># Pull the latest updates (run daily via cron)</span>
+git -C ./adsdb pull origin main</code></pre>
+
+        <div class="info-box info-box-green">
+          <h4>&#9989; MIT License &#8212; Use for Anything</h4>
+          <p>
+            The AdsDB dataset is ideal for building ads.txt compliance checkers, competitive intelligence
+            tools, SSP auditing pipelines, supply-chain visualization tools, and academic research into
+            the structure of programmatic advertising. No attribution required, but appreciated.
+          </p>
+        </div>
+      </section>
+
+      <!-- ─────────────────────────────────────────
+           7. Browse Notable Domains
+      ───────────────────────────────────────── -->
+      <section id="browse-domains">
+        <h2>Browse Notable Publisher Domains</h2>
+        <p>
+          Explore real ads.txt implementations from well-known publishers in the AdsDB dataset.
+          Each domain page shows the complete ads.txt file contents, all authorized sellers, a breakdown
+          of DIRECT vs RESELLER entries, and cross-references to sellers.json data where available.
+        </p>
+        <div class="domain-grid">
+          <a href="/domain/9gag.com/" class="domain-card">
+            <strong>9gag.com</strong>
+            <small>Entertainment / Viral Media</small>
+          </a>
+          <a href="/domain/accuweather.com/" class="domain-card">
+            <strong>accuweather.com</strong>
+            <small>Weather / News</small>
+          </a>
+          <a href="/domain/aol.com/" class="domain-card">
+            <strong>aol.com</strong>
+            <small>News / Portal</small>
+          </a>
+          <a href="/domain/alarabiya.net/" class="domain-card">
+            <strong>alarabiya.net</strong>
+            <small>Arabic News</small>
+          </a>
+          <a href="/domain/abc.com/" class="domain-card">
+            <strong>abc.com</strong>
+            <small>Broadcast / Entertainment</small>
+          </a>
+          <a href="/domain/acast.com/" class="domain-card">
+            <strong>acast.com</strong>
+            <small>Podcast Platform</small>
+          </a>
+          <a href="/domain/allure.com/" class="domain-card">
+            <strong>allure.com</strong>
+            <small>Beauty / Lifestyle (Cond&eacute; Nast)</small>
+          </a>
+          <a href="/domain/anghami.com/" class="domain-card">
+            <strong>anghami.com</strong>
+            <small>Music Streaming (MENA)</small>
+          </a>
+          <a href="/domain/astrology.com/" class="domain-card">
+            <strong>astrology.com</strong>
+            <small>Lifestyle / Horoscopes</small>
+          </a>
+          <a href="/domain/aljazeera.net/" class="domain-card">
+            <strong>aljazeera.net</strong>
+            <small>Global News</small>
+          </a>
+          <a href="/domain/anzu.io/" class="domain-card">
+            <strong>anzu.io</strong>
+            <small>In-Game Advertising</small>
+          </a>
+          <a href="/domain/azerion.com/" class="domain-card">
+            <strong>azerion.com</strong>
+            <small>Gaming / Ad Tech</small>
+          </a>
+          <a href="/domain/atresplayer.com/" class="domain-card">
+            <strong>atresplayer.com</strong>
+            <small>Spanish Streaming / OTT</small>
+          </a>
+          <a href="/domain/autotrader.co.uk/" class="domain-card">
+            <strong>autotrader.co.uk</strong>
+            <small>Automotive Marketplace</small>
+          </a>
+          <a href="/domain/avast.com/" class="domain-card">
+            <strong>avast.com</strong>
+            <small>Cybersecurity Software</small>
+          </a>
+          <a href="/domain/audiomack.com/" class="domain-card">
+            <strong>audiomack.com</strong>
+            <small>Music Streaming</small>
+          </a>
+          <a href="/domain/animedede.com/" class="domain-card">
+            <strong>animedede.com</strong>
+            <small>Anime / Video Streaming</small>
+          </a>
+          <a href="/domain/aljazeera.com/" class="domain-card">
+            <strong>aljazeera.com</strong>
+            <small>International News</small>
+          </a>
+          <a href="/domain/admixer.com/" class="domain-card">
+            <strong>admixer.com</strong>
+            <small>Ad Technology / SSP</small>
+          </a>
+          <a href="/domain/adtelligent.com/" class="domain-card">
+            <strong>adtelligent.com</strong>
+            <small>Header Bidding / SSP</small>
+          </a>
+        </div>
+        <p style="margin-top:16px; color: var(--color-text-secondary);">
+          <a href="/lookup/">Look up any domain &#8594;</a>
+          &nbsp;&nbsp;|&nbsp;&nbsp;
+          <a href="/directory.html">Browse the full directory &#8594;</a>
+        </p>
+      </section>
+
+      <!-- ─────────────────────────────────────────
+           8. FAQ
+      ───────────────────────────────────────── -->
+      <section id="faq">
+        <h2>Frequently Asked Questions</h2>
+        <div class="faq-list">
+
+          <details>
+            <summary>
+              <span class="faq-icon">Q</span>
+              What is ads.txt?
+            </summary>
+            <div class="faq-body">
+              <p>
+                <strong>ads.txt</strong> (Authorized Digital Sellers) is an IAB Tech Lab standard introduced
+                in 2017 that allows publishers to publicly declare which companies are authorized to sell
+                their digital advertising inventory. Publishers host a plain-text file at the root of their
+                domain (e.g., <code>example.com/ads.txt</code>), listing all authorized supply-side
+                platforms (SSPs), ad exchanges, and resellers. DSPs fetch and parse this file to verify that
+                sellers sending bid requests are actually authorized by the publisher.
+              </p>
+            </div>
+          </details>
+
+          <details>
+            <summary>
+              <span class="faq-icon">Q</span>
+              Is ads.txt mandatory?
+            </summary>
+            <div class="faq-body">
+              <p>
+                ads.txt is not legally mandated, but it is effectively required for full programmatic
+                monetization. Major DSPs including <strong>Google DV360</strong>,
+                <strong>The Trade Desk</strong>, and <strong>Amazon DSP</strong> now heavily filter or
+                discount inventory from publishers without a valid ads.txt file. In practice, publishers
+                without ads.txt lose access to premium programmatic demand, resulting in significantly lower
+                fill rates and CPMs. The MRC (Media Rating Council) also considers ads.txt compliance a
+                baseline requirement for accreditation.
+              </p>
+            </div>
+          </details>
+
+          <details>
+            <summary>
+              <span class="faq-icon">Q</span>
+              How do I create an ads.txt file?
+            </summary>
+            <div class="faq-body">
+              <p>Creating an ads.txt file is straightforward:</p>
+              <p></p>
+                1. Create a plain-text file named <code>ads.txt</code> (lowercase, no extension).<br>
+                2. Contact each SSP, ad exchange, or ad network you work with and ask for your account's
+                Publisher Account ID and their canonical Ad System Domain.<br>
+                3. Add one line per authorized seller:
+                <code>AdSystemDomain, PublisherAccountID, DIRECT|RESELLER, CertificationAuthorityID</code><br>
+                4. Upload the file to the web root of your domain so it's accessible at
+                <code>https://yourdomain.com/ads.txt</code>.<br>
+                5. Verify it's publicly accessible and correctly formatted.
+              </p>
+              <p>
+                Your SSPs will typically provide you the exact lines to add. Google AdSense and Ad Manager
+                also have tools that auto-generate the correct ads.txt lines for your account.
+              </p>
+            </div>
+          </details>
+
+          <details>
+            <summary>
+              <span class="faq-icon">Q</span>
+              What happens if ads.txt is missing?
+            </summary>
+            <div class="faq-body">
+              <p>
+                If a domain returns <strong>HTTP 404</strong> for <code>/ads.txt</code>, the IAB spec says
+                compliant DSPs <em>may</em> still bid &#8212; treating the absence as "no restriction
+                declared." However, many DSPs treat a missing ads.txt as a negative quality signal and apply
+                bid dampening or exclusion filters.
+              </p>
+              <p>
+                If a domain has an ads.txt file but a seller is <strong>not listed</strong> in it, compliant
+                DSPs <em>must not</em> purchase inventory from that unlisted seller. The most dangerous
+                scenario is an accidental empty or malformed ads.txt: this can block all programmatic revenue
+                while returning HTTP 200, making the problem difficult to diagnose without monitoring.
+              </p>
+            </div>
+          </details>
+
+          <details>
+            <summary>
+              <span class="faq-icon">Q</span>
+              What is DIRECT vs RESELLER in ads.txt?
+            </summary>
+            <div class="faq-body">
+              <p>
+                <strong>DIRECT</strong> means the publisher has a direct contractual relationship with the
+                ad system listed. The publisher signed up for an account with that SSP or exchange and
+                receives payment directly from them &#8212; no intermediary.
+              </p>
+              <p>
+                <strong>RESELLER</strong> means the publisher has authorized another entity to resell their
+                inventory <em>through</em> the listed ad system &#8212; there is at least one intermediary
+                in the supply chain. Both are legitimate, but DIRECT inventory commands higher CPMs because
+                the supply chain is shorter, fees are lower, and buyer confidence is higher. For any given
+                publisher, there should be fewer DIRECT entries (one per SSP they directly work with) and
+                potentially many RESELLER entries.
+              </p>
+            </div>
+          </details>
+
+          <details>
+            <summary>
+              <span class="faq-icon">Q</span>
+              How does ads.txt prevent ad fraud?
+            </summary>
+            <div class="faq-body">
+              <p>
+                ads.txt's primary target is <strong>domain spoofing</strong> &#8212; a fraud technique where
+                a fraudulent seller claims to be selling inventory from a premium publisher (such as a major
+                newspaper) to extract inflated CPMs from DSPs. Before ads.txt, DSPs had no way to verify
+                whether "New York Times inventory" being offered by some obscure SSP was genuine.
+              </p>
+              <p>
+                ads.txt solves this by giving publishers direct authorship over a whitelist of approved
+                sellers. Because the file lives on the publisher's actual web server (which they control),
+                only someone with legitimate access to that domain can modify it. A fraudster cannot add
+                themselves to <code>nytimes.com/ads.txt</code> without access to the NYT's server. When a
+                DSP receives a bid request claiming premium inventory from an unlisted seller, it rejects it
+                immediately &#8212; making domain spoofing economically unviable at scale.
+              </p>
+            </div>
+          </details>
+
+        </div>
+      </section>
+
+      <!-- ─────────────────────────────────────────
+           Related Resources
+      ───────────────────────────────────────── -->
+      <section id="related">
+        <h2>Related Resources</h2>
+        <div class="related-grid">
+          <a href="/app-ads-txt/" class="related-card">
+            <div class="related-card-title">app-ads.txt Guide &amp; Database &#8594;</div>
+            <div class="related-card-desc">The mobile &amp; CTV extension of ads.txt. How it differs, the developer website verification step, and AdsDB's 40,823+ file dataset of real app-ads.txt implementations.</div>
+          </a>
+          <a href="/sellers-json/" class="related-card">
+            <div class="related-card-title">sellers.json Guide &amp; Database &#8594;</div>
+            <div class="related-card-desc">The exchange-side complement to ads.txt. How SSPs declare their sellers, what PUBLISHER / INTERMEDIARY / BOTH means, and how two-way verification blocks fraud.</div>
+          </a>
+          <a href="/lookup/" class="related-card">
+            <div class="related-card-title">Domain Lookup Tool &#8594;</div>
+            <div class="related-card-desc">Instantly look up the ads.txt, app-ads.txt, and sellers.json data for any domain in the AdsDB dataset. Check authorization status and seller counts in seconds.</div>
+          </a>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- ══════════════════════════════════════════════════════
+         FOOTER
+    ══════════════════════════════════════════════════════ -->
+    <footer>
+      <div class="footer-inner">
+        <div class="footer-links">
+          <a href="/">Home</a>
+          <a href="/directory.html">Directory</a>
+          <a href="/ads-txt/">ads.txt</a>
+          <a href="/app-ads-txt/">app-ads.txt</a>
+          <a href="/sellers-json/">sellers.json</a>
+          <a href="/lookup/">Domain Lookup</a>
+          <a href="https://github.com/KONTRUSTMEDIA/adsdb" target="_blank" rel="noopener">GitHub</a>
+        </div>
+        <p>
+          <strong>AdsDB</strong> &#</p>8212; a product of <a href="https://ktmrtb.com">KTMRTB</a> &middot; The Open RTB Infrastructure Platform
+        </p>
+        <p class="footer-bottom">
+          &copy; 2025 KONTRUST MEDIA &middot; Dataset released under the
+          <a href="https://opensource.org/licenses/MIT" target="_blank" rel="noopener">MIT License</a>
+          &middot;
+          <a href="https://iabtechlab.com/ads-txt/" target="_blank" rel="noopener">IAB Tech Lab ads.txt Spec</a>
+        </p>
+      </div>
+    </footer>
+
+    <!-- Back to top -->
+    <a href="#top" class="back-to-top" id="backToTop" aria-label="Back to top">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+           stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="18 15 12 9 6 15"/>
+      </svg>
+    </a>
+
+    <script>
+      (function () {
+        var btn = document.getElementById('backToTop');
+        if (!btn) return;
+        window.addEventListener('scroll', function () {
+          btn.classList.toggle('visible', window.scrollY > 600);
+        }, { passive: true });
+      })();
+    </script>
+  </body>
+</html>
