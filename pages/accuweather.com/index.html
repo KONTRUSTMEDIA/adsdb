@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ad Supply Chain Explorer</title>
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #0d1117;
+      color: #e6edf3;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    /* ── Tab bar ────────────────────────────────────────────────────────── */
+    #tab-bar {
+      position: absolute;
+      top: 16px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 20;
+      display: flex;
+      gap: 6px;
+      background: #161b22;
+      border: 1px solid #30363d;
+      border-radius: 10px;
+      padding: 4px;
+    }
+    .tab-btn {
+      padding: 6px 18px;
+      border: none;
+      border-radius: 7px;
+      background: transparent;
+      color: #6e7681;
+      font-size: 13px;
+      font-family: inherit;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s;
+      white-space: nowrap;
+    }
+    .tab-btn:hover { color: #c9d1d9; }
+    .tab-btn.active {
+      background: #21262d;
+      color: #e6edf3;
+    }
+    .tab-btn .tab-count {
+      display: inline-block;
+      margin-left: 6px;
+      padding: 1px 6px;
+      border-radius: 8px;
+      font-size: 10px;
+      font-weight: 600;
+      background: #30363d;
+      color: #8b949e;
+      vertical-align: middle;
+    }
+    .tab-btn.active .tab-count {
+      background: #388bfd22;
+      color: #388bfd;
+    }
+
+    /* ── Stats panel ─────────────────────────────────────────────────────── */
+    #stats {
+      position: absolute;
+      top: 16px;
+      right: 18px;
+      z-index: 10;
+      text-align: right;
+      pointer-events: none;
+    }
+    .stat-row {
+      font-size: 11px;
+      color: #6e7681;
+      margin-bottom: 3px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 7px;
+    }
+    .stat-dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .stat-val { color: #8b949e; font-variant-numeric: tabular-nums; }
+
+    /* ── Legend ──────────────────────────────────────────────────────────── */
+    #legend {
+      position: absolute;
+      bottom: 20px;
+      left: 18px;
+      z-index: 10;
+      pointer-events: none;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .leg-title {
+      font-size: 9px;
+      color: #3d444d;
+      text-transform: uppercase;
+      letter-spacing: 0.7px;
+      font-weight: 600;
+      margin-top: 6px;
+    }
+    .leg-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11px;
+      color: #6e7681;
+    }
+    .leg-dot  { width: 11px; height: 11px; border-radius: 50%; flex-shrink: 0; }
+    .leg-line { width: 28px; height: 2px; flex-shrink: 0; }
+
+    /* ── Hint ────────────────────────────────────────────────────────────── */
+    #hint {
+      position: absolute;
+      bottom: 20px;
+      right: 18px;
+      font-size: 10px;
+      color: #3d444d;
+      pointer-events: none;
+      line-height: 1.7;
+      text-align: right;
+    }
+
+    /* ── Tooltip ─────────────────────────────────────────────────────────── */
+    #tooltip {
+      position: absolute;
+      background: #161b22;
+      border: 1px solid #30363d;
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-size: 12px;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.1s;
+      z-index: 200;
+      max-width: 300px;
+      box-shadow: 0 8px 28px rgba(0,0,0,0.7);
+      max-height: 340px;
+      overflow: hidden;
+    }
+    .tt-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: #e6edf3;
+      margin-bottom: 6px;
+      word-break: break-all;
+    }
+    .tt-sub {
+      font-size: 10px;
+      color: #6e7681;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin: 7px 0 3px;
+    }
+    .tt-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      color: #8b949e;
+      margin-bottom: 2px;
+      font-size: 11px;
+    }
+    .tt-row span:last-child {
+      color: #c9d1d9;
+      font-family: monospace;
+      font-size: 10px;
+      word-break: break-all;
+      text-align: right;
+    }
+    .tt-badge {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 10px;
+      font-size: 10px;
+      font-weight: 600;
+      margin-top: 5px;
+      letter-spacing: 0.2px;
+    }
+    .tt-badge.direct        { background: rgba(74,222,128,0.14); color: #4ade80; }
+    .tt-badge.via-intermediary { background: rgba(167,139,250,0.14); color: #a78bfa; }
+    .tt-badge.reseller      { background: rgba(251,146,60,0.14);  color: #fb923c; }
+    .tt-badge.publisher     { background: rgba(59,130,246,0.14);  color: #60a5fa; }
+    .tt-badge.hub           { background: rgba(167,139,250,0.14); color: #a78bfa; }
+    .tt-badge.direct-role   { background: rgba(71,85,105,0.25);   color: #94a3b8; }
+    .tt-badge.mixed         { background: rgba(14,165,233,0.14);  color: #38bdf8; }
+    .tt-badge.downstream    { background: rgba(251,146,60,0.14);  color: #fb923c; }
+    .tt-more { font-size: 10px; color: #484f58; margin-top: 4px; }
+
+    /* ── Graph svg ───────────────────────────────────────────────────────── */
+    svg { width: 100vw; height: 100vh; display: block; }
+
+    .link { fill: none; cursor: pointer; }
+    .link.direct            { stroke: #4ade80; }
+    .link.via-intermediary  { stroke: #a78bfa; stroke-dasharray: 7 3; }
+    .link.reseller          { stroke: #fb923c; stroke-dasharray: 5 3; }
+
+    .node { cursor: grab; }
+    .node:active { cursor: grabbing; }
+
+    /* layer separator lines */
+    .layer-sep {
+      stroke: #21262d;
+      stroke-width: 1;
+      stroke-dasharray: 4 7;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Tab bar -->
+<div id="tab-bar">
+  <button class="tab-btn active" data-pub="accuweather.com">
+    accuweather.com <span class="tab-count" id="tc-accuweather">26</span>
+  </button>
+  <button class="tab-btn" data-pub="cnn.com">
+    cnn.com <span class="tab-count" id="tc-cnn">579</span>
+  </button>
+</div>
+
+<!-- Stats -->
+<div id="stats">
+  <div class="stat-row"><span class="stat-dot" style="background:#e6edf3"></span>Nodes <span class="stat-val" id="s-nodes">—</span></div>
+  <div class="stat-row"><span class="stat-dot" style="background:#484f58"></span>Unique pairs <span class="stat-val" id="s-pairs">—</span></div>
+  <div class="stat-row"><span class="stat-dot" style="background:#4ade80"></span>DIRECT SIDs <span class="stat-val" id="s-direct">—</span></div>
+  <div class="stat-row"><span class="stat-dot" style="background:#a78bfa"></span>via Intermediary <span class="stat-val" id="s-via">—</span></div>
+  <div class="stat-row"><span class="stat-dot" style="background:#fb923c"></span>RESELLER SIDs <span class="stat-val" id="s-reseller">—</span></div>
+</div>
+
+<!-- Legend -->
+<div id="legend">
+  <div class="leg-title">Nodes</div>
+  <div class="leg-item"><div class="leg-dot" style="background:#1d4ed8;border:2px solid #60a5fa"></div>Publisher</div>
+  <div class="leg-item"><div class="leg-dot" style="background:#4c1d95;border:2px solid #a78bfa"></div>Hub · direct + intermediary</div>
+  <div class="leg-item"><div class="leg-dot" style="background:#1c2128;border:2px solid #4d6a8a"></div>Ad System · direct</div>
+  <div class="leg-item"><div class="leg-dot" style="background:#1c2128;border:2px solid #0ea5e9"></div>Ad System · direct + via intermediary</div>
+  <div class="leg-item"><div class="leg-dot" style="background:#1c1005;border:2px solid #c2612a"></div>Downstream · 2+ hops only</div>
+  <div class="leg-title">Edges (one arc per pair, width = SID count)</div>
+  <div class="leg-item"><div class="leg-line" style="background:#4ade80"></div>DIRECT</div>
+  <div class="leg-item"><div class="leg-line" style="background:repeating-linear-gradient(90deg,#a78bfa 0,#a78bfa 7px,transparent 7px,transparent 10px)"></div>via Intermediary</div>
+  <div class="leg-item"><div class="leg-line" style="background:repeating-linear-gradient(90deg,#fb923c 0,#fb923c 5px,transparent 5px,transparent 8px)"></div>RESELLER</div>
+</div>
+
+<!-- Hint -->
+<div id="hint">
+  scroll to zoom · drag to pan<br>
+  drag nodes to reposition<br>
+  hover edges/nodes for detail
+</div>
+
+<!-- Tooltip -->
+<div id="tooltip"></div>
+
+<!-- Graph -->
+<svg id="graph"></svg>
+
+<script src="graph_data.js"></script>
+<script>
+// ═══════════════════════════════════════════════════════════════════════════
+//  CONSTANTS
+// ═══════════════════════════════════════════════════════════════════════════
+const NODE_STYLE = {
+  publisher:  { fill: '#1d4ed8', stroke: '#60a5fa', text: '#e6edf3', glow: '#3b82f6', r: 28 },
+  hub:        { fill: '#4c1d95', stroke: '#a78bfa', text: '#c4b5fd', glow: '#7c3aed', r: 20 },
+  direct:     { fill: '#1c2128', stroke: '#4d6a8a', text: '#8b949e', glow: null,      r: 14 },
+  mixed:      { fill: '#1c2128', stroke: '#0ea5e9', text: '#38bdf8', glow: null,      r: 14 },
+  downstream: { fill: '#1c1005', stroke: '#c2612a', text: '#fb923c', glow: '#92400e', r: 13 },
+};
+
+const EDGE_OPACITY = { direct: 0.45, 'via-intermediary': 0.55, reseller: 0.50 };
+
+const LAYER_Y_FRAC = { 0: 0.11, 1: 0.34, 2: 0.65, 3: 0.87 };
+const LAYER_STRENGTH = { 0: 1.0, 1: 0.55, 2: 0.22, 3: 0.80 };
+
+// ═══════════════════════════════════════════════════════════════════════════
+//  HELPERS
+// ═══════════════════════════════════════════════════════════════════════════
+function nodeR(d) { return NODE_STYLE[d.role]?.r ?? 14; }
+
+// Aggregate raw links → one record per (source, target) pair
+function aggregateLinks(rawLinks) {
+  const map = new Map();
+  for (const l of rawLinks) {
+    const key = `${l.source}|||${l.target}`;
+    if (!map.has(key)) {
+      map.set(key, { source: l.source, target: l.target, sids: [], types: new Set() });
+    }
+    const g = map.get(key);
+    g.sids.push(l.sid);
+    g.types.add(l.type);
+  }
+  return Array.from(map.values()).map(g => {
+    const types = Array.from(g.types);
+    // dominant type for colour: direct > via-intermediary > reseller
+    const dominant = types.includes('direct') ? 'direct'
+                   : types.includes('via-intermediary') ? 'via-intermediary'
+                   : 'reseller';
+    return { ...g, count: g.sids.length, dominant, types };
+  });
+}
+
+function edgeWidth(count) {
+  return Math.max(1.2, Math.min(6, 1.2 + Math.log(count + 1) * 1.4));
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+//  SVG / ZOOM SETUP  (once, shared between tabs)
+// ═══════════════════════════════════════════════════════════════════════════
+const svgEl = document.getElementById('graph');
+const svg   = d3.select(svgEl);
+
+const gZoom = svg.append('g').attr('class', 'zoom-layer');
+
+svg.call(
+  d3.zoom().scaleExtent([0.04, 8])
+    .on('zoom', e => gZoom.attr('transform', e.transform))
+);
+
+// Arrow marker defs
+const defs = svg.append('defs');
+[
+  { id: 'arr-direct',           color: '#4ade80', op: 0.75 },
+  { id: 'arr-via-intermediary', color: '#a78bfa', op: 0.80 },
+  { id: 'arr-reseller',        color: '#fb923c', op: 0.80 },
+].forEach(({ id, color, op }) => {
+  defs.append('marker')
+    .attr('id', id)
+    .attr('viewBox', '0 -4 8 8')
+    .attr('refX', 8).attr('refY', 0)
+    .attr('markerWidth', 5).attr('markerHeight', 5)
+    .attr('orient', 'auto')
+    .append('path')
+      .attr('d', 'M0,-4L8,0L0,4Z')
+      .attr('fill', color)
+      .attr('fill-opacity', op);
+});
+
+// ═══════════════════════════════════════════════════════════════════════════
+//  TOOLTIP
+// ═══════════════════════════════════════════════════════════════════════════
+const tipEl = document.getElementById('tooltip');
+
+function showTip(e, html) {
+  tipEl.innerHTML = html;
+  tipEl.style.opacity = '1';
+  moveTip(e);
+}
+function hideTip() { tipEl.style.opacity = '0'; }
+function moveTip(e) {
+  const x = e.clientX + 16, y = e.clientY - 12;
+  const tw = tipEl.offsetWidth, th = tipEl.offsetHeight;
+  tipEl.style.left = (x + tw > window.innerWidth  ? e.clientX - tw - 16 : x) + 'px';
+  tipEl.style.top  = (y + th > window.innerHeight ? e.clientY - th - 4  : y) + 'px';
+}
+
+const ROLE_LABEL = {
+  publisher:  'Publisher',
+  hub:        'Hub — direct partner + intermediary',
+  direct:     'Ad System (direct only)',
+  mixed:      'Ad System (direct + via intermediary)',
+  downstream: 'Downstream — 2+ hops only',
+};
+const TYPE_LABEL = {
+  direct:             'DIRECT — hop 1',
+  'via-intermediary': 'via Intermediary — hop 2',
+  reseller:           'RESELLER resolved — hop 2',
+};
+
+// ═══════════════════════════════════════════════════════════════════════════
+//  PATH GENERATOR
+// ═══════════════════════════════════════════════════════════════════════════
+function computePath(d) {
+  const src = d.source, tgt = d.target;
+
+  // Self-loop
+  if ((src.id || src) === (tgt.id || tgt)) {
+    const sx = src.x, sy = src.y, r = nodeR(src);
+    return `M ${sx + r * 0.5},${sy - r * 0.9}
+            C ${sx + r + 55},${sy - r - 60}
+              ${sx + r + 65},${sy + r * 0.3}
+              ${sx + r * 0.9},${sy + r * 0.5}`;
+  }
+
+  const dx = tgt.x - src.x, dy = tgt.y - src.y;
+  const dist = Math.sqrt(dx * dx + dy * dy);
+  if (dist < 1) return '';
+
+  const rs = nodeR(src), rt = nodeR(tgt) + 8;
+  const x1 = src.x + (dx / dist) * rs,  y1 = src.y + (dy / dist) * rs;
+  const x2 = tgt.x - (dx / dist) * rt, y2 = tgt.y - (dy / dist) * rt;
+
+  // Slight default curve for readability (even single edges)
+  const bend = 20;
+  const mx = (x1 + x2) / 2, my = (y1 + y2) / 2;
+  const len = Math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2) || 1;
+  const nx = -(y2 - y1) / len * bend, ny = (x2 - x1) / len * bend;
+
+  return `M ${x1},${y1} Q ${mx + nx},${my + ny} ${x2},${y2}`;
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+//  MAIN GRAPH INIT
+// ═══════════════════════════════════════════════════════════════════════════
+let currentSim = null;
+
+function initGraph(pubKey) {
+  // Stop previous simulation
+  if (currentSim) { currentSim.stop(); currentSim = null; }
+
+  // Clear previous render
+  gZoom.selectAll('*').remove();
+
+  const W = window.innerWidth, H = window.innerHeight;
+  const raw = GRAPH_DATA[pubKey];
+  if (!raw) { console.error('No data for', pubKey); return; }
+
+  // Deep-copy nodes and links so D3 can mutate them freely
+  const nodes    = raw.nodes.map(n => ({ ...n }));
+  const rawLinks = raw.links.map(l => ({ ...l }));
+  const links    = aggregateLinks(rawLinks); // one per source-target pair
+
+  // Layer Y positions (absolute px)
+  const layerY = n => (LAYER_Y_FRAC[n.layer] ?? 0.5) * H;
+
+  // Set initial positions to reduce warm-up chaos
+  const byLayer = {};
+  nodes.forEach(n => { (byLayer[n.layer] = byLayer[n.layer] || []).push(n); });
+  Object.entries(byLayer).forEach(([layer, ns]) => {
+    const y = (LAYER_Y_FRAC[+layer] ?? 0.5) * H;
+    ns.forEach((n, i) => {
+      n.x = W * 0.15 + (W * 0.7 / Math.max(ns.length - 1, 1)) * i;
+      n.y = y + (Math.random() - 0.5) * 30;
+    });
+  });
+
+  // ── Layer separator lines ──────────────────────────────────────────────
+  const sepG = gZoom.append('g').attr('class', 'separators');
+  [1, 2, 3].forEach(l => {
+    const y = ((LAYER_Y_FRAC[l - 1] + LAYER_Y_FRAC[l]) / 2) * H;
+    sepG.append('line')
+      .attr('class', 'layer-sep')
+      .attr('x1', -4000).attr('x2', 4000)
+      .attr('y1', y).attr('y2', y);
+  });
+
+  // ── Links ──────────────────────────────────────────────────────────────
+  const linkSel = gZoom.append('g').attr('class', 'links')
+    .selectAll('path')
+    .data(links)
+    .join('path')
+      .attr('class', d => `link ${d.dominant}`)
+      .attr('stroke-width', d => edgeWidth(d.count))
+      .attr('stroke-opacity', d => EDGE_OPACITY[d.dominant] ?? 0.5)
+      .attr('marker-end', d => `url(#arr-${d.dominant})`);
+
+  // Link tooltip
+  linkSel
+    .on('mouseover', function(e, d) {
+      d3.select(this).attr('stroke-opacity', 1).attr('stroke-width', d => edgeWidth(d.count) + 1.5);
+      const src = d.source.id || d.source;
+      const tgt = d.target.id || d.target;
+      const badge = d.types.map(t => `<span class="tt-badge ${t}">${TYPE_LABEL[t] ?? t}</span>`).join(' ');
+      const MAX = 12;
+      const shown = d.sids.slice(0, MAX);
+      const more  = d.sids.length - MAX;
+      const sidRows = shown.map(s => `<div class="tt-row"><span>SID</span><span>${s}</span></div>`).join('');
+      const moreRow = more > 0 ? `<div class="tt-more">+ ${more} more SIDs…</div>` : '';
+      showTip(e, `
+        <div class="tt-title">${src} → ${tgt}</div>
+        <div class="tt-row"><span>SIDs</span><span>${d.count}</span></div>
+        ${badge}
+        <div class="tt-sub">Seller IDs</div>
+        ${sidRows}${moreRow}
+      `);
+    })
+    .on('mousemove', moveTip)
+    .on('mouseout',  function(e, d) {
+      d3.select(this)
+        .attr('stroke-width', edgeWidth(d.count))
+        .attr('stroke-opacity', EDGE_OPACITY[d.dominant] ?? 0.5);
+      hideTip();
+    });
+
+  // ── Nodes ──────────────────────────────────────────────────────────────
+  const drag = d3.drag()
+    .on('start', (e, d) => { if (!e.active) sim.alphaTarget(0.3).restart(); d.fx = d.x; d.fy = d.y; })
+    .on('drag',  (e, d) => { d.fx = e.x; d.fy = e.y; })
+    .on('end',   (e, d) => { if (!e.active) sim.alphaTarget(0); d.fx = null; d.fy = null; });
+
+  const nodeSel = gZoom.append('g').attr('class', 'nodes')
+    .selectAll('g')
+    .data(nodes)
+    .join('g')
+      .attr('class', 'node')
+      .call(drag);
+
+  // Glow ring
+  nodeSel.filter(d => NODE_STYLE[d.role]?.glow)
+    .append('circle')
+      .attr('r', d => nodeR(d) + 9)
+      .attr('fill', 'none')
+      .attr('stroke', d => NODE_STYLE[d.role].glow)
+      .attr('stroke-opacity', 0.14)
+      .attr('stroke-width', 8)
+      .attr('pointer-events', 'none');
+
+  // Main circle
+  nodeSel.append('circle')
+    .attr('r', nodeR)
+    .attr('fill',         d => NODE_STYLE[d.role]?.fill   ?? '#1c2128')
+    .attr('stroke',       d => NODE_STYLE[d.role]?.stroke ?? '#4d5566')
+    .attr('stroke-width', 2);
+
+  // Inner badge text (PUB / HUB)
+  nodeSel.filter(d => d.role === 'publisher' || d.role === 'hub')
+    .append('text')
+      .attr('text-anchor', 'middle').attr('dominant-baseline', 'middle')
+      .attr('fill',       d => d.role === 'publisher' ? '#93c5fd' : '#a78bfa')
+      .attr('font-size',  '8px').attr('font-weight', '700')
+      .attr('letter-spacing', '0.4px')
+      .attr('pointer-events', 'none')
+      .text(d => d.role === 'publisher' ? 'PUB' : 'HUB');
+
+  // SID-count badge on non-publisher nodes when count > 1
+  nodeSel.filter(d => d.role !== 'publisher' && d.role !== 'hub')
+    .each(function(d) {
+      const inCount = rawLinks.filter(l => l.target === d.id).length;
+      if (inCount > 1) {
+        d3.select(this).append('text')
+          .attr('text-anchor', 'middle').attr('dominant-baseline', 'middle')
+          .attr('fill', '#484f58').attr('font-size', '8px')
+          .attr('font-family', 'monospace').attr('pointer-events', 'none')
+          .text(`×${inCount}`);
+      }
+    });
+
+  // Domain label below circle
+  nodeSel.append('text')
+    .attr('text-anchor', 'middle')
+    .attr('y', d => nodeR(d) + 13)
+    .attr('dominant-baseline', 'hanging')
+    .attr('fill',        d => NODE_STYLE[d.role]?.text ?? '#8b949e')
+    .attr('font-size',   d => d.role === 'publisher' ? '13px' : '10px')
+    .attr('font-weight', d => d.role === 'publisher' ? '600'  : '400')
+    .attr('pointer-events', 'none')
+    .text(d => d.id);
+
+  // Node tooltip
+  nodeSel
+    .on('mouseover', function(e, d) {
+      d3.select(this).select('circle:last-of-type').attr('stroke-width', 3.5);
+      const inEdges  = rawLinks.filter(l => l.target === d.id && l.source !== d.id);
+      const outEdges = rawLinks.filter(l => l.source === d.id && l.target !== d.id);
+      const selfEdge = rawLinks.find(l => l.source === d.id && l.target === d.id);
+
+      const MAX = 8;
+      function edgeRows(arr) {
+        const shown = arr.slice(0, MAX);
+        const more  = arr.length - MAX;
+        return shown.map(l => `
+          <div class="tt-row"><span>${l.source === d.id ? l.target : l.source}</span><span>${l.sid}</span></div>
+        `).join('') + (more > 0 ? `<div class="tt-more">+ ${more} more…</div>` : '');
+      }
+
+      const inBlock  = inEdges.length
+        ? `<div class="tt-sub">receives from (${inEdges.length} SIDs)</div>${edgeRows(inEdges)}` : '';
+      const outBlock = outEdges.length
+        ? `<div class="tt-sub">routes to (${outEdges.length} SIDs)</div>${edgeRows(outEdges)}` : '';
+      const selfBlock = selfEdge
+        ? `<div class="tt-sub">self-declared</div><div class="tt-row"><span>own ad server</span><span>${selfEdge.sid}</span></div>` : '';
+
+      showTip(e, `
+        <div class="tt-title">${d.id}</div>
+        <span class="tt-badge ${d.role}">${ROLE_LABEL[d.role] ?? d.role}</span>
+        ${selfBlock}${inBlock}${outBlock}
+      `);
+    })
+    .on('mousemove', moveTip)
+    .on('mouseout',  function() {
+      d3.select(this).select('circle:last-of-type').attr('stroke-width', 2);
+      hideTip();
+    });
+
+  // ── Simulation ─────────────────────────────────────────────────────────
+  const sim = d3.forceSimulation(nodes)
+    .force('link', d3.forceLink(links).id(d => d.id)
+      .distance(() => 160)
+      .strength(0.4))
+    .force('charge', d3.forceManyBody().strength(nodes.length > 60 ? -320 : -450))
+    .force('center', d3.forceCenter(W / 2, H / 2).strength(0.03))
+    .force('collide', d3.forceCollide().radius(d => nodeR(d) + (nodes.length > 60 ? 18 : 25)).strength(0.85))
+    .force('layerY', d3.forceY(d => layerY(d)).strength(d => LAYER_STRENGTH[d.layer] ?? 0.2))
+    .force('spreadX', d3.forceX(W / 2).strength(0.02))
+    .alphaDecay(nodes.length > 60 ? 0.018 : 0.024);
+
+  // Pin publisher during warm-up
+  const pubNode = nodes.find(n => n.role === 'publisher');
+  if (pubNode) { pubNode.fx = W / 2; pubNode.fy = layerY(pubNode); }
+  sim.on('end', () => { if (pubNode) { pubNode.fx = null; pubNode.fy = null; } });
+
+  sim.on('tick', () => {
+    linkSel.attr('d', computePath);
+    nodeSel.attr('transform', d => `translate(${d.x ?? 0},${d.y ?? 0})`);
+  });
+
+  currentSim = sim;
+
+  // ── Update stats ───────────────────────────────────────────────────────
+  document.getElementById('s-nodes').textContent    = nodes.length;
+  document.getElementById('s-pairs').textContent    = links.length;
+  document.getElementById('s-direct').textContent   = rawLinks.filter(l => l.type === 'direct').length;
+  document.getElementById('s-via').textContent      = rawLinks.filter(l => l.type === 'via-intermediary').length;
+  document.getElementById('s-reseller').textContent = rawLinks.filter(l => l.type === 'reseller').length;
+
+  // Update tab SID counts
+  Object.keys(GRAPH_DATA).forEach(k => {
+    const slug = k.replace('.', '');
+    const el = document.getElementById(`tc-${slug}`);
+    if (el) el.textContent = GRAPH_DATA[k].stats.total;
+  });
+
+  // Reset zoom to fit nicely
+  svg.call(
+    d3.zoom().transform,
+    d3.zoomIdentity.translate(0, 0).scale(1)
+  );
+}
+
+// ── Resize ─────────────────────────────────────────────────────────────────
+window.addEventListener('resize', () => {
+  const active = document.querySelector('.tab-btn.active');
+  if (active) initGraph(active.dataset.pub);
+});
+
+// ── Tab switching ──────────────────────────────────────────────────────────
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    initGraph(btn.dataset.pub);
+  });
+});
+
+// ── Boot ───────────────────────────────────────────────────────────────────
+initGraph('accuweather.com');
+</script>
+</body>
+</html>
