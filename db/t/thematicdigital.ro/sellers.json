@@ -1,0 +1,3 @@
+{
+	"message": "Access denied by Imunify360 bot-protection. IPs used for automation should be whitelisted"
+}
